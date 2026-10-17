@@ -1,4 +1,4 @@
-import type { ForgeProvider, ForgeProviderFactory } from 'forges'
+import type { ForgeProvider } from 'forges'
 import type { DecorationItem, HighlighterCore } from 'shiki/core'
 import type { ExplorerCredential, ExplorerInput } from '~~/shared/explorer'
 import { codeTheme } from '~~/shared/code-theme'
@@ -37,7 +37,7 @@ export function useExplorerForge() {
   return id
 }
 
-type Factory = (options: Record<string, unknown>) => ForgeProviderFactory
+type Factory = (options: Record<string, unknown>) => ForgeProvider
 
 const factories = new Map<string, Promise<Factory>>()
 
@@ -70,8 +70,8 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
     // Options can be required, such as Azure DevOps' `organization`; the forge's own options provide them.
     const options = forge.options?.(forge.sample) ?? {}
     loaded = explorerFactory(id).then(factory => ({
-      anonymous: factory(options).create(),
-      signedIn: factory({ ...options, auth: placeholderAuth(forge.credentials[0]!) }).create(),
+      anonymous: factory(options),
+      signedIn: factory({ ...options, auth: placeholderAuth(forge.credentials[0]!) }),
     }))
     loaded.catch(() => providers.delete(id))
     providers.set(id, loaded)
@@ -84,7 +84,7 @@ export async function explorerCredentialProvider(id: string, input: ExplorerInpu
   const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
   const options = forge.options?.(input) ?? {}
   const factory = await explorerFactory(id)
-  return factory({ ...options, auth: authFromValues(credential, values) }).create()
+  return factory({ ...options, auth: authFromValues(credential, values) })
 }
 
 /** A credential the person typed, and the kind it is. */

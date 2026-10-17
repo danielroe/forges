@@ -16,7 +16,7 @@ describe('queryRaw', () => {
         queries.push(new URL(url).searchParams.get('q') ?? '')
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
     await provider.search.threadsPage({ text: 'crash', kind: 'issue', queryRaw: 'review-requested:octocat' })
     await provider.search.reposPage({ owner: 'acme', queryRaw: 'stars:>100' })
@@ -33,7 +33,7 @@ describe('queryRaw', () => {
         requests.push(new URL(url))
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
     await provider.search.threadsPage({ text: 'crash OR hang', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, queryRaw: 'author:a OR author:b' })
 
@@ -48,7 +48,7 @@ describe('queryRaw', () => {
         queries.push(new URL(url).searchParams.get('q') ?? '')
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
     await provider.search.threadsPage({ text: 'useFetch() OR "a (b" "dangling(' })
     await provider.search.threadsPage({ text: '()' })
@@ -68,7 +68,7 @@ describe('queryRaw', () => {
         requests.push(new URL(url))
         return Response.json({ items: [] })
       },
-    }).create()
+    })
     const repo = { forge: 'github', instance: provider.instance, owner: 'acme', name: 'widgets' }
 
     const first = await provider.search.threadsPage({ text: 'crash', repo })
@@ -85,7 +85,7 @@ describe('queryRaw', () => {
         searches.push(new URL(url))
         return Response.json([])
       },
-    }).create()
+    })
 
     const first = await provider.search.reposPage({ text: 'widgets', queryRaw: 'stars:>100' })
     const next = await provider.search.reposPage({ text: 'widgets', queryRaw: 'stars:>100', cursor: { nextUrl: 'https://gitlab.com/api/v4/projects?page=2' } })
@@ -108,7 +108,7 @@ describe('owner', () => {
 
   it('narrows a GitHub thread search to the account, unless a repository is given', async () => {
     const { requests, fetch } = recording({ items: [] })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
     await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt' })
     await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } })
@@ -118,7 +118,7 @@ describe('owner', () => {
 
   it('searches the issues and merge requests of a GitLab group', async () => {
     const { requests, fetch } = recording([])
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch })
 
     const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform' })
     await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform', cursor: first.cursor })
@@ -128,14 +128,14 @@ describe('owner', () => {
 
   it.each([['Forgejo', forgejo], ['Gitea', gitea]] as const)('passes it to the %s issue search', async (_, create) => {
     const { requests, fetch } = recording([])
-    await create({ auth: { type: 'token', token: 't' }, fetch }).create().search.threadsPage({ text: 'crash', owner: 'acme' })
+    await create({ auth: { type: 'token', token: 't' }, fetch }).search.threadsPage({ text: 'crash', owner: 'acme' })
 
     expect(requests[0]!.searchParams.get('owner')).toBe('acme')
   })
 
   it('searches the work items of the Azure DevOps project it names', async () => {
     const { requests, fetch } = recording({ workItems: [] })
-    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create()
+    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch })
 
     await provider.search.threadsPage({ text: 'crash', owner: 'acme/Widgets' })
 
@@ -144,7 +144,7 @@ describe('owner', () => {
 
   it('warns where the search cannot filter by owner', async () => {
     const { fetch } = recording([])
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
 
     const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme' })
     const next = await provider.search.threadsPage({ text: 'crash', owner: 'acme', cursor: { token: '2' } })
@@ -154,7 +154,7 @@ describe('owner', () => {
   })
 
   it('keeps the fake forge\'s threads of other owners out', async () => {
-    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } }).create()
+    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } })
 
     const threads = await Array.fromAsync(forge.search.threads({ text: 'crash', owner: 'acme' }))
 

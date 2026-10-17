@@ -1324,7 +1324,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
+export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab'> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {

@@ -786,7 +786,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
 }
 
 /** Creates a Bitbucket Cloud provider. */
-export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket'> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {

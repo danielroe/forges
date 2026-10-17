@@ -35,7 +35,7 @@ function graphqlAnswers(url: string, init?: RequestInit) {
 describe('thread subscriptions', () => {
   it.each(['issue', 'pull_request', 'discussion'] as const)('github subscribes to and unsubscribes from a %s through GraphQL', async (kind) => {
     const { fetch, calls } = recorder(graphqlAnswers)
-    const provider = github({ auth, fetch }).create()
+    const provider = github({ auth, fetch })
     const thread = ref('github', 'github.com', kind)
 
     await provider.threads.subscribe(thread)
@@ -50,7 +50,7 @@ describe('thread subscriptions', () => {
 
   it.each(['issue', 'pull_request'] as const)('gitlab posts subscribe and unsubscribe for a %s', async (kind) => {
     const { fetch, calls } = recorder(() => ({}))
-    const provider = gitlab({ auth, fetch }).create()
+    const provider = gitlab({ auth, fetch })
     const thread = ref('gitlab', 'gitlab.com', kind)
 
     await provider.threads.subscribe(thread)
@@ -64,8 +64,8 @@ describe('thread subscriptions', () => {
   })
 
   it.each([
-    ['forgejo', 'codeberg.org', (fetch: FetchLike): ForgeProvider => forgejo({ auth, fetch }).create()],
-    ['gitea', 'gitea.com', (fetch: FetchLike): ForgeProvider => gitea({ auth, fetch }).create()],
+    ['forgejo', 'codeberg.org', (fetch: FetchLike): ForgeProvider => forgejo({ auth, fetch })],
+    ['gitea', 'gitea.com', (fetch: FetchLike): ForgeProvider => gitea({ auth, fetch })],
   ])('%s puts and deletes the current user\'s subscription', async (forge, instance, create) => {
     const { fetch, calls } = recorder(url => url.endsWith('/user') ? { login: 'ada', id: 1 } : {})
     const provider = create(fetch)

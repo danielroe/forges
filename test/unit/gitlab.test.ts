@@ -24,7 +24,7 @@ const mr: ResolvedThreadRef = { forge: 'gitlab', instance: 'gitlab.com', repo, k
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('gitlab', overrides)
-  return { instance: gitlab({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
+  return { instance: gitlab({ auth: { type: 'token', token: 't' }, fetch }), calls }
 }
 
 describe('gitlab provider', () => {
@@ -65,13 +65,13 @@ describe('gitlab provider', () => {
     const { fetch } = fixtureFetch('gitlab/recorded/gitlab.com', {
       'GET https://gitlab.com/api/v4/users/8420142': { status: 403, headers: {}, body: { message: '403 Forbidden - Not authorized!' } },
     })
-    const user = await gitlab({ fetch }).create().users.get('gitlab-dependency-update-bot')
+    const user = await gitlab({ fetch }).users.get('gitlab-dependency-update-bot')
 
     expect(user).toMatchObject({ login: 'gitlab-dependency-update-bot', id: '8420142', name: 'GitLab Dependency Bot', url: 'https://gitlab.com/gitlab-dependency-update-bot' })
   })
 
   it('appends the api prefix and reports the instance host', () => {
-    const selfManaged = gitlab({ baseUrl: 'https://git.example.org', auth: { type: 'token', token: 't' } }).create()
+    const selfManaged = gitlab({ baseUrl: 'https://git.example.org', auth: { type: 'token', token: 't' } })
 
     expect(selfManaged.baseUrl).toBe('https://git.example.org/api/v4')
     expect(selfManaged.instance).toBe('git.example.org')
@@ -169,7 +169,7 @@ describe('gitlab provider', () => {
     const { fetch, calls } = fixtureFetch('gitlab')
     const issue = { ...mr, kind: 'issue', number: '11' } as const
 
-    for (const instance of [gitlab({ auth: { type: 'token', token: 't' }, fetch }).create(), gitlab({ fetch }).create()]) {
+    for (const instance of [gitlab({ auth: { type: 'token', token: 't' }, fetch }), gitlab({ fetch })]) {
       const issues = (await instance.threads.closingIssuesPage(mr)).items
       expect(issues.map(thread => `${thread.ref.repo.owner}/${thread.ref.repo.name}#${thread.ref.number}`)).toEqual(['acme/platform/widgets#11', 'acme/platform/docs#5'])
       expect(issues[1]!.ref.repo.externalId).toBe('278965')
@@ -296,7 +296,7 @@ describe('gitlab provider', () => {
     const instance = gitlab({
       auth: { type: 'token', token: 't' },
       fetch: stubFetch(429, { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' }),
-    }).create()
+    })
 
     const error = await instance.notifications!.listPage().catch((error: unknown) => error)
     expect(error).toBeInstanceOf(RateLimitedError)
@@ -336,7 +336,7 @@ describe('gitlab provider', () => {
     const instance = gitlab({ fetch: async (url) => {
       urls.push(url)
       return Response.json([])
-    } }).create()
+    } })
 
     const page = await instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' }, { sort: 'pushed' })
 
@@ -349,7 +349,7 @@ describe('gitlab provider', () => {
     const instance = gitlab({ fetch: async (url) => {
       urls.push(url)
       return Response.json({ message: '404 Group Not Found' }, { status: 404 })
-    } }).create()
+    } })
 
     await expect(instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' })).rejects.toThrow(NotFoundError)
     expect(urls).toEqual(['https://gitlab.com/api/v4/groups/acme%2Fplatform/projects?with_shared=false'])
@@ -362,7 +362,7 @@ describe('gitlab repository licence', () => {
 
   function recorded(overrides = {}) {
     const { fetch, calls } = fixtureFetch('gitlab/recorded/gitlab.com', overrides)
-    return { instance: gitlab({ fetch }).create(), calls }
+    return { instance: gitlab({ fetch }), calls }
   }
 
   it('asks for the licence and maps the key GitLab reports', async () => {
@@ -550,7 +550,7 @@ describe('gitlab webhooks', () => {
   })
 
   it('maps a merge request approval hook to a review event', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const [event] = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook' },
       body: JSON.stringify({
@@ -569,7 +569,7 @@ describe('gitlab webhooks', () => {
 
 describe('gitlab update webhooks', () => {
   it('splits label, assignee and reviewer changes into one event each', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const events = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook', 'x-gitlab-event-uuid': 'd1' },
       body: JSON.stringify({
@@ -599,7 +599,7 @@ describe('gitlab update webhooks', () => {
   })
 
   it('keeps the delivery id for a single change', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const events = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Issue Hook', 'x-gitlab-event-uuid': 'd2' },
       body: JSON.stringify({
@@ -617,7 +617,7 @@ describe('gitlab update webhooks', () => {
 
 describe('gitlab release webhooks', () => {
   it('keys GitLab releases by tag so the ref can be fetched', async () => {
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({ object_kind: 'release', action: 'create', id: 7, tag: 'v2.0.0', name: 'Two', project: { id: 1, path_with_namespace: 'acme/platform/widgets' } })
     const [event] = await provider.webhooks.ingest({ headers: { 'x-gitlab-event': 'Release Hook', 'x-gitlab-token': 's' }, body })
 
@@ -648,7 +648,7 @@ describe('gitlab code search', () => {
     const instance = gitlab({
       auth: { type: 'token', token: 't' },
       fetch: async (input, init) => graphql && String(input).endsWith('/graphql') ? graphql(init) : recorded.fetch(input, init),
-    }).create()
+    })
     return { instance, calls: recorded.calls }
   }
 
@@ -666,7 +666,7 @@ describe('gitlab code search', () => {
   it('merges a file that basic search lists once for its name and again for its contents', async () => {
     const scratch = { forge: 'gitlab', instance: 'gitlab.com', owner: 'forges-fixtures', name: 'forges-fixtures' } as const
     const blob = { basename: 'notes', data: 'forges-fixtures\n', path: 'notes.md', filename: 'notes.md', id: 'b1', ref: 'main', startline: 1, project_id: 1 }
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([blob, blob, { ...blob, path: 'other.md', filename: 'other.md' }]) }).create()
+    const instance = gitlab({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([blob, blob, { ...blob, path: 'other.md', filename: 'other.md' }]) })
 
     const { items } = await instance.search.codePage({ text: 'forges-fixtures', repo: scratch, perPage: 20 })
 
@@ -708,7 +708,7 @@ describe('gitlab code search', () => {
         paths.push(new URL(url).pathname)
         return Response.json([])
       },
-    }).create()
+    })
 
     await instance.search.codePage({ text: 'useFetch', repo })
     await instance.search.codePage({ text: 'useFetch', owner: 'acme/platform' })
@@ -749,7 +749,7 @@ describe('gitlab path safety', () => {
     const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(url)
       return new Response(null, { status: 204 })
-    } }).create()
+    } })
     const repo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }
     const thread = { forge: 'gitlab', instance: 'gitlab.com', repo, kind: 'issue', number: '1' } as const
 
@@ -765,7 +765,7 @@ describe('gitlab single-item reads', () => {
     return gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
       const key = new URL(String(url)).pathname
       return key in responses ? Response.json(responses[key]) : Response.json({ message: '404 Not found' }, { status: 404 })
-    } }).create()
+    } })
   }
 
   it('gives a resolvable note the discussion that resolves it, as the listing does', async () => {
@@ -843,7 +843,7 @@ describe('gitlab organisation subgroups and members', () => {
   })
 
   it('reports subgroup members unsupported without a credential', () => {
-    const anonymous = gitlab({}).create()
+    const anonymous = gitlab({})
 
     expect(anonymous.can('orgs.teamMembers')).toBe(false)
   })

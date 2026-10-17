@@ -26,7 +26,7 @@ import { bitbucket } from 'forges/bitbucket'
 
 const forge = bitbucket({
   auth: { type: 'token', token: process.env.BITBUCKET_TOKEN! },
-}).create()
+})
 
 const basic = bitbucket({
   auth: {
@@ -34,7 +34,7 @@ const basic = bitbucket({
     username: process.env.BITBUCKET_EMAIL!,
     password: process.env.BITBUCKET_API_TOKEN!,
   },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data.
@@ -82,7 +82,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = bitbucket({
   webhookSecret: process.env.BITBUCKET_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

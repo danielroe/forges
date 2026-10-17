@@ -58,17 +58,17 @@ function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvide
 export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   const { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const
-  const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O, credentials?: CredentialOptions<O>[]): MatrixProvider => {
+  const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProvider, options: O, credentials?: CredentialOptions<O>[]): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
-    const provider = withDeclared(factory(options).create())
-    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? withDeclared(factory({ ...options, auth: undefined }).create()) : withoutCredentials(provider)
+    const provider = withDeclared(factory(options))
+    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? withDeclared(factory({ ...options, auth: undefined })) : withoutCredentials(provider)
     return {
       slug,
       name,
       factories: [exported],
       provider,
       anonymous,
-      ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: withDeclared(factory(options).create()) })) } : {},
+      ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: withDeclared(factory(options)) })) } : {},
     }
   }
   const githubApp = { type: 'app', appId: 1, privateKey: '' } as const

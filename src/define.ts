@@ -10,7 +10,6 @@ import type {
   ForgeIterable,
   ForgeOptionsBase,
   ForgeProvider,
-  ForgeProviderFactory,
   InstallationsApi,
   NotificationsApi,
   OrgsApi,
@@ -835,21 +834,18 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 }
 
 /**
- * Defines a forge provider. Returns the factory end users call, for example
- * `github({ auth })`. Nothing touches the network until `create()`.
+ * Defines a forge provider. Returns the function end users call to create
+ * one, for example `github({ auth })`. Nothing touches the network until a
+ * method of the provider is called.
  * @param definition The defaults, authentication and setup of the forge.
  */
-export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, Experimental extends boolean = boolean, TExtensions extends object = Record<never, never>>(
+export function defineForgeProvider<TOptions extends ForgeOptionsBase, TState = undefined, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, TExtensions extends object = Record<never, never>>(
   definition: ProviderDefinition<TOptions, TState, HasWeb, TExtensions>,
-): ProviderFactoryFunction<TOptions, HasWeb, Forge, Experimental, ForgeProvider<HasWeb> & TExtensions> {
-  return ((options: TOptions = {} as TOptions) => ({
-    forge: definition.forge,
-    ...definition.experimental ? { experimental: true as const } : {},
-    create: () => createProvider<TOptions, TState, HasWeb, TExtensions>(definition, options),
-  })) as ProviderFactoryFunction<TOptions, HasWeb, Forge, Experimental, ForgeProvider<HasWeb> & TExtensions>
+): ProviderFactoryFunction<TOptions, HasWeb, Forge, ForgeProvider<HasWeb> & TExtensions> {
+  return ((options: TOptions = {} as TOptions) => createProvider<TOptions, TState, HasWeb, TExtensions>(definition, options)) as ProviderFactoryFunction<TOptions, HasWeb, Forge, ForgeProvider<HasWeb> & TExtensions>
 }
 
 /** The function `defineForgeProvider()` returns. Options are optional when every option is. */
-export type ProviderFactoryFunction<TOptions, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, Experimental extends boolean = boolean, TProvider extends ForgeProvider<HasWeb> = ForgeProvider<HasWeb>> = Record<never, never> extends TOptions
-  ? (options?: TOptions) => ForgeProviderFactory<TProvider, Forge, Experimental>
-  : (options: TOptions) => ForgeProviderFactory<TProvider, Forge, Experimental>
+export type ProviderFactoryFunction<TOptions, HasWeb extends boolean = boolean, Forge extends ForgeKind = ForgeKind, TProvider extends ForgeProvider<HasWeb> = ForgeProvider<HasWeb>> = Record<never, never> extends TOptions
+  ? (options?: TOptions) => TProvider & { readonly forge: Forge }
+  : (options: TOptions) => TProvider & { readonly forge: Forge }

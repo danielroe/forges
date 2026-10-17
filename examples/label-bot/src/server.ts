@@ -5,7 +5,7 @@ import { createForges } from 'forges'
 import { providersFromEnv } from 'forges/env'
 import { createHandler } from './handler.ts'
 
-const providers = providersFromEnv(process.env).flatMap(entry => entry.factory ? [entry.factory] : [])
+const providers = providersFromEnv(process.env).flatMap(entry => entry.provider ? [entry.provider] : [])
 if (providers.length === 0) {
   process.stderr.write('No providers configured. Set FORGES_GITHUB_TOKEN and FORGES_GITHUB_WEBHOOK_SECRET.\n')
   process.exit(1)

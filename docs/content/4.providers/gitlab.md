@@ -26,7 +26,7 @@ import { gitlab } from 'forges/gitlab'
 
 const forge = gitlab({
   auth: { type: 'token', token: process.env.GITLAB_TOKEN! },
-}).create()
+})
 ```
 
 Project and group access tokens act as bot users, so they are the right choice when you need a credential that isn't tied to a person.
@@ -132,7 +132,7 @@ GitLab doesn't sign the body of a delivery. Instead, it sends the secret token o
 ```ts
 const forge = gitlab({
   webhookSecret: process.env.GITLAB_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

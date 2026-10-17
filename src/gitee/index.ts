@@ -655,7 +655,7 @@ const GITEE: ProviderDefinition<GiteeOptions, undefined, true> = {
 }
 
 /** Creates a Gitee provider for gitee.com. The enterprise edition (`e.gitee.com`) is not covered. */
-export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee', false> = /* @__PURE__ */ defineForgeProvider(GITEE)
+export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee'> = /* @__PURE__ */ defineForgeProvider(GITEE)
 
 /** Gitee OAuth scopes, one per resource group. */
 export function giteeScopesFor(verb: ForgeVerb): VerbScopes {

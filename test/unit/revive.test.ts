@@ -56,7 +56,7 @@ describe('serialisation helpers', () => {
       { request: { method: 'GET', url: 'https://api.github.com/user/repos?per_page=100' }, response: { status: 200, headers, body: [] } },
       { request: { method: 'GET', url: 'https://api.github.com/rate_limit' }, response: { status: 200, headers, body: {} } },
     ])
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     const expected = { limit: 5000, remaining: 4999, resetAt: new Date(1767225600 * 1000) }
 
     expect((await provider.repos.listPage({ perPage: 100 })).rateLimit).toEqual(expected)

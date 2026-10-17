@@ -45,7 +45,7 @@ describe('footer contributors', () => {
       const login = path.slice('/users/'.length)
       return Response.json({ login, html_url: `https://github.com/${login}`, blog: websites[login] ?? '' })
     })
-    const forge = github({ fetch, auth: { type: 'token', token: 'test-token' } }).create()
+    const forge = github({ fetch, auth: { type: 'token', token: 'test-token' } })
     const list = await getContributors(forge)
 
     expect(list.map(contributor => contributor.login)).toEqual(['danielroe', 'trueberryless', 'antfu', 'third', 'fourth'])
@@ -81,7 +81,7 @@ describe('footer contributors', () => {
         }
         return new Response('Unavailable', { status: 503 })
       },
-    }).create()
+    })
     expect(await getFooterContributors(forge, await getContributors(forge))).toEqual({
       contributors: [
         { login: 'danielroe', to: 'https://github.com/danielroe' },
@@ -93,7 +93,7 @@ describe('footer contributors', () => {
 
   it.each([3, 5])('counts remaining contributors with %i other contributors and no danielroe entry', async (count) => {
     const fetch = vi.fn(async () => new Response('Unavailable', { status: 503 }))
-    const forge = github({ fetch }).create()
+    const forge = github({ fetch })
     const list = Array.from({ length: count }, (_, index) => ({
       login: `contributor${index}`,
       contributions: count - index,
@@ -109,7 +109,7 @@ describe('footer contributors', () => {
   })
 
   it('keeps danielroe when GitHub is unavailable', async () => {
-    const forge = github({ fetch: async () => new Response('Unavailable', { status: 503 }) }).create()
+    const forge = github({ fetch: async () => new Response('Unavailable', { status: 503 }) })
     const list = await getContributors(forge).catch(() => [])
     expect(await getFooterContributors(forge, list)).toEqual({
       contributors: [{ login: 'danielroe', to: 'https://github.com/danielroe' }],

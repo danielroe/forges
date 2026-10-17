@@ -1370,18 +1370,6 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   referenceFor: (ref: ThreadRef, options?: ReferenceOptions) => string | undefined
 }
 
-/**
- * Lazily constructed provider. `createForges` calls `create()`; nothing
- * touches the network before that.
- */
-export interface ForgeProviderFactory<T extends ForgeProvider = ForgeProvider, Forge extends ForgeKind = ForgeKind, Experimental extends boolean = boolean> {
-  readonly forge: Forge
-  /** The provider has not reached parity; see `ForgeCapabilities.experimental`. */
-  readonly experimental?: Experimental extends true ? true : undefined
-  /** Creates the provider. Nothing touches the network before this. */
-  create: () => T
-}
-
 type UnionToIntersection<U> = (U extends unknown ? (union: U) => void : never) extends (intersection: infer I) => void ? I : never
 
 type SingleForgeOf<F> = F extends { forge: infer Forge extends ForgeKind } ? [Forge] extends [UnionToIntersection<Forge>] ? Forge : never : never
@@ -1448,7 +1436,7 @@ interface SearchSource<T> {
 
 /** Items without the sorted timestamp sort last within a page and are yielded as soon as they lead it. */
 function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Date, updatedAt?: Date }>(
-  providers: ForgeProvider[],
+  providers: readonly ForgeProvider[],
   verb: ForgeVerb,
   query: Q,
   read: (provider: ForgeProvider, query: Q & SearchOrder & { cursor: Cursor | undefined }) => Promise<Page<T>>,
@@ -1505,8 +1493,8 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
 }
 
 /**
- * Combines providers into a registry. Pass factories such as `github()`, or providers that already exist.
- * @param factories Factories such as `github()`, or providers that already exist.
+ * Combines providers into a registry.
+ * @param providers Providers such as `github()` creates.
  * @example
  * ```ts
  * import { createForges, github, gitlab, UnknownForgeError } from 'forges'
@@ -1524,8 +1512,7 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
  * const repo = await provider.repos.get(ref)
  * ```
  */
-export function createForges<const T extends readonly (ForgeProviderFactory | ForgeProvider)[]>(factories: T): Forges<RegisteredKinds<T>> {
-  const providers = factories.map(factory => 'create' in factory ? factory.create() : factory)
+export function createForges<const T extends readonly ForgeProvider[]>(providers: T): Forges<RegisteredKinds<T>> {
   const seen = new Set<string>()
   for (const provider of providers) {
     const key = `${provider.forge}:${provider.instance}`
@@ -1546,7 +1533,7 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
   }
 
   return {
-    providers,
+    providers: [...providers],
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,

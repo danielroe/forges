@@ -194,7 +194,7 @@ describe('review identity', () => {
   })
 
   it('names the fake review that an event reports', async () => {
-    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } }).create()
+    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } })
     const thread = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '1' } as const
     const review = await forge.threads.createReview(thread, { event: 'approve' })
     const events = await Array.fromAsync(forge.threads.events(thread))

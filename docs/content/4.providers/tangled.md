@@ -28,7 +28,7 @@ Reading is public and needs no credentials. Writing requires an atproto session,
 ```ts
 import { tangled } from 'forges/tangled'
 
-const reader = tangled({}).create()
+const reader = tangled({})
 
 const writer = tangled({
   auth: {
@@ -36,7 +36,7 @@ const writer = tangled({
     identifier: 'alice.example.com',
     password: process.env.TANGLED_APP_PASSWORD!,
   },
-}).create()
+})
 ```
 
 With `app_password`, the provider creates a session on the PDS (personal data server) of the account. It looks for the PDS in this order:
@@ -159,7 +159,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = tangled({
   webhookSecret: process.env.TANGLED_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

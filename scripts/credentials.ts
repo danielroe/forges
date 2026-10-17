@@ -63,7 +63,7 @@ function probe(kind: string, fields: Record<string, string>) {
   if (!entry || rest.length) {
     throw new Error(`Expected one provider set for ${kind} from ${Object.keys(fields).join(', ')}`)
   }
-  return { skipped: entry.skipped, provider: entry.factory?.create() }
+  return { skipped: entry.skipped, provider: entry.provider }
 }
 
 function authenticated(provider?: Forges.ForgeProvider): boolean {
@@ -83,7 +83,7 @@ async function leaks(kind: string, fields: string[]): Promise<Set<string>> {
     const values = Object.fromEntries(fields.map(field => [field, probeValue(field, key)]))
     // Tangled only opens an atproto session for calls such as notifications, which need a notifications service.
     const env = Object.fromEntries(Object.entries({ NOTIFICATIONS_URL: probeValue('NOTIFICATIONS_URL'), ...values }).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
-    const provider = providersFromEnv(env, { fetch })[0]?.factory?.create()
+    const provider = providersFromEnv(env, { fetch })[0]?.provider
     await provider?.request('GET', '/probe').catch(() => {})
     await provider?.notifications.listPage().catch(() => {})
     const text = sent.flatMap(value => [value, ...[...value.matchAll(/(?:Basic|Bearer) ([\w.=-]+)/g)].flatMap(([, token]) => token!.split('.').map(part => Buffer.from(part, 'base64').toString()))]).join('\n')

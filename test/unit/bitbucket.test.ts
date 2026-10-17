@@ -13,7 +13,7 @@ const pull: ResolvedThreadRef = { forge: 'bitbucket', instance: 'bitbucket.org',
 
 function provider(auth: BitbucketOptions['auth'] = { type: 'token', token: 't' }, overrides: Parameters<typeof fixtureFetch>[1] = {}) {
   const { fetch, calls } = fixtureFetch('bitbucket', overrides)
-  return { instance: bitbucket({ auth, fetch }).create(), calls }
+  return { instance: bitbucket({ auth, fetch }), calls }
 }
 
 describe('bitbucket provider', () => {
@@ -28,7 +28,7 @@ describe('bitbucket provider', () => {
     const { fetch } = fixtureFetch('bitbucket', {
       'GET https://api.bitbucket.org/2.0/user': { status: 200, headers: { 'x-ratelimit-limit': '1000', 'x-ratelimit-remaining': '998', 'x-ratelimit-reset': '3476' }, body: {} },
     })
-    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch })
     await instance.request('GET', '/user')
 
     expect(instance.rateLimits()).toMatchObject([{ limit: 1000, remaining: 998 }])
@@ -118,7 +118,7 @@ describe('bitbucket provider', () => {
     const instance = bitbucket({ fetch: async (url) => {
       urls.push(url)
       return Response.json({ values: [] })
-    } }).create()
+    } })
     const workspace = { ...repo, name: '', kind: 'namespace' } as const
 
     for (const query of [{ sort: 'updated' }, { sort: 'updated', direction: 'asc' }, { sort: 'name' }, { sort: 'name', direction: 'desc' }] as const) {
@@ -144,7 +144,7 @@ describe('bitbucket webhooks', () => {
     const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (_url, init) => {
       bodies.push(init?.body as string)
       return Response.json({ uuid: '{hook}', url: 'https://hooks.test/in', active: true, events: ['repo:updated', 'repo:transfer'] })
-    } }).create()
+    } })
 
     await instance.webhooks.create(repo, { url: 'https://hooks.test/in', events: ['repo'] })
 
@@ -177,7 +177,7 @@ describe('bitbucket queries', () => {
     const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(url)
       return Response.json({ values: url.includes('/user/workspaces') ? [{ workspace: { slug: 'acme' } }] : [] })
-    } }).create()
+    } })
 
     await forge.search.reposPage({ text: 'say "hi"' })
 
@@ -193,7 +193,7 @@ describe('bitbucket queries', () => {
         return Response.json({ values: [{ workspace: { slug: 'acme' } }, { workspace: { slug: 'globex' } }] })
       }
       return Response.json({ values: [{ full_name: `${url.pathname.split('/').at(-1)}/widgets`, name: 'widgets', slug: 'widgets' }] })
-    } }).create()
+    } })
 
     const repos = await Array.fromAsync(forge.repos.list())
 
@@ -209,7 +209,7 @@ describe('bitbucket queries', () => {
     const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
       urls.push(new URL(input))
       return Response.json({ values: [] })
-    } }).create()
+    } })
     const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }
 
     await forge.threads.listPage(repo)
@@ -225,7 +225,7 @@ describe('bitbucket queries', () => {
 describe('bitbucket thread updates', () => {
   it('edits a pull request before declining it and returns the declined pull request', async () => {
     const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
-    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'closed' })
+    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'closed' })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31',
@@ -244,7 +244,7 @@ describe('bitbucket thread updates', () => {
 
   it('keeps an open pull request open and edits it', async () => {
     const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
-    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })
+    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'open' })
 
     expect(calls.map(call => call.method)).toEqual(['GET', 'PUT'])
     expect(thread.state).toBe('open')
@@ -253,7 +253,7 @@ describe('bitbucket thread updates', () => {
   it.each(['DECLINED', 'MERGED'])('refuses to reopen a %s pull request before it writes anything', async (state) => {
     const { fetch, calls } = fixtureFetch('bitbucket', { 'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state, title: 'Retry uploads' } } })
 
-    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow(`cannot reopen a ${state.toLowerCase()} pull request`)
+    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow(`cannot reopen a ${state.toLowerCase()} pull request`)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 

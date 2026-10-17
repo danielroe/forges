@@ -30,7 +30,7 @@ import { sourcehut } from 'forges/sourcehut'
 
 const forge = sourcehut({
   auth: { type: 'token', token: process.env.SOURCEHUT_TOKEN! },
-}).create()
+})
 ```
 
 An OAuth 2.0 bearer token works too. Every service refuses reads without a token, so unlike most providers there are no anonymous reads.

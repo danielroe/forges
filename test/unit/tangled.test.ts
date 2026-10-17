@@ -24,7 +24,7 @@ function provider(overrides = {}, auth = true) {
     instance: tangled({
       auth: auth ? { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS } : undefined,
       fetch,
-    }).create(),
+    }),
     calls,
   }
 }
@@ -178,7 +178,7 @@ describe('tangled cancellation', () => {
       }
       return served(input, init)
     }
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch }).create()
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch })
     return {
       instance,
       reached,
@@ -234,7 +234,7 @@ describe('tangled cancellation', () => {
 describe('tangled index listing', () => {
   it('lists from the index in one request per page and warns that states may be stale', async () => {
     const { fetch, calls } = fixtureFetch('tangled')
-    const listing = tangled({ fetch, listSource: 'index' }).create().threads.list(repo, { kind: 'pull_request' })
+    const listing = tangled({ fetch, listSource: 'index' }).threads.list(repo, { kind: 'pull_request' })
     const threads = []
     for await (const thread of listing) {
       threads.push(thread)
@@ -310,7 +310,7 @@ describe('tangled writes', () => {
     const { fetch, calls } = fixtureFetch('tangled', {
       'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
     })
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch }).create()
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch })
     await instance.threads.comment!(pull, 'Thanks!')
 
     expect(calls.find(call => call.url.endsWith('createSession'))!.url).toBe(`${PDS}/xrpc/com.atproto.server.createSession`)
@@ -360,7 +360,7 @@ describe('tangled writes', () => {
         }
         return base(url, init)
       },
-    }).create()
+    })
     await instance.threads.close!(pull)
 
     expect(calls.map(call => call.url.split('/').at(-1))).toContain('com.atproto.server.refreshSession')
@@ -381,7 +381,7 @@ describe('tangled writes', () => {
         },
       },
       fetch: base,
-    }).create()
+    })
     await instance.threads.reopen!(pull)
 
     expect(signed).toEqual([`${PDS}/xrpc/com.atproto.repo.createRecord`])
@@ -405,7 +405,7 @@ describe('tangled writes', () => {
         fetch: async () => new Response('{"error":"InvalidToken"}', { status: 401 }),
       },
       fetch: base,
-    }).create()
+    })
 
     await expect(instance.threads.reopen!(pull)).rejects.toThrow(TokenRevokedError)
   })
@@ -419,7 +419,7 @@ describe('tangled notifications (experimental)', () => {
         auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS },
         notificationsUrl: 'https://notifs.example.com',
         fetch,
-      }).create(),
+      }),
       calls,
     }
   }
@@ -482,7 +482,7 @@ describe('tangled subscribe', () => {
           record: { subject: { uri: PULL, cid: 'c' }, body: 'Looks good.', createdAt: '2025-09-18T00:00:00Z' },
         },
       }]),
-    }).create()
+    })
     const { value } = await instance.sources!.subscribe()[Symbol.asyncIterator]().next()
 
     expect(value!.event).toMatchObject({
@@ -508,7 +508,7 @@ describe('tangled subscribe', () => {
           record: { subject: `at://${ADA}/sh.tangled.repo.issue/3mwqmissing22`, reaction: '👀', createdAt: '2025-09-18T00:00:00Z' },
         },
       }]),
-    }).create()
+    })
     const iterator = instance.sources!.subscribe()[Symbol.asyncIterator]()
     const first = await iterator.next()
 
@@ -523,7 +523,7 @@ describe('tangled webhooks', () => {
     const instance = tangled({
       webhookSecret: 's',
       resolveDisplayNumber: async (_repo, kind, number) => kind === 'pull_request' && number === '4' ? PULL : undefined,
-    }).create()
+    })
     const body = JSON.stringify({ action: 'closed', pull_request: { number: 4 }, repository: { name: 'widgets', owner: { did: OWNER } }, sender: { did: OWNER } })
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
     const [event] = await instance.webhooks.ingest({
@@ -537,7 +537,7 @@ describe('tangled webhooks', () => {
 
 describe('tangled anonymous auth', () => {
   it('treats `{ type: \'anonymous\' }` like no credentials', () => {
-    const provider = tangled({ auth: { type: 'anonymous' } }).create()
+    const provider = tangled({ auth: { type: 'anonymous' } })
 
     expect(provider.capabilities.writes.comment.issue).toBe(false)
   })

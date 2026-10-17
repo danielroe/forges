@@ -31,7 +31,7 @@ import { cloudflareArtifacts } from 'forges/cloudflare-artifacts'
 const forge = cloudflareArtifacts({
   accountId: process.env.CLOUDFLARE_ARTIFACTS_ACCOUNT_ID!,
   auth: { type: 'token', token: process.env.CLOUDFLARE_ARTIFACTS_TOKEN! },
-}).create()
+})
 ```
 
 There are no anonymous reads. Even cloning needs a token, so every repository reports `visibility: 'private'`.

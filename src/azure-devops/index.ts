@@ -803,4 +803,4 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions, undefined, true> = {
 }
 
 /** Creates an Azure DevOps provider for one organization on dev.azure.com, or a collection on Azure DevOps Server. */
-export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true, 'azure-devops', false> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)
+export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true, 'azure-devops'> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)

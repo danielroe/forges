@@ -120,7 +120,7 @@ function callOf(input: string, init: RequestInit | undefined): FixtureCall {
  * import { fixtureFetch, loadFixtures } from 'forges/testing'
  *
  * const { fetch, calls } = fixtureFetch(await loadFixtures(new URL('./fixtures', import.meta.url)))
- * const provider = github({ fetch }).create()
+ * const provider = github({ fetch })
  * ```
  */
 export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<string, Fixture['response']> = {}, options: FixtureFetchOptions = {}): FixtureFetch {

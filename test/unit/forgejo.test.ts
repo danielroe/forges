@@ -6,13 +6,13 @@ import { contentsFile, contentsListing, fixtureFetch, hangingFetch } from '../ut
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('forgejo', overrides)
-  return { instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
+  return { instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }), calls }
 }
 
 describe('forgejo provider', () => {
   it('appends the api prefix to an instance root', () => {
-    const codeberg = forgejo({ auth: { type: 'token', token: 't' } }).create()
-    const selfHosted = forgejo({ baseUrl: 'https://git.example.org/', auth: { type: 'token', token: 't' } }).create()
+    const codeberg = forgejo({ auth: { type: 'token', token: 't' } })
+    const selfHosted = forgejo({ baseUrl: 'https://git.example.org/', auth: { type: 'token', token: 't' } })
 
     expect(codeberg.baseUrl).toBe('https://codeberg.org/api/v1')
     expect(codeberg.instance).toBe('codeberg.org')
@@ -33,7 +33,7 @@ describe('forgejo provider', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
     const { fetch, started } = hangingFetch()
-    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch })
 
     const pending = instance.notifications.unsubscribe({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { signal: controller.signal })
     await started
@@ -153,7 +153,7 @@ describe('forgejo provider', () => {
     const second = 'https://codeberg.org/api/v1/users/acme/repos?limit=1&page=2'
     const instance = forgejo({ fetch: async url => url === first
       ? Response.json([{ id: 1, name: 'site', full_name: 'acme/site', private: false, owner: { login: 'acme' } }], { headers: { link: `<${second}>; rel="next"` } })
-      : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) }).create()
+      : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) })
 
     const page = await instance.repos.byOwnerPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 })
 
@@ -164,7 +164,7 @@ describe('forgejo provider', () => {
 describe('forgejo release webhooks', () => {
   it('maps Forgejo release deliveries', async () => {
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       action: 'published',
       release: { id: 31001, tag_name: 'v0.4.0', name: 'Four' },
@@ -183,7 +183,7 @@ describe('forgejo path safety', () => {
     const provider = forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(url)
       return new Response('{"id":1,"body":"hi","user":{"id":1,"login":"a"}}', { status: 201 })
-    } }).create()
+    } })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme/x', name: 'widgets' }
 
     await provider.threads.comment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
@@ -207,7 +207,7 @@ describe('forgejo pagination without a link header', () => {
       }
       return Response.json(response.body, { headers: response.total === undefined ? {} : { 'x-total-count': String(response.total) } })
     }
-    return { provider: gitea({ auth: { type: 'token', token: 't' }, fetch }).create(), urls }
+    return { provider: gitea({ auth: { type: 'token', token: 't' }, fetch }), urls }
   }
 
   it('continues a listing from its total count', async () => {
@@ -262,7 +262,7 @@ describe('forgejo label filters', () => {
     { id: 1, number: 1, title: 'Both', state: 'open', labels: [{ id: 1, name: 'bug' }, { id: 2, name: 'ui' }], repository },
     { id: 2, number: 2, title: 'One', state: 'open', labels: [{ id: 1, name: 'bug' }], repository },
   ]
-  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
   const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
 
   it('lists only threads carrying every label', async () => {
@@ -287,7 +287,7 @@ describe('forgejo merge settings', () => {
     ['manually-merged', undefined],
   ])('reads the default merge style %s', async (style, method) => {
     const body = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' }, default_merge_style: style, default_delete_branch_after_merge: true }
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(body) }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(body) })
     const result = await provider.repos.get(repo)
 
     expect(result.defaultMergeMethod).toBe(method)
@@ -315,7 +315,7 @@ describe('forgejo label names', () => {
       return init?.method === 'POST' ? Response.json([{ id: 1, name: 'bug', color: 'ff0000', description: '' }, { id: 9, name: 'triage', color: '00ff00', description: 'Needs a look' }]) : Response.json({ message: 'not found' }, { status: 404 })
     }
     const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
-    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), thread, calls }
+    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }), thread, calls }
   }
 
   it('resolves a label the organisation shares', async () => {
@@ -351,7 +351,7 @@ describe('forgejo search filters', () => {
     { id: 1, number: 1, title: 'By Ada', state: 'open', user: ada, assignees: [grace], repository },
     { id: 2, number: 2, title: 'By Grace', state: 'open', user: grace, assignees: [ada], repository },
   ]
-  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
 
   it('searches only threads by the author', async () => {
     const page = await provider.search.threadsPage({ author: 'ada' })
@@ -369,7 +369,7 @@ describe('forgejo search filters', () => {
 describe('forgejo label webhooks', () => {
   it.each([['label_updated', 'edited'], ['label_cleared', 'unlabelled']])('maps %s to %s', async (action, expected) => {
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       action,
       number: 3,
@@ -389,13 +389,13 @@ describe('forgejo actions', () => {
   const repo = { forge: 'forgejo', instance: 'git.example.org', owner: 'acme', name: 'widgets' }
 
   it('reads Actions on Codeberg and gates a self-hosted instance on its version', () => {
-    const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).create().capabilities.ci
+    const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).capabilities.ci
 
     expect(ci({})).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
     expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false })
     expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: false, getJob: false, log: false })
     expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
-    expect(forgejo({ auth: { type: 'anonymous' } }).create().capabilities.ci).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
+    expect(forgejo({ auth: { type: 'anonymous' } }).capabilities.ci).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
   })
 
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
@@ -404,7 +404,7 @@ describe('forgejo actions', () => {
     const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '14.0.5', fetch: async (url) => {
       urls.push(String(url))
       return Response.json({ total_count: 3, workflow_runs: [run(3, 'main', 'cancelled'), run(2, '#9', 'failure'), run(1, 'c4a92ff', 'failure')] })
-    } }).create()
+    } })
 
     const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'failure' })
 
@@ -419,7 +419,7 @@ describe('forgejo actions', () => {
       urls.push(String(url))
       const first = new URL(String(url)).searchParams.get('page') === '1' ? 120 : 70
       return Response.json({ total_count: 120, workflow_runs: Array.from({ length: 50 }, (_, index) => ({ id: first - index, status: 'success' })) })
-    } }).create()
+    } })
 
     const first = await provider.ci.runsPage(repo, { perPage: 100 })
     const second = await provider.ci.runsPage(repo, { perPage: 100, cursor: first.cursor })
@@ -435,7 +435,7 @@ describe('forgejo actions', () => {
   })
 
   it('streams a job log', async () => {
-    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async url => new Response(String(url).endsWith('/actions/jobs/404013/logs') ? 'workflow prepared\n' : null, { status: 200 }) }).create()
+    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async url => new Response(String(url).endsWith('/actions/jobs/404013/logs') ? 'workflow prepared\n' : null, { status: 200 }) })
 
     const log = await provider.ci.log({ forge: 'forgejo', instance: 'git.example.org', repo, id: '404013' })
 
@@ -454,12 +454,12 @@ describe('gitea actions', () => {
     const provider = gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0', fetch: async (url) => {
       urls.push(String(url))
       return responses.has(String(url)) ? Response.json(responses.get(String(url))) : Response.json({ message: 'not found' }, { status: 404 })
-    } }).create()
+    } })
     return { provider, urls }
   }
 
   it('reads Actions on gitea.com and gates a self-hosted instance on its version', () => {
-    const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).create().capabilities.ci
+    const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).capabilities.ci
 
     expect(ci({ auth })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true })
     expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, getRun: true, jobs: true, getJob: true, log: false })
@@ -525,7 +525,7 @@ describe('gitea actions', () => {
 describe('gitea single-item reads', () => {
   it('reports a comment read that returns no content as not found', async () => {
     const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' }
-    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) }).create()
+    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) })
     const thread = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'pull_request', number: '3' } as const
 
     await expect(provider.threads.getComment({ forge: 'gitea', instance: 'gitea.com', thread, id: '9' })).rejects.toThrow(NotFoundError)
@@ -536,13 +536,13 @@ describe('gitea review replies', () => {
   const auth = { type: 'token', token: 't' } as const
 
   it('waits for Gitea 1.27 on a self-hosted instance, and Forgejo has no replies', () => {
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).create().capabilities.reviews.reply).toBe(false)
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).create().capabilities.reviews.reply).toBe(true)
-    expect(forgejo({ auth }).create().capabilities.reviews.reply).toBe('not_applicable')
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).capabilities.reviews.reply).toBe(false)
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).capabilities.reviews.reply).toBe(true)
+    expect(forgejo({ auth }).capabilities.reviews.reply).toBe('not_applicable')
   })
 
   it('asks for write scopes to reply', () => {
-    expect(gitea({ auth }).create().scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
+    expect(gitea({ auth }).scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
   })
 })
 
@@ -628,7 +628,7 @@ describe('forgejo organisation teams', () => {
   })
 
   it('reports organisation teams unsupported without a credential', () => {
-    const anonymous = forgejo({}).create()
+    const anonymous = forgejo({})
 
     expect(anonymous.can('orgs.teams')).toBe(false)
     expect(anonymous.can('orgs.teamMembers')).toBe(false)
@@ -699,7 +699,7 @@ describe('forgejo templates', () => {
 
   it('skips the directories Gitea does not look in', async () => {
     const { fetch, calls } = fixtureFetch('forgejo', Object.fromEntries(Object.entries(pullFiles).map(([key, response]) => [key.replace('codeberg.org', 'gitea.com'), response])))
-    const instance = gitea({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = gitea({ auth: { type: 'token', token: 't' }, fetch })
 
     const templates = await instance.repos.templates({ ...repo, forge: 'gitea', instance: 'gitea.com' }, { kind: 'pull_request' })
 
@@ -715,7 +715,7 @@ describe('forgejo thread listing filters', () => {
       urls.push(String(input))
       return new Response('[]', { headers: { 'content-type': 'application/json', 'link': '<https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2>; rel="next"' } })
     }
-    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
 
     const first = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' })
@@ -741,7 +741,7 @@ describe('forgejo getMany', () => {
       urls.push(String(input))
       return new Response('{"message":"refused"}', { status, headers: { 'content-type': 'application/json', ...headers } })
     }
-    return { urls, instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create() }
+    return { urls, instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }) }
   }
 
   it('rejects a rejected credential instead of warning per thread, and starts no further reads', async () => {
@@ -772,7 +772,7 @@ describe('forgejo and gitea moderation', () => {
 
   it('blocks and unblocks an account on Forgejo, for an organisation and for the viewer', async () => {
     const { fetch, calls } = fixtureFetch('forgejo')
-    const instance = forgejo({ auth, fetch }).create()
+    const instance = forgejo({ auth, fetch })
     const org = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' } as const
 
     await instance.orgs.block(org, 'spammer')
@@ -793,7 +793,7 @@ describe('forgejo and gitea moderation', () => {
 
   it('blocks and unblocks an account on Gitea, and locks an issue or pull request with the reason Gitea names', async () => {
     const { fetch, calls } = fixtureFetch('gitea')
-    const instance = gitea({ auth, fetch }).create()
+    const instance = gitea({ auth, fetch })
     const org = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: '', kind: 'namespace' } as const
     const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' } as const
 
@@ -819,7 +819,7 @@ describe('forgejo and gitea moderation', () => {
   })
 
   it('waits for Gitea 1.22 to block and 1.24 to lock on a self-hosted instance', () => {
-    const at = (instanceVersion: string) => gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion }).create().capabilities
+    const at = (instanceVersion: string) => gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion }).capabilities
     expect(at('1.21.11')).toMatchObject({ users: { block: false }, orgs: { block: false }, writes: { lock: { issue: false } } })
     expect(at('1.23.8')).toMatchObject({ users: { block: true }, orgs: { block: true }, writes: { lock: { issue: false } } })
     expect(at('1.24.0')).toMatchObject({ writes: { lock: { issue: true, pull_request: true } } })

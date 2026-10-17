@@ -45,12 +45,12 @@ describe('keys and slugs', () => {
 })
 
 describe('web links', () => {
-  const gh = github({ auth }).create()
-  const gl = gitlab({ auth }).create()
-  const cb = forgejo({ auth, baseUrl: 'https://codeberg.org' }).create()
-  const bb = bitbucket({ auth: { type: 'token', token: 't' } }).create()
-  const az = azureDevOps({ auth: { type: 'token', token: 't' }, organization: 'contoso' }).create()
-  const tg = tangled({}).create()
+  const gh = github({ auth })
+  const gl = gitlab({ auth })
+  const cb = forgejo({ auth, baseUrl: 'https://codeberg.org' })
+  const bb = bitbucket({ auth: { type: 'token', token: 't' } })
+  const az = azureDevOps({ auth: { type: 'token', token: 't' }, organization: 'contoso' })
+  const tg = tangled({})
 
   it('builds web URLs without a request', () => {
     expect(gh.urlFor({ thread: pull })).toBe('https://github.com/acme/widgets/pull/42')
@@ -72,42 +72,42 @@ describe('web links', () => {
   })
 
   it('exposes the origin of a self-hosted instance', () => {
-    expect(github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create().webOrigin).toBe('https://ghe.example.com')
-    expect(gitlab({ auth, baseUrl: 'https://git.example.com' }).create().webOrigin).toBe('https://git.example.com')
-    expect(forgejo({ auth, baseUrl: 'https://forgejo.example.com' }).create().webOrigin).toBe('https://forgejo.example.com')
-    expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).create().webOrigin).toBe('https://gitea.example.com')
+    expect(github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).webOrigin).toBe('https://ghe.example.com')
+    expect(gitlab({ auth, baseUrl: 'https://git.example.com' }).webOrigin).toBe('https://git.example.com')
+    expect(forgejo({ auth, baseUrl: 'https://forgejo.example.com' }).webOrigin).toBe('https://forgejo.example.com')
+    expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).webOrigin).toBe('https://gitea.example.com')
   })
 
   it('exposes the canonical origin for a subpath deployment, keeping the path for links', () => {
-    const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' }).create()
+    const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' })
     expect(subpath.webOrigin).toBe('https://example.com')
     expect(subpath.urlFor({ repo: { forge: 'gitlab', instance: 'example.com', owner: 'a', name: 'b' } })).toBe('https://example.com/gitlab/a/b')
   })
 
   it('types webOrigin as a string where the forge has a website', () => {
     expectTypeOf(gh.webOrigin).toEqualTypeOf<string>()
-    expectTypeOf(fake().create().webOrigin).toEqualTypeOf<string | undefined>()
+    expectTypeOf(fake().webOrigin).toEqualTypeOf<string | undefined>()
   })
 
   it('types a repository link as present where the forge has a website', () => {
     expectTypeOf(gh.urlFor({ repo })).toEqualTypeOf<string>()
     expectTypeOf(gh.urlFor({ repo, section: 'issues' })).toEqualTypeOf<string | undefined>()
-    expectTypeOf(fake().create().urlFor({ repo })).toEqualTypeOf<string | undefined>()
+    expectTypeOf(fake().urlFor({ repo })).toEqualTypeOf<string | undefined>()
   })
 
   const sha = 'a'.repeat(40)
   it.each([
     ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, 'https://ghe.example.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://ghe.example.com/acme/widgets/commit/${sha}`],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), { ...repo, instance: 'ghe.example.com' }, 'https://ghe.example.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://ghe.example.com/acme/widgets/commit/${sha}`],
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, 'https://gitlab.com/acme/platform/widgets/-/raw/v1.0.0/src/a%20b.ts', `https://gitlab.com/acme/platform/widgets/-/commit/${sha}`],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://codeberg.org/acme/widgets/commit/${sha}`],
-    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
-    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
-    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
+    ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
+    ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://bitbucket.org/acme/widgets/commits/${sha}`],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, 'https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2Fsrc%2Fa%20b.ts&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=branch&$format=octetStream', `https://dev.azure.com/contoso/Widgets/_git/widgets/commit/${sha}`],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/raw/v1.0.0/src/a%20b.ts', `https://tangled.org/acme.dev/widgets/commit/${sha}`],
-    ['sourcehut', sourcehut({ auth }).create(), { ...repo, forge: 'sourcehut', instance: 'sr.ht', owner: '~acme' }, 'https://git.sr.ht/~acme/widgets/blob/v1.0.0/src/a%20b.ts', `https://git.sr.ht/~acme/widgets/commit/${sha}`],
+    ['sourcehut', sourcehut({ auth }), { ...repo, forge: 'sourcehut', instance: 'sr.ht', owner: '~acme' }, 'https://git.sr.ht/~acme/widgets/blob/v1.0.0/src/a%20b.ts', `https://git.sr.ht/~acme/widgets/commit/${sha}`],
   ] as const)('builds raw file and commit URLs on %s', (_, provider, target, raw, commit) => {
     expect(provider.urlFor({ raw: { repo: target, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe(raw)
     expect(provider.urlFor({ commit: { repo: target, sha } })).toBe(commit)
@@ -168,14 +168,14 @@ describe('web links', () => {
 
   it.each([
     ['github', gh, repo, ['https://github.com/acme/widgets/stargazers', 'https://github.com/acme/widgets/forks', 'https://github.com/acme/widgets/watchers']],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, ['https://ghe.example.com/acme/widgets/stargazers', 'https://ghe.example.com/acme/widgets/forks', 'https://ghe.example.com/acme/widgets/watchers']],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), { ...repo, instance: 'ghe.example.com' }, ['https://ghe.example.com/acme/widgets/stargazers', 'https://ghe.example.com/acme/widgets/forks', 'https://ghe.example.com/acme/widgets/watchers']],
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, ['https://gitlab.com/acme/platform/widgets/-/starrers', 'https://gitlab.com/acme/platform/widgets/-/forks', undefined]],
     ['gitlab group', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, [undefined, 'https://bitbucket.org/acme/widgets/forks', undefined]],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, ['https://codeberg.org/acme/widgets/stars', 'https://codeberg.org/acme/widgets/forks', 'https://codeberg.org/acme/widgets/watchers']],
-    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, ['https://gitea.com/acme/widgets/stars', 'https://gitea.com/acme/widgets/forks', 'https://gitea.com/acme/widgets/watchers']],
-    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, ['https://gitee.com/acme/widgets/stargazers', 'https://gitee.com/acme/widgets/members', 'https://gitee.com/acme/widgets/watchers']],
-    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, ['https://pushin.eu/acme/widgets/stargazers', undefined, undefined]],
+    ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, ['https://gitea.com/acme/widgets/stars', 'https://gitea.com/acme/widgets/forks', 'https://gitea.com/acme/widgets/watchers']],
+    ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, ['https://gitee.com/acme/widgets/stargazers', 'https://gitee.com/acme/widgets/members', 'https://gitee.com/acme/widgets/watchers']],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, ['https://pushin.eu/acme/widgets/stargazers', undefined, undefined]],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, ['https://tangled.org/acme.dev/widgets/stars', 'https://tangled.org/acme.dev/widgets/forks', undefined]],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, [undefined, undefined, undefined]],
     ['azure-devops project', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
@@ -206,7 +206,7 @@ describe('web links', () => {
     ['github at a line range', gh, 'https://github.com/acme/widgets/blob/main/README.md?plain=1#L3-L5', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
     ['github at a heading', gh, 'https://github.com/acme/widgets/blob/main/README.md#usage', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['github at a branch with a slash', gh, 'https://github.com/acme/widgets/blob/feat%2Fa/README.md', { owner: 'acme', name: 'widgets' }, { at: 'feat/a', path: 'README.md' }],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), 'https://ghe.example.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), 'https://ghe.example.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['forgejo at a branch', cb, 'https://codeberg.org/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['forgejo at a tag', cb, 'https://codeberg.org/acme/widgets/src/tag/v1.0.0/README.md', { owner: 'acme', name: 'widgets' }, { at: 'v1.0.0', path: 'README.md' }],
     ['forgejo at a commit', cb, `https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`, { owner: 'acme', name: 'widgets' }, { at: sha, path: 'README.md' }],
@@ -214,9 +214,9 @@ describe('web links', () => {
     ['forgejo at a branch with a slash', cb, 'https://codeberg.org/acme/widgets/src/branch/feat%2Fa/README.md', { owner: 'acme', name: 'widgets' }, { at: 'feat/a', path: 'README.md' }],
     ['forgejo at a branch with a nested path', cb, 'https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.5.md', { owner: 'forgejo', name: 'forgejo' }, { at: 'forgejo', path: 'release-notes-published/16.0.5.md' }],
     ['forgejo at a branch without a qualifier', cb, 'https://codeberg.org/acme/widgets/src/main/README.md#L3', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
-    ['gitea', gitea({ auth }).create(), 'https://gitea.com/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
-    ['gitee', gitee({ auth }).create(), 'https://gitee.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
-    ['pushin', pushin({ auth }).create(), 'https://pushin.eu/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['gitea', gitea({ auth }), 'https://gitea.com/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['gitee', gitee({ auth }), 'https://gitee.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['pushin', pushin({ auth }), 'https://pushin.eu/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['gitlab', gl, 'https://gitlab.com/acme/platform/widgets/-/blob/main/src/a%20b.ts#L3', { owner: 'acme/platform', name: 'widgets' }, { at: 'main', path: 'src/a b.ts', line: 3 }],
     ['gitlab at a line range', gl, 'https://gitlab.com/acme/platform/widgets/-/blob/main/README.md?ref_type=heads#L3-5', { owner: 'acme/platform', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
     ['bitbucket', bb, 'https://bitbucket.org/acme/widgets/src/main/src/a%20b.ts#lines-3', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'src/a b.ts', line: 3 }],
@@ -300,8 +300,8 @@ describe('web links', () => {
   })
 
   it('reads the npm repository shorthand as the public instance only', () => {
-    const ghes = github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create()
-    const glSelf = gitlab({ auth, baseUrl: 'https://git.example.com' }).create()
+    const ghes = github({ auth, baseUrl: 'https://ghe.example.com/api/v3' })
+    const glSelf = gitlab({ auth, baseUrl: 'https://git.example.com' })
     expect(ghes.parseUrl('github:acme/widgets')).toBeUndefined()
     expect(glSelf.parseUrl('gitlab:acme/widgets')).toBeUndefined()
     expect(createForges([github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), github({ auth })]).parseUrl('github:acme/widgets')?.repo.instance).toBe('github.com')

@@ -7,7 +7,7 @@ const account = '023e105f4ecef8ad9ca31a8372d0c353'
 
 function provider() {
   const fixtures = fixtureFetch([])
-  return { ...fixtures, forge: cloudflareArtifacts({ accountId: account, auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }).create() }
+  return { ...fixtures, forge: cloudflareArtifacts({ accountId: account, auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }) }
 }
 
 describe('cloudflare artifacts', () => {

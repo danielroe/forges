@@ -6,7 +6,7 @@ export function createDocsGitHub(token: string) {
     auth: token ? { type: 'token', token } : { type: 'anonymous' },
     timeout: 5000,
     readOnly: true,
-  }).create()
+  })
 }
 
 export const getGitHubContributors = defineCachedFunction((token: string) => getContributors(createDocsGitHub(token)), {

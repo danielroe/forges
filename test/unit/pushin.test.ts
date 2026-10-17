@@ -14,7 +14,7 @@ const raw = { id: 'iss_31', number: 31, title: 'A thread', state: 'open', labels
 
 function provider(overrides: Parameters<typeof fixtureFetch>[1]) {
   const fixtures = fixtureFetch([], overrides)
-  return { ...fixtures, forge: pushin({ auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }).create() }
+  return { ...fixtures, forge: pushin({ auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }) }
 }
 
 describe('pushin', () => {
@@ -22,7 +22,7 @@ describe('pushin', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
     const { fetch, started } = hangingFetch()
-    const forge = pushin({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const forge = pushin({ auth: { type: 'token', token: 't' }, fetch })
 
     const pending = forge.users.me({ signal: controller.signal })
     await started

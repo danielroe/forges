@@ -2328,7 +2328,7 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', false, GitHubProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
+export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', GitHubProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

@@ -1,5 +1,5 @@
 import type { FetchLike } from './fetch.ts'
-import type { ForgeOptionsBase, ForgeProviderFactory, Forges } from './provider.ts'
+import type { ForgeOptionsBase, ForgeProvider, Forges } from './provider.ts'
 import { azureDevOps } from './azure-devops/index.ts'
 import { bitbucket } from './bitbucket/index.ts'
 import { cloudflareArtifacts } from './cloudflare-artifacts/index.ts'
@@ -42,15 +42,13 @@ const FIELDS = [
 
 type Field = typeof FIELDS[number]
 
-/** One set of variables that `providersFromEnv()` reads, and the provider factory it made from them. */
+/** One set of variables that `providersFromEnv()` reads, and the provider it created from them. */
 export interface EnvProvider {
   forge: string
   /** The part after the field, for example `WORK` in `FORGES_GITHUB_TOKEN_WORK`. Empty for the unsuffixed set. */
   suffix: string
-  /** The factory to pass to `createForges()`. Missing when the set was skipped. */
-  factory?: ForgeProviderFactory
-  /** Instance host the factory's providers report, when the set was not skipped. */
-  instance?: string
+  /** The provider to pass to `createForges()`. Missing when the set was skipped. */
+  provider?: ForgeProvider
   /** Why the set was skipped, when it was. Never contains a credential. */
   skipped?: string
   /** `DEMO_REPO`: a repository to show, as `owner/name`. GitLab owners may contain slashes. */
@@ -98,24 +96,7 @@ export function providersFromEnv(env: Record<string, string | undefined>, option
     sets.set(id, set)
   }
 
-  return [...sets.values()].map(set => withInstance(fromFields(set.kind, set.suffix, set.fields, options)))
-}
-
-/** Adds `instance`, creating a provider only when it is first read. */
-function withInstance(entry: EnvProvider): EnvProvider {
-  const { factory } = entry
-  if (!factory) {
-    return entry
-  }
-  let instance: string | undefined
-  return Object.defineProperty({ ...entry }, 'instance', {
-    enumerable: true,
-    configurable: true,
-    get: () => instance ??= factory.create().instance,
-    set: (value: string | undefined) => {
-      instance = value
-    },
-  })
+  return [...sets.values()].map(set => fromFields(set.kind, set.suffix, set.fields, options))
 }
 
 function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<Record<Field, string>>, options: FromEnvOptions): EnvProvider {
@@ -138,22 +119,22 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       if (fields.APP_ID && fields.PRIVATE_KEY) {
         return {
           ...entry,
-          factory: github({
+          provider: github({
             ...base,
             auth: { type: 'app', appId: fields.APP_ID, privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'), installationId: fields.INSTALLATION_ID },
           }),
         }
       }
       if (fields.TOKEN || anonymous) {
-        return { ...entry, factory: github({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        return { ...entry, provider: github({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
       }
       return { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for anonymous reads' }
     case 'BITBUCKET':
       if (fields.USERNAME && fields.PASSWORD) {
-        return { ...entry, factory: bitbucket({ ...base, auth: { type: 'basic', username: fields.USERNAME, password: fields.PASSWORD } }) }
+        return { ...entry, provider: bitbucket({ ...base, auth: { type: 'basic', username: fields.USERNAME, password: fields.PASSWORD } }) }
       }
       if (fields.TOKEN || anonymous) {
-        return { ...entry, factory: bitbucket({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        return { ...entry, provider: bitbucket({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
       }
       return { ...entry, skipped: 'needs TOKEN, or USERNAME and PASSWORD, or ENABLED for anonymous reads' }
     case 'AZURE_DEVOPS': {
@@ -164,37 +145,37 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
         ? { type: 'basic' as const, username: fields.USERNAME, password: fields.PASSWORD }
         : fields.TOKEN ? { type: 'token' as const, token: fields.TOKEN } : undefined
       return auth || anonymous
-        ? { ...entry, factory: azureDevOps({ ...base, organization: fields.ORGANIZATION, ...auth ? { auth } : {} }) }
+        ? { ...entry, provider: azureDevOps({ ...base, organization: fields.ORGANIZATION, ...auth ? { auth } : {} }) }
         : { ...entry, skipped: 'needs TOKEN, or USERNAME and PASSWORD, or ENABLED for anonymous reads' }
     }
     case 'CLOUDFLARE_ARTIFACTS':
       return fields.TOKEN && fields.ACCOUNT_ID
-        ? { ...entry, factory: cloudflareArtifacts({ ...base, accountId: fields.ACCOUNT_ID, auth: { type: 'token', token: fields.TOKEN } }) }
+        ? { ...entry, provider: cloudflareArtifacts({ ...base, accountId: fields.ACCOUNT_ID, auth: { type: 'token', token: fields.TOKEN } }) }
         : { ...entry, skipped: 'needs TOKEN and ACCOUNT_ID' }
     case 'CURSOR_ORIGIN':
       if (fields.APP_ID && fields.PRIVATE_KEY) {
         return {
           ...entry,
-          factory: cursorOrigin({
+          provider: cursorOrigin({
             ...base,
             auth: { type: 'app', appId: fields.APP_ID, privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'), installationId: fields.INSTALLATION_ID },
           }),
         }
       }
       if (fields.TOKEN) {
-        return { ...entry, factory: cursorOrigin({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
+        return { ...entry, provider: cursorOrigin({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
       }
       return isOn(fields.ENABLED)
-        ? { ...entry, factory: cursorOrigin(base) }
+        ? { ...entry, provider: cursorOrigin(base) }
         : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for webhooks only' }
     case 'SOURCEHUT':
       return fields.TOKEN
-        ? { ...entry, factory: sourcehut({ ...base, ...fields.WEBHOOK_PUBLIC_KEY ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY } : {}, auth: { type: 'token', token: fields.TOKEN } }) }
+        ? { ...entry, provider: sourcehut({ ...base, ...fields.WEBHOOK_PUBLIC_KEY ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY } : {}, auth: { type: 'token', token: fields.TOKEN } }) }
         : { ...entry, skipped: 'needs TOKEN' }
     case 'TANGLED':
       return {
         ...entry,
-        factory: tangled({
+        provider: tangled({
           ...base,
           ...fields.API_URL ? { apiUrl: fields.API_URL } : {},
           ...fields.NOTIFICATIONS_URL ? { notificationsUrl: fields.NOTIFICATIONS_URL } : {},
@@ -208,7 +189,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
         return { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
       }
       const create = { GITLAB: gitlab, FORGEJO: forgejo, GITEA: gitea, GITEE: gitee, PUSHIN: pushin }[kind]
-      return { ...entry, factory: create({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+      return { ...entry, provider: create({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
     }
   }
 }
@@ -230,5 +211,5 @@ function isOn(value: string | undefined): boolean {
  * ```
  */
 export function forgesFromEnv(env: Record<string, string | undefined>, options: FromEnvOptions = {}): Forges {
-  return createForges(providersFromEnv(env, options).flatMap(entry => entry.factory ? [entry.factory] : []))
+  return createForges(providersFromEnv(env, options).flatMap(entry => entry.provider ? [entry.provider] : []))
 }

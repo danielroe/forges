@@ -30,7 +30,7 @@ import { cursorOrigin } from 'forges/cursor-origin'
 
 const forge = cursorOrigin({
   auth: { type: 'token', token: process.env.CURSOR_AUTH_TOKEN! },
-}).create()
+})
 
 const app = cursorOrigin({
   auth: {
@@ -39,7 +39,7 @@ const app = cursorOrigin({
     privateKey: process.env.ORIGIN_APP_PRIVATE_KEY!,
     installationId: 'i_01...',
   },
-}).create()
+})
 ```
 
 A user access token is the value that the Origin CLI reads from `CURSOR_AUTH_TOKEN`. Personal Cursor API keys aren't Origin bearer tokens, so the provider doesn't accept them.
@@ -49,7 +49,7 @@ For app authentication, `privateKey` is the Ed25519 private key of the app in PK
 Origin's API has no anonymous access. If you leave out `auth`, the provider can only verify and translate webhook deliveries, which it checks against Origin's public signing keys:
 
 ```ts
-const receiver = cursorOrigin({}).create()
+const receiver = cursorOrigin({})
 const events = await receiver.webhooks.ingest(delivery)
 ```
 
@@ -82,7 +82,7 @@ Origin sends webhooks in the Standard Webhooks format, with these headers:
 Since these deliveries are signed with a key pair, there is no secret for you to configure, and the provider ignores `webhookSecret`. It verifies the signature against the public keys from the `/keys` endpoint, which it caches for ten minutes, and it rejects deliveries with a timestamp more than five minutes away from the current time.
 
 ```ts
-const forge = cursorOrigin({ auth }).create()
+const forge = cursorOrigin({ auth })
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

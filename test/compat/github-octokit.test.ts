@@ -76,7 +76,7 @@ function harness(overrides: Parameters<typeof fixtureFetch>[1] = {}) {
   const ours = fixtureFetch('github', overrides)
   const theirs = fixtureFetch('github', overrides)
   return {
-    provider: github({ auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }).create(),
+    provider: github({ auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }),
     octokit: new Octokit({ auth: TOKEN, request: { fetch: theirs.fetch } }),
     ours: ours.calls,
     theirs: theirs.calls,
@@ -506,7 +506,7 @@ describe('request compatibility with Octokit', () => {
   it('reads the GHES version from /meta', async () => {
     const ours = fixtureFetch('github')
     const theirs = fixtureFetch('github')
-    await github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }).create().refreshCapabilities()
+    await github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }).refreshCapabilities()
     await new Octokit({ auth: TOKEN, baseUrl: 'https://ghe.example.com/api/v3', request: { fetch: theirs.fetch } }).rest.meta.get()
 
     expect(ours.calls.map(comparable)).toEqual(theirs.calls.map(comparable))
@@ -523,7 +523,7 @@ describe('request compatibility with Octokit', () => {
     function appHarness(installationId?: number) {
       const ours = fixtureFetch('github')
       const theirs = fixtureFetch('github')
-      const provider = github({ auth: { type: 'app', appId: 12345, privateKey, installationId }, fetch: ours.fetch }).create()
+      const provider = github({ auth: { type: 'app', appId: 12345, privateKey, installationId }, fetch: ours.fetch })
       return { provider, ours: ours.calls, theirs }
     }
 
@@ -619,7 +619,7 @@ describe('deliberate differences from Octokit', () => {
       fetch: async (_url, init) => new Promise((_resolve, reject) => {
         init?.signal?.addEventListener('abort', () => reject(Object.assign(new Error('aborted'), { name: 'TimeoutError' })))
       }),
-    }).create()
+    })
 
     await expect(provider.request('GET', '/repos/acme/widgets')).rejects.toThrow(ForgeTimeoutError)
   })

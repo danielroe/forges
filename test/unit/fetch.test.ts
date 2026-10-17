@@ -815,7 +815,7 @@ describe('user agent', () => {
         seen = new Headers(init?.headers).get('user-agent')
         return new Response('{}', { status: 200 })
       },
-    }).create()
+    })
     await forge.request('GET', '/rate_limit')
     return seen
   }

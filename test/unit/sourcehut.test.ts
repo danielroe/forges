@@ -166,7 +166,7 @@ function provider(fixtures: Fixture[] = FIXTURES, auth: { type: 'token', token: 
     }
     return response
   }
-  return { forge: sourcehut({ auth, fetch }).create(), calls: served.calls }
+  return { forge: sourcehut({ auth, fetch }), calls: served.calls }
 }
 
 describe('sourcehut', () => {
@@ -275,7 +275,7 @@ describe('sourcehut', () => {
 })
 
 describe('sourcehut web links', () => {
-  const forge = sourcehut({ auth: TOKEN }).create()
+  const forge = sourcehut({ auth: TOKEN })
 
   it('builds a raw file URL on the blob route', () => {
     // Sourcehut serves raw bytes on `blob`, unlike GitHub's `raw`.
@@ -292,7 +292,7 @@ describe('sourcehut webhooks', () => {
 
   it('verifies and translates a signed delivery', async () => {
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
-    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey }).create()
+    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey })
     const body = markPayload(JSON.stringify({ data: { webhook: {
       uuid: 'u1',
       event: 'GIT_POST_RECEIVE',
@@ -310,7 +310,7 @@ describe('sourcehut webhooks', () => {
   it('rejects a delivery signed by another key', async () => {
     const other = generateKeyPairSync('ed25519', { privateKeyEncoding: { type: 'pkcs8', format: 'der' }, publicKeyEncoding: { type: 'spki', format: 'der' } })
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
-    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey }).create()
+    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey })
     const body = JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } })
     const headers = await signDelivery('sourcehut', body, other.privateKey.toString('base64'))
     await expect(forge.webhooks.ingest({ headers, body })).rejects.toThrow()
@@ -319,7 +319,7 @@ describe('sourcehut webhooks', () => {
   it('verifies with a per-delivery public key that overrides the configured one', async () => {
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
     // No provider key, so only the delivery's own key can verify the signature.
-    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch }).create()
+    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch })
     const body = markPayload(JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } }), 'documented')
     const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
 

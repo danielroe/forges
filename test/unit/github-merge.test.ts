@@ -60,7 +60,7 @@ function scripted(routes: Record<string, Reply | Reply[]>) {
 
 function forge(routes: Record<string, Reply | Reply[]>, options: { baseUrl?: string, timeout?: number } = {}) {
   const { fetch, calls, aborted } = scripted(routes)
-  const provider = github({ auth: { type: 'token', token: 't' }, fetch, ...options }).create()
+  const provider = github({ auth: { type: 'token', token: 't' }, fetch, ...options })
   const instance = provider.instance
   const pull = { forge: 'github', instance, repo: { forge: 'github', instance, owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '42' } as const
   return {
