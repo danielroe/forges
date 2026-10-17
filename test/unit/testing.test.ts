@@ -47,6 +47,24 @@ describe('forges/testing', () => {
     expect(await read(last.fetch)).toBe(2)
   })
 
+  it('matches GraphQL requests on nested variables', async () => {
+    const url = 'https://api.github.com/graphql'
+    const fixtures = ['one', 'two'].map(title => ({ request: { method: 'POST', url, operationName: 'M', variables: { input: { title } } }, response: { status: 200, body: { title } } }))
+    const { fetch } = fixtureFetch(fixtures)
+    const send = (title: string) => fetch(url, { method: 'POST', body: JSON.stringify({ query: 'mutation M { m }', operationName: 'M', variables: { input: { title } } }) })
+
+    expect(await (await send('one')).json()).toEqual({ title: 'one' })
+    await expect(send('three')).rejects.toThrow('No fixture')
+  })
+
+  it('serves an override over a GraphQL fixture recorded with variables', async () => {
+    const url = 'https://api.github.com/graphql'
+    const { fetch } = fixtureFetch([{ request: { method: 'POST', url, operationName: 'M', variables: { id: '1' } }, response: { status: 200, body: { from: 'fixture' } } }], { [`POST ${url} M`]: { status: 200, body: { from: 'override' } } })
+    const response = await fetch(url, { method: 'POST', body: JSON.stringify({ query: 'query M { m }', operationName: 'M', variables: { id: '1' } }) })
+
+    expect(await response.json()).toEqual({ from: 'override' })
+  })
+
   it('records request bodies only when asked to', async () => {
     const upstream = async () => new Response('{}', { headers: { 'content-type': 'application/json' } })
     const init = { method: 'POST', body: JSON.stringify({ title: 'x' }) }

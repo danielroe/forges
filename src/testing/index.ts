@@ -63,12 +63,19 @@ export interface FixtureFetch {
   calls: FixtureCall[]
 }
 
+/** A `JSON.stringify` replacer that sorts the keys of every object, so key order never changes the JSON. */
+function sortedKeys(_key: string, value: unknown): unknown {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? Object.fromEntries(Object.keys(value).sort().map(key => [key, (value as Record<string, unknown>)[key]]))
+    : value
+}
+
 function fixtureKey(method: string, url: string, operationName?: string, variables?: Record<string, unknown>): string {
   const parsed = new URL(url)
   parsed.searchParams.sort()
   const base = `${method.toUpperCase()} ${parsed.origin}${parsed.pathname}${parsed.search}`
   const operation = operationName ? `${base} ${operationName}` : base
-  return variables ? `${operation} ${JSON.stringify(variables, Object.keys(variables).sort())}` : operation
+  return variables ? `${operation} ${JSON.stringify(variables, sortedKeys)}` : operation
 }
 
 function operationOf(url: string, body: string | undefined): { operationName?: string, variables?: Record<string, unknown> } {
@@ -127,9 +134,11 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
       responses.set(key, [{ response: fixture.response, fixture }])
     }
   }
+  // Kept apart, so an override also replaces fixtures recorded with GraphQL `variables`.
+  const replaced = new Map<string, Fixture['response']>()
   for (const [override, response] of Object.entries(overrides)) {
     const [method = 'GET', url = '', operationName] = override.split(' ')
-    responses.set(fixtureKey(method, url, operationName), [{ response }])
+    replaced.set(fixtureKey(method, url, operationName), response)
   }
   const served = new Map<string, number>()
   const take = (key: string) => {
@@ -145,7 +154,9 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
   const fetch: FetchLike = async (input, init) => {
     const call = callOf(input, init)
     calls.push(call)
-    const match = take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(fixtureKey(call.method, input, call.operationName))
+    const key = fixtureKey(call.method, input, call.operationName)
+    const override = replaced.get(key)
+    const match = override ? { response: override } : take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(key)
     if (!match) {
       throw new Error(`No fixture for ${call.method} ${input}${call.operationName ? ` (${call.operationName})` : ''}`)
     }
