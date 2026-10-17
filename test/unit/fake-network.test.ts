@@ -23,11 +23,11 @@ afterEach(() => {
 describe('fake forge failure injection', () => {
   it('rejects the next calls of a verb, then serves it again', async () => {
     const forge = fake({ seed })
-    forge.failNext('threads.comment', new ForgeApiError('Server error', 502, ''), { times: 2 })
+    forge.failNext('threads.createComment', new ForgeApiError('Server error', 502, ''), { times: 2 })
 
-    await expect(forge.threads.comment(issue, 'One')).rejects.toThrow('Server error')
-    await expect(forge.threads.comment(issue, 'Two')).rejects.toThrow('Server error')
-    await forge.threads.comment(issue, 'Three')
+    await expect(forge.threads.createComment(issue, 'One')).rejects.toThrow('Server error')
+    await expect(forge.threads.createComment(issue, 'Two')).rejects.toThrow('Server error')
+    await forge.threads.createComment(issue, 'Three')
 
     expect(forge.store.repos.get('acme/widgets')!.threads.get('1')!.comments.map(comment => comment.body)).toEqual(['Three'])
   })
@@ -71,7 +71,7 @@ describe('fake forge offline', () => {
     await expect(forge.threads.get(issue)).rejects.toThrow(ForgeNetworkError)
     await expect(forge.threads.listPage(repo)).rejects.toThrow(ForgeNetworkError)
     await expect(Array.fromAsync(forge.notifications.list())).rejects.toThrow(ForgeNetworkError)
-    await expect(forge.threads.comment(issue, 'Hello')).rejects.toThrow(ForgeNetworkError)
+    await expect(forge.threads.createComment(issue, 'Hello')).rejects.toThrow(ForgeNetworkError)
     await expect(forge.sources.subscribe()[Symbol.asyncIterator]().next()).rejects.toThrow(ForgeNetworkError)
 
     forge.online()
@@ -115,7 +115,7 @@ describe('fake forge latency', () => {
     const forge = fake({ seed })
     forge.setLatency(1000)
     const controller = new AbortController()
-    const write = forge.threads.comment(issue, 'Hello', { signal: controller.signal })
+    const write = forge.threads.createComment(issue, 'Hello', { signal: controller.signal })
     const reason = new Error('Cancelled')
 
     controller.abort(reason)
@@ -141,7 +141,7 @@ describe('fake forge clock', () => {
     const forge = fake({ seed, now: () => new Date(time) })
 
     time += 60_000
-    const comment = await forge.threads.comment(issue, 'Later')
+    const comment = await forge.threads.createComment(issue, 'Later')
     time += 60_000
     await forge.threads.close(issue)
 
@@ -158,7 +158,7 @@ describe('fake forge copies', () => {
 
     const thread = await forge.threads.get(issue)
     thread.title = 'Optimistic'
-    const comment = await forge.threads.comment(issue, 'Hello')
+    const comment = await forge.threads.createComment(issue, 'Hello')
     comment.body = 'Optimistic'
     const [listed] = (await forge.threads.commentsPage(issue)).items
     listed!.body = 'Optimistic'
@@ -186,12 +186,12 @@ describe('fake forge conditional reads', () => {
 
   it.each(Object.entries(listings))('serves %s as not modified until a write changes it', async (_, listing) => {
     const forge = fake({ seed })
-    await forge.threads.comment(issue, 'First')
+    await forge.threads.createComment(issue, 'First')
     const read = listing(forge)
 
     const first = await read()
     const again = await read({ etag: first.etag })
-    await forge.threads.comment(issue, 'Second')
+    await forge.threads.createComment(issue, 'Second')
     await forge.notifications.markRead({ forge: 'fake', instance: 'fake.test', id: '1' })
     const changed = await read({ etag: first.etag })
 
@@ -203,8 +203,8 @@ describe('fake forge conditional reads', () => {
 
   it('gives later pages no etag', async () => {
     const forge = fake({ seed })
-    await forge.threads.comment(issue, 'First')
-    await forge.threads.comment(issue, 'Second')
+    await forge.threads.createComment(issue, 'First')
+    await forge.threads.createComment(issue, 'Second')
 
     const first = await forge.threads.commentsPage(issue, { perPage: 1 })
     const second = await forge.threads.commentsPage(issue, { perPage: 1, cursor: first.cursor })
@@ -339,9 +339,9 @@ describe('fake forge rate limit', () => {
 
   it('rejects with a secondary limit through failNext() while the budget has requests left', async () => {
     const forge = fake({ seed, rateLimit: { limit: 10 } })
-    forge.failNext('threads.comment', new RateLimitedError('Secondary rate limit', 403, '', { secondary: true }))
+    forge.failNext('threads.createComment', new RateLimitedError('Secondary rate limit', 403, '', { secondary: true }))
 
-    await expect(forge.threads.comment(issue, 'Hello')).rejects.toMatchObject({ secondary: true, resetAt: undefined })
+    await expect(forge.threads.createComment(issue, 'Hello')).rejects.toMatchObject({ secondary: true, resetAt: undefined })
     expect(forge.rateLimits()).toMatchObject([{ remaining: 9 }])
   })
 })
@@ -351,7 +351,7 @@ describe('fake forge offline queue', () => {
     const forge = fake({ seed })
     const mutation = { key: 'mutation-1', body: 'Thanks for the report' }
 
-    forge.failNext('threads.comment', new ForgeTimeoutError('Request timed out', 30_000), { applied: true })
+    forge.failNext('threads.createComment', new ForgeTimeoutError('Request timed out', 30_000), { applied: true })
     await expect(upsertComment(forge, issue, mutation)).rejects.toThrow(ForgeTimeoutError)
     const retried = await upsertComment(forge, issue, mutation)
 

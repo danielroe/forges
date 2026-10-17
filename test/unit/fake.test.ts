@@ -18,7 +18,7 @@ describe('fake forge', () => {
     const repo = (await forge.repos.get({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).ref
     const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
 
-    await forge.threads.comment(issue!.ref, 'Looking into it')
+    await forge.threads.createComment(issue!.ref, 'Looking into it')
     await forge.threads.setLabels(issue!.ref, ['bug'])
     await forge.threads.close(issue!.ref, { reason: 'completed' })
     const after = await forge.threads.get(issue!.ref)
@@ -88,7 +88,7 @@ describe('fake forge', () => {
     const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', jobs: [{ name: 'test' }, { name: 'lint' }] }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
-    const comment = await forge.threads.comment(pull, 'Looks good')
+    const comment = await forge.threads.createComment(pull, 'Looks good')
     const review = await forge.threads.createReview(pull, { event: 'approve' })
     const [run] = (await forge.ci.runsPage(repo)).items
     const [, job] = (await forge.ci.jobsPage(run!.ref)).items
@@ -157,8 +157,8 @@ describe('fake forge', () => {
     const thread = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const }
 
     await expect(forge.threads.get(thread)).rejects.toThrow(UnresolvedThreadError)
-    await expect(forge.threads.comment(thread, 'Thanks!')).rejects.toThrow(UnresolvedThreadError)
-    await expect(forge.threads.editComment({ forge: 'fake', instance: 'fake.test', thread, id: '1-1' }, 'Edited')).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.createComment(thread, 'Thanks!')).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.updateComment({ forge: 'fake', instance: 'fake.test', thread, id: '1-1' }, 'Edited')).rejects.toThrow(UnresolvedThreadError)
   })
 
   it('streams writes to subscribers as they happen', async () => {
@@ -197,11 +197,11 @@ describe('fake forge', () => {
     const forge = fake({ seed })
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
 
-    const first = await forge.threads.comment(issue, 'First')
-    const second = await forge.threads.comment(issue, 'Second')
+    const first = await forge.threads.createComment(issue, 'First')
+    const second = await forge.threads.createComment(issue, 'Second')
     await forge.threads.deleteComment(first.ref)
-    const third = await forge.threads.comment(issue, 'Third')
-    await forge.threads.editComment(third.ref, 'Third, edited')
+    const third = await forge.threads.createComment(issue, 'Third')
+    await forge.threads.updateComment(third.ref, 'Third, edited')
 
     expect([first, second, third].map(comment => comment.ref.id)).toEqual(['1-1', '1-2', '1-3'])
     expect((await forge.threads.commentsPage(issue)).items.map(comment => comment.body)).toEqual(['Second', 'Third, edited'])
@@ -236,7 +236,7 @@ describe('fake forge', () => {
     const forge = fake({ seed, viewer: 'octocat' })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
     const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
-    const comment = await forge.threads.comment(issue!.ref, 'Looking into it')
+    const comment = await forge.threads.createComment(issue!.ref, 'Looking into it')
 
     await forge.threads.react(issue!.ref, '+1')
     await forge.threads.react(issue!.ref, 'heart')
@@ -504,7 +504,7 @@ describe('fake listing filters', () => {
   it('filters threads by mention, involvement, milestone, update and creation time, and sorts them', async () => {
     const { forge, tick } = clocked()
     tick(60_000)
-    await forge.threads.comment({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number: '1' }, 'bump')
+    await forge.threads.createComment({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number: '1' }, 'bump')
     const titles = async (query: Parameters<typeof forge.threads.listPage>[1]) => (await forge.threads.listPage(repo, query)).items.map(thread => thread.title)
 
     expect(await titles({ mentions: 'bob' })).toEqual(['Mentions bob'])
@@ -536,7 +536,7 @@ describe('fake event sources', () => {
   it('reads polled events with source poll and an id of the listing\'s own', async () => {
     const forge = fake({ seed })
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '1' } as const
-    await forge.threads.comment(issue, 'Hello')
+    await forge.threads.createComment(issue, 'Hello')
 
     const [timeline] = (await forge.threads.eventsPage(issue)).items
     const [feed] = (await forge.repos.eventsPage(issue.repo)).items
@@ -580,7 +580,7 @@ describe('fake writes by someone else', () => {
   it('records the write as theirs and marks the viewer\'s notification for the thread unread again', async () => {
     const { viewer, octocat } = forge()
 
-    const comment = await octocat.threads.comment(issue('1'), 'Any news?')
+    const comment = await octocat.threads.createComment(issue('1'), 'Any news?')
 
     expect(comment.author?.login).toBe('octocat')
     expect(viewer.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
@@ -593,10 +593,10 @@ describe('fake writes by someone else', () => {
   it('notifies the viewer of a mention or a review request on a thread the viewer is not subscribed to', async () => {
     const { viewer, octocat } = forge()
 
-    await octocat.threads.comment(issue('2'), 'Nothing to see')
-    await octocat.threads.comment(issue('2'), 'cc @fake-user')
+    await octocat.threads.createComment(issue('2'), 'Nothing to see')
+    await octocat.threads.createComment(issue('2'), 'cc @fake-user')
     await octocat.threads.requestReview({ ...issue('3'), kind: 'pull_request' }, ['fake-user'])
-    await viewer.threads.comment(issue('1'), 'Own comment')
+    await viewer.threads.createComment(issue('1'), 'Own comment')
 
     expect((await viewer.notifications.listPage()).items.map(item => [item.subject.type === 'thread' && item.subject.thread.number, item.reason])).toEqual([['2', 'mention'], ['3', 'review_requested']])
   })
@@ -733,7 +733,7 @@ describe('fake write results', () => {
   it('locks a conversation, hides a comment and blocks an account in the store', async () => {
     const forge = fake({ seed })
     const org = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: '', kind: 'namespace' } as const
-    const comment = await forge.threads.comment(issue, 'Buy cheap watches')
+    const comment = await forge.threads.createComment(issue, 'Buy cheap watches')
 
     await forge.threads.lock(issue, { reason: 'spam' })
     expect((await forge.threads.get(issue)).locked).toBe(true)

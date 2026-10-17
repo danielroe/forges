@@ -155,11 +155,11 @@ function threadWrites(kind: WriteKind): WriteStep[] {
   const prefix = kind === 'pull_request' ? 'pull' : kind
   const ref = (context: WriteContext) => threadOf(context, kind)
   return [
-    { name: `${prefix} comment`, verb: 'threads.comment', kind, run: async (provider, manifest, context) => {
-      context.comments[kind] = await provider.threads.comment(ref(context), `A comment from run ${manifest.run.id}.`)
+    { name: `${prefix} comment`, verb: 'threads.createComment', kind, run: async (provider, manifest, context) => {
+      context.comments[kind] = await provider.threads.createComment(ref(context), `A comment from run ${manifest.run.id}.`)
       return context.comments[kind]
     } },
-    { name: `${prefix} edit comment`, verb: 'threads.editComment', kind, run: (provider, manifest, context) => provider.threads.editComment(need(context.comments[kind], 'a comment').ref, `An edited comment from run ${manifest.run.id}.`) },
+    { name: `${prefix} edit comment`, verb: 'threads.updateComment', kind, run: (provider, manifest, context) => provider.threads.updateComment(need(context.comments[kind], 'a comment').ref, `An edited comment from run ${manifest.run.id}.`) },
     { name: `${prefix} hide comment`, verb: 'threads.hideComment', kind, run: (provider, _manifest, context) => provider.threads.hideComment(need(context.comments[kind], 'a comment').ref, 'outdated') },
     { name: `${prefix} unhide comment`, verb: 'threads.unhideComment', kind, run: (provider, _manifest, context) => provider.threads.unhideComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} get comment`, verb: 'threads.getComment', kind, run: async (provider, _manifest, context) => {
@@ -176,7 +176,7 @@ function threadWrites(kind: WriteKind): WriteStep[] {
         await context.wait(5_000)
       }
     } },
-    { name: `${prefix} upsert comment`, verb: 'threads.editComment', kind, run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
+    { name: `${prefix} upsert comment`, verb: 'threads.updateComment', kind, run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
     { name: `${prefix} delete comment`, verb: 'threads.deleteComment', kind, run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} react`, verb: 'threads.react', kind, run: (provider, _manifest, context) => provider.threads.react(ref(context), '+1') },
     { name: `${prefix} unreact`, verb: 'threads.unreact', kind, run: (provider, _manifest, context) => provider.threads.unreact(ref(context), '+1') },
@@ -203,15 +203,15 @@ function commitWrites(): WriteStep[] {
     return { forge: pull.ref.forge, instance: pull.ref.instance, repo: pull.ref.repo, kind: 'commit', number: need(pull.branches?.head.sha, 'the pull head sha') }
   }
   return [
-    { name: 'commit comment', verb: 'threads.comment', kind: 'commit', run: async (provider, manifest, context) => {
-      context.comments.commit = await provider.threads.comment(ref(context), `A commit comment from run ${manifest.run.id}.`)
+    { name: 'commit comment', verb: 'threads.createComment', kind: 'commit', run: async (provider, manifest, context) => {
+      context.comments.commit = await provider.threads.createComment(ref(context), `A commit comment from run ${manifest.run.id}.`)
       return context.comments.commit
     } },
-    { name: 'commit edit comment', verb: 'threads.editComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.editComment(need(context.comments.commit, 'a commit comment').ref, `An edited commit comment from run ${manifest.run.id}.`) },
+    { name: 'commit edit comment', verb: 'threads.updateComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.updateComment(need(context.comments.commit, 'a commit comment').ref, `An edited commit comment from run ${manifest.run.id}.`) },
     { name: 'commit hide comment', verb: 'threads.hideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.hideComment(need(context.comments.commit, 'a commit comment').ref, 'outdated') },
     { name: 'commit unhide comment', verb: 'threads.unhideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.unhideComment(need(context.comments.commit, 'a commit comment').ref) },
     { name: 'commit get comment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments.commit, 'a commit comment').ref) },
-    { name: 'commit upsert comment', verb: 'threads.editComment', kind: 'commit', run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
+    { name: 'commit upsert comment', verb: 'threads.updateComment', kind: 'commit', run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
     { name: 'commit delete comment', verb: 'threads.deleteComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments.commit, 'a commit comment').ref) },
   ]
 }
@@ -520,13 +520,13 @@ export const WRITE_STEPS: WriteStep[] = [
   { name: 'redeliver', verb: 'webhooks.redeliver', run: (provider, _manifest, context) => provider.webhooks.redeliver(need(context.delivery, 'a delivery').ref) },
   { name: 'delete webhook', verb: 'webhooks.delete', run: (provider, _manifest, context) => provider.webhooks.delete(need(context.webhook, 'a webhook').ref) },
 
-  { name: 'mention author', verb: 'threads.comment', kind: 'issue', as: 'reviewer', run: async (provider, manifest, context) => {
+  { name: 'mention author', verb: 'threads.createComment', kind: 'issue', as: 'reviewer', run: async (provider, manifest, context) => {
     const { login } = need(context.author, 'the author')
     // Azure DevOps logins are email addresses, which a recording must not keep.
     if (login.includes('@')) {
       throw new Error('The author login is an email address')
     }
-    return provider.threads.comment(threadOf(context, 'issue'), `@${login} a mention from run ${manifest.run.id}.`)
+    return provider.threads.createComment(threadOf(context, 'issue'), `@${login} a mention from run ${manifest.run.id}.`)
   } },
   { name: 'author notifications', verb: 'notifications.listPage', run: async (provider, manifest, context) => {
     for (let attempt = 1; ; attempt++) {

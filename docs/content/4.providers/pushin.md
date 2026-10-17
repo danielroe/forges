@@ -107,7 +107,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.list` | issue, PR | issue, PR |
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | ∅ | ∅ |
+| `comments.update` | ∅ | ∅ |
 | `comments.delete` | ∅ | ∅ |
 | `comments.hide` | ∅ | ∅ |
 | `reactions.list` | ❌ | ❌ |
@@ -118,7 +118,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `notifications.markAllRead` | ∅ | ∅ |
 | `notifications.markAllDone` | ∅ | ∅ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | ∅ | ∅ |
+| `writes.createComment` | ∅ | ∅ |
 | `writes.close` | ∅ | ∅ |
 | `writes.reopen` | ∅ | ∅ |
 | `writes.lock` | ∅ | ∅ |

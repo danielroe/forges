@@ -783,7 +783,7 @@ async function recordWebhooks(): Promise<void> {
     const thread = plain.can('threads.create', 'issue')
       ? await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
       : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
-    await plain.threads.comment(thread.ref, `A comment from run ${id}.`)
+    await plain.threads.createComment(thread.ref, `A comment from run ${id}.`)
     await plain.threads.close(thread.ref)
     // The push, open, comment and close above produce at least four deliveries; forges may send more, so stop once two polls in a row find nothing new.
     for (let attempt = 0, quiet = 0; attempt < 12 && quiet < 2; attempt++) {

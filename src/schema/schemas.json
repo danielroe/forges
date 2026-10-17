@@ -1672,9 +1672,9 @@
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.getComment()`, per thread kind."
           },
-          "edit": {
+          "update": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.editComment()`, per thread kind."
+            "description": "Support for `threads.updateComment()`, per thread kind."
           },
           "delete": {
             "$ref": "#/components/schemas/PerKind",
@@ -1688,7 +1688,7 @@
         "required": [
           "list",
           "get",
-          "edit",
+          "update",
           "delete",
           "hide"
         ]
@@ -1751,9 +1751,9 @@
       "writes": {
         "type": "object",
         "properties": {
-          "comment": {
+          "createComment": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.comment()`, per thread kind."
+            "description": "Support for `threads.createComment()`, per thread kind."
           },
           "close": {
             "$ref": "#/components/schemas/PerKind",
@@ -1821,7 +1821,7 @@
           }
         },
         "required": [
-          "comment",
+          "createComment",
           "close",
           "reopen",
           "lock",

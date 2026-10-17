@@ -269,8 +269,8 @@ export interface ForgeCapabilities {
     list: PerKind
     /** Support for `threads.getComment()`, per thread kind. */
     get: PerKind
-    /** Support for `threads.editComment()`, per thread kind. */
-    edit: PerKind
+    /** Support for `threads.updateComment()`, per thread kind. */
+    update: PerKind
     /** Support for `threads.deleteComment()`, per thread kind. */
     delete: PerKind
     /** Support for `threads.hideComment()` and `threads.unhideComment()`, per thread kind. */
@@ -299,8 +299,8 @@ export interface ForgeCapabilities {
   }
   /** Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`. */
   writes: {
-    /** Support for `threads.comment()`, per thread kind. */
-    comment: PerKind
+    /** Support for `threads.createComment()`, per thread kind. */
+    createComment: PerKind
     /** Support for `threads.close()`, per thread kind. */
     close: PerKind
     /** Support for `threads.reopen()`, per thread kind. */
@@ -617,12 +617,12 @@ export interface ThreadsApi {
    * `withCommentMarker()` and retry with `upsertComment()`, both from `forges/helpers`.
    * @example
    * ```ts
-   * await provider.threads.comment(ref, 'Deployed to staging')
+   * await provider.threads.createComment(ref, 'Deployed to staging')
    * ```
    */
-  comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
+  createComment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Replaces the body of a comment. */
-  editComment: (ref: CommentRef, body: string, options?: BaseOptions) => Promise<Comment>
+  updateComment: (ref: CommentRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Deletes a comment. A repeat can reject with `NotFoundError` once the comment is gone. */
   deleteComment: (ref: CommentRef, options?: BaseOptions) => Promise<void>
   /**
@@ -1315,7 +1315,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * including version gates. Every verb is always present and rejects with
    * `UnsupportedOperationError` when this is `false`: the capability is the
    * question, the method is the action.
-   * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+   * @param verb The operation, named by its path on the provider, such as `threads.createComment`.
    * @param kind The thread kind, for an operation whose support differs by kind.
    * @example
    * ```ts
@@ -1330,7 +1330,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * or `false`, for `kind` where support differs by kind. `can()` is `true`
    * for every level but `false` and `'not_applicable'`. Without `kind`, a
    * per-kind verb reports its strongest level across kinds.
-   * @param verb The operation, named by its path on the provider, such as `threads.comment`.
+   * @param verb The operation, named by its path on the provider, such as `threads.createComment`.
    * @param kind The thread kind, for an operation whose support differs by kind.
    */
   support: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => Support

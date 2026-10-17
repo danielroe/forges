@@ -145,7 +145,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `threads.events` | issue, PR | issue, PR |
 | `comments.list` | issue, PR | issue, PR |
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | issue (unverified), PR (unverified) | ❌ |
+| `comments.update` | issue (unverified), PR (unverified) | ❌ |
 | `comments.delete` | issue (unverified), PR (unverified) | ❌ |
 | `comments.hide` | ∅ | ∅ |
 | `reactions.list` | ❌ | ❌ |
@@ -156,7 +156,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue (unverified), PR | ❌ |
+| `writes.createComment` | issue (unverified), PR | ❌ |
 | `writes.close` | issue (unverified), PR | ❌ |
 | `writes.reopen` | issue (unverified), PR | ❌ |
 | `writes.lock` | ❌ | ❌ |

@@ -377,7 +377,7 @@ describe('fake activity feeds', () => {
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const [issue] = (await forge.threads.listPage(repo)).items
 
-    await forge.threads.comment(issue!.ref, 'Looking')
+    await forge.threads.createComment(issue!.ref, 'Looking')
     await forge.threads.close(issue!.ref)
     const me = await forge.users.me()
 

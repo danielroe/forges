@@ -65,13 +65,13 @@ describe('upsertComment', () => {
     it('finds the comment that a first attempt left behind instead of posting another', async () => {
       const { forge, state, ref, comment } = seeded()
       state.comments.push(comment('1-1', `Deployed\r\n\r\n${commentMarker('mutation-1')}\n`, new Date('2026-03-01T12:00:03Z')))
-      const editComment = vi.spyOn(forge.threads, 'editComment')
+      const updateComment = vi.spyOn(forge.threads, 'updateComment')
 
       const retry = await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
       expect(retry).toMatchObject({ created: false, comment: { ref: { id: '1-1' } } })
       expect(state.comments).toHaveLength(1)
-      expect(editComment).not.toHaveBeenCalled()
+      expect(updateComment).not.toHaveBeenCalled()
     })
 
     it('edits the comment that an earlier call left behind when the body changed', async () => {

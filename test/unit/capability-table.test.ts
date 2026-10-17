@@ -128,7 +128,7 @@ describe('capability table', () => {
   it('types verbs from the table, including the derived ones', () => {
     const verbs: ForgeVerb[] = ['repos.labels', 'repos.labelsPage', 'threads.react', 'threads.events', 'installations.providers']
     // @ts-expect-error a capability path is not a verb
-    const capability: ForgeVerb = 'writes.comment'
+    const capability: ForgeVerb = 'writes.createComment'
 
     expect([...verbs, capability].every(verb => table.some(entry => entry.verbs?.includes(verb)))).toBe(false)
     expect(verbs.every(verb => table.some(entry => entry.verbs?.includes(verb)))).toBe(true)
@@ -152,13 +152,13 @@ describe('capability table', () => {
   it('reports the support level of a verb by its provider path', () => {
     const provider = azureDevOps({ auth, organization: 'acme' })
 
-    expect(provider.support('threads.comment', 'issue')).toBe(true)
-    expect(provider.support('threads.comment', 'pull_request')).toBe(true)
-    expect(provider.support('threads.comment')).toBe(true)
-    expect(provider.support('threads.comment', 'discussion')).toBe(false)
+    expect(provider.support('threads.createComment', 'issue')).toBe(true)
+    expect(provider.support('threads.createComment', 'pull_request')).toBe(true)
+    expect(provider.support('threads.createComment')).toBe(true)
+    expect(provider.support('threads.createComment', 'discussion')).toBe(false)
     expect(github({ auth }).support('repos.reviewerCandidates')).toBe('emulated')
     expect(github({ auth }).support('repos.reviewerCandidatesPage')).toBe('emulated')
-    expect(gitee({ auth }).support('threads.comment', 'issue')).toBe(true)
+    expect(gitee({ auth }).support('threads.createComment', 'issue')).toBe(true)
     expect(github({}).support('ci.log')).toBe(false)
   })
 
@@ -183,10 +183,10 @@ describe('capability table', () => {
     const azure = azureDevOps({ auth, organization: 'acme' })
     const giteeProvider = gitee({ auth })
 
-    expect(azure.capabilities.writes.comment.issue).toBe(true)
-    expect(declaredCapabilities(azure).writes.comment).toMatchObject({ issue: 'experimental', pull_request: true })
-    expect(giteeProvider.capabilities.writes.comment.issue).toBe(true)
-    expect(declaredCapabilities(giteeProvider).writes.comment.issue).toBe('unverified')
+    expect(azure.capabilities.writes.createComment.issue).toBe(true)
+    expect(declaredCapabilities(azure).writes.createComment).toMatchObject({ issue: 'experimental', pull_request: true })
+    expect(giteeProvider.capabilities.writes.createComment.issue).toBe(true)
+    expect(declaredCapabilities(giteeProvider).writes.createComment.issue).toBe('unverified')
   })
 
   it('emulates a single-item read from its listing, at the level the spec sets', () => {
@@ -198,9 +198,9 @@ describe('capability table', () => {
   })
 
   it('reports the strongest level across kinds without a kind', () => {
-    expect(gitee({ auth }).support('threads.comment')).toBe(true)
+    expect(gitee({ auth }).support('threads.createComment')).toBe(true)
     expect(bitbucket({ auth }).support('threads.getComment')).toBe('emulated')
-    expect(gitee({ auth }).can('threads.editComment')).toBe(true)
+    expect(gitee({ auth }).can('threads.updateComment')).toBe(true)
   })
 
   it('names the problem when asked about an unknown verb', () => {

@@ -226,7 +226,7 @@ const TASKS: CredentialTask[] = [
   { id: 'search', group: 'Read', label: 'Search', capabilities: ['search.threads', 'search.repos', 'search.commits', 'search.code'] },
   { id: 'security', group: 'Read', label: 'Security alerts', capabilities: ['securityAlerts'] },
   { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'subscriptions.get'] },
-  { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['writes.comment', 'comments.edit', 'comments.delete', 'writes.react'] },
+  { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['writes.createComment', 'comments.update', 'comments.delete', 'writes.react'] },
   { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['writes.create', 'writes.update', 'writes.close', 'writes.reopen', 'writes.transfer', 'writes.markDuplicate'] },
   { id: 'triage', group: 'Write', label: 'Labels, assignees and milestones', capabilities: ['writes.setLabels', 'writes.addLabels', 'writes.removeLabels', 'writes.setMilestone', 'writes.setAssignees', 'repos.createLabel'] },
   { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['writes.requestReview', 'reviews.create', 'reviews.submit', 'reviews.approve', 'reviews.reply', 'reviews.resolveThread'] },

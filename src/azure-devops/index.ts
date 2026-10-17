@@ -610,7 +610,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
         return toPullComment(thread, data, comment)
       }),
-      comment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         if (ref.kind === 'issue') {
           const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(ref)}/comments`, { method: 'POST', json: { text: body }, query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
@@ -619,7 +619,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const { data } = await fetcher.json<AzureThread>(`${pullPath(ref)}/threads`, { method: 'POST', json: { comments: [{ parentCommentId: 0, content: body, commentType: 'text' }], status: 'active' }, signal: options?.signal })
         return toPullComment(ref, data, data.comments[0]!)
       }),
-      editComment: perKind({ issue: 'experimental', pull_request: true }, async (ref, body, options) => {
+      updateComment: perKind({ issue: 'experimental', pull_request: true }, async (ref, body, options) => {
         const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
         if (thread.kind === 'issue') {
           const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, { method: 'PATCH', json: { text: body }, query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })

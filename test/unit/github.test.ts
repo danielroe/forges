@@ -312,7 +312,7 @@ describe('github discussions', () => {
 
   it('mutates directly when the ref already carries the node id', async () => {
     const { provider, calls } = tokenProvider()
-    await provider.threads.comment!({ ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' }, 'Nice')
+    await provider.threads.createComment!({ ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' }, 'Nice')
     await provider.threads.reopen!({ ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' })
 
     expect(calls.map(call => call.operationName)).toEqual(['AddDiscussionComment', 'ReopenDiscussion'])
@@ -2064,7 +2064,7 @@ describe('github path safety', () => {
   it('keeps a thread number that tries to climb out of the repository inside it', async () => {
     const { provider, urls } = recordingProvider()
 
-    await provider.threads.comment({ ...pull, kind: 'issue', number: '1/../../../../user/keys' }, 'hi')
+    await provider.threads.createComment({ ...pull, kind: 'issue', number: '1/../../../../user/keys' }, 'hi')
 
     expect(urls).toEqual(['https://api.github.com/repos/acme/widgets/issues/1%2F..%2F..%2F..%2F..%2Fuser%2Fkeys/comments'])
   })
@@ -2072,7 +2072,7 @@ describe('github path safety', () => {
   it('encodes owner, name and number so they cannot add path segments or a query', async () => {
     const { provider, urls } = recordingProvider()
 
-    await provider.threads.comment({ ...pull, repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' }, kind: 'issue', number: '1?x=' }, 'hi')
+    await provider.threads.createComment({ ...pull, repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' }, kind: 'issue', number: '1?x=' }, 'hi')
 
     expect(urls).toEqual(['https://api.github.com/repos/acme%2Fx/widgets%3Fy%3D1/issues/1%3Fx%3D/comments'])
   })

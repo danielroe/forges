@@ -179,7 +179,7 @@ describe.each(contracts)('contract: $name', (contract) => {
     const ref = { forge: contract.name, instance: contract.instance, thread: { ...threadRef(), number: undefined }, id: '1' }
     const reads = {
       'threads.getComment': () => instance.threads.getComment(ref),
-      ...contract.editsCommentWithoutThreadNumber ? {} : { 'threads.editComment': () => instance.threads.editComment(ref, 'Edited') },
+      ...contract.editsCommentWithoutThreadNumber ? {} : { 'threads.updateComment': () => instance.threads.updateComment(ref, 'Edited') },
     }
     const supported = Object.entries(reads).filter(([verb]) => instance.can(verb as ForgeVerb, 'pull_request'))
 
@@ -236,7 +236,7 @@ describe.each(contracts)('contract: $name', (contract) => {
 
   it('comments on a pull request', async () => {
     const { instance, calls } = provider()
-    const comment = await instance.threads.comment!(threadRef(), 'Thanks!')
+    const comment = await instance.threads.createComment!(threadRef(), 'Thanks!')
     const write = calls.filter(call => call.method !== 'GET' && !contract.writes.ignore?.test(call.url)).at(-1)!
 
     expect(write).toMatchObject(contract.writes.comment)
@@ -491,7 +491,7 @@ describe.each(contracts)('contract: $name', (contract) => {
     it('aborts a comment write with the caller\'s reason', async () => {
       const { controller, instance, started } = abortable()
 
-      const pending = instance.threads.comment(threadRef(), 'Thanks!', { signal: controller.signal })
+      const pending = instance.threads.createComment(threadRef(), 'Thanks!', { signal: controller.signal })
       await started
       controller.abort(reason)
 

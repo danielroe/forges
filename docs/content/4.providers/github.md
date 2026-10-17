@@ -338,7 +338,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `threads.events` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
 | `comments.list` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
 | `comments.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue (unverified), PR, commit (unverified) |
-| `comments.edit` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `comments.update` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
 | `comments.delete` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
 | `comments.hide` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
 | `reactions.list` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
@@ -349,7 +349,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `notifications.markAllRead` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `writes.comment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `writes.createComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
 | `writes.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `writes.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `writes.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |

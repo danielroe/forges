@@ -180,8 +180,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     eventsPage: Verb<(ref: ThreadRef, options?: ListOptions) => Promise<Page<ForgeEventInput>>>
     commentsPage: ThreadVerb<'commentsPage'>
     getComment?: ThreadVerb<'getComment'>
-    comment?: ThreadVerb<'comment'>
-    editComment?: ThreadVerb<'editComment'>
+    createComment?: ThreadVerb<'createComment'>
+    updateComment?: ThreadVerb<'updateComment'>
     deleteComment?: ThreadVerb<'deleteComment'>
     /** One capability covers hiding and unhiding a comment. */
     hiding?: KindVerb<Pick<ThreadsApi, 'hideComment' | 'unhideComment'>>

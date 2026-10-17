@@ -219,7 +219,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.events` | issue, PR | issue, PR |
 | `comments.list` | issue, PR | issue, PR |
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | issue, PR | ❌ |
+| `comments.update` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
 | `comments.hide` | ∅ | ∅ |
 | `reactions.list` | issue, PR | issue, PR |
@@ -230,7 +230,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | unverified | ❌ |
-| `writes.comment` | issue, PR | ❌ |
+| `writes.createComment` | issue, PR | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ∅ | ∅ |

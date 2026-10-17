@@ -2109,7 +2109,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), { signal: options?.signal })
         return data.head?.sha ? headChecks(ref.repo, data.head.sha, options?.signal) : { items: [] }
       }),
-      comment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
           const data = await graphql<{ addDiscussionComment: { comment: GraphQLComment } }>('ADD_DISCUSSION_COMMENT', { id: await discussionId(ref, options), body }, options)
@@ -2121,7 +2121,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubComment>(path, { method: 'POST', json: { body }, signal: options?.signal })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, body, options) => {
+      updateComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         if (thread.kind === 'discussion') {
           const data = await graphql<{ updateDiscussionComment: { comment: GraphQLComment } }>('UPDATE_DISCUSSION_COMMENT', { id: ref.id, body }, options)

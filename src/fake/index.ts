@@ -354,7 +354,7 @@ export interface FakeProvider extends ForgeProvider {
    * @throws {TypeError} For a verb that sends no request of its own, or that the fake forge does not implement.
    * @example
    * ```ts
-   * forge.failNext('threads.comment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
+   * forge.failNext('threads.createComment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
    * ```
    */
   failNext: (verb: ForgeVerb, error: Error | (() => Error), options?: FakeFailureOptions) => void
@@ -373,7 +373,7 @@ export interface FakeProvider extends ForgeProvider {
    * notification for the thread then becomes unread, or is added.
    * @example
    * ```ts
-   * await forge.as('octocat').threads.comment(issue, 'Any news, @fake-user?')
+   * await forge.as('octocat').threads.createComment(issue, 'Any news, @fake-user?')
    * ```
    */
   as: (login: string) => ForgeProvider
@@ -1394,7 +1394,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             record(by, thread, 'reaction', 'deleted', `removed a ${reaction} reaction`)
           },
         }),
-        comment: perKind(kinds('threads.comment', WRITABLE), async (ref, body) => {
+        createComment: perKind(kinds('threads.createComment', WRITABLE), async (ref, body) => {
           const state = threadState(ref)
           const count = Math.max(commentCounts.get(state) ?? 0, state.comments.length) + 1
           commentCounts.set(state, count)
@@ -1404,7 +1404,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           record(by, state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
           return comment
         }),
-        editComment: perKind(kinds('threads.editComment', WRITABLE), async (ref: CommentRef, body: string) => {
+        updateComment: perKind(kinds('threads.updateComment', WRITABLE), async (ref: CommentRef, body: string) => {
           const comment = threadState(ref.thread).comments.find(item => item.ref.id === ref.id)
           if (!comment) {
             throw notFound(`No comment ${ref.id}`)

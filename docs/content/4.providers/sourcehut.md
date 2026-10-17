@@ -113,7 +113,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `threads.events` | issue, PR | ❌ |
 | `comments.list` | issue, PR | ❌ |
 | `comments.get` | issue (emulated), PR (emulated) | ❌ |
-| `comments.edit` | ❌ | ❌ |
+| `comments.update` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
@@ -124,7 +124,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | ❌ | ❌ |
+| `writes.createComment` | ❌ | ❌ |
 | `writes.close` | ❌ | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |

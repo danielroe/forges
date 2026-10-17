@@ -58,7 +58,7 @@ describe('identity keys', () => {
     const [listed] = (await provider.threads.listPage({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).items
     const ref: ThreadRef = listed!.ref
     const thread = await provider.threads.get(ref)
-    const comment = await provider.threads.comment(ref, 'Thanks!')
+    const comment = await provider.threads.createComment(ref, 'Thanks!')
     const { comment: upserted } = await upsertComment(provider, ref, { key: 'status', body: 'Green' })
     const review = await provider.threads.createReview(ref, { event: 'approve' })
     const [event] = (await provider.threads.eventsPage(ref)).items
@@ -205,7 +205,7 @@ describe('exported types', () => {
   })
 
   it('declares every verb as present on the provider surface', () => {
-    expectTypeOf<ForgeProvider['threads']['comment']>().not.toBeNullable()
+    expectTypeOf<ForgeProvider['threads']['createComment']>().not.toBeNullable()
     expectTypeOf<ForgeProvider['notifications']['markRead']>().not.toBeNullable()
     expectTypeOf<Forges['providers']>().toEqualTypeOf<ForgeProvider[]>()
   })

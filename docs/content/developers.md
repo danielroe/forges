@@ -50,7 +50,7 @@ const repo = {
 } as const
 
 for await (const issue of forge.threads.list(repo, { kind: 'issue' })) {
-  await forge.threads.comment(issue.ref, 'Thanks for the report.')
+  await forge.threads.createComment(issue.ref, 'Thanks for the report.')
 }
 
 console.log(forge.store.events)

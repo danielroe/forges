@@ -1070,7 +1070,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             }
           }
           if (input.event !== 'approve') {
-            throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; create `approve`, or `comment` with a body', context)
+            throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; use `threads.approve()`, or `threads.createComment()` with a body', context)
           }
           return approve(ref, input.body, options)
         }),
@@ -1155,7 +1155,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           }
           return toNoteComment(thread, data)
         }),
-        comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {
+        createComment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {
           const ref = requireThread(thread, context)
           if (ref.kind === 'commit') {
             const { data } = await fetcher.json<GitLabCommitComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { note: body }, signal: options?.signal })
@@ -1168,7 +1168,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           })
           return toNoteComment(ref, data)
         }),
-        editComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
+        updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
           const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
           const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { method: 'PUT', json: { body }, signal: options?.signal })
           return toNoteComment(thread, data)
