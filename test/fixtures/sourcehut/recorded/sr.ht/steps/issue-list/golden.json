@@ -1,0 +1,151 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "21",
+        "externalId": "~sircmpwn/scdoc#21"
+      },
+      "kind": "issue",
+      "title": "underline in underline word behavior",
+      "body": "This test currently fails, but I would expect it to succeed.\r\n\r\n```\r\ndiff --git a/test/inline-formatting b/test/inline-formatting\r\nindex 7f61ba6..91e46f3 100755\r\n--- a/test/inline-formatting\r\n+++ b/test/inline-formatting\r\n@@ -25,6 +25,14 @@ test(8)\r\n EOF\r\n end 0\r\n \r\n+begin \"Allows underscores in underlined words\"\r\n+scdoc <<EOF | grep '^\\\\fIhello_world\\\\fR' >/dev/null\r\n+test(8)\r\n+\r\n+_hello_world_\r\n+EOF\r\n+end 0\r\n+\r\n begin \"Emits bold text\"\r\n scdoc <<EOF | grep '^hello \\\\fBworld\\\\fR' >/dev/null\r\n test(8)\r\n```\r\n\r\n\r\nCurrent output:\r\n\r\n```\r\n$ scdoc <<EOF | grep hello \r\ntest(8)\r\n\r\n_hello_world_\r\nEOF\r\n\\fIhello\\fRworld_\r\n```\r\n\r\nThe work around is of course very straightforward (`_hello\\_world_`). The documentation seems to imply that underscores in the middle of words are disregarded, which led me to believe that the escape of the middle underscore was not necessary.\r\n\r\nSo maybe only a documentation update is required for clarification?",
+      "state": "open",
+      "stateRaw": "REPORTED",
+      "isDraft": false,
+      "author": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~ixephus",
+        "id": "2146",
+        "url": "https://meta.sr.ht/~ixephus",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://todo.sr.ht/~sircmpwn/scdoc/21",
+      "createdAt": "2019-02-25T01:14:38.094Z",
+      "updatedAt": "2019-02-25T01:19:22.416Z",
+      "lastActivityAt": "2019-02-25T01:19:22.416Z"
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "11",
+        "externalId": "~sircmpwn/scdoc#11"
+      },
+      "kind": "issue",
+      "title": "Additional UTF-8 edge cases",
+      "body": "This is some minor stuff.\r\n\r\n- Java encodes NULL as 0xC0 0x80.\r\n- MS writes a BOM (0xEF 0xBB 0xBF). I guess we could skip this.",
+      "state": "open",
+      "stateRaw": "REPORTED",
+      "isDraft": false,
+      "author": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://todo.sr.ht/~sircmpwn/scdoc/11",
+      "createdAt": "2018-05-14T16:56:05.426Z",
+      "updatedAt": "2018-05-14T16:56:05.426Z",
+      "lastActivityAt": "2018-05-14T16:56:05.426Z"
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "7",
+        "externalId": "~sircmpwn/scdoc#7"
+      },
+      "kind": "issue",
+      "title": "Support indented tables",
+      "body": "Turns out we should be able to do this",
+      "state": "open",
+      "stateRaw": "REPORTED",
+      "isDraft": false,
+      "author": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://todo.sr.ht/~sircmpwn/scdoc/7",
+      "createdAt": "2018-05-12T01:09:30.717Z",
+      "updatedAt": "2018-05-12T01:09:30.717Z",
+      "lastActivityAt": "2018-05-12T01:09:30.717Z"
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "repo": {
+          "forge": "sourcehut",
+          "instance": "sr.ht",
+          "owner": "~sircmpwn",
+          "name": "scdoc"
+        },
+        "kind": "issue",
+        "number": "6",
+        "externalId": "~sircmpwn/scdoc#6"
+      },
+      "kind": "issue",
+      "title": "Support `...` for inline literal text",
+      "body": "",
+      "state": "open",
+      "stateRaw": "REPORTED",
+      "isDraft": false,
+      "author": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://todo.sr.ht/~sircmpwn/scdoc/6",
+      "createdAt": "2018-05-12T01:09:16.094Z",
+      "updatedAt": "2024-04-04T17:48:11.813Z",
+      "lastActivityAt": "2024-04-04T17:48:11.813Z"
+    }
+  ],
+  "cursor": {
+    "token": "gAAAAABq0EL10OCAT6DDqwMRw2Yz5-QvWtTRanQ7tCriT0qfJsYRtW4kxEpHacBQr4mDZDQGDftUR8wiPjdVTMYwnU8dx_6ejnrHXkNyEwAynQePT43ooGCbAWFN1qQKbGpoEp8Idjk5"
+  }
+}

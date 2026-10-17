@@ -1,0 +1,39 @@
+{
+  "baseUrl": "https://sr.ht",
+  "repo": {
+    "forge": "sourcehut",
+    "instance": "sr.ht",
+    "owner": "~sircmpwn",
+    "name": "scdoc"
+  },
+  "issue": {
+    "forge": "sourcehut",
+    "instance": "sr.ht",
+    "repo": {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "owner": "~sircmpwn",
+      "name": "scdoc"
+    },
+    "kind": "issue",
+    "number": "6"
+  },
+  "pull": {
+    "forge": "sourcehut",
+    "instance": "sr.ht",
+    "repo": {
+      "forge": "sourcehut",
+      "instance": "sr.ht",
+      "owner": "~sircmpwn",
+      "name": "sr.ht-dev"
+    },
+    "kind": "pull_request",
+    "number": "71657"
+  },
+  "scratch": {
+    "forge": "sourcehut",
+    "instance": "sr.ht",
+    "owner": "~serhalp",
+    "name": "forges-fixtures"
+  }
+}

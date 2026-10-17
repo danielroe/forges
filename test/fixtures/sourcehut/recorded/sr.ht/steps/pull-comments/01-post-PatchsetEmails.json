@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://lists.sr.ht/query",
+    "operationName": "PatchsetEmails",
+    "variables": {
+      "id": 71657
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "patchset": {
+          "id": 71657,
+          "list": {
+            "id": 4,
+            "rid": "06dya72375yzk15a31a5gj4qr8",
+            "name": "sr.ht-dev",
+            "owner": {
+              "canonicalName": "~sircmpwn",
+              "id": 3,
+              "updated": "2026-05-20T08:58:29.386188Z",
+              "username": "sircmpwn",
+              "email": "redacted@example.invalid",
+              "url": "https://drewdevault.com",
+              "location": "Netherlands",
+              "bio": "I write code."
+            }
+          },
+          "thread": {
+            "descendants": {
+              "cursor": null,
+              "results": [
+                {
+                  "id": 514170,
+                  "sender": {
+                    "canonicalName": "builds.sr.ht <redacted@example.invalid>"
+                  },
+                  "received": "2026-09-25T13:48:19.772801Z",
+                  "date": "2026-09-25T13:48:19Z",
+                  "subject": "[meta.sr.ht/patches/alpine.yml] build success",
+                  "body": "meta.sr.ht/patches/alpine.yml: SUCCESS in 2m11s\r\n\r\n[Support introspection for OAuth2 personal tokens][0] from [~bitfehler][1]\r\n\r\n[0]: https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657\r\n[1]: mailto:ch@bitfehler.net\r\n\r\n✓ #1895801 SUCCESS meta.sr.ht/patches/alpine.yml https://builds.sr.ht/~sircmpwn/job/1895801\r\n",
+                  "messageID": "DLOG0KUB27DC.3EGBEDGEZC0CI@fra01",
+                  "inReplyTo": "redacted@example.invalid",
+                  "patch": {
+                    "index": null,
+                    "count": null
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

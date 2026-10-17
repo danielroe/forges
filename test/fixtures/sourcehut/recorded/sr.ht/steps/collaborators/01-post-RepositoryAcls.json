@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryAcls",
+    "variables": {
+      "owner": "serhalp",
+      "name": "forges-fixtures"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "acls": {
+              "cursor": null,
+              "results": []
+            }
+          }
+        }
+      }
+    }
+  }
+}

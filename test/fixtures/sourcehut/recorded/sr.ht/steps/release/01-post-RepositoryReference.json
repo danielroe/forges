@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "RepositoryReference",
+    "variables": {
+      "owner": "sircmpwn",
+      "name": "scdoc",
+      "refName": "refs/tags/1.11.5"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "user": {
+          "repository": {
+            "reference": {
+              "name": "refs/tags/1.11.5",
+              "target": "1ed7454466a55bd0d50ab547aec109c335b15096",
+              "follow": {
+                "tagger": {
+                  "time": "2026-07-07T09:07:05+02:00"
+                },
+                "target": {
+                  "id": "24be30ef17d5ca0162f11b35258c8fa2413d556a",
+                  "committer": {
+                    "time": "2026-07-07T09:06:57+02:00"
+                  }
+                }
+              },
+              "artifacts": {
+                "results": [],
+                "cursor": null
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

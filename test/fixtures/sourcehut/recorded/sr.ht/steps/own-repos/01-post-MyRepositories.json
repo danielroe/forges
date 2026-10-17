@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://git.sr.ht/query",
+    "operationName": "MyRepositories",
+    "variables": {
+      "filter": {
+        "count": 3
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "repositories": {
+          "cursor": null,
+          "results": [
+            {
+              "id": 562623,
+              "rid": "06gktd64kdwgh28q7v38zdwa94",
+              "created": "2026-10-15T01:37:10.806214Z",
+              "updated": "2026-10-15T01:37:10.806214Z",
+              "owner": {
+                "canonicalName": "~serhalp",
+                "id": 87520,
+                "updated": "2026-10-15T01:05:10.109752Z",
+                "username": "serhalp",
+                "email": "redacted@example.invalid",
+                "url": null,
+                "location": null,
+                "bio": null
+              },
+              "name": "forges-fixtures",
+              "description": "Fixtures for danielroe/forges",
+              "visibility": "PUBLIC",
+              "HEAD": null,
+              "access": "RW"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

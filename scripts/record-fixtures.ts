@@ -12,7 +12,7 @@ import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -27,10 +27,10 @@ import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
 const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false }, 'defer-splice': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN' }
+const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -507,6 +507,18 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout }).create()
       return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges') } }
     }
+    case 'sourcehut': {
+      const provider = sourcehut({ baseUrl: env.SOURCEHUT_BASE_URL, auth: tokenAuth!, fetch, timeout }).create()
+      const slug = env.FIXTURE_SOURCEHUT_REPO ?? '~sircmpwn/scdoc'
+      // Patchsets live on a mailing list, so the pull ref names a list, not a git repository.
+      const list = env.FIXTURE_SOURCEHUT_LIST ?? '~sircmpwn/sr.ht-dev'
+      return { provider, manifest: {
+        repo: repoRef('sourcehut', provider.instance, slug),
+        issue: ref('sourcehut', provider.instance, slug, 'issue', env.FIXTURE_SOURCEHUT_ISSUE ?? '6'),
+        pull: ref('sourcehut', provider.instance, list, 'pull_request', env.FIXTURE_SOURCEHUT_PATCHSET ?? '71657'),
+        ...setupRepos('SOURCEHUT', value => repoRef('sourcehut', provider.instance, value)),
+      } }
+    }
     default: {
       const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout }).create()
       const slug = env.FIXTURE_FORGEJO_REPO ?? (codeForgejo ? 'forgejo/runner' : 'forgejo/forgejo')
@@ -535,6 +547,7 @@ function authorizationFor(token: string): string {
   switch (target) {
     case 'gitlab':
     case 'bitbucket':
+    case 'sourcehut':
       return `Bearer ${token}`
     case 'azure-devops':
       return `Basic ${btoa(`:${token}`)}`

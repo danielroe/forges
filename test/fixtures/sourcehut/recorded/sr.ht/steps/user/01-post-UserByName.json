@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://meta.sr.ht/query",
+    "operationName": "UserByName",
+    "variables": {
+      "username": "bitfehler"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "userByName": {
+          "id": 23515,
+          "updated": "2026-03-16T09:23:49.394208Z",
+          "canonicalName": "~bitfehler",
+          "username": "bitfehler",
+          "email": "redacted@example.invalid",
+          "url": "https://bitfehler.net",
+          "location": "Orion arm.",
+          "bio": "I turn computers on and off. Sometimes also this one.",
+          "avatar": "https://s3.sr.ht/meta.sr.ht/avatars/3f83ce8bd3a34c6b1aa5a849640aea6e075bbeab14b05fbd7ca5a63629c0d61a.png"
+        }
+      }
+    }
+  }
+}

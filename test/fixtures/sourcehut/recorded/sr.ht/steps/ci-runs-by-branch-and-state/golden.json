@@ -1,0 +1,13 @@
+{
+  "items": [],
+  "warnings": [
+    {
+      "code": "filter_unsupported",
+      "message": "Sourcehut lists the builds of the authenticated account, not of one repository"
+    },
+    {
+      "code": "filter_unsupported",
+      "message": "Sourcehut cannot filter builds by branch or state"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "absd-ports"
+      },
+      "description": "AlpineBSD software ports",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~sircmpwn/absd-ports",
+      "createdAt": "2026-08-30T11:24:12.665Z",
+      "updatedAt": "2026-10-16T09:55:57.921Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "sr.ht-docs"
+      },
+      "description": "SourceHut documentation",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~sircmpwn/sr.ht-docs",
+      "createdAt": "2019-08-07T01:12:47.414Z",
+      "updatedAt": "2026-10-16T08:57:08.741Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~sircmpwn",
+        "name": "himitsu-totp"
+      },
+      "description": "TOTP support for Himitsu",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~sircmpwn/himitsu-totp",
+      "createdAt": "2022-04-17T08:24:33.111Z",
+      "updatedAt": "2026-10-15T16:11:43.750Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~sircmpwn",
+        "id": "3",
+        "url": "https://meta.sr.ht/~sircmpwn",
+        "isBotHint": false
+      }
+    }
+  ],
+  "cursor": {
+    "token": "gAAAAABq0tE4Farup7jQI1s619bu-tpI2YPm6wt5H6hENh2hJcQgYWHkxZswRCjl63IJKQ3o6lzAepMyL9pac05hAVNa8JfGlnJgEF0H9-I4rNgmn_gyFNEW8Go_WYQzhsKD0_1mJn398SlpHq7gTBMiF2jaHxs6fA=="
+  },
+  "warnings": [
+    {
+      "code": "filter_unsupported",
+      "message": "Sourcehut lists an account's repositories without subgroup filtering"
+    },
+    {
+      "code": "sort_unsupported",
+      "message": "Sourcehut lists repositories in its own order"
+    }
+  ]
+}

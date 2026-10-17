@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://meta.sr.ht/query",
+    "operationName": "Me",
+    "variables": {}
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "me": {
+          "id": 87520,
+          "updated": "2026-10-15T01:05:10.109752Z",
+          "canonicalName": "~serhalp",
+          "username": "serhalp",
+          "email": "redacted@example.invalid",
+          "url": null,
+          "location": null,
+          "bio": null,
+          "avatar": null
+        }
+      }
+    }
+  }
+}

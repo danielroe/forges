@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://builds.sr.ht/query",
+    "operationName": "Jobs",
+    "variables": {}
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "jobs": {
+          "cursor": null,
+          "results": []
+        }
+      }
+    }
+  }
+}
