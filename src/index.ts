@@ -234,7 +234,7 @@ export type {
 } from './provider.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
-export { supportOf, supports } from './supports.ts'
+export { can, support } from './supports.ts'
 export type { ForgeVerb } from './supports.ts'
 export { tangled } from './tangled/index.ts'
 export type { TangledAuth, TangledOptions, WebSocketFactory, WebSocketLike } from './tangled/index.ts'

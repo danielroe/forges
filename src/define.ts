@@ -33,7 +33,7 @@ import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
-import { supportOf, supports } from './supports.ts'
+import { can, support } from './supports.ts'
 import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
 
@@ -807,8 +807,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     },
     normaliseMarkdown: spec.normaliseMarkdown ?? (body => body),
     scopesFor: verb => spec.scopes?.(verb) ?? {},
-    can: (verb, kind) => supports(capabilities, verb, kind),
-    support: (verb, kind) => supportOf(capabilities, verb, kind),
+    can: (verb, kind) => can(capabilities, verb, kind),
+    support: (verb, kind) => support(capabilities, verb, kind),
     urlFor: ((target: UrlTarget) => spec.web ? webUrlFor(spec.web, target) : undefined) as ForgeProvider<HasWeb>['urlFor'],
     webOrigin: (spec.web ? new URL(spec.web.baseUrl).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,

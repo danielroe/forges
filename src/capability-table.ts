@@ -1,7 +1,7 @@
 /**
  * One row of the capability table: where a capability is declared on `ProviderSpec`,
  * where it lands on `ForgeCapabilities`, and which `ForgeProvider` verbs it covers.
- * `capabilitiesOf()`, `supports()` and the capability matrix derive from the table.
+ * `capabilitiesOf()`, `can()` and the capability matrix derive from the table.
  */
 export interface CapabilityEntry {
   /** Where the support lands on `ForgeCapabilities`, dot-separated. */
