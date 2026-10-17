@@ -1,0 +1,100 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "repo": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "owner": "pjullrich",
+        "name": "pushin-cli"
+      },
+      "kind": "pull_request",
+      "number": "12",
+      "externalId": "iss_034dd7ODMKhicicj6iPzoi"
+    },
+    "kind": "pull_request",
+    "title": "add aarch64-darwin package to nix flake",
+    "body": "closes issue #11",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "ellyse",
+      "id": "18",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+      "url": "https://pushin.eu/ellyse",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
+    "createdAt": "2026-10-10T18:16:31.043Z",
+    "updatedAt": "2026-10-12T13:49:59.740Z",
+    "closedAt": "2026-10-12T13:49:59.722Z",
+    "mergedAt": "2026-10-12T13:49:59.722Z",
+    "lastActivityAt": "2026-10-12T13:49:59.740Z",
+    "branches": {
+      "head": {
+        "ref": "aarch64-darwin",
+        "sha": "aae2ece23e9cfe17c124f7f4968b811cae3f1a4d"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "repo": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "owner": "pjullrich",
+        "name": "pushin-cli"
+      },
+      "kind": "pull_request",
+      "number": "12",
+      "externalId": "iss_034dd7ODMKhicicj6iPzoi"
+    },
+    "kind": "pull_request",
+    "title": "add aarch64-darwin package to nix flake",
+    "body": "closes issue #11",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "ellyse",
+      "id": "18",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+      "url": "https://pushin.eu/ellyse",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
+    "createdAt": "2026-10-10T18:16:31.043Z",
+    "updatedAt": "2026-10-12T13:49:59.740Z",
+    "closedAt": "2026-10-12T13:49:59.722Z",
+    "mergedAt": "2026-10-12T13:49:59.722Z",
+    "lastActivityAt": "2026-10-12T13:49:59.740Z",
+    "branches": {
+      "head": {
+        "ref": "aarch64-darwin",
+        "sha": "aae2ece23e9cfe17c124f7f4968b811cae3f1a4d"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  }
+}

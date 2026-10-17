@@ -7,17 +7,18 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4953",
-      "x-ratelimit-reset": "1791723600"
+      "x-ratelimit-remaining": "4929",
+      "x-ratelimit-reset": "1792224000",
+      "x-ratelimit-resource": "core"
     },
     "body": {
-      "id": 277,
-      "name": "daniel roe",
+      "id": 604,
+      "name": "Wilco",
       "type": "User",
       "company": null,
-      "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
-      "html_url": "https://pushin.eu/danielroe",
-      "login": "danielroe",
+      "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034ZiwXHiY1kvzj9IjE4Vr/d1c9f869",
+      "html_url": "https://pushin.eu/wilcosp",
+      "login": "wilcosp",
       "node_id": "REDACTED"
     }
   }

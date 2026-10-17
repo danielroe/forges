@@ -1,5 +1,5 @@
-import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread } from '../model.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRepository, PushinThread, PushinUser } from './types.ts'
+import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Release, ReleaseRef, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread } from '../model.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinThread, PushinUser } from './types.ts'
 import { toDate } from '../utils.ts'
 
 export const FORGE = 'pushin'
@@ -174,6 +174,33 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
     branches: kind === 'pull_request' && (raw.head || raw.base)
       ? { head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha ?? undefined }, base: { ref: raw.base?.ref ?? '' } }
       : undefined,
+    raw,
+  }
+}
+
+export function toRelease(repo: RepoRef, raw: PushinRelease): Release {
+  const ref: ReleaseRef = { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), tag: raw.tag_name }
+  return {
+    ref,
+
+    name: raw.name,
+    tag: raw.tag_name,
+    author: toActor({ forge: FORGE, instance: ref.instance }, raw.author),
+    body: raw.body ?? undefined,
+    url: raw.url,
+    isDraft: raw.draft,
+    isPrerelease: raw.prerelease,
+    createdAt: toDate(raw.created_at),
+    publishedAt: raw.published_at ? toDate(raw.published_at) : undefined,
+    immutable: raw.immutable,
+    assets: raw.assets?.map(asset => ({
+      ref: { forge: FORGE, instance: repo.instance, repo, release: ref, id: String(asset.id) },
+      name: asset.name,
+      url: asset.browser_download_url,
+      contentType: asset.content_type,
+      downloadCount: asset.download_count,
+      size: asset.size,
+    })) ?? undefined,
     raw,
   }
 }

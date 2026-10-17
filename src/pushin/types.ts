@@ -89,3 +89,20 @@ export interface PushinNotification {
   unread: boolean
   updated_at: string
 }
+
+export interface PushinRelease {
+  id: number
+  name: string
+  body: string | null
+  tag_name: string
+  author: PushinUser
+  url: string
+  created_at: string
+  published_at: string | null
+  updated_at: string
+  prerelease: boolean
+  immutable: boolean
+  draft: boolean
+  node_id: string
+  assets: Array<{ id: number, name: string, url: string, browser_download_url: string, created_at: string, content_type: string, download_count: number, size: number, node_id: string }>
+}

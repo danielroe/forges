@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://s3.fr-par.scw.cloud/fg-par-bucket-prod-app/releases/repo_033o8EKVVoQNFqACnKgHgy/rel_034fLFbtG3zWYa1Mwujcja/rast_034fLGpsBAIf4ZMGOYFM2S?response-content-disposition=attachment%3B+filename%3D%22checksums.txt%22&response-content-type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20261017T075455Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=REDACTED"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"3097eab00c53702b277993b981147b8a-1\""
+    },
+    "body": "3ad3679761555c25e553f2af30c641ede361521ef6933f4dcf02c7f3a706a354  pun-v0.3.2-linux-arm64.tar.gz\n992dd24c48abb82f861a44db7afebd89385b7be06aa2c0bd7dcce901be92d501  pun-v0.3.2-linux-x86_64.tar.gz\n8f1e2cd89a14f471f2e7c8913c21cc01defebf56f5669bf9c8fa190efe3113de  pun-v0.3.2-macos-universal.tar.gz\n592d2b0a4374931e78cd7a0db423e9d4a17d4dee4b758feca73da8d14e330c38  pun-v0.3.2-windows-x86_64.zip\n"
+  }
+}

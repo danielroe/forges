@@ -7,20 +7,21 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4981",
-      "x-ratelimit-reset": "1791806400"
+      "x-ratelimit-remaining": "4928",
+      "x-ratelimit-reset": "1792224000",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {
-        "id": 289,
-        "name": "roe.dev",
+        "id": 1176,
+        "name": "test-npmx-forges",
         "owner": {
           "type": "User",
-          "html_url": "https://pushin.eu/danielroe",
-          "login": "danielroe"
+          "html_url": "https://pushin.eu/wilcosp",
+          "login": "wilcosp"
         },
         "private": false,
-        "description": null,
+        "description": "this is a test repo for forges & npmx",
         "permissions": {
           "push": true,
           "pull": true,
@@ -28,28 +29,28 @@
           "maintain": true,
           "triage": true
         },
-        "url": "https://pushin.eu/api/v1/repos/danielroe/roe.dev",
-        "updated_at": "2026-10-12T11:15:04.731118Z",
+        "url": "https://pushin.eu/api/v1/repos/wilcosp/test-npmx-forges",
+        "updated_at": "2026-10-16T21:29:54.368633Z",
         "topics": [],
-        "created_at": "2026-09-06T19:13:09.398456Z",
-        "full_name": "danielroe/roe.dev",
+        "created_at": "2026-10-15T17:27:26.198714Z",
+        "full_name": "wilcosp/test-npmx-forges",
         "visibility": "public",
         "default_branch": "main",
         "homepage": null,
-        "html_url": "https://pushin.eu/danielroe/roe.dev",
-        "node_id": "repo_034KGysv7UrbfMN79ro6eN",
-        "clone_url": "https://git.pushin.eu/danielroe/roe.dev.git",
+        "html_url": "https://pushin.eu/wilcosp/test-npmx-forges",
+        "node_id": "repo_034gSboO3ljbekkkeVA1qu",
+        "clone_url": "https://git.pushin.eu/wilcosp/test-npmx-forges.git",
         "forks_count": 0,
-        "stargazers_count": 1,
+        "stargazers_count": 0,
         "watchers_count": 0
       },
       {
-        "id": 1112,
-        "name": "roe.dev-test",
+        "id": 1175,
+        "name": "ms-relative",
         "owner": {
           "type": "User",
-          "html_url": "https://pushin.eu/danielroe",
-          "login": "danielroe"
+          "html_url": "https://pushin.eu/wilcosp",
+          "login": "wilcosp"
         },
         "private": false,
         "description": null,
@@ -60,17 +61,17 @@
           "maintain": true,
           "triage": true
         },
-        "url": "https://pushin.eu/api/v1/repos/danielroe/roe.dev-test",
-        "updated_at": "2026-10-11T12:34:59.915675Z",
+        "url": "https://pushin.eu/api/v1/repos/wilcosp/ms-relative",
+        "updated_at": "2026-10-15T17:23:25.235167Z",
         "topics": [],
-        "created_at": "2026-10-11T12:33:14.234889Z",
-        "full_name": "danielroe/roe.dev-test",
+        "created_at": "2026-10-15T17:23:22.156788Z",
+        "full_name": "wilcosp/ms-relative",
         "visibility": "public",
         "default_branch": "main",
         "homepage": null,
-        "html_url": "https://pushin.eu/danielroe/roe.dev-test",
-        "node_id": "repo_034e425vVEmZmkNAzd6RQB",
-        "clone_url": "https://git.pushin.eu/danielroe/roe.dev-test.git",
+        "html_url": "https://pushin.eu/wilcosp/ms-relative",
+        "node_id": "repo_034gSVcgofaeBWljFyTJb1",
+        "clone_url": "https://git.pushin.eu/wilcosp/ms-relative.git",
         "forks_count": 0,
         "stargazers_count": 0,
         "watchers_count": 0

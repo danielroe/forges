@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/20"
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "location": "https://s3.fr-par.scw.cloud/fg-par-bucket-prod-app/releases/repo_033o8EKVVoQNFqACnKgHgy/rel_034fLFbtG3zWYa1Mwujcja/rast_034fLGpsBAIf4ZMGOYFM2S?response-content-disposition=attachment%3B+filename%3D%22checksums.txt%22&response-content-type=text%2Fplain&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20261017T075455Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=REDACTED",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4922",
+      "x-ratelimit-reset": "1792224000",
+      "x-ratelimit-resource": "core"
+    }
+  }
+}
