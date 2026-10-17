@@ -187,16 +187,19 @@ export type AlertSupport = Record<'dependency' | 'code_scanning' | 'secret' | 'a
 
 /**
  * What a provider supports, operation by operation. It is computed without a request, and
- * `refreshCapabilities()` refines it with the instance version. Each group holds one entry per
- * capability, and the [capability matrix](/reference/capability-matrix) lists them for every forge.
+ * `refreshCapabilities()` refines it with the instance version. Each verb has an entry at its
+ * path on the provider, which a page shares with its listing, and the
+ * [capability matrix](/reference/capability-matrix) lists them for every forge.
  */
 export interface ForgeCapabilities {
   /** Instance version the capabilities were computed for, when known. */
   version?: string
   /** The forge's API as a whole is unstable, so the provider can change with it. */
   experimental?: true
-  /** `subscribe` is a long-lived push stream; see {@link SourcesApi}. */
-  sources: Record<'poll' | 'webhook' | 'subscribe', Support>
+  sources: {
+    /** Support for `sources.subscribe()`, a long-lived push stream; see {@link SourcesApi}. */
+    subscribe: Support
+  }
   repos: {
     /** Support for `repos.get()`. */
     get: Support
@@ -238,8 +241,10 @@ export interface ForgeCapabilities {
     sponsorable: Support
     /** Support for `users.events()` and `users.eventsPage()`. */
     events: Support
-    /** Support for `users.block()` and `users.unblock()`. */
+    /** Support for `users.block()`. */
     block: Support
+    /** Support for `users.unblock()`. */
+    unblock: Support
   }
   /** An organisation's teams and their members, where the forge has teams, and the accounts it blocks. */
   orgs: {
@@ -247,8 +252,10 @@ export interface ForgeCapabilities {
     teams: Support
     /** Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`. */
     teamMembers: Support
-    /** Support for `orgs.block()` and `orgs.unblock()`. */
+    /** Support for `orgs.block()`. */
     block: Support
+    /** Support for `orgs.unblock()`. */
+    unblock: Support
   }
   threads: {
     /** Support for `threads.get()`, per thread kind. */
@@ -263,23 +270,86 @@ export interface ForgeCapabilities {
     closingPullRequests: Support
     /** Support for `threads.events()` and `threads.eventsPage()`, per thread kind. */
     events: PerKind
-  }
-  comments: {
     /** Support for `threads.comments()` and `threads.commentsPage()`, per thread kind. */
-    list: PerKind
+    comments: PerKind
     /** Support for `threads.getComment()`, per thread kind. */
-    get: PerKind
+    getComment: PerKind
+    /** Support for `threads.createComment()`, per thread kind. */
+    createComment: PerKind
     /** Support for `threads.updateComment()`, per thread kind. */
-    update: PerKind
+    updateComment: PerKind
     /** Support for `threads.deleteComment()`, per thread kind. */
-    delete: PerKind
-    /** Support for `threads.hideComment()` and `threads.unhideComment()`, per thread kind. */
-    hide: PerKind
-  }
-  /** Listing the reactions on a thread or one of its comments, per thread kind. */
-  reactions: {
+    deleteComment: PerKind
+    /** Support for `threads.hideComment()`, per thread kind. */
+    hideComment: PerKind
+    /** Support for `threads.unhideComment()`, per thread kind. */
+    unhideComment: PerKind
     /** Support for `threads.reactions()` and `threads.reactionsPage()`, per thread kind. */
-    list: PerKind
+    reactions: PerKind
+    /** Support for `threads.react()`, per thread kind. */
+    react: PerKind
+    /** Support for `threads.unreact()`, per thread kind. */
+    unreact: PerKind
+    /** Support for `threads.create()`, per thread kind. */
+    create: PerKind
+    /** Support for `threads.update()`, per thread kind. */
+    update: PerKind
+    /** Support for `threads.close()`, per thread kind. */
+    close: PerKind
+    /** Support for `threads.reopen()`, per thread kind. */
+    reopen: PerKind
+    /** Support for `threads.lock()`, per thread kind. */
+    lock: PerKind
+    /** Support for `threads.unlock()`, per thread kind. */
+    unlock: PerKind
+    /** Support for `threads.setLabels()`, per thread kind. */
+    setLabels: PerKind
+    /** Support for `threads.addLabels()`, per thread kind. */
+    addLabels: PerKind
+    /** Support for `threads.removeLabels()`, per thread kind. */
+    removeLabels: PerKind
+    /** Support for `threads.setMilestone()`, per thread kind. */
+    setMilestone: PerKind
+    /** Support for `threads.setAssignees()`, per thread kind. */
+    setAssignees: PerKind
+    /** Support for `threads.requestReview()`, per thread kind. */
+    requestReview: PerKind
+    /** Support for `threads.merge()`. */
+    merge: Support
+    /** Support for `threads.updateBranch()`. */
+    updateBranch: Support
+    /** Support for `threads.transfer()`. */
+    transfer: Support
+    /** Support for `threads.markDuplicate()`. */
+    markDuplicate: Support
+    /** Support for `threads.subscription()`, per thread kind. */
+    subscription: PerKind
+    /** Support for `threads.subscribe()`, per thread kind. */
+    subscribe: PerKind
+    /** Support for `threads.unsubscribe()`, per thread kind. */
+    unsubscribe: PerKind
+    /** Support for `threads.checks()` and `Thread.checks`, per thread kind. */
+    checks: PerKind
+    /** Support for `threads.files()` and `threads.filesPage()`. */
+    files: Support
+    /** Support for `threads.commits()` and `threads.commitsPage()`. */
+    commits: Support
+    /** Support for `threads.reviews()` and `threads.reviewsPage()`. `'emulated'` where reviews are synthesised from approvals or votes. */
+    reviews: Support
+    /** Support for `threads.getReview()`. */
+    getReview: Support
+    /** Support for `threads.createReview()`. Where reviews are emulated, it covers only the events the forge's approval endpoint can express. */
+    createReview: Support
+    /** Support for `threads.submitReview()`. */
+    submitReview: Support
+    /** Support for `threads.approve()`. */
+    approve: Support
+    /** Support for `threads.replyToReviewComment()`. */
+    replyToReviewComment: Support
+    /** Support for `threads.resolveReviewThread()`. */
+    resolveReviewThread: Support
+    /** Support for `threads.unresolveReviewThread()`. */
+    unresolveReviewThread: Support
   }
   notifications: {
     /** Support for `notifications.list()` and `notifications.listPage()`. */
@@ -297,68 +367,30 @@ export interface ForgeCapabilities {
     /** Support for `notifications.unreadCount()`. */
     unreadCount: Support
   }
-  /** Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`. */
-  writes: {
-    /** Support for `threads.createComment()`, per thread kind. */
-    createComment: PerKind
-    /** Support for `threads.close()`, per thread kind. */
-    close: PerKind
-    /** Support for `threads.reopen()`, per thread kind. */
-    reopen: PerKind
-    /** Support for `threads.lock()` and `threads.unlock()`, per thread kind. */
-    lock: PerKind
-    /** Support for `threads.create()`, per thread kind. */
-    create: PerKind
-    /** Support for `threads.update()`, per thread kind. */
-    update: PerKind
-    /** Support for `threads.setLabels()`, per thread kind. */
-    setLabels: PerKind
-    /** Support for `threads.addLabels()`, per thread kind. */
-    addLabels: PerKind
-    /** Support for `threads.removeLabels()`, per thread kind. */
-    removeLabels: PerKind
-    /** Support for `threads.setMilestone()`, per thread kind. */
-    setMilestone: PerKind
-    /** Support for `threads.react()` and `threads.unreact()`, per thread kind. */
-    react: PerKind
-    /** Support for `threads.setAssignees()`, per thread kind. */
-    setAssignees: PerKind
-    /** Support for `threads.requestReview()`, per thread kind. */
-    requestReview: PerKind
-    /** Support for `threads.merge()`. */
-    merge: Support
-    /** Support for `threads.updateBranch()`. */
-    updateBranch: Support
-    /** Support for `threads.transfer()`. */
-    transfer: Support
-    /** Support for `threads.markDuplicate()`. */
-    markDuplicate: Support
+  installations: {
+    /** Support for `installations.list()` and `installations.listPage()`. */
+    list: Support
+    /** Support for `installations.get()`. */
+    get: Support
+    /** Support for `installations.token()`. */
+    token: Support
+    /** Support for `installations.repos()` and `installations.reposPage()`. */
+    repos: Support
+    /** Support for `installations.provider()`. */
+    provider: Support
+    /** Support for `installations.providers()`. */
+    providers: Support
   }
-  /** Reading a thread subscription (`get`) and changing it (`set`), per kind. Distinct from notification unsubscribe. */
-  subscriptions: {
-    /** Support for `threads.subscription()`, per thread kind. */
-    get: PerKind
-    /** Support for `threads.subscribe()` and `threads.unsubscribe()`, per thread kind. */
-    set: PerKind
-  }
-  /**
-   * `thread` covers `Thread.checks` and `threads.checks()` (pull requests
-   * only); the rest are the commit-level surface. `report` is a commit
-   * status unless the credential can write check runs.
-   */
   checks: {
-    /** Support for `threads.checks()`, per thread kind. */
-    thread: PerKind
     /** Support for `checks.list()`. */
     list: Support
     /** Support for `checks.get()`. */
     get: Support
-    /** Support for `checks.report()`. */
+    /** Support for `checks.report()`. It writes a commit status unless the credential can write check runs. */
     report: Support
     /** Support for `checks.rerun()`. */
     rerun: Support
   }
-  /** Read-only CI surface. `log` is `false` where job logs are not reachable over the API. */
   ci: {
     /** Support for `ci.runs()` and `ci.runsPage()`. */
     runs: Support
@@ -368,38 +400,13 @@ export interface ForgeCapabilities {
     jobs: Support
     /** Support for `ci.getJob()`. */
     getJob: Support
-    /** Support for `ci.log()`. */
+    /** Support for `ci.log()`. `false` where job logs are not reachable over the API. */
     log: Support
   }
-  /**
-   * Reviews on a pull request. `list` is `'emulated'` where reviews are
-   * synthesised from approvals or votes; `create` then covers only the events
-   * the forge's approval endpoint can express.
-   */
-  reviews: {
-    /** Support for `threads.reviews()` and `threads.reviewsPage()`. */
-    list: Support
-    /** Support for `threads.getReview()`. */
-    get: Support
-    /** Support for `threads.createReview()`. */
-    create: Support
-    /** Support for `threads.submitReview()`. */
-    submit: Support
-    /** Support for `threads.approve()`. */
-    approve: Support
-    /** Support for `threads.replyToReviewComment()`. */
-    reply: Support
-    /** Support for `threads.resolveReviewThread()` and `threads.unresolveReviewThread()`. */
-    resolveThread: Support
-  }
-  /**
-   * Repository contents. `tree` is `'emulated'` where recursion is walked
-   * level by level rather than by the forge.
-   */
   contents: {
     /** Support for `contents.getFile()`. */
     getFile: Support
-    /** Support for `contents.tree()` and `contents.treePage()`. */
+    /** Support for `contents.tree()` and `contents.treePage()`. `'emulated'` where recursion is walked level by level. */
     tree: Support
     /** Support for `contents.branches()` and `contents.branchesPage()`. */
     branches: Support
@@ -415,27 +422,6 @@ export interface ForgeCapabilities {
     compare: Support
     /** Support for `contents.commitFiles()`. */
     commitFiles: Support
-    /** `threads.files` and `threads.commits` on a pull request. */
-    threadFiles: Support
-    /** Support for `threads.commits()` and `threads.commitsPage()`. */
-    threadCommits: Support
-  }
-  /** Managing registered webhooks, beside receiving deliveries. */
-  webhooks: {
-    /** Support for `webhooks.list()` and `webhooks.listPage()`. */
-    list: Support
-    /** Support for `webhooks.create()`. */
-    create: Support
-    /** Support for `webhooks.update()`. */
-    update: Support
-    /** Support for `webhooks.delete()`. */
-    delete: Support
-    /** Support for `webhooks.rotateSecret()`. */
-    rotateSecret: Support
-    /** Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`. */
-    deliveries: Support
-    /** Support for `webhooks.redeliver()`. */
-    redeliver: Support
   }
   releases: {
     /** Support for `releases.list()` and `releases.listPage()`. */
@@ -453,7 +439,27 @@ export interface ForgeCapabilities {
     /** Support for `releases.update()`. */
     update: Support
   }
-  /** Cross-repository search of issues and pull requests, repositories, commits and code. */
+  /** Receiving deliveries and managing registered webhooks. */
+  webhooks: {
+    /** Support for `webhooks.verify()`. */
+    verify: Support
+    /** Support for `webhooks.ingest()`. */
+    ingest: Support
+    /** Support for `webhooks.list()` and `webhooks.listPage()`. */
+    list: Support
+    /** Support for `webhooks.create()`. */
+    create: Support
+    /** Support for `webhooks.update()`. */
+    update: Support
+    /** Support for `webhooks.delete()`. */
+    delete: Support
+    /** Support for `webhooks.rotateSecret()`. */
+    rotateSecret: Support
+    /** Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`. */
+    deliveries: Support
+    /** Support for `webhooks.redeliver()`. */
+    redeliver: Support
+  }
   search: {
     /** Support for `search.threads()` and `search.threadsPage()`. */
     threads: Support
@@ -464,10 +470,10 @@ export interface ForgeCapabilities {
     /** Support for `search.code()` and `search.codePage()`. */
     code: Support
   }
-  /** Per alert kind, since each needs its own token scope on GitHub. */
-  securityAlerts: AlertSupport
-  /** Enumerating app installations and deriving one provider per installation. */
-  installations: Support
+  securityAlerts: {
+    /** Support for `securityAlerts.list()` and `securityAlerts.listPage()`, per alert kind. */
+    list: AlertSupport
+  }
   /**
    * `'heuristic'` when event kinds are inferred from free text (GitLab system
    * notes) rather than reported by the forge, so `kind` may be `'other'` or
@@ -608,7 +614,7 @@ export interface ThreadsApi {
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
   /**
    * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
-   * no endpoint for it (`capabilities.comments.get` is `'emulated'`), it lists the comments of the thread page by page
+   * no endpoint for it (`capabilities.threads.getComment` is `'emulated'`), it lists the comments of the thread page by page
    * until the id matches, which costs a request for each page read.
    */
   getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
@@ -758,7 +764,7 @@ export interface ThreadsApi {
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
   /**
-   * Reads one review by its ref. Where the forge has no endpoint for it (`capabilities.reviews.get` is `'emulated'`),
+   * Reads one review by its ref. Where the forge has no endpoint for it (`capabilities.threads.getReview` is `'emulated'`),
    * it lists the reviews of the pull request page by page until the id matches, which costs a request for each page
    * read.
    */

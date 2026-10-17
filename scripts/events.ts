@@ -112,7 +112,7 @@ function detailShapes(kinds: string[]): Map<string, EventDetailShape[]> {
 /** Event kinds and actions per provider that receives webhooks, from each provider's `webhooks.events`. */
 export function eventData(forges: typeof Forges): { providers: EventProvider[], kinds: EventKindRow[], withoutWebhooks: string[] } {
   const all = matrixProviders(forges)
-  const entries = all.filter(({ provider }) => provider.capabilities.sources.webhook)
+  const entries = all.filter(({ provider }) => provider.capabilities.webhooks.ingest)
   const kinds = (schemas.EventKind as Schema).enum ?? []
   const shapes = detailShapes(kinds)
   const unmapped = entries.find(({ slug, provider }) => provider.capabilities.webhooks.create && !(slug in SUBSCRIPTIONS))
@@ -124,7 +124,7 @@ export function eventData(forges: typeof Forges): { providers: EventProvider[], 
       slug,
       name,
       eventKinds: capabilities.eventKinds,
-      poll: Boolean(capabilities.sources.poll),
+      poll: Boolean(capabilities.notifications.list),
       subscribe: Boolean(capabilities.sources.subscribe),
       subscriptions: Boolean(capabilities.webhooks.create),
     })),

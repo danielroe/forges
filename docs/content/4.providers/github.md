@@ -304,8 +304,6 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | Capability | Classic token | Fine-grained token | App installation | App | Without credentials |
 | --- | --- | --- | --- | --- | --- |
 | `experimental` | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `sources.webhook` | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `users.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -336,12 +334,41 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `threads.closingIssues` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.closingPullRequests` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.events` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `comments.list` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `comments.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue (unverified), PR, commit (unverified) |
-| `comments.update` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `comments.delete` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `comments.hide` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `reactions.list` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.comments` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
+| `threads.getComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue (unverified), PR, commit (unverified) |
+| `threads.createComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `threads.updateComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `threads.deleteComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `threads.hideComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `threads.reactions` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.react` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.create` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.update` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.setLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.addLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.removeLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.setMilestone` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.requestReview` | PR | PR | PR | ❌ | ❌ |
+| `threads.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.updateBranch` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.transfer` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.markDuplicate` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.subscription` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.subscribe` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.checks` | PR | PR | PR | ❌ | PR |
+| `threads.files` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.reviews` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.getReview` | ✅ | ✅ | ✅ | ❌ | unverified |
+| `threads.createReview` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.submitReview` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.approve` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.replyToReviewComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markRead` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markDone` | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -349,27 +376,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `notifications.markAllRead` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `writes.createComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `writes.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.create` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.update` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.setLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.addLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.removeLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.setMilestone` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.react` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.requestReview` | PR | PR | PR | ❌ | ❌ |
-| `writes.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.updateBranch` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.transfer` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.markDuplicate` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `subscriptions.get` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `subscriptions.set` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `installations` | ❌ | ❌ | ✅ | ✅ | ❌ |
-| `checks.thread` | PR | PR | PR | ❌ | PR |
+| `installations.list` | ❌ | ❌ | ✅ | ✅ | ❌ |
 | `checks.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `checks.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `checks.report` | ✅ | ✅ | ✅ | ❌ | ❌ |
@@ -388,15 +395,6 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `contents.getCommit` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.compare` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.commitFiles` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `reviews.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `reviews.get` | ✅ | ✅ | ✅ | ❌ | unverified |
-| `reviews.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.submit` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.approve` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.reply` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.resolveThread` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.latest` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -404,6 +402,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `releases.downloadAsset` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `releases.update` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `webhooks.list` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `webhooks.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `webhooks.update` | ✅ | ✅ | ✅ | ❌ | ❌ |
@@ -415,7 +414,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `search.repos` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `search.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `search.code` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `securityAlerts` | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | ❌ | ❌ |
+| `securityAlerts.list` | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | ❌ | ❌ |
 | `eventKinds` | native | native | native | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |
 | `limits` | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 |

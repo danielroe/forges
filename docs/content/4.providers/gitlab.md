@@ -158,8 +158,6 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
@@ -190,12 +188,41 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `threads.closingIssues` | ✅ | ✅ |
 | `threads.closingPullRequests` | ✅ | ✅ |
 | `threads.events` | issue, PR, commit | ❌ |
-| `comments.list` | issue, PR, commit | commit |
-| `comments.get` | issue, PR, commit (emulated) | commit (unverified) |
-| `comments.update` | issue, PR | ❌ |
-| `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | issue, PR | issue, PR |
+| `threads.comments` | issue, PR, commit | commit |
+| `threads.getComment` | issue, PR, commit (emulated) | commit (unverified) |
+| `threads.createComment` | issue, PR, commit | ❌ |
+| `threads.updateComment` | issue, PR | ❌ |
+| `threads.deleteComment` | issue, PR | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | issue, PR | issue, PR |
+| `threads.react` | issue, PR | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | issue, PR | ❌ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | issue, PR | ❌ |
+| `threads.removeLabels` | issue, PR | ❌ |
+| `threads.setMilestone` | issue, PR | ❌ |
+| `threads.setAssignees` | issue, PR | ❌ |
+| `threads.requestReview` | PR | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ✅ | ❌ |
+| `threads.transfer` | ✅ | ❌ |
+| `threads.markDuplicate` | emulated | ❌ |
+| `threads.subscription` | issue, PR | ❌ |
+| `threads.subscribe` | issue, PR | ❌ |
+| `threads.checks` | PR | PR |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | emulated | emulated |
+| `threads.getReview` | emulated | emulated |
+| `threads.createReview` | emulated | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | ✅ | ❌ |
+| `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ✅ | ❌ |
@@ -203,27 +230,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ✅ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.createComment` | issue, PR, commit | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | issue, PR | ❌ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | issue, PR | ❌ |
-| `writes.removeLabels` | issue, PR | ❌ |
-| `writes.setMilestone` | issue, PR | ❌ |
-| `writes.react` | issue, PR | ❌ |
-| `writes.setAssignees` | issue, PR | ❌ |
-| `writes.requestReview` | PR | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ✅ | ❌ |
-| `writes.transfer` | ✅ | ❌ |
-| `writes.markDuplicate` | emulated | ❌ |
-| `subscriptions.get` | issue, PR | ❌ |
-| `subscriptions.set` | issue, PR | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR | PR |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ❌ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
@@ -242,15 +249,6 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | emulated | emulated |
-| `reviews.get` | emulated | emulated |
-| `reviews.create` | emulated | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | ✅ | ❌ |
-| `reviews.reply` | ✅ | ❌ |
-| `reviews.resolveThread` | ✅ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
@@ -258,6 +256,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ✅ | ❌ |
 | `releases.update` | ✅ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |
@@ -269,7 +268,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | experimental | ❌ |
 | `search.code` | ✅ | ❌ |
-| `securityAlerts` | dependency, code scanning, secret | ❌ |
+| `securityAlerts.list` | dependency, code scanning, secret | ❌ |
 | `eventKinds` | heuristic | heuristic |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |
 | `limits` | body 1048576, comment 1000000, label 255 | body 1048576, comment 1000000, label 255 |

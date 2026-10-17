@@ -36,6 +36,6 @@ describe('environment flags', () => {
   it('creates a read-only provider for `READ_ONLY`', () => {
     const [entry] = providersFromEnv({ FORGES_GITHUB_TOKEN: 't', FORGES_GITHUB_READ_ONLY: '1' })
 
-    expect(entry!.provider!.capabilities.writes.createComment.issue).toBe(false)
+    expect(entry!.provider!.capabilities.threads.createComment.issue).toBe(false)
   })
 })

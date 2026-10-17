@@ -3,7 +3,7 @@ import type { ForgeVerb, TableSpecPath } from '../../src/capability-table.ts'
 import type { CapabilityEnv, ProviderSpec } from '../../src/define.ts'
 import { describe, expect, it, vi } from 'vitest'
 import { declaredCapabilities } from '../../src/capabilities.ts'
-import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
+import { CAPABILITY_TABLE, capabilityKey } from '../../src/capability-table.ts'
 import { fake } from '../../src/fake/index.ts'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, tangled } from '../../src/index.ts'
 
@@ -91,7 +91,7 @@ describe('capability table', () => {
   })
 
   it('produces every capability leaf exactly once', () => {
-    const produced = table.map(entry => entry.capability)
+    const produced = table.flatMap(entry => entry.verbs?.length ? [...new Set(entry.verbs.map(verb => capabilityKey(entry, verb)))] : [entry.capability])
 
     expect(new Set(produced).size).toBe(produced.length)
     for (const [name, create] of providers) {
@@ -127,7 +127,7 @@ describe('capability table', () => {
 
   it('types verbs from the table, including the derived ones', () => {
     const verbs: ForgeVerb[] = ['repos.labels', 'repos.labelsPage', 'threads.react', 'threads.events', 'installations.providers']
-    // @ts-expect-error a capability path is not a verb
+    // @ts-expect-error a capability group is not a verb
     const capability: ForgeVerb = 'writes.createComment'
 
     expect([...verbs, capability].every(verb => table.some(entry => entry.verbs?.includes(verb)))).toBe(false)
@@ -166,16 +166,16 @@ describe('capability table', () => {
     const azure = azureDevOps({ auth, organization: 'acme' })
     const giteeProvider = gitee({ auth })
 
-    expect(azure.capabilities.writes.createComment.issue).toBe(true)
-    expect(declaredCapabilities(azure).writes.createComment).toMatchObject({ issue: 'experimental', pull_request: true })
-    expect(giteeProvider.capabilities.writes.createComment.issue).toBe(true)
-    expect(declaredCapabilities(giteeProvider).writes.createComment.issue).toBe('unverified')
+    expect(azure.capabilities.threads.createComment.issue).toBe(true)
+    expect(declaredCapabilities(azure).threads.createComment).toMatchObject({ issue: 'experimental', pull_request: true })
+    expect(giteeProvider.capabilities.threads.createComment.issue).toBe(true)
+    expect(declaredCapabilities(giteeProvider).threads.createComment.issue).toBe('unverified')
   })
 
   it('emulates a single-item read from its listing, at the level the spec sets', () => {
     expect(bitbucket({ auth }).support('threads.getComment', 'pull_request')).toBe('emulated')
     expect(bitbucket({}).support('threads.getComment', 'pull_request')).toBe('emulated')
-    expect(declaredCapabilities(bitbucket({})).comments.get.pull_request).toBe('unverified')
+    expect(declaredCapabilities(bitbucket({})).threads.getComment.pull_request).toBe('unverified')
     expect(bitbucket({ auth }).support('threads.getComment', 'issue')).toBe(false)
     expect(github({ auth }).support('threads.getComment', 'issue')).toBe(true)
   })

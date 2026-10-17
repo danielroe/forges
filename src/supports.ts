@@ -1,13 +1,13 @@
 import type { ForgeVerb } from './capability-table.ts'
 import type { SecurityAlertKind, Support, ThreadKind } from './model.ts'
 import type { ForgeCapabilities } from './provider.ts'
-import { CAPABILITY_TABLE } from './capability-table.ts'
+import { CAPABILITY_TABLE, capabilityKey } from './capability-table.ts'
 
 export type { ForgeVerb }
 
 /** Where each verb's support lives in {@link ForgeCapabilities}, from {@link CAPABILITY_TABLE}. */
 const VERBS = new Map<string, string>(
-  CAPABILITY_TABLE.flatMap(entry => (entry.verbs ?? []).map(verb => [verb, entry.capability] as const)),
+  CAPABILITY_TABLE.flatMap(entry => (entry.verbs ?? []).map(verb => [verb, capabilityKey(entry, verb)] as const)),
 )
 
 /**

@@ -1,7 +1,7 @@
 import type { CapabilityEntry } from './capability-table.ts'
 import type { AlertKind, CapabilityEnv, DeclaredSupport, KindVerb, ProviderSpec, SupportInput, Verb, VerbKind } from './define.ts'
 import type { ForgeCapabilities, ForgeProvider } from './provider.ts'
-import { CAPABILITY_TABLE } from './capability-table.ts'
+import { CAPABILITY_TABLE, capabilityKey } from './capability-table.ts'
 
 export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret', 'advisory']
 
@@ -74,8 +74,6 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
   switch (entry.derived) {
     case 'experimental':
       return undefined
-    case 'poll':
-      return resolve(spec.notifications?.listPage.support, env, declared)
     case 'webhook':
       return flags.webhook
     case 'threadEvents':
@@ -123,8 +121,12 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
   }
   for (const entry of CAPABILITY_TABLE) {
     const value = valueFor(entry, spec, env, flags, declared)
-    if (value !== undefined) {
-      write(capabilities, entry.capability, value)
+    if (value === undefined) {
+      continue
+    }
+    const keys = entry.verbs?.length ? new Set(entry.verbs.map(verb => capabilityKey(entry, verb))) : [entry.capability]
+    for (const key of keys) {
+      write(capabilities, key, value)
     }
   }
   return capabilities as unknown as ForgeCapabilities

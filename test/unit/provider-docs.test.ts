@@ -33,9 +33,9 @@ describe('generated docs', () => {
     expect(rows.get('repos.labels')!.anonymousCells[gitlab]).toEqual({ level: 'none' })
     expect(rows.get('repos.get')!.anonymousCells[gitlab]).toEqual({ level: 'native' })
     expect(rows.get('repos.get')!.anonymousCells[cursor]).toEqual({ level: 'none' })
-    expect(rows.get('sources.webhook')!.anonymousCells[cursor]).toEqual({ level: 'native' })
+    expect(rows.get('webhooks.ingest')!.anonymousCells[cursor]).toEqual({ level: 'native' })
     expect(providers[gitlab]!.anonymousSummary!.native).toBeLessThan(providers[gitlab]!.summary.native)
-    expect(rows.get('sources.poll')!.cells[tangled]).toEqual({ level: 'experimental' })
+    expect(rows.get('notifications.list')!.cells[tangled]).toEqual({ level: 'experimental' })
   })
 
   it('names the credentials that a capability needs when they are not the usual ones', () => {
@@ -46,8 +46,8 @@ describe('generated docs', () => {
     expect(providers[github]!.credentials!.map(({ id, usual }) => [id, usual])).toEqual([['classic', true], ['fine-grained', true], ['installation', true], ['app', false]])
     expect(rows.get('notifications.list')!.cells[github]!.credentials).toEqual(['classic'])
     expect(rows.get('users.me')!.cells[github]!.credentials).toEqual(['classic', 'fine-grained'])
-    expect(rows.get('installations')!.cells[github]!.credentials).toEqual(['installation', 'app'])
-    expect(rows.get('sources.webhook')!.cells[github]!.credentials).toBeUndefined()
+    expect(rows.get('installations.list')!.cells[github]!.credentials).toEqual(['installation', 'app'])
+    expect(rows.get('webhooks.ingest')!.cells[github]!.credentials).toBeUndefined()
     expect(rows.get('repos.get')!.cells[github]).toMatchObject({ level: 'native', byCredential: { classic: { level: 'native' }, app: { level: 'none' } } })
     expect(rows.get('repos.get')!.cells[github]!.credentials).toBeUndefined()
   })

@@ -200,7 +200,7 @@ describe('gitlab provider', () => {
   it('approves a merge request natively and refuses an approval body', async () => {
     const { instance, calls } = provider()
 
-    expect(instance.capabilities.reviews.approve).toBe(true)
+    expect(instance.capabilities.threads.approve).toBe(true)
     await instance.threads.approve(mr)
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/merge_requests/23/approve`])
     await expect(instance.threads.approve(mr, 'Looks good')).rejects.toThrow(UnsupportedOperationError)
