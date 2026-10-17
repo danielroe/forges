@@ -691,6 +691,15 @@ describe('gitlab code search', () => {
     expect(instance.scopesFor('search.codePage')).toEqual({ token: ['read_api'] })
   })
 
+  it('asks for `read_api` to read and `api` to write', () => {
+    const { instance } = provider()
+
+    for (const verb of ['threads.getComment', 'threads.getReview', 'threads.reactions', 'users.me'] as const) {
+      expect(instance.scopesFor(verb)).toEqual({ token: ['read_api'] })
+    }
+    expect(instance.scopesFor('threads.close')).toEqual({ token: ['api'] })
+  })
+
   it('searches a project, a group or the whole instance', async () => {
     const paths: string[] = []
     const instance = gitlab({
