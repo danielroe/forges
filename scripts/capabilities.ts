@@ -55,7 +55,7 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
     return {
       slug,
       name,
-      factories: [exported, `${exported}Lite`].filter(key => key in forges),
+      factories: [exported],
       provider,
       anonymous,
       ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: factory(options).create() })) } : {},

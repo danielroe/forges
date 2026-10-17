@@ -12,7 +12,7 @@ The Azure DevOps provider works with Azure Repos pull requests and with Azure Bo
 | Detail | Value |
 | --- | --- |
 | Import | `forges/azure-devops` |
-| Factories | `azureDevOps()`, `azureDevOpsLite()` |
+| Factories | `azureDevOps()` |
 | Auth | `token`, `basic`, `anonymous` |
 ::
 <!-- header:end -->

@@ -12,7 +12,7 @@ The Forgejo provider works with Codeberg and self-hosted Forgejo instances. It c
 | Detail | Value |
 | --- | --- |
 | Import | `forges/forgejo` |
-| Factories | `forgejo()`, `forgejoLite()` |
+| Factories | `forgejo()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->

@@ -88,7 +88,7 @@ export const PAGES: PageConfig[] = [
     icon: 'i-lucide-plug',
     description: 'Create providers and combine them in a registry.',
     overview: 'Create a provider with the factory of your forge, such as `github()`. Combine providers with `createForges()`, or create them from environment variables with `forgesFromEnv()`.',
-    intro: 'Each forge has a factory such as `github()`, and a `Lite` variant such as `githubLite()` that leaves out webhook ingestion. Pass the factories to `createForges()`, or call `create()` on one for a single provider.',
+    intro: 'Each forge has a factory such as `github()`. Pass the factories to `createForges()`, or call `create()` on one for a single provider.',
     sections: [
       { title: 'Options and authentication', names: ['ForgeOptionsBase', 'TokenAuth', 'BasicAuth', 'AppAuth', 'AnonymousAuth', 'AuthKind'] },
       forge('GitHub', 'github'),

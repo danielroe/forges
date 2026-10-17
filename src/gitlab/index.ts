@@ -214,6 +214,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
   anonymous: true,
   apiPath: '/api/v4',
   headers: { accept: 'application/json' },
+  webhooks: gitlabWebhooks,
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
     /** GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users. */
@@ -1321,10 +1322,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, webhooks: gitlabWebhooks })
-
-/** `gitlab()` without webhook ingestion, for bundles that never receive a delivery. */
-export const gitlabLite: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
+export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {

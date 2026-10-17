@@ -12,7 +12,7 @@ The GitLab provider works with gitlab.com and self-managed GitLab. It can read a
 | Detail | Value |
 | --- | --- |
 | Import | `forges/gitlab` |
-| Factories | `gitlab()`, `gitlabLite()` |
+| Factories | `gitlab()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->

@@ -136,6 +136,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
   experimental: true,
   baseUrl: 'https://tangled.org',
   headers: { accept: 'application/json' },
+  webhooks: tangledWebhooks,
   setup({ options, instance, baseUrl: webUrl, origin: context, fetcher, createFetcher: fetcherFor }) {
     const atproto = createAtprotoClient({
       fetcher,
@@ -671,7 +672,4 @@ async function patchText(bytes: Uint8Array): Promise<string> {
 }
 
 /** Creates a Tangled provider. Records are read from PDSes; pushes arrive through Jetstream. */
-export const tangled: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider({ ...TANGLED, webhooks: tangledWebhooks })
-
-/** `tangled()` without webhook ingestion, for bundles that never receive a delivery. */
-export const tangledLite: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider(TANGLED)
+export const tangled: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider(TANGLED)

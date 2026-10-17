@@ -68,7 +68,7 @@ There are no endpoints for branches, tags or comparing two refs, so those operat
 
 ## Events
 
-Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.sources.webhook` is `false`. There's no `cloudflareArtifactsLite()` factory either, because `cloudflareArtifacts()` contains no webhook code.
+Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.sources.webhook` is `false`.
 
 <!-- capabilities:start -->
 ## Capabilities

@@ -65,8 +65,6 @@ The API only reads the authenticated account, so `users.get(login)` isn't availa
 
 The API has no endpoints for hooks and no documented signature scheme. For this reason, `capabilities.sources.webhook` is `false`, and the provider doesn't verify or translate deliveries.
 
-Since `pushin()` contains no webhook code, there is no `pushinLite()` factory for the provider.
-
 <!-- capabilities:start -->
 ## Capabilities
 

@@ -182,6 +182,7 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
     apiPath: '/api/v1',
     headers: { accept: 'application/json' },
     authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `token ${await resolveToken(auth)}` }) : undefined,
+    webhooks: forgejoWebhooks(profile),
     setup: ctx => setupForgejo(ctx, profile),
   }
 }
@@ -1185,13 +1186,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 }
 
-const FORGEJO = /* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE)
-
 /** Creates a Forgejo provider for Codeberg or any self-hosted Forgejo instance. */
-export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo', false> = /* @__PURE__ */ defineForgeProvider({ ...FORGEJO, webhooks: forgejoWebhooks(FORGEJO_PROFILE) })
-
-/** `forgejo()` without webhook ingestion, for bundles that never receive a delivery. */
-export const forgejoLite: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo', false> = /* @__PURE__ */ defineForgeProvider(FORGEJO)
+export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo', false> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE))
 
 /**
  * Forgejo and Gitea token scopes, which are per resource group with a

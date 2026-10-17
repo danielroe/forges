@@ -90,7 +90,7 @@ const DEFAULTS = Object.fromEntries(Object.entries(EXPLORER_FIELDS).map(([field,
 /** A forge in the explorer. Every one gets the code builder; those whose API accepts CORS requests can also run. */
 export interface ExplorerForge {
   name: string
-  /** The factory, Lite where there is one, and the subpath it is imported from. */
+  /** The factory, and the subpath it is imported from. */
   factory: string
   module: string
   /**
@@ -141,15 +141,15 @@ function sample(values: Partial<ExplorerInput>): ExplorerInput {
 // the latest release, a commit and its parent (a small diff to compare), and a CI run, where the forge has them.
 // The forges are in the order of the capability matrix.
 export const EXPLORER_FORGES: ExplorerForge[] = [
-  { name: 'GitHub', factory: 'githubLite', module: 'github', load: () => import('forges/github'), forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36506', login: 'atinux', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
-  { name: 'GitLab', factory: 'gitlabLite', module: 'gitlab', load: () => import('forges/gitlab'), forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
-  { name: 'Bitbucket', factory: 'bitbucketLite', module: 'bitbucket', load: () => import('forges/bitbucket'), forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
-  { name: 'Codeberg', factory: 'forgejoLite', module: 'forgejo', load: () => import('forges/forgejo'), forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo', runId: '7600293' }) },
-  { name: 'Gitea', factory: 'giteaLite', module: 'gitea', load: () => import('forges/gitea'), forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1081', login: 'appleboy', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
-  { name: 'Gitee', factory: 'giteeLite', module: 'gitee', load: () => import('forges/gitee'), forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
+  { name: 'GitHub', factory: 'github', module: 'github', load: () => import('forges/github'), forge: 'github', instance: 'github.com', auth: token('GITHUB_TOKEN'), sample: sample({ owner: 'nuxt', name: 'nuxt', number: '36506', login: 'atinux', tag: 'v4.6.0', releaseId: '404130846', sha: '0296ca413dc7ab2e29555e7109f35581b81d5c41', base: '85b8d54f6ce49f4d0f199e90513b1e5d5fa22196', head: 'main', runId: '37772560463' }) },
+  { name: 'GitLab', factory: 'gitlab', module: 'gitlab', load: () => import('forges/gitlab'), forge: 'gitlab', instance: 'gitlab.com', auth: token('GITLAB_TOKEN'), sample: sample({ owner: 'inkscape', name: 'inkscape', number: '8209', login: 'guillaume.turri', tag: 'INKSCAPE_1_4', releaseId: 'INKSCAPE_1_4', sha: '10b831ed45817ecb05f7c6239fe97d56c196c9cc', base: '41d0bb9160ba8c4e8b31d07c301f83b4e43771e3', head: 'master', runId: '2926543070' }) },
+  { name: 'Bitbucket', factory: 'bitbucket', module: 'bitbucket', load: () => import('forges/bitbucket'), forge: 'bitbucket', instance: 'bitbucket.org', auth: token('BITBUCKET_TOKEN'), sample: sample({ owner: 'tutorials', name: 'markdowndemo', number: '80', login: 'brennan', sha: '5b6c39df3196eeeb8a36684beb9a3df854a0b5f3', base: '59a1e452abc40869b12cf13f476531bf5774d0d0', head: 'master' }) },
+  { name: 'Codeberg', factory: 'forgejo', module: 'forgejo', load: () => import('forges/forgejo'), forge: 'forgejo', instance: 'codeberg.org', auth: token('CODEBERG_TOKEN'), sample: sample({ owner: 'forgejo', name: 'forgejo', number: '14752', login: '0ko', tag: 'v16.0.5', releaseId: '12250357', sha: 'd915e5a5abb92527ac7fd0d60997b5fc57cf8467', base: 'adfdb1a53298d953669fcf49d61393a32b256fb5', head: 'forgejo', runId: '7600293' }) },
+  { name: 'Gitea', factory: 'gitea', module: 'gitea', load: () => import('forges/gitea'), forge: 'gitea', instance: 'gitea.com', auth: token('GITEA_TOKEN'), sample: sample({ owner: 'gitea', name: 'tea', number: '1081', login: 'appleboy', tag: 'v0.16.0', releaseId: '945508', sha: 'bcd62a1fb2ce6fdd51ebea91cc33ddbcae000b68', base: '6daaa7c05e7883d4468fc7b40c2f71e0ea75562a', head: 'main' }) },
+  { name: 'Gitee', factory: 'gitee', module: 'gitee', load: () => import('forges/gitee'), forge: 'gitee', instance: 'gitee.com', auth: token('GITEE_TOKEN'), sample: sample({ owner: 'mindspore', name: 'mindspore', number: '91608', login: 'liangchenghui', tag: 'v2.7.2', releaseId: '569215', sha: '0487e01a5e79464fcaf8ac90d9121f9f7a679a24', base: '6de371cd62ddc66dcf20e1843dfe15f31998342c', head: 'master' }) },
   {
     name: 'Azure DevOps',
-    factory: 'azureDevOpsLite',
+    factory: 'azureDevOps',
     module: 'azure-devops',
     load: () => import('forges/azure-devops'),
     forge: 'azure-devops',
@@ -159,11 +159,11 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     blocked: 'Azure DevOps rejects most anonymous requests, even for public projects.',
     sample: sample({ owner: 'acme/Widgets', name: 'widgets', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }),
   },
-  { name: 'Cursor Origin', factory: 'cursorOriginLite', module: 'cursor-origin', load: () => import('forges/cursor-origin'), forge: 'cursor-origin', instance: 'origin.cursor.com', auth: token('CURSOR_AUTH_TOKEN'), sample: sample({ owner: 'acme', name: 'api', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
+  { name: 'Cursor Origin', factory: 'cursorOrigin', module: 'cursor-origin', load: () => import('forges/cursor-origin'), forge: 'cursor-origin', instance: 'origin.cursor.com', auth: token('CURSOR_AUTH_TOKEN'), sample: sample({ owner: 'acme', name: 'api', number: '42', login: 'alice', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
   { name: 'pushin.eu', factory: 'pushin', module: 'pushin', load: () => import('forges/pushin'), forge: 'pushin', instance: 'pushin.eu', auth: token('PUSHIN_TOKEN'), blocked: 'The pushin.eu API doesn\'t allow requests from browsers.', sample: sample({ owner: 'pjullrich', name: 'pushin', number: '1', login: 'pjullrich', sha: 'main', tag: 'v1.0.0', releaseId: '1', runId: '1' }) },
   {
     name: 'Tangled',
-    factory: 'tangledLite',
+    factory: 'tangled',
     module: 'tangled',
     load: () => import('forges/tangled'),
     forge: 'tangled',
