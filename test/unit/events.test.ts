@@ -7,6 +7,7 @@ import { translateOriginWebhook } from '../../src/cursor-origin/webhooks.ts'
 import { completeEvent, eventAction, threadSnapshot } from '../../src/events.ts'
 import { fake } from '../../src/fake/index.ts'
 import { toEvent as toForgejoEvent, toReview as toForgejoReview } from '../../src/forgejo/normalise.ts'
+import { translateForgejoWebhook } from '../../src/forgejo/webhooks.ts'
 import { toFeedEvent, translateGitHubWebhook } from '../../src/github/events.ts'
 import { toEvent as toGitHubEvent, toReview } from '../../src/github/normalise.ts'
 import { GITHUB_WEBHOOK_EVENTS } from '../../src/github/webhook-events.ts'
@@ -73,6 +74,17 @@ describe('thread snapshots', () => {
     const [event] = translateGitLabWebhook('gitlab.com', { headers: { 'x-gitlab-event': 'Issue Hook' }, body: JSON.stringify({ object_kind: 'issue', user: { id: 5, username: 'grace' }, project, object_attributes: { iid: 3, action: 'open', state: 'opened', title: 'Bug', description: '' } }) })
 
     expect(event!.threadSnapshot).toMatchObject({ title: 'Bug', body: '' })
+  })
+
+  it('leaves out draft and labels when a pull request payload omits them', () => {
+    const [bitbucket] = translateBitbucketWebhook('bitbucket.org', { headers: { 'x-event-key': 'pullrequest:created' }, body: JSON.stringify({ repository: { full_name: 'acme/widgets', name: 'widgets' }, pullrequest: { id: 31, title: 'Fix', state: 'OPEN' } }) })
+    const [forgejo] = translateForgejoWebhook({ forge: 'forgejo', instance: 'codeberg.org' }, { headers: { 'x-forgejo-event': 'pull_request', 'x-forgejo-delivery': 'd' }, body: JSON.stringify({ action: 'opened', number: 4, pull_request: { id: 9, number: 4, title: 'Fix', state: 'open' }, repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme' } }, sender: { login: 'ada', id: 3 } }) })
+
+    for (const event of [bitbucket!, forgejo!]) {
+      expect(event.threadSnapshot).toMatchObject({ title: 'Fix', state: 'open' })
+      expect(event.threadSnapshot).not.toHaveProperty('isDraft')
+      expect(event.threadSnapshot).not.toHaveProperty('labels')
+    }
   })
 })
 

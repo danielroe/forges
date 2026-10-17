@@ -163,7 +163,7 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
     actor,
     repo,
     thread,
-    threadSnapshot: thread && payload.pullrequest && snapshotOfThread(toPullThread(thread, payload.pullrequest)),
+    threadSnapshot: thread && payload.pullrequest && snapshotOfThread({ ...toPullThread(thread, payload.pullrequest), isDraft: payload.pullrequest.draft, labels: undefined }),
     source: 'webhook',
     payload,
   }]

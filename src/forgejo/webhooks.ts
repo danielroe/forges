@@ -209,6 +209,7 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
   const thread: ResolvedThreadRef | undefined = repo && subject
     ? { ...origin, repo, kind: isPull ? 'pull_request' : 'issue', number: String(subject.number) }
     : undefined
+  const normalised = thread && subject && toThread(thread, subject)
   const kind = eventKindFor(event, payload)
   return [{
     ...origin,
@@ -223,7 +224,11 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
     actor,
     repo,
     thread,
-    threadSnapshot: thread && subject && snapshotOfThread(toThread(thread, subject)),
+    threadSnapshot: normalised && snapshotOfThread({
+      ...normalised,
+      isDraft: isPull ? subject?.draft ?? subject?.pull_request?.draft : false,
+      labels: subject?.labels && normalised.labels,
+    }),
     source: 'webhook',
     payload,
   }]
