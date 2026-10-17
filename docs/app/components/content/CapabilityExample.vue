@@ -92,11 +92,11 @@ const rows = props.capabilities.split(',').map((capability) => {
             class="px-2 pt-1.5 pb-2.5 lg:px-4 lg:pt-2.5"
           >
             <span
-              v-if="cell.kinds && cell.level !== 'none'"
+              v-if="cell.kinds && isAvailable(cell.level)"
               class="flex flex-wrap gap-x-2.5 gap-y-1"
             >
               <span
-                v-for="kind of cell.kinds.filter(kind => kind.level !== 'none')"
+                v-for="kind of cell.kinds.filter(kind => isAvailable(kind.level))"
                 :key="kind.kind"
                 class="inline-flex items-center gap-1.5 font-mono text-[11px] text-toned"
               >
@@ -112,7 +112,7 @@ const rows = props.capabilities.split(',').map((capability) => {
             <span
               v-else
               class="inline-flex items-center gap-2"
-              :class="cell.level === 'none' ? 'text-muted' : 'text-toned'"
+              :class="isAvailable(cell.level) ? 'text-toned' : 'text-muted'"
             >
               <CapabilityCell
                 :level="cell.level"

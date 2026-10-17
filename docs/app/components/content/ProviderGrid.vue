@@ -3,7 +3,7 @@ import { groups, providers } from '#capabilities'
 
 const total = groups.reduce((sum, group) => sum + group.rows.length, 0)
 
-const supported = (provider: (typeof providers)[number]) => total - provider.summary.none
+const supported = (provider: (typeof providers)[number]) => total - provider.summary.none - provider.summary.not_applicable
 
 const sorted = [...providers].sort((a, b) => supported(b) - supported(a) || b.summary.native - a.summary.native)
 </script>

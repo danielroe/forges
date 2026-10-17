@@ -129,6 +129,12 @@ h2,
   clip-path: polygon(0 0, 55% 0, 100% 45%, 100% 100%, 0 100%);
 }
 
+.capability-swatch[data-level='not_applicable'] {
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--ui-text-muted) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    color-mix(in oklab, var(--ui-bg-accented) 30%, transparent);
+}
+
 /*
  * Sticky matrix headers blur the rows that scroll under them, like the site header.
  * The blur sits in a layer behind each cell, so a rotated label that overflows its

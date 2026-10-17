@@ -51,7 +51,7 @@ export interface ProviderDiff {
   changes: CapabilityChange[]
 }
 
-const LEVELS: readonly SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
+const LEVELS: readonly SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'not_applicable', 'none']
 const KEY = /^[a-z][a-z\d]*(?:\.[a-z][a-z\d]*)*(?::[a-z]\w*)?$/i
 const MAX_SNAPSHOT_BYTES = 4 * 1024 * 1024
 
@@ -289,13 +289,13 @@ function providerDiffs(base: CapabilitySnapshot, head: CapabilitySnapshot): Prov
   return diffs
 }
 
-const ICONS: Record<SupportLevel, string> = { native: '✅', experimental: '🧪', emulated: '🧩', unverified: '❔', none: '❌' }
+const ICONS: Record<SupportLevel, string> = { native: '✅', experimental: '🧪', emulated: '🧩', unverified: '❔', not_applicable: '∅', none: '❌' }
 const SQUARES: Record<Cell, string> = { kept: '🟦', gained: '🟩', changed: '🟨', lost: '🟥', absent: '⬜' }
 const ALSO_ANONYMOUS = '🔓'
 /** Each line of the legend, of which only the symbols a section uses are shown. */
 const LEGEND: Array<Array<[symbol: string, meaning: string]>> = [
   [['🟦', 'verified'], ['🟩', 'newly verified'], ['🟨', 'changed'], ['🟥', 'no longer verified'], ['⬜', 'not verified'], [ALSO_ANONYMOUS, 'same without credentials']],
-  [['✅', 'native'], ['🧪', 'experimental'], ['🧩', 'emulated'], ['❔', 'unverified'], ['❌', 'not available']],
+  [['✅', 'native'], ['🧪', 'experimental'], ['🧩', 'emulated'], ['❔', 'unverified'], ['∅', 'not applicable'], ['❌', 'not available']],
 ]
 
 /**
@@ -309,8 +309,9 @@ function legend(markdown: string): string {
     .join('\n\n')
 }
 
+/** A drop from an available level to an unavailable one is a regression; reclassifying between `'none'` and `'not_applicable'` is not. */
 function isRegression([from, to]: Transition): boolean {
-  return to === 'none' || (to === 'unverified' && from !== 'none')
+  return from !== 'none' && from !== 'not_applicable' && (to === 'none' || to === 'not_applicable' || to === 'unverified')
 }
 
 function regresses(change: CapabilityChange): boolean {
