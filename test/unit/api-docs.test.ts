@@ -445,7 +445,7 @@ describe('the forges reference', () => {
   })
 
   it('documents the helpers, the provider methods and the error classes', () => {
-    for (const name of ['createForges', 'supports', 'supportOf']) {
+    for (const name of ['createForges', 'can', 'support']) {
       expect(content).toMatch(new RegExp(`^#{2,3} \`${name}\\(\\)\`$`, 'm'))
     }
     expect(content).toContain('### `can()`')

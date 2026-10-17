@@ -20,13 +20,13 @@ const VERBS = new Map<string, string>(
  * @param kind The thread or alert kind, for an operation whose support differs by kind.
  * @example
  * ```ts
- * if (supports(provider.capabilities, 'threads.merge')) {
+ * if (can(provider.capabilities, 'threads.merge')) {
  *   await provider.threads.merge(ref)
  * }
  * ```
  */
-export function supports(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): boolean {
-  return !isUnsupported(supportOf(capabilities, verb, kind))
+export function can(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): boolean {
+  return !isUnsupported(support(capabilities, verb, kind))
 }
 
 /** Levels from strongest to weakest, as the capability matrix ranks them. */
@@ -42,15 +42,15 @@ const LEVELS: Support[] = [true, 'emulated']
  * @param verb The operation, named by its path on the provider, such as `threads.comment`.
  * @param kind The thread or alert kind, for an operation whose support differs by kind.
  */
-export function supportOf(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): Support {
-  const support = capabilityOf(capabilities, verb)
-  if (typeof support !== 'object') {
-    return support
+export function support(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): Support {
+  const declared = capabilityOf(capabilities, verb)
+  if (typeof declared !== 'object') {
+    return declared
   }
   if (kind) {
-    return support[kind] ?? false
+    return declared[kind] ?? false
   }
-  const levels = Object.values(support)
+  const levels = Object.values(declared)
   return LEVELS.find(level => levels.includes(level)) ?? (levels.includes('not_applicable') ? 'not_applicable' : false)
 }
 
