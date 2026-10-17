@@ -325,10 +325,10 @@ describe('web links', () => {
   it('writes each forge\'s cross-reference syntax', () => {
     const glPull = { ...pull, forge: 'gitlab', instance: 'gitlab.com', repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com' } }
 
-    expect(gh.referenceTo(pull, { from: repo })).toBe('#42')
-    expect(gh.referenceTo(pull)).toBe('acme/widgets#42')
-    expect(gl.referenceTo(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
-    expect(bb.referenceTo({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
+    expect(gh.referenceFor(pull, { from: repo })).toBe('#42')
+    expect(gh.referenceFor(pull)).toBe('acme/widgets#42')
+    expect(gl.referenceFor(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
+    expect(bb.referenceFor({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
   })
 })
 

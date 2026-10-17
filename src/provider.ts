@@ -1367,7 +1367,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * @param ref The thread to mention.
    * @param options The repository the reference is written in, so that a reference within it is short.
    */
-  referenceTo: (ref: ThreadRef, options?: ReferenceOptions) => string | undefined
+  referenceFor: (ref: ThreadRef, options?: ReferenceOptions) => string | undefined
 }
 
 /**

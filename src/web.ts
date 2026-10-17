@@ -34,7 +34,7 @@ export interface ParsedForgeUrl {
   file?: { path: string, at?: string, line?: number }
 }
 
-/** Options for `provider.referenceTo()`. */
+/** Options for `provider.referenceFor()`. */
 export interface ReferenceOptions {
   /** Repository the reference is written in; a reference within it is the short form. */
   from?: RepoRef
