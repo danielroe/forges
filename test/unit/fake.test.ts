@@ -883,6 +883,9 @@ describe('fake write results', () => {
     await forge.threads.unhideComment(comment.ref)
     expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
     await expect(forge.threads.hideComment({ ...comment.ref, id: '999' }, 'spam')).rejects.toBeInstanceOf(NotFoundError)
+    await forge.threads.hideComment(comment.ref, 'spam')
+    await forge.threads.deleteComment(comment.ref)
+    expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
 
     await forge.orgs.block(org, 'spammer')
     await forge.users.block('troll')
