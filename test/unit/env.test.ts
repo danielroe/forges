@@ -11,7 +11,7 @@ describe('providersFromEnv', () => {
       UNRELATED: 'x',
     })
 
-    expect(entries.map(({ forge, suffix, instance, skipped }) => ({ forge, suffix, instance, skipped }))).toEqual([
+    expect(entries.map(({ forge, suffix, provider, skipped }) => ({ forge, suffix, instance: provider?.instance, skipped }))).toEqual([
       { forge: 'github', suffix: '', instance: 'github.com', skipped: undefined },
       { forge: 'github', suffix: 'WORK', instance: 'ghe.example.com', skipped: undefined },
       { forge: 'gitlab', suffix: '', instance: undefined, skipped: 'needs TOKEN, or ENABLED for anonymous reads' },
@@ -36,34 +36,6 @@ describe('environment flags', () => {
   it('creates a read-only provider for `READ_ONLY`', () => {
     const [entry] = providersFromEnv({ FORGES_GITHUB_TOKEN: 't', FORGES_GITHUB_READ_ONLY: '1' })
 
-    expect(entry!.factory!.create().capabilities.writes.comment.issue).toBe(false)
-  })
-
-  it('does not create a provider until `instance` is read', () => {
-    let created = 0
-    const [entry] = providersFromEnv({ FORGES_GITHUB_TOKEN: 't' })
-    const factory = entry!.factory!
-    const create = factory.create
-    factory.create = () => {
-      created++
-      return create()
-    }
-
-    expect(created).toBe(0)
-    expect(entry!.instance).toBe('github.com')
-    expect(entry!.instance).toBe('github.com')
-    expect(created).toBe(1)
-  })
-
-  it('lets `instance` be overwritten without creating a provider', () => {
-    const [entry] = providersFromEnv({ FORGES_GITHUB_TOKEN: 't' })
-    const factory = entry!.factory!
-    factory.create = () => {
-      throw new Error('not expected')
-    }
-
-    entry!.instance = 'ghe.example.com'
-
-    expect(entry!.instance).toBe('ghe.example.com')
+    expect(entry!.provider!.capabilities.writes.comment.issue).toBe(false)
   })
 })

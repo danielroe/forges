@@ -48,11 +48,6 @@ export function explorerHovers(model: ApiModel): Record<string, ExplorerHover> {
     }
   }
 
-  const create = symbols.get('ForgeProviderFactory')?.members.find(member => member.name === 'create')
-  if (create) {
-    hovers.create = { signature: '(method) ForgeProviderFactory.create(): ForgeProvider', description: create.description }
-  }
-
   // Each method through the namespace that holds it, such as `ThreadsApi` for `provider.threads`.
   const namespaces = symbols.get('ForgeProvider')?.members ?? []
   for (const { method } of EXPLORER_OPERATIONS) {

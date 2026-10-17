@@ -156,7 +156,7 @@ describe('transport security', () => {
   })
 
   it('requires the configured web host and no embedded credentials when parsing', () => {
-    const provider = github({}).create()
+    const provider = github({})
     expect(provider.parseUrl('https://gitlab.com/acme/widgets')).toBeUndefined()
     expect(provider.parseUrl('https://github.com:8443/acme/widgets')).toBeUndefined()
     expect(provider.parseUrl('https://user:password@github.com/acme/widgets')).toBeUndefined()

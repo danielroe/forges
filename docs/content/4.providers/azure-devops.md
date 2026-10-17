@@ -31,7 +31,7 @@ import { azureDevOps } from 'forges/azure-devops'
 const forge = azureDevOps({
   organization: 'acme',
   auth: { type: 'token', token: process.env.AZURE_DEVOPS_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data. Azure DevOps sends requests for pull request statuses, policy evaluations and work item queries without credentials to its sign-in page, so an anonymous provider reads pull requests without `checks`, and reports `threads.checks`, `search.threads` and listing work items as unsupported.
@@ -95,7 +95,7 @@ Azure DevOps service hooks don't sign their deliveries. A service hook subscript
 const forge = azureDevOps({
   organization: 'acme',
   webhookSecret: process.env.AZURE_DEVOPS_HOOK_CREDENTIALS,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

@@ -26,7 +26,7 @@ describe('comment markers', () => {
 
 describe('upsertComment', () => {
   it('creates a keyed comment once and edits it on the next run', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
 
@@ -46,9 +46,8 @@ describe('upsertComment', () => {
     const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
 
     function seeded() {
-      const factory = fake({ seed })
-      const forge = factory.create()
-      const state = factory.store.repos.get('acme/widgets')!.threads.get('1')!
+      const forge = fake({ seed })
+      const state = forge.store.repos.get('acme/widgets')!.threads.get('1')!
       const ref = state.thread.ref
       const comment = (id: string, body: string, createdAt: Date) => ({ ref: { forge: 'fake', instance: 'fake.test', thread: ref, id }, body, createdAt, raw: {} })
       return { forge, state, ref, comment }

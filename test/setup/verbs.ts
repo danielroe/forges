@@ -145,10 +145,7 @@ vi.mock('../../src/define.ts', async (importActual) => {
     ...actual,
     defineForgeProvider: (definition: Parameters<typeof actual.defineForgeProvider>[0]) => {
       const factory = actual.defineForgeProvider(definition)
-      return (options?: { fetch?: FetchLike }) => {
-        const built = factory((options?.fetch ? { ...options, fetch: traced(options.fetch) } : options) as never)
-        return { ...built, create: () => trackProvider(built.create()) }
-      }
+      return (options?: { fetch?: FetchLike }) => trackProvider(factory((options?.fetch ? { ...options, fetch: traced(options.fetch) } : options) as never))
     },
   }
 })

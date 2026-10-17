@@ -15,7 +15,7 @@ describe('users.get', () => {
     const { fetch, calls } = fixtureFetch([], {
       'GET https://api.github.com/users/octocat': { status: 200, body: { login: 'octocat', id: 1, type: 'User', name: 'The Octocat', blog: 'https://github.blog', followers: 10, public_repos: 8, created_at: '2011-01-25T18:44:36Z' } },
     })
-    const user = await github({ fetch }).create().users.get('octocat')
+    const user = await github({ fetch }).users.get('octocat')
 
     expect(user).toMatchObject({ login: 'octocat', name: 'The Octocat', websiteUrl: 'https://github.blog', followers: 10, publicRepos: 8, createdAt: new Date('2011-01-25T18:44:36Z') })
     expect(calls[0]!.authorization).toBeUndefined()
@@ -26,7 +26,7 @@ describe('users.get', () => {
       'GET https://gitlab.com/api/v4/users?username=grace': { status: 200, body: [{ id: 7, username: 'grace' }] },
       'GET https://gitlab.com/api/v4/users/7': { status: 200, body: { id: 7, username: 'grace', name: 'Grace', bio: 'Compilers', organization: 'Navy', followers: 3 } },
     })
-    const user = await gitlab({ fetch }).create().users.get('grace')
+    const user = await gitlab({ fetch }).users.get('grace')
 
     expect(user).toMatchObject({ login: 'grace', bio: 'Compilers', company: 'Navy', followers: 3 })
     expect(calls).toHaveLength(2)
@@ -37,11 +37,11 @@ describe('users.get', () => {
       'GET https://codeberg.org/api/v1/users/ada': { status: 200, body: { id: 2, login: 'ada', full_name: 'Ada', description: 'Engines', followers_count: 5 } },
     })
 
-    expect(await forgejo({ fetch, baseUrl: 'https://codeberg.org' }).create().users.get('ada')).toMatchObject({ login: 'ada', name: 'Ada', bio: 'Engines', followers: 5 })
+    expect(await forgejo({ fetch, baseUrl: 'https://codeberg.org' }).users.get('ada')).toMatchObject({ login: 'ada', name: 'Ada', bio: 'Engines', followers: 5 })
   })
 
   it('rejects where the forge cannot read an account by login', async () => {
-    const forge = bitbucket({}).create()
+    const forge = bitbucket({})
 
     expect(forge.can('users.get')).toBe(false)
     await expect(forge.users.get('someone')).rejects.toThrow(UnsupportedOperationError)
@@ -59,17 +59,17 @@ describe('users.sponsorable', () => {
   it('rejects with NotFoundError for an unknown login', async () => {
     const { fetch } = fixtureFetch([], { 'POST https://api.github.com/graphql Sponsorable': { status: 200, body: { data: { repositoryOwner: null } } } })
 
-    await expect(github({ auth, fetch }).create().users.sponsorable('nobody')).rejects.toThrow(NotFoundError)
+    await expect(github({ auth, fetch }).users.sponsorable('nobody')).rejects.toThrow(NotFoundError)
   })
 
   it('is supported for a GitHub App installation', () => {
-    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).create().can('users.sponsorable')).toBe(true)
+    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).can('users.sponsorable')).toBe(true)
   })
 
   it('is unsupported without a credential, as an app without an installation, on GitHub Enterprise Server, and on a forge that cannot report it', async () => {
-    const app = github({ auth: { type: 'app', appId: 1, privateKey: 'k' } }).create()
-    const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth }).create()
-    for (const provider of [github({}).create(), app, ghes, bitbucket({}).create()]) {
+    const app = github({ auth: { type: 'app', appId: 1, privateKey: 'k' } })
+    const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth })
+    for (const provider of [github({}), app, ghes, bitbucket({})]) {
       expect(provider.can('users.sponsorable')).toBe(false)
       await expect(provider.users.sponsorable('danielroe')).rejects.toThrow(UnsupportedOperationError)
     }
@@ -82,22 +82,22 @@ describe('users.me', () => {
   it('reads the authenticated Gitee account', async () => {
     const { fetch, calls } = fixtureFetch([], { 'GET https://gitee.com/api/v5/user': { status: 200, body: { id: 3, login: 'octocat', name: 'The Octocat' } } })
 
-    expect(await gitee({ auth, fetch }).create().users.me()).toMatchObject({ login: 'octocat', name: 'The Octocat' })
+    expect(await gitee({ auth, fetch }).users.me()).toMatchObject({ login: 'octocat', name: 'The Octocat' })
     expect(calls.map(call => call.url)).toEqual(['https://gitee.com/api/v5/user'])
   })
 
   it('reads the fake viewer', async () => {
-    expect(await fake({ viewer: 'grace' }).create().users.me()).toMatchObject({ login: 'grace' })
+    expect(await fake({ viewer: 'grace' }).users.me()).toMatchObject({ login: 'grace' })
   })
 
   it('needs a credential', async () => {
-    for (const forge of [github({}).create(), gitlab({}).create(), tangled({}).create()]) {
+    for (const forge of [github({}), gitlab({}), tangled({})]) {
       expect(forge.can('users.me')).toBe(false)
       await expect(forge.users.me()).rejects.toThrow(UnsupportedOperationError)
     }
   })
 
   it('is unsupported for a GitHub App installation', () => {
-    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).create().can('users.me')).toBe(false)
+    expect(github({ auth: { type: 'app', appId: 1, privateKey: 'k', installationId: 2 } }).can('users.me')).toBe(false)
   })
 })

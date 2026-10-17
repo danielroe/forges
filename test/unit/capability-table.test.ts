@@ -37,21 +37,21 @@ type Uncovered = Exclude<SpecPath<ProviderSpec>, TablePath>
 const auth = { type: 'token', token: 'token' } as const
 
 const providers = [
-  ['github token', () => github({ auth }).create()],
-  ['github app', () => github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }).create()],
-  ['github anonymous', () => github({}).create()],
-  ['github read-only', () => github({ auth, readOnly: true }).create()],
-  ['gitlab token', () => gitlab({ auth }).create()],
-  ['gitlab anonymous', () => gitlab({}).create()],
-  ['bitbucket token', () => bitbucket({ auth }).create()],
-  ['forgejo token', () => forgejo({ auth }).create()],
-  ['forgejo anonymous', () => forgejo({}).create()],
-  ['gitea token', () => gitea({ auth }).create()],
-  ['gitee token', () => gitee({ auth }).create()],
-  ['azure devops token', () => azureDevOps({ auth, organization: 'acme' }).create()],
-  ['cursor origin token', () => cursorOrigin({ auth }).create()],
-  ['tangled app password', () => tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }).create()],
-  ['fake', () => fake().create()],
+  ['github token', () => github({ auth })],
+  ['github app', () => github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } })],
+  ['github anonymous', () => github({})],
+  ['github read-only', () => github({ auth, readOnly: true })],
+  ['gitlab token', () => gitlab({ auth })],
+  ['gitlab anonymous', () => gitlab({})],
+  ['bitbucket token', () => bitbucket({ auth })],
+  ['forgejo token', () => forgejo({ auth })],
+  ['forgejo anonymous', () => forgejo({})],
+  ['gitea token', () => gitea({ auth })],
+  ['gitee token', () => gitee({ auth })],
+  ['azure devops token', () => azureDevOps({ auth, organization: 'acme' })],
+  ['cursor origin token', () => cursorOrigin({ auth })],
+  ['tangled app password', () => tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' })],
+  ['fake', () => fake()],
 ] as const
 
 const KIND_KEYS = new Set(['issue', 'pull_request', 'discussion', 'commit', 'dependency', 'code_scanning', 'secret', 'advisory'])
@@ -142,7 +142,7 @@ describe('capability table', () => {
 
   it('builds exactly the provider methods the table names', () => {
     const verbs = table.flatMap(entry => entry.verbs ?? []).sort()
-    const provider = github({ auth }).create() as unknown as Record<string, Record<string, unknown>>
+    const provider = github({ auth }) as unknown as Record<string, Record<string, unknown>>
     const groups = [...new Set(verbs.map(verb => verb.split('.')[0]!))]
     const methods = groups.flatMap(group => Object.entries(provider[group]!).filter(([, value]) => typeof value === 'function').map(([name]) => `${group}.${name}`))
 
@@ -150,21 +150,21 @@ describe('capability table', () => {
   })
 
   it('reports the support level of a verb by its provider path', () => {
-    const provider = azureDevOps({ auth, organization: 'acme' }).create()
+    const provider = azureDevOps({ auth, organization: 'acme' })
 
     expect(provider.support('threads.comment', 'issue')).toBe(true)
     expect(provider.support('threads.comment', 'pull_request')).toBe(true)
     expect(provider.support('threads.comment')).toBe(true)
     expect(provider.support('threads.comment', 'discussion')).toBe(false)
-    expect(github({ auth }).create().support('repos.reviewerCandidates')).toBe('emulated')
-    expect(github({ auth }).create().support('repos.reviewerCandidatesPage')).toBe('emulated')
-    expect(gitee({ auth }).create().support('threads.comment', 'issue')).toBe(true)
-    expect(github({}).create().support('ci.log')).toBe(false)
+    expect(github({ auth }).support('repos.reviewerCandidates')).toBe('emulated')
+    expect(github({ auth }).support('repos.reviewerCandidatesPage')).toBe('emulated')
+    expect(gitee({ auth }).support('threads.comment', 'issue')).toBe(true)
+    expect(github({}).support('ci.log')).toBe(false)
   })
 
   it('reports experimental and unverified declarations as true, and keeps them in the declared capabilities', () => {
-    const azure = azureDevOps({ auth, organization: 'acme' }).create()
-    const giteeProvider = gitee({ auth }).create()
+    const azure = azureDevOps({ auth, organization: 'acme' })
+    const giteeProvider = gitee({ auth })
 
     expect(azure.capabilities.writes.comment.issue).toBe(true)
     expect(declaredCapabilities(azure).writes.comment).toMatchObject({ issue: 'experimental', pull_request: true })
@@ -173,20 +173,20 @@ describe('capability table', () => {
   })
 
   it('emulates a single-item read from its listing, at the level the spec sets', () => {
-    expect(bitbucket({ auth }).create().support('threads.getComment', 'pull_request')).toBe('emulated')
-    expect(bitbucket({}).create().support('threads.getComment', 'pull_request')).toBe('emulated')
-    expect(declaredCapabilities(bitbucket({}).create()).comments.get.pull_request).toBe('unverified')
-    expect(bitbucket({ auth }).create().support('threads.getComment', 'issue')).toBe(false)
-    expect(github({ auth }).create().support('threads.getComment', 'issue')).toBe(true)
+    expect(bitbucket({ auth }).support('threads.getComment', 'pull_request')).toBe('emulated')
+    expect(bitbucket({}).support('threads.getComment', 'pull_request')).toBe('emulated')
+    expect(declaredCapabilities(bitbucket({})).comments.get.pull_request).toBe('unverified')
+    expect(bitbucket({ auth }).support('threads.getComment', 'issue')).toBe(false)
+    expect(github({ auth }).support('threads.getComment', 'issue')).toBe(true)
   })
 
   it('reports the strongest level across kinds without a kind', () => {
-    expect(gitee({ auth }).create().support('threads.comment')).toBe(true)
-    expect(bitbucket({ auth }).create().support('threads.getComment')).toBe('emulated')
-    expect(gitee({ auth }).create().can('threads.editComment')).toBe(true)
+    expect(gitee({ auth }).support('threads.comment')).toBe(true)
+    expect(bitbucket({ auth }).support('threads.getComment')).toBe('emulated')
+    expect(gitee({ auth }).can('threads.editComment')).toBe(true)
   })
 
   it('names the problem when asked about an unknown verb', () => {
-    expect(() => github({ auth }).create().can('threads.nope' as never)).toThrow('Unknown verb "threads.nope"')
+    expect(() => github({ auth }).can('threads.nope' as never)).toThrow('Unknown verb "threads.nope"')
   })
 })

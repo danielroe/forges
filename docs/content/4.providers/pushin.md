@@ -30,7 +30,7 @@ import { pushin } from 'forges/pushin'
 
 const forge = pushin({
   auth: { type: 'token', token: process.env.PUSHIN_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider reads public repositories anonymously.

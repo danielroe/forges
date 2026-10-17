@@ -206,7 +206,6 @@ export type {
   ForgeIterable,
   ForgeOptionsBase,
   ForgeProvider,
-  ForgeProviderFactory,
   Forges,
   HideCommentReason,
   InstallationsApi,

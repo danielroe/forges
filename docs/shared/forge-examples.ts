@@ -114,7 +114,7 @@ for await (const thread of forge.threads.list(repo, { state: 'merged' })) {
 function single(forge: Forge): string {
   const parts = [
     `import { ${forge.factory} } from 'forges/${forge.module}'`,
-    `const forge = ${forge.factory}(${forge.options}).create()`,
+    `const forge = ${forge.factory}(${forge.options})`,
   ]
   if (forge.notificationType) {
     parts.push(`for await (const notification of forge.notifications.list()) {

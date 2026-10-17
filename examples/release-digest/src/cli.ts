@@ -4,7 +4,7 @@ import { createForges } from 'forges'
 import { providersFromEnv } from 'forges/env'
 import { buildDigest, formatDigest } from './digest.ts'
 
-const providers = providersFromEnv(process.env).flatMap(entry => entry.factory ? [entry.factory.create()] : [])
+const providers = providersFromEnv(process.env).flatMap(entry => entry.provider ? [entry.provider] : [])
 const forges = createForges(providers)
 
 /** `forge:owner/name`, for example `github:acme/widgets` or `gitlab:acme/platform/widgets`. */

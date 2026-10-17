@@ -1,4 +1,4 @@
-import type { ForgeProvider, ForgeProviderFactory } from 'forges'
+import type { ForgeProvider } from 'forges'
 import type { DecorationItem, HighlighterCore } from 'shiki/core'
 import { codeTheme } from '~~/shared/code-theme'
 import { EXPLORER_FORGES, placeholderAuth } from '~~/shared/explorer'
@@ -36,7 +36,7 @@ export function useExplorerForge() {
   return id
 }
 
-type Factory = (options: Record<string, unknown>) => ForgeProviderFactory
+type Factory = (options: Record<string, unknown>) => ForgeProvider
 
 export interface ExplorerProviders {
   /** Makes the calls that run here. */
@@ -56,7 +56,7 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
     const options = forge.options?.(forge.sample) ?? {}
     loaded = forge.load().then((module) => {
       const factory = (module as Record<string, Factory>)[forge.factory]!
-      return { anonymous: factory(options).create(), signedIn: factory({ ...options, auth: placeholderAuth(forge.auth) }).create() }
+      return { anonymous: factory(options), signedIn: factory({ ...options, auth: placeholderAuth(forge.auth) }) }
     })
     loaded.catch(() => providers.delete(id))
     providers.set(id, loaded)

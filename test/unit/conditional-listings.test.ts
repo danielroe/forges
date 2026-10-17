@@ -85,7 +85,7 @@ describe('github', () => {
 
   it('reads an unchanged first page of threads without reading its checks', async () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${issues}?state=all&sort=updated&direction=desc`]: notModified('W/"one"') })
-    const provider = github({ auth: token, fetch }).create()
+    const provider = github({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { state: 'all', sort: 'updated', cursor: { etag: 'W/"one"' } })
 
@@ -100,7 +100,7 @@ describe('github', () => {
       [`GET ${issues}?state=open&sort=created&direction=desc`]: listed([pull], { etag: 'W/"one"', link: `<${next}>; rel="next"` }),
       [`GET ${next}`]: listed([issue], { etag: 'W/"two"' }),
     })
-    const provider = github({ fetch }).create()
+    const provider = github({ fetch })
 
     const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"stale"' } })
 
@@ -114,7 +114,7 @@ describe('github', () => {
       'GET https://api.github.com/orgs/ada/repos': { status: 404, body: { message: 'Not Found' } },
       'GET https://api.github.com/users/ada/repos?type=owner': notModified('W/"one"'),
     })
-    const provider = github({ fetch }).create()
+    const provider = github({ fetch })
 
     const page = await provider.repos.byOwnerPage({ forge: 'github', instance: 'github.com', owner: 'ada', name: '', kind: 'namespace' }, { cursor: { etag: 'W/"one"' } })
 
@@ -129,7 +129,7 @@ describe('gitlab', () => {
 
   it('reads issues alone conditionally', async () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${project}/issues?state=opened&order_by=created_at&sort=desc`]: notModified('W/"one"') })
-    const provider = gitlab({ auth: token, fetch }).create()
+    const provider = gitlab({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } })
 
@@ -142,7 +142,7 @@ describe('gitlab', () => {
       [`GET ${project}/issues?state=opened&order_by=created_at&sort=desc`]: listed([], { etag: 'W/"issues"' }),
       [`GET ${project}/merge_requests?state=opened&order_by=created_at&sort=desc`]: listed([], { etag: 'W/"merges"' }),
     })
-    const provider = gitlab({ auth: token, fetch }).create()
+    const provider = gitlab({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { cursor: { etag: 'W/"one"' } })
 
@@ -154,8 +154,8 @@ describe('gitlab', () => {
     const conditional = fixtureFetch([], { 'GET https://gitlab.com/api/v4/todos?state=pending': notModified('W/"one"') })
     const unconditional = fixtureFetch([], { 'GET https://gitlab.com/api/v4/todos?state=pending': listed([], { etag: 'W/"two"' }) })
 
-    const pending = await gitlab({ auth: token, fetch: conditional.fetch }).create().notifications.listPage({ cursor: { etag: 'W/"one"' } })
-    const all = await gitlab({ auth: token, fetch: unconditional.fetch }).create().notifications.listPage({ all: true, cursor: { etag: 'W/"one"' } })
+    const pending = await gitlab({ auth: token, fetch: conditional.fetch }).notifications.listPage({ cursor: { etag: 'W/"one"' } })
+    const all = await gitlab({ auth: token, fetch: unconditional.fetch }).notifications.listPage({ all: true, cursor: { etag: 'W/"one"' } })
 
     expect(pending).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(all).toMatchObject({ items: [], cursor: { token: 'done' } })
@@ -175,7 +175,7 @@ describe('bitbucket', () => {
       [`GET ${pulls}`]: listed({ values: [pull], next }, { etag: '"one"' }),
       [`GET ${next}`]: listed({ values: [] }, { etag: '"two"' }),
     })
-    const provider = bitbucket({ auth: token, fetch }).create()
+    const provider = bitbucket({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { cursor: { etag: '"stale"' } })
     const later = await provider.threads.listPage(repo, { cursor: page.cursor })
@@ -192,7 +192,7 @@ describe('gitee', () => {
 
   it('reads open pull requests conditionally', async () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${pulls}`]: notModified('W/"one"') })
-    const provider = gitee({ auth: token, fetch }).create()
+    const provider = gitee({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { kind: 'pull_request', cursor: { etag: 'W/"one"' } })
 
@@ -206,7 +206,7 @@ describe('gitee', () => {
       [`GET ${issues}&state=open`]: listed([], { etag: 'W/"open"' }),
       [`GET ${issues}&state=progressing`]: listed([], { etag: 'W/"progressing"' }),
     })
-    const provider = gitee({ auth: token, fetch }).create()
+    const provider = gitee({ auth: token, fetch })
 
     const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } })
 

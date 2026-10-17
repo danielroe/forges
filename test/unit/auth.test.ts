@@ -1,5 +1,5 @@
 import type { FetchLike } from '../../src/fetch.ts'
-import type { ForgeProviderFactory } from '../../src/provider.ts'
+import type { ForgeProvider } from '../../src/provider.ts'
 import { describe, expect, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -11,7 +11,7 @@ import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { pushin } from '../../src/pushin/index.ts'
 
-type TokenFactory = (token: () => Promise<string>, fetch: FetchLike) => ForgeProviderFactory
+type TokenFactory = (token: () => Promise<string>, fetch: FetchLike) => ForgeProvider
 
 const FACTORIES: Record<string, TokenFactory> = {
   'github': (token, fetch) => github({ auth: { type: 'token', token }, fetch }),
@@ -32,7 +32,7 @@ describe('token auth', () => {
     const provider = factory(async () => `token-${++issued}`, async (_url, init) => {
       sent.push(new Headers(init?.headers).get('authorization') ?? '')
       return Response.json({})
-    }).create()
+    })
 
     await provider.request('GET', '/one')
     await provider.request('GET', '/two')

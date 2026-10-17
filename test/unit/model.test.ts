@@ -9,7 +9,6 @@ import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
 import { commentKey, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
-import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
 import { sameRepo } from '../../src/web.ts'
 
@@ -44,7 +43,7 @@ describe('identity keys', () => {
   })
 
   it('keys what a provider reads by the refs it returns, but not the thread of an event', async () => {
-    const provider = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' }] } }).create()
+    const provider = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' }] } })
     const [listed] = (await provider.threads.listPage({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).items
     const ref: ThreadRef = listed!.ref
     const thread = await provider.threads.get(ref)
@@ -84,7 +83,7 @@ describe('identity keys', () => {
   })
 
   it('builds a repo ref from a provider and the slug people type', () => {
-    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3' }).create()
+    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3' })
 
     expect(repoRef(provider, 'acme/widgets')).toEqual({ forge: 'github', instance: 'ghe.example.com', owner: 'acme', name: 'widgets' })
     expect(repoRef({ forge: 'gitlab', instance: 'gitlab.com' }, 'acme/platform/widgets')).toEqual({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' })
@@ -111,7 +110,7 @@ describe('root entry', () => {
 
   it('lets every provider factory be called without options', () => {
     for (const factory of [root.bitbucket, root.forgejo, root.gitea, root.gitee, root.github, root.gitlab, root.pushin, root.tangled]) {
-      expect(factory().create().forge).toBeTypeOf('string')
+      expect(factory().forge).toBeTypeOf('string')
     }
   })
 })
@@ -132,20 +131,9 @@ describe('createForges', () => {
     expect(forges.get('gitlab')).toBeUndefined()
   })
 
-  it('narrows lookups and factory forges to the kinds registered', () => {
+  it('narrows lookups and provider forges to the kinds registered', () => {
     const auth = { type: 'token', token: 't' } as const
     expectTypeOf(github({ auth }).forge).toEqualTypeOf<'github'>()
-    expectTypeOf(github({ auth }).experimental).toEqualTypeOf<undefined>()
-    expectTypeOf(pushin({ auth }).experimental).toEqualTypeOf<true | undefined>()
-    const custom = kit.defineForgeProvider({
-      forge: 'acme',
-      baseUrl: 'https://acme.example',
-      experimental: true,
-      setup: () => {
-        throw new Error('unused')
-      },
-    })
-    expectTypeOf(custom().experimental).toEqualTypeOf<true | undefined>()
     const forges = createForges([github({ auth }), forgejo({ auth })])
     expectTypeOf(forges).toEqualTypeOf<Forges<'github' | 'forgejo'>>()
     expectTypeOf(forges.get('github')).toEqualTypeOf<ForgeProvider>()
@@ -162,7 +150,6 @@ describe('createForges', () => {
     expectTypeOf(createForges(many).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
     expectTypeOf(createForges([github({ auth }), ...many]).get('github')).toEqualTypeOf<ForgeProvider>()
     expectTypeOf(createForges([forgejo({ auth }), ...many]).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
-    expectTypeOf(createForges([github({ auth }).create()]).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
   })
 
   it('yields nothing when no provider is registered', async () => {
@@ -230,7 +217,7 @@ describe('small helpers', () => {
 
   it('resolves a full SHA-256 commit id without a request', async () => {
     const sha = 'a'.repeat(64)
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: () => Promise.reject(new Error('no request expected')) }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: () => Promise.reject(new Error('no request expected')) })
 
     expect(await provider.contents.resolveRef(repo, sha.toUpperCase())).toBe(sha)
   })

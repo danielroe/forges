@@ -26,7 +26,7 @@ import { github } from 'forges/github'
 
 const forge = github({
   auth: { type: 'token', token: process.env.GITHUB_TOKEN! },
-}).create()
+})
 
 const app = github({
   auth: {
@@ -35,7 +35,7 @@ const app = github({
     privateKey: process.env.GITHUB_APP_PRIVATE_KEY!,
     installationId: 7890,
   },
-}).create()
+})
 ```
 
 For app authentication, `privateKey` is the PEM key of the app, in PKCS#1 or PKCS#8 format. If you pass an `installationId` as well, the provider acts as that installation, and it creates and caches installation tokens whenever it needs one. If you leave it out, the provider authenticates as the app itself. In that case, `installations.list()` lists the installations of the app, and `installations.provider(installation)` gives you a provider for one of them.
@@ -58,7 +58,7 @@ If `token` is a function, pass `kind` as well, or the provider assumes that the 
 ```ts
 const forge = github({
   auth: { type: 'token', token: () => refreshUserToken(), kind: 'app-user' },
-}).create()
+})
 ```
 
 GitHub serves notifications only to `classic` tokens, so `notifications` is unsupported for every other kind and for app authentication. `users.me()` needs a token that belongs to an account, so it isn't supported for an `installation` token or an app installation.
@@ -268,7 +268,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = github({
   webhookSecret: process.env.GITHUB_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

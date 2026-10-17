@@ -30,7 +30,7 @@ import { gitee } from 'forges/gitee'
 
 const forge = gitee({
   auth: { type: 'token', token: process.env.GITEE_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data.
@@ -88,7 +88,7 @@ To verify deliveries, set `webhookSecret` to the password or the signing secret 
 ```ts
 const forge = gitee({
   webhookSecret: process.env.GITEE_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

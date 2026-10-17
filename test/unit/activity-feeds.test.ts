@@ -106,7 +106,7 @@ describe('github activity feeds', () => {
         }
         return json([feedItem('WatchEvent', { action: 'started' })], url.includes('page=2') ? {} : { etag: 'W/"first"', link: '<https://api.github.com/repos/acme/widgets/events?page=2>; rel="next"' })
       },
-    }).create()
+    })
     const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
     const page = await provider.repos.eventsPage(repo)
@@ -128,7 +128,7 @@ describe('github activity feeds', () => {
           urls.push(new URL(url).pathname)
           return json([feedItem('WatchEvent', { action: 'started' })], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
         },
-      }).create()
+      })
       const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
       const page = await provider.repos.eventsPage(repo)
@@ -157,7 +157,7 @@ describe('github activity feeds', () => {
           urls.push(new URL(url).pathname)
           return json([], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
         },
-      }).create()
+      })
 
       const page = await provider.notifications!.listPage()
       const soon = await provider.notifications!.listPage({ cursor: { etag: page.etag }, all: true })
@@ -177,7 +177,7 @@ describe('github activity feeds', () => {
   it('tells a second iteration within the poll interval apart from an empty feed', async () => {
     const provider = github({
       fetch: async () => json([feedItem('WatchEvent', { action: 'started' })], { 'x-poll-interval': '60' }),
-    }).create()
+    })
     const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
     const first = provider.repos.events(repo)
@@ -205,7 +205,7 @@ describe('gitlab activity feeds', () => {
         ? json([event(12, 1)])
         : json([event(10, 1), event(11, 2)], { link: '<https://gitlab.com/api/v4/users/ada/events?page=2>; rel="next"' })
     }
-    const provider = gitlab({ fetch }).create()
+    const provider = gitlab({ fetch })
 
     const page = await provider.users.eventsPage('ada')
     const next = await provider.users.eventsPage('ada', { cursor: page.cursor })
@@ -268,7 +268,7 @@ describe('gitee activity feeds', () => {
     const provider = gitee({ fetch: async (url) => {
       urls.push(url)
       return json([event('StarEvent', { action: 'starred' })])
-    } }).create()
+    } })
     const repo = { forge: 'gitee', instance: 'gitee.com', owner: 'acme', name: 'widgets' }
 
     const page = await provider.repos.eventsPage(repo, { perPage: 1 })
@@ -279,7 +279,7 @@ describe('gitee activity feeds', () => {
   })
 
   it('does not read a user feed without credentials', () => {
-    expect(gitee().create().can('users.events')).toBe(false)
+    expect(gitee().can('users.events')).toBe(false)
   })
 })
 
@@ -373,7 +373,7 @@ describe('tangled activity feeds', () => {
 
 describe('fake activity feeds', () => {
   it('lists the recorded writes of a repository and an account, newest first', async () => {
-    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash' }] } }).create()
+    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash' }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const [issue] = (await forge.threads.listPage(repo)).items
 

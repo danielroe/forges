@@ -26,7 +26,7 @@ import { gitea } from 'forges/gitea'
 
 const forge = gitea({
   auth: { type: 'token', token: process.env.GITEA_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data.
@@ -80,7 +80,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = gitea({
   webhookSecret: process.env.GITEA_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,

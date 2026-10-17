@@ -53,7 +53,7 @@ import type {
   WebhookEventType,
   WebhookRef,
 } from '../model.ts'
-import type { BulkNotificationOptions, ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, HideCommentReason, SubscribeOptions } from '../provider.ts'
+import type { BulkNotificationOptions, ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeVerb, HideCommentReason, SubscribeOptions } from '../provider.ts'
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -267,7 +267,7 @@ export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
   seed?: FakeSeed
   /** Overrides the default support of individual verbs. */
   support?: Partial<Record<ForgeVerb, FakeSupport>>
-  /** Support to copy from a real provider, such as `github().create().capabilities`. `support` wins where both set a verb. */
+  /** Support to copy from a real provider, such as `github().capabilities`. `support` wins where both set a verb. */
   capabilities?: ForgeCapabilities
   /** The clock behind every timestamp the forge writes and every rate limit window. Defaults to the system time. */
   now?: () => Date
@@ -337,11 +337,10 @@ const FAKE_WEBHOOK_EVENTS: WebhookEventType[] = [
 ]
 
 /**
- * What `fake()` returns: a provider factory that also exposes the store and
- * controls the network between the providers and the store. Every provider
- * that `create()` returns shares both.
+ * What `fake()` returns: a provider that also exposes the store and controls
+ * the network between the store and every provider on it.
  */
-export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
+export interface FakeProvider extends ForgeProvider {
   /** The in-memory state of the forge. Results are copies, so changing one leaves the store as it was. */
   readonly store: FakeStore
   /**
@@ -355,7 +354,7 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
    * @throws {TypeError} For a verb that sends no request of its own, or that the fake forge does not implement.
    * @example
    * ```ts
-   * factory.failNext('threads.comment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
+   * forge.failNext('threads.comment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
    * ```
    */
   failNext: (verb: ForgeVerb, error: Error | (() => Error), options?: FakeFailureOptions) => void
@@ -374,7 +373,7 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
    * notification for the thread then becomes unread, or is added.
    * @example
    * ```ts
-   * await factory.as('octocat').threads.comment(issue, 'Any news, @fake-user?')
+   * await forge.as('octocat').threads.comment(issue, 'Any news, @fake-user?')
    * ```
    */
   as: (login: string) => ForgeProvider
@@ -464,16 +463,16 @@ function splitFileKey(key: string): { ref: string, path: string } {
  * import { createForges } from 'forges'
  * import { fake } from 'forges/fake'
  *
- * const factory = fake({
+ * const forge = fake({
  *   seed: {
  *     repos: [{ repo: 'acme/widgets' }],
  *     threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Broken build' }],
  *   },
  * })
- * const forges = createForges([factory])
+ * const forges = createForges([forge])
  * ```
  */
-export function fake(options: FakeOptions = {}): FakeForgeFactory {
+export function fake(options: FakeOptions = {}): FakeProvider {
   const forge = options.forge ?? 'fake'
   const instance = options.instance ?? 'fake.test'
   const origin = { forge, instance }
@@ -1927,11 +1926,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   const provider = factory(options)
 
-  /** Whether a call of the verb sends a request, read from the spec of a provider the first time it is needed. */
   function sendsRequest(key: string): boolean {
-    if (!sent.size) {
-      provider.create()
-    }
     return key === 'sources.subscribe' || sent.has(key)
   }
 
@@ -1961,6 +1956,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       latency = given
     },
     setRateLimit,
-    as: (login: string) => factory({ ...options, viewer: login }).create(),
+    as: (login: string) => factory({ ...options, viewer: login }),
   })
 }

@@ -1186,7 +1186,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 }
 
 /** Creates a Forgejo provider for Codeberg or any self-hosted Forgejo instance. */
-export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo', false> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE))
+export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo'> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE))
 
 /**
  * Forgejo and Gitea token scopes, which are per resource group with a

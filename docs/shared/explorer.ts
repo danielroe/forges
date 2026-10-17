@@ -578,7 +578,7 @@ export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge,
 
   const marked = [
     `import { ${factory} } from 'forges/${forge.module}'`,
-    wrap(`const ${symbol('const:forge:ForgeProvider', 'forge')} = ${factory}(${factoryOptions.length ? `{ ${factoryOptions.join(', ')} }` : ''}).${symbol('create', 'create')}()`),
+    wrap(`const ${symbol('const:forge:ForgeProvider', 'forge')} = ${factory}(${factoryOptions.length ? `{ ${factoryOptions.join(', ')} }` : ''})`),
     ...refs.length ? [refs.map(wrap).join('\n')] : [],
     wrap(operation.returns === 'void' ? call : `const ${symbol(`const:result:${operation.returns}`, 'result')} = ${call}`),
   ].join('\n\n')

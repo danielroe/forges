@@ -89,7 +89,7 @@ export const PAGES: PageConfig[] = [
     icon: 'i-lucide-plug',
     description: 'Create providers and combine them in a registry.',
     overview: 'Create a provider with the factory of your forge, such as `github()`. Combine providers with `createForges()`, or create them from environment variables with `forgesFromEnv()`.',
-    intro: 'Each forge has a factory such as `github()`. Pass the factories to `createForges()`, or call `create()` on one for a single provider.',
+    intro: 'Each forge has a factory such as `github()`, which creates a provider. Pass providers to `createForges()` to combine them.',
     sections: [
       { title: 'Options and authentication', names: ['ForgeOptionsBase', 'TokenAuth', 'BasicAuth', 'AppAuth', 'AnonymousAuth', 'AuthKind'] },
       forge('GitHub', 'github'),
@@ -103,7 +103,7 @@ export const PAGES: PageConfig[] = [
       forge('Pushin.eu', 'pushin'),
       forge('Tangled', 'tangled'),
       forge('Cloudflare Artifacts', 'cloudflare-artifacts'),
-      { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ForgeProviderFactory', 'ProviderFactoryFunction'] },
+      { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ProviderFactoryFunction'] },
       { title: 'Registry methods', members: { of: 'Forges' } },
       { title: 'Create from the environment', intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).', entry: 'forges/env', names: [/./] },
     ],
