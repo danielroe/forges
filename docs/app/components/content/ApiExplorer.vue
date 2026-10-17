@@ -697,7 +697,7 @@ if (props.permalink) {
             </p>
           </template>
           <p
-            v-if="!unsupported && (support === 'experimental' || support === 'emulated' || support === 'unverified')"
+            v-if="!unsupported && support === 'emulated'"
             class="text-sm text-muted"
           >
             {{ forge.name }} support for this is {{ support }}.

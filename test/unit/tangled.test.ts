@@ -424,10 +424,10 @@ describe('tangled notifications (experimental)', () => {
     }
   }
 
-  it('is unsupported without a notifications service, and experimental with one', async () => {
+  it('is unsupported without a notifications service, and supported with one', async () => {
     expect(provider().instance.can('notifications.list')).toBe(false)
     await expect(provider().instance.notifications.listPage()).rejects.toThrow(UnsupportedOperationError)
-    expect(notifying().instance.capabilities.notifications.list).toBe('experimental')
+    expect(notifying().instance.capabilities.notifications.list).toBe(true)
   })
 
   it('lists notifications with a service-auth token scoped to the method', async () => {

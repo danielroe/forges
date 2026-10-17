@@ -18,20 +18,17 @@ export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gi
  * Capability flag. Every value other than `false` and `'not_applicable'` means the
  * operation is available:
  *
- * - `true`: native, and verified against the forge's responses.
- * - `'experimental'`: native and verified, but built on an API the forge marks
- *   unstable, so it can change.
- * - `'emulated'`: composed from other calls, so the result is approximate.
- * - `'unverified'`: implemented, but not yet verified against the forge's
- *   responses, so it may not work.
+ * - `true`: native.
+ * - `'emulated'`: composed from other calls, so it costs more requests or the
+ *   result is approximate.
  * - `false`: not available, for any reason.
  * - `'not_applicable'`: the forge has no such operation, so there is nothing to
  *   implement.
  */
-export type Support = boolean | 'emulated' | 'experimental' | 'not_applicable' | 'unverified'
+export type Support = boolean | 'emulated' | 'not_applicable'
 
-/** Whether `support` means the operation cannot be called. Test this rather than `support === false`: `'not_applicable'` is a non-empty string. */
-export function isUnsupported(support: Support): boolean {
+/** Whether `support` means the operation cannot be called. Test this rather than `support === false`: `'not_applicable'` is a non-empty string. Accepts the declaration-only levels too, so a declared level can be tested before it resolves. */
+export function isUnsupported(support: Support | 'experimental' | 'unverified'): boolean {
   return support === false || support === 'not_applicable'
 }
 

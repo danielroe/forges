@@ -462,7 +462,7 @@ describe('gitea actions', () => {
     const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).create().capabilities.ci
 
     expect(ci({ auth })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
-    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, job: 'unverified', log: false })
+    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, job: true, log: false })
     expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: false })
     expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: true })
     expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })

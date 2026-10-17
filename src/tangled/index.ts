@@ -105,8 +105,7 @@ export interface TangledOptions extends ForgeOptionsBase {
    * Base URL of a service implementing the experimental
    * `org.tangled.temp.notification.*` lexicons (Tangled's deliberi). Its
    * service DID is derived as `did:web:<host>`. Requires `auth`. The lexicons
-   * live in Tangled's `temp` namespace and may change or disappear, so the
-   * resulting capabilities report `'experimental'`, or `'unverified'`.
+   * live in Tangled's `temp` namespace and may change or disappear.
    */
   notificationsUrl?: string
   /**

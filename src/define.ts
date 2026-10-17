@@ -29,7 +29,7 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { UrlTarget, WebLinks } from './web.ts'
-import { ALERT_KINDS, applyNotApplicable, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, applyNotApplicable, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, trackDeclared, upsertKinds, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
@@ -46,8 +46,18 @@ export interface CapabilityEnv {
   version?: string
 }
 
+/**
+ * The support level a provider declares for a verb: a {@link Support}, or one
+ * of two levels that the capability matrix and `pnpm test:capabilities` read,
+ * and that `capabilities` reports as `true`:
+ *
+ * - `'experimental'`: verified, but built on an API the forge marks unstable.
+ * - `'unverified'`: implemented, but no test verifies it against the forge yet.
+ */
+export type DeclaredSupport = Support | 'experimental' | 'unverified'
+
 /** A fixed support level, or one computed from the instance version. */
-export type SupportInput = Support | ((env: CapabilityEnv) => Support)
+export type SupportInput = DeclaredSupport | ((env: CapabilityEnv) => DeclaredSupport)
 
 /** The thread kinds that verbs can differ by. */
 export type VerbKind = Exclude<ThreadKind, 'other'>
@@ -552,11 +562,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const flags = { experimental: Boolean(definition.experimental), readOnly: Boolean(options.readOnly), webhook: Boolean(handlers) }
   let capabilities = capabilitiesOf(spec, env, flags)
 
-  const unsupported = (verb: string, support?: Support, kind?: string) => options.readOnly && WRITE_VERBS.has(verb)
+  const unsupported = (verb: string, support?: DeclaredSupport, kind?: string) => options.readOnly && WRITE_VERBS.has(verb)
     ? new ReadOnlyError(`${verb} is a write and this ${definition.forge} provider is read-only`, origin)
     : new UnsupportedOperationError(`${definition.forge} ${support === 'not_applicable' ? 'has no' : 'does not support'} ${verb}${kind ? ` for a ${kind.replace('_', ' ')}` : ''}`, origin)
   /** An iterable that rejects on first read, for listings the forge does not have. */
-  const emptyIterable = <T>(verb: string, support?: Support): ForgeIterable<T> => forgeIterable<T>(async function* () {
+  const emptyIterable = <T>(verb: string, support?: DeclaredSupport): ForgeIterable<T> => forgeIterable<T>(async function* () {
     throw unsupported(verb, support)
   })
 
@@ -834,7 +844,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     }
   }
 
-  return {
+  return trackDeclared<ForgeProvider<HasWeb> & TExtensions>({
     ...declaredSpec.extensions as TExtensions,
     ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations' | 'orgs'>,
     forge: definition.forge,
@@ -871,7 +881,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     webOrigin: (spec.web ? new URL(spec.web.baseUrl).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
-  }
+  }, () => capabilitiesOf(spec, env, flags, true))
 }
 
 /**

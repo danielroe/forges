@@ -3,6 +3,7 @@ import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { VERB_RUN } from '../test/setup/verbs-directory.ts'
+import { withDeclared } from './capabilities.ts'
 
 /** Why the run that wrote `directory` left verbs out, or an empty list when it ran every test of the unit project. */
 export function partialRun(directory: URL): string[] {
@@ -41,8 +42,7 @@ export function readExercised(directory: URL): Map<string, Set<string>> {
 
 const auth = { type: 'token', token: 't' } as const
 
-/** Every provider whose declarations are checked, keyed like `readExercised()`, with each auth kind that changes them. */
-export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = [
+const checked: Array<[string, ForgeProvider]> = [
   ['github', github({ auth }).create()],
   ['github', github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } }).create()],
   ['gitlab', gitlab({ auth }).create()],
@@ -67,6 +67,9 @@ export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = [
   ['tangled:anonymous', tangled({}).create()],
   ['pushin:anonymous', pushin({}).create()],
 ]
+
+/** Every provider whose declarations are checked, keyed like `readExercised()`, with each auth kind that changes them and the levels it declares as its capabilities. */
+export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = checked.map(([key, provider]) => [key, withDeclared(provider)])
 
 export function capabilityAt(capabilities: ForgeCapabilities, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], capabilities)

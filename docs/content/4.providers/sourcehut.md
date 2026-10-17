@@ -112,7 +112,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | ❌ |
 | `comments.list` | issue, PR | ❌ |
-| `comments.get` | issue, PR | ❌ |
+| `comments.get` | issue (emulated), PR (emulated) | ❌ |
 | `comments.edit` | ❌ | ❌ |
 | `comments.delete` | ❌ | ❌ |
 | `comments.hide` | ❌ | ❌ |
@@ -154,7 +154,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `ci.runs` | emulated | ❌ |
 | `ci.run` | ✅ | ❌ |
 | `ci.jobs` | ✅ | ❌ |
-| `ci.job` | ✅ | ❌ |
+| `ci.job` | emulated | ❌ |
 | `ci.log` | ✅ | ❌ |
 | `contents.file` | ✅ | ❌ |
 | `contents.tree` | ✅ | ❌ |

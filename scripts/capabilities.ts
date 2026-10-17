@@ -1,4 +1,5 @@
 import type * as Forges from '../src/index.ts'
+import { declaredCapabilities } from '../src/capabilities.ts'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
 
 /** One kind of credential a provider accepts, where support depends on the kind. */
@@ -29,6 +30,11 @@ type CredentialOptions<O> = Omit<MatrixCredential, 'provider'> & { options: O }
 /** Traits describe the provider, not an operation, so they stay the same without credentials. */
 const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
+/** `provider` with the levels it declares as its capabilities, so that the docs show which are experimental or unverified. */
+export function withDeclared(provider: Forges.ForgeProvider): Forges.ForgeProvider {
+  return { ...provider, capabilities: declaredCapabilities(provider) }
+}
+
 /** Without anonymous reads, a provider reaches nothing, but its traits and `not_applicable` entries stay. */
 function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvider {
   const capabilities = structuredClone(provider.capabilities) as unknown as Record<string, Record<string, unknown>>
@@ -54,15 +60,15 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   const auth = { type: 'token', token: 'token' } as const
   const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProviderFactory, options: O, credentials?: CredentialOptions<O>[]): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
-    const provider = factory(options).create()
-    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? factory({ ...options, auth: undefined }).create() : withoutCredentials(provider)
+    const provider = withDeclared(factory(options).create())
+    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? withDeclared(factory({ ...options, auth: undefined }).create()) : withoutCredentials(provider)
     return {
       slug,
       name,
       factories: [exported],
       provider,
       anonymous,
-      ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: factory(options).create() })) } : {},
+      ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: withDeclared(factory(options).create()) })) } : {},
     }
   }
   const githubApp = { type: 'app', appId: 1, privateKey: '' } as const

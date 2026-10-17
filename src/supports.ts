@@ -30,15 +30,14 @@ export function supports(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?
 }
 
 /** Levels from strongest to weakest, as the capability matrix ranks them. */
-const LEVELS: Support[] = [true, 'experimental', 'emulated', 'unverified']
+const LEVELS: Support[] = [true, 'emulated']
 
 /**
  * How well `verb` is supported according to `capabilities`: `true`,
- * `'experimental'`, `'emulated'`, `'unverified'`, `'not_applicable'` or `false`,
- * for `kind` where support differs by thread kind (or by alert kind for
- * `securityAlerts`). Without `kind`, a per-kind verb reports its strongest
- * available level, or `'not_applicable'` when no kind is available and any kind
- * is, else `false`.
+ * `'emulated'`, `'not_applicable'` or `false`, for `kind` where support differs
+ * by thread kind (or by alert kind for `securityAlerts`). Without `kind`, a
+ * per-kind verb reports its strongest available level, or `'not_applicable'`
+ * when no kind is available and any kind is, else `false`.
  * @param capabilities The capabilities of a provider, such as `provider.capabilities`.
  * @param verb The operation, named by its path on the provider, such as `threads.comment`.
  * @param kind The thread or alert kind, for an operation whose support differs by kind.

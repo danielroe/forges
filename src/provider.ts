@@ -304,7 +304,7 @@ export interface ForgeCapabilities {
   writes: {
     /** Support for `threads.comment()`, per thread kind. */
     comment: PerKind
-    /** Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all, or `'unverified'` where a part is. */
+    /** Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all. */
     upsertComment: PerKind
     /** Support for `threads.close()`, per thread kind. */
     close: PerKind
@@ -1350,11 +1350,10 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    */
   can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
   /**
-   * How well `verb` is supported: `true`, `'experimental'`, `'emulated'`,
-   * `'unverified'`, `'not_applicable'` or `false`, for `kind` where support
-   * differs by kind. `can()` is `true` for every level but `false` and
-   * `'not_applicable'`. Without `kind`, a per-kind verb reports its strongest
-   * level across kinds.
+   * How well `verb` is supported: `true`, `'emulated'`, `'not_applicable'`
+   * or `false`, for `kind` where support differs by kind. `can()` is `true`
+   * for every level but `false` and `'not_applicable'`. Without `kind`, a
+   * per-kind verb reports its strongest level across kinds.
    * @param verb The operation, named by its path on the provider, such as `threads.comment`.
    * @param kind The thread kind, for an operation whose support differs by kind.
    */
