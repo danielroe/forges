@@ -124,7 +124,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | ❌ | ❌ |
-| `writes.upsertComment` | ❌ | ❌ |
 | `writes.close` | ❌ | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -138,7 +137,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `writes.setAssignees` | ❌ | ❌ |
 | `writes.requestReview` | ❌ | ❌ |
 | `writes.merge` | ❌ | ❌ |
-| `writes.approveAndMerge` | ❌ | ❌ |
 | `writes.updateBranch` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

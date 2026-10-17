@@ -360,7 +360,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const users = reviewers.map(reviewer => typeof reviewer === 'string' ? reviewer : reviewer.id)
         await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users }, signal: options?.signal })
       }),
-      merge: verb('experimental', async (thread, mergeOptions = {}, hooks = {}) => {
+      merge: verb('experimental', async (thread, mergeOptions = {}) => {
         const ref = requireThread(thread, context)
         if (mergeOptions.whenChecksPass) {
           throw new UnsupportedOperationError('Cursor Origin has no merge queue or auto-merge', context)
@@ -379,7 +379,6 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           const { data: repo } = await fetcher.json<OriginRepo>(repoPath(ref.repo), { signal: mergeOptions.signal })
           method = soleMergeMethod({ merge: repo.allowMergeCommit, squash: repo.allowSquashMerge }, context)
         }
-        await hooks.beforeMerge?.()
         const { data } = await fetcher.json<{ mergeCommitSha?: string } | undefined>(`${pullPath(ref)}/merge`, { method: 'POST', json: { mergeMethod: method, expectedHeadSha: mergeOptions.sha }, mapError: toMergeError, signal: mergeOptions.signal })
         return { status: 'merged' as const, sha: data?.mergeCommitSha, raw: data }
       }),

@@ -2,6 +2,7 @@ import type { ForgeVerb } from '../../src/provider.ts'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ForgeApiError, ForgeNetworkError, ForgeTimeoutError, MergeBlockedError, MergeConflictError, RateLimitedError, SubscriptionClosedError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
+import { upsertComment } from '../../src/helpers.ts'
 
 const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
@@ -52,7 +53,7 @@ describe('fake forge failure injection', () => {
   })
 
   it('refuses a verb that sends no request of its own', () => {
-    expect(() => fake().failNext('threads.upsertComment', new Error('boom'))).toThrow('threads.upsertComment sends no request of its own; fail threads.comments, threads.comment or threads.editComment instead')
+    expect(() => fake().failNext('threads.getComment', new Error('boom'))).toThrow('threads.getComment sends no request of its own; fail threads.comments instead')
     expect(() => fake().failNext('webhooks.verify', new Error('boom'))).toThrow('webhooks.verify sends no request of its own; it runs locally')
   })
 
@@ -236,14 +237,6 @@ describe('fake forge merges', () => {
     await expect(forge.threads.merge(pull)).rejects.toThrow(MergeBlockedError)
   })
 
-  it('sends the approval of approveAndMerge before refusing a blocked merge', async () => {
-    const factory = fake({ seed: { threads: [{ ...seed.threads[1]!, mergeable: 'blocked' }] }, support: { 'threads.approveAndMerge': true } })
-    const forge = factory.create()
-
-    await expect(forge.threads.approveAndMerge({ ...pull, number: '1' })).rejects.toThrow(MergeBlockedError)
-    expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.reviews.map(review => review.state)).toEqual(['approved'])
-  })
-
   it('refuses a blocked or conflicted pull request', async () => {
     const factory = fake({ seed: { threads: [{ ...seed.threads[1]!, mergeable: 'blocked' }] } })
     const forge = factory.create()
@@ -376,8 +369,8 @@ describe('fake forge offline queue', () => {
     const mutation = { key: 'mutation-1', body: 'Thanks for the report' }
 
     factory.failNext('threads.comment', new ForgeTimeoutError('Request timed out', 30_000), { applied: true })
-    await expect(forge.threads.upsertComment(issue, mutation)).rejects.toThrow(ForgeTimeoutError)
-    const retried = await forge.threads.upsertComment(issue, mutation)
+    await expect(upsertComment(forge, issue, mutation)).rejects.toThrow(ForgeTimeoutError)
+    const retried = await upsertComment(forge, issue, mutation)
 
     expect(retried.created).toBe(false)
     expect(await Array.fromAsync(forge.threads.comments(issue))).toEqual([retried.comment])

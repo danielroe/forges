@@ -2,7 +2,6 @@ import type { FetcherOptions, FetchLike, ForgeRequest } from './fetch.ts'
 import type {
   Actor,
   AddCollaboratorResult,
-  ApproveAndMergeOptions,
   BaseOptions,
   Branch,
   ChangedFile,
@@ -93,8 +92,6 @@ import type {
   TreeOptions,
   UpdateBranchOptions,
   UpdateBranchResult,
-  UpsertCommentInput,
-  UpsertCommentResult,
   User,
   Webhook,
   WebhookDeliveryRecord,
@@ -300,12 +297,10 @@ export interface ForgeCapabilities {
     /** Support for `notifications.unreadCount()`. */
     unreadCount: Support
   }
-  /** Write verbs, per thread kind except `merge`, `approveAndMerge`, `updateBranch`, `transfer` and `markDuplicate`. */
+  /** Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`. */
   writes: {
     /** Support for `threads.comment()`, per thread kind. */
     comment: PerKind
-    /** Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all. */
-    upsertComment: PerKind
     /** Support for `threads.close()`, per thread kind. */
     close: PerKind
     /** Support for `threads.reopen()`, per thread kind. */
@@ -332,8 +327,6 @@ export interface ForgeCapabilities {
     requestReview: PerKind
     /** Support for `threads.merge()`. */
     merge: Support
-    /** Composed from `merge` and `reviews.approve`. */
-    approveAndMerge: Support
     /** Support for `threads.updateBranch()`. */
     updateBranch: Support
     /** Support for `threads.transfer()`. */
@@ -569,15 +562,6 @@ export interface LockOptions extends BaseOptions {
 /** Why a comment was hidden. */
 export type HideCommentReason = 'abuse' | 'duplicate' | 'low_quality' | 'off_topic' | 'outdated' | 'resolved' | 'spam'
 
-/** Options for `threads.comment()`. */
-export interface CommentOptions extends BaseOptions {
-  /**
-   * Writes the hidden marker of `upsertComment()` for this key into the body, so that `upsertComment()` with the same
-   * key edits this comment instead of posting another.
-   */
-  key?: string
-}
-
 /**
  * Issues, pull requests and the other kinds of discussion: reading, creating, commenting, labelling,
  * reviewing and merging them.
@@ -624,30 +608,19 @@ export interface ThreadsApi {
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
   /**
    * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
-   * no endpoint for it, walks `comments()` until the id matches.
+   * no endpoint for it (`capabilities.comments.get` is `'emulated'`), it lists the comments of the thread page by page
+   * until the id matches, which costs a request for each page read.
    */
   getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
   /**
-   * Adds a comment to a thread. A repeat posts a second comment, so pass a `key` and retry with `upsertComment()`.
+   * Adds a comment to a thread. A repeat posts a second comment; to make it safe to retry, mark the body with
+   * `withCommentMarker()` and retry with `upsertComment()`, both from `forges/helpers`.
    * @example
    * ```ts
-   * await provider.threads.comment(ref, 'Deployed to staging', { key: mutationId })
+   * await provider.threads.comment(ref, 'Deployed to staging')
    * ```
    */
-  comment: (ref: ThreadRef, body: string, options?: CommentOptions) => Promise<Comment>
-  /**
-   * Creates the comment, or edits the one an earlier call with the same `key`
-   * left behind, unless that one already has the same body. The key is carried in the body as a hidden marker; see
-   * {@link commentMarker}. Composed from `comments`, `comment` and
-   * `editComment`, so it costs a listing on every call, which `since` bounds.
-   * @param ref The thread to comment on.
-   * @param input The `key` that identifies the comment across runs, its `body`, and `since` to look at recent comments only.
-   * @example
-   * ```ts
-   * await provider.threads.upsertComment(ref, { key: 'preview', body: 'Preview: https://pr-42.example.com' })
-   * ```
-   */
-  upsertComment: (ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions) => Promise<UpsertCommentResult>
+  comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Replaces the body of a comment. */
   editComment: (ref: CommentRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Deletes a comment. A repeat can reject with `NotFoundError` once the comment is gone. */
@@ -755,11 +728,6 @@ export interface ThreadsApi {
    */
   merge: (ref: ThreadRef, options?: MergeOptions) => Promise<MergeResult>
   /**
-   * Approves, then merges, and resolves as `merge()` does. The merge method is checked before the approval is sent.
-   * A repeat approves again, as `approve()` does, so once the approval is in, retry with `merge()`.
-   */
-  approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<MergeResult>
-  /**
    * Brings the base branch into a pull request's head branch, by a merge commit or a rebase. A repeat once the branch
    * is up to date rejects on GitHub, Forgejo and Gitea, and leaves the branch as it is on GitLab.
    * @param ref The pull request to update.
@@ -789,7 +757,11 @@ export interface ThreadsApi {
   reviews: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Review>
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
-  /** Reads one review by its ref. Where the forge has no endpoint for it, walks `reviews()` until the id matches. */
+  /**
+   * Reads one review by its ref. Where the forge has no endpoint for it (`capabilities.reviews.get` is `'emulated'`),
+   * it lists the reviews of the pull request page by page until the id matches, which costs a request for each page
+   * read.
+   */
   getReview: (ref: ReviewRef, options?: BaseOptions) => Promise<Review>
   /** Creates a review. Without `event` the review is pending where the forge has pending reviews. A repeat adds a second review. */
   createReview: (ref: ThreadRef, input: ReviewInput, options?: BaseOptions) => Promise<Review>
@@ -850,7 +822,11 @@ export interface CiApi {
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
-  /** Reads one CI job. Where the forge has no endpoint for it, walks `jobs()` of the ref's `run`, so the ref must name one. */
+  /**
+   * Reads one CI job. Where the forge has no endpoint for it (`capabilities.ci.job` is `'emulated'`), it lists the jobs
+   * of the ref's `run` page by page until the id matches, which costs a request for each page read, so the ref must
+   * name its run.
+   */
   job: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>

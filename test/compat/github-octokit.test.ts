@@ -226,12 +226,15 @@ describe('request compatibility with Octokit', () => {
     )
   })
 
-  it('reads the repository, approves, then merges', async () => {
+  it('approves, then reads the repository and merges', async () => {
     await compare(
-      provider => provider.threads.approveAndMerge!(pull),
+      async (provider) => {
+        await provider.threads.approve(pull)
+        await provider.threads.merge!(pull)
+      },
       async (octokit) => {
-        await octokit.rest.repos.get({ owner, repo: name })
         await octokit.rest.pulls.createReview({ owner, repo: name, pull_number: 42, event: 'APPROVE' })
+        await octokit.rest.repos.get({ owner, repo: name })
         await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge-async', { owner, repo: name, pull_number: 42, merge_method: 'squash', merge_action: 'direct_merge' })
         await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/merge-async/{uuid}', { owner, repo: name, pull_number: 42, uuid: '3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' })
       },

@@ -1740,31 +1740,6 @@ export interface OwnerRepoQuery extends PageOptions {
   direction?: 'asc' | 'desc'
 }
 
-/** What `threads.upsertComment()` needs. */
-export interface UpsertCommentInput {
-  /**
-   * Identifies the comment to replace across runs. It is written into the
-   * body as an HTML comment, so it is invisible when rendered but matchable
-   * on the next run.
-   */
-  key: string
-  body: string
-  /**
-   * Only comments updated at or after this time are searched for the key. When retrying a change, pass the time of its
-   * first attempt, less a margin for clock skew, so the retry lists only recent comments. A comment with the same key
-   * from before `since` is not found, and a new one is created.
-   */
-  since?: Date
-}
-
-/** What `threads.upsertComment()` did. */
-export interface UpsertCommentResult {
-  /** The comment that was created or edited. */
-  comment: Comment
-  /** `false` when a comment with the same key already existed, and was edited or already had the body. */
-  created: boolean
-}
-
 /** What `threads.create()` needs. */
 export interface ThreadCreateInput {
   kind: 'issue' | 'pull_request' | 'discussion'
@@ -1800,24 +1775,6 @@ export interface ThreadUpdateInput {
 export type GetManyResult
   = | { ok: true, ref: ThreadRef, thread: Thread }
     | { ok: false, ref: ThreadRef, warning: ForgeWarning }
-
-/**
- * The hidden marker `threads.upsertComment()` writes into a comment body to
- * find it again. It renders as nothing on every forge that renders Markdown
- * as HTML.
- */
-export function commentMarker(key: string): string {
-  const end = ['-->', '--!>'].find(token => key.includes(token))
-  if (end) {
-    throw new TypeError(`Comment key ${JSON.stringify(key)} contains \`${end}\`, which would end the hidden marker early`)
-  }
-  return `<!-- forges:key=${key} -->`
-}
-
-/** Whether `body` carries the marker for `key`. */
-export function hasCommentMarker(body: string, key: string): boolean {
-  return body.includes(commentMarker(key))
-}
 
 /** A short-lived token that acts as one app installation. */
 export interface InstallationToken {
@@ -2202,13 +2159,7 @@ export interface MergeOptions extends BaseOptions {
   whenChecksPass?: boolean
 }
 
-/** Options for `threads.approveAndMerge()`. */
-export interface ApproveAndMergeOptions extends MergeOptions {
-  /** Review body sent with the approval. Rejected where approvals carry no body (Azure DevOps, Bitbucket, GitLab). */
-  body?: string
-}
-
-/** What `threads.merge()` and `threads.approveAndMerge()` resolve with. */
+/** What `threads.merge()` resolves with. */
 export interface MergeResult {
   /**
    * `'merged'` once the pull request has merged. `'queued'` when the forge merges it later: with `whenChecksPass`,

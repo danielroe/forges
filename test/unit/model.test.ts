@@ -4,9 +4,10 @@ import { describe, expect, expectTypeOf, it } from 'vitest'
 import { fake } from '../../src/fake/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
+import { upsertComment } from '../../src/helpers.ts'
 import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
-import { commentKey, commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
+import { commentKey, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
@@ -49,7 +50,7 @@ describe('identity keys', () => {
     const ref: ThreadRef = listed!.ref
     const thread = await provider.threads.get(ref)
     const comment = await provider.threads.comment(ref, 'Thanks!')
-    const { comment: upserted } = await provider.threads.upsertComment(ref, { key: 'status', body: 'Green' })
+    const { comment: upserted } = await upsertComment(provider, ref, { key: 'status', body: 'Green' })
     const review = await provider.threads.createReview(ref, { event: 'approve' })
     const [event] = (await provider.threads.eventsPage(ref)).items
 
@@ -105,7 +106,7 @@ describe('root entry', () => {
 
     expect(Object.keys(root).filter(name => authoring.includes(name))).toEqual([])
     expect(Object.keys(kit).filter(name => authoring.includes(name)).sort()).toEqual([...authoring].sort())
-    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'commentMarker', 'hasCommentMarker', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS']))
+    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS']))
     expectTypeOf<root.CommitSearchQuery>().toHaveProperty('committer')
   })
 
@@ -257,12 +258,6 @@ describe('small helpers', () => {
     expect(summariseChecks(['success', 'neutral']).state).toBe('success')
     expect(summariseChecks(['unknown', 'pending']).state).toBe('pending')
     expect(summariseChecks([]).state).toBe('unknown')
-  })
-
-  it('refuses a comment key that would end the hidden marker', () => {
-    expect(() => commentMarker('a-->b')).toThrow(TypeError)
-    expect(() => commentMarker('a--!>b')).toThrow(TypeError)
-    expect(commentMarker('release')).toBe('<!-- forges:key=release -->')
   })
 
   it('compares repositories case-insensitively only where the forge does', () => {

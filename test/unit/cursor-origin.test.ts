@@ -89,7 +89,7 @@ describe('cursor origin merge', () => {
     const { fetch, calls } = fixtureFetch('cursor-origin')
     const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
 
-    await expect(instance.threads.approveAndMerge(pull, { method: 'squash', message: 'Ship it' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.merge(pull, { method: 'squash', message: 'Ship it' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 

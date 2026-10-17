@@ -9,6 +9,7 @@ export const ENTRIES: Record<string, string> = {
   'forges': 'src/index.ts',
   'forges/env': 'src/env.ts',
   'forges/fake': 'src/fake/index.ts',
+  'forges/helpers': 'src/helpers.ts',
   'forges/kit': 'src/kit.ts',
   'forges/testing': 'src/testing/index.ts',
 }
@@ -52,7 +53,7 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
   { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
   { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
-  { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Upsert|Comment|Milestone|Label|GetMany|SearchQuery|Merge|ApproveAndMerge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation', 'commentMarker', 'hasCommentMarker'] },
+  { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Comment|Milestone|Label|GetMany|SearchQuery|Merge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
   { title: 'Reviews', names: [/^Review/, 'ResolvedReviewRef', 'PullBranches', 'PullStats', 'ThreadStack'] },
   { title: 'Checks and CI', names: [/^(?:Check|Ci)/] },
@@ -130,7 +131,10 @@ export const PAGES: PageConfig[] = [
     description: 'Read, create, review and merge issues and pull requests.',
     overview: 'The methods of `provider.threads`: read, create and update issues and pull requests, then comment, label, review and merge them.',
     intro: `Issues, pull requests and the other discussion kinds are threads. ${OPERATIONS}`,
-    sections: [{ namespaces: ['threads'] }],
+    sections: [
+      { namespaces: ['threads'] },
+      { title: 'Comment helpers', intro: 'Import from `forges/helpers`. They call the methods of `provider.threads`, so they work with any provider.', entry: 'forges/helpers', names: [/./] },
+    ],
   },
   {
     slug: 'repositories',

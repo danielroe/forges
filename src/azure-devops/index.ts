@@ -718,7 +718,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           await fetcher.raw(`${pullPath(ref)}/reviewers/${enc(id)}`, { method: 'PUT', json: { vote: 0 }, signal: options?.signal })
         }
       }),
-      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
+      merge: verb(true, async (thread, mergeOptions = {}) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be completed', context)
@@ -735,7 +735,6 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           ...message ? { mergeCommitMessage: message } : {},
         }
         const id = await myId()
-        await hooks.beforeMerge?.()
         const completion = mergeOptions.whenChecksPass
           ? { autoCompleteSetBy: { id }, completionOptions }
           : { status: 'completed', lastMergeSourceCommit: { commitId: mergeOptions.sha ?? (await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: mergeOptions.signal })).data.lastMergeSourceCommit?.commitId }, completionOptions }

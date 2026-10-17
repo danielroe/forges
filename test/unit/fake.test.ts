@@ -1,7 +1,6 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { BranchMovedError, ContentNotTextError, NotFoundError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
-import { commentMarker } from '../../src/model.ts'
 import { signDelivery } from '../../src/testing/index.ts'
 
 const seed = {
@@ -69,7 +68,7 @@ describe('fake forge', () => {
     const created = await forge.threads.create(repo, { kind: 'issue', title: 'New' })
     const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
 
-    await forge.threads.approveAndMerge(pull)
+    await forge.threads.merge(pull)
 
     expect(created.ref.number).toBe('3')
     expect((await forge.threads.get(pull)).state).toBe('merged')
@@ -165,23 +164,6 @@ describe('fake forge', () => {
     await forge.notifications.markDone(notification!.ref)
     expect((await forge.notifications.listPage({ all: true })).items).toEqual([])
   })
-  it('creates a keyed comment once and edits it on the next run', async () => {
-    const forge = fake({ seed }).create()
-    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
-
-    const first = await forge.threads.upsertComment(issue!.ref, { key: 'coverage', body: 'Coverage: 81%' })
-    const second = await forge.threads.upsertComment(issue!.ref, { key: 'coverage', body: 'Coverage: 84%' })
-    const other = await forge.threads.upsertComment(issue!.ref, { key: 'size', body: 'Bundle: 12kb' })
-    const comments = await Array.fromAsync(forge.threads.comments(issue!.ref))
-
-    expect([first.created, second.created, other.created]).toEqual([true, false, true])
-    expect(first.comment.ref.id).toBe(second.comment.ref.id)
-    expect(second.comment.body).toContain('Coverage: 84%')
-    expect(second.comment.body).toContain(commentMarker('coverage'))
-    expect(comments).toHaveLength(2)
-  })
-
   it('never reuses the id of a deleted comment, so an edit reaches the comment it names', async () => {
     const forge = fake({ seed }).create()
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
@@ -196,7 +178,7 @@ describe('fake forge', () => {
     expect((await forge.threads.commentsPage(issue)).items.map(comment => comment.body)).toEqual(['Second', 'Third, edited'])
   })
 
-  describe('retrying a keyed comment', () => {
+  describe('listing comments since a time', () => {
     const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
 
     function seeded() {
@@ -219,63 +201,6 @@ describe('fake forge', () => {
       const comments = await Array.fromAsync(forge.threads.comments(ref, { since: firstAttemptAt }))
 
       expect(comments.map(item => item.body)).toEqual(['Edited', 'New'])
-    })
-
-    it('writes the marker of the key into a comment', async () => {
-      const { forge, state, ref } = seeded()
-
-      const comment = await forge.threads.comment(ref, 'Deployed', { key: 'mutation-1' })
-
-      expect(comment.body).toBe(`Deployed\n\n${commentMarker('mutation-1')}`)
-      expect(state.comments).toHaveLength(1)
-    })
-
-    it('rejects a key that would end the marker early', async () => {
-      const { forge, state, ref } = seeded()
-
-      await expect(forge.threads.comment(ref, 'Deployed', { key: 'mutation-->1' })).rejects.toThrow(TypeError)
-      expect(state.comments).toEqual([])
-    })
-
-    it('passes since to the listing upsertComment reads', async () => {
-      const { forge, ref } = seeded()
-      const commentsPage = vi.spyOn(forge.threads, 'commentsPage')
-
-      await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
-
-      expect(commentsPage).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
-    })
-
-    it('finds the comment that a first attempt left behind instead of posting another', async () => {
-      const { forge, state, ref, comment } = seeded()
-      state.comments.push(comment('1-1', `Deployed\r\n\r\n${commentMarker('mutation-1')}\n`, new Date('2026-03-01T12:00:03Z')))
-      const editComment = vi.spyOn(forge.threads, 'editComment')
-
-      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
-
-      expect(retry).toMatchObject({ created: false, comment: { ref: { id: '1-1' } } })
-      expect(state.comments).toHaveLength(1)
-      expect(editComment).not.toHaveBeenCalled()
-    })
-
-    it('edits the comment that an earlier call left behind when the body changed', async () => {
-      const { forge, state, ref, comment } = seeded()
-      state.comments.push(comment('1-1', `Deploying\n\n${commentMarker('mutation-1')}`, new Date('2026-03-01T12:00:03Z')))
-
-      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
-
-      expect(retry).toMatchObject({ created: false, comment: { body: `Deployed\n\n${commentMarker('mutation-1')}` } })
-      expect(state.comments[0]!.body).toBe(`Deployed\n\n${commentMarker('mutation-1')}`)
-    })
-
-    it('posts a new comment when the only one with the key predates since', async () => {
-      const { forge, state, ref, comment } = seeded()
-      state.comments.push(comment('1-1', `Deployed\n\n${commentMarker('mutation-1')}`, new Date('2026-02-01T00:00:00Z')))
-
-      const retry = await forge.threads.upsertComment(ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
-
-      expect(retry.created).toBe(true)
-      expect(state.comments).toHaveLength(2)
     })
   })
 
@@ -739,61 +664,6 @@ describe('fake webhook management', () => {
 })
 
 describe('fake capabilities', () => {
-  it.each([false, () => false] as const)('rejects approveAndMerge when explicitly disabled with %s', async (support) => {
-    const factory = fake({ seed, support: { 'threads.approveAndMerge': support } })
-    const forge = factory.create()
-    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
-
-    expect(forge.can('threads.approveAndMerge')).toBe(false)
-    expect(forge.can('threads.merge')).toBe(true)
-    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
-    expect((await forge.threads.get(pull)).state).toBe('open')
-    expect((await forge.threads.reviewsPage(pull)).items).toEqual([])
-    expect(factory.store.events).toEqual([])
-  })
-
-  it('copies disabled approveAndMerge support and allows an explicit override', async () => {
-    const base = fake().create().capabilities
-    const capabilities = { ...base, writes: { ...base.writes, approveAndMerge: false as const } }
-    const forge = fake({ seed, capabilities }).create()
-    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
-
-    expect(forge.can('threads.approveAndMerge')).toBe(false)
-    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
-
-    const enabled = fake({ seed, capabilities, support: { 'threads.approveAndMerge': true } }).create()
-    expect(enabled.can('threads.approveAndMerge')).toBe(true)
-    await enabled.threads.approveAndMerge(pull)
-    expect((await enabled.threads.get(pull)).state).toBe('merged')
-  })
-
-  it.each(['threads.merge', 'threads.createReview'] as const)('requires %s even when approveAndMerge is explicitly enabled', async (verb) => {
-    const forge = fake({ seed, support: { [verb]: false, 'threads.approveAndMerge': true } }).create()
-    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
-
-    expect(forge.can('threads.approveAndMerge')).toBe(false)
-    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
-  })
-
-  it('blocks an explicit approveAndMerge override on a read-only provider', async () => {
-    const forge = fake({ seed, readOnly: true, support: { 'threads.approveAndMerge': true } }).create()
-    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
-
-    expect(forge.can('threads.approveAndMerge')).toBe(false)
-    await expect(forge.threads.approveAndMerge(pull)).rejects.toThrow(UnsupportedOperationError)
-  })
-
-  it('reports approveAndMerge unsupported when the forge cannot approve', () => {
-    const forge = fake({ support: { 'threads.approve': false, 'threads.createReview': false } }).create()
-
-    expect(forge.capabilities.writes.merge).toBe(true)
-    expect(forge.capabilities.writes.approveAndMerge).toBe(false)
-  })
-
   it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
     const base = fake().create().capabilities
     const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
@@ -809,19 +679,19 @@ describe('fake write results', () => {
   const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
   const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
 
-  it.each(['merge', 'approveAndMerge'] as const)('resolves %s with the merge commit that a following read reports', async (verb) => {
+  it('resolves merge with the merge commit that a following read reports', async () => {
     const forge = fake({ seed }).create()
 
-    const result = await forge.threads[verb](pull)
+    const result = await forge.threads.merge(pull)
 
     expect(result).toMatchObject({ status: 'merged', sha: expect.stringMatching(/^[0-9a-f]{40}$/) })
     expect((await forge.threads.get(pull)).branches?.mergeCommitSha).toBe(result.sha)
   })
 
-  it.each(['merge', 'approveAndMerge'] as const)('resolves %s with whenChecksPass as queued and leaves the pull request open', async (verb) => {
+  it('resolves merge with whenChecksPass as queued and leaves the pull request open', async () => {
     const forge = fake({ seed }).create()
 
-    await expect(forge.threads[verb](pull, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
+    await expect(forge.threads.merge(pull, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
 
     const thread = await forge.threads.get(pull)
     expect(thread.state).toBe('open')

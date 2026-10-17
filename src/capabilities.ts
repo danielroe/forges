@@ -32,15 +32,6 @@ export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv, declare
   return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<VerbKind, DeclaredSupport>
 }
 
-/** `upsertComment` is composed of listing, creating and editing a comment, so it needs all three for the kind. */
-export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<VerbKind, DeclaredSupport> {
-  const parts = [spec.threads.commentsPage, spec.threads.comment, spec.threads.editComment]
-  return Object.fromEntries(KINDS.map(kind => [
-    kind,
-    composed(parts.map(part => resolve(part?.kinds[kind], env, declared)), 'emulated'),
-  ])) as Record<VerbKind, DeclaredSupport>
-}
-
 /** A single-item read the spec does not declare is emulated by walking its listing. */
 function readOrEmulated(read: DeclaredSupport, listing: DeclaredSupport, emulated: SupportInput | undefined, env: CapabilityEnv, declared: boolean): DeclaredSupport {
   if (read !== false) {
@@ -67,13 +58,6 @@ export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv, declared = 
   return readOrEmulated(resolve(spec.ci?.job?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.job, env, declared)
 }
 
-/** Support for the composed verb, requiring both approval and merging. */
-export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
-  const merge = resolve(spec.threads.merge?.support, env, declared)
-  const approve = resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env, declared)
-  return composed([merge, approve], resolve(spec.threads.approveAndMerge?.support ?? merge, env, declared))
-}
-
 function read(source: unknown, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], source)
 }
@@ -96,8 +80,6 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return flags.webhook
     case 'threadEvents':
       return threadEventKinds(spec, env, declared)
-    case 'upsertComment':
-      return upsertKinds(spec, env, declared)
     case 'getComment':
       return getCommentKinds(spec, env, declared)
     case 'getReview':
@@ -108,8 +90,6 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return resolveKinds(flags.readOnly ? undefined : spec.threads.subscriptions?.kinds, env, declared)
     case 'approve':
       return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env, declared)
-    case 'approveAndMerge':
-      return approveAndMergeSupport(spec, env, declared)
     case 'alertKinds':
       return Object.fromEntries(ALERT_KINDS.map(kind => [kind, resolve(spec.securityAlerts?.kinds[kind], env, declared)]))
     case 'eventKinds':

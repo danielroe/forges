@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
+import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
   BaseOptions,
   Check,
@@ -804,7 +804,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return toThread(ref, data)
   }
 
-  async function merge(thread: ThreadRef, options_: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+  async function merge(thread: ThreadRef, options_: MergeOptions = {}): Promise<MergeResult> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -824,7 +824,6 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }>(repoPath(ref.repo), { signal: options_.signal })
       method = soleMergeMethod({ merge: repo.allow_merge_commit, squash: repo.allow_squash_merge, rebase: repo.allow_rebase_merge }, context)
     }
-    await hooks.beforeMerge?.()
     return directMerge(ref, method, options_)
   }
 

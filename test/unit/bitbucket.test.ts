@@ -72,7 +72,7 @@ describe('bitbucket provider', () => {
   it('refuses to merge when the head has moved past the expected sha', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.approveAndMerge!(pull, { sha: 'ffffffffffff' })).rejects.toThrow(MergeConflictError)
+    await expect(instance.threads.merge!(pull, { sha: 'ffffffffffff' })).rejects.toThrow(MergeConflictError)
     expect(calls.every(call => call.method === 'GET')).toBe(true)
   })
 
