@@ -253,7 +253,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         expect(keys.some(({ threads }) => threads.length)).toBe(true)
       })
 
-      it.for(['issue', 'pull', 'commit', 'discussion'].filter(key => recorded.has(`${key} events`) && recorded.has(`${key} comments`)))('keys the comments that %s events name as its comment listing does', (key, context) => {
+      it.for(['issue', 'pull', 'discussion'].filter(key => recorded.has(`${key} events`) && recorded.has(`${key} comments`)))('keys the comments that %s events name as its comment listing does', (key, context) => {
         const listed = items<Comment>(`${key} comments`).map(comment => comment.ref).filter(ref => isResolvedThread(ref.thread)).map(ref => commentKey({ ...ref, thread: ref.thread as ResolvedThreadRef }))
         const commented = items<ForgeEvent>(`${key} events`).filter(event => event.kind === 'comment')
         if (!listed.length || !commented.length) {

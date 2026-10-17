@@ -344,8 +344,8 @@ describe('request compatibility with Octokit', () => {
         await provider.contents.tree(repo, { ref: 'main', recursive: true }).page()
         await provider.contents.branches(repo).page()
         await provider.contents.tags(repo).page()
-        await provider.contents.commits(repo).page()
-        await provider.contents.getCommit(repo, sha)
+        await provider.commits.list(repo).page()
+        await provider.commits.get({ forge: repo.forge, instance: repo.instance, repo, sha })
         await provider.contents.compare(repo, 'v1.0.0', 'main')
       },
       async (octokit) => {

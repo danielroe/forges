@@ -529,24 +529,6 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         return { items: data.value.map(toTag), ...rateLimitPart(response) }
       }),
       resolveRef: verb(true, (repo, ref, options) => resolveSha(repo, ref, options?.signal)),
-      commitsPage: verb(true, async (repo, query = {}) => {
-        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
-          query: {
-            'searchCriteria.itemVersion.version': query.ref,
-            'searchCriteria.itemPath': query.path,
-            'searchCriteria.author': query.author,
-            'searchCriteria.fromDate': query.since?.toISOString(),
-            'searchCriteria.toDate': query.until?.toISOString(),
-            '$top': query.perPage,
-          },
-          signal: query.signal,
-        })
-        return { items: data.value.map(raw => toCommit(repo, raw)), ...rateLimitPart(response) }
-      }),
-      getCommit: verb(true, async (repo, sha, options) => {
-        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
-        return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
-      }),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
           query: { baseVersion: base, baseVersionType: versionType(base), targetVersion: head, targetVersionType: versionType(head), $top: 1000 },
@@ -564,6 +546,26 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
       }),
       commitFiles: verb(true, commitFiles),
+    },
+    commits: {
+      listPage: verb(true, async (repo, query = {}) => {
+        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
+          query: {
+            'searchCriteria.itemVersion.version': query.ref,
+            'searchCriteria.itemPath': query.path,
+            'searchCriteria.author': query.author,
+            'searchCriteria.fromDate': query.since?.toISOString(),
+            'searchCriteria.toDate': query.until?.toISOString(),
+            '$top': query.perPage,
+          },
+          signal: query.signal,
+        })
+        return { items: data.value.map(raw => toCommit(repo, raw)), ...rateLimitPart(response) }
+      }),
+      get: verb(true, async ({ repo, sha }, options) => {
+        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
+        return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
+      }),
     },
     checks: {
       list: verb(true, async (repo, sha, options) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`, { signal: options?.signal })).data.value.map(raw => toStatusCheck(repo, raw)) })),

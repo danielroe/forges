@@ -75,7 +75,7 @@ describe.each(contracts)('contract: $name', (contract) => {
     it('keeps notification ids distinct from thread numbers', async () => {
       const { instance } = provider()
       for (const notification of await collect(instance.notifications!.list())) {
-        expect(notification.ref.id).not.toBe(notificationThread(notification)!.number)
+        expect(notification.ref.id).not.toBe(notificationThread(notification)?.number)
       }
     })
 

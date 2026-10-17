@@ -209,17 +209,15 @@ export function toMilestone(raw: ForgejoMilestone | null | undefined): Milestone
     : undefined
 }
 
-export function toThreadKind(subjectType: string): ThreadKind {
+export function toThreadKind(subjectType: string): ThreadKind | undefined {
   switch (subjectType) {
     case 'Pull':
     case 'PullRequest':
       return 'pull_request'
-    case 'Commit':
-      return 'commit'
     case 'Issue':
       return 'issue'
     default:
-      return 'other'
+      return undefined
   }
 }
 
@@ -241,8 +239,12 @@ export function numberFromUrl(url: string | null | undefined): string | undefine
 export function toSubject(origin: ForgeOrigin, raw: ForgejoNotification): NotificationSubject {
   const repo = toRepoRef(origin, raw.repository)
   const kind = toThreadKind(raw.subject.type)
-  if (kind !== 'other') {
+  if (kind) {
     return { type: 'thread', thread: { ...origin, repo, kind, typeRaw: raw.subject.type, number: numberFromUrl(raw.subject.url) } }
+  }
+  const sha = raw.subject.type === 'Commit' ? numberFromUrl(raw.subject.url) : undefined
+  if (sha) {
+    return { type: 'commit', commit: { ...origin, repo, sha } }
   }
   if (raw.subject.type === 'Repository') {
     return { type: 'repo', repo }

@@ -1,8 +1,7 @@
-import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, EventAction, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, ReviewState, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
+import type { Actor, Branch, ChangedFile, Check, CheckState, Comment, Commit, CommitComment, CommitRef, EventAction, EventDetail, EventKind, ForgeEventInput, MergeMethod, Repo, RepoRef, ResolvedThreadRef, Reviewer, ReviewState, Tag, Thread, ThreadRef, ThreadState, TreeEntry, Webhook } from '../model.ts'
 import type {
   BitbucketActivity,
   BitbucketComment,
-  BitbucketCommit,
   BitbucketCommitDetail,
   BitbucketCommitStatus,
   BitbucketDiffStat,
@@ -159,25 +158,6 @@ export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest):
   }
 }
 
-export function toCommitThread(ref: ResolvedThreadRef, raw: BitbucketCommit): Thread {
-  return {
-    ref,
-    kind: 'commit',
-    title: raw.message?.split('\n')[0] ?? raw.hash,
-    body: raw.message,
-    state: 'unknown',
-    isDraft: false,
-    assignees: [],
-    reviewers: [],
-    lastActivityAt: toDate(raw.date),
-    author: toActor(ref.instance, raw.author?.user),
-    url: raw.links?.html?.href,
-    createdAt: toDate(raw.date),
-    labels: [],
-    raw,
-  }
-}
-
 function event(
   thread: ResolvedThreadRef,
   id: string,
@@ -204,7 +184,7 @@ function event(
   }
 }
 
-export function toCommentEvent(thread: ResolvedThreadRef, comment: BitbucketComment): ForgeEventInput {
+function toCommentEvent(thread: ResolvedThreadRef, comment: BitbucketComment): ForgeEventInput {
   return {
     ...event(
       thread,
@@ -273,10 +253,17 @@ export function commentDetail(thread: ThreadRef, comment: BitbucketComment): Eve
 }
 
 export function toComment(thread: ResolvedThreadRef, raw: BitbucketComment): Comment {
+  return { ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) }, ...commentFields(thread.instance, raw) }
+}
+
+export function toCommitComment(commit: CommitRef, raw: BitbucketComment): CommitComment {
+  return { ref: { forge: FORGE, instance: commit.instance, commit, id: String(raw.id) }, ...commentFields(commit.instance, raw) }
+}
+
+function commentFields(instance: string, raw: BitbucketComment): Omit<Comment, 'ref'> {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.content?.raw ?? '',
-    author: toActor(thread.instance, raw.user),
+    author: toActor(instance, raw.user),
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
     url: raw.links?.html?.href,

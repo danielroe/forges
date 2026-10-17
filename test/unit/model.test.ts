@@ -44,11 +44,6 @@ describe('identity keys', () => {
     expect(threadKey(issue)).not.toBe(threadKey({ ...issue, kind: 'pull_request' }))
   })
 
-  it('keeps other subjects with the same id apart by type', () => {
-    const release: ResolvedThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'other', typeRaw: 'Release', number: '7' }
-    expect(threadKey(release)).not.toBe(threadKey({ ...release, typeRaw: 'CheckSuite' }))
-  })
-
   it('only accepts resolved refs when keying', () => {
     expectTypeOf(threadKey).parameter(0).toEqualTypeOf<ResolvedThreadRef>()
   })

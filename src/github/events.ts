@@ -1,4 +1,4 @@
-import type { Actor, EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, SourceKind, ThreadKind, ThreadRef, ThreadSnapshot } from '../model.ts'
+import type { Actor, CommitRef, EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, SourceKind, ThreadKind, ThreadRef, ThreadSnapshot } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { GitHubFeedEvent, GitHubIssue, GitHubRepository, GitHubUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
@@ -228,7 +228,12 @@ function threadOf(payload: GitHubEventPayload, repo: RepoRef | undefined, instan
       return { forge: FORGE, instance, repo, kind, number: String(subject.number), externalId: subject.node_id }
     }
   }
-  return payload.comment?.commit_id ? { forge: FORGE, instance, repo, kind: 'commit', number: payload.comment.commit_id } : undefined
+  return undefined
+}
+
+/** The commit of a comment on a commit, which names no thread. */
+function commitOf(payload: GitHubEventPayload, thread: ThreadRef | undefined, repo: RepoRef | undefined, instance: string): CommitRef | undefined {
+  return !thread && repo && payload.comment?.commit_id ? { forge: FORGE, instance, repo, sha: payload.comment.commit_id } : undefined
 }
 
 /** The repository a pull request's head is on. Activity feeds name it by an API `url` alone. */
@@ -349,12 +354,12 @@ function actionOf(event: string, payload: GitHubEventPayload): EventAction | und
   return eventAction(payload.action)
 }
 
-function detailOf(kind: EventKind, thread: ThreadRef | undefined, instance: string, payload: GitHubEventPayload): EventDetail | undefined {
+function detailOf(kind: EventKind, thread: ThreadRef | undefined, commit: CommitRef | undefined, instance: string, payload: GitHubEventPayload): EventDetail | undefined {
   const comment = payload.comment
   const commentRef = comment?.id !== undefined && thread ? { forge: FORGE, instance, thread, id: thread.kind === 'discussion' && comment.node_id ? comment.node_id : String(comment.id) } : undefined
   switch (kind) {
     case 'comment':
-      return { type: 'comment', comment: commentRef, body: comment?.body }
+      return { type: 'comment', comment: commentRef ?? (comment?.id !== undefined && commit ? { forge: FORGE, instance, commit, id: String(comment.id) } : undefined), body: comment?.body }
     case 'review_comment':
       return { type: 'review_comment', comment: commentRef, body: comment?.body, path: comment?.path, line: comment?.line ?? undefined }
     case 'review':
@@ -404,6 +409,7 @@ function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayl
     }
   }
   const thread = threadOf(payload, repo, instance)
+  const commit = commitOf(payload, thread, repo, instance)
   const kind = eventKindFor(event, payload)
   return {
     forge: FORGE,
@@ -413,12 +419,13 @@ function toGitHubEvent(instance: string, event: string, payload: GitHubEventPayl
     kindRaw: context.kindRaw,
     action: actionOf(event, payload),
     actionRaw: context.actionRaw,
-    detail: detailOf(kind, thread, instance, payload),
+    detail: detailOf(kind, thread, commit, instance, payload),
     summary: summarise(event, payload, actor?.login ?? 'someone'),
     ...eventTime(context.occurredAt ?? threadTime(payload)),
     actor,
     repo,
     thread,
+    commit,
     threadSnapshot: snapshotOf(instance, payload),
     installationId: context.installationId,
     source: context.source,

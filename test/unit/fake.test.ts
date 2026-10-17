@@ -1,3 +1,4 @@
+import type { ResolvedCommentRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { BranchMovedError, ContentNotTextError, NotFoundError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
@@ -130,7 +131,7 @@ describe('fake forge', () => {
   })
 
   it('carries `not_applicable` through per-kind support and composed verbs', async () => {
-    const forge = fake({ seed, support: { 'threads.close': { issue: 'not_applicable', pull_request: true }, 'threads.comments': { issue: 'not_applicable', pull_request: true, discussion: true, commit: true } } })
+    const forge = fake({ seed, support: { 'threads.close': { issue: 'not_applicable', pull_request: true }, 'threads.comments': { issue: 'not_applicable', pull_request: true, discussion: true } } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
 
@@ -308,6 +309,31 @@ describe('fake forge', () => {
     expect(run).toMatchObject({ name: 'ci', state: 'failure' })
     expect(log).toBe('lint failed\n')
   })
+  it('comments on a commit, edits, reads back and deletes the comment', async () => {
+    const forge = fake({ seed })
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const commit = { forge: 'fake', instance: 'fake.test', repo, sha: 'abc1234def' }
+    const created = await forge.commits.createComment(commit, 'Nice')
+    await forge.commits.updateComment(created.ref, 'Nicer')
+    await forge.commits.hideComment(created.ref, 'outdated')
+    const hidden = forge.store.repos.get('acme/widgets')!.hiddenCommitComments.get(created.ref.id)
+    await forge.commits.unhideComment(created.ref)
+    const shown = forge.store.repos.get('acme/widgets')!.hiddenCommitComments.size
+    const read = await forge.commits.getComment(created.ref)
+    await forge.commits.hideComment(created.ref, 'outdated')
+    await forge.commits.deleteComment(created.ref)
+    const left = await Array.fromAsync(forge.commits.comments(commit))
+
+    expect(created.ref.commit).toEqual(commit)
+    expect(hidden).toBe('outdated')
+    expect(shown).toBe(0)
+    expect(forge.store.repos.get('acme/widgets')!.hiddenCommitComments.size).toBe(0)
+    expect(read).toMatchObject({ body: 'Nicer', ref: { id: created.ref.id } })
+    expect(left).toEqual([])
+    expect(forge.store.events.map(event => [event.kind, event.action])).toEqual([['comment', 'created'], ['comment', 'edited'], ['comment', 'deleted']])
+    expect(forge.capabilities.commits.getComment).toBe('emulated')
+  })
   it('serves seeded files, commits and pull request diffs', async () => {
     const forge = fake({
       seed: {
@@ -327,7 +353,7 @@ describe('fake forge', () => {
     const readme = await forge.contents.getFile(repo, 'README.md', { as: 'text' })
     const icon = await forge.contents.getFile(repo, 'assets/icon.png')
     const tree = await Array.fromAsync(forge.contents.tree(repo))
-    const commit = await forge.contents.getCommit(repo, 'a'.repeat(40))
+    const commit = await forge.commits.get({ forge: 'fake', instance: 'fake.test', repo, sha: 'a'.repeat(40) })
     const files = await Array.fromAsync(forge.threads.files(pull))
     const commits = await Array.fromAsync(forge.threads.commits(pull))
 
@@ -586,7 +612,7 @@ describe('fake writes by someone else', () => {
     expect(viewer.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
     const [notification] = (await viewer.notifications.list().page()).items
     expect(notification).toMatchObject({ ref: { id: '1' }, reason: 'author', unread: true, latestComment: { id: comment.ref.id } })
-    expect((await viewer.threads.getComment(notification!.latestComment!)).body).toBe('Any news?')
+    expect((await viewer.threads.getComment(notification!.latestComment as ResolvedCommentRef)).body).toBe('Any news?')
     expect((await octocat.users.me()).login).toBe('octocat')
   })
 

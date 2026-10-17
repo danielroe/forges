@@ -1,4 +1,4 @@
-import type { AlertKind, SupportInput, VerbKind } from '../define.ts'
+import type { AlertKind, SupportInput } from '../define.ts'
 import type {
   Actor,
   AuthorAssociation,
@@ -13,7 +13,10 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitComment,
+  CommitCommentRef,
   CommitFilesInput,
+  CommitRef,
   Cursor,
   EventAction,
   EventDetail,
@@ -86,7 +89,7 @@ export interface FakeRepoSeed {
 export interface FakeThreadSeed {
   /** The repository as `owner/name`. */
   repo: string
-  kind: Exclude<ThreadKind, 'other' | 'commit'>
+  kind: ThreadKind
   /** Defaults to the next free number in the repository. */
   number?: number
   title: string
@@ -251,7 +254,7 @@ export interface FakeSeed {
 }
 
 /** Support for one verb: a level, or a level per thread kind for per-kind verbs. */
-export type FakeSupport = SupportInput | Partial<Record<VerbKind, SupportInput>>
+export type FakeSupport = SupportInput | Partial<Record<ThreadKind, SupportInput>>
 
 /** Options for `fake()`. */
 export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
@@ -316,6 +319,10 @@ export interface FakeStore {
     /** Seeded release asset bytes, keyed by `<releaseId>:<assetName>`. */
     assets: Map<string, Uint8Array>
     securityAlerts: SecurityAlert[]
+    /** Comments on each commit, keyed by sha. */
+    commitComments: Map<string, CommitComment[]>
+    /** The reasons that `commits.hideComment()` gave, keyed by comment id. */
+    hiddenCommitComments: Map<string, HideCommentReason>
   }>
   notifications: Notification[]
   /** Every event a write produced, in order. */
@@ -385,6 +392,7 @@ const COMPOSED_VERBS: Partial<Record<ForgeVerb, string>> = {
   'threads.getReview': 'fail threads.reviews instead',
   'threads.approve': 'fail threads.createReview instead',
   'ci.getJob': 'fail ci.jobs instead',
+  'commits.getComment': 'fail commits.comments instead',
   'webhooks.verify': 'it runs locally',
   'webhooks.ingest': 'it runs locally',
 }
@@ -396,9 +404,9 @@ function closedNumbers(body: string | undefined): Set<string> {
   return new Set([...(body ?? '').matchAll(CLOSING_KEYWORD)].map(match => match[1]!))
 }
 
-const ALL_KINDS: Partial<Record<VerbKind, SupportInput>> = { issue: true, pull_request: true, discussion: true, commit: true }
-const WRITABLE: Partial<Record<VerbKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
-const PULLS: Partial<Record<VerbKind, SupportInput>> = { pull_request: true }
+const ALL_KINDS: Partial<Record<ThreadKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
+const WRITABLE: Partial<Record<ThreadKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
+const PULLS: Partial<Record<ThreadKind, SupportInput>> = { pull_request: true }
 const SIGNATURE_HEADER = 'x-fake-signature'
 
 function pageOf<T>(items: T[], options: { cursor?: { token?: string }, perPage?: number } = {}): Page<T> {
@@ -492,6 +500,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   let notificationCount = 0
   let webhookCount = 0
   const commentCounts = new WeakMap<FakeThreadState, number>()
+  const commitCommentCounts = new Map<string, number>()
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
@@ -636,6 +645,8 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       branches: new Map(),
       assets: new Map(),
       securityAlerts: [],
+      commitComments: new Map(),
+      hiddenCommitComments: new Map(),
     })
   }
 
@@ -787,7 +798,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     return { ...event, id: `${listing}-${event.id}`, source: 'poll' }
   }
 
-  function record(by: string, thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
+  function record(by: string, subject: ThreadRef | CommitRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
     const event = completeEvent({
       ...origin,
       id: String(store.events.length + 1),
@@ -797,14 +808,14 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       summary: `${by} ${summary}`,
       occurredAt: now(),
       actor: actor(by),
-      repo: thread.repo,
-      thread,
+      repo: subject.repo,
+      ...'sha' in subject ? { commit: subject } : { thread: subject },
       detail,
       source: 'subscribe',
       payload: { kind, action, detail },
     })
     store.events.push(event)
-    const state = repoState(thread.repo).threads.get(String(thread.number))
+    const state = 'sha' in subject ? undefined : repoState(subject.repo).threads.get(String(subject.number))
     if (state) {
       state.thread.updatedAt = event.occurredAt
       state.thread.lastActivityAt = event.occurredAt
@@ -995,7 +1006,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     const given = givenSupport(name)
     return given === undefined || typeof given === 'object' ? fallback : given
   }
-  const kinds = (name: ForgeVerb, fallback: Partial<Record<VerbKind, SupportInput>>): Partial<Record<VerbKind, SupportInput>> => {
+  const kinds = (name: ForgeVerb, fallback: Partial<Record<ThreadKind, SupportInput>>): Partial<Record<ThreadKind, SupportInput>> => {
     const given = givenSupport(name)
     if (given === undefined) {
       return fallback
@@ -1648,21 +1659,6 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           }
           return sha
         }),
-        commitsPage: verb(support('contents.commits', true), async (repo, query = {}) => pageOf(
-          repoState(repo).commits
-            .filter(commit => (!query.since || (commit.author?.date ?? new Date(0)) >= query.since)
-              && (!query.path || commit.files?.some(file => file.path === query.path))
-              && (!query.author || commit.author?.actor?.login === query.author))
-            .toReversed(),
-          query,
-        )),
-        getCommit: verb(support('contents.getCommit', true), async (repo, sha) => {
-          const commit = repoState(repo).commits.find(item => item.sha === sha)
-          if (!commit) {
-            throw notFound(`No commit ${sha} in ${slugOf(repo)}`)
-          }
-          return commit
-        }),
         compare: verb(support('contents.compare', true), async (repo, base, head) => {
           const commits = repoState(repo).commits
           const from = commits.findIndex(commit => commit.sha === base)
@@ -1679,6 +1675,71 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           }
         }),
         commitFiles: verb(support('contents.commitFiles', true), async (repo, input) => commitFiles(by, repo, input)),
+      },
+      commits: {
+        listPage: verb(support('commits.list', true), async (repo, query = {}) => pageOf(
+          repoState(repo).commits
+            .filter(commit => (!query.since || (commit.author?.date ?? new Date(0)) >= query.since)
+              && (!query.path || commit.files?.some(file => file.path === query.path))
+              && (!query.author || commit.author?.actor?.login === query.author))
+            .toReversed(),
+          query,
+        )),
+        get: verb(support('commits.get', true), async ({ repo, sha }) => {
+          const commit = repoState(repo).commits.find(item => item.sha === sha)
+          if (!commit) {
+            throw notFound(`No commit ${sha} in ${slugOf(repo)}`)
+          }
+          return commit
+        }),
+        commentsPage: verb(support('commits.comments', true), async ({ repo, sha }, listOptions = {}) => pageOf(repoState(repo).commitComments.get(sha) ?? [], listOptions)),
+        createComment: verb(support('commits.createComment', true), async ({ repo, sha }, body) => {
+          const state = repoState(repo)
+          const key = `${slugOf(repo)}:${sha}`
+          const count = (commitCommentCounts.get(key) ?? 0) + 1
+          commitCommentCounts.set(key, count)
+          const commit: CommitRef = { ...origin, repo: state.repo.ref, sha }
+          const comment: CommitComment = { ref: { ...origin, commit, id: `${sha.slice(0, 7)}-${count}` }, body, author: actor(by), createdAt: now(), raw: { body } }
+          state.commitComments.set(sha, [...state.commitComments.get(sha) ?? [], comment])
+          record(by, commit, 'comment', 'created', 'commented on a commit', { type: 'comment', comment: comment.ref, body })
+          return comment
+        }),
+        updateComment: verb(support('commits.updateComment', true), async (ref, body) => {
+          const comment = repoState(ref.commit.repo).commitComments.get(ref.commit.sha)?.find(item => item.ref.id === ref.id)
+          if (!comment) {
+            throw notFound(`No comment ${ref.id}`)
+          }
+          comment.body = body
+          comment.updatedAt = now()
+          record(by, comment.ref.commit, 'comment', 'edited', 'edited a comment', { type: 'comment', comment: comment.ref, body })
+          return comment
+        }),
+        deleteComment: verb(support('commits.deleteComment', true), async (ref) => {
+          const comments = repoState(ref.commit.repo).commitComments.get(ref.commit.sha) ?? []
+          const index = comments.findIndex(item => item.ref.id === ref.id)
+          if (index < 0) {
+            throw notFound(`No comment ${ref.id}`)
+          }
+          comments.splice(index, 1)
+          repoState(ref.commit.repo).hiddenCommitComments.delete(ref.id)
+          record(by, ref.commit, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
+        }),
+        commentHiding: verb(support('commits.hideComment', true), {
+          hideComment: async (ref: CommitCommentRef, reason: HideCommentReason) => {
+            const state = repoState(ref.commit.repo)
+            if (!state.commitComments.get(ref.commit.sha)?.some(item => item.ref.id === ref.id)) {
+              throw notFound(`No comment ${ref.id}`)
+            }
+            state.hiddenCommitComments.set(ref.id, reason)
+          },
+          unhideComment: async (ref: CommitCommentRef) => {
+            const state = repoState(ref.commit.repo)
+            if (!state.commitComments.get(ref.commit.sha)?.some(item => item.ref.id === ref.id)) {
+              throw notFound(`No comment ${ref.id}`)
+            }
+            state.hiddenCommitComments.delete(ref.id)
+          },
+        }),
       },
       checks: {
         list: verb(support('checks.list', true), async (repo, sha) => ({ items: repoState(repo).statuses.get(sha) ?? [] })),

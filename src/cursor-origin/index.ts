@@ -245,20 +245,6 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items: (data ?? []).map(toTag), ...rateLimitPart(response) }
       }),
       resolveRef: verb('unverified', async (repo, ref, options) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitsPage: verb('unverified', async (repo, query = {}) => {
-        const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
-          ...query,
-          query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
-        })
-        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
-      }),
-      getCommit: verb('unverified', async (repo, sha, options) => {
-        const [commit, files] = await Promise.all([
-          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
-          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
-        ])
-        return toCommit(repo, commit.data, files.map(toChangedFile))
-      }),
       compare: verb('unverified', async (repo, base, head, options) => {
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
@@ -275,6 +261,22 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           files: files.map(toChangedFile),
           raw: comparison.data,
         }
+      }),
+    },
+    commits: {
+      listPage: verb('unverified', async (repo, query = {}) => {
+        const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
+          ...query,
+          query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
+        })
+        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
+      }),
+      get: verb('unverified', async ({ repo, sha }, options) => {
+        const [commit, files] = await Promise.all([
+          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
+          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
+        ])
+        return toCommit(repo, commit.data, files.map(toChangedFile))
       }),
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },

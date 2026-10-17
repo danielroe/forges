@@ -43,7 +43,7 @@ describe('anonymous providers', () => {
 
     expect(forge.can('threads.comments', 'issue')).toBe(false)
     expect(forge.can('threads.comments', 'pull_request')).toBe(false)
-    expect(forge.can('threads.comments', 'commit')).toBe(true)
+    expect(forge.can('commits.comments')).toBe(true)
     expect(gitlab({ auth: { type: 'token', token: 't' } }).can('threads.comments', 'issue')).toBe(true)
     await expect(forge.threads.comments({ forge: 'gitlab', instance: 'gitlab.com', repo: gitlabRepo, kind: 'issue', number: '1' }).page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])

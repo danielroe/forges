@@ -1,10 +1,11 @@
 import type { CapabilityPath } from './capability-table.ts'
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
+import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitCommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
   CiApi,
+  CommitsApi,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
@@ -28,7 +29,7 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { UrlTarget, WebLinks } from './web.ts'
-import { ALERT_KINDS, applyNotApplicable, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, trackDeclared, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, applyNotApplicable, capabilitiesOf, ciJobSupport, commitCommentSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, trackDeclared, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
@@ -58,9 +59,6 @@ export type DeclaredSupport = Support | 'experimental' | 'unverified'
 /** A fixed support level, or one computed from the instance version. */
 export type SupportInput = DeclaredSupport | ((env: CapabilityEnv) => DeclaredSupport)
 
-/** The thread kinds that verbs can differ by. */
-export type VerbKind = Exclude<ThreadKind, 'other'>
-
 /** The `ThreadQuery` filters that a provider declares in `threads.listFilters` when its listing applies them. */
 export type ThreadFilter = 'involves' | 'mentions' | 'milestone'
 
@@ -79,7 +77,7 @@ export interface Verb<F> {
 /** A verb whose support depends on the thread kind it is called with. Kinds not listed are unsupported. */
 export interface KindVerb<F> {
   /** How well each thread kind is supported. */
-  kinds: Partial<Record<VerbKind, SupportInput>>
+  kinds: Partial<Record<ThreadKind, SupportInput>>
   run: F
 }
 
@@ -103,7 +101,7 @@ export function verb<F>(support: SupportInput, run: F): Verb<F> {
  * }
  * ```
  */
-export function perKind<F>(kinds: Partial<Record<VerbKind, SupportInput>>, run: F): KindVerb<F> {
+export function perKind<F>(kinds: Partial<Record<ThreadKind, SupportInput>>, run: F): KindVerb<F> {
   return { kinds, run }
 }
 
@@ -229,9 +227,10 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
    * Each defaults to `'emulated'`, capped by the listing's own support.
    */
   emulated?: {
-    getComment?: Partial<Record<VerbKind, SupportInput>>
+    getComment?: Partial<Record<ThreadKind, SupportInput>>
     getReview?: SupportInput
     getJob?: SupportInput
+    getCommitComment?: SupportInput
   }
   /** Commit-level checks, beside the pull-level `threads.checks`. */
   checks?: {
@@ -269,14 +268,28 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     tagsPage?: Verb<PageOf<ContentsApi['tags']>>
     /** Omit where a sha lookup is impossible; core still short-circuits a 40-hex ref. */
     resolveRef?: Verb<ContentsApi['resolveRef']>
-    /** The implementation of `provider.contents.commits()`, one page at a time. */
-    commitsPage?: Verb<PageOf<ContentsApi['commits']>>
-    /** The implementation of `provider.contents.getCommit()`. */
-    getCommit?: Verb<ContentsApi['getCommit']>
     /** The implementation of `provider.contents.compare()`. */
     compare?: Verb<ContentsApi['compare']>
     /** The implementation of `provider.contents.commitFiles()`, called once core has checked the input. */
     commitFiles?: Verb<ContentsApi['commitFiles']>
+  }
+  commits?: {
+    /** The implementation of `provider.commits.list()`, one page at a time. */
+    listPage?: Verb<PageOf<CommitsApi['list']>>
+    /** The implementation of `provider.commits.get()`. */
+    get?: Verb<CommitsApi['get']>
+    /** The implementation of `provider.commits.comments()`, one page at a time. */
+    commentsPage?: Verb<PageOf<CommitsApi['comments']>>
+    /** Omit where the forge has no endpoint; core walks `commentsPage` instead. */
+    getComment?: Verb<CommitsApi['getComment']>
+    /** The implementation of `provider.commits.createComment()`. */
+    createComment?: Verb<CommitsApi['createComment']>
+    /** The implementation of `provider.commits.updateComment()`. */
+    updateComment?: Verb<CommitsApi['updateComment']>
+    /** The implementation of `provider.commits.deleteComment()`. */
+    deleteComment?: Verb<CommitsApi['deleteComment']>
+    /** One capability covers hiding and showing. */
+    commentHiding?: Verb<Pick<CommitsApi, 'hideComment' | 'unhideComment'>>
   }
   /** Cross-repository search. Listings are declared as pages; core derives the iterables. */
   search?: {
@@ -566,11 +579,11 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
 
   /** A per-kind verb: rejects for kinds it does not support, or entirely when undeclared. */
-  function kindGate(verb: string, kinds: Partial<Record<VerbKind, SupportInput>> | undefined, run: AnyFunction | undefined): AnyFunction {
+  function kindGate(verb: string, kinds: Partial<Record<ThreadKind, SupportInput>> | undefined, run: AnyFunction | undefined): AnyFunction {
     const name = verb.slice(verb.indexOf('.') + 1)
     return (...args) => {
       const kind = kindOf(name, args)
-      const knownKind = kind && (KINDS as string[]).includes(kind) ? kind as VerbKind : undefined
+      const knownKind = kind && (KINDS as string[]).includes(kind) ? kind as ThreadKind : undefined
       if (!run || (options.readOnly && WRITE_VERBS.has(verb))) {
         return Promise.reject(unsupported(verb, kinds && resolve(kinds[knownKind ?? 'issue'], env)))
       }
@@ -669,7 +682,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'threads.getComment': kindGate(
       'threads.getComment',
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),
-      (ref: CommentRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getComment?.kinds[ref.thread.kind as VerbKind], env))
+      (ref: CommentRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getComment?.kinds[ref.thread.kind], env))
         ? spec.threads.getComment!.run(ref, options)
         : listed(call('threads.comments')(ref.thread, options), ref.id, 'Comment'),
     ),
@@ -685,6 +698,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return listed(call('ci.jobs')(ref.run, options), ref.id, 'CI job')
     }),
+    'commits.getComment': gate('commits.getComment', (commentEnv: CapabilityEnv) => commitCommentSupport(spec, commentEnv), (ref: CommitCommentRef, options?: BaseOptions) => !isUnsupported(resolve(spec.commits?.getComment?.support, env))
+      ? spec.commits!.getComment!.run(ref, options)
+      : listed(call('commits.comments')(ref.commit, options), ref.id, 'Comment')),
     'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run?.subscribe),
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run?.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
@@ -804,7 +820,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 
   return trackDeclared<ForgeProvider<HasWeb> & TExtensions>({
     ...declaredSpec.extensions as TExtensions,
-    ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations' | 'orgs'>,
+    ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'commits' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations' | 'orgs'>,
     forge: definition.forge,
     instance,
     baseUrl,

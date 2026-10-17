@@ -661,7 +661,7 @@ describe('tangled contents', () => {
     const { instance } = provider({
       [`GET ${KNOT}/sh.tangled.repo.log?repo=${REPO_DID}&ref=main&limit=1`]: { status: 200, body: { commits: [{ hash: SHA_A, this: SHA_A, message: 'One', parent_hashes: [Array.from({ length: 20 }).fill(0xBB)] }] } },
     }, false)
-    const page = await instance.contents.commits(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) }).page()
+    const page = await instance.commits.list(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) }).page()
 
     expect(page.items.map(commit => [commit.sha, commit.parents])).toEqual([[SHA_A, [SHA_B]]])
     expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])

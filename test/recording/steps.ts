@@ -1,4 +1,4 @@
-import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
+import type { Branch, Check, CiJob, CiRun, Comment, CommitComment, CommitRef, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
 import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
@@ -57,6 +57,7 @@ export interface StepContext {
   job?: CiJob
   webhook?: Webhook
   comment?: Comment
+  commitComment?: CommitComment
   review?: Review
   checks?: Check[]
   discussion?: Thread
@@ -66,7 +67,7 @@ export interface StepContext {
 export interface Step {
   name: string
   verb: ForgeVerb
-  kind?: 'issue' | 'pull_request' | 'discussion' | 'commit' | Exclude<SecurityAlertKind, 'other'>
+  kind?: 'issue' | 'pull_request' | 'discussion' | Exclude<SecurityAlertKind, 'other'>
   /** Whether the step applies, beyond the provider supporting its verb. */
   when?: (provider: ForgeProvider, manifest: RecordingManifest) => boolean
   run: (provider: ForgeProvider, manifest: RecordingManifest, context: StepContext) => Promise<unknown>
@@ -77,6 +78,7 @@ const page = { perPage: 3 }
 const feedPage = { perPage: 10 }
 
 /** The pull's head, else the head of a branch other than the default, else the default branch. */
+const commitAt = (repo: RepoRef, sha: string): CommitRef => ({ forge: repo.forge, instance: repo.instance, repo, sha })
 const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha ?? context.defaultSha, 'the pull head sha')
 
 /** The largest log, in characters, a step keeps, and the largest release asset, in bytes, it downloads. */
@@ -234,21 +236,15 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
   return steps
 }
 
-/** Reads of the pull request's head commit as a thread. */
+/** Reads of the comments on the pull request's head commit. */
 function commitSteps(): Step[] {
-  const ref = (manifest: RecordingManifest, context: StepContext): ThreadRef => {
-    const repo = context.pull?.ref.repo ?? manifest.repo
-    return { forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: need(context.headSha, 'the pull head sha') }
-  }
   return [
-    { name: 'commit thread', verb: 'threads.get', kind: 'commit', run: (provider, manifest, context) => provider.threads.get(ref(manifest, context)) },
-    { name: 'commit events', verb: 'threads.events', kind: 'commit', run: (provider, manifest, context) => provider.threads.events(ref(manifest, context), page).page() },
-    { name: 'commit comments', verb: 'threads.comments', kind: 'commit', run: async (provider, manifest, context) => {
-      const result = await provider.threads.comments(ref(manifest, context), page).page()
-      context.comment = result.items[0]
+    { name: 'commit comments', verb: 'commits.comments', run: async (provider, manifest, context) => {
+      const result = await provider.commits.comments(commitAt(context.pull?.ref.repo ?? manifest.repo, need(context.headSha, 'the pull head sha')), page).page()
+      context.commitComment = result.items[0]
       return result
     } },
-    { name: 'commit getComment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a commit comment').ref) },
+    { name: 'commit getComment', verb: 'commits.getComment', run: (provider, _manifest, context) => provider.commits.getComment(need(context.commitComment, 'a commit comment').ref) },
   ]
 }
 
@@ -262,21 +258,21 @@ function artifactsSteps(): Step[] {
     }) },
     { name: 'artifacts resolve unknown ref', verb: 'contents.resolveRef', run: (provider, manifest) => rejection(() => provider.contents.resolveRef(manifest.repo, 'forges-fixtures-missing')) },
     { name: 'artifacts file at HEAD', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
-    { name: 'artifacts commits pages', verb: 'contents.commits', run: async (provider, manifest) => {
-      const first = await provider.contents.commits(manifest.repo, { perPage: 1, path: 'src' }).page()
-      const second = await provider.contents.commits(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') }).page()
+    { name: 'artifacts commits pages', verb: 'commits.list', run: async (provider, manifest) => {
+      const first = await provider.commits.list(manifest.repo, { perPage: 1, path: 'src' }).page()
+      const second = await provider.commits.list(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') }).page()
       return { first, second }
     } },
-    { name: 'artifacts commits default page size', verb: 'contents.commits', run: (provider, manifest) => provider.contents.commits(manifest.repo, { perPage: 0 }).page() },
+    { name: 'artifacts commits default page size', verb: 'commits.list', run: (provider, manifest) => provider.commits.list(manifest.repo, { perPage: 0 }).page() },
     { name: 'artifacts tree into a file', verb: 'contents.tree', run: (provider, manifest) => rejection(() => provider.contents.tree(manifest.repo, { path: 'README.md' }).page()) },
     { name: 'artifacts recursive tree', verb: 'contents.tree', run: async (provider, manifest) => (await provider.contents.tree(manifest.repo, { recursive: true }).page()).warnings },
-    { name: 'artifacts shallow commit', verb: 'contents.getCommit', run: async (provider, manifest) => {
-      const oldest = (await provider.contents.commits(manifest.repo, { perPage: 10 }).page()).items.at(-1)
-      return provider.contents.getCommit(manifest.repo, need(oldest, 'the oldest commit').sha)
+    { name: 'artifacts shallow commit', verb: 'commits.get', run: async (provider, manifest) => {
+      const oldest = (await provider.commits.list(manifest.repo, { perPage: 10 }).page()).items.at(-1)
+      return provider.commits.get(need(oldest, 'the oldest commit').ref)
     } },
-    { name: 'artifacts root commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56') },
-    { name: 'artifacts mode change commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074') },
-    { name: 'artifacts rename commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08') },
+    { name: 'artifacts root commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56')) },
+    { name: 'artifacts mode change commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074')) },
+    { name: 'artifacts rename commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08')) },
     { name: 'artifacts every namespace', verb: 'repos.list', run: async (provider) => {
       const names: string[] = []
       let cursor: Page<Repo>['cursor']
@@ -421,12 +417,12 @@ export const STEPS: Step[] = [
     context.defaultSha = await provider.contents.resolveRef(manifest.repo, need(context.repo?.defaultBranch, 'the default branch'))
     return context.defaultSha
   } },
-  { name: 'commits', verb: 'contents.commits', run: (provider, manifest) => provider.contents.commits(manifest.repo, page).page() },
-  { name: 'commit', verb: 'contents.getCommit', run: (provider, manifest, context) => provider.contents.getCommit(manifest.repo, headOf(context)) },
+  { name: 'commits', verb: 'commits.list', run: (provider, manifest) => provider.commits.list(manifest.repo, page).page() },
+  { name: 'commit', verb: 'commits.get', run: (provider, manifest, context) => provider.commits.get(commitAt(manifest.repo, headOf(context))) },
   { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
   { name: 'compare limited', verb: 'contents.compare', run: async (provider, manifest, context) => {
     const branch = need(context.repo?.defaultBranch, 'the default branch')
-    const base = need((await provider.contents.commits(manifest.repo, { ref: branch, perPage: 5 }).page()).items[4], 'a fifth commit').sha
+    const base = need((await provider.commits.list(manifest.repo, { ref: branch, perPage: 5 }).page()).items[4], 'a fifth commit').sha
     return provider.contents.compare(manifest.repo, base, branch, { commitLimit: 2, files: false })
   } },
   { name: 'releases', verb: 'releases.list', run: async (provider, manifest, context) => {

@@ -288,7 +288,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 
 ## Moderation
 
-`threads.lock()` locks an issue or pull request through REST, with the reason GitHub shows on the thread, and a discussion through GraphQL. GitHub refuses a reason for a discussion, so the provider leaves `reason` out. `threads.hideComment()` minimises a comment through GraphQL, with the reason as its classifier. It works on comments on issues, pull requests, discussions and commits, but not on inline review comments.
+`threads.lock()` locks an issue or pull request through REST, with the reason GitHub shows on the thread, and a discussion through GraphQL. GitHub refuses a reason for a discussion, so the provider leaves `reason` out. `threads.hideComment()` minimises a comment through GraphQL, with the reason as its classifier. It works on comments on issues, pull requests and discussions, but not on inline review comments. `commits.hideComment()` does the same for a comment on a commit.
 
 `orgs.block()` blocks an account from the organisation and needs the `admin:org` scope, or the `organization_user_blocking` write permission. `users.block()` blocks it for the account the token belongs to, so it needs a user token with the `user` scope, or the `blocking` write permission; `can('users.block')` is `false` for a GitHub App installation. A repeat can reject with a `ForgeApiError` with `status` 422.
 
@@ -328,18 +328,18 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `orgs.teams` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `orgs.teamMembers` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `orgs.block` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `threads.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
+| `threads.get` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
 | `threads.list` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
 | `threads.getMany` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `threads.closingIssues` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.closingPullRequests` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `threads.events` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `threads.comments` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `threads.getComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue (unverified), PR, commit (unverified) |
-| `threads.createComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `threads.updateComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `threads.deleteComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `threads.hideComment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
+| `threads.events` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.comments` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.getComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue (unverified), PR |
+| `threads.createComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.updateComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.deleteComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.hideComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `threads.reactions` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
 | `threads.react` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `threads.create` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
@@ -391,10 +391,16 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `contents.branches` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tags` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.getCommit` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.compare` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.commitFiles` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.comments` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.getComment` | ✅ | ✅ | ✅ | ❌ | unverified |
+| `commits.createComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.updateComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.deleteComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.hideComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.latest` | ✅ | ✅ | ✅ | ❌ | ✅ |

@@ -463,8 +463,8 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('contents.branches', 'Page<Branch>', (p, _, { repo }) => p.contents.branches(repo, perPage).page()),
   repoRead('contents.tags', 'Page<Tag>', (p, _, { repo }) => p.contents.tags(repo, perPage).page()),
   operation('contents.resolveRef', { returns: 'string', fields: fields('head'), args: ({ value }) => `repo, ${value('head')}`, run: (p, input, { repo }) => p.contents.resolveRef(repo, input.head) }),
-  repoRead('contents.commits', 'Page<Commit>', (p, _, { repo }) => p.contents.commits(repo, perPage).page()),
-  operation('contents.getCommit', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.contents.getCommit(repo, input.sha) }),
+  repoRead('commits.list', 'Page<Commit>', (p, _, { repo }) => p.commits.list(repo, perPage).page()),
+  operation('commits.get', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `{ forge: repo.forge, instance: repo.instance, repo, sha: ${value('sha')} }`, run: (p, input, { repo }) => p.commits.get({ forge: repo.forge, instance: repo.instance, repo, sha: input.sha }) }),
   operation('contents.compare', { returns: 'Comparison', fields: fields('base', 'sha'), args: ({ value }) => `repo, ${value('base')}, ${value('sha')}`, run: (p, input, { repo }) => p.contents.compare(repo, input.base, input.sha) }),
   operation('contents.commitFiles', { returns: 'Commit', fields: fields('branch', 'message', 'path', 'content'), args: ({ value }) => `repo, {\n  branch: ${value('branch')},\n  message: ${value('message')},\n  changes: [{ path: ${value('path')}, content: ${value('content')} }],\n}`, run: (p, input, { repo }) => p.contents.commitFiles(repo, { branch: input.branch, message: input.message, changes: [{ path: input.path, content: input.content }] }) }),
 
@@ -514,6 +514,7 @@ export const EXPLORER_NAMESPACE_TITLES: Record<string, string> = {
   repos: 'Repositories',
   orgs: 'Organisation teams',
   contents: 'Contents',
+  commits: 'Commits',
   releases: 'Releases',
   checks: 'Checks',
   ci: 'CI',

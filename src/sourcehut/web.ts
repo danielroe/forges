@@ -36,11 +36,9 @@ export function sourcehutWeb(instance: string): WebLinks {
       if (ref.kind === 'pull_request') {
         return `${lists}${repoPath(ref.repo)}/patches/${encodeURIComponent(ref.number)}`
       }
-      if (ref.kind === 'commit') {
-        return `${repoPath(ref.repo)}/commit/${encodeURIComponent(ref.number)}`
-      }
       return undefined
     },
+    commit: (repo, sha) => `${repoPath(repo)}/commit/${encodeURIComponent(sha)}`,
     // A file page carries the `item` segment; a directory page does not.
     file: (repo, path, at, line) => `${repoPath(repo)}/tree/${encodeURIComponent(at)}/item/${encodePath(path)}${line ? `#L${line}` : ''}`,
     // The raw bytes are on `blob` and the rendered page on `tree/<at>/item`, the reverse of GitHub.
@@ -56,15 +54,15 @@ export function sourcehutWeb(instance: string): WebLinks {
         return { repo, file: { at, path: segments.slice(5).join('/'), ...lineOf(url.hash.replace(/^#L/, '')) } }
       }
       if (section === 'commit' && at) {
-        return { repo, thread: { ...from, repo, kind: 'commit', number: at } }
+        return { repo, commit: { ...from, repo, sha: at } }
       }
       return { repo }
     },
     reference: (ref, same) => {
-      const number = ref.number
-      if (ref.kind === 'commit') {
-        return same ? number.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${number.slice(0, 7)}`
+      if ('sha' in ref) {
+        return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
+      const number = ref.number
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}`
     },
   }

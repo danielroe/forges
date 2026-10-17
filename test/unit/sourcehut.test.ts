@@ -190,8 +190,8 @@ describe('sourcehut', () => {
     expect((await forge.contents.branches(repo).page()).items[0]).toMatchObject({ name: 'master', isDefault: true })
     expect((await forge.contents.tags(repo).page()).items[0]).toMatchObject({ name: 'v1.0.0', sha: 'sha2' })
     expect(await forge.contents.resolveRef(repo, 'HEAD')).toBe('sha1')
-    expect((await forge.contents.commits(repo).page()).items[0]!.message).toBe('Initial commit')
-    expect((await forge.contents.getCommit(repo, 'sha1')).sha).toBe('sha1')
+    expect((await forge.commits.list(repo).page()).items[0]!.message).toBe('Initial commit')
+    expect((await forge.commits.get({ ...origin, repo, sha: 'sha1' })).sha).toBe('sha1')
   })
 
   it('reads issues, their comments, events and subscription', async () => {

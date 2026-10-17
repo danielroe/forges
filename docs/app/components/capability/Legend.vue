@@ -10,7 +10,7 @@ withDefaults(defineProps<{
   levels: () => supportLevels,
 })
 
-const kindLabels = ['issue', 'PR', 'discussion', 'commit']
+const kindLabels = ['issue', 'PR', 'discussion']
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const kindLabels = ['issue', 'PR', 'discussion', 'commit']
         class="inline-flex items-center gap-2"
       >
         <span
-          class="grid grid-cols-2 gap-px"
+          class="grid grid-cols-3 gap-px"
           aria-hidden="true"
         >
           <span

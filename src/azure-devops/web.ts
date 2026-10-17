@@ -27,8 +27,9 @@ export function azureWeb(baseUrl: string): WebLinks {
       if (ref.kind === 'pull_request') {
         return `${gitPath(ref.repo)}/pullrequest/${encodeURIComponent(ref.number)}`
       }
-      return ref.kind === 'commit' ? `${gitPath(ref.repo)}/commit/${encodeURIComponent(ref.number)}` : undefined
+      return undefined
     },
+    commit: (repo, sha) => repo.kind === 'namespace' ? undefined : `${gitPath(repo)}/commit/${encodeURIComponent(sha)}`,
     file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}&version=${version(at)}${line ? `&line=${line}` : ''}`,
     raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}&versionDescriptor.version=${encodeURIComponent(at)}&versionDescriptor.versionType=${isSha(at) ? 'commit' : 'branch'}&$format=octetStream`,
     compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=${version(base)}&targetVersion=${version(head)}`,
@@ -51,13 +52,15 @@ export function azureWeb(baseUrl: string): WebLinks {
         const at = FILE_VERSION_RE.exec(url.searchParams.get('version') ?? '')?.[1]
         return { repo, file: { path, ...at ? { at } : {}, ...lineOf(url.searchParams.get('line')) } }
       }
-      const kind = rest[1] === 'pullrequest' ? 'pull_request' : rest[1] === 'commit' ? 'commit' : undefined
-      if (!kind || !rest[2]) {
+      if (rest[1] === 'commit' && rest[2]) {
+        return { repo, commit: { ...from, repo, sha: rest[2] } }
+      }
+      if (rest[1] !== 'pullrequest' || !rest[2]) {
         return { repo }
       }
-      const thread: ThreadRef = { ...from, repo, kind, number: rest[2] }
+      const thread: ThreadRef = { ...from, repo, kind: 'pull_request', number: rest[2] }
       return { repo, thread }
     },
-    reference: ref => ref.kind === 'issue' ? `#${ref.number}` : ref.kind === 'pull_request' ? `!${ref.number}` : undefined,
+    reference: ref => 'sha' in ref ? undefined : ref.kind === 'issue' ? `#${ref.number}` : `!${ref.number}`,
   }
 }

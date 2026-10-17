@@ -700,7 +700,7 @@
         "items": {
           "$ref": "#/components/schemas/ChangedFile"
         },
-        "description": "Present on `contents.getCommit`; absent from listings."
+        "description": "Present on `commits.get`; absent from listings."
       },
       "raw": {}
     },
@@ -713,6 +713,77 @@
     ],
     "description": "A commit.",
     "x-forges-type": "Commit"
+  },
+  "CommitComment": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "author": {
+        "$ref": "#/components/schemas/Actor"
+      },
+      "authorAssociation": {
+        "$ref": "#/components/schemas/AuthorAssociation",
+        "description": "How the author relates to the repository, where the forge reports it."
+      },
+      "authorAssociationRaw": {
+        "type": "string",
+        "description": "Forge-native association the normalised `authorAssociation` was derived from."
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "url": {
+        "type": "string"
+      },
+      "reactions": {
+        "$ref": "#/components/schemas/ReactionSummary"
+      },
+      "raw": {},
+      "ref": {
+        "$ref": "#/components/schemas/CommitCommentRef"
+      }
+    },
+    "required": [
+      "body",
+      "raw",
+      "ref"
+    ],
+    "description": "A comment on a commit.",
+    "x-forges-type": "CommitComment"
+  },
+  "CommitCommentRef": {
+    "type": "object",
+    "properties": {
+      "forge": {
+        "$ref": "#/components/schemas/ForgeKind"
+      },
+      "instance": {
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
+      },
+      "commit": {
+        "$ref": "#/components/schemas/CommitRef"
+      },
+      "id": {
+        "type": "string",
+        "description": "Forge-native comment id."
+      }
+    },
+    "required": [
+      "commit",
+      "forge",
+      "id",
+      "instance"
+    ],
+    "description": "Reference to a comment on a commit.",
+    "x-forges-type": "CommitCommentRef"
   },
   "CommitRef": {
     "type": "object",
@@ -957,7 +1028,14 @@
             "const": "comment"
           },
           "comment": {
-            "$ref": "#/components/schemas/CommentRef"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CommentRef"
+              },
+              {
+                "$ref": "#/components/schemas/CommitCommentRef"
+              }
+            ]
           },
           "body": {
             "type": "string"
@@ -2024,14 +2102,6 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.resolveRef()`."
           },
-          "commits": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.commits()`."
-          },
-          "getCommit": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.getCommit()`."
-          },
           "compare": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.compare()`."
@@ -2047,10 +2117,60 @@
           "branches",
           "tags",
           "resolveRef",
-          "commits",
-          "getCommit",
           "compare",
           "commitFiles"
+        ]
+      },
+      "commits": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.list()`."
+          },
+          "get": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.get()`."
+          },
+          "comments": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.comments()`."
+          },
+          "getComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.getComment()`."
+          },
+          "createComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.createComment()`."
+          },
+          "updateComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.updateComment()`."
+          },
+          "deleteComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.deleteComment()`."
+          },
+          "hideComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.hideComment()`."
+          },
+          "unhideComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.unhideComment()`."
+          }
+        },
+        "required": [
+          "list",
+          "get",
+          "comments",
+          "getComment",
+          "createComment",
+          "updateComment",
+          "deleteComment",
+          "hideComment",
+          "unhideComment"
         ]
       },
       "releases": {
@@ -2218,6 +2338,7 @@
       "checks",
       "ci",
       "contents",
+      "commits",
       "releases",
       "webhooks",
       "search",
@@ -2277,6 +2398,10 @@
       },
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
+      },
+      "commit": {
+        "$ref": "#/components/schemas/CommitRef",
+        "description": "The commit the event concerns, such as the commit of a commit comment."
       },
       "threadSnapshot": {
         "$ref": "#/components/schemas/ThreadSnapshot",
@@ -2687,8 +2812,15 @@
         "type": "string"
       },
       "latestComment": {
-        "$ref": "#/components/schemas/ResolvedCommentRef",
-        "description": "The latest comment on a thread subject, where the forge links it. Read it with `threads.getComment()`. Absent when the latest activity is not a comment on the thread, such as a review comment."
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ResolvedCommentRef"
+          },
+          {
+            "$ref": "#/components/schemas/CommitCommentRef"
+          }
+        ],
+        "description": "The latest comment on a thread or commit subject, where the forge links it. Read it with `threads.getComment()` or `commits.getComment()`. Absent when the latest activity is not a comment on the subject, such as a review comment."
       },
       "raw": {
         "description": "Unnormalised forge payload, retained for fidelity."
@@ -2772,6 +2904,22 @@
         "required": [
           "type",
           "thread"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "commit"
+          },
+          "commit": {
+            "$ref": "#/components/schemas/CommitRef"
+          }
+        },
+        "required": [
+          "type",
+          "commit"
         ]
       },
       {
@@ -2878,18 +3026,14 @@
       },
       "discussion": {
         "$ref": "#/components/schemas/Support"
-      },
-      "commit": {
-        "$ref": "#/components/schemas/Support"
       }
     },
     "required": [
       "issue",
       "pull_request",
-      "discussion",
-      "commit"
+      "discussion"
     ],
-    "description": "Per-thread-kind support. `'other'` subjects have no verbs, so they have no entry.",
+    "description": "Per-thread-kind support.",
     "x-forges-type": "PerKind"
   },
   "PullBranches": {
@@ -3691,7 +3835,7 @@
       },
       "number": {
         "type": "string",
-        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`."
+        "description": "Per-repo thread number."
       },
       "displayNumber": {
         "type": "string",
@@ -4294,7 +4438,7 @@
       "labels",
       "raw"
     ],
-    "description": "An issue, pull request, discussion or commit conversation.",
+    "description": "An issue, pull request or discussion.",
     "x-forges-type": "Thread"
   },
   "ThreadKind": {
@@ -4302,11 +4446,9 @@
     "enum": [
       "issue",
       "pull_request",
-      "discussion",
-      "commit",
-      "other"
+      "discussion"
     ],
-    "description": "Kind of thread. `'other'` holds forge-specific subjects with no shared kind (check suites, epics); `ThreadRef.typeRaw` names them.",
+    "description": "Kind of thread.",
     "x-forges-type": "ThreadKind"
   },
   "ThreadRef": {
@@ -4331,7 +4473,7 @@
       },
       "number": {
         "type": "string",
-        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`. Absent when the forge did not identify the thread; such a ref cannot be fetched or keyed until enriched."
+        "description": "Per-repo thread number. Absent when the forge did not identify the thread; such a ref cannot be fetched or keyed until enriched."
       },
       "displayNumber": {
         "type": "string",

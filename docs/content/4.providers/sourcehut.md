@@ -43,7 +43,7 @@ Sourcehut usernames are written with a leading tilde, so a repository ref's `own
 
 ## Repositories and contents
 
-`repos.get()`, `repos.list()` and `repos.byOwner()` read `git.sr.ht`. `contents.getFile()`, `contents.tree()`, `contents.branches()`, `contents.tags()`, `contents.resolveRef()`, `contents.commits()` and `contents.getCommit()` read the same service. Sourcehut has no compare resolver, so `contents.compare()` is unsupported.
+`repos.get()`, `repos.list()` and `repos.byOwner()` read `git.sr.ht`. `contents.getFile()`, `contents.tree()`, `contents.branches()`, `contents.tags()`, `contents.resolveRef()`, `commits.list()` and `commits.get()` read the same service. Sourcehut has no compare resolver, so `contents.compare()` is unsupported.
 
 `repos.labels()` and `repos.permissionFor()` are `'emulated'` from the repository's `todo.sr.ht` tracker and its `git.sr.ht` access list. The access list is served only to the repository's owner and collaborators, so for anyone else `permissionFor()` falls back to what the repository's visibility allows. Sourcehut has no milestones, contributors, contributors statistics, assignable users or reviewer candidates.
 
@@ -166,10 +166,16 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `contents.branches` | ✅ | ❌ |
 | `contents.tags` | ✅ | ❌ |
 | `contents.resolveRef` | ✅ | ❌ |
-| `contents.commits` | ✅ | ❌ |
-| `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
+| `commits.list` | ✅ | ❌ |
+| `commits.get` | ✅ | ❌ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | emulated | ❌ |
 | `releases.get` | emulated | ❌ |
 | `releases.latest` | emulated | ❌ |

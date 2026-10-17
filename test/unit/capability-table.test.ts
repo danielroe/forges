@@ -111,7 +111,7 @@ describe('capability table', () => {
   })
 
   it('reads thread events for every kind a signed-in provider reads threads of', () => {
-    const kinds = ['issue', 'pull_request', 'discussion', 'commit'] as const
+    const kinds = ['issue', 'pull_request', 'discussion'] as const
 
     for (const [name, create] of providers.filter(([name]) => name.endsWith('token'))) {
       const provider = create()
@@ -172,7 +172,7 @@ describe('capability table', () => {
 
     // A per-kind capability the forge lacks is `not_applicable` for every kind.
     const tangledProvider = tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' })
-    expect(tangledProvider.capabilities.threads.checks).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
+    expect(tangledProvider.capabilities.threads.checks).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable' })
 
     // Derived capabilities (`threads.getReview`, `threads.approve`) inherit `not_applicable` from their parts.
     expect(tangledProvider.support('threads.getReview')).toBe('not_applicable')

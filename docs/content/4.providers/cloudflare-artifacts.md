@@ -58,9 +58,9 @@ The log accepts only branch and tag names, so the provider translates `HEAD` and
 
 `contents.tree()` reads one level. With `recursive`, it still returns one level, with a `recursive_unsupported` warning.
 
-`contents.commits()` pages through the log by offset. The log has no filters, so `path`, `author`, `since` and `until` are ignored with a `filter_unsupported` warning.
+`commits.list()` pages through the log by offset. The log has no filters, so `path`, `author`, `since` and `until` are ignored with a `filter_unsupported` warning.
 
-Artifacts has no diff endpoint. So `contents.getCommit()` compares the commit's tree with the tree of its first parent, and reads only the directories that changed. A small commit costs a few requests. A commit that touches hundreds of directories costs hundreds.
+Artifacts has no diff endpoint. So `commits.get()` compares the commit's tree with the tree of its first parent, and reads only the directories that changed. A small commit costs a few requests. A commit that touches hundreds of directories costs hundreds.
 
 The comparison finds a rename only when the file moved without an edit. Git would call an edited rename `renamed` too, but here it's a `removed` file and an `added` one. A file whose mode alone changed comes back as `changed`. The files don't carry line counts either. A shallow import leaves out the parents past its depth, and for the oldest commits `files` is then `undefined`.
 
@@ -165,10 +165,16 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `contents.branches` | ❌ | ❌ |
 | `contents.tags` | ❌ | ❌ |
 | `contents.resolveRef` | ✅ | ❌ |
-| `contents.commits` | ✅ | ❌ |
-| `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
+| `commits.list` | ✅ | ❌ |
+| `commits.get` | ✅ | ❌ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |

@@ -16,7 +16,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'webhook' | 'threadEvents' | 'getComment' | 'getReview' | 'ciJob' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
+  derived?: 'experimental' | 'webhook' | 'threadEvents' | 'getComment' | 'getReview' | 'ciJob' | 'commitComment' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
   write?: boolean
   /** The verbs need an account, so anonymous providers reject them. */
@@ -118,10 +118,16 @@ const TABLE = [
   { capability: 'contents.branches', listing: true },
   { capability: 'contents.tags', listing: true },
   { capability: 'contents.resolveRef' },
-  { capability: 'contents.commits', listing: true },
-  { capability: 'contents.getCommit' },
   { capability: 'contents.compare' },
   { capability: 'contents.commitFiles', write: true },
+  { capability: 'commits.list', listing: true },
+  { capability: 'commits.get' },
+  { capability: 'commits.comments', listing: true },
+  { capability: 'commits.getComment', spec: 'commits.getComment', derived: 'commitComment' },
+  { capability: 'commits.createComment', write: true },
+  { capability: 'commits.updateComment', write: true },
+  { capability: 'commits.deleteComment', write: true },
+  { capability: 'commits.hideComment', write: true, spec: 'commits.commentHiding', verbs: ['commits.hideComment', 'commits.unhideComment'] },
   { capability: 'releases.list', listing: true },
   { capability: 'releases.get' },
   { capability: 'releases.latest' },

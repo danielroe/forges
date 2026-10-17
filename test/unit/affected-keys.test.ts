@@ -1,4 +1,4 @@
-import type { EventDetail, ForgeEvent, Notification, NotificationSubject, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadRef } from '../../src/index.ts'
+import type { CommitCommentRef, CommitRef, EventDetail, ForgeEvent, Notification, NotificationSubject, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadRef } from '../../src/index.ts'
 import type { ForgeEventInput } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { translateAzureWebhook } from '../../src/azure-devops/events.ts'
@@ -13,7 +13,7 @@ import { toComment as toGiteeComment } from '../../src/gitee/normalise.ts'
 import { translateGitHubWebhook } from '../../src/github/events.ts'
 import { toDiscussionComment } from '../../src/github/graphql.ts'
 import { toEvent as toGitHubEvent } from '../../src/github/normalise.ts'
-import { affectedKeys, commentKey, parseCommentKey, parseReleaseKey, parseThreadKey, releaseKey, repoKey, threadKey } from '../../src/index.ts'
+import { affectedKeys, commentKey, commitCommentKey, commitKey, parseCommentKey, parseCommitCommentKey, parseCommitKey, parseReleaseKey, parseThreadKey, releaseKey, repoKey, threadKey } from '../../src/index.ts'
 import { payloadFixture } from '../utils/fixtures.ts'
 
 const origin = { forge: 'github', instance: 'github.com' } as const
@@ -23,6 +23,8 @@ const pull: ResolvedThreadRef = { ...origin, repo, kind: 'pull_request', number:
 const issue: ResolvedThreadRef = { ...origin, repo: other, kind: 'issue', number: '7' }
 const comment: ResolvedCommentRef = { ...origin, thread: pull, id: '900' }
 const release: ReleaseRef = { ...origin, repo, id: '31', tag: 'v1.0.0' }
+const commit: CommitRef = { ...origin, repo, sha: 'a'.repeat(40) }
+const commitComment: CommitCommentRef = { ...origin, commit, id: '901' }
 const pathOf = (owner: string, name: string) => repoKey({ ...origin, owner, name })
 
 function event(detail: EventDetail | undefined, fields: Partial<ForgeEvent> = {}): ForgeEvent {
@@ -39,8 +41,8 @@ describe('comment and release keys', () => {
     expect(commentKey(comment)).toBe('github:github.com/@1#pull_request/42#comment/900')
   })
 
-  it('starts thread, comment and release keys with the repository key and `#`', () => {
-    for (const key of [threadKey(pull), commentKey(comment), releaseKey(release)]) {
+  it('starts thread, commit, comment and release keys with the repository key and `#`', () => {
+    for (const key of [threadKey(pull), commitKey(commit), commentKey(comment), commitCommentKey(commitComment), releaseKey(release)]) {
       expect(key.startsWith(`${repoKey(repo)}#`)).toBe(true)
     }
   })
@@ -51,7 +53,6 @@ describe('comment and release keys', () => {
     const refs: ResolvedCommentRef[] = [
       { forge: 'gitlab', instance: 'git.example.com', thread: { forge: 'gitlab', instance: 'git.example.com', repo: nested, kind: 'pull_request', number: '23' }, id: '1201' },
       { forge: 'tangled', instance: 'tangled.org', thread: { forge: 'tangled', instance: 'tangled.org', repo: tangledRepo, kind: 'issue', number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }, id: 'at://did:plc:xyz/sh.tangled.repo.issue.comment/3m#c' },
-      { ...origin, thread: { ...origin, repo: { ...origin, owner: 'acme', name: 'widgets' }, kind: 'other', typeRaw: 'CheckSuite', number: '5' }, id: '6' },
     ]
 
     for (const ref of refs) {
@@ -65,6 +66,18 @@ describe('comment and release keys', () => {
     expect(parseCommentKey(`${threadKey(pull)}#comment/`)).toBeUndefined()
     expect(parseCommentKey(`${threadKey(pull)}#review/1`)).toBeUndefined()
     expect(parseThreadKey(commentKey(comment))).toBeUndefined()
+  })
+
+  it('round-trips commit and commit comment keys', () => {
+    const nested: CommitRef = { forge: 'gitlab', instance: 'gitlab.com', repo: { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' }, sha: 'b'.repeat(40) }
+
+    expect(commitKey(nested)).toBe(`gitlab:gitlab.com/acme/platform/widgets#commit/${nested.sha}`)
+    expect(parseCommitKey(commitKey(nested))).toEqual(nested)
+    expect(parseCommitCommentKey(commitCommentKey({ forge: 'gitlab', instance: 'gitlab.com', commit: nested, id: '7' }))).toEqual({ forge: 'gitlab', instance: 'gitlab.com', commit: nested, id: '7' })
+    expect(parseCommitKey(threadKey(pull))).toBeUndefined()
+    expect(parseThreadKey(commitKey(nested))).toBeUndefined()
+    expect(parseCommentKey(commitCommentKey(commitComment))).toBeUndefined()
+    expect(parseCommitCommentKey(commentKey(comment))).toBeUndefined()
   })
 
   it('round-trips release keys', () => {
@@ -85,7 +98,22 @@ describe('affectedKeys', () => {
     expect(affectedKeys(event(detail, { thread: pull }))).toEqual({
       repos: [repoKey(repo)],
       threads: [threadKey(pull)],
+      commits: [],
       comments: [commentKey(comment)],
+      commitComments: [],
+      releases: [],
+      notifications: [],
+      unresolved: [],
+    })
+  })
+
+  it('keys the commit and the comment of a comment on a commit', () => {
+    expect(affectedKeys(event({ type: 'comment', comment: commitComment }, { commit }))).toEqual({
+      repos: [repoKey(repo)],
+      threads: [],
+      commits: [commitKey(commit)],
+      comments: [],
+      commitComments: [commitCommentKey(commitComment)],
       releases: [],
       notifications: [],
       unresolved: [],
@@ -152,23 +180,25 @@ describe('affectedKeys', () => {
     const thread: ThreadRef = { forge: 'tangled', instance: 'tangled.org', repo: tangledRepo, kind: 'pull_request', displayNumber: '3' }
     const keys = affectedKeys(event({ type: 'comment', comment: { forge: 'tangled', instance: 'tangled.org', thread: { ...thread }, id: 'at://c' } }, { forge: 'tangled', instance: 'tangled.org', repo: tangledRepo, thread }))
 
-    expect(keys).toEqual({ repos: [repoKey(tangledRepo)], threads: [], comments: [], releases: [], notifications: [], unresolved: [thread] })
+    expect(keys).toEqual({ repos: [repoKey(tangledRepo)], threads: [], commits: [], comments: [], commitComments: [], releases: [], notifications: [], unresolved: [thread] })
   })
 
   it.each<[string, NotificationSubject, Partial<ReturnType<typeof affectedKeys>>]>([
     ['thread', { type: 'thread', thread: pull }, { repos: [repoKey(repo)], threads: [threadKey(pull)] }],
+    ['commit', { type: 'commit', commit }, { repos: [repoKey(repo)], commits: [commitKey(commit)] }],
     ['repo', { type: 'repo', repo }, { repos: [repoKey(repo)] }],
     ['release', { type: 'release', release }, { repos: [repoKey(repo)], releases: [releaseKey(release)] }],
     ['security_alert', { type: 'security_alert', alert: { ...origin, repo, id: '3', kind: 'dependency' } }, { repos: [repoKey(repo)] }],
     ['other', { type: 'other', typeRaw: 'CheckSuite', repo }, { repos: [repoKey(repo)] }],
     ['actor', { type: 'actor', actor: { ...origin, login: 'ada', id: '3', isBotHint: false } }, { repos: [] }],
   ])('keys a notification and its %s subject', (_, subject, expected) => {
-    expect(affectedKeys(notification(subject))).toEqual({ repos: [], threads: [], comments: [], releases: [], unresolved: [], ...expected, notifications: ['github:github.com:notification/n1'] })
+    expect(affectedKeys(notification(subject))).toEqual({ repos: [], threads: [], commits: [], comments: [], commitComments: [], releases: [], unresolved: [], ...expected, notifications: ['github:github.com:notification/n1'] })
   })
 
   it('keys the latest comment that a notification links', () => {
     const latestComment = { ...origin, thread: pull, id: '770001' }
     expect(affectedKeys({ ...notification({ type: 'thread', thread: pull }), latestComment }).comments).toEqual([commentKey(latestComment)])
+    expect(affectedKeys({ ...notification({ type: 'commit', commit }), latestComment: commitComment }).commitComments).toEqual([commitCommentKey(commitComment)])
   })
 
   it('returns a discussion notification without a number as unresolved', () => {

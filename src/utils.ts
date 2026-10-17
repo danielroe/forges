@@ -1,6 +1,6 @@
 import type { ForgeErrorContext } from './errors.ts'
 import type { Fetcher, FetchResult, PaginateOptions } from './fetch.ts'
-import type { Actor, BaseOptions, ChecksSummary, CheckState, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, NotificationSubject, Page, PageOptions, PullStats, RateLimit, RepoRef, ResolvedCommentRef, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
+import type { Actor, BaseOptions, ChecksSummary, CheckState, CommitCommentRef, Cursor, FileStatus, ForgeWarning, GetManyResult, ListOptions, MergeOptions, Milestone, NotificationSubject, Page, PageOptions, PullStats, RateLimit, RepoRef, ResolvedCommentRef, ResolvedThreadRef, Review, ReviewState, Thread, ThreadRef } from './model.ts'
 import type { ForgeIterable, MilestoneListOptions, TokenAuth } from './provider.ts'
 import { ForgeApiError, ForgeError, RateLimitedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from './errors.ts'
 import { rateLimitOf } from './fetch.ts'
@@ -93,8 +93,12 @@ export function getManyConcurrently(
   ))
 }
 
-/** The issue comment that a notification's `latest_comment_url` names, for a thread subject with a number. */
-export function latestCommentOf(subject: NotificationSubject, url: string | null | undefined): ResolvedCommentRef | undefined {
+/** The comment that a notification's `latest_comment_url` names: an issue comment on a thread subject with a number, or a comment on a commit subject. */
+export function latestCommentOf(subject: NotificationSubject, url: string | null | undefined): ResolvedCommentRef | CommitCommentRef | undefined {
+  if (subject.type === 'commit') {
+    const id = /\/repos\/[^/]+\/[^/]+\/comments\/(\d+)$/.exec(url ?? '')?.[1]
+    return id ? { forge: subject.commit.forge, instance: subject.commit.instance, commit: subject.commit, id } : undefined
+  }
   const id = /\/issues\/comments\/(\d+)$/.exec(url ?? '')?.[1]
   if (!id || subject.type !== 'thread' || !isResolvedThread(subject.thread)) {
     return undefined
@@ -141,13 +145,8 @@ export function teamOrg(ref: RepoRef): RepoRef {
 
 /** Narrows a ref to one a provider can address, or throws {@link UnresolvedThreadError}. */
 export function requireThread(ref: ThreadRef, context?: ForgeErrorContext): ResolvedThreadRef {
-  if (ref.kind === 'other' || !isResolvedThread(ref)) {
-    throw new UnresolvedThreadError(
-      ref.kind === 'other'
-        ? `${ref.typeRaw ?? 'This'} subject has no thread API`
-        : 'Thread ref has no number; resolve it before calling the forge',
-      context ?? { forge: ref.forge, instance: ref.instance },
-    )
+  if (!isResolvedThread(ref)) {
+    throw new UnresolvedThreadError('Thread ref has no number; resolve it before calling the forge', context ?? { forge: ref.forge, instance: ref.instance })
   }
   return ref
 }

@@ -1,4 +1,4 @@
-import type { Actor, Comment, CommentRef, Commit, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, CommentRef, Commit, CommitComment, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
@@ -71,7 +71,8 @@ export interface WriteContext {
   discussion?: Thread
   duplicate?: Thread
   pulls: Thread[]
-  comments: Partial<Record<WriteKind | 'commit', Comment>>
+  comments: Partial<Record<WriteKind, Comment>>
+  commitComment?: CommitComment
   milestone?: Milestone
   review?: Review
   /** The first comment of a review the run left, to read back on its own. */
@@ -89,7 +90,7 @@ export interface WriteContext {
 export interface WriteStep {
   name: string
   verb: ForgeVerb
-  kind?: WriteKind | 'commit'
+  kind?: WriteKind
   /** Run with the reviewer's credentials rather than the author's. */
   as?: 'reviewer'
   /** Whether the step applies, beyond the provider supporting its verb. */
@@ -198,21 +199,18 @@ function threadWrites(kind: WriteKind): WriteStep[] {
 
 /** Comments on the first pull request's head commit. */
 function commitWrites(): WriteStep[] {
-  const ref = (context: WriteContext): ThreadRef => {
-    const pull = need(context.pulls[0], 'the pull request')
-    return { forge: pull.ref.forge, instance: pull.ref.instance, repo: pull.ref.repo, kind: 'commit', number: need(pull.branches?.head.sha, 'the pull head sha') }
-  }
   return [
-    { name: 'commit comment', verb: 'threads.createComment', kind: 'commit', run: async (provider, manifest, context) => {
-      context.comments.commit = await provider.threads.createComment(ref(context), `A commit comment from run ${manifest.run.id}.`)
-      return context.comments.commit
+    { name: 'commit comment', verb: 'commits.createComment', run: async (provider, manifest, context) => {
+      const pull = need(context.pulls[0], 'the pull request')
+      const repo = pull.ref.repo
+      context.commitComment = await provider.commits.createComment({ forge: repo.forge, instance: repo.instance, repo, sha: need(pull.branches?.head.sha, 'the pull head sha') }, `A commit comment from run ${manifest.run.id}.`)
+      return context.commitComment
     } },
-    { name: 'commit edit comment', verb: 'threads.updateComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.updateComment(need(context.comments.commit, 'a commit comment').ref, `An edited commit comment from run ${manifest.run.id}.`) },
-    { name: 'commit hide comment', verb: 'threads.hideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.hideComment(need(context.comments.commit, 'a commit comment').ref, 'outdated') },
-    { name: 'commit unhide comment', verb: 'threads.unhideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.unhideComment(need(context.comments.commit, 'a commit comment').ref) },
-    { name: 'commit get comment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments.commit, 'a commit comment').ref) },
-    { name: 'commit upsert comment', verb: 'threads.updateComment', kind: 'commit', run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
-    { name: 'commit delete comment', verb: 'threads.deleteComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments.commit, 'a commit comment').ref) },
+    { name: 'commit edit comment', verb: 'commits.updateComment', run: (provider, manifest, context) => provider.commits.updateComment(need(context.commitComment, 'a commit comment').ref, `An edited commit comment from run ${manifest.run.id}.`) },
+    { name: 'commit hide comment', verb: 'commits.hideComment', run: (provider, _manifest, context) => provider.commits.hideComment(need(context.commitComment, 'a commit comment').ref, 'outdated') },
+    { name: 'commit unhide comment', verb: 'commits.unhideComment', run: (provider, _manifest, context) => provider.commits.unhideComment(need(context.commitComment, 'a commit comment').ref) },
+    { name: 'commit get comment', verb: 'commits.getComment', run: (provider, _manifest, context) => provider.commits.getComment(need(context.commitComment, 'a commit comment').ref) },
+    { name: 'commit delete comment', verb: 'commits.deleteComment', run: (provider, _manifest, context) => provider.commits.deleteComment(need(context.commitComment, 'a commit comment').ref) },
   ]
 }
 

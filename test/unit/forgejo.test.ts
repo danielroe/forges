@@ -62,18 +62,6 @@ describe('forgejo provider', () => {
     ])
   })
 
-  it('refuses to comment on a commit', async () => {
-    const { instance } = provider()
-    await expect(instance.threads.createComment!({
-      forge: 'forgejo',
-      instance: 'codeberg.org',
-      repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' },
-      kind: 'commit',
-      number: 'adbc9741',
-    }, 'hi')).rejects.toThrow('forgejo does not support threads.createComment for a commit')
-    expect(instance.capabilities.threads.createComment.commit).toBe(false)
-  })
-
   it('updates a branch by the style it is given, and compares the head sha with a read first', async () => {
     const { instance, calls } = provider()
     const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '7' } as const
@@ -788,7 +776,7 @@ describe('forgejo and gitea moderation', () => {
     ])
     expect(instance.scopesFor('orgs.block')).toEqual({ token: ['write:organization'] })
     expect(instance.scopesFor('users.block')).toEqual({ token: ['write:user'] })
-    expect(instance.capabilities.threads.lock).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
+    expect(instance.capabilities.threads.lock).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable' })
   })
 
   it('blocks and unblocks an account on Gitea, and locks an issue or pull request with the reason Gitea names', async () => {

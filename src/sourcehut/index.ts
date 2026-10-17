@@ -5,6 +5,7 @@ import type {
   BaseOptions,
   Branch,
   Comment,
+  CommitRef,
   ForgeEventInput,
   ListOptions,
   Page,
@@ -533,7 +534,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         }
         return sha
       }),
-      commitsPage: verb(true, async (repo: RepoRef, query = {}) => {
+    },
+    commits: {
+      listPage: verb(true, async (repo: RepoRef, query = {}) => {
         const { user } = await git.query<{ user: { repository: { log: ShPage<ShCommit> } | null } | null }>(Q.RepositoryLog, { ...repoParts(repo), from: query.ref, cursor: query.cursor?.token }, query)
         if (!user?.repository) {
           throw notFound(repo, origin)
@@ -544,7 +547,7 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
           : undefined
         return { ...page, ...warnings ? { warnings } : {} }
       }),
-      getCommit: verb(true, async (repo: RepoRef, sha: string, options?: BaseOptions) => {
+      get: verb(true, async ({ repo, sha }: CommitRef, options?: BaseOptions) => {
         const { user } = await git.query<{ user: { repository: { revparse_single: ShCommit | null } | null } | null }>(Q.RepositoryCommit, { ...repoParts(repo), revspec: sha }, options)
         const commit = user?.repository?.revparse_single
         if (!commit) {
@@ -710,8 +713,8 @@ export function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
     'contents.branches': repo,
     'contents.tags': repo,
     'contents.resolveRef': repo,
-    'contents.commits': repo,
-    'contents.getCommit': repo,
+    'commits.list': repo,
+    'commits.get': repo,
     'ci.runs': job,
     'ci.getRun': job,
     'ci.jobs': job,

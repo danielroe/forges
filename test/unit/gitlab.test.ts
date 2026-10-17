@@ -15,7 +15,7 @@ import {
 import { gitlab } from '../../src/gitlab/index.ts'
 import { toNoteKind, toReason, toRepoRef } from '../../src/gitlab/normalise.ts'
 import { verifyGitLabToken } from '../../src/gitlab/webhooks.ts'
-import { notificationThread, repoKey, threadKey } from '../../src/model.ts'
+import { repoKey } from '../../src/model.ts'
 import { fixtureDirectory, fixtureFetch, stubFetch } from '../utils/fixtures.ts'
 
 const P = 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets'
@@ -86,14 +86,12 @@ describe('gitlab provider', () => {
     expect(repoKey(nested)).not.toBe(repoKey(flat))
   })
 
-  it('maps a group-level epic to other on a namespace ref', async () => {
+  it('maps a group-level epic to an other subject on a namespace ref', async () => {
     const { instance } = provider()
     const page = await instance.notifications!.list({ cursor: { nextUrl: 'https://gitlab.com/api/v4/todos?page=2&per_page=20&state=pending' } }).page()
     const epic = page.items[0]!
 
-    expect(notificationThread(epic)!).toMatchObject({ kind: 'other', typeRaw: 'Epic', number: '4' })
-    expect(notificationThread(epic)!.repo).toMatchObject({ kind: 'namespace', owner: 'acme/platform', name: '' })
-    expect(threadKey(notificationThread(epic)! as ResolvedThreadRef)).toBe('gitlab:gitlab.com/@namespace:7781#other:Epic/4')
+    expect(epic.subject).toMatchObject({ type: 'other', typeRaw: 'Epic', id: '4', repo: { kind: 'namespace', owner: 'acme/platform', name: '' } })
     expect(epic.reason).toBe('assigned')
   })
 

@@ -461,17 +461,6 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       tagsPage: verb(true, (repo, listOptions = {}) => wholeListing(`${repoPath(repo)}/tags`, listOptions, toTag)),
       resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitsPage: verb(true, async (repo, query = {}) => {
-        const page = await numberedPage<GiteeCommit>(`${repoPath(repo)}/commits`, {
-          sha: query.ref,
-          path: query.path,
-          author: query.author,
-          since: query.since?.toISOString(),
-          until: query.until?.toISOString(),
-        }, query)
-        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
-      }),
-      getCommit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<GiteeCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {
@@ -483,6 +472,19 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
           raw: data,
         }
       }),
+    },
+    commits: {
+      listPage: verb(true, async (repo, query = {}) => {
+        const page = await numberedPage<GiteeCommit>(`${repoPath(repo)}/commits`, {
+          sha: query.ref,
+          path: query.path,
+          author: query.author,
+          since: query.since?.toISOString(),
+          until: query.until?.toISOString(),
+        }, query)
+        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
+      }),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
     },
     search: {
       threadsPage: verb(true, searchThreadsPage),
