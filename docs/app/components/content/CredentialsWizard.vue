@@ -379,6 +379,17 @@ const { copied, copy, message: copyMessage } = useCopyToClipboard(() => `${doten
               </span>
             </li>
           </ol>
+          <NuxtLink
+            :to="{ path: '/getting-started/explorer', query: { forge: slug } }"
+            class="mt-3 inline-flex items-center gap-1 text-xs text-muted hover:text-highlighted"
+          >
+            Try a call with this credential in the API explorer
+            <UIcon
+              name="i-lucide-arrow-right"
+              class="size-3"
+              aria-hidden="true"
+            />
+          </NuxtLink>
         </section>
       </div>
 
