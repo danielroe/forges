@@ -8,6 +8,9 @@ import { afterAll, describe, expect, it } from 'vitest'
 import { annotateJson, pageSchema } from '../../docs/app/utils/explorer-json.ts'
 import { explorerHovers, explorerPageMembers } from '../../docs/shared/explorer-hovers.ts'
 import {
+  authCode,
+  authFromValues,
+  credentialComplete,
   explorable,
   EXPLORER_FORGES,
   EXPLORER_NAMESPACE_TITLES,
@@ -71,7 +74,9 @@ describe('explorer operations', () => {
       if (!forge.signedIn) {
         expect(factory(options).create().authKind, forge.forge).toBe('anonymous')
       }
-      expect(factory({ ...options, auth: placeholderAuth(forge.auth) }).create().authKind, forge.forge).toBe(forge.auth.type)
+      for (const credential of forge.credentials) {
+        expect(factory({ ...options, auth: placeholderAuth(credential) }).create().authKind, `${forge.forge} ${credential.kind}`).toBe(credential.kind)
+      }
     }
   })
 
@@ -84,8 +89,22 @@ describe('explorer operations', () => {
       const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
       return factory(forge.options?.(forge.sample) ?? {}).create()
     }))
-    for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run)) {
-      const supported = anonymous.some(provider => (['issue', 'pull_request'] as const).some(kind => provider.can(operation.verb, kind)))
+    for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run && !entry.auth)) {
+      const kinds = operation.kind ? (['issue', 'pull_request'] as const) : ([undefined] as const)
+      const supported = anonymous.some(provider => kinds.some(kind => provider.can(operation.verb, kind)))
+      expect(supported, operation.verb).toBe(true)
+    }
+  })
+
+  it('run only calls that some forge supports here with credentials', async () => {
+    const signedIn = await Promise.all(EXPLORER_FORGES.filter(forge => !forge.blocked && forge.credentials.some(credential => credential.runnable)).map(async (forge) => {
+      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
+      const options = forge.options?.(forge.sample) ?? {}
+      return factory({ ...options, auth: placeholderAuth(forge.credentials.find(credential => credential.runnable)!) }).create()
+    }))
+    for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run && entry.auth)) {
+      const kinds = operation.kind ? (['issue', 'pull_request'] as const) : ([undefined] as const)
+      const supported = signedIn.some(provider => kinds.some(kind => provider.can(operation.verb, kind)))
       expect(supported, operation.verb).toBe(true)
     }
   })
@@ -95,6 +114,65 @@ describe('explorer operations', () => {
     const { repo, thread } = explorerRefs(provider, EXPLORER_FORGES[0]!.sample)
     expect(repo).toEqual({ forge: 'github', instance: 'github.com', owner: 'nuxt', name: 'nuxt' })
     expect(thread).toMatchObject({ repo, kind: 'pull_request', number: '36506' })
+  })
+})
+
+describe('explorer credentials', () => {
+  it('offer every forge a credential, and only run the kinds the browser can build', () => {
+    for (const forge of EXPLORER_FORGES) {
+      expect(forge.credentials.length, forge.forge).toBeGreaterThan(0)
+      for (const credential of forge.credentials) {
+        expect(credential.fields.every(field => field.env || field.value), `${forge.forge} ${credential.kind}`).toBe(true)
+        if (credential.runnable) {
+          expect(['token', 'basic'], `${forge.forge} ${credential.kind}`).toContain(credential.kind)
+        }
+      }
+    }
+  })
+
+  it('read each credential field from the environment in the code', () => {
+    for (const forge of EXPLORER_FORGES) {
+      for (const credential of forge.credentials) {
+        const code = authCode(credential)
+        expect(code).toContain(`type: '${credential.kind}'`)
+        for (const field of credential.fields.filter(field => !field.optional)) {
+          expect(code, `${forge.forge} ${credential.kind} ${field.field}`).toContain(field.value === undefined ? `process.env.${field.env}!` : `'${field.value}'`)
+        }
+      }
+    }
+  })
+
+  it('build the auth a credential describes from the values the person typed', () => {
+    const token = EXPLORER_FORGES.find(forge => forge.forge === 'github')!.credentials.find(credential => credential.kind === 'token')!
+    expect(authFromValues(token, { TOKEN: ' ghp_x ' })).toEqual({ type: 'token', token: 'ghp_x' })
+
+    const basic = EXPLORER_FORGES.find(forge => forge.forge === 'bitbucket')!.credentials.find(credential => credential.kind === 'basic')!
+    expect(authFromValues(basic, { USERNAME: 'me@example.com', PASSWORD: 'secret' })).toEqual({ type: 'basic', username: 'me@example.com', password: 'secret' })
+    expect(placeholderAuth(basic)).toEqual({ type: 'basic', username: 'placeholder', password: 'placeholder' })
+
+    const app = EXPLORER_FORGES.find(forge => forge.forge === 'github')!.credentials.find(credential => credential.kind === 'app')!
+    expect(authFromValues(app, { APP_ID: '1', PRIVATE_KEY: 'a\\nb', INSTALLATION_ID: '2' })).toEqual({ type: 'app', appId: '1', privateKey: 'a\nb', installationId: '2' })
+    expect(authFromValues(app, { APP_ID: '1', PRIVATE_KEY: 'a\\nb' })).toEqual({ type: 'app', appId: '1', privateKey: 'a\nb' })
+  })
+
+  it('call a credential complete only with every required field', () => {
+    const basic = EXPLORER_FORGES.find(forge => forge.forge === 'bitbucket')!.credentials.find(credential => credential.kind === 'basic')!
+    expect(credentialComplete(basic, { USERNAME: 'me' })).toBe(false)
+    expect(credentialComplete(basic, { USERNAME: 'me', PASSWORD: 'secret' })).toBe(true)
+
+    const app = EXPLORER_FORGES.find(forge => forge.forge === 'github')!.credentials.find(credential => credential.kind === 'app')!
+    expect(credentialComplete(app, { APP_ID: '1', PRIVATE_KEY: 'key' })).toBe(true)
+  })
+
+  it('print the chosen credential in the code, not the forge default', () => {
+    const forge = EXPLORER_FORGES.find(entry => entry.forge === 'bitbucket')!
+    const operation = EXPLORER_OPERATIONS.find(entry => entry.verb === 'notifications.list')!
+    const basic = forge.credentials.find(credential => credential.kind === 'basic')!
+    const code = explorerCode(operation, forge, forge.sample, basic).text
+    expect(code).toContain('type: \'basic\'')
+    expect(code).toContain('process.env.BITBUCKET_USERNAME!')
+    expect(code).toContain('process.env.BITBUCKET_PASSWORD!')
+    expect(code).not.toContain('BITBUCKET_TOKEN')
   })
 })
 
