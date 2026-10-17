@@ -296,9 +296,9 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       'users.block',
       'orgs.block',
       'repos.templates',
-      'comments.hide',
-      'writes.lock',
-      'writes.updateBranch',
+      'threads.hideComment',
+      'threads.lock',
+      'threads.updateBranch',
     ],
     repos: {
       get: verb('experimental', async (ref, options) => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref), { signal: options?.signal })).data)),

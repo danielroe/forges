@@ -729,10 +729,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return declared.run(repo, { ...input, changes }, options)
     },
-    'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify', capabilities.sources.webhook)),
+    'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify', capabilities.webhooks.ingest)),
     'webhooks.ingest': async (delivery: WebhookDelivery) => {
       if (!handlers) {
-        throw unsupported('webhooks.ingest', capabilities.sources.webhook)
+        throw unsupported('webhooks.ingest', capabilities.webhooks.ingest)
       }
       if (!await handlers.verify(delivery)) {
         throw new WebhookVerificationError('Webhook signature verification failed', origin)

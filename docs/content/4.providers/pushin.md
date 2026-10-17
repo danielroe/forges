@@ -63,7 +63,7 @@ The API only reads the authenticated account, so `users.get(login)` isn't availa
 
 ## Webhooks
 
-The API has no endpoints for hooks and no documented signature scheme. For this reason, `capabilities.sources.webhook` is `'not_applicable'`, and the provider doesn't verify or translate deliveries.
+The API has no endpoints for hooks and no documented signature scheme. For this reason, `capabilities.webhooks.ingest` is `'not_applicable'`, and the provider doesn't verify or translate deliveries.
 
 <!-- capabilities:start -->
 ## Capabilities
@@ -73,8 +73,6 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | ✅ | ❌ |
-| `sources.webhook` | ∅ | ∅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
@@ -105,12 +103,41 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.list` | issue, PR | issue, PR |
-| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.update` | ∅ | ∅ |
-| `comments.delete` | ∅ | ∅ |
-| `comments.hide` | ∅ | ∅ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | issue, PR | issue, PR |
+| `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
+| `threads.createComment` | ∅ | ∅ |
+| `threads.updateComment` | ∅ | ∅ |
+| `threads.deleteComment` | ∅ | ∅ |
+| `threads.hideComment` | ∅ | ∅ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ∅ | ∅ |
+| `threads.create` | ∅ | ∅ |
+| `threads.update` | ∅ | ∅ |
+| `threads.close` | ∅ | ∅ |
+| `threads.reopen` | ∅ | ∅ |
+| `threads.lock` | ∅ | ∅ |
+| `threads.setLabels` | ∅ | ∅ |
+| `threads.addLabels` | ∅ | ∅ |
+| `threads.removeLabels` | ∅ | ∅ |
+| `threads.setMilestone` | ∅ | ∅ |
+| `threads.setAssignees` | ∅ | ∅ |
+| `threads.requestReview` | ∅ | ∅ |
+| `threads.merge` | ∅ | ∅ |
+| `threads.updateBranch` | ∅ | ∅ |
+| `threads.transfer` | ∅ | ∅ |
+| `threads.markDuplicate` | ∅ | ∅ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | ❌ | ❌ |
+| `threads.files` | ❌ | ❌ |
+| `threads.commits` | ❌ | ❌ |
+| `threads.reviews` | ❌ | ❌ |
+| `threads.getReview` | ❌ | ❌ |
+| `threads.createReview` | ❌ | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | ❌ | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ∅ | ∅ |
 | `notifications.markDone` | ∅ | ∅ |
@@ -118,27 +145,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `notifications.markAllRead` | ∅ | ∅ |
 | `notifications.markAllDone` | ∅ | ∅ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.createComment` | ∅ | ∅ |
-| `writes.close` | ∅ | ∅ |
-| `writes.reopen` | ∅ | ∅ |
-| `writes.lock` | ∅ | ∅ |
-| `writes.create` | ∅ | ∅ |
-| `writes.update` | ∅ | ∅ |
-| `writes.setLabels` | ∅ | ∅ |
-| `writes.addLabels` | ∅ | ∅ |
-| `writes.removeLabels` | ∅ | ∅ |
-| `writes.setMilestone` | ∅ | ∅ |
-| `writes.react` | ∅ | ∅ |
-| `writes.setAssignees` | ∅ | ∅ |
-| `writes.requestReview` | ∅ | ∅ |
-| `writes.merge` | ∅ | ∅ |
-| `writes.updateBranch` | ∅ | ∅ |
-| `writes.transfer` | ∅ | ∅ |
-| `writes.markDuplicate` | ∅ | ∅ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | ❌ | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
@@ -157,15 +164,6 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `contents.getCommit` | ❌ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | ❌ | ❌ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
-| `reviews.create` | ❌ | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | ❌ | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -173,6 +171,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ∅ | ∅ |
 | `webhooks.list` | ∅ | ∅ |
 | `webhooks.create` | ∅ | ∅ |
 | `webhooks.update` | ∅ | ∅ |
@@ -184,7 +183,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |
 | `limits` | unknown | unknown |

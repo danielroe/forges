@@ -185,8 +185,6 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | experimental | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ✅ | ✅ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
@@ -217,12 +215,41 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | issue, PR |
-| `comments.list` | issue, PR | issue, PR |
-| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.update` | issue, PR | ❌ |
-| `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ∅ | ∅ |
-| `reactions.list` | issue, PR | issue, PR |
+| `threads.comments` | issue, PR | issue, PR |
+| `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
+| `threads.createComment` | issue, PR | ❌ |
+| `threads.updateComment` | issue, PR | ❌ |
+| `threads.deleteComment` | issue, PR | ❌ |
+| `threads.hideComment` | ∅ | ∅ |
+| `threads.reactions` | issue, PR | issue, PR |
+| `threads.react` | issue, PR | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | ∅ | ∅ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | issue, PR | ❌ |
+| `threads.removeLabels` | issue, PR | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | issue, PR | ❌ |
+| `threads.requestReview` | ∅ | ∅ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ∅ | ∅ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | issue, PR | ❌ |
+| `threads.subscribe` | issue, PR | ❌ |
+| `threads.checks` | ∅ | ∅ |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | ∅ | ∅ |
+| `threads.getReview` | ∅ | ∅ |
+| `threads.createReview` | ∅ | ∅ |
+| `threads.submitReview` | ∅ | ∅ |
+| `threads.approve` | ∅ | ∅ |
+| `threads.replyToReviewComment` | ∅ | ∅ |
+| `threads.resolveReviewThread` | ∅ | ∅ |
 | `notifications.list` | experimental | ❌ |
 | `notifications.markRead` | experimental | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -230,27 +257,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | unverified | ❌ |
-| `writes.createComment` | issue, PR | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ∅ | ∅ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | issue, PR | ❌ |
-| `writes.removeLabels` | issue, PR | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | issue, PR | ❌ |
-| `writes.setAssignees` | issue, PR | ❌ |
-| `writes.requestReview` | ∅ | ∅ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ∅ | ∅ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | issue, PR | ❌ |
-| `subscriptions.set` | issue, PR | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | ∅ | ∅ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ∅ | ∅ |
 | `checks.get` | ∅ | ∅ |
 | `checks.report` | ∅ | ∅ |
@@ -269,15 +276,6 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | ∅ | ∅ |
-| `reviews.get` | ∅ | ∅ |
-| `reviews.create` | ∅ | ∅ |
-| `reviews.submit` | ∅ | ∅ |
-| `reviews.approve` | ∅ | ∅ |
-| `reviews.reply` | ∅ | ∅ |
-| `reviews.resolveThread` | ∅ | ∅ |
 | `releases.list` | ∅ | ∅ |
 | `releases.get` | ∅ | ∅ |
 | `releases.latest` | ∅ | ∅ |
@@ -285,6 +283,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `releases.downloadAsset` | ∅ | ∅ |
 | `releases.create` | ∅ | ∅ |
 | `releases.update` | ∅ | ∅ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ∅ | ∅ |
 | `webhooks.create` | ∅ | ∅ |
 | `webhooks.update` | ∅ | ∅ |
@@ -296,7 +295,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ∅ | ∅ |
+| `securityAlerts.list` | ∅ | ∅ |
 | `eventKinds` | native | native |
 | `authKinds` | `anonymous`, `app_password`, `oauth` | `anonymous`, `app_password`, `oauth` |
 | `limits` | unknown | unknown |

@@ -127,8 +127,6 @@ for await (const team of provider.orgs.teams(project)) {
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ❌ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
@@ -159,12 +157,41 @@ for await (const team of provider.orgs.teams(project)) {
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | issue (unverified), PR |
-| `comments.list` | issue (experimental), PR | issue (unverified), PR |
-| `comments.get` | issue (experimental), PR | issue (unverified), PR |
-| `comments.update` | issue (experimental), PR | ❌ |
-| `comments.delete` | issue (experimental), PR | ❌ |
-| `comments.hide` | ∅ | ∅ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | issue (experimental), PR | issue (unverified), PR |
+| `threads.getComment` | issue (experimental), PR | issue (unverified), PR |
+| `threads.createComment` | issue (experimental), PR | ❌ |
+| `threads.updateComment` | issue (experimental), PR | ❌ |
+| `threads.deleteComment` | issue (experimental), PR | ❌ |
+| `threads.hideComment` | ∅ | ∅ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | ∅ | ∅ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | issue | ❌ |
+| `threads.requestReview` | PR | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ∅ | ∅ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | PR (experimental) | ❌ |
+| `threads.files` | ❌ | ❌ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | emulated | emulated |
+| `threads.getReview` | emulated | unverified |
+| `threads.createReview` | emulated | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | emulated | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -172,27 +199,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.createComment` | issue (experimental), PR | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ∅ | ∅ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | issue | ❌ |
-| `writes.requestReview` | PR | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ∅ | ∅ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR (experimental) | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
@@ -211,15 +218,6 @@ for await (const team of provider.orgs.teams(project)) {
 | `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
-| `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | emulated | emulated |
-| `reviews.get` | emulated | unverified |
-| `reviews.create` | emulated | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | emulated | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ✅ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -227,6 +225,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
@@ -238,7 +237,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `basic`, `anonymous` | `token`, `basic`, `anonymous` |
 | `limits` | unknown | unknown |

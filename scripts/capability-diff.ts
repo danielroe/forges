@@ -370,7 +370,7 @@ function merged(lines: Line[], format: (label: string, text: string, regression:
   return items.map(({ capability, kinds, text, regression }) => format(kinds.length ? `\`${capability}\` (${kinds.map(kind => KINDS[kind] ?? kind).join(', ')})` : `\`${capability}\``, text, regression))
 }
 
-/** Capabilities of one namespace as one label, as `writes` react (issue, PR), merge. */
+/** Capabilities of one namespace as one label, as `threads` react (issue, PR), merge. */
 function groupLabel(keys: string[]): string {
   const capabilities = new Map<string, string[]>()
   for (const key of keys) {
@@ -482,7 +482,7 @@ function byCapability(diffs: ProviderDiff[], rows: CapabilityDiff['rows']): stri
 /** Lists with more capabilities than this name only how many there are. */
 const MAX_LISTED = 12
 
-/** Capabilities across namespaces as one label, as `notifications` list, get, `sources.poll`. */
+/** Capabilities across namespaces as one label, as `notifications` list, get, `sources.subscribe`. */
 function listLabel(keys: string[]): string {
   const namespaces = new Map<string, string[]>()
   for (const key of keys) {

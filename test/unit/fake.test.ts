@@ -628,7 +628,7 @@ describe('fake security alerts', () => {
 
     expect(open.items.map(alert => [alert.kind, alert.ref.id, alert.severity])).toEqual([['advisory', '1', 'critical'], ['secret', '1', 'medium'], ['dependency', '1', 'high']])
     expect(closed.items).toMatchObject([{ ref: { id: '2', kind: 'dependency' }, title: 'ReDoS', state: 'fixed' }])
-    expect(forge.capabilities.securityAlerts).toMatchObject({ dependency: true, code_scanning: true, secret: true, advisory: true })
+    expect(forge.capabilities.securityAlerts.list).toMatchObject({ dependency: true, code_scanning: true, secret: true, advisory: true })
   })
 })
 
@@ -689,10 +689,10 @@ describe('fake webhook management', () => {
 describe('fake capabilities', () => {
   it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
     const base = fake().capabilities
-    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
+    const source = { ...base, threads: { ...base.threads, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
     const forge = fake({ capabilities: source, support: { 'threads.close': false } })
 
-    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'emulated' })
+    expect(forge.capabilities.threads.addLabels).toMatchObject({ issue: false, pull_request: 'emulated' })
     expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })

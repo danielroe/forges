@@ -79,8 +79,6 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ❌ | ❌ |
-| `sources.webhook` | ✅ | ❌ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ❌ |
 | `users.get` | ✅ | ❌ |
@@ -111,12 +109,41 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | ❌ |
-| `comments.list` | issue, PR | ❌ |
-| `comments.get` | issue (emulated), PR (emulated) | ❌ |
-| `comments.update` | ❌ | ❌ |
-| `comments.delete` | ❌ | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | issue, PR | ❌ |
+| `threads.getComment` | issue (emulated), PR (emulated) | ❌ |
+| `threads.createComment` | ❌ | ❌ |
+| `threads.updateComment` | ❌ | ❌ |
+| `threads.deleteComment` | ❌ | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | ❌ | ❌ |
+| `threads.update` | ❌ | ❌ |
+| `threads.close` | ❌ | ❌ |
+| `threads.reopen` | ❌ | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | ❌ | ❌ |
+| `threads.addLabels` | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | ❌ | ❌ |
+| `threads.requestReview` | ❌ | ❌ |
+| `threads.merge` | ❌ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | issue | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | ❌ | ❌ |
+| `threads.files` | ❌ | ❌ |
+| `threads.commits` | ❌ | ❌ |
+| `threads.reviews` | ❌ | ❌ |
+| `threads.getReview` | ❌ | ❌ |
+| `threads.createReview` | ❌ | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | ❌ | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -124,27 +151,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.createComment` | ❌ | ❌ |
-| `writes.close` | ❌ | ❌ |
-| `writes.reopen` | ❌ | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | ❌ | ❌ |
-| `writes.update` | ❌ | ❌ |
-| `writes.setLabels` | ❌ | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | ❌ | ❌ |
-| `writes.merge` | ❌ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | issue | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | ❌ | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
@@ -163,15 +170,6 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | ❌ | ❌ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
-| `reviews.create` | ❌ | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | ❌ | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | emulated | ❌ |
 | `releases.get` | emulated | ❌ |
 | `releases.latest` | emulated | ❌ |
@@ -179,6 +177,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `releases.downloadAsset` | emulated | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
@@ -190,7 +189,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `search.repos` | emulated | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | experimental | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token` | `token` |
 | `limits` | unknown | unknown |

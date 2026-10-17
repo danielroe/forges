@@ -100,8 +100,6 @@ Deliveries of `installation.*` events become `installation` events. You register
 | Capability | User token | App installation | App | Without credentials |
 | --- | --- | --- | --- | --- |
 | `experimental` | ✅ | ✅ | ✅ | ✅ |
-| `sources.poll` | ∅ | ∅ | ∅ | ∅ |
-| `sources.webhook` | ✅ | ✅ | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ | ❌ | ❌ |
 | `repos.get` | experimental | experimental | ❌ | ❌ |
 | `users.get` | ❌ | ❌ | ❌ | ❌ |
@@ -132,12 +130,41 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.closingIssues` | ❌ | ❌ | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ | ❌ | ❌ |
 | `threads.events` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `comments.list` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `comments.get` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `comments.update` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `comments.delete` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `comments.hide` | ∅ | ∅ | ∅ | ∅ |
-| `reactions.list` | ❌ | ❌ | ❌ | ❌ |
+| `threads.comments` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.getComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.createComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.updateComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.deleteComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.hideComment` | ∅ | ∅ | ∅ | ∅ |
+| `threads.reactions` | ❌ | ❌ | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ | ❌ | ❌ |
+| `threads.create` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.update` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.reopen` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.lock` | ∅ | ∅ | ∅ | ∅ |
+| `threads.setLabels` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.addLabels` | ❌ | ❌ | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ | ❌ | ❌ |
+| `threads.setAssignees` | ❌ | ❌ | ❌ | ❌ |
+| `threads.requestReview` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.merge` | experimental | experimental | ❌ | ❌ |
+| `threads.updateBranch` | ∅ | ∅ | ∅ | ∅ |
+| `threads.transfer` | ❌ | ❌ | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ | ❌ | ❌ |
+| `threads.checks` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.files` | unverified | unverified | ❌ | ❌ |
+| `threads.commits` | unverified | unverified | ❌ | ❌ |
+| `threads.reviews` | experimental | experimental | ❌ | ❌ |
+| `threads.getReview` | unverified | unverified | ❌ | ❌ |
+| `threads.createReview` | unverified | unverified | ❌ | ❌ |
+| `threads.submitReview` | ❌ | ❌ | ❌ | ❌ |
+| `threads.approve` | unverified | unverified | ❌ | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ | ❌ | ❌ |
+| `threads.resolveReviewThread` | unverified | unverified | ❌ | ❌ |
 | `notifications.list` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.markRead` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.markDone` | ∅ | ∅ | ∅ | ∅ |
@@ -145,27 +172,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `notifications.markAllRead` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.markAllDone` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.unreadCount` | ∅ | ∅ | ∅ | ∅ |
-| `writes.createComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `writes.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `writes.reopen` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `writes.lock` | ∅ | ∅ | ∅ | ∅ |
-| `writes.create` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `writes.update` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `writes.setLabels` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `writes.addLabels` | ❌ | ❌ | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ | ❌ | ❌ |
-| `writes.setAssignees` | ❌ | ❌ | ❌ | ❌ |
-| `writes.requestReview` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `writes.merge` | experimental | experimental | ❌ | ❌ |
-| `writes.updateBranch` | ∅ | ∅ | ∅ | ∅ |
-| `writes.transfer` | ❌ | ❌ | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ | ❌ | ❌ |
-| `installations` | ❌ | ❌ | unverified | ❌ |
-| `checks.thread` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `installations.list` | ❌ | ❌ | unverified | ❌ |
 | `checks.list` | unverified | unverified | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ | ❌ | ❌ |
@@ -184,15 +191,6 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `contents.getCommit` | unverified | unverified | ❌ | ❌ |
 | `contents.compare` | unverified | unverified | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ | ❌ | ❌ |
-| `contents.threadFiles` | unverified | unverified | ❌ | ❌ |
-| `contents.threadCommits` | unverified | unverified | ❌ | ❌ |
-| `reviews.list` | experimental | experimental | ❌ | ❌ |
-| `reviews.get` | unverified | unverified | ❌ | ❌ |
-| `reviews.create` | unverified | unverified | ❌ | ❌ |
-| `reviews.submit` | ❌ | ❌ | ❌ | ❌ |
-| `reviews.approve` | unverified | unverified | ❌ | ❌ |
-| `reviews.reply` | ❌ | ❌ | ❌ | ❌ |
-| `reviews.resolveThread` | unverified | unverified | ❌ | ❌ |
 | `releases.list` | ∅ | ∅ | ∅ | ∅ |
 | `releases.get` | ∅ | ∅ | ∅ | ∅ |
 | `releases.latest` | ∅ | ∅ | ∅ | ∅ |
@@ -200,6 +198,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `releases.downloadAsset` | ∅ | ∅ | ∅ | ∅ |
 | `releases.create` | ∅ | ∅ | ∅ | ∅ |
 | `releases.update` | ∅ | ∅ | ∅ | ∅ |
+| `webhooks.ingest` | ✅ | ✅ | ✅ | ✅ |
 | `webhooks.list` | ❌ | ❌ | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ | ❌ | ❌ |
@@ -211,7 +210,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `search.repos` | ❌ | ❌ | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ | ❌ | ❌ |
 | `search.code` | ❌ | ❌ | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ | ❌ | ❌ |
 | `eventKinds` | native | native | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |
 | `limits` | unknown | unknown | unknown | unknown |

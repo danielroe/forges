@@ -452,7 +452,7 @@ describe('github app installations', () => {
   it('only supports installations under app auth', async () => {
     expect(tokenProvider().provider.can('installations.list')).toBe(false)
     await expect(tokenProvider().provider.installations.get('1')).rejects.toThrow(UnsupportedOperationError)
-    expect(appProvider().provider.capabilities.installations).toBe(true)
+    expect(appProvider().provider.capabilities.installations.list).toBe(true)
   })
 
   it('declares only installations for an app without an installation', async () => {

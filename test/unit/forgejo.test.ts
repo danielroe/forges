@@ -71,7 +71,7 @@ describe('forgejo provider', () => {
       kind: 'commit',
       number: 'adbc9741',
     }, 'hi')).rejects.toThrow('forgejo does not support threads.createComment for a commit')
-    expect(instance.capabilities.writes.createComment.commit).toBe(false)
+    expect(instance.capabilities.threads.createComment.commit).toBe(false)
   })
 
   it('updates a branch by the style it is given, and compares the head sha with a read first', async () => {
@@ -536,9 +536,9 @@ describe('gitea review replies', () => {
   const auth = { type: 'token', token: 't' } as const
 
   it('waits for Gitea 1.27 on a self-hosted instance, and Forgejo has no replies', () => {
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).capabilities.reviews.reply).toBe(false)
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).capabilities.reviews.reply).toBe(true)
-    expect(forgejo({ auth }).capabilities.reviews.reply).toBe('not_applicable')
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).capabilities.threads.replyToReviewComment).toBe(false)
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).capabilities.threads.replyToReviewComment).toBe(true)
+    expect(forgejo({ auth }).capabilities.threads.replyToReviewComment).toBe('not_applicable')
   })
 
   it('asks for write scopes to reply', () => {
@@ -788,7 +788,7 @@ describe('forgejo and gitea moderation', () => {
     ])
     expect(instance.scopesFor('orgs.block')).toEqual({ token: ['write:organization'] })
     expect(instance.scopesFor('users.block')).toEqual({ token: ['write:user'] })
-    expect(instance.capabilities.writes.lock).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
+    expect(instance.capabilities.threads.lock).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
   })
 
   it('blocks and unblocks an account on Gitea, and locks an issue or pull request with the reason Gitea names', async () => {
@@ -820,8 +820,8 @@ describe('forgejo and gitea moderation', () => {
 
   it('waits for Gitea 1.22 to block and 1.24 to lock on a self-hosted instance', () => {
     const at = (instanceVersion: string) => gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion }).capabilities
-    expect(at('1.21.11')).toMatchObject({ users: { block: false }, orgs: { block: false }, writes: { lock: { issue: false } } })
-    expect(at('1.23.8')).toMatchObject({ users: { block: true }, orgs: { block: true }, writes: { lock: { issue: false } } })
-    expect(at('1.24.0')).toMatchObject({ writes: { lock: { issue: true, pull_request: true } } })
+    expect(at('1.21.11')).toMatchObject({ users: { block: false }, orgs: { block: false }, threads: { lock: { issue: false } } })
+    expect(at('1.23.8')).toMatchObject({ users: { block: true }, orgs: { block: true }, threads: { lock: { issue: false } } })
+    expect(at('1.24.0')).toMatchObject({ threads: { lock: { issue: true, pull_request: true } } })
   })
 })

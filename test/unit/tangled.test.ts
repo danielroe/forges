@@ -539,7 +539,7 @@ describe('tangled anonymous auth', () => {
   it('treats `{ type: \'anonymous\' }` like no credentials', () => {
     const provider = tangled({ auth: { type: 'anonymous' } })
 
-    expect(provider.capabilities.writes.createComment.issue).toBe(false)
+    expect(provider.capabilities.threads.createComment.issue).toBe(false)
   })
 })
 

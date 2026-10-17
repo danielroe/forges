@@ -68,7 +68,7 @@ There are no endpoints for branches, tags or comparing two refs, so those operat
 
 ## Events
 
-Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.sources.webhook` is `false`.
+Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.webhooks.ingest` is `false`.
 
 <!-- capabilities:start -->
 ## Capabilities
@@ -78,8 +78,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | ❌ | ❌ |
-| `sources.webhook` | ❌ | ❌ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ❌ |
 | `users.get` | ❌ | ❌ |
@@ -110,12 +108,41 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | ❌ | ❌ |
-| `comments.list` | ❌ | ❌ |
-| `comments.get` | ❌ | ❌ |
-| `comments.update` | ❌ | ❌ |
-| `comments.delete` | ❌ | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | ❌ | ❌ |
+| `threads.getComment` | ❌ | ❌ |
+| `threads.createComment` | ❌ | ❌ |
+| `threads.updateComment` | ❌ | ❌ |
+| `threads.deleteComment` | ❌ | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | ❌ | ❌ |
+| `threads.update` | ❌ | ❌ |
+| `threads.close` | ❌ | ❌ |
+| `threads.reopen` | ❌ | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | ❌ | ❌ |
+| `threads.addLabels` | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | ❌ | ❌ |
+| `threads.requestReview` | ❌ | ❌ |
+| `threads.merge` | ❌ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | ❌ | ❌ |
+| `threads.files` | ❌ | ❌ |
+| `threads.commits` | ❌ | ❌ |
+| `threads.reviews` | ❌ | ❌ |
+| `threads.getReview` | ❌ | ❌ |
+| `threads.createReview` | ❌ | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | ❌ | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -123,27 +150,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.createComment` | ❌ | ❌ |
-| `writes.close` | ❌ | ❌ |
-| `writes.reopen` | ❌ | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | ❌ | ❌ |
-| `writes.update` | ❌ | ❌ |
-| `writes.setLabels` | ❌ | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | ❌ | ❌ |
-| `writes.merge` | ❌ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | ❌ | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
@@ -162,15 +169,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | ❌ | ❌ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
-| `reviews.create` | ❌ | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | ❌ | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -178,6 +176,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ❌ | ❌ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
@@ -189,7 +188,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token` | `token` |
 | `limits` | unknown | unknown |

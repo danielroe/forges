@@ -14,11 +14,11 @@ if (!provider) {
 const total = applicableTotal(provider)
 /** The bar shows what a forge does with the capabilities that apply to it, so it leaves out `not_applicable`. */
 const barLevels = supportLevels.filter(level => level !== 'not_applicable')
-const sources = groups.find(group => group.name === 'sources')!.rows.map(row => ({
-  name: row.capability.slice('sources.'.length),
-  level: row.cells[index]!.level,
-  credentials: row.cells[index]!.credentials,
-}))
+const rows = new Map(groups.flatMap(group => group.rows).map(row => [row.capability, row]))
+const sources = Object.entries({ poll: 'notifications.list', webhook: 'webhooks.ingest', subscribe: 'sources.subscribe' }).map(([name, capability]) => {
+  const { level, credentials } = rows.get(capability)!.cells[index]!
+  return { name, level, credentials }
+})
 const statement = `import { ${provider.factories.join(', ')} } from '${provider.import}'`
 
 const { copied, copy, message } = useCopyToClipboard(() => statement)

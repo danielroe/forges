@@ -471,9 +471,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       'users.block',
       'orgs.block',
       'repos.templates',
-      'comments.hide',
-      'writes.lock',
-      'writes.updateBranch',
+      'threads.hideComment',
+      'threads.lock',
+      'threads.updateBranch',
     ],
     search: { threadsPage: verb(!anonymous, searchThreadsPage) },
     repos: {

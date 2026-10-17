@@ -59,15 +59,15 @@ describe('capability diff', () => {
 
   it('draws a row per changed capability with a column per provider, in order of impact', () => {
     const base = provider('tangled', 'Tangled', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'none', 'writes.react:issue': 'none', 'writes.react:pull_request': 'none', 'writes.merge': 'unverified', 'users.me': 'native' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'none', 'threads.react:issue': 'none', 'threads.react:pull_request': 'none', 'threads.merge': 'unverified', 'users.me': 'native' },
       anonymous: { 'repos.get': 'native', 'repos.labels': 'none', 'contents.getFile': 'none' },
     })
     const head = provider('tangled', 'Tangled', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.react:issue': 'native', 'writes.react:pull_request': 'native', 'writes.merge': 'native', 'users.me': 'none' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'threads.react:issue': 'native', 'threads.react:pull_request': 'native', 'threads.merge': 'native', 'users.me': 'none' },
       anonymous: { 'repos.get': 'unverified', 'repos.labels': 'native', 'contents.getFile': 'native' },
     })
     const gitlab = provider('gitlab', 'GitLab', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.merge': 'native', 'users.me': 'native' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'threads.merge': 'native', 'users.me': 'native' },
       anonymous: { 'repos.get': 'native', 'repos.labels': 'native' },
     })
 
@@ -80,8 +80,8 @@ describe('capability diff', () => {
       '| --- | :-: | :-: |',
       '| `users.me` | 🟥 | 🟦 |',
       '| `repos.labels` 🔓 | 🟩 | 🟦 |',
-      '| `writes.merge` | 🟩 | 🟦 |',
-      '| `writes.react` (issue, PR) | 🟩 | ⬜ |',
+      '| `threads.merge` | 🟩 | 🟦 |',
+      '| `threads.react` (issue, PR) | 🟩 | ⬜ |',
       '',
       '<details open><summary>Without credentials, where that differs</summary>',
       '',
@@ -99,8 +99,8 @@ describe('capability diff', () => {
       '- ✅ → ❔ `repos.get` without credentials ⚠️',
       '- ✅ → ❌ `users.me` ⚠️',
       '- ❌ → ✅ `repos.labels`, also without credentials',
-      '- ❔ → ✅ `writes.merge`',
-      '- ❌ → ✅ `writes.react` (issue, PR)',
+      '- ❔ → ✅ `threads.merge`',
+      '- ❌ → ✅ `threads.react` (issue, PR)',
       '- ❌ → ✅ `contents.getFile` without credentials',
       '',
       '</details>',
@@ -198,12 +198,12 @@ describe('capability diff', () => {
 
   it('shares a row between capabilities of one namespace that changed alike', () => {
     const providers = (gained: boolean) => Array.from({ length: 3 }, (_, index) => provider(`p${index}`, `P${index}`, {
-      capabilities: { 'writes.react:issue': index === 0 || gained ? 'native' : 'none', 'writes.react:pull_request': index === 0 || gained ? 'native' : 'none', 'writes.merge': index === 0 || gained ? 'native' : 'none', 'repos.labels': index === 0 || gained ? 'native' : 'none' },
+      capabilities: { 'threads.react:issue': index === 0 || gained ? 'native' : 'none', 'threads.react:pull_request': index === 0 || gained ? 'native' : 'none', 'threads.merge': index === 0 || gained ? 'native' : 'none', 'repos.labels': index === 0 || gained ? 'native' : 'none' },
     }))
     const rows = render(snapshot(...providers(false)), snapshot(...providers(true))).split('\n').filter(line => line.startsWith('| `'))
 
     expect(rows).toEqual([
-      '| `writes` react (issue, PR), merge | 🟦 | 🟩 | 🟩 |',
+      '| `threads` react (issue, PR), merge | 🟦 | 🟩 | 🟩 |',
       '| `repos.labels` | 🟦 | 🟩 | 🟩 |',
     ])
   })

@@ -765,9 +765,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     notApplicable: [
-      ...isGitea ? [] : ['writes.lock' as const],
-      'comments.hide',
-      'reviews.resolveThread',
+      ...isGitea ? [] : ['threads.lock' as const],
+      'threads.hideComment',
+      'threads.resolveReviewThread',
       'checks.rerun',
       'webhooks.deliveries',
       'webhooks.redeliver',

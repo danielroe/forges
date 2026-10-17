@@ -112,8 +112,6 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
@@ -144,12 +142,41 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR, commit | issue, PR, commit |
-| `comments.list` | issue, PR | issue, PR |
-| `comments.get` | issue, PR | issue, PR |
-| `comments.update` | issue, PR | ❌ |
-| `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ∅ | ∅ |
-| `reactions.list` | issue, PR | issue, PR |
+| `threads.comments` | issue, PR | issue, PR |
+| `threads.getComment` | issue, PR | issue, PR |
+| `threads.createComment` | issue, PR | ❌ |
+| `threads.updateComment` | issue, PR | ❌ |
+| `threads.deleteComment` | issue, PR | ❌ |
+| `threads.hideComment` | ∅ | ∅ |
+| `threads.reactions` | issue, PR | issue, PR |
+| `threads.react` | issue, PR | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | issue, PR | ❌ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | issue, PR | ❌ |
+| `threads.removeLabels` | issue, PR | ❌ |
+| `threads.setMilestone` | issue, PR | ❌ |
+| `threads.setAssignees` | issue, PR | ❌ |
+| `threads.requestReview` | PR | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ✅ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | issue, PR | ❌ |
+| `threads.subscribe` | issue, PR | ❌ |
+| `threads.checks` | PR | PR |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | ✅ | ✅ |
+| `threads.getReview` | ✅ | ✅ |
+| `threads.createReview` | ✅ | ❌ |
+| `threads.submitReview` | ✅ | ❌ |
+| `threads.approve` | ✅ | ❌ |
+| `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.resolveReviewThread` | ∅ | ∅ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
 | `notifications.markDone` | emulated | ❌ |
@@ -157,27 +184,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `notifications.markAllRead` | ✅ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.createComment` | issue, PR | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | issue, PR | ❌ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | issue, PR | ❌ |
-| `writes.removeLabels` | issue, PR | ❌ |
-| `writes.setMilestone` | issue, PR | ❌ |
-| `writes.react` | issue, PR | ❌ |
-| `writes.setAssignees` | issue, PR | ❌ |
-| `writes.requestReview` | PR | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ✅ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | issue, PR | ❌ |
-| `subscriptions.set` | issue, PR | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR | PR |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
@@ -196,15 +203,6 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | ✅ | ✅ |
-| `reviews.get` | ✅ | ✅ |
-| `reviews.create` | ✅ | ❌ |
-| `reviews.submit` | ✅ | ❌ |
-| `reviews.approve` | ✅ | ❌ |
-| `reviews.reply` | ✅ | ❌ |
-| `reviews.resolveThread` | ∅ | ∅ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
@@ -212,6 +210,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `releases.downloadAsset` | ✅ | ✅ |
 | `releases.create` | ✅ | ❌ |
 | `releases.update` | ✅ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |
@@ -223,7 +222,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |
 | `limits` | unknown | unknown |

@@ -362,10 +362,10 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     notApplicable: [
-      'reviews.list',
+      'threads.reviews',
       'webhooks.deliveries',
       'webhooks.redeliver',
-      'comments.hide',
+      'threads.hideComment',
     ],
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),

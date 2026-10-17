@@ -249,7 +249,7 @@ describe.each(contracts)('contract: $name', (contract) => {
   it('closes and reopens a pull request where the forge allows it', async () => {
     const { instance, calls } = provider()
     const reopen = contract.writes.reopen
-    expect(Boolean(capabilities.writes.reopen.pull_request)).toBe(Boolean(reopen))
+    expect(Boolean(capabilities.threads.reopen.pull_request)).toBe(Boolean(reopen))
     const closed = await instance.threads.close!(threadRef())
     expect(closed).toMatchObject({ ref: { number: contract.thread.number }, state: 'closed' })
     if (reopen) {
