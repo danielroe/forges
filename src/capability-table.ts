@@ -9,8 +9,10 @@ export interface CapabilityEntry {
   capability: string
   /** Where the verb is declared on `ProviderSpec`, dot-separated. */
   spec?: string
-  /** Verbs on `ForgeProvider` this capability covers. Each has its own key on `ForgeCapabilities`, apart from a page that shares its listing's key. */
+  /** Verbs on `ForgeProvider` this capability covers, each with its own key on `ForgeCapabilities`. */
   verbs?: readonly string[]
+  /** Verbs that return a `ForgeListing`, declared on `ProviderSpec` as their page, such as `threads.commentsPage`. */
+  listings?: readonly string[]
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
@@ -23,9 +25,9 @@ export interface CapabilityEntry {
 
 /**
  * Rows omit what follows from the rest. `verbs` defaults to the capability,
- * plus its page for a `listing` (`repos.labels` also covers
- * `repos.labelsPage`). `spec` defaults to the capability, or its page for a
- * `listing`, unless the row is `derived`. Traits have no verbs.
+ * and `spec` to the capability, or its page for a `listing` (`repos.labels`
+ * is declared as `repos.labelsPage`), unless the row is `derived`. Traits
+ * have no verbs.
  */
 const TABLE = [
   { capability: 'experimental', derived: 'experimental', verbs: [] },
@@ -101,7 +103,7 @@ const TABLE = [
   { capability: 'notifications.markAllRead', account: true, write: true },
   { capability: 'notifications.markAllDone', account: true, write: true },
   { capability: 'notifications.unreadCount', account: true },
-  { capability: 'installations.list', account: true, spec: 'installations', verbs: ['installations.list', 'installations.listPage', 'installations.get', 'installations.token', 'installations.repos', 'installations.reposPage', 'installations.provider', 'installations.providers'] },
+  { capability: 'installations.list', account: true, spec: 'installations', verbs: ['installations.list', 'installations.get', 'installations.token', 'installations.repos', 'installations.provider', 'installations.providers'], listings: ['installations.list', 'installations.repos'] },
   { capability: 'checks.list' },
   { capability: 'checks.get' },
   { capability: 'checks.report', write: true },
@@ -153,9 +155,7 @@ type SpecOf<R> = R extends { spec: infer S extends string }
   ? S
   : R extends { derived: string } ? never : DefaultPath<R>
 
-type WithIterable<S> = S extends `${infer Iterable}Page` ? Iterable | S : S
-
-type VerbsOf<R> = R extends { verbs: readonly (infer V extends string)[] } ? V : WithIterable<DefaultPath<R>>
+type VerbsOf<R> = R extends { verbs: readonly (infer V extends string)[] } ? V : R extends { capability: infer C extends string } ? C : never
 
 /** A provider verb, named by its path on `ForgeProvider`. */
 export type ForgeVerb = VerbsOf<(typeof TABLE)[number]>
@@ -166,7 +166,7 @@ export type CapabilityPath = Exclude<(typeof TABLE)[number]['capability'], 'expe
 /** Every `ProviderSpec` path the table declares. */
 export type TableSpecPath = SpecOf<(typeof TABLE)[number]>
 
-/** A table row: a listing also covers its `Page` verb, which is where it is declared. */
+/** A table row: a listing is declared as its `Page` verb. */
 interface TableRow extends CapabilityEntry {
   listing?: boolean
 }
@@ -177,11 +177,5 @@ interface TableRow extends CapabilityEntry {
 export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly TableRow[]).map(({ listing, ...row }) => {
   const path = listing ? `${row.capability}Page` : row.capability
   const spec = row.spec ?? (row.derived ? undefined : path)
-  const verbs = row.verbs ?? (listing ? [row.capability, path] : [row.capability])
-  return { ...row, ...spec ? { spec } : {}, verbs }
+  return { ...row, ...spec ? { spec } : {}, verbs: row.verbs ?? [row.capability], ...listing ? { listings: [row.capability] } : {} }
 })
-
-/** The key on `ForgeCapabilities` that holds the support of `verb`: the verb's own path, or its listing's for a page. */
-export function capabilityKey(entry: CapabilityEntry, verb: string): string {
-  return verb.endsWith('Page') && entry.verbs?.includes(verb.slice(0, -4)) ? verb.slice(0, -4) : verb
-}

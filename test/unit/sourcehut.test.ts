@@ -173,10 +173,10 @@ describe('sourcehut', () => {
   it('reads repositories, their contents and their access list', async () => {
     const { forge } = provider()
     expect((await forge.repos.get(repo)).ref).toMatchObject({ owner: '~sircmpwn', name: 'scdoc' })
-    expect((await forge.repos.listPage()).items).toHaveLength(1)
-    expect((await forge.repos.byOwnerPage({ ...origin, owner: '~sircmpwn', name: '', kind: 'namespace' })).items).toHaveLength(1)
-    expect((await forge.repos.collaboratorsPage(repo)).items[0]).toMatchObject({ role: 'write', roleRaw: 'RW' })
-    expect((await forge.repos.labelsPage(repo)).items[0]).toMatchObject({ name: 'bug', colour: 'ff0000' })
+    expect((await forge.repos.list().page()).items).toHaveLength(1)
+    expect((await forge.repos.byOwner({ ...origin, owner: '~sircmpwn', name: '', kind: 'namespace' }).page()).items).toHaveLength(1)
+    expect((await forge.repos.collaborators(repo).page()).items[0]).toMatchObject({ role: 'write', roleRaw: 'RW' })
+    expect((await forge.repos.labels(repo).page()).items[0]).toMatchObject({ name: 'bug', colour: 'ff0000' })
     expect(await forge.repos.permissionFor(repo, '~alice')).toBe('write')
     expect(await forge.repos.permissionFor(repo, '~sircmpwn')).toBe('admin')
     expect(await forge.repos.permissionFor(repo, '~nobody')).toBe('none')
@@ -186,30 +186,30 @@ describe('sourcehut', () => {
     const { forge } = provider()
     const file = await forge.contents.getFile(repo, 'README.md', { as: 'text' })
     expect(file).toMatchObject({ encoding: 'utf-8', content: 'hello', sha: 'b1' })
-    expect((await forge.contents.treePage(repo)).items[0]).toMatchObject({ path: 'README.md', type: 'file' })
-    expect((await forge.contents.branchesPage(repo)).items[0]).toMatchObject({ name: 'master', isDefault: true })
-    expect((await forge.contents.tagsPage(repo)).items[0]).toMatchObject({ name: 'v1.0.0', sha: 'sha2' })
+    expect((await forge.contents.tree(repo).page()).items[0]).toMatchObject({ path: 'README.md', type: 'file' })
+    expect((await forge.contents.branches(repo).page()).items[0]).toMatchObject({ name: 'master', isDefault: true })
+    expect((await forge.contents.tags(repo).page()).items[0]).toMatchObject({ name: 'v1.0.0', sha: 'sha2' })
     expect(await forge.contents.resolveRef(repo, 'HEAD')).toBe('sha1')
-    expect((await forge.contents.commitsPage(repo)).items[0]!.message).toBe('Initial commit')
+    expect((await forge.contents.commits(repo).page()).items[0]!.message).toBe('Initial commit')
     expect((await forge.contents.getCommit(repo, 'sha1')).sha).toBe('sha1')
   })
 
   it('reads issues, their comments, events and subscription', async () => {
     const { forge } = provider()
     expect((await forge.threads.get(issue)).title).toBe('Crash on start')
-    expect((await forge.threads.listPage(repo, { kind: 'issue' })).items).toHaveLength(1)
+    expect((await forge.threads.list(repo, { kind: 'issue' }).page()).items).toHaveLength(1)
     expect((await forge.threads.getMany([issue]))[0]).toMatchObject({ ok: true })
-    expect((await forge.threads.commentsPage(issue)).items[0]!.body).toBe('Me too')
+    expect((await forge.threads.comments(issue).page()).items[0]!.body).toBe('Me too')
     expect((await forge.threads.getComment({ ...origin, thread: issue, id: '11' })).body).toBe('Me too')
-    expect((await forge.threads.eventsPage(issue)).items[0]!.kind).toBe('comment')
-    expect((await forge.threads.eventsPage(issue)).items[1]).toMatchObject({ kind: 'state_change', detail: { type: 'state_change', state: 'closed', reason: 'not_planned' } })
+    expect((await forge.threads.events(issue).page()).items[0]!.kind).toBe('comment')
+    expect((await forge.threads.events(issue).page()).items[1]).toMatchObject({ kind: 'state_change', detail: { type: 'state_change', state: 'closed', reason: 'not_planned' } })
     expect(await forge.threads.subscription(issue)).toBe('subscribed')
   })
 
   it('leaves the involves, mentions and milestone filters to the core', async () => {
     const { forge } = provider()
     // Sourcehut declares no `threads.listFilters`, so core strips these and warns for them.
-    const page = await forge.threads.listPage(repo, { kind: 'issue', milestone: 'v1' })
+    const page = await forge.threads.list(repo, { kind: 'issue', milestone: 'v1' }).page()
 
     expect(page.warnings).toContainEqual({ code: 'filter_unsupported', message: 'This listing has no milestone filter; it was ignored' })
   })
@@ -217,17 +217,17 @@ describe('sourcehut', () => {
   it('reads patchsets as pull requests', async () => {
     const { forge } = provider()
     expect((await forge.threads.get(pull)).kind).toBe('pull_request')
-    expect((await forge.threads.listPage(listRepo, { kind: 'pull_request' })).items).toHaveLength(1)
-    expect((await forge.threads.commentsPage(pull)).items[0]!.body).toBe('Looks good')
+    expect((await forge.threads.list(listRepo, { kind: 'pull_request' }).page()).items).toHaveLength(1)
+    expect((await forge.threads.comments(pull).page()).items[0]!.body).toBe('Looks good')
     expect((await forge.threads.getComment({ ...origin, thread: pull, id: '30' })).body).toBe('Looks good')
-    expect((await forge.threads.eventsPage(pull)).items[0]!.kind).toBe('comment')
+    expect((await forge.threads.events(pull).page()).items[0]!.kind).toBe('comment')
   })
 
   it('reads builds and their logs', async () => {
     const { forge } = provider()
-    expect((await forge.ci.runsPage(repo)).items[0]).toMatchObject({ state: 'success' })
+    expect((await forge.ci.runs(repo).page()).items[0]).toMatchObject({ state: 'success' })
     expect((await forge.ci.getRun(runRef)).ref.id).toBe('100')
-    expect((await forge.ci.jobsPage(runRef)).items[0]).toMatchObject({ name: 'build', state: 'success' })
+    expect((await forge.ci.jobs(runRef).page()).items[0]).toMatchObject({ name: 'build', state: 'success' })
     expect((await forge.ci.getJob(jobRef)).ref.id).toBe('200')
     expect(await new Response(await forge.ci.log(jobRef)).text()).toBe('the log')
   })
@@ -238,7 +238,7 @@ describe('sourcehut', () => {
     const otherJob = { ...JOB, id: 300, owner: ALICE, tags: ['other'] }
     const withoutJobs = FIXTURES.filter(fixture => fixture.request.operationName !== 'Jobs')
     const { forge } = provider([...withoutJobs, gql('builds', 'Jobs', {}, { jobs: { results: [otherJob], cursor: null } })])
-    const [run] = (await forge.ci.runsPage(repo)).items
+    const [run] = (await forge.ci.runs(repo).page()).items
 
     expect(run!.ref.repo).toMatchObject({ owner: '~alice', name: '', kind: 'namespace' })
   })
@@ -263,13 +263,13 @@ describe('sourcehut', () => {
     const { forge } = provider()
     expect((await forge.users.get('~sircmpwn')).login).toBe('~sircmpwn')
     expect((await forge.users.me()).login).toBe('~sircmpwn')
-    expect((await forge.search.codePage({ repo, text: 'import' })).items[0]).toMatchObject({ path: 'src/a.ts' })
-    expect((await forge.search.reposPage({ text: 'scdoc' })).items).toHaveLength(1)
-    expect((await forge.releases.listPage(repo)).items[0]!.tag).toBe('v1.0.0')
+    expect((await forge.search.code({ repo, text: 'import' }).page()).items[0]).toMatchObject({ path: 'src/a.ts' })
+    expect((await forge.search.repos({ text: 'scdoc' }).page()).items).toHaveLength(1)
+    expect((await forge.releases.list(repo).page()).items[0]!.tag).toBe('v1.0.0')
     expect((await forge.releases.get({ ...origin, repo, id: 'v1.0.0', tag: 'v1.0.0' })).tag).toBe('v1.0.0')
     expect((await forge.releases.getByTag(repo, 'v1.0.0')).tag).toBe('v1.0.0')
     expect((await forge.releases.latest(repo))?.tag).toBe('v1.0.0')
-    const asset = (await forge.releases.listPage(repo)).items[0]!.assets![0]!
+    const asset = (await forge.releases.list(repo).page()).items[0]!.assets![0]!
     expect(await new Response(await forge.releases.downloadAsset(asset.ref!)).text()).toBe('asset')
   })
 })

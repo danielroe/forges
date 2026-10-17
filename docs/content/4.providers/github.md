@@ -176,13 +176,13 @@ When you call `search.threads()` without a `kind`, it uses GitHub's advanced sea
 `queryRaw` is added to the search query as it is, which means you can use any [GitHub search qualifier](https://docs.github.com/search-github/searching-on-github):
 
 ```ts
-const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
+const page = await gh.search.threads({ kind: 'pull_request', queryRaw: 'review-requested:@me' }).page()
 ```
 
 To search every repository of a user or an organisation, pass `owner`. The provider sends it as the `user:` qualifier, which matches organisations as well as users. If you also pass `repo`, the provider ignores `owner`:
 
 ```ts
-const page = await gh.search.threadsPage({ owner: 'nuxt', text: 'hydration' })
+const page = await gh.search.threads({ owner: 'nuxt', text: 'hydration' }).page()
 ```
 
 `search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any. When GitHub stops a search before it finishes, the page has a `search_incomplete` warning.
@@ -246,12 +246,12 @@ if (events.warnings.some(warning => warning.code === 'feed_throttled')) {
 To read anyway, pass `force: true`:
 
 ```ts
-const page = await gh.repos.eventsPage(repo, { force: true })
+const page = await gh.repos.events(repo, { force: true }).page()
 ```
 
 The provider only remembers the wait for as long as it exists, so a job that creates a new provider for every run isn't held back. Such a job can keep the `nextPollAt` of the page it read, which says when GitHub allows the next read, and schedule its next run for then.
 
-`notifications.listPage()` follows the same rules, with one wait for the whole notifications listing, and takes `force: true` as well.
+`notifications.list()` follows the same rules, with one wait for the whole notifications listing, and takes `force: true` as well.
 
 Feed items are smaller than webhook deliveries. On GitHub.com, a push has no commits and no commit count, so its `detail` has no `commitCount` and its summary leaves the number out. GitHub Enterprise Server still sends both, and they fill in the detail there. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
 

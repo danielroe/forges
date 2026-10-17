@@ -308,7 +308,7 @@ function rawOf(value: unknown): unknown {
 
 const status = computed(() => {
   if (running.value) {
-    return `Running ${operation.method}()…`
+    return `Running ${operation.verb}()…`
   }
   return result.value ? `Done in ${result.value.ms} ms.` : ''
 })
@@ -566,15 +566,15 @@ if (props.permalink) {
         :name="operation.run ? 'i-lucide-play' : 'i-lucide-code'"
         class="size-4 text-primary"
       />
-      <span v-if="operation.run">Try <code class="font-mono text-highlighted">{{ operation.method }}()</code> against a real forge</span>
-      <span v-else>See the code for <code class="font-mono text-highlighted">{{ operation.method }}()</code></span>
+      <span v-if="operation.run">Try <code class="font-mono text-highlighted">{{ operation.verb }}()</code> against a real forge</span>
+      <span v-else>See the code for <code class="font-mono text-highlighted">{{ operation.verb }}()</code></span>
     </button>
 
     <div
       v-else
       ref="panel"
       role="region"
-      :aria-label="`Try ${operation.method}()`"
+      :aria-label="`Try ${operation.verb}()`"
     >
       <div class="flex items-center justify-between gap-4 border-b border-default/70 bg-default/50 px-3">
         <TabSwitcher

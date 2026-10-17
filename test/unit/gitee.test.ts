@@ -30,9 +30,9 @@ describe('gitee', () => {
       return Response.json([])
     } })
 
-    await forge.search.reposPage({ text: 'widgets' })
-    const created = await forge.search.reposPage({ text: 'widgets', sort: 'created' })
-    await forge.search.reposPage({ text: 'widgets', sort: 'stars' })
+    await forge.search.repos({ text: 'widgets' }).page()
+    const created = await forge.search.repos({ text: 'widgets', sort: 'created' }).page()
+    await forge.search.repos({ text: 'widgets', sort: 'stars' }).page()
 
     expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual([null, null, 'stars_count'])
     expect(created.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
@@ -43,8 +43,8 @@ describe('gitee', () => {
     const counted = gitee({ fetch: async () => Response.json([branch], { headers: { total_count: '15', total_page: '5' } }) })
     const paged = gitee({ fetch: async () => Response.json([branch], { headers: { total_page: '5' } }) })
 
-    const countedPage = await counted.contents.branchesPage(repo, { perPage: 3 })
-    const pagedPage = await paged.contents.branchesPage(repo, { perPage: 3 })
+    const countedPage = await counted.contents.branches(repo, { perPage: 3 }).page()
+    const pagedPage = await paged.contents.branches(repo, { perPage: 3 }).page()
 
     expect(countedPage.total).toBe(15)
     expect(pagedPage.total).toBe(15)
@@ -64,8 +64,8 @@ describe('gitee', () => {
       ? Response.json(Array.from({ length: 10 }, (_, index) => ({ name: `b${index}`, commit: { sha: 'a' } })), { headers: { total_page: '2' } })
       : Response.json([{ name: 'last', commit: { sha: 'a' } }], { headers: { total_page: '2' } }) })
 
-    const first = await forge.contents.branchesPage(repo, { perPage: 10 })
-    const second = await forge.contents.branchesPage(repo, { cursor: first.cursor })
+    const first = await forge.contents.branches(repo, { perPage: 10 }).page()
+    const second = await forge.contents.branches(repo, { cursor: first.cursor }).page()
 
     // Both pages come from a 10-per-page listing, not this call's 50 default.
     expect(first.total).toBe(20)
@@ -76,9 +76,9 @@ describe('gitee', () => {
     const forge = gitee({ fetch: async () => Response.json([], { headers: { total_count: '5' } }) })
 
     // Issues split into open and progressing phases, so no single total.
-    const multi = await forge.threads.listPage(repo, { kind: 'issue', state: 'open' })
+    const multi = await forge.threads.list(repo, { kind: 'issue', state: 'open' }).page()
     // Pull requests page in one phase, so their total is the listing's.
-    const single = await forge.threads.listPage(repo, { kind: 'pull_request', state: 'open' })
+    const single = await forge.threads.list(repo, { kind: 'pull_request', state: 'open' }).page()
 
     expect(multi.total).toBeUndefined()
     expect(single.total).toBe(5)
@@ -205,13 +205,13 @@ describe('gitee label filters', () => {
   const provider = gitee({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
 
   it('lists only threads carrying every label', async () => {
-    const page = await provider.threads.listPage(repo, { kind: 'issue', labels: ['bug', 'ui'] })
+    const page = await provider.threads.list(repo, { kind: 'issue', labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 
   it('searches only threads carrying every label', async () => {
-    const page = await provider.search.threadsPage({ repo, labels: ['bug', 'ui'] })
+    const page = await provider.search.threads({ repo, labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })

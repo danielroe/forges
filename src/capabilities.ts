@@ -1,7 +1,7 @@
 import type { CapabilityEntry } from './capability-table.ts'
 import type { AlertKind, CapabilityEnv, DeclaredSupport, KindVerb, ProviderSpec, SupportInput, Verb, VerbKind } from './define.ts'
 import type { ForgeCapabilities, ForgeProvider } from './provider.ts'
-import { CAPABILITY_TABLE, capabilityKey } from './capability-table.ts'
+import { CAPABILITY_TABLE } from './capability-table.ts'
 
 export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret', 'advisory']
 
@@ -55,19 +55,19 @@ function readOrEmulated(read: DeclaredSupport, listing: DeclaredSupport, emulate
   return composed([listing], level === true ? 'emulated' : level)
 }
 
-/** `threads.getComment`, per kind: declared, or emulated from `threads.commentsPage`. */
+/** `threads.getComment`, per kind: declared, or emulated from `threads.comments`. */
 export function getCommentKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<VerbKind, DeclaredSupport> {
   const read = resolveKinds(spec.threads.getComment?.kinds, env, declared)
   const listing = resolveKinds(spec.threads.commentsPage.kinds, env, declared)
   return Object.fromEntries(KINDS.map(kind => [kind, readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env, declared)])) as Record<VerbKind, DeclaredSupport>
 }
 
-/** `threads.getReview`: declared, or emulated from `threads.reviewsPage`. */
+/** `threads.getReview`: declared, or emulated from `threads.reviews`. */
 export function getReviewSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
   return readOrEmulated(resolve(spec.threads.getReview?.support, env, declared), resolve(spec.threads.reviewsPage?.support, env, declared), spec.emulated?.getReview, env, declared)
 }
 
-/** `ci.getJob`: declared, or emulated from `ci.jobsPage` for a job ref that names its run. */
+/** `ci.getJob`: declared, or emulated from `ci.jobs` for a job ref that names its run. */
 export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
   return readOrEmulated(resolve(spec.ci?.getJob?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.getJob, env, declared)
 }
@@ -155,8 +155,7 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
     if (value === undefined) {
       continue
     }
-    const keys = entry.verbs?.length ? new Set(entry.verbs.map(verb => capabilityKey(entry, verb))) : [entry.capability]
-    for (const key of keys) {
+    for (const key of entry.verbs?.length ? entry.verbs : [entry.capability]) {
       write(capabilities, key, value)
     }
   }

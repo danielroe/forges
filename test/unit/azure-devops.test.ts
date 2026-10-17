@@ -28,12 +28,12 @@ describe('azure devops', () => {
       : Response.json(raw('widgets', 'public')) })
 
     expect((await instance.repos.get(repo)).visibility).toBe('public')
-    expect((await instance.repos.listPage()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
+    expect((await instance.repos.list().page()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
   })
 
   it('lists work items through WIQL with state from the type\'s categories, scoped to the project', async () => {
     const { instance, calls } = provider()
-    const page = await instance.threads.listPage(repo, { kind: 'issue' })
+    const page = await instance.threads.list(repo, { kind: 'issue' }).page()
 
     expect(JSON.parse(calls[0]!.body!).query).toContain('[System.TeamProject] = @project')
     expect(page.items.map(thread => [thread.ref.number, thread.state, thread.labels.map(label => label.name)])).toEqual([['101', 'open', ['bug', 'networking']]])
@@ -42,7 +42,7 @@ describe('azure devops', () => {
 
   it('lists pull requests only, with a warning, when anonymous and no kind is given', async () => {
     const { fetch, calls } = fixtureFetch('azure-devops')
-    const page = await azureDevOps({ organization: 'acme', fetch }).threads.listPage(repo)
+    const page = await azureDevOps({ organization: 'acme', fetch }).threads.list(repo).page()
 
     expect(calls.some(call => call.url.includes('/wiql'))).toBe(false)
     expect(page.items.every(thread => thread.ref.kind === 'pull_request')).toBe(true)

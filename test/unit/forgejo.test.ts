@@ -155,7 +155,7 @@ describe('forgejo provider', () => {
       ? Response.json([{ id: 1, name: 'site', full_name: 'acme/site', private: false, owner: { login: 'acme' } }], { headers: { link: `<${second}>; rel="next"` } })
       : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) })
 
-    const page = await instance.repos.byOwnerPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 })
+    const page = await instance.repos.byOwner({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 }).page()
 
     expect(page.items.map(repo => repo.ref.name)).toEqual(['vault'])
   })
@@ -227,7 +227,7 @@ describe('forgejo pagination without a link header', () => {
       'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=5': { body: [label(1), label(2)], total: 3 },
     })
 
-    const page = await provider.repos.labelsPage(repo, { perPage: 5 })
+    const page = await provider.repos.labels(repo, { perPage: 5 }).page()
 
     expect(page.cursor?.nextUrl).toBe('https://gitea.com/api/v1/repos/acme/widgets/labels?limit=2&page=2')
   })
@@ -249,7 +249,7 @@ describe('forgejo pagination without a link header', () => {
       'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=1': { body: [label(1), label(2)], total: 2 },
     })
 
-    const page = await provider.repos.labelsPage(repo, { perPage: 1 })
+    const page = await provider.repos.labels(repo, { perPage: 1 }).page()
 
     expect(page.items).toHaveLength(2)
     expect(page.cursor).toBeUndefined()
@@ -266,13 +266,13 @@ describe('forgejo label filters', () => {
   const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
 
   it('lists only threads carrying every label', async () => {
-    const page = await provider.threads.listPage(repo, { labels: ['bug', 'ui'] })
+    const page = await provider.threads.list(repo, { labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 
   it('searches only threads carrying every label', async () => {
-    const page = await provider.search.threadsPage({ labels: ['bug', 'ui'] })
+    const page = await provider.search.threads({ labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
@@ -354,13 +354,13 @@ describe('forgejo search filters', () => {
   const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
 
   it('searches only threads by the author', async () => {
-    const page = await provider.search.threadsPage({ author: 'ada' })
+    const page = await provider.search.threads({ author: 'ada' }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['By Ada'])
   })
 
   it('searches only threads assigned to the assignee', async () => {
-    const page = await provider.search.threadsPage({ assignee: 'ada' })
+    const page = await provider.search.threads({ assignee: 'ada' }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['By Grace'])
   })
@@ -406,7 +406,7 @@ describe('forgejo actions', () => {
       return Response.json({ total_count: 3, workflow_runs: [run(3, 'main', 'cancelled'), run(2, '#9', 'failure'), run(1, 'c4a92ff', 'failure')] })
     } })
 
-    const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'failure' })
+    const page = await provider.ci.runs(repo, { branch: 'main', state: 'failure' }).page()
 
     expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=1&limit=50'])
     expect(page.items).toMatchObject([{ number: '3', branch: 'main', state: 'failure', stateRaw: 'cancelled', startedAt: undefined }])
@@ -421,8 +421,8 @@ describe('forgejo actions', () => {
       return Response.json({ total_count: 120, workflow_runs: Array.from({ length: 50 }, (_, index) => ({ id: first - index, status: 'success' })) })
     } })
 
-    const first = await provider.ci.runsPage(repo, { perPage: 100 })
-    const second = await provider.ci.runsPage(repo, { perPage: 100, cursor: first.cursor })
+    const first = await provider.ci.runs(repo, { perPage: 100 }).page()
+    const second = await provider.ci.runs(repo, { perPage: 100, cursor: first.cursor }).page()
 
     expect(first.items).toHaveLength(50)
     expect(first.total).toBe(120)
@@ -491,7 +491,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=queued&status=waiting&status=in_progress&branch=main&page=1&limit=50', { total_count: 2, workflow_runs: [run(2, 'queued'), run(1, 'waiting')] }],
     ]))
 
-    const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'pending' })
+    const page = await provider.ci.runs(repo, { branch: 'main', state: 'pending' }).page()
 
     expect(urls).toHaveLength(1)
     expect(page.items).toMatchObject([
@@ -515,7 +515,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=1&limit=2', { total_count: 3, jobs: [job(1), job(2)] }],
     ]))
 
-    const page = await provider.ci.jobsPage({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' }, { perPage: 2 })
+    const page = await provider.ci.jobs({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' }, { perPage: 2 }).page()
 
     expect(page.items).toMatchObject([{ name: 'job 1', state: 'neutral', startedAt: undefined }, { name: 'job 2' }])
     expect(page.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=2&limit=2')
@@ -554,7 +554,7 @@ describe('forgejo thread updates', () => {
 
   it('lists comments since a time on the forge', async () => {
     const { instance, calls } = provider({ 'GET https://codeberg.org/api/v1/repos/acme/widgets/issues/9/comments?since=2026-03-01T12:00:00.000Z': { status: 200, body: [] } })
-    await instance.threads.commentsPage(thread('issue', '9'), { since: new Date('2026-03-01T12:00:00Z') })
+    await instance.threads.comments(thread('issue', '9'), { since: new Date('2026-03-01T12:00:00Z') }).page()
 
     expect(new URL(calls[0]!.url).searchParams.get('since')).toBe('2026-03-01T12:00:00.000Z')
   })
@@ -623,7 +623,7 @@ describe('forgejo organisation teams', () => {
   it('rejects a slug that names no team, even one that matches a team id', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.orgs.teamMembersPage({ forge: 'forgejo', instance: 'codeberg.org', org, slug: '12' })).rejects.toThrow(NotFoundError)
+    await expect(instance.orgs.teamMembers({ forge: 'forgejo', instance: 'codeberg.org', org, slug: '12' }).page()).rejects.toThrow(NotFoundError)
     expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v1/orgs/acme/teams'])
   })
 
@@ -718,8 +718,8 @@ describe('forgejo thread listing filters', () => {
     const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
 
-    const first = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' })
-    const next = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', cursor: { nextUrl: 'https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2' } })
+    const first = await instance.threads.list(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' }).page()
+    const next = await instance.threads.list(repo, { kind: 'issue', involves: 'ada', cursor: { nextUrl: 'https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2' } }).page()
 
     expect(first.warnings?.filter(warning => warning.code === 'filter_unsupported').map(warning => warning.message)).toEqual([
       'This listing has no involves filter; it was ignored',

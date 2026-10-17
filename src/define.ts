@@ -8,6 +8,7 @@ import type {
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
+  ForgeListing,
   ForgeOptionsBase,
   ForgeProvider,
   InstallationsApi,
@@ -110,6 +111,9 @@ export { supportOnly } from './capabilities.ts'
 
 type ThreadVerb<K extends keyof ThreadsApi> = KindVerb<NonNullable<ThreadsApi[K]>>
 
+/** The installations a provider declares, with its listings as pages. */
+export type InstallationsSpec = Omit<InstallationsApi, 'list' | 'repos'> & { listPage: PageOf<InstallationsApi['list']>, reposPage: PageOf<InstallationsApi['repos']> }
+
 /** Everything a provider declares. Methods and capabilities are both derived from it. */
 export interface ProviderSpec<TExtensions extends object = Record<never, never>> {
   /** Members that only this forge's providers have, such as `graphql()` on GitHub. They are added to the provider unchanged. */
@@ -131,20 +135,20 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   /** Listings are declared as pages; core derives the iterables. */
   repos: {
     get: Verb<ReposApi['get']>
-    listPage: Verb<ReposApi['listPage']>
-    byOwnerPage?: Verb<ReposApi['byOwnerPage']>
-    labelsPage?: Verb<ReposApi['labelsPage']>
+    listPage: Verb<PageOf<ReposApi['list']>>
+    byOwnerPage?: Verb<PageOf<ReposApi['byOwner']>>
+    labelsPage?: Verb<PageOf<ReposApi['labels']>>
     createLabel?: Verb<ReposApi['createLabel']>
-    milestonesPage?: Verb<ReposApi['milestonesPage']>
-    collaboratorsPage?: Verb<ReposApi['collaboratorsPage']>
-    contributorsPage?: Verb<ReposApi['contributorsPage']>
+    milestonesPage?: Verb<PageOf<ReposApi['milestones']>>
+    collaboratorsPage?: Verb<PageOf<ReposApi['collaborators']>>
+    contributorsPage?: Verb<PageOf<ReposApi['contributors']>>
     contributorStats?: Verb<ReposApi['contributorStats']>
     templates?: Verb<ReposApi['templates']>
     permissionFor?: Verb<ReposApi['permissionFor']>
     addCollaborator?: Verb<ReposApi['addCollaborator']>
-    assignableUsersPage?: Verb<ReposApi['assignableUsersPage']>
-    reviewerCandidatesPage?: Verb<ReposApi['reviewerCandidatesPage']>
-    /** The implementation of `provider.repos.events()` and `provider.repos.eventsPage()`. */
+    assignableUsersPage?: Verb<PageOf<ReposApi['assignableUsers']>>
+    reviewerCandidatesPage?: Verb<PageOf<ReposApi['reviewerCandidates']>>
+    /** The implementation of `provider.repos.events()`, one page at a time. */
     eventsPage?: Verb<(repo: RepoRef, options?: EventFeedOptions) => Promise<Page<ForgeEventInput>>>
   }
   /** `get` is omitted when the forge cannot read an account by login. */
@@ -152,33 +156,33 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     get?: Verb<UsersApi['get']>
     me?: Verb<UsersApi['me']>
     sponsorable?: Verb<UsersApi['sponsorable']>
-    /** The implementation of `provider.users.events()` and `provider.users.eventsPage()`. */
+    /** The implementation of `provider.users.events()`, one page at a time. */
     eventsPage?: Verb<(login: string, options?: EventFeedOptions) => Promise<Page<ForgeEventInput>>>
     /** One capability covers blocking and unblocking. */
     blocking?: Verb<Pick<UsersApi, 'block' | 'unblock'>>
   }
   /** An organisation's teams and their members. Listings are declared as pages; core derives the iterables. */
   orgs?: {
-    /** The implementation of `provider.orgs.teams()` and `provider.orgs.teamsPage()`. */
-    teamsPage?: Verb<OrgsApi['teamsPage']>
-    /** The implementation of `provider.orgs.teamMembers()` and `provider.orgs.teamMembersPage()`. */
-    teamMembersPage?: Verb<OrgsApi['teamMembersPage']>
+    /** The implementation of `provider.orgs.teams()`, one page at a time. */
+    teamsPage?: Verb<PageOf<OrgsApi['teams']>>
+    /** The implementation of `provider.orgs.teamMembers()`, one page at a time. */
+    teamMembersPage?: Verb<PageOf<OrgsApi['teamMembers']>>
     /** One capability covers blocking and unblocking. */
     blocking?: Verb<Pick<OrgsApi, 'block' | 'unblock'>>
   }
   threads: {
     get: ThreadVerb<'get'>
-    listPage: ThreadVerb<'listPage'>
+    listPage: KindVerb<PageOf<ThreadsApi['list']>>
     /**
      * The {@link ThreadFilter}s that `listPage` applies, or reports with its own warning. Core leaves the others out
      * of the query and adds a `filter_unsupported` warning to the first page.
      */
     listFilters?: readonly ThreadFilter[]
     getMany: Verb<ThreadsApi['getMany']>
-    closingIssuesPage?: Verb<ThreadsApi['closingIssuesPage']>
-    closingPullRequestsPage?: Verb<ThreadsApi['closingPullRequestsPage']>
+    closingIssuesPage?: Verb<PageOf<ThreadsApi['closingIssues']>>
+    closingPullRequestsPage?: Verb<PageOf<ThreadsApi['closingPullRequests']>>
     eventsPage: Verb<(ref: ThreadRef, options?: ListOptions) => Promise<Page<ForgeEventInput>>>
-    commentsPage: ThreadVerb<'commentsPage'>
+    commentsPage: KindVerb<PageOf<ThreadsApi['comments']>>
     getComment?: ThreadVerb<'getComment'>
     createComment?: ThreadVerb<'createComment'>
     updateComment?: ThreadVerb<'updateComment'>
@@ -198,7 +202,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     /** One capability covers reacting and removing a reaction. */
     reactions?: KindVerb<{ [K in 'react' | 'unreact']: NonNullable<ThreadsApi[K]> }>
     /** Listing the reactions on a thread or one of its comments. */
-    reactionsPage?: KindVerb<ThreadsApi['reactionsPage']>
+    reactionsPage?: KindVerb<PageOf<ThreadsApi['reactions']>>
     transfer?: Verb<ThreadsApi['transfer']>
     markDuplicate?: Verb<ThreadsApi['markDuplicate']>
     setAssignees?: ThreadVerb<'setAssignees'>
@@ -208,15 +212,15 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     /** One capability covers reading and changing the subscription. */
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
     checks?: KindVerb<(ref: ThreadRef, options?: BaseOptions) => Promise<Page<Check>>>
-    reviewsPage?: Verb<ThreadsApi['reviewsPage']>
+    reviewsPage?: Verb<PageOf<ThreadsApi['reviews']>>
     getReview?: Verb<ThreadsApi['getReview']>
     createReview?: Verb<ThreadsApi['createReview']>
     submitReview?: Verb<ThreadsApi['submitReview']>
     replyToReviewComment?: Verb<ThreadsApi['replyToReviewComment']>
     /** Omit to derive approval from `createReview`. */
     approve?: Verb<ThreadsApi['approve']>
-    filesPage?: Verb<ThreadsApi['filesPage']>
-    commitsPage?: Verb<ThreadsApi['commitsPage']>
+    filesPage?: Verb<PageOf<ThreadsApi['files']>>
+    commitsPage?: Verb<PageOf<ThreadsApi['commits']>>
     /** One capability covers resolving and unresolving. */
     reviewThreads?: Verb<Pick<ThreadsApi, 'resolveReviewThread' | 'unresolveReviewThread'>>
   }
@@ -242,12 +246,12 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   }
   /** Read-only CI. Listings are declared as pages; core derives the iterables. */
   ci?: {
-    /** The implementation of `provider.ci.runs()` and `provider.ci.runsPage()`. */
-    runsPage?: Verb<CiApi['runsPage']>
+    /** The implementation of `provider.ci.runs()`, one page at a time. */
+    runsPage?: Verb<PageOf<CiApi['runs']>>
     /** The implementation of `provider.ci.getRun()`. */
     getRun?: Verb<CiApi['getRun']>
-    /** The implementation of `provider.ci.jobs()` and `provider.ci.jobsPage()`. */
-    jobsPage?: Verb<CiApi['jobsPage']>
+    /** The implementation of `provider.ci.jobs()`, one page at a time. */
+    jobsPage?: Verb<PageOf<CiApi['jobs']>>
     /** The implementation of `provider.ci.getJob()`. */
     getJob?: Verb<CiApi['getJob']>
     /** The implementation of `provider.ci.log()`. */
@@ -257,16 +261,16 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   contents?: {
     /** The implementation of `provider.contents.getFile()`. */
     getFile?: Verb<ContentsApi['getFile']>
-    /** The implementation of `provider.contents.tree()` and `provider.contents.treePage()`. */
-    treePage?: Verb<ContentsApi['treePage']>
-    /** The implementation of `provider.contents.branches()` and `provider.contents.branchesPage()`. */
-    branchesPage?: Verb<ContentsApi['branchesPage']>
-    /** The implementation of `provider.contents.tags()` and `provider.contents.tagsPage()`. */
-    tagsPage?: Verb<ContentsApi['tagsPage']>
+    /** The implementation of `provider.contents.tree()`, one page at a time. */
+    treePage?: Verb<PageOf<ContentsApi['tree']>>
+    /** The implementation of `provider.contents.branches()`, one page at a time. */
+    branchesPage?: Verb<PageOf<ContentsApi['branches']>>
+    /** The implementation of `provider.contents.tags()`, one page at a time. */
+    tagsPage?: Verb<PageOf<ContentsApi['tags']>>
     /** Omit where a sha lookup is impossible; core still short-circuits a 40-hex ref. */
     resolveRef?: Verb<ContentsApi['resolveRef']>
-    /** The implementation of `provider.contents.commits()` and `provider.contents.commitsPage()`. */
-    commitsPage?: Verb<ContentsApi['commitsPage']>
+    /** The implementation of `provider.contents.commits()`, one page at a time. */
+    commitsPage?: Verb<PageOf<ContentsApi['commits']>>
     /** The implementation of `provider.contents.getCommit()`. */
     getCommit?: Verb<ContentsApi['getCommit']>
     /** The implementation of `provider.contents.compare()`. */
@@ -276,20 +280,20 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   }
   /** Cross-repository search. Listings are declared as pages; core derives the iterables. */
   search?: {
-    /** The implementation of `provider.search.threads()` and `provider.search.threadsPage()`. */
-    threadsPage?: Verb<SearchApi['threadsPage']>
-    /** The implementation of `provider.search.repos()` and `provider.search.reposPage()`. */
-    reposPage?: Verb<SearchApi['reposPage']>
-    /** The implementation of `provider.search.commits()` and `provider.search.commitsPage()`. */
-    commitsPage?: Verb<SearchApi['commitsPage']>
-    /** The implementation of `provider.search.code()` and `provider.search.codePage()`. */
-    codePage?: Verb<SearchApi['codePage']>
+    /** The implementation of `provider.search.threads()`, one page at a time. */
+    threadsPage?: Verb<PageOf<SearchApi['threads']>>
+    /** The implementation of `provider.search.repos()`, one page at a time. */
+    reposPage?: Verb<PageOf<SearchApi['repos']>>
+    /** The implementation of `provider.search.commits()`, one page at a time. */
+    commitsPage?: Verb<PageOf<SearchApi['commits']>>
+    /** The implementation of `provider.search.code()`, one page at a time. */
+    codePage?: Verb<PageOf<SearchApi['code']>>
     /** The searches pass `queryRaw` on; without this, core drops it with a warning. */
     queryRaw?: boolean
   }
   releases?: {
-    /** The implementation of `provider.releases.list()` and `provider.releases.listPage()`. */
-    listPage: Verb<ReleasesApi['listPage']>
+    /** The implementation of `provider.releases.list()`, one page at a time. */
+    listPage: Verb<PageOf<ReleasesApi['list']>>
     /** The implementation of `provider.releases.get()`. */
     get: Verb<ReleasesApi['get']>
     /** The implementation of `provider.releases.latest()`. */
@@ -307,26 +311,26 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   securityAlerts?: {
     /** The implementation of `provider.securityAlerts.kinds()`. */
     kinds: Partial<Record<AlertKind, SupportInput>>
-    /** The implementation of `provider.securityAlerts.list()` and `provider.securityAlerts.listPage()`. */
-    listPage: SecurityAlertsApi['listPage']
+    /** The implementation of `provider.securityAlerts.list()`, one page at a time. */
+    listPage: PageOf<SecurityAlertsApi['list']>
   }
   /** Omit when the forge has no notifications. `list` is derived from `page`. */
   notifications?: {
     listPage: Verb<(options?: NotificationListOptions) => Promise<Page<Notification>>>
-  } & { [K in Exclude<keyof NotificationsApi, 'list' | 'listPage'>]?: Verb<NonNullable<NotificationsApi[K]>> }
+  } & { [K in Exclude<keyof NotificationsApi, 'list'>]?: Verb<NonNullable<NotificationsApi[K]>> }
   /** The implementation of `provider.installations`, except for `list()` and `repos()`, which core derives. */
-  installations?: Verb<Omit<InstallationsApi, 'list' | 'repos'>>
+  installations?: Verb<InstallationsSpec>
   sources?: { /** The implementation of `provider.sources.subscribe()`. */
     subscribe: Verb<(options?: SubscribeOptions) => AsyncIterable<{ event: ForgeEventInput, cursor: string }>>
   }
   /** Managing registered hooks. Listings are declared as pages; core derives the iterables. */
   webhooks: {
-    listPage?: Verb<WebhooksApi['listPage']>
+    listPage?: Verb<PageOf<WebhooksApi['list']>>
     create?: Verb<WebhooksApi['create']>
     update?: Verb<WebhooksApi['update']>
     delete?: Verb<WebhooksApi['delete']>
     rotateSecret?: Verb<WebhooksApi['rotateSecret']>
-    deliveriesPage?: Verb<WebhooksApi['deliveriesPage']>
+    deliveriesPage?: Verb<PageOf<WebhooksApi['deliveries']>>
     redeliver?: Verb<WebhooksApi['redeliver']>
   }
   /** Token scopes or app permissions per verb, for `provider.scopesFor()`. */
@@ -423,7 +427,7 @@ const UNTARGETED = new Set(['repos.list', 'notifications.list', 'installations.l
 /** The thread kind a per-kind verb is called for, read from its arguments. */
 function kindOf(name: string, args: unknown[]): string | undefined {
   const first = args[0] as { kind?: string, thread?: { kind?: string } } | undefined
-  if (name === 'create' || name === 'listPage') {
+  if (name === 'create' || name === 'list') {
     return (args[1] as { kind?: string } | undefined)?.kind
   }
   return first?.thread?.kind ?? first?.kind
@@ -436,6 +440,9 @@ async function* completeItems(items: AsyncIterable<{ event: ForgeEventInput, cur
 }
 
 type AnyFunction = (...args: any[]) => any
+
+/** The page function behind a listing such as `ThreadsApi['comments']`. */
+type PageOf<F> = F extends (...args: infer A) => ForgeListing<infer T> ? (...args: A) => Promise<Page<T>> : never
 
 function readPath(source: unknown, path: string): any {
   return path.split('.').reduce<any>((value, key) => value?.[key], source)
@@ -583,6 +590,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     ;(api[group] ??= {})[name] = value
   }
   const call = (verb: string): AnyFunction => readPath(api, verb)
+  const listing = <T>(read: (options: any) => Promise<Page<T>>, listOptions: object = {}): ForgeListing<T> =>
+    Object.assign(iteratePages(read, listOptions), { page: () => read(listOptions) })
 
   const subscriptions = spec.threads.subscriptions
   const createReview = spec.threads.createReview
@@ -595,13 +604,13 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const declaredInstallations = spec.installations
   const installationsSupported = () => Boolean(declaredInstallations?.run && !isUnsupported(resolve(declaredInstallations.support, env)))
 
-  const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
-  const listOwnerRepos = gate('repos.byOwnerPage', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
-  const listComments = kindGate('threads.commentsPage', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
-  const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
+  const listThreads = kindGate('threads.list', spec.threads.listPage.kinds, spec.threads.listPage.run)
+  const listOwnerRepos = gate('repos.byOwner', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
+  const listComments = kindGate('threads.comments', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
+  const listEvents = kindGate('threads.events', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
-    const run = gate(`search.${name}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
+    const run = gate(`search.${name.slice(0, -4)}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
     return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: Cursor } = {}) => {
       const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
       return !queryRaw || native || !isFirstPage(query.cursor) ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
@@ -609,7 +618,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
   const feed = (verb: 'repos.eventsPage' | 'users.eventsPage') => {
     const declared = readPath(spec, verb) as Verb<AnyFunction> | undefined
-    const run = gate(verb, declared?.support, declared?.run)
+    const run = gate(verb.slice(0, -4), declared?.support, declared?.run)
     return async (target: unknown, pageOptions?: EventFeedOptions) => {
       const page = await run(target, pageOptions) as Page<ForgeEventInput>
       return { ...page, items: page.items.map(completeEvent) }
@@ -769,12 +778,12 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       if (verb in special) {
         set(verb, special[verb])
       }
-      else if (entry.verbs!.includes(`${verb}Page`)) {
+      else if (entry.listings?.includes(verb)) {
+        const pageVerb = `${verb}Page`
+        const run = typeof declared?.run === 'function' ? declared.run : declared?.run?.[pageVerb.slice(pageVerb.indexOf('.') + 1)]
+        const page = (special[pageVerb] ?? (entry.perKind ? kindGate(verb, declared?.kinds, run) : gate(verb, declared?.support, run))) as AnyFunction
         const untargeted = UNTARGETED.has(verb)
-        set(verb, (...args: unknown[]) => {
-          const listOptions = (untargeted ? args[0] : args[1]) ?? {}
-          return iteratePages(page => call(`${verb}Page`)(...untargeted ? [] : [args[0]], page), listOptions as ListOptions)
-        })
+        set(verb, (...args: unknown[]) => listing(options => page(...untargeted ? [] : [args[0]], options), ((untargeted ? args[0] : args[1]) ?? {}) as object))
       }
       else {
         const run = typeof declared?.run === 'function' ? declared.run : declared?.run?.[verb.slice(verb.indexOf('.') + 1)]

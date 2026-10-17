@@ -146,7 +146,7 @@ describe('secondary rate limits', () => {
       { status: 200, headers: budget('graphql', 0), body: '{"errors":[{"type":"RATE_LIMITED","message":"API rate limit already exceeded for user ID 1."}]}' },
     )
 
-    await expect(instance.threads.listPage(issueRef.repo)).rejects.toBeInstanceOf(RateLimitedError)
+    await expect(instance.threads.list(issueRef.repo).page()).rejects.toBeInstanceOf(RateLimitedError)
   })
 
   describe('when one half of the read of checks is rate limited', () => {
@@ -341,6 +341,6 @@ describe('hand-built pages', () => {
     const { fetch } = fixtureFetch([get('https://api.github.com/notifications?all=false', budget('core', 4321), [])])
     const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
-    expect((await provider.notifications.listPage()).rateLimit).toEqual({ resource: 'core', limit: 5000, remaining: 4321, resetAt: new Date(reset * 1000) })
+    expect((await provider.notifications.list().page()).rateLimit).toEqual({ resource: 'core', limit: 5000, remaining: 4321, resetAt: new Date(reset * 1000) })
   })
 })

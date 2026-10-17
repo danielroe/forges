@@ -1,15 +1,12 @@
 import type { ForgeVerb } from './capability-table.ts'
 import type { SecurityAlertKind, Support, ThreadKind } from './model.ts'
 import type { ForgeCapabilities } from './provider.ts'
-import { CAPABILITY_TABLE, capabilityKey } from './capability-table.ts'
+import { CAPABILITY_TABLE } from './capability-table.ts'
 import { isUnsupported } from './model.ts'
 
 export type { ForgeVerb }
 
-/** Where each verb's support lives in {@link ForgeCapabilities}, from {@link CAPABILITY_TABLE}. */
-const VERBS = new Map<string, string>(
-  CAPABILITY_TABLE.flatMap(entry => (entry.verbs ?? []).map(verb => [verb, capabilityKey(entry, verb)] as const)),
-)
+const VERBS = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.verbs ?? []))
 
 /**
  * Whether `verb` is supported according to `capabilities`, for `kind` where
@@ -56,9 +53,8 @@ export function support(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?:
 
 /** The capability entry behind `verb`: one support level, or one per kind. */
 export function capabilityOf(capabilities: ForgeCapabilities, verb: ForgeVerb): Support | Record<string, Support> {
-  const capability = VERBS.get(verb)
-  if (!capability) {
+  if (!VERBS.has(verb)) {
     throw new TypeError(`Unknown verb ${JSON.stringify(verb)}; verbs are named by their path on the provider, such as 'threads.createComment'`)
   }
-  return capability.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown>)[key], capabilities) as Support | Record<string, Support>
+  return verb.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown>)[key], capabilities) as Support | Record<string, Support>
 }

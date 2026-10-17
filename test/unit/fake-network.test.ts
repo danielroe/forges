@@ -58,7 +58,7 @@ describe('fake forge failure injection', () => {
     const forge = fake()
 
     expect(() => forge.failNext('threads.transfer', new Error('boom'))).toThrow(new TypeError('threads.transfer is not implemented by the fake forge, so it sends no request to fail'))
-    expect(() => forge.failNext('threads.commentsPage', new Error('boom'))).not.toThrow()
+    expect(() => forge.failNext('threads.comments', new Error('boom'))).not.toThrow()
     expect(() => forge.failNext('sources.subscribe', new Error('boom'))).not.toThrow()
   })
 })
@@ -69,7 +69,7 @@ describe('fake forge offline', () => {
     forge.offline()
 
     await expect(forge.threads.get(issue)).rejects.toThrow(ForgeNetworkError)
-    await expect(forge.threads.listPage(repo)).rejects.toThrow(ForgeNetworkError)
+    await expect(forge.threads.list(repo).page()).rejects.toThrow(ForgeNetworkError)
     await expect(Array.fromAsync(forge.notifications.list())).rejects.toThrow(ForgeNetworkError)
     await expect(forge.threads.createComment(issue, 'Hello')).rejects.toThrow(ForgeNetworkError)
     await expect(forge.sources.subscribe()[Symbol.asyncIterator]().next()).rejects.toThrow(ForgeNetworkError)
@@ -148,7 +148,7 @@ describe('fake forge clock', () => {
     expect(comment.createdAt).toEqual(new Date('2026-01-01T00:01:00Z'))
     expect(forge.store.events.map(event => event.occurredAt)).toEqual([new Date('2026-01-01T00:01:00Z'), new Date('2026-01-01T00:02:00Z')])
     expect((await forge.threads.get(issue)).closedAt).toEqual(new Date('2026-01-01T00:02:00Z'))
-    expect((await forge.search.threadsPage({ since: new Date('2026-01-01T00:02:00Z') })).items.map(thread => thread.ref.number)).toEqual(['1'])
+    expect((await forge.search.threads({ since: new Date('2026-01-01T00:02:00Z') }).page()).items.map(thread => thread.ref.number)).toEqual(['1'])
   })
 })
 
@@ -160,7 +160,7 @@ describe('fake forge copies', () => {
     thread.title = 'Optimistic'
     const comment = await forge.threads.createComment(issue, 'Hello')
     comment.body = 'Optimistic'
-    const [listed] = (await forge.threads.commentsPage(issue)).items
+    const [listed] = (await forge.threads.comments(issue).page()).items
     listed!.body = 'Optimistic'
 
     const state = forge.store.repos.get('acme/widgets')!.threads.get('1')!
@@ -176,12 +176,12 @@ type Listing = (forge: ReturnType<typeof fake>) => (cursor?: { etag?: string }) 
 
 describe('fake forge conditional reads', () => {
   const listings: Record<string, Listing> = {
-    'notifications.listPage': forge => cursor => forge.notifications.listPage({ cursor }),
-    'threads.listPage': forge => cursor => forge.threads.listPage(repo, { cursor }),
-    'repos.eventsPage': forge => cursor => forge.repos.eventsPage(repo, { cursor }),
-    'users.eventsPage': forge => cursor => forge.users.eventsPage('fake-user', { cursor }),
-    'threads.eventsPage': forge => cursor => forge.threads.eventsPage(issue, { cursor }),
-    'threads.commentsPage': forge => cursor => forge.threads.commentsPage(issue, { cursor }),
+    'notifications.list': forge => cursor => forge.notifications.list({ cursor }).page(),
+    'threads.list': forge => cursor => forge.threads.list(repo, { cursor }).page(),
+    'repos.events': forge => cursor => forge.repos.events(repo, { cursor }).page(),
+    'users.events': forge => cursor => forge.users.events('fake-user', { cursor }).page(),
+    'threads.events': forge => cursor => forge.threads.events(issue, { cursor }).page(),
+    'threads.comments': forge => cursor => forge.threads.comments(issue, { cursor }).page(),
   }
 
   it.each(Object.entries(listings))('serves %s as not modified until a write changes it', async (_, listing) => {
@@ -206,8 +206,8 @@ describe('fake forge conditional reads', () => {
     await forge.threads.createComment(issue, 'First')
     await forge.threads.createComment(issue, 'Second')
 
-    const first = await forge.threads.commentsPage(issue, { perPage: 1 })
-    const second = await forge.threads.commentsPage(issue, { perPage: 1, cursor: first.cursor })
+    const first = await forge.threads.comments(issue, { perPage: 1 }).page()
+    const second = await forge.threads.comments(issue, { perPage: 1, cursor: first.cursor }).page()
 
     expect(first.etag).toBeDefined()
     expect(second.etag).toBeUndefined()
@@ -284,7 +284,7 @@ describe('fake forge rate limit', () => {
     let time = Date.parse('2026-01-01T00:00:00Z')
     const forge = fake({ seed, now: () => new Date(time), rateLimit: { limit: 2, window: 60_000 } })
 
-    const page = await forge.threads.listPage(repo)
+    const page = await forge.threads.list(repo).page()
     await forge.threads.get(issue)
     const error = await forge.threads.get(issue).catch((error: unknown) => error)
     time += 60_000
@@ -292,15 +292,15 @@ describe('fake forge rate limit', () => {
     expect(page.rateLimit).toEqual({ limit: 2, remaining: 1, resetAt: new Date('2026-01-01T00:01:00Z') })
     expect(error).toBeInstanceOf(RateLimitedError)
     expect((error as RateLimitedError).resetAt).toEqual(new Date('2026-01-01T00:01:00Z'))
-    expect((await forge.threads.listPage(repo)).rateLimit).toEqual({ limit: 2, remaining: 1, resetAt: new Date('2026-01-01T00:02:00Z') })
+    expect((await forge.threads.list(repo).page()).rateLimit).toEqual({ limit: 2, remaining: 1, resetAt: new Date('2026-01-01T00:02:00Z') })
   })
 
   it('spends nothing on a not-modified page', async () => {
     const forge = fake({ seed })
     forge.setRateLimit({ limit: 10 })
 
-    const first = await forge.notifications.listPage()
-    const again = await forge.notifications.listPage({ cursor: { etag: first.etag } })
+    const first = await forge.notifications.list().page()
+    const again = await forge.notifications.list({ cursor: { etag: first.etag } }).page()
 
     expect(first.rateLimit?.remaining).toBe(9)
     expect(again).toMatchObject({ notModified: true, rateLimit: { remaining: 9 } })

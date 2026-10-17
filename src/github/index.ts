@@ -1,4 +1,4 @@
-import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
+import type { InstallationsSpec, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
   BaseOptions,
   Check,
@@ -74,7 +74,6 @@ import type {
   ForgeOptionsBase,
   ForgeProvider,
   HideCommentReason,
-  InstallationsApi,
   LockOptions,
   LockReason,
   MilestoneListOptions,
@@ -1415,7 +1414,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return { ...page, items: page.items.flat(), ...poll }
   }
 
-  function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
+  function createInstallationsApi(app: AppCredentials): InstallationsSpec {
     const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
     const auth = options.auth as Extract<GitHubAuth, { type: 'app' }>
 
