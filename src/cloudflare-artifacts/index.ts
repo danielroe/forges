@@ -275,11 +275,11 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
       commentsPage: perKind({}, noThreads),
     },
     contents: {
-      file: verb(true, file),
+      getFile: verb(true, file),
       treePage: verb(true, treePage),
       resolveRef: verb(true, async (repo, ref, resolveOptions) => (await commitAt(repo, ref, resolveOptions?.signal)).hash),
       commitsPage: verb(true, commitsPage),
-      commit: verb(true, commit),
+      getCommit: verb(true, commit),
     },
     webhooks: {},
     scopes: cloudflareArtifactsScopesFor,

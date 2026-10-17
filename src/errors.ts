@@ -217,7 +217,7 @@ export class ReadOnlyError extends UnsupportedOperationError {
   override name = 'ReadOnlyError'
 }
 
-/** `contents.file` was asked for text and the file's bytes are not valid UTF-8. */
+/** `contents.getFile` was asked for text and the file's bytes are not valid UTF-8. */
 export class ContentNotTextError extends ForgeError {
   override name = 'ContentNotTextError'
 }

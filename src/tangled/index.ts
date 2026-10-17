@@ -588,13 +588,13 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       },
       notifications,
       contents: {
-        file: contentsVerb('file'),
+        getFile: contentsVerb('file'),
         treePage: contentsVerb('treePage'),
         branchesPage: contentsVerb('branchesPage'),
         tagsPage: contentsVerb('tagsPage'),
         resolveRef: contentsVerb('resolveRef'),
         commitsPage: contentsVerb('commitsPage'),
-        commit: contentsVerb('commit'),
+        getCommit: contentsVerb('commit'),
         compare: contentsVerb('compare'),
       },
       users: {

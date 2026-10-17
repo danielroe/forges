@@ -488,7 +488,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         teamsListing(team.org, `/${enc(team.id ?? team.slug)}/members`, listOptions, (member: AzureTeamMember) => toActor(instance, member.identity))),
     },
     contents: {
-      file: verb(true, async (repo, path, fileOptions = {}) => {
+      getFile: verb(true, async (repo, path, fileOptions = {}) => {
         const query = {
           path,
           download: 'true',
@@ -532,7 +532,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         })
         return { items: data.value.map(raw => toCommit(repo, raw)), ...rateLimitPart(response) }
       }),
-      commit: verb(true, async (repo, sha, options) => {
+      getCommit: verb(true, async (repo, sha, options) => {
         const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
         return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
       }),

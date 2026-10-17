@@ -53,9 +53,9 @@ export function getReviewSupport(spec: ProviderSpec, env: CapabilityEnv, declare
   return readOrEmulated(resolve(spec.threads.getReview?.support, env, declared), resolve(spec.threads.reviewsPage?.support, env, declared), spec.emulated?.getReview, env, declared)
 }
 
-/** `ci.job`: declared, or emulated from `ci.jobsPage` for a job ref that names its run. */
+/** `ci.getJob`: declared, or emulated from `ci.jobsPage` for a job ref that names its run. */
 export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
-  return readOrEmulated(resolve(spec.ci?.job?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.job, env, declared)
+  return readOrEmulated(resolve(spec.ci?.getJob?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.getJob, env, declared)
 }
 
 function read(source: unknown, path: string): unknown {

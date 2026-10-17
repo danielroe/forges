@@ -340,12 +340,12 @@ describe('request compatibility with Octokit', () => {
     const sha = '6dcb09b5b57875f334f61aebed695e2e4193db5e'
     await compare(
       async (provider) => {
-        await provider.contents.file(repo, 'package.json', { ref: 'main', as: 'text' })
+        await provider.contents.getFile(repo, 'package.json', { ref: 'main', as: 'text' })
         await provider.contents.treePage(repo, { ref: 'main', recursive: true })
         await provider.contents.branchesPage(repo)
         await provider.contents.tagsPage(repo)
         await provider.contents.commitsPage(repo)
-        await provider.contents.commit(repo, sha)
+        await provider.contents.getCommit(repo, sha)
         await provider.contents.compare(repo, 'v1.0.0', 'main')
       },
       async (octokit) => {

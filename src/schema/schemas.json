@@ -700,7 +700,7 @@
         "items": {
           "$ref": "#/components/schemas/ChangedFile"
         },
-        "description": "Present on `contents.commit`; absent from listings."
+        "description": "Present on `contents.getCommit`; absent from listings."
       },
       "raw": {}
     },
@@ -1899,17 +1899,17 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `ci.runs()` and `ci.runsPage()`."
           },
-          "run": {
+          "getRun": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.run()`."
+            "description": "Support for `ci.getRun()`."
           },
           "jobs": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `ci.jobs()` and `ci.jobsPage()`."
           },
-          "job": {
+          "getJob": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.job()`."
+            "description": "Support for `ci.getJob()`."
           },
           "log": {
             "$ref": "#/components/schemas/Support",
@@ -1918,9 +1918,9 @@
         },
         "required": [
           "runs",
-          "run",
+          "getRun",
           "jobs",
-          "job",
+          "getJob",
           "log"
         ],
         "description": "Read-only CI surface. `log` is `false` where job logs are not reachable over the API."
@@ -1971,9 +1971,9 @@
       "contents": {
         "type": "object",
         "properties": {
-          "file": {
+          "getFile": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.file()`."
+            "description": "Support for `contents.getFile()`."
           },
           "tree": {
             "$ref": "#/components/schemas/Support",
@@ -1995,9 +1995,9 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.commits()` and `contents.commitsPage()`."
           },
-          "commit": {
+          "getCommit": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.commit()`."
+            "description": "Support for `contents.getCommit()`."
           },
           "compare": {
             "$ref": "#/components/schemas/Support",
@@ -2017,13 +2017,13 @@
           }
         },
         "required": [
-          "file",
+          "getFile",
           "tree",
           "branches",
           "tags",
           "resolveRef",
           "commits",
-          "commit",
+          "getCommit",
           "compare",
           "commitFiles",
           "threadFiles",

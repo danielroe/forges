@@ -210,7 +210,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       list: verb('unverified', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     contents: {
-      file: verb('unverified', async (repo, path, fileOptions = {}) => {
+      getFile: verb('unverified', async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<OriginContent>(`${repoPath(repo)}/contents`, {
           query: { path, ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -252,7 +252,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
       }),
-      commit: verb('unverified', async (repo, sha, options) => {
+      getCommit: verb('unverified', async (repo, sha, options) => {
         const [commit, files] = await Promise.all([
           fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
           all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),

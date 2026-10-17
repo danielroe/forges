@@ -575,7 +575,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         reposPage: verb(!anonymous, searchReposPage),
       },
       contents: {
-        file: verb(true, async (repo, path, fileOptions = {}) => {
+        getFile: verb(true, async (repo, path, fileOptions = {}) => {
           const ref = fileOptions.ref ?? await mainBranch(repo, fileOptions)
           const target = `${repoPathOf(repo)}/src/${encodeURIComponent(ref)}/${path.split('/').map(encodeURIComponent).join('/')}`
           const [meta, raw] = await Promise.all([
@@ -594,7 +594,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPathOf(repo)}/refs/tags`, listOptions, toTag, { select: page<BitbucketRef> })),
         resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.hash),
         commitsPage: verb(true, (repo, query = {}) => list(`${repoPathOf(repo)}/commits${query.ref ? `/${encodeURIComponent(query.ref)}` : ''}`, query, (raw: BitbucketCommitDetail) => toCommit(repo, raw), { query: { path: query.path }, select: page<BitbucketCommitDetail> })),
-        commit: verb(true, async (repo, sha, options) => {
+        getCommit: verb(true, async (repo, sha, options) => {
           const [commit, files] = await Promise.all([
             fetcher.json<BitbucketCommitDetail>(`${repoPathOf(repo)}/commit/${sha}`, { signal: options?.signal }),
             Array.fromAsync(all<BitbucketDiffStat>(`${repoPathOf(repo)}/diffstat/${sha}`, { signal: options?.signal }), toChangedFile),

@@ -849,14 +849,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     ci: {
       runsPage: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), runsPage),
-      run: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref, options) => {
+      getRun: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref, options) => {
         const path = `${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`
         return isGitea
           ? toGiteaActionRun(ref.repo, (await fetcher.json<GiteaActionRun>(path, { signal: options?.signal })).data)
           : toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(path, { signal: options?.signal })).data)
       }),
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
-      job: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
+      getJob: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
         const { data } = await fetcher.json<GiteaActionJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
         const run = ref.run ?? (data.run_id === undefined ? undefined : { ...origin, repo: ref.repo, id: String(data.run_id) })
         if (!run) {
@@ -867,7 +867,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
-      file: verb(true, readFile),
+      getFile: verb(true, readFile),
       treePage: verb(true, async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data, response } = await fetcher.json<ForgejoTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
@@ -892,7 +892,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return sha
       }),
       commitsPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
+      getCommit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, {
           query: { files: options?.files === false ? false : undefined },

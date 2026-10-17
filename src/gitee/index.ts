@@ -427,7 +427,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       unreadCount: verb(true, async options => (await fetcher.json<{ notification_count?: number, total_count?: number }>('/notifications/count', { query: { unread: true }, signal: options?.signal })).data.notification_count ?? 0),
     },
     contents: {
-      file: verb(true, async (repo, path, fileOptions = {}) => {
+      getFile: verb(true, async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<GiteeContentFile>(`${repoPath(repo)}/contents/${path.split('/').map(encodeURIComponent).join('/')}`, {
           query: { ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -465,7 +465,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }, query)
         return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
       }),
-      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
+      getCommit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<GiteeCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {

@@ -385,7 +385,7 @@ const COMPOSED_VERBS: Partial<Record<ForgeVerb, string>> = {
   'threads.getComment': 'fail threads.comments instead',
   'threads.getReview': 'fail threads.reviews instead',
   'threads.approve': 'fail threads.createReview instead',
-  'ci.job': 'fail ci.jobs instead',
+  'ci.getJob': 'fail ci.jobs instead',
   'webhooks.verify': 'it runs locally',
   'webhooks.ingest': 'it runs locally',
 }
@@ -1601,7 +1601,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
       },
       contents: {
-        file: verb(support('contents.file', true), async (repo, path, fileOptions = {}) => {
+        getFile: verb(support('contents.getFile', true), async (repo, path, fileOptions = {}) => {
           const bytes = readFile(repoState(repo), fileOptions.ref, path)
           if (!bytes) {
             throw notFound(`No file ${path} in ${slugOf(repo)}`)
@@ -1656,7 +1656,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             .toReversed(),
           query,
         )),
-        commit: verb(support('contents.commit', true), async (repo, sha) => {
+        getCommit: verb(support('contents.getCommit', true), async (repo, sha) => {
           const commit = repoState(repo).commits.find(item => item.sha === sha)
           if (!commit) {
             throw notFound(`No commit ${sha} in ${slugOf(repo)}`)
@@ -1706,7 +1706,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             .toReversed(),
           query,
         )),
-        run: verb(support('ci.run', true), async ref => runState(ref).run),
+        getRun: verb(support('ci.getRun', true), async ref => runState(ref).run),
         jobsPage: verb(support('ci.jobs', true), async (ref, listOptions = {}) => pageOf(runState(ref).jobs.map(item => item.job), listOptions)),
         log: verb(support('ci.log', true), async (ref) => {
           const job = repoState(ref.repo).runs.flatMap(item => item.jobs).find(item => item.job.ref.id === ref.id)
