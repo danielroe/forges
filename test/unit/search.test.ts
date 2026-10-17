@@ -116,7 +116,7 @@ describe('owner', () => {
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash user:nuxt is:issue', 'crash repo:acme/widgets is:issue'])
   })
 
-  it('searches a GitLab group, subgroups included, through its issue and merge request listings', async () => {
+  it('searches the issues and merge requests of a GitLab group', async () => {
     const { requests, fetch } = recording([])
     const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch }).create()
 
