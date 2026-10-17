@@ -464,6 +464,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
+    notApplicable: [
+      'webhooks.rotateSecret',
+      'webhooks.deliveries',
+      'webhooks.redeliver',
+    ],
     search: { threadsPage: verb(!anonymous, searchThreadsPage) },
     repos: {
       get: verb(true, async (ref, options) => {

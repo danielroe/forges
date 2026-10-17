@@ -361,6 +361,11 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       list: verb(true, async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
+    notApplicable: [
+      'reviews.list',
+      'webhooks.deliveries',
+      'webhooks.redeliver',
+    ],
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),
       me: verb(true, options => readUser('/user', options?.signal)),

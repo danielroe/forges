@@ -63,7 +63,7 @@ The API only reads the authenticated account, so `users.get(login)` isn't availa
 
 ## Webhooks
 
-The API has no endpoints for hooks and no documented signature scheme. For this reason, `capabilities.sources.webhook` is `false`, and the provider doesn't verify or translate deliveries.
+The API has no endpoints for hooks and no documented signature scheme. For this reason, `capabilities.sources.webhook` is `'not_applicable'`, and the provider doesn't verify or translate deliveries.
 
 Since `pushin()` contains no webhook code, there is no `pushinLite()` factory for the provider.
 
@@ -76,7 +76,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
 | `sources.poll` | ✅ | ❌ |
-| `sources.webhook` | ❌ | ❌ |
+| `sources.webhook` | ∅ | ∅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
@@ -109,36 +109,36 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.list` | issue, PR | issue, PR |
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | ❌ | ❌ |
-| `comments.delete` | ❌ | ❌ |
+| `comments.edit` | ∅ | ∅ |
+| `comments.delete` | ∅ | ∅ |
 | `comments.hide` | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ |
-| `notifications.markRead` | ❌ | ❌ |
-| `notifications.markDone` | ❌ | ❌ |
-| `notifications.unsubscribe` | ❌ | ❌ |
-| `notifications.markAllRead` | ❌ | ❌ |
-| `notifications.markAllDone` | ❌ | ❌ |
+| `notifications.markRead` | ∅ | ∅ |
+| `notifications.markDone` | ∅ | ∅ |
+| `notifications.unsubscribe` | ∅ | ∅ |
+| `notifications.markAllRead` | ∅ | ∅ |
+| `notifications.markAllDone` | ∅ | ∅ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | ❌ | ❌ |
-| `writes.upsertComment` | ❌ | ❌ |
-| `writes.close` | ❌ | ❌ |
-| `writes.reopen` | ❌ | ❌ |
+| `writes.comment` | ∅ | ∅ |
+| `writes.upsertComment` | ∅ | ∅ |
+| `writes.close` | ∅ | ∅ |
+| `writes.reopen` | ∅ | ∅ |
 | `writes.lock` | ❌ | ❌ |
-| `writes.create` | ❌ | ❌ |
-| `writes.update` | ❌ | ❌ |
-| `writes.setLabels` | ❌ | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | ❌ | ❌ |
-| `writes.merge` | ❌ | ❌ |
-| `writes.approveAndMerge` | ❌ | ❌ |
+| `writes.create` | ∅ | ∅ |
+| `writes.update` | ∅ | ∅ |
+| `writes.setLabels` | ∅ | ∅ |
+| `writes.addLabels` | ∅ | ∅ |
+| `writes.removeLabels` | ∅ | ∅ |
+| `writes.setMilestone` | ∅ | ∅ |
+| `writes.react` | ∅ | ∅ |
+| `writes.setAssignees` | ∅ | ∅ |
+| `writes.requestReview` | ∅ | ∅ |
+| `writes.merge` | ∅ | ∅ |
+| `writes.approveAndMerge` | ∅ | ∅ |
 | `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
+| `writes.transfer` | ∅ | ∅ |
+| `writes.markDuplicate` | ∅ | ∅ |
 | `subscriptions.get` | ❌ | ❌ |
 | `subscriptions.set` | ❌ | ❌ |
 | `installations` | ❌ | ❌ |
@@ -177,13 +177,13 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
-| `webhooks.list` | ❌ | ❌ |
-| `webhooks.create` | ❌ | ❌ |
-| `webhooks.update` | ❌ | ❌ |
-| `webhooks.delete` | ❌ | ❌ |
-| `webhooks.rotateSecret` | ❌ | ❌ |
-| `webhooks.deliveries` | ❌ | ❌ |
-| `webhooks.redeliver` | ❌ | ❌ |
+| `webhooks.list` | ∅ | ∅ |
+| `webhooks.create` | ∅ | ∅ |
+| `webhooks.update` | ∅ | ∅ |
+| `webhooks.delete` | ∅ | ∅ |
+| `webhooks.rotateSecret` | ∅ | ∅ |
+| `webhooks.deliveries` | ∅ | ∅ |
+| `webhooks.redeliver` | ∅ | ∅ |
 | `search.threads` | ❌ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |

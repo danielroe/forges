@@ -161,6 +161,27 @@ describe('capability table', () => {
     expect(github({}).create().support('ci.log')).toBe(false)
   })
 
+  it('reports a capability the forge lacks as `not_applicable`, and rejects it', async () => {
+    const provider = bitbucket({ auth }).create()
+    expect(provider.support('releases.list')).toBe('not_applicable')
+    expect(provider.capabilities.sources.poll).toBe('not_applicable')
+    expect(provider.can('releases.list')).toBe(false)
+    expect(bitbucket({}).create().support('releases.list')).toBe('not_applicable')
+    await expect(provider.releases.listPage({ forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' })).rejects.toThrow('bitbucket has no releases.listPage')
+
+    // A per-kind capability the forge lacks is `not_applicable` for every kind.
+    const tangledProvider = tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()
+    expect(tangledProvider.capabilities.checks.thread).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
+
+    // Derived capabilities (`reviews.get`, `reviews.approve`, `writes.approveAndMerge`) inherit `not_applicable` from their parts.
+    const pull = { forge: 'tangled', instance: 'tangled.org', repo: { forge: 'tangled', instance: 'tangled.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request' as const, number: '1' }
+    expect(tangledProvider.support('threads.getReview')).toBe('not_applicable')
+    expect(tangledProvider.support('threads.approve')).toBe('not_applicable')
+    expect(tangledProvider.support('threads.approveAndMerge')).toBe('not_applicable')
+    expect(tangledProvider.can('threads.approveAndMerge')).toBe(false)
+    await expect(tangledProvider.threads.approveAndMerge!(pull)).rejects.toThrow('tangled has no threads.approveAndMerge')
+  })
+
   it('reports a composed capability as unverified when a part is', () => {
     const { capabilities } = gitee({ auth }).create()
 
