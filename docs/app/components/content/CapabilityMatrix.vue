@@ -263,7 +263,7 @@ function limits(values?: Record<string, number>) {
                 class="pt-6 text-left align-bottom text-xs font-normal max-lg:pb-3 lg:pb-6"
               >
                 <span class="block font-mono text-highlighted">Coverage</span>
-                <span class="block text-muted">Native and verified, of {{ total }}{{ anonymous ? ', without credentials' : '' }}</span>
+                <span class="block text-muted">Native and verified, of the capabilities that apply{{ anonymous ? ', without credentials' : '' }}</span>
               </th>
               <td
                 v-for="provider of providers"
@@ -280,7 +280,7 @@ function limits(values?: Record<string, number>) {
                     :key="level"
                     class="capability-swatch block w-full"
                     :data-level="level"
-                    :style="{ height: `${summaryFor(provider, anonymous)[level] / total * 100}%` }"
+                    :style="{ height: `${summaryFor(provider, anonymous)[level] / applicableTotal(provider) * 100}%` }"
                   />
                 </span>
                 <span
