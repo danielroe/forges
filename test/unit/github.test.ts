@@ -5,6 +5,8 @@ import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
+import { abortable } from '../../src/fetch.ts'
+import { createAppCredentials } from '../../src/github/auth.ts'
 import { graphqlOperations, graphqlUrl } from '../../src/github/graphql-client.ts'
 import { github } from '../../src/github/index.ts'
 import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
@@ -509,6 +511,85 @@ describe('github app installations', () => {
     await Promise.all([provider.repos.get(repo), provider.repos.get(repo)])
 
     expect(calls.filter(call => call.url.endsWith('/access_tokens'))).toHaveLength(1)
+  })
+
+  it('does not start an installation token exchange for an already-aborted caller', async () => {
+    const { fetch } = fixtureFetch('github')
+    const importKey = vi.spyOn(crypto.subtle, 'importKey')
+    const provider = github({ auth: { type: 'app', appId: 12345, privateKey }, fetch }).create()
+    const reason = new Error('cancelled')
+
+    try {
+      await expect(provider.installations.token('55123', { signal: AbortSignal.abort(reason) })).rejects.toBe(reason)
+
+      expect(importKey).not.toHaveBeenCalled()
+    }
+    finally {
+      importKey.mockRestore()
+    }
+  })
+
+  it('aborts one caller without cancelling a shared installation token exchange', async () => {
+    const { fetch: replay, calls } = fixtureFetch('github')
+    const started = Promise.withResolvers<void>()
+    const pending = Promise.withResolvers<void>()
+    let exchanges = 0
+    const provider = github({
+      auth: { type: 'app', appId: 12345, privateKey },
+      fetch: async (input, init) => {
+        exchanges++
+        started.resolve()
+        await abortable(pending.promise, init?.signal ?? undefined)
+        return replay(input, init)
+      },
+    }).create()
+    const controller = new AbortController()
+    const reason = new Error('cancelled')
+    const first = expect(provider.installations.token('55123', { signal: controller.signal })).rejects.toBe(reason)
+    const second = provider.installations.token('55123')
+
+    await started.promise
+    controller.abort(reason)
+    await first
+    pending.resolve()
+
+    await expect(second).resolves.toMatchObject({ token: 'ghs_fixtureinstallationtoken' })
+    await expect(provider.installations.token('55123')).resolves.toMatchObject({ token: 'ghs_fixtureinstallationtoken' })
+    expect(exchanges).toBe(1)
+    expect(calls.filter(call => call.url.endsWith('/access_tokens'))).toHaveLength(1)
+  })
+
+  it('retries a failed shared installation token exchange', async () => {
+    const { fetch: replay } = fixtureFetch('github')
+    const fetch = vi.fn(replay).mockResolvedValueOnce(Response.json({ message: 'Unavailable' }, { status: 500 }))
+    const provider = github({ auth: { type: 'app', appId: 12345, privateKey }, fetch }).create()
+
+    const results = await Promise.allSettled([provider.installations.token('55123'), provider.installations.token('55123')])
+
+    expect(results.map(result => result.status)).toEqual(['rejected', 'rejected'])
+    expect(fetch).toHaveBeenCalledTimes(1)
+    await expect(provider.installations.token('55123')).resolves.toMatchObject({ token: 'ghs_fixtureinstallationtoken' })
+    expect(fetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('retries failed shared app JWT signing', async () => {
+    const reason = new Error('signing failed')
+    const importKey = vi.spyOn(crypto.subtle, 'importKey').mockRejectedValueOnce(reason)
+    const credentials = createAppCredentials({ type: 'app', appId: 12345, privateKey }, { baseUrl: 'https://api.github.com' })
+
+    try {
+      const results = await Promise.allSettled([credentials.appJwt(), credentials.appJwt()])
+
+      expect(results).toEqual([{ status: 'rejected', reason }, { status: 'rejected', reason }])
+      expect(importKey).toHaveBeenCalledTimes(1)
+      const jwt = await credentials.appJwt()
+      expect(jwt.split('.')).toHaveLength(3)
+      await expect(credentials.appJwt()).resolves.toBe(jwt)
+      expect(importKey).toHaveBeenCalledTimes(2)
+    }
+    finally {
+      importKey.mockRestore()
+    }
   })
 
   it('reports the retries and rate limits of the installation token exchange', async () => {

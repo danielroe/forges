@@ -80,6 +80,7 @@ export function createAppCredentials(auth: AppAuth, context: AuthContext): AppCr
   })
 
   async function installationTokenDetails(installationId: string, options?: BaseOptions): Promise<InstallationToken> {
+    options?.signal?.throwIfAborted()
     const cached = tokens.get(installationId)
     if (cached && cached.expiresAt.getTime() > Date.now() + REFRESH_MARGIN_MS) {
       return cached
