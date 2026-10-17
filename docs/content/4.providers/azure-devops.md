@@ -73,7 +73,7 @@ Work items belong to a project and not to a repository, so their refs use a name
 
 The provider doesn't read branch policies, so it can't tell which merge strategies are allowed. For this reason, `merge()` requires a `method` and throws `MergeMethodRequiredError` without it. The `fast_forward_only` method isn't available.
 
-`merge()` completes the pull request at its current source commit, and `approveAndMerge()` votes to approve it first. If you pass `whenChecksPass`, `merge()` sets auto-complete on the pull request instead of merging right away.
+`merge()` completes the pull request at its current source commit. If you pass `whenChecksPass`, `merge()` sets auto-complete on the pull request instead of merging right away.
 
 Azure DevOps usually completes a pull request in the background, so `merge()` resolves with `status: 'queued'` and no `sha` until the response reports the pull request as completed. Read the pull request later to see the merge commit.
 
@@ -173,7 +173,6 @@ for await (const team of provider.orgs.teams(project)) {
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | issue (experimental), PR | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ∅ | ∅ |
@@ -187,7 +186,6 @@ for await (const team of provider.orgs.teams(project)) {
 | `writes.setAssignees` | issue | ❌ |
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.updateBranch` | ∅ | ∅ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

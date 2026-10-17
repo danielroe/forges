@@ -146,7 +146,6 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `notifications.markAllDone` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.unreadCount` | ∅ | ∅ | ∅ | ∅ |
 | `writes.comment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `writes.upsertComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `writes.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.reopen` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.lock` | ∅ | ∅ | ∅ | ∅ |
@@ -160,7 +159,6 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `writes.setAssignees` | ❌ | ❌ | ❌ | ❌ |
 | `writes.requestReview` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `writes.merge` | experimental | experimental | ❌ | ❌ |
-| `writes.approveAndMerge` | unverified | unverified | ❌ | ❌ |
 | `writes.updateBranch` | ∅ | ∅ | ∅ | ∅ |
 | `writes.transfer` | ❌ | ❌ | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ | ❌ | ❌ |

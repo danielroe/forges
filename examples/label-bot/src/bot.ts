@@ -1,5 +1,6 @@
 import type { Comment, ForgeEvent, ForgeProvider, RepoRole, ThreadRef } from 'forges'
 import { isResolvedThread } from 'forges'
+import { upsertComment } from 'forges/helpers'
 
 const WRITE_ROLES = new Set<RepoRole>(['admin', 'maintain', 'write'])
 
@@ -82,8 +83,8 @@ export function createLabelBot(options: LabelBotOptions) {
       actions.push({ kind: 'unsupported', reason: `${provider.forge} cannot add labels to a ${kind}`, thread: describe(ref) })
     }
 
-    if (provider.can('threads.upsertComment', kind)) {
-      await provider.threads.upsertComment(ref, { key: 'label-bot', body: provider.normaliseMarkdown(options.comment) })
+    if (provider.can('threads.comments', kind) && provider.can('threads.comment', kind) && provider.can('threads.editComment', kind)) {
+      await upsertComment(provider, ref, { key: 'label-bot', body: provider.normaliseMarkdown(options.comment) })
       actions.push({ kind: 'commented', reason: 'matched title', thread: describe(ref) })
     }
     else {

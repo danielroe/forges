@@ -174,13 +174,9 @@ describe('capability table', () => {
     const tangledProvider = tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' }).create()
     expect(tangledProvider.capabilities.checks.thread).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable', commit: 'not_applicable' })
 
-    // Derived capabilities (`reviews.get`, `reviews.approve`, `writes.approveAndMerge`) inherit `not_applicable` from their parts.
-    const pull = { forge: 'tangled', instance: 'tangled.org', repo: { forge: 'tangled', instance: 'tangled.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request' as const, number: '1' }
+    // Derived capabilities (`reviews.get`, `reviews.approve`) inherit `not_applicable` from their parts.
     expect(tangledProvider.support('threads.getReview')).toBe('not_applicable')
     expect(tangledProvider.support('threads.approve')).toBe('not_applicable')
-    expect(tangledProvider.support('threads.approveAndMerge')).toBe('not_applicable')
-    expect(tangledProvider.can('threads.approveAndMerge')).toBe(false)
-    await expect(tangledProvider.threads.approveAndMerge!(pull)).rejects.toThrow('tangled has no threads.approveAndMerge')
   })
 
   it('reports experimental and unverified declarations as true, and keeps them in the declared capabilities', () => {
@@ -193,14 +189,6 @@ describe('capability table', () => {
     expect(declaredCapabilities(giteeProvider).writes.comment.issue).toBe('unverified')
   })
 
-  it('reports a composed capability as emulated, and as unverified in the declared capabilities when a part is', () => {
-    const provider = gitee({ auth }).create()
-
-    expect(provider.capabilities.writes.upsertComment).toMatchObject({ issue: 'emulated', pull_request: 'emulated' })
-    expect(declaredCapabilities(provider).writes.upsertComment).toMatchObject({ issue: 'unverified', pull_request: 'unverified' })
-    expect(declaredCapabilities(github({ auth }).create()).writes.upsertComment.issue).toBe('emulated')
-  })
-
   it('emulates a single-item read from its listing, at the level the spec sets', () => {
     expect(bitbucket({ auth }).create().support('threads.getComment', 'pull_request')).toBe('emulated')
     expect(bitbucket({}).create().support('threads.getComment', 'pull_request')).toBe('emulated')
@@ -210,7 +198,6 @@ describe('capability table', () => {
   })
 
   it('reports the strongest level across kinds without a kind', () => {
-    expect(github({ auth }).create().support('threads.upsertComment')).toBe('emulated')
     expect(gitee({ auth }).create().support('threads.comment')).toBe(true)
     expect(bitbucket({ auth }).create().support('threads.getComment')).toBe('emulated')
     expect(gitee({ auth }).create().can('threads.editComment')).toBe(true)

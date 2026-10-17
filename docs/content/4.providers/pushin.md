@@ -119,7 +119,6 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `notifications.markAllDone` | ∅ | ∅ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | ∅ | ∅ |
-| `writes.upsertComment` | ∅ | ∅ |
 | `writes.close` | ∅ | ∅ |
 | `writes.reopen` | ∅ | ∅ |
 | `writes.lock` | ∅ | ∅ |
@@ -133,7 +132,6 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `writes.setAssignees` | ∅ | ∅ |
 | `writes.requestReview` | ∅ | ∅ |
 | `writes.merge` | ∅ | ∅ |
-| `writes.approveAndMerge` | ∅ | ∅ |
 | `writes.updateBranch` | ∅ | ∅ |
 | `writes.transfer` | ∅ | ∅ |
 | `writes.markDuplicate` | ∅ | ∅ |

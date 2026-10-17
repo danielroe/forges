@@ -1755,10 +1755,6 @@
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.comment()`, per thread kind."
           },
-          "upsertComment": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all."
-          },
           "close": {
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.close()`, per thread kind."
@@ -1811,10 +1807,6 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.merge()`."
           },
-          "approveAndMerge": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Composed from `merge` and `reviews.approve`."
-          },
           "updateBranch": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.updateBranch()`."
@@ -1830,7 +1822,6 @@
         },
         "required": [
           "comment",
-          "upsertComment",
           "close",
           "reopen",
           "lock",
@@ -1844,12 +1835,11 @@
           "setAssignees",
           "requestReview",
           "merge",
-          "approveAndMerge",
           "updateBranch",
           "transfer",
           "markDuplicate"
         ],
-        "description": "Write verbs, per thread kind except `merge`, `approveAndMerge`, `updateBranch`, `transfer` and `markDuplicate`."
+        "description": "Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`."
       },
       "subscriptions": {
         "type": "object",
@@ -2580,7 +2570,7 @@
     "required": [
       "status"
     ],
-    "description": "What `threads.merge()` and `threads.approveAndMerge()` resolve with.",
+    "description": "What `threads.merge()` resolves with.",
     "x-forges-type": "MergeResult"
   },
   "Milestone": {
@@ -4472,25 +4462,6 @@
     ],
     "description": "What `threads.updateBranch()` resolves with.",
     "x-forges-type": "UpdateBranchResult"
-  },
-  "UpsertCommentResult": {
-    "type": "object",
-    "properties": {
-      "comment": {
-        "$ref": "#/components/schemas/Comment",
-        "description": "The comment that was created or edited."
-      },
-      "created": {
-        "type": "boolean",
-        "description": "`false` when a comment with the same key already existed, and was edited or already had the body."
-      }
-    },
-    "required": [
-      "comment",
-      "created"
-    ],
-    "description": "What `threads.upsertComment()` did.",
-    "x-forges-type": "UpsertCommentResult"
   },
   "User": {
     "type": "object",

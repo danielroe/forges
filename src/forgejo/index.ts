@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput } from '../define.ts'
+import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec, SupportInput } from '../define.ts'
 import type { FetchResult } from '../fetch.ts'
 import type {
   BaseOptions,
@@ -395,7 +395,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   /** The merge response has no body, and a merge scheduled until checks pass responds with `201`. */
-  async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+  async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}): Promise<MergeResult> {
     const ref = requireThread(thread, context)
     if (ref.kind !== 'pull_request') {
       throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -418,7 +418,6 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         fast_forward_only: repo.allow_fast_forward_only_merge,
       }, context)
     }
-    await hooks.beforeMerge?.()
     const response = await fetcher.raw(`${pull}/merge`, {
       method: 'POST',
       json: {

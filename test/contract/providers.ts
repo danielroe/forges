@@ -54,7 +54,7 @@ export interface ProviderContract {
     /** Requests to leave out when checking write order, such as session creation. */
     ignore?: RegExp
   }
-  /** Present when the forge supports approveAndMerge. */
+  /** Present when the forge supports approving and merging. */
   merge?: {
     /** Requests that resolve the allowed merge methods, in order; the last one is overridden to allow several. */
     reads: Call[]

@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
+import type { ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   BaseOptions,
@@ -205,7 +205,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
     }
 
     /** A merge that outlasts Bitbucket's own timeout responds with `202` and finishes in the background. */
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -222,7 +222,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         }
       }
       const method = mergeOptions.method ?? await resolveMergeMethod(ref, pull, mergeOptions.signal)
-      await hooks.beforeMerge?.()
       const { data, response } = await fetcher.json<BitbucketPullRequest | undefined>(`${threadPath(ref)}/merge`, {
         method: 'POST',
         json: { merge_strategy: toStrategy(method), message: mergeCommitMessage(mergeOptions) },

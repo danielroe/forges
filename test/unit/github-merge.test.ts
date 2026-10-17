@@ -1,4 +1,5 @@
 import type { FetchLike } from '../../src/fetch.ts'
+import type { MergeOptions } from '../../src/model.ts'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ForgeApiError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, MergeConflictError, UnsupportedOperationError } from '../../src/errors.ts'
 import { github } from '../../src/github/index.ts'
@@ -65,15 +66,13 @@ function forge(routes: Record<string, Reply | Reply[]>, options: { baseUrl?: str
   return {
     calls,
     aborted,
-    async merge({ approve = true, ...mergeOptions }: Parameters<typeof provider.threads.approveAndMerge>[1] & { approve?: boolean } = {}): Promise<unknown> {
-      const result = (approve ? provider.threads.approveAndMerge(pull, mergeOptions) : provider.threads.merge(pull, mergeOptions)).catch((error: unknown) => error)
+    async merge(mergeOptions: MergeOptions = {}): Promise<unknown> {
+      const result = provider.threads.merge(pull, mergeOptions).catch((error: unknown) => error)
       await vi.runAllTimersAsync()
       return result
     },
   }
 }
-
-const review = { 'POST /repos/acme/widgets/pulls/42/reviews': { status: 200, body: { id: 880099, state: 'APPROVED' } } }
 
 describe('github merging', () => {
   beforeEach(() => {
@@ -84,21 +83,19 @@ describe('github merging', () => {
     vi.useRealTimers()
   })
 
-  it('approves once, requests a direct merge, and polls until it merges', async () => {
+  it('requests a direct merge, and polls until it merges', async () => {
     const { merge, calls } = forge({
-      ...review,
       [`PUT ${ASYNC}`]: { status: 202, body: pending() },
       [`GET ${POLL}`]: [{ status: 200, body: pending() }, { status: 200, body: merged }],
     })
 
     expect(await merge({ method: 'squash', sha: SHA })).toEqual(result)
     expect(calls.map(({ method, path }) => `${method} ${path}`)).toEqual([
-      `POST ${PULL}/reviews`,
       `PUT ${ASYNC}`,
       `GET ${POLL}`,
       `GET ${POLL}`,
     ])
-    expect(calls[1]!.body).toEqual({ merge_method: 'squash', sha: SHA, merge_action: 'direct_merge' })
+    expect(calls[0]!.body).toEqual({ merge_method: 'squash', sha: SHA, merge_action: 'direct_merge' })
   })
 
   it('sends the repository\'s only merge method and the expected head sha', async () => {
@@ -108,14 +105,14 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ approve: false, sha: SHA })).toEqual(result)
+    expect(await merge({ sha: SHA })).toEqual(result)
     expect(calls.find(call => call.method === 'PUT')!.body).toEqual({ merge_method: 'rebase', sha: SHA, merge_action: 'direct_merge' })
   })
 
   it('sends the merge commit message without approving', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'squash', message: 'Release widgets', approve: false })).toEqual(result)
+    expect(await merge({ method: 'squash', message: 'Release widgets' })).toEqual(result)
     expect(calls).toHaveLength(1)
     expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_message: 'Release widgets' })
   })
@@ -123,14 +120,14 @@ describe('github merging', () => {
   it('sends the merge commit title next to the message', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'squash', title: 'Release widgets (#42)', message: 'Ships the widgets', approve: false })).toEqual(result)
+    expect(await merge({ method: 'squash', title: 'Release widgets (#42)', message: 'Ships the widgets' })).toEqual(result)
     expect(calls[0]!.body).toEqual({ merge_method: 'squash', merge_action: 'direct_merge', commit_title: 'Release widgets (#42)', commit_message: 'Ships the widgets' })
   })
 
   it('resolves without polling when the pull request is already merged', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: merged } })
 
-    expect(await merge({ method: 'merge', approve: false })).toEqual(result)
+    expect(await merge({ method: 'merge' })).toEqual(result)
     expect(calls).toHaveLength(1)
   })
 
@@ -140,7 +137,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: { status: 'failed', details: { message: 'Required status check "test" is failing' } } },
     })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(MergeBlockedError)
     expect(error).toMatchObject({ message: 'Required status check "test" is failing', status: 200, method: 'GET' })
     expect(calls.map(call => call.method)).toEqual(['PUT', 'GET'])
@@ -149,7 +146,7 @@ describe('github merging', () => {
   it('rejects a failed result returned with HTTP 200 from the merge request', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: { status: 'failed', details: { message: 'Head branch was modified' } } } })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(MergeBlockedError)
     expect(error).toMatchObject({ message: 'Head branch was modified', status: 200, method: 'PUT' })
     expect(calls).toHaveLength(1)
@@ -158,7 +155,7 @@ describe('github merging', () => {
   it('treats a merge queue entry as not merged', async () => {
     const { merge } = forge({ [`PUT ${ASYNC}`]: { status: 200, body: { status: 'enqueued', details: { message: 'Pull request is in the merge queue' } } } })
 
-    expect(await merge({ method: 'squash', approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(await merge({ method: 'squash' })).toBeInstanceOf(MergeBlockedError)
   })
 
   it('times out within the provider timeout, naming the pending request', async () => {
@@ -167,7 +164,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: pending() },
     }, { timeout: 5000 })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeTimeoutError)
     expect((error as ForgeTimeoutError).timeout).toBe(5000)
     expect(Date.now()).toBe(5000)
@@ -182,7 +179,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     }, { timeout: 5000 })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeTimeoutError)
     expect((error as Error).message).toContain(UUID)
     expect(calls.map(call => call.method)).toEqual(['PUT'])
@@ -196,7 +193,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     }, { timeout: 5000 })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeTimeoutError)
     expect(error).toMatchObject({ timeout: 5000, method: 'PUT', url: `https://api.github.com${ASYNC}` })
     expect((error as Error).message).toContain('may still complete')
@@ -213,7 +210,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged, delay: 20_000 },
     }, { timeout: 5000 })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeTimeoutError)
     expect((error as Error).message).toContain(UUID)
     expect(aborted).toEqual([`GET ${POLL}`])
@@ -224,7 +221,7 @@ describe('github merging', () => {
   it('rejects a pending result that carries no request id', async () => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 202, body: { status: 'pending', details: { message: 'Accepted' } } } })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeApiError)
     expect(error).toMatchObject({ status: 202 })
     expect(calls).toHaveLength(1)
@@ -236,21 +233,21 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ method: 'squash', sha: SHA, approve: false })).toEqual(result)
+    expect(await merge({ method: 'squash', sha: SHA })).toEqual(result)
     expect(calls.map(call => call.method)).toEqual(['PUT', 'GET'])
   })
 
   it.each(['Release widgets', ''])('refuses to adopt a pending request when a commit message is supplied (%j)', async (message) => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending() } })
 
-    expect(await merge({ method: 'squash', sha: SHA, message, approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(await merge({ method: 'squash', sha: SHA, message })).toBeInstanceOf(MergeBlockedError)
     expect(calls.map(call => call.method)).toEqual(['PUT'])
   })
 
   it.each(['Release widgets (#42)', ''])('refuses to adopt a pending request when a commit title is supplied (%j)', async (title) => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending() } })
 
-    expect(await merge({ method: 'squash', sha: SHA, title, approve: false })).toBeInstanceOf(MergeBlockedError)
+    expect(await merge({ method: 'squash', sha: SHA, title })).toBeInstanceOf(MergeBlockedError)
     expect(calls.map(call => call.method)).toEqual(['PUT'])
   })
 
@@ -260,7 +257,7 @@ describe('github merging', () => {
       [`GET ${POLL}`]: { status: 200, body: merged },
     })
 
-    expect(await merge({ method: 'squash', approve: false })).toEqual(result)
+    expect(await merge({ method: 'squash' })).toEqual(result)
   })
 
   it.each([
@@ -272,7 +269,7 @@ describe('github merging', () => {
   ])('refuses to adopt an existing pending request with a different %s', async (_, details) => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 409, body: pending(details) } })
 
-    const error = await merge({ method: 'squash', sha: SHA, approve: false })
+    const error = await merge({ method: 'squash', sha: SHA })
     expect(error).toBeInstanceOf(MergeBlockedError)
     expect(error).toMatchObject({ status: 409 })
     expect(calls).toHaveLength(1)
@@ -280,7 +277,7 @@ describe('github merging', () => {
 
   it('maps a 400 for a closed or draft pull request to MergeBlockedError', async () => {
     const { merge } = forge({ [`PUT ${ASYNC}`]: { status: 400, body: { message: 'Pull request is in draft state' } } })
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
 
     expect(error).toBeInstanceOf(MergeBlockedError)
     expect((error as Error).cause).toBeInstanceOf(ForgeApiError)
@@ -299,18 +296,16 @@ describe('github merging', () => {
 
     it('falls back to the synchronous merge endpoint when the asynchronous one is missing', async () => {
       const { merge, calls } = forge({
-        ...review,
         [`PUT ${ASYNC}`]: { status: 404, body: { message: 'Not Found' } },
         [`PUT ${PULL}/merge`]: { status: 200, body: { sha: SHA, merged: true, message: 'Pull Request successfully merged' } },
       }, { baseUrl })
 
       expect(await merge({ method: 'squash', sha: SHA, message: 'Release widgets' })).toEqual({ status: 'merged', sha: SHA, raw: { sha: SHA, merged: true, message: 'Pull Request successfully merged' } })
       expect(calls.map(({ method, path }) => `${method} ${path}`)).toEqual([
-        `POST ${PULL}/reviews`,
         `PUT ${ASYNC}`,
         `PUT ${PULL}/merge`,
       ])
-      expect(calls[2]!.body).toEqual({ merge_method: 'squash', sha: SHA, commit_message: 'Release widgets' })
+      expect(calls[1]!.body).toEqual({ merge_method: 'squash', sha: SHA, commit_message: 'Release widgets' })
     })
 
     it('keeps typed errors from the synchronous merge endpoint', async () => {
@@ -319,7 +314,7 @@ describe('github merging', () => {
         [`PUT ${PULL}/merge`]: { status: 409, body: { message: 'Head branch was modified' } },
       }, { baseUrl })
 
-      expect(await merge({ method: 'squash', sha: SHA, approve: false })).toBeInstanceOf(MergeConflictError)
+      expect(await merge({ method: 'squash', sha: SHA })).toBeInstanceOf(MergeConflictError)
     })
 
     it('surfaces a 404 from both endpoints', async () => {
@@ -328,7 +323,7 @@ describe('github merging', () => {
         [`PUT ${PULL}/merge`]: { status: 404, body: { message: 'Not Found' } },
       }, { baseUrl })
 
-      const error = await merge({ method: 'squash', approve: false })
+      const error = await merge({ method: 'squash' })
       expect(error).toBeInstanceOf(ForgeApiError)
       expect(error).toMatchObject({ status: 404, url: `${baseUrl}${PULL}/merge` })
       expect(calls).toHaveLength(2)
@@ -340,7 +335,7 @@ describe('github merging', () => {
         [`PUT ${PULL}/merge`]: { status: 200, body: { sha: SHA, merged: true, message: 'Pull Request successfully merged' }, delay: 20_000 },
       }, { baseUrl, timeout: 5000 })
 
-      const error = await merge({ method: 'squash', approve: false })
+      const error = await merge({ method: 'squash' })
       expect(error).toBeInstanceOf(ForgeTimeoutError)
       expect(error).toMatchObject({ timeout: 5000, method: 'PUT', url: `${baseUrl}${PULL}/merge` })
       expect((error as Error).message).toContain('may still complete')
@@ -352,7 +347,7 @@ describe('github merging', () => {
     it('does not fall back on a permission error', async () => {
       const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 403, body: { message: 'Resource not accessible by integration' } } }, { baseUrl })
 
-      expect(await merge({ method: 'squash', approve: false })).toBeInstanceOf(InsufficientScopeError)
+      expect(await merge({ method: 'squash' })).toBeInstanceOf(InsufficientScopeError)
       expect(calls).toHaveLength(1)
     })
 
@@ -362,7 +357,7 @@ describe('github merging', () => {
         [`GET ${POLL}`]: { status: 404, body: { message: 'Not Found' } },
       }, { baseUrl })
 
-      const error = await merge({ method: 'squash', approve: false })
+      const error = await merge({ method: 'squash' })
       expect(error).toBeInstanceOf(ForgeApiError)
       expect(error).toMatchObject({ status: 404 })
       expect(calls.map(call => call.method)).toEqual(['PUT', 'GET'])
@@ -375,7 +370,7 @@ describe('github merging', () => {
   ])('does not fall back on %s', async (_, baseUrl) => {
     const { merge, calls } = forge({ [`PUT ${ASYNC}`]: { status: 404, body: { message: 'Not Found' } } }, { baseUrl })
 
-    const error = await merge({ method: 'squash', approve: false })
+    const error = await merge({ method: 'squash' })
     expect(error).toBeInstanceOf(ForgeApiError)
     expect(error).toMatchObject({ status: 404 })
     expect(calls).toHaveLength(1)

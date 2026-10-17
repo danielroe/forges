@@ -125,7 +125,6 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | ❌ | ❌ |
-| `writes.upsertComment` | ❌ | ❌ |
 | `writes.close` | ❌ | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -139,7 +138,6 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `writes.setAssignees` | ❌ | ❌ |
 | `writes.requestReview` | ❌ | ❌ |
 | `writes.merge` | ❌ | ❌ |
-| `writes.approveAndMerge` | ❌ | ❌ |
 | `writes.updateBranch` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

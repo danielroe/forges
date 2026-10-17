@@ -274,24 +274,23 @@ describe.each(contracts)('contract: $name', (contract) => {
       })
       const instance = contract.create(fetch)
 
-      const error = await instance.threads.approveAndMerge!(threadRef()).catch((error: unknown) => error)
+      const error = await instance.threads.merge!(threadRef()).catch((error: unknown) => error)
       expect(error).toBeInstanceOf(MergeMethodRequiredError)
       expect((error as MergeMethodRequiredError).allowed.length).toBeGreaterThan(1)
       expect(calls.map(call => call.method)).toEqual(merge!.reads.map(() => 'GET'))
     })
 
-    it('approves then merges with the only allowed method', async () => {
+    it('merges with the only allowed method', async () => {
       const { instance, calls } = provider()
-      const result = await instance.threads.approveAndMerge!(threadRef())
+      const result = await instance.threads.merge!(threadRef())
 
       expect({ ...result, raw: undefined }).toEqual(merge!.result)
       expect(calls.map(({ method, url }) => ({ method, url }))).toEqual([
         ...merge!.reads,
-        { method: merge!.review.method, url: merge!.review.url },
         { method: merge!.merge.method, url: merge!.merge.url },
         ...merge!.settle ?? [],
       ])
-      expect(calls[merge!.reads.length + 1]!.body ?? '').toContain(merge!.merge.body)
+      expect(calls[merge!.reads.length]!.body ?? '').toContain(merge!.merge.body)
     })
 
     it('resolves an approval with the review from its one request', async () => {
@@ -749,7 +748,6 @@ describe.each(contracts)('contract: $name', (contract) => {
       ['threads.updateBranch', (forge: ForgeProvider) => forge.threads.updateBranch(threadRef())],
       ['threads.closingIssuesPage', (forge: ForgeProvider) => forge.threads.closingIssuesPage(threadRef())],
       ['threads.closingPullRequestsPage', (forge: ForgeProvider) => forge.threads.closingPullRequestsPage({ ...threadRef(), kind: 'issue' })],
-      ['threads.upsertComment', (forge: ForgeProvider) => forge.threads.upsertComment(threadRef(), { key: 'k', body: 'b' })],
       ['threads.reviewsPage', (forge: ForgeProvider) => forge.threads.reviewsPage(threadRef())],
       ['threads.createReview', (forge: ForgeProvider) => forge.threads.createReview(threadRef(), { event: 'approve' })],
       ['threads.submitReview', (forge: ForgeProvider) => forge.threads.submitReview({ forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, 'approve')],

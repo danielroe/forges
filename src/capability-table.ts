@@ -13,7 +13,7 @@ export interface CapabilityEntry {
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'upsertComment' | 'getComment' | 'getReview' | 'ciJob' | 'subscriptionSet' | 'approve' | 'approveAndMerge' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
+  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'getComment' | 'getReview' | 'ciJob' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
   write?: boolean
   /** The verbs need an account, so anonymous providers reject them. */
@@ -75,7 +75,6 @@ const TABLE = [
   { capability: 'notifications.markAllDone', account: true, write: true },
   { capability: 'notifications.unreadCount', account: true },
   { capability: 'writes.comment', write: true, perKind: true },
-  { capability: 'writes.upsertComment', write: true, derived: 'upsertComment', verbs: ['threads.upsertComment'] },
   { capability: 'writes.close', write: true, perKind: true },
   { capability: 'writes.reopen', write: true, perKind: true },
   { capability: 'writes.lock', write: true, spec: 'threads.locking', perKind: true, verbs: ['threads.lock', 'threads.unlock'] },
@@ -89,7 +88,6 @@ const TABLE = [
   { capability: 'writes.setAssignees', write: true, perKind: true },
   { capability: 'writes.requestReview', write: true, perKind: true },
   { capability: 'writes.merge', write: true },
-  { capability: 'writes.approveAndMerge', write: true, derived: 'approveAndMerge', verbs: ['threads.approveAndMerge'] },
   { capability: 'writes.updateBranch', write: true },
   { capability: 'writes.transfer', write: true },
   { capability: 'writes.markDuplicate', write: true },

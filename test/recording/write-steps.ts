@@ -3,6 +3,7 @@ import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
 import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, NotFoundError } from '../../src/errors.ts'
+import { upsertComment } from '../../src/helpers.ts'
 import { notificationThread } from '../../src/model.ts'
 
 /** What a write recording created before its steps ran, and the names its steps write. */
@@ -175,7 +176,7 @@ function threadWrites(kind: WriteKind): WriteStep[] {
         await context.wait(5_000)
       }
     } },
-    { name: `${prefix} upsert comment`, verb: 'threads.upsertComment', kind, run: (provider, manifest, context) => provider.threads.upsertComment(ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
+    { name: `${prefix} upsert comment`, verb: 'threads.editComment', kind, run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted comment from run ${manifest.run.id}.` }) },
     { name: `${prefix} delete comment`, verb: 'threads.deleteComment', kind, run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments[kind], 'a comment').ref) },
     { name: `${prefix} react`, verb: 'threads.react', kind, run: (provider, _manifest, context) => provider.threads.react(ref(context), '+1') },
     { name: `${prefix} unreact`, verb: 'threads.unreact', kind, run: (provider, _manifest, context) => provider.threads.unreact(ref(context), '+1') },
@@ -210,7 +211,7 @@ function commitWrites(): WriteStep[] {
     { name: 'commit hide comment', verb: 'threads.hideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.hideComment(need(context.comments.commit, 'a commit comment').ref, 'outdated') },
     { name: 'commit unhide comment', verb: 'threads.unhideComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.unhideComment(need(context.comments.commit, 'a commit comment').ref) },
     { name: 'commit get comment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comments.commit, 'a commit comment').ref) },
-    { name: 'commit upsert comment', verb: 'threads.upsertComment', kind: 'commit', run: (provider, manifest, context) => provider.threads.upsertComment(ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
+    { name: 'commit upsert comment', verb: 'threads.editComment', kind: 'commit', run: (provider, manifest, context) => upsertComment(provider, ref(context), { key: 'forges-fixture', body: `An upserted commit comment from run ${manifest.run.id}.` }) },
     { name: 'commit delete comment', verb: 'threads.deleteComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.deleteComment(need(context.comments.commit, 'a commit comment').ref) },
   ]
 }
@@ -465,7 +466,6 @@ export const WRITE_STEPS: WriteStep[] = [
     const pull = need(context.pulls[2], 'the third pull request')
     return provider.threads.updateBranch(pull.ref, { method: 'rebase', sha: need(pull.branches?.head.sha, 'the third pull head sha') })
   } },
-  { name: 'approve and merge', verb: 'threads.approveAndMerge', kind: 'pull_request', as: 'reviewer', run: (provider, manifest, context) => provider.threads.approveAndMerge(need(context.pulls[1], 'the second pull request').ref, { method: 'merge', title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` }) },
   { name: 'pull update branch', verb: 'threads.updateBranch', kind: 'pull_request', when: provider => provider.forge !== 'gitlab', run: (provider, _manifest, context) => provider.threads.updateBranch(need(context.pulls[2], 'the third pull request').ref) },
 
   { name: 'block for organization', verb: 'orgs.block', when: blocks, run: (provider, manifest) => provider.orgs.block(ownerOf(manifest), need(manifest.run.blocked, 'manifest.run.blocked')) },

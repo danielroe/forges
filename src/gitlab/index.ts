@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
+import type { ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   BaseOptions,
@@ -746,14 +746,13 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       }
     }
 
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be merged', context)
       }
       const method = await resolveMergeMethod(ref, mergeOptions.method, mergeOptions.signal)
       const message = mergeCommitMessage(mergeOptions)
-      await hooks.beforeMerge?.()
       const { data } = await fetcher.json<GitLabIssue>(`${threadPath(ref)}/merge`, {
         method: 'PUT',
         json: {

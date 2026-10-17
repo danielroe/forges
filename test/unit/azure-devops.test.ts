@@ -84,7 +84,8 @@ describe('azure devops', () => {
 
   it('approves with a vote of 10 and sets auto-complete for whenChecksPass', async () => {
     const { instance, calls } = provider({ ...me, 'PUT https://dev.azure.com/acme/Widgets/_apis/git/repositories/widgets/pullRequests/42/reviewers/me-0000?api-version=7.1': { status: 200, body: {} } })
-    await instance.threads.approveAndMerge!(pull, { method: 'squash', whenChecksPass: true })
+    await instance.threads.approve(pull)
+    await instance.threads.merge!(pull, { method: 'squash', whenChecksPass: true })
     const writes = calls.filter(call => call.method !== 'GET')
 
     expect(writes.map(call => [call.method, JSON.parse(call.body!)])).toEqual([

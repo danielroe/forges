@@ -46,18 +46,6 @@ export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv, declare
   return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<VerbKind, DeclaredSupport>
 }
 
-/** `upsertComment` is composed of listing, creating and editing a comment, so it needs all three for the kind. */
-export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<VerbKind, DeclaredSupport> {
-  if (spec.notApplicable?.includes('writes.upsertComment')) {
-    return NOT_APPLICABLE_KINDS
-  }
-  const parts = [spec.threads.commentsPage, spec.threads.comment, spec.threads.editComment]
-  return Object.fromEntries(KINDS.map(kind => [
-    kind,
-    composed(parts.map(part => resolve(part?.kinds[kind], env, declared)), 'emulated'),
-  ])) as Record<VerbKind, DeclaredSupport>
-}
-
 /** A single-item read the spec does not declare is emulated by walking its listing. */
 function readOrEmulated(read: DeclaredSupport, listing: DeclaredSupport, emulated: SupportInput | undefined, env: CapabilityEnv, declared: boolean): DeclaredSupport {
   if (read !== false) {
@@ -82,14 +70,6 @@ export function getReviewSupport(spec: ProviderSpec, env: CapabilityEnv, declare
 /** `ci.job`: declared, or emulated from `ci.jobsPage` for a job ref that names its run. */
 export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
   return readOrEmulated(resolve(spec.ci?.job?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.job, env, declared)
-}
-
-/** Support for the composed verb, requiring both approval and merging. */
-export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
-  const merge = resolve(spec.threads.merge?.support, env, declared)
-  const approve = resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env, declared)
-  const override = spec.threads.approveAndMerge ? resolve(spec.threads.approveAndMerge.support, env, declared) : undefined
-  return composed([merge, approve, ...override === undefined ? [] : [override]], override ?? merge)
 }
 
 function read(source: unknown, path: string): unknown {
@@ -130,8 +110,6 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return flags.webhook || (spec.notApplicable?.includes('sources.webhook') ? 'not_applicable' : false)
     case 'threadEvents':
       return threadEventKinds(spec, env, declared)
-    case 'upsertComment':
-      return upsertKinds(spec, env, declared)
     case 'getComment':
       return getCommentKinds(spec, env, declared)
     case 'getReview':
@@ -142,8 +120,6 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return resolveKinds((flags.readOnly ? unsupportedKinds(spec.threads.subscriptions) as KindVerb<unknown> | undefined : spec.threads.subscriptions)?.kinds, env, declared)
     case 'approve':
       return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env, declared)
-    case 'approveAndMerge':
-      return approveAndMergeSupport(spec, env, declared)
     case 'alertKinds':
       return Object.fromEntries(ALERT_KINDS.map(kind => [kind, resolve(spec.securityAlerts?.kinds[kind], env, declared)]))
     case 'eventKinds':
@@ -237,9 +213,6 @@ export function applyNotApplicable<T extends ProviderSpec>(spec: T): T {
   }
   if (absent.has('subscriptions.set')) {
     updated = update(updated, 'threads.subscriptions', notApplicableKinds, true)
-  }
-  if (absent.has('writes.approveAndMerge')) {
-    updated = update(updated, 'threads.approveAndMerge', notApplicable, true)
   }
   if (absent.has('securityAlerts')) {
     updated = update(updated, 'securityAlerts', declared => ({ ...declared as object, kinds: NOT_APPLICABLE_ALERTS }), true)
