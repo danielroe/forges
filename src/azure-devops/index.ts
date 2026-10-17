@@ -435,10 +435,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     return { thread, comment }
   }
 
-  /** WIQL runs against one project, and reaches work items only: Azure DevOps has no pull request search. */
+  /** WIQL runs against one project, named by `repo` or by `owner`, and reaches work items only: Azure DevOps has no pull request search. */
   async function searchThreadsPage(query: SearchQuery): Promise<Page<Thread>> {
-    if (!query.repo) {
-      throw new UnsupportedOperationError('Azure DevOps work item search is scoped to a project; pass `repo`', context)
+    const project = query.repo ?? (query.owner ? { forge: FORGE, instance, owner: query.owner, name: '', kind: 'namespace' as const } : undefined)
+    if (!project) {
+      throw new UnsupportedOperationError('Azure DevOps work item search is scoped to a project; pass `repo` or `owner`', context)
     }
     if (query.kind === 'pull_request') {
       return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Azure DevOps has no pull request search' }] }
@@ -446,7 +447,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const warnings: ForgeWarning[] = query.involves && isFirstPage(query.cursor)
       ? [{ code: 'filter_unsupported', message: 'Azure DevOps WIQL has no involves filter; it was ignored' }]
       : []
-    const page = await workItemPage(query.repo, {
+    const page = await workItemPage(project, {
       text: query.text,
       state: query.state ?? 'all',
       labels: query.labels,

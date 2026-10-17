@@ -552,7 +552,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         created_by: query.author,
         assigned_by: query.assignee,
         since: query.since?.toISOString(),
-        owner: query.repo?.owner,
+        owner: query.repo?.owner ?? query.owner,
         limit: query.perPage,
       },
       cursor: query.cursor,

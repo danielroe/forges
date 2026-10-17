@@ -518,7 +518,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const kinds = query.kind ? [query.kind] : ['issue', 'pull_request'] as const
       const page = await phased(kinds.map(kind => async (cursor?: Cursor): Promise<Page<Thread>> => {
         const merges = kind === 'pull_request'
-        const base = query.repo ? `${projectPath(query.repo)}/` : '/'
+        const base = query.repo ? `${projectPath(query.repo)}/` : query.owner ? `/groups/${encodeURIComponent(query.owner)}/` : '/'
         const result = await fetcher.page<GitLabIssue>(`${base}${merges ? 'merge_requests' : 'issues'}`, {
           query: {
             scope: query.repo ? undefined : 'all',

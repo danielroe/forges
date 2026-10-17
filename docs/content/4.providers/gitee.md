@@ -79,7 +79,7 @@ Gitee returns no more than the newest 100 commits and 200 files of a comparison,
 
 ## Search
 
-`search.threads()` only searches issues. If you search with `kind: 'pull_request'`, you get an empty page with a `kind_unsupported` warning.
+`search.threads()` only searches issues. If you search with `kind: 'pull_request'`, you get an empty page with a `kind_unsupported` warning. Gitee's issue search can't narrow to one owner either, so an `owner` without a `repo` is ignored, with a `filter_unsupported` warning.
 
 ## Webhooks
 

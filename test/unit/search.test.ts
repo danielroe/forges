@@ -1,4 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { azureDevOps } from '../../src/azure-devops/index.ts'
+import { fake } from '../../src/fake/index.ts'
+import { forgejo } from '../../src/forgejo/index.ts'
+import { gitea } from '../../src/gitea/index.ts'
+import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 
@@ -88,5 +93,71 @@ describe('queryRaw', () => {
     expect(first.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
     expect(next.warnings).toBeUndefined()
     expect(searches.every(url => !url.search.includes('stars'))).toBe(true)
+  })
+})
+
+describe('owner', () => {
+  function recording(body: unknown) {
+    const requests: URL[] = []
+    const fetch = async (url: string) => {
+      requests.push(new URL(url))
+      return Response.json(body)
+    }
+    return { requests, fetch }
+  }
+
+  it('narrows a GitHub thread search to the account, unless a repository is given', async () => {
+    const { requests, fetch } = recording({ items: [] })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt' })
+    await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } })
+
+    expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash user:nuxt is:issue', 'crash repo:acme/widgets is:issue'])
+  })
+
+  it('searches a GitLab group, subgroups included, through its issue and merge request listings', async () => {
+    const { requests, fetch } = recording([])
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform' })
+    await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform', cursor: first.cursor })
+
+    expect(requests.map(url => url.pathname)).toEqual(['/api/v4/groups/acme%2Fplatform/issues', '/api/v4/groups/acme%2Fplatform/merge_requests'])
+  })
+
+  it.each([['Forgejo', forgejo], ['Gitea', gitea]] as const)('passes it to the %s issue search', async (_, create) => {
+    const { requests, fetch } = recording([])
+    await create({ auth: { type: 'token', token: 't' }, fetch }).create().search.threadsPage({ text: 'crash', owner: 'acme' })
+
+    expect(requests[0]!.searchParams.get('owner')).toBe('acme')
+  })
+
+  it('searches the work items of the Azure DevOps project it names', async () => {
+    const { requests, fetch } = recording({ workItems: [] })
+    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create()
+
+    await provider.search.threadsPage({ text: 'crash', owner: 'acme/Widgets' })
+
+    expect(requests.map(url => url.pathname)).toEqual(['/acme/Widgets/_apis/wit/wiql'])
+  })
+
+  it('warns where the search cannot filter by owner', async () => {
+    const { fetch } = recording([])
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+
+    const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme' })
+    const next = await provider.search.threadsPage({ text: 'crash', owner: 'acme', cursor: { token: '2' } })
+
+    expect(first.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
+    expect(next.warnings).toBeUndefined()
+  })
+
+  it('keeps the fake forge\'s threads of other owners out', async () => {
+    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } }).create()
+
+    const threads = await Array.fromAsync(forge.search.threads({ text: 'crash', owner: 'acme' }))
+
+    expect(threads.map(thread => thread.title)).toEqual(['Crash on start'])
   })
 })

@@ -167,6 +167,8 @@ When you call `search.threads()` without a `kind`, it uses GitHub's advanced sea
 const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
 ```
 
+To search every repository of a user or an organisation, pass `owner`, which becomes the `user:` qualifier. That covers the whole `nuxt` organisation, and unlike `queryRaw: 'org:nuxt'`, the same query also works on GitLab, Forgejo and Gitea. If you pass `repo` as well, `repo` wins.
+
 `search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any. When GitHub stops a search before it finishes, the page has a `search_incomplete` warning.
 
 ## GraphQL

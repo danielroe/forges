@@ -63,6 +63,8 @@ const repo = {
 
 Work items belong to a project and not to a repository, so their refs use a namespace ref: `{ owner: 'acme/Widgets', name: '', kind: 'namespace' }`. `repos.byOwner()` takes the same namespace ref and lists the repositories of the project. Azure DevOps doesn't sort them, so if you pass `sort`, you get a `sort_unsupported` warning.
 
+`search.threads()` runs WIQL, which only ever looks inside one project. Name the project with `repo`, or with an `owner` such as `'acme/Widgets'`. Without either, it rejects with `UnsupportedOperationError`.
+
 ## Work items as issues
 
 `threads.create({ kind: 'issue' })` creates a work item of the type `Issue`. If your process template uses a different type, such as `Product Backlog Item`, set the `issueType` option. The tags of a work item are its labels, and `System.AssignedTo` is its single assignee.

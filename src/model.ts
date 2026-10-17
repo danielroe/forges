@@ -1616,6 +1616,8 @@ export interface SearchQuery extends PageOptions {
   queryRaw?: string
   /** Limit to one repository. */
   repo?: RepoRef
+  /** Limit to the repositories of one account or namespace; `repo` wins when both are set. */
+  owner?: string
   kind?: 'issue' | 'pull_request'
   /** Defaults to every state. */
   state?: 'open' | 'closed' | 'all'

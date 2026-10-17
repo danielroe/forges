@@ -1236,7 +1236,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           const text = query.text?.toLowerCase()
           const state = query.state ?? 'all'
           const items = [...store.repos.values()]
-            .filter(entry => !query.repo || slugOf(entry.repo.ref) === slugOf(query.repo))
+            .filter(entry => query.repo ? slugOf(entry.repo.ref) === slugOf(query.repo) : !query.owner || entry.repo.ref.owner === query.owner)
             .flatMap(entry => [...entry.threads.values()].map(thread => thread.thread))
             .filter(thread => (thread.kind === 'issue' || thread.kind === 'pull_request')
               && (!query.kind || thread.kind === query.kind)

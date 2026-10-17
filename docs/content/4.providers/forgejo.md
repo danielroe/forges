@@ -95,7 +95,7 @@ A release in a feed has its title but not its ID, so its event has `kind: 'relea
 
 ## Search
 
-`search.threads()` searches across repositories. It has no `involves` filter, and it returns the results newest first, whatever `sort` or `direction` you pass. If you pass `involves`, you get a `filter_unsupported` warning, and if you pass a `sort` other than `relevance`, you get a `sort_unsupported` warning.
+`search.threads()` searches across repositories, or only those of one user or organisation when you pass `owner`. An `owner` that doesn't exist gets a `400`. It has no `involves` filter, and it returns the results newest first, whatever `sort` or `direction` you pass. If you pass `involves`, you get a `filter_unsupported` warning, and if you pass a `sort` other than `relevance`, you get a `sort_unsupported` warning.
 
 ## Webhooks
 

@@ -1155,6 +1155,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (query.repo) {
       qualifiers.push(`repo:${query.repo.owner}/${query.repo.name}`)
     }
+    else if (query.owner) {
+      qualifiers.push(`user:${query.owner}`)
+    }
     qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pr)')
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)

@@ -252,6 +252,9 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
     if (isFirstPage(query.cursor) && query.since) {
       warnings.push({ code: 'filter_unsupported', message: 'Gitee issue search has no update-time filter; it was ignored' })
     }
+    if (isFirstPage(query.cursor) && query.owner && !query.repo) {
+      warnings.push({ code: 'filter_unsupported', message: 'Gitee issue search has no owner filter; it was ignored' })
+    }
     const page = await numberedPage<GiteeIssue>('/search/issues', {
       q: query.text ?? '',
       repo: query.repo ? `${query.repo.owner}/${query.repo.name}` : undefined,
