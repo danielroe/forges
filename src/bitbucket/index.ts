@@ -529,6 +529,33 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
 
     return {
       traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
+      notApplicable: [
+        'repos.labels',
+        'repos.createLabel',
+        'repos.milestones',
+        'notifications.list',
+        'notifications.markRead',
+        'notifications.markDone',
+        'notifications.unsubscribe',
+        'notifications.markAllRead',
+        'notifications.markAllDone',
+        'notifications.unreadCount',
+        'reactions.list',
+        'writes.setLabels',
+        'writes.addLabels',
+        'writes.removeLabels',
+        'writes.setMilestone',
+        'writes.react',
+        'releases.list',
+        'releases.get',
+        'releases.latest',
+        'releases.getByTag',
+        'releases.downloadAsset',
+        'releases.create',
+        'releases.update',
+        'webhooks.deliveries',
+        'webhooks.redeliver',
+      ],
       normaliseMarkdown,
       users: {
         me: verb(true, async (options) => {

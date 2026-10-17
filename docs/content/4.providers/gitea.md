@@ -170,7 +170,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
-| `checks.rerun` | ❌ | ❌ |
+| `checks.rerun` | ∅ | ∅ |
 | `ci.runs` | ✅ | ❌ |
 | `ci.run` | ✅ | ✅ |
 | `ci.jobs` | ✅ | ✅ |
@@ -193,7 +193,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `reviews.submit` | ✅ | ❌ |
 | `reviews.approve` | ✅ | ❌ |
 | `reviews.reply` | ✅ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
+| `reviews.resolveThread` | ∅ | ∅ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
@@ -206,8 +206,8 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `webhooks.update` | ✅ | ❌ |
 | `webhooks.delete` | ✅ | ❌ |
 | `webhooks.rotateSecret` | ✅ | ❌ |
-| `webhooks.deliveries` | ❌ | ❌ |
-| `webhooks.redeliver` | ❌ | ❌ |
+| `webhooks.deliveries` | ∅ | ∅ |
+| `webhooks.redeliver` | ∅ | ∅ |
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |

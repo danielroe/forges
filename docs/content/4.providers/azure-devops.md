@@ -223,9 +223,9 @@ for await (const team of provider.orgs.teams(project)) {
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
 | `webhooks.delete` | ❌ | ❌ |
-| `webhooks.rotateSecret` | ❌ | ❌ |
-| `webhooks.deliveries` | ❌ | ❌ |
-| `webhooks.redeliver` | ❌ | ❌ |
+| `webhooks.rotateSecret` | ∅ | ∅ |
+| `webhooks.deliveries` | ∅ | ∅ |
+| `webhooks.redeliver` | ∅ | ∅ |
 | `search.threads` | ✅ | ❌ |
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
