@@ -12,7 +12,6 @@ import { createForges } from '../../src/provider.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
 import { sameRepo } from '../../src/web.ts'
-import { hangingFetch } from '../utils/fixtures.ts'
 
 const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 const ghes: RepoRef = { ...repo, instance: 'ghe.example.com' }
@@ -174,44 +173,6 @@ describe('createForges', () => {
     }
 
     expect(seen).toEqual([])
-  })
-
-  it('passes a repository read\'s options through to the provider it routes to', async () => {
-    const controller = new AbortController()
-    const reason = new Error('cancelled')
-    const { fetch, started } = hangingFetch()
-    const forges = createForges([github({ auth: { type: 'token', token: 't' }, fetch })])
-
-    const pending = forges.repos.get(repo, { signal: controller.signal })
-    await started
-    controller.abort(reason)
-
-    await expect(pending).rejects.toBe(reason)
-  })
-
-  it('lists the repositories of an owner from the provider it routes to', async () => {
-    const urls: string[] = []
-    const forges = createForges([github({ fetch: async (url) => {
-      urls.push(url)
-      return Response.json([])
-    } })])
-
-    await Array.fromAsync(forges.repos.byOwner({ ...repo, name: '', kind: 'namespace' }))
-
-    expect(urls).toEqual(['https://api.github.com/orgs/acme/repos'])
-  })
-
-  it('passes a latest release read\'s options through to the provider it routes to', async () => {
-    const controller = new AbortController()
-    const reason = new Error('cancelled')
-    const { fetch, started } = hangingFetch()
-    const forges = createForges([github({ auth: { type: 'token', token: 't' }, fetch })])
-
-    const pending = forges.releases.latest(repo, { signal: controller.signal })
-    await started
-    controller.abort(reason)
-
-    await expect(pending).rejects.toBe(reason)
   })
 })
 

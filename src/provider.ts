@@ -1410,27 +1410,13 @@ export interface Forges<Kind extends ForgeKind = never> {
     /** Lists the notifications of every provider, provider by provider. */
     list: (options?: Omit<NotificationListOptions, 'cursor'>) => ForgeIterable<Notification>
   }
-  /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
-  repos: {
-    /** Reads a repository from the provider it belongs to. */
-    get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
-    /** Lists the repositories of an owner from the provider it belongs to. */
-    byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeIterable<Repo>
-  }
   threads: {
-    /** Reads a thread from the provider it belongs to. */
-    get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
-    /** Grouped per provider, results in input order. An unregistered origin is a per-item warning. */
+    /**
+     * Reads threads from several forges at once: groups the refs by the provider each belongs to, batches each group
+     * with that provider's `threads.getMany()`, and returns the results in input order. A ref whose origin is not
+     * registered becomes a per-item warning.
+     */
     getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
-  }
-  releases: {
-    /** Lists the releases of a repository. */
-    list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
-    /** The latest release of a repository, if any. */
-    latest: (repo: RepoRef, options?: BaseOptions) => Promise<Release | undefined>
-  }
-  securityAlerts: {
-    list: SecurityAlertsApi['list']
   }
   /**
    * Searches every provider that supports search, reading pages as the
@@ -1523,14 +1509,19 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
  * @param factories Factories such as `github()`, or providers that already exist.
  * @example
  * ```ts
- * import { createForges, github, gitlab } from 'forges'
+ * import { createForges, github, gitlab, UnknownForgeError } from 'forges'
  *
  * const forges = createForges([
  *   github({ auth: { type: 'token', token: process.env.GITHUB_TOKEN! } }),
  *   gitlab(),
  * ])
  *
- * const repo = await forges.repos.get({ forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' })
+ * const ref = { forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' } as const
+ * const provider = forges.for(ref)
+ * if (!provider) {
+ *   throw new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, ref)
+ * }
+ * const repo = await provider.repos.get(ref)
  * ```
  */
 export function createForges<const T extends readonly (ForgeProviderFactory | ForgeProvider)[]>(factories: T): Forges<RegisteredKinds<T>> {
@@ -1544,13 +1535,6 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
     seen.add(key)
   }
   const find = (ref: ForgeOrigin) => providers.find(provider => provider.forge === ref.forge && provider.instance === ref.instance)
-  const route = (ref: ForgeOrigin): ForgeProvider => {
-    const provider = find(ref)
-    if (!provider) {
-      throw new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, { forge: ref.forge, instance: ref.instance })
-    }
-    return provider
-  }
   const parseUrl = (url: string | URL) => {
     for (const provider of providers) {
       const parsed = provider.parseUrl(url)
@@ -1566,12 +1550,7 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,
-    repos: {
-      get: (ref, options) => route(ref).repos.get(ref, options),
-      byOwner: (owner, query) => route(owner).repos.byOwner(owner, query),
-    },
     threads: {
-      get: (ref, options) => route(ref).threads.get(ref, options),
       async getMany(refs, options) {
         const groups = new Map<ForgeProvider, number[]>()
         const results: GetManyResult[] = Array.from({ length: refs.length })
@@ -1593,11 +1572,6 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
         return results
       },
     },
-    releases: {
-      list: (repo, options) => route(repo).releases.list(repo, options),
-      latest: (repo, options) => route(repo).releases.latest(repo, options),
-    },
-    securityAlerts: { list: (repo, options) => route(repo).securityAlerts.list(repo, options) },
     search: {
       threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threadsPage(page)),
       repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.reposPage(page)),
