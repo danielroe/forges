@@ -29,11 +29,9 @@ describe('keys and slugs', () => {
   it('round-trips repo, thread and notification keys', () => {
     const nested = { forge: 'gitlab', instance: 'git.example.com:8443', owner: 'acme/platform', name: 'widgets' }
     const tangledThread = { forge: 'tangled', instance: 'tangled.org', repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' }, kind: 'issue' as const, number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }
-    const other = { ...pull, kind: 'other' as const, typeRaw: 'Epic', number: '7' }
 
     expect(parseRepoKey(repoKey(nested))).toEqual(nested)
     expect(parseThreadKey(threadKey(tangledThread))).toEqual(tangledThread)
-    expect(parseThreadKey(threadKey(other))).toEqual(other)
     expect(parseNotificationKey('github:github.com:notification/901')).toEqual({ forge: 'github', instance: 'github.com', id: '901' })
     expect(parseRepoKey('nonsense')).toBeUndefined()
     expect(parseThreadKey('github:github.com/acme/widgets#bogus/1')).toBeUndefined()
@@ -47,7 +45,6 @@ describe('keys and slugs', () => {
   it('prints slugs people type', () => {
     expect(repoSlug(repo)).toBe('acme/widgets')
     expect(threadSlug(pull)).toBe('acme/widgets#42')
-    expect(threadSlug({ ...pull, kind: 'commit', number: 'abcdef1234567' })).toBe('acme/widgets@abcdef1')
   })
 })
 
@@ -117,7 +114,8 @@ describe('web links', () => {
   ] as const)('builds raw file and commit URLs on %s', (_, provider, target, raw, commit) => {
     expect(provider.urlFor({ raw: { repo: target, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe(raw)
     expect(provider.urlFor({ commit: { repo: target, sha } })).toBe(commit)
-    expect(provider.parseUrl(commit)).toMatchObject({ thread: { kind: 'commit', number: sha } })
+    expect(provider.parseUrl(commit)).toMatchObject({ commit: { repo: { owner: target.owner, name: target.name }, sha } })
+    expect(provider.parseUrl(commit)?.thread).toBeUndefined()
     expect(provider.urlFor({ commit: { repo: target, sha: '' } })).toBeUndefined()
   })
 
@@ -335,6 +333,18 @@ describe('web links', () => {
     expect(gh.referenceFor(pull)).toBe('acme/widgets#42')
     expect(gl.referenceFor(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
     expect(bb.referenceFor({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
+  })
+
+  it('writes each forge\'s reference to a commit', () => {
+    const sha = '0123456789abcdef0123456789abcdef01234567'
+    const glRepo = { ...repo, forge: 'gitlab', instance: 'gitlab.com' }
+    const bbRepo = { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }
+
+    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha }, { from: repo })).toBe('0123456')
+    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha })).toBe('acme/widgets@0123456')
+    expect(gl.referenceFor({ forge: 'gitlab', instance: 'gitlab.com', repo: glRepo, sha })).toBe('acme/widgets@01234567')
+    expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbRepo, sha }, { from: bbRepo })).toBe('0123456789ab')
+    expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbRepo, sha })).toBe(`https://bitbucket.org/acme/widgets/commits/${sha}`)
   })
 })
 

@@ -182,15 +182,15 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `orgs.teams` | ✅ | ✅ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `orgs.block` | ❌ | ❌ |
-| `threads.get` | issue, PR, commit | issue, PR, commit |
+| `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.closingIssues` | ✅ | ✅ |
 | `threads.closingPullRequests` | ✅ | ✅ |
-| `threads.events` | issue, PR, commit | ❌ |
-| `threads.comments` | issue, PR, commit | commit |
-| `threads.getComment` | issue, PR, commit (emulated) | commit (unverified) |
-| `threads.createComment` | issue, PR, commit | ❌ |
+| `threads.events` | issue, PR | ❌ |
+| `threads.comments` | issue, PR | ❌ |
+| `threads.getComment` | issue, PR | ❌ |
+| `threads.createComment` | issue, PR | ❌ |
 | `threads.updateComment` | issue, PR | ❌ |
 | `threads.deleteComment` | issue, PR | ❌ |
 | `threads.hideComment` | ❌ | ❌ |
@@ -245,10 +245,16 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ✅ | ✅ |
+| `commits.getComment` | emulated | unverified |
+| `commits.createComment` | ✅ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |

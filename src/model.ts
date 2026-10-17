@@ -288,11 +288,8 @@ export interface Repo {
   raw: unknown
 }
 
-/**
- * Kind of thread. `'other'` holds forge-specific subjects with no shared kind
- * (check suites, epics); `ThreadRef.typeRaw` names them.
- */
-export type ThreadKind = 'issue' | 'pull_request' | 'discussion' | 'commit' | 'other'
+/** Kind of thread. */
+export type ThreadKind = 'issue' | 'pull_request' | 'discussion'
 
 /**
  * Reference to a thread. A thread `number` is unique only within its repo, so
@@ -304,9 +301,8 @@ export interface ThreadRef extends ForgeOrigin {
   /** Forge-native subject type, for example `PullRequest` or `MergeRequest`. */
   typeRaw?: string
   /**
-   * Per-repo thread number, the commit sha for `kind: 'commit'`, or the
-   * forge-native id for `kind: 'other'`. Absent when the forge did not
-   * identify the thread; such a ref cannot be fetched or keyed until enriched.
+   * Per-repo thread number. Absent when the forge did not identify the
+   * thread; such a ref cannot be fetched or keyed until enriched.
    */
   number?: string
   /**
@@ -928,12 +924,12 @@ export interface Commit {
     deletions: number
     total?: number
   }
-  /** Present on `contents.getCommit`; absent from listings. */
+  /** Present on `commits.get`; absent from listings. */
   files?: ChangedFile[]
   raw: unknown
 }
 
-/** Filters for `contents.commits()`. */
+/** Filters for `commits.list()`. */
 export interface CommitQuery extends PageOptions {
   /** Branch, tag or sha to walk back from. */
   ref?: string
@@ -1163,7 +1159,7 @@ export interface ForgeWarning {
  */
 export type AuthorAssociation = 'owner' | 'member' | 'collaborator' | 'contributor' | 'first_time_contributor' | 'first_timer' | 'none' | 'unknown'
 
-/** An issue, pull request, discussion or commit conversation. */
+/** An issue, pull request or discussion. */
 export interface Thread {
   ref: ResolvedThreadRef
   kind: ThreadKind
@@ -1227,6 +1223,13 @@ export interface CommentRef extends ForgeOrigin {
   id: string
 }
 
+/** Reference to a comment on a commit. */
+export interface CommitCommentRef extends ForgeOrigin {
+  commit: CommitRef
+  /** Forge-native comment id. */
+  id: string
+}
+
 /** A comment on a thread. */
 export interface Comment {
   ref: ResolvedCommentRef
@@ -1246,6 +1249,11 @@ export interface Comment {
     resolved: boolean
   }
   raw: unknown
+}
+
+/** A comment on a commit. */
+export interface CommitComment extends Omit<Comment, 'ref' | 'thread'> {
+  ref: CommitCommentRef
 }
 
 /** Whether the account gets notifications for a thread. */
@@ -1314,7 +1322,7 @@ export type EventAction
 
 /** Typed detail for an event. Discriminated by `type`. */
 export type EventDetail
-  = | { type: 'comment', comment?: CommentRef, body?: string }
+  = | { type: 'comment', comment?: CommentRef | CommitCommentRef, body?: string }
     | { type: 'review_comment', comment?: CommentRef, body?: string, path?: string, line?: number }
     /** A review. `review` has the `id` that `threads.reviews()` lists for the review, where the forge reports it. */
     | { type: 'review', state: ReviewState, stateRaw?: string, body?: string, review?: ReviewRef }
@@ -1378,6 +1386,8 @@ export interface ForgeEvent extends ForgeOrigin {
   actor?: Actor
   repo?: RepoRef
   thread?: ThreadRef
+  /** The commit the event concerns, such as the commit of a commit comment. */
+  commit?: CommitRef
   /** What the event's source says about `thread`, as of when the forge built the payload. */
   threadSnapshot?: ThreadSnapshot
   /** Whether anyone can see the event, where the forge says so. `false` covers private and internal repositories alike. */
@@ -1427,6 +1437,7 @@ export type NotificationReason
 /** What a notification is about. Not every notification concerns a thread. */
 export type NotificationSubject
   = | { type: 'thread', thread: ThreadRef }
+    | { type: 'commit', commit: CommitRef }
     | { type: 'repo', repo: RepoRef }
     | { type: 'actor', actor: Actor }
     | { type: 'release', release: ReleaseRef }
@@ -1452,10 +1463,10 @@ export interface Notification {
   lastReadAt?: Date
   url?: string
   /**
-   * The latest comment on a thread subject, where the forge links it. Read it with `threads.getComment()`.
-   * Absent when the latest activity is not a comment on the thread, such as a review comment.
+   * The latest comment on a thread or commit subject, where the forge links it. Read it with `threads.getComment()`
+   * or `commits.getComment()`. Absent when the latest activity is not a comment on the subject, such as a review comment.
    */
-  latestComment?: ResolvedCommentRef
+  latestComment?: ResolvedCommentRef | CommitCommentRef
   /** Unnormalised forge payload, retained for fidelity. */
   raw: unknown
 }
@@ -1878,7 +1889,7 @@ export function repoRef(origin: ForgeOrigin, slug: string): RepoRef {
  * fetched. Every thread, comment and review read from a forge carries one.
  */
 export interface ResolvedThreadRef extends ThreadRef {
-  /** Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`. */
+  /** Per-repo thread number. */
   number: string
 }
 
@@ -1892,13 +1903,22 @@ export function isResolvedThread(thread: ThreadRef): thread is ResolvedThreadRef
   return typeof thread.number === 'string' && thread.number !== ''
 }
 
-/**
- * Stable identity key for a thread. `'other'` threads are keyed by their
- * forge-native type so unrelated subjects with the same id never collide.
- */
+/** Stable identity key for a thread. */
 export function threadKey(thread: ResolvedThreadRef): string {
-  const kind = thread.kind === 'other' ? `other:${thread.typeRaw ?? 'unknown'}` : thread.kind
-  return `${repoKey(thread.repo)}#${kind}/${thread.number}`
+  return `${repoKey(thread.repo)}#${thread.kind}/${thread.number}`
+}
+
+/** Stable identity key for a commit: the {@link repoKey} of its repository and the commit's sha. */
+export function commitKey(ref: CommitRef): string {
+  return `${repoKey(ref.repo)}#commit/${ref.sha}`
+}
+
+/** Reads a {@link commitKey} back. */
+export function parseCommitKey(key: string): CommitRef | undefined {
+  const hash = key.indexOf('#')
+  const repo = hash > 0 && key.startsWith('#commit/', hash) ? parseRepoKey(key.slice(0, hash)) : undefined
+  const sha = key.slice(hash + '#commit/'.length)
+  return repo && sha && !sha.includes('#') ? { forge: repo.forge, instance: repo.instance, repo, sha } : undefined
 }
 
 /** A string that identifies a notification, for use as a key in a map or a store. */
@@ -1906,7 +1926,7 @@ export function notificationKey(ref: NotificationRef): string {
   return `${ref.forge}:${ref.instance}:notification/${ref.id}`
 }
 
-const THREAD_KINDS = new Set<string>(['issue', 'pull_request', 'discussion', 'commit'])
+const THREAD_KINDS = new Set<string>(['issue', 'pull_request', 'discussion'])
 
 /** Reads a {@link threadKey} back. */
 export function parseThreadKey(key: string): ResolvedThreadRef | undefined {
@@ -1922,11 +1942,7 @@ export function parseThreadKey(key: string): ResolvedThreadRef | undefined {
   if (number.includes('#')) {
     return undefined
   }
-  const origin = { forge: repo.forge, instance: repo.instance }
-  if (kindText.startsWith('other:')) {
-    return { ...origin, repo, kind: 'other', typeRaw: kindText.slice('other:'.length), number }
-  }
-  return THREAD_KINDS.has(kindText) ? { ...origin, repo, kind: kindText as ThreadKind, number } : undefined
+  return THREAD_KINDS.has(kindText) ? { forge: repo.forge, instance: repo.instance, repo, kind: kindText as ThreadKind, number } : undefined
 }
 
 /** Reads a {@link notificationKey} back. */
@@ -1940,10 +1956,9 @@ export function parseNotificationKey(key: string): NotificationRef | undefined {
   return id ? { forge: key.slice(0, colon), instance: key.slice(colon + 1, marker), id } : undefined
 }
 
-/** `acme/widgets#42`, or `acme/widgets@abc1234` for a commit; uses the display number where the forge has one. */
+/** `acme/widgets#42`; uses the display number where the forge has one. */
 export function threadSlug(ref: ThreadRef): string {
-  const number = ref.displayNumber ?? ref.number ?? '?'
-  return ref.kind === 'commit' ? `${repoSlug(ref.repo)}@${number.slice(0, 7)}` : `${repoSlug(ref.repo)}#${number}`
+  return `${repoSlug(ref.repo)}#${ref.displayNumber ?? ref.number ?? '?'}`
 }
 
 /** The thread a notification concerns, or `undefined` for repo, actor and other subjects. */
@@ -1962,6 +1977,19 @@ export function parseCommentKey(key: string): ResolvedCommentRef | undefined {
   const thread = marker > 0 && key.startsWith('#comment/', marker) ? parseThreadKey(key.slice(0, marker)) : undefined
   const id = key.slice(marker + '#comment/'.length)
   return thread && id ? { forge: thread.forge, instance: thread.instance, thread, id } : undefined
+}
+
+/** Stable identity key for a commit comment: the {@link commitKey} of its commit and the comment's forge-native id. */
+export function commitCommentKey(ref: CommitCommentRef): string {
+  return `${commitKey(ref.commit)}#comment/${ref.id}`
+}
+
+/** Reads a {@link commitCommentKey} back. */
+export function parseCommitCommentKey(key: string): CommitCommentRef | undefined {
+  const marker = key.indexOf('#', key.indexOf('#') + 1)
+  const commit = marker > 0 && key.startsWith('#comment/', marker) ? parseCommitKey(key.slice(0, marker)) : undefined
+  const id = key.slice(marker + '#comment/'.length)
+  return commit && id ? { forge: commit.forge, instance: commit.instance, commit, id } : undefined
 }
 
 /** Stable identity key for a release: the {@link repoKey} of its repository and the release's forge-native id. */
@@ -1990,8 +2018,12 @@ export interface AffectedKeys {
   repos: string[]
   /** {@link threadKey}s. */
   threads: string[]
+  /** {@link commitKey}s. */
+  commits: string[]
   /** {@link commentKey}s of the comment that a `comment` or `review_comment` event names in `detail.comment`. */
   comments: string[]
+  /** {@link commitCommentKey}s of the comment that a `comment` event on a commit names in `detail.comment`. */
+  commitComments: string[]
   /** {@link releaseKey}s. */
   releases: string[]
   /** {@link notificationKey}s. */
@@ -2022,7 +2054,9 @@ export interface AffectedKeys {
 export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
   const repos = new Set<string>()
   const threads = new Set<string>()
+  const commits = new Set<string>()
   const comments = new Set<string>()
+  const commitComments = new Set<string>()
   const releases = new Set<string>()
   const unresolved = new Map<string, ThreadRef>()
   const repo = (ref: RepoRef | undefined) => ref && repos.add(repoKey(ref))
@@ -2043,12 +2077,24 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
     repo(ref.repo)
     releases.add(releaseKey(ref))
   }
+  const commit = (ref: CommitRef | undefined) => {
+    if (ref) {
+      repo(ref.repo)
+      commits.add(commitKey(ref))
+    }
+  }
+  const comment = (ref: ResolvedCommentRef | CommitCommentRef) => 'commit' in ref
+    ? commitComments.add(commitCommentKey(ref))
+    : comments.add(commentKey(ref))
 
   if ('subject' in item) {
     const subject = item.subject
     switch (subject.type) {
       case 'thread':
         thread(subject.thread)
+        break
+      case 'commit':
+        commit(subject.commit)
         break
       case 'repo':
         repo(subject.repo)
@@ -2064,17 +2110,22 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
         break
     }
     if (item.latestComment) {
-      comments.add(commentKey(item.latestComment))
+      comment(item.latestComment)
     }
   }
   else {
     repo(item.repo)
     thread(item.thread)
+    commit(item.commit)
     const detail = item.detail
     switch (detail?.type) {
       case 'comment':
       case 'review_comment':
-        if (detail.comment) {
+        if (detail.comment && 'commit' in detail.comment) {
+          commit(detail.comment.commit)
+          comment(detail.comment)
+        }
+        else if (detail.comment) {
           thread(detail.comment.thread)
           if (isResolvedThread(detail.comment.thread)) {
             comments.add(commentKey({ ...detail.comment, thread: detail.comment.thread }))
@@ -2108,7 +2159,7 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
         break
       case 'referenced':
         if (detail.from && 'sha' in detail.from) {
-          repo(detail.from.repo)
+          commit(detail.from)
         }
         else {
           thread(detail.from)
@@ -2121,7 +2172,9 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
   return {
     repos: [...repos],
     threads: [...threads],
+    commits: [...commits],
     comments: [...comments],
+    commitComments: [...commitComments],
     releases: [...releases],
     notifications: 'subject' in item ? [notificationKey(item.ref)] : [],
     unresolved: [...unresolved.values()],

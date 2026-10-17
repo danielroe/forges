@@ -593,9 +593,11 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         branchesPage: contentsVerb('branchesPage'),
         tagsPage: contentsVerb('tagsPage'),
         resolveRef: contentsVerb('resolveRef'),
-        commitsPage: contentsVerb('commitsPage'),
-        getCommit: contentsVerb('commit'),
         compare: contentsVerb('compare'),
+      },
+      commits: {
+        listPage: contentsVerb('commitsPage'),
+        get: verb(true, async ({ repo, sha }, options) => (await knot()).commit(repo, sha, options)),
       },
       users: {
         get: verb(true, async (login, options) => {

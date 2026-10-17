@@ -1,4 +1,4 @@
-import type { EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, ThreadRef, ThreadSnapshot } from '../model.ts'
+import type { CommitRef, EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, ThreadRef, ThreadSnapshot } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { GitLabUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
@@ -32,6 +32,7 @@ interface GitLabWebhookPayload {
   }
   issue?: GitLabHookThread & { iid: number }
   merge_request?: GitLabHookThread & { iid: number }
+  commit?: { id?: string }
   changes?: Record<string, unknown>
   commits?: Array<{ id: string, message: string, timestamp?: string, url?: string, author?: { name?: string } }>
   ref?: string
@@ -258,7 +259,7 @@ function eventKindFor(payload: GitLabWebhookPayload): EventKind {
   const attributes = payload.object_attributes
   switch (payload.object_kind) {
     case 'note':
-      return attributes?.type === 'DiffNote' || attributes?.position ? 'review_comment' : 'comment'
+      return attributes?.noteable_type !== 'Commit' && (attributes?.type === 'DiffNote' || attributes?.position) ? 'review_comment' : 'comment'
     case 'push':
       return 'commit'
     case 'emoji':
@@ -317,6 +318,9 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
   const thread: ThreadRef | undefined = repo && subject
     ? { forge: FORGE, instance, repo, kind: subject.kind, number: String(subject.iid) }
     : undefined
+  const commit: CommitRef | undefined = repo && !thread && payload.object_kind === 'note' && payload.commit?.id
+    ? { forge: FORGE, instance, repo, sha: payload.commit.id }
+    : undefined
   const snapshot = thread && snapshotOf(instance, payload.object_kind === 'note' ? payload.merge_request ?? payload.issue : attributes)
 
   const level = repoLevel(instance, payload, user?.login ?? payload.user_username ?? 'someone', repo)
@@ -368,13 +372,15 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     kindRaw: action ? `${payload.object_kind}.${action}` : payload.object_kind ?? event,
     action: action === 'update' && attributes?.oldrev ? 'synchronised' : action === 'merge' ? 'merged' : eventAction(action),
     actionRaw: action,
-    detail: kind === 'comment' || kind === 'review_comment'
+    detail: kind === 'review_comment'
       ? { type: kind, comment: thread && attributes?.id !== undefined ? { forge: FORGE, instance, thread, id: String(attributes.id) } : undefined, body: attributes?.note }
-      : kind === 'state_change'
-        ? { type: 'state_change', state: action === 'merge' ? 'merged' : action === 'close' ? 'closed' : 'open' }
-        : kind === 'review'
-          ? { type: 'review', state: 'approved', stateRaw: action, review: thread && payload.user?.username ? { forge: FORGE, instance, thread, id: approvalId(payload.user) } : undefined }
-          : undefined,
+      : kind === 'comment'
+        ? { type: kind, comment: attributes?.id === undefined ? undefined : thread ? { forge: FORGE, instance, thread, id: String(attributes.id) } : commit && { forge: FORGE, instance, commit, id: String(attributes.id) }, body: attributes?.note }
+        : kind === 'state_change'
+          ? { type: 'state_change', state: action === 'merge' ? 'merged' : action === 'close' ? 'closed' : 'open' }
+          : kind === 'review'
+            ? { type: 'review', state: 'approved', stateRaw: action, review: thread && payload.user?.username ? { forge: FORGE, instance, thread, id: approvalId(payload.user) } : undefined }
+            : undefined,
     summary: payload.object_kind === 'note'
       ? `${user?.login ?? 'someone'} commented`
       : `${user?.login ?? 'someone'} ${action ? `${action} ` : ''}${payload.object_kind ?? event}`.trim(),
@@ -382,6 +388,7 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     actor: user,
     repo,
     thread,
+    commit,
     threadSnapshot: snapshot,
     source: 'webhook',
     payload,

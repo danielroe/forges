@@ -19,8 +19,11 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitComment,
+  CommitCommentRef,
   CommitFilesInput,
   CommitQuery,
+  CommitRef,
   CommitSearchQuery,
   CompareOptions,
   Comparison,
@@ -179,8 +182,8 @@ export interface ForgeOptionsBase {
   onRateLimit?: FetcherOptions['onRateLimit']
 }
 
-/** Per-thread-kind support. `'other'` subjects have no verbs, so they have no entry. */
-export type PerKind = Record<Exclude<ThreadKind, 'other'>, Support>
+/** Per-thread-kind support. */
+export type PerKind = Record<ThreadKind, Support>
 
 /** Support per security alert kind. */
 export type AlertSupport = Record<'dependency' | 'code_scanning' | 'secret' | 'advisory', Support>
@@ -414,14 +417,30 @@ export interface ForgeCapabilities {
     tags: Support
     /** Support for `contents.resolveRef()`. */
     resolveRef: Support
-    /** Support for `contents.commits()`. */
-    commits: Support
-    /** Support for `contents.getCommit()`. */
-    getCommit: Support
     /** Support for `contents.compare()`. */
     compare: Support
     /** Support for `contents.commitFiles()`. */
     commitFiles: Support
+  }
+  commits: {
+    /** Support for `commits.list()`. */
+    list: Support
+    /** Support for `commits.get()`. */
+    get: Support
+    /** Support for `commits.comments()`. */
+    comments: Support
+    /** Support for `commits.getComment()`. */
+    getComment: Support
+    /** Support for `commits.createComment()`. */
+    createComment: Support
+    /** Support for `commits.updateComment()`. */
+    updateComment: Support
+    /** Support for `commits.deleteComment()`. */
+    deleteComment: Support
+    /** Support for `commits.hideComment()`. */
+    hideComment: Support
+    /** Support for `commits.unhideComment()`. */
+    unhideComment: Support
   }
   releases: {
     /** Support for `releases.list()`. */
@@ -827,7 +846,33 @@ export interface CiApi {
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
 }
 
-/** Files, trees, branches, tags and commits of a repository. */
+/** Commits of a repository and the comments on them. */
+export interface CommitsApi {
+  /** Lists the commits that lead to `ref`, or to the default branch. */
+  list: (repo: RepoRef, query?: CommitQuery) => ForgeListing<Commit>
+  /** One commit, with its files and stats. */
+  get: (ref: CommitRef, options?: BaseOptions) => Promise<Commit>
+  /** Lists the comments on a commit. */
+  comments: (ref: CommitRef, options?: PageOptions) => ForgeListing<CommitComment>
+  /**
+   * Reads one comment on a commit. Where the forge has no endpoint for it (`capabilities.commits.getComment` is
+   * `'emulated'`), it lists the comments of the commit page by page until the id matches, which costs a request for
+   * each page read.
+   */
+  getComment: (ref: CommitCommentRef, options?: BaseOptions) => Promise<CommitComment>
+  /** Comments on a commit. */
+  createComment: (ref: CommitRef, body: string, options?: BaseOptions) => Promise<CommitComment>
+  /** Replaces the body of a comment on a commit. */
+  updateComment: (ref: CommitCommentRef, body: string, options?: BaseOptions) => Promise<CommitComment>
+  /** Deletes a comment on a commit. A repeat can reject with `NotFoundError` once the comment is gone. */
+  deleteComment: (ref: CommitCommentRef, options?: BaseOptions) => Promise<void>
+  /** Hides a comment on a commit behind a note of the reason, as `threads.hideComment()` does for a thread comment. A repeat leaves it hidden. */
+  hideComment: (ref: CommitCommentRef, reason: HideCommentReason, options?: BaseOptions) => Promise<void>
+  /** Shows a hidden comment on a commit again. A repeat leaves it shown. */
+  unhideComment: (ref: CommitCommentRef, options?: BaseOptions) => Promise<void>
+}
+
+/** Files, trees, branches and tags of a repository, comparisons between refs, and commits that write files. */
 export interface ContentsApi {
   /**
    * One file's contents. Binary-safe: `content` is a `Uint8Array` unless the
@@ -852,10 +897,6 @@ export interface ContentsApi {
   tags: (repo: RepoRef, options?: PageOptions) => ForgeListing<Tag>
   /** Resolves a branch, tag or sha to a full commit sha; a full sha is returned as is. */
   resolveRef: (repo: RepoRef, ref: string, options?: BaseOptions) => Promise<string>
-  /** Lists the commits that lead to `ref`, or to the default branch. */
-  commits: (repo: RepoRef, query?: CommitQuery) => ForgeListing<Commit>
-  /** One commit, with its files and stats. */
-  getCommit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
   compare: (repo: RepoRef, base: string, head: string, options?: CompareOptions) => Promise<Comparison>
   /**
@@ -1247,6 +1288,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   readonly installations: InstallationsApi
   readonly releases: ReleasesApi
   readonly contents: ContentsApi
+  readonly commits: CommitsApi
   readonly checks: ChecksApi
   readonly ci: CiApi
   readonly users: UsersApi
@@ -1305,12 +1347,12 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
   /**
    * How to mention `ref` in Markdown on this forge (`#42`, `!42`,
-   * `acme/widgets#42`), short when written in `from`; the thread URL where the
-   * forge has no reference syntax.
-   * @param ref The thread to mention.
+   * `acme/widgets#42`, `acme/widgets@abc1234`), short when written in `from`;
+   * the page URL where the forge has no reference syntax.
+   * @param ref The thread or commit to mention.
    * @param options The repository the reference is written in, so that a reference within it is short.
    */
-  referenceFor: (ref: ThreadRef, options?: ReferenceOptions) => string | undefined
+  referenceFor: (ref: ThreadRef | CommitRef, options?: ReferenceOptions) => string | undefined
 }
 
 type UnionToIntersection<U> = (U extends unknown ? (union: U) => void : never) extends (intersection: infer I) => void ? I : never

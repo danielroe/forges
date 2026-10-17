@@ -278,8 +278,10 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
       getFile: verb(true, file),
       treePage: verb(true, treePage),
       resolveRef: verb(true, async (repo, ref, resolveOptions) => (await commitAt(repo, ref, resolveOptions?.signal)).hash),
-      commitsPage: verb(true, commitsPage),
-      getCommit: verb(true, commit),
+    },
+    commits: {
+      listPage: verb(true, commitsPage),
+      get: verb(true, ({ repo, sha }, options) => commit(repo, sha, options)),
     },
     webhooks: {},
     scopes: cloudflareArtifactsScopesFor,

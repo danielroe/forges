@@ -42,6 +42,23 @@ describe('upsertComment', () => {
     expect(comments).toHaveLength(2)
   })
 
+  it('upserts a keyed comment on a commit', async () => {
+    const forge = fake({ seed })
+    const commit = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, sha: 'abc1234def' }
+    forge.store.repos.get('acme/widgets')!.commitComments.set(commit.sha, [
+      { ref: { forge: 'fake', instance: 'fake.test', commit, id: 'old' }, body: `Deploying\n\n${commentMarker('deploy')}`, createdAt: new Date('2026-02-01T00:00:00Z'), raw: {} },
+    ])
+
+    const recent = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed', since: new Date('2026-03-01T00:00:00Z') })
+    const edited = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed again' })
+    const comments = await Array.fromAsync(forge.commits.comments(commit))
+
+    expect(recent.created).toBe(true)
+    expect(recent.comment.ref.commit).toEqual(commit)
+    expect(edited).toMatchObject({ created: false, comment: { ref: { id: recent.comment.ref.id }, body: `Deployed again\n\n${commentMarker('deploy')}` } })
+    expect(comments).toHaveLength(2)
+  })
+
   describe('retrying a keyed comment', () => {
     const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
 

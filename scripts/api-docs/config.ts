@@ -51,7 +51,7 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 }
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
-  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
+  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'CommitCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'commitKey', 'parseCommitKey', 'commitCommentKey', 'parseCommitCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
   { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Comment|Milestone|Label|GetMany|SearchQuery|Merge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
@@ -140,10 +140,10 @@ export const PAGES: PageConfig[] = [
     slug: 'repositories',
     title: 'Repositories',
     icon: 'i-lucide-folder-git-2',
-    description: 'Repositories, files, releases, accounts, teams and search.',
-    overview: 'The `repos`, `contents`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
+    description: 'Repositories, files, commits, releases, accounts, teams and search.',
+    overview: 'The `repos`, `contents`, `commits`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
     intro: OPERATIONS,
-    sections: [{ namespaces: ['repos', 'contents', 'releases', 'users', 'installations', 'orgs', 'search'] }],
+    sections: [{ namespaces: ['repos', 'contents', 'commits', 'releases', 'users', 'installations', 'orgs', 'search'] }],
   },
   {
     slug: 'notifications',

@@ -21,6 +21,7 @@ export const ROOT_TYPES = [
   'Collaborator',
   'Comment',
   'Commit',
+  'CommitComment',
   'Comparison',
   'Contributor',
   'ContributorStats',

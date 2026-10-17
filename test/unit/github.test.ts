@@ -170,10 +170,9 @@ describe('github provider', () => {
     expect(notification(null).latestComment).toBeUndefined()
   })
 
-  it('refuses to address an unresolved or other thread', async () => {
+  it('refuses to address an unresolved thread', async () => {
     const { provider } = tokenProvider()
     await expect(provider.threads.get({ ...pull, number: undefined })).rejects.toThrow(UnresolvedThreadError)
-    await expect(provider.threads.get({ ...pull, kind: 'other', typeRaw: 'Release', number: '1' })).rejects.toThrow(UnresolvedThreadError)
   })
 
   it('normalises reasons and keeps the native string', () => {
@@ -379,11 +378,6 @@ describe('github discussions', () => {
       await expect(provider.threads.setMilestone(issue, 'v3.0')).rejects.toThrow('No milestone titled v3.0')
       expect(requests.filter(request => request.method === 'PATCH')).toEqual([])
     })
-  })
-
-  it('refuses to close a commit', async () => {
-    const { provider } = tokenProvider()
-    await expect(provider.threads.close!({ ...pull, kind: 'commit', number: 'adbc974' })).rejects.toThrow(UnsupportedOperationError)
   })
 })
 
@@ -794,7 +788,7 @@ describe('github repository and thread metadata', () => {
 describe('github moderation', () => {
   const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
   const org = { forge: 'github', instance: 'github.com', owner: 'acme', name: '', kind: 'namespace' } as const
-  const commit = { forge: 'github', instance: 'github.com', repo, kind: 'commit', number: HEAD } as const
+  const commit = { forge: 'github', instance: 'github.com', repo, sha: HEAD } as const
 
   it('locks and unlocks an issue or pull request through REST, with the reason GitHub names', async () => {
     const { provider, calls } = tokenProvider()
@@ -823,7 +817,6 @@ describe('github moderation', () => {
       ['LockLockable', { id: 'D_kwDOAAB5ac4AAQ1f' }],
       ['UnlockLockable', { id: 'D_kwDOAAB5ac4AAQ1f' }],
     ])
-    await expect(provider.threads.lock(commit)).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('hides and unhides a comment by its node id, with the classifier GitHub names', async () => {
@@ -831,8 +824,8 @@ describe('github moderation', () => {
 
     await provider.threads.hideComment({ forge: 'github', instance: 'github.com', thread: issue, id: '770001' }, 'low_quality')
     await provider.threads.unhideComment({ forge: 'github', instance: 'github.com', thread: pull, id: '770001' })
-    await provider.threads.hideComment({ forge: 'github', instance: 'github.com', thread: commit, id: '770005' }, 'spam')
-    await provider.threads.unhideComment({ forge: 'github', instance: 'github.com', thread: commit, id: '770005' })
+    await provider.commits.hideComment({ forge: 'github', instance: 'github.com', commit, id: '770005' }, 'spam')
+    await provider.commits.unhideComment({ forge: 'github', instance: 'github.com', commit, id: '770005' })
     await provider.threads.hideComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'DC_kwDOAAB5ac4AAQ2a' }, 'outdated')
     await provider.threads.unhideComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'DC_kwDOAAB5ac4AAQ2a' })
 
@@ -1439,7 +1432,7 @@ describe('github contents', () => {
 
     const branches = await Array.fromAsync(provider.contents.branches(repo))
     const tags = await Array.fromAsync(provider.contents.tags(repo))
-    const commit = await provider.contents.getCommit(repo, sha)
+    const commit = await provider.commits.get({ forge: 'github', instance: 'github.com', repo, sha })
     const comparison = await provider.contents.compare(repo, 'v1.0.0', 'main')
 
     expect(branches[0]).toMatchObject({ name: 'main', sha, isProtected: true })
@@ -1456,7 +1449,7 @@ describe('github contents', () => {
       'GET https://api.github.com/repos/acme/widgets/commits': { status: 200, body: [{ sha, commit: { message: 'fix: handle empty input', author: { name: 'Octo Cat' } }, author: {}, committer: {} }] },
     })
 
-    const { items } = await provider.contents.commits(repo).page()
+    const { items } = await provider.commits.list(repo).page()
 
     expect(items[0]!.author).toEqual({ actor: undefined, name: 'Octo Cat', email: undefined, date: undefined })
     expect(items[0]!.committer?.actor).toBeUndefined()
@@ -1979,13 +1972,18 @@ describe('github graphql', () => {
 })
 
 describe('github provider edge cases', () => {
-  const commit = { forge: 'github', instance: 'github.com', repo, kind: 'commit', number: 'abc123' } as const
+  const commit = { forge: 'github', instance: 'github.com', repo, sha: 'abc123' } as const
 
-  it('reads commit comments as comment events', async () => {
-    const forge = github({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([{ id: 7, body: 'Nice', created_at: '2025-01-01T00:00:00Z', user: { login: 'octocat' } }]) })
-    const [event] = (await forge.threads.events(commit).page()).items
+  it('lists the comments on a commit, each naming the commit', async () => {
+    const urls: string[] = []
+    const forge = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
+      urls.push(url)
+      return Response.json([{ id: 7, body: 'Nice', created_at: '2025-01-01T00:00:00Z', user: { login: 'octocat' } }])
+    } })
+    const [comment] = (await forge.commits.comments(commit).page()).items
 
-    expect(event).toMatchObject({ kind: 'comment', detail: { type: 'comment', body: 'Nice', comment: { id: '7' } } })
+    expect(urls).toEqual(['https://api.github.com/repos/acme/widgets/commits/abc123/comments'])
+    expect(comment).toMatchObject({ body: 'Nice', ref: { id: '7', commit } })
   })
 
   it('rejects removing a reaction when the viewer cannot be read', async () => {

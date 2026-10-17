@@ -42,7 +42,7 @@ export { github } from './github/index.ts'
 export type { GitHubAuth, GitHubGraphQL, GitHubOptions, GitHubProvider, GitHubTokenAuth, GitHubTokenKind, TypedGraphQLDocument } from './github/index.ts'
 export { gitlab } from './gitlab/index.ts'
 export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
-export { affectedKeys, commentKey, DATE_FIELDS, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
+export { affectedKeys, commentKey, commitCommentKey, commitKey, DATE_FIELDS, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseCommitCommentKey, parseCommitKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
   AddCollaboratorResult,
@@ -68,6 +68,8 @@ export type {
   Comment,
   CommentRef,
   Commit,
+  CommitComment,
+  CommitCommentRef,
   CommitFilesInput,
   CommitQuery,
   CommitRef,
@@ -201,6 +203,7 @@ export type {
   CiApi,
   CloseOptions,
   CloseReason,
+  CommitsApi,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,

@@ -111,7 +111,7 @@ describe('capability table', () => {
   })
 
   it('reads thread events for every kind a signed-in provider reads threads of', () => {
-    const kinds = ['issue', 'pull_request', 'discussion', 'commit'] as const
+    const kinds = ['issue', 'pull_request', 'discussion'] as const
 
     for (const [name, create] of providers.filter(([name]) => name.endsWith('token'))) {
       const provider = create()

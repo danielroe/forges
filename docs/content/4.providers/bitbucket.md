@@ -132,17 +132,17 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `orgs.block` | ❌ | ❌ |
-| `threads.get` | PR, commit | PR, commit |
+| `threads.get` | PR | PR |
 | `threads.list` | PR | PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
-| `threads.events` | PR, commit | PR, commit |
-| `threads.comments` | PR, commit | PR, commit |
-| `threads.getComment` | PR (emulated), commit (emulated) | PR (unverified), commit (unverified) |
-| `threads.createComment` | PR, commit | ❌ |
-| `threads.updateComment` | PR, commit | ❌ |
-| `threads.deleteComment` | PR, commit | ❌ |
+| `threads.events` | PR | PR |
+| `threads.comments` | PR | PR |
+| `threads.getComment` | PR (emulated) | PR (unverified) |
+| `threads.createComment` | PR | ❌ |
+| `threads.updateComment` | PR | ❌ |
+| `threads.deleteComment` | PR | ❌ |
 | `threads.hideComment` | ❌ | ❌ |
 | `threads.reactions` | ❌ | ❌ |
 | `threads.react` | ❌ | ❌ |
@@ -195,10 +195,16 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ✅ | ✅ |
+| `commits.getComment` | emulated | unverified |
+| `commits.createComment` | ✅ | ❌ |
+| `commits.updateComment` | ✅ | ❌ |
+| `commits.deleteComment` | ✅ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |

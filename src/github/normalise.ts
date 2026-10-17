@@ -10,6 +10,8 @@ import type {
   Collaborator,
   Comment,
   Commit,
+  CommitComment,
+  CommitRef,
   Contributor,
   ContributorStats,
   EventDetail,
@@ -303,18 +305,16 @@ export function toTeam(instance: string, org: RepoRef, raw: GitHubTeam): Team {
   }
 }
 
-export function toThreadKind(subjectType: string): ThreadKind {
+export function toThreadKind(subjectType: string): ThreadKind | undefined {
   switch (subjectType) {
     case 'PullRequest':
       return 'pull_request'
     case 'Discussion':
       return 'discussion'
-    case 'Commit':
-      return 'commit'
     case 'Issue':
       return 'issue'
     default:
-      return 'other'
+      return undefined
   }
 }
 
@@ -375,8 +375,12 @@ export function toSubject(instance: string, raw: GitHubNotification): Notificati
   const repo = toRepoRef(instance, raw.repository)
   const type = raw.subject.type
   const kind = toThreadKind(type)
-  if (kind !== 'other') {
+  if (kind) {
     return { type: 'thread', thread: { forge: FORGE, instance, repo, kind, typeRaw: type, number: numberFromUrl(raw.subject.url) } }
+  }
+  const sha = type === 'Commit' ? numberFromUrl(raw.subject.url) : undefined
+  if (sha) {
+    return { type: 'commit', commit: { forge: FORGE, instance, repo, sha } }
   }
   if (type === 'Release') {
     return { type: 'release', release: { forge: FORGE, instance, repo, id: lastSegment(raw.subject.url) ?? raw.id } }
@@ -479,10 +483,17 @@ export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
 }
 
 export function toComment(thread: ResolvedThreadRef, raw: GitHubComment): Comment {
+  return { ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) }, ...commentFields(thread.instance, raw) }
+}
+
+export function toCommitComment(commit: CommitRef, raw: GitHubComment): CommitComment {
+  return { ref: { forge: FORGE, instance: commit.instance, commit, id: String(raw.id) }, ...commentFields(commit.instance, raw) }
+}
+
+function commentFields(instance: string, raw: GitHubComment): Omit<Comment, 'ref'> {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
     body: raw.body ?? '',
-    author: toActor(thread.instance, raw.user),
+    author: toActor(instance, raw.user),
     ...toAuthorAssociation(raw.author_association),
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),

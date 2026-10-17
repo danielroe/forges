@@ -42,12 +42,13 @@ describe('github activity feeds', () => {
     expect(merged).toMatchObject({ source: 'poll', kindRaw: 'PullRequestEvent.merged', occurredAt: new Date('2026-01-02T03:04:05Z') })
   })
 
-  it('puts a commit comment on its commit thread', () => {
+  it('puts a commit comment on its commit', () => {
     const payload = { action: 'created', comment: { id: 9, body: 'Nice', commit_id: 'abc123' } }
     const feed = completeEvent(toGitHubFeedEvent('github.com', feedItem('CommitCommentEvent', payload)))
 
     expect(shape(feed)).toEqual(shape(webhook('commit_comment', payload)))
-    expect(feed).toMatchObject({ kind: 'comment', thread: { kind: 'commit', number: 'abc123' }, detail: { type: 'comment', comment: { id: '9', thread: { kind: 'commit', number: 'abc123' } }, body: 'Nice' } })
+    expect(feed).toMatchObject({ kind: 'comment', commit: { sha: 'abc123' }, detail: { type: 'comment', comment: { id: '9', commit: { sha: 'abc123' } }, body: 'Nice' } })
+    expect(feed.thread).toBeUndefined()
   })
 
   it('reports whether a feed event is public where the feed says', () => {

@@ -136,12 +136,12 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `orgs.teams` | ✅ | ❌ |
 | `orgs.teamMembers` | ✅ | ❌ |
 | `orgs.block` | ✅ | ❌ |
-| `threads.get` | issue, PR, commit | issue, PR, commit |
+| `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
-| `threads.events` | issue, PR, commit | issue, PR, commit |
+| `threads.events` | issue, PR | issue, PR |
 | `threads.comments` | issue, PR | issue, PR |
 | `threads.getComment` | issue, PR | issue, PR |
 | `threads.createComment` | issue, PR | ❌ |
@@ -199,10 +199,16 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.getCommit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |

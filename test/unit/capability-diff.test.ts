@@ -189,8 +189,8 @@ describe('capability diff', () => {
 
   it('opens the capabilities without credentials when one of them regresses', () => {
     const providers = (lost: boolean) => [
-      provider('github', 'GitHub', { capabilities: { 'contents.commits': 'native' }, anonymous: { 'contents.commits': lost ? 'unverified' : 'native' } }),
-      provider('gitlab', 'GitLab', { capabilities: { 'contents.commits': 'native' }, anonymous: { 'contents.commits': 'native' } }),
+      provider('github', 'GitHub', { capabilities: { 'commits.list': 'native' }, anonymous: { 'commits.list': lost ? 'unverified' : 'native' } }),
+      provider('gitlab', 'GitLab', { capabilities: { 'commits.list': 'native' }, anonymous: { 'commits.list': 'native' } }),
     ]
 
     expect(render(snapshot(...providers(false)), snapshot(...providers(true)))).toContain([
@@ -198,7 +198,7 @@ describe('capability diff', () => {
       '',
       '| | GitHub | GitLab |',
       '| --- | :-: | :-: |',
-      '| `contents.commits` | 🟥 | 🟦 |',
+      '| `commits.list` | 🟥 | 🟦 |',
     ].join('\n'))
   })
 

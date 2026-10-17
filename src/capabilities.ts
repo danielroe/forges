@@ -1,11 +1,12 @@
 import type { CapabilityEntry } from './capability-table.ts'
-import type { AlertKind, CapabilityEnv, DeclaredSupport, KindVerb, ProviderSpec, SupportInput, Verb, VerbKind } from './define.ts'
+import type { AlertKind, CapabilityEnv, DeclaredSupport, KindVerb, ProviderSpec, SupportInput, Verb } from './define.ts'
+import type { ThreadKind } from './model.ts'
 import type { ForgeCapabilities, ForgeProvider } from './provider.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 
 export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret', 'advisory']
 
-export const KINDS: VerbKind[] = ['issue', 'pull_request', 'discussion', 'commit']
+export const KINDS: ThreadKind[] = ['issue', 'pull_request', 'discussion']
 
 /**
  * The level `support` declares. Unless `declared` is set, `'experimental'` and
@@ -16,8 +17,8 @@ export function resolve(support: SupportInput | undefined, env: CapabilityEnv, d
   return declared || (level !== 'experimental' && level !== 'unverified') ? level : true
 }
 
-export function resolveKinds(kinds: Partial<Record<VerbKind, SupportInput>> | undefined, env: CapabilityEnv, declared = false) {
-  return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env, declared)])) as Record<VerbKind, DeclaredSupport>
+export function resolveKinds(kinds: Partial<Record<ThreadKind, SupportInput>> | undefined, env: CapabilityEnv, declared = false) {
+  return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env, declared)])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** A capability composed of `parts` is `'unverified'` when any part is. */
@@ -26,10 +27,10 @@ function composed(parts: DeclaredSupport[], level: DeclaredSupport): DeclaredSup
 }
 
 /** A thread's events are read for each kind the provider reads threads of, at the weaker of the two levels. */
-export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<VerbKind, DeclaredSupport> {
+export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<ThreadKind, DeclaredSupport> {
   const events = resolve(spec.threads.eventsPage.support, env, declared)
   const threads = resolveKinds(spec.threads.get.kinds, env, declared)
-  return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<VerbKind, DeclaredSupport>
+  return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** A single-item read the spec does not declare is emulated by walking its listing. */
@@ -42,10 +43,10 @@ function readOrEmulated(read: DeclaredSupport, listing: DeclaredSupport, emulate
 }
 
 /** `threads.getComment`, per kind: declared, or emulated from `threads.comments`. */
-export function getCommentKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<VerbKind, DeclaredSupport> {
+export function getCommentKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<ThreadKind, DeclaredSupport> {
   const read = resolveKinds(spec.threads.getComment?.kinds, env, declared)
   const listing = resolveKinds(spec.threads.commentsPage.kinds, env, declared)
-  return Object.fromEntries(KINDS.map(kind => [kind, readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env, declared)])) as Record<VerbKind, DeclaredSupport>
+  return Object.fromEntries(KINDS.map(kind => [kind, readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env, declared)])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** `threads.getReview`: declared, or emulated from `threads.reviews`. */
@@ -56,6 +57,11 @@ export function getReviewSupport(spec: ProviderSpec, env: CapabilityEnv, declare
 /** `ci.getJob`: declared, or emulated from `ci.jobs` for a job ref that names its run. */
 export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
   return readOrEmulated(resolve(spec.ci?.getJob?.support, env, declared), resolve(spec.ci?.jobsPage?.support, env, declared), spec.emulated?.getJob, env, declared)
+}
+
+/** `commits.getComment`: declared, or emulated from `commits.commentsPage`. */
+export function commitCommentSupport(spec: ProviderSpec, env: CapabilityEnv, declared = false): DeclaredSupport {
+  return readOrEmulated(resolve(spec.commits?.getComment?.support, env, declared), resolve(spec.commits?.commentsPage?.support, env, declared), spec.emulated?.getCommitComment, env, declared)
 }
 
 function read(source: unknown, path: string): unknown {
@@ -84,6 +90,8 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return getReviewSupport(spec, env, declared)
     case 'ciJob':
       return ciJobSupport(spec, env, declared)
+    case 'commitComment':
+      return commitCommentSupport(spec, env, declared)
     case 'subscriptionSet':
       return resolveKinds(flags.readOnly ? undefined : spec.threads.subscriptions?.kinds, env, declared)
     case 'approve':

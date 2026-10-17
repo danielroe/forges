@@ -213,8 +213,6 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     switch (ref.kind) {
       case 'pull_request':
         return `${repoPath(ref.repo)}/pulls/${encodeURIComponent(ref.number)}`
-      case 'commit':
-        return `${repoPath(ref.repo)}/git/commits/${encodeURIComponent(ref.number)}`
       case 'discussion':
         throw new UnsupportedOperationError(`${profile.forge} has no discussions`, context)
       default:
@@ -363,7 +361,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
     const { data } = await fetcher.json<ForgejoNotification>(`/notifications/threads/${encodeURIComponent(ref.id)}`, { signal })
     const number = numberFromUrl(data.subject.url)
-    if (!number || toThreadKind(data.subject.type) === 'commit') {
+    if (!number || !toThreadKind(data.subject.type)) {
       throw new UnsupportedOperationError('Only issue and pull request threads can be unsubscribed from', context)
     }
     const [owner = '', name = ''] = data.repository.full_name.split('/')
@@ -891,8 +889,6 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
         return sha
       }),
-      commitsPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-      getCommit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, {
           query: { files: options?.files === false ? false : undefined },
@@ -908,6 +904,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
       }),
       commitFiles: verb(true, commitFiles),
+    },
+    commits: {
+      listPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
     },
     releases: {
       listPage: verb(true, releasesPage),
@@ -985,14 +985,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toReviewComment(pull, data)
       }),
-      get: perKind({ issue: true, pull_request: true, commit: true }, get),
+      get: perKind(ISSUE_AND_PULL, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
-        if (ref.kind === 'commit') {
-          return { items: [] }
-        }
         return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
