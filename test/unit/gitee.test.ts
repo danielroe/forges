@@ -28,11 +28,11 @@ describe('gitee', () => {
     const forge = gitee({ fetch: async (url) => {
       urls.push(url)
       return Response.json([])
-    } }).create()
+    } })
 
-    await forge.search.reposPage({ text: 'widgets' })
-    const created = await forge.search.reposPage({ text: 'widgets', sort: 'created' })
-    await forge.search.reposPage({ text: 'widgets', sort: 'stars' })
+    await forge.search.repos({ text: 'widgets' }).page()
+    const created = await forge.search.repos({ text: 'widgets', sort: 'created' }).page()
+    await forge.search.repos({ text: 'widgets', sort: 'stars' }).page()
 
     expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual([null, null, 'stars_count'])
     expect(created.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
@@ -40,11 +40,11 @@ describe('gitee', () => {
 
   it('reports the total Gitee sends in `total_count`, falling back to `total_page`', async () => {
     const branch = { name: 'main', commit: { sha: 'a' } }
-    const counted = gitee({ fetch: async () => Response.json([branch], { headers: { total_count: '15', total_page: '5' } }) }).create()
-    const paged = gitee({ fetch: async () => Response.json([branch], { headers: { total_page: '5' } }) }).create()
+    const counted = gitee({ fetch: async () => Response.json([branch], { headers: { total_count: '15', total_page: '5' } }) })
+    const paged = gitee({ fetch: async () => Response.json([branch], { headers: { total_page: '5' } }) })
 
-    const countedPage = await counted.contents.branchesPage(repo, { perPage: 3 })
-    const pagedPage = await paged.contents.branchesPage(repo, { perPage: 3 })
+    const countedPage = await counted.contents.branches(repo, { perPage: 3 }).page()
+    const pagedPage = await paged.contents.branches(repo, { perPage: 3 }).page()
 
     expect(countedPage.total).toBe(15)
     expect(pagedPage.total).toBe(15)
@@ -52,7 +52,7 @@ describe('gitee', () => {
 
   it('leaves `aheadBy` unset when Gitee truncates the commits of a comparison', async () => {
     const commits = (length: number) => Array.from({ length }, (_, index) => ({ sha: `c${index}`, parents: [] }))
-    const compare = (body: object) => gitee({ fetch: async () => Response.json(body) }).create().contents.compare(repo, 'main', 'dev')
+    const compare = (body: object) => gitee({ fetch: async () => Response.json(body) }).contents.compare(repo, 'main', 'dev')
 
     expect((await compare({ commits: commits(100), files: [], truncated: true })).aheadBy).toBeUndefined()
     expect((await compare({ commits: commits(78), files: [], truncated: true })).aheadBy).toBe(78)
@@ -62,10 +62,10 @@ describe('gitee', () => {
   it('keeps the cursor page size when reporting a fallback total', async () => {
     const forge = gitee({ fetch: async url => new URL(url).searchParams.get('page') === '1'
       ? Response.json(Array.from({ length: 10 }, (_, index) => ({ name: `b${index}`, commit: { sha: 'a' } })), { headers: { total_page: '2' } })
-      : Response.json([{ name: 'last', commit: { sha: 'a' } }], { headers: { total_page: '2' } }) }).create()
+      : Response.json([{ name: 'last', commit: { sha: 'a' } }], { headers: { total_page: '2' } }) })
 
-    const first = await forge.contents.branchesPage(repo, { perPage: 10 })
-    const second = await forge.contents.branchesPage(repo, { cursor: first.cursor })
+    const first = await forge.contents.branches(repo, { perPage: 10 }).page()
+    const second = await forge.contents.branches(repo, { cursor: first.cursor }).page()
 
     // Both pages come from a 10-per-page listing, not this call's 50 default.
     expect(first.total).toBe(20)
@@ -73,12 +73,12 @@ describe('gitee', () => {
   })
 
   it('does not report one phase total for a multi-phase thread listing', async () => {
-    const forge = gitee({ fetch: async () => Response.json([], { headers: { total_count: '5' } }) }).create()
+    const forge = gitee({ fetch: async () => Response.json([], { headers: { total_count: '5' } }) })
 
     // Issues split into open and progressing phases, so no single total.
-    const multi = await forge.threads.listPage(repo, { kind: 'issue', state: 'open' })
+    const multi = await forge.threads.list(repo, { kind: 'issue', state: 'open' }).page()
     // Pull requests page in one phase, so their total is the listing's.
-    const single = await forge.threads.listPage(repo, { kind: 'pull_request', state: 'open' })
+    const single = await forge.threads.list(repo, { kind: 'pull_request', state: 'open' }).page()
 
     expect(multi.total).toBeUndefined()
     expect(single.total).toBe(5)
@@ -91,7 +91,7 @@ describe('gitee', () => {
         return new Response(null, { status: 500 })
       }
       return Response.json(Array.from({ length: 60 }, (_, index) => ({ name: `author ${index}`, email: '', contributions: 60 - index })))
-    } }).create()
+    } })
 
     const all = await Array.fromAsync(forge.repos.contributors(repo))
     expect(urls).toHaveLength(1)
@@ -107,7 +107,7 @@ describe('gitee', () => {
 
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).create().repos.get(repo)
+    await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).repos.get(repo)
 
     expect(calls[0]!.authorization).toBe('token gitee-token')
     expect(calls[0]!.url).not.toContain('access_token')
@@ -131,7 +131,7 @@ describe('gitee', () => {
         init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
       })
     }
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
 
     const pending = provider.releases.latest(repo, { signal: controller.signal })
     await listStarted
@@ -155,7 +155,7 @@ describe('gitee', () => {
 
   it('approves through the review endpoint, then merges with the requested method', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    const instance = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = gitee({ auth: { type: 'token', token: 't' }, fetch })
     await instance.threads.approve(pull)
     await instance.threads.merge!(pull, { method: 'squash' })
 
@@ -166,7 +166,7 @@ describe('gitee', () => {
 
   it('merges without approving, sending `message` as the description', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'merge', message: 'Ship it' })).resolves.toEqual({
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).threads.merge!(pull, { method: 'merge', message: 'Ship it' })).resolves.toEqual({
       status: 'merged',
       sha: 'feedfacefeedfacefeedfacefeedfacefeedface',
       raw: { sha: 'feedfacefeedfacefeedfacefeedfacefeedface', merged: true, message: 'Pull Request 已成功合并' },
@@ -178,7 +178,7 @@ describe('gitee', () => {
 
   it('sends `title` as the merge title', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.merge!(pull, { method: 'squash', title: 'Release widgets (!7)', message: 'Ship it' })
+    await gitee({ auth: { type: 'token', token: 't' }, fetch }).threads.merge!(pull, { method: 'squash', title: 'Release widgets (!7)', message: 'Ship it' })
 
     expect(JSON.parse(calls[0]!.body!)).toEqual({ merge_method: 'squash', title: 'Release widgets (!7)', description: 'Ship it' })
   })
@@ -187,7 +187,7 @@ describe('gitee', () => {
     const { fetch, calls } = fixtureFetch('gitee', {
       'PATCH https://gitee.com/api/v5/repos/acme/issues/I8ABCD': { status: 200, body: { id: 7001, number: 'I8ABCD', state: 'closed', title: 'x' } },
     })
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
     await provider.threads.close!(issue)
 
     expect(calls[0]).toMatchObject({ method: 'PATCH', url: 'https://gitee.com/api/v5/repos/acme/issues/I8ABCD' })
@@ -202,16 +202,16 @@ describe('gitee label filters', () => {
     { id: 1, number: 'I1', title: 'Both', state: 'open', labels: [{ name: 'bug' }, { name: 'ui' }], repository },
     { id: 2, number: 'I2', title: 'One', state: 'open', labels: [{ name: 'bug' }], repository },
   ]
-  const provider = gitee({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const provider = gitee({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
 
   it('lists only threads carrying every label', async () => {
-    const page = await provider.threads.listPage(repo, { kind: 'issue', labels: ['bug', 'ui'] })
+    const page = await provider.threads.list(repo, { kind: 'issue', labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 
   it('searches only threads carrying every label', async () => {
-    const page = await provider.search.threadsPage({ repo, labels: ['bug', 'ui'] })
+    const page = await provider.search.threads({ repo, labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
@@ -220,7 +220,7 @@ describe('gitee label filters', () => {
 describe('gitee thread updates', () => {
   function provider(overrides = {}) {
     const { fetch, calls } = fixtureFetch('gitee', overrides)
-    return { instance: gitee({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
+    return { instance: gitee({ auth: { type: 'token', token: 't' }, fetch }), calls }
   }
 
   it('closes, relabels and reassigns an issue in one request', async () => {
@@ -254,7 +254,7 @@ describe('gitee labels', () => {
   it.each([['setLabels', 'PUT'], ['addLabels', 'POST']] as const)('resolves %s with the labels in the response', async (verb, method) => {
     const { fetch, calls } = fixtureFetch('gitee', { [`${method} https://gitee.com/api/v5/repos/acme/widgets/pulls/7/labels`]: { status: 200, body: [{ id: 1, name: 'bug', color: 'd73a4a' }, { id: 2, name: 'triage' }] } })
 
-    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a' }, { name: 'triage' }])
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a' }, { name: 'triage' }])
     expect(calls).toHaveLength(1)
   })
 
@@ -264,7 +264,7 @@ describe('gitee labels', () => {
       'GET https://gitee.com/api/v5/repos/acme/widgets/pulls/7/labels': { status: 200, body: [{ id: 2, name: 'triage', color: 'ededed' }] },
     })
 
-    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.removeLabels(pull, ['bug'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).threads.removeLabels(pull, ['bug'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
     expect(calls.map(call => call.method)).toEqual(['DELETE', 'GET'])
   })
 })
@@ -276,7 +276,7 @@ describe('gitee state changes', () => {
       'PATCH https://gitee.com/api/v5/repos/acme/issues/I7': { status: 200, body: { number: 'I7', title: 'Crash', state: 'closed' } },
       [`PATCH https://gitee.com/api/v5/repos/acme/widgets/pulls/${pull.number}`]: { status: 200, body: { number: Number(pull.number), title: 'Add widgets', state: 'closed', head: { ref: 'feat' }, base: { ref: 'main' } } },
     })
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
 
     await expect(provider.threads.close(issue)).resolves.toMatchObject({ kind: 'issue', title: 'Crash', state: 'closed' })
     await expect(provider.threads.close(pull)).resolves.toMatchObject({ kind: 'pull_request', title: 'Add widgets', state: 'closed', branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
@@ -289,7 +289,7 @@ describe('gitee assignees', () => {
     const issue = { ...pull, kind: 'issue', number: 'I7' } as const
     const { fetch, calls } = fixtureFetch('gitee', { 'PATCH https://gitee.com/api/v5/repos/acme/issues/I7': { status: 200, body: { number: 'I7', assignee: { id: 3, login: 'ada' } } } })
 
-    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.setAssignees(issue, ['ada'])).resolves.toMatchObject([{ login: 'ada', id: '3' }])
+    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).threads.setAssignees(issue, ['ada'])).resolves.toMatchObject([{ login: 'ada', id: '3' }])
     expect(calls).toHaveLength(1)
   })
 })

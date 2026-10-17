@@ -1,4 +1,4 @@
-import type { ApiMember, ApiModel, ApiSignature, ApiSymbol } from '../../scripts/api-docs/types.ts'
+import type { ApiModel, ApiSignature, ApiSymbol } from '../../scripts/api-docs/types.ts'
 import { EXPLORER_FORGES, EXPLORER_OPERATIONS } from './explorer.ts'
 
 /** What hovering a name in an explorer's code shows. */
@@ -48,24 +48,17 @@ export function explorerHovers(model: ApiModel): Record<string, ExplorerHover> {
     }
   }
 
-  const create = symbols.get('ForgeProviderFactory')?.members.find(member => member.name === 'create')
-  if (create) {
-    hovers.create = { signature: '(method) ForgeProviderFactory.create(): ForgeProvider', description: create.description }
-  }
-
   // Each method through the namespace that holds it, such as `ThreadsApi` for `provider.threads`.
   const namespaces = symbols.get('ForgeProvider')?.members ?? []
-  for (const { method } of EXPLORER_OPERATIONS) {
-    const [namespace, name] = method.split('.') as [string, string]
+  for (const { verb } of EXPLORER_OPERATIONS) {
+    const [namespace, name] = verb.split('.') as [string, string]
     const api = symbols.get(namespaces.find(member => member.name === namespace)?.reference ?? '')
     const member = api?.members.find(entry => entry.name === name)
     const [signature] = member?.signatures ?? []
     if (!api || !member || !signature) {
       continue
     }
-    // A `...Page` method shares the description of the iterable it pages.
-    const described: ApiMember | undefined = member.description ? member : api.members.find(entry => entry.name === name.replace(/Page$/, ''))
-    hovers[`method:${method}`] = { signature: `(method) ${api.name}.${name}(${params(signature)}): ${signature.returns.type}`, description: described?.description }
+    hovers[`method:${verb}`] = { signature: `(method) ${api.name}.${name}(${params(signature)}): ${signature.returns.type}`, description: member.description }
   }
 
   // The types of the constants that the code declares, for `const repo: RepoRef` and the like.

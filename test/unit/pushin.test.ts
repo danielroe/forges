@@ -14,7 +14,7 @@ const raw = { id: 'iss_31', number: 31, title: 'A thread', state: 'open', labels
 
 function provider(overrides: Parameters<typeof fixtureFetch>[1]) {
   const fixtures = fixtureFetch([], overrides)
-  return { ...fixtures, forge: pushin({ auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }).create() }
+  return { ...fixtures, forge: pushin({ auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }) }
 }
 
 describe('pushin', () => {
@@ -22,7 +22,7 @@ describe('pushin', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
     const { fetch, started } = hangingFetch()
-    const forge = pushin({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const forge = pushin({ auth: { type: 'token', token: 't' }, fetch })
 
     const pending = forge.users.me({ signal: controller.signal })
     await started
@@ -51,12 +51,12 @@ describe('pushin', () => {
       },
       [`GET ${next}`]: { status: 200, body: [{ ...raw, number: 33 }] },
     })
-    const page = await forge.threads.listPage(repo, { state: 'all', perPage: 2 })
+    const page = await forge.threads.list(repo, { state: 'all', perPage: 2 }).page()
     expect(page.items.map(thread => thread.kind)).toEqual(['issue', 'pull_request'])
     expect(page.rateLimit).toMatchObject({ limit: 90, remaining: 89 })
     expect(page.cursor?.nextUrl).toBe(next)
-    expect((await forge.threads.listPage(repo, { kind: 'issue', state: 'all', perPage: 2 })).items.map(thread => [thread.kind, thread.ref.number])).toEqual([['issue', '31']])
-    expect((await forge.threads.listPage(repo, { cursor: page.cursor })).items[0]?.ref.number).toBe('33')
+    expect((await forge.threads.list(repo, { kind: 'issue', state: 'all', perPage: 2 }).page()).items.map(thread => [thread.kind, thread.ref.number])).toEqual([['issue', '31']])
+    expect((await forge.threads.list(repo, { cursor: page.cursor }).page()).items[0]?.ref.number).toBe('33')
     expect(calls.at(-1)?.url).toBe(next)
   })
 
@@ -64,14 +64,14 @@ describe('pushin', () => {
     const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/issues/31/comments`]: { status: 200, body: [{ id: 1, body: 'Looks good', created_at: '2026-01-01T00:00:00Z' }] },
     })
-    expect((await forge.threads.commentsPage(pull)).items.map(comment => comment.body)).toEqual(['Looks good'])
+    expect((await forge.threads.comments(pull).page()).items.map(comment => comment.body)).toEqual(['Looks good'])
   })
 
   it('passes all states to the pull listing', async () => {
     const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/pulls?state=all&per_page=1`]: { status: 200, body: [raw] },
     })
-    expect((await forge.threads.listPage(repo, { kind: 'pull_request', state: 'all', perPage: 1 })).items[0]?.kind).toBe('pull_request')
+    expect((await forge.threads.list(repo, { kind: 'pull_request', state: 'all', perPage: 1 }).page()).items[0]?.kind).toBe('pull_request')
   })
 
   it('normalises merged pull requests returned by the issues API', () => {
@@ -92,7 +92,7 @@ describe('pushin', () => {
     })
     const closedAt = new Date('2026-10-12T13:49:59.722Z')
     expect(await forge.threads.get(pull)).toMatchObject({ state: 'merged', closedAt })
-    expect((await forge.threads.listPage(repo, { kind: 'pull_request', state: 'merged' })).items).toMatchObject([{ state: 'merged', closedAt }])
+    expect((await forge.threads.list(repo, { kind: 'pull_request', state: 'merged' }).page()).items).toMatchObject([{ state: 'merged', closedAt }])
   })
 
   it('normalises integer ids to strings and prefers node_id as the external id', () => {
@@ -129,7 +129,7 @@ describe('pushin', () => {
     const { forge } = provider({
       [`GET ${base}/notifications?all=true&since=2026-09-10T12%3A00%3A00.000Z&per_page=1`]: { status: 200, body: [notification] },
     })
-    const page = await forge.notifications.listPage({ all: true, since, perPage: 1 })
+    const page = await forge.notifications.list({ all: true, since, perPage: 1 }).page()
     expect(page.items[0]).toMatchObject({ ref: { ...origin, id: 'n_1' }, reason: 'assigned', subject: { type: 'thread', thread: { ...issue, repo: { externalId: 'r_1' } } }, url: notification.html_url })
     expect(page.items[0]?.updatedAt).toEqual(since)
     expect(page.items[0]?.lastReadAt).toBeUndefined()

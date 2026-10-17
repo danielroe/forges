@@ -9,7 +9,6 @@ import { extractApi } from '../../scripts/api-docs/extract.ts'
 import { generateApiDocs, writeFiles } from '../../scripts/api-docs/generate.ts'
 import { slug, typeToMarkdown } from '../../scripts/api-docs/markdown.ts'
 import { buildFiles } from '../../scripts/api-docs/pages.ts'
-import { fake } from '../../src/fake/index.ts'
 import * as forges from '../../src/index.ts'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
@@ -430,7 +429,7 @@ describe('the forges reference', () => {
   })
 
   it('documents every method of every provider namespace', () => {
-    const provider = fake().create()
+    const provider = forges.github()
 
     for (const [name, value] of Object.entries(provider)) {
       if (typeof value !== 'object' || value === null || name === 'capabilities')
@@ -445,7 +444,7 @@ describe('the forges reference', () => {
   })
 
   it('documents the helpers, the provider methods and the error classes', () => {
-    for (const name of ['createForges', 'supports', 'supportOf', 'parseForgeUrl']) {
+    for (const name of ['createForges', 'can', 'support']) {
       expect(content).toMatch(new RegExp(`^#{2,3} \`${name}\\(\\)\`$`, 'm'))
     }
     expect(content).toContain('### `can()`')
@@ -476,7 +475,7 @@ describe('the forges reference', () => {
   it('documents defaults, examples and parameters', () => {
     expect(content).toContain('| Member | Type | Default | Description |')
     expect(content).toContain('**Example**')
-    expect(content).toMatch(/\| `factories` \| .* \| Factories such as `github\(\)`/)
+    expect(content).toMatch(/\| `providers` \| .* \| Providers such as `github\(\)` creates/)
   })
 
   it('leaves no unresolved links or raw markup', () => {

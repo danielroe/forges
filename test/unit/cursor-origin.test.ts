@@ -14,7 +14,7 @@ describe('cursor origin without credentials', () => {
   it('verifies and translates webhook deliveries, and supports nothing else', async () => {
     const { webhook } = contracts.find(contract => contract.name === 'cursor-origin')!
     const { fetch, calls } = fixtureFetch('cursor-origin')
-    const forge = cursorOrigin({ fetch }).create()
+    const forge = cursorOrigin({ fetch })
     const delivery = { headers: webhook.headers(await webhook.sign(webhook.body, WEBHOOK_SECRET)), body: webhook.body }
 
     expect(await forge.webhooks.ingest(delivery)).toHaveLength(1)
@@ -30,7 +30,7 @@ describe('cursor origin without credentials', () => {
     const { webhook } = contracts.find(contract => contract.name === 'cursor-origin')!
     const keys = JSON.parse(readFileSync(`${fixtureDirectory('cursor-origin')}keys.json`, 'utf8')) as Fixture
     const { fetch } = fixtureFetch('cursor-origin', { 'GET https://api.cursor.com/v1/origin/keys': { ...keys.response, headers: { 'x-ratelimit-limit': '60', 'x-ratelimit-remaining': '59' } } })
-    const forge = cursorOrigin({ auth, fetch }).create()
+    const forge = cursorOrigin({ auth, fetch })
     await forge.webhooks.ingest({ headers: webhook.headers(await webhook.sign(webhook.body, WEBHOOK_SECRET)), body: webhook.body })
 
     expect(forge.rateLimits()).toMatchObject(budgets)
@@ -40,8 +40,8 @@ describe('cursor origin without credentials', () => {
 describe('cursor origin app', () => {
   it('declares only installations without an installation', () => {
     const app = { type: 'app', appId: 'app_1', privateKey: '' } as const
-    const forge = cursorOrigin({ auth: app }).create()
-    const installation = cursorOrigin({ auth: { ...app, installationId: 'i_1' } }).create()
+    const forge = cursorOrigin({ auth: app })
+    const installation = cursorOrigin({ auth: { ...app, installationId: 'i_1' } })
 
     expect(forge.can('installations.list')).toBe(true)
     expect(forge.can('repos.get')).toBe(false)
@@ -57,7 +57,7 @@ describe('cursor origin comparison', () => {
     const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(new URL(String(url)).pathname)
       return Response.json(url.includes('/files') ? { files: [{ filename: 'a.ts', status: 'modified' }] } : { aheadBy: 3, behindBy: 0 })
-    } }).create()
+    } })
 
     expect((await instance.contents.compare(repo, 'main', 'feature')).files).toHaveLength(1)
     expect(urls).toHaveLength(2)
@@ -73,11 +73,11 @@ describe('cursor origin comments', () => {
     const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
       urls.push(`${init?.method ?? 'GET'} ${new URL(String(url)).pathname}`)
       return init?.method === 'DELETE' ? new Response(null, { status: 204 }) : Response.json({ id: 'c/1', body: 'Looks good' })
-    } }).create()
+    } })
     const ref = { forge: 'cursor-origin', instance: 'origin.cursor.com', thread: pull, id: 'c/1' }
 
     await instance.threads.getComment(ref)
-    await instance.threads.editComment(ref, 'Edited')
+    await instance.threads.updateComment(ref, 'Edited')
     await instance.threads.deleteComment(ref)
 
     expect(urls.map(url => url.replace(/^(\w+) .*\/pulls\/comments\//, '$1 '))).toEqual(['GET c%2F1', 'PATCH c%2F1', 'DELETE c%2F1'])
@@ -87,7 +87,7 @@ describe('cursor origin comments', () => {
 describe('cursor origin merge', () => {
   it('rejects a merge commit message before sending anything', async () => {
     const { fetch, calls } = fixtureFetch('cursor-origin')
-    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch })
 
     await expect(instance.threads.merge(pull, { method: 'squash', message: 'Ship it' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
@@ -95,7 +95,7 @@ describe('cursor origin merge', () => {
 
   it('rejects a merge commit title before sending anything', async () => {
     const { fetch, calls } = fixtureFetch('cursor-origin')
-    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch })
 
     await expect(instance.threads.merge(pull, { method: 'squash', title: 'Release widgets' })).rejects.toThrow('Cursor Origin does not take a merge commit title')
     expect(calls).toEqual([])
@@ -108,7 +108,7 @@ describe('cursor origin thread updates', () => {
     const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
       calls.push({ method: init?.method ?? 'GET', path: new URL(String(url)).pathname, body: init?.body ? JSON.parse(String(init.body)) : undefined })
       return Response.json({ number: 12, state: 'closed', title: 'Retry uploads' })
-    } }).create()
+    } })
     return { instance, calls }
   }
 
@@ -151,7 +151,7 @@ describe('cursor origin labels', () => {
     ['no body', undefined, [{ name: 'bug' }]],
   ])('resolves setLabels from a response with %s', async (_, body, expected) => {
     const { fetch, calls } = fixtureFetch('cursor-origin', { 'PUT https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/labels': body === undefined ? { status: 204 } : { status: 200, body } })
-    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = cursorOrigin({ auth: { type: 'token', token: 't' }, fetch })
 
     await expect(instance.threads.setLabels(pull, ['bug'])).resolves.toEqual(expected)
     expect(calls).toHaveLength(1)

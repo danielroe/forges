@@ -1,6 +1,6 @@
 import type { FetchLike } from '../src/fetch.ts'
 import type { Comment, FileContent, ForgeEvent, Notification, NotificationReason, Page, Repo, ResolvedThreadRef, Review, Thread } from '../src/model.ts'
-import type { ForgeProvider } from '../src/provider.ts'
+import type { ForgeListing, ForgeProvider } from '../src/provider.ts'
 import type { RecordingManifest, Step, StepContext } from './recording/steps.ts'
 import type { WriteContext, WriteManifest, WriteStep } from './recording/write-steps.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
@@ -49,7 +49,7 @@ function sameRequest(a: string, b: string): boolean {
   return first.toString() === second.toString()
 }
 
-const POLLED_LISTINGS = new Set(['notifications.listPage', 'repos.eventsPage', 'users.eventsPage'])
+const POLLED_LISTINGS = new Set(['notifications.list', 'repos.events', 'users.events'])
 
 /** `provider` with the options of every call to `verb` given `cursor: { etag }`, collecting the pages that the calls return. */
 function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Array<Page<unknown>>): ForgeProvider {
@@ -61,14 +61,20 @@ function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Ar
         ? api
         : new Proxy(api, {
             get(apiTarget, apiKey, apiReceiver) {
-              const read = Reflect.get(apiTarget, apiKey, apiReceiver) as (...args: unknown[]) => Promise<Page<unknown>>
+              const list = Reflect.get(apiTarget, apiKey, apiReceiver) as (...args: unknown[]) => ForgeListing<unknown>
               return apiKey !== method
-                ? read
-                : async (...args: unknown[]) => {
-                  const page = await read(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag }, ...POLLED_LISTINGS.has(verb) ? { force: true } : {} })
-                  pages.push(page)
-                  return page
-                }
+                ? list
+                : (...args: unknown[]) => {
+                    const listing = list(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag }, ...POLLED_LISTINGS.has(verb) ? { force: true } : {} })
+                    return {
+                      ...listing,
+                      page: async () => {
+                        const page = await listing.page()
+                        pages.push(page)
+                        return page
+                      },
+                    }
+                  }
             },
           })
     },
@@ -131,7 +137,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         : steps.flatMap((step) => {
             const verb = definitions.get(step.name)?.verb
             const goldenPath = `${root}steps/${step.slug}/golden.json`
-            const etag = verb?.endsWith('Page') && existsSync(goldenPath) ? (JSON.parse(readFileSync(goldenPath, 'utf8')) as { etag?: string } | null)?.etag : undefined
+            const etag = verb && existsSync(goldenPath) ? (JSON.parse(readFileSync(goldenPath, 'utf8')) as { etag?: string } | null)?.etag : undefined
             const url = etag && recordedFixtures(`${directory}/steps/${step.slug}`).find(fixture => fixture.response.headers?.etag === etag)?.request.url
             return url ? [{ ...step, verb: verb!, etag: etag!, url }] : []
           })
@@ -207,7 +213,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         expect(sent.filter(call => sameRequest(call.url, url)).map(call => call.headers.get('if-none-match'))).toContain(etag)
         expect(notModified).toMatchObject({ items: [], etag })
         expect(notModified?.cursor).toBeUndefined()
-        if (verb === 'threads.listPage') {
+        if (verb === 'threads.list') {
           expect(sent.filter(call => new URL(call.url).pathname.endsWith('/graphql'))).toEqual([])
         }
         const forges = conditionalListings.get(verb) ?? new Set()
@@ -247,7 +253,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         expect(keys.some(({ threads }) => threads.length)).toBe(true)
       })
 
-      it.for(['issue', 'pull', 'commit', 'discussion'].filter(key => recorded.has(`${key} events`) && recorded.has(`${key} comments`)))('keys the comments that %s events name as its comment listing does', (key, context) => {
+      it.for(['issue', 'pull', 'discussion'].filter(key => recorded.has(`${key} events`) && recorded.has(`${key} comments`)))('keys the comments that %s events name as its comment listing does', (key, context) => {
         const listed = items<Comment>(`${key} comments`).map(comment => comment.ref).filter(ref => isResolvedThread(ref.thread)).map(ref => commentKey({ ...ref, thread: ref.thread as ResolvedThreadRef }))
         const commented = items<ForgeEvent>(`${key} events`).filter(event => event.kind === 'comment')
         if (!listed.length || !commented.length) {

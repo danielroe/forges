@@ -2,7 +2,7 @@ import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
-const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests', commit: 'commits' }
+const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pull-requests', compare: 'branches/compare', forks: 'forks' }
 
@@ -14,7 +14,8 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
     thread: ref => SECTIONS[ref.kind] && `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
-    comment: ref => ref.thread.kind === 'commit' || !SECTIONS[ref.thread.kind] ? undefined : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
+    comment: ref => !SECTIONS[ref.thread.kind] ? undefined : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
+    commit: (repo, sha) => `${repoPath(repo)}/commits/${encodeURIComponent(sha)}`,
     file: (repo, path, at, line) => `${repoPath(repo)}/src/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}${line ? `#lines-${line}` : ''}`,
     raw: (repo, path, at) => `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}`,
     compare: (repo, base, head) => `${repoPath(repo)}/branches/compare/${encodeURIComponent(head)}%0D${encodeURIComponent(base)}`,
@@ -26,6 +27,9 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
       const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
       if (section === 'src' && id && segments[4]) {
         return { repo, file: { at: id, path: segments.slice(4).join('/'), ...lineOf(url.hash.replace(/^#lines-/, '')) } }
+      }
+      if (section === 'commits' && id) {
+        return { repo, commit: { ...from, repo, sha: id } }
       }
       const kind = section ? KINDS.get(section) : undefined
       if (!kind || !id) {
@@ -39,7 +43,10 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
       if (!same) {
         return undefined
       }
-      return ref.kind === 'issue' ? `#${ref.number}` : ref.kind === 'pull_request' ? `pull request #${ref.number}` : ref.kind === 'commit' ? ref.number.slice(0, 12) : undefined
+      if ('sha' in ref) {
+        return ref.sha.slice(0, 12)
+      }
+      return ref.kind === 'issue' ? `#${ref.number}` : ref.kind === 'pull_request' ? `pull request #${ref.number}` : undefined
     },
   }
 }

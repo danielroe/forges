@@ -26,7 +26,7 @@ import { github } from 'forges/github'
 
 const forge = github({
   auth: { type: 'token', token: process.env.GITHUB_TOKEN! },
-}).create()
+})
 
 const app = github({
   auth: {
@@ -35,7 +35,7 @@ const app = github({
     privateKey: process.env.GITHUB_APP_PRIVATE_KEY!,
     installationId: 7890,
   },
-}).create()
+})
 ```
 
 For app authentication, `privateKey` is the PEM key of the app, in PKCS#1 or PKCS#8 format. If you pass an `installationId` as well, the provider acts as that installation, and it creates and caches installation tokens whenever it needs one. If you leave it out, the provider authenticates as the app itself. In that case, `installations.list()` lists the installations of the app, and `installations.provider(installation)` gives you a provider for one of them.
@@ -58,7 +58,7 @@ If `token` is a function, pass `kind` as well, or the provider assumes that the 
 ```ts
 const forge = github({
   auth: { type: 'token', token: () => refreshUserToken(), kind: 'app-user' },
-}).create()
+})
 ```
 
 GitHub serves notifications only to `classic` tokens, so `notifications` is unsupported for every other kind and for app authentication. `users.me()` needs a token that belongs to an account, so it isn't supported for an `installation` token or an app installation.
@@ -151,7 +151,7 @@ With `kind: 'advisory'`, `securityAlerts.list()` lists the security advisories o
 
 ## Large files and trees
 
-Files over 1 MB are read through the Git blobs API, so the result of `contents.file()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
+Files over 1 MB are read through the Git blobs API, so the result of `contents.getFile()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
 
 ## Comparisons
 
@@ -176,13 +176,13 @@ When you call `search.threads()` without a `kind`, it uses GitHub's advanced sea
 `queryRaw` is added to the search query as it is, which means you can use any [GitHub search qualifier](https://docs.github.com/search-github/searching-on-github):
 
 ```ts
-const page = await gh.search.threadsPage({ kind: 'pull_request', queryRaw: 'review-requested:@me' })
+const page = await gh.search.threads({ kind: 'pull_request', queryRaw: 'review-requested:@me' }).page()
 ```
 
 To search every repository of a user or an organisation, pass `owner`. The provider sends it as the `user:` qualifier, which matches organisations as well as users. If you also pass `repo`, the provider ignores `owner`:
 
 ```ts
-const page = await gh.search.threadsPage({ owner: 'nuxt', text: 'hydration' })
+const page = await gh.search.threads({ owner: 'nuxt', text: 'hydration' }).page()
 ```
 
 `search.code()` gets the tightest limit of all: 10 requests a minute, in a pool of its own. It only sees the default branch, and only files under 384 KB. Each result is a file, with `ref` set to the commit that GitHub indexed. `fragments` holds the excerpts that GitHub highlighted. They have no line numbers, because GitHub doesn't send any. When GitHub stops a search before it finishes, the page has a `search_incomplete` warning.
@@ -246,12 +246,12 @@ if (events.warnings.some(warning => warning.code === 'feed_throttled')) {
 To read anyway, pass `force: true`:
 
 ```ts
-const page = await gh.repos.eventsPage(repo, { force: true })
+const page = await gh.repos.events(repo, { force: true }).page()
 ```
 
 The provider only remembers the wait for as long as it exists, so a job that creates a new provider for every run isn't held back. Such a job can keep the `nextPollAt` of the page it read, which says when GitHub allows the next read, and schedule its next run for then.
 
-`notifications.listPage()` follows the same rules, with one wait for the whole notifications listing, and takes `force: true` as well.
+`notifications.list()` follows the same rules, with one wait for the whole notifications listing, and takes `force: true` as well.
 
 Feed items are smaller than webhook deliveries. On GitHub.com, a push has no commits and no commit count, so its `detail` has no `commitCount` and its summary leaves the number out. GitHub Enterprise Server still sends both, and they fill in the detail there. A pull request event has no title, and GitHub reports a merge as the action `merged`, which the provider reads as `kind: 'state_change'` and `action: 'merged'`.
 
@@ -268,7 +268,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = github({
   webhookSecret: process.env.GITHUB_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,
@@ -288,7 +288,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 
 ## Moderation
 
-`threads.lock()` locks an issue or pull request through REST, with the reason GitHub shows on the thread, and a discussion through GraphQL. GitHub refuses a reason for a discussion, so the provider leaves `reason` out. `threads.hideComment()` minimises a comment through GraphQL, with the reason as its classifier. It works on comments on issues, pull requests, discussions and commits, but not on inline review comments.
+`threads.lock()` locks an issue or pull request through REST, with the reason GitHub shows on the thread, and a discussion through GraphQL. GitHub refuses a reason for a discussion, so the provider leaves `reason` out. `threads.hideComment()` minimises a comment through GraphQL, with the reason as its classifier. It works on comments on issues, pull requests and discussions, but not on inline review comments. `commits.hideComment()` does the same for a comment on a commit.
 
 `orgs.block()` blocks an account from the organisation and needs the `admin:org` scope, or the `organization_user_blocking` write permission. `users.block()` blocks it for the account the token belongs to, so it needs a user token with the `user` scope, or the `blocking` write permission; `can('users.block')` is `false` for a GitHub App installation. A repeat can reject with a `ForgeApiError` with `status` 422.
 
@@ -304,8 +304,6 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | Capability | Classic token | Fine-grained token | App installation | App | Without credentials |
 | --- | --- | --- | --- | --- | --- |
 | `experimental` | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `sources.webhook` | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `users.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -330,18 +328,47 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `orgs.teams` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `orgs.teamMembers` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `orgs.block` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `threads.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
+| `threads.get` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
 | `threads.list` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
 | `threads.getMany` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `threads.closingIssues` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.closingPullRequests` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `threads.events` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `comments.list` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue, PR, commit |
-| `comments.get` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | issue (unverified), PR, commit (unverified) |
-| `comments.edit` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `comments.delete` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `comments.hide` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `reactions.list` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.events` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.comments` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.getComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue (unverified), PR |
+| `threads.createComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.updateComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.deleteComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.hideComment` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.reactions` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | issue, PR |
+| `threads.react` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.create` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.update` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.setLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.addLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.removeLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.setMilestone` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.requestReview` | PR | PR | PR | ❌ | ❌ |
+| `threads.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.updateBranch` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.transfer` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.markDuplicate` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.subscription` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.subscribe` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
+| `threads.checks` | PR | PR | PR | ❌ | PR |
+| `threads.files` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.reviews` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `threads.getReview` | ✅ | ✅ | ✅ | ❌ | unverified |
+| `threads.createReview` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.submitReview` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.approve` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.replyToReviewComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markRead` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markDone` | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -349,54 +376,31 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `notifications.markAllRead` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ | ❌ |
-| `writes.comment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `writes.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.create` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.update` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.setLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.addLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.removeLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.setMilestone` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.react` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `writes.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
-| `writes.requestReview` | PR | PR | PR | ❌ | ❌ |
-| `writes.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.updateBranch` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.transfer` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.markDuplicate` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `subscriptions.get` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `subscriptions.set` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
-| `installations` | ❌ | ❌ | ✅ | ✅ | ❌ |
-| `checks.thread` | PR | PR | PR | ❌ | PR |
+| `installations.list` | ❌ | ❌ | ✅ | ✅ | ❌ |
 | `checks.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `checks.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `checks.report` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `checks.rerun` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `ci.runs` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `ci.run` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `ci.getRun` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.jobs` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `ci.job` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `ci.getJob` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.log` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `contents.getFile` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tree` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.branches` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tags` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.commit` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.compare` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.commitFiles` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `reviews.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `reviews.get` | ✅ | ✅ | ✅ | ❌ | unverified |
-| `reviews.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.submit` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.approve` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.reply` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `reviews.resolveThread` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.comments` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `commits.getComment` | ✅ | ✅ | ✅ | ❌ | unverified |
+| `commits.createComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.updateComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.deleteComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `commits.hideComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.latest` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -404,6 +408,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `releases.downloadAsset` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `releases.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `releases.update` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `webhooks.list` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `webhooks.create` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `webhooks.update` | ✅ | ✅ | ✅ | ❌ | ❌ |
@@ -415,7 +420,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `search.repos` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `search.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `search.code` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `securityAlerts` | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | ❌ | ❌ |
+| `securityAlerts.list` | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | dependency, code scanning, secret, advisory | ❌ | ❌ |
 | `eventKinds` | native | native | native | native | native |
 | `authKinds` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` | `token`, `app`, `anonymous` |
 | `limits` | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 | body 65536, comment 65536, label 50 |

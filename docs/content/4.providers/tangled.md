@@ -28,7 +28,7 @@ Reading is public and needs no credentials. Writing requires an atproto session,
 ```ts
 import { tangled } from 'forges/tangled'
 
-const reader = tangled({}).create()
+const reader = tangled({})
 
 const writer = tangled({
   auth: {
@@ -36,7 +36,7 @@ const writer = tangled({
     identifier: 'alice.example.com',
     password: process.env.TANGLED_APP_PASSWORD!,
   },
-}).create()
+})
 ```
 
 With `app_password`, the provider creates a session on the PDS (personal data server) of the account. It looks for the PDS in this order:
@@ -159,7 +159,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = tangled({
   webhookSecret: process.env.TANGLED_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,
@@ -185,8 +185,6 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ✅ | ✅ |
-| `sources.poll` | experimental | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ✅ | ✅ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
@@ -217,12 +215,41 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | issue, PR |
-| `comments.list` | issue, PR | issue, PR |
-| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | issue, PR | ❌ |
-| `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | issue, PR | issue, PR |
+| `threads.comments` | issue, PR | issue, PR |
+| `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
+| `threads.createComment` | issue, PR | ❌ |
+| `threads.updateComment` | issue, PR | ❌ |
+| `threads.deleteComment` | issue, PR | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | issue, PR | issue, PR |
+| `threads.react` | issue, PR | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | issue, PR | ❌ |
+| `threads.removeLabels` | issue, PR | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | issue, PR | ❌ |
+| `threads.requestReview` | ❌ | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | issue, PR | ❌ |
+| `threads.subscribe` | issue, PR | ❌ |
+| `threads.checks` | ❌ | ❌ |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | ❌ | ❌ |
+| `threads.getReview` | ❌ | ❌ |
+| `threads.createReview` | ❌ | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | ❌ | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | experimental | ❌ |
 | `notifications.markRead` | experimental | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -230,54 +257,31 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | unverified | ❌ |
-| `writes.comment` | issue, PR | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | issue, PR | ❌ |
-| `writes.removeLabels` | issue, PR | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | issue, PR | ❌ |
-| `writes.setAssignees` | issue, PR | ❌ |
-| `writes.requestReview` | ❌ | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | issue, PR | ❌ |
-| `subscriptions.set` | issue, PR | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | ❌ | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
-| `ci.run` | ❌ | ❌ |
+| `ci.getRun` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
-| `ci.job` | ❌ | ❌ |
+| `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ |
+| `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
-| `reviews.create` | ❌ | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | ❌ | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -285,6 +289,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
@@ -296,7 +301,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `anonymous`, `app_password`, `oauth` | `anonymous`, `app_password`, `oauth` |
 | `limits` | unknown | unknown |

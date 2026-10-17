@@ -17,7 +17,7 @@ it.each([
         controller.close()
       }
     },
-  })) }).create()
+  })) })
   const repo = { forge: kind, instance, owner: 'acme', name: 'widgets' }
   const run = { forge: kind, instance, repo, id: '1' }
   const body = await provider.ci.log({ forge: kind, instance, repo, run, id: '2' })

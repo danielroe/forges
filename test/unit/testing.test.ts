@@ -80,10 +80,10 @@ describe('forges/testing', () => {
   it('replays an integer beyond the safe range exactly', async () => {
     const recorder = recordingFetch(async () => new Response('[{"id":3847328607500238881}]'))
     await recorder.fetch('https://api.github.com/repos/acme/widgets/hooks/1/deliveries')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: fixtureFetch(recorder.fixtures).fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch: fixtureFetch(recorder.fixtures).fetch })
     const hook = { forge: 'github', instance: 'github.com', target: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, id: '1' }
 
-    expect((await provider.webhooks.deliveriesPage(hook)).items[0]!.ref.id).toBe('3847328607500238881')
+    expect((await provider.webhooks.deliveries(hook).page()).items[0]!.ref.id).toBe('3847328607500238881')
   })
 
   it('loads a fixture directory', async () => {

@@ -26,9 +26,9 @@ describe('comment markers', () => {
 
 describe('upsertComment', () => {
   it('creates a keyed comment once and edits it on the next run', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
 
     const first = await upsertComment(forge, issue!.ref, { key: 'coverage', body: 'Coverage: 81%' })
     const second = await upsertComment(forge, issue!.ref, { key: 'coverage', body: 'Coverage: 84%' })
@@ -42,13 +42,29 @@ describe('upsertComment', () => {
     expect(comments).toHaveLength(2)
   })
 
+  it('upserts a keyed comment on a commit', async () => {
+    const forge = fake({ seed })
+    const commit = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, sha: 'abc1234def' }
+    forge.store.repos.get('acme/widgets')!.commitComments.set(commit.sha, [
+      { ref: { forge: 'fake', instance: 'fake.test', commit, id: 'old' }, body: `Deploying\n\n${commentMarker('deploy')}`, createdAt: new Date('2026-02-01T00:00:00Z'), raw: {} },
+    ])
+
+    const recent = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed', since: new Date('2026-03-01T00:00:00Z') })
+    const edited = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed again' })
+    const comments = await Array.fromAsync(forge.commits.comments(commit))
+
+    expect(recent.created).toBe(true)
+    expect(recent.comment.ref.commit).toEqual(commit)
+    expect(edited).toMatchObject({ created: false, comment: { ref: { id: recent.comment.ref.id }, body: `Deployed again\n\n${commentMarker('deploy')}` } })
+    expect(comments).toHaveLength(2)
+  })
+
   describe('retrying a keyed comment', () => {
     const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
 
     function seeded() {
-      const factory = fake({ seed })
-      const forge = factory.create()
-      const state = factory.store.repos.get('acme/widgets')!.threads.get('1')!
+      const forge = fake({ seed })
+      const state = forge.store.repos.get('acme/widgets')!.threads.get('1')!
       const ref = state.thread.ref
       const comment = (id: string, body: string, createdAt: Date) => ({ ref: { forge: 'fake', instance: 'fake.test', thread: ref, id }, body, createdAt, raw: {} })
       return { forge, state, ref, comment }
@@ -56,23 +72,23 @@ describe('upsertComment', () => {
 
     it('passes since to the listing it reads', async () => {
       const { forge, ref } = seeded()
-      const commentsPage = vi.spyOn(forge.threads, 'commentsPage')
+      const comments = vi.spyOn(forge.threads, 'comments')
 
       await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
-      expect(commentsPage).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
+      expect(comments).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
     })
 
     it('finds the comment that a first attempt left behind instead of posting another', async () => {
       const { forge, state, ref, comment } = seeded()
       state.comments.push(comment('1-1', `Deployed\r\n\r\n${commentMarker('mutation-1')}\n`, new Date('2026-03-01T12:00:03Z')))
-      const editComment = vi.spyOn(forge.threads, 'editComment')
+      const updateComment = vi.spyOn(forge.threads, 'updateComment')
 
       const retry = await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
       expect(retry).toMatchObject({ created: false, comment: { ref: { id: '1-1' } } })
       expect(state.comments).toHaveLength(1)
-      expect(editComment).not.toHaveBeenCalled()
+      expect(updateComment).not.toHaveBeenCalled()
     })
 
     it('edits the comment that an earlier call left behind when the body changed', async () => {

@@ -213,8 +213,6 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     switch (ref.kind) {
       case 'pull_request':
         return `${repoPath(ref.repo)}/pulls/${encodeURIComponent(ref.number)}`
-      case 'commit':
-        return `${repoPath(ref.repo)}/git/commits/${encodeURIComponent(ref.number)}`
       case 'discussion':
         throw new UnsupportedOperationError(`${profile.forge} has no discussions`, context)
       default:
@@ -363,7 +361,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
     const { data } = await fetcher.json<ForgejoNotification>(`/notifications/threads/${encodeURIComponent(ref.id)}`, { signal })
     const number = numberFromUrl(data.subject.url)
-    if (!number || toThreadKind(data.subject.type) === 'commit') {
+    if (!number || !toThreadKind(data.subject.type)) {
       throw new UnsupportedOperationError('Only issue and pull request threads can be unsubscribed from', context)
     }
     const [owner = '', name = ''] = data.repository.full_name.split('/')
@@ -849,14 +847,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     },
     ci: {
       runsPage: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), runsPage),
-      run: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref, options) => {
+      getRun: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref, options) => {
         const path = `${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`
         return isGitea
           ? toGiteaActionRun(ref.repo, (await fetcher.json<GiteaActionRun>(path, { signal: options?.signal })).data)
           : toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(path, { signal: options?.signal })).data)
       }),
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
-      job: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
+      getJob: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
         const { data } = await fetcher.json<GiteaActionJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
         const run = ref.run ?? (data.run_id === undefined ? undefined : { ...origin, repo: ref.repo, id: String(data.run_id) })
         if (!run) {
@@ -867,7 +865,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
-      file: verb(true, readFile),
+      getFile: verb(true, readFile),
       treePage: verb(true, async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data, response } = await fetcher.json<ForgejoTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
@@ -891,8 +889,6 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
         return sha
       }),
-      commitsPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, {
           query: { files: options?.files === false ? false : undefined },
@@ -908,6 +904,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
       }),
       commitFiles: verb(true, commitFiles),
+    },
+    commits: {
+      listPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
     },
     releases: {
       listPage: verb(true, releasesPage),
@@ -985,14 +985,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toReviewComment(pull, data)
       }),
-      get: perKind({ issue: true, pull_request: true, commit: true }, get),
+      get: perKind(ISSUE_AND_PULL, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind(ISSUE_AND_PULL, listPage),
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
-        if (ref.kind === 'commit') {
-          return { items: [] }
-        }
         return list(`${issuePath(ref)}/timeline`, { perPage: TIMELINE_PAGE_SIZE, ...listOptions }, (entry: ForgejoTimelineEntry) => toEvent(ref, entry))
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
@@ -1007,12 +1004,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         }
         return toComment(thread, data)
       }),
-      comment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         const { data } = await fetcher.json<ForgejoComment>(`${issuePath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
+      updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         const { data } = await fetcher.json<ForgejoComment>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })
         return toComment(thread, data)
@@ -1186,7 +1183,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 }
 
 /** Creates a Forgejo provider for Codeberg or any self-hosted Forgejo instance. */
-export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo', false> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE))
+export const forgejo: ProviderFactoryFunction<ForgejoOptions, true, 'forgejo'> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(FORGEJO_PROFILE))
 
 /**
  * Forgejo and Gitea token scopes, which are per resource group with a

@@ -1,6 +1,6 @@
-import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
+import type { InstallationsSpec, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { BaseOptions, Check, Comment, Cursor, ForgeEventInput, ForgeWarning, Installation, ListOptions, MergeMethod, Page, PageOptions, RateLimit, Repo, RepoRef, ResolvedThreadRef, Review, ReviewEvent, ReviewInput, Thread, ThreadQuery, ThreadRef } from '../model.ts'
-import type { AnonymousAuth, ForgeOptionsBase, InstallationsApi } from '../provider.ts'
+import type { AnonymousAuth, ForgeOptionsBase } from '../provider.ts'
 import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginLabel, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
@@ -167,7 +167,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     }), listOptions.cursor)
   }
 
-  function createInstallationsApi(app: OriginAppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
+  function createInstallationsApi(app: OriginAppCredentials): InstallationsSpec {
     const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
     const auth = options.auth as Extract<CursorOriginAuth, { type: 'app' }>
     const toInstallation = (raw: OriginInstallation): Installation => ({
@@ -210,7 +210,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       list: verb('unverified', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     contents: {
-      file: verb('unverified', async (repo, path, fileOptions = {}) => {
+      getFile: verb('unverified', async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<OriginContent>(`${repoPath(repo)}/contents`, {
           query: { path, ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -245,20 +245,6 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items: (data ?? []).map(toTag), ...rateLimitPart(response) }
       }),
       resolveRef: verb('unverified', async (repo, ref, options) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitsPage: verb('unverified', async (repo, query = {}) => {
-        const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
-          ...query,
-          query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
-        })
-        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
-      }),
-      commit: verb('unverified', async (repo, sha, options) => {
-        const [commit, files] = await Promise.all([
-          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
-          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
-        ])
-        return toCommit(repo, commit.data, files.map(toChangedFile))
-      }),
       compare: verb('unverified', async (repo, base, head, options) => {
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
@@ -275,6 +261,22 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           files: files.map(toChangedFile),
           raw: comparison.data,
         }
+      }),
+    },
+    commits: {
+      listPage: verb('unverified', async (repo, query = {}) => {
+        const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
+          ...query,
+          query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
+        })
+        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
+      }),
+      get: verb('unverified', async ({ repo, sha }, options) => {
+        const [commit, files] = await Promise.all([
+          fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
+          all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
+        ])
+        return toCommit(repo, commit.data, files.map(toChangedFile))
       }),
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
@@ -301,11 +303,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const thread = requireThread(ref.thread, context)
         return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
       }),
-      comment: perKind(PULL, async (thread, body, options) => {
+      createComment: perKind(PULL, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind(UNVERIFIED, async (ref, body, options) => {
+      updateComment: perKind(UNVERIFIED, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
       }),
@@ -442,7 +444,7 @@ const ORIGIN: ProviderDefinition<CursorOriginOptions, OriginAppCredentials | und
  * Creates a Cursor Origin provider. Experimental: built against the
  * `v1alpha1` API, which Cursor publishes as Early Beta.
  */
-export const cursorOrigin: ProviderFactoryFunction<CursorOriginOptions, boolean, 'cursor-origin', true> = /* @__PURE__ */ defineForgeProvider(ORIGIN)
+export const cursorOrigin: ProviderFactoryFunction<CursorOriginOptions, boolean, 'cursor-origin'> = /* @__PURE__ */ defineForgeProvider(ORIGIN)
 
 function createFetcherFor(baseUrl: string, headers: Record<string, string>, options: CursorOriginOptions, authHeaders: () => Promise<Record<string, string>>) {
   return createFetcherBase({ baseUrl, headers, fetch: options.fetch, timeout: options.timeout, authHeaders, context: { forge: FORGE } })

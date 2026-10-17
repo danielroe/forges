@@ -199,7 +199,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       commentsPage: perKind(ISSUE_AND_PULL, (thread: ThreadRef, listOptions?: ListOptions) => wholePage(listComments(thread, listOptions))),
     }
 
-    const comment: ThreadsApi['comment'] = async (thread, body, options) => {
+    const createComment: ThreadsApi['createComment'] = async (thread, body, options) => {
       const { ref, uri } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
       const { cid } = await atproto.getRecord(target, options?.signal)
@@ -215,7 +215,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       const uri = parseAtUri(record.subject?.uri ?? record.issue ?? record.pull ?? '')
       return uri && THREAD_COLLECTIONS.includes(uri.collection) ? toThreadRef(instance, repo, uri) : undefined
     }
-    const editComment: ThreadsApi['editComment'] = async (ref, body, options) => {
+    const updateComment: ThreadsApi['updateComment'] = async (ref, body, options) => {
       let thread: ResolvedThreadRef | undefined
       const record = await putOwnRecord(ref.id, (current) => {
         thread = isResolvedThread(ref.thread) ? ref.thread : commentSubject(ref.thread.repo, current as FeedCommentRecord & LegacyCommentRecord) ?? requireThread(ref.thread, context)
@@ -588,14 +588,16 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       },
       notifications,
       contents: {
-        file: contentsVerb('file'),
+        getFile: contentsVerb('file'),
         treePage: contentsVerb('treePage'),
         branchesPage: contentsVerb('branchesPage'),
         tagsPage: contentsVerb('tagsPage'),
         resolveRef: contentsVerb('resolveRef'),
-        commitsPage: contentsVerb('commitsPage'),
-        commit: contentsVerb('commit'),
         compare: contentsVerb('compare'),
+      },
+      commits: {
+        listPage: contentsVerb('commitsPage'),
+        get: verb(true, async ({ repo, sha }, options) => (await knot()).commit(repo, sha, options)),
       },
       users: {
         get: verb(true, async (login, options) => {
@@ -630,8 +632,8 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       },
       threads: {
         ...threads,
-        comment: perKind(signedIn, comment),
-        editComment: perKind(signedIn, editComment),
+        createComment: perKind(signedIn, createComment),
+        updateComment: perKind(signedIn, updateComment),
         deleteComment: perKind(signedIn, deleteComment),
         create: perKind(signedIn, create),
         merge: verb(writable, merge),
@@ -671,4 +673,4 @@ async function patchText(bytes: Uint8Array): Promise<string> {
 }
 
 /** Creates a Tangled provider. Records are read from PDSes; pushes arrive through Jetstream. */
-export const tangled: ProviderFactoryFunction<TangledOptions, true, 'tangled', true> = /* @__PURE__ */ defineForgeProvider(TANGLED)
+export const tangled: ProviderFactoryFunction<TangledOptions, true, 'tangled'> = /* @__PURE__ */ defineForgeProvider(TANGLED)

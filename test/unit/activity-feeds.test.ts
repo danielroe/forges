@@ -42,12 +42,13 @@ describe('github activity feeds', () => {
     expect(merged).toMatchObject({ source: 'poll', kindRaw: 'PullRequestEvent.merged', occurredAt: new Date('2026-01-02T03:04:05Z') })
   })
 
-  it('puts a commit comment on its commit thread', () => {
+  it('puts a commit comment on its commit', () => {
     const payload = { action: 'created', comment: { id: 9, body: 'Nice', commit_id: 'abc123' } }
     const feed = completeEvent(toGitHubFeedEvent('github.com', feedItem('CommitCommentEvent', payload)))
 
     expect(shape(feed)).toEqual(shape(webhook('commit_comment', payload)))
-    expect(feed).toMatchObject({ kind: 'comment', thread: { kind: 'commit', number: 'abc123' }, detail: { type: 'comment', comment: { id: '9', thread: { kind: 'commit', number: 'abc123' } }, body: 'Nice' } })
+    expect(feed).toMatchObject({ kind: 'comment', commit: { sha: 'abc123' }, detail: { type: 'comment', comment: { id: '9', commit: { sha: 'abc123' } }, body: 'Nice' } })
+    expect(feed.thread).toBeUndefined()
   })
 
   it('reports whether a feed event is public where the feed says', () => {
@@ -106,12 +107,12 @@ describe('github activity feeds', () => {
         }
         return json([feedItem('WatchEvent', { action: 'started' })], url.includes('page=2') ? {} : { etag: 'W/"first"', link: '<https://api.github.com/repos/acme/widgets/events?page=2>; rel="next"' })
       },
-    }).create()
+    })
     const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
-    const page = await provider.repos.eventsPage(repo)
-    const again = await provider.repos.eventsPage(repo, { cursor: { etag: page.etag } })
-    const next = await provider.repos.eventsPage(repo, { cursor: page.cursor })
+    const page = await provider.repos.events(repo).page()
+    const again = await provider.repos.events(repo, { cursor: { etag: page.etag } }).page()
+    const next = await provider.repos.events(repo, { cursor: page.cursor }).page()
 
     expect(page).toMatchObject({ etag: 'W/"first"', items: [{ source: 'poll' }] })
     expect(again).toMatchObject({ notModified: true, items: [], etag: 'W/"first"' })
@@ -128,15 +129,15 @@ describe('github activity feeds', () => {
           urls.push(new URL(url).pathname)
           return json([feedItem('WatchEvent', { action: 'started' })], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
         },
-      }).create()
+      })
       const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
-      const page = await provider.repos.eventsPage(repo)
-      const soon = await provider.repos.eventsPage(repo, { cursor: { etag: page.etag } })
-      await provider.users.eventsPage('octocat')
-      await provider.repos.eventsPage(repo, { force: true })
+      const page = await provider.repos.events(repo).page()
+      const soon = await provider.repos.events(repo, { cursor: { etag: page.etag } }).page()
+      await provider.users.events('octocat').page()
+      await provider.repos.events(repo, { force: true }).page()
       vi.advanceTimersByTime(60_000)
-      await provider.repos.eventsPage(repo)
+      await provider.repos.events(repo).page()
 
       expect(page.nextPollAt).toEqual(new Date('2026-01-02T00:01:00Z'))
       expect(soon).toEqual({ items: [], throttled: true, nextPollAt: new Date('2026-01-02T00:01:00Z'), etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('wait 60s more') }] })
@@ -157,13 +158,13 @@ describe('github activity feeds', () => {
           urls.push(new URL(url).pathname)
           return json([], { 'etag': 'W/"first"', 'x-poll-interval': '60' })
         },
-      }).create()
+      })
 
-      const page = await provider.notifications!.listPage()
-      const soon = await provider.notifications!.listPage({ cursor: { etag: page.etag }, all: true })
-      await provider.notifications!.listPage({ force: true })
+      const page = await provider.notifications!.list().page()
+      const soon = await provider.notifications!.list({ cursor: { etag: page.etag }, all: true }).page()
+      await provider.notifications!.list({ force: true }).page()
       vi.advanceTimersByTime(60_000)
-      await provider.notifications!.listPage()
+      await provider.notifications!.list().page()
 
       expect(page.nextPollAt).toEqual(new Date('2026-01-02T00:01:00Z'))
       expect(soon).toMatchObject({ items: [], throttled: true, etag: 'W/"first"', warnings: [{ code: 'feed_throttled', message: expect.stringContaining('reading notifications again') }] })
@@ -177,7 +178,7 @@ describe('github activity feeds', () => {
   it('tells a second iteration within the poll interval apart from an empty feed', async () => {
     const provider = github({
       fetch: async () => json([feedItem('WatchEvent', { action: 'started' })], { 'x-poll-interval': '60' }),
-    }).create()
+    })
     const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 
     const first = provider.repos.events(repo)
@@ -205,10 +206,10 @@ describe('gitlab activity feeds', () => {
         ? json([event(12, 1)])
         : json([event(10, 1), event(11, 2)], { link: '<https://gitlab.com/api/v4/users/ada/events?page=2>; rel="next"' })
     }
-    const provider = gitlab({ fetch }).create()
+    const provider = gitlab({ fetch })
 
-    const page = await provider.users.eventsPage('ada')
-    const next = await provider.users.eventsPage('ada', { cursor: page.cursor })
+    const page = await provider.users.events('ada').page()
+    const next = await provider.users.events('ada', { cursor: page.cursor }).page()
 
     expect(page.items.map(item => [item.repo && `${item.repo.owner}/${item.repo.name}`, item.thread?.number])).toEqual([['acme/tools/widgets', '10'], [undefined, undefined]])
     expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 2' })])
@@ -268,18 +269,18 @@ describe('gitee activity feeds', () => {
     const provider = gitee({ fetch: async (url) => {
       urls.push(url)
       return json([event('StarEvent', { action: 'starred' })])
-    } }).create()
+    } })
     const repo = { forge: 'gitee', instance: 'gitee.com', owner: 'acme', name: 'widgets' }
 
-    const page = await provider.repos.eventsPage(repo, { perPage: 1 })
-    await provider.repos.eventsPage(repo, { perPage: 1, cursor: page.cursor })
+    const page = await provider.repos.events(repo, { perPage: 1 }).page()
+    await provider.repos.events(repo, { perPage: 1, cursor: page.cursor }).page()
 
     expect(page.cursor).toEqual({ token: '9' })
     expect(urls.map(url => new URL(url).searchParams.get('prev_id'))).toEqual([null, '9'])
   })
 
   it('does not read a user feed without credentials', () => {
-    expect(gitee().create().can('users.events')).toBe(false)
+    expect(gitee().can('users.events')).toBe(false)
   })
 })
 
@@ -373,11 +374,11 @@ describe('tangled activity feeds', () => {
 
 describe('fake activity feeds', () => {
   it('lists the recorded writes of a repository and an account, newest first', async () => {
-    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash' }] } }).create()
+    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash' }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [issue] = (await forge.threads.listPage(repo)).items
+    const [issue] = (await forge.threads.list(repo).page()).items
 
-    await forge.threads.comment(issue!.ref, 'Looking')
+    await forge.threads.createComment(issue!.ref, 'Looking')
     await forge.threads.close(issue!.ref)
     const me = await forge.users.me()
 

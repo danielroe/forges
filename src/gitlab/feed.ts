@@ -14,12 +14,12 @@ const FEED_STATES: Record<string, { action: EventAction, state: ThreadState }> =
 
 function feedThread(repo: RepoRef | undefined, type: string | null | undefined, number: number | string | null | undefined): ThreadRef | undefined {
   const kind = toThreadKind(type === 'WorkItem' ? 'Issue' : type ?? '')
-  return repo && kind !== 'other' && number !== null && number !== undefined
+  return repo && kind && number !== null && number !== undefined
     ? { forge: FORGE, instance: repo.instance, repo, kind, number: String(number) }
     : undefined
 }
 
-function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined, who: string): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary' | 'thread'> {
+function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined, who: string): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary' | 'thread' | 'commit'> {
   const push = raw.push_data
   if (push) {
     const tag = push.ref_type === 'tag'
@@ -37,7 +37,12 @@ function feedLevel(instance: string, raw: GitLabEvent, repo: RepoRef | undefined
   const note = raw.note
   if (note) {
     const kind = note.type === 'DiffNote' || note.position ? 'review_comment' : 'comment'
-    const thread = feedThread(repo, note.noteable_type, note.noteable_type === 'Commit' ? note.commit_id : note.noteable_iid)
+    if (note.noteable_type === 'Commit') {
+      const commit = repo && note.commit_id ? { forge: FORGE, instance: repo.instance, repo, sha: note.commit_id } : undefined
+      const comment = commit && { forge: FORGE, instance: commit.instance, commit, id: String(note.id) }
+      return { kind: 'comment', action: 'created', commit, detail: { type: 'comment', comment, body: note.body }, summary: `${who} commented` }
+    }
+    const thread = feedThread(repo, note.noteable_type, note.noteable_iid)
     const comment = thread && { forge: FORGE, instance: thread.instance, thread, id: String(note.id) }
     return { kind, action: 'created', thread, detail: { type: kind, comment, body: note.body }, summary: `${who} commented` }
   }

@@ -24,7 +24,7 @@ function provider(overrides = {}, auth = true) {
     instance: tangled({
       auth: auth ? { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS } : undefined,
       fetch,
-    }).create(),
+    }),
     calls,
   }
 }
@@ -178,7 +178,7 @@ describe('tangled cancellation', () => {
       }
       return served(input, init)
     }
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch }).create()
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch })
     return {
       instance,
       reached,
@@ -208,7 +208,7 @@ describe('tangled cancellation', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
 
-    const pending = instance.threads.comment(pull, 'Thanks!', { signal: controller.signal })
+    const pending = instance.threads.createComment(pull, 'Thanks!', { signal: controller.signal })
     await reached
     controller.abort(reason)
 
@@ -234,7 +234,7 @@ describe('tangled cancellation', () => {
 describe('tangled index listing', () => {
   it('lists from the index in one request per page and warns that states may be stale', async () => {
     const { fetch, calls } = fixtureFetch('tangled')
-    const listing = tangled({ fetch, listSource: 'index' }).create().threads.list(repo, { kind: 'pull_request' })
+    const listing = tangled({ fetch, listSource: 'index' }).threads.list(repo, { kind: 'pull_request' })
     const threads = []
     for await (const thread of listing) {
       threads.push(thread)
@@ -251,14 +251,14 @@ describe('tangled writes', () => {
   it('is read-only without credentials', async () => {
     const { instance } = provider({}, false)
 
-    expect(instance.can('threads.comment', 'issue')).toBe(false)
+    expect(instance.can('threads.createComment', 'issue')).toBe(false)
     expect(instance.can('notifications.list')).toBe(false)
-    await expect(instance.threads.comment(pull, 'x')).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.createComment(pull, 'x')).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('writes a feed comment with a strong ref to the thread', async () => {
     const { instance, calls } = provider()
-    const comment = await instance.threads.comment!(pull, 'Thanks!')
+    const comment = await instance.threads.createComment!(pull, 'Thanks!')
     const write = JSON.parse(calls.find(call => call.url.endsWith('createRecord'))!.body!)
 
     expect(comment.ref.id).toBe('at://did:plc:acmeowner222222222222222/sh.tangled.feed.comment/3mwqcreated22')
@@ -291,7 +291,7 @@ describe('tangled writes', () => {
 
     it('takes the thread from the comment record', async () => {
       const { instance, calls } = edit(PULL)
-      const comment = await instance.threads.editComment(unnumbered, 'After')
+      const comment = await instance.threads.updateComment(unnumbered, 'After')
 
       expect(comment.ref.thread).toMatchObject({ kind: 'pull_request', number: PULL })
       expect(comment.body).toBe('After')
@@ -301,7 +301,7 @@ describe('tangled writes', () => {
     it('rejects before it writes when the record names no thread', async () => {
       const { instance, calls } = edit(`at://${OWNER}/sh.tangled.repo/widgets`)
 
-      await expect(instance.threads.editComment(unnumbered, 'After')).rejects.toThrow(UnresolvedThreadError)
+      await expect(instance.threads.updateComment(unnumbered, 'After')).rejects.toThrow(UnresolvedThreadError)
       expect(calls.filter(call => call.url.endsWith('putRecord'))).toEqual([])
     })
   })
@@ -310,8 +310,8 @@ describe('tangled writes', () => {
     const { fetch, calls } = fixtureFetch('tangled', {
       'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
     })
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch }).create()
-    await instance.threads.comment!(pull, 'Thanks!')
+    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch })
+    await instance.threads.createComment!(pull, 'Thanks!')
 
     expect(calls.find(call => call.url.endsWith('createSession'))!.url).toBe(`${PDS}/xrpc/com.atproto.server.createSession`)
   })
@@ -360,7 +360,7 @@ describe('tangled writes', () => {
         }
         return base(url, init)
       },
-    }).create()
+    })
     await instance.threads.close!(pull)
 
     expect(calls.map(call => call.url.split('/').at(-1))).toContain('com.atproto.server.refreshSession')
@@ -381,7 +381,7 @@ describe('tangled writes', () => {
         },
       },
       fetch: base,
-    }).create()
+    })
     await instance.threads.reopen!(pull)
 
     expect(signed).toEqual([`${PDS}/xrpc/com.atproto.repo.createRecord`])
@@ -392,7 +392,7 @@ describe('tangled writes', () => {
       [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 401, body: { error: 'AuthenticationRequired', message: 'Invalid identifier or password' } },
     })
 
-    await expect(instance.threads.comment(pull, 'x')).rejects.toThrow(TokenRevokedError)
+    await expect(instance.threads.createComment(pull, 'x')).rejects.toThrow(TokenRevokedError)
   })
 
   it('maps a 401 through the OAuth client fetch to TokenRevokedError', async () => {
@@ -405,7 +405,7 @@ describe('tangled writes', () => {
         fetch: async () => new Response('{"error":"InvalidToken"}', { status: 401 }),
       },
       fetch: base,
-    }).create()
+    })
 
     await expect(instance.threads.reopen!(pull)).rejects.toThrow(TokenRevokedError)
   })
@@ -419,20 +419,20 @@ describe('tangled notifications (experimental)', () => {
         auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS },
         notificationsUrl: 'https://notifs.example.com',
         fetch,
-      }).create(),
+      }),
       calls,
     }
   }
 
   it('is unsupported without a notifications service, and supported with one', async () => {
     expect(provider().instance.can('notifications.list')).toBe(false)
-    await expect(provider().instance.notifications.listPage()).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider().instance.notifications.list().page()).rejects.toThrow(UnsupportedOperationError)
     expect(notifying().instance.capabilities.notifications.list).toBe(true)
   })
 
   it('lists notifications with a service-auth token scoped to the method', async () => {
     const { instance, calls } = notifying()
-    const page = await instance.notifications!.listPage()
+    const page = await instance.notifications!.list().page()
     const [comment, follow] = page.items
 
     expect(calls.find(call => call.url.includes('getServiceAuth'))!.url).toContain('aud=did%3Aweb%3Anotifs.example.com')
@@ -482,7 +482,7 @@ describe('tangled subscribe', () => {
           record: { subject: { uri: PULL, cid: 'c' }, body: 'Looks good.', createdAt: '2025-09-18T00:00:00Z' },
         },
       }]),
-    }).create()
+    })
     const { value } = await instance.sources!.subscribe()[Symbol.asyncIterator]().next()
 
     expect(value!.event).toMatchObject({
@@ -508,7 +508,7 @@ describe('tangled subscribe', () => {
           record: { subject: `at://${ADA}/sh.tangled.repo.issue/3mwqmissing22`, reaction: '👀', createdAt: '2025-09-18T00:00:00Z' },
         },
       }]),
-    }).create()
+    })
     const iterator = instance.sources!.subscribe()[Symbol.asyncIterator]()
     const first = await iterator.next()
 
@@ -523,7 +523,7 @@ describe('tangled webhooks', () => {
     const instance = tangled({
       webhookSecret: 's',
       resolveDisplayNumber: async (_repo, kind, number) => kind === 'pull_request' && number === '4' ? PULL : undefined,
-    }).create()
+    })
     const body = JSON.stringify({ action: 'closed', pull_request: { number: 4 }, repository: { name: 'widgets', owner: { did: OWNER } }, sender: { did: OWNER } })
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
     const [event] = await instance.webhooks.ingest({
@@ -537,9 +537,9 @@ describe('tangled webhooks', () => {
 
 describe('tangled anonymous auth', () => {
   it('treats `{ type: \'anonymous\' }` like no credentials', () => {
-    const provider = tangled({ auth: { type: 'anonymous' } }).create()
+    const provider = tangled({ auth: { type: 'anonymous' } })
 
-    expect(provider.capabilities.writes.comment.issue).toBe(false)
+    expect(provider.capabilities.threads.createComment.issue).toBe(false)
   })
 })
 
@@ -598,14 +598,14 @@ describe('tangled contents', () => {
   it('reads changed files and commits from the gzipped patch of the latest round', async () => {
     const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(PATCH).toString('base64') } }, false)
 
-    const files = await instance.threads.filesPage(pull)
+    const files = await instance.threads.files(pull).page()
     expect(files.items).toEqual([
       expect.objectContaining({ path: 'src/cache.ts', status: 'modified', additions: 2, deletions: 1, sha: '3333333' }),
       expect.objectContaining({ path: 'src/new.ts', previousPath: 'src/old.ts', status: 'renamed', additions: 0, deletions: 0 }),
     ])
     expect(files.warnings?.map(warning => [warning.code, warning.subject])).toEqual([['files_approximate', 'src/cache.ts']])
 
-    const commits = await instance.threads.commitsPage(pull)
+    const commits = await instance.threads.commits(pull).page()
     expect(commits.items.map(commit => [commit.sha, commit.author?.name, commit.message, commit.stats])).toEqual([
       [SHA_A, 'Ada Løvelace', 'Cache compiled templates by content hash\n\nKeyed by the hash of the source.', { additions: 1, deletions: 1 }],
       [SHA_B, 'Ada', 'Rename the cache', { additions: 1, deletions: 0 }],
@@ -617,8 +617,8 @@ describe('tangled contents', () => {
     const diff = PATCH.slice(PATCH.indexOf('diff --git'), PATCH.indexOf('\n-- \n'))
     const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(diff).toString('base64') } }, false)
 
-    expect((await instance.threads.filesPage(pull)).items).toEqual([expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 })])
-    expect((await instance.threads.commitsPage(pull)).items).toEqual([])
+    expect((await instance.threads.files(pull).page()).items).toEqual([expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 })])
+    expect((await instance.threads.commits(pull).page()).items).toEqual([])
   })
 
   it('takes the commit an annotated tag points at, and a lightweight tag as is', async () => {
@@ -628,7 +628,7 @@ describe('tangled contents', () => {
         { name: 'v1', hash: 'e'.repeat(40), message: 'v1' },
       ] } },
     }, false)
-    const tags = await instance.contents.tagsPage(repo, { perPage: 2 })
+    const tags = await instance.contents.tags(repo, { perPage: 2 }).page()
 
     expect(tags.items.map(tag => [tag.name, tag.sha])).toEqual([['v2', 'd'.repeat(40)], ['v1', 'e'.repeat(40)]])
     expect(tags.cursor).toEqual({ token: '2' })
@@ -644,8 +644,8 @@ describe('tangled contents', () => {
         { name: 'vendor', mode: '0160000', size: 0 },
       ] } },
     }, false)
-    const file = await instance.contents.file(repo, 'logo.png', { ref: 'main' })
-    const tree = await instance.contents.treePage(repo, { path: 'src/', recursive: true })
+    const file = await instance.contents.getFile(repo, 'logo.png', { ref: 'main' })
+    const tree = await instance.contents.tree(repo, { path: 'src/', recursive: true }).page()
 
     expect(file).toMatchObject({ encoding: 'binary', content: new Uint8Array([0x89, 0x50, 0x4E, 0x47]), size: 4 })
     expect(tree.items.map(entry => [entry.path, entry.type, entry.mode])).toEqual([
@@ -661,7 +661,7 @@ describe('tangled contents', () => {
     const { instance } = provider({
       [`GET ${KNOT}/sh.tangled.repo.log?repo=${REPO_DID}&ref=main&limit=1`]: { status: 200, body: { commits: [{ hash: SHA_A, this: SHA_A, message: 'One', parent_hashes: [Array.from({ length: 20 }).fill(0xBB)] }] } },
     }, false)
-    const page = await instance.contents.commitsPage(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) })
+    const page = await instance.commits.list(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) }).page()
 
     expect(page.items.map(commit => [commit.sha, commit.parents])).toEqual([[SHA_A, [SHA_B]]])
     expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
@@ -711,7 +711,7 @@ describe('tangled labels, reactions and people', () => {
 
   it('gives the owner admin, collaborators write and anyone else read', async () => {
     const { instance } = provider({}, false)
-    const collaborators = await instance.repos.collaboratorsPage(repo)
+    const collaborators = await instance.repos.collaborators(repo).page()
 
     expect(collaborators.items.map(collaborator => [collaborator.actor.id, collaborator.role])).toEqual([[OWNER, 'admin'], [GRACE, 'write']])
     expect(await instance.repos.permissionFor(repo, OWNER)).toBe('admin')

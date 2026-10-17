@@ -16,7 +16,8 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
   const warnings: ForgeWarning[] = []
 
   for (const entry of providersFromEnv(env)) {
-    if (!entry.factory) {
+    const { provider } = entry
+    if (!provider) {
       warnings.push({
         code: 'provider_skipped',
         message: `${entry.forge}${entry.suffix ? ` (${entry.suffix})` : ''}: ${entry.skipped ?? 'not configured'}`,
@@ -24,7 +25,6 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
       })
       continue
     }
-    const provider = entry.factory.create()
     providers.push(provider)
     if (entry.demoRepo) {
       repos.push({

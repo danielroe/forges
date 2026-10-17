@@ -26,7 +26,7 @@ import { bitbucket } from 'forges/bitbucket'
 
 const forge = bitbucket({
   auth: { type: 'token', token: process.env.BITBUCKET_TOKEN! },
-}).create()
+})
 
 const basic = bitbucket({
   auth: {
@@ -34,7 +34,7 @@ const basic = bitbucket({
     username: process.env.BITBUCKET_EMAIL!,
     password: process.env.BITBUCKET_API_TOKEN!,
   },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data.
@@ -82,7 +82,7 @@ To verify deliveries, set `webhookSecret` to the secret that you configured on t
 ```ts
 const forge = bitbucket({
   webhookSecret: process.env.BITBUCKET_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,
@@ -108,8 +108,6 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ❌ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
@@ -134,18 +132,47 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
 | `orgs.block` | ❌ | ❌ |
-| `threads.get` | PR, commit | PR, commit |
+| `threads.get` | PR | PR |
 | `threads.list` | PR | PR |
 | `threads.getMany` | ✅ | ✅ |
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
-| `threads.events` | PR, commit | PR, commit |
-| `comments.list` | PR, commit | PR, commit |
-| `comments.get` | PR (emulated), commit (emulated) | PR (unverified), commit (unverified) |
-| `comments.edit` | PR, commit | ❌ |
-| `comments.delete` | PR, commit | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.events` | PR | PR |
+| `threads.comments` | PR | PR |
+| `threads.getComment` | PR (emulated) | PR (unverified) |
+| `threads.createComment` | PR | ❌ |
+| `threads.updateComment` | PR | ❌ |
+| `threads.deleteComment` | PR | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | PR | ❌ |
+| `threads.update` | PR | ❌ |
+| `threads.close` | PR | ❌ |
+| `threads.reopen` | ❌ | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | ❌ | ❌ |
+| `threads.addLabels` | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | ❌ | ❌ |
+| `threads.requestReview` | PR | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | PR | PR |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | emulated | emulated |
+| `threads.getReview` | emulated | emulated |
+| `threads.createReview` | emulated | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | emulated | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -153,54 +180,31 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | PR, commit | ❌ |
-| `writes.close` | PR | ❌ |
-| `writes.reopen` | ❌ | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | PR | ❌ |
-| `writes.update` | PR | ❌ |
-| `writes.setLabels` | ❌ | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | ❌ | ❌ |
-| `writes.requestReview` | PR | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR | PR |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
-| `ci.run` | ❌ | ❌ |
+| `ci.getRun` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
-| `ci.job` | ❌ | ❌ |
+| `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ |
+| `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | emulated | emulated |
-| `reviews.get` | emulated | emulated |
-| `reviews.create` | emulated | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | emulated | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ✅ | ✅ |
+| `commits.getComment` | emulated | unverified |
+| `commits.createComment` | ✅ | ❌ |
+| `commits.updateComment` | ✅ | ❌ |
+| `commits.deleteComment` | ✅ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -208,6 +212,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ✅ | ❌ |
 | `webhooks.create` | ✅ | ❌ |
 | `webhooks.update` | ✅ | ❌ |
@@ -219,7 +224,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `search.repos` | ✅ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `basic`, `anonymous` | `token`, `basic`, `anonymous` |
 | `limits` | unknown | unknown |

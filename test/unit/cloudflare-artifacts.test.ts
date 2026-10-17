@@ -7,7 +7,7 @@ const account = '023e105f4ecef8ad9ca31a8372d0c353'
 
 function provider() {
   const fixtures = fixtureFetch([])
-  return { ...fixtures, forge: cloudflareArtifacts({ accountId: account, auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }).create() }
+  return { ...fixtures, forge: cloudflareArtifacts({ accountId: account, auth: { type: 'token', token: 't' }, fetch: fixtures.fetch }) }
 }
 
 describe('cloudflare artifacts', () => {
@@ -20,14 +20,14 @@ describe('cloudflare artifacts', () => {
 
   it('lists nothing for filters no Artifacts repository matches, without a request', async () => {
     const { forge, calls } = provider()
-    expect((await forge.repos.listPage({ affiliation: ['collaborator'] })).items).toEqual([])
-    expect((await forge.repos.listPage({ visibility: 'public' })).items).toEqual([])
+    expect((await forge.repos.list({ affiliation: ['collaborator'] }).page()).items).toEqual([])
+    expect((await forge.repos.list({ visibility: 'public' }).page()).items).toEqual([])
     expect(calls).toHaveLength(0)
   })
 
   it.each(['more-agents', '"agents"', '{"repos":"x"}'])('rejects a listing cursor that `repos.list()` did not return: %s', async (token) => {
     const { forge, calls } = provider()
-    await expect(forge.repos.listPage({ cursor: { token } })).rejects.toThrow(ForgeError)
+    await expect(forge.repos.list({ cursor: { token } }).page()).rejects.toThrow(ForgeError)
     expect(calls).toHaveLength(0)
   })
 })

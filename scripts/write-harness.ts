@@ -458,7 +458,7 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       }
       const { call, did } = await session()
       const { ref } = await read!.repos.get(scratch)
-      const stale = (await read!.contents.branchesPage(ref, { perPage: 100 })).items.map(branch => branch.name).filter(name => branches.includes(name) || name.startsWith('forges-fixtures/'))
+      const stale = (await read!.contents.branches(ref, { perPage: 100 }).page()).items.map(branch => branch.name).filter(name => branches.includes(name) || name.startsWith('forges-fixtures/'))
       if (stale.length) {
         const directory = mkdtempSync(join(tmpdir(), 'forges-tangled-'))
         git(directory, ['init', '-q'])

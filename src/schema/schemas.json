@@ -700,7 +700,7 @@
         "items": {
           "$ref": "#/components/schemas/ChangedFile"
         },
-        "description": "Present on `contents.commit`; absent from listings."
+        "description": "Present on `commits.get`; absent from listings."
       },
       "raw": {}
     },
@@ -713,6 +713,77 @@
     ],
     "description": "A commit.",
     "x-forges-type": "Commit"
+  },
+  "CommitComment": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "author": {
+        "$ref": "#/components/schemas/Actor"
+      },
+      "authorAssociation": {
+        "$ref": "#/components/schemas/AuthorAssociation",
+        "description": "How the author relates to the repository, where the forge reports it."
+      },
+      "authorAssociationRaw": {
+        "type": "string",
+        "description": "Forge-native association the normalised `authorAssociation` was derived from."
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "url": {
+        "type": "string"
+      },
+      "reactions": {
+        "$ref": "#/components/schemas/ReactionSummary"
+      },
+      "raw": {},
+      "ref": {
+        "$ref": "#/components/schemas/CommitCommentRef"
+      }
+    },
+    "required": [
+      "body",
+      "raw",
+      "ref"
+    ],
+    "description": "A comment on a commit.",
+    "x-forges-type": "CommitComment"
+  },
+  "CommitCommentRef": {
+    "type": "object",
+    "properties": {
+      "forge": {
+        "$ref": "#/components/schemas/ForgeKind"
+      },
+      "instance": {
+        "$ref": "#/components/schemas/ForgeInstance",
+        "description": "The host of the instance, such as `github.com` or `git.example.com`."
+      },
+      "commit": {
+        "$ref": "#/components/schemas/CommitRef"
+      },
+      "id": {
+        "type": "string",
+        "description": "Forge-native comment id."
+      }
+    },
+    "required": [
+      "commit",
+      "forge",
+      "id",
+      "instance"
+    ],
+    "description": "Reference to a comment on a commit.",
+    "x-forges-type": "CommitCommentRef"
   },
   "CommitRef": {
     "type": "object",
@@ -957,7 +1028,14 @@
             "const": "comment"
           },
           "comment": {
-            "$ref": "#/components/schemas/CommentRef"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CommentRef"
+              },
+              {
+                "$ref": "#/components/schemas/CommitCommentRef"
+              }
+            ]
           },
           "body": {
             "type": "string"
@@ -1470,22 +1548,14 @@
       "sources": {
         "type": "object",
         "properties": {
-          "poll": {
-            "$ref": "#/components/schemas/Support"
-          },
-          "webhook": {
-            "$ref": "#/components/schemas/Support"
-          },
           "subscribe": {
-            "$ref": "#/components/schemas/Support"
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `sources.subscribe()`, a long-lived push stream; see {@link SourcesApi}."
           }
         },
         "required": [
-          "poll",
-          "webhook",
           "subscribe"
-        ],
-        "description": "`subscribe` is a long-lived push stream; see {@link SourcesApi}."
+        ]
       },
       "repos": {
         "type": "object",
@@ -1496,15 +1566,15 @@
           },
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.list()` and `repos.listPage()`."
+            "description": "Support for `repos.list()`."
           },
           "byOwner": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.byOwner()` and `repos.byOwnerPage()`."
+            "description": "Support for `repos.byOwner()`."
           },
           "labels": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.labels()` and `repos.labelsPage()`."
+            "description": "Support for `repos.labels()`."
           },
           "createLabel": {
             "$ref": "#/components/schemas/Support",
@@ -1512,15 +1582,15 @@
           },
           "milestones": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.milestones()` and `repos.milestonesPage()`."
+            "description": "Support for `repos.milestones()`."
           },
           "collaborators": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.collaborators()` and `repos.collaboratorsPage()`."
+            "description": "Support for `repos.collaborators()`."
           },
           "contributors": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.contributors()` and `repos.contributorsPage()`."
+            "description": "Support for `repos.contributors()`."
           },
           "contributorStats": {
             "$ref": "#/components/schemas/Support",
@@ -1540,15 +1610,15 @@
           },
           "assignableUsers": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.assignableUsers()` and `repos.assignableUsersPage()`."
+            "description": "Support for `repos.assignableUsers()`."
           },
           "reviewerCandidates": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`."
+            "description": "Support for `repos.reviewerCandidates()`."
           },
           "events": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.events()` and `repos.eventsPage()`."
+            "description": "Support for `repos.events()`."
           }
         },
         "required": [
@@ -1586,11 +1656,15 @@
           },
           "events": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `users.events()` and `users.eventsPage()`."
+            "description": "Support for `users.events()`."
           },
           "block": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `users.block()` and `users.unblock()`."
+            "description": "Support for `users.block()`."
+          },
+          "unblock": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.unblock()`."
           }
         },
         "required": [
@@ -1598,7 +1672,8 @@
           "me",
           "sponsorable",
           "events",
-          "block"
+          "block",
+          "unblock"
         ]
       },
       "orgs": {
@@ -1606,21 +1681,26 @@
         "properties": {
           "teams": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `orgs.teams()` and `orgs.teamsPage()`."
+            "description": "Support for `orgs.teams()`."
           },
           "teamMembers": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`."
+            "description": "Support for `orgs.teamMembers()`."
           },
           "block": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `orgs.block()` and `orgs.unblock()`."
+            "description": "Support for `orgs.block()`."
+          },
+          "unblock": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `orgs.unblock()`."
           }
         },
         "required": [
           "teams",
           "teamMembers",
-          "block"
+          "block",
+          "unblock"
         ],
         "description": "An organisation's teams and their members, where the forge has teams, and the accounts it blocks."
       },
@@ -1633,7 +1713,7 @@
           },
           "list": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.list()` and `threads.listPage()`, per thread kind."
+            "description": "Support for `threads.list()`, per thread kind."
           },
           "getMany": {
             "$ref": "#/components/schemas/Support",
@@ -1641,15 +1721,175 @@
           },
           "closingIssues": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.closingIssues()` and `threads.closingIssuesPage()`."
+            "description": "Support for `threads.closingIssues()`."
           },
           "closingPullRequests": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.closingPullRequests()` and `threads.closingPullRequestsPage()`."
+            "description": "Support for `threads.closingPullRequests()`."
           },
           "events": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.events()` and `threads.eventsPage()`, per thread kind."
+            "description": "Support for `threads.events()`, per thread kind."
+          },
+          "comments": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.comments()`, per thread kind."
+          },
+          "getComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.getComment()`, per thread kind."
+          },
+          "createComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.createComment()`, per thread kind."
+          },
+          "updateComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.updateComment()`, per thread kind."
+          },
+          "deleteComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.deleteComment()`, per thread kind."
+          },
+          "hideComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.hideComment()`, per thread kind."
+          },
+          "unhideComment": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.unhideComment()`, per thread kind."
+          },
+          "reactions": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.reactions()`, per thread kind."
+          },
+          "react": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.react()`, per thread kind."
+          },
+          "unreact": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.unreact()`, per thread kind."
+          },
+          "create": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.create()`, per thread kind."
+          },
+          "update": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.update()`, per thread kind."
+          },
+          "close": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.close()`, per thread kind."
+          },
+          "reopen": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.reopen()`, per thread kind."
+          },
+          "lock": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.lock()`, per thread kind."
+          },
+          "unlock": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.unlock()`, per thread kind."
+          },
+          "setLabels": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setLabels()`, per thread kind."
+          },
+          "addLabels": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.addLabels()`, per thread kind."
+          },
+          "removeLabels": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.removeLabels()`, per thread kind."
+          },
+          "setMilestone": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setMilestone()`, per thread kind."
+          },
+          "setAssignees": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setAssignees()`, per thread kind."
+          },
+          "requestReview": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.requestReview()`, per thread kind."
+          },
+          "merge": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.merge()`."
+          },
+          "updateBranch": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.updateBranch()`."
+          },
+          "transfer": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.transfer()`."
+          },
+          "markDuplicate": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.markDuplicate()`."
+          },
+          "subscription": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.subscription()`, per thread kind."
+          },
+          "subscribe": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.subscribe()`, per thread kind."
+          },
+          "unsubscribe": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.unsubscribe()`, per thread kind."
+          },
+          "checks": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.checks()` and `Thread.checks`, per thread kind."
+          },
+          "files": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.files()`."
+          },
+          "commits": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.commits()`."
+          },
+          "reviews": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.reviews()`. `'emulated'` where reviews are synthesised from approvals or votes."
+          },
+          "getReview": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.getReview()`."
+          },
+          "createReview": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.createReview()`. Where reviews are emulated, it covers only the events the forge's approval endpoint can express."
+          },
+          "submitReview": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.submitReview()`."
+          },
+          "approve": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.approve()`."
+          },
+          "replyToReviewComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.replyToReviewComment()`."
+          },
+          "resolveReviewThread": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.resolveReviewThread()`."
+          },
+          "unresolveReviewThread": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.unresolveReviewThread()`."
           }
         },
         "required": [
@@ -1658,60 +1898,55 @@
           "getMany",
           "closingIssues",
           "closingPullRequests",
-          "events"
+          "events",
+          "comments",
+          "getComment",
+          "createComment",
+          "updateComment",
+          "deleteComment",
+          "hideComment",
+          "unhideComment",
+          "reactions",
+          "react",
+          "unreact",
+          "create",
+          "update",
+          "close",
+          "reopen",
+          "lock",
+          "unlock",
+          "setLabels",
+          "addLabels",
+          "removeLabels",
+          "setMilestone",
+          "setAssignees",
+          "requestReview",
+          "merge",
+          "updateBranch",
+          "transfer",
+          "markDuplicate",
+          "subscription",
+          "subscribe",
+          "unsubscribe",
+          "checks",
+          "files",
+          "commits",
+          "reviews",
+          "getReview",
+          "createReview",
+          "submitReview",
+          "approve",
+          "replyToReviewComment",
+          "resolveReviewThread",
+          "unresolveReviewThread"
         ]
-      },
-      "comments": {
-        "type": "object",
-        "properties": {
-          "list": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.comments()` and `threads.commentsPage()`, per thread kind."
-          },
-          "get": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.getComment()`, per thread kind."
-          },
-          "edit": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.editComment()`, per thread kind."
-          },
-          "delete": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.deleteComment()`, per thread kind."
-          },
-          "hide": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.hideComment()` and `threads.unhideComment()`, per thread kind."
-          }
-        },
-        "required": [
-          "list",
-          "get",
-          "edit",
-          "delete",
-          "hide"
-        ]
-      },
-      "reactions": {
-        "type": "object",
-        "properties": {
-          "list": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.reactions()` and `threads.reactionsPage()`, per thread kind."
-          }
-        },
-        "required": [
-          "list"
-        ],
-        "description": "Listing the reactions on a thread or one of its comments, per thread kind."
       },
       "notifications": {
         "type": "object",
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `notifications.list()` and `notifications.listPage()`."
+            "description": "Support for `notifications.list()`."
           },
           "markRead": {
             "$ref": "#/components/schemas/Support",
@@ -1748,124 +1983,46 @@
           "unreadCount"
         ]
       },
-      "writes": {
+      "installations": {
         "type": "object",
         "properties": {
-          "comment": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.comment()`, per thread kind."
-          },
-          "close": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.close()`, per thread kind."
-          },
-          "reopen": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.reopen()`, per thread kind."
-          },
-          "lock": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.lock()` and `threads.unlock()`, per thread kind."
-          },
-          "create": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.create()`, per thread kind."
-          },
-          "update": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.update()`, per thread kind."
-          },
-          "setLabels": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.setLabels()`, per thread kind."
-          },
-          "addLabels": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.addLabels()`, per thread kind."
-          },
-          "removeLabels": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.removeLabels()`, per thread kind."
-          },
-          "setMilestone": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.setMilestone()`, per thread kind."
-          },
-          "react": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.react()` and `threads.unreact()`, per thread kind."
-          },
-          "setAssignees": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.setAssignees()`, per thread kind."
-          },
-          "requestReview": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.requestReview()`, per thread kind."
-          },
-          "merge": {
+          "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.merge()`."
+            "description": "Support for `installations.list()`."
           },
-          "updateBranch": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.updateBranch()`."
-          },
-          "transfer": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.transfer()`."
-          },
-          "markDuplicate": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.markDuplicate()`."
-          }
-        },
-        "required": [
-          "comment",
-          "close",
-          "reopen",
-          "lock",
-          "create",
-          "update",
-          "setLabels",
-          "addLabels",
-          "removeLabels",
-          "setMilestone",
-          "react",
-          "setAssignees",
-          "requestReview",
-          "merge",
-          "updateBranch",
-          "transfer",
-          "markDuplicate"
-        ],
-        "description": "Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`."
-      },
-      "subscriptions": {
-        "type": "object",
-        "properties": {
           "get": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.subscription()`, per thread kind."
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `installations.get()`."
           },
-          "set": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.subscribe()` and `threads.unsubscribe()`, per thread kind."
+          "token": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `installations.token()`."
+          },
+          "repos": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `installations.repos()`."
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `installations.provider()`."
+          },
+          "providers": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `installations.providers()`."
           }
         },
         "required": [
+          "list",
           "get",
-          "set"
-        ],
-        "description": "Reading a thread subscription (`get`) and changing it (`set`), per kind. Distinct from notification unsubscribe."
+          "token",
+          "repos",
+          "provider",
+          "providers"
+        ]
       },
       "checks": {
         "type": "object",
         "properties": {
-          "thread": {
-            "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.checks()`, per thread kind."
-          },
           "list": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `checks.list()`."
@@ -1876,7 +2033,7 @@
           },
           "report": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `checks.report()`."
+            "description": "Support for `checks.report()`. It writes a commit status unless the credential can write check runs."
           },
           "rerun": {
             "$ref": "#/components/schemas/Support",
@@ -1884,120 +2041,66 @@
           }
         },
         "required": [
-          "thread",
           "list",
           "get",
           "report",
           "rerun"
-        ],
-        "description": "`thread` covers `Thread.checks` and `threads.checks()` (pull requests only); the rest are the commit-level surface. `report` is a commit status unless the credential can write check runs."
+        ]
       },
       "ci": {
         "type": "object",
         "properties": {
           "runs": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.runs()` and `ci.runsPage()`."
+            "description": "Support for `ci.runs()`."
           },
-          "run": {
+          "getRun": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.run()`."
+            "description": "Support for `ci.getRun()`."
           },
           "jobs": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.jobs()` and `ci.jobsPage()`."
+            "description": "Support for `ci.jobs()`."
           },
-          "job": {
+          "getJob": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.job()`."
+            "description": "Support for `ci.getJob()`."
           },
           "log": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.log()`."
+            "description": "Support for `ci.log()`. `false` where job logs are not reachable over the API."
           }
         },
         "required": [
           "runs",
-          "run",
+          "getRun",
           "jobs",
-          "job",
+          "getJob",
           "log"
-        ],
-        "description": "Read-only CI surface. `log` is `false` where job logs are not reachable over the API."
-      },
-      "reviews": {
-        "type": "object",
-        "properties": {
-          "list": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.reviews()` and `threads.reviewsPage()`."
-          },
-          "get": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.getReview()`."
-          },
-          "create": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.createReview()`."
-          },
-          "submit": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.submitReview()`."
-          },
-          "approve": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.approve()`."
-          },
-          "reply": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.replyToReviewComment()`."
-          },
-          "resolveThread": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.resolveReviewThread()` and `threads.unresolveReviewThread()`."
-          }
-        },
-        "required": [
-          "list",
-          "get",
-          "create",
-          "submit",
-          "approve",
-          "reply",
-          "resolveThread"
-        ],
-        "description": "Reviews on a pull request. `list` is `'emulated'` where reviews are synthesised from approvals or votes; `create` then covers only the events the forge's approval endpoint can express."
+        ]
       },
       "contents": {
         "type": "object",
         "properties": {
-          "file": {
+          "getFile": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.file()`."
+            "description": "Support for `contents.getFile()`."
           },
           "tree": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.tree()` and `contents.treePage()`."
+            "description": "Support for `contents.tree()`. `'emulated'` where recursion is walked level by level."
           },
           "branches": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.branches()` and `contents.branchesPage()`."
+            "description": "Support for `contents.branches()`."
           },
           "tags": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.tags()` and `contents.tagsPage()`."
+            "description": "Support for `contents.tags()`."
           },
           "resolveRef": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.resolveRef()`."
-          },
-          "commits": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.commits()` and `contents.commitsPage()`."
-          },
-          "commit": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.commit()`."
           },
           "compare": {
             "$ref": "#/components/schemas/Support",
@@ -2006,80 +2109,76 @@
           "commitFiles": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `contents.commitFiles()`."
-          },
-          "threadFiles": {
-            "$ref": "#/components/schemas/Support",
-            "description": "`threads.files` and `threads.commits` on a pull request."
-          },
-          "threadCommits": {
-            "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.commits()` and `threads.commitsPage()`."
           }
         },
         "required": [
-          "file",
+          "getFile",
           "tree",
           "branches",
           "tags",
           "resolveRef",
-          "commits",
-          "commit",
           "compare",
-          "commitFiles",
-          "threadFiles",
-          "threadCommits"
-        ],
-        "description": "Repository contents. `tree` is `'emulated'` where recursion is walked level by level rather than by the forge."
+          "commitFiles"
+        ]
       },
-      "webhooks": {
+      "commits": {
         "type": "object",
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.list()` and `webhooks.listPage()`."
+            "description": "Support for `commits.list()`."
           },
-          "create": {
+          "get": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.create()`."
+            "description": "Support for `commits.get()`."
           },
-          "update": {
+          "comments": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.update()`."
+            "description": "Support for `commits.comments()`."
           },
-          "delete": {
+          "getComment": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.delete()`."
+            "description": "Support for `commits.getComment()`."
           },
-          "rotateSecret": {
+          "createComment": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.rotateSecret()`."
+            "description": "Support for `commits.createComment()`."
           },
-          "deliveries": {
+          "updateComment": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`."
+            "description": "Support for `commits.updateComment()`."
           },
-          "redeliver": {
+          "deleteComment": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.redeliver()`."
+            "description": "Support for `commits.deleteComment()`."
+          },
+          "hideComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.hideComment()`."
+          },
+          "unhideComment": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `commits.unhideComment()`."
           }
         },
         "required": [
           "list",
-          "create",
-          "update",
-          "delete",
-          "rotateSecret",
-          "deliveries",
-          "redeliver"
-        ],
-        "description": "Managing registered webhooks, beside receiving deliveries."
+          "get",
+          "comments",
+          "getComment",
+          "createComment",
+          "updateComment",
+          "deleteComment",
+          "hideComment",
+          "unhideComment"
+        ]
       },
       "releases": {
         "type": "object",
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `releases.list()` and `releases.listPage()`."
+            "description": "Support for `releases.list()`."
           },
           "get": {
             "$ref": "#/components/schemas/Support",
@@ -2116,24 +2215,77 @@
           "update"
         ]
       },
+      "webhooks": {
+        "type": "object",
+        "properties": {
+          "verify": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.verify()`."
+          },
+          "ingest": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.ingest()`."
+          },
+          "list": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.list()`."
+          },
+          "create": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.create()`."
+          },
+          "update": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.update()`."
+          },
+          "delete": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.delete()`."
+          },
+          "rotateSecret": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.rotateSecret()`."
+          },
+          "deliveries": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.deliveries()`."
+          },
+          "redeliver": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `webhooks.redeliver()`."
+          }
+        },
+        "required": [
+          "verify",
+          "ingest",
+          "list",
+          "create",
+          "update",
+          "delete",
+          "rotateSecret",
+          "deliveries",
+          "redeliver"
+        ],
+        "description": "Receiving deliveries and managing registered webhooks."
+      },
       "search": {
         "type": "object",
         "properties": {
           "threads": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.threads()` and `search.threadsPage()`."
+            "description": "Support for `search.threads()`."
           },
           "repos": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.repos()` and `search.reposPage()`."
+            "description": "Support for `search.repos()`."
           },
           "commits": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.commits()` and `search.commitsPage()`."
+            "description": "Support for `search.commits()`."
           },
           "code": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.code()` and `search.codePage()`."
+            "description": "Support for `search.code()`."
           }
         },
         "required": [
@@ -2141,16 +2293,19 @@
           "repos",
           "commits",
           "code"
-        ],
-        "description": "Cross-repository search of issues and pull requests, repositories, commits and code."
+        ]
       },
       "securityAlerts": {
-        "$ref": "#/components/schemas/AlertSupport",
-        "description": "Per alert kind, since each needs its own token scope on GitHub."
-      },
-      "installations": {
-        "$ref": "#/components/schemas/Support",
-        "description": "Enumerating app installations and deriving one provider per installation."
+        "type": "object",
+        "properties": {
+          "list": {
+            "$ref": "#/components/schemas/AlertSupport",
+            "description": "Support for `securityAlerts.list()`, per alert kind."
+          }
+        },
+        "required": [
+          "list"
+        ]
       },
       "eventKinds": {
         "type": "string",
@@ -2178,24 +2333,20 @@
       "users",
       "orgs",
       "threads",
-      "comments",
-      "reactions",
       "notifications",
-      "writes",
-      "subscriptions",
+      "installations",
       "checks",
       "ci",
-      "reviews",
       "contents",
-      "webhooks",
+      "commits",
       "releases",
+      "webhooks",
       "search",
       "securityAlerts",
-      "installations",
       "eventKinds",
       "authKinds"
     ],
-    "description": "What a provider supports, operation by operation. It is computed without a request, and `refreshCapabilities()` refines it with the instance version. Each group holds one entry per capability, and the [capability matrix](/reference/capability-matrix) lists them for every forge.",
+    "description": "What a provider supports, operation by operation. It is computed without a request, and `refreshCapabilities()` refines it with the instance version. Each verb has an entry at its path on the provider, and the [capability matrix](/reference/capability-matrix) lists them for every forge.",
     "x-forges-type": "ForgeCapabilities"
   },
   "ForgeEvent": {
@@ -2247,6 +2398,10 @@
       },
       "thread": {
         "$ref": "#/components/schemas/ThreadRef"
+      },
+      "commit": {
+        "$ref": "#/components/schemas/CommitRef",
+        "description": "The commit the event concerns, such as the commit of a commit comment."
       },
       "threadSnapshot": {
         "$ref": "#/components/schemas/ThreadSnapshot",
@@ -2656,8 +2811,15 @@
         "type": "string"
       },
       "latestComment": {
-        "$ref": "#/components/schemas/ResolvedCommentRef",
-        "description": "The latest comment on a thread subject, where the forge links it. Read it with `threads.getComment()`. Absent when the latest activity is not a comment on the thread, such as a review comment."
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/ResolvedCommentRef"
+          },
+          {
+            "$ref": "#/components/schemas/CommitCommentRef"
+          }
+        ],
+        "description": "The latest comment on a thread or commit subject, where the forge links it. Read it with `threads.getComment()` or `commits.getComment()`. Absent when the latest activity is not a comment on the subject, such as a review comment."
       },
       "raw": {
         "description": "Unnormalised forge payload, retained for fidelity."
@@ -2741,6 +2903,22 @@
         "required": [
           "type",
           "thread"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "commit"
+          },
+          "commit": {
+            "$ref": "#/components/schemas/CommitRef"
+          }
+        },
+        "required": [
+          "type",
+          "commit"
         ]
       },
       {
@@ -2847,18 +3025,14 @@
       },
       "discussion": {
         "$ref": "#/components/schemas/Support"
-      },
-      "commit": {
-        "$ref": "#/components/schemas/Support"
       }
     },
     "required": [
       "issue",
       "pull_request",
-      "discussion",
-      "commit"
+      "discussion"
     ],
-    "description": "Per-thread-kind support. `'other'` subjects have no verbs, so they have no entry.",
+    "description": "Per-thread-kind support.",
     "x-forges-type": "PerKind"
   },
   "PullBranches": {
@@ -3660,7 +3834,7 @@
       },
       "number": {
         "type": "string",
-        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`."
+        "description": "Per-repo thread number."
       },
       "displayNumber": {
         "type": "string",
@@ -4259,7 +4433,7 @@
       "labels",
       "raw"
     ],
-    "description": "An issue, pull request, discussion or commit conversation.",
+    "description": "An issue, pull request or discussion.",
     "x-forges-type": "Thread"
   },
   "ThreadKind": {
@@ -4267,11 +4441,9 @@
     "enum": [
       "issue",
       "pull_request",
-      "discussion",
-      "commit",
-      "other"
+      "discussion"
     ],
-    "description": "Kind of thread. `'other'` holds forge-specific subjects with no shared kind (check suites, epics); `ThreadRef.typeRaw` names them.",
+    "description": "Kind of thread.",
     "x-forges-type": "ThreadKind"
   },
   "ThreadRef": {
@@ -4296,7 +4468,7 @@
       },
       "number": {
         "type": "string",
-        "description": "Per-repo thread number, the commit sha for `kind: 'commit'`, or the forge-native id for `kind: 'other'`. Absent when the forge did not identify the thread; such a ref cannot be fetched or keyed until enriched."
+        "description": "Per-repo thread number. Absent when the forge did not identify the thread; such a ref cannot be fetched or keyed until enriched."
       },
       "displayNumber": {
         "type": "string",

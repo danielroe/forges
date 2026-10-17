@@ -14,12 +14,8 @@ export function tangledWeb(baseUrl: string): WebLinks {
     baseUrl,
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
-    thread: (ref) => {
-      if (ref.kind === 'commit') {
-        return `${repoPath(ref.repo)}/commit/${encodeURIComponent(ref.number)}`
-      }
-      return SECTIONS[ref.kind] && ref.displayNumber ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.displayNumber)}` : undefined
-    },
+    thread: ref => SECTIONS[ref.kind] && ref.displayNumber ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.displayNumber)}` : undefined,
+    commit: (repo, sha) => `${repoPath(repo)}/commit/${encodeURIComponent(sha)}`,
     file: (repo, path, at, line) => `${repoPath(repo)}/blob/${encodeURIComponent(at)}/${encode(path)}${line ? `#L${line}` : ''}`,
     raw: (repo, path, at) => `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${encode(path)}`,
     parse: (segments, url, from) => {
@@ -32,7 +28,7 @@ export function tangledWeb(baseUrl: string): WebLinks {
         return { repo, file: { at: id, path: segments.slice(4).join('/'), ...lineOf(url.hash.replace(/^#L/, '')) } }
       }
       if (section === 'commit' && id) {
-        return { repo, thread: { ...from, repo, kind: 'commit', number: id } }
+        return { repo, commit: { ...from, repo, sha: id } }
       }
       const kind = section === 'issues' ? 'issue' : section === 'pulls' ? 'pull_request' : undefined
       return kind && id ? { repo, thread: { ...from, repo, kind, displayNumber: id } } : { repo }

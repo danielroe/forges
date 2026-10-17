@@ -51,7 +51,7 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 }
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
-  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
+  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'CommitCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'commitKey', 'parseCommitKey', 'commitCommentKey', 'parseCommitCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
   { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'TextLimits'] },
   { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|SubscribeOptions|SubscriptionItem|Close|Comment|Milestone|Label|GetMany|SearchQuery|Merge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation'] },
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
@@ -89,7 +89,7 @@ export const PAGES: PageConfig[] = [
     icon: 'i-lucide-plug',
     description: 'Create providers and combine them in a registry.',
     overview: 'Create a provider with the factory of your forge, such as `github()`. Combine providers with `createForges()`, or create them from environment variables with `forgesFromEnv()`.',
-    intro: 'Each forge has a factory such as `github()`. Pass the factories to `createForges()`, or call `create()` on one for a single provider.',
+    intro: 'Each forge has a factory such as `github()`, which creates a provider. Pass providers to `createForges()` to combine them.',
     sections: [
       { title: 'Options and authentication', names: ['ForgeOptionsBase', 'TokenAuth', 'BasicAuth', 'AppAuth', 'AnonymousAuth', 'AuthKind'] },
       forge('GitHub', 'github'),
@@ -103,7 +103,7 @@ export const PAGES: PageConfig[] = [
       forge('Pushin.eu', 'pushin'),
       forge('Tangled', 'tangled'),
       forge('Cloudflare Artifacts', 'cloudflare-artifacts'),
-      { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ForgeProviderFactory', 'ProviderFactoryFunction'] },
+      { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ProviderFactoryFunction'] },
       { title: 'Registry methods', members: { of: 'Forges' } },
       { title: 'Create from the environment', intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).', entry: 'forges/env', names: [/./] },
     ],
@@ -120,7 +120,7 @@ export const PAGES: PageConfig[] = [
       { title: 'Properties', members: { of: 'ForgeProvider', kind: 'property', withoutNamespaces: true } },
       { title: 'Methods', members: { of: 'ForgeProvider', kind: 'method' } },
       { title: 'Unsupported operations', intro: 'A method for an operation that the forge lacks rejects with {@link UnsupportedOperationError}, or with {@link ReadOnlyError} on a read-only provider. Call `provider.can(verb)` first, or `provider.support(verb)` for the level of support.' },
-      { title: 'Check support', names: ['supports', 'supportOf'] },
+      { title: 'Check support', names: ['can', 'support'] },
       { title: 'Capability types', names: ['ForgeVerb', 'ForgeCapabilities', 'Support', 'PerKind', 'AlertSupport', 'VerbScopes'] },
     ],
   },
@@ -140,10 +140,10 @@ export const PAGES: PageConfig[] = [
     slug: 'repositories',
     title: 'Repositories',
     icon: 'i-lucide-folder-git-2',
-    description: 'Repositories, files, releases, accounts, teams and search.',
-    overview: 'The `repos`, `contents`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
+    description: 'Repositories, files, commits, releases, accounts, teams and search.',
+    overview: 'The `repos`, `contents`, `commits`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
     intro: OPERATIONS,
-    sections: [{ namespaces: ['repos', 'contents', 'releases', 'users', 'installations', 'orgs', 'search'] }],
+    sections: [{ namespaces: ['repos', 'contents', 'commits', 'releases', 'users', 'installations', 'orgs', 'search'] }],
   },
   {
     slug: 'notifications',
@@ -171,7 +171,7 @@ export const PAGES: PageConfig[] = [
     overview: 'Pages and cursors for lists, `request()` for endpoints that the model does not cover, and the helpers that turn web URLs into refs.',
     intro: 'See [Page through results](/guides/pagination) for a walkthrough.',
     sections: [
-      { title: 'Pagination', names: ['Page', 'BaseOptions', 'PageOptions', 'ListOptions', 'EventFeedOptions', 'Cursor', 'ForgeIterable', 'ForgeWarning', 'ForgeWarningCode', 'RateLimit'] },
+      { title: 'Pagination', names: ['Page', 'BaseOptions', 'PageOptions', 'ListOptions', 'EventFeedOptions', 'Cursor', 'ForgeListing', 'ForgeIterable', 'ForgeWarning', 'ForgeWarningCode', 'RateLimit'] },
       { title: 'Raw requests', names: ['ForgeRequest', 'ForgeRequestOptions', 'ForgeRawRequestOptions', 'ForgeResponse', 'RawResponse', 'FetchLike'] },
       { title: 'URLs and references', source: /^src\/web\.ts$/ },
     ],

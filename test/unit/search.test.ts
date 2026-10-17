@@ -16,12 +16,12 @@ describe('queryRaw', () => {
         queries.push(new URL(url).searchParams.get('q') ?? '')
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
-    await provider.search.threadsPage({ text: 'crash', kind: 'issue', queryRaw: 'review-requested:octocat' })
-    await provider.search.reposPage({ owner: 'acme', queryRaw: 'stars:>100' })
-    await provider.search.commitsPage({ text: 'fix', queryRaw: 'merge:false' })
-    await provider.search.codePage({ text: 'useFetch', owner: 'acme', queryRaw: 'language:typescript' })
+    await provider.search.threads({ text: 'crash', kind: 'issue', queryRaw: 'review-requested:octocat' }).page()
+    await provider.search.repos({ owner: 'acme', queryRaw: 'stars:>100' }).page()
+    await provider.search.commits({ text: 'fix', queryRaw: 'merge:false' }).page()
+    await provider.search.code({ text: 'useFetch', owner: 'acme', queryRaw: 'language:typescript' }).page()
 
     expect(queries).toEqual(['crash is:issue review-requested:octocat', 'user:acme stars:>100', 'fix merge:false', 'useFetch user:acme language:typescript'])
   })
@@ -33,9 +33,9 @@ describe('queryRaw', () => {
         requests.push(new URL(url))
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
-    await provider.search.threadsPage({ text: 'crash OR hang', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, queryRaw: 'author:a OR author:b' })
+    await provider.search.threads({ text: 'crash OR hang', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, queryRaw: 'author:a OR author:b' }).page()
 
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['(crash OR hang) repo:acme/widgets (is:issue OR is:pr) (author:a OR author:b)'])
     expect(requests[0]!.searchParams.get('advanced_search')).toBe('true')
@@ -48,11 +48,11 @@ describe('queryRaw', () => {
         queries.push(new URL(url).searchParams.get('q') ?? '')
         return Response.json({ items: [] })
       },
-    }).create()
+    })
 
-    await provider.search.threadsPage({ text: 'useFetch() OR "a (b" "dangling(' })
-    await provider.search.threadsPage({ text: '()' })
-    await provider.search.threadsPage({ text: 'useFetch()', kind: 'issue' })
+    await provider.search.threads({ text: 'useFetch() OR "a (b" "dangling(' }).page()
+    await provider.search.threads({ text: '()' }).page()
+    await provider.search.threads({ text: 'useFetch()', kind: 'issue' }).page()
 
     expect(queries).toEqual(['(useFetch OR "a (b" dangling) (is:issue OR is:pr)', '(is:issue OR is:pr)', 'useFetch() is:issue'])
   })
@@ -68,11 +68,11 @@ describe('queryRaw', () => {
         requests.push(new URL(url))
         return Response.json({ items: [] })
       },
-    }).create()
+    })
     const repo = { forge: 'github', instance: provider.instance, owner: 'acme', name: 'widgets' }
 
-    const first = await provider.search.threadsPage({ text: 'crash', repo })
-    await provider.search.threadsPage({ text: 'crash', repo, cursor: first.cursor })
+    const first = await provider.search.threads({ text: 'crash', repo }).page()
+    await provider.search.threads({ text: 'crash', repo, cursor: first.cursor }).page()
 
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash repo:acme/widgets is:issue', 'crash repo:acme/widgets is:pr'])
     expect(requests.every(url => !url.searchParams.has('advanced_search'))).toBe(true)
@@ -85,10 +85,10 @@ describe('queryRaw', () => {
         searches.push(new URL(url))
         return Response.json([])
       },
-    }).create()
+    })
 
-    const first = await provider.search.reposPage({ text: 'widgets', queryRaw: 'stars:>100' })
-    const next = await provider.search.reposPage({ text: 'widgets', queryRaw: 'stars:>100', cursor: { nextUrl: 'https://gitlab.com/api/v4/projects?page=2' } })
+    const first = await provider.search.repos({ text: 'widgets', queryRaw: 'stars:>100' }).page()
+    const next = await provider.search.repos({ text: 'widgets', queryRaw: 'stars:>100', cursor: { nextUrl: 'https://gitlab.com/api/v4/projects?page=2' } }).page()
 
     expect(first.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
     expect(next.warnings).toBeUndefined()
@@ -108,53 +108,53 @@ describe('owner', () => {
 
   it('narrows a GitHub thread search to the account, unless a repository is given', async () => {
     const { requests, fetch } = recording({ items: [] })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
-    await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt' })
-    await provider.search.threadsPage({ text: 'crash', kind: 'issue', owner: 'nuxt', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } })
+    await provider.search.threads({ text: 'crash', kind: 'issue', owner: 'nuxt' }).page()
+    await provider.search.threads({ text: 'crash', kind: 'issue', owner: 'nuxt', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } }).page()
 
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash user:nuxt is:issue', 'crash repo:acme/widgets is:issue'])
   })
 
   it('searches the issues and merge requests of a GitLab group', async () => {
     const { requests, fetch } = recording([])
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch })
 
-    const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform' })
-    await provider.search.threadsPage({ text: 'crash', owner: 'acme/platform', cursor: first.cursor })
+    const first = await provider.search.threads({ text: 'crash', owner: 'acme/platform' }).page()
+    await provider.search.threads({ text: 'crash', owner: 'acme/platform', cursor: first.cursor }).page()
 
     expect(requests.map(url => url.pathname)).toEqual(['/api/v4/groups/acme%2Fplatform/issues', '/api/v4/groups/acme%2Fplatform/merge_requests'])
   })
 
   it.each([['Forgejo', forgejo], ['Gitea', gitea]] as const)('passes it to the %s issue search', async (_, create) => {
     const { requests, fetch } = recording([])
-    await create({ auth: { type: 'token', token: 't' }, fetch }).create().search.threadsPage({ text: 'crash', owner: 'acme' })
+    await create({ auth: { type: 'token', token: 't' }, fetch }).search.threads({ text: 'crash', owner: 'acme' }).page()
 
     expect(requests[0]!.searchParams.get('owner')).toBe('acme')
   })
 
   it('searches the work items of the Azure DevOps project it names', async () => {
     const { requests, fetch } = recording({ workItems: [] })
-    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create()
+    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch })
 
-    await provider.search.threadsPage({ text: 'crash', owner: 'acme/Widgets' })
+    await provider.search.threads({ text: 'crash', owner: 'acme/Widgets' }).page()
 
     expect(requests.map(url => url.pathname)).toEqual(['/acme/Widgets/_apis/wit/wiql'])
   })
 
   it('warns where the search cannot filter by owner', async () => {
     const { fetch } = recording([])
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
 
-    const first = await provider.search.threadsPage({ text: 'crash', owner: 'acme' })
-    const next = await provider.search.threadsPage({ text: 'crash', owner: 'acme', cursor: { token: '2' } })
+    const first = await provider.search.threads({ text: 'crash', owner: 'acme' }).page()
+    const next = await provider.search.threads({ text: 'crash', owner: 'acme', cursor: { token: '2' } }).page()
 
     expect(first.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
     expect(next.warnings).toBeUndefined()
   })
 
   it('keeps the fake forge\'s threads of other owners out', async () => {
-    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } }).create()
+    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } })
 
     const threads = await Array.fromAsync(forge.search.threads({ text: 'crash', owner: 'acme' }))
 

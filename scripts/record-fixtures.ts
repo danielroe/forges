@@ -341,7 +341,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
   const tokenAuth = credentials.token ? { type: 'token' as const, token: credentials.token } : undefined
   switch (target) {
     case 'github': {
-      const provider = github({ baseUrl: env.GITHUB_BASE_URL, auth: credentials.app ?? tokenAuth, fetch, timeout }).create()
+      const provider = github({ baseUrl: env.GITHUB_BASE_URL, auth: credentials.app ?? tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_GITHUB_REPO ?? 'h3js/h3'
       const discussionSlug = env.FIXTURE_GITHUB_DISCUSSION_REPO ?? 'nuxt/nuxt'
       return { provider, manifest: {
@@ -360,7 +360,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         baseUrl: env.BITBUCKET_BASE_URL,
         fetch,
         timeout,
-      }).create()
+      })
       const slug = env.FIXTURE_BITBUCKET_REPO ?? 'neelabo/neeview'
       return { provider, manifest: {
         repo: repoRef('bitbucket', provider.instance, slug),
@@ -381,7 +381,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           socket.addEventListener('message', event => messages.push(JSON.parse(String(event.data))))
           return socket as unknown as Forges.WebSocketLike
         },
-      }).create()
+      })
       const placeholder = { forge: 'tangled', instance: provider.instance, owner: '', name: '' }
       const issue: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'issue', number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y' }
       const pull: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'pull_request', number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22' }
@@ -429,7 +429,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       // A new organisation cannot have public projects, so anonymous recordings read a public one elsewhere.
       const fixture = (name: string, publicDefault: string) => anonymous ? env[`FIXTURE_AZURE_DEVOPS_ANONYMOUS_${name}`] ?? publicDefault : env[`FIXTURE_AZURE_DEVOPS_${name}`] ?? ''
       const organization = fixture('ORGANIZATION', 'dnceng-public')
-      const provider = azureDevOps({ auth: tokenAuth, organization, fetch, timeout }).create()
+      const provider = azureDevOps({ auth: tokenAuth, organization, fetch, timeout })
       const projectRepo = (slug: string) => {
         const [project = '', name = ''] = slug.split('/')
         return { forge: 'azure-devops', instance: provider.instance, owner: `${organization}/${project}`, name }
@@ -444,7 +444,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       } }
     }
     case 'gitee': {
-      const provider = gitee({ auth: tokenAuth, fetch, timeout }).create()
+      const provider = gitee({ auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_GITEE_REPO ?? 'cmcc-oneos/OneOS'
       return { provider, manifest: {
         repo: repoRef('gitee', provider.instance, slug),
@@ -455,7 +455,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       } }
     }
     case 'cursor-origin': {
-      const provider = cursorOrigin({ auth: tokenAuth!, fetch, timeout }).create()
+      const provider = cursorOrigin({ auth: tokenAuth!, fetch, timeout })
       const slug = env.FIXTURE_CURSOR_ORIGIN_REPO ?? ''
       return { provider, manifest: {
         repo: repoRef('cursor-origin', provider.instance, slug),
@@ -464,7 +464,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       } }
     }
     case 'gitlab': {
-      const provider = gitlab({ baseUrl: env.GITLAB_BASE_URL, auth: tokenAuth, fetch, timeout }).create()
+      const provider = gitlab({ baseUrl: env.GITLAB_BASE_URL, auth: tokenAuth, fetch, timeout })
       const projectRepo = (project: string) => {
         const slash = project.lastIndexOf('/')
         return { forge: 'gitlab', instance: provider.instance, owner: project.slice(0, slash), name: project.slice(slash + 1) }
@@ -483,7 +483,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       }
     }
     case 'gitea': {
-      const provider = gitea({ baseUrl: env.GITEA_BASE_URL, auth: tokenAuth, fetch, timeout }).create()
+      const provider = gitea({ baseUrl: env.GITEA_BASE_URL, auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_GITEA_REPO ?? 'gitea/tea'
       return { provider, manifest: {
         repo: repoRef('gitea', provider.instance, slug),
@@ -494,7 +494,7 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       } }
     }
     case 'pushin': {
-      const provider = pushin({ baseUrl: env.PUSHIN_BASE_URL, auth: tokenAuth, fetch, timeout }).create()
+      const provider = pushin({ baseUrl: env.PUSHIN_BASE_URL, auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_PUSHIN_REPO ?? 'pjullrich/pushin-cli'
       return { provider, manifest: {
         repo: repoRef('pushin', provider.instance, slug),
@@ -504,11 +504,11 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       } }
     }
     case 'cloudflare-artifacts': {
-      const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout }).create()
+      const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout })
       return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges') } }
     }
     default: {
-      const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout }).create()
+      const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_FORGEJO_REPO ?? (codeForgejo ? 'forgejo/runner' : 'forgejo/forgejo')
       return {
         provider,
@@ -564,7 +564,7 @@ function scratchSetup(mode: string) {
     console.error('Write recordings only write to repositories whose names include `forges-fixtures`.')
     exit(1)
   }
-  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}).create() : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean), ...target === 'tangled' && botToken && env.TANGLED_BOT_IDENTIFIER && { account: { identifier: env.TANGLED_BOT_IDENTIFIER, password: botToken, pds: env.TANGLED_BOT_PDS } } })
+  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}) : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean), ...target === 'tangled' && botToken && env.TANGLED_BOT_IDENTIFIER && { account: { identifier: env.TANGLED_BOT_IDENTIFIER, password: botToken, pds: env.TANGLED_BOT_PDS } } })
   if (!harness) {
     console.error(`${target} has no write recording setup.`)
     exit(1)
@@ -770,7 +770,7 @@ async function recordWebhooks(): Promise<void> {
     const thread = plain.can('threads.create', 'issue')
       ? await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
       : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
-    await plain.threads.comment(thread.ref, `A comment from run ${id}.`)
+    await plain.threads.createComment(thread.ref, `A comment from run ${id}.`)
     await plain.threads.close(thread.ref)
     // The push, open, comment and close above produce at least four deliveries; forges may send more, so stop once two polls in a row find nothing new.
     for (let attempt = 0, quiet = 0; attempt < 12 && quiet < 2; attempt++) {

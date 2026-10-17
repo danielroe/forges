@@ -1,4 +1,4 @@
-import type { AlertKind, SupportInput, VerbKind } from '../define.ts'
+import type { AlertKind, SupportInput } from '../define.ts'
 import type {
   Actor,
   AuthorAssociation,
@@ -13,7 +13,10 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitComment,
+  CommitCommentRef,
   CommitFilesInput,
+  CommitRef,
   Cursor,
   EventAction,
   EventDetail,
@@ -53,7 +56,7 @@ import type {
   WebhookEventType,
   WebhookRef,
 } from '../model.ts'
-import type { BulkNotificationOptions, ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeProviderFactory, ForgeVerb, HideCommentReason, SubscribeOptions } from '../provider.ts'
+import type { BulkNotificationOptions, ForgeCapabilities, ForgeOptionsBase, ForgeProvider, ForgeVerb, HideCommentReason, SubscribeOptions } from '../provider.ts'
 import { toFileContent } from '../contents.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -86,7 +89,7 @@ export interface FakeRepoSeed {
 export interface FakeThreadSeed {
   /** The repository as `owner/name`. */
   repo: string
-  kind: Exclude<ThreadKind, 'other' | 'commit'>
+  kind: ThreadKind
   /** Defaults to the next free number in the repository. */
   number?: number
   title: string
@@ -124,7 +127,7 @@ export interface FakeThreadSeed {
  */
 export type FakeMergeability = 'clean' | 'blocked' | 'conflict'
 
-/** A delay in milliseconds for every request, or a function of the verb, which names a listing by its page, such as `threads.commentsPage`. */
+/** A delay in milliseconds for every request, or a function of the verb, such as `threads.comments`. */
 export type FakeLatency = number | ((verb: ForgeVerb) => number)
 
 /**
@@ -251,7 +254,7 @@ export interface FakeSeed {
 }
 
 /** Support for one verb: a level, or a level per thread kind for per-kind verbs. */
-export type FakeSupport = SupportInput | Partial<Record<VerbKind, SupportInput>>
+export type FakeSupport = SupportInput | Partial<Record<ThreadKind, SupportInput>>
 
 /** Options for `fake()`. */
 export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
@@ -267,7 +270,7 @@ export interface FakeOptions extends Omit<ForgeOptionsBase, 'fetch'> {
   seed?: FakeSeed
   /** Overrides the default support of individual verbs. */
   support?: Partial<Record<ForgeVerb, FakeSupport>>
-  /** Support to copy from a real provider, such as `github().create().capabilities`. `support` wins where both set a verb. */
+  /** Support to copy from a real provider, such as `github().capabilities`. `support` wins where both set a verb. */
   capabilities?: ForgeCapabilities
   /** The clock behind every timestamp the forge writes and every rate limit window. Defaults to the system time. */
   now?: () => Date
@@ -316,6 +319,10 @@ export interface FakeStore {
     /** Seeded release asset bytes, keyed by `<releaseId>:<assetName>`. */
     assets: Map<string, Uint8Array>
     securityAlerts: SecurityAlert[]
+    /** Comments on each commit, keyed by sha. */
+    commitComments: Map<string, CommitComment[]>
+    /** The reasons that `commits.hideComment()` gave, keyed by comment id. */
+    hiddenCommitComments: Map<string, HideCommentReason>
   }>
   notifications: Notification[]
   /** Every event a write produced, in order. */
@@ -337,16 +344,15 @@ const FAKE_WEBHOOK_EVENTS: WebhookEventType[] = [
 ]
 
 /**
- * What `fake()` returns: a provider factory that also exposes the store and
- * controls the network between the providers and the store. Every provider
- * that `create()` returns shares both.
+ * What `fake()` returns: a provider that also exposes the store and controls
+ * the network between the store and every provider on it.
  */
-export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
+export interface FakeProvider extends ForgeProvider {
   /** The in-memory state of the forge. Results are copies, so changing one leaves the store as it was. */
   readonly store: FakeStore
   /**
-   * Rejects the next call of `verb` with `error`. A listing and its page
-   * share a verb, so `threads.comments` also fails `threads.commentsPage`.
+   * Rejects the next call of `verb` with `error`. For a listing, that is its
+   * next page read, from iterating or from `page()`.
    * Verbs that core builds from other requests, such as an emulated
    * `threads.getComment`, fail through those requests.
    * @param verb The verb whose next call rejects.
@@ -355,7 +361,7 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
    * @throws {TypeError} For a verb that sends no request of its own, or that the fake forge does not implement.
    * @example
    * ```ts
-   * factory.failNext('threads.comment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
+   * forge.failNext('threads.createComment', new ForgeTimeoutError('Timed out', 30_000), { applied: true })
    * ```
    */
   failNext: (verb: ForgeVerb, error: Error | (() => Error), options?: FakeFailureOptions) => void
@@ -374,7 +380,7 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
    * notification for the thread then becomes unread, or is added.
    * @example
    * ```ts
-   * await factory.as('octocat').threads.comment(issue, 'Any news, @fake-user?')
+   * await forge.as('octocat').threads.createComment(issue, 'Any news, @fake-user?')
    * ```
    */
   as: (login: string) => ForgeProvider
@@ -385,7 +391,8 @@ const COMPOSED_VERBS: Partial<Record<ForgeVerb, string>> = {
   'threads.getComment': 'fail threads.comments instead',
   'threads.getReview': 'fail threads.reviews instead',
   'threads.approve': 'fail threads.createReview instead',
-  'ci.job': 'fail ci.jobs instead',
+  'ci.getJob': 'fail ci.jobs instead',
+  'commits.getComment': 'fail commits.comments instead',
   'webhooks.verify': 'it runs locally',
   'webhooks.ingest': 'it runs locally',
 }
@@ -397,9 +404,9 @@ function closedNumbers(body: string | undefined): Set<string> {
   return new Set([...(body ?? '').matchAll(CLOSING_KEYWORD)].map(match => match[1]!))
 }
 
-const ALL_KINDS: Partial<Record<VerbKind, SupportInput>> = { issue: true, pull_request: true, discussion: true, commit: true }
-const WRITABLE: Partial<Record<VerbKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
-const PULLS: Partial<Record<VerbKind, SupportInput>> = { pull_request: true }
+const ALL_KINDS: Partial<Record<ThreadKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
+const WRITABLE: Partial<Record<ThreadKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
+const PULLS: Partial<Record<ThreadKind, SupportInput>> = { pull_request: true }
 const SIGNATURE_HEADER = 'x-fake-signature'
 
 function pageOf<T>(items: T[], options: { cursor?: { token?: string }, perPage?: number } = {}): Page<T> {
@@ -464,16 +471,16 @@ function splitFileKey(key: string): { ref: string, path: string } {
  * import { createForges } from 'forges'
  * import { fake } from 'forges/fake'
  *
- * const factory = fake({
+ * const forge = fake({
  *   seed: {
  *     repos: [{ repo: 'acme/widgets' }],
  *     threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Broken build' }],
  *   },
  * })
- * const forges = createForges([factory])
+ * const forges = createForges([forge])
  * ```
  */
-export function fake(options: FakeOptions = {}): FakeForgeFactory {
+export function fake(options: FakeOptions = {}): FakeProvider {
   const forge = options.forge ?? 'fake'
   const instance = options.instance ?? 'fake.test'
   const origin = { forge, instance }
@@ -493,6 +500,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   let notificationCount = 0
   let webhookCount = 0
   const commentCounts = new WeakMap<FakeThreadState, number>()
+  const commitCommentCounts = new Map<string, number>()
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
@@ -524,7 +532,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   }
 
   function takeFailure(verb: string): { error: Error, applied: boolean } | undefined {
-    const queue = failures.get(verb.replace(/Page$/, ''))
+    const queue = failures.get(verb)
     const next = queue?.[0]
     if (!next) {
       return undefined
@@ -538,8 +546,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   const disconnected = (verb: string) => new ForgeNetworkError(`${verb} failed: ${instance} is offline`, origin)
 
   /** Runs `run` as one request: offline, latency, rate limit and injected failures apply, and the result is a copy. */
-  function request(verb: string, run: (...args: any[]) => any): (...args: any[]) => Promise<unknown> {
-    sent.add(verb.replace(/Page$/, ''))
+  function request(name: string, run: (...args: any[]) => any): (...args: any[]) => Promise<unknown> {
+    const verb = name.replace(/Page$/, '')
+    sent.add(verb)
     return async (...args) => {
       const signal = signalOf(args)
       signal?.throwIfAborted()
@@ -636,6 +645,8 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       branches: new Map(),
       assets: new Map(),
       securityAlerts: [],
+      commitComments: new Map(),
+      hiddenCommitComments: new Map(),
     })
   }
 
@@ -787,7 +798,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     return { ...event, id: `${listing}-${event.id}`, source: 'poll' }
   }
 
-  function record(by: string, thread: ThreadRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
+  function record(by: string, subject: ThreadRef | CommitRef, kind: EventKind, action: EventAction, summary: string, detail?: EventDetail): void {
     const event = completeEvent({
       ...origin,
       id: String(store.events.length + 1),
@@ -797,14 +808,14 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       summary: `${by} ${summary}`,
       occurredAt: now(),
       actor: actor(by),
-      repo: thread.repo,
-      thread,
+      repo: subject.repo,
+      ...'sha' in subject ? { commit: subject } : { thread: subject },
       detail,
       source: 'subscribe',
       payload: { kind, action, detail },
     })
     store.events.push(event)
-    const state = repoState(thread.repo).threads.get(String(thread.number))
+    const state = 'sha' in subject ? undefined : repoState(subject.repo).threads.get(String(subject.number))
     if (state) {
       state.thread.updatedAt = event.occurredAt
       state.thread.lastActivityAt = event.occurredAt
@@ -995,7 +1006,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
     const given = givenSupport(name)
     return given === undefined || typeof given === 'object' ? fallback : given
   }
-  const kinds = (name: ForgeVerb, fallback: Partial<Record<VerbKind, SupportInput>>): Partial<Record<VerbKind, SupportInput>> => {
+  const kinds = (name: ForgeVerb, fallback: Partial<Record<ThreadKind, SupportInput>>): Partial<Record<ThreadKind, SupportInput>> => {
     const given = givenSupport(name)
     if (given === undefined) {
       return fallback
@@ -1395,7 +1406,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             record(by, thread, 'reaction', 'deleted', `removed a ${reaction} reaction`)
           },
         }),
-        comment: perKind(kinds('threads.comment', WRITABLE), async (ref, body) => {
+        createComment: perKind(kinds('threads.createComment', WRITABLE), async (ref, body) => {
           const state = threadState(ref)
           const count = Math.max(commentCounts.get(state) ?? 0, state.comments.length) + 1
           commentCounts.set(state, count)
@@ -1405,7 +1416,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           record(by, state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
           return comment
         }),
-        editComment: perKind(kinds('threads.editComment', WRITABLE), async (ref: CommentRef, body: string) => {
+        updateComment: perKind(kinds('threads.updateComment', WRITABLE), async (ref: CommentRef, body: string) => {
           const comment = threadState(ref.thread).comments.find(item => item.ref.id === ref.id)
           if (!comment) {
             throw notFound(`No comment ${ref.id}`)
@@ -1601,7 +1612,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
       },
       contents: {
-        file: verb(support('contents.file', true), async (repo, path, fileOptions = {}) => {
+        getFile: verb(support('contents.getFile', true), async (repo, path, fileOptions = {}) => {
           const bytes = readFile(repoState(repo), fileOptions.ref, path)
           if (!bytes) {
             throw notFound(`No file ${path} in ${slugOf(repo)}`)
@@ -1648,21 +1659,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           }
           return sha
         }),
-        commitsPage: verb(support('contents.commits', true), async (repo, query = {}) => pageOf(
-          repoState(repo).commits
-            .filter(commit => (!query.since || (commit.author?.date ?? new Date(0)) >= query.since)
-              && (!query.path || commit.files?.some(file => file.path === query.path))
-              && (!query.author || commit.author?.actor?.login === query.author))
-            .toReversed(),
-          query,
-        )),
-        commit: verb(support('contents.commit', true), async (repo, sha) => {
-          const commit = repoState(repo).commits.find(item => item.sha === sha)
-          if (!commit) {
-            throw notFound(`No commit ${sha} in ${slugOf(repo)}`)
-          }
-          return commit
-        }),
         compare: verb(support('contents.compare', true), async (repo, base, head) => {
           const commits = repoState(repo).commits
           const from = commits.findIndex(commit => commit.sha === base)
@@ -1679,6 +1675,71 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
           }
         }),
         commitFiles: verb(support('contents.commitFiles', true), async (repo, input) => commitFiles(by, repo, input)),
+      },
+      commits: {
+        listPage: verb(support('commits.list', true), async (repo, query = {}) => pageOf(
+          repoState(repo).commits
+            .filter(commit => (!query.since || (commit.author?.date ?? new Date(0)) >= query.since)
+              && (!query.path || commit.files?.some(file => file.path === query.path))
+              && (!query.author || commit.author?.actor?.login === query.author))
+            .toReversed(),
+          query,
+        )),
+        get: verb(support('commits.get', true), async ({ repo, sha }) => {
+          const commit = repoState(repo).commits.find(item => item.sha === sha)
+          if (!commit) {
+            throw notFound(`No commit ${sha} in ${slugOf(repo)}`)
+          }
+          return commit
+        }),
+        commentsPage: verb(support('commits.comments', true), async ({ repo, sha }, listOptions = {}) => pageOf(repoState(repo).commitComments.get(sha) ?? [], listOptions)),
+        createComment: verb(support('commits.createComment', true), async ({ repo, sha }, body) => {
+          const state = repoState(repo)
+          const key = `${slugOf(repo)}:${sha}`
+          const count = (commitCommentCounts.get(key) ?? 0) + 1
+          commitCommentCounts.set(key, count)
+          const commit: CommitRef = { ...origin, repo: state.repo.ref, sha }
+          const comment: CommitComment = { ref: { ...origin, commit, id: `${sha.slice(0, 7)}-${count}` }, body, author: actor(by), createdAt: now(), raw: { body } }
+          state.commitComments.set(sha, [...state.commitComments.get(sha) ?? [], comment])
+          record(by, commit, 'comment', 'created', 'commented on a commit', { type: 'comment', comment: comment.ref, body })
+          return comment
+        }),
+        updateComment: verb(support('commits.updateComment', true), async (ref, body) => {
+          const comment = repoState(ref.commit.repo).commitComments.get(ref.commit.sha)?.find(item => item.ref.id === ref.id)
+          if (!comment) {
+            throw notFound(`No comment ${ref.id}`)
+          }
+          comment.body = body
+          comment.updatedAt = now()
+          record(by, comment.ref.commit, 'comment', 'edited', 'edited a comment', { type: 'comment', comment: comment.ref, body })
+          return comment
+        }),
+        deleteComment: verb(support('commits.deleteComment', true), async (ref) => {
+          const comments = repoState(ref.commit.repo).commitComments.get(ref.commit.sha) ?? []
+          const index = comments.findIndex(item => item.ref.id === ref.id)
+          if (index < 0) {
+            throw notFound(`No comment ${ref.id}`)
+          }
+          comments.splice(index, 1)
+          repoState(ref.commit.repo).hiddenCommitComments.delete(ref.id)
+          record(by, ref.commit, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
+        }),
+        commentHiding: verb(support('commits.hideComment', true), {
+          hideComment: async (ref: CommitCommentRef, reason: HideCommentReason) => {
+            const state = repoState(ref.commit.repo)
+            if (!state.commitComments.get(ref.commit.sha)?.some(item => item.ref.id === ref.id)) {
+              throw notFound(`No comment ${ref.id}`)
+            }
+            state.hiddenCommitComments.set(ref.id, reason)
+          },
+          unhideComment: async (ref: CommitCommentRef) => {
+            const state = repoState(ref.commit.repo)
+            if (!state.commitComments.get(ref.commit.sha)?.some(item => item.ref.id === ref.id)) {
+              throw notFound(`No comment ${ref.id}`)
+            }
+            state.hiddenCommitComments.delete(ref.id)
+          },
+        }),
       },
       checks: {
         list: verb(support('checks.list', true), async (repo, sha) => ({ items: repoState(repo).statuses.get(sha) ?? [] })),
@@ -1706,7 +1767,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             .toReversed(),
           query,
         )),
-        run: verb(support('ci.run', true), async ref => runState(ref).run),
+        getRun: verb(support('ci.getRun', true), async ref => runState(ref).run),
         jobsPage: verb(support('ci.jobs', true), async (ref, listOptions = {}) => pageOf(runState(ref).jobs.map(item => item.job), listOptions)),
         log: verb(support('ci.log', true), async (ref) => {
           const job = repoState(ref.repo).runs.flatMap(item => item.jobs).find(item => item.job.ref.id === ref.id)
@@ -1927,11 +1988,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   const provider = factory(options)
 
-  /** Whether a call of the verb sends a request, read from the spec of a provider the first time it is needed. */
   function sendsRequest(key: string): boolean {
-    if (!sent.size) {
-      provider.create()
-    }
     return key === 'sources.subscribe' || sent.has(key)
   }
 
@@ -1961,6 +2018,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       latency = given
     },
     setRateLimit,
-    as: (login: string) => factory({ ...options, viewer: login }).create(),
+    as: (login: string) => factory({ ...options, viewer: login }),
   })
 }

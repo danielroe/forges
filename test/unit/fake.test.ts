@@ -1,3 +1,4 @@
+import type { ResolvedCommentRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { BranchMovedError, ContentNotTextError, NotFoundError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fake } from '../../src/fake/index.ts'
@@ -14,12 +15,11 @@ const seed = {
 
 describe('fake forge', () => {
   it('holds state across a write flow and records each write as an event', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const repo = (await forge.repos.get({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).ref
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
 
-    await forge.threads.comment(issue!.ref, 'Looking into it')
+    await forge.threads.createComment(issue!.ref, 'Looking into it')
     await forge.threads.setLabels(issue!.ref, ['bug'])
     await forge.threads.close(issue!.ref, { reason: 'completed' })
     const after = await forge.threads.get(issue!.ref)
@@ -32,23 +32,23 @@ describe('fake forge', () => {
       ['label', 'unlabelled'],
       ['state_change', 'closed'],
     ])
-    expect(factory.store.events).toHaveLength(4)
+    expect(forge.store.events).toHaveLength(4)
   })
 
   it('reports the seeded author association of a thread and its comments', async () => {
     const forge = fake({
       seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Hi', author: 'ada', authorAssociation: 'first_time_contributor', comments: [{ body: 'Thanks', authorAssociation: 'owner' }] }] },
-    }).create()
+    })
     const ref = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '1' } as const
 
     expect((await forge.threads.get(ref)).authorAssociation).toBe('first_time_contributor')
-    expect((await forge.threads.commentsPage(ref)).items.map(comment => comment.authorAssociation)).toEqual(['owner'])
+    expect((await forge.threads.comments(ref).page()).items.map(comment => comment.authorAssociation)).toEqual(['owner'])
   })
 
   it('closes, relabels and reassigns a thread in one update, with an event for each change', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = (await forge.repos.get({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).ref
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
 
     const updated = await forge.threads.update(issue!.ref, { state: 'closed', labels: ['bug'], assignees: ['octocat'] })
     const events = await Array.fromAsync(forge.threads.events(issue!.ref))
@@ -63,7 +63,7 @@ describe('fake forge', () => {
   })
 
   it('creates threads, merges pulls and reports checks', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const created = await forge.threads.create(repo, { kind: 'issue', title: 'New' })
     const pull = { ...repo, repo, kind: 'pull_request' as const, number: '2' }
@@ -77,35 +77,35 @@ describe('fake forge', () => {
   })
 
   it('numbers a new thread after the highest number in its repository', async () => {
-    const factory = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', number: 2, title: 'Second' }, { repo: 'acme/widgets', kind: 'issue', title: 'Unnumbered' }] } })
+    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', number: 2, title: 'Second' }, { repo: 'acme/widgets', kind: 'issue', title: 'Unnumbered' }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
-    await factory.create().threads.create(repo, { kind: 'issue', title: 'New' })
+    await forge.threads.create(repo, { kind: 'issue', title: 'New' })
 
-    expect([...factory.store.repos.get('acme/widgets')!.threads.values()].map(({ thread }) => [thread.ref.number, thread.title])).toEqual([['2', 'Second'], ['3', 'Unnumbered'], ['4', 'New']])
+    expect([...forge.store.repos.get('acme/widgets')!.threads.values()].map(({ thread }) => [thread.ref.number, thread.title])).toEqual([['2', 'Second'], ['3', 'Unnumbered'], ['4', 'New']])
   })
 
   it('reads one comment, review and CI job by walking their listings', async () => {
-    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', jobs: [{ name: 'test' }, { name: 'lint' }] }] } }).create()
+    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', jobs: [{ name: 'test' }, { name: 'lint' }] }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
-    const comment = await forge.threads.comment(pull, 'Looks good')
+    const comment = await forge.threads.createComment(pull, 'Looks good')
     const review = await forge.threads.createReview(pull, { event: 'approve' })
-    const [run] = (await forge.ci.runsPage(repo)).items
-    const [, job] = (await forge.ci.jobsPage(run!.ref)).items
+    const [run] = (await forge.ci.runs(repo).page()).items
+    const [, job] = (await forge.ci.jobs(run!.ref).page()).items
 
     expect(forge.support('threads.getComment', 'pull_request')).toBe('emulated')
     expect(forge.support('threads.getReview')).toBe('emulated')
-    expect(forge.support('ci.job')).toBe('emulated')
+    expect(forge.support('ci.getJob')).toBe('emulated')
     expect((await forge.threads.getComment(comment.ref)).body).toBe('Looks good')
     expect((await forge.threads.getReview(review.ref)).state).toBe('approved')
-    expect((await forge.ci.job(job!.ref)).name).toBe('lint')
+    expect((await forge.ci.getJob(job!.ref)).name).toBe('lint')
     await expect(forge.threads.getComment({ ...comment.ref, id: 'missing' })).rejects.toThrow(NotFoundError)
-    await expect(forge.ci.job({ forge: 'fake', instance: 'fake.test', repo, id: job!.ref.id })).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.ci.getJob({ forge: 'fake', instance: 'fake.test', repo, id: job!.ref.id })).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('rejects verbs configured as unsupported, per kind where asked', async () => {
-    const forge = fake({ seed, support: { 'threads.close': { issue: true }, 'notifications.markDone': false } }).create()
+    const forge = fake({ seed, support: { 'threads.close': { issue: true }, 'notifications.markDone': false } })
     const pull = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'pull_request' as const, number: '2' }
 
     expect(forge.can('threads.close', 'issue')).toBe(true)
@@ -116,7 +116,7 @@ describe('fake forge', () => {
   })
 
   it('rejects reads of missing records with NotFoundError', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'missing' }
 
     await expect(forge.repos.get(repo)).rejects.toThrow(NotFoundError)
@@ -124,16 +124,16 @@ describe('fake forge', () => {
   })
 
   it('rejects a thread ref without a number with UnresolvedThreadError', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const thread = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const }
 
     await expect(forge.threads.get(thread)).rejects.toThrow(UnresolvedThreadError)
-    await expect(forge.threads.comment(thread, 'Thanks!')).rejects.toThrow(UnresolvedThreadError)
-    await expect(forge.threads.editComment({ forge: 'fake', instance: 'fake.test', thread, id: '1-1' }, 'Edited')).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.createComment(thread, 'Thanks!')).rejects.toThrow(UnresolvedThreadError)
+    await expect(forge.threads.updateComment({ forge: 'fake', instance: 'fake.test', thread, id: '1-1' }, 'Edited')).rejects.toThrow(UnresolvedThreadError)
   })
 
   it('streams writes to subscribers as they happen', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const controller = new AbortController()
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
     const iterator = forge.sources.subscribe({ signal: controller.signal })[Symbol.asyncIterator]()
@@ -145,7 +145,7 @@ describe('fake forge', () => {
   })
 
   it('ingests signed deliveries of normalised events', async () => {
-    const forge = fake({ webhookSecret: 's3cret' }).create()
+    const forge = fake({ webhookSecret: 's3cret' })
     const body = JSON.stringify({ kind: 'comment', action: 'created', summary: 'hi', occurredAt: '2026-01-01T00:00:00Z', payload: {} })
     const [event] = await forge.webhooks.ingest({ headers: await signDelivery('fake', body, 's3cret'), body })
 
@@ -155,39 +155,38 @@ describe('fake forge', () => {
   })
 
   it('tracks notification read and done state', async () => {
-    const forge = fake({ seed }).create()
-    const [notification] = (await forge.notifications.listPage()).items
+    const forge = fake({ seed })
+    const [notification] = (await forge.notifications.list().page()).items
 
     expect(await forge.notifications.unreadCount()).toBe(1)
     await forge.notifications.markRead(notification!.ref)
     expect(await forge.notifications.unreadCount()).toBe(0)
     await forge.notifications.markDone(notification!.ref)
-    expect((await forge.notifications.listPage({ all: true })).items).toEqual([])
+    expect((await forge.notifications.list({ all: true }).page()).items).toEqual([])
   })
   it('never reuses the id of a deleted comment, so an edit reaches the comment it names', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
 
-    const first = await forge.threads.comment(issue, 'First')
-    const second = await forge.threads.comment(issue, 'Second')
+    const first = await forge.threads.createComment(issue, 'First')
+    const second = await forge.threads.createComment(issue, 'Second')
     await forge.threads.deleteComment(first.ref)
-    const third = await forge.threads.comment(issue, 'Third')
-    await forge.threads.editComment(third.ref, 'Third, edited')
+    const third = await forge.threads.createComment(issue, 'Third')
+    await forge.threads.updateComment(third.ref, 'Third, edited')
 
     expect([first, second, third].map(comment => comment.ref.id)).toEqual(['1-1', '1-2', '1-3'])
-    expect((await forge.threads.commentsPage(issue)).items.map(comment => comment.body)).toEqual(['Second', 'Third, edited'])
+    expect((await forge.threads.comments(issue).page()).items.map(comment => comment.body)).toEqual(['Second', 'Third, edited'])
   })
 
   describe('listing comments since a time', () => {
     const firstAttemptAt = new Date('2026-03-01T12:00:00Z')
 
     function seeded() {
-      const factory = fake({ seed })
-      const forge = factory.create()
-      const state = factory.store.repos.get('acme/widgets')!.threads.get('1')!
+      const forge = fake({ seed })
+      const state = forge.store.repos.get('acme/widgets')!.threads.get('1')!
       const ref = state.thread.ref
       const comment = (id: string, body: string, createdAt: Date) => ({ ref: { forge: 'fake', instance: 'fake.test', thread: ref, id }, body, createdAt, raw: {} })
-      return { factory, forge, state, ref, comment }
+      return { forge, state, ref, comment }
     }
 
     it('lists only the comments updated since a time', async () => {
@@ -205,10 +204,10 @@ describe('fake forge', () => {
   })
 
   it('lists the reactions a write left on a thread and on a comment', async () => {
-    const forge = fake({ seed, viewer: 'octocat' }).create()
+    const forge = fake({ seed, viewer: 'octocat' })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' } as const
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
-    const comment = await forge.threads.comment(issue!.ref, 'Looking into it')
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
+    const comment = await forge.threads.createComment(issue!.ref, 'Looking into it')
 
     await forge.threads.react(issue!.ref, '+1')
     await forge.threads.react(issue!.ref, 'heart')
@@ -222,9 +221,9 @@ describe('fake forge', () => {
   })
 
   it('adds and removes labels without touching the rest', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
 
     await forge.threads.addLabels(issue!.ref, ['bug'])
     await forge.threads.removeLabels(issue!.ref, ['triage'])
@@ -232,10 +231,9 @@ describe('fake forge', () => {
     expect((await forge.threads.get(issue!.ref)).labels.map(item => item.name)).toEqual(['bug'])
   })
   it('creates a pending review, submits it and resolves its conversation', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [pull] = (await forge.threads.listPage(repo, { kind: 'pull_request' })).items
+    const [pull] = (await forge.threads.list(repo, { kind: 'pull_request' }).page()).items
 
     const pending = await forge.threads.createReview(pull!.ref, { body: 'one nit', comments: [{ path: 'src/index.ts', line: 3, body: 'rename' }] })
     expect(pending.state).toBe('pending')
@@ -248,13 +246,12 @@ describe('fake forge', () => {
     expect(submitted.state).toBe('changes_requested')
     expect(reviews).toHaveLength(1)
     expect((reviews[0]!.comments as Exclude<typeof submitted.comments, false>)[0]!.thread).toEqual({ id: comment.thread!.id, resolved: true })
-    expect(factory.store.events.at(-1)!.detail).toMatchObject({ type: 'review', state: 'changes_requested' })
+    expect(forge.store.events.at(-1)!.detail).toMatchObject({ type: 'review', state: 'changes_requested' })
   })
   it('replies to a review comment inside its conversation', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [pull] = (await forge.threads.listPage(repo, { kind: 'pull_request' })).items
+    const [pull] = (await forge.threads.list(repo, { kind: 'pull_request' }).page()).items
 
     const review = await forge.threads.createReview(pull!.ref, { event: 'comment', comments: [{ path: 'src/index.ts', line: 3, body: 'rename' }] })
     const comment = (review.comments as Exclude<typeof review.comments, false>)[0]!
@@ -265,22 +262,47 @@ describe('fake forge', () => {
 
     expect(reply).toMatchObject({ body: 'renamed', path: 'src/index.ts', line: 3, inReplyTo: comment.ref!.id, thread: comment.thread })
     expect(second.inReplyTo).toBe(comment.ref!.id)
-    expect(factory.store.events.at(-1)!.detail).toMatchObject({ type: 'review_comment', comment: second.ref, body: 'and the tests', path: 'src/index.ts' })
+    expect(forge.store.events.at(-1)!.detail).toMatchObject({ type: 'review_comment', comment: second.ref, body: 'and the tests', path: 'src/index.ts' })
     expect((read!.comments as Exclude<typeof review.comments, false>).map(item => item.thread?.resolved)).toEqual([true, true, true])
   })
   it('reports a commit status, lists it back and reads a job log', async () => {
-    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', state: 'failure' as const, branch: 'main', jobs: [{ name: 'lint', state: 'failure' as const, log: 'lint failed\n' }] }] } }).create()
+    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', state: 'failure' as const, branch: 'main', jobs: [{ name: 'lint', state: 'failure' as const, log: 'lint failed\n' }] }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     await forge.checks.report(repo, 'abc123', { name: 'coverage', state: 'success', description: '84%' })
     const { items: checks } = await forge.checks.list(repo, 'abc123')
-    const [run] = (await forge.ci.runsPage(repo, { branch: 'main' })).items
+    const [run] = (await forge.ci.runs(repo, { branch: 'main' }).page()).items
     const jobs = await Array.fromAsync(forge.ci.jobs(run!.ref))
     const log = await new Response(await forge.ci.log(jobs[0]!.ref)).text()
 
     expect(checks).toMatchObject([{ name: 'coverage', state: 'success', ref: { type: 'status' } }])
     expect(run).toMatchObject({ name: 'ci', state: 'failure' })
     expect(log).toBe('lint failed\n')
+  })
+  it('comments on a commit, edits, reads back and deletes the comment', async () => {
+    const forge = fake({ seed })
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const commit = { forge: 'fake', instance: 'fake.test', repo, sha: 'abc1234def' }
+    const created = await forge.commits.createComment(commit, 'Nice')
+    await forge.commits.updateComment(created.ref, 'Nicer')
+    await forge.commits.hideComment(created.ref, 'outdated')
+    const hidden = forge.store.repos.get('acme/widgets')!.hiddenCommitComments.get(created.ref.id)
+    await forge.commits.unhideComment(created.ref)
+    const shown = forge.store.repos.get('acme/widgets')!.hiddenCommitComments.size
+    const read = await forge.commits.getComment(created.ref)
+    await forge.commits.hideComment(created.ref, 'outdated')
+    await forge.commits.deleteComment(created.ref)
+    const left = await Array.fromAsync(forge.commits.comments(commit))
+
+    expect(created.ref.commit).toEqual(commit)
+    expect(hidden).toBe('outdated')
+    expect(shown).toBe(0)
+    expect(forge.store.repos.get('acme/widgets')!.hiddenCommitComments.size).toBe(0)
+    expect(read).toMatchObject({ body: 'Nicer', ref: { id: created.ref.id } })
+    expect(left).toEqual([])
+    expect(forge.store.events.map(event => [event.kind, event.action])).toEqual([['comment', 'created'], ['comment', 'edited'], ['comment', 'deleted']])
+    expect(forge.capabilities.commits.getComment).toBe('emulated')
   })
   it('serves seeded files, commits and pull request diffs', async () => {
     const forge = fake({
@@ -294,14 +316,14 @@ describe('fake forge', () => {
         commits: [{ repo: 'acme/widgets', sha: 'a'.repeat(40), message: 'feat: add widgets', files: [{ path: 'src/index.ts', additions: 3 }] }],
         threads: [{ repo: 'acme/widgets', kind: 'pull_request' as const, number: 7, title: 'Add widgets', commits: ['a'.repeat(40)], files: [{ path: 'src/index.ts', status: 'added' as const, additions: 3, patch: '@@ -0,0 +1 @@' }] }],
       },
-    }).create()
+    })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '7' }
 
-    const readme = await forge.contents.file(repo, 'README.md', { as: 'text' })
-    const icon = await forge.contents.file(repo, 'assets/icon.png')
+    const readme = await forge.contents.getFile(repo, 'README.md', { as: 'text' })
+    const icon = await forge.contents.getFile(repo, 'assets/icon.png')
     const tree = await Array.fromAsync(forge.contents.tree(repo))
-    const commit = await forge.contents.commit(repo, 'a'.repeat(40))
+    const commit = await forge.commits.get({ forge: 'fake', instance: 'fake.test', repo, sha: 'a'.repeat(40) })
     const files = await Array.fromAsync(forge.threads.files(pull))
     const commits = await Array.fromAsync(forge.threads.commits(pull))
 
@@ -322,7 +344,7 @@ describe('fake forge', () => {
         ],
         commits: [{ repo: 'acme/widgets', sha: 'a'.repeat(40), message: 'feat: add widgets' }],
       },
-    }).create()
+    })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const first = await forge.contents.commitFiles(repo, {
@@ -337,8 +359,8 @@ describe('fake forge', () => {
 
     expect(first).toMatchObject({ parents: ['a'.repeat(40)], files: [{ path: 'README.md', status: 'modified' }, { path: 'OLD.md', status: 'removed' }, { path: 'icon.png', status: 'added' }] })
     expect(second).toMatchObject({ parents: [first.sha], author: { name: 'Ada', email: 'ada@example.com' } })
-    expect((await forge.contents.file(repo, 'README.md', { ref: 'docs', as: 'text' })).content).toBe('# Widgets\n')
-    expect((await forge.contents.file(repo, 'README.md', { as: 'text' })).content).toBe('# widgets\n')
+    expect((await forge.contents.getFile(repo, 'README.md', { ref: 'docs', as: 'text' })).content).toBe('# Widgets\n')
+    expect((await forge.contents.getFile(repo, 'README.md', { as: 'text' })).content).toBe('# widgets\n')
     expect(tree.map(entry => entry.path)).toEqual(['GUIDE.md', 'README.md', 'icon.png'])
     expect(branches.map(branch => [branch.name, branch.sha])).toEqual([['main', 'a'.repeat(40)], ['docs', second.sha]])
     expect(await forge.contents.resolveRef(repo, 'docs')).toBe(second.sha)
@@ -353,7 +375,7 @@ describe('fake forge', () => {
     await expect(forge.contents.commitFiles(repo, { branch: 'docs', message: ' ', changes: [{ path: 'a', content: '' }] })).rejects.toThrow(TypeError)
   })
   it('searches seeded threads and repositories', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const threads = await Array.fromAsync(forge.search.threads({ text: 'crash', kind: 'issue' }))
     const repos = await Array.fromAsync(forge.search.repos({ text: 'widgets', owner: 'acme' }))
@@ -363,7 +385,7 @@ describe('fake forge', () => {
   })
 
   it('lists the repositories of an owner, with its subgroups when asked', async () => {
-    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }, { repo: 'acme/tools/cli', visibility: 'private' }, { repo: 'other/gadgets' }] } }).create()
+    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }, { repo: 'acme/tools/cli', visibility: 'private' }, { repo: 'other/gadgets' }] } })
     const acme = { forge: 'fake', instance: forge.instance, owner: 'acme', name: '', kind: 'namespace' } as const
 
     const names = async (query = {}) => (await Array.fromAsync(forge.repos.byOwner(acme, query))).map(repo => `${repo.ref.owner}/${repo.ref.name}`)
@@ -373,11 +395,11 @@ describe('fake forge', () => {
     expect(await names({ subgroups: true, visibility: 'private' })).toEqual(['acme/tools/cli'])
     expect(await names({ subgroups: true, sort: 'name' })).toEqual(['acme/tools/cli', 'acme/widgets'])
     expect(await names({ subgroups: true, sort: 'name', direction: 'desc' })).toEqual(['acme/widgets', 'acme/tools/cli'])
-    expect((await forge.repos.byOwnerPage(acme, { sort: 'created' })).warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
+    expect((await forge.repos.byOwner(acme, { sort: 'created' }).page()).warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
   })
 
   it('searches the lines of seeded files', async () => {
-    const forge = fake({ seed: { files: [{ repo: 'acme/widgets', path: 'src/useFetch.ts', content: 'import { ofetch } from \'ofetch\'\nexport const useFetch = ofetch\n' }] } }).create()
+    const forge = fake({ seed: { files: [{ repo: 'acme/widgets', path: 'src/useFetch.ts', content: 'import { ofetch } from \'ofetch\'\nexport const useFetch = ofetch\n' }] } })
 
     const matches = await Array.fromAsync(forge.search.code({ text: 'usefetch', owner: 'acme' }))
 
@@ -390,7 +412,7 @@ describe('fake forge', () => {
         repos: [{ repo: 'acme/widgets' }],
         releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', assets: [{ name: 'widgets.tgz', content: 'tarball', contentType: 'application/gzip' }] }],
       },
-    }).create()
+    })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const release = await forge.releases.getByTag(repo, 'v1.0.0')
@@ -407,7 +429,7 @@ describe('fake forge', () => {
         repos: [{ repo: 'acme/widgets' }],
         releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', assets: [{ name: 'SHA256SUMS', content: 'abc  widgets.tgz' }, { name: 'widgets.tgz', content: new Uint8Array([0x1F, 0x8B, 0xFF]) }] }],
       },
-    }).create()
+    })
     const release = await forge.releases.getByTag({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, 'v1.0.0')
     const [sums, tarball] = release.assets!.map(asset => asset.ref!)
 
@@ -417,7 +439,7 @@ describe('fake forge', () => {
   })
 
   it('creates a draft release, publishes it and refuses a second release of its tag', async () => {
-    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0' }] } }).create()
+    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0' }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const draft = await forge.releases.create(repo, { tag: 'v1.1.0', body: 'Notes', draft: true })
@@ -431,7 +453,7 @@ describe('fake forge', () => {
   })
 
   it('refuses a tag, target or draft change on an immutable release but edits its notes', async () => {
-    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', body: 'old', immutable: true }] } }).create()
+    const forge = fake({ seed: { releases: [{ repo: 'acme/widgets', tag: 'v1.0.0', body: 'old', immutable: true }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const release = await forge.releases.getByTag(repo, 'v1.0.0')
 
@@ -444,7 +466,7 @@ describe('fake forge', () => {
 
   it('limits the commits and leaves out the files of a comparison', async () => {
     const commits = ['a', 'b', 'c', 'd'].map(char => ({ repo: 'acme/widgets', sha: char.repeat(40), message: `commit ${char}`, files: [{ path: `${char}.ts` }] }))
-    const forge = fake({ seed: { commits } }).create()
+    const forge = fake({ seed: { commits } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const full = await forge.contents.compare(repo, 'a'.repeat(40), 'd'.repeat(40))
@@ -461,7 +483,7 @@ describe('fake listing filters', () => {
 
   function clocked() {
     let at = Date.parse('2026-01-01T00:00:00Z')
-    const factory = fake({
+    const forge = fake({
       now: () => new Date(at),
       seed: {
         threads: [
@@ -472,14 +494,14 @@ describe('fake listing filters', () => {
         notifications: [{ repo: 'acme/widgets', number: 1 }, { repo: 'acme/widgets', number: 2 }, { repo: 'acme/other', number: 1 }],
       },
     })
-    return { factory, forge: factory.create(), tick: (ms: number) => (at += ms) }
+    return { forge, tick: (ms: number) => (at += ms) }
   }
 
   it('filters threads by mention, involvement, milestone, update and creation time, and sorts them', async () => {
     const { forge, tick } = clocked()
     tick(60_000)
-    await forge.threads.comment({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number: '1' }, 'bump')
-    const titles = async (query: Parameters<typeof forge.threads.listPage>[1]) => (await forge.threads.listPage(repo, query)).items.map(thread => thread.title)
+    await forge.threads.createComment({ forge: 'fake', instance: 'fake.test', repo, kind: 'issue', number: '1' }, 'bump')
+    const titles = async (query: Parameters<typeof forge.threads.list>[1]) => (await forge.threads.list(repo, query).page()).items.map(thread => thread.title)
 
     expect(await titles({ mentions: 'bob' })).toEqual(['Mentions bob'])
     expect(await titles({ involves: 'cy' })).toEqual(['Mentions bob'])
@@ -490,32 +512,31 @@ describe('fake listing filters', () => {
     expect(await titles({ createdAfter: new Date('2026-01-01T00:00:30Z') })).toEqual([])
     expect(await titles({ sort: 'updated' })).toEqual(['Old', 'Mentions bob'])
     expect(await titles({ sort: 'comments', direction: 'asc' })).toEqual(['Old', 'Mentions bob'])
-    expect((await forge.threads.listPage(repo, { mentions: 'bob' })).warnings).toBeUndefined()
+    expect((await forge.threads.list(repo, { mentions: 'bob' }).page()).warnings).toBeUndefined()
   })
 
   it('lists notifications updated since a time, and marks only those of a repository or before a time', async () => {
-    const { factory, forge, tick } = clocked()
-    factory.store.notifications[1]!.updatedAt = new Date(tick(60_000))
-    const unread = async () => (await forge.notifications.listPage()).items.map(item => item.ref.id)
+    const { forge, tick } = clocked()
+    forge.store.notifications[1]!.updatedAt = new Date(tick(60_000))
+    const unread = async () => (await forge.notifications.list().page()).items.map(item => item.ref.id)
 
-    expect((await forge.notifications.listPage({ since: new Date('2026-01-01T00:00:30Z') })).items.map(item => item.ref.id)).toEqual(['2'])
+    expect((await forge.notifications.list({ since: new Date('2026-01-01T00:00:30Z') }).page()).items.map(item => item.ref.id)).toEqual(['2'])
     await forge.notifications.markAllRead({ before: new Date('2026-01-01T00:00:30Z'), repo })
     expect(await unread()).toEqual(['2', '3'])
     await forge.notifications.markAllDone({ repo })
-    expect((await forge.notifications.listPage({ all: true })).items.map(item => item.ref.id)).toEqual(['3'])
+    expect((await forge.notifications.list({ all: true }).page()).items.map(item => item.ref.id)).toEqual(['3'])
   })
 })
 
 describe('fake event sources', () => {
   it('reads polled events with source poll and an id of the listing\'s own', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '1' } as const
-    await forge.threads.comment(issue, 'Hello')
+    await forge.threads.createComment(issue, 'Hello')
 
-    const [timeline] = (await forge.threads.eventsPage(issue)).items
-    const [feed] = (await forge.repos.eventsPage(issue.repo)).items
-    const [pushed] = factory.store.events
+    const [timeline] = (await forge.threads.events(issue).page()).items
+    const [feed] = (await forge.repos.events(issue.repo).page()).items
+    const [pushed] = forge.store.events
 
     expect([pushed!.source, timeline!.source, feed!.source]).toEqual(['subscribe', 'poll', 'poll'])
     expect(new Set([pushed!.id, timeline!.id, feed!.id]).size).toBe(3)
@@ -523,13 +544,13 @@ describe('fake event sources', () => {
   })
 
   it('marks a notification read and keeps it on done where done is emulated', async () => {
-    const forge = fake({ seed, support: { 'notifications.markDone': 'emulated' } }).create()
-    const [notification] = (await forge.notifications.listPage()).items
+    const forge = fake({ seed, support: { 'notifications.markDone': 'emulated' } })
+    const [notification] = (await forge.notifications.list().page()).items
 
     await forge.notifications.markDone(notification!.ref)
 
-    expect((await forge.notifications.listPage()).items).toEqual([])
-    expect((await forge.notifications.listPage({ all: true })).items).toMatchObject([{ ref: notification!.ref, unread: false }])
+    expect((await forge.notifications.list().page()).items).toEqual([])
+    expect((await forge.notifications.list({ all: true }).page()).items).toMatchObject([{ ref: notification!.ref, unread: false }])
   })
 })
 
@@ -549,31 +570,31 @@ describe('fake writes by someone else', () => {
       },
     })
     factory.store.repos.get('acme/widgets')!.threads.get('2')!.subscription = 'none'
-    return { factory, viewer: factory.create(), octocat: factory.as('octocat') }
+    return { viewer: factory, octocat: factory.as('octocat') }
   }
 
   it('records the write as theirs and marks the viewer\'s notification for the thread unread again', async () => {
-    const { factory, viewer, octocat } = forge()
+    const { viewer, octocat } = forge()
 
-    const comment = await octocat.threads.comment(issue('1'), 'Any news?')
+    const comment = await octocat.threads.createComment(issue('1'), 'Any news?')
 
     expect(comment.author?.login).toBe('octocat')
-    expect(factory.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
-    const [notification] = (await viewer.notifications.listPage()).items
+    expect(viewer.store.events.at(-1)).toMatchObject({ actor: { login: 'octocat' }, summary: 'octocat commented' })
+    const [notification] = (await viewer.notifications.list().page()).items
     expect(notification).toMatchObject({ ref: { id: '1' }, reason: 'author', unread: true, latestComment: { id: comment.ref.id } })
-    expect((await viewer.threads.getComment(notification!.latestComment!)).body).toBe('Any news?')
+    expect((await viewer.threads.getComment(notification!.latestComment as ResolvedCommentRef)).body).toBe('Any news?')
     expect((await octocat.users.me()).login).toBe('octocat')
   })
 
   it('notifies the viewer of a mention or a review request on a thread the viewer is not subscribed to', async () => {
     const { viewer, octocat } = forge()
 
-    await octocat.threads.comment(issue('2'), 'Nothing to see')
-    await octocat.threads.comment(issue('2'), 'cc @fake-user')
+    await octocat.threads.createComment(issue('2'), 'Nothing to see')
+    await octocat.threads.createComment(issue('2'), 'cc @fake-user')
     await octocat.threads.requestReview({ ...issue('3'), kind: 'pull_request' }, ['fake-user'])
-    await viewer.threads.comment(issue('1'), 'Own comment')
+    await viewer.threads.createComment(issue('1'), 'Own comment')
 
-    expect((await viewer.notifications.listPage()).items.map(item => [item.subject.type === 'thread' && item.subject.thread.number, item.reason])).toEqual([['2', 'mention'], ['3', 'review_requested']])
+    expect((await viewer.notifications.list().page()).items.map(item => [item.subject.type === 'thread' && item.subject.thread.number, item.reason])).toEqual([['2', 'mention'], ['3', 'review_requested']])
   })
 
   it('has no notifications or subscriptions of the viewer', async () => {
@@ -595,22 +616,21 @@ describe('fake security alerts', () => {
         { repo: 'acme/widgets', kind: 'advisory', title: 'Path traversal', severity: 'critical' },
       ],
     },
-  }).create()
+  })
 
   it('lists seeded alerts by kind and state, numbering each kind separately', async () => {
-    const open = await forge.securityAlerts.listPage(repo)
-    const closed = await forge.securityAlerts.listPage(repo, { kind: 'dependency', state: 'closed' })
+    const open = await forge.securityAlerts.list(repo).page()
+    const closed = await forge.securityAlerts.list(repo, { kind: 'dependency', state: 'closed' }).page()
 
     expect(open.items.map(alert => [alert.kind, alert.ref.id, alert.severity])).toEqual([['advisory', '1', 'critical'], ['secret', '1', 'medium'], ['dependency', '1', 'high']])
     expect(closed.items).toMatchObject([{ ref: { id: '2', kind: 'dependency' }, title: 'ReDoS', state: 'fixed' }])
-    expect(forge.capabilities.securityAlerts).toMatchObject({ dependency: true, code_scanning: true, secret: true, advisory: true })
+    expect(forge.capabilities.securityAlerts.list).toMatchObject({ dependency: true, code_scanning: true, secret: true, advisory: true })
   })
 })
 
 describe('fake webhook management', () => {
   it('registers, updates and removes a hook without ever returning its secret', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const hook = await forge.webhooks.create(repo, { url: 'https://hooks.test/in', events: ['state_change'], secret: 's3cret' })
@@ -624,14 +644,13 @@ describe('fake webhook management', () => {
     expect(JSON.stringify([hook, listed])).not.toContain('s3cret')
     expect(listed).toHaveLength(1)
     expect(listed[0]!.active).toBe(false)
-    expect(factory.store.webhooks).toEqual([])
+    expect(forge.store.webhooks).toEqual([])
   })
 
   it('allocates a distinct id when a hook is seeded directly into the store', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    factory.store.webhooks.push({
+    forge.store.webhooks.push({
       ref: { forge: 'fake', instance: 'fake.test', target: repo, id: '1' },
       url: 'https://hooks.test/seeded',
       events: [],
@@ -644,14 +663,14 @@ describe('fake webhook management', () => {
     await forge.webhooks.update(hook.ref, { active: false })
 
     expect(hook.ref.id).toBe('2')
-    expect(factory.store.webhooks.map(hook => [hook.ref.id, hook.url, hook.active])).toEqual([
+    expect(forge.store.webhooks.map(hook => [hook.ref.id, hook.url, hook.active])).toEqual([
       ['1', 'https://hooks.test/seeded', true],
       ['2', 'https://hooks.test/new', false],
     ])
   })
 
   it('never reuses the id of a deleted hook', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
 
     const first = await forge.webhooks.create(repo, { url: 'https://hooks.test/first' })
@@ -665,11 +684,11 @@ describe('fake webhook management', () => {
 
 describe('fake capabilities', () => {
   it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
-    const base = fake().create().capabilities
-    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
-    const forge = fake({ capabilities: source, support: { 'threads.close': false } }).create()
+    const base = fake().capabilities
+    const source = { ...base, threads: { ...base.threads, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
+    const forge = fake({ capabilities: source, support: { 'threads.close': false } })
 
-    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'emulated' })
+    expect(forge.capabilities.threads.addLabels).toMatchObject({ issue: false, pull_request: 'emulated' })
     expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })
@@ -680,7 +699,7 @@ describe('fake write results', () => {
   const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
 
   it('resolves merge with the merge commit that a following read reports', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const result = await forge.threads.merge(pull)
 
@@ -689,7 +708,7 @@ describe('fake write results', () => {
   })
 
   it('resolves merge with whenChecksPass as queued and leaves the pull request open', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     await expect(forge.threads.merge(pull, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
 
@@ -699,19 +718,18 @@ describe('fake write results', () => {
   })
 
   it('links a pull request to the issues its body closes with a keyword', async () => {
-    const forge = fake({ seed: { ...seed, threads: [...seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, body: 'Fixes #1, refs #3' } : thread), { repo: 'acme/widgets', kind: 'issue' as const, title: 'Unrelated' }] } }).create()
+    const forge = fake({ seed: { ...seed, threads: [...seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, body: 'Fixes #1, refs #3' } : thread), { repo: 'acme/widgets', kind: 'issue' as const, title: 'Unrelated' }] } })
 
-    expect((await forge.threads.closingIssuesPage(pull)).items.map(thread => thread.ref.number)).toEqual(['1'])
+    expect((await forge.threads.closingIssues(pull).page()).items.map(thread => thread.ref.number)).toEqual(['1'])
     expect((await Array.fromAsync(forge.threads.closingPullRequests(issue))).map(thread => thread.ref.number)).toEqual(['2'])
-    expect((await forge.threads.closingPullRequestsPage({ ...issue, number: '3' })).items).toEqual([])
-    await expect(forge.threads.closingIssuesPage(issue)).rejects.toBeInstanceOf(NotFoundError)
+    expect((await forge.threads.closingPullRequests({ ...issue, number: '3' }).page()).items).toEqual([])
+    await expect(forge.threads.closingIssues(issue).page()).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('locks a conversation, hides a comment and blocks an account in the store', async () => {
-    const factory = fake({ seed })
-    const forge = factory.create()
+    const forge = fake({ seed })
     const org = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: '', kind: 'namespace' } as const
-    const comment = await forge.threads.comment(issue, 'Buy cheap watches')
+    const comment = await forge.threads.createComment(issue, 'Buy cheap watches')
 
     await forge.threads.lock(issue, { reason: 'spam' })
     expect((await forge.threads.get(issue)).locked).toBe(true)
@@ -719,17 +737,17 @@ describe('fake write results', () => {
     expect((await forge.threads.get(issue)).locked).toBe(false)
 
     await forge.threads.hideComment(comment.ref, 'spam')
-    expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.get(comment.ref.id)).toBe('spam')
+    expect(forge.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.get(comment.ref.id)).toBe('spam')
     await forge.threads.unhideComment(comment.ref)
-    expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
+    expect(forge.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
     await expect(forge.threads.hideComment({ ...comment.ref, id: '999' }, 'spam')).rejects.toBeInstanceOf(NotFoundError)
     await forge.threads.hideComment(comment.ref, 'spam')
     await forge.threads.deleteComment(comment.ref)
-    expect(factory.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
+    expect(forge.store.repos.get('acme/widgets')!.threads.get('1')!.hidden.size).toBe(0)
 
     await forge.orgs.block(org, 'spammer')
     await forge.users.block('troll')
-    expect([...factory.store.blocks].map(([blocker, logins]) => [blocker, [...logins]])).toEqual([['acme', ['spammer']], ['fake-user', ['troll']]])
+    expect([...forge.store.blocks].map(([blocker, logins]) => [blocker, [...logins]])).toEqual([['acme', ['spammer']], ['fake-user', ['troll']]])
     await expect(forge.orgs.block(org, 'spammer')).rejects.toMatchObject({ status: 422 })
     await forge.orgs.unblock(org, 'spammer')
     await forge.users.unblock('troll')
@@ -737,7 +755,7 @@ describe('fake write results', () => {
   })
 
   it('moves the head of a pull request on updateBranch, and refuses an update from a head that has moved', async () => {
-    const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, head: { sha: 'a'.repeat(40) } } : thread) } }).create()
+    const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, head: { sha: 'a'.repeat(40) } } : thread) } })
 
     await expect(forge.threads.updateBranch(pull, { sha: 'a'.repeat(40) })).resolves.toEqual({ status: 'updated' })
     const head = (await forge.threads.get(pull)).branches?.head.sha
@@ -748,7 +766,7 @@ describe('fake write results', () => {
   })
 
   it('queues a merge with whenChecksPass while the pull request is blocked', async () => {
-    const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, mergeable: 'blocked' as const } : thread) } }).create()
+    const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, mergeable: 'blocked' as const } : thread) } })
 
     await expect(forge.threads.merge(pull, { whenChecksPass: true })).resolves.toEqual({ status: 'queued' })
   })
@@ -757,7 +775,7 @@ describe('fake write results', () => {
     ['setLabels', ['bug']],
     ['addLabels', ['bug']],
   ] as const)('resolves %s with the labels that a following read returns', async (verb, labels) => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const result = await forge.threads[verb](issue, [...labels])
 
@@ -766,7 +784,7 @@ describe('fake write results', () => {
   })
 
   it('resolves removeLabels with the labels that a following read returns', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
     await forge.threads.setLabels(issue, ['bug', 'triage'])
 
     const result = await forge.threads.removeLabels(issue, ['bug'])
@@ -776,7 +794,7 @@ describe('fake write results', () => {
   })
 
   it('resolves close and reopen with the thread that a following read returns', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const closed = await forge.threads.close(issue, { reason: 'not_planned' })
     expect(closed).toMatchObject({ state: 'closed', stateReason: 'not_planned' })
@@ -788,7 +806,7 @@ describe('fake write results', () => {
   })
 
   it('resolves setAssignees with the assignees that a following read returns', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const result = await forge.threads.setAssignees(issue, ['octocat'])
 
@@ -797,7 +815,7 @@ describe('fake write results', () => {
   })
 
   it('resolves approve with the review that a following read returns', async () => {
-    const forge = fake({ seed }).create()
+    const forge = fake({ seed })
 
     const review = await forge.threads.approve(pull, 'Ship it')
 

@@ -36,10 +36,10 @@ const inputs = EXPLORER_FORGES.flatMap(forge =>
 
 describe('explorer operations', () => {
   it('call methods that every provider has', () => {
-    const provider = github().create() as unknown as Record<string, Record<string, unknown>>
-    for (const { method } of EXPLORER_OPERATIONS) {
-      const [namespace, name] = method.split('.') as [string, string]
-      expect(typeof provider[namespace]?.[name], method).toBe('function')
+    const provider = github() as unknown as Record<string, Record<string, unknown>>
+    for (const { verb } of EXPLORER_OPERATIONS) {
+      const [namespace, name] = verb.split('.') as [string, string]
+      expect(typeof provider[namespace]?.[name], verb).toBe('function')
     }
   })
 
@@ -56,22 +56,22 @@ describe('explorer operations', () => {
   it('declare the type that the method they call resolves to', () => {
     const symbols = model.entries.flatMap(entry => entry.symbols)
     const namespaces = symbols.find(symbol => symbol.name === 'ForgeProvider')!.members
-    for (const { method, returns } of EXPLORER_OPERATIONS) {
-      const [namespace, name] = method.split('.') as [string, string]
+    for (const { verb, returns, page } of EXPLORER_OPERATIONS) {
+      const [namespace, name] = verb.split('.') as [string, string]
       const api = symbols.find(symbol => symbol.name === namespaces.find(member => member.name === namespace)?.reference)
       const declared = api?.members.find(member => member.name === name)?.signatures[0]?.returns.type
-      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), method).toBe(returns)
+      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), verb).toBe(page ? returns.replace(/^Page</, 'ForgeListing<') : returns)
     }
   })
 
   it('create a provider with and without credentials for every forge', async () => {
     for (const forge of EXPLORER_FORGES) {
-      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
+      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProvider>)[forge.factory]!
       const options = forge.options?.(forge.sample) ?? {}
       if (!forge.signedIn) {
-        expect(factory(options).create().authKind, forge.forge).toBe('anonymous')
+        expect(factory(options).authKind, forge.forge).toBe('anonymous')
       }
-      expect(factory({ ...options, auth: placeholderAuth(forge.auth) }).create().authKind, forge.forge).toBe(forge.auth.type)
+      expect(factory({ ...options, auth: placeholderAuth(forge.auth) }).authKind, forge.forge).toBe(forge.auth.type)
     }
   })
 
@@ -81,8 +81,8 @@ describe('explorer operations', () => {
 
   it('run only calls that some forge supports here without credentials', async () => {
     const anonymous = await Promise.all(EXPLORER_FORGES.filter(forge => !forge.blocked).map(async (forge) => {
-      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProviderFactory>)[forge.factory]!
-      return factory(forge.options?.(forge.sample) ?? {}).create()
+      const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProvider>)[forge.factory]!
+      return factory(forge.options?.(forge.sample) ?? {})
     }))
     for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run)) {
       const supported = anonymous.some(provider => (['issue', 'pull_request'] as const).some(kind => provider.can(operation.verb, kind)))
@@ -91,7 +91,7 @@ describe('explorer operations', () => {
   })
 
   it('build refs for the forge of the provider', () => {
-    const provider = github().create()
+    const provider = github()
     const { repo, thread } = explorerRefs(provider, EXPLORER_FORGES[0]!.sample)
     expect(repo).toEqual({ forge: 'github', instance: 'github.com', owner: 'nuxt', name: 'nuxt' })
     expect(thread).toMatchObject({ repo, kind: 'pull_request', number: '36506' })

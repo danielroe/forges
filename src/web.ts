@@ -1,4 +1,4 @@
-import type { CommentRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
+import type { CommentRef, CommitRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
 import { isResolvedThread, normaliseRepoName } from './model.ts'
 
 /** A repository's section, for linking to the section itself rather than one entry in it. */
@@ -24,6 +24,7 @@ export interface ParsedForgeUrl {
   repo: RepoRef
   thread?: ThreadRef
   comment?: CommentRef
+  commit?: CommitRef
   release?: ReleaseRef
   /**
    * A file page: the repository-relative `path`, the revision `at` and the first selected `line`.
@@ -34,7 +35,7 @@ export interface ParsedForgeUrl {
   file?: { path: string, at?: string, line?: number }
 }
 
-/** Options for `provider.referenceTo()`. */
+/** Options for `provider.referenceFor()`. */
 export interface ReferenceOptions {
   /** Repository the reference is written in; a reference within it is the short form. */
   from?: RepoRef
@@ -57,6 +58,8 @@ export interface WebLinks {
   thread: (ref: ResolvedThreadRef) => string | undefined
   /** The page of a comment, anchored on its thread. */
   comment?: (ref: ResolvedCommentRef) => string | undefined
+  /** The page of a commit. */
+  commit?: (repo: RepoRef, sha: string) => string | undefined
   /** The page of a release. */
   release?: (ref: ReleaseRef) => string | undefined
   /** The page of a file at a revision, optionally at a line. */
@@ -67,8 +70,8 @@ export interface WebLinks {
   compare?: (repo: RepoRef, base: string, head: string) => string | undefined
   /** Reads a URL already known to be under `baseUrl`, split into the path segments after it. */
   parse: (segments: string[], url: URL, origin: ForgeOrigin) => ParsedForgeUrl | undefined
-  /** The forge's cross-reference syntax; `undefined` falls back to the thread URL. */
-  reference?: (ref: ResolvedThreadRef, sameRepo: boolean, expand: boolean) => string | undefined
+  /** The forge's cross-reference syntax; `undefined` falls back to the page URL. */
+  reference?: (ref: ResolvedThreadRef | CommitRef, sameRepo: boolean, expand: boolean) => string | undefined
 }
 
 export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
@@ -114,8 +117,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
     path = web.raw?.(target.raw.repo, target.raw.path, target.raw.at)
   }
   else if ('commit' in target) {
-    const { repo, sha } = target.commit
-    path = sha ? web.thread({ forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: sha }) : undefined
+    path = target.commit.sha ? web.commit?.(target.commit.repo, target.commit.sha) : undefined
   }
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)
@@ -161,11 +163,11 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
   return web.parse(segments, url, origin)
 }
 
-export function referenceFor(web: WebLinks | undefined, ref: ThreadRef, options: ReferenceOptions = {}): string | undefined {
-  if (!web || !isResolvedThread(ref)) {
+export function referenceFor(web: WebLinks | undefined, ref: ThreadRef | CommitRef, options: ReferenceOptions = {}): string | undefined {
+  if (!web || !('sha' in ref || isResolvedThread(ref))) {
     return undefined
   }
-  return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, { thread: ref })
+  return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, 'sha' in ref ? { commit: ref } : { thread: ref })
 }
 
 /** How a forge that lays out its website like GitHub differs from GitHub. */
@@ -208,7 +210,8 @@ function parseGitHubFile([route, at, ...path]: string[]): { at: string, path: st
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
 export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
-  const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, commit: shape.commit ?? 'commit', ...shape.discussions ? { discussion: 'discussions' } : {} }
+  const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, ...shape.discussions ? { discussion: 'discussions' } : {} }
+  const commitPath = shape.commit ?? 'commit'
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
   const parseFile = shape.parseFile ?? parseGitHubFile
@@ -226,9 +229,8 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       return `${repoPath(repo)}/${path ?? (section === 'pullRequests' ? 'pulls' : section)}`
     },
     thread: ref => kindPath[ref.kind] && `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}`,
-    comment: ref => ref.thread.kind === 'commit' || !kindPath[ref.thread.kind]
-      ? undefined
-      : `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
+    comment: ref => kindPath[ref.thread.kind] && `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
+    commit: (repo, sha) => `${repoPath(repo)}/${commitPath}/${encodeURIComponent(sha)}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}` : undefined,
     file: (repo, path, at, line) => `${repoPath(repo)}${shape.file(at)}/${encodePath(path)}${line ? `#${shape.lineFragment(line)}` : ''}`,
     raw: (repo, path, at) => shape.raw === false
@@ -251,6 +253,9 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       if (section === 'releases' && id === 'tag' && segments[4]) {
         return { repo, release: { ...from, repo, id: segments[4], tag: segments[4] } }
       }
+      if (section === commitPath && id) {
+        return { repo, commit: { ...from, repo, sha: id } }
+      }
       if (!kind || !id) {
         return { repo }
       }
@@ -259,26 +264,11 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       return { repo, thread, ...comment ? { comment: { ...from, thread, id: comment } } : {} }
     },
     reference: (ref, same) => {
-      if (ref.kind === 'commit') {
-        return same ? ref.number.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.number.slice(0, 7)}`
+      if ('sha' in ref) {
+        return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
       const prefix = ref.kind === 'pull_request' && shape.pullPrefix ? shape.pullPrefix : '#'
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}`
     },
   }
-}
-
-/**
- * Reads `url` with whichever of `providers` serves it.
- * @param url The web URL to read.
- * @param providers The providers to ask. The first that serves the URL answers.
- */
-export function parseForgeUrl(url: string | URL, providers: ReadonlyArray<{ parseUrl: (url: string | URL) => ParsedForgeUrl | undefined }>): ParsedForgeUrl | undefined {
-  for (const provider of providers) {
-    const parsed = provider.parseUrl(url)
-    if (parsed) {
-      return parsed
-    }
-  }
-  return undefined
 }

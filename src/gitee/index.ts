@@ -427,7 +427,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       unreadCount: verb(true, async options => (await fetcher.json<{ notification_count?: number, total_count?: number }>('/notifications/count', { query: { unread: true }, signal: options?.signal })).data.notification_count ?? 0),
     },
     contents: {
-      file: verb(true, async (repo, path, fileOptions = {}) => {
+      getFile: verb(true, async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<GiteeContentFile>(`${repoPath(repo)}/contents/${path.split('/').map(encodeURIComponent).join('/')}`, {
           query: { ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -455,17 +455,6 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       tagsPage: verb(true, (repo, listOptions = {}) => wholeListing(`${repoPath(repo)}/tags`, listOptions, toTag)),
       resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitsPage: verb(true, async (repo, query = {}) => {
-        const page = await numberedPage<GiteeCommit>(`${repoPath(repo)}/commits`, {
-          sha: query.ref,
-          path: query.path,
-          author: query.author,
-          since: query.since?.toISOString(),
-          until: query.until?.toISOString(),
-        }, query)
-        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
-      }),
-      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<GiteeCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, { signal: options?.signal })
         return {
@@ -477,6 +466,19 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
           raw: data,
         }
       }),
+    },
+    commits: {
+      listPage: verb(true, async (repo, query = {}) => {
+        const page = await numberedPage<GiteeCommit>(`${repoPath(repo)}/commits`, {
+          sha: query.ref,
+          path: query.path,
+          author: query.author,
+          since: query.since?.toISOString(),
+          until: query.until?.toISOString(),
+        }, query)
+        return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
+      }),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<GiteeCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
     },
     search: {
       threadsPage: verb(true, searchThreadsPage),
@@ -510,11 +512,11 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       filesPage: verb(true, (thread, listOptions = {}) => wholeListing(`${threadPath(requirePull(thread, 'read for changed files'))}/files`, listOptions, toChangedFile)),
       commitsPage: verb(true, (thread, listOptions = {}) => wholeListing(`${threadPath(requirePull(thread, 'read for commits'))}/commits`, listOptions, (raw: GiteeCommit) => toCommit(thread.repo, raw))),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
-      comment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: 'unverified', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         return toComment(ref, (await fetcher.json<GiteeComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      editComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
+      updateComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         const kind = thread.kind === 'pull_request' ? 'pulls' : 'issues'
         return toComment(thread, (await fetcher.json<GiteeComment>(`${repoPath(thread.repo)}/${kind}/comments/${ref.id}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
@@ -649,7 +651,7 @@ const GITEE: ProviderDefinition<GiteeOptions, undefined, true> = {
 }
 
 /** Creates a Gitee provider for gitee.com. The enterprise edition (`e.gitee.com`) is not covered. */
-export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee', false> = /* @__PURE__ */ defineForgeProvider(GITEE)
+export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee'> = /* @__PURE__ */ defineForgeProvider(GITEE)
 
 /** Gitee OAuth scopes, one per resource group. */
 export function giteeScopesFor(verb: ForgeVerb): VerbScopes {

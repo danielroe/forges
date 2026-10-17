@@ -182,6 +182,18 @@ describe('review identity', () => {
     }
   })
 
+  it('puts a GitLab note on a commit on that commit, from a webhook or the feed', () => {
+    const project = { id: 1, path_with_namespace: 'acme/widgets', name: 'widgets', namespace: { full_path: 'acme' } }
+    const sha = 'a'.repeat(40)
+    const [webhook] = translateGitLabWebhook('gitlab.com', { headers: { 'x-gitlab-event': 'Note Hook' }, body: JSON.stringify({ object_kind: 'note', user: { id: 5, username: 'grace' }, project, commit: { id: sha }, object_attributes: { id: 9, action: 'create', note: 'Nice', noteable_type: 'Commit', type: 'DiffNote', commit_id: sha } }) })
+    const feed = toGitLabFeedEvent('gitlab.com', { id: 71, action_name: 'commented on', target_type: 'DiffNote', author: { id: 5, username: 'grace' }, created_at: '2026-09-20T09:00:00Z', note: { id: 9, body: 'Nice', type: 'DiffNote', noteable_type: 'Commit', commit_id: sha } }, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets', externalId: '1' })
+
+    for (const event of [webhook!, feed]) {
+      expect(event).toMatchObject({ kind: 'comment', commit: { repo: { owner: 'acme', name: 'widgets' }, sha }, detail: { type: 'comment', comment: { commit: { sha }, id: '9' }, body: 'Nice' } })
+      expect(event.thread).toBeUndefined()
+    }
+  })
+
   it('names a Bitbucket approval as the review listing does', () => {
     const user = { uuid: '{grace}', nickname: 'grace' }
     const thread = { forge: 'bitbucket', instance: 'bitbucket.org', repo: { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '31' } as const
@@ -194,7 +206,7 @@ describe('review identity', () => {
   })
 
   it('names the fake review that an event reports', async () => {
-    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } }).create()
+    const forge = fake({ seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } })
     const thread = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '1' } as const
     const review = await forge.threads.createReview(thread, { event: 'approve' })
     const events = await Array.fromAsync(forge.threads.events(thread))

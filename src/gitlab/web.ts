@@ -2,7 +2,7 @@ import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
-const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests', commit: 'commit' }
+const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
 const PREFIXES: Partial<Record<ThreadKind, string>> = { issue: '#', pull_request: '!' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'merge_requests', compare: 'compare', releases: 'releases', stargazers: 'starrers', forks: 'forks' }
@@ -20,6 +20,7 @@ export function gitlabWeb(baseUrl: string): WebLinks {
       : PAGES[section] && `${projectPath(repo)}/-/${PAGES[section]}`,
     thread: ref => ref.repo.kind === 'namespace' || !SECTIONS[ref.kind] ? undefined : `${projectPath(ref.repo)}/-/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
     comment: ref => ref.thread.repo.kind === 'namespace' || !SECTIONS[ref.thread.kind] ? undefined : `${projectPath(ref.thread.repo)}/-/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#note_${ref.id}`,
+    commit: (repo, sha) => repo.kind === 'namespace' ? undefined : `${projectPath(repo)}/-/commit/${encodeURIComponent(sha)}`,
     release: ref => ref.tag ? `${projectPath(ref.repo)}/-/releases/${encodeURIComponent(ref.tag)}` : undefined,
     file: (repo, path, at, line) => `${projectPath(repo)}/-/blob/${encodeURIComponent(at)}/${encode(path)}${line ? `#L${line}` : ''}`,
     raw: (repo, path, at) => `${projectPath(repo)}/-/raw/${encodeURIComponent(at)}/${encode(path)}`,
@@ -38,6 +39,9 @@ export function gitlabWeb(baseUrl: string): WebLinks {
       if (section === 'releases' && id) {
         return { repo, release: { ...from, repo, id, tag: id } }
       }
+      if (section === 'commit' && id) {
+        return { repo, commit: { ...from, repo, sha: id } }
+      }
       const kind = section ? KINDS.get(section) : undefined
       if (!kind || !id) {
         return { repo }
@@ -47,8 +51,8 @@ export function gitlabWeb(baseUrl: string): WebLinks {
       return { repo, thread, ...note ? { comment: { ...from, thread, id: note } } : {} }
     },
     reference: (ref, same, expand) => {
-      if (ref.kind === 'commit') {
-        return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}@`}${ref.number.slice(0, 8)}`
+      if ('sha' in ref) {
+        return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}@`}${ref.sha.slice(0, 8)}`
       }
       const prefix = PREFIXES[ref.kind]
       if (!prefix || ref.repo.kind === 'namespace') {

@@ -89,7 +89,7 @@ const VERBS = new Map<string, CapabilityInfo>(
   }] as const)),
 )
 
-/** The capability behind a verb. A page method such as `repos.labelsPage` shares the entry of `repos.labels`. */
+/** The capability behind a verb. */
 function capabilityOf(verb: string): CapabilityInfo | undefined {
   return VERBS.get(verb) ?? VERBS.get(verb.replace(/Page$/, ''))
 }

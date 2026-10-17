@@ -63,7 +63,7 @@ function probe(kind: string, fields: Record<string, string>) {
   if (!entry || rest.length) {
     throw new Error(`Expected one provider set for ${kind} from ${Object.keys(fields).join(', ')}`)
   }
-  return { skipped: entry.skipped, provider: entry.factory?.create() }
+  return { skipped: entry.skipped, provider: entry.provider }
 }
 
 function authenticated(provider?: Forges.ForgeProvider): boolean {
@@ -83,9 +83,9 @@ async function leaks(kind: string, fields: string[]): Promise<Set<string>> {
     const values = Object.fromEntries(fields.map(field => [field, probeValue(field, key)]))
     // Tangled only opens an atproto session for calls such as notifications, which need a notifications service.
     const env = Object.fromEntries(Object.entries({ NOTIFICATIONS_URL: probeValue('NOTIFICATIONS_URL'), ...values }).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
-    const provider = providersFromEnv(env, { fetch })[0]?.factory?.create()
+    const provider = providersFromEnv(env, { fetch })[0]?.provider
     await provider?.request('GET', '/probe').catch(() => {})
-    await provider?.notifications.listPage().catch(() => {})
+    await provider?.notifications.list().page().catch(() => {})
     const text = sent.flatMap(value => [value, ...[...value.matchAll(/(?:Basic|Bearer) ([\w.=-]+)/g)].flatMap(([, token]) => token!.split('.').map(part => Buffer.from(part, 'base64').toString()))]).join('\n')
     for (const field of fields) {
       if (text.includes(values[field]!)) {
@@ -155,7 +155,7 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
         default: !!bare.provider,
         with: anonymousWith,
         unavailable: unavailable(anonymous),
-        reads: supported.some(capability => capability !== 'sources.webhook' && !unavailable(anonymous).includes(capability)),
+        reads: supported.some(capability => capability !== 'webhooks.ingest' && !unavailable(anonymous).includes(capability)),
       },
     }
   }))
@@ -219,29 +219,29 @@ export interface CredentialTask {
 const TASKS: CredentialTask[] = [
   { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
   { id: 'orgs', group: 'Read', label: 'Organisation teams', capabilities: ['orgs.teams', 'orgs.teamMembers'] },
-  { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.closingIssues', 'threads.closingPullRequests', 'threads.events', 'comments.list', 'comments.get', 'reactions.list', 'reviews.list', 'reviews.get', 'contents.threadFiles', 'contents.threadCommits'] },
-  { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.file', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'contents.commits', 'contents.commit', 'contents.compare'] },
+  { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.closingIssues', 'threads.closingPullRequests', 'threads.events', 'threads.comments', 'threads.getComment', 'threads.reactions', 'threads.reviews', 'threads.getReview', 'threads.files', 'threads.commits'] },
+  { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.getFile', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'commits.list', 'commits.get', 'contents.compare', 'commits.comments', 'commits.getComment'] },
   { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },
-  { id: 'ci', group: 'Read', label: 'Checks and CI', capabilities: ['checks.thread', 'checks.list', 'checks.get', 'ci.runs', 'ci.run', 'ci.jobs', 'ci.job', 'ci.log'] },
+  { id: 'ci', group: 'Read', label: 'Checks and CI', capabilities: ['threads.checks', 'checks.list', 'checks.get', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log'] },
   { id: 'search', group: 'Read', label: 'Search', capabilities: ['search.threads', 'search.repos', 'search.commits', 'search.code'] },
-  { id: 'security', group: 'Read', label: 'Security alerts', capabilities: ['securityAlerts'] },
-  { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'subscriptions.get'] },
-  { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['writes.comment', 'comments.edit', 'comments.delete', 'writes.react'] },
-  { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['writes.create', 'writes.update', 'writes.close', 'writes.reopen', 'writes.transfer', 'writes.markDuplicate'] },
-  { id: 'triage', group: 'Write', label: 'Labels, assignees and milestones', capabilities: ['writes.setLabels', 'writes.addLabels', 'writes.removeLabels', 'writes.setMilestone', 'writes.setAssignees', 'repos.createLabel'] },
-  { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['writes.requestReview', 'reviews.create', 'reviews.submit', 'reviews.approve', 'reviews.reply', 'reviews.resolveThread'] },
-  { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['writes.merge', 'writes.updateBranch'] },
+  { id: 'security', group: 'Read', label: 'Security alerts', capabilities: ['securityAlerts.list'] },
+  { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'threads.subscription'] },
+  { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['threads.createComment', 'threads.updateComment', 'threads.deleteComment', 'threads.react', 'commits.createComment', 'commits.updateComment', 'commits.deleteComment'] },
+  { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['threads.create', 'threads.update', 'threads.close', 'threads.reopen', 'threads.transfer', 'threads.markDuplicate'] },
+  { id: 'triage', group: 'Write', label: 'Labels, assignees and milestones', capabilities: ['threads.setLabels', 'threads.addLabels', 'threads.removeLabels', 'threads.setMilestone', 'threads.setAssignees', 'repos.createLabel'] },
+  { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['threads.requestReview', 'threads.createReview', 'threads.submitReview', 'threads.approve', 'threads.replyToReviewComment', 'threads.resolveReviewThread'] },
+  { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['threads.merge', 'threads.updateBranch'] },
   { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun'] },
   { id: 'push', group: 'Write', label: 'Commit files', capabilities: ['contents.commitFiles'] },
   { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },
-  { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'subscriptions.set'] },
-  { id: 'moderate', group: 'Write', label: 'Lock conversations and hide comments', capabilities: ['writes.lock', 'comments.hide'] },
-  { id: 'receive', group: 'Events', label: 'Receive webhooks', capabilities: ['sources.webhook'], fields: ['WEBHOOK_SECRET'] },
-  { id: 'events', group: 'Events', label: 'Poll or stream events', capabilities: ['sources.poll', 'sources.subscribe', 'repos.events', 'users.events'] },
+  { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'threads.subscribe'] },
+  { id: 'moderate', group: 'Write', label: 'Lock conversations and hide comments', capabilities: ['threads.lock', 'threads.hideComment', 'commits.hideComment'] },
+  { id: 'receive', group: 'Events', label: 'Receive webhooks', capabilities: ['webhooks.ingest'], fields: ['WEBHOOK_SECRET'] },
+  { id: 'events', group: 'Events', label: 'Poll or stream events', capabilities: ['sources.subscribe', 'repos.events', 'users.events'] },
   { id: 'webhooks', group: 'Administer', label: 'Manage webhooks', capabilities: ['webhooks.list', 'webhooks.create', 'webhooks.update', 'webhooks.delete', 'webhooks.rotateSecret', 'webhooks.deliveries', 'webhooks.redeliver'] },
   { id: 'collaborators', group: 'Administer', label: 'Add collaborators', capabilities: ['repos.addCollaborator'] },
   { id: 'block', group: 'Administer', label: 'Block accounts', capabilities: ['orgs.block', 'users.block'] },
-  { id: 'installations', group: 'Administer', label: 'App installations', capabilities: ['installations'] },
+  { id: 'installations', group: 'Administer', label: 'App installations', capabilities: ['installations.list'] },
 ]
 
 /** The wizard's tasks. Throws unless every capability in the matrix belongs to exactly one task. */

@@ -64,8 +64,16 @@ function trackIterable<T extends AsyncIterable<unknown>>(iterable: T, sources: S
   const original = iterable[Symbol.asyncIterator].bind(iterable)
   return new Proxy(iterable, {
     get(target, property, receiver) {
+      const page = Reflect.get(target, property, receiver) as unknown
+      if (property === 'page' && typeof page === 'function') {
+        return async () => {
+          const result = await traceSources(sources, () => (page as () => Promise<unknown>).call(target))
+          done()
+          return result
+        }
+      }
       if (property !== Symbol.asyncIterator) {
-        return Reflect.get(target, property, receiver)
+        return page
       }
       return () => {
         const iterator = traceSources(sources, original)
@@ -145,10 +153,7 @@ vi.mock('../../src/define.ts', async (importActual) => {
     ...actual,
     defineForgeProvider: (definition: Parameters<typeof actual.defineForgeProvider>[0]) => {
       const factory = actual.defineForgeProvider(definition)
-      return (options?: { fetch?: FetchLike }) => {
-        const built = factory((options?.fetch ? { ...options, fetch: traced(options.fetch) } : options) as never)
-        return { ...built, create: () => trackProvider(built.create()) }
-      }
+      return (options?: { fetch?: FetchLike }) => trackProvider(factory((options?.fetch ? { ...options, fetch: traced(options.fetch) } : options) as never))
     },
   }
 })

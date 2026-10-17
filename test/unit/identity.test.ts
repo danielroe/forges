@@ -1,4 +1,4 @@
-import type { Page, RepoRef, RepoSection, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
+import type { ForgeIterable, ForgeListing, ForgeProvider, Page, RepoRef, RepoSection, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -13,6 +13,14 @@ import { forgeIterable } from '../../src/kit.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 
+function unpaged<T>(iterable: ForgeIterable<T>): ForgeListing<T> {
+  return Object.assign(iterable, { page: async () => ({ items: [] }) })
+}
+
+function stubSearch(provider: ForgeProvider, read: (query: SearchQuery) => Promise<Page<Thread>>) {
+  provider.search.threads = (query = {}) => Object.assign(forgeIterable<Thread>(async function* () {}), { page: () => read(query) })
+}
+
 const auth = { type: 'token', token: 't' } as const
 const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 const pull: ThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '42' }
@@ -21,11 +29,9 @@ describe('keys and slugs', () => {
   it('round-trips repo, thread and notification keys', () => {
     const nested = { forge: 'gitlab', instance: 'git.example.com:8443', owner: 'acme/platform', name: 'widgets' }
     const tangledThread = { forge: 'tangled', instance: 'tangled.org', repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' }, kind: 'issue' as const, number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }
-    const other = { ...pull, kind: 'other' as const, typeRaw: 'Epic', number: '7' }
 
     expect(parseRepoKey(repoKey(nested))).toEqual(nested)
     expect(parseThreadKey(threadKey(tangledThread))).toEqual(tangledThread)
-    expect(parseThreadKey(threadKey(other))).toEqual(other)
     expect(parseNotificationKey('github:github.com:notification/901')).toEqual({ forge: 'github', instance: 'github.com', id: '901' })
     expect(parseRepoKey('nonsense')).toBeUndefined()
     expect(parseThreadKey('github:github.com/acme/widgets#bogus/1')).toBeUndefined()
@@ -39,17 +45,16 @@ describe('keys and slugs', () => {
   it('prints slugs people type', () => {
     expect(repoSlug(repo)).toBe('acme/widgets')
     expect(threadSlug(pull)).toBe('acme/widgets#42')
-    expect(threadSlug({ ...pull, kind: 'commit', number: 'abcdef1234567' })).toBe('acme/widgets@abcdef1')
   })
 })
 
 describe('web links', () => {
-  const gh = github({ auth }).create()
-  const gl = gitlab({ auth }).create()
-  const cb = forgejo({ auth, baseUrl: 'https://codeberg.org' }).create()
-  const bb = bitbucket({ auth: { type: 'token', token: 't' } }).create()
-  const az = azureDevOps({ auth: { type: 'token', token: 't' }, organization: 'contoso' }).create()
-  const tg = tangled({}).create()
+  const gh = github({ auth })
+  const gl = gitlab({ auth })
+  const cb = forgejo({ auth, baseUrl: 'https://codeberg.org' })
+  const bb = bitbucket({ auth: { type: 'token', token: 't' } })
+  const az = azureDevOps({ auth: { type: 'token', token: 't' }, organization: 'contoso' })
+  const tg = tangled({})
 
   it('builds web URLs without a request', () => {
     expect(gh.urlFor({ thread: pull })).toBe('https://github.com/acme/widgets/pull/42')
@@ -71,45 +76,46 @@ describe('web links', () => {
   })
 
   it('exposes the origin of a self-hosted instance', () => {
-    expect(github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create().webOrigin).toBe('https://ghe.example.com')
-    expect(gitlab({ auth, baseUrl: 'https://git.example.com' }).create().webOrigin).toBe('https://git.example.com')
-    expect(forgejo({ auth, baseUrl: 'https://forgejo.example.com' }).create().webOrigin).toBe('https://forgejo.example.com')
-    expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).create().webOrigin).toBe('https://gitea.example.com')
+    expect(github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).webOrigin).toBe('https://ghe.example.com')
+    expect(gitlab({ auth, baseUrl: 'https://git.example.com' }).webOrigin).toBe('https://git.example.com')
+    expect(forgejo({ auth, baseUrl: 'https://forgejo.example.com' }).webOrigin).toBe('https://forgejo.example.com')
+    expect(gitea({ auth, baseUrl: 'https://gitea.example.com' }).webOrigin).toBe('https://gitea.example.com')
   })
 
   it('exposes the canonical origin for a subpath deployment, keeping the path for links', () => {
-    const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' }).create()
+    const subpath = gitlab({ auth, baseUrl: 'https://example.com/gitlab' })
     expect(subpath.webOrigin).toBe('https://example.com')
     expect(subpath.urlFor({ repo: { forge: 'gitlab', instance: 'example.com', owner: 'a', name: 'b' } })).toBe('https://example.com/gitlab/a/b')
   })
 
   it('types webOrigin as a string where the forge has a website', () => {
     expectTypeOf(gh.webOrigin).toEqualTypeOf<string>()
-    expectTypeOf(fake().create().webOrigin).toEqualTypeOf<string | undefined>()
+    expectTypeOf(fake().webOrigin).toEqualTypeOf<string | undefined>()
   })
 
   it('types a repository link as present where the forge has a website', () => {
     expectTypeOf(gh.urlFor({ repo })).toEqualTypeOf<string>()
     expectTypeOf(gh.urlFor({ repo, section: 'issues' })).toEqualTypeOf<string | undefined>()
-    expectTypeOf(fake().create().urlFor({ repo })).toEqualTypeOf<string | undefined>()
+    expectTypeOf(fake().urlFor({ repo })).toEqualTypeOf<string | undefined>()
   })
 
   const sha = 'a'.repeat(40)
   it.each([
     ['github', gh, repo, 'https://raw.githubusercontent.com/acme/widgets/v1.0.0/src/a%20b.ts', `https://github.com/acme/widgets/commit/${sha}`],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, 'https://ghe.example.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://ghe.example.com/acme/widgets/commit/${sha}`],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), { ...repo, instance: 'ghe.example.com' }, 'https://ghe.example.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://ghe.example.com/acme/widgets/commit/${sha}`],
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, 'https://gitlab.com/acme/platform/widgets/-/raw/v1.0.0/src/a%20b.ts', `https://gitlab.com/acme/platform/widgets/-/commit/${sha}`],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://codeberg.org/acme/widgets/commit/${sha}`],
-    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
-    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
-    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
+    ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
+    ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://bitbucket.org/acme/widgets/commits/${sha}`],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, 'https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2Fsrc%2Fa%20b.ts&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=branch&$format=octetStream', `https://dev.azure.com/contoso/Widgets/_git/widgets/commit/${sha}`],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/raw/v1.0.0/src/a%20b.ts', `https://tangled.org/acme.dev/widgets/commit/${sha}`],
   ] as const)('builds raw file and commit URLs on %s', (_, provider, target, raw, commit) => {
     expect(provider.urlFor({ raw: { repo: target, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe(raw)
     expect(provider.urlFor({ commit: { repo: target, sha } })).toBe(commit)
-    expect(provider.parseUrl(commit)).toMatchObject({ thread: { kind: 'commit', number: sha } })
+    expect(provider.parseUrl(commit)).toMatchObject({ commit: { repo: { owner: target.owner, name: target.name }, sha } })
+    expect(provider.parseUrl(commit)?.thread).toBeUndefined()
     expect(provider.urlFor({ commit: { repo: target, sha: '' } })).toBeUndefined()
   })
 
@@ -166,14 +172,14 @@ describe('web links', () => {
 
   it.each([
     ['github', gh, repo, ['https://github.com/acme/widgets/stargazers', 'https://github.com/acme/widgets/forks', 'https://github.com/acme/widgets/watchers']],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), { ...repo, instance: 'ghe.example.com' }, ['https://ghe.example.com/acme/widgets/stargazers', 'https://ghe.example.com/acme/widgets/forks', 'https://ghe.example.com/acme/widgets/watchers']],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), { ...repo, instance: 'ghe.example.com' }, ['https://ghe.example.com/acme/widgets/stargazers', 'https://ghe.example.com/acme/widgets/forks', 'https://ghe.example.com/acme/widgets/watchers']],
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, ['https://gitlab.com/acme/platform/widgets/-/starrers', 'https://gitlab.com/acme/platform/widgets/-/forks', undefined]],
     ['gitlab group', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, [undefined, 'https://bitbucket.org/acme/widgets/forks', undefined]],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, ['https://codeberg.org/acme/widgets/stars', 'https://codeberg.org/acme/widgets/forks', 'https://codeberg.org/acme/widgets/watchers']],
-    ['gitea', gitea({ auth }).create(), { ...repo, forge: 'gitea', instance: 'gitea.com' }, ['https://gitea.com/acme/widgets/stars', 'https://gitea.com/acme/widgets/forks', 'https://gitea.com/acme/widgets/watchers']],
-    ['gitee', gitee({ auth }).create(), { ...repo, forge: 'gitee', instance: 'gitee.com' }, ['https://gitee.com/acme/widgets/stargazers', 'https://gitee.com/acme/widgets/members', 'https://gitee.com/acme/widgets/watchers']],
-    ['pushin', pushin({ auth }).create(), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, ['https://pushin.eu/acme/widgets/stargazers', undefined, undefined]],
+    ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, ['https://gitea.com/acme/widgets/stars', 'https://gitea.com/acme/widgets/forks', 'https://gitea.com/acme/widgets/watchers']],
+    ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, ['https://gitee.com/acme/widgets/stargazers', 'https://gitee.com/acme/widgets/members', 'https://gitee.com/acme/widgets/watchers']],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, ['https://pushin.eu/acme/widgets/stargazers', undefined, undefined]],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, ['https://tangled.org/acme.dev/widgets/stars', 'https://tangled.org/acme.dev/widgets/forks', undefined]],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, [undefined, undefined, undefined]],
     ['azure-devops project', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }, [undefined, undefined, undefined]],
@@ -204,7 +210,7 @@ describe('web links', () => {
     ['github at a line range', gh, 'https://github.com/acme/widgets/blob/main/README.md?plain=1#L3-L5', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
     ['github at a heading', gh, 'https://github.com/acme/widgets/blob/main/README.md#usage', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['github at a branch with a slash', gh, 'https://github.com/acme/widgets/blob/feat%2Fa/README.md', { owner: 'acme', name: 'widgets' }, { at: 'feat/a', path: 'README.md' }],
-    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create(), 'https://ghe.example.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['github enterprise', github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), 'https://ghe.example.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['forgejo at a branch', cb, 'https://codeberg.org/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['forgejo at a tag', cb, 'https://codeberg.org/acme/widgets/src/tag/v1.0.0/README.md', { owner: 'acme', name: 'widgets' }, { at: 'v1.0.0', path: 'README.md' }],
     ['forgejo at a commit', cb, `https://codeberg.org/acme/widgets/src/commit/${sha}/README.md`, { owner: 'acme', name: 'widgets' }, { at: sha, path: 'README.md' }],
@@ -212,9 +218,9 @@ describe('web links', () => {
     ['forgejo at a branch with a slash', cb, 'https://codeberg.org/acme/widgets/src/branch/feat%2Fa/README.md', { owner: 'acme', name: 'widgets' }, { at: 'feat/a', path: 'README.md' }],
     ['forgejo at a branch with a nested path', cb, 'https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.5.md', { owner: 'forgejo', name: 'forgejo' }, { at: 'forgejo', path: 'release-notes-published/16.0.5.md' }],
     ['forgejo at a branch without a qualifier', cb, 'https://codeberg.org/acme/widgets/src/main/README.md#L3', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
-    ['gitea', gitea({ auth }).create(), 'https://gitea.com/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
-    ['gitee', gitee({ auth }).create(), 'https://gitee.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
-    ['pushin', pushin({ auth }).create(), 'https://pushin.eu/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['gitea', gitea({ auth }), 'https://gitea.com/acme/widgets/src/branch/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['gitee', gitee({ auth }), 'https://gitee.com/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
+    ['pushin', pushin({ auth }), 'https://pushin.eu/acme/widgets/blob/main/README.md', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md' }],
     ['gitlab', gl, 'https://gitlab.com/acme/platform/widgets/-/blob/main/src/a%20b.ts#L3', { owner: 'acme/platform', name: 'widgets' }, { at: 'main', path: 'src/a b.ts', line: 3 }],
     ['gitlab at a line range', gl, 'https://gitlab.com/acme/platform/widgets/-/blob/main/README.md?ref_type=heads#L3-5', { owner: 'acme/platform', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
     ['bitbucket', bb, 'https://bitbucket.org/acme/widgets/src/main/src/a%20b.ts#lines-3', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'src/a b.ts', line: 3 }],
@@ -298,8 +304,8 @@ describe('web links', () => {
   })
 
   it('reads the npm repository shorthand as the public instance only', () => {
-    const ghes = github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }).create()
-    const glSelf = gitlab({ auth, baseUrl: 'https://git.example.com' }).create()
+    const ghes = github({ auth, baseUrl: 'https://ghe.example.com/api/v3' })
+    const glSelf = gitlab({ auth, baseUrl: 'https://git.example.com' })
     expect(ghes.parseUrl('github:acme/widgets')).toBeUndefined()
     expect(glSelf.parseUrl('gitlab:acme/widgets')).toBeUndefined()
     expect(createForges([github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }), github({ auth })]).parseUrl('github:acme/widgets')?.repo.instance).toBe('github.com')
@@ -323,10 +329,22 @@ describe('web links', () => {
   it('writes each forge\'s cross-reference syntax', () => {
     const glPull = { ...pull, forge: 'gitlab', instance: 'gitlab.com', repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com' } }
 
-    expect(gh.referenceTo(pull, { from: repo })).toBe('#42')
-    expect(gh.referenceTo(pull)).toBe('acme/widgets#42')
-    expect(gl.referenceTo(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
-    expect(bb.referenceTo({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
+    expect(gh.referenceFor(pull, { from: repo })).toBe('#42')
+    expect(gh.referenceFor(pull)).toBe('acme/widgets#42')
+    expect(gl.referenceFor(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
+    expect(bb.referenceFor({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
+  })
+
+  it('writes each forge\'s reference to a commit', () => {
+    const sha = '0123456789abcdef0123456789abcdef01234567'
+    const glRepo = { ...repo, forge: 'gitlab', instance: 'gitlab.com' }
+    const bbRepo = { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }
+
+    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha }, { from: repo })).toBe('0123456')
+    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha })).toBe('acme/widgets@0123456')
+    expect(gl.referenceFor({ forge: 'gitlab', instance: 'gitlab.com', repo: glRepo, sha })).toBe('acme/widgets@01234567')
+    expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbRepo, sha }, { from: bbRepo })).toBe('0123456789ab')
+    expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbRepo, sha })).toBe(`https://bitbucket.org/acme/widgets/commits/${sha}`)
   })
 })
 
@@ -370,9 +388,9 @@ describe('forges aggregate', () => {
     const working = fake({ instance: 'one.test', seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Hello' }], notifications: [{ repo: 'acme/widgets', number: 1 }] } })
     const broken = fake({ instance: 'two.test' })
     const forges = createForges([broken, working])
-    forges.get('fake', 'two.test')!.notifications.list = () => forgeIterable(async function* () {
+    forges.get('fake', 'two.test')!.notifications.list = () => unpaged(forgeIterable(async function* () {
       throw new Error('offline')
-    })
+    }))
 
     const iterable = forges.notifications.list()
     const titles = (await Array.fromAsync(iterable)).map(notification => notification.title)
@@ -387,7 +405,7 @@ describe('forges aggregate', () => {
     for (const provider of forges.providers) {
       provider.notifications.list = (options) => {
         seen.push(options)
-        return forgeIterable(async function* () {})
+        return unpaged(forgeIterable(async function* () {}))
       }
     }
 
@@ -406,7 +424,7 @@ describe('cross-forge search', () => {
     second.store.repos.get('acme/gadgets')!.threads.get('1')!.thread.updatedAt = new Date('2025-01-03T00:00:00Z')
     const forges = createForges([first, second, broken])
     const brokenProvider = forges.get('fake', 'three.test')!
-    brokenProvider.search.threadsPage = () => Promise.reject(new Error('index offline'))
+    stubSearch(brokenProvider, () => Promise.reject(new Error('index offline')))
 
     const iterable = forges.search.threads({ text: 'crash' })
     const titles = (await Array.fromAsync(iterable)).map(thread => thread.title)
@@ -424,10 +442,10 @@ describe('cross-forge search paging', () => {
     const forges = createForges(Object.keys(pages).map(instance => fake({ instance })))
     const queries: Array<SearchQuery & { instance: string }> = []
     for (const provider of forges.providers) {
-      provider.search.threadsPage = async (query) => {
+      stubSearch(provider, async (query) => {
         queries.push({ ...query, instance: provider.instance })
         return pages[provider.instance]![Number(query.cursor?.token ?? 0)]!
-      }
+      })
     }
     return { forges, queries }
   }
@@ -483,10 +501,10 @@ describe('cross-forge search paging', () => {
   it('reads the next page only when the iteration reaches it', async () => {
     const forges = createForges([fake({ instance: 'one.test' })])
     let reads = 0
-    forges.providers[0]!.search.threadsPage = async () => {
+    stubSearch(forges.providers[0]!, async () => {
       reads++
       return { items: [thread(String(reads), 10 - reads)], cursor: { token: 'more' } }
-    }
+    })
 
     const iterator = forges.search.threads()[Symbol.asyncIterator]()
     const titles = [(await iterator.next()).value?.title, (await iterator.next()).value?.title]
@@ -498,9 +516,9 @@ describe('cross-forge search paging', () => {
 
   it('keeps the items a provider yielded before a later page fails', async () => {
     const forges = createForges([fake({ instance: 'one.test' })])
-    forges.providers[0]!.search.threadsPage = async query => query.cursor
+    stubSearch(forges.providers[0]!, async query => query.cursor
       ? Promise.reject(new Error('index offline'))
-      : { items: [thread('first', 1)], cursor: { token: 'more' } }
+      : { items: [thread('first', 1)], cursor: { token: 'more' } })
 
     const iterable = forges.search.threads()
     const titles = (await Array.fromAsync(iterable)).map(item => item.title)

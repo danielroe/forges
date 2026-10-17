@@ -30,15 +30,15 @@ function capture(body: (url: URL) => unknown): { fetch: FetchLike, urls: URL[] }
 describe('listing merged pull requests', () => {
   it('lists nothing for issues, without a request', async () => {
     const { fetch, urls } = capture(() => [])
-    const provider = gitlab({ auth, fetch }).create()
+    const provider = gitlab({ auth, fetch })
 
-    expect(await provider.threads.listPage({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }, { kind: 'issue', state: 'merged' })).toEqual({ items: [] })
+    expect(await provider.threads.list({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }, { kind: 'issue', state: 'merged' }).page()).toEqual({ items: [] })
     expect(urls).toEqual([])
   })
 
   it('lists pull requests only when no kind is given', async () => {
     const { fetch, urls } = capture(() => [])
-    await gitlab({ auth, fetch }).create().threads.listPage({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    await gitlab({ auth, fetch }).threads.list({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(urls.map(url => url.pathname)).toEqual(['/api/v4/projects/acme%2Fwidgets/merge_requests'])
     expect(urls[0]!.searchParams.get('state')).toBe('merged')
@@ -46,7 +46,7 @@ describe('listing merged pull requests', () => {
 
   it('reads merged GitHub pull requests from search', async () => {
     const { fetch, urls } = capture(() => ({ items: [{ number: 7, title: 'Fix', state: 'closed', user: { login: 'a' }, pull_request: { merged_at: '2026-01-01T00:00:00Z' } }] }))
-    const page = await github({ fetch }).create().threads.listPage({ forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, { state: 'merged', labels: ['bug'] })
+    const page = await github({ fetch }).threads.list({ forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, { state: 'merged', labels: ['bug'] }).page()
 
     expect(urls[0]!.pathname).toBe('/search/issues')
     expect(urls[0]!.searchParams.get('q')).toBe('repo:acme/widgets is:pr label:"bug" is:merged')
@@ -56,14 +56,14 @@ describe('listing merged pull requests', () => {
 
   it('asks Bitbucket for the merged state', async () => {
     const { fetch, urls } = capture(() => ({ values: [] }))
-    await bitbucket({ auth, fetch }).create().threads.listPage({ forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    await bitbucket({ auth, fetch }).threads.list({ forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(urls[0]!.searchParams.getAll('state')).toEqual(['MERGED'])
   })
 
   it('asks Azure DevOps for completed pull requests', async () => {
     const { fetch, urls } = capture(() => ({ value: [] }))
-    await azureDevOps({ auth, organization: 'acme', fetch }).create().threads.listPage({ forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' }, { state: 'merged' })
+    await azureDevOps({ auth, organization: 'acme', fetch }).threads.list({ forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(urls.map(url => url.searchParams.get('searchCriteria.status'))).toEqual(['completed'])
   })
@@ -73,7 +73,7 @@ describe('listing merged pull requests', () => {
       { number: 1, title: 'Merged', state: 'closed', pull_request: { merged: true } },
       { number: 2, title: 'Closed', state: 'closed', pull_request: { merged: false } },
     ])
-    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).create().threads.listPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).threads.list({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(urls[0]!.searchParams.get('state')).toBe('closed')
     expect(urls[0]!.searchParams.get('type')).toBe('pulls')
@@ -89,9 +89,9 @@ describe('listing merged pull requests', () => {
           { repo: 'acme/widgets', kind: 'pull_request', title: 'Closed', state: 'closed' },
         ],
       },
-    }).create()
+    })
 
-    const page = await provider.threads.listPage({ forge: 'fake', instance: provider.instance, owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    const page = await provider.threads.list({ forge: 'fake', instance: provider.instance, owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Merged'])
   })
@@ -103,7 +103,7 @@ describe('listing merged pull requests', () => {
           { number: 2, title: 'Closed', state: 'closed', merged_at: null, head: { ref: 'd', sha: 'e' }, base: { ref: 'main', sha: 'c' } },
         ]
       : {})
-    const page = await github({ fetch }).create().threads.listPage({ forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, { kind: 'pull_request', state: 'closed' })
+    const page = await github({ fetch }).threads.list({ forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, { kind: 'pull_request', state: 'closed' }).page()
 
     expect(urls[0]!.pathname).toBe('/repos/acme/widgets/pulls')
     expect(page.items.map(thread => [thread.ref.number, thread.state])).toEqual([['1', 'merged'], ['2', 'closed']])
@@ -120,7 +120,7 @@ describe('listing merged pull requests', () => {
         second ? {} : { headers: { link: `<${url.origin}${url.pathname}?state=closed&type=pulls&page=2>; rel="next"` } },
       )
     }
-    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).create().threads.listPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).threads.list({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(urls).toHaveLength(2)
     expect(page.items.map(thread => thread.ref.number)).toEqual(['2'])
@@ -134,7 +134,7 @@ describe('listing merged pull requests', () => {
       reads++
       return Response.json([{ number: reads, title: 'Closed', state: 'closed', pull_request: { merged: false } }], { headers: { link: `<${url.origin}${url.pathname}?page=${reads + 1}>; rel="next"` } })
     }
-    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).create().threads.listPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' })
+    const page = await forgejo({ auth, fetch, baseUrl: 'https://codeberg.org' }).threads.list({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, { state: 'merged' }).page()
 
     expect(reads).toBe(10)
     expect(page.items).toEqual([])
@@ -184,8 +184,8 @@ describe('merge details', () => {
   })
 
   it('records the merge on the fake forge', async () => {
-    const provider = fake({ viewer: 'merger', seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } }).create()
-    const [thread] = (await provider.threads.listPage({ forge: 'fake', instance: provider.instance, owner: 'acme', name: 'widgets' }, { kind: 'pull_request' })).items
+    const provider = fake({ viewer: 'merger', seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix' }] } })
+    const [thread] = (await provider.threads.list({ forge: 'fake', instance: provider.instance, owner: 'acme', name: 'widgets' }, { kind: 'pull_request' }).page()).items
     await provider.threads.merge(thread!.ref)
 
     expect(await provider.threads.get(thread!.ref)).toMatchObject({ state: 'merged', mergedAt: expect.any(Date), mergedBy: { login: 'merger' } })

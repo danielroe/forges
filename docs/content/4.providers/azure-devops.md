@@ -31,7 +31,7 @@ import { azureDevOps } from 'forges/azure-devops'
 const forge = azureDevOps({
   organization: 'acme',
   auth: { type: 'token', token: process.env.AZURE_DEVOPS_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data. Azure DevOps sends requests for pull request statuses, policy evaluations and work item queries without credentials to its sign-in page, so an anonymous provider reads pull requests without `checks`, and reports `threads.checks`, `search.threads` and listing work items as unsupported.
@@ -95,7 +95,7 @@ Azure DevOps service hooks don't sign their deliveries. A service hook subscript
 const forge = azureDevOps({
   organization: 'acme',
   webhookSecret: process.env.AZURE_DEVOPS_HOOK_CREDENTIALS,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,
@@ -127,8 +127,6 @@ for await (const team of provider.orgs.teams(project)) {
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ❌ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
@@ -159,12 +157,41 @@ for await (const team of provider.orgs.teams(project)) {
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | issue (unverified), PR |
-| `comments.list` | issue (experimental), PR | issue (unverified), PR |
-| `comments.get` | issue (experimental), PR | issue (unverified), PR |
-| `comments.edit` | issue (experimental), PR | ❌ |
-| `comments.delete` | issue (experimental), PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | issue (experimental), PR | issue (unverified), PR |
+| `threads.getComment` | issue (experimental), PR | issue (unverified), PR |
+| `threads.createComment` | issue (experimental), PR | ❌ |
+| `threads.updateComment` | issue (experimental), PR | ❌ |
+| `threads.deleteComment` | issue (experimental), PR | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | issue, PR | ❌ |
+| `threads.addLabels` | ❌ | ❌ |
+| `threads.removeLabels` | ❌ | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | issue | ❌ |
+| `threads.requestReview` | PR | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | PR (experimental) | ❌ |
+| `threads.files` | ❌ | ❌ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | emulated | emulated |
+| `threads.getReview` | emulated | unverified |
+| `threads.createReview` | emulated | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | emulated | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -172,54 +199,31 @@ for await (const team of provider.orgs.teams(project)) {
 | `notifications.markAllRead` | ❌ | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
-| `writes.comment` | issue (experimental), PR | ❌ |
-| `writes.close` | issue, PR | ❌ |
-| `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | issue, PR | ❌ |
-| `writes.update` | issue, PR | ❌ |
-| `writes.setLabels` | issue, PR | ❌ |
-| `writes.addLabels` | ❌ | ❌ |
-| `writes.removeLabels` | ❌ | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | issue | ❌ |
-| `writes.requestReview` | PR | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR (experimental) | ❌ |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ✅ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
-| `ci.run` | ❌ | ❌ |
+| `ci.getRun` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
-| `ci.job` | ❌ | ❌ |
+| `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ |
+| `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ✅ | ❌ |
-| `contents.threadFiles` | ❌ | ❌ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | emulated | emulated |
-| `reviews.get` | emulated | unverified |
-| `reviews.create` | emulated | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | emulated | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ✅ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ❌ | ❌ |
 | `releases.get` | ❌ | ❌ |
 | `releases.latest` | ❌ | ❌ |
@@ -227,6 +231,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ |
@@ -238,7 +243,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `search.repos` | ❌ | ❌ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `basic`, `anonymous` | `token`, `basic`, `anonymous` |
 | `limits` | unknown | unknown |

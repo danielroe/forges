@@ -59,15 +59,15 @@ describe('capability diff', () => {
 
   it('draws a row per changed capability with a column per provider, in order of impact', () => {
     const base = provider('tangled', 'Tangled', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'none', 'writes.react:issue': 'none', 'writes.react:pull_request': 'none', 'writes.merge': 'unverified', 'users.me': 'native' },
-      anonymous: { 'repos.get': 'native', 'repos.labels': 'none', 'contents.file': 'none' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'none', 'threads.react:issue': 'none', 'threads.react:pull_request': 'none', 'threads.merge': 'unverified', 'users.me': 'native' },
+      anonymous: { 'repos.get': 'native', 'repos.labels': 'none', 'contents.getFile': 'none' },
     })
     const head = provider('tangled', 'Tangled', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.react:issue': 'native', 'writes.react:pull_request': 'native', 'writes.merge': 'native', 'users.me': 'none' },
-      anonymous: { 'repos.get': 'unverified', 'repos.labels': 'native', 'contents.file': 'native' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'threads.react:issue': 'native', 'threads.react:pull_request': 'native', 'threads.merge': 'native', 'users.me': 'none' },
+      anonymous: { 'repos.get': 'unverified', 'repos.labels': 'native', 'contents.getFile': 'native' },
     })
     const gitlab = provider('gitlab', 'GitLab', {
-      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.merge': 'native', 'users.me': 'native' },
+      capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'threads.merge': 'native', 'users.me': 'native' },
       anonymous: { 'repos.get': 'native', 'repos.labels': 'native' },
     })
 
@@ -80,15 +80,15 @@ describe('capability diff', () => {
       '| --- | :-: | :-: |',
       '| `users.me` | 🟥 | 🟦 |',
       '| `repos.labels` 🔓 | 🟩 | 🟦 |',
-      '| `writes.merge` | 🟩 | 🟦 |',
-      '| `writes.react` (issue, PR) | 🟩 | ⬜ |',
+      '| `threads.merge` | 🟩 | 🟦 |',
+      '| `threads.react` (issue, PR) | 🟩 | ⬜ |',
       '',
       '<details open><summary>Without credentials, where that differs</summary>',
       '',
       '| | Tangled | GitLab |',
       '| --- | :-: | :-: |',
       '| `repos.get` | 🟥 | 🟦 |',
-      '| `contents.file` | 🟩 | ⬜ |',
+      '| `contents.getFile` | 🟩 | ⬜ |',
       '',
       '</details>',
       '',
@@ -99,9 +99,9 @@ describe('capability diff', () => {
       '- ✅ → ❔ `repos.get` without credentials ⚠️',
       '- ✅ → ❌ `users.me` ⚠️',
       '- ❌ → ✅ `repos.labels`, also without credentials',
-      '- ❔ → ✅ `writes.merge`',
-      '- ❌ → ✅ `writes.react` (issue, PR)',
-      '- ❌ → ✅ `contents.file` without credentials',
+      '- ❔ → ✅ `threads.merge`',
+      '- ❌ → ✅ `threads.react` (issue, PR)',
+      '- ❌ → ✅ `contents.getFile` without credentials',
       '',
       '</details>',
       '',
@@ -165,32 +165,32 @@ describe('capability diff', () => {
   })
 
   it('heads columns with provider logos, named in alt text and linked to their docs, where a logo exists', () => {
-    const base = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.job': 'none' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.job': 'none' } }))
-    const head = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.job': 'native' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.job': 'native' } }))
+    const base = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.getJob': 'none' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.getJob': 'none' } }))
+    const head = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.getJob': 'native' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.getJob': 'native' } }))
 
     expect(render(base, head, { icon: slug => slug === 'github' ? 'https://example.com/github.svg' : undefined })).toContain([
       '| | <a href="https://forges.link/providers/github"><img src="https://example.com/github.svg" alt="GitHub" title="GitHub" width="16" height="16"></a> | Gitee |',
       '| --- | :-: | :-: |',
-      '| `ci.job` | 🟩 | 🟩 |',
+      '| `ci.getJob` | 🟩 | 🟩 |',
     ].join('\n'))
   })
 
   it('shares a row between capabilities of one namespace that changed alike', () => {
     const providers = (gained: boolean) => Array.from({ length: 3 }, (_, index) => provider(`p${index}`, `P${index}`, {
-      capabilities: { 'writes.react:issue': index === 0 || gained ? 'native' : 'none', 'writes.react:pull_request': index === 0 || gained ? 'native' : 'none', 'writes.merge': index === 0 || gained ? 'native' : 'none', 'repos.labels': index === 0 || gained ? 'native' : 'none' },
+      capabilities: { 'threads.react:issue': index === 0 || gained ? 'native' : 'none', 'threads.react:pull_request': index === 0 || gained ? 'native' : 'none', 'threads.merge': index === 0 || gained ? 'native' : 'none', 'repos.labels': index === 0 || gained ? 'native' : 'none' },
     }))
     const rows = render(snapshot(...providers(false)), snapshot(...providers(true))).split('\n').filter(line => line.startsWith('| `'))
 
     expect(rows).toEqual([
-      '| `writes` react (issue, PR), merge | 🟦 | 🟩 | 🟩 |',
+      '| `threads` react (issue, PR), merge | 🟦 | 🟩 | 🟩 |',
       '| `repos.labels` | 🟦 | 🟩 | 🟩 |',
     ])
   })
 
   it('opens the capabilities without credentials when one of them regresses', () => {
     const providers = (lost: boolean) => [
-      provider('github', 'GitHub', { capabilities: { 'contents.commits': 'native' }, anonymous: { 'contents.commits': lost ? 'unverified' : 'native' } }),
-      provider('gitlab', 'GitLab', { capabilities: { 'contents.commits': 'native' }, anonymous: { 'contents.commits': 'native' } }),
+      provider('github', 'GitHub', { capabilities: { 'commits.list': 'native' }, anonymous: { 'commits.list': lost ? 'unverified' : 'native' } }),
+      provider('gitlab', 'GitLab', { capabilities: { 'commits.list': 'native' }, anonymous: { 'commits.list': 'native' } }),
     ]
 
     expect(render(snapshot(...providers(false)), snapshot(...providers(true)))).toContain([
@@ -198,7 +198,7 @@ describe('capability diff', () => {
       '',
       '| | GitHub | GitLab |',
       '| --- | :-: | :-: |',
-      '| `contents.commits` | 🟥 | 🟦 |',
+      '| `commits.list` | 🟥 | 🟦 |',
     ].join('\n'))
   })
 

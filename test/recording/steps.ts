@@ -1,4 +1,4 @@
-import type { Branch, Check, CiJob, CiRun, Comment, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
+import type { Branch, Check, CiJob, CiRun, Comment, CommitComment, CommitRef, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
 import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
@@ -57,6 +57,7 @@ export interface StepContext {
   job?: CiJob
   webhook?: Webhook
   comment?: Comment
+  commitComment?: CommitComment
   review?: Review
   checks?: Check[]
   discussion?: Thread
@@ -66,7 +67,7 @@ export interface StepContext {
 export interface Step {
   name: string
   verb: ForgeVerb
-  kind?: 'issue' | 'pull_request' | 'discussion' | 'commit' | Exclude<SecurityAlertKind, 'other'>
+  kind?: 'issue' | 'pull_request' | 'discussion' | Exclude<SecurityAlertKind, 'other'>
   /** Whether the step applies, beyond the provider supporting its verb. */
   when?: (provider: ForgeProvider, manifest: RecordingManifest) => boolean
   run: (provider: ForgeProvider, manifest: RecordingManifest, context: StepContext) => Promise<unknown>
@@ -77,6 +78,7 @@ const page = { perPage: 3 }
 const feedPage = { perPage: 10 }
 
 /** The pull's head, else the head of a branch other than the default, else the default branch. */
+const commitAt = (repo: RepoRef, sha: string): CommitRef => ({ forge: repo.forge, instance: repo.instance, repo, sha })
 const headOf = (context: StepContext) => need(context.headSha ?? context.branches?.find(branch => !branch.isDefault)?.sha ?? context.defaultSha, 'the pull head sha')
 
 /** The largest log, in characters, a step keeps, and the largest release asset, in bytes, it downloads. */
@@ -100,7 +102,7 @@ async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) =
 async function orgTeams(provider: ForgeProvider, manifest: RecordingManifest): Promise<Page<Team>> {
   if (manifest.scratch) {
     try {
-      const teams = await provider.orgs.teamsPage(namespaceOf(manifest.scratch, manifest.scratch.owner), page)
+      const teams = await provider.orgs.teams(namespaceOf(manifest.scratch, manifest.scratch.owner), page).page()
       if (teams.items.length) {
         return teams
       }
@@ -111,13 +113,13 @@ async function orgTeams(provider: ForgeProvider, manifest: RecordingManifest): P
       }
     }
   }
-  return provider.orgs.teamsPage(namespaceOf(manifest.repo, manifest.repo.owner), page)
+  return provider.orgs.teams(namespaceOf(manifest.repo, manifest.repo.owner), page).page()
 }
 
 async function firstWithJobs(provider: ForgeProvider, runs: CiRun[]): Promise<Page<CiJob> | undefined> {
   let result: Page<CiJob> | undefined
   for (const run of runs) {
-    result = await provider.ci.jobsPage(run.ref, page)
+    result = await provider.ci.jobs(run.ref, page).page()
     if (result.items.length) {
       break
     }
@@ -188,7 +190,7 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       context.login ??= thread.author?.login
       return thread
     } },
-    { name: `${key} list`, verb: 'threads.listPage', kind, run: (provider, manifest) => provider.threads.listPage(manifest.repo, { kind, ...page }) },
+    { name: `${key} list`, verb: 'threads.list', kind, run: (provider, manifest) => provider.threads.list(manifest.repo, { kind, ...page }).page() },
     // Anonymous GitHub reads share 60 requests an hour, and `issue getMany` covers the same REST fallback.
     { name: `${key} getMany`, verb: 'threads.getMany', kind, when: (provider, manifest) => key !== 'pull' || provider.forge !== 'github' || !manifest.anonymous, run: async (provider, manifest) => {
       const results = await provider.threads.getMany([ref(manifest)])
@@ -198,57 +200,51 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
       }
       return results
     } },
-    { name: `${key} events`, verb: 'threads.eventsPage', kind, run: (provider, manifest) => provider.threads.eventsPage(ref(manifest), page) },
-    { name: `${key} comments`, verb: 'threads.commentsPage', kind, run: async (provider, manifest, context) => {
-      const result = await provider.threads.commentsPage(ref(manifest), page)
+    { name: `${key} events`, verb: 'threads.events', kind, run: (provider, manifest) => provider.threads.events(ref(manifest), page).page() },
+    { name: `${key} comments`, verb: 'threads.comments', kind, run: async (provider, manifest, context) => {
+      const result = await provider.threads.comments(ref(manifest), page).page()
       context.comment = result.items[0]
       return result
     } },
     { name: `${key} getComment`, verb: 'threads.getComment', kind, run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a comment').ref) },
     ...kind === 'discussion' ? [discussionNodeStep] : [],
-    { name: `${key} reactions`, verb: 'threads.reactionsPage', kind, run: (provider, manifest) => provider.threads.reactionsPage(ref(manifest), page) },
+    { name: `${key} reactions`, verb: 'threads.reactions', kind, run: (provider, manifest) => provider.threads.reactions(ref(manifest), page).page() },
     { name: `${key} subscription`, verb: 'threads.subscription', kind, run: (provider, manifest) => provider.threads.subscription(ref(manifest)) },
   ]
   if (kind === 'issue') {
     steps.push(
-      { name: 'issue closing pulls', verb: 'threads.closingPullRequestsPage', run: (provider, manifest) => provider.threads.closingPullRequestsPage(ref(manifest), page) },
-      { name: 'linked issue closing pulls', verb: 'threads.closingPullRequestsPage', when: hasLinked, run: (provider, manifest) => provider.threads.closingPullRequestsPage(linked(manifest, 'issue'), page) },
+      { name: 'issue closing pulls', verb: 'threads.closingPullRequests', run: (provider, manifest) => provider.threads.closingPullRequests(ref(manifest), page).page() },
+      { name: 'linked issue closing pulls', verb: 'threads.closingPullRequests', when: hasLinked, run: (provider, manifest) => provider.threads.closingPullRequests(linked(manifest, 'issue'), page).page() },
     )
   }
   if (kind === 'pull_request') {
     steps.push(
-      { name: 'pull reviews', verb: 'threads.reviewsPage', kind, run: async (provider, manifest, context) => {
-        const result = await provider.threads.reviewsPage(ref(manifest), page)
+      { name: 'pull reviews', verb: 'threads.reviews', kind, run: async (provider, manifest, context) => {
+        const result = await provider.threads.reviews(ref(manifest), page).page()
         context.review = result.items[0]
         return result
       } },
       { name: 'pull getReview', verb: 'threads.getReview', kind, run: (provider, _manifest, context) => provider.threads.getReview(need(context.review, 'a review').ref) },
       { name: 'pull checks', verb: 'threads.checks', kind, run: (provider, manifest) => provider.threads.checks(ref(manifest)) },
-      { name: 'pull files', verb: 'threads.filesPage', kind, run: (provider, manifest) => provider.threads.filesPage(ref(manifest), page) },
-      { name: 'pull commits', verb: 'threads.commitsPage', kind, run: (provider, manifest) => provider.threads.commitsPage(ref(manifest), page) },
-      { name: 'pull closing issues', verb: 'threads.closingIssuesPage', run: (provider, manifest) => provider.threads.closingIssuesPage(ref(manifest), page) },
-      { name: 'linked pull closing issues', verb: 'threads.closingIssuesPage', when: hasLinked, run: (provider, manifest) => provider.threads.closingIssuesPage(linked(manifest, 'pull_request'), page) },
-      { name: 'pull reviewer candidates', verb: 'repos.reviewerCandidatesPage', run: (provider, manifest) => provider.repos.reviewerCandidatesPage(ref(manifest), page) },
+      { name: 'pull files', verb: 'threads.files', kind, run: (provider, manifest) => provider.threads.files(ref(manifest), page).page() },
+      { name: 'pull commits', verb: 'threads.commits', kind, run: (provider, manifest) => provider.threads.commits(ref(manifest), page).page() },
+      { name: 'pull closing issues', verb: 'threads.closingIssues', run: (provider, manifest) => provider.threads.closingIssues(ref(manifest), page).page() },
+      { name: 'linked pull closing issues', verb: 'threads.closingIssues', when: hasLinked, run: (provider, manifest) => provider.threads.closingIssues(linked(manifest, 'pull_request'), page).page() },
+      { name: 'pull reviewer candidates', verb: 'repos.reviewerCandidates', run: (provider, manifest) => provider.repos.reviewerCandidates(ref(manifest), page).page() },
     )
   }
   return steps
 }
 
-/** Reads of the pull request's head commit as a thread. */
+/** Reads of the comments on the pull request's head commit. */
 function commitSteps(): Step[] {
-  const ref = (manifest: RecordingManifest, context: StepContext): ThreadRef => {
-    const repo = context.pull?.ref.repo ?? manifest.repo
-    return { forge: repo.forge, instance: repo.instance, repo, kind: 'commit', number: need(context.headSha, 'the pull head sha') }
-  }
   return [
-    { name: 'commit thread', verb: 'threads.get', kind: 'commit', run: (provider, manifest, context) => provider.threads.get(ref(manifest, context)) },
-    { name: 'commit events', verb: 'threads.eventsPage', kind: 'commit', run: (provider, manifest, context) => provider.threads.eventsPage(ref(manifest, context), page) },
-    { name: 'commit comments', verb: 'threads.commentsPage', kind: 'commit', run: async (provider, manifest, context) => {
-      const result = await provider.threads.commentsPage(ref(manifest, context), page)
-      context.comment = result.items[0]
+    { name: 'commit comments', verb: 'commits.comments', run: async (provider, manifest, context) => {
+      const result = await provider.commits.comments(commitAt(context.pull?.ref.repo ?? manifest.repo, need(context.headSha, 'the pull head sha')), page).page()
+      context.commitComment = result.items[0]
       return result
     } },
-    { name: 'commit getComment', verb: 'threads.getComment', kind: 'commit', run: (provider, _manifest, context) => provider.threads.getComment(need(context.comment, 'a commit comment').ref) },
+    { name: 'commit getComment', verb: 'commits.getComment', run: (provider, _manifest, context) => provider.commits.getComment(need(context.commitComment, 'a commit comment').ref) },
   ]
 }
 
@@ -261,27 +257,27 @@ function artifactsSteps(): Step[] {
       full: await provider.contents.resolveRef(manifest.repo, 'refs/heads/main'),
     }) },
     { name: 'artifacts resolve unknown ref', verb: 'contents.resolveRef', run: (provider, manifest) => rejection(() => provider.contents.resolveRef(manifest.repo, 'forges-fixtures-missing')) },
-    { name: 'artifacts file at HEAD', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
-    { name: 'artifacts commits pages', verb: 'contents.commitsPage', run: async (provider, manifest) => {
-      const first = await provider.contents.commitsPage(manifest.repo, { perPage: 1, path: 'src' })
-      const second = await provider.contents.commitsPage(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') })
+    { name: 'artifacts file at HEAD', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
+    { name: 'artifacts commits pages', verb: 'commits.list', run: async (provider, manifest) => {
+      const first = await provider.commits.list(manifest.repo, { perPage: 1, path: 'src' }).page()
+      const second = await provider.commits.list(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') }).page()
       return { first, second }
     } },
-    { name: 'artifacts commits default page size', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, { perPage: 0 }) },
-    { name: 'artifacts tree into a file', verb: 'contents.treePage', run: (provider, manifest) => rejection(() => provider.contents.treePage(manifest.repo, { path: 'README.md' })) },
-    { name: 'artifacts recursive tree', verb: 'contents.treePage', run: async (provider, manifest) => (await provider.contents.treePage(manifest.repo, { recursive: true })).warnings },
-    { name: 'artifacts shallow commit', verb: 'contents.commit', run: async (provider, manifest) => {
-      const oldest = (await provider.contents.commitsPage(manifest.repo, { perPage: 10 })).items.at(-1)
-      return provider.contents.commit(manifest.repo, need(oldest, 'the oldest commit').sha)
+    { name: 'artifacts commits default page size', verb: 'commits.list', run: (provider, manifest) => provider.commits.list(manifest.repo, { perPage: 0 }).page() },
+    { name: 'artifacts tree into a file', verb: 'contents.tree', run: (provider, manifest) => rejection(() => provider.contents.tree(manifest.repo, { path: 'README.md' }).page()) },
+    { name: 'artifacts recursive tree', verb: 'contents.tree', run: async (provider, manifest) => (await provider.contents.tree(manifest.repo, { recursive: true }).page()).warnings },
+    { name: 'artifacts shallow commit', verb: 'commits.get', run: async (provider, manifest) => {
+      const oldest = (await provider.commits.list(manifest.repo, { perPage: 10 }).page()).items.at(-1)
+      return provider.commits.get(need(oldest, 'the oldest commit').ref)
     } },
-    { name: 'artifacts root commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56') },
-    { name: 'artifacts mode change commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074') },
-    { name: 'artifacts rename commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08') },
-    { name: 'artifacts every namespace', verb: 'repos.listPage', run: async (provider) => {
+    { name: 'artifacts root commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56')) },
+    { name: 'artifacts mode change commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074')) },
+    { name: 'artifacts rename commit', verb: 'commits.get', run: (provider, manifest) => provider.commits.get(commitAt(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08')) },
+    { name: 'artifacts every namespace', verb: 'repos.list', run: async (provider) => {
       const names: string[] = []
       let cursor: Page<Repo>['cursor']
       do {
-        const result = await provider.repos.listPage({ perPage: 1, cursor })
+        const result = await provider.repos.list({ perPage: 1, cursor }).page()
         names.push(...result.items.map(repo => `${repo.ref.owner}/${repo.ref.name}`))
         cursor = result.cursor
       } while (cursor)
@@ -302,32 +298,32 @@ export const STEPS: Step[] = [
     return context.repo
   } },
   { name: 'repo licence', verb: 'repos.get', run: (provider, manifest) => provider.repos.get(manifest.repo, { licence: true }) },
-  { name: 'labels', verb: 'repos.labelsPage', run: (provider, manifest) => provider.repos.labelsPage(manifest.repo, page) },
-  { name: 'milestones', verb: 'repos.milestonesPage', run: (provider, manifest) => provider.repos.milestonesPage(manifest.repo, page) },
-  { name: 'collaborators', verb: 'repos.collaboratorsPage', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaboratorsPage(repo, page)) },
-  { name: 'contributors', verb: 'repos.contributorsPage', run: (provider, manifest) => provider.repos.contributorsPage(manifest.repo, page) },
+  { name: 'labels', verb: 'repos.labels', run: (provider, manifest) => provider.repos.labels(manifest.repo, page).page() },
+  { name: 'milestones', verb: 'repos.milestones', run: (provider, manifest) => provider.repos.milestones(manifest.repo, page).page() },
+  { name: 'collaborators', verb: 'repos.collaborators', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaborators(repo, page).page()) },
+  { name: 'contributors', verb: 'repos.contributors', run: (provider, manifest) => provider.repos.contributors(manifest.repo, page).page() },
   { name: 'templates', verb: 'repos.templates', run: (provider, manifest) => provider.repos.templates(manifest.repo) },
   { name: 'contributor stats', verb: 'repos.contributorStats', run: (provider, manifest) => provider.repos.contributorStats(manifest.scratch ?? manifest.repo) },
-  { name: 'assignable users', verb: 'repos.assignableUsersPage', run: (provider, manifest) => provider.repos.assignableUsersPage(manifest.repo, page) },
-  { name: 'org teams', verb: 'orgs.teamsPage', run: async (provider, manifest, context) => {
+  { name: 'assignable users', verb: 'repos.assignableUsers', run: (provider, manifest) => provider.repos.assignableUsers(manifest.repo, page).page() },
+  { name: 'org teams', verb: 'orgs.teams', run: async (provider, manifest, context) => {
     const teams = await orgTeams(provider, manifest)
     context.teams = teams.items
     return teams
   } },
-  { name: 'org team members', verb: 'orgs.teamMembersPage', run: (provider, _manifest, context) => provider.orgs.teamMembersPage(need(context.teams?.[0], 'a team').ref, page) },
+  { name: 'org team members', verb: 'orgs.teamMembers', run: (provider, _manifest, context) => provider.orgs.teamMembers(need(context.teams?.[0], 'a team').ref, page).page() },
   ...threadSteps('pull_request', 'pull'),
   { name: 'merged pull', verb: 'threads.get', kind: 'pull_request', run: async (provider, manifest) => {
-    const listed = (await provider.threads.listPage(manifest.repo, { kind: 'pull_request', state: 'merged', perPage: 10 })).items[0]
+    const listed = (await provider.threads.list(manifest.repo, { kind: 'pull_request', state: 'merged', perPage: 10 }).page()).items[0]
     return { listed, read: await provider.threads.get(need(listed, 'a merged pull request').ref) }
   } },
   ...threadSteps('issue', 'issue'),
-  { name: 'issue list mentioning', verb: 'threads.listPage', kind: 'issue', when: (provider, manifest) => provider.forge === 'github' && !manifest.anonymous, run: (provider, manifest) => {
-    return provider.threads.listPage(manifest.repo, { kind: 'issue', state: 'all', mentions: manifest.feedUser ?? 'danielroe', ...page })
+  { name: 'issue list mentioning', verb: 'threads.list', kind: 'issue', when: (provider, manifest) => provider.forge === 'github' && !manifest.anonymous, run: (provider, manifest) => {
+    return provider.threads.list(manifest.repo, { kind: 'issue', state: 'all', mentions: manifest.feedUser ?? 'danielroe', ...page }).page()
   } },
-  { name: 'issue list in milestone', verb: 'threads.listPage', kind: 'issue', when: (provider, manifest) => provider.forge === 'github' && !manifest.anonymous, run: async (provider, manifest) => {
+  { name: 'issue list in milestone', verb: 'threads.list', kind: 'issue', when: (provider, manifest) => provider.forge === 'github' && !manifest.anonymous, run: async (provider, manifest) => {
     const repo = manifest.scratch ?? manifest.repo
-    const milestone = need((await provider.repos.milestonesPage(repo, page)).items[0], 'a milestone')
-    return provider.threads.listPage(repo, { kind: 'issue', state: 'all', milestone: milestone.title, ...page })
+    const milestone = need((await provider.repos.milestones(repo, page).page()).items[0], 'a milestone')
+    return provider.threads.list(repo, { kind: 'issue', state: 'all', milestone: milestone.title, ...page }).page()
   } },
   ...threadSteps('discussion', 'discussion'),
   ...commitSteps(),
@@ -340,55 +336,55 @@ export const STEPS: Step[] = [
     }
     return sponsorable
   } },
-  { name: 'user events', verb: 'users.eventsPage', run: (provider, manifest, context) => provider.users.eventsPage(manifest.feedUser ?? need(context.login, 'a login'), feedPage) },
-  { name: 'repo events', verb: 'repos.eventsPage', run: (provider, manifest) => provider.repos.eventsPage(manifest.repo, feedPage) },
+  { name: 'user events', verb: 'users.events', run: (provider, manifest, context) => provider.users.events(manifest.feedUser ?? need(context.login, 'a login'), feedPage).page() },
+  { name: 'repo events', verb: 'repos.events', run: (provider, manifest) => provider.repos.events(manifest.repo, feedPage).page() },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },
-  { name: 'own repos', verb: 'repos.listPage', run: provider => provider.repos.listPage(page) },
-  { name: 'owner repos', verb: 'repos.byOwnerPage', run: (provider, manifest) => provider.repos.byOwnerPage(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }) },
-  { name: 'user repos', verb: 'repos.byOwnerPage', run: (provider, manifest, context) => {
+  { name: 'own repos', verb: 'repos.list', run: provider => provider.repos.list(page).page() },
+  { name: 'owner repos', verb: 'repos.byOwner', run: (provider, manifest) => provider.repos.byOwner(namespaceOf(manifest.repo, manifest.repo.owner), { visibility: 'public', sort: 'updated', subgroups: true, ...page }).page() },
+  { name: 'user repos', verb: 'repos.byOwner', run: (provider, manifest, context) => {
     const threads = provider.can('threads.get', 'issue') || provider.can('threads.get', 'pull_request')
-    return provider.repos.byOwnerPage(namespaceOf(manifest.repo, need(context.login ?? (threads ? undefined : manifest.repo.owner), 'a login')), page)
+    return provider.repos.byOwner(namespaceOf(manifest.repo, need(context.login ?? (threads ? undefined : manifest.repo.owner), 'a login')), page).page()
   } },
-  { name: 'installations', verb: 'installations.listPage', run: provider => provider.installations.listPage(page) },
+  { name: 'installations', verb: 'installations.list', run: provider => provider.installations.list(page).page() },
   { name: 'installation', verb: 'installations.get', run: (provider, manifest) => provider.installations.get(need(manifest.installation, 'manifest.installation')) },
-  { name: 'installation repos', verb: 'installations.reposPage', run: (provider, manifest) => provider.installations.reposPage(need(manifest.installation, 'manifest.installation'), page) },
+  { name: 'installation repos', verb: 'installations.repos', run: (provider, manifest) => provider.installations.repos(need(manifest.installation, 'manifest.installation'), page).page() },
   { name: 'installation token', verb: 'installations.token', run: async (provider, manifest) => {
     const { token: _, ...details } = await provider.installations.token(need(manifest.installation, 'manifest.installation'))
     return details
   } },
-  { name: 'notifications', verb: 'notifications.listPage', run: provider => provider.notifications.listPage(page) },
+  { name: 'notifications', verb: 'notifications.list', run: provider => provider.notifications.list(page).page() },
   { name: 'unread count', verb: 'notifications.unreadCount', run: provider => provider.notifications.unreadCount() },
   { name: 'checks', verb: 'checks.list', run: async (provider, manifest, context) => {
     const result = await provider.checks.list(manifest.repo, need(context.headSha, 'the pull head sha'))
     context.checks = result.items
     return result
   } },
-  { name: 'ci runs', verb: 'ci.runsPage', run: async (provider, manifest, context) => {
-    const result = await provider.ci.runsPage(manifest.repo, page)
+  { name: 'ci runs', verb: 'ci.runs', run: async (provider, manifest, context) => {
+    const result = await provider.ci.runs(manifest.repo, page).page()
     context.runs = result.items
     return result
   } },
-  { name: 'ci runs by branch and state', verb: 'ci.runsPage', run: (provider, manifest, context) => provider.ci.runsPage(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }) },
-  { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
+  { name: 'ci runs by branch and state', verb: 'ci.runs', run: (provider, manifest, context) => provider.ci.runs(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }).page() },
+  { name: 'ci run', verb: 'ci.getRun', run: (provider, _manifest, context) => provider.ci.getRun(need(context.runs?.[0], 'a CI run').ref) },
   { name: 'check', verb: 'checks.get', run: async (provider, manifest, context) => {
     const readable = (checks: Check[] = []) => checks.find(check => check.ref.type !== 'status')
     const check = readable(context.checks) ?? readable((await provider.checks.list(manifest.repo, need(context.runs?.[0]?.sha, 'a CI run sha'))).items)
     return provider.checks.get(need(check, 'a check other than a commit status').ref)
   } },
-  { name: 'ci jobs', verb: 'ci.jobsPage', run: async (provider, manifest, context) => {
+  { name: 'ci jobs', verb: 'ci.jobs', run: async (provider, manifest, context) => {
     const runs = need(context.runs?.length ? context.runs : undefined, 'a CI run')
     let result = await firstWithJobs(provider, runs)
     if (!result?.items.length && manifest.scratch) {
-      result = await firstWithJobs(provider, (await provider.ci.runsPage(manifest.scratch, page)).items)
+      result = await firstWithJobs(provider, (await provider.ci.runs(manifest.scratch, page).page()).items)
     }
     context.job = result?.items[0]
     return result
   } },
-  { name: 'ci job', verb: 'ci.job', run: (provider, _manifest, context) => provider.ci.job(need(context.job, 'a CI job').ref) },
+  { name: 'ci job', verb: 'ci.getJob', run: (provider, _manifest, context) => provider.ci.getJob(need(context.job, 'a CI job').ref) },
   // Anonymous GitHub reads share 60 requests an hour.
-  { name: 'ci job by id', verb: 'ci.job', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
+  { name: 'ci job by id', verb: 'ci.getJob', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
     const { run: _run, ...ref } = need(context.job, 'a CI job').ref
-    return provider.ci.job(ref)
+    return provider.ci.getJob(ref)
   } },
   { name: 'ci log', verb: 'ci.log', run: async (provider, manifest, context) => {
     const read = async (job: CiJob | undefined) => text(await provider.ci.log(need(job, 'a CI job').ref))
@@ -400,37 +396,37 @@ export const STEPS: Step[] = [
       if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError)) {
         throw error
       }
-      log = await read((await firstWithJobs(provider, (await provider.ci.runsPage(manifest.scratch, page)).items))?.items[0])
+      log = await read((await firstWithJobs(provider, (await provider.ci.runs(manifest.scratch, page).page()).items))?.items[0])
     }
     return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
   } },
-  { name: 'readme', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { as: 'text' }) },
-  { name: 'tree', verb: 'contents.treePage', run: async (provider, manifest, context) => {
-    const result = await provider.contents.treePage(manifest.repo, page)
+  { name: 'readme', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { as: 'text' }) },
+  { name: 'tree', verb: 'contents.tree', run: async (provider, manifest, context) => {
+    const result = await provider.contents.tree(manifest.repo, page).page()
     context.tree = result.items
     return result
   } },
-  { name: 'tree file', verb: 'contents.file', run: (provider, manifest, context) => provider.contents.file(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
-  { name: 'branches', verb: 'contents.branchesPage', run: async (provider, manifest, context) => {
-    const result = await provider.contents.branchesPage(manifest.repo, page)
+  { name: 'tree file', verb: 'contents.getFile', run: (provider, manifest, context) => provider.contents.getFile(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
+  { name: 'branches', verb: 'contents.branches', run: async (provider, manifest, context) => {
+    const result = await provider.contents.branches(manifest.repo, page).page()
     context.branches = result.items
     return result
   } },
-  { name: 'tags', verb: 'contents.tagsPage', run: (provider, manifest) => provider.contents.tagsPage(manifest.repo, page) },
+  { name: 'tags', verb: 'contents.tags', run: (provider, manifest) => provider.contents.tags(manifest.repo, page).page() },
   { name: 'resolve default branch', verb: 'contents.resolveRef', run: async (provider, manifest, context) => {
     context.defaultSha = await provider.contents.resolveRef(manifest.repo, need(context.repo?.defaultBranch, 'the default branch'))
     return context.defaultSha
   } },
-  { name: 'commits', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, page) },
-  { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, headOf(context)) },
+  { name: 'commits', verb: 'commits.list', run: (provider, manifest) => provider.commits.list(manifest.repo, page).page() },
+  { name: 'commit', verb: 'commits.get', run: (provider, manifest, context) => provider.commits.get(commitAt(manifest.repo, headOf(context))) },
   { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
   { name: 'compare limited', verb: 'contents.compare', run: async (provider, manifest, context) => {
     const branch = need(context.repo?.defaultBranch, 'the default branch')
-    const base = need((await provider.contents.commitsPage(manifest.repo, { ref: branch, perPage: 5 })).items[4], 'a fifth commit').sha
+    const base = need((await provider.commits.list(manifest.repo, { ref: branch, perPage: 5 }).page()).items[4], 'a fifth commit').sha
     return provider.contents.compare(manifest.repo, base, branch, { commitLimit: 2, files: false })
   } },
-  { name: 'releases', verb: 'releases.listPage', run: async (provider, manifest, context) => {
-    const result = await provider.releases.listPage(manifest.repo, page)
+  { name: 'releases', verb: 'releases.list', run: async (provider, manifest, context) => {
+    const result = await provider.releases.list(manifest.repo, page).page()
     context.releases = result.items
     return result
   } },
@@ -439,32 +435,32 @@ export const STEPS: Step[] = [
   { name: 'release by tag', verb: 'releases.getByTag', run: (provider, manifest, context) => provider.releases.getByTag(manifest.repo, need(context.releases?.[0], 'a release').tag) },
   { name: 'release asset', verb: 'releases.downloadAsset', run: async (provider, manifest, context) => {
     const small = (releases: Release[]) => releases.flatMap(release => release.assets ?? []).filter(asset => asset.ref && asset.size !== undefined && asset.size <= ASSET_LIMIT).sort((a, b) => a.size! - b.size!)[0]
-    const asset = need(small(context.releases ?? []) ?? (manifest.scratch && small((await provider.releases.listPage(manifest.scratch, page)).items)), 'a small release asset')
+    const asset = need(small(context.releases ?? []) ?? (manifest.scratch && small((await provider.releases.list(manifest.scratch, page).page()).items)), 'a small release asset')
     const bytes = new Uint8Array(await new Response(await provider.releases.downloadAsset(asset.ref!)).arrayBuffer())
     return { name: asset.name, size: bytes.length, sha256: await sha256Hex(bytes) }
   } },
-  { name: 'search threads', verb: 'search.threadsPage', run: (provider, manifest) => provider.search.threadsPage({ text: 'fix', repo: manifest.repo, ...page }) },
-  { name: 'search repos', verb: 'search.reposPage', run: (provider, manifest) => provider.search.reposPage({ text: manifest.repo.name, ...page }) },
-  { name: 'search commits', verb: 'search.commitsPage', run: (provider, manifest) => provider.search.commitsPage({ text: 'fix', repo: manifest.repo, ...page }) },
-  { name: 'search code', verb: 'search.codePage', run: (provider, manifest) => provider.search.codePage({ text: 'import', repo: manifest.repo, ...page }) },
-  { name: 'search code in owner', verb: 'search.codePage', run: (provider, manifest) => provider.search.codePage({ text: 'import', owner: manifest.repo.owner, ...page }) },
-  { name: 'search code in scratch', verb: 'search.codePage', run: (provider, manifest) => {
+  { name: 'search threads', verb: 'search.threads', run: (provider, manifest) => provider.search.threads({ text: 'fix', repo: manifest.repo, ...page }).page() },
+  { name: 'search repos', verb: 'search.repos', run: (provider, manifest) => provider.search.repos({ text: manifest.repo.name, ...page }).page() },
+  { name: 'search commits', verb: 'search.commits', run: (provider, manifest) => provider.search.commits({ text: 'fix', repo: manifest.repo, ...page }).page() },
+  { name: 'search code', verb: 'search.code', run: (provider, manifest) => provider.search.code({ text: 'import', repo: manifest.repo, ...page }).page() },
+  { name: 'search code in owner', verb: 'search.code', run: (provider, manifest) => provider.search.code({ text: 'import', owner: manifest.repo.owner, ...page }).page() },
+  { name: 'search code in scratch', verb: 'search.code', run: (provider, manifest) => {
     if (!manifest.scratch) {
       throw new Error('No scratch repository to search')
     }
-    return provider.search.codePage({ text: manifest.scratch.name, repo: manifest.scratch, perPage: 20 })
+    return provider.search.code({ text: manifest.scratch.name, repo: manifest.scratch, perPage: 20 }).page()
   } },
-  { name: 'webhooks', verb: 'webhooks.listPage', when: (_provider, manifest) => !!manifest.scratch, run: async (provider, manifest, context) => {
-    const result = await provider.webhooks.listPage(manifest.scratch!, page)
+  { name: 'webhooks', verb: 'webhooks.list', when: (_provider, manifest) => !!manifest.scratch, run: async (provider, manifest, context) => {
+    const result = await provider.webhooks.list(manifest.scratch!, page).page()
     context.webhook = result.items[0]
     return result
   } },
-  { name: 'webhook deliveries', verb: 'webhooks.deliveriesPage', run: (provider, _manifest, context) => provider.webhooks.deliveriesPage(need(context.webhook, 'a webhook').ref, page) },
+  { name: 'webhook deliveries', verb: 'webhooks.deliveries', run: (provider, _manifest, context) => provider.webhooks.deliveries(need(context.webhook, 'a webhook').ref, page).page() },
   ...(['dependency', 'code_scanning', 'secret', 'advisory'] as const).map((kind): Step => ({
     name: `${kind.replace('_', ' ')} alerts`,
-    verb: 'securityAlerts.listPage',
+    verb: 'securityAlerts.list',
     kind,
-    run: (provider, manifest) => provider.securityAlerts.listPage(manifest.alerts ?? manifest.repo, { kind, state: 'all', ...page }),
+    run: (provider, manifest) => provider.securityAlerts.list(manifest.alerts ?? manifest.repo, { kind, state: 'all', ...page }).page(),
   })),
   ...artifactsSteps(),
 ]

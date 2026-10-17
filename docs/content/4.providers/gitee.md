@@ -30,7 +30,7 @@ import { gitee } from 'forges/gitee'
 
 const forge = gitee({
   auth: { type: 'token', token: process.env.GITEE_TOKEN! },
-}).create()
+})
 ```
 
 If you leave out `auth`, the provider makes anonymous reads of public data.
@@ -88,7 +88,7 @@ To verify deliveries, set `webhookSecret` to the password or the signing secret 
 ```ts
 const forge = gitee({
   webhookSecret: process.env.GITEE_WEBHOOK_SECRET,
-}).create()
+})
 
 const events = await forge.webhooks.ingest({
   headers: request.headers,
@@ -111,8 +111,6 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | Capability | Support | Without credentials |
 | --- | --- | --- |
 | `experimental` | ❌ | ❌ |
-| `sources.poll` | ✅ | ❌ |
-| `sources.webhook` | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ |
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
@@ -143,12 +141,41 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `threads.closingIssues` | ❌ | ❌ |
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | issue, PR |
-| `comments.list` | issue, PR | issue, PR |
-| `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `comments.edit` | issue (unverified), PR (unverified) | ❌ |
-| `comments.delete` | issue (unverified), PR (unverified) | ❌ |
-| `comments.hide` | ❌ | ❌ |
-| `reactions.list` | ❌ | ❌ |
+| `threads.comments` | issue, PR | issue, PR |
+| `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
+| `threads.createComment` | issue (unverified), PR | ❌ |
+| `threads.updateComment` | issue (unverified), PR (unverified) | ❌ |
+| `threads.deleteComment` | issue (unverified), PR (unverified) | ❌ |
+| `threads.hideComment` | ❌ | ❌ |
+| `threads.reactions` | ❌ | ❌ |
+| `threads.react` | ❌ | ❌ |
+| `threads.create` | issue (unverified), PR (unverified) | ❌ |
+| `threads.update` | issue (unverified), PR | ❌ |
+| `threads.close` | issue (unverified), PR | ❌ |
+| `threads.reopen` | issue (unverified), PR | ❌ |
+| `threads.lock` | ❌ | ❌ |
+| `threads.setLabels` | issue (unverified), PR (unverified) | ❌ |
+| `threads.addLabels` | issue (unverified), PR (unverified) | ❌ |
+| `threads.removeLabels` | issue (unverified), PR (unverified) | ❌ |
+| `threads.setMilestone` | ❌ | ❌ |
+| `threads.setAssignees` | issue (unverified) | ❌ |
+| `threads.requestReview` | PR (unverified) | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ❌ | ❌ |
+| `threads.transfer` | ❌ | ❌ |
+| `threads.markDuplicate` | ❌ | ❌ |
+| `threads.subscription` | ❌ | ❌ |
+| `threads.subscribe` | ❌ | ❌ |
+| `threads.checks` | PR | PR |
+| `threads.files` | ✅ | ✅ |
+| `threads.commits` | ✅ | ✅ |
+| `threads.reviews` | ❌ | ❌ |
+| `threads.getReview` | ❌ | ❌ |
+| `threads.createReview` | unverified | ❌ |
+| `threads.submitReview` | ❌ | ❌ |
+| `threads.approve` | unverified | ❌ |
+| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |
@@ -156,54 +183,31 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `notifications.markAllRead` | unverified | ❌ |
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
-| `writes.comment` | issue (unverified), PR | ❌ |
-| `writes.close` | issue (unverified), PR | ❌ |
-| `writes.reopen` | issue (unverified), PR | ❌ |
-| `writes.lock` | ❌ | ❌ |
-| `writes.create` | issue (unverified), PR (unverified) | ❌ |
-| `writes.update` | issue (unverified), PR | ❌ |
-| `writes.setLabels` | issue (unverified), PR (unverified) | ❌ |
-| `writes.addLabels` | issue (unverified), PR (unverified) | ❌ |
-| `writes.removeLabels` | issue (unverified), PR (unverified) | ❌ |
-| `writes.setMilestone` | ❌ | ❌ |
-| `writes.react` | ❌ | ❌ |
-| `writes.setAssignees` | issue (unverified) | ❌ |
-| `writes.requestReview` | PR (unverified) | ❌ |
-| `writes.merge` | ✅ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
-| `writes.transfer` | ❌ | ❌ |
-| `writes.markDuplicate` | ❌ | ❌ |
-| `subscriptions.get` | ❌ | ❌ |
-| `subscriptions.set` | ❌ | ❌ |
-| `installations` | ❌ | ❌ |
-| `checks.thread` | PR | PR |
+| `installations.list` | ❌ | ❌ |
 | `checks.list` | ✅ | ✅ |
 | `checks.get` | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
-| `ci.run` | ❌ | ❌ |
+| `ci.getRun` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
-| `ci.job` | ❌ | ❌ |
+| `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ |
+| `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |
 | `contents.tags` | ✅ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ |
-| `contents.commits` | ✅ | ✅ |
-| `contents.commit` | ✅ | ✅ |
 | `contents.compare` | ✅ | ✅ |
 | `contents.commitFiles` | ❌ | ❌ |
-| `contents.threadFiles` | ✅ | ✅ |
-| `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
-| `reviews.create` | unverified | ❌ |
-| `reviews.submit` | ❌ | ❌ |
-| `reviews.approve` | unverified | ❌ |
-| `reviews.reply` | ❌ | ❌ |
-| `reviews.resolveThread` | ❌ | ❌ |
+| `commits.list` | ✅ | ✅ |
+| `commits.get` | ✅ | ✅ |
+| `commits.comments` | ❌ | ❌ |
+| `commits.getComment` | ❌ | ❌ |
+| `commits.createComment` | ❌ | ❌ |
+| `commits.updateComment` | ❌ | ❌ |
+| `commits.deleteComment` | ❌ | ❌ |
+| `commits.hideComment` | ❌ | ❌ |
 | `releases.list` | ✅ | ✅ |
 | `releases.get` | ✅ | ✅ |
 | `releases.latest` | ✅ | ✅ |
@@ -211,6 +215,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `releases.downloadAsset` | ❌ | ❌ |
 | `releases.create` | ❌ | ❌ |
 | `releases.update` | ❌ | ❌ |
+| `webhooks.ingest` | ✅ | ✅ |
 | `webhooks.list` | unverified | ❌ |
 | `webhooks.create` | unverified | ❌ |
 | `webhooks.update` | unverified | ❌ |
@@ -222,7 +227,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |
 | `search.code` | ❌ | ❌ |
-| `securityAlerts` | ❌ | ❌ |
+| `securityAlerts.list` | ❌ | ❌ |
 | `eventKinds` | native | native |
 | `authKinds` | `token`, `anonymous` | `token`, `anonymous` |
 | `limits` | unknown | unknown |

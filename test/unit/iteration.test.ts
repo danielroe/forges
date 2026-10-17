@@ -44,7 +44,7 @@ describe('cross-cutting', () => {
 
   it('serialises a notification to JSON with dates as ISO strings', async () => {
     const { fetch } = fixtureFetch('github')
-    const page = await github({ auth: { type: 'token', token: 't' }, fetch }).create().notifications!.listPage()
+    const page = await github({ auth: { type: 'token', token: 't' }, fetch }).notifications!.list().page()
     const roundTrip = JSON.parse(JSON.stringify(page.items[0]))
 
     expect(roundTrip.updatedAt).toBe(page.items[0]!.updatedAt.toISOString())
@@ -55,8 +55,8 @@ describe('cross-cutting', () => {
 describe('github iteration', () => {
   it('gates mark-as-done on GHES by version, without a network call when the version is given', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch }).create()
-    const known = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, instanceVersion: '3.14.1', fetch }).create()
+    const ghes = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch })
+    const known = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, instanceVersion: '3.14.1', fetch })
 
     expect(ghes.capabilities.notifications.markDone).toBe(false)
     expect(known.capabilities.notifications.markDone).toBe(true)
@@ -70,7 +70,7 @@ describe('github iteration', () => {
 
   it('makes no call to refresh github.com capabilities', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
     expect((await provider.refreshCapabilities()).notifications.markDone).toBe(true)
     expect(calls).toEqual([])
@@ -78,7 +78,7 @@ describe('github iteration', () => {
 
   it('reads reviewers, teams and branches from a pull request', async () => {
     const { fetch } = fixtureFetch('github')
-    const thread = await github({ auth: { type: 'token', token: 't' }, fetch }).create().threads.get(ghPull)
+    const thread = await github({ auth: { type: 'token', token: 't' }, fetch }).threads.get(ghPull)
 
     expect(thread.reviewers.map(reviewer => [reviewer.actor.login, reviewer.state, reviewer.isTeam ?? false])).toEqual([
       ['hubot', 'pending', false],
@@ -90,7 +90,7 @@ describe('github iteration', () => {
 
   it('batches getMany into one GraphQL document and keeps REST and GraphQL threads alike', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     const [result] = await provider.threads.getMany([ghPull])
     const rest = await provider.threads.get(ghPull)
 
@@ -102,8 +102,8 @@ describe('github iteration', () => {
 
   it('fills the check rollup on listed pulls with one batched read', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
-    const page = await provider.threads.listPage(ghPull.repo, { kind: 'pull_request' })
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const page = await provider.threads.list(ghPull.repo, { kind: 'pull_request' }).page()
 
     expect(calls.filter(call => call.operationName === 'ThreadsBatch')).toHaveLength(1)
     expect(page.items.find(thread => thread.ref.number === ghPull.number)?.checks?.state).toBeDefined()
@@ -111,7 +111,7 @@ describe('github iteration', () => {
 
   it('reads and changes the thread subscription through GraphQL', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
     expect(await provider.threads.subscription!(ghPull)).toBe('subscribed')
     await provider.threads.unsubscribe!(ghPull)
@@ -119,7 +119,7 @@ describe('github iteration', () => {
   })
 
   it('turns a push delivery into one push event with its commits in detail', async () => {
-    const provider = github({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       ref: 'refs/heads/main',
       before: 'aaa',
@@ -136,7 +136,7 @@ describe('github iteration', () => {
   })
 
   it('maps repository, installation and release deliveries to repo-level kinds', async () => {
-    const provider = github({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const repository = { id: 31337, name: 'gizmos', full_name: 'acme/gizmos', owner: { login: 'acme', id: 1 } }
     const ingest = async (event: string, payload: unknown) => {
       const body = JSON.stringify(payload)
@@ -159,7 +159,7 @@ describe('forgejo and gitea', () => {
       'GET https://codeberg.org/api/v1/notifications/new': { status: 200, body: { new: 3 } },
       'PUT https://codeberg.org/api/v1/repos/acme/widgets/notifications?to-status=read': { status: 205 },
     })
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch })
 
     expect(await provider.notifications!.unreadCount!()).toBe(3)
     await provider.notifications!.markAllRead!({ repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } })
@@ -167,8 +167,7 @@ describe('forgejo and gitea', () => {
   })
 
   it('shares the implementation but reports gitea as its own forge', async () => {
-    const factory = gitea({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
-    const provider = factory.create()
+    const provider = gitea({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({ action: 'opened', issue: { number: 3 }, repository: { id: 1, name: 'w', full_name: 'a/w' }, sender: { id: 2, login: 'ada' } })
     const signature = await hmacSha256Hex('s', body)
 
@@ -185,11 +184,11 @@ describe('gitlab iteration', () => {
     const { fetch } = fixtureFetch('gitlab', {
       'GET https://gitlab.com/api/v4/todos?state=pending&per_page=1': { status: 200, headers: { 'x-total': '7' }, body: [] },
     })
-    expect(await gitlab({ auth: { type: 'token', token: 't' }, fetch }).create().notifications!.unreadCount!()).toBe(7)
+    expect(await gitlab({ auth: { type: 'token', token: 't' }, fetch }).notifications!.unreadCount!()).toBe(7)
   })
 
   it('reports a tag push that creates a ref as a ref event', async () => {
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const [event] = await provider.webhooks.ingest({
       headers: { 'x-gitlab-event': 'Tag Push Hook', 'x-gitlab-token': 's' },
       body: JSON.stringify({ object_kind: 'tag_push', ref: 'refs/tags/v1.0.0', before: '0000000000000000000000000000000000000000', after: 'abc', project: { id: 1, path_with_namespace: 'acme/widgets' } }),
@@ -202,12 +201,12 @@ describe('gitlab iteration', () => {
 describe('bitbucket iteration', () => {
   it('rewrites collapsible HTML blocks, which Bitbucket does not render', () => {
     expect(normaliseMarkdown('<details><summary>Logs</summary>\n\nline\n</details>')).toBe('**Logs**\n\n\nline\n')
-    expect(bitbucket({ auth: { type: 'token', token: 't' } }).create().normaliseMarkdown).toBe(normaliseMarkdown)
+    expect(bitbucket({ auth: { type: 'token', token: 't' } }).normaliseMarkdown).toBe(normaliseMarkdown)
   })
 
   it('reads reviewer state from participants', async () => {
     const { fetch } = fixtureFetch('bitbucket')
-    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).create().threads.get({
+    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.get({
       forge: 'bitbucket',
       instance: 'bitbucket.org',
       repo: { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' },
@@ -219,7 +218,7 @@ describe('bitbucket iteration', () => {
   })
 
   it('emits one event per ref change in a push', async () => {
-    const provider = bitbucket({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = bitbucket({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       repository: { full_name: 'acme/widgets', uuid: '{r}' },
       push: { changes: [
@@ -254,7 +253,7 @@ describe('tangled iteration', () => {
         }
         return base(url, init)
       },
-    }).create()
+    })
     const events = provider.threads.events(pull)
     const kinds = []
     for await (const event of events) {
@@ -267,14 +266,14 @@ describe('tangled iteration', () => {
 
   it('maps the hosting knot to its SSH host for clone URLs', async () => {
     const { fetch } = fixtureFetch('tangled')
-    const repo = await tangled({ fetch }).create().repos.get(pull.repo)
+    const repo = await tangled({ fetch }).repos.get(pull.repo)
 
     expect(repo.cloneUrls).toEqual({
       https: `https://tangled.org/${OWNER}/widgets`,
       ssh: `ssh://git@tangled.org/${OWNER}/widgets`,
     })
     expect(repo.ref.externalId).toBe('did:plc:widgetsrepo2222222222222')
-    const custom = await tangled({ fetch, sshHosts: { 'knot1.tangled.sh': 'git.example.org' } }).create().repos.get(pull.repo)
+    const custom = await tangled({ fetch, sshHosts: { 'knot1.tangled.sh': 'git.example.org' } }).repos.get(pull.repo)
     expect(custom.cloneUrls?.ssh).toBe(`ssh://git@git.example.org/${OWNER}/widgets`)
   })
 
@@ -285,8 +284,8 @@ describe('tangled iteration', () => {
         body: { notifications: [{ uri: 'at://did:plc:x/sh.tangled.feed.star/1', read: false, type: 'repo_starred', actorDid: 'did:plc:x', repoDid: 'did:plc:widgetsrepo2222222222222', createdAt: '2025-09-18T00:00:00Z' }], workUnreadCount: 0, socialUnreadCount: 1 },
       },
     })
-    const provider = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: 'https://pds.example.com' }, notificationsUrl: 'https://notifs.example.com', fetch }).create()
-    const [star] = (await provider.notifications!.listPage()).items
+    const provider = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: 'https://pds.example.com' }, notificationsUrl: 'https://notifs.example.com', fetch })
+    const [star] = (await provider.notifications!.list().page()).items
 
     expect(star).toMatchObject({ reason: 'starred', subject: { type: 'repo', repo: { owner: OWNER, name: 'widgets' } } })
     expect(notificationThread(star!)).toBeUndefined()

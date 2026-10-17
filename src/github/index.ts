@@ -1,4 +1,4 @@
-import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
+import type { InstallationsSpec, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type {
   BaseOptions,
   Check,
@@ -14,6 +14,7 @@ import type {
   Comment,
   CommentRef,
   Commit,
+  CommitCommentRef,
   CommitFilesInput,
   CommitQuery,
   CommitSearchQuery,
@@ -74,7 +75,6 @@ import type {
   ForgeOptionsBase,
   ForgeProvider,
   HideCommentReason,
-  InstallationsApi,
   LockOptions,
   LockReason,
   MilestoneListOptions,
@@ -156,6 +156,7 @@ import {
   toCollaborator,
   toComment,
   toCommit,
+  toCommitComment,
   toContributor,
   toContributorStats,
   toDependabotAlert,
@@ -301,8 +302,6 @@ function threadPath(ref: ResolvedThreadRef): string {
   switch (ref.kind) {
     case 'pull_request':
       return `${repoPath(ref.repo)}/pulls/${encodeURIComponent(ref.number)}`
-    case 'commit':
-      return `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}`
     default:
       return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`
   }
@@ -552,22 +551,14 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
     const results: GetManyResult[] = Array.from({ length: refs.length })
     const batchable: Array<{ index: number, ref: ResolvedThreadRef }> = []
-    const commits: number[] = []
     for (const [index, ref] of refs.entries()) {
-      if (!isResolvedThread(ref) || ref.kind === 'other') {
+      if (!isResolvedThread(ref)) {
         results[index] = { ok: false, ref, warning: toWarning('thread_unresolved', new Error('Thread ref has no number'), ref.number) }
-      }
-      else if (ref.kind === 'commit') {
-        commits.push(index)
       }
       else {
         batchable.push({ index, ref })
       }
     }
-    const read = await getManyConcurrently(commits.map(index => refs[index]!), get, options)
-    commits.forEach((index, position) => {
-      results[index] = read[position]!
-    })
     if (!batchable.length) {
       return results
     }
@@ -755,18 +746,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const [page, { toDiscussionComment }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
       return { ...page, items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)) }
     }
-    if (ref.kind === 'commit') {
-      return list(`${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw))
-    }
     return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
   }
 
   /** Discussion comment ids are node ids already; other comments are read for theirs. */
-  async function commentNodeId(ref: CommentRef, options?: BaseOptions): Promise<string> {
-    if (ref.thread.kind === 'discussion') {
+  async function commentNodeId(ref: CommentRef | CommitCommentRef, options?: BaseOptions): Promise<string> {
+    if ('thread' in ref && ref.thread.kind === 'discussion') {
       return ref.id
     }
-    const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { signal: options?.signal })
+    const { data } = await fetcher.json<GitHubComment>('commit' in ref ? commitCommentPath(ref) : commentPath(ref), { signal: options?.signal })
     if (!data.node_id) {
       throw new NotFoundError(`Comment ${ref.id} has no node id`, 404, '', context)
     }
@@ -774,16 +762,15 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   }
 
   function commentPath(ref: CommentRef): string {
-    return ref.thread.kind === 'commit'
-      ? `${repoPath(ref.thread.repo)}/comments/${encodeURIComponent(ref.id)}`
-      : `${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`
+    return `${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`
+  }
+
+  function commitCommentPath(ref: CommitCommentRef): string {
+    return `${repoPath(ref.commit.repo)}/comments/${encodeURIComponent(ref.id)}`
   }
 
   async function setState(thread: ThreadRef, state: 'open' | 'closed', options_: CloseOptions = {}): Promise<Thread> {
     const ref = requireThread(thread, context)
-    if (ref.kind === 'commit') {
-      throw new UnsupportedOperationError('Commits have no open or closed state', context)
-    }
     if (ref.kind === 'discussion') {
       const reason = options_.reasonRaw ?? (options_.reason && DISCUSSION_CLOSE_REASONS[options_.reason])
       if (state === 'closed' && options_.reason && !reason) {
@@ -1415,7 +1402,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     return { ...page, items: page.items.flat(), ...poll }
   }
 
-  function createInstallationsApi(app: AppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
+  function createInstallationsApi(app: AppCredentials): InstallationsSpec {
     const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
     const auth = options.auth as Extract<GitHubAuth, { type: 'app' }>
 
@@ -1696,9 +1683,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   function reactionPath(target: ThreadRef | CommentRef): string {
     if ('thread' in target) {
-      return target.thread.kind === 'commit'
-        ? `${repoPath(target.thread.repo)}/comments/${encodeURIComponent(target.id)}/reactions`
-        : `${repoPath(target.thread.repo)}/issues/comments/${encodeURIComponent(target.id)}/reactions`
+      return `${repoPath(target.thread.repo)}/issues/comments/${encodeURIComponent(target.id)}/reactions`
     }
     const ref = requireIssueOrPull(target, context, 'react to')
     return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/reactions`
@@ -1844,26 +1829,52 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     ci: {
       runsPage: verb(true, runsPage),
-      run: verb(true, async (ref, options) => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
+      getRun: verb(true, async (ref, options) => toWorkflowRun(ref.repo, (await fetcher.json<GitHubWorkflowRun>(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)),
       jobsPage: verb(true, (ref, listOptions = {}) => list(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/jobs`, listOptions, (raw: GitHubWorkflowJob) => toWorkflowJob(ref, raw), {
         select: (body, next) => {
           const { jobs, total_count } = body as { jobs: GitHubWorkflowJob[], total_count?: number }
           return { items: jobs, next, total: total_count }
         },
       })),
-      job: verb(true, getJob),
+      getJob: verb(true, getJob),
       log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
     },
     contents: {
-      file: verb(true, readFile),
+      getFile: verb(true, readFile),
       treePage: verb(true, treePage),
       branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/branches`, listOptions, (raw: GitHubBranch) => toBranch(raw))),
       tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/tags`, listOptions, toTag)),
       resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitsPage: verb(true, commitsPage),
-      commit: verb(true, async (repo, sha, options) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
       commitFiles: verb(true, (repo, input, options) => input.author ? commitTree(repo, input, options) : commitOnBranch(repo, input, options)),
       compare: verb(true, compare),
+    },
+    commits: {
+      listPage: verb(true, commitsPage),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal })).data)),
+      commentsPage: verb(true, (commit, listOptions = {}) => list(`${repoPath(commit.repo)}/commits/${encodeURIComponent(commit.sha)}/comments`, listOptions, (raw: GitHubComment) => toCommitComment(commit, raw))),
+      getComment: verb(anonymous ? 'unverified' : true, async (ref, options) => {
+        const { data } = await fetcher.json<GitHubComment>(commitCommentPath(ref), { signal: options?.signal })
+        return toCommitComment(ref.commit, data)
+      }),
+      createComment: verb(true, async (commit, body, options) => {
+        const { data } = await fetcher.json<GitHubComment>(`${repoPath(commit.repo)}/commits/${encodeURIComponent(commit.sha)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        return toCommitComment(commit, data)
+      }),
+      updateComment: verb(true, async (ref, body, options) => {
+        const { data } = await fetcher.json<GitHubComment>(commitCommentPath(ref), { method: 'PATCH', json: { body }, signal: options?.signal })
+        return toCommitComment(ref.commit, data)
+      }),
+      deleteComment: verb(true, async (ref, options) => {
+        await fetcher.raw(commitCommentPath(ref), { method: 'DELETE', signal: options?.signal })
+      }),
+      commentHiding: verb(true, {
+        hideComment: async (ref, reason, options) => {
+          await graphql('MINIMIZE_COMMENT', { id: await commentNodeId(ref, options), classifier: reason.toUpperCase() }, options)
+        },
+        unhideComment: async (ref, options) => {
+          await graphql('UNMINIMIZE_COMMENT', { id: await commentNodeId(ref, options) }, options)
+        },
+      }),
     },
     search: {
       threadsPage: verb(true, searchThreadsPage),
@@ -2052,7 +2063,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     threads: {
-      get: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, get),
+      get: perKind({ issue: true, pull_request: true, discussion: !anonymous }, get),
       getMany: verb(true, getMany),
       listPage: perKind({ ...ISSUE_LIKE, discussion: !anonymous }, listPage),
       listFilters: ['involves', 'mentions', 'milestone'],
@@ -2062,13 +2073,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           const [page, { toDiscussionCommentEvent }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
           return { ...page, items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)) }
         }
-        if (ref.kind === 'commit') {
-          return list(`${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`, listOptions, (comment: GitHubTimelineEntry) => toEvent(instance, ref, { ...comment, event: 'commented' }))
-        }
         return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
       }),
-      commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous, commit: true }, commentsPage),
-      getComment: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true, discussion: !anonymous, commit: anonymous ? 'unverified' : true }, getComment),
+      commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous }, commentsPage),
+      getComment: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true, discussion: !anonymous }, getComment),
       reviewsPage: verb(true, reviewsPage),
       getReview: verb(anonymous ? 'unverified' : true, getReview),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
@@ -2109,19 +2117,16 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), { signal: options?.signal })
         return data.head?.sha ? headChecks(ref.repo, data.head.sha, options?.signal) : { items: [] }
       }),
-      comment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (thread, body, options) => {
+      createComment: perKind({ issue: true, pull_request: true, discussion: true }, async (thread, body, options) => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
           const data = await graphql<{ addDiscussionComment: { comment: GraphQLComment } }>('ADD_DISCUSSION_COMMENT', { id: await discussionId(ref, options), body }, options)
           return (await import('./graphql.ts')).toDiscussionComment(ref, data.addDiscussionComment.comment)
         }
-        const path = ref.kind === 'commit'
-          ? `${repoPath(ref.repo)}/commits/${encodeURIComponent(ref.number)}/comments`
-          : `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`
-        const { data } = await fetcher.json<GitHubComment>(path, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<GitHubComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
         return toComment(ref, data)
       }),
-      editComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, body, options) => {
+      updateComment: perKind({ issue: true, pull_request: true, discussion: true }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         if (thread.kind === 'discussion') {
           const data = await graphql<{ updateDiscussionComment: { comment: GraphQLComment } }>('UPDATE_DISCUSSION_COMMENT', { id: ref.id, body }, options)
@@ -2130,7 +2135,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { method: 'PATCH', json: { body }, signal: options?.signal })
         return toComment(thread, data)
       }),
-      deleteComment: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, async (ref, options) => {
+      deleteComment: perKind({ issue: true, pull_request: true, discussion: true }, async (ref, options) => {
         if (ref.thread.kind === 'discussion') {
           await graphql('DELETE_DISCUSSION_COMMENT', { id: ref.id }, options)
           return
@@ -2242,7 +2247,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/lock`, { method: 'DELETE', signal: options?.signal })
         },
       }),
-      hiding: perKind({ issue: true, pull_request: true, discussion: true, commit: true }, {
+      hiding: perKind({ issue: true, pull_request: true, discussion: true }, {
         hideComment: async (ref: CommentRef, reason: HideCommentReason, options?: BaseOptions) => {
           await graphql('MINIMIZE_COMMENT', { id: await commentNodeId(ref, options), classifier: reason.toUpperCase() }, options)
         },
@@ -2328,7 +2333,7 @@ const GITHUB: ProviderDefinition<GitHubOptions, AppCredentials | undefined, true
 }
 
 /** Creates a GitHub provider for github.com or a GitHub Enterprise Server instance. */
-export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', false, GitHubProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
+export const github: ProviderFactoryFunction<GitHubOptions, true, 'github', GitHubProvider> = /* @__PURE__ */ defineForgeProvider(GITHUB)
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint

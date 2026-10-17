@@ -61,7 +61,6 @@ import type {
   GitLabAwardEmoji,
   GitLabBlob,
   GitLabBranch,
-  GitLabCommit,
   GitLabCommitComment,
   GitLabCommitDetail,
   GitLabCommitStatus,
@@ -113,8 +112,6 @@ import {
   toCiJob,
   toCommit,
   toCommitComment,
-  toCommitCommentEvent,
-  toCommitThread,
   toJobCheck,
   toLabel,
   toMilestone,
@@ -200,8 +197,6 @@ function threadPath(ref: ResolvedThreadRef): string {
   switch (ref.kind) {
     case 'pull_request':
       return `${project}/merge_requests/${encodeURIComponent(ref.number)}`
-    case 'commit':
-      return `${project}/repository/commits/${encodeURIComponent(ref.number)}`
     default:
       return `${project}/issues/${encodeURIComponent(ref.number)}`
   }
@@ -409,9 +404,6 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       const ref = requireThread(thread, context)
       if (ref.kind === 'discussion') {
         throw new UnsupportedOperationError('GitLab has no discussion threads', context)
-      }
-      if (ref.kind === 'commit') {
-        return toCommitThread(ref, (await fetcher.json<GitLabCommit>(threadPath(ref), { signal: options?.signal })).data)
       }
       const { data } = await fetcher.json<GitLabIssue>(threadPath(ref), { signal: options?.signal })
       const result = toThread(ref, data)
@@ -918,7 +910,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
       },
       contents: {
-        file: verb(true, async (repo, path, fileOptions = {}) => {
+        getFile: verb(true, async (repo, path, fileOptions = {}) => {
           const ref = fileOptions.ref ?? await defaultBranch(repo, fileOptions)
           const { data } = await fetcher.json<GitLabFile>(`${projectPath(repo)}/repository/files/${encodeURIComponent(path.replace(/^\//, ''))}`, {
             query: { ref },
@@ -931,15 +923,6 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         branchesPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/branches`, listOptions, toBranch)),
         tagsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/tags`, listOptions, toTag)),
         resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.id),
-        // gitlab.com responds to anonymous commit listings with a Cloudflare challenge.
-        commitsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-        commit: verb(true, async (repo, sha, options) => {
-          const [commit, diffs] = await Promise.all([
-            fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
-            fetcher.json<GitLabDiff[]>(`${projectPath(repo)}/repository/commits/${sha}/diff`, { signal: options?.signal }),
-          ])
-          return toCommit(repo, commit.data, (diffs.data ?? []).map(toChangedFile))
-        }),
         compare: verb(true, async (repo, base, head, options) => {
           const { data } = await fetcher.json<GitLabCompare>(`${projectPath(repo)}/repository/compare`, { query: { from: base, to: head }, signal: options?.signal })
           return {
@@ -952,6 +935,22 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           }
         }),
         commitFiles: verb(true, commitFiles),
+      },
+      commits: {
+        // gitlab.com responds to anonymous commit listings with a Cloudflare challenge.
+        listPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
+        get: verb(true, async ({ repo, sha }, options) => {
+          const [commit, diffs] = await Promise.all([
+            fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
+            fetcher.json<GitLabDiff[]>(`${projectPath(repo)}/repository/commits/${sha}/diff`, { signal: options?.signal }),
+          ])
+          return toCommit(repo, commit.data, (diffs.data ?? []).map(toChangedFile))
+        }),
+        commentsPage: verb(true, (commit, listOptions = {}) => list(`${projectPath(commit.repo)}/repository/commits/${encodeURIComponent(commit.sha)}/comments`, listOptions, (comment: GitLabCommitComment) => toCommitComment(commit, comment))),
+        createComment: verb(true, async (commit, body, options) => {
+          const { data } = await fetcher.json<GitLabCommitComment>(`${projectPath(commit.repo)}/repository/commits/${encodeURIComponent(commit.sha)}/comments`, { method: 'POST', json: { note: body }, signal: options?.signal })
+          return toCommitComment(commit, data)
+        }),
       },
       releases: {
         listPage: verb(true, releasesPage),
@@ -1023,9 +1022,9 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       },
       ci: {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
-        run: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
+        getRun: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
-        job: verb(!anonymous, async (ref, options) => {
+        getJob: verb(!anonymous, async (ref, options) => {
           const { data } = await fetcher.json<GitLabJob>(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
           const run = ref.run ?? (data.pipeline && { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline.id) })
           if (!run) {
@@ -1039,7 +1038,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },
         listPage: vulnerabilitiesPage,
       },
-      emulated: { getComment: { commit: anonymous ? 'unverified' : 'emulated' } },
+      emulated: { getCommitComment: anonymous ? 'unverified' : 'emulated' },
       threads: {
         filesPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for changed files'))}/diffs`, listOptions, toChangedFile)),
         commitsPage: verb(true, (thread, listOptions = {}) => list(`${threadPath(requireMerge(thread, 'read for commits'))}/commits`, listOptions, (raw: GitLabCommitDetail) => toCommit(thread.repo, raw))),
@@ -1067,7 +1066,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             }
           }
           if (input.event !== 'approve') {
-            throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; create `approve`, or `comment` with a body', context)
+            throw new UnsupportedOperationError('GitLab has approvals and discussions, not reviews; use `threads.approve()`, or `threads.createComment()` with a body', context)
           }
           return approve(ref, input.body, options)
         }),
@@ -1097,7 +1096,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           const project = pipelineProject === undefined || pipelineProject === data.target_project_id ? projectPath(ref.repo) : `/projects/${pipelineProject}`
           return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 }, signal: options?.signal }), job => toJobCheck(ref.repo, job)) }
         }),
-        get: perKind({ issue: true, pull_request: true, commit: true }, get),
+        get: perKind({ issue: true, pull_request: true }, get),
         getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
         closingIssuesPage: verb(true, async (thread, listOptions = {}) => {
           const ref = requireThread(thread, context)
@@ -1116,20 +1115,10 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         listPage: perKind(ISSUE_LIKE, listPage),
         eventsPage: verb(!anonymous, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
           const ref = requireThread(thread, context)
-          if (ref.kind === 'commit') {
-            const offset = Number(listOptions.cursor?.token ?? 0)
-            const result = await fetcher.page<GitLabCommitComment>(`${threadPath(ref)}/comments`, { query: { per_page: listOptions.perPage }, cursor: listOptions.cursor, signal: listOptions.signal })
-            let index = offset
-            const page = toPage(result, comment => toCommitCommentEvent(ref, comment, index++))
-            return page.cursor ? { ...page, cursor: { ...page.cursor, token: String(index) } } : page
-          }
           return list(`${threadPath(ref)}/notes`, listOptions, (note: GitLabNote) => toNoteEvent(ref, note), { query: { sort: 'asc', order_by: 'created_at' } })
         }),
-        commentsPage: perKind({ issue: !anonymous, pull_request: !anonymous, commit: true }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
+        commentsPage: perKind({ issue: !anonymous, pull_request: !anonymous }, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
           const ref = requireThread(thread, context)
-          if (ref.kind === 'commit') {
-            return list(`${threadPath(ref)}/comments`, listOptions, (comment: GitLabCommitComment) => toCommitComment(ref, comment))
-          }
           // Notes carry no discussion id, so comments are read by discussion; a page holds whole discussions.
           const page = await list(`${threadPath(requireIssueOrPull(ref, context, 'list comments on'))}/discussions`, listOptions, (discussion: GitLabDiscussion) => discussion)
           return { ...page, items: page.items.flatMap(discussion => discussion.notes.filter(note => !note.system).map(note => toNoteComment(ref, note, discussion))) }
@@ -1152,12 +1141,8 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           }
           return toNoteComment(thread, data)
         }),
-        comment: perKind({ issue: true, pull_request: true, commit: true }, async (thread, body, options) => {
+        createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
           const ref = requireThread(thread, context)
-          if (ref.kind === 'commit') {
-            const { data } = await fetcher.json<GitLabCommitComment>(`${threadPath(ref)}/comments`, { method: 'POST', json: { note: body }, signal: options?.signal })
-            return toCommitComment(ref, data)
-          }
           const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(requireIssueOrPull(ref, context, 'comment on'))}/notes`, {
             method: 'POST',
             json: { body },
@@ -1165,7 +1150,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           })
           return toNoteComment(ref, data)
         }),
-        editComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
+        updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
           const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
           const { data } = await fetcher.json<GitLabNoteDetail>(`${threadPath(thread)}/notes/${ref.id}`, { method: 'PUT', json: { body }, signal: options?.signal })
           return toNoteComment(thread, data)
@@ -1321,7 +1306,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
+export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab'> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {

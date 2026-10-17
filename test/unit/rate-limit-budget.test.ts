@@ -58,7 +58,7 @@ describe('secondary rate limits', () => {
         const { status, headers, body } = responses[Math.min(sent++, responses.length - 1)]!
         return new Response(body, { status, headers })
       },
-    }).create()
+    })
     return { instance, onRetry, sent: () => sent }
   }
 
@@ -66,7 +66,7 @@ describe('secondary rate limits', () => {
 
   it('rejects a 403 secondary limit without `retry-after` with RateLimitedError, without retrying', async () => {
     const { instance, onRetry, sent } = provider({ status: 403, headers: budget('core', 4321), body: SECONDARY })
-    const error = await failure(instance.threads.comment(issueRef, 'Hello'))
+    const error = await failure(instance.threads.createComment(issueRef, 'Hello'))
 
     expect(error).toBeInstanceOf(RateLimitedError)
     expect(error).toMatchObject({ status: 403, secondary: true, resetAt: undefined })
@@ -146,7 +146,7 @@ describe('secondary rate limits', () => {
       { status: 200, headers: budget('graphql', 0), body: '{"errors":[{"type":"RATE_LIMITED","message":"API rate limit already exceeded for user ID 1."}]}' },
     )
 
-    await expect(instance.threads.listPage(issueRef.repo)).rejects.toBeInstanceOf(RateLimitedError)
+    await expect(instance.threads.list(issueRef.repo).page()).rejects.toBeInstanceOf(RateLimitedError)
   })
 
   describe('when one half of the read of checks is rate limited', () => {
@@ -163,7 +163,7 @@ describe('secondary rate limits', () => {
         }
         return new Response(JSON.stringify({ number: 7, title: 'Fix', state: 'open', head: { sha: 'abc' }, user: { login: 'ada', id: 1 }, labels: [] }), { headers: budget('core', 1) })
       },
-    }).create()
+    })
 
     it('rejects checks.list()', async () => {
       await expect(limited().checks.list(issueRef.repo, 'abc')).rejects.toBeInstanceOf(RateLimitedError)
@@ -197,7 +197,7 @@ describe('secondary rate limits', () => {
 describe('last-seen budget', () => {
   it('reports the budget of a single read without sending a request', async () => {
     const { fetch, calls } = fixtureFetch([get('https://api.github.com/repos/danielroe/forges', budget('core', 4990), repo)])
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
     expect(provider.rateLimits()).toEqual([])
 
@@ -214,7 +214,7 @@ describe('last-seen budget', () => {
       'GET https://api.github.com/search/issues?q=forges': { status: 200, headers: budget('search', 29, 30), body: { items: [] } },
       'GET https://api.github.com/rate_limit': { status: 200, headers: budget('core', 4989), body: {} },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     await provider.repos.get({ forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' })
     await provider.request('GET', '/search/issues', { query: { q: 'forges' } })
     await provider.request('GET', '/rate_limit')
@@ -237,7 +237,7 @@ describe('last-seen budget', () => {
       }
       return new Response('{}', { headers: budget('core', 9) })
     }
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     const first = provider.request('GET', '/first')
     await provider.request('GET', '/second')
     release()
@@ -253,7 +253,7 @@ describe('last-seen budget', () => {
       { ...budget('core', 4999), 'x-ratelimit-reset': String(reset + 7200) },
     ]
     const fetch = async () => new Response('{}', { headers: responses.shift() })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     await provider.request('GET', '/rate_limit')
     await provider.request('GET', '/rate_limit')
 
@@ -267,7 +267,7 @@ describe('last-seen budget', () => {
   it('treats resets in seconds from now that are a second apart as one window', async () => {
     const responses = ['"baseline";r=10;t=600', '"baseline";r=11;t=599']
     const fetch = async () => new Response('{}', { headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': responses.shift()! } })
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch })
     await provider.request('GET', '/rate_limit')
     await provider.request('GET', '/rate_limit')
 
@@ -276,7 +276,7 @@ describe('last-seen budget', () => {
 
   it('records the budget of a rate-limited response', async () => {
     const { fetch } = fixtureFetch([get('https://api.github.com/repos/danielroe/forges', budget('core', 0), { message: 'API rate limit exceeded' }, 403)])
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
     await expect(provider.repos.get({ forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' })).rejects.toBeInstanceOf(RateLimitedError)
     expect(provider.rateLimits()).toMatchObject([{ resource: 'core', remaining: 0 }])
@@ -286,7 +286,7 @@ describe('last-seen budget', () => {
     const { fetch } = fixtureFetch([], {
       'GET https://codeberg.org/api/v1/rate_limit': { status: 200, headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': '"baseline";r=1994;t=600' }, body: {} },
     })
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch })
     await provider.request('GET', '/rate_limit')
     const [rateLimit, ...rest] = provider.rateLimits()
 
@@ -298,7 +298,7 @@ describe('last-seen budget', () => {
     const { fetch } = fixtureFetch([], {
       'GET https://api.github.com/rate_limit': { status: 200, headers: { ...budget('core', 12), 'x-ratelimit-reset': String(Math.floor(Date.now() / 1000) - 1) }, body: {} },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
     await provider.request('GET', '/rate_limit')
 
     expect(provider.rateLimits()).toEqual([])
@@ -307,8 +307,8 @@ describe('last-seen budget', () => {
   it('keeps the budgets of two providers apart', async () => {
     const first = fixtureFetch([], { 'GET https://api.github.com/rate_limit': { status: 200, headers: budget('core', 100), body: {} } })
     const second = fixtureFetch([], { 'GET https://api.github.com/rate_limit': { status: 200, headers: budget('core', 4000), body: {} } })
-    const one = github({ auth: { type: 'token', token: 'a' }, fetch: first.fetch }).create()
-    const two = github({ auth: { type: 'token', token: 'b' }, fetch: second.fetch }).create()
+    const one = github({ auth: { type: 'token', token: 'a' }, fetch: first.fetch })
+    const two = github({ auth: { type: 'token', token: 'b' }, fetch: second.fetch })
     await one.request('GET', '/rate_limit')
 
     expect(two.rateLimits()).toEqual([])
@@ -339,8 +339,8 @@ describe('last-seen budget', () => {
 describe('hand-built pages', () => {
   it('carry the budget of a GitHub notifications page', async () => {
     const { fetch } = fixtureFetch([get('https://api.github.com/notifications?all=false', budget('core', 4321), [])])
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
 
-    expect((await provider.notifications.listPage()).rateLimit).toEqual({ resource: 'core', limit: 5000, remaining: 4321, resetAt: new Date(reset * 1000) })
+    expect((await provider.notifications.list().page()).rateLimit).toEqual({ resource: 'core', limit: 5000, remaining: 4321, resetAt: new Date(reset * 1000) })
   })
 })

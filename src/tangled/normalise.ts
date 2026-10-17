@@ -65,13 +65,14 @@ export function toActor(instance: string, identity: Identity, webUrl: string): A
   }
 }
 
+/** The ref of an issue or pull record; any collection but the pull collection reads as an issue. */
 export function toThreadRef(instance: string, repo: RepoRef, uri: AtUri): ResolvedThreadRef {
   const value = atUri(uri.did, uri.collection, uri.rkey)
   return {
     forge: FORGE,
     instance,
     repo,
-    kind: threadKindOf(uri.collection) ?? 'other',
+    kind: uri.collection === COLLECTIONS.pull ? 'pull_request' : 'issue',
     typeRaw: uri.collection,
     number: value,
     externalId: value,

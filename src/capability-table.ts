@@ -1,19 +1,22 @@
 /**
- * One row of the capability table: where a capability is declared on `ProviderSpec`,
- * where it lands on `ForgeCapabilities`, and which `ForgeProvider` verbs it covers.
- * `capabilitiesOf()`, `supports()` and the capability matrix derive from the table.
+ * One row of the capability table: the `ForgeProvider` verbs it covers, where
+ * they are declared on `ProviderSpec`, and the key their support lands on in
+ * `ForgeCapabilities`. `capabilitiesOf()`, `can()` and the capability matrix
+ * derive from the table.
  */
 export interface CapabilityEntry {
-  /** Where the support lands on `ForgeCapabilities`, dot-separated. */
+  /** The first verb the row covers, or the name of a trait such as `limits`, dot-separated. */
   capability: string
   /** Where the verb is declared on `ProviderSpec`, dot-separated. */
   spec?: string
-  /** Verbs on `ForgeProvider` this capability covers. */
+  /** Verbs on `ForgeProvider` this capability covers, each with its own key on `ForgeCapabilities`. */
   verbs?: readonly string[]
+  /** Verbs that return a `ForgeListing`, declared on `ProviderSpec` as their page, such as `threads.commentsPage`. */
+  listings?: readonly string[]
   /** Support is declared per thread kind. */
   perKind?: boolean
   /** The capability is computed by core rather than read from a declared verb. */
-  derived?: 'experimental' | 'poll' | 'webhook' | 'threadEvents' | 'getComment' | 'getReview' | 'ciJob' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
+  derived?: 'experimental' | 'webhook' | 'threadEvents' | 'getComment' | 'getReview' | 'ciJob' | 'commitComment' | 'subscriptionSet' | 'approve' | 'alertKinds' | 'eventKinds' | 'authKinds' | 'limits'
   /** The verbs change state, so `readOnly` and anonymous providers reject them. */
   write?: boolean
   /** The verbs need an account, so anonymous providers reject them. */
@@ -21,16 +24,13 @@ export interface CapabilityEntry {
 }
 
 /**
- * Rows omit what follows from the rest. `spec` defaults to the capability's
- * path, with `writes.*` declared on `threads.*` and a `listing` declared as its
- * page. `verbs` defaults to the `spec` path, plus its iterable when the path
- * names a page (`repos.labelsPage` also covers `repos.labels`). An explicit
- * `spec` marks a capability grouped apart from its verbs.
+ * Rows omit what follows from the rest. `verbs` defaults to the capability,
+ * and `spec` to the capability, or its page for a `listing` (`repos.labels`
+ * is declared as `repos.labelsPage`), unless the row is `derived`. Traits
+ * have no verbs.
  */
 const TABLE = [
-  { capability: 'experimental', derived: 'experimental' },
-  { capability: 'sources.poll', derived: 'poll' },
-  { capability: 'sources.webhook', derived: 'webhook', verbs: ['webhooks.verify', 'webhooks.ingest'] },
+  { capability: 'experimental', derived: 'experimental', verbs: [] },
   { capability: 'sources.subscribe' },
   { capability: 'repos.get' },
   { capability: 'users.get' },
@@ -60,13 +60,42 @@ const TABLE = [
   { capability: 'threads.getMany' },
   { capability: 'threads.closingIssues', listing: true },
   { capability: 'threads.closingPullRequests', listing: true },
-  { capability: 'threads.events', spec: 'threads.eventsPage', derived: 'threadEvents' },
-  { capability: 'comments.list', spec: 'threads.commentsPage', perKind: true },
-  { capability: 'comments.get', spec: 'threads.getComment', derived: 'getComment', perKind: true },
-  { capability: 'comments.edit', write: true, spec: 'threads.editComment', perKind: true },
-  { capability: 'comments.delete', write: true, spec: 'threads.deleteComment', perKind: true },
-  { capability: 'comments.hide', write: true, spec: 'threads.hiding', perKind: true, verbs: ['threads.hideComment', 'threads.unhideComment'] },
-  { capability: 'reactions.list', spec: 'threads.reactionsPage', perKind: true },
+  { capability: 'threads.events', listing: true, spec: 'threads.eventsPage', derived: 'threadEvents' },
+  { capability: 'threads.comments', listing: true, perKind: true },
+  { capability: 'threads.getComment', spec: 'threads.getComment', derived: 'getComment', perKind: true },
+  { capability: 'threads.createComment', write: true, perKind: true },
+  { capability: 'threads.updateComment', write: true, perKind: true },
+  { capability: 'threads.deleteComment', write: true, perKind: true },
+  { capability: 'threads.hideComment', write: true, spec: 'threads.hiding', perKind: true, verbs: ['threads.hideComment', 'threads.unhideComment'] },
+  { capability: 'threads.reactions', listing: true, perKind: true },
+  { capability: 'threads.react', write: true, spec: 'threads.reactions', perKind: true, verbs: ['threads.react', 'threads.unreact'] },
+  { capability: 'threads.create', write: true, perKind: true },
+  { capability: 'threads.update', write: true, perKind: true },
+  { capability: 'threads.close', write: true, perKind: true },
+  { capability: 'threads.reopen', write: true, perKind: true },
+  { capability: 'threads.lock', write: true, spec: 'threads.locking', perKind: true, verbs: ['threads.lock', 'threads.unlock'] },
+  { capability: 'threads.setLabels', write: true, perKind: true },
+  { capability: 'threads.addLabels', write: true, perKind: true },
+  { capability: 'threads.removeLabels', write: true, perKind: true },
+  { capability: 'threads.setMilestone', write: true, perKind: true },
+  { capability: 'threads.setAssignees', write: true, perKind: true },
+  { capability: 'threads.requestReview', write: true, perKind: true },
+  { capability: 'threads.merge', write: true },
+  { capability: 'threads.updateBranch', write: true },
+  { capability: 'threads.transfer', write: true },
+  { capability: 'threads.markDuplicate', write: true },
+  { capability: 'threads.subscription', account: true, spec: 'threads.subscriptions', perKind: true },
+  { capability: 'threads.subscribe', write: true, derived: 'subscriptionSet', verbs: ['threads.subscribe', 'threads.unsubscribe'] },
+  { capability: 'threads.checks', perKind: true },
+  { capability: 'threads.files', listing: true },
+  { capability: 'threads.commits', listing: true },
+  { capability: 'threads.reviews', listing: true },
+  { capability: 'threads.getReview', spec: 'threads.getReview', derived: 'getReview' },
+  { capability: 'threads.createReview', write: true },
+  { capability: 'threads.submitReview', write: true },
+  { capability: 'threads.approve', write: true, spec: 'threads.approve', derived: 'approve' },
+  { capability: 'threads.replyToReviewComment', write: true },
+  { capability: 'threads.resolveReviewThread', write: true, spec: 'threads.reviewThreads', verbs: ['threads.resolveReviewThread', 'threads.unresolveReviewThread'] },
   { capability: 'notifications.list', account: true, listing: true },
   { capability: 'notifications.markRead', account: true, write: true },
   { capability: 'notifications.markDone', account: true, write: true },
@@ -74,54 +103,31 @@ const TABLE = [
   { capability: 'notifications.markAllRead', account: true, write: true },
   { capability: 'notifications.markAllDone', account: true, write: true },
   { capability: 'notifications.unreadCount', account: true },
-  { capability: 'writes.comment', write: true, perKind: true },
-  { capability: 'writes.close', write: true, perKind: true },
-  { capability: 'writes.reopen', write: true, perKind: true },
-  { capability: 'writes.lock', write: true, spec: 'threads.locking', perKind: true, verbs: ['threads.lock', 'threads.unlock'] },
-  { capability: 'writes.create', write: true, perKind: true },
-  { capability: 'writes.update', write: true, perKind: true },
-  { capability: 'writes.setLabels', write: true, perKind: true },
-  { capability: 'writes.addLabels', write: true, perKind: true },
-  { capability: 'writes.removeLabels', write: true, perKind: true },
-  { capability: 'writes.setMilestone', write: true, perKind: true },
-  { capability: 'writes.react', write: true, spec: 'threads.reactions', perKind: true, verbs: ['threads.react', 'threads.unreact'] },
-  { capability: 'writes.setAssignees', write: true, perKind: true },
-  { capability: 'writes.requestReview', write: true, perKind: true },
-  { capability: 'writes.merge', write: true },
-  { capability: 'writes.updateBranch', write: true },
-  { capability: 'writes.transfer', write: true },
-  { capability: 'writes.markDuplicate', write: true },
-  { capability: 'subscriptions.get', account: true, spec: 'threads.subscriptions', perKind: true, verbs: ['threads.subscription'] },
-  { capability: 'subscriptions.set', write: true, derived: 'subscriptionSet', verbs: ['threads.subscribe', 'threads.unsubscribe'] },
-  { capability: 'installations', account: true, verbs: ['installations.list', 'installations.listPage', 'installations.get', 'installations.token', 'installations.repos', 'installations.reposPage', 'installations.provider', 'installations.providers'] },
-  { capability: 'checks.thread', spec: 'threads.checks', perKind: true },
+  { capability: 'installations.list', account: true, spec: 'installations', verbs: ['installations.list', 'installations.get', 'installations.token', 'installations.repos', 'installations.provider', 'installations.providers'], listings: ['installations.list', 'installations.repos'] },
   { capability: 'checks.list' },
   { capability: 'checks.get' },
   { capability: 'checks.report', write: true },
   { capability: 'checks.rerun', write: true },
   { capability: 'ci.runs', listing: true },
-  { capability: 'ci.run' },
+  { capability: 'ci.getRun' },
   { capability: 'ci.jobs', listing: true },
-  { capability: 'ci.job', spec: 'ci.job', derived: 'ciJob' },
+  { capability: 'ci.getJob', spec: 'ci.getJob', derived: 'ciJob' },
   { capability: 'ci.log' },
-  { capability: 'contents.file' },
+  { capability: 'contents.getFile' },
   { capability: 'contents.tree', listing: true },
   { capability: 'contents.branches', listing: true },
   { capability: 'contents.tags', listing: true },
   { capability: 'contents.resolveRef' },
-  { capability: 'contents.commits', listing: true },
-  { capability: 'contents.commit' },
   { capability: 'contents.compare' },
   { capability: 'contents.commitFiles', write: true },
-  { capability: 'contents.threadFiles', spec: 'threads.filesPage' },
-  { capability: 'contents.threadCommits', spec: 'threads.commitsPage' },
-  { capability: 'reviews.list', spec: 'threads.reviewsPage' },
-  { capability: 'reviews.get', spec: 'threads.getReview', derived: 'getReview' },
-  { capability: 'reviews.create', write: true, spec: 'threads.createReview' },
-  { capability: 'reviews.submit', write: true, spec: 'threads.submitReview' },
-  { capability: 'reviews.approve', write: true, spec: 'threads.approve', derived: 'approve' },
-  { capability: 'reviews.reply', write: true, spec: 'threads.replyToReviewComment' },
-  { capability: 'reviews.resolveThread', write: true, spec: 'threads.reviewThreads', verbs: ['threads.resolveReviewThread', 'threads.unresolveReviewThread'] },
+  { capability: 'commits.list', listing: true },
+  { capability: 'commits.get' },
+  { capability: 'commits.comments', listing: true },
+  { capability: 'commits.getComment', spec: 'commits.getComment', derived: 'commitComment' },
+  { capability: 'commits.createComment', write: true },
+  { capability: 'commits.updateComment', write: true },
+  { capability: 'commits.deleteComment', write: true },
+  { capability: 'commits.hideComment', write: true, spec: 'commits.commentHiding', verbs: ['commits.hideComment', 'commits.unhideComment'] },
   { capability: 'releases.list', listing: true },
   { capability: 'releases.get' },
   { capability: 'releases.latest' },
@@ -129,6 +135,7 @@ const TABLE = [
   { capability: 'releases.downloadAsset' },
   { capability: 'releases.create', write: true },
   { capability: 'releases.update', write: true },
+  { capability: 'webhooks.ingest', derived: 'webhook', verbs: ['webhooks.verify', 'webhooks.ingest'] },
   { capability: 'webhooks.list', account: true, listing: true },
   { capability: 'webhooks.create', write: true },
   { capability: 'webhooks.update', write: true },
@@ -140,25 +147,21 @@ const TABLE = [
   { capability: 'search.repos', listing: true },
   { capability: 'search.commits', listing: true },
   { capability: 'search.code', listing: true },
-  { capability: 'securityAlerts', derived: 'alertKinds', verbs: ['securityAlerts.list', 'securityAlerts.listPage'] },
-  { capability: 'eventKinds', derived: 'eventKinds' },
-  { capability: 'authKinds', derived: 'authKinds' },
-  { capability: 'limits', derived: 'limits' },
+  { capability: 'securityAlerts.list', listing: true, derived: 'alertKinds' },
+  { capability: 'eventKinds', derived: 'eventKinds', verbs: [] },
+  { capability: 'authKinds', derived: 'authKinds', verbs: [] },
+  { capability: 'limits', derived: 'limits', verbs: [] },
 ] as const
 
-type DefaultSpec<C> = C extends `writes.${infer Name}` ? `threads.${Name}` : C
+type DefaultPath<R> = R extends { capability: infer C extends string }
+  ? R extends { listing: true } ? `${C}Page` : C
+  : never
 
 type SpecOf<R> = R extends { spec: infer S extends string }
   ? S
-  : R extends { derived: string }
-    ? never
-    : R extends { capability: infer C extends string }
-      ? R extends { listing: true } ? `${DefaultSpec<C>}Page` : DefaultSpec<C>
-      : never
+  : R extends { derived: string } ? never : DefaultPath<R>
 
-type WithIterable<S> = S extends `${infer Iterable}Page` ? Iterable | S : S
-
-type VerbsOf<R> = R extends { verbs: readonly (infer V extends string)[] } ? V : WithIterable<SpecOf<R>>
+type VerbsOf<R> = R extends { verbs: readonly (infer V extends string)[] } ? V : R extends { capability: infer C extends string } ? C : never
 
 /** A provider verb, named by its path on `ForgeProvider`. */
 export type ForgeVerb = VerbsOf<(typeof TABLE)[number]>
@@ -166,7 +169,7 @@ export type ForgeVerb = VerbsOf<(typeof TABLE)[number]>
 /** Every `ProviderSpec` path the table declares. */
 export type TableSpecPath = SpecOf<(typeof TABLE)[number]>
 
-/** A table row: a listing is declared as its `Page` verb, which also yields the iterable. */
+/** A table row: a listing is declared as its `Page` verb. */
 interface TableRow extends CapabilityEntry {
   listing?: boolean
 }
@@ -175,12 +178,7 @@ interface TableRow extends CapabilityEntry {
  * Every capability with the verbs it covers and the flags that gate it, in the order the capability matrix lists them.
  */
 export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly TableRow[]).map(({ listing, ...row }) => {
-  const spec = row.spec ?? (row.derived ? undefined : defaultSpec(row.capability, listing))
-  const verbs = row.verbs ?? (spec?.endsWith('Page') ? [spec.slice(0, -4), spec] : spec ? [spec] : undefined)
-  return { ...row, ...spec ? { spec } : {}, ...verbs ? { verbs } : {} }
+  const path = listing ? `${row.capability}Page` : row.capability
+  const spec = row.spec ?? (row.derived ? undefined : path)
+  return { ...row, ...spec ? { spec } : {}, verbs: row.verbs ?? [row.capability], ...listing ? { listings: [row.capability] } : {} }
 })
-
-function defaultSpec(capability: string, listing: boolean | undefined): string {
-  const path = capability.startsWith('writes.') ? `threads.${capability.slice('writes.'.length)}` : capability
-  return listing ? `${path}Page` : path
-}

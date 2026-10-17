@@ -42,7 +42,7 @@ export { github } from './github/index.ts'
 export type { GitHubAuth, GitHubGraphQL, GitHubOptions, GitHubProvider, GitHubTokenAuth, GitHubTokenKind, TypedGraphQLDocument } from './github/index.ts'
 export { gitlab } from './gitlab/index.ts'
 export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
-export { affectedKeys, commentKey, DATE_FIELDS, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
+export { affectedKeys, commentKey, commitCommentKey, commitKey, DATE_FIELDS, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseCommitCommentKey, parseCommitKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
   AddCollaboratorResult,
@@ -68,6 +68,8 @@ export type {
   Comment,
   CommentRef,
   Commit,
+  CommitComment,
+  CommitCommentRef,
   CommitFilesInput,
   CommitQuery,
   CommitRef,
@@ -201,12 +203,13 @@ export type {
   CiApi,
   CloseOptions,
   CloseReason,
+  CommitsApi,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
+  ForgeListing,
   ForgeOptionsBase,
   ForgeProvider,
-  ForgeProviderFactory,
   Forges,
   HideCommentReason,
   InstallationsApi,
@@ -234,9 +237,8 @@ export type {
 } from './provider.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
-export { supportOf, supports } from './supports.ts'
+export { can, support } from './supports.ts'
 export type { ForgeVerb } from './supports.ts'
 export { tangled } from './tangled/index.ts'
 export type { TangledAuth, TangledOptions, WebSocketFactory, WebSocketLike } from './tangled/index.ts'
 export type { ParsedForgeUrl, ReferenceOptions, RepoSection, UrlTarget } from './web.ts'
-export { parseForgeUrl } from './web.ts'

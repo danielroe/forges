@@ -6,13 +6,13 @@ import { contentsFile, contentsListing, fixtureFetch, hangingFetch } from '../ut
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('forgejo', overrides)
-  return { instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), calls }
+  return { instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }), calls }
 }
 
 describe('forgejo provider', () => {
   it('appends the api prefix to an instance root', () => {
-    const codeberg = forgejo({ auth: { type: 'token', token: 't' } }).create()
-    const selfHosted = forgejo({ baseUrl: 'https://git.example.org/', auth: { type: 'token', token: 't' } }).create()
+    const codeberg = forgejo({ auth: { type: 'token', token: 't' } })
+    const selfHosted = forgejo({ baseUrl: 'https://git.example.org/', auth: { type: 'token', token: 't' } })
 
     expect(codeberg.baseUrl).toBe('https://codeberg.org/api/v1')
     expect(codeberg.instance).toBe('codeberg.org')
@@ -33,7 +33,7 @@ describe('forgejo provider', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
     const { fetch, started } = hangingFetch()
-    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch })
 
     const pending = instance.notifications.unsubscribe({ forge: 'forgejo', instance: 'codeberg.org', id: '5512' }, { signal: controller.signal })
     await started
@@ -60,18 +60,6 @@ describe('forgejo provider', () => {
       'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',
       'DELETE https://codeberg.org/api/v1/repos/acme/widgets/issues/7/subscriptions/testuser',
     ])
-  })
-
-  it('refuses to comment on a commit', async () => {
-    const { instance } = provider()
-    await expect(instance.threads.comment!({
-      forge: 'forgejo',
-      instance: 'codeberg.org',
-      repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' },
-      kind: 'commit',
-      number: 'adbc9741',
-    }, 'hi')).rejects.toThrow('forgejo does not support threads.comment for a commit')
-    expect(instance.capabilities.writes.comment.commit).toBe(false)
   })
 
   it('updates a branch by the style it is given, and compares the head sha with a read first', async () => {
@@ -153,9 +141,9 @@ describe('forgejo provider', () => {
     const second = 'https://codeberg.org/api/v1/users/acme/repos?limit=1&page=2'
     const instance = forgejo({ fetch: async url => url === first
       ? Response.json([{ id: 1, name: 'site', full_name: 'acme/site', private: false, owner: { login: 'acme' } }], { headers: { link: `<${second}>; rel="next"` } })
-      : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) }).create()
+      : Response.json([{ id: 2, name: 'vault', full_name: 'acme/vault', private: true, owner: { login: 'acme' } }]) })
 
-    const page = await instance.repos.byOwnerPage({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 })
+    const page = await instance.repos.byOwner({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' }, { visibility: 'private', perPage: 1 }).page()
 
     expect(page.items.map(repo => repo.ref.name)).toEqual(['vault'])
   })
@@ -164,7 +152,7 @@ describe('forgejo provider', () => {
 describe('forgejo release webhooks', () => {
   it('maps Forgejo release deliveries', async () => {
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       action: 'published',
       release: { id: 31001, tag_name: 'v0.4.0', name: 'Four' },
@@ -183,10 +171,10 @@ describe('forgejo path safety', () => {
     const provider = forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: 't' }, fetch: async (url) => {
       urls.push(url)
       return new Response('{"id":1,"body":"hi","user":{"id":1,"login":"a"}}', { status: 201 })
-    } }).create()
+    } })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme/x', name: 'widgets' }
 
-    await provider.threads.comment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
+    await provider.threads.createComment({ forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'pull_request', number: '1?x=' }, 'hi')
 
     expect(urls).toEqual(['https://codeberg.org/api/v1/repos/acme%2Fx/widgets/issues/1%3Fx%3D/comments'])
   })
@@ -207,7 +195,7 @@ describe('forgejo pagination without a link header', () => {
       }
       return Response.json(response.body, { headers: response.total === undefined ? {} : { 'x-total-count': String(response.total) } })
     }
-    return { provider: gitea({ auth: { type: 'token', token: 't' }, fetch }).create(), urls }
+    return { provider: gitea({ auth: { type: 'token', token: 't' }, fetch }), urls }
   }
 
   it('continues a listing from its total count', async () => {
@@ -227,7 +215,7 @@ describe('forgejo pagination without a link header', () => {
       'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=5': { body: [label(1), label(2)], total: 3 },
     })
 
-    const page = await provider.repos.labelsPage(repo, { perPage: 5 })
+    const page = await provider.repos.labels(repo, { perPage: 5 }).page()
 
     expect(page.cursor?.nextUrl).toBe('https://gitea.com/api/v1/repos/acme/widgets/labels?limit=2&page=2')
   })
@@ -249,7 +237,7 @@ describe('forgejo pagination without a link header', () => {
       'https://gitea.com/api/v1/repos/acme/widgets/labels?limit=1': { body: [label(1), label(2)], total: 2 },
     })
 
-    const page = await provider.repos.labelsPage(repo, { perPage: 1 })
+    const page = await provider.repos.labels(repo, { perPage: 1 }).page()
 
     expect(page.items).toHaveLength(2)
     expect(page.cursor).toBeUndefined()
@@ -262,17 +250,17 @@ describe('forgejo label filters', () => {
     { id: 1, number: 1, title: 'Both', state: 'open', labels: [{ id: 1, name: 'bug' }, { id: 2, name: 'ui' }], repository },
     { id: 2, number: 2, title: 'One', state: 'open', labels: [{ id: 1, name: 'bug' }], repository },
   ]
-  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
   const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }
 
   it('lists only threads carrying every label', async () => {
-    const page = await provider.threads.listPage(repo, { labels: ['bug', 'ui'] })
+    const page = await provider.threads.list(repo, { labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
 
   it('searches only threads carrying every label', async () => {
-    const page = await provider.search.threadsPage({ labels: ['bug', 'ui'] })
+    const page = await provider.search.threads({ labels: ['bug', 'ui'] }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['Both'])
   })
@@ -287,7 +275,7 @@ describe('forgejo merge settings', () => {
     ['manually-merged', undefined],
   ])('reads the default merge style %s', async (style, method) => {
     const body = { id: 64021, name: 'widgets', full_name: 'acme/widgets', owner: { id: 4001, login: 'acme' }, default_merge_style: style, default_delete_branch_after_merge: true }
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(body) }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(body) })
     const result = await provider.repos.get(repo)
 
     expect(result.defaultMergeMethod).toBe(method)
@@ -315,7 +303,7 @@ describe('forgejo label names', () => {
       return init?.method === 'POST' ? Response.json([{ id: 1, name: 'bug', color: 'ff0000', description: '' }, { id: 9, name: 'triage', color: '00ff00', description: 'Needs a look' }]) : Response.json({ message: 'not found' }, { status: 404 })
     }
     const thread = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner, name: 'widgets' }, kind: 'issue', number: '7' } as const
-    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create(), thread, calls }
+    return { provider: forgejo({ auth: { type: 'token', token: 't' }, fetch }), thread, calls }
   }
 
   it('resolves a label the organisation shares', async () => {
@@ -351,16 +339,16 @@ describe('forgejo search filters', () => {
     { id: 1, number: 1, title: 'By Ada', state: 'open', user: ada, assignees: [grace], repository },
     { id: 2, number: 2, title: 'By Grace', state: 'open', user: grace, assignees: [ada], repository },
   ]
-  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) }).create()
+  const provider = forgejo({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json(issues) })
 
   it('searches only threads by the author', async () => {
-    const page = await provider.search.threadsPage({ author: 'ada' })
+    const page = await provider.search.threads({ author: 'ada' }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['By Ada'])
   })
 
   it('searches only threads assigned to the assignee', async () => {
-    const page = await provider.search.threadsPage({ assignee: 'ada' })
+    const page = await provider.search.threads({ assignee: 'ada' }).page()
 
     expect(page.items.map(thread => thread.title)).toEqual(['By Grace'])
   })
@@ -369,7 +357,7 @@ describe('forgejo search filters', () => {
 describe('forgejo label webhooks', () => {
   it.each([['label_updated', 'edited'], ['label_cleared', 'unlabelled']])('maps %s to %s', async (action, expected) => {
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
-    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' }).create()
+    const provider = forgejo({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
     const body = JSON.stringify({
       action,
       number: 3,
@@ -389,13 +377,13 @@ describe('forgejo actions', () => {
   const repo = { forge: 'forgejo', instance: 'git.example.org', owner: 'acme', name: 'widgets' }
 
   it('reads Actions on Codeberg and gates a self-hosted instance on its version', () => {
-    const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).create().capabilities.ci
+    const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).capabilities.ci
 
-    expect(ci({})).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
-    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: false, job: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
-    expect(forgejo({ auth: { type: 'anonymous' } }).create().capabilities.ci).toEqual({ runs: true, run: true, jobs: true, job: 'emulated', log: true })
+    expect(ci({})).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
+    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: false, getJob: false, log: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
+    expect(forgejo({ auth: { type: 'anonymous' } }).capabilities.ci).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
   })
 
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
@@ -404,9 +392,9 @@ describe('forgejo actions', () => {
     const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '14.0.5', fetch: async (url) => {
       urls.push(String(url))
       return Response.json({ total_count: 3, workflow_runs: [run(3, 'main', 'cancelled'), run(2, '#9', 'failure'), run(1, 'c4a92ff', 'failure')] })
-    } }).create()
+    } })
 
-    const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'failure' })
+    const page = await provider.ci.runs(repo, { branch: 'main', state: 'failure' }).page()
 
     expect(urls).toEqual(['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=1&limit=50'])
     expect(page.items).toMatchObject([{ number: '3', branch: 'main', state: 'failure', stateRaw: 'cancelled', startedAt: undefined }])
@@ -419,10 +407,10 @@ describe('forgejo actions', () => {
       urls.push(String(url))
       const first = new URL(String(url)).searchParams.get('page') === '1' ? 120 : 70
       return Response.json({ total_count: 120, workflow_runs: Array.from({ length: 50 }, (_, index) => ({ id: first - index, status: 'success' })) })
-    } }).create()
+    } })
 
-    const first = await provider.ci.runsPage(repo, { perPage: 100 })
-    const second = await provider.ci.runsPage(repo, { perPage: 100, cursor: first.cursor })
+    const first = await provider.ci.runs(repo, { perPage: 100 }).page()
+    const second = await provider.ci.runs(repo, { perPage: 100, cursor: first.cursor }).page()
 
     expect(first.items).toHaveLength(50)
     expect(first.total).toBe(120)
@@ -435,7 +423,7 @@ describe('forgejo actions', () => {
   })
 
   it('streams a job log', async () => {
-    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async url => new Response(String(url).endsWith('/actions/jobs/404013/logs') ? 'workflow prepared\n' : null, { status: 200 }) }).create()
+    const provider = forgejo({ auth, baseUrl: 'https://git.example.org', instanceVersion: '16.0.0', fetch: async url => new Response(String(url).endsWith('/actions/jobs/404013/logs') ? 'workflow prepared\n' : null, { status: 200 }) })
 
     const log = await provider.ci.log({ forge: 'forgejo', instance: 'git.example.org', repo, id: '404013' })
 
@@ -454,18 +442,18 @@ describe('gitea actions', () => {
     const provider = gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0', fetch: async (url) => {
       urls.push(String(url))
       return responses.has(String(url)) ? Response.json(responses.get(String(url))) : Response.json({ message: 'not found' }, { status: 404 })
-    } }).create()
+    } })
     return { provider, urls }
   }
 
   it('reads Actions on gitea.com and gates a self-hosted instance on its version', () => {
-    const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).create().capabilities.ci
+    const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).capabilities.ci
 
-    expect(ci({ auth })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
-    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, run: true, jobs: true, job: true, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, run: false, jobs: false, job: false, log: true })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, run: true, jobs: true, job: true, log: true })
+    expect(ci({ auth })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true })
+    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, getRun: true, jobs: true, getJob: true, log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: true })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true })
   })
 
   it('reads a job whose ref names no run, and names the run from the job', async () => {
@@ -473,7 +461,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
     ]))
 
-    const job = await provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })
+    const job = await provider.ci.getJob({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })
 
     expect(job.ref.run).toEqual({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
   })
@@ -483,7 +471,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/jobs/9', { id: 9, name: 'test', status: 'completed', conclusion: 'success', started_at: zero, completed_at: zero }],
     ]))
 
-    await expect(provider.ci.job({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.ci.getJob({ forge: 'gitea', instance: 'git.example.org', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('filters runs on `branch` and on the statuses Gitea accepts', async () => {
@@ -491,7 +479,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs?status=queued&status=waiting&status=in_progress&branch=main&page=1&limit=50', { total_count: 2, workflow_runs: [run(2, 'queued'), run(1, 'waiting')] }],
     ]))
 
-    const page = await provider.ci.runsPage(repo, { branch: 'main', state: 'pending' })
+    const page = await provider.ci.runs(repo, { branch: 'main', state: 'pending' }).page()
 
     expect(urls).toHaveLength(1)
     expect(page.items).toMatchObject([
@@ -504,7 +492,7 @@ describe('gitea actions', () => {
     const pull = { ...run(7, 'completed', 'cancelled'), path: undefined, head_branch: undefined, started_at: '2026-10-02T03:40:00Z', completed_at: '2026-10-02T03:42:02Z' }
     const { provider } = serve(new Map([['https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7', pull]]))
 
-    const read = await provider.ci.run({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
+    const read = await provider.ci.getRun({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' })
 
     expect(read).toMatchObject({ name: 'Fix the build', branch: undefined, state: 'failure', stateRaw: 'completed', completedAt: new Date('2026-10-02T03:42:02Z') })
   })
@@ -515,7 +503,7 @@ describe('gitea actions', () => {
       ['https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=1&limit=2', { total_count: 3, jobs: [job(1), job(2)] }],
     ]))
 
-    const page = await provider.ci.jobsPage({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' }, { perPage: 2 })
+    const page = await provider.ci.jobs({ forge: 'gitea', instance: 'git.example.org', repo, id: '7' }, { perPage: 2 }).page()
 
     expect(page.items).toMatchObject([{ name: 'job 1', state: 'neutral', startedAt: undefined }, { name: 'job 2' }])
     expect(page.cursor?.nextUrl).toBe('https://git.example.org/api/v1/repos/acme/widgets/actions/runs/7/jobs?page=2&limit=2')
@@ -525,7 +513,7 @@ describe('gitea actions', () => {
 describe('gitea single-item reads', () => {
   it('reports a comment read that returns no content as not found', async () => {
     const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' }
-    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) }).create()
+    const provider = gitea({ auth: { type: 'token', token: 't' }, fetch: async () => new Response(null, { status: 204 }) })
     const thread = { forge: 'gitea', instance: 'gitea.com', repo, kind: 'pull_request', number: '3' } as const
 
     await expect(provider.threads.getComment({ forge: 'gitea', instance: 'gitea.com', thread, id: '9' })).rejects.toThrow(NotFoundError)
@@ -536,13 +524,13 @@ describe('gitea review replies', () => {
   const auth = { type: 'token', token: 't' } as const
 
   it('waits for Gitea 1.27 on a self-hosted instance, and Forgejo has no replies', () => {
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).create().capabilities.reviews.reply).toBe(false)
-    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).create().capabilities.reviews.reply).toBe(true)
-    expect(forgejo({ auth }).create().capabilities.reviews.reply).toBe(false)
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.4' }).capabilities.threads.replyToReviewComment).toBe(false)
+    expect(gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.27.0' }).capabilities.threads.replyToReviewComment).toBe(true)
+    expect(forgejo({ auth }).capabilities.threads.replyToReviewComment).toBe(false)
   })
 
   it('asks for write scopes to reply', () => {
-    expect(gitea({ auth }).create().scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
+    expect(gitea({ auth }).scopesFor('threads.replyToReviewComment')).toEqual({ token: ['write:issue', 'write:repository'] })
   })
 })
 
@@ -554,7 +542,7 @@ describe('forgejo thread updates', () => {
 
   it('lists comments since a time on the forge', async () => {
     const { instance, calls } = provider({ 'GET https://codeberg.org/api/v1/repos/acme/widgets/issues/9/comments?since=2026-03-01T12:00:00.000Z': { status: 200, body: [] } })
-    await instance.threads.commentsPage(thread('issue', '9'), { since: new Date('2026-03-01T12:00:00Z') })
+    await instance.threads.comments(thread('issue', '9'), { since: new Date('2026-03-01T12:00:00Z') }).page()
 
     expect(new URL(calls[0]!.url).searchParams.get('since')).toBe('2026-03-01T12:00:00.000Z')
   })
@@ -623,12 +611,12 @@ describe('forgejo organisation teams', () => {
   it('rejects a slug that names no team, even one that matches a team id', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.orgs.teamMembersPage({ forge: 'forgejo', instance: 'codeberg.org', org, slug: '12' })).rejects.toThrow(NotFoundError)
+    await expect(instance.orgs.teamMembers({ forge: 'forgejo', instance: 'codeberg.org', org, slug: '12' }).page()).rejects.toThrow(NotFoundError)
     expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v1/orgs/acme/teams'])
   })
 
   it('reports organisation teams unsupported without a credential', () => {
-    const anonymous = forgejo({}).create()
+    const anonymous = forgejo({})
 
     expect(anonymous.can('orgs.teams')).toBe(false)
     expect(anonymous.can('orgs.teamMembers')).toBe(false)
@@ -699,7 +687,7 @@ describe('forgejo templates', () => {
 
   it('skips the directories Gitea does not look in', async () => {
     const { fetch, calls } = fixtureFetch('forgejo', Object.fromEntries(Object.entries(pullFiles).map(([key, response]) => [key.replace('codeberg.org', 'gitea.com'), response])))
-    const instance = gitea({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = gitea({ auth: { type: 'token', token: 't' }, fetch })
 
     const templates = await instance.repos.templates({ ...repo, forge: 'gitea', instance: 'gitea.com' }, { kind: 'pull_request' })
 
@@ -715,11 +703,11 @@ describe('forgejo thread listing filters', () => {
       urls.push(String(input))
       return new Response('[]', { headers: { 'content-type': 'application/json', 'link': '<https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2>; rel="next"' } })
     }
-    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch }).create()
+    const instance = forgejo({ auth: { type: 'token', token: 't' }, fetch })
     const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
 
-    const first = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' })
-    const next = await instance.threads.listPage(repo, { kind: 'issue', involves: 'ada', cursor: { nextUrl: 'https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2' } })
+    const first = await instance.threads.list(repo, { kind: 'issue', involves: 'ada', mentions: 'ada', milestone: 'v1' }).page()
+    const next = await instance.threads.list(repo, { kind: 'issue', involves: 'ada', cursor: { nextUrl: 'https://codeberg.org/api/v1/repos/acme/widgets/issues?page=2' } }).page()
 
     expect(first.warnings?.filter(warning => warning.code === 'filter_unsupported').map(warning => warning.message)).toEqual([
       'This listing has no involves filter; it was ignored',
@@ -741,7 +729,7 @@ describe('forgejo getMany', () => {
       urls.push(String(input))
       return new Response('{"message":"refused"}', { status, headers: { 'content-type': 'application/json', ...headers } })
     }
-    return { urls, instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }).create() }
+    return { urls, instance: forgejo({ auth: { type: 'token', token: 't' }, fetch }) }
   }
 
   it('rejects a rejected credential instead of warning per thread, and starts no further reads', async () => {
@@ -772,7 +760,7 @@ describe('forgejo and gitea moderation', () => {
 
   it('blocks and unblocks an account on Forgejo, for an organisation and for the viewer', async () => {
     const { fetch, calls } = fixtureFetch('forgejo')
-    const instance = forgejo({ auth, fetch }).create()
+    const instance = forgejo({ auth, fetch })
     const org = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: '', kind: 'namespace' } as const
 
     await instance.orgs.block(org, 'spammer')
@@ -788,12 +776,12 @@ describe('forgejo and gitea moderation', () => {
     ])
     expect(instance.scopesFor('orgs.block')).toEqual({ token: ['write:organization'] })
     expect(instance.scopesFor('users.block')).toEqual({ token: ['write:user'] })
-    expect(instance.capabilities.writes.lock).toEqual({ issue: false, pull_request: false, discussion: false, commit: false })
+    expect(instance.capabilities.threads.lock).toEqual({ issue: false, pull_request: false, discussion: false })
   })
 
   it('blocks and unblocks an account on Gitea, and locks an issue or pull request with the reason Gitea names', async () => {
     const { fetch, calls } = fixtureFetch('gitea')
-    const instance = gitea({ auth, fetch }).create()
+    const instance = gitea({ auth, fetch })
     const org = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: '', kind: 'namespace' } as const
     const repo = { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' } as const
 
@@ -819,9 +807,9 @@ describe('forgejo and gitea moderation', () => {
   })
 
   it('waits for Gitea 1.22 to block and 1.24 to lock on a self-hosted instance', () => {
-    const at = (instanceVersion: string) => gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion }).create().capabilities
-    expect(at('1.21.11')).toMatchObject({ users: { block: false }, orgs: { block: false }, writes: { lock: { issue: false } } })
-    expect(at('1.23.8')).toMatchObject({ users: { block: true }, orgs: { block: true }, writes: { lock: { issue: false } } })
-    expect(at('1.24.0')).toMatchObject({ writes: { lock: { issue: true, pull_request: true } } })
+    const at = (instanceVersion: string) => gitea({ auth, baseUrl: 'https://git.example.org', instanceVersion }).capabilities
+    expect(at('1.21.11')).toMatchObject({ users: { block: false }, orgs: { block: false }, threads: { lock: { issue: false } } })
+    expect(at('1.23.8')).toMatchObject({ users: { block: true }, orgs: { block: true }, threads: { lock: { issue: false } } })
+    expect(at('1.24.0')).toMatchObject({ threads: { lock: { issue: true, pull_request: true } } })
   })
 })

@@ -18,4 +18,4 @@ export const GITEA_PROFILE: ForgejoProfile = {
 }
 
 /** Creates a Gitea provider for gitea.com or any self-hosted Gitea instance. */
-export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(GITEA_PROFILE))
+export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea'> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(GITEA_PROFILE))

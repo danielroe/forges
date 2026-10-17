@@ -36,12 +36,11 @@ Before you connect a real forge, you can try the API against `forges/fake`. It i
 ```ts
 import { fake } from 'forges/fake'
 
-const sandbox = fake({
+const forge = fake({
   seed: {
     threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }],
   },
 })
-const forge = sandbox.create()
 
 const repo = {
   forge: 'fake',
@@ -51,13 +50,13 @@ const repo = {
 } as const
 
 for await (const issue of forge.threads.list(repo, { kind: 'issue' })) {
-  await forge.threads.comment(issue.ref, 'Thanks for the report.')
+  await forge.threads.createComment(issue.ref, 'Thanks for the report.')
 }
 
-console.log(sandbox.store.events)
+console.log(forge.store.events)
 ```
 
-Every write updates `sandbox.store` and adds an event to `sandbox.store.events`, so you can see what your code did. The same forge is useful in your tests, and so are responses recorded from a real forge. [Test your code](/guides/testing) explains both.
+Every write updates `forge.store` and adds an event to `forge.store.events`, so you can see what your code did. The same forge is useful in your tests, and so are responses recorded from a real forge. [Test your code](/guides/testing) explains both.
 
 ## Reference
 

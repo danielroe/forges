@@ -275,11 +275,13 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
       commentsPage: perKind({}, noThreads),
     },
     contents: {
-      file: verb(true, file),
+      getFile: verb(true, file),
       treePage: verb(true, treePage),
       resolveRef: verb(true, async (repo, ref, resolveOptions) => (await commitAt(repo, ref, resolveOptions?.signal)).hash),
-      commitsPage: verb(true, commitsPage),
-      commit: verb(true, commit),
+    },
+    commits: {
+      listPage: verb(true, commitsPage),
+      get: verb(true, ({ repo, sha }, options) => commit(repo, sha, options)),
     },
     webhooks: {},
     scopes: cloudflareArtifactsScopesFor,
@@ -296,13 +298,13 @@ const CLOUDFLARE_ARTIFACTS: ProviderDefinition<CloudflareArtifactsOptions, undef
   setup: setupArtifacts,
 }
 
-const define = /* @__PURE__ */ defineForgeProvider<CloudflareArtifactsOptions, undefined, false, 'cloudflare-artifacts', true>(CLOUDFLARE_ARTIFACTS)
+const define = /* @__PURE__ */ defineForgeProvider<CloudflareArtifactsOptions, undefined, false, 'cloudflare-artifacts'>(CLOUDFLARE_ARTIFACTS)
 
 /**
  * Creates a Cloudflare Artifacts provider for one account. A ref's instance is the
  * account's Git host, `<accountId>.artifacts.cloudflare.net`, and its owner a namespace.
  */
-export const cloudflareArtifacts: ProviderFactoryFunction<CloudflareArtifactsOptions, false, 'cloudflare-artifacts', true> = options =>
+export const cloudflareArtifacts: ProviderFactoryFunction<CloudflareArtifactsOptions, false, 'cloudflare-artifacts'> = options =>
   define({ ...options, instance: options.instance ?? `${options.accountId}.artifacts.cloudflare.net` })
 
 /** Scope requirements for a Cloudflare Artifacts operation. */

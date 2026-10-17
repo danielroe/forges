@@ -10,6 +10,8 @@ import type {
   CiRunRef,
   Comment,
   Commit,
+  CommitComment,
+  CommitRef,
   EventDetail,
   EventKind,
   ForgeEventInput,
@@ -38,7 +40,7 @@ import type {
   WebhookDeliveryRecord,
   WebhookRef,
 } from '../model.ts'
-import type { GitLabBranch, GitLabCommit, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
+import type { GitLabBranch, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
@@ -112,16 +114,14 @@ export function projectId(repo: RepoRef): string {
   return encodeURIComponent(`${repo.owner}/${repo.name}`)
 }
 
-export function toThreadKind(targetType: string): ThreadKind {
+export function toThreadKind(targetType: string): ThreadKind | undefined {
   switch (targetType) {
     case 'Issue':
       return 'issue'
     case 'MergeRequest':
       return 'pull_request'
-    case 'Commit':
-      return 'commit'
     default:
-      return 'other'
+      return undefined
   }
 }
 
@@ -164,7 +164,7 @@ export function toNotification(instance: string, raw: GitLabTodo): Notification 
     : toNamespaceRef(instance, raw.group?.full_path ?? '', raw.group?.id)
   const kind = toThreadKind(raw.target_type)
   const target = raw.target ?? undefined
-  const number = kind === 'commit' || target?.iid === undefined
+  const number = target?.iid === undefined
     ? target?.id === undefined ? undefined : String(target.id)
     : String(target.iid)
   let subject: NotificationSubject
@@ -174,7 +174,10 @@ export function toNotification(instance: string, raw: GitLabTodo): Notification 
   else if (raw.target_type === 'Project' || raw.target_type === 'Namespace') {
     subject = { type: 'repo', repo }
   }
-  else if (kind === 'other' && !raw.target?.iid) {
+  else if (raw.target_type === 'Commit' && number) {
+    subject = { type: 'commit', commit: { forge: FORGE, instance, repo, sha: number } }
+  }
+  else if (!kind) {
     subject = { type: 'other', typeRaw: raw.target_type, repo, id: number, url: raw.target_url }
   }
   else {
@@ -345,24 +348,6 @@ export function toThread(ref: ResolvedThreadRef, raw: GitLabIssue): Thread {
   }
 }
 
-export function toCommitThread(ref: ResolvedThreadRef, raw: GitLabCommit): Thread {
-  return {
-    ref,
-    kind: 'commit',
-    title: raw.title,
-    body: raw.message,
-    state: 'unknown',
-    isDraft: false,
-    assignees: [],
-    reviewers: [],
-    url: raw.web_url,
-    createdAt: toDate(raw.created_at),
-    lastActivityAt: toDate(raw.created_at),
-    labels: [],
-    raw,
-  }
-}
-
 /** System notes are the only record of label, state and assignment changes in the notes API. */
 const SYSTEM_NOTE_KINDS: Array<[RegExp, EventKind]> = [
   [/^approved this merge request/i, 'review'],
@@ -449,25 +434,6 @@ export function toNoteEvent(ref: ResolvedThreadRef, note: GitLabNote): ForgeEven
   }
 }
 
-export function toCommitCommentEvent(ref: ResolvedThreadRef, comment: GitLabCommitComment, index: number): ForgeEventInput {
-  const actor = toActor(ref.instance, comment.author)
-  return {
-    forge: FORGE,
-    instance: ref.instance,
-    id: `${ref.number}:${index}`,
-    kind: comment.line_type ? 'review_comment' : 'comment',
-    kindRaw: 'CommitComment',
-    summary: `${actor?.login ?? 'someone'} commented`,
-    ...eventTime(toDate(comment.created_at), new Date(0)),
-    actor,
-    repo: ref.repo,
-    thread: ref,
-    detail: { type: comment.line_type ? 'review_comment' : 'comment', comment: { forge: FORGE, instance: ref.instance, thread: ref, id: commitCommentId(comment) }, body: comment.note },
-    source: 'poll',
-    payload: comment,
-  }
-}
-
 /** GitLab commit comments carry no id, so they are keyed by creation time and author. */
 function commitCommentId(comment: GitLabCommitComment): string {
   return `${comment.created_at ?? ''}:${comment.author?.id ?? ''}`
@@ -485,11 +451,11 @@ export function toNoteComment(thread: ResolvedThreadRef, note: GitLabNoteDetail,
   }
 }
 
-export function toCommitComment(thread: ResolvedThreadRef, comment: GitLabCommitComment): Comment {
+export function toCommitComment(commit: CommitRef, comment: GitLabCommitComment): CommitComment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: commitCommentId(comment) },
+    ref: { forge: FORGE, instance: commit.instance, commit, id: commitCommentId(comment) },
     body: comment.note,
-    author: toActor(thread.instance, comment.author),
+    author: toActor(commit.instance, comment.author),
     createdAt: toDate(comment.created_at),
     raw: comment,
   }

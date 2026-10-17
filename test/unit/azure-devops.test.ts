@@ -9,7 +9,7 @@ const me = { 'GET https://dev.azure.com/acme/_apis/connectionData?api-version=7.
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('azure-devops', overrides)
-  return { instance: azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create(), calls }
+  return { instance: azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }), calls }
 }
 
 describe('azure devops', () => {
@@ -25,15 +25,15 @@ describe('azure devops', () => {
     const raw = (name: string, visibility?: 'public' | 'private') => ({ id: name, name, project: { id: 'p', name: 'Widgets', visibility } })
     const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch: async url => new URL(url).pathname.endsWith('/repositories')
       ? Response.json({ value: [raw('site', 'public'), raw('vault', 'private'), raw('legacy')] })
-      : Response.json(raw('widgets', 'public')) }).create()
+      : Response.json(raw('widgets', 'public')) })
 
     expect((await instance.repos.get(repo)).visibility).toBe('public')
-    expect((await instance.repos.listPage()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
+    expect((await instance.repos.list().page()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
   })
 
   it('lists work items through WIQL with state from the type\'s categories, scoped to the project', async () => {
     const { instance, calls } = provider()
-    const page = await instance.threads.listPage(repo, { kind: 'issue' })
+    const page = await instance.threads.list(repo, { kind: 'issue' }).page()
 
     expect(JSON.parse(calls[0]!.body!).query).toContain('[System.TeamProject] = @project')
     expect(page.items.map(thread => [thread.ref.number, thread.state, thread.labels.map(label => label.name)])).toEqual([['101', 'open', ['bug', 'networking']]])
@@ -42,7 +42,7 @@ describe('azure devops', () => {
 
   it('lists pull requests only, with a warning, when anonymous and no kind is given', async () => {
     const { fetch, calls } = fixtureFetch('azure-devops')
-    const page = await azureDevOps({ organization: 'acme', fetch }).create().threads.listPage(repo)
+    const page = await azureDevOps({ organization: 'acme', fetch }).threads.list(repo).page()
 
     expect(calls.some(call => call.url.includes('/wiql'))).toBe(false)
     expect(page.items.every(thread => thread.ref.kind === 'pull_request')).toBe(true)
@@ -51,7 +51,7 @@ describe('azure devops', () => {
 
   it('reads a pull request without its checks when anonymous', async () => {
     const { fetch, calls } = fixtureFetch('azure-devops')
-    const thread = await azureDevOps({ organization: 'acme', fetch }).create().threads.get(pull)
+    const thread = await azureDevOps({ organization: 'acme', fetch }).threads.get(pull)
 
     expect(thread.checks).toBeUndefined()
     expect(calls.some(call => call.url.includes('/statuses') || call.url.includes('/policy/'))).toBe(false)
@@ -73,7 +73,7 @@ describe('azure devops', () => {
     const controller = new AbortController()
     const reason = new Error('cancelled')
     const { fetch, started } = hangingFetch()
-    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch }).create()
+    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch })
 
     const pending = instance.threads.close({ ...pull, kind: 'issue', number: '101' }, { signal: controller.signal })
     await started
@@ -128,7 +128,7 @@ describe('azure devops single-item reads', () => {
   it('does not read a system comment, which the listing leaves out', async () => {
     const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch: async url => String(url).includes('/pullRequests/42/threads/7')
       ? Response.json({ id: 7, status: 'active', comments: [{ id: 1, content: 'Looks good', commentType: 'text' }, { id: 2, content: 'Policy updated', commentType: 'system' }] })
-      : Response.json({ message: 'not found' }, { status: 404 }) }).create()
+      : Response.json({ message: 'not found' }, { status: 404 }) })
     const ref = (id: string) => ({ forge: 'azure-devops', instance: 'dev.azure.com', thread: pull, id })
 
     expect((await instance.threads.getComment(ref('7/1'))).body).toBe('Looks good')
@@ -263,7 +263,7 @@ describe('azure devops organisation teams', () => {
   })
 
   it('reports organisation teams unsupported without a credential', () => {
-    const anonymous = azureDevOps({ organization: 'acme' }).create()
+    const anonymous = azureDevOps({ organization: 'acme' })
 
     expect(anonymous.can('orgs.teams')).toBe(false)
     expect(anonymous.can('orgs.teamMembers')).toBe(false)

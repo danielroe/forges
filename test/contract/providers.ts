@@ -1,6 +1,6 @@
 import type { FetchLike } from '../../src/fetch.ts'
 import type { EventKind, MergeMethod, MergeResult, PullStats } from '../../src/model.ts'
-import type { ForgeProvider, ForgeProviderFactory } from '../../src/provider.ts'
+import type { ForgeProvider } from '../../src/provider.ts'
 import type { WebSocketFactory } from '../../src/tangled/index.ts'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -30,7 +30,7 @@ export interface ProviderContract {
   probe?: (instance: ForgeProvider) => Promise<unknown>
   /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
   anonymousReads?: boolean
-  /** `editComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
+  /** `updateComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
   editsCommentWithoutThreadNumber?: boolean
   thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean, stats?: PullStats }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */
@@ -86,10 +86,6 @@ export interface ProviderContract {
   subscribe?: { messages: unknown[], kinds: EventKind[], lastCursor: string }
 }
 
-function create(factory: ForgeProviderFactory): ForgeProvider {
-  return factory.create()
-}
-
 /** Test-only Ed25519 keys; the public half of `ORIGIN_KEY` is served by `test/fixtures/cursor-origin/keys.json`. */
 const ORIGIN_KEY = 'MC4CAQAwBQYDK2VwBCIEIJd6H8aUQCQXSGedf4DblXE1KoGrVSAfSlGDU8R0IYxl'
 const ORIGIN_OTHER_KEY = 'MC4CAQAwBQYDK2VwBCIEIJpGOqTKj+1rnwfK761s9Cc93/NCxNkNrWv0QLrUBvLx'
@@ -119,12 +115,12 @@ export const contracts: ProviderContract[] = [
     fixtures: 'github',
     instance: 'github.com',
     repo: { owner: 'acme', name: 'widgets' },
-    create: (fetch, options) => create(github({
+    create: (fetch, options) => github({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     request: { path: '/repos/acme/widgets', field: 'full_name' },
     thread: { number: '42', title: 'Add retry handling to the uploader', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
     notifications: {
@@ -167,12 +163,12 @@ export const contracts: ProviderContract[] = [
     fixtures: 'forgejo',
     instance: 'codeberg.org',
     repo: { owner: 'acme', name: 'widgets' },
-    create: (fetch, options) => create(forgejo({
+    create: (fetch, options) => forgejo({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     request: { path: '/repos/acme/widgets', field: 'allow_squash_merge' },
     thread: { number: '7', title: 'Support custom cache directory', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
     notifications: {
@@ -215,12 +211,12 @@ export const contracts: ProviderContract[] = [
     fixtures: 'gitlab',
     instance: 'gitlab.com',
     repo: { owner: 'acme/platform', name: 'widgets' },
-    create: (fetch, options) => create(gitlab({
+    create: (fetch, options) => gitlab({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     request: { path: '/projects/acme%2Fplatform%2Fwidgets', field: 'merge_method' },
     thread: { number: '23', title: 'Cache compiled templates', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
     notifications: {
@@ -259,12 +255,12 @@ export const contracts: ProviderContract[] = [
     fixtures: 'bitbucket',
     instance: 'bitbucket.org',
     repo: { owner: 'acme', name: 'widgets' },
-    create: (fetch, options) => create(bitbucket({
+    create: (fetch, options) => bitbucket({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     probe: instance => instance.threads.get({
       forge: 'bitbucket',
       instance: 'bitbucket.org',
@@ -307,13 +303,13 @@ export const contracts: ProviderContract[] = [
     instance: 'tangled.org',
     editsCommentWithoutThreadNumber: true,
     repo: { owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
-    create: (fetch, options) => create(tangled({
+    create: (fetch, options) => tangled({
       auth: { type: 'app_password', identifier: 'acme.example.com', password: 'app-password', pds: 'https://pds.example.com' },
       fetch,
       timeout: options?.timeout,
       webSocket: options?.webSocket,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     probe: instance => instance.threads.get({
       forge: 'tangled',
       instance: 'tangled.org',
@@ -354,11 +350,11 @@ export const contracts: ProviderContract[] = [
     fixtures: 'cursor-origin',
     instance: 'origin.cursor.com',
     repo: { owner: 'acme', name: 'widgets' },
-    create: (fetch, options) => create(cursorOrigin({
+    create: (fetch, options) => cursorOrigin({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
-    })),
+    }),
     probe: instance => instance.repos.get({ forge: 'cursor-origin', instance: 'origin.cursor.com', owner: 'acme', name: 'widgets' }),
     request: { path: '/repos/acme/widgets', field: 'allowSquashMerge' },
     thread: { number: '12', title: 'Add launch telemetry', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true, stats: { additions: 40, deletions: 2, changedFileCount: 3 } },
@@ -397,12 +393,12 @@ export const contracts: ProviderContract[] = [
     fixtures: 'gitee',
     instance: 'gitee.com',
     repo: { owner: 'acme', name: 'widgets' },
-    create: (fetch, options) => create(gitee({
+    create: (fetch, options) => gitee({
       auth: { type: 'token', token: 'test-token' },
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     request: { path: '/repos/acme/widgets', field: 'full_name' },
     thread: { number: '7', title: 'Support custom cache directory', label: 'enhancement', eventKinds: ['label', 'comment', 'review_comment'], botActor: true },
     notifications: {
@@ -428,13 +424,13 @@ export const contracts: ProviderContract[] = [
     fixtures: 'azure-devops',
     instance: 'dev.azure.com',
     repo: { owner: 'acme/Widgets', name: 'widgets' },
-    create: (fetch, options) => create(azureDevOps({
+    create: (fetch, options) => azureDevOps({
       auth: { type: 'token', token: 'test-pat' },
       organization: 'acme',
       fetch,
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
-    })),
+    }),
     probe: instance => instance.repos.get({ forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' }),
     request: { path: '/acme/Widgets/_apis/git/repositories/widgets', field: 'defaultBranch' },
     thread: { number: '42', title: 'Add retry handling to the uploader', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true },

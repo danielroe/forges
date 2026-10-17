@@ -1,4 +1,4 @@
-import type { BaseOptions, Comment, ThreadRef } from './model.ts'
+import type { BaseOptions, Comment, CommitComment, CommitRef, ThreadRef } from './model.ts'
 import type { ForgeProvider } from './provider.ts'
 
 /** What {@link upsertComment} needs. */
@@ -19,9 +19,9 @@ export interface UpsertCommentInput {
 }
 
 /** What {@link upsertComment} did. */
-export interface UpsertCommentResult {
+export interface UpsertCommentResult<T extends Comment | CommitComment = Comment> {
   /** The comment that was created or edited. */
-  comment: Comment
+  comment: T
   /** `false` when a comment with the same key already existed, and was edited or already had the body. */
   created: boolean
 }
@@ -45,11 +45,11 @@ export function hasCommentMarker(body: string, key: string): boolean {
 }
 
 /**
- * `body` with the marker for `key` at the end, unless it carries it already. Post it with `threads.comment()` so that
+ * `body` with the marker for `key` at the end, unless it carries it already. Post it with `threads.createComment()` so that
  * {@link upsertComment} with the same key edits that comment instead of posting another.
  * @example
  * ```ts
- * await provider.threads.comment(ref, withCommentMarker('Deployed to staging', mutationId))
+ * await provider.threads.createComment(ref, withCommentMarker('Deployed to staging', mutationId))
  * ```
  */
 export function withCommentMarker(body: string, key: string): string {
@@ -64,10 +64,11 @@ function sameBody(a: string, b: string): boolean {
 /**
  * Creates the comment, or edits the one an earlier call with the same `key` left behind, unless that one already has
  * the same body. The key is carried in the body as a hidden marker; see {@link commentMarker}. It lists the comments
- * of the thread on every call, which `since` bounds, so the provider needs `threads.comments()`, `threads.comment()`
- * and `threads.editComment()` for the kind of thread.
+ * of the thread on every call, which `since` bounds, so the provider needs `threads.comments()`, `threads.createComment()`
+ * and `threads.updateComment()` for the kind of thread. On a commit it uses `commits.comments()`, `commits.createComment()`
+ * and `commits.updateComment()`, and reads every comment of the commit.
  * @param provider The provider to comment with.
- * @param ref The thread to comment on.
+ * @param ref The thread or commit to comment on.
  * @param input The `key` that identifies the comment across runs, its `body`, and `since` to look at recent comments only.
  * @example
  * ```ts
@@ -76,8 +77,26 @@ function sameBody(a: string, b: string): boolean {
  * await upsertComment(provider, ref, { key: 'preview', body: 'Preview: https://pr-42.example.com' })
  * ```
  */
-export async function upsertComment(provider: ForgeProvider, ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult> {
+export async function upsertComment(provider: ForgeProvider, ref: CommitRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult<CommitComment>>
+export async function upsertComment(provider: ForgeProvider, ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult>
+export async function upsertComment(provider: ForgeProvider, ref: ThreadRef | CommitRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult<Comment | CommitComment>> {
   const body = withCommentMarker(input.body, input.key)
+  if ('sha' in ref) {
+    let existing: CommitComment | undefined
+    for await (const candidate of provider.commits.comments(ref, options)) {
+      const at = candidate.updatedAt ?? candidate.createdAt
+      if (hasCommentMarker(candidate.body, input.key) && (!input.since || !at || at >= input.since)) {
+        existing = candidate
+      }
+    }
+    if (!existing) {
+      return { comment: await provider.commits.createComment(ref, body, options), created: true }
+    }
+    return {
+      comment: sameBody(existing.body, body) ? existing : await provider.commits.updateComment(existing.ref, body, options),
+      created: false,
+    }
+  }
   let existing: Comment | undefined
   for await (const candidate of provider.threads.comments(ref, { ...options, since: input.since })) {
     if (hasCommentMarker(candidate.body, input.key)) {
@@ -85,10 +104,10 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef, inp
     }
   }
   if (!existing) {
-    return { comment: await provider.threads.comment(ref, body, options), created: true }
+    return { comment: await provider.threads.createComment(ref, body, options), created: true }
   }
   return {
-    comment: sameBody(existing.body, body) ? existing : await provider.threads.editComment(existing.ref, body, options),
+    comment: sameBody(existing.body, body) ? existing : await provider.threads.updateComment(existing.ref, body, options),
     created: false,
   }
 }
