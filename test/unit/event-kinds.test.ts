@@ -40,9 +40,9 @@ describe('star, fork, wiki and release events', () => {
   it('splits a GitHub wiki delivery into one event per page', () => {
     const events = github('gollum', { pages: [{ title: 'Home', action: 'created' }, { title: 'FAQ', action: 'edited' }] })
 
-    expect(events.map(event => [event.id, event.kind, event.action, event.detail])).toEqual([
-      ['d:0', 'wiki', 'created', { type: 'wiki', title: 'Home', url: undefined }],
-      ['d:1', 'wiki', 'edited', { type: 'wiki', title: 'FAQ', url: undefined }],
+    expect(events.map(event => [event.id, event.kind, event.action, event.actionRaw, event.detail])).toEqual([
+      ['d:0', 'wiki', 'created', 'created', { type: 'wiki', title: 'Home', url: undefined }],
+      ['d:1', 'wiki', 'edited', 'edited', { type: 'wiki', title: 'FAQ', url: undefined }],
     ])
   })
 

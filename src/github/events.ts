@@ -435,13 +435,18 @@ export function translateGitHubWebhook(instance: string, delivery: WebhookDelive
   const id = headerValue(delivery.headers, DELIVERY_HEADER) ?? crypto.randomUUID()
   return perPage(event, payload).map(([page, suffix]) => toGitHubEvent(instance, event, page, {
     id: `${id}${suffix}`,
-    kindRaw: payload.action ? `${event}.${payload.action}` : event,
-    actionRaw: payload.action,
+    kindRaw: verbOf(page) ? `${event}.${verbOf(page)}` : event,
+    actionRaw: verbOf(page),
     source: 'webhook',
     actor: toActor(instance, payload.sender),
     repo: payload.repository ? toRepoRef(instance, payload.repository) : undefined,
     installationId: payload.installation ? String(payload.installation.id) : undefined,
   }))
+}
+
+/** The payload's verb; a wiki page's action is on the page. */
+function verbOf(payload: GitHubEventPayload): string | undefined {
+  return payload.action ?? payload.pages?.[0]?.action
 }
 
 /** A `gollum` event can cover several wiki pages; each page is an event of its own, with an id suffix when there are several. */
@@ -493,8 +498,8 @@ export function toFeedEvent(instance: string, raw: GitHubFeedEvent): ForgeEventI
   const visibility = typeof raw.public === 'boolean' ? { isPublic: raw.public } : {}
   const context: GitHubEventContext = {
     id: raw.id,
-    kindRaw: payload.action ? `${type}.${payload.action}` : type,
-    actionRaw: payload.action,
+    kindRaw: verbOf(payload) ? `${type}.${verbOf(payload)}` : type,
+    actionRaw: verbOf(payload),
     source: 'poll',
     actor,
     repo,
