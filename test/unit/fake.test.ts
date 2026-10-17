@@ -701,6 +701,29 @@ describe('fake webhook management', () => {
     expect(factory.store.webhooks).toEqual([])
   })
 
+  it('allocates a distinct id when a hook is seeded directly into the store', async () => {
+    const factory = fake({ seed })
+    const forge = factory.create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    factory.store.webhooks.push({
+      ref: { forge: 'fake', instance: 'fake.test', target: repo, id: '1' },
+      url: 'https://hooks.test/seeded',
+      events: [],
+      nativeEvents: [],
+      active: true,
+      raw: {},
+    })
+
+    const hook = await forge.webhooks.create(repo, { url: 'https://hooks.test/new' })
+    await forge.webhooks.update(hook.ref, { active: false })
+
+    expect(hook.ref.id).toBe('2')
+    expect(factory.store.webhooks.map(hook => [hook.ref.id, hook.url, hook.active])).toEqual([
+      ['1', 'https://hooks.test/seeded', true],
+      ['2', 'https://hooks.test/new', false],
+    ])
+  })
+
   it('never reuses the id of a deleted hook', async () => {
     const forge = fake({ seed }).create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }

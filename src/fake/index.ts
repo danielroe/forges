@@ -483,7 +483,6 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   let seen: RateLimit | undefined
   let notificationCount = 0
   let webhookCount = 0
-  /** How many comments each thread has had, deleted ones included, so that no comment id is given out twice. */
   const commentCounts = new WeakMap<FakeThreadState, number>()
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
@@ -1730,6 +1729,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         )),
         create: verb(support('webhooks.create', true), async (target, input) => {
           const { secret, ...settings } = input
+          while (store.webhooks.some(hook => hook.ref.id === String(webhookCount + 1))) {
+            webhookCount++
+          }
           const hook: Webhook = {
             ref: { ...origin, target, id: String(++webhookCount) },
             url: input.url,
