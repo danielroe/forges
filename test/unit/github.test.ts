@@ -4,6 +4,7 @@ import type { GitHubNotification } from '../../src/github/types.ts'
 import type { ThreadRef } from '../../src/model.ts'
 import { generateKeyPairSync } from 'node:crypto'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { declaredCapabilities } from '../../src/capabilities.ts'
 import { BranchMovedError, ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { abortable } from '../../src/fetch.ts'
 import { createAppCredentials } from '../../src/github/auth.ts'
@@ -880,7 +881,7 @@ describe('github moderation', () => {
 
     expect(app.can('users.block')).toBe(false)
     expect(app.can('orgs.block')).toBe(true)
-    expect(github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } }).create().capabilities.orgs.block).toBe('unverified')
+    expect(declaredCapabilities(github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } }).create()).orgs.block).toBe('unverified')
   })
 })
 

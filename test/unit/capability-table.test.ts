@@ -2,6 +2,7 @@ import type { CapabilityFlags } from '../../src/capabilities.ts'
 import type { ForgeVerb, TableSpecPath } from '../../src/capability-table.ts'
 import type { CapabilityEnv, ProviderSpec } from '../../src/define.ts'
 import { describe, expect, it, vi } from 'vitest'
+import { declaredCapabilities } from '../../src/capabilities.ts'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { fake } from '../../src/fake/index.ts'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, tangled } from '../../src/index.ts'
@@ -12,9 +13,9 @@ vi.mock('../../src/capabilities.ts', async (importActual) => {
   const actual = await importActual<typeof import('../../src/capabilities.ts')>()
   return {
     ...actual,
-    capabilitiesOf: (spec: ProviderSpec, env: CapabilityEnv, flags: CapabilityFlags) => {
+    capabilitiesOf: (spec: ProviderSpec, env: CapabilityEnv, flags: CapabilityFlags, declared?: boolean) => {
       specs.push(spec)
-      return actual.capabilitiesOf(spec, env, flags)
+      return actual.capabilitiesOf(spec, env, flags, declared)
     },
   }
 })
@@ -151,35 +152,46 @@ describe('capability table', () => {
   it('reports the support level of a verb by its provider path', () => {
     const provider = azureDevOps({ auth, organization: 'acme' }).create()
 
-    expect(provider.support('threads.comment', 'issue')).toBe('experimental')
+    expect(provider.support('threads.comment', 'issue')).toBe(true)
     expect(provider.support('threads.comment', 'pull_request')).toBe(true)
     expect(provider.support('threads.comment')).toBe(true)
     expect(provider.support('threads.comment', 'discussion')).toBe(false)
     expect(github({ auth }).create().support('repos.reviewerCandidates')).toBe('emulated')
     expect(github({ auth }).create().support('repos.reviewerCandidatesPage')).toBe('emulated')
-    expect(gitee({ auth }).create().support('threads.comment', 'issue')).toBe('unverified')
+    expect(gitee({ auth }).create().support('threads.comment', 'issue')).toBe(true)
     expect(github({}).create().support('ci.log')).toBe(false)
   })
 
-  it('reports a composed capability as unverified when a part is', () => {
-    const { capabilities } = gitee({ auth }).create()
+  it('reports experimental and unverified declarations as true, and keeps them in the declared capabilities', () => {
+    const azure = azureDevOps({ auth, organization: 'acme' }).create()
+    const giteeProvider = gitee({ auth }).create()
 
-    expect(capabilities.writes.upsertComment.issue).toBe('unverified')
-    expect(capabilities.writes.upsertComment.pull_request).toBe('unverified')
-    expect(github({ auth }).create().capabilities.writes.upsertComment.issue).toBe('emulated')
+    expect(azure.capabilities.writes.comment.issue).toBe(true)
+    expect(declaredCapabilities(azure).writes.comment).toMatchObject({ issue: 'experimental', pull_request: true })
+    expect(giteeProvider.capabilities.writes.comment.issue).toBe(true)
+    expect(declaredCapabilities(giteeProvider).writes.comment.issue).toBe('unverified')
+  })
+
+  it('reports a composed capability as emulated, and as unverified in the declared capabilities when a part is', () => {
+    const provider = gitee({ auth }).create()
+
+    expect(provider.capabilities.writes.upsertComment).toMatchObject({ issue: 'emulated', pull_request: 'emulated' })
+    expect(declaredCapabilities(provider).writes.upsertComment).toMatchObject({ issue: 'unverified', pull_request: 'unverified' })
+    expect(declaredCapabilities(github({ auth }).create()).writes.upsertComment.issue).toBe('emulated')
   })
 
   it('emulates a single-item read from its listing, at the level the spec sets', () => {
     expect(bitbucket({ auth }).create().support('threads.getComment', 'pull_request')).toBe('emulated')
-    expect(bitbucket({}).create().support('threads.getComment', 'pull_request')).toBe('unverified')
+    expect(bitbucket({}).create().support('threads.getComment', 'pull_request')).toBe('emulated')
+    expect(declaredCapabilities(bitbucket({}).create()).comments.get.pull_request).toBe('unverified')
     expect(bitbucket({ auth }).create().support('threads.getComment', 'issue')).toBe(false)
     expect(github({ auth }).create().support('threads.getComment', 'issue')).toBe(true)
   })
 
   it('reports the strongest level across kinds without a kind', () => {
-    expect(cursorOrigin({ auth }).create().support('threads.get')).toBe('experimental')
+    expect(github({ auth }).create().support('threads.upsertComment')).toBe('emulated')
     expect(gitee({ auth }).create().support('threads.comment')).toBe(true)
-    expect(gitee({ auth }).create().support('threads.editComment')).toBe('unverified')
+    expect(bitbucket({ auth }).create().support('threads.getComment')).toBe('emulated')
     expect(gitee({ auth }).create().can('threads.editComment')).toBe(true)
   })
 

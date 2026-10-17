@@ -18,14 +18,11 @@ export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gi
  * Capability flag. Every value other than `false` means the operation is
  * available:
  *
- * - `true`: native, and verified against the forge's responses.
- * - `'experimental'`: native and verified, but built on an API the forge marks
- *   unstable, so it can change.
- * - `'emulated'`: composed from other calls, so the result is approximate.
- * - `'unverified'`: implemented, but not yet verified against the forge's
- *   responses, so it may not work.
+ * - `true`: native.
+ * - `'emulated'`: composed from other calls, so it costs more requests or the
+ *   result is approximate.
  */
-export type Support = boolean | 'emulated' | 'experimental' | 'unverified'
+export type Support = boolean | 'emulated'
 
 /** Host of a single forge deployment, for example `github.com` or `codeberg.org`. */
 export type ForgeInstance = string

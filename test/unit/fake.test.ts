@@ -796,10 +796,10 @@ describe('fake capabilities', () => {
 
   it('copies support from a real provider\'s capabilities, with `support` taking precedence', () => {
     const base = fake().create().capabilities
-    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'experimental', discussion: false, commit: false } } } as typeof base
+    const source = { ...base, writes: { ...base.writes, addLabels: { issue: false, pull_request: 'emulated', discussion: false, commit: false } } } as typeof base
     const forge = fake({ capabilities: source, support: { 'threads.close': false } }).create()
 
-    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'experimental' })
+    expect(forge.capabilities.writes.addLabels).toMatchObject({ issue: false, pull_request: 'emulated' })
     expect(forge.can('threads.close', 'issue')).toBe(false)
   })
 })
