@@ -458,13 +458,13 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('releases.downloadAsset', { returns: 'ReadableStream<Uint8Array>', fields: fields('releaseId'), args: ({ origin, value }) => `{ ${origin}, repo, release: { ${origin}, repo, id: ${value('releaseId')} }, id: '1' }` }),
 
   // Contents
-  operation('contents.file', { returns: 'FileContent', fields: fields('path', 'ref'), args: ({ value, input }) => `repo, ${value('path')}, { ${input.ref ? `ref: ${value('ref')}, ` : ''}as: 'text' }`, run: (p, input, { repo }) => p.contents.file(repo, input.path, { ref: input.ref || undefined, as: 'text' }) }),
+  operation('contents.getFile', { returns: 'FileContent', fields: fields('path', 'ref'), args: ({ value, input }) => `repo, ${value('path')}, { ${input.ref ? `ref: ${value('ref')}, ` : ''}as: 'text' }`, run: (p, input, { repo }) => p.contents.getFile(repo, input.path, { ref: input.ref || undefined, as: 'text' }) }),
   operation('contents.tree', { method: 'contents.treePage', returns: 'Page<TreeEntry>', fields: fields('ref'), args: ({ value, input }) => `repo, { ${input.ref ? `ref: ${value('ref')}, ` : ''}perPage: 5 }`, run: (p, input, { repo }) => p.contents.treePage(repo, { ref: input.ref || undefined, perPage: 5 }) }),
   repoRead('contents.branches', 'Page<Branch>', (p, _, { repo }) => p.contents.branchesPage(repo, perPage)),
   repoRead('contents.tags', 'Page<Tag>', (p, _, { repo }) => p.contents.tagsPage(repo, perPage)),
   operation('contents.resolveRef', { returns: 'string', fields: fields('head'), args: ({ value }) => `repo, ${value('head')}`, run: (p, input, { repo }) => p.contents.resolveRef(repo, input.head) }),
   repoRead('contents.commits', 'Page<Commit>', (p, _, { repo }) => p.contents.commitsPage(repo, perPage)),
-  operation('contents.commit', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.contents.commit(repo, input.sha) }),
+  operation('contents.getCommit', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.contents.getCommit(repo, input.sha) }),
   operation('contents.compare', { returns: 'Comparison', fields: fields('base', 'sha'), args: ({ value }) => `repo, ${value('base')}, ${value('sha')}`, run: (p, input, { repo }) => p.contents.compare(repo, input.base, input.sha) }),
   operation('contents.commitFiles', { returns: 'Commit', fields: fields('branch', 'message', 'path', 'content'), args: ({ value }) => `repo, {\n  branch: ${value('branch')},\n  message: ${value('message')},\n  changes: [{ path: ${value('path')}, content: ${value('content')} }],\n}`, run: (p, input, { repo }) => p.contents.commitFiles(repo, { branch: input.branch, message: input.message, changes: [{ path: input.path, content: input.content }] }) }),
 
@@ -473,7 +473,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('checks.report', { returns: 'Check', fields: fields('sha', 'checkName', 'checkState'), args: ({ value }) => `repo, ${value('sha')}, { name: ${value('checkName')}, state: ${value('checkState')} }`, run: (p, input, { repo }) => p.checks.report(repo, input.sha, { name: input.checkName, state: input.checkState as Exclude<CheckState, 'unknown'> }) }),
   operation('checks.rerun', { fields: fields('checkId'), args: ({ origin, value }) => `{ ${origin}, repo, id: ${value('checkId')}, type: 'check_run' }`, run: (p, input, { origin, repo }) => p.checks.rerun({ ...origin, repo, id: input.checkId, type: 'check_run' }) }),
   repoRead('ci.runs', 'Page<CiRun>', (p, _, { repo }) => p.ci.runsPage(repo, perPage)),
-  operation('ci.run', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.run({ ...origin, repo, id: input.runId }) }),
+  operation('ci.getRun', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.getRun({ ...origin, repo, id: input.runId }) }),
   operation('ci.jobs', { method: 'ci.jobsPage', returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobsPage({ ...origin, repo, id: input.runId }, perPage) }),
   operation('ci.log', { returns: 'ReadableStream<Uint8Array>', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
   operation('securityAlerts.list', { method: 'securityAlerts.listPage', returns: 'Page<SecurityAlert>', auth: true, args: () => 'repo, { perPage: 5 }', run: (p, _, { repo }) => p.securityAlerts.listPage(repo, perPage) }),

@@ -362,12 +362,12 @@ export interface ForgeCapabilities {
   ci: {
     /** Support for `ci.runs()` and `ci.runsPage()`. */
     runs: Support
-    /** Support for `ci.run()`. */
-    run: Support
+    /** Support for `ci.getRun()`. */
+    getRun: Support
     /** Support for `ci.jobs()` and `ci.jobsPage()`. */
     jobs: Support
-    /** Support for `ci.job()`. */
-    job: Support
+    /** Support for `ci.getJob()`. */
+    getJob: Support
     /** Support for `ci.log()`. */
     log: Support
   }
@@ -397,8 +397,8 @@ export interface ForgeCapabilities {
    * level by level rather than by the forge.
    */
   contents: {
-    /** Support for `contents.file()`. */
-    file: Support
+    /** Support for `contents.getFile()`. */
+    getFile: Support
     /** Support for `contents.tree()` and `contents.treePage()`. */
     tree: Support
     /** Support for `contents.branches()` and `contents.branchesPage()`. */
@@ -409,8 +409,8 @@ export interface ForgeCapabilities {
     resolveRef: Support
     /** Support for `contents.commits()` and `contents.commitsPage()`. */
     commits: Support
-    /** Support for `contents.commit()`. */
-    commit: Support
+    /** Support for `contents.getCommit()`. */
+    getCommit: Support
     /** Support for `contents.compare()`. */
     compare: Support
     /** Support for `contents.commitFiles()`. */
@@ -817,17 +817,17 @@ export interface CiApi {
   /** One page of `runs()`. */
   runsPage: (repo: RepoRef, query?: CiRunQuery) => Promise<Page<CiRun>>
   /** Reads one CI run. */
-  run: (ref: CiRunRef, options?: BaseOptions) => Promise<CiRun>
+  getRun: (ref: CiRunRef, options?: BaseOptions) => Promise<CiRun>
   /** Lists the jobs of a CI run. */
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
   /**
-   * Reads one CI job. Where the forge has no endpoint for it (`capabilities.ci.job` is `'emulated'`), it lists the jobs
+   * Reads one CI job. Where the forge has no endpoint for it (`capabilities.ci.getJob` is `'emulated'`), it lists the jobs
    * of the ref's `run` page by page until the id matches, which costs a request for each page read, so the ref must
    * name its run.
    */
-  job: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
+  getJob: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
 }
@@ -844,11 +844,11 @@ export interface ContentsApi {
    * @param options The revision to read, and whether to decode the content as text.
    * @example
    * ```ts
-   * const file = await provider.contents.file(repo, 'package.json', { as: 'text' })
+   * const file = await provider.contents.getFile(repo, 'package.json', { as: 'text' })
    * const manifest = JSON.parse(file.content as string)
    * ```
    */
-  file: (repo: RepoRef, path: string, options?: FileOptions) => Promise<FileContent>
+  getFile: (repo: RepoRef, path: string, options?: FileOptions) => Promise<FileContent>
   /** One level, or every descendant with `recursive`. Truncated listings carry a `tree_truncated` warning. */
   tree: (repo: RepoRef, options?: TreeOptions) => ForgeIterable<TreeEntry>
   /** One page of `tree()`. */
@@ -868,7 +868,7 @@ export interface ContentsApi {
   /** One page of `commits()`. */
   commitsPage: (repo: RepoRef, query?: CommitQuery) => Promise<Page<Commit>>
   /** One commit, with its files and stats. */
-  commit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
+  getCommit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
   compare: (repo: RepoRef, base: string, head: string, options?: CompareOptions) => Promise<Comparison>
   /**

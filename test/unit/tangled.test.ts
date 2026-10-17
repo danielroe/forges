@@ -644,7 +644,7 @@ describe('tangled contents', () => {
         { name: 'vendor', mode: '0160000', size: 0 },
       ] } },
     }, false)
-    const file = await instance.contents.file(repo, 'logo.png', { ref: 'main' })
+    const file = await instance.contents.getFile(repo, 'logo.png', { ref: 'main' })
     const tree = await instance.contents.treePage(repo, { path: 'src/', recursive: true })
 
     expect(file).toMatchObject({ encoding: 'binary', content: new Uint8Array([0x89, 0x50, 0x4E, 0x47]), size: 4 })

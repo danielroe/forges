@@ -96,12 +96,12 @@ describe('fake forge', () => {
 
     expect(forge.support('threads.getComment', 'pull_request')).toBe('emulated')
     expect(forge.support('threads.getReview')).toBe('emulated')
-    expect(forge.support('ci.job')).toBe('emulated')
+    expect(forge.support('ci.getJob')).toBe('emulated')
     expect((await forge.threads.getComment(comment.ref)).body).toBe('Looks good')
     expect((await forge.threads.getReview(review.ref)).state).toBe('approved')
-    expect((await forge.ci.job(job!.ref)).name).toBe('lint')
+    expect((await forge.ci.getJob(job!.ref)).name).toBe('lint')
     await expect(forge.threads.getComment({ ...comment.ref, id: 'missing' })).rejects.toThrow(NotFoundError)
-    await expect(forge.ci.job({ forge: 'fake', instance: 'fake.test', repo, id: job!.ref.id })).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.ci.getJob({ forge: 'fake', instance: 'fake.test', repo, id: job!.ref.id })).rejects.toThrow(UnsupportedOperationError)
   })
 
   it('rejects verbs configured as unsupported, per kind where asked', async () => {
@@ -328,10 +328,10 @@ describe('fake forge', () => {
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
     const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '7' }
 
-    const readme = await forge.contents.file(repo, 'README.md', { as: 'text' })
-    const icon = await forge.contents.file(repo, 'assets/icon.png')
+    const readme = await forge.contents.getFile(repo, 'README.md', { as: 'text' })
+    const icon = await forge.contents.getFile(repo, 'assets/icon.png')
     const tree = await Array.fromAsync(forge.contents.tree(repo))
-    const commit = await forge.contents.commit(repo, 'a'.repeat(40))
+    const commit = await forge.contents.getCommit(repo, 'a'.repeat(40))
     const files = await Array.fromAsync(forge.threads.files(pull))
     const commits = await Array.fromAsync(forge.threads.commits(pull))
 
@@ -367,8 +367,8 @@ describe('fake forge', () => {
 
     expect(first).toMatchObject({ parents: ['a'.repeat(40)], files: [{ path: 'README.md', status: 'modified' }, { path: 'OLD.md', status: 'removed' }, { path: 'icon.png', status: 'added' }] })
     expect(second).toMatchObject({ parents: [first.sha], author: { name: 'Ada', email: 'ada@example.com' } })
-    expect((await forge.contents.file(repo, 'README.md', { ref: 'docs', as: 'text' })).content).toBe('# Widgets\n')
-    expect((await forge.contents.file(repo, 'README.md', { as: 'text' })).content).toBe('# widgets\n')
+    expect((await forge.contents.getFile(repo, 'README.md', { ref: 'docs', as: 'text' })).content).toBe('# Widgets\n')
+    expect((await forge.contents.getFile(repo, 'README.md', { as: 'text' })).content).toBe('# widgets\n')
     expect(tree.map(entry => entry.path)).toEqual(['GUIDE.md', 'README.md', 'icon.png'])
     expect(branches.map(branch => [branch.name, branch.sha])).toEqual([['main', 'a'.repeat(40)], ['docs', second.sha]])
     expect(await forge.contents.resolveRef(repo, 'docs')).toBe(second.sha)

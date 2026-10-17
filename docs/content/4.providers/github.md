@@ -151,7 +151,7 @@ With `kind: 'advisory'`, `securityAlerts.list()` lists the security advisories o
 
 ## Large files and trees
 
-Files over 1 MB are read through the Git blobs API, so the result of `contents.file()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
+Files over 1 MB are read through the Git blobs API, so the result of `contents.getFile()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
 
 ## Comparisons
 
@@ -375,17 +375,17 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `checks.report` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `checks.rerun` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `ci.runs` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `ci.run` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `ci.getRun` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.jobs` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `ci.job` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `ci.getJob` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.log` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `contents.file` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `contents.getFile` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tree` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.branches` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tags` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.resolveRef` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.commits` | ✅ | ✅ | ✅ | ❌ | ✅ |
-| `contents.commit` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `contents.getCommit` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.compare` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.commitFiles` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `contents.threadFiles` | ✅ | ✅ | ✅ | ❌ | ✅ |

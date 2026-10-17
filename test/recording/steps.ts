@@ -261,7 +261,7 @@ function artifactsSteps(): Step[] {
       full: await provider.contents.resolveRef(manifest.repo, 'refs/heads/main'),
     }) },
     { name: 'artifacts resolve unknown ref', verb: 'contents.resolveRef', run: (provider, manifest) => rejection(() => provider.contents.resolveRef(manifest.repo, 'forges-fixtures-missing')) },
-    { name: 'artifacts file at HEAD', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
+    { name: 'artifacts file at HEAD', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { ref: 'HEAD', as: 'text' }) },
     { name: 'artifacts commits pages', verb: 'contents.commitsPage', run: async (provider, manifest) => {
       const first = await provider.contents.commitsPage(manifest.repo, { perPage: 1, path: 'src' })
       const second = await provider.contents.commitsPage(manifest.repo, { perPage: 1, cursor: need(first.cursor, 'a second page') })
@@ -270,13 +270,13 @@ function artifactsSteps(): Step[] {
     { name: 'artifacts commits default page size', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, { perPage: 0 }) },
     { name: 'artifacts tree into a file', verb: 'contents.treePage', run: (provider, manifest) => rejection(() => provider.contents.treePage(manifest.repo, { path: 'README.md' })) },
     { name: 'artifacts recursive tree', verb: 'contents.treePage', run: async (provider, manifest) => (await provider.contents.treePage(manifest.repo, { recursive: true })).warnings },
-    { name: 'artifacts shallow commit', verb: 'contents.commit', run: async (provider, manifest) => {
+    { name: 'artifacts shallow commit', verb: 'contents.getCommit', run: async (provider, manifest) => {
       const oldest = (await provider.contents.commitsPage(manifest.repo, { perPage: 10 })).items.at(-1)
-      return provider.contents.commit(manifest.repo, need(oldest, 'the oldest commit').sha)
+      return provider.contents.getCommit(manifest.repo, need(oldest, 'the oldest commit').sha)
     } },
-    { name: 'artifacts root commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56') },
-    { name: 'artifacts mode change commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074') },
-    { name: 'artifacts rename commit', verb: 'contents.commit', run: (provider, manifest) => provider.contents.commit(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08') },
+    { name: 'artifacts root commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), 'dd60772abb2766be477ea5be60edbbf9b33d3f56') },
+    { name: 'artifacts mode change commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), '40ef9975a51a1d897edaa9bcbf08138febfe7074') },
+    { name: 'artifacts rename commit', verb: 'contents.getCommit', run: (provider, manifest) => provider.contents.getCommit(history(manifest), '4c696f46079a68e6774773fd7e49474df3829a08') },
     { name: 'artifacts every namespace', verb: 'repos.listPage', run: async (provider) => {
       const names: string[] = []
       let cursor: Page<Repo>['cursor']
@@ -369,7 +369,7 @@ export const STEPS: Step[] = [
     return result
   } },
   { name: 'ci runs by branch and state', verb: 'ci.runsPage', run: (provider, manifest, context) => provider.ci.runsPage(manifest.repo, { ...page, branch: need(context.repo?.defaultBranch, 'the default branch'), state: 'failure' }) },
-  { name: 'ci run', verb: 'ci.run', run: (provider, _manifest, context) => provider.ci.run(need(context.runs?.[0], 'a CI run').ref) },
+  { name: 'ci run', verb: 'ci.getRun', run: (provider, _manifest, context) => provider.ci.getRun(need(context.runs?.[0], 'a CI run').ref) },
   { name: 'check', verb: 'checks.get', run: async (provider, manifest, context) => {
     const readable = (checks: Check[] = []) => checks.find(check => check.ref.type !== 'status')
     const check = readable(context.checks) ?? readable((await provider.checks.list(manifest.repo, need(context.runs?.[0]?.sha, 'a CI run sha'))).items)
@@ -384,11 +384,11 @@ export const STEPS: Step[] = [
     context.job = result?.items[0]
     return result
   } },
-  { name: 'ci job', verb: 'ci.job', run: (provider, _manifest, context) => provider.ci.job(need(context.job, 'a CI job').ref) },
+  { name: 'ci job', verb: 'ci.getJob', run: (provider, _manifest, context) => provider.ci.getJob(need(context.job, 'a CI job').ref) },
   // Anonymous GitHub reads share 60 requests an hour.
-  { name: 'ci job by id', verb: 'ci.job', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
+  { name: 'ci job by id', verb: 'ci.getJob', when: (provider, manifest) => provider.forge !== 'github' || !manifest.anonymous, run: (provider, _manifest, context) => {
     const { run: _run, ...ref } = need(context.job, 'a CI job').ref
-    return provider.ci.job(ref)
+    return provider.ci.getJob(ref)
   } },
   { name: 'ci log', verb: 'ci.log', run: async (provider, manifest, context) => {
     const read = async (job: CiJob | undefined) => text(await provider.ci.log(need(job, 'a CI job').ref))
@@ -404,13 +404,13 @@ export const STEPS: Step[] = [
     }
     return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
   } },
-  { name: 'readme', verb: 'contents.file', run: (provider, manifest) => provider.contents.file(manifest.repo, 'README.md', { as: 'text' }) },
+  { name: 'readme', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { as: 'text' }) },
   { name: 'tree', verb: 'contents.treePage', run: async (provider, manifest, context) => {
     const result = await provider.contents.treePage(manifest.repo, page)
     context.tree = result.items
     return result
   } },
-  { name: 'tree file', verb: 'contents.file', run: (provider, manifest, context) => provider.contents.file(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
+  { name: 'tree file', verb: 'contents.getFile', run: (provider, manifest, context) => provider.contents.getFile(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
   { name: 'branches', verb: 'contents.branchesPage', run: async (provider, manifest, context) => {
     const result = await provider.contents.branchesPage(manifest.repo, page)
     context.branches = result.items
@@ -422,7 +422,7 @@ export const STEPS: Step[] = [
     return context.defaultSha
   } },
   { name: 'commits', verb: 'contents.commitsPage', run: (provider, manifest) => provider.contents.commitsPage(manifest.repo, page) },
-  { name: 'commit', verb: 'contents.commit', run: (provider, manifest, context) => provider.contents.commit(manifest.repo, headOf(context)) },
+  { name: 'commit', verb: 'contents.getCommit', run: (provider, manifest, context) => provider.contents.getCommit(manifest.repo, headOf(context)) },
   { name: 'compare', verb: 'contents.compare', run: (provider, manifest, context) => provider.contents.compare(manifest.repo, need(context.pull?.branches?.base.ref, 'the pull base'), headOf(context)) },
   { name: 'compare limited', verb: 'contents.compare', run: async (provider, manifest, context) => {
     const branch = need(context.repo?.defaultBranch, 'the default branch')

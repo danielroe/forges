@@ -52,7 +52,7 @@ A fork names its parent, which becomes `Repo.parent`. An imported repository isn
 
 ## Contents
 
-The provider resolves a branch or tag to a commit through the commit log. `contents.tree()` resolves its ref this way first. Without a `ref`, `contents.file()` and `contents.tree()` read the head of the default branch.
+The provider resolves a branch or tag to a commit through the commit log. `contents.tree()` resolves its ref this way first. Without a `ref`, `contents.getFile()` and `contents.tree()` read the head of the default branch.
 
 The log accepts only branch and tag names, so the provider translates `HEAD` and full ref names such as `refs/heads/main`. An abbreviated sha returns no commits, so the provider rejects it with `NotFoundError`.
 
@@ -60,7 +60,7 @@ The log accepts only branch and tag names, so the provider translates `HEAD` and
 
 `contents.commits()` pages through the log by offset. The log has no filters, so `path`, `author`, `since` and `until` are ignored with a `filter_unsupported` warning.
 
-Artifacts has no diff endpoint. So `contents.commit()` compares the commit's tree with the tree of its first parent, and reads only the directories that changed. A small commit costs a few requests. A commit that touches hundreds of directories costs hundreds.
+Artifacts has no diff endpoint. So `contents.getCommit()` compares the commit's tree with the tree of its first parent, and reads only the directories that changed. A small commit costs a few requests. A commit that touches hundreds of directories costs hundreds.
 
 The comparison finds a rename only when the file moved without an edit. Git would call an edited rename `renamed` too, but here it's a `removed` file and an `added` one. A file whose mode alone changed comes back as `changed`. The files don't carry line counts either. A shallow import leaves out the parents past its depth, and for the oldest commits `files` is then `undefined`.
 
@@ -149,17 +149,17 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | ❌ | ❌ |
-| `ci.run` | ❌ | ❌ |
+| `ci.getRun` | ❌ | ❌ |
 | `ci.jobs` | ❌ | ❌ |
-| `ci.job` | ❌ | ❌ |
+| `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
-| `contents.file` | ✅ | ❌ |
+| `contents.getFile` | ✅ | ❌ |
 | `contents.tree` | ✅ | ❌ |
 | `contents.branches` | ❌ | ❌ |
 | `contents.tags` | ❌ | ❌ |
 | `contents.resolveRef` | ✅ | ❌ |
 | `contents.commits` | ✅ | ❌ |
-| `contents.commit` | ✅ | ❌ |
+| `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ❌ | ❌ |

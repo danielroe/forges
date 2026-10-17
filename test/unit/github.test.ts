@@ -1395,8 +1395,8 @@ describe('github contents', () => {
   it('reads a text file and falls through to the blob endpoint for a large one', async () => {
     const { provider, calls } = tokenProvider()
 
-    const text = await provider.contents.file(repo, 'package.json', { ref: 'main', as: 'text' })
-    const binary = await provider.contents.file(repo, 'assets/large.bin')
+    const text = await provider.contents.getFile(repo, 'package.json', { ref: 'main', as: 'text' })
+    const binary = await provider.contents.getFile(repo, 'assets/large.bin')
 
     expect(text).toMatchObject({ path: 'package.json', encoding: 'utf-8', sha: 'aa1', size: 42 })
     expect(text.content).toBe('{"name":"widgets"}\n')
@@ -1408,7 +1408,7 @@ describe('github contents', () => {
   it('rejects a binary file read as text', async () => {
     const { provider } = tokenProvider()
 
-    await expect(provider.contents.file(repo, 'assets/large.bin', { as: 'text' })).rejects.toBeInstanceOf(ContentNotTextError)
+    await expect(provider.contents.getFile(repo, 'assets/large.bin', { as: 'text' })).rejects.toBeInstanceOf(ContentNotTextError)
   })
 
   it('warns when the tree is truncated', async () => {
@@ -1439,7 +1439,7 @@ describe('github contents', () => {
 
     const branches = await Array.fromAsync(provider.contents.branches(repo))
     const tags = await Array.fromAsync(provider.contents.tags(repo))
-    const commit = await provider.contents.commit(repo, sha)
+    const commit = await provider.contents.getCommit(repo, sha)
     const comparison = await provider.contents.compare(repo, 'v1.0.0', 'main')
 
     expect(branches[0]).toMatchObject({ name: 'main', sha, isProtected: true })
@@ -2103,7 +2103,7 @@ describe('github single-item reads', () => {
   it('reads a CI job whose ref names no run, and names the run from the job', async () => {
     const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success' } })
 
-    const job = await provider.ci.job({ forge: 'github', instance: 'github.com', repo, id: '9' })
+    const job = await provider.ci.getJob({ forge: 'github', instance: 'github.com', repo, id: '9' })
 
     expect(job.name).toBe('test')
     expect(job.ref.run).toEqual({ forge: 'github', instance: 'github.com', repo, id: '7' })
@@ -2112,6 +2112,6 @@ describe('github single-item reads', () => {
   it('rejects a CI job that names no run when its ref names none either', async () => {
     const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, name: 'test', status: 'completed', conclusion: 'success' } })
 
-    await expect(provider.ci.job({ forge: 'github', instance: 'github.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.ci.getJob({ forge: 'github', instance: 'github.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
   })
 })

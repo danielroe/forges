@@ -808,7 +808,7 @@ export type FileContent
   = | FileMetadata & { encoding: 'utf-8', content: string }
     | FileMetadata & { encoding: 'binary', content: Uint8Array }
 
-/** Options for `contents.file()`. */
+/** Options for `contents.getFile()`. */
 export interface FileOptions extends BaseOptions {
   /** Branch, tag or sha. Defaults to the repository's default branch. */
   ref?: string
@@ -936,7 +936,7 @@ export interface Commit {
     deletions: number
     total?: number
   }
-  /** Present on `contents.commit`; absent from listings. */
+  /** Present on `contents.getCommit`; absent from listings. */
   files?: ChangedFile[]
   raw: unknown
 }

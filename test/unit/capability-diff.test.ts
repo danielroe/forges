@@ -60,11 +60,11 @@ describe('capability diff', () => {
   it('draws a row per changed capability with a column per provider, in order of impact', () => {
     const base = provider('tangled', 'Tangled', {
       capabilities: { 'repos.get': 'native', 'repos.labels': 'none', 'writes.react:issue': 'none', 'writes.react:pull_request': 'none', 'writes.merge': 'unverified', 'users.me': 'native' },
-      anonymous: { 'repos.get': 'native', 'repos.labels': 'none', 'contents.file': 'none' },
+      anonymous: { 'repos.get': 'native', 'repos.labels': 'none', 'contents.getFile': 'none' },
     })
     const head = provider('tangled', 'Tangled', {
       capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.react:issue': 'native', 'writes.react:pull_request': 'native', 'writes.merge': 'native', 'users.me': 'none' },
-      anonymous: { 'repos.get': 'unverified', 'repos.labels': 'native', 'contents.file': 'native' },
+      anonymous: { 'repos.get': 'unverified', 'repos.labels': 'native', 'contents.getFile': 'native' },
     })
     const gitlab = provider('gitlab', 'GitLab', {
       capabilities: { 'repos.get': 'native', 'repos.labels': 'native', 'writes.merge': 'native', 'users.me': 'native' },
@@ -88,7 +88,7 @@ describe('capability diff', () => {
       '| | Tangled | GitLab |',
       '| --- | :-: | :-: |',
       '| `repos.get` | 🟥 | 🟦 |',
-      '| `contents.file` | 🟩 | ⬜ |',
+      '| `contents.getFile` | 🟩 | ⬜ |',
       '',
       '</details>',
       '',
@@ -101,7 +101,7 @@ describe('capability diff', () => {
       '- ❌ → ✅ `repos.labels`, also without credentials',
       '- ❔ → ✅ `writes.merge`',
       '- ❌ → ✅ `writes.react` (issue, PR)',
-      '- ❌ → ✅ `contents.file` without credentials',
+      '- ❌ → ✅ `contents.getFile` without credentials',
       '',
       '</details>',
       '',
@@ -186,13 +186,13 @@ describe('capability diff', () => {
   })
 
   it('heads columns with provider logos, named in alt text and linked to their docs, where a logo exists', () => {
-    const base = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.job': 'none' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.job': 'none' } }))
-    const head = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.job': 'native' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.job': 'native' } }))
+    const base = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.getJob': 'none' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.getJob': 'none' } }))
+    const head = snapshot(provider('github', 'GitHub', { capabilities: { 'ci.getJob': 'native' } }), provider('gitee', 'Gitee', { capabilities: { 'ci.getJob': 'native' } }))
 
     expect(render(base, head, { icon: slug => slug === 'github' ? 'https://example.com/github.svg' : undefined })).toContain([
       '| | <a href="https://forges.link/providers/github"><img src="https://example.com/github.svg" alt="GitHub" title="GitHub" width="16" height="16"></a> | Gitee |',
       '| --- | :-: | :-: |',
-      '| `ci.job` | 🟩 | 🟩 |',
+      '| `ci.getJob` | 🟩 | 🟩 |',
     ].join('\n'))
   })
 

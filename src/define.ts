@@ -228,7 +228,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   emulated?: {
     getComment?: Partial<Record<VerbKind, SupportInput>>
     getReview?: SupportInput
-    job?: SupportInput
+    getJob?: SupportInput
   }
   /** Commit-level checks, beside the pull-level `threads.checks`. */
   checks?: {
@@ -245,19 +245,19 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   ci?: {
     /** The implementation of `provider.ci.runs()` and `provider.ci.runsPage()`. */
     runsPage?: Verb<CiApi['runsPage']>
-    /** The implementation of `provider.ci.run()`. */
-    run?: Verb<CiApi['run']>
+    /** The implementation of `provider.ci.getRun()`. */
+    getRun?: Verb<CiApi['getRun']>
     /** The implementation of `provider.ci.jobs()` and `provider.ci.jobsPage()`. */
     jobsPage?: Verb<CiApi['jobsPage']>
-    /** The implementation of `provider.ci.job()`. */
-    job?: Verb<CiApi['job']>
+    /** The implementation of `provider.ci.getJob()`. */
+    getJob?: Verb<CiApi['getJob']>
     /** The implementation of `provider.ci.log()`. */
     log?: Verb<CiApi['log']>
   }
   /** Repository contents. Listings are declared as pages; core derives the iterables. */
   contents?: {
-    /** The implementation of `provider.contents.file()`. */
-    file?: Verb<ContentsApi['file']>
+    /** The implementation of `provider.contents.getFile()`. */
+    getFile?: Verb<ContentsApi['getFile']>
     /** The implementation of `provider.contents.tree()` and `provider.contents.treePage()`. */
     treePage?: Verb<ContentsApi['treePage']>
     /** The implementation of `provider.contents.branches()` and `provider.contents.branchesPage()`. */
@@ -268,8 +268,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     resolveRef?: Verb<ContentsApi['resolveRef']>
     /** The implementation of `provider.contents.commits()` and `provider.contents.commitsPage()`. */
     commitsPage?: Verb<ContentsApi['commitsPage']>
-    /** The implementation of `provider.contents.commit()`. */
-    commit?: Verb<ContentsApi['commit']>
+    /** The implementation of `provider.contents.getCommit()`. */
+    getCommit?: Verb<ContentsApi['getCommit']>
     /** The implementation of `provider.contents.compare()`. */
     compare?: Verb<ContentsApi['compare']>
     /** The implementation of `provider.contents.commitFiles()`, called once core has checked the input. */
@@ -668,9 +668,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'threads.getReview': gate('threads.getReview', (reviewEnv: CapabilityEnv) => getReviewSupport(spec, reviewEnv), (ref: ReviewRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getReview?.support, env))
       ? spec.threads.getReview!.run(ref, options)
       : listed(call('threads.reviews')(ref.thread, options), ref.id, 'Review')),
-    'ci.job': gate('ci.job', (jobEnv: CapabilityEnv) => ciJobSupport(spec, jobEnv), (ref: CiJobRef, options?: BaseOptions) => {
-      if (!isUnsupported(resolve(spec.ci?.job?.support, env))) {
-        return spec.ci!.job!.run(ref, options)
+    'ci.getJob': gate('ci.getJob', (jobEnv: CapabilityEnv) => ciJobSupport(spec, jobEnv), (ref: CiJobRef, options?: BaseOptions) => {
+      if (!isUnsupported(resolve(spec.ci?.getJob?.support, env))) {
+        return spec.ci!.getJob!.run(ref, options)
       }
       if (!ref.run) {
         return Promise.reject(new UnsupportedOperationError(`${definition.forge} reads a CI job from its run's jobs, and this ref names no run`, origin))

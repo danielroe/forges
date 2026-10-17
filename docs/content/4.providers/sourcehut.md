@@ -43,7 +43,7 @@ Sourcehut usernames are written with a leading tilde, so a repository ref's `own
 
 ## Repositories and contents
 
-`repos.get()`, `repos.list()` and `repos.byOwner()` read `git.sr.ht`. `contents.file()`, `contents.tree()`, `contents.branches()`, `contents.tags()`, `contents.resolveRef()`, `contents.commits()` and `contents.commit()` read the same service. Sourcehut has no compare resolver, so `contents.compare()` is unsupported.
+`repos.get()`, `repos.list()` and `repos.byOwner()` read `git.sr.ht`. `contents.getFile()`, `contents.tree()`, `contents.branches()`, `contents.tags()`, `contents.resolveRef()`, `contents.commits()` and `contents.getCommit()` read the same service. Sourcehut has no compare resolver, so `contents.compare()` is unsupported.
 
 `repos.labels()` and `repos.permissionFor()` are `'emulated'` from the repository's `todo.sr.ht` tracker and its `git.sr.ht` access list. The access list is served only to the repository's owner and collaborators, so for anyone else `permissionFor()` falls back to what the repository's visibility allows. Sourcehut has no milestones, contributors, contributors statistics, assignable users or reviewer candidates.
 
@@ -59,7 +59,7 @@ Sourcehut's equivalent of a pull request is a patchset on a mailing list. There 
 
 ## Builds
 
-`builds.sr.ht` lists the builds of the authenticated account, not of one repository, so `ci.runs()` is `'emulated'` and warns that it ignores the repository. `ci.run()` reads one build, `ci.jobs()` lists its tasks, and `ci.log()` streams a task's log. A job ref must name its run, because a task has no top-level resolver.
+`builds.sr.ht` lists the builds of the authenticated account, not of one repository, so `ci.runs()` is `'emulated'` and warns that it ignores the repository. `ci.getRun()` reads one build, `ci.jobs()` lists its tasks, and `ci.log()` streams a task's log. A job ref must name its run, because a task has no top-level resolver.
 
 ## Accounts
 
@@ -150,17 +150,17 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `checks.report` | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ |
 | `ci.runs` | emulated | ❌ |
-| `ci.run` | ✅ | ❌ |
+| `ci.getRun` | ✅ | ❌ |
 | `ci.jobs` | ✅ | ❌ |
-| `ci.job` | emulated | ❌ |
+| `ci.getJob` | emulated | ❌ |
 | `ci.log` | ✅ | ❌ |
-| `contents.file` | ✅ | ❌ |
+| `contents.getFile` | ✅ | ❌ |
 | `contents.tree` | ✅ | ❌ |
 | `contents.branches` | ✅ | ❌ |
 | `contents.tags` | ✅ | ❌ |
 | `contents.resolveRef` | ✅ | ❌ |
 | `contents.commits` | ✅ | ❌ |
-| `contents.commit` | ✅ | ❌ |
+| `contents.getCommit` | ✅ | ❌ |
 | `contents.compare` | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ❌ | ❌ |

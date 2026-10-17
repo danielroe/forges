@@ -184,14 +184,14 @@ describe('sourcehut', () => {
 
   it('reads file contents, trees, branches, tags, commits and a comparison', async () => {
     const { forge } = provider()
-    const file = await forge.contents.file(repo, 'README.md', { as: 'text' })
+    const file = await forge.contents.getFile(repo, 'README.md', { as: 'text' })
     expect(file).toMatchObject({ encoding: 'utf-8', content: 'hello', sha: 'b1' })
     expect((await forge.contents.treePage(repo)).items[0]).toMatchObject({ path: 'README.md', type: 'file' })
     expect((await forge.contents.branchesPage(repo)).items[0]).toMatchObject({ name: 'master', isDefault: true })
     expect((await forge.contents.tagsPage(repo)).items[0]).toMatchObject({ name: 'v1.0.0', sha: 'sha2' })
     expect(await forge.contents.resolveRef(repo, 'HEAD')).toBe('sha1')
     expect((await forge.contents.commitsPage(repo)).items[0]!.message).toBe('Initial commit')
-    expect((await forge.contents.commit(repo, 'sha1')).sha).toBe('sha1')
+    expect((await forge.contents.getCommit(repo, 'sha1')).sha).toBe('sha1')
   })
 
   it('reads issues, their comments, events and subscription', async () => {
@@ -226,9 +226,9 @@ describe('sourcehut', () => {
   it('reads builds and their logs', async () => {
     const { forge } = provider()
     expect((await forge.ci.runsPage(repo)).items[0]).toMatchObject({ state: 'success' })
-    expect((await forge.ci.run(runRef)).ref.id).toBe('100')
+    expect((await forge.ci.getRun(runRef)).ref.id).toBe('100')
     expect((await forge.ci.jobsPage(runRef)).items[0]).toMatchObject({ name: 'build', state: 'success' })
-    expect((await forge.ci.job(jobRef)).ref.id).toBe('200')
+    expect((await forge.ci.getJob(jobRef)).ref.id).toBe('200')
     expect(await new Response(await forge.ci.log(jobRef)).text()).toBe('the log')
   })
 
@@ -247,7 +247,7 @@ describe('sourcehut', () => {
     const { forge } = provider()
     // A job is a task of its build, so an id the build does not have is not found, not the build's own log.
     await expect(forge.ci.log({ ...origin, repo, id: '999', run: runRef })).rejects.toThrow(NotFoundError)
-    await expect(forge.ci.run({ ...origin, repo, id: 'nope' })).rejects.toThrow(NotFoundError)
+    await expect(forge.ci.getRun({ ...origin, repo, id: 'nope' })).rejects.toThrow(NotFoundError)
     // A patchset id is global, so one from another list is not the pull this ref names.
     await expect(forge.threads.get({ ...origin, repo: { ...origin, owner: '~other', name: 'other' }, kind: 'pull_request', number: '1' })).rejects.toThrow(NotFoundError)
   })

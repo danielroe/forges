@@ -489,10 +489,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     },
     emulated: {
       getComment: { issue: true, pull_request: true },
-      job: true,
+      getJob: true,
     },
     contents: {
-      file: verb(true, async (repo: RepoRef, path: string, options = {}) => {
+      getFile: verb(true, async (repo: RepoRef, path: string, options = {}) => {
         const revspec = options.ref ?? 'HEAD'
         const { user } = await git.query<{ user: { repository: { path: { id: string, object: ShFileObject } | null } | null } | null }>(Q.RepositoryFile, { ...repoParts(repo), revspec, path }, options)
         const object = user?.repository?.path?.object
@@ -544,7 +544,7 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
           : undefined
         return { ...page, ...warnings ? { warnings } : {} }
       }),
-      commit: verb(true, async (repo: RepoRef, sha: string, options?: BaseOptions) => {
+      getCommit: verb(true, async (repo: RepoRef, sha: string, options?: BaseOptions) => {
         const { user } = await git.query<{ user: { repository: { revparse_single: ShCommit | null } | null } | null }>(Q.RepositoryCommit, { ...repoParts(repo), revspec: sha }, options)
         const commit = user?.repository?.revparse_single
         if (!commit) {
@@ -567,7 +567,7 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
           : undefined
         return { ...page, ...warnings ? { warnings } : {} }
       }),
-      run: verb(true, async (ref, options?: BaseOptions) => {
+      getRun: verb(true, async (ref, options?: BaseOptions) => {
         const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, { id: numericId(ref.id, 'build', origin) }, options)
         if (!job) {
           throw new NotFoundError(`No Sourcehut build ${ref.id}`, 404, '', origin)
@@ -712,7 +712,7 @@ export function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
     'threads.commentsPage': threadEvent,
     'threads.getComment': threadEvent,
     'threads.subscription': ticket,
-    'contents.file': repo,
+    'contents.getFile': repo,
     'contents.tree': repo,
     'contents.treePage': repo,
     'contents.branches': repo,
@@ -722,13 +722,13 @@ export function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
     'contents.resolveRef': repo,
     'contents.commits': repo,
     'contents.commitsPage': repo,
-    'contents.commit': repo,
+    'contents.getCommit': repo,
     'ci.runs': job,
     'ci.runsPage': job,
-    'ci.run': job,
+    'ci.getRun': job,
     'ci.jobs': job,
     'ci.jobsPage': job,
-    'ci.job': job,
+    'ci.getJob': job,
     'ci.log': job,
     'search.code': repo,
     'search.codePage': repo,

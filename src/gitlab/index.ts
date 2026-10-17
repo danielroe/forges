@@ -921,7 +921,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         }),
       },
       contents: {
-        file: verb(true, async (repo, path, fileOptions = {}) => {
+        getFile: verb(true, async (repo, path, fileOptions = {}) => {
           const ref = fileOptions.ref ?? await defaultBranch(repo, fileOptions)
           const { data } = await fetcher.json<GitLabFile>(`${projectPath(repo)}/repository/files/${encodeURIComponent(path.replace(/^\//, ''))}`, {
             query: { ref },
@@ -936,7 +936,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.id),
         // gitlab.com responds to anonymous commit listings with a Cloudflare challenge.
         commitsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/repository/commits`, query, (raw: GitLabCommitDetail) => toCommit(repo, raw), { query: { ref_name: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-        commit: verb(true, async (repo, sha, options) => {
+        getCommit: verb(true, async (repo, sha, options) => {
           const [commit, diffs] = await Promise.all([
             fetcher.json<GitLabCommitDetail>(`${projectPath(repo)}/repository/commits/${sha}`, { query: { stats: 'true' }, signal: options?.signal }),
             fetcher.json<GitLabDiff[]>(`${projectPath(repo)}/repository/commits/${sha}/diff`, { signal: options?.signal }),
@@ -1026,9 +1026,9 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       },
       ci: {
         runsPage: verb(true, (repo, query = {}) => list(`${projectPath(repo)}/pipelines`, query, (raw: GitLabPipeline) => toPipeline(repo, raw), { query: { ref: query.branch, status: PIPELINE_STATES[query.state ?? 'unknown'] } })),
-        run: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
+        getRun: verb(true, async (ref, options) => toPipeline(ref.repo, (await fetcher.json<GitLabPipeline>(`${projectPath(ref.repo)}/pipelines/${ref.id}`, { signal: options?.signal })).data)),
         jobsPage: verb(true, (ref, listOptions = {}) => list(`${projectPath(ref.repo)}/pipelines/${ref.id}/jobs`, listOptions, (raw: GitLabJob) => toCiJob(ref, raw))),
-        job: verb(!anonymous, async (ref, options) => {
+        getJob: verb(!anonymous, async (ref, options) => {
           const { data } = await fetcher.json<GitLabJob>(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
           const run = ref.run ?? (data.pipeline && { forge: FORGE, instance, repo: ref.repo, id: String(data.pipeline.id) })
           if (!run) {
