@@ -87,7 +87,7 @@ describe('github', () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${issues}?state=all&sort=updated&direction=desc`]: notModified('W/"one"') })
     const provider = github({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { state: 'all', sort: 'updated', cursor: { etag: 'W/"one"' } })
+    const page = await provider.threads.list(repo, { state: 'all', sort: 'updated', cursor: { etag: 'W/"one"' } }).page()
 
     expect(page).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(calls.map(call => call.url)).toEqual([`${issues}?state=all&sort=updated&direction=desc`])
@@ -102,7 +102,7 @@ describe('github', () => {
     })
     const provider = github({ fetch })
 
-    const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"stale"' } })
+    const page = await provider.threads.list(repo, { kind: 'issue', cursor: { etag: 'W/"stale"' } }).page()
 
     expect(page.items.map(thread => thread.ref.number)).toEqual(['6'])
     expect(page.etag).toBeUndefined()
@@ -116,7 +116,7 @@ describe('github', () => {
     })
     const provider = github({ fetch })
 
-    const page = await provider.repos.byOwnerPage({ forge: 'github', instance: 'github.com', owner: 'ada', name: '', kind: 'namespace' }, { cursor: { etag: 'W/"one"' } })
+    const page = await provider.repos.byOwner({ forge: 'github', instance: 'github.com', owner: 'ada', name: '', kind: 'namespace' }, { cursor: { etag: 'W/"one"' } }).page()
 
     expect(page).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(sentEtags(calls)).toEqual(['W/"one"', 'W/"one"'])
@@ -131,7 +131,7 @@ describe('gitlab', () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${project}/issues?state=opened&order_by=created_at&sort=desc`]: notModified('W/"one"') })
     const provider = gitlab({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } })
+    const page = await provider.threads.list(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } }).page()
 
     expect(page).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(sentEtags(calls)).toEqual(['W/"one"'])
@@ -144,7 +144,7 @@ describe('gitlab', () => {
     })
     const provider = gitlab({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { cursor: { etag: 'W/"one"' } })
+    const page = await provider.threads.list(repo, { cursor: { etag: 'W/"one"' } }).page()
 
     expect(page.etag).toBeUndefined()
     expect(sentEtags(calls)).toEqual([null, null])
@@ -154,8 +154,8 @@ describe('gitlab', () => {
     const conditional = fixtureFetch([], { 'GET https://gitlab.com/api/v4/todos?state=pending': notModified('W/"one"') })
     const unconditional = fixtureFetch([], { 'GET https://gitlab.com/api/v4/todos?state=pending': listed([], { etag: 'W/"two"' }) })
 
-    const pending = await gitlab({ auth: token, fetch: conditional.fetch }).notifications.listPage({ cursor: { etag: 'W/"one"' } })
-    const all = await gitlab({ auth: token, fetch: unconditional.fetch }).notifications.listPage({ all: true, cursor: { etag: 'W/"one"' } })
+    const pending = await gitlab({ auth: token, fetch: conditional.fetch }).notifications.list({ cursor: { etag: 'W/"one"' } }).page()
+    const all = await gitlab({ auth: token, fetch: unconditional.fetch }).notifications.list({ all: true, cursor: { etag: 'W/"one"' } }).page()
 
     expect(pending).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(all).toMatchObject({ items: [], cursor: { token: 'done' } })
@@ -177,8 +177,8 @@ describe('bitbucket', () => {
     })
     const provider = bitbucket({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { cursor: { etag: '"stale"' } })
-    const later = await provider.threads.listPage(repo, { cursor: page.cursor })
+    const page = await provider.threads.list(repo, { cursor: { etag: '"stale"' } }).page()
+    const later = await provider.threads.list(repo, { cursor: page.cursor }).page()
 
     expect(page).toMatchObject({ etag: '"one"', cursor: { nextUrl: next } })
     expect(later.etag).toBeUndefined()
@@ -194,7 +194,7 @@ describe('gitee', () => {
     const { fetch, calls } = fixtureFetch([], { [`GET ${pulls}`]: notModified('W/"one"') })
     const provider = gitee({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { kind: 'pull_request', cursor: { etag: 'W/"one"' } })
+    const page = await provider.threads.list(repo, { kind: 'pull_request', cursor: { etag: 'W/"one"' } }).page()
 
     expect(page).toMatchObject({ items: [], notModified: true, etag: 'W/"one"' })
     expect(sentEtags(calls)).toEqual(['W/"one"'])
@@ -208,7 +208,7 @@ describe('gitee', () => {
     })
     const provider = gitee({ auth: token, fetch })
 
-    const page = await provider.threads.listPage(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } })
+    const page = await provider.threads.list(repo, { kind: 'issue', cursor: { etag: 'W/"one"' } }).page()
 
     expect(page.etag).toBeUndefined()
     expect(sentEtags(calls)).toEqual([null, null])

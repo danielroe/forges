@@ -37,9 +37,9 @@ const inputs = EXPLORER_FORGES.flatMap(forge =>
 describe('explorer operations', () => {
   it('call methods that every provider has', () => {
     const provider = github() as unknown as Record<string, Record<string, unknown>>
-    for (const { method } of EXPLORER_OPERATIONS) {
-      const [namespace, name] = method.split('.') as [string, string]
-      expect(typeof provider[namespace]?.[name], method).toBe('function')
+    for (const { verb } of EXPLORER_OPERATIONS) {
+      const [namespace, name] = verb.split('.') as [string, string]
+      expect(typeof provider[namespace]?.[name], verb).toBe('function')
     }
   })
 
@@ -56,11 +56,11 @@ describe('explorer operations', () => {
   it('declare the type that the method they call resolves to', () => {
     const symbols = model.entries.flatMap(entry => entry.symbols)
     const namespaces = symbols.find(symbol => symbol.name === 'ForgeProvider')!.members
-    for (const { method, returns } of EXPLORER_OPERATIONS) {
-      const [namespace, name] = method.split('.') as [string, string]
+    for (const { verb, returns, page } of EXPLORER_OPERATIONS) {
+      const [namespace, name] = verb.split('.') as [string, string]
       const api = symbols.find(symbol => symbol.name === namespaces.find(member => member.name === namespace)?.reference)
       const declared = api?.members.find(member => member.name === name)?.signatures[0]?.returns.type
-      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), method).toBe(returns)
+      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), verb).toBe(page ? returns.replace(/^Page</, 'ForgeListing<') : returns)
     }
   })
 

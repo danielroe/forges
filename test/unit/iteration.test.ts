@@ -44,7 +44,7 @@ describe('cross-cutting', () => {
 
   it('serialises a notification to JSON with dates as ISO strings', async () => {
     const { fetch } = fixtureFetch('github')
-    const page = await github({ auth: { type: 'token', token: 't' }, fetch }).notifications!.listPage()
+    const page = await github({ auth: { type: 'token', token: 't' }, fetch }).notifications!.list().page()
     const roundTrip = JSON.parse(JSON.stringify(page.items[0]))
 
     expect(roundTrip.updatedAt).toBe(page.items[0]!.updatedAt.toISOString())
@@ -103,7 +103,7 @@ describe('github iteration', () => {
   it('fills the check rollup on listed pulls with one batched read', async () => {
     const { fetch, calls } = fixtureFetch('github')
     const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const page = await provider.threads.listPage(ghPull.repo, { kind: 'pull_request' })
+    const page = await provider.threads.list(ghPull.repo, { kind: 'pull_request' }).page()
 
     expect(calls.filter(call => call.operationName === 'ThreadsBatch')).toHaveLength(1)
     expect(page.items.find(thread => thread.ref.number === ghPull.number)?.checks?.state).toBeDefined()
@@ -285,7 +285,7 @@ describe('tangled iteration', () => {
       },
     })
     const provider = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: 'https://pds.example.com' }, notificationsUrl: 'https://notifs.example.com', fetch })
-    const [star] = (await provider.notifications!.listPage()).items
+    const [star] = (await provider.notifications!.list().page()).items
 
     expect(star).toMatchObject({ reason: 'starred', subject: { type: 'repo', repo: { owner: OWNER, name: 'widgets' } } })
     expect(notificationThread(star!)).toBeUndefined()

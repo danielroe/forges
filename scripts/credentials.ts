@@ -85,7 +85,7 @@ async function leaks(kind: string, fields: string[]): Promise<Set<string>> {
     const env = Object.fromEntries(Object.entries({ NOTIFICATIONS_URL: probeValue('NOTIFICATIONS_URL'), ...values }).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
     const provider = providersFromEnv(env, { fetch })[0]?.provider
     await provider?.request('GET', '/probe').catch(() => {})
-    await provider?.notifications.listPage().catch(() => {})
+    await provider?.notifications.list().page().catch(() => {})
     const text = sent.flatMap(value => [value, ...[...value.matchAll(/(?:Basic|Bearer) ([\w.=-]+)/g)].flatMap(([, token]) => token!.split('.').map(part => Buffer.from(part, 'base64').toString()))]).join('\n')
     for (const field of fields) {
       if (text.includes(values[field]!)) {

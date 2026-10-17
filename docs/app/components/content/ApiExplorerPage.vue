@@ -10,7 +10,7 @@ const groups = Object.entries(EXPLORER_NAMESPACE_TITLES).map(([namespace, title]
     .filter(operation => operation.verb.startsWith(`${namespace}.`))
     .sort((a, b) => Number(!a.run) - Number(!b.run))
     .map(operation => ({
-      label: `${operation.method}()`,
+      label: `${operation.verb}()`,
       value: operation.verb,
       icon: operation.run ? 'i-lucide-play' : 'i-lucide-code',
     })),

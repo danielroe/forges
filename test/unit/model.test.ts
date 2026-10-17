@@ -44,13 +44,13 @@ describe('identity keys', () => {
 
   it('keys what a provider reads by the refs it returns, but not the thread of an event', async () => {
     const provider = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' }] } })
-    const [listed] = (await provider.threads.listPage({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' })).items
+    const [listed] = (await provider.threads.list({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }).page()).items
     const ref: ThreadRef = listed!.ref
     const thread = await provider.threads.get(ref)
     const comment = await provider.threads.createComment(ref, 'Thanks!')
     const { comment: upserted } = await upsertComment(provider, ref, { key: 'status', body: 'Green' })
     const review = await provider.threads.createReview(ref, { event: 'approve' })
-    const [event] = (await provider.threads.eventsPage(ref)).items
+    const [event] = (await provider.threads.events(ref).page()).items
 
     expect(threadKey(thread.ref)).toBe(threadKey(listed!.ref))
     expect(commentKey(comment.ref)).toBe(`${threadKey(thread.ref)}#comment/${comment.ref.id}`)

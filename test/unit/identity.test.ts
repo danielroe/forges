@@ -1,4 +1,4 @@
-import type { Page, RepoRef, RepoSection, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
+import type { ForgeIterable, ForgeListing, ForgeProvider, Page, RepoRef, RepoSection, SearchQuery, Thread, ThreadRef } from '../../src/index.ts'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -12,6 +12,14 @@ import { createForges, parseNotificationKey, parseRepoKey, parseThreadKey, repoK
 import { forgeIterable } from '../../src/kit.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
+
+function unpaged<T>(iterable: ForgeIterable<T>): ForgeListing<T> {
+  return Object.assign(iterable, { page: async () => ({ items: [] }) })
+}
+
+function stubSearch(provider: ForgeProvider, read: (query: SearchQuery) => Promise<Page<Thread>>) {
+  provider.search.threads = (query = {}) => Object.assign(forgeIterable<Thread>(async function* () {}), { page: () => read(query) })
+}
 
 const auth = { type: 'token', token: 't' } as const
 const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
@@ -370,9 +378,9 @@ describe('forges aggregate', () => {
     const working = fake({ instance: 'one.test', seed: { repos: [{ repo: 'acme/widgets' }], threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Hello' }], notifications: [{ repo: 'acme/widgets', number: 1 }] } })
     const broken = fake({ instance: 'two.test' })
     const forges = createForges([broken, working])
-    forges.get('fake', 'two.test')!.notifications.list = () => forgeIterable(async function* () {
+    forges.get('fake', 'two.test')!.notifications.list = () => unpaged(forgeIterable(async function* () {
       throw new Error('offline')
-    })
+    }))
 
     const iterable = forges.notifications.list()
     const titles = (await Array.fromAsync(iterable)).map(notification => notification.title)
@@ -387,7 +395,7 @@ describe('forges aggregate', () => {
     for (const provider of forges.providers) {
       provider.notifications.list = (options) => {
         seen.push(options)
-        return forgeIterable(async function* () {})
+        return unpaged(forgeIterable(async function* () {}))
       }
     }
 
@@ -406,7 +414,7 @@ describe('cross-forge search', () => {
     second.store.repos.get('acme/gadgets')!.threads.get('1')!.thread.updatedAt = new Date('2025-01-03T00:00:00Z')
     const forges = createForges([first, second, broken])
     const brokenProvider = forges.get('fake', 'three.test')!
-    brokenProvider.search.threadsPage = () => Promise.reject(new Error('index offline'))
+    stubSearch(brokenProvider, () => Promise.reject(new Error('index offline')))
 
     const iterable = forges.search.threads({ text: 'crash' })
     const titles = (await Array.fromAsync(iterable)).map(thread => thread.title)
@@ -424,10 +432,10 @@ describe('cross-forge search paging', () => {
     const forges = createForges(Object.keys(pages).map(instance => fake({ instance })))
     const queries: Array<SearchQuery & { instance: string }> = []
     for (const provider of forges.providers) {
-      provider.search.threadsPage = async (query) => {
+      stubSearch(provider, async (query) => {
         queries.push({ ...query, instance: provider.instance })
         return pages[provider.instance]![Number(query.cursor?.token ?? 0)]!
-      }
+      })
     }
     return { forges, queries }
   }
@@ -483,10 +491,10 @@ describe('cross-forge search paging', () => {
   it('reads the next page only when the iteration reaches it', async () => {
     const forges = createForges([fake({ instance: 'one.test' })])
     let reads = 0
-    forges.providers[0]!.search.threadsPage = async () => {
+    stubSearch(forges.providers[0]!, async () => {
       reads++
       return { items: [thread(String(reads), 10 - reads)], cursor: { token: 'more' } }
-    }
+    })
 
     const iterator = forges.search.threads()[Symbol.asyncIterator]()
     const titles = [(await iterator.next()).value?.title, (await iterator.next()).value?.title]
@@ -498,9 +506,9 @@ describe('cross-forge search paging', () => {
 
   it('keeps the items a provider yielded before a later page fails', async () => {
     const forges = createForges([fake({ instance: 'one.test' })])
-    forges.providers[0]!.search.threadsPage = async query => query.cursor
+    stubSearch(forges.providers[0]!, async query => query.cursor
       ? Promise.reject(new Error('index offline'))
-      : { items: [thread('first', 1)], cursor: { token: 'more' } }
+      : { items: [thread('first', 1)], cursor: { token: 'more' } })
 
     const iterable = forges.search.threads()
     const titles = (await Array.fromAsync(iterable)).map(item => item.title)

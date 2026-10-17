@@ -3,7 +3,7 @@ import type { ForgeVerb, TableSpecPath } from '../../src/capability-table.ts'
 import type { CapabilityEnv, ProviderSpec } from '../../src/define.ts'
 import { describe, expect, it, vi } from 'vitest'
 import { declaredCapabilities } from '../../src/capabilities.ts'
-import { CAPABILITY_TABLE, capabilityKey } from '../../src/capability-table.ts'
+import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { fake } from '../../src/fake/index.ts'
 import { azureDevOps, bitbucket, cursorOrigin, forgejo, gitea, gitee, github, gitlab, tangled } from '../../src/index.ts'
 
@@ -83,15 +83,15 @@ const declared = new Set(providers.flatMap(([, create]) => {
 }))
 
 describe('capability table', () => {
-  it('declares listings as their page verb and covers the iterable', () => {
+  it('declares listings as their page verb', () => {
     const labels = table.find(entry => entry.capability === 'repos.labels')
 
-    expect(labels).toEqual({ capability: 'repos.labels', spec: 'repos.labelsPage', verbs: ['repos.labels', 'repos.labelsPage'] })
+    expect(labels).toEqual({ capability: 'repos.labels', spec: 'repos.labelsPage', verbs: ['repos.labels'], listings: ['repos.labels'] })
     expect(table.filter(entry => 'listing' in entry)).toEqual([])
   })
 
   it('produces every capability leaf exactly once', () => {
-    const produced = table.flatMap(entry => entry.verbs?.length ? [...new Set(entry.verbs.map(verb => capabilityKey(entry, verb)))] : [entry.capability])
+    const produced = table.flatMap(entry => entry.verbs?.length ? entry.verbs : [entry.capability])
 
     expect(new Set(produced).size).toBe(produced.length)
     for (const [name, create] of providers) {
@@ -126,7 +126,7 @@ describe('capability table', () => {
   })
 
   it('types verbs from the table, including the derived ones', () => {
-    const verbs: ForgeVerb[] = ['repos.labels', 'repos.labelsPage', 'threads.react', 'threads.events', 'installations.providers']
+    const verbs: ForgeVerb[] = ['repos.labels', 'repos.labels', 'threads.react', 'threads.events', 'installations.providers']
     // @ts-expect-error a capability group is not a verb
     const capability: ForgeVerb = 'writes.createComment'
 
@@ -157,7 +157,7 @@ describe('capability table', () => {
     expect(provider.support('threads.createComment')).toBe(true)
     expect(provider.support('threads.createComment', 'discussion')).toBe(false)
     expect(github({ auth }).support('repos.reviewerCandidates')).toBe('emulated')
-    expect(github({ auth }).support('repos.reviewerCandidatesPage')).toBe('emulated')
+    expect(github({ auth }).support('repos.reviewerCandidates')).toBe('emulated')
     expect(gitee({ auth }).support('threads.createComment', 'issue')).toBe(true)
     expect(github({}).support('ci.log')).toBe(false)
   })

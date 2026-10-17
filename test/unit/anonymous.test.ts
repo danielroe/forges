@@ -45,7 +45,7 @@ describe('anonymous providers', () => {
     expect(forge.can('threads.comments', 'pull_request')).toBe(false)
     expect(forge.can('threads.comments', 'commit')).toBe(true)
     expect(gitlab({ auth: { type: 'token', token: 't' } }).can('threads.comments', 'issue')).toBe(true)
-    await expect(forge.threads.commentsPage({ forge: 'gitlab', instance: 'gitlab.com', repo: gitlabRepo, kind: 'issue', number: '1' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.threads.comments({ forge: 'gitlab', instance: 'gitlab.com', repo: gitlabRepo, kind: 'issue', number: '1' }).page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 
@@ -53,7 +53,7 @@ describe('anonymous providers', () => {
     const { fetch, calls } = fixtureFetch('github')
     const forge = github({ fetch })
 
-    await expect(forge.repos.listPage()).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.repos.list().page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 
@@ -67,7 +67,7 @@ describe('anonymous providers', () => {
     })
 
     const [result] = await forge.threads.getMany([issue])
-    const page = await forge.threads.listPage(repo)
+    const page = await forge.threads.list(repo).page()
 
     expect(result!.ok).toBe(true)
     expect(page.warnings).toBeUndefined()
@@ -92,7 +92,7 @@ describe('anonymous providers', () => {
 
     expect(forge.can('threads.events', 'issue')).toBe(true)
     expect(forge.can('threads.events', 'discussion')).toBe(false)
-    await expect(forge.threads.eventsPage(discussion)).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.threads.events(discussion).page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 

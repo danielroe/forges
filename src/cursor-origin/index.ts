@@ -1,6 +1,6 @@
-import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
+import type { InstallationsSpec, ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { BaseOptions, Check, Comment, Cursor, ForgeEventInput, ForgeWarning, Installation, ListOptions, MergeMethod, Page, PageOptions, RateLimit, Repo, RepoRef, ResolvedThreadRef, Review, ReviewEvent, ReviewInput, Thread, ThreadQuery, ThreadRef } from '../model.ts'
-import type { AnonymousAuth, ForgeOptionsBase, InstallationsApi } from '../provider.ts'
+import type { AnonymousAuth, ForgeOptionsBase } from '../provider.ts'
 import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginLabel, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
@@ -167,7 +167,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     }), listOptions.cursor)
   }
 
-  function createInstallationsApi(app: OriginAppCredentials): Omit<InstallationsApi, 'list' | 'repos'> {
+  function createInstallationsApi(app: OriginAppCredentials): InstallationsSpec {
     const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
     const auth = options.auth as Extract<CursorOriginAuth, { type: 'app' }>
     const toInstallation = (raw: OriginInstallation): Installation => ({

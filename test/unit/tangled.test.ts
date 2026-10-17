@@ -426,13 +426,13 @@ describe('tangled notifications (experimental)', () => {
 
   it('is unsupported without a notifications service, and supported with one', async () => {
     expect(provider().instance.can('notifications.list')).toBe(false)
-    await expect(provider().instance.notifications.listPage()).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider().instance.notifications.list().page()).rejects.toThrow(UnsupportedOperationError)
     expect(notifying().instance.capabilities.notifications.list).toBe(true)
   })
 
   it('lists notifications with a service-auth token scoped to the method', async () => {
     const { instance, calls } = notifying()
-    const page = await instance.notifications!.listPage()
+    const page = await instance.notifications!.list().page()
     const [comment, follow] = page.items
 
     expect(calls.find(call => call.url.includes('getServiceAuth'))!.url).toContain('aud=did%3Aweb%3Anotifs.example.com')
@@ -598,14 +598,14 @@ describe('tangled contents', () => {
   it('reads changed files and commits from the gzipped patch of the latest round', async () => {
     const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(PATCH).toString('base64') } }, false)
 
-    const files = await instance.threads.filesPage(pull)
+    const files = await instance.threads.files(pull).page()
     expect(files.items).toEqual([
       expect.objectContaining({ path: 'src/cache.ts', status: 'modified', additions: 2, deletions: 1, sha: '3333333' }),
       expect.objectContaining({ path: 'src/new.ts', previousPath: 'src/old.ts', status: 'renamed', additions: 0, deletions: 0 }),
     ])
     expect(files.warnings?.map(warning => [warning.code, warning.subject])).toEqual([['files_approximate', 'src/cache.ts']])
 
-    const commits = await instance.threads.commitsPage(pull)
+    const commits = await instance.threads.commits(pull).page()
     expect(commits.items.map(commit => [commit.sha, commit.author?.name, commit.message, commit.stats])).toEqual([
       [SHA_A, 'Ada Løvelace', 'Cache compiled templates by content hash\n\nKeyed by the hash of the source.', { additions: 1, deletions: 1 }],
       [SHA_B, 'Ada', 'Rename the cache', { additions: 1, deletions: 0 }],
@@ -617,8 +617,8 @@ describe('tangled contents', () => {
     const diff = PATCH.slice(PATCH.indexOf('diff --git'), PATCH.indexOf('\n-- \n'))
     const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(diff).toString('base64') } }, false)
 
-    expect((await instance.threads.filesPage(pull)).items).toEqual([expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 })])
-    expect((await instance.threads.commitsPage(pull)).items).toEqual([])
+    expect((await instance.threads.files(pull).page()).items).toEqual([expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 })])
+    expect((await instance.threads.commits(pull).page()).items).toEqual([])
   })
 
   it('takes the commit an annotated tag points at, and a lightweight tag as is', async () => {
@@ -628,7 +628,7 @@ describe('tangled contents', () => {
         { name: 'v1', hash: 'e'.repeat(40), message: 'v1' },
       ] } },
     }, false)
-    const tags = await instance.contents.tagsPage(repo, { perPage: 2 })
+    const tags = await instance.contents.tags(repo, { perPage: 2 }).page()
 
     expect(tags.items.map(tag => [tag.name, tag.sha])).toEqual([['v2', 'd'.repeat(40)], ['v1', 'e'.repeat(40)]])
     expect(tags.cursor).toEqual({ token: '2' })
@@ -645,7 +645,7 @@ describe('tangled contents', () => {
       ] } },
     }, false)
     const file = await instance.contents.getFile(repo, 'logo.png', { ref: 'main' })
-    const tree = await instance.contents.treePage(repo, { path: 'src/', recursive: true })
+    const tree = await instance.contents.tree(repo, { path: 'src/', recursive: true }).page()
 
     expect(file).toMatchObject({ encoding: 'binary', content: new Uint8Array([0x89, 0x50, 0x4E, 0x47]), size: 4 })
     expect(tree.items.map(entry => [entry.path, entry.type, entry.mode])).toEqual([
@@ -661,7 +661,7 @@ describe('tangled contents', () => {
     const { instance } = provider({
       [`GET ${KNOT}/sh.tangled.repo.log?repo=${REPO_DID}&ref=main&limit=1`]: { status: 200, body: { commits: [{ hash: SHA_A, this: SHA_A, message: 'One', parent_hashes: [Array.from({ length: 20 }).fill(0xBB)] }] } },
     }, false)
-    const page = await instance.contents.commitsPage(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) })
+    const page = await instance.contents.commits(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) }).page()
 
     expect(page.items.map(commit => [commit.sha, commit.parents])).toEqual([[SHA_A, [SHA_B]]])
     expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
@@ -711,7 +711,7 @@ describe('tangled labels, reactions and people', () => {
 
   it('gives the owner admin, collaborators write and anyone else read', async () => {
     const { instance } = provider({}, false)
-    const collaborators = await instance.repos.collaboratorsPage(repo)
+    const collaborators = await instance.repos.collaborators(repo).page()
 
     expect(collaborators.items.map(collaborator => [collaborator.actor.id, collaborator.role])).toEqual([[OWNER, 'admin'], [GRACE, 'write']])
     expect(await instance.repos.permissionFor(repo, OWNER)).toBe('admin')

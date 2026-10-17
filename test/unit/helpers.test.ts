@@ -28,7 +28,7 @@ describe('upsertComment', () => {
   it('creates a keyed comment once and edits it on the next run', async () => {
     const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-    const [issue] = (await forge.threads.listPage(repo, { kind: 'issue' })).items
+    const [issue] = (await forge.threads.list(repo, { kind: 'issue' }).page()).items
 
     const first = await upsertComment(forge, issue!.ref, { key: 'coverage', body: 'Coverage: 81%' })
     const second = await upsertComment(forge, issue!.ref, { key: 'coverage', body: 'Coverage: 84%' })
@@ -55,11 +55,11 @@ describe('upsertComment', () => {
 
     it('passes since to the listing it reads', async () => {
       const { forge, ref } = seeded()
-      const commentsPage = vi.spyOn(forge.threads, 'commentsPage')
+      const comments = vi.spyOn(forge.threads, 'comments')
 
       await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
-      expect(commentsPage).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
+      expect(comments).toHaveBeenCalledWith(ref, expect.objectContaining({ since: firstAttemptAt }))
     })
 
     it('finds the comment that a first attempt left behind instead of posting another', async () => {

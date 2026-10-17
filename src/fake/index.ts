@@ -124,7 +124,7 @@ export interface FakeThreadSeed {
  */
 export type FakeMergeability = 'clean' | 'blocked' | 'conflict'
 
-/** A delay in milliseconds for every request, or a function of the verb, which names a listing by its page, such as `threads.commentsPage`. */
+/** A delay in milliseconds for every request, or a function of the verb, such as `threads.comments`. */
 export type FakeLatency = number | ((verb: ForgeVerb) => number)
 
 /**
@@ -344,8 +344,8 @@ export interface FakeProvider extends ForgeProvider {
   /** The in-memory state of the forge. Results are copies, so changing one leaves the store as it was. */
   readonly store: FakeStore
   /**
-   * Rejects the next call of `verb` with `error`. A listing and its page
-   * share a verb, so `threads.comments` also fails `threads.commentsPage`.
+   * Rejects the next call of `verb` with `error`. For a listing, that is its
+   * next page read, from iterating or from `page()`.
    * Verbs that core builds from other requests, such as an emulated
    * `threads.getComment`, fail through those requests.
    * @param verb The verb whose next call rejects.
@@ -523,7 +523,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
 
   function takeFailure(verb: string): { error: Error, applied: boolean } | undefined {
-    const queue = failures.get(verb.replace(/Page$/, ''))
+    const queue = failures.get(verb)
     const next = queue?.[0]
     if (!next) {
       return undefined
@@ -537,8 +537,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const disconnected = (verb: string) => new ForgeNetworkError(`${verb} failed: ${instance} is offline`, origin)
 
   /** Runs `run` as one request: offline, latency, rate limit and injected failures apply, and the result is a copy. */
-  function request(verb: string, run: (...args: any[]) => any): (...args: any[]) => Promise<unknown> {
-    sent.add(verb.replace(/Page$/, ''))
+  function request(name: string, run: (...args: any[]) => any): (...args: any[]) => Promise<unknown> {
+    const verb = name.replace(/Page$/, '')
+    sent.add(verb)
     return async (...args) => {
       const signal = signalOf(args)
       signal?.throwIfAborted()

@@ -188,8 +188,8 @@ export type AlertSupport = Record<'dependency' | 'code_scanning' | 'secret' | 'a
 /**
  * What a provider supports, operation by operation. It is computed without a request, and
  * `refreshCapabilities()` refines it with the instance version. Each verb has an entry at its
- * path on the provider, which a page shares with its listing, and the
- * [capability matrix](/reference/capability-matrix) lists them for every forge.
+ * path on the provider, and the [capability matrix](/reference/capability-matrix) lists them
+ * for every forge.
  */
 export interface ForgeCapabilities {
   /** Instance version the capabilities were computed for, when known. */
@@ -203,19 +203,19 @@ export interface ForgeCapabilities {
   repos: {
     /** Support for `repos.get()`. */
     get: Support
-    /** Support for `repos.list()` and `repos.listPage()`. */
+    /** Support for `repos.list()`. */
     list: Support
-    /** Support for `repos.byOwner()` and `repos.byOwnerPage()`. */
+    /** Support for `repos.byOwner()`. */
     byOwner: Support
-    /** Support for `repos.labels()` and `repos.labelsPage()`. */
+    /** Support for `repos.labels()`. */
     labels: Support
     /** Support for `repos.createLabel()`. */
     createLabel: Support
-    /** Support for `repos.milestones()` and `repos.milestonesPage()`. */
+    /** Support for `repos.milestones()`. */
     milestones: Support
-    /** Support for `repos.collaborators()` and `repos.collaboratorsPage()`. */
+    /** Support for `repos.collaborators()`. */
     collaborators: Support
-    /** Support for `repos.contributors()` and `repos.contributorsPage()`. */
+    /** Support for `repos.contributors()`. */
     contributors: Support
     /** Support for `repos.contributorStats()`. */
     contributorStats: Support
@@ -225,11 +225,11 @@ export interface ForgeCapabilities {
     permissionFor: Support
     /** Support for `repos.addCollaborator()`. */
     addCollaborator: Support
-    /** Support for `repos.assignableUsers()` and `repos.assignableUsersPage()`. */
+    /** Support for `repos.assignableUsers()`. */
     assignableUsers: Support
-    /** Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`. */
+    /** Support for `repos.reviewerCandidates()`. */
     reviewerCandidates: Support
-    /** Support for `repos.events()` and `repos.eventsPage()`. */
+    /** Support for `repos.events()`. */
     events: Support
   }
   users: {
@@ -239,7 +239,7 @@ export interface ForgeCapabilities {
     me: Support
     /** Support for `users.sponsorable()`. */
     sponsorable: Support
-    /** Support for `users.events()` and `users.eventsPage()`. */
+    /** Support for `users.events()`. */
     events: Support
     /** Support for `users.block()`. */
     block: Support
@@ -248,9 +248,9 @@ export interface ForgeCapabilities {
   }
   /** An organisation's teams and their members, where the forge has teams, and the accounts it blocks. */
   orgs: {
-    /** Support for `orgs.teams()` and `orgs.teamsPage()`. */
+    /** Support for `orgs.teams()`. */
     teams: Support
-    /** Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`. */
+    /** Support for `orgs.teamMembers()`. */
     teamMembers: Support
     /** Support for `orgs.block()`. */
     block: Support
@@ -260,17 +260,17 @@ export interface ForgeCapabilities {
   threads: {
     /** Support for `threads.get()`, per thread kind. */
     get: PerKind
-    /** Support for `threads.list()` and `threads.listPage()`, per thread kind. */
+    /** Support for `threads.list()`, per thread kind. */
     list: PerKind
     /** Support for `threads.getMany()`. */
     getMany: Support
-    /** Support for `threads.closingIssues()` and `threads.closingIssuesPage()`. */
+    /** Support for `threads.closingIssues()`. */
     closingIssues: Support
-    /** Support for `threads.closingPullRequests()` and `threads.closingPullRequestsPage()`. */
+    /** Support for `threads.closingPullRequests()`. */
     closingPullRequests: Support
-    /** Support for `threads.events()` and `threads.eventsPage()`, per thread kind. */
+    /** Support for `threads.events()`, per thread kind. */
     events: PerKind
-    /** Support for `threads.comments()` and `threads.commentsPage()`, per thread kind. */
+    /** Support for `threads.comments()`, per thread kind. */
     comments: PerKind
     /** Support for `threads.getComment()`, per thread kind. */
     getComment: PerKind
@@ -284,7 +284,7 @@ export interface ForgeCapabilities {
     hideComment: PerKind
     /** Support for `threads.unhideComment()`, per thread kind. */
     unhideComment: PerKind
-    /** Support for `threads.reactions()` and `threads.reactionsPage()`, per thread kind. */
+    /** Support for `threads.reactions()`, per thread kind. */
     reactions: PerKind
     /** Support for `threads.react()`, per thread kind. */
     react: PerKind
@@ -330,11 +330,11 @@ export interface ForgeCapabilities {
     unsubscribe: PerKind
     /** Support for `threads.checks()` and `Thread.checks`, per thread kind. */
     checks: PerKind
-    /** Support for `threads.files()` and `threads.filesPage()`. */
+    /** Support for `threads.files()`. */
     files: Support
-    /** Support for `threads.commits()` and `threads.commitsPage()`. */
+    /** Support for `threads.commits()`. */
     commits: Support
-    /** Support for `threads.reviews()` and `threads.reviewsPage()`. `'emulated'` where reviews are synthesised from approvals or votes. */
+    /** Support for `threads.reviews()`. `'emulated'` where reviews are synthesised from approvals or votes. */
     reviews: Support
     /** Support for `threads.getReview()`. */
     getReview: Support
@@ -352,7 +352,7 @@ export interface ForgeCapabilities {
     unresolveReviewThread: Support
   }
   notifications: {
-    /** Support for `notifications.list()` and `notifications.listPage()`. */
+    /** Support for `notifications.list()`. */
     list: Support
     /** Support for `notifications.markRead()`. */
     markRead: Support
@@ -368,13 +368,13 @@ export interface ForgeCapabilities {
     unreadCount: Support
   }
   installations: {
-    /** Support for `installations.list()` and `installations.listPage()`. */
+    /** Support for `installations.list()`. */
     list: Support
     /** Support for `installations.get()`. */
     get: Support
     /** Support for `installations.token()`. */
     token: Support
-    /** Support for `installations.repos()` and `installations.reposPage()`. */
+    /** Support for `installations.repos()`. */
     repos: Support
     /** Support for `installations.provider()`. */
     provider: Support
@@ -392,11 +392,11 @@ export interface ForgeCapabilities {
     rerun: Support
   }
   ci: {
-    /** Support for `ci.runs()` and `ci.runsPage()`. */
+    /** Support for `ci.runs()`. */
     runs: Support
     /** Support for `ci.getRun()`. */
     getRun: Support
-    /** Support for `ci.jobs()` and `ci.jobsPage()`. */
+    /** Support for `ci.jobs()`. */
     jobs: Support
     /** Support for `ci.getJob()`. */
     getJob: Support
@@ -406,15 +406,15 @@ export interface ForgeCapabilities {
   contents: {
     /** Support for `contents.getFile()`. */
     getFile: Support
-    /** Support for `contents.tree()` and `contents.treePage()`. `'emulated'` where recursion is walked level by level. */
+    /** Support for `contents.tree()`. `'emulated'` where recursion is walked level by level. */
     tree: Support
-    /** Support for `contents.branches()` and `contents.branchesPage()`. */
+    /** Support for `contents.branches()`. */
     branches: Support
-    /** Support for `contents.tags()` and `contents.tagsPage()`. */
+    /** Support for `contents.tags()`. */
     tags: Support
     /** Support for `contents.resolveRef()`. */
     resolveRef: Support
-    /** Support for `contents.commits()` and `contents.commitsPage()`. */
+    /** Support for `contents.commits()`. */
     commits: Support
     /** Support for `contents.getCommit()`. */
     getCommit: Support
@@ -424,7 +424,7 @@ export interface ForgeCapabilities {
     commitFiles: Support
   }
   releases: {
-    /** Support for `releases.list()` and `releases.listPage()`. */
+    /** Support for `releases.list()`. */
     list: Support
     /** Support for `releases.get()`. */
     get: Support
@@ -445,7 +445,7 @@ export interface ForgeCapabilities {
     verify: Support
     /** Support for `webhooks.ingest()`. */
     ingest: Support
-    /** Support for `webhooks.list()` and `webhooks.listPage()`. */
+    /** Support for `webhooks.list()`. */
     list: Support
     /** Support for `webhooks.create()`. */
     create: Support
@@ -455,23 +455,23 @@ export interface ForgeCapabilities {
     delete: Support
     /** Support for `webhooks.rotateSecret()`. */
     rotateSecret: Support
-    /** Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`. */
+    /** Support for `webhooks.deliveries()`. */
     deliveries: Support
     /** Support for `webhooks.redeliver()`. */
     redeliver: Support
   }
   search: {
-    /** Support for `search.threads()` and `search.threadsPage()`. */
+    /** Support for `search.threads()`. */
     threads: Support
-    /** Support for `search.repos()` and `search.reposPage()`. */
+    /** Support for `search.repos()`. */
     repos: Support
-    /** Support for `search.commits()` and `search.commitsPage()`. */
+    /** Support for `search.commits()`. */
     commits: Support
-    /** Support for `search.code()` and `search.codePage()`. */
+    /** Support for `search.code()`. */
     code: Support
   }
   securityAlerts: {
-    /** Support for `securityAlerts.list()` and `securityAlerts.listPage()`, per alert kind. */
+    /** Support for `securityAlerts.list()`, per alert kind. */
     list: AlertSupport
   }
   /**
@@ -495,6 +495,19 @@ export interface ForgeIterable<T> extends AsyncIterable<T> {
   readonly warnings: ForgeWarning[]
 }
 
+/**
+ * A listing: iterate it to read every item, or call `page()` to read one page.
+ * @example
+ * ```ts
+ * const first = await provider.threads.comments(ref, { perPage: 20 }).page()
+ * const next = first.cursor && await provider.threads.comments(ref, { perPage: 20, cursor: first.cursor }).page()
+ * ```
+ */
+export interface ForgeListing<T> extends ForgeIterable<T> {
+  /** Reads one page: the first, or the one after the `cursor` the listing was called with. */
+  page: () => Promise<Page<T>>
+}
+
 /** A webhook delivery as received: its headers, its raw body and, optionally, the secret to verify it with. */
 export interface WebhookDelivery {
   /** The request headers, which carry the signature and the event name. */
@@ -516,9 +529,7 @@ export interface BulkNotificationOptions extends BaseOptions {
 /** Reading and clearing the notifications of the authenticated account. */
 export interface NotificationsApi {
   /** Lists the account's notifications. */
-  list: (options?: NotificationListOptions) => ForgeIterable<Notification>
-  /** One page of `list()`. Pass the `cursor` of the previous page to read the next. */
-  listPage: (options?: NotificationListOptions) => Promise<Page<Notification>>
+  list: (options?: NotificationListOptions) => ForgeListing<Notification>
   /** Marks a notification as read. */
   markRead: (ref: NotificationRef, options?: BaseOptions) => Promise<void>
   /** Marks a notification as done, which clears it from the inbox where the forge has that state. */
@@ -584,9 +595,7 @@ export interface ThreadsApi {
    */
   getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
   /** Lists the threads of a repository. */
-  list: (repo: RepoRef, query?: ThreadQuery) => ForgeIterable<Thread>
-  /** One page of `list`; pass `cursor` back in `query` to read the next. */
-  listPage: (repo: RepoRef, query?: ThreadQuery) => Promise<Page<Thread>>
+  list: (repo: RepoRef, query?: ThreadQuery) => ForgeListing<Thread>
   /**
    * Lists the issues that a pull request closes when it merges, such as those its description names after `Fixes`.
    * They can be in other repositories. GitHub also lists the issues linked to the pull request by hand.
@@ -597,21 +606,13 @@ export interface ThreadsApi {
    * }
    * ```
    */
-  closingIssues: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Thread>
-  /** One page of `closingIssues()`. */
-  closingIssuesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Thread>>
+  closingIssues: (ref: ThreadRef, options?: PageOptions) => ForgeListing<Thread>
   /** Lists the pull requests that close an issue when they merge, whether they are open, closed or merged. */
-  closingPullRequests: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Thread>
-  /** One page of `closingPullRequests()`. */
-  closingPullRequestsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Thread>>
+  closingPullRequests: (ref: ThreadRef, options?: PageOptions) => ForgeListing<Thread>
   /** Lists the events on a thread, such as comments, label changes and state changes. */
-  events: (ref: ThreadRef, options?: ListOptions) => ForgeIterable<ForgeEvent>
-  /** One page of `events()`. */
-  eventsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<ForgeEvent>>
+  events: (ref: ThreadRef, options?: ListOptions) => ForgeListing<ForgeEvent>
   /** Conversation comments. Inline review comments are events, not comments. */
-  comments: (ref: ThreadRef, options?: ListOptions) => ForgeIterable<Comment>
-  /** One page of `comments()`. */
-  commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
+  comments: (ref: ThreadRef, options?: ListOptions) => ForgeListing<Comment>
   /**
    * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
    * no endpoint for it (`capabilities.threads.getComment` is `'emulated'`), it lists the comments of the thread page by page
@@ -678,9 +679,7 @@ export interface ThreadsApi {
    */
   setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined, options?: BaseOptions) => Promise<Milestone | undefined>
   /** Reactions left on the thread or on one of its comments. */
-  reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeIterable<Reaction>
-  /** One page of `reactions()`. */
-  reactionsPage: (target: ThreadRef | CommentRef, options?: ListOptions) => Promise<Page<Reaction>>
+  reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeListing<Reaction>
   /**
    * Reacts as the authenticated account, to the thread or to one of its comments.
    * @param target The thread or comment to react to.
@@ -760,9 +759,7 @@ export interface ThreadsApi {
    * (GitLab approvals, Azure DevOps votes, Bitbucket participants) synthesise
    * one review per approver, with `comments: false`.
    */
-  reviews: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Review>
-  /** One page of `reviews()`. */
-  reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
+  reviews: (ref: ThreadRef, options?: PageOptions) => ForgeListing<Review>
   /**
    * Reads one review by its ref. Where the forge has no endpoint for it (`capabilities.threads.getReview` is `'emulated'`),
    * it lists the reviews of the pull request page by page until the id matches, which costs a request for each page
@@ -781,13 +778,9 @@ export interface ThreadsApi {
    */
   approve: (ref: ThreadRef, body?: string, options?: BaseOptions) => Promise<Review>
   /** Files a pull request changes, with a per-file `patch` where the forge returns one. */
-  files: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<ChangedFile>
-  /** One page of `files()`. */
-  filesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<ChangedFile>>
+  files: (ref: ThreadRef, options?: PageOptions) => ForgeListing<ChangedFile>
   /** Commits on a pull request. */
-  commits: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Commit>
-  /** One page of `commits()`. */
-  commitsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Commit>>
+  commits: (ref: ThreadRef, options?: PageOptions) => ForgeListing<Commit>
   /**
    * Replies to a review comment in its conversation. Pass the comment as `reviews()` or `comments()` returns it:
    * GitHub uses its `inReplyTo` or `ref`, Gitea its `ref`, and GitLab the discussion in its `thread`. A repeat posts a
@@ -819,15 +812,11 @@ export interface ChecksApi {
 /** Reading CI runs and their jobs. CI is read-only. */
 export interface CiApi {
   /** Lists the CI runs of a repository. */
-  runs: (repo: RepoRef, query?: CiRunQuery) => ForgeIterable<CiRun>
-  /** One page of `runs()`. */
-  runsPage: (repo: RepoRef, query?: CiRunQuery) => Promise<Page<CiRun>>
+  runs: (repo: RepoRef, query?: CiRunQuery) => ForgeListing<CiRun>
   /** Reads one CI run. */
   getRun: (ref: CiRunRef, options?: BaseOptions) => Promise<CiRun>
   /** Lists the jobs of a CI run. */
-  jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
-  /** One page of `jobs()`. */
-  jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
+  jobs: (ref: CiRunRef, options?: PageOptions) => ForgeListing<CiJob>
   /**
    * Reads one CI job. Where the forge has no endpoint for it (`capabilities.ci.getJob` is `'emulated'`), it lists the jobs
    * of the ref's `run` page by page until the id matches, which costs a request for each page read, so the ref must
@@ -856,23 +845,15 @@ export interface ContentsApi {
    */
   getFile: (repo: RepoRef, path: string, options?: FileOptions) => Promise<FileContent>
   /** One level, or every descendant with `recursive`. Truncated listings carry a `tree_truncated` warning. */
-  tree: (repo: RepoRef, options?: TreeOptions) => ForgeIterable<TreeEntry>
-  /** One page of `tree()`. */
-  treePage: (repo: RepoRef, options?: TreeOptions) => Promise<Page<TreeEntry>>
+  tree: (repo: RepoRef, options?: TreeOptions) => ForgeListing<TreeEntry>
   /** Lists the branches of a repository. */
-  branches: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Branch>
-  /** One page of `branches()`. */
-  branchesPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Branch>>
+  branches: (repo: RepoRef, options?: PageOptions) => ForgeListing<Branch>
   /** Lists the tags of a repository. */
-  tags: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Tag>
-  /** One page of `tags()`. */
-  tagsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Tag>>
+  tags: (repo: RepoRef, options?: PageOptions) => ForgeListing<Tag>
   /** Resolves a branch, tag or sha to a full commit sha; a full sha is returned as is. */
   resolveRef: (repo: RepoRef, ref: string, options?: BaseOptions) => Promise<string>
   /** Lists the commits that lead to `ref`, or to the default branch. */
-  commits: (repo: RepoRef, query?: CommitQuery) => ForgeIterable<Commit>
-  /** One page of `commits()`. */
-  commitsPage: (repo: RepoRef, query?: CommitQuery) => Promise<Page<Commit>>
+  commits: (repo: RepoRef, query?: CommitQuery) => ForgeListing<Commit>
   /** One commit, with its files and stats. */
   getCommit: (repo: RepoRef, sha: string, options?: BaseOptions) => Promise<Commit>
   /** Commits and files between two refs. */
@@ -903,9 +884,7 @@ export interface ContentsApi {
 /** Reading, creating and updating the releases of a repository, and downloading their assets. */
 export interface ReleasesApi {
   /** Lists the releases of a repository, including drafts and pre-releases where the credential can see them. */
-  list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
-  /** One page of `list()`. */
-  listPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Release>>
+  list: (repo: RepoRef, options?: PageOptions) => ForgeListing<Release>
   /** Reads a release by its ref. */
   get: (ref: ReleaseRef, options?: BaseOptions) => Promise<Release>
   /** The release for a tag name. */
@@ -956,29 +935,19 @@ export interface SearchApi {
    * Issues and pull requests across repositories. Fields the forge cannot
    * filter on come back as a `filter_unsupported` warning on the page.
    */
-  threads: (query: SearchQuery) => ForgeIterable<Thread>
-  /** One page of `threads()`. */
-  threadsPage: (query: SearchQuery) => Promise<Page<Thread>>
+  threads: (query: SearchQuery) => ForgeListing<Thread>
   /** Searches repositories. */
-  repos: (query: RepoSearchQuery) => ForgeIterable<Repo>
-  /** One page of `repos()`. */
-  reposPage: (query: RepoSearchQuery) => Promise<Page<Repo>>
+  repos: (query: RepoSearchQuery) => ForgeListing<Repo>
   /** Commits across repositories, where the forge indexes them. */
-  commits: (query: CommitSearchQuery) => ForgeIterable<Commit>
-  /** One page of `commits()`. */
-  commitsPage: (query: CommitSearchQuery) => Promise<Page<Commit>>
+  commits: (query: CommitSearchQuery) => ForgeListing<Commit>
   /** Searches the contents of files, where the forge indexes them. */
-  code: (query: CodeSearchQuery) => ForgeIterable<CodeMatch>
-  /** One page of `code()`. */
-  codePage: (query: CodeSearchQuery) => Promise<Page<CodeMatch>>
+  code: (query: CodeSearchQuery) => ForgeListing<CodeMatch>
 }
 
 /** Reading the security alerts of a repository. */
 export interface SecurityAlertsApi {
   /** Lists the security alerts of a repository. */
-  list: (repo: RepoRef, options?: SecurityAlertListOptions) => ForgeIterable<SecurityAlert>
-  /** One page of `list()`. */
-  listPage: (repo: RepoRef, options?: SecurityAlertListOptions) => Promise<Page<SecurityAlert>>
+  list: (repo: RepoRef, options?: SecurityAlertListOptions) => ForgeListing<SecurityAlert>
 }
 
 /**
@@ -1000,34 +969,22 @@ export interface ReposApi {
    */
   get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
   /** The authenticated account's repositories, or the installation's under app auth. */
-  list: (options?: RepoQuery) => ForgeIterable<Repo>
-  /** One page of `list()`. */
-  listPage: (options?: RepoQuery) => Promise<Page<Repo>>
+  list: (options?: RepoQuery) => ForgeListing<Repo>
   /**
    * The repositories of a user, organisation, group, workspace or project that the credential can see.
    * @param owner A namespace ref, such as `{ forge, instance, owner: 'acme', name: '', kind: 'namespace' }`.
    */
-  byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeIterable<Repo>
-  /** One page of `byOwner()`. */
-  byOwnerPage: (owner: RepoRef, query?: OwnerRepoQuery) => Promise<Page<Repo>>
+  byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeListing<Repo>
   /** Every label defined on the repository, whether or not a thread carries it. */
-  labels: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Label>
-  /** One page of `labels()`. */
-  labelsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Label>>
+  labels: (repo: RepoRef, options?: PageOptions) => ForgeListing<Label>
   /** Creates a label in a repository. A repeat rejects on most forges, because the name is taken. */
   createLabel: (repo: RepoRef, label: LabelInput, options?: BaseOptions) => Promise<Label>
   /** Lists the milestones of a repository. */
-  milestones: (repo: RepoRef, options?: MilestoneListOptions) => ForgeIterable<Milestone>
-  /** One page of `milestones()`. */
-  milestonesPage: (repo: RepoRef, options?: MilestoneListOptions) => Promise<Page<Milestone>>
+  milestones: (repo: RepoRef, options?: MilestoneListOptions) => ForgeListing<Milestone>
   /** Lists the collaborators of a repository, with their roles. */
-  collaborators: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Collaborator>
-  /** One page of `collaborators()`. */
-  collaboratorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Collaborator>>
+  collaborators: (repo: RepoRef, options?: PageOptions) => ForgeListing<Collaborator>
   /** Lists the commit authors of a repository with their commit counts, most commits first. */
-  contributors: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Contributor>
-  /** One page of `contributors()`. */
-  contributorsPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Contributor>>
+  contributors: (repo: RepoRef, options?: PageOptions) => ForgeListing<Contributor>
   /**
    * Weekly commit activity of each contributor to a repository. Where the forge computes the statistics in the
    * background, the provider waits for them, and throws a `ForgeApiError` with status `202` if they are still not ready.
@@ -1051,34 +1008,28 @@ export interface ReposApi {
    */
   addCollaborator: (repo: RepoRef, actor: string | Actor, role: RepoRole, options?: BaseOptions) => Promise<AddCollaboratorResult>
   /** Accounts that can be assigned to a thread in the repository. */
-  assignableUsers: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Actor>
-  /** One page of `assignableUsers()`. */
-  assignableUsersPage: (repo: RepoRef, options?: PageOptions) => Promise<Page<Actor>>
+  assignableUsers: (repo: RepoRef, options?: PageOptions) => ForgeListing<Actor>
   /** Accounts that can be asked to review a given pull request. */
-  reviewerCandidates: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Actor>
-  /** One page of `reviewerCandidates()`. */
-  reviewerCandidatesPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Actor>>
+  reviewerCandidates: (ref: ThreadRef, options?: PageOptions) => ForgeListing<Actor>
   /**
    * Lists the activity feed of a repository: pushes, new branches and tags, and changes to its threads and releases.
    * Events come in the order the forge added them to the feed, latest first, which can differ from `occurredAt`
    * where the forge adds events late. Each event has `source: 'poll'`.
-   */
-  events: (repo: RepoRef, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
-  /**
-   * One page of `events()`. Where the forge supports conditional requests, the first page has an `etag`; pass it
-   * back as `cursor: { etag }` to read the first page again, which has `notModified: true` and no items when the
-   * feed is unchanged. Where the forge sets a minimum wait between reads, reading the first page again sooner
-   * sends no request and returns a `throttled` page with a `feed_throttled` warning, unless you pass `force: true`.
-   * `events()` then yields nothing, and the warning lands in its `warnings`.
+   *
+   * Where the forge supports conditional requests, the first page has an `etag`; pass it back as
+   * `cursor: { etag }` to read the first page again, which has `notModified: true` and no items when the feed is
+   * unchanged. Where the forge sets a minimum wait between reads, reading the first page again sooner sends no
+   * request and returns a `throttled` page with a `feed_throttled` warning, unless you pass `force: true`.
+   * Iterating then yields nothing, and the warning lands in `warnings`.
    * @example
    * ```ts
-   * const page = await provider.repos.eventsPage(repo, { cursor: etag ? { etag } : undefined })
+   * const page = await provider.repos.events(repo, { cursor: etag ? { etag } : undefined }).page()
    * if (!page.notModified) {
    *   etag = page.etag
    * }
    * ```
    */
-  eventsPage: (repo: RepoRef, options?: EventFeedOptions) => Promise<Page<ForgeEvent>>
+  events: (repo: RepoRef, options?: EventFeedOptions) => ForgeListing<ForgeEvent>
 }
 
 /** Options for `repos.milestones()`. */
@@ -1100,16 +1051,12 @@ export interface OrgsApi {
    * Lists the teams of an organisation.
    * @param org A namespace ref, such as `{ forge, instance, owner: 'acme', name: '', kind: 'namespace' }`.
    */
-  teams: (org: RepoRef, options?: PageOptions) => ForgeIterable<Team>
-  /** One page of `teams()`. */
-  teamsPage: (org: RepoRef, options?: PageOptions) => Promise<Page<Team>>
+  teams: (org: RepoRef, options?: PageOptions) => ForgeListing<Team>
   /**
    * Lists the members of a team, as actors.
    * @param team A team's `ref` from `teams()`, or a ref with only `org` and `slug`, such as `{ forge, instance, org, slug: 'stewards' }`.
    */
-  teamMembers: (team: TeamRef, options?: PageOptions) => ForgeIterable<Actor>
-  /** One page of `teamMembers()`. */
-  teamMembersPage: (team: TeamRef, options?: PageOptions) => Promise<Page<Actor>>
+  teamMembers: (team: TeamRef, options?: PageOptions) => ForgeListing<Actor>
   /**
    * Blocks an account from the repositories of an organisation. A repeat can reject with a `ForgeApiError` with
    * `status` 422.
@@ -1128,17 +1075,13 @@ export interface OrgsApi {
 /** The installations of the app that the provider authenticates as. */
 export interface InstallationsApi {
   /** Lists the installations of the app. */
-  list: (options?: PageOptions) => ForgeIterable<Installation>
-  /** One page of `list()`. */
-  listPage: (options?: PageOptions) => Promise<Page<Installation>>
+  list: (options?: PageOptions) => ForgeListing<Installation>
   /** Reads one installation. */
   get: (installation: Installation | string, options?: BaseOptions) => Promise<Installation>
   /** Mints (or reuses a cached) installation token. */
   token: (installation: Installation | string, options?: BaseOptions) => Promise<InstallationToken>
   /** Lists the repositories that an installation can access. */
-  repos: (installation: Installation | string, options?: PageOptions) => ForgeIterable<Repo>
-  /** One page of `repos()`. */
-  reposPage: (installation: Installation | string, options?: PageOptions) => Promise<Page<Repo>>
+  repos: (installation: Installation | string, options?: PageOptions) => ForgeListing<Repo>
   /** Provider authenticated as one installation, sharing this instance's app credentials. */
   provider: (installation: Installation | string) => ForgeProvider
   /** One provider per installation. */
@@ -1164,9 +1107,7 @@ export interface WebhooksApi {
   /** Normalised kinds and actions this provider can deliver, whatever a hook is subscribed to. */
   readonly events: WebhookEventType[]
   /** Hooks on a repository, or on an organisation or workspace when `target` is a namespace ref. */
-  list: (target: RepoRef, options?: PageOptions) => ForgeIterable<Webhook>
-  /** One page of `list()`. */
-  listPage: (target: RepoRef, options?: PageOptions) => Promise<Page<Webhook>>
+  list: (target: RepoRef, options?: PageOptions) => ForgeListing<Webhook>
   /** Registers a webhook. A repeat registers a second one, or rejects where the forge refuses a second hook for the same URL. */
   create: (target: RepoRef, input: WebhookInput, options?: BaseOptions) => Promise<Webhook>
   /** Changes a webhook. */
@@ -1176,9 +1117,7 @@ export interface WebhooksApi {
   /** Replaces the signing secret in place. `false` where the forge can only do it by recreating the hook. */
   rotateSecret: (ref: WebhookRef, secret: string, options?: BaseOptions) => Promise<Webhook>
   /** Lists the recent deliveries of a webhook. */
-  deliveries: (ref: WebhookRef, options?: PageOptions) => ForgeIterable<WebhookDeliveryRecord>
-  /** One page of `deliveries()`. */
-  deliveriesPage: (ref: WebhookRef, options?: PageOptions) => Promise<Page<WebhookDeliveryRecord>>
+  deliveries: (ref: WebhookRef, options?: PageOptions) => ForgeListing<WebhookDeliveryRecord>
   /** Sends a past delivery again. A repeat sends it once more. */
   redeliver: (ref: WebhookDeliveryRef, options?: BaseOptions) => Promise<void>
 }
@@ -1238,11 +1177,9 @@ export interface UsersApi {
   sponsorable: (login: string, options?: BaseOptions) => Promise<boolean>
   /**
    * Lists what an account did across the repositories the credential can see, in the feed's order as for
-   * {@link ReposApi.events}. Each event has `source: 'poll'`.
+   * {@link ReposApi.events}, with the same conditional requests and throttling. Each event has `source: 'poll'`.
    */
-  events: (login: string, options?: EventFeedOptions) => ForgeIterable<ForgeEvent>
-  /** One page of `events()`. Conditional requests and throttling work as for {@link ReposApi.eventsPage}. */
-  eventsPage: (login: string, options?: EventFeedOptions) => Promise<Page<ForgeEvent>>
+  events: (login: string, options?: EventFeedOptions) => ForgeListing<ForgeEvent>
   /**
    * Blocks an account on behalf of the account the credential belongs to. A repeat can reject with a
    * `ForgeApiError` with `status` 422.
@@ -1566,8 +1503,8 @@ export function createForges<const T extends readonly ForgeProvider[]>(providers
       },
     },
     search: {
-      threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threadsPage(page)),
-      repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.reposPage(page)),
+      threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threads(page).page()),
+      repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.repos(page).page()),
     },
     get: ((forge: ForgeKind, instance?: ForgeInstance) => providers.find(
       provider => provider.forge === forge && (!instance || provider.instance === instance),

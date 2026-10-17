@@ -122,7 +122,7 @@ describe('bitbucket provider', () => {
     const workspace = { ...repo, name: '', kind: 'namespace' } as const
 
     for (const query of [{ sort: 'updated' }, { sort: 'updated', direction: 'asc' }, { sort: 'name' }, { sort: 'name', direction: 'desc' }] as const) {
-      await instance.repos.byOwnerPage(workspace, query)
+      await instance.repos.byOwner(workspace, query).page()
     }
 
     expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual(['-updated_on', 'updated_on', 'name', '-name'])
@@ -130,7 +130,7 @@ describe('bitbucket provider', () => {
 
   it('lists no internal repositories of a workspace, with a warning', async () => {
     const { instance, calls } = provider()
-    const page = await instance.repos.byOwnerPage({ ...repo, name: '', kind: 'namespace' }, { visibility: 'internal' })
+    const page = await instance.repos.byOwner({ ...repo, name: '', kind: 'namespace' }, { visibility: 'internal' }).page()
 
     expect(calls).toEqual([])
     expect(page.items).toEqual([])
@@ -179,7 +179,7 @@ describe('bitbucket queries', () => {
       return Response.json({ values: url.includes('/user/workspaces') ? [{ workspace: { slug: 'acme' } }] : [] })
     } })
 
-    await forge.search.reposPage({ text: 'say "hi"' })
+    await forge.search.repos({ text: 'say "hi"' }).page()
 
     expect(new URL(urls[1]!).searchParams.get('q')).toBe('name ~ "say \\"hi\\""')
   })
@@ -212,13 +212,13 @@ describe('bitbucket queries', () => {
     } })
     const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }
 
-    await forge.threads.listPage(repo)
-    const search = await forge.search.threadsPage({ repo, kind: 'issue' })
+    await forge.threads.list(repo).page()
+    const search = await forge.search.threads({ repo, kind: 'issue' }).page()
 
     expect(urls.map(url => url.pathname)).toEqual(['/2.0/repositories/acme/widgets/pullrequests'])
     expect(search.warnings?.map(warning => warning.code)).toContain('kind_unsupported')
     expect(forge.can('threads.get', 'issue')).toBe(false)
-    await expect(forge.threads.listPage(repo, { kind: 'issue' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.threads.list(repo, { kind: 'issue' }).page()).rejects.toThrow(UnsupportedOperationError)
   })
 })
 

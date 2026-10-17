@@ -208,8 +208,8 @@ interface CodeContext {
 export interface ExplorerOperation {
   /** The verb whose reference section shows the explorer, such as `threads.list`. */
   verb: ForgeVerb
-  /** The method the code calls, which can be the `...Page` variant of the verb. */
-  method: string
+  /** The code reads one page of the listing with `page()`. */
+  page: boolean
   /** The type it resolves to, such as `Thread`, `Page<Thread>` or `Release | undefined`, for the hovers on the result; `void` when it resolves to nothing. */
   returns: string
   /** The refs the code declares before the call. */
@@ -234,24 +234,24 @@ const perPage = { perPage: 5 }
 
 /** Verbs that need credentials on every forge: the capability table's writes and account reads. */
 const SIGNED_IN = new Set(CAPABILITY_TABLE.flatMap(entry => entry.write || entry.account ? entry.verbs ?? [] : []))
+const LISTINGS = new Set(CAPABILITY_TABLE.flatMap(entry => entry.listings ?? []))
 
-type Spec = Omit<ExplorerOperation, 'verb' | 'method' | 'fields' | 'uses' | 'returns' | 'auth'> & Partial<Pick<ExplorerOperation, 'method' | 'fields' | 'uses' | 'returns'>>
+type Spec = Omit<ExplorerOperation, 'verb' | 'page' | 'fields' | 'uses' | 'returns' | 'auth'> & Partial<Pick<ExplorerOperation, 'fields' | 'uses' | 'returns'>>
 
 function operation(verb: string, spec: Spec): ExplorerOperation {
   const auth = SIGNED_IN.has(verb)
-  return { verb: verb as ForgeVerb, method: verb, uses: 'repo', fields: fields(), returns: 'void', ...spec, auth, run: auth ? undefined : spec.run }
+  const returns = spec.returns ?? 'void'
+  return { verb: verb as ForgeVerb, uses: 'repo', fields: fields(), ...spec, returns, page: LISTINGS.has(verb), auth, run: auth ? undefined : spec.run }
 }
 
-/** A read on a repository, through the `...Page` variant for listings. */
+/** A read on a repository, of one page for listings. */
 function repoRead(verb: string, returns: string, run: NonNullable<Spec['run']>): ExplorerOperation {
-  const page = returns.startsWith('Page<')
-  return operation(verb, { method: page ? `${verb}Page` : verb, returns, args: () => page ? 'repo, { perPage: 5 }' : 'repo', run })
+  return operation(verb, { returns, args: () => LISTINGS.has(verb) ? 'repo, { perPage: 5 }' : 'repo', run })
 }
 
-/** A read on a thread, through the `...Page` variant for listings. */
+/** A read on a thread, of one page for listings. */
 function threadRead(verb: string, returns: string, run: NonNullable<Spec['run']>): ExplorerOperation {
-  const page = returns.startsWith('Page<')
-  return operation(verb, { method: page ? `${verb}Page` : verb, returns, uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => page ? 'thread, { perPage: 5 }' : 'thread', run })
+  return operation(verb, { returns, uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => LISTINGS.has(verb) ? 'thread, { perPage: 5 }' : 'thread', run })
 }
 
 /** A write on a thread. */
@@ -265,41 +265,41 @@ const repoChild = (key: string, field: ExplorerField) => ({ origin, value }: Cod
 export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   // Repositories
   repoRead('repos.get', 'Repo', (p, _, { repo }) => p.repos.get(repo)),
-  operation('repos.list', { method: 'repos.listPage', returns: 'Page<Repo>', uses: 'none', args: () => '{ perPage: 5 }' }),
-  operation('repos.byOwner', { method: 'repos.byOwnerPage', returns: 'Page<Repo>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.repos.byOwnerPage({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage) }),
-  repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labelsPage(repo, perPage)),
-  repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestonesPage(repo, perPage)),
-  repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaboratorsPage(repo, perPage)),
-  repoRead('repos.contributors', 'Page<Contributor>', (p, _, { repo }) => p.repos.contributorsPage(repo, perPage)),
+  operation('repos.list', { returns: 'Page<Repo>', uses: 'none', args: () => '{ perPage: 5 }' }),
+  operation('repos.byOwner', { returns: 'Page<Repo>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.repos.byOwner({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage).page() }),
+  repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labels(repo, perPage).page()),
+  repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestones(repo, perPage).page()),
+  repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaborators(repo, perPage).page()),
+  repoRead('repos.contributors', 'Page<Contributor>', (p, _, { repo }) => p.repos.contributors(repo, perPage).page()),
   repoRead('repos.contributorStats', 'ContributorStats[]', (p, _, { repo }) => p.repos.contributorStats(repo)),
   repoRead('repos.templates', 'RepoTemplate[]', (p, _, { repo }) => p.repos.templates(repo)),
   operation('repos.permissionFor', { returns: 'RepoRole', fields: fields('login'), args: ({ value }) => `repo, ${value('login')}` }),
-  repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsersPage(repo, perPage)),
-  repoRead('repos.events', 'Page<ForgeEvent>', (p, _, { repo }) => p.repos.eventsPage(repo, perPage)),
-  operation('repos.reviewerCandidates', { method: 'repos.reviewerCandidatesPage', returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidatesPage(thread, perPage) }),
+  repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsers(repo, perPage).page()),
+  repoRead('repos.events', 'Page<ForgeEvent>', (p, _, { repo }) => p.repos.events(repo, perPage).page()),
+  operation('repos.reviewerCandidates', { returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidates(thread, perPage).page() }),
   operation('repos.createLabel', { returns: 'Label', fields: fields('labelName', 'colour'), args: ({ value }) => `repo, { name: ${value('labelName')}, colour: ${value('colour')} }` }),
   operation('repos.addCollaborator', { returns: 'AddCollaboratorResult', fields: fields('login', 'role'), args: ({ value }) => `repo, ${value('login')}, ${value('role')}` }),
 
   // Organisation teams
-  operation('orgs.teams', { method: 'orgs.teamsPage', returns: 'Page<Team>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.orgs.teamsPage({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage) }),
+  operation('orgs.teams', { returns: 'Page<Team>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.orgs.teams({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage).page() }),
   operation('orgs.block', { uses: 'none', fields: fields('owner', 'login'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, ${value('login')}` }),
   operation('orgs.unblock', { uses: 'none', fields: fields('owner', 'login'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, ${value('login')}` }),
-  operation('orgs.teamMembers', { method: 'orgs.teamMembersPage', returns: 'Page<Actor>', uses: 'none', fields: fields('owner', 'team'), args: ({ origin, value }) => `{ ${origin}, org: { ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, slug: ${value('team')} }, { perPage: 5 }` }),
+  operation('orgs.teamMembers', { returns: 'Page<Actor>', uses: 'none', fields: fields('owner', 'team'), args: ({ origin, value }) => `{ ${origin}, org: { ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, slug: ${value('team')} }, { perPage: 5 }` }),
 
   // Threads
   threadRead('threads.get', 'Thread', (p, _, { thread }) => p.threads.get(thread)),
   operation('threads.getMany', { returns: 'GetManyResult[]', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => '[thread]', run: (p, _, { thread }) => p.threads.getMany([thread]) }),
-  operation('threads.list', { method: 'threads.listPage', returns: 'Page<Thread>', fields: fields('kind', 'state'), kind: threadKind, args: ({ value }) => `repo, { kind: ${value('kind')}, state: ${value('state')}, perPage: 5 }`, run: (p, input, { repo }) => p.threads.listPage(repo, { kind: input.kind as 'issue' | 'pull_request', state: input.state as 'open' | 'closed' | 'merged' | 'all', perPage: 5 }) }),
-  threadRead('threads.closingIssues', 'Page<Thread>', (p, _, { thread }) => p.threads.closingIssuesPage(thread, perPage)),
-  threadRead('threads.closingPullRequests', 'Page<Thread>', (p, _, { thread }) => p.threads.closingPullRequestsPage(thread, perPage)),
-  threadRead('threads.events', 'Page<ForgeEvent>', (p, _, { thread }) => p.threads.eventsPage(thread, perPage)),
-  threadRead('threads.comments', 'Page<Comment>', (p, _, { thread }) => p.threads.commentsPage(thread, perPage)),
-  threadRead('threads.reactions', 'Page<Reaction>', (p, _, { thread }) => p.threads.reactionsPage(thread, perPage)),
+  operation('threads.list', { returns: 'Page<Thread>', fields: fields('kind', 'state'), kind: threadKind, args: ({ value }) => `repo, { kind: ${value('kind')}, state: ${value('state')}, perPage: 5 }`, run: (p, input, { repo }) => p.threads.list(repo, { kind: input.kind as 'issue' | 'pull_request', state: input.state as 'open' | 'closed' | 'merged' | 'all', perPage: 5 }).page() }),
+  threadRead('threads.closingIssues', 'Page<Thread>', (p, _, { thread }) => p.threads.closingIssues(thread, perPage).page()),
+  threadRead('threads.closingPullRequests', 'Page<Thread>', (p, _, { thread }) => p.threads.closingPullRequests(thread, perPage).page()),
+  threadRead('threads.events', 'Page<ForgeEvent>', (p, _, { thread }) => p.threads.events(thread, perPage).page()),
+  threadRead('threads.comments', 'Page<Comment>', (p, _, { thread }) => p.threads.comments(thread, perPage).page()),
+  threadRead('threads.reactions', 'Page<Reaction>', (p, _, { thread }) => p.threads.reactions(thread, perPage).page()),
   operation('threads.subscription', { returns: 'SubscriptionState', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread' }),
   operation('threads.checks', { returns: 'Page<Check>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread', run: (p, _, { thread }) => p.threads.checks(thread) }),
-  threadRead('threads.reviews', 'Page<Review>', (p, _, { thread }) => p.threads.reviewsPage(thread, perPage)),
-  threadRead('threads.files', 'Page<ChangedFile>', (p, _, { thread }) => p.threads.filesPage(thread, perPage)),
-  threadRead('threads.commits', 'Page<Commit>', (p, _, { thread }) => p.threads.commitsPage(thread, perPage)),
+  threadRead('threads.reviews', 'Page<Review>', (p, _, { thread }) => p.threads.reviews(thread, perPage).page()),
+  threadRead('threads.files', 'Page<ChangedFile>', (p, _, { thread }) => p.threads.files(thread, perPage).page()),
+  threadRead('threads.commits', 'Page<Commit>', (p, _, { thread }) => p.threads.commits(thread, perPage).page()),
   operation('threads.create', {
     returns: 'Thread',
     fields: input => input.kind === 'pull_request' ? ['kind', 'title', 'body', 'head', 'base'] : ['kind', 'title', 'body', 'labels'],
@@ -338,7 +338,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   threadWrite('threads.transfer', 'ResolvedThreadRef', ['targetOwner', 'targetName'], ({ origin, value }) => `thread, { ${origin}, owner: ${value('targetOwner')}, name: ${value('targetName')} }`),
 
   // Releases
-  repoRead('releases.list', 'Page<Release>', (p, _, { repo }) => p.releases.listPage(repo, perPage)),
+  repoRead('releases.list', 'Page<Release>', (p, _, { repo }) => p.releases.list(repo, perPage).page()),
   operation('releases.get', { returns: 'Release', fields: fields('releaseId'), args: repoChild('repo', 'releaseId'), run: (p, input, { origin, repo }) => p.releases.get({ ...origin, repo, id: input.releaseId }) }),
   operation('releases.getByTag', { returns: 'Release', fields: fields('tag'), args: ({ value }) => `repo, ${value('tag')}`, run: (p, input, { repo }) => p.releases.getByTag(repo, input.tag) }),
   repoRead('releases.latest', 'Release | undefined', (p, _, { repo }) => p.releases.latest(repo)),
@@ -346,11 +346,11 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
 
   // Contents
   operation('contents.getFile', { returns: 'FileContent', fields: fields('path', 'ref'), args: ({ value, input }) => `repo, ${value('path')}, { ${input.ref ? `ref: ${value('ref')}, ` : ''}as: 'text' }`, run: (p, input, { repo }) => p.contents.getFile(repo, input.path, { ref: input.ref || undefined, as: 'text' }) }),
-  operation('contents.tree', { method: 'contents.treePage', returns: 'Page<TreeEntry>', fields: fields('ref'), args: ({ value, input }) => `repo, { ${input.ref ? `ref: ${value('ref')}, ` : ''}perPage: 5 }`, run: (p, input, { repo }) => p.contents.treePage(repo, { ref: input.ref || undefined, perPage: 5 }) }),
-  repoRead('contents.branches', 'Page<Branch>', (p, _, { repo }) => p.contents.branchesPage(repo, perPage)),
-  repoRead('contents.tags', 'Page<Tag>', (p, _, { repo }) => p.contents.tagsPage(repo, perPage)),
+  operation('contents.tree', { returns: 'Page<TreeEntry>', fields: fields('ref'), args: ({ value, input }) => `repo, { ${input.ref ? `ref: ${value('ref')}, ` : ''}perPage: 5 }`, run: (p, input, { repo }) => p.contents.tree(repo, { ref: input.ref || undefined, perPage: 5 }).page() }),
+  repoRead('contents.branches', 'Page<Branch>', (p, _, { repo }) => p.contents.branches(repo, perPage).page()),
+  repoRead('contents.tags', 'Page<Tag>', (p, _, { repo }) => p.contents.tags(repo, perPage).page()),
   operation('contents.resolveRef', { returns: 'string', fields: fields('head'), args: ({ value }) => `repo, ${value('head')}`, run: (p, input, { repo }) => p.contents.resolveRef(repo, input.head) }),
-  repoRead('contents.commits', 'Page<Commit>', (p, _, { repo }) => p.contents.commitsPage(repo, perPage)),
+  repoRead('contents.commits', 'Page<Commit>', (p, _, { repo }) => p.contents.commits(repo, perPage).page()),
   operation('contents.getCommit', { returns: 'Commit', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.contents.getCommit(repo, input.sha) }),
   operation('contents.compare', { returns: 'Comparison', fields: fields('base', 'sha'), args: ({ value }) => `repo, ${value('base')}, ${value('sha')}`, run: (p, input, { repo }) => p.contents.compare(repo, input.base, input.sha) }),
   operation('contents.commitFiles', { returns: 'Commit', fields: fields('branch', 'message', 'path', 'content'), args: ({ value }) => `repo, {\n  branch: ${value('branch')},\n  message: ${value('message')},\n  changes: [{ path: ${value('path')}, content: ${value('content')} }],\n}` }),
@@ -359,14 +359,14 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('checks.list', { returns: 'Page<Check>', fields: fields('sha'), args: ({ value }) => `repo, ${value('sha')}`, run: (p, input, { repo }) => p.checks.list(repo, input.sha) }),
   operation('checks.report', { returns: 'Check', fields: fields('sha', 'checkName', 'checkState'), args: ({ value }) => `repo, ${value('sha')}, { name: ${value('checkName')}, state: ${value('checkState')} }` }),
   operation('checks.rerun', { fields: fields('checkId'), args: ({ origin, value }) => `{ ${origin}, repo, id: ${value('checkId')}, type: 'check_run' }` }),
-  repoRead('ci.runs', 'Page<CiRun>', (p, _, { repo }) => p.ci.runsPage(repo, perPage)),
+  repoRead('ci.runs', 'Page<CiRun>', (p, _, { repo }) => p.ci.runs(repo, perPage).page()),
   operation('ci.getRun', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.getRun({ ...origin, repo, id: input.runId }) }),
-  operation('ci.jobs', { method: 'ci.jobsPage', returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobsPage({ ...origin, repo, id: input.runId }, perPage) }),
+  operation('ci.jobs', { returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobs({ ...origin, repo, id: input.runId }, perPage).page() }),
   operation('ci.log', { returns: 'ReadableStream<Uint8Array>', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
-  operation('securityAlerts.list', { method: 'securityAlerts.listPage', returns: 'Page<SecurityAlert>', args: () => 'repo, { perPage: 5 }' }),
+  operation('securityAlerts.list', { returns: 'Page<SecurityAlert>', args: () => 'repo, { perPage: 5 }' }),
 
   // Notifications
-  operation('notifications.list', { method: 'notifications.listPage', returns: 'Page<Notification>', uses: 'none', args: () => '{ perPage: 5 }' }),
+  operation('notifications.list', { returns: 'Page<Notification>', uses: 'none', args: () => '{ perPage: 5 }' }),
   operation('notifications.unreadCount', { returns: 'number', uses: 'none', args: () => '' }),
   operation('notifications.markRead', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
   operation('notifications.markDone', { uses: 'none', fields: fields('notificationId'), args: ({ origin, value }) => `{ ${origin}, id: ${value('notificationId')} }` }),
@@ -375,8 +375,8 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('notifications.markAllDone', { args: () => '{ repo }' }),
 
   // Webhooks
-  operation('webhooks.list', { method: 'webhooks.listPage', returns: 'Page<Webhook>', args: () => 'repo, { perPage: 5 }' }),
-  operation('webhooks.deliveries', { method: 'webhooks.deliveriesPage', returns: 'Page<WebhookDeliveryRecord>', fields: fields('webhookId'), args: context => `${repoChild('target', 'webhookId')(context)}, { perPage: 5 }` }),
+  operation('webhooks.list', { returns: 'Page<Webhook>', args: () => 'repo, { perPage: 5 }' }),
+  operation('webhooks.deliveries', { returns: 'Page<WebhookDeliveryRecord>', fields: fields('webhookId'), args: context => `${repoChild('target', 'webhookId')(context)}, { perPage: 5 }` }),
   operation('webhooks.create', { returns: 'Webhook', fields: fields('webhookUrl', 'secret'), args: ({ value }) => `repo, { url: ${value('webhookUrl')}, secret: ${value('secret')}, events: ['comment', 'state_change'] }` }),
   operation('webhooks.update', { returns: 'Webhook', fields: fields('webhookId', 'webhookUrl'), args: context => `${repoChild('target', 'webhookId')(context)}, { url: ${context.value('webhookUrl')} }` }),
   operation('webhooks.delete', { fields: fields('webhookId'), args: repoChild('target', 'webhookId') }),
@@ -389,10 +389,10 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('users.block', { uses: 'none', fields: fields('login'), args: ({ value }) => value('login') }),
   operation('users.unblock', { uses: 'none', fields: fields('login'), args: ({ value }) => value('login') }),
   operation('users.sponsorable', { returns: 'boolean', uses: 'none', fields: fields('login'), args: ({ value }) => value('login') }),
-  operation('users.events', { method: 'users.eventsPage', returns: 'Page<ForgeEvent>', uses: 'none', fields: fields('login'), args: ({ value }) => `${value('login')}, { perPage: 5 }`, run: (p, input) => p.users.eventsPage(input.login, perPage) }),
-  operation('search.threads', { method: 'search.threadsPage', returns: 'Page<Thread>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.threadsPage({ repo, text: input.query, perPage: 5 }) }),
-  operation('search.repos', { method: 'search.reposPage', returns: 'Page<Repo>', uses: 'none', fields: fields('query'), args: ({ value }) => `{ text: ${value('query')}, perPage: 5 }`, run: (p, input) => p.search.reposPage({ text: input.query, perPage: 5 }) }),
-  operation('search.commits', { method: 'search.commitsPage', returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commitsPage({ repo, text: input.query, perPage: 5 }) }),
+  operation('users.events', { returns: 'Page<ForgeEvent>', uses: 'none', fields: fields('login'), args: ({ value }) => `${value('login')}, { perPage: 5 }`, run: (p, input) => p.users.events(input.login, perPage).page() }),
+  operation('search.threads', { returns: 'Page<Thread>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.threads({ repo, text: input.query, perPage: 5 }).page() }),
+  operation('search.repos', { returns: 'Page<Repo>', uses: 'none', fields: fields('query'), args: ({ value }) => `{ text: ${value('query')}, perPage: 5 }`, run: (p, input) => p.search.repos({ text: input.query, perPage: 5 }).page() }),
+  operation('search.commits', { returns: 'Page<Commit>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.commits({ repo, text: input.query, perPage: 5 }).page() }),
 ]
 
 /** The explorer picker's groups, in order: each namespace of the operations above, with its title. */
@@ -511,7 +511,7 @@ function lastOutermost(line: string, open: string, close: string): [number, numb
     if (char === open && depth++ === 0) {
       start = index
     }
-    else if (char === close && --depth === 0) {
+    else if (char === close && --depth === 0 && index > start + 1) {
       span = [start, index]
     }
   }
@@ -573,8 +573,8 @@ export function explorerCode(operation: ExplorerOperation, forge: ExplorerForge,
   if (operation.uses === 'thread') {
     refs.push(`const ${symbol('const:thread:ThreadRef', 'thread')} = { ...origin, repo, kind: ${context.value('kind')}, number: ${context.value('number')} } as const`)
   }
-  const [namespace, method] = operation.method.split('.') as [string, string]
-  const call = `await forge.${namespace}.${symbol(`method:${operation.method}`, method)}(${args})`
+  const [namespace, method] = operation.verb.split('.') as [string, string]
+  const call = `await forge.${namespace}.${symbol(`method:${operation.verb}`, method)}(${args})${operation.page ? '.page()' : ''}`
 
   const marked = [
     `import { ${factory} } from 'forges/${forge.module}'`,

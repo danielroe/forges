@@ -1488,15 +1488,15 @@
           },
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.list()` and `repos.listPage()`."
+            "description": "Support for `repos.list()`."
           },
           "byOwner": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.byOwner()` and `repos.byOwnerPage()`."
+            "description": "Support for `repos.byOwner()`."
           },
           "labels": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.labels()` and `repos.labelsPage()`."
+            "description": "Support for `repos.labels()`."
           },
           "createLabel": {
             "$ref": "#/components/schemas/Support",
@@ -1504,15 +1504,15 @@
           },
           "milestones": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.milestones()` and `repos.milestonesPage()`."
+            "description": "Support for `repos.milestones()`."
           },
           "collaborators": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.collaborators()` and `repos.collaboratorsPage()`."
+            "description": "Support for `repos.collaborators()`."
           },
           "contributors": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.contributors()` and `repos.contributorsPage()`."
+            "description": "Support for `repos.contributors()`."
           },
           "contributorStats": {
             "$ref": "#/components/schemas/Support",
@@ -1532,15 +1532,15 @@
           },
           "assignableUsers": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.assignableUsers()` and `repos.assignableUsersPage()`."
+            "description": "Support for `repos.assignableUsers()`."
           },
           "reviewerCandidates": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.reviewerCandidates()` and `repos.reviewerCandidatesPage()`."
+            "description": "Support for `repos.reviewerCandidates()`."
           },
           "events": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `repos.events()` and `repos.eventsPage()`."
+            "description": "Support for `repos.events()`."
           }
         },
         "required": [
@@ -1578,7 +1578,7 @@
           },
           "events": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `users.events()` and `users.eventsPage()`."
+            "description": "Support for `users.events()`."
           },
           "block": {
             "$ref": "#/components/schemas/Support",
@@ -1603,11 +1603,11 @@
         "properties": {
           "teams": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `orgs.teams()` and `orgs.teamsPage()`."
+            "description": "Support for `orgs.teams()`."
           },
           "teamMembers": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `orgs.teamMembers()` and `orgs.teamMembersPage()`."
+            "description": "Support for `orgs.teamMembers()`."
           },
           "block": {
             "$ref": "#/components/schemas/Support",
@@ -1635,7 +1635,7 @@
           },
           "list": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.list()` and `threads.listPage()`, per thread kind."
+            "description": "Support for `threads.list()`, per thread kind."
           },
           "getMany": {
             "$ref": "#/components/schemas/Support",
@@ -1643,19 +1643,19 @@
           },
           "closingIssues": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.closingIssues()` and `threads.closingIssuesPage()`."
+            "description": "Support for `threads.closingIssues()`."
           },
           "closingPullRequests": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.closingPullRequests()` and `threads.closingPullRequestsPage()`."
+            "description": "Support for `threads.closingPullRequests()`."
           },
           "events": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.events()` and `threads.eventsPage()`, per thread kind."
+            "description": "Support for `threads.events()`, per thread kind."
           },
           "comments": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.comments()` and `threads.commentsPage()`, per thread kind."
+            "description": "Support for `threads.comments()`, per thread kind."
           },
           "getComment": {
             "$ref": "#/components/schemas/PerKind",
@@ -1683,7 +1683,7 @@
           },
           "reactions": {
             "$ref": "#/components/schemas/PerKind",
-            "description": "Support for `threads.reactions()` and `threads.reactionsPage()`, per thread kind."
+            "description": "Support for `threads.reactions()`, per thread kind."
           },
           "react": {
             "$ref": "#/components/schemas/PerKind",
@@ -1775,15 +1775,15 @@
           },
           "files": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.files()` and `threads.filesPage()`."
+            "description": "Support for `threads.files()`."
           },
           "commits": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.commits()` and `threads.commitsPage()`."
+            "description": "Support for `threads.commits()`."
           },
           "reviews": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `threads.reviews()` and `threads.reviewsPage()`. `'emulated'` where reviews are synthesised from approvals or votes."
+            "description": "Support for `threads.reviews()`. `'emulated'` where reviews are synthesised from approvals or votes."
           },
           "getReview": {
             "$ref": "#/components/schemas/Support",
@@ -1868,7 +1868,7 @@
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `notifications.list()` and `notifications.listPage()`."
+            "description": "Support for `notifications.list()`."
           },
           "markRead": {
             "$ref": "#/components/schemas/Support",
@@ -1910,7 +1910,7 @@
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `installations.list()` and `installations.listPage()`."
+            "description": "Support for `installations.list()`."
           },
           "get": {
             "$ref": "#/components/schemas/Support",
@@ -1922,7 +1922,7 @@
           },
           "repos": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `installations.repos()` and `installations.reposPage()`."
+            "description": "Support for `installations.repos()`."
           },
           "provider": {
             "$ref": "#/components/schemas/Support",
@@ -1974,7 +1974,7 @@
         "properties": {
           "runs": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.runs()` and `ci.runsPage()`."
+            "description": "Support for `ci.runs()`."
           },
           "getRun": {
             "$ref": "#/components/schemas/Support",
@@ -1982,7 +1982,7 @@
           },
           "jobs": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `ci.jobs()` and `ci.jobsPage()`."
+            "description": "Support for `ci.jobs()`."
           },
           "getJob": {
             "$ref": "#/components/schemas/Support",
@@ -2010,15 +2010,15 @@
           },
           "tree": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.tree()` and `contents.treePage()`. `'emulated'` where recursion is walked level by level."
+            "description": "Support for `contents.tree()`. `'emulated'` where recursion is walked level by level."
           },
           "branches": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.branches()` and `contents.branchesPage()`."
+            "description": "Support for `contents.branches()`."
           },
           "tags": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.tags()` and `contents.tagsPage()`."
+            "description": "Support for `contents.tags()`."
           },
           "resolveRef": {
             "$ref": "#/components/schemas/Support",
@@ -2026,7 +2026,7 @@
           },
           "commits": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `contents.commits()` and `contents.commitsPage()`."
+            "description": "Support for `contents.commits()`."
           },
           "getCommit": {
             "$ref": "#/components/schemas/Support",
@@ -2058,7 +2058,7 @@
         "properties": {
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `releases.list()` and `releases.listPage()`."
+            "description": "Support for `releases.list()`."
           },
           "get": {
             "$ref": "#/components/schemas/Support",
@@ -2108,7 +2108,7 @@
           },
           "list": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.list()` and `webhooks.listPage()`."
+            "description": "Support for `webhooks.list()`."
           },
           "create": {
             "$ref": "#/components/schemas/Support",
@@ -2128,7 +2128,7 @@
           },
           "deliveries": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `webhooks.deliveries()` and `webhooks.deliveriesPage()`."
+            "description": "Support for `webhooks.deliveries()`."
           },
           "redeliver": {
             "$ref": "#/components/schemas/Support",
@@ -2153,19 +2153,19 @@
         "properties": {
           "threads": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.threads()` and `search.threadsPage()`."
+            "description": "Support for `search.threads()`."
           },
           "repos": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.repos()` and `search.reposPage()`."
+            "description": "Support for `search.repos()`."
           },
           "commits": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.commits()` and `search.commitsPage()`."
+            "description": "Support for `search.commits()`."
           },
           "code": {
             "$ref": "#/components/schemas/Support",
-            "description": "Support for `search.code()` and `search.codePage()`."
+            "description": "Support for `search.code()`."
           }
         },
         "required": [
@@ -2180,7 +2180,7 @@
         "properties": {
           "list": {
             "$ref": "#/components/schemas/AlertSupport",
-            "description": "Support for `securityAlerts.list()` and `securityAlerts.listPage()`, per alert kind."
+            "description": "Support for `securityAlerts.list()`, per alert kind."
           }
         },
         "required": [
@@ -2225,7 +2225,7 @@
       "eventKinds",
       "authKinds"
     ],
-    "description": "What a provider supports, operation by operation. It is computed without a request, and `refreshCapabilities()` refines it with the instance version. Each verb has an entry at its path on the provider, which a page shares with its listing, and the [capability matrix](/reference/capability-matrix) lists them for every forge.",
+    "description": "What a provider supports, operation by operation. It is computed without a request, and `refreshCapabilities()` refines it with the instance version. Each verb has an entry at its path on the provider, and the [capability matrix](/reference/capability-matrix) lists them for every forge.",
     "x-forges-type": "ForgeCapabilities"
   },
   "ForgeEvent": {

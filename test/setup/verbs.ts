@@ -64,8 +64,16 @@ function trackIterable<T extends AsyncIterable<unknown>>(iterable: T, sources: S
   const original = iterable[Symbol.asyncIterator].bind(iterable)
   return new Proxy(iterable, {
     get(target, property, receiver) {
+      const page = Reflect.get(target, property, receiver) as unknown
+      if (property === 'page' && typeof page === 'function') {
+        return async () => {
+          const result = await traceSources(sources, () => (page as () => Promise<unknown>).call(target))
+          done()
+          return result
+        }
+      }
       if (property !== Symbol.asyncIterator) {
-        return Reflect.get(target, property, receiver)
+        return page
       }
       return () => {
         const iterator = traceSources(sources, original)

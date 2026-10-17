@@ -233,8 +233,8 @@ export const WRITE_STEPS: WriteStep[] = [
     return me
   } },
   { name: 'create label', verb: 'repos.createLabel', run: (provider, manifest) => provider.repos.createLabel(manifest.scratch, { name: label(manifest), colour: '0e8a16', description: `Created by run ${manifest.run.id}` }) },
-  { name: 'milestones', verb: 'repos.milestonesPage', run: async (provider, manifest, context) => {
-    const result = await provider.repos.milestonesPage(manifest.scratch, page)
+  { name: 'milestones', verb: 'repos.milestones', run: async (provider, manifest, context) => {
+    const result = await provider.repos.milestones(manifest.scratch, page).page()
     context.milestone = result.items.find(milestone => milestone.state === 'open')
     return result
   } },
@@ -419,18 +419,18 @@ export const WRITE_STEPS: WriteStep[] = [
   { name: 'get review comment', verb: 'threads.getComment', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.getComment(need(context.reviewComment, 'a review comment')) },
   { name: 'reply to review comment', verb: 'threads.replyToReviewComment', kind: 'pull_request', run: async (provider, manifest, context) => {
     const pull = threadOf(context, 'pull_request')
-    const reviews = await provider.threads.reviewsPage(pull)
+    const reviews = await provider.threads.reviews(pull).page()
     let comment: ReviewComment | undefined = reviews.items.flatMap(review => review.comments || []).find(item => item.ref)
-    const comments = comment ? undefined : await provider.threads.commentsPage(pull)
+    const comments = comment ? undefined : await provider.threads.comments(pull).page()
     comment ??= comments?.items.find(item => item.thread)
     const reply = await provider.threads.replyToReviewComment(pull, need(comment, 'a review comment'), `A reply from run ${manifest.run.id}.`)
     return { reviews, comments, reply }
   } },
   { name: 'resolve review thread', verb: 'threads.resolveReviewThread', kind: 'pull_request', run: async (provider, _manifest, context) => {
     const pull = threadOf(context, 'pull_request')
-    const reviews = await provider.threads.reviewsPage(pull)
+    const reviews = await provider.threads.reviews(pull).page()
     let id = reviews.items.flatMap(review => review.comments || []).find(comment => comment.thread)?.thread?.id
-    const comments = id ? undefined : await provider.threads.commentsPage(pull)
+    const comments = id ? undefined : await provider.threads.comments(pull).page()
     id ??= comments?.items.find(comment => comment.thread)?.thread?.id
     context.reviewThread = need(id, 'a review thread')
     await provider.threads.resolveReviewThread(pull, context.reviewThread)
@@ -507,9 +507,9 @@ export const WRITE_STEPS: WriteStep[] = [
   } },
   { name: 'update webhook', verb: 'webhooks.update', run: (provider, _manifest, context) => provider.webhooks.update(need(context.webhook, 'a webhook').ref, { events: ['comment', 'push'] }) },
   { name: 'rotate webhook secret', verb: 'webhooks.rotateSecret', run: (provider, _manifest, context) => provider.webhooks.rotateSecret(need(context.webhook, 'a webhook').ref, HOOK_SECRETS[1]) },
-  { name: 'new webhook deliveries', verb: 'webhooks.deliveriesPage', run: async (provider, _manifest, context) => {
+  { name: 'new webhook deliveries', verb: 'webhooks.deliveries', run: async (provider, _manifest, context) => {
     for (let attempt = 1; ; attempt++) {
-      const result = await provider.webhooks.deliveriesPage(need(context.webhook, 'a webhook').ref, page)
+      const result = await provider.webhooks.deliveries(need(context.webhook, 'a webhook').ref, page).page()
       if (result.items.length || attempt === 5) {
         context.delivery = result.items[0]
         return result
@@ -528,9 +528,9 @@ export const WRITE_STEPS: WriteStep[] = [
     }
     return provider.threads.createComment(threadOf(context, 'issue'), `@${login} a mention from run ${manifest.run.id}.`)
   } },
-  { name: 'author notifications', verb: 'notifications.listPage', run: async (provider, manifest, context) => {
+  { name: 'author notifications', verb: 'notifications.list', run: async (provider, manifest, context) => {
     for (let attempt = 1; ; attempt++) {
-      const result = await provider.notifications.listPage({ all: true, perPage: 50 })
+      const result = await provider.notifications.list({ all: true, perPage: 50 }).page()
       context.notification = result.items.find((item) => {
         const thread = notificationThread(item)
         return thread && `${thread.repo.owner}/${thread.repo.name}`.toLowerCase() === `${manifest.scratch.owner}/${manifest.scratch.name}`.toLowerCase()

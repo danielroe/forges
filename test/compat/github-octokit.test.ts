@@ -111,7 +111,7 @@ describe('request compatibility with Octokit', () => {
   it('sends If-None-Match for a conditional notifications poll', async () => {
     const etag = 'W/"e1a7c5f0c0de4f0b9d6b5d2b0a1f3c21"'
     await compare(
-      provider => provider.notifications!.listPage({ cursor: { etag } }).catch(() => undefined),
+      provider => provider.notifications!.list({ cursor: { etag } }).page().catch(() => undefined),
       octokit => octokit.rest.activity.listNotificationsForAuthenticatedUser({ all: false, headers: { 'if-none-match': etag } }).catch(() => undefined),
     )
   })
@@ -162,7 +162,7 @@ describe('request compatibility with Octokit', () => {
   it('lists, gets and reads the latest release', async () => {
     await compare(
       async (provider) => {
-        await provider.releases!.listPage(repo)
+        await provider.releases!.list(repo).page()
         await provider.releases!.get({ forge: 'github', instance: 'github.com', repo, id: '9001' })
         await provider.releases!.latest(repo)
       },
@@ -243,7 +243,7 @@ describe('request compatibility with Octokit', () => {
 
   it('lists reviews and their inline comments, with resolution state from GraphQL', async () => {
     const h = harness()
-    await h.provider.threads.reviewsPage(pull)
+    await h.provider.threads.reviews(pull).page()
     await h.octokit.rest.pulls.listReviews({ owner, repo: name, pull_number: 42 })
     await h.octokit.rest.pulls.listReviewComments({ owner, repo: name, pull_number: 42, per_page: 100 })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
@@ -282,8 +282,8 @@ describe('request compatibility with Octokit', () => {
   it('reads workflow runs, jobs and a job log', async () => {
     await compare(
       async (provider) => {
-        const { items } = await provider.ci.runsPage(repo)
-        await provider.ci.jobsPage(items[0]!.ref)
+        const { items } = await provider.ci.runs(repo).page()
+        await provider.ci.jobs(items[0]!.ref).page()
         await provider.ci.log({ forge: 'github', instance: 'github.com', repo, id: '4002' })
       },
       async (octokit) => {
@@ -298,10 +298,10 @@ describe('request compatibility with Octokit', () => {
     const hook = { forge: 'github', instance: 'github.com', target: repo, id: '12345678' } as const
     await compare(
       async (provider) => {
-        await provider.webhooks.listPage(repo)
+        await provider.webhooks.list(repo).page()
         await provider.webhooks.create(repo, { url: 'https://hooks.example/forges', events: ['state_change', 'push'], secret: 's3cret' })
         await provider.webhooks.update(hook, { active: false, nativeEvents: ['push'] })
-        await provider.webhooks.deliveriesPage(hook)
+        await provider.webhooks.deliveries(hook).page()
         await provider.webhooks.redeliver({ forge: 'github', instance: 'github.com', hook, id: '55001' })
         await provider.webhooks.delete(hook)
       },
@@ -326,8 +326,8 @@ describe('request compatibility with Octokit', () => {
   it('searches issues and repositories', async () => {
     await compare(
       async (provider) => {
-        await provider.search.threadsPage({ text: 'crash', repo, kind: 'issue', state: 'open', sort: 'updated', direction: 'desc' })
-        await provider.search.reposPage({ text: 'widgets', owner: 'acme', sort: 'stars' })
+        await provider.search.threads({ text: 'crash', repo, kind: 'issue', state: 'open', sort: 'updated', direction: 'desc' }).page()
+        await provider.search.repos({ text: 'widgets', owner: 'acme', sort: 'stars' }).page()
       },
       async (octokit) => {
         await octokit.rest.search.issuesAndPullRequests({ q: 'crash repo:acme/widgets is:issue state:open', sort: 'updated', order: 'desc' })
@@ -341,10 +341,10 @@ describe('request compatibility with Octokit', () => {
     await compare(
       async (provider) => {
         await provider.contents.getFile(repo, 'package.json', { ref: 'main', as: 'text' })
-        await provider.contents.treePage(repo, { ref: 'main', recursive: true })
-        await provider.contents.branchesPage(repo)
-        await provider.contents.tagsPage(repo)
-        await provider.contents.commitsPage(repo)
+        await provider.contents.tree(repo, { ref: 'main', recursive: true }).page()
+        await provider.contents.branches(repo).page()
+        await provider.contents.tags(repo).page()
+        await provider.contents.commits(repo).page()
         await provider.contents.getCommit(repo, sha)
         await provider.contents.compare(repo, 'v1.0.0', 'main')
       },
@@ -377,8 +377,8 @@ describe('request compatibility with Octokit', () => {
   it('lists the files and commits of a pull request', async () => {
     await compare(
       async (provider) => {
-        await provider.threads.filesPage(pull)
-        await provider.threads.commitsPage(pull)
+        await provider.threads.files(pull).page()
+        await provider.threads.commits(pull).page()
       },
       async (octokit) => {
         await octokit.rest.pulls.listFiles({ owner, repo: name, pull_number: 42 })
@@ -447,14 +447,14 @@ describe('request compatibility with Octokit', () => {
 
   it('searches commits, which has its own rate-limit pool', async () => {
     await compare(
-      provider => provider.search.commitsPage({ author: 'octocat', sort: 'committer_date', direction: 'asc' }),
+      provider => provider.search.commits({ author: 'octocat', sort: 'committer_date', direction: 'asc' }).page(),
       octokit => octokit.rest.search.commits({ q: 'author:octocat', sort: 'committer-date', order: 'asc' }),
     )
   })
 
   it('searches code', async () => {
     const h = harness({ 'GET https://api.github.com/search/code?q=useFetch+repo%3Aacme%2Fwidgets': { status: 200, headers: {}, body: { total_count: 0, incomplete_results: false, items: [] } } })
-    await h.provider.search.codePage({ text: 'useFetch', repo })
+    await h.provider.search.code({ text: 'useFetch', repo }).page()
     await h.octokit.rest.search.code({ q: 'useFetch repo:acme/widgets' })
 
     expect(h.ours.map(comparable)).toEqual(h.theirs.map(comparable))

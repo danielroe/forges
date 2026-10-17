@@ -204,6 +204,7 @@ export type {
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
+  ForgeListing,
   ForgeOptionsBase,
   ForgeProvider,
   Forges,
