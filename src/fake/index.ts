@@ -482,6 +482,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
   let budget: { limit: number, remaining: number, window: number, resetAt: Date } | undefined
   let seen: RateLimit | undefined
   let notificationCount = 0
+  let webhookCount = 0
+  /** How many comments each thread has had, deleted ones included, so that no comment id is given out twice. */
+  const commentCounts = new WeakMap<FakeThreadState, number>()
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
@@ -661,7 +664,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
 
   function addThread(seed: FakeThreadSeed): Thread {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
-    const number = String(seed.number ?? repo.threads.size + 1)
+    const number = String(seed.number ?? Math.max(0, ...[...repo.threads.keys()].map(Number)) + 1)
     const ref: ResolvedThreadRef = { ...origin, repo: repo.repo.ref, kind: seed.kind, number }
     const at = now()
     const thread: Thread = {
@@ -710,7 +713,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
       deletions: file.deletions ?? 0,
       patch: file.patch,
     }))
-    repo.threads.set(number, { thread, files, commits: seed.commits ?? [], comments, reactions: new Map(), checks, reviews: [], subscription: 'subscribed', mergeable: seed.mergeable ?? 'clean' })
+    const state: FakeThreadState = { thread, files, commits: seed.commits ?? [], comments, reactions: new Map(), checks, reviews: [], subscription: 'subscribed', mergeable: seed.mergeable ?? 'clean' }
+    repo.threads.set(number, state)
+    commentCounts.set(state, comments.length)
     return thread
   }
 
@@ -1340,7 +1345,9 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         }),
         comment: perKind(kinds('threads.comment', WRITABLE), async (ref, body) => {
           const state = threadState(ref)
-          const comment: Comment = { ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${state.comments.length + 1}` }, body, author: actor(by), createdAt: now(), raw: { body } }
+          const count = Math.max(commentCounts.get(state) ?? 0, state.comments.length) + 1
+          commentCounts.set(state, count)
+          const comment: Comment = { ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${count}` }, body, author: actor(by), createdAt: now(), raw: { body } }
           state.comments.push(comment)
           state.thread.commentCount = state.comments.length
           record(by, state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
@@ -1724,7 +1731,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
         create: verb(support('webhooks.create', true), async (target, input) => {
           const { secret, ...settings } = input
           const hook: Webhook = {
-            ref: { ...origin, target, id: String(store.webhooks.length + 1) },
+            ref: { ...origin, target, id: String(++webhookCount) },
             url: input.url,
             events: input.events ?? [],
             nativeEvents: input.nativeEvents ?? (input.events ?? []).map(kind => kind),

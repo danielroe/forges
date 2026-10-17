@@ -77,6 +77,15 @@ describe('fake forge', () => {
     expect((await forge.threads.checks(pull)).items.map(check => check.name)).toEqual(['test', 'lint'])
   })
 
+  it('numbers a new thread after the highest number in its repository', async () => {
+    const factory = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', number: 2, title: 'Second' }, { repo: 'acme/widgets', kind: 'issue', title: 'Unnumbered' }] } })
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    await factory.create().threads.create(repo, { kind: 'issue', title: 'New' })
+
+    expect([...factory.store.repos.get('acme/widgets')!.threads.values()].map(({ thread }) => [thread.ref.number, thread.title])).toEqual([['2', 'Second'], ['3', 'Unnumbered'], ['4', 'New']])
+  })
+
   it('reads one comment, review and CI job by walking their listings', async () => {
     const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', jobs: [{ name: 'test' }, { name: 'lint' }] }] } }).create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
@@ -171,6 +180,20 @@ describe('fake forge', () => {
     expect(second.comment.body).toContain('Coverage: 84%')
     expect(second.comment.body).toContain(commentMarker('coverage'))
     expect(comments).toHaveLength(2)
+  })
+
+  it('never reuses the id of a deleted comment, so an edit reaches the comment it names', async () => {
+    const forge = fake({ seed }).create()
+    const issue = { forge: 'fake', instance: 'fake.test', repo: { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }, kind: 'issue' as const, number: '1' }
+
+    const first = await forge.threads.comment(issue, 'First')
+    const second = await forge.threads.comment(issue, 'Second')
+    await forge.threads.deleteComment(first.ref)
+    const third = await forge.threads.comment(issue, 'Third')
+    await forge.threads.editComment(third.ref, 'Third, edited')
+
+    expect([first, second, third].map(comment => comment.ref.id)).toEqual(['1-1', '1-2', '1-3'])
+    expect((await forge.threads.commentsPage(issue)).items.map(comment => comment.body)).toEqual(['Second', 'Third, edited'])
   })
 
   describe('retrying a keyed comment', () => {
@@ -676,6 +699,18 @@ describe('fake webhook management', () => {
     expect(listed).toHaveLength(1)
     expect(listed[0]!.active).toBe(false)
     expect(factory.store.webhooks).toEqual([])
+  })
+
+  it('never reuses the id of a deleted hook', async () => {
+    const forge = fake({ seed }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+
+    const first = await forge.webhooks.create(repo, { url: 'https://hooks.test/first' })
+    const second = await forge.webhooks.create(repo, { url: 'https://hooks.test/second' })
+    await forge.webhooks.delete(first.ref)
+    const third = await forge.webhooks.create(repo, { url: 'https://hooks.test/third' })
+
+    expect([first, second, third].map(hook => hook.ref.id)).toEqual(['1', '2', '3'])
   })
 })
 
