@@ -1248,6 +1248,18 @@ describe('github contents', () => {
     expect(comparison).toMatchObject({ aheadBy: 2, behindBy: 0, mergeBaseSha: '0'.repeat(40) })
   })
 
+  it('lists a commit whose author matches no account without an actor', async () => {
+    // GitHub sends `{}` rather than null when the commit email matches no account.
+    const { provider } = tokenProvider({
+      'GET https://api.github.com/repos/acme/widgets/commits': { status: 200, body: [{ sha, commit: { message: 'fix: handle empty input', author: { name: 'Octo Cat' } }, author: {}, committer: {} }] },
+    })
+
+    const { items } = await provider.contents.commitsPage(repo)
+
+    expect(items[0]!.author).toEqual({ actor: undefined, name: 'Octo Cat', email: undefined, date: undefined })
+    expect(items[0]!.committer?.actor).toBeUndefined()
+  })
+
   it('reads the newest commits of a comparison from its last pages', async () => {
     const all = Array.from({ length: 250 }, (_, index) => ({ sha: String(index + 1), commit: { message: `commit ${index + 1}` } }))
     const pages: Array<string | null> = []

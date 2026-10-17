@@ -91,8 +91,8 @@ import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
 export const FORGE = 'github' as const
 
-export function toActor(instance: string, user: GitHubUser | undefined | null): Actor | undefined {
-  if (!user) {
+export function toActor(instance: string, user: GitHubUser | Record<string, never> | undefined | null): Actor | undefined {
+  if (!user?.login) {
     return undefined
   }
   return {
