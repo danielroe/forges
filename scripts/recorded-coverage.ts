@@ -16,7 +16,7 @@ import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { parseArgs } from 'node:util'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
-import { supportCell } from './capabilities.ts'
+import { isUnsupportedLevel, supportCell } from './capabilities.ts'
 import { capabilityAt, CHECKED_PROVIDERS, readExercised } from './exercised.ts'
 
 const FORGES: Array<[string, string]> = [
@@ -73,7 +73,7 @@ function cellsFor(providers: ForgeProvider[], covered: Set<string>, entry: Capab
   for (const provider of providers) {
     const { level, kinds }: SupportCell = supportCell(capabilityAt(provider.capabilities, entry.capability))
     for (const item of kinds ?? [{ kind: '', label: '', level }]) {
-      if (item.level !== 'none' && !cells.has(item.kind)) {
+      if (!isUnsupportedLevel(item.level) && !cells.has(item.kind)) {
         cells.set(item.kind, { label: item.label, level: item.level, verified: hit(item.kind || undefined) })
       }
     }

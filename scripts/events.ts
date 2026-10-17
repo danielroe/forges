@@ -5,6 +5,7 @@ import { FORGEJO_NATIVE_EVENTS } from '../src/forgejo/webhook-events.ts'
 import { GITEE_NATIVE_EVENTS } from '../src/gitee/webhook-events.ts'
 import { GITHUB_NATIVE_EVENTS } from '../src/github/webhook-events.ts'
 import { GITLAB_NATIVE_EVENTS } from '../src/gitlab/webhook-events.ts'
+import { isUnsupported } from '../src/model.ts'
 import { schemas } from '../src/schema/index.ts'
 import { matrixProviders } from './capabilities.ts'
 
@@ -112,10 +113,10 @@ function detailShapes(kinds: string[]): Map<string, EventDetailShape[]> {
 /** Event kinds and actions per provider that receives webhooks, from each provider's `webhooks.events`. */
 export function eventData(forges: typeof Forges): { providers: EventProvider[], kinds: EventKindRow[], withoutWebhooks: string[] } {
   const all = matrixProviders(forges)
-  const entries = all.filter(({ provider }) => provider.capabilities.sources.webhook)
+  const entries = all.filter(({ provider }) => !isUnsupported(provider.capabilities.sources.webhook))
   const kinds = (schemas.EventKind as Schema).enum ?? []
   const shapes = detailShapes(kinds)
-  const unmapped = entries.find(({ slug, provider }) => provider.capabilities.webhooks.create && !(slug in SUBSCRIPTIONS))
+  const unmapped = entries.find(({ slug, provider }) => !isUnsupported(provider.capabilities.webhooks.create) && !(slug in SUBSCRIPTIONS))
   if (unmapped) {
     throw new Error(`No native event map for ${unmapped.name}, which supports webhooks.create`)
   }
@@ -124,9 +125,9 @@ export function eventData(forges: typeof Forges): { providers: EventProvider[], 
       slug,
       name,
       eventKinds: capabilities.eventKinds,
-      poll: Boolean(capabilities.sources.poll),
-      subscribe: Boolean(capabilities.sources.subscribe),
-      subscriptions: Boolean(capabilities.webhooks.create),
+      poll: !isUnsupported(capabilities.sources.poll),
+      subscribe: !isUnsupported(capabilities.sources.subscribe),
+      subscriptions: !isUnsupported(capabilities.webhooks.create),
     })),
     kinds: kinds.map((kind) => {
       const cells = entries.map(({ slug, provider }) => {

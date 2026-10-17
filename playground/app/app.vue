@@ -39,8 +39,10 @@ onMounted(() => {
 })
 onBeforeUnmount(() => sources.forEach(source => source.close()))
 
+const available = (value: unknown) => Boolean(value) && value !== 'not_applicable'
+
 function supported(record: Record<string, unknown>): string[] {
-  return Object.entries(record).filter(([, value]) => value && (typeof value !== 'object' || Object.values(value).some(Boolean))).map(([name]) => name)
+  return Object.entries(record).filter(([, value]) => typeof value === 'object' && value !== null ? Object.values(value).some(available) : available(value)).map(([name]) => name)
 }
 </script>
 

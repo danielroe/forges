@@ -36,7 +36,7 @@ function repoName(repo: RepoRef): string {
 }
 
 async function openPulls(provider: ForgeProvider, repo: RepoRef, warnings: ForgeWarning[], limit: number): Promise<Thread[]> {
-  if (provider.capabilities.threads.list.pull_request === false) {
+  if (!provider.can('threads.list', 'pull_request')) {
     warnings.push({
       code: 'threads_list_unsupported',
       message: `${provider.forge} cannot list pull requests`,

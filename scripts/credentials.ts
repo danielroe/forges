@@ -3,7 +3,7 @@ import { Buffer } from 'node:buffer'
 import { generateKeyPairSync } from 'node:crypto'
 import { CAPABILITY_TABLE } from '../src/capability-table.ts'
 import { providersFromEnv } from '../src/env.ts'
-import { capabilityData, matrixProviders, supportCell } from './capabilities.ts'
+import { capabilityData, isUnsupportedLevel, matrixProviders, supportCell } from './capabilities.ts'
 
 /** Forge-specific fields. `providersFromEnv()` is probed with combinations of them. */
 const CANDIDATES = ['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID', 'USERNAME', 'IDENTIFIER', 'PASSWORD', 'PDS', 'ORGANIZATION', 'ACCOUNT_ID', 'API_URL', 'NOTIFICATIONS_URL']
@@ -67,7 +67,7 @@ function probe(kind: string, fields: Record<string, string>) {
 }
 
 function authenticated(provider?: Forges.ForgeProvider): boolean {
-  return !!provider && ACCOUNT.some(capability => supportCell(at(provider.capabilities, capability)).level !== 'none')
+  return !!provider && ACCOUNT.some(capability => !isUnsupportedLevel(supportCell(at(provider.capabilities, capability)).level))
 }
 
 /** The fields whose values reach the forge in a request, for a set made of `fields`. */
@@ -107,7 +107,7 @@ function subsets<T>(items: T[], size: number): T[][] {
 function supportedCapabilities(forges: typeof Forges): Map<string, Set<string>> {
   const { providers, groups } = capabilityData(forges)
   const rows = groups.flatMap(group => group.rows)
-  return new Map(providers.map(({ slug }, index) => [slug, new Set(rows.filter(row => row.cells[index]!.level !== 'none').map(row => row.capability))]))
+  return new Map(providers.map(({ slug }, index) => [slug, new Set(rows.filter(row => !isUnsupportedLevel(row.cells[index]!.level)).map(row => row.capability))]))
 }
 
 /** What each forge needs in `FORGES_<KIND>_*`, found by probing `providersFromEnv()`. */
@@ -118,7 +118,7 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
     const values = (fields: string[]) => Object.fromEntries(fields.map(field => [field, probeValue(field)]))
     const required = CANDIDATES.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(CANDIDATES.filter(other => other !== field)), ENABLED: '1' }).skipped)
     const supported = [...reach.get(slug)!]
-    const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => supportCell(at(provider.capabilities, capability)).level === 'none') : supported
+    const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => isUnsupportedLevel(supportCell(at(provider.capabilities, capability)).level)) : supported
 
     const rest = CANDIDATES.filter(field => !required.includes(field))
     const minimal: string[][] = []

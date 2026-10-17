@@ -111,6 +111,27 @@ describe('capability diff', () => {
     ].join('\n'))
   })
 
+  it('accepts `not_applicable`, and does not call reclassifying `none` to it a regression', () => {
+    const base = provider('github', 'GitHub', { capabilities: { 'releases.get': 'none' } })
+    const head = provider('github', 'GitHub', { capabilities: { 'releases.get': 'not_applicable' } })
+    const output = render(snapshot(base), snapshot(head))
+
+    expect(parseSnapshot(JSON.stringify(snapshot(head)))).toEqual(snapshot(head))
+    expect(output).toContain('| `releases.get` | 🟨 |')
+    expect(output).toContain('- ❌ → ∅ `releases.get`')
+    expect(output).not.toContain('removed or downgraded')
+    expect(output).toContain(legend('∅ not applicable'))
+  })
+
+  it('treats a drop to `not_applicable` from an available level as a regression', () => {
+    const base = provider('github', 'GitHub', { capabilities: { 'releases.get': 'native' } })
+    const head = provider('github', 'GitHub', { capabilities: { 'releases.get': 'not_applicable' } })
+    const output = render(snapshot(base), snapshot(head))
+
+    expect(output).toContain('🟥 **1** removed or downgraded')
+    expect(output).toContain('- ✅ → ∅ `releases.get` ⚠️')
+  })
+
   it('names the providers per capability when three or more change', () => {
     const before = (slug: string, name: string) => provider(slug, name, { capabilities: { 'releases.create': 'none' } })
     const after = (slug: string, name: string, level: 'native' | 'emulated') => provider(slug, name, { capabilities: { 'releases.create': level } })
