@@ -1440,6 +1440,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             throw notFound(`No comment ${ref.id}`)
           }
           state.comments.splice(index, 1)
+          state.hidden.delete(ref.id)
           state.thread.commentCount = state.comments.length
           record(by, ref.thread, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
         }),
