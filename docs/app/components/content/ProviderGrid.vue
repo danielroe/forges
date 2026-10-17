@@ -3,7 +3,11 @@ import { groups, providers } from '#capabilities'
 
 const total = groups.reduce((sum, group) => sum + group.rows.length, 0)
 
-const supported = (provider: (typeof providers)[number]) => total - provider.summary.none
+const supported = (provider: (typeof providers)[number]) => total - provider.summary.none - provider.summary.not_applicable
+
+const applicable = (provider: (typeof providers)[number]) => applicableTotal(provider)
+/** The bar shows what a forge does with the capabilities that apply to it, so it leaves out `not_applicable`. */
+const barLevels = supportLevels.filter(level => level !== 'not_applicable')
 
 const sorted = [...providers].sort((a, b) => supported(b) - supported(a) || b.summary.native - a.summary.native)
 </script>
@@ -42,15 +46,15 @@ const sorted = [...providers].sort((a, b) => supported(b) - supported(a) || b.su
             aria-hidden="true"
           >
             <span
-              v-for="level of supportLevels"
+              v-for="level of barLevels"
               :key="level"
               class="capability-swatch"
               :data-level="level"
-              :style="{ width: `${provider.summary[level] / total * 100}%` }"
+              :style="{ width: `${provider.summary[level] / applicable(provider) * 100}%` }"
             />
           </span>
           <span class="font-mono text-xs text-muted tabular-nums">
-            {{ provider.summary.native }}/{{ total }}
+            {{ provider.summary.native }}/{{ applicable(provider) }}
             <span class="sr-only">capabilities native and verified</span>
           </span>
         </span>

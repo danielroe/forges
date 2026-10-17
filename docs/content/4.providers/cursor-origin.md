@@ -100,7 +100,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | Capability | User token | App installation | App | Without credentials |
 | --- | --- | --- | --- | --- |
 | `experimental` | ✅ | ✅ | ✅ | ✅ |
-| `sources.poll` | ❌ | ❌ | ❌ | ❌ |
+| `sources.poll` | ∅ | ∅ | ∅ | ∅ |
 | `sources.webhook` | ✅ | ✅ | ✅ | ✅ |
 | `sources.subscribe` | ❌ | ❌ | ❌ | ❌ |
 | `repos.get` | experimental | experimental | ❌ | ❌ |
@@ -133,13 +133,13 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `comments.edit` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `comments.delete` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `reactions.list` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.list` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.markRead` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.markDone` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.unsubscribe` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.markAllRead` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ |
-| `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ |
+| `notifications.list` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.markRead` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.markDone` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.unsubscribe` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.markAllRead` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.markAllDone` | ∅ | ∅ | ∅ | ∅ |
+| `notifications.unreadCount` | ∅ | ∅ | ∅ | ∅ |
 | `writes.comment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `writes.upsertComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `writes.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
@@ -188,13 +188,13 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `reviews.approve` | unverified | unverified | ❌ | ❌ |
 | `reviews.reply` | ❌ | ❌ | ❌ | ❌ |
 | `reviews.resolveThread` | unverified | unverified | ❌ | ❌ |
-| `releases.list` | ❌ | ❌ | ❌ | ❌ |
-| `releases.get` | ❌ | ❌ | ❌ | ❌ |
-| `releases.latest` | ❌ | ❌ | ❌ | ❌ |
-| `releases.getByTag` | ❌ | ❌ | ❌ | ❌ |
-| `releases.downloadAsset` | ❌ | ❌ | ❌ | ❌ |
-| `releases.create` | ❌ | ❌ | ❌ | ❌ |
-| `releases.update` | ❌ | ❌ | ❌ | ❌ |
+| `releases.list` | ∅ | ∅ | ∅ | ∅ |
+| `releases.get` | ∅ | ∅ | ∅ | ∅ |
+| `releases.latest` | ∅ | ∅ | ∅ | ∅ |
+| `releases.getByTag` | ∅ | ∅ | ∅ | ∅ |
+| `releases.downloadAsset` | ∅ | ∅ | ∅ | ∅ |
+| `releases.create` | ∅ | ∅ | ∅ | ∅ |
+| `releases.update` | ∅ | ∅ | ∅ | ∅ |
 | `webhooks.list` | ❌ | ❌ | ❌ | ❌ |
 | `webhooks.create` | ❌ | ❌ | ❌ | ❌ |
 | `webhooks.update` | ❌ | ❌ | ❌ | ❌ |

@@ -99,11 +99,12 @@ watch([open, forgeId], async ([isOpen, id]) => {
 const kind = computed(() => operation.kind?.(input))
 const anonymousSupport = computed(() => loaded.value?.anonymous.support(operation.verb, kind.value))
 const signedInSupport = computed(() => loaded.value?.signedIn.support(operation.verb, kind.value))
-const unsupported = computed(() => signedInSupport.value === false)
+const unsupported = computed(() => loaded.value ? !loaded.value.signedIn.can(operation.verb, kind.value) : false)
 /** The call needs credentials on this forge, so the code passes `auth`, and it doesn't run here. */
-const needsAuth = computed(() => operation.auth || Boolean(forge.value.signedIn) || (anonymousSupport.value === false && !unsupported.value))
+const needsAuth = computed(() => operation.auth || Boolean(forge.value.signedIn) || (loaded.value ? !loaded.value.anonymous.can(operation.verb, kind.value) && !unsupported.value : false))
 const support = computed(() => needsAuth.value ? signedInSupport.value : anonymousSupport.value)
 const runnable = computed(() => Boolean(operation.run) && !forge.value.blocked && !needsAuth.value && !unsupported.value)
+const unsupportedText = computed(() => signedInSupport.value === 'not_applicable' ? `${forge.value.name} has no` : `${forge.value.name} doesn't support`)
 
 /** Why the call doesn't run here, when the forge supports it. */
 const notice = computed(() => {
@@ -660,7 +661,7 @@ if (props.permalink) {
               aria-hidden="true"
             />
             <span>
-              {{ forge.name }} doesn't support <code class="font-mono">{{ operation.verb }}</code><template v-if="operation.kind">
+              {{ unsupportedText }} <code class="font-mono">{{ operation.verb }}</code><template v-if="operation.kind">
                 for {{ input.kind === 'issue' ? 'issues' : 'pull requests' }}
               </template>. Calling it rejects with <code class="font-mono">UnsupportedOperationError</code>.
             </span>

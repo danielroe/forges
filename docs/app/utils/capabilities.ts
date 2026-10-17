@@ -24,6 +24,11 @@ export function summaryFor(provider: CapabilityProvider, view: View): Record<Sup
   return (typeof view === 'string' && provider.credentials?.find(({ id }) => id === view)?.summary) || provider.summary
 }
 
+/** How many capabilities apply to a provider: every capability but the ones the forge has no such operation for. */
+export function applicableTotal(provider: CapabilityProvider): number {
+  return Object.values(provider.summary).reduce((sum, count) => sum + count, 0) - provider.summary.not_applicable
+}
+
 /** The labels of credentials by id, as prose such as "a classic token or an app". */
 export function credentialNames(ids: string[], provider: CapabilityProvider): string {
   const names = ids.map((id) => {
@@ -33,13 +38,19 @@ export function credentialNames(ids: string[], provider: CapabilityProvider): st
   return new Intl.ListFormat('en-GB', { type: 'disjunction' }).format(names)
 }
 
-export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
+export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'not_applicable', 'none']
+
+/** Whether a level means the operation is available. */
+export function isAvailable(level: SupportLevel): boolean {
+  return level !== 'none' && level !== 'not_applicable'
+}
 
 export const supportLabels: Record<SupportLevel, string> = {
   native: 'Native and verified',
   experimental: 'Experimental',
   emulated: 'Emulated',
   unverified: 'Unverified',
+  not_applicable: 'Not applicable',
   none: 'Not available',
 }
 
@@ -48,6 +59,7 @@ export const supportDescriptions: Record<SupportLevel, string> = {
   experimental: 'Verified, but built on an API that the forge marks unstable or in preview.',
   emulated: 'Composed from other calls, so its behaviour can differ from a native operation.',
   unverified: 'Implemented, but not yet verified against the forge\'s responses, so it may not work.',
+  not_applicable: 'The forge has no such operation, so there is nothing to implement.',
   none: 'Calling it rejects with UnsupportedOperationError.',
 }
 
@@ -61,6 +73,7 @@ export const shortSupportLabels: Record<SupportLevel, string> = {
   experimental: 'Experimental',
   emulated: 'Emulated',
   unverified: 'Unverified',
+  not_applicable: 'Not applicable',
   none: 'Not available',
 }
 
@@ -74,12 +87,12 @@ export function rotatedHeaderHeight(lengths: number[]): string {
 
 /** Text for one cell, for screen readers. */
 export function describeCell(cell: SupportCell, provider?: CapabilityProvider): string {
-  const supported = cell.kinds?.filter(kind => kind.level !== 'none')
+  const supported = cell.kinds?.filter(kind => isAvailable(kind.level))
   const text = !supported
     ? shortSupportLabels[cell.level]
     : supported.length
       ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
-      : shortSupportLabels.none
+      : cell.kinds!.some(kind => kind.level === 'not_applicable') ? shortSupportLabels.not_applicable : shortSupportLabels.none
   return cell.credentials && provider ? `${text}, only with ${credentialNames(cell.credentials, provider)}` : text
 }
 

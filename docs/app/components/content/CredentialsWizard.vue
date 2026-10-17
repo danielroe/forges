@@ -2,7 +2,7 @@
 import { groups, providers } from '#capabilities'
 import { anonymousStep, credentialSteps, envStep, forgeSteps, requirements, tasks } from '#credentials'
 
-type Level = 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'
+type Level = 'native' | 'experimental' | 'emulated' | 'unverified' | 'not_applicable' | 'none'
 
 interface Option {
   id: string
@@ -31,7 +31,7 @@ function cellOf(capability: string) {
 
 function taskLevel(capabilities: string[]): Level {
   const levels = capabilities.map(capability => cellOf(capability).level)
-  if (levels.every(level => level === 'none')) {
+  if (levels.every(level => !isAvailable(level))) {
     return 'none'
   }
   return (['unverified', 'experimental', 'emulated'] as const).find(level => levels.includes(level)) ?? 'native'
@@ -98,7 +98,7 @@ const support = computed(() => selectedTasks.value
     ...task,
     levels: taskLevel(task.capabilities) === 'none'
       ? [{ level: 'none' as Level, capabilities: [] }]
-      : (['unverified', 'experimental', 'emulated', 'none'] as const)
+      : (['unverified', 'experimental', 'emulated', 'not_applicable', 'none'] as const)
           .map(level => ({ level, capabilities: task.capabilities.filter(capability => cellOf(capability).level === level) }))
           .filter(entry => entry.capabilities.length),
   }))
@@ -110,7 +110,7 @@ const kindGaps = computed(() => {
   const kinds = (provider.value.credentials ?? []).filter(kind => kind.env.join() === option.value.fields.join())
   const lacking = kinds.map(kind => ({
     ...kind,
-    gaps: capabilities.value.filter(capability => cellOf(capability).level !== 'none' && !missing.value.includes(capability) && cellOf(capability).byCredential?.[kind.id]?.level === 'none'),
+    gaps: capabilities.value.filter(capability => isAvailable(cellOf(capability).level) && !missing.value.includes(capability) && !isAvailable(cellOf(capability).byCredential?.[kind.id]?.level ?? 'native')),
   }))
   return lacking.filter(kind => kind.gaps.length).map(kind => ({ ...kind, instead: lacking.filter(other => !other.gaps.length) }))
 })
@@ -598,7 +598,7 @@ const { copied, copy, message: copyMessage } = useCopyToClipboard(() => `${doten
                   >
                     <span
                       class="inline-flex w-24 shrink-0 items-center gap-1.5"
-                      :class="entry.level === 'none' ? 'text-muted' : 'text-toned'"
+                      :class="isAvailable(entry.level) ? 'text-toned' : 'text-muted'"
                     >
                       <CapabilityCell
                         :level="entry.level"

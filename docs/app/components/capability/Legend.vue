@@ -1,6 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  levels?: Array<'native' | 'experimental' | 'emulated' | 'unverified' | 'none'>
+  levels?: Array<'native' | 'experimental' | 'emulated' | 'unverified' | 'not_applicable' | 'none'>
   kinds?: boolean
   /** Adds the mark for support that depends on the kind of credential. */
   credentials?: boolean

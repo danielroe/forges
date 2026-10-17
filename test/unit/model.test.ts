@@ -6,7 +6,7 @@ import { forgejo } from '../../src/forgejo/index.ts'
 import { github } from '../../src/github/index.ts'
 import * as root from '../../src/index.ts'
 import * as kit from '../../src/kit.ts'
-import { commentKey, commentMarker, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
+import { commentKey, commentMarker, isUnsupported, notificationKey, repoKey, repoRef, threadKey } from '../../src/model.ts'
 import { createForges } from '../../src/provider.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { summariseChecks } from '../../src/utils.ts'
@@ -15,6 +15,17 @@ import { hangingFetch } from '../utils/fixtures.ts'
 
 const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
 const ghes: RepoRef = { ...repo, instance: 'ghe.example.com' }
+
+describe('support', () => {
+  it('treats both `false` and the truthy string `not_applicable` as unsupported', () => {
+    expect(isUnsupported(false)).toBe(true)
+    expect(isUnsupported('not_applicable')).toBe(true)
+    expect(isUnsupported(true)).toBe(false)
+    for (const level of ['experimental', 'emulated', 'unverified'] as const) {
+      expect(isUnsupported(level)).toBe(false)
+    }
+  })
+})
 
 describe('identity keys', () => {
   it('separates the same repo on different instances', () => {

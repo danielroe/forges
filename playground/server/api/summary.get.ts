@@ -22,7 +22,7 @@ async function repoFor(provider: ForgeProvider): Promise<RepoRef | undefined> {
   if (configured) {
     return { forge: provider.forge, instance: provider.instance, ...configured }
   }
-  return provider.capabilities.repos.list ? (await provider.repos.listPage({ perPage: 1 })).items[0]?.ref : undefined
+  return provider.can('repos.list') ? (await provider.repos.listPage({ perPage: 1 })).items[0]?.ref : undefined
 }
 
 async function latest(provider: ForgeProvider, repo: RepoRef | undefined) {

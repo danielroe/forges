@@ -8,6 +8,20 @@ export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret'
 
 export const KINDS: VerbKind[] = ['issue', 'pull_request', 'discussion', 'commit']
 
+const NOT_APPLICABLE_KINDS: Record<VerbKind, Support> = {
+  issue: 'not_applicable',
+  pull_request: 'not_applicable',
+  discussion: 'not_applicable',
+  commit: 'not_applicable',
+}
+
+const NOT_APPLICABLE_ALERTS: Record<AlertKind, Support> = {
+  dependency: 'not_applicable',
+  code_scanning: 'not_applicable',
+  secret: 'not_applicable',
+  advisory: 'not_applicable',
+}
+
 export function resolve(support: SupportInput | undefined, env: CapabilityEnv): Support {
   return typeof support === 'function' ? support(env) : support ?? false
 }
@@ -16,9 +30,9 @@ export function resolveKinds(kinds: Partial<Record<VerbKind, SupportInput>> | un
   return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env)])) as Record<VerbKind, Support>
 }
 
-/** A capability composed of `parts` is `'unverified'` when any part is. */
+/** A capability composed of `parts` is `'not_applicable'` when any part is, else `false`, else `'unverified'`. */
 function composed(parts: Support[], level: Support): Support {
-  return parts.includes(false) ? false : parts.includes('unverified') ? 'unverified' : level
+  return parts.includes('not_applicable') ? 'not_applicable' : parts.includes(false) ? false : parts.includes('unverified') ? 'unverified' : level
 }
 
 /** A thread's events are read for each kind the provider reads threads of, at the weaker of the two levels. */
@@ -30,6 +44,9 @@ export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv): Record
 
 /** `upsertComment` is composed of listing, creating and editing a comment, so it needs all three for the kind. */
 export function upsertKinds(spec: ProviderSpec, env: CapabilityEnv): Record<VerbKind, Support> {
+  if (spec.notApplicable?.includes('writes.upsertComment')) {
+    return NOT_APPLICABLE_KINDS
+  }
   const parts = [spec.threads.commentsPage, spec.threads.comment, spec.threads.editComment]
   return Object.fromEntries(KINDS.map(kind => [
     kind,
@@ -63,7 +80,8 @@ export function ciJobSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
 export function approveAndMergeSupport(spec: ProviderSpec, env: CapabilityEnv): Support {
   const merge = resolve(spec.threads.merge?.support, env)
   const approve = resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)
-  return composed([merge, approve], resolve(spec.threads.approveAndMerge?.support ?? merge, env))
+  const override = spec.threads.approveAndMerge ? resolve(spec.threads.approveAndMerge.support, env) : undefined
+  return composed([merge, approve, ...override === undefined ? [] : [override]], override ?? merge)
 }
 
 function read(source: unknown, path: string): unknown {
@@ -77,6 +95,21 @@ function write(target: Record<string, unknown>, path: string, value: unknown): v
   parent[leaf] = value
 }
 
+function unsupported(declared: unknown) {
+  return declared && {
+    ...declared as object,
+    support: (declared as { support?: unknown }).support === 'not_applicable' ? 'not_applicable' : false,
+  }
+}
+
+/** Keeps the kinds that are `'not_applicable'`, which no credential or mode changes. */
+function unsupportedKinds(declared: unknown) {
+  return declared && {
+    ...declared as object,
+    kinds: Object.fromEntries(Object.entries((declared as { kinds?: Record<string, unknown> }).kinds ?? {}).filter(([, value]) => value === 'not_applicable')),
+  }
+}
+
 /** What `entry` contributes to the capability object; `undefined` leaves the field to core. */
 function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv, flags: CapabilityFlags): unknown {
   switch (entry.derived) {
@@ -85,7 +118,8 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
     case 'poll':
       return resolve(spec.notifications?.listPage.support, env)
     case 'webhook':
-      return flags.webhook
+      // The handler flag, not a declared verb, so `applyNotApplicable` cannot mark it.
+      return flags.webhook || (spec.notApplicable?.includes('sources.webhook') ? 'not_applicable' : false)
     case 'threadEvents':
       return threadEventKinds(spec, env)
     case 'upsertComment':
@@ -97,7 +131,7 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
     case 'ciJob':
       return ciJobSupport(spec, env)
     case 'subscriptionSet':
-      return resolveKinds(flags.readOnly ? undefined : spec.threads.subscriptions?.kinds, env)
+      return resolveKinds((flags.readOnly ? unsupportedKinds(spec.threads.subscriptions) as KindVerb<unknown> | undefined : spec.threads.subscriptions)?.kinds, env)
     case 'approve':
       return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env)
     case 'approveAndMerge':
@@ -126,12 +160,13 @@ export interface CapabilityFlags {
 
 /** The capability object a spec declares, derived from {@link CAPABILITY_TABLE} with every support resolved against `env`. */
 export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: CapabilityFlags): ForgeCapabilities {
+  const resolved = applyNotApplicable(spec)
   const capabilities: Record<string, unknown> = {
     version: env.version,
     ...flags.experimental ? { experimental: true as const } : {},
   }
   for (const entry of CAPABILITY_TABLE) {
-    const value = valueFor(entry, spec, env, flags)
+    const value = valueFor(entry, resolved, env, flags)
     if (value !== undefined) {
       write(capabilities, entry.capability, value)
     }
@@ -142,34 +177,61 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
 /** Verbs `readOnly` blocks, by their {@link ForgeVerb} name. */
 export const WRITE_VERBS: Set<string> = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.write ? entry.verbs ?? [] : []))
 
-function update(target: unknown, path: string, change: (value: unknown) => unknown): unknown {
+function update(target: unknown, path: string, change: (value: unknown) => unknown, create = false): unknown {
   const [key, ...rest] = path.split('.')
   const node = target as Record<string, unknown> | undefined
   if (!key) {
     return change(target)
   }
-  if (node?.[key] === undefined) {
+  if (!create && node?.[key] === undefined) {
     return target
   }
-  return { ...node, [key]: update(node[key], rest.join('.'), change) }
+  return { ...node, [key]: update(node?.[key], rest.join('.'), change, create) }
 }
 
-const unsupported = (declared: unknown) => declared && { ...declared as object, support: false }
-const unsupportedKinds = (declared: unknown) => declared && { ...declared as object, kinds: {} }
+const notApplicable = (declared: unknown) => ({ ...declared as object, support: 'not_applicable' as const })
+const notApplicableKinds = (declared: unknown) => ({ ...declared as object, kinds: NOT_APPLICABLE_KINDS })
+
+/** Fills `spec` with `'not_applicable'` entries before anything resolves it, so derived capabilities inherit the level from their parts. */
+export function applyNotApplicable<T extends ProviderSpec>(spec: T): T {
+  if (!spec.notApplicable?.length) {
+    return spec
+  }
+  const absent = new Set<string>(spec.notApplicable)
+  let updated: unknown = spec
+  for (const entry of CAPABILITY_TABLE) {
+    if (entry.spec && absent.has(entry.capability)) {
+      updated = update(updated, entry.spec, entry.perKind ? notApplicableKinds : notApplicable, true)
+    }
+  }
+  if (absent.has('sources.poll')) {
+    updated = update(updated, 'notifications.listPage', notApplicable, true)
+  }
+  if (absent.has('subscriptions.set')) {
+    updated = update(updated, 'threads.subscriptions', notApplicableKinds, true)
+  }
+  if (absent.has('writes.approveAndMerge')) {
+    updated = update(updated, 'threads.approveAndMerge', notApplicable, true)
+  }
+  if (absent.has('securityAlerts')) {
+    updated = update(updated, 'securityAlerts', declared => ({ ...declared as object, kinds: NOT_APPLICABLE_ALERTS }), true)
+  }
+  return updated as T
+}
 
 /**
  * Marks writes unsupported, with `anonymous` everything that needs an account,
  * and with `webhooksOnly` every declared verb, leaving only webhook ingestion.
  */
 export function restrict(spec: ProviderSpec, anonymous: boolean, webhooksOnly = false): ProviderSpec {
-  let restricted: unknown = spec
+  let restricted: unknown = applyNotApplicable(spec)
   for (const entry of CAPABILITY_TABLE) {
     if (entry.spec && (entry.write || (anonymous && (entry.account || webhooksOnly)))) {
       restricted = update(restricted, entry.spec, entry.perKind ? unsupportedKinds : unsupported)
     }
   }
   const result = restricted as ProviderSpec
-  return anonymous && webhooksOnly ? { ...result, securityAlerts: undefined } : result
+  return anonymous && webhooksOnly ? update(result, 'securityAlerts', unsupportedKinds) as ProviderSpec : result
 }
 
 /**
@@ -184,11 +246,11 @@ export function restrict(spec: ProviderSpec, anonymous: boolean, webhooksOnly = 
  */
 export function supportOnly<T extends ProviderSpec>(spec: T, keep: readonly string[]): T {
   const kept = (capability: string) => keep.some(path => capability === path || capability.startsWith(`${path}.`))
-  let restricted: unknown = spec
+  let restricted: unknown = applyNotApplicable(spec)
   for (const entry of CAPABILITY_TABLE) {
     if (entry.spec && !kept(entry.capability)) {
       restricted = update(restricted, entry.spec, entry.perKind ? unsupportedKinds : unsupported)
     }
   }
-  return kept('securityAlerts') ? restricted as T : { ...restricted as T, securityAlerts: undefined }
+  return (kept('securityAlerts') ? restricted : update(restricted, 'securityAlerts', unsupportedKinds)) as T
 }

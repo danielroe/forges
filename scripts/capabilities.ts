@@ -29,16 +29,20 @@ type CredentialOptions<O> = Omit<MatrixCredential, 'provider'> & { options: O }
 /** Traits describe the provider, not an operation, so they stay the same without credentials. */
 const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
-/** Without anonymous reads, a provider reaches nothing without credentials. Its traits stay. */
+/** Without anonymous reads, a provider reaches nothing, but its traits and `not_applicable` entries stay. */
 function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvider {
   const capabilities = structuredClone(provider.capabilities) as unknown as Record<string, Record<string, unknown>>
   for (const { capability } of CAPABILITY_TABLE.filter(entry => !TRAITS.has(entry.capability))) {
     const [group, name] = capability.split('.') as [string, string | undefined]
+    const current = name ? capabilities[group]![name] : (capabilities as Record<string, unknown>)[group]
+    const next = current && typeof current === 'object'
+      ? Object.fromEntries(Object.entries(current).map(([key, value]) => [key, value === 'not_applicable' ? 'not_applicable' : false]))
+      : current === 'not_applicable' ? 'not_applicable' : false
     if (name) {
-      capabilities[group]![name] = false
+      capabilities[group]![name] = next
     }
     else {
-      (capabilities as Record<string, unknown>)[group] = false
+      (capabilities as Record<string, unknown>)[group] = next
     }
   }
   return { ...provider, capabilities: capabilities as unknown as Forges.ForgeCapabilities }
@@ -93,7 +97,7 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
 export const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
 
 /** How far a provider supports a capability, as the docs show it. */
-export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'unverified' | 'none'
+export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'unverified' | 'not_applicable' | 'none'
 
 export interface SupportCell {
   level: SupportLevel
@@ -105,10 +109,15 @@ export interface SupportCell {
   byCredential?: Record<string, SupportCell>
 }
 
-const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'none']
+const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'not_applicable', 'none']
 
 function levelOf(value: unknown): SupportLevel {
-  return value === true ? 'native' : value === 'experimental' || value === 'emulated' || value === 'unverified' ? value : 'none'
+  return value === true ? 'native' : value === 'experimental' || value === 'emulated' || value === 'unverified' || value === 'not_applicable' ? value : 'none'
+}
+
+/** Whether a level means the operation is unavailable. */
+export function isUnsupportedLevel(level: SupportLevel): boolean {
+  return level === 'none' || level === 'not_applicable'
 }
 
 /** A capability value as a level, with the level of each kind for per-kind values. */
@@ -162,7 +171,7 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
   })
   const counts = new Map<string, number>()
   for (const { best, having } of found) {
-    if (best.level !== 'none') {
+    if (!isUnsupportedLevel(best.level)) {
       counts.set(having.join(), (counts.get(having.join()) ?? 0) + 1)
     }
   }
@@ -171,7 +180,7 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
     usual: usual?.split(','),
     cells: new Map(found.map(({ capability, best, having, byCredential }) => [capability, {
       ...best,
-      ...best.level !== 'none' && having.length < credentials.length && having.join() !== usual ? { credentials: having } : {},
+      ...!isUnsupportedLevel(best.level) && having.length < credentials.length && having.join() !== usual ? { credentials: having } : {},
       byCredential,
     }])),
   }
@@ -181,8 +190,8 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
 
 function supportText({ level, kinds, credentials }: SupportCell): string {
   const text = kinds
-    ? kinds.filter(kind => kind.level !== 'none').map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || '❌'
-    : level === 'native' ? '✅' : level === 'none' ? '❌' : level
+    ? kinds.filter(kind => !isUnsupportedLevel(kind.level)).map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || (kinds.some(kind => kind.level === 'not_applicable') ? '∅' : '❌')
+    : level === 'native' ? '✅' : level === 'none' ? '❌' : level === 'not_applicable' ? '∅' : level
   return credentials ? `${text} (only with ${credentials.map(id => `\`${id}\``).join(' or ')})` : text
 }
 
@@ -190,7 +199,7 @@ function cell(value: unknown): string {
   if (Array.isArray(value)) {
     return value.map(item => `\`${item}\``).join(', ')
   }
-  if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated' && value !== 'unverified') {
+  if (typeof value === 'string' && value !== 'experimental' && value !== 'emulated' && value !== 'unverified' && value !== 'not_applicable') {
     return value
   }
   return supportText(supportCell(value))
@@ -261,7 +270,7 @@ export interface CapabilityProvider {
 }
 
 function summarise(cells: SupportCell[]): Record<SupportLevel, number> {
-  const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, unverified: 0, none: 0 }
+  const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, unverified: 0, not_applicable: 0, none: 0 }
   for (const { level } of cells) {
     summary[level]++
   }

@@ -11,7 +11,9 @@ if (!provider) {
   throw new Error(`Unknown provider: ${props.provider}`)
 }
 
-const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
+const total = applicableTotal(provider)
+/** The bar shows what a forge does with the capabilities that apply to it, so it leaves out `not_applicable`. */
+const barLevels = supportLevels.filter(level => level !== 'not_applicable')
 const view = useCredentialView()
 const anonymous = computed({
   get: () => view.value === 'anonymous',
@@ -43,7 +45,7 @@ const sections = computed(() => groups.map(group => ({
     cell: cellsFor(row, view.value)[index]!,
   })),
 })))
-const available = computed(() => sections.value.filter(section => section.rows.some(row => row.cell.level !== 'none')))
+const available = computed(() => sections.value.filter(section => section.rows.some(row => isAvailable(row.cell.level))))
 const unavailable = computed(() => sections.value.filter(section => !available.value.includes(section)))
 
 const columns = computed(() => {
@@ -122,7 +124,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
         :aria-label="supportLevels.map(level => `${summary[level]} ${supportLabels[level].toLowerCase()}`).join(', ')"
       >
         <span
-          v-for="level of supportLevels"
+          v-for="level of barLevels"
           :key="level"
           class="capability-swatch"
           :data-level="level"
@@ -219,7 +221,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               {{ section.name }}
             </span>
             <span class="text-muted tabular-nums">
-              {{ section.rows.filter(row => row.cell.level !== 'none').length }}/{{ section.rows.length }}
+              {{ section.rows.filter(row => isAvailable(row.cell.level)).length }}/{{ section.rows.length }}
             </span>
           </header>
           <ul class="divide-y divide-default/60">
@@ -231,7 +233,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               <span class="min-w-0">
                 <span
                   class="block font-mono"
-                  :class="row.cell.level === 'none' ? 'text-muted' : 'text-highlighted'"
+                  :class="isAvailable(row.cell.level) ? 'text-highlighted' : 'text-muted'"
                 >{{ row.name }}</span>
                 <span
                   v-if="row.cell.credentials"
@@ -245,11 +247,11 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
                 </span>
               </span>
               <span
-                v-if="row.cell.kinds && row.cell.level !== 'none'"
+                v-if="row.cell.kinds && isAvailable(row.cell.level)"
                 class="flex flex-wrap justify-end gap-x-2.5 gap-y-1"
               >
                 <span
-                  v-for="kind of row.cell.kinds.filter(kind => kind.level !== 'none')"
+                  v-for="kind of row.cell.kinds.filter(kind => isAvailable(kind.level))"
                   :key="kind.kind"
                   class="inline-flex items-center gap-1.5 font-mono text-[11px] text-toned"
                 >
@@ -265,7 +267,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
               <span
                 v-else
                 class="inline-flex items-center gap-1.5"
-                :class="row.cell.level === 'none' ? 'text-muted' : 'text-toned'"
+                :class="isAvailable(row.cell.level) ? 'text-toned' : 'text-muted'"
               >
                 <CapabilityCell
                   :level="row.cell.level"

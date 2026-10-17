@@ -192,8 +192,8 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `contents.commitFiles` | ❌ | ❌ |
 | `contents.threadFiles` | ✅ | ✅ |
 | `contents.threadCommits` | ✅ | ✅ |
-| `reviews.list` | ❌ | ❌ |
-| `reviews.get` | ❌ | ❌ |
+| `reviews.list` | ∅ | ∅ |
+| `reviews.get` | ∅ | ∅ |
 | `reviews.create` | unverified | ❌ |
 | `reviews.submit` | ❌ | ❌ |
 | `reviews.approve` | unverified | ❌ |
@@ -211,8 +211,8 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `webhooks.update` | unverified | ❌ |
 | `webhooks.delete` | unverified | ❌ |
 | `webhooks.rotateSecret` | unverified | ❌ |
-| `webhooks.deliveries` | ❌ | ❌ |
-| `webhooks.redeliver` | ❌ | ❌ |
+| `webhooks.deliveries` | ∅ | ∅ |
+| `webhooks.redeliver` | ∅ | ∅ |
 | `search.threads` | ✅ | ✅ |
 | `search.repos` | ✅ | ✅ |
 | `search.commits` | ❌ | ❌ |

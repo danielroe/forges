@@ -105,7 +105,7 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
             />
             <span
               class="font-mono"
-              :class="source.level === 'none' ? 'text-muted' : 'text-highlighted'"
+              :class="isAvailable(source.level) ? 'text-highlighted' : 'text-muted'"
             >{{ source.name }}</span>
             <span
               v-if="source.credentials"

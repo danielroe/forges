@@ -723,6 +723,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
+    notApplicable: [
+      'reviews.resolveThread',
+      'checks.rerun',
+      'webhooks.deliveries',
+      'webhooks.redeliver',
+    ],
     search: {
       threadsPage: verb(true, searchThreadsPage),
       reposPage: verb(true, searchReposPage),
@@ -924,7 +930,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toReview(pull, data, [])
       }),
-      replyToReviewComment: verb(isGitea && released(GITEA_REVIEW_REPLIES), async (thread, comment, body, options) => {
+      replyToReviewComment: verb(isGitea ? released(GITEA_REVIEW_REPLIES) : 'not_applicable', async (thread, comment, body, options) => {
         const pull = requirePull(thread, 'reviewed')
         if (comment.ref === undefined) {
           throw new UnsupportedOperationError(`${profile.forge} replies to a review comment by its id; pass the comment with its \`ref\``, context)

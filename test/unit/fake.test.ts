@@ -116,6 +116,36 @@ describe('fake forge', () => {
     await expect(forge.notifications.markDone({ forge: 'fake', instance: 'fake.test', id: '1' })).rejects.toThrow(UnsupportedOperationError)
   })
 
+  it('distinguishes `not_applicable` from `false`, in the report and the message', async () => {
+    const forge = fake({ seed, support: { 'notifications.markDone': 'not_applicable', 'notifications.markRead': false, 'contents.commitFiles': 'not_applicable', 'sources.subscribe': 'not_applicable' } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const notification = { forge: 'fake', instance: 'fake.test', id: '1' }
+
+    expect(forge.support('notifications.markDone')).toBe('not_applicable')
+    expect(forge.support('notifications.markRead')).toBe(false)
+    expect(forge.can('notifications.markDone')).toBe(false)
+    expect(forge.can('notifications.markRead')).toBe(false)
+    await expect(forge.notifications.markDone(notification)).rejects.toThrow('fake has no notifications.markDone')
+    await expect(forge.notifications.markRead(notification)).rejects.toThrow('fake does not support notifications.markRead')
+    await expect(forge.contents.commitFiles(repo, { branch: 'main', message: 'm', changes: [{ path: 'a', content: 'b' }] })).rejects.toThrow('fake has no contents.commitFiles')
+    await expect(Array.fromAsync(forge.sources.subscribe())).rejects.toThrow('fake has no sources.subscribe')
+  })
+
+  it('carries `not_applicable` through per-kind support and composed verbs', async () => {
+    const forge = fake({ seed, support: { 'threads.close': { issue: 'not_applicable', pull_request: true }, 'threads.comments': { issue: 'not_applicable', pull_request: true, discussion: true, commit: true } } }).create()
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
+
+    expect(forge.support('threads.close', 'issue')).toBe('not_applicable')
+    expect(forge.support('threads.close', 'pull_request')).toBe(true)
+    expect(forge.can('threads.close', 'issue')).toBe(false)
+    await expect(forge.threads.close(issue)).rejects.toThrow('fake has no threads.close for a issue')
+
+    // `getComment` is emulated from the comment listing, so a listing the forge lacks makes it not applicable.
+    expect(forge.support('threads.getComment', 'issue')).toBe('not_applicable')
+    expect(forge.support('threads.getComment', 'pull_request')).toBe('emulated')
+  })
+
   it('rejects reads of missing records with NotFoundError', async () => {
     const forge = fake({ seed }).create()
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'missing' }
