@@ -2,6 +2,7 @@ import type { ForgeVerb } from './capability-table.ts'
 import type { SecurityAlertKind, Support, ThreadKind } from './model.ts'
 import type { ForgeCapabilities } from './provider.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
+import { isUnsupported } from './model.ts'
 
 export type { ForgeVerb }
 
@@ -25,7 +26,7 @@ const VERBS = new Map<string, string>(
  * ```
  */
 export function supports(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind): boolean {
-  return supportOf(capabilities, verb, kind) !== false
+  return !isUnsupported(supportOf(capabilities, verb, kind))
 }
 
 /** Levels from strongest to weakest, as the capability matrix ranks them. */
@@ -33,9 +34,11 @@ const LEVELS: Support[] = [true, 'experimental', 'emulated', 'unverified']
 
 /**
  * How well `verb` is supported according to `capabilities`: `true`,
- * `'experimental'`, `'emulated'`, `'unverified'` or `false`, for `kind` where support differs
- * by thread kind (or by alert kind for `securityAlerts`). Without `kind`, a
- * per-kind verb reports its strongest level across kinds.
+ * `'experimental'`, `'emulated'`, `'unverified'`, `'not_applicable'` or `false`,
+ * for `kind` where support differs by thread kind (or by alert kind for
+ * `securityAlerts`). Without `kind`, a per-kind verb reports its strongest
+ * available level, or `'not_applicable'` when no kind is available and any kind
+ * is, else `false`.
  * @param capabilities The capabilities of a provider, such as `provider.capabilities`.
  * @param verb The operation, named by its path on the provider, such as `threads.comment`.
  * @param kind The thread or alert kind, for an operation whose support differs by kind.
@@ -49,7 +52,7 @@ export function supportOf(capabilities: ForgeCapabilities, verb: ForgeVerb, kind
     return support[kind] ?? false
   }
   const levels = Object.values(support)
-  return LEVELS.find(level => levels.includes(level)) ?? false
+  return LEVELS.find(level => levels.includes(level)) ?? (levels.includes('not_applicable') ? 'not_applicable' : false)
 }
 
 /** The capability entry behind `verb`: one support level, or one per kind. */
