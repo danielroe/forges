@@ -56,6 +56,7 @@ import type {
   BitbucketSrcEntry,
   BitbucketUser,
 } from './types.ts'
+import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBytes, existingFiles, toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -763,8 +764,7 @@ export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['webhook'] }
   }
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'merge', 'approveAndMerge', 'approve', 'createReview', 'submitReview', 'setAssignees', 'requestReview', 'report'])
-  const write = writes.has(name)
+  const write = WRITE_VERBS.has(verb)
   if (group === 'threads') {
     return { token: [write ? 'issue:write' : 'issue', write ? 'pullrequest:write' : 'pullrequest'] }
   }
