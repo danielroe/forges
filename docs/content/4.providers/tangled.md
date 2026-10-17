@@ -12,7 +12,7 @@ The Tangled provider works with [Tangled](https://tangled.org), a forge built on
 | Detail | Value |
 | --- | --- |
 | Import | `forges/tangled` |
-| Factories | `tangled()`, `tangledLite()` |
+| Factories | `tangled()` |
 | Auth | `anonymous`, `app_password`, `oauth` |
 ::
 <!-- header:end -->
@@ -124,7 +124,7 @@ Stars and follows have no thread. They appear with `kind: 'other'`, and `typeRaw
 
 A pull carries a patch rather than a branch. `threads.create()` with `kind: 'pull_request'` asks the knot for the `git format-patch` of the commits that `head` has and `base` lacks, uploads it to your PDS and writes the pull record. `head` must be a branch of the same repository; pulls from forks and drafts aren't supported.
 
-`merge()` sends the patch of the latest round to the knot, which applies its commits to the target branch with `git am`, and then writes a `merged` status record. Because the commits are applied as they are, `rebase` is the only merge method, and `title` and `message` are ignored. Only the owner of the repository or a collaborator can merge. Tangled has no review step, so `approveAndMerge()` isn't available.
+`merge()` sends the patch of the latest round to the knot, which applies its commits to the target branch with `git am`, and then writes a `merged` status record. Because the commits are applied as they are, `rebase` is the only merge method, and `title` and `message` are ignored. Only the owner of the repository or a collaborator can merge.
 
 `repos.addCollaborator()` asks the knot to give an account push access. Tangled has a single collaborator role, so `role` must be `write`.
 
@@ -231,7 +231,6 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | unverified | ❌ |
 | `writes.comment` | issue, PR | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -245,7 +244,6 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `writes.setAssignees` | issue, PR | ❌ |
 | `writes.requestReview` | ❌ | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ❌ | ❌ |
 | `writes.updateBranch` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

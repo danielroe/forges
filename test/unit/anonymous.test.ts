@@ -135,7 +135,7 @@ describe('read-only providers', () => {
     expect(forge.can('threads.subscribe', 'issue')).toBe(false)
     await expect(forge.threads.unsubscribe(issue)).rejects.toThrow(ReadOnlyError)
     await expect(forge.threads.close(issue)).rejects.toThrow(ReadOnlyError)
-    await expect(forge.threads.approveAndMerge({ ...issue, kind: 'pull_request' })).rejects.toThrow(ReadOnlyError)
+    await expect(forge.threads.merge({ ...issue, kind: 'pull_request' })).rejects.toThrow(ReadOnlyError)
     await expect(forge.notifications.markRead({ forge: 'github', instance: 'github.com', id: '1' })).rejects.toBeInstanceOf(UnsupportedOperationError)
     await forge.repos.get(repo)
     expect(calls.map(call => call.method)).toEqual(['GET'])

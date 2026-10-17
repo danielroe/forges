@@ -12,7 +12,7 @@ The Forgejo provider works with Codeberg and self-hosted Forgejo instances. It c
 | Detail | Value |
 | --- | --- |
 | Import | `forges/forgejo` |
-| Factories | `forgejo()`, `forgejoLite()` |
+| Factories | `forgejo()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->
@@ -190,7 +190,6 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
 | `writes.comment` | issue, PR | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -204,7 +203,6 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `writes.setAssignees` | issue, PR | ❌ |
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.updateBranch` | ✅ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

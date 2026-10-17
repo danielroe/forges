@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
+import type { ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   BaseOptions,
@@ -56,6 +56,7 @@ import type {
   BitbucketSrcEntry,
   BitbucketUser,
 } from './types.ts'
+import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBytes, existingFiles, toFileContent } from '../contents.ts'
 import { toBase64 } from '../crypto.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
@@ -136,6 +137,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
   anonymous: true,
   instance: host => host === 'api.bitbucket.org' ? 'bitbucket.org' : host,
   headers: { accept: 'application/json' },
+  webhooks: bitbucketWebhooks,
   authHeaders({ options: { auth } }) {
     if (!auth || auth.type === 'anonymous') {
       return undefined
@@ -203,7 +205,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
     }
 
     /** A merge that outlasts Bitbucket's own timeout responds with `202` and finishes in the background. */
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -220,7 +222,6 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         }
       }
       const method = mergeOptions.method ?? await resolveMergeMethod(ref, pull, mergeOptions.signal)
-      await hooks.beforeMerge?.()
       const { data, response } = await fetcher.json<BitbucketPullRequest | undefined>(`${threadPath(ref)}/merge`, {
         method: 'POST',
         json: { merge_strategy: toStrategy(method), message: mergeCommitMessage(mergeOptions) },
@@ -752,10 +753,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
 }
 
 /** Creates a Bitbucket Cloud provider. */
-export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
-
-/** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */
-export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {
@@ -763,8 +761,7 @@ export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest' ? {} : { token: ['webhook'] }
   }
-  const writes = new Set(['comment', 'upsertComment', 'editComment', 'deleteComment', 'create', 'update', 'close', 'reopen', 'merge', 'approveAndMerge', 'approve', 'createReview', 'submitReview', 'setAssignees', 'requestReview', 'report'])
-  const write = writes.has(name)
+  const write = WRITE_VERBS.has(verb)
   if (group === 'threads') {
     return { token: [write ? 'issue:write' : 'issue', write ? 'pullrequest:write' : 'pullrequest'] }
   }

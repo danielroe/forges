@@ -1,4 +1,4 @@
-import type { MergeHooks, ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
+import type { ProviderDefinition, ProviderFactoryFunction } from '../define.ts'
 import type {
   Actor,
   BaseOptions,
@@ -92,6 +92,7 @@ import type {
   GitLabUser,
   GitLabVulnerability,
 } from './types.ts'
+import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBase64, existingFiles, fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
@@ -213,6 +214,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
   anonymous: true,
   apiPath: '/api/v4',
   headers: { accept: 'application/json' },
+  webhooks: gitlabWebhooks,
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
     /** GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users. */
@@ -744,14 +746,13 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       }
     }
 
-    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}, hooks: MergeHooks = {}): Promise<MergeResult> {
+    async function merge(thread: ThreadRef, mergeOptions: MergeOptions = {}): Promise<MergeResult> {
       const ref = requireThread(thread, context)
       if (ref.kind !== 'pull_request') {
         throw new UnsupportedOperationError('Only merge requests can be merged', context)
       }
       const method = await resolveMergeMethod(ref, mergeOptions.method, mergeOptions.signal)
       const message = mergeCommitMessage(mergeOptions)
-      await hooks.beforeMerge?.()
       const { data } = await fetcher.json<GitLabIssue>(`${threadPath(ref)}/merge`, {
         method: 'PUT',
         json: {
@@ -1320,10 +1321,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
 }
 
 /** Creates a GitLab provider for gitlab.com or a self-managed instance. */
-export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider({ ...GITLAB, webhooks: gitlabWebhooks })
-
-/** `gitlab()` without webhook ingestion, for bundles that never receive a delivery. */
-export const gitlabLite: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
+export const gitlab: ProviderFactoryFunction<GitLabOptions, true, 'gitlab', false> = /* @__PURE__ */ defineForgeProvider(GITLAB)
 
 /** GitLab tokens carry coarse scopes; `api` covers writes and `read_api` reads. */
 export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {
@@ -1334,6 +1332,5 @@ export function gitlabScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'orgs') {
     return { token: ['read_api'], note: 'A member of the group, for a private group' }
   }
-  const reads = new Set(['get', 'list', 'listPage', 'byOwner', 'byOwnerPage', 'page', 'events', 'eventsPage', 'comments', 'commentsPage', 'getMany', 'closingIssues', 'closingIssuesPage', 'closingPullRequests', 'closingPullRequestsPage', 'reviews', 'reviewsPage', 'checks', 'files', 'filesPage', 'commits', 'commitsPage', 'code', 'codePage', 'subscription', 'unreadCount', 'threads', 'threadsPage', 'repos', 'reposPage', 'tree', 'treePage', 'branches', 'branchesPage', 'tags', 'tagsPage', 'file', 'compare', 'resolveRef', 'commit', 'latest', 'getByTag', 'downloadAsset', 'runs', 'runsPage', 'run', 'jobs', 'jobsPage', 'log', 'permissionFor', 'labels', 'labelsPage', 'milestones', 'milestonesPage', 'collaborators', 'collaboratorsPage', 'contributors', 'contributorsPage', 'templates', 'assignableUsers', 'assignableUsersPage', 'reviewerCandidates', 'reviewerCandidatesPage'])
-  return { token: [reads.has(name) ? 'read_api' : 'api'] }
+  return { token: [WRITE_VERBS.has(verb) ? 'api' : 'read_api'] }
 }

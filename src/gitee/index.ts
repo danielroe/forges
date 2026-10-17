@@ -583,7 +583,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       requestReview: perKind({ pull_request: 'unverified' }, async (thread, reviewers, options) => {
         await fetcher.raw(`${threadPath(requireThread(thread, context))}/assignees`, { method: 'POST', json: { assignees: reviewers.map(actorLogin).join(',') }, signal: options?.signal })
       }),
-      merge: verb(true, async (thread, mergeOptions = {}, hooks = {}) => {
+      merge: verb(true, async (thread, mergeOptions = {}) => {
         const ref = requireThread(thread, context)
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be merged', context)
@@ -597,7 +597,6 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (!['merge', 'squash', 'rebase'].includes(mergeOptions.method)) {
           throw new UnsupportedOperationError(`Gitee does not support the ${mergeOptions.method} merge method`, context)
         }
-        await hooks.beforeMerge?.()
         const { data } = await fetcher.json<{ sha?: string } | undefined>(`${threadPath(ref)}/merge`, { method: 'PUT', json: { merge_method: mergeOptions.method, title: mergeOptions.title, description: mergeOptions.message }, mapError: toMergeError, signal: mergeOptions.signal })
         return { status: 'merged' as const, sha: data?.sha, raw: data }
       }),
@@ -645,14 +644,12 @@ const GITEE: ProviderDefinition<GiteeOptions, undefined, true> = {
   apiPath: '/api/v5',
   headers: { accept: 'application/json' },
   authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `token ${await resolveToken(auth)}` }) : undefined,
+  webhooks: giteeWebhooks,
   setup: setupGitee,
 }
 
 /** Creates a Gitee provider for gitee.com. The enterprise edition (`e.gitee.com`) is not covered. */
-export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee', false> = /* @__PURE__ */ defineForgeProvider({ ...GITEE, webhooks: giteeWebhooks })
-
-/** `gitee()` without webhook ingestion, for bundles that never receive a delivery. */
-export const giteeLite: ProviderFactoryFunction<GiteeOptions, true, 'gitee', false> = /* @__PURE__ */ defineForgeProvider(GITEE)
+export const gitee: ProviderFactoryFunction<GiteeOptions, true, 'gitee', false> = /* @__PURE__ */ defineForgeProvider(GITEE)
 
 /** Gitee OAuth scopes, one per resource group. */
 export function giteeScopesFor(verb: ForgeVerb): VerbScopes {

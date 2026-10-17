@@ -347,8 +347,8 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
   /**
    * Rejects the next call of `verb` with `error`. A listing and its page
    * share a verb, so `threads.comments` also fails `threads.commentsPage`.
-   * Verbs that core builds from other requests, such as
-   * `threads.upsertComment`, fail through those requests.
+   * Verbs that core builds from other requests, such as an emulated
+   * `threads.getComment`, fail through those requests.
    * @param verb The verb whose next call rejects.
    * @param error The error to reject with, or a function that creates one for each call.
    * @param options Whether the write lands first, and how many calls reject.
@@ -382,11 +382,9 @@ export interface FakeForgeFactory extends ForgeProviderFactory<ForgeProvider> {
 
 /** Verbs that send no request of their own, with what to fail instead. */
 const COMPOSED_VERBS: Partial<Record<ForgeVerb, string>> = {
-  'threads.upsertComment': 'fail threads.comments, threads.comment or threads.editComment instead',
   'threads.getComment': 'fail threads.comments instead',
   'threads.getReview': 'fail threads.reviews instead',
   'threads.approve': 'fail threads.createReview instead',
-  'threads.approveAndMerge': 'fail threads.createReview or threads.merge instead',
   'ci.job': 'fail ci.jobs instead',
   'webhooks.verify': 'it runs locally',
   'webhooks.ingest': 'it runs locally',
@@ -1440,6 +1438,7 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             throw notFound(`No comment ${ref.id}`)
           }
           state.comments.splice(index, 1)
+          state.hidden.delete(ref.id)
           state.thread.commentCount = state.comments.length
           record(by, ref.thread, 'comment', 'deleted', 'deleted a comment', { type: 'comment', comment: ref })
         }),
@@ -1519,13 +1518,11 @@ export function fake(options: FakeOptions = {}): FakeForgeFactory {
             record(by, ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
           }
         }),
-        ...givenSupport('threads.approveAndMerge') === undefined ? {} : { approveAndMerge: { support: support('threads.approveAndMerge', true) } },
-        merge: verb(support('threads.merge', true), async (ref, mergeOptions = {}, hooks = {}) => {
+        merge: verb(support('threads.merge', true), async (ref, mergeOptions = {}) => {
           const state = threadState(ref)
           if (state.thread.kind !== 'pull_request') {
             throw notFound(`No pull request ${slugOf(ref.repo)}#${ref.number}`)
           }
-          await hooks.beforeMerge?.()
           if (state.thread.state !== 'open' || (state.mergeable === 'blocked' && !mergeOptions.whenChecksPass)) {
             throw new MergeBlockedError(`Pull request ${slugOf(ref.repo)}#${ref.number} is not mergeable`, 405, '', origin)
           }

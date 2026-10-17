@@ -1,13 +1,8 @@
 import type { WebhookHandlers } from '../define.ts'
-import type { EventDetail, EventKind, ForgeEventInput, RepoRef, ResolvedThreadRef, ThreadRef, WebhookEventType } from '../model.ts'
+import type { WebhookEventType } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
 import type { AzureDevOpsOptions } from './index.ts'
-import type { AzureComment, AzureIdentity, AzurePullRequest, AzureRepository, AzureServiceHookEvent } from './types.ts'
-import { bodyText, headerValue, timingSafeEqual } from '../crypto.ts'
-import { eventTime, snapshotOfThread } from '../events.ts'
-import { toDate } from '../utils.ts'
-import { refEvent } from '../webhooks.ts'
-import { FORGE, projectRef, toActor, toPullState, toPullThread, toRepoRef } from './normalise.ts'
+import { headerValue, timingSafeEqual } from '../crypto.ts'
 
 /**
  * Service hooks carry no signature. A subscription can send basic
@@ -23,79 +18,6 @@ export function verifyAzureBasicAuth(delivery: WebhookDelivery, secret: string |
   return timingSafeEqual(header, `Basic ${btoa(key)}`)
 }
 
-const PULL_KINDS: Record<string, EventKind> = {
-  'git.pullrequest.created': 'state_change',
-  'git.pullrequest.merged': 'state_change',
-  'git.pullrequest.updated': 'other',
-  'ms.vss-code.git-pullrequest-comment-event': 'comment',
-}
-
-export function translateAzureWebhook(instance: string, organization: string, delivery: WebhookDelivery): ForgeEventInput[] {
-  const event = JSON.parse(bodyText(delivery.body)) as AzureServiceHookEvent
-  const resource = event.resource
-  const pull = (resource.pullRequest ?? (event.eventType.startsWith('git.pullrequest') ? resource : undefined)) as AzurePullRequest | undefined
-  const repository = (pull?.repository ?? resource.repository) as AzureRepository | undefined
-  const repo: RepoRef | undefined = repository?.project ? toRepoRef(instance, organization, repository) : undefined
-  const base = {
-    forge: FORGE,
-    instance,
-    id: event.id,
-    kindRaw: event.eventType,
-    ...eventTime(toDate(event.createdDate)),
-    repo,
-    source: 'webhook' as const,
-    payload: event,
-  }
-  if (pull && repo) {
-    const thread: ResolvedThreadRef = { forge: FORGE, instance, repo, kind: 'pull_request', number: String(pull.pullRequestId) }
-    const normalised = toPullThread(thread, pull)
-    const threadSnapshot = snapshotOfThread({ ...normalised, isDraft: pull.isDraft, labels: pull.labels && normalised.labels })
-    const comment = resource.comment as AzureComment | undefined
-    const actor = toActor(instance, comment?.author ?? pull.createdBy)
-    const kind = PULL_KINDS[event.eventType] ?? 'other'
-    const threadId = /\/threads\/(\d+)\/comments\/\d+$/.exec(comment?._links?.self?.href ?? '')?.[1]
-    const commentRef = comment && threadId ? { forge: FORGE, instance, thread, id: `${threadId}/${comment.id}` } : undefined
-    const detail: EventDetail | undefined = kind === 'comment'
-      ? { type: 'comment', comment: commentRef, body: comment?.content }
-      : kind === 'state_change' ? { type: 'state_change', state: toPullState(pull.status), draft: pull.isDraft } : undefined
-    return [{ ...base, kind, ...event.eventType === 'git.pullrequest.created' ? { action: 'opened' } : {}, ...detail ? { detail } : {}, actor, thread, threadSnapshot, summary: event.message?.text ?? `${actor?.login ?? 'someone'} ${event.eventType}` }]
-  }
-  if (event.eventType.startsWith('workitem.')) {
-    const fields = (resource.fields ?? (resource.revision as { fields?: Record<string, unknown> } | undefined)?.fields ?? {}) as Record<string, unknown>
-    const id = String(resource.workItemId ?? resource.id)
-    const project = fields['System.TeamProject'] as string | { newValue?: string } | undefined
-    const projectName = typeof project === 'string' ? project : project?.newValue
-    const thread: ThreadRef | undefined = projectName
-      ? { forge: FORGE, instance, repo: projectRef(instance, organization, projectName), kind: 'issue', number: id }
-      : undefined
-    const kind: EventKind = event.eventType === 'workitem.commented' ? 'comment' : event.eventType === 'workitem.updated' ? 'other' : 'state_change'
-    return [{ ...base, kind, thread, repo: thread?.repo, actor: toActor(instance, resource.revisedBy as AzureIdentity | undefined), summary: event.message?.text ?? event.eventType }]
-  }
-  if (event.eventType === 'git.push' && repo) {
-    const updates = (resource.refUpdates ?? []) as Array<{ name: string, oldObjectId?: string, newObjectId?: string }>
-    const commits = ((resource.commits ?? []) as Array<{ commitId: string, comment?: string, url?: string, author?: { name?: string } }>).map(commit => ({ sha: commit.commitId, message: commit.comment ?? '', author: commit.author?.name, url: commit.url }))
-    const actor = toActor(instance, resource.pushedBy as AzureIdentity | undefined)
-    const zero = /^0+$/
-    return updates.map((update, index): ForgeEventInput => ({
-      ...base,
-      id: `${event.id}:${index}`,
-      actor,
-      ...refEvent(actor?.login ?? 'someone', {
-        ref: update.name,
-        before: update.oldObjectId,
-        after: update.newObjectId,
-        created: zero.test(update.oldObjectId ?? ''),
-        deleted: zero.test(update.newObjectId ?? ''),
-        commits,
-      }),
-    }))
-  }
-  if (event.eventType === 'git.repo.renamed' && repo) {
-    return [{ ...base, kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: String((resource as { oldName?: string }).oldName ?? ''), to: repository!.name }, summary: event.message?.text ?? 'Repository renamed' }]
-  }
-  return [{ ...base, kind: 'other', summary: event.message?.text ?? event.eventType }]
-}
-
 const AZURE_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'comment', action: 'created' },
   { kind: 'state_change', action: 'opened' },
@@ -108,5 +30,5 @@ const AZURE_WEBHOOK_EVENTS: WebhookEventType[] = [
 export const azureDevOpsWebhooks: WebhookHandlers<AzureDevOpsOptions> = ({ options, instance }) => ({
   events: AZURE_WEBHOOK_EVENTS,
   verify: async delivery => verifyAzureBasicAuth(delivery, options.webhookSecret),
-  translate: delivery => translateAzureWebhook(instance, options.organization, delivery),
+  translate: async delivery => (await import('./events.ts')).translateAzureWebhook(instance, options.organization, delivery),
 })

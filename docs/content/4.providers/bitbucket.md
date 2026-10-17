@@ -12,7 +12,7 @@ The Bitbucket provider works with Bitbucket Cloud (bitbucket.org). It can read a
 | Detail | Value |
 | --- | --- |
 | Import | `forges/bitbucket` |
-| Factories | `bitbucket()`, `bitbucketLite()` |
+| Factories | `bitbucket()` |
 | Auth | `token`, `basic`, `anonymous` |
 ::
 <!-- header:end -->
@@ -154,7 +154,6 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | PR, commit | ❌ |
-| `writes.upsertComment` | PR (emulated), commit (emulated) | ❌ |
 | `writes.close` | PR | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -168,7 +167,6 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `writes.setAssignees` | ❌ | ❌ |
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.updateBranch` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

@@ -49,7 +49,6 @@ export const ROOT_TYPES = [
   'Thread',
   'TreeEntry',
   'UpdateBranchResult',
-  'UpsertCommentResult',
   'User',
   'Webhook',
   'WebhookDeliveryRecord',

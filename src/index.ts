@@ -1,10 +1,10 @@
-export { AZURE_DEVOPS_API_VERSION, azureDevOps, azureDevOpsLite } from './azure-devops/index.ts'
+export { AZURE_DEVOPS_API_VERSION, azureDevOps } from './azure-devops/index.ts'
 export type { AzureDevOpsAuth, AzureDevOpsOptions } from './azure-devops/index.ts'
-export { bitbucket, bitbucketLite } from './bitbucket/index.ts'
+export { bitbucket } from './bitbucket/index.ts'
 export type { BitbucketAuth, BitbucketOptions } from './bitbucket/index.ts'
 export { cloudflareArtifacts } from './cloudflare-artifacts/index.ts'
 export type { CloudflareArtifactsAuth, CloudflareArtifactsOptions } from './cloudflare-artifacts/index.ts'
-export { cursorOrigin, cursorOriginLite, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
+export { cursorOrigin, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
 export type { ProviderFactoryFunction } from './define.ts'
 export {
@@ -32,22 +32,21 @@ export {
 } from './errors.ts'
 export type { ForbiddenReason, ForgeErrorContext } from './errors.ts'
 export type { FetchLike, ForgeRawRequestOptions, ForgeRequest, ForgeRequestOptions, ForgeResponse, RawResponse } from './fetch.ts'
-export { forgejo, forgejoLite } from './forgejo/index.ts'
+export { forgejo } from './forgejo/index.ts'
 export type { ForgejoAuth, ForgejoOptions } from './forgejo/index.ts'
-export { gitea, giteaLite } from './gitea/index.ts'
+export { gitea } from './gitea/index.ts'
 export type { GiteaOptions } from './gitea/index.ts'
-export { gitee, giteeLite } from './gitee/index.ts'
+export { gitee } from './gitee/index.ts'
 export type { GiteeAuth, GiteeOptions } from './gitee/index.ts'
-export { github, githubLite } from './github/index.ts'
+export { github } from './github/index.ts'
 export type { GitHubAuth, GitHubGraphQL, GitHubOptions, GitHubProvider, GitHubTokenAuth, GitHubTokenKind, TypedGraphQLDocument } from './github/index.ts'
-export { gitlab, gitlabLite } from './gitlab/index.ts'
+export { gitlab } from './gitlab/index.ts'
 export type { GitLabAuth, GitLabOptions } from './gitlab/index.ts'
-export { affectedKeys, commentKey, commentMarker, DATE_FIELDS, hasCommentMarker, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
+export { affectedKeys, commentKey, DATE_FIELDS, isNamespaceRef, isResolvedThread, namesAreCaseInsensitive, normaliseRepoName, notificationKey, notificationThread, parseCommentKey, parseNotificationKey, parseReleaseKey, parseRepoKey, parseThreadKey, REACTION_CONTENTS, releaseKey, repoKey, repoRef, repoSlug, reviveDates, threadKey, threadSlug } from './model.ts'
 export type {
   Actor,
   AddCollaboratorResult,
   AffectedKeys,
-  ApproveAndMergeOptions,
   AuthorAssociation,
   BaseOptions,
   Branch,
@@ -181,8 +180,6 @@ export type {
   UpdateBranchMethod,
   UpdateBranchOptions,
   UpdateBranchResult,
-  UpsertCommentInput,
-  UpsertCommentResult,
   User,
   Webhook,
   WebhookDeliveryRecord,
@@ -204,7 +201,6 @@ export type {
   CiApi,
   CloseOptions,
   CloseReason,
-  CommentOptions,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
@@ -240,7 +236,7 @@ export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
 export { supportOf, supports } from './supports.ts'
 export type { ForgeVerb } from './supports.ts'
-export { tangled, tangledLite } from './tangled/index.ts'
+export { tangled } from './tangled/index.ts'
 export type { TangledAuth, TangledOptions, WebSocketFactory, WebSocketLike } from './tangled/index.ts'
 export type { ParsedForgeUrl, ReferenceOptions, RepoSection, UrlTarget } from './web.ts'
 export { parseForgeUrl } from './web.ts'

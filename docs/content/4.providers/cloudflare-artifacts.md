@@ -68,7 +68,7 @@ There are no endpoints for branches, tags or comparing two refs, so those operat
 
 ## Events
 
-Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.sources.webhook` is `false`. There's no `cloudflareArtifactsLite()` factory either, because `cloudflareArtifacts()` contains no webhook code.
+Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare.com/artifacts/guides/event-subscriptions/) to Cloudflare Queues, which the provider doesn't read, so `capabilities.sources.webhook` is `false`.
 
 <!-- capabilities:start -->
 ## Capabilities
@@ -124,7 +124,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `notifications.markAllDone` | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ |
 | `writes.comment` | ❌ | ❌ |
-| `writes.upsertComment` | ❌ | ❌ |
 | `writes.close` | ❌ | ❌ |
 | `writes.reopen` | ❌ | ❌ |
 | `writes.lock` | ❌ | ❌ |
@@ -138,7 +137,6 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `writes.setAssignees` | ❌ | ❌ |
 | `writes.requestReview` | ❌ | ❌ |
 | `writes.merge` | ❌ | ❌ |
-| `writes.approveAndMerge` | ❌ | ❌ |
 | `writes.updateBranch` | ❌ | ❌ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |

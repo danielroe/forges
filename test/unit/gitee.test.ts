@@ -155,11 +155,13 @@ describe('gitee', () => {
 
   it('approves through the review endpoint, then merges with the requested method', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
-    await gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.approveAndMerge!(pull, { method: 'squash' })
+    const instance = gitee({ auth: { type: 'token', token: 't' }, fetch }).create()
+    await instance.threads.approve(pull)
+    await instance.threads.merge!(pull, { method: 'squash' })
 
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual(['POST /api/v5/repos/acme/widgets/pulls/7/review', 'PUT /api/v5/repos/acme/widgets/pulls/7/merge'])
     expect(JSON.parse(calls[1]!.body!)).toEqual({ merge_method: 'squash' })
-    await expect(gitee({ auth: { type: 'token', token: 't' }, fetch }).create().threads.approveAndMerge!(pull)).rejects.toThrow(MergeMethodRequiredError)
+    await expect(instance.threads.merge!(pull)).rejects.toThrow(MergeMethodRequiredError)
   })
 
   it('merges without approving, sending `message` as the description', async () => {

@@ -257,7 +257,7 @@ describe('gitlab provider', () => {
       [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },
     })
 
-    const error = await instance.threads.approveAndMerge!(mr, { method: 'squash' }).catch((error: unknown) => error)
+    const error = await instance.threads.approve(mr).catch((error: unknown) => error)
 
     expect(error).toBeInstanceOf(InsufficientScopeError)
     expect((error as Error).cause).toBeInstanceOf(TokenRevokedError)
@@ -474,7 +474,7 @@ describe('gitlab merge methods', () => {
   it('rejects a method the project is not configured for', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.approveAndMerge!(mr, { method: 'rebase_merge' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.merge!(mr, { method: 'rebase_merge' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 
@@ -491,7 +491,7 @@ describe('gitlab merge methods', () => {
     const { instance } = provider({
       [`GET ${P}`]: { status: 200, body: { merge_method: 'rebase_merge', squash_option: 'default_on' } },
     })
-    const error = await instance.threads.approveAndMerge!(mr).catch((error: unknown) => error)
+    const error = await instance.threads.merge!(mr).catch((error: unknown) => error)
 
     expect(error).toBeInstanceOf(MergeMethodRequiredError)
     expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase_merge', 'squash'])
@@ -689,6 +689,15 @@ describe('gitlab code search', () => {
 
     expect(instance.scopesFor('search.code')).toEqual({ token: ['read_api'] })
     expect(instance.scopesFor('search.codePage')).toEqual({ token: ['read_api'] })
+  })
+
+  it('asks for `read_api` to read and `api` to write', () => {
+    const { instance } = provider()
+
+    for (const verb of ['threads.getComment', 'threads.getReview', 'threads.reactions', 'users.me'] as const) {
+      expect(instance.scopesFor(verb)).toEqual({ token: ['read_api'] })
+    }
+    expect(instance.scopesFor('threads.close')).toEqual({ token: ['api'] })
   })
 
   it('searches a project, a group or the whole instance', async () => {

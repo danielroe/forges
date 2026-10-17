@@ -1,8 +1,8 @@
-import { githubLite } from 'forges/github'
+import { github } from 'forges/github'
 import { getContributors } from './contributors.ts'
 
 export function createDocsGitHub(token: string) {
-  return githubLite({
+  return github({
     auth: token ? { type: 'token', token } : { type: 'anonymous' },
     timeout: 5000,
     readOnly: true,

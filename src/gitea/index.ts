@@ -3,7 +3,6 @@ import type { ForgejoOptions, ForgejoProfile } from '../forgejo/index.ts'
 import { defineForgeProvider } from '../define.ts'
 import { forgejoDefinition } from '../forgejo/index.ts'
 import { GITEA_HEADERS } from '../forgejo/webhook-events.ts'
-import { forgejoWebhooks } from '../forgejo/webhooks.ts'
 
 /** Options for `gitea()`, the same as for `forgejo()`. */
 export type GiteaOptions = ForgejoOptions
@@ -18,10 +17,5 @@ export const GITEA_PROFILE: ForgejoProfile = {
   headers: GITEA_HEADERS,
 }
 
-const GITEA = /* @__PURE__ */ forgejoDefinition(GITEA_PROFILE)
-
 /** Creates a Gitea provider for gitea.com or any self-hosted Gitea instance. */
-export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider({ ...GITEA, webhooks: forgejoWebhooks(GITEA_PROFILE) })
-
-/** `gitea()` without webhook ingestion, for bundles that never receive a delivery. */
-export const giteaLite: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider(GITEA)
+export const gitea: ProviderFactoryFunction<GiteaOptions, true, 'gitea', false> = /* @__PURE__ */ defineForgeProvider(/* @__PURE__ */ forgejoDefinition(GITEA_PROFILE))

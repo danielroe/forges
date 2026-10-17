@@ -12,7 +12,7 @@ The GitHub provider works with github.com and GitHub Enterprise Server. It can r
 | Detail | Value |
 | --- | --- |
 | Import | `forges/github` |
-| Factories | `github()`, `githubLite()` |
+| Factories | `github()` |
 | Auth | `token`, `app`, `anonymous` |
 ::
 <!-- header:end -->
@@ -117,7 +117,7 @@ The provider returns each file as it is, so `body` is the raw file, `name` is th
 
 If you call `merge()` without a `method`, the provider asks GitHub which merge methods the repository allows. When exactly one method is allowed, it uses that one. When several are allowed, it can't choose for you and throws `MergeMethodRequiredError`.
 
-Both `merge()` and `approveAndMerge()` request a direct merge through GitHub's asynchronous merge API, which means that neither of them adds the pull request to a merge queue. They wait for GitHub to report the result, within the `timeout` of the provider (30 seconds by default), and resolve with the merge commit once the pull request is merged. That includes a pull request that was already merged. In every other case, they reject with one of these errors:
+`merge()` requests a direct merge through GitHub's asynchronous merge API, which means that it doesn't add the pull request to a merge queue. It waits for GitHub to report the result, within the `timeout` of the provider (30 seconds by default), and resolves with the merge commit once the pull request is merged. That includes a pull request that was already merged. In every other case, it rejects with one of these errors:
 
 - `MergeBlockedError` when GitHub refuses or fails the merge, for example because of a draft, a failing required check or a pull request that is already in a merge queue. If GitHub reports a failed merge, the message of the error is GitHub's description of the failure.
 - `MergeConflictError` when GitHub responds with a conflict status that doesn't name a pending merge request.
@@ -125,7 +125,7 @@ Both `merge()` and `approveAndMerge()` request a direct merge through GitHub's a
 
 If a direct merge with the same method is already pending, and it expects the same head sha when you pass `sha`, the operation waits for that request instead of starting a new one. A pending request with different options rejects with `MergeBlockedError`. Passing a `title` or a `message` also prevents the provider from adopting a pending request, because GitHub doesn't return the commit title or message of a request.
 
-When the pull request is part of a stack, GitHub also merges every open pull request below it in the stack. `approveAndMerge()` still approves only the pull request that you pass. GitHub Enterprise Server releases without the asynchronous merge API use the synchronous merge endpoint instead, and that endpoint doesn't support stacked pull requests.
+When the pull request is part of a stack, GitHub also merges every open pull request below it in the stack. GitHub Enterprise Server releases without the asynchronous merge API use the synchronous merge endpoint instead, and that endpoint doesn't support stacked pull requests.
 
 Two options aren't available, and they reject with `UnsupportedOperationError`. One is `whenChecksPass`, because the REST API doesn't enable auto-merge. The other is the `rebase_merge` and `fast_forward_only` methods, which GitHub doesn't have.
 
@@ -350,7 +350,6 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `notifications.markAllDone` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.unreadCount` | ❌ | ❌ | ❌ | ❌ | ❌ |
 | `writes.comment` | issue, PR, discussion, commit | issue, PR, discussion, commit | issue, PR, discussion, commit | ❌ | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated), discussion (emulated), commit (emulated) | issue (emulated), PR (emulated), discussion (emulated), commit (emulated) | issue (emulated), PR (emulated), discussion (emulated), commit (emulated) | ❌ | ❌ |
 | `writes.close` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `writes.reopen` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
 | `writes.lock` | issue, PR, discussion | issue, PR, discussion | issue, PR, discussion | ❌ | ❌ |
@@ -364,7 +363,6 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `writes.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
 | `writes.requestReview` | PR | PR | PR | ❌ | ❌ |
 | `writes.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `writes.approveAndMerge` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `writes.updateBranch` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `writes.transfer` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `writes.markDuplicate` | ✅ | ✅ | ✅ | ❌ | ❌ |

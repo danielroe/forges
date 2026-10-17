@@ -1,10 +1,9 @@
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { ApproveAndMergeOptions, BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, MergeOptions, MergeResult, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, UpsertCommentInput, UpsertCommentResult, WebhookEventType } from './model.ts'
+import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
   CiApi,
-  CommentOptions,
   ContentsApi,
   ForgeCapabilities,
   ForgeIterable,
@@ -28,13 +27,12 @@ import type {
 } from './provider.ts'
 import type { ForgeVerb } from './supports.ts'
 import type { UrlTarget, WebLinks } from './web.ts'
-import { ALERT_KINDS, approveAndMergeSupport, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, upsertKinds, WRITE_VERBS } from './capabilities.ts'
+import { ALERT_KINDS, capabilitiesOf, ciJobSupport, getCommentKinds, getReviewSupport, KINDS, resolve, restrict, threadEventKinds, trackDeclared, WRITE_VERBS } from './capabilities.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 import { decodeText, isSha } from './contents.ts'
 import { NotFoundError, ReadOnlyError, UnsupportedOperationError, WebhookVerificationError } from './errors.ts'
 import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
-import { commentMarker, hasCommentMarker } from './model.ts'
 import { supportOf, supports } from './supports.ts'
 import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
 import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
@@ -45,8 +43,18 @@ export interface CapabilityEnv {
   version?: string
 }
 
+/**
+ * The support level a provider declares for a verb: a {@link Support}, or one
+ * of two levels that the capability matrix and `pnpm test:capabilities` read,
+ * and that `capabilities` reports as `true`:
+ *
+ * - `'experimental'`: verified, but built on an API the forge marks unstable.
+ * - `'unverified'`: implemented, but no test verifies it against the forge yet.
+ */
+export type DeclaredSupport = Support | 'experimental' | 'unverified'
+
 /** A fixed support level, or one computed from the instance version. */
-export type SupportInput = Support | ((env: CapabilityEnv) => Support)
+export type SupportInput = DeclaredSupport | ((env: CapabilityEnv) => DeclaredSupport)
 
 /** The thread kinds that verbs can differ by. */
 export type VerbKind = Exclude<ThreadKind, 'other'>
@@ -189,10 +197,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     markDuplicate?: Verb<ThreadsApi['markDuplicate']>
     setAssignees?: ThreadVerb<'setAssignees'>
     requestReview?: ThreadVerb<'requestReview'>
-    /** `beforeMerge` runs once the merge is validated, just before it is sent. */
-    merge?: Verb<(ref: ThreadRef, options?: MergeOptions, hooks?: MergeHooks) => Promise<MergeResult>>
-    /** Optional support override; approval and merging must also be supported. */
-    approveAndMerge?: { support: SupportInput }
+    merge?: Verb<ThreadsApi['merge']>
     updateBranch?: Verb<ThreadsApi['updateBranch']>
     /** One capability covers reading and changing the subscription. */
     subscriptions?: KindVerb<{ [K in 'subscription' | 'subscribe' | 'unsubscribe']: NonNullable<ThreadsApi[K]> }>
@@ -332,12 +337,6 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
   rateLimits?: () => RateLimit[]
 }
 
-/** Hooks that a provider runs around a merge. */
-export interface MergeHooks {
-  /** Runs before the merge request is sent, for example to wait for a pending state. */
-  beforeMerge?: () => Promise<void>
-}
-
 /** The options, the identity and the resolved URLs that provider hooks receive. */
 export interface ProviderBase<TOptions, TState> {
   options: TOptions
@@ -428,15 +427,6 @@ async function* completeItems(items: AsyncIterable<{ event: ForgeEventInput, cur
   for await (const item of items) {
     yield { ...item, event: completeEvent(item.event) }
   }
-}
-
-function sameBody(a: string, b: string): boolean {
-  const normalise = (body: string) => body.replaceAll('\r\n', '\n').trim()
-  return normalise(a) === normalise(b)
-}
-
-function withMarker(body: string, key: string): string {
-  return hasCommentMarker(body, key) ? body : `${body}\n\n${commentMarker(key)}`
 }
 
 type AnyFunction = (...args: any[]) => any
@@ -595,7 +585,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const listThreads = kindGate('threads.listPage', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listOwnerRepos = gate('repos.byOwnerPage', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
   const listComments = kindGate('threads.commentsPage', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
-  const addComment = kindGate('threads.comment', spec.threads.comment?.kinds, spec.threads.comment?.run)
   const listEvents = kindGate('threads.eventsPage', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
@@ -655,12 +644,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         return { ...page, items: page.items.filter(comment => (comment.updatedAt ?? comment.createdAt ?? since) >= since) }
       }, listOptions.cursor)
     },
-    'threads.comment': async (ref: ThreadRef, body: string, { key, ...commentOptions }: CommentOptions = {}) => addComment(ref, key === undefined ? body : withMarker(body, key), commentOptions),
-    'threads.upsertComment': kindGate(
-      'threads.upsertComment',
-      Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => upsertKinds(spec, kindEnv)[kind]])),
-      upsertComment,
-    ),
     'threads.getComment': kindGate(
       'threads.getComment',
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),
@@ -683,11 +666,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     'threads.subscribe': kindGate('threads.subscribe', subscriptions?.kinds, subscriptions?.run.subscribe),
     'threads.unsubscribe': kindGate('threads.unsubscribe', subscriptions?.kinds, subscriptions?.run.unsubscribe),
     'threads.approve': gate('threads.approve', approve?.support, approve?.run),
-    'threads.approveAndMerge': gate('threads.approveAndMerge', (mergeEnv: CapabilityEnv) => approveAndMergeSupport(spec, mergeEnv), (ref: ThreadRef, { body, ...mergeOptions }: ApproveAndMergeOptions = {}) => spec.threads.merge!.run(ref, mergeOptions, {
-      beforeMerge: async () => {
-        await call('threads.approve')(ref, body, { signal: mergeOptions.signal })
-      },
-    })),
     'releases.downloadAsset': async (ref: ReleaseAssetRef, options?: DownloadAssetOptions) => {
       const stream: ReadableStream<Uint8Array> = await gate('releases.downloadAsset', spec.releases?.downloadAsset?.support, spec.releases?.downloadAsset?.run)(ref, options)
       if (!options?.as || options.as === 'stream') {
@@ -789,8 +767,6 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
   api.webhooks!.events = handlers?.events ?? []
 
-  const threads = api.threads as unknown as ThreadsApi
-
   async function listed<T extends { ref: { id: string } }>(items: AsyncIterable<T>, id: string, what: string): Promise<T> {
     for await (const item of items) {
       if (item.ref.id === id) {
@@ -800,24 +776,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     throw new NotFoundError(`${what} ${id} not found`, 404, '', origin)
   }
 
-  async function upsertComment(ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions): Promise<UpsertCommentResult> {
-    const body = withMarker(input.body, input.key)
-    let existing: Comment | undefined
-    for await (const candidate of threads.comments(ref, { ...options, since: input.since })) {
-      if (hasCommentMarker(candidate.body, input.key)) {
-        existing = candidate
-      }
-    }
-    if (!existing) {
-      return { comment: await threads.comment(ref, body, options), created: true }
-    }
-    return {
-      comment: sameBody(existing.body, body) ? existing : await threads.editComment(existing.ref, body, options),
-      created: false,
-    }
-  }
-
-  return {
+  return trackDeclared<ForgeProvider<HasWeb> & TExtensions>({
     ...declaredSpec.extensions as TExtensions,
     ...api as unknown as Pick<ForgeProvider, 'repos' | 'notifications' | 'threads' | 'webhooks' | 'releases' | 'contents' | 'checks' | 'ci' | 'users' | 'search' | 'securityAlerts' | 'sources' | 'installations' | 'orgs'>,
     forge: definition.forge,
@@ -854,7 +813,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     webOrigin: (spec.web ? new URL(spec.web.baseUrl).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceTo: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
-  }
+  }, () => capabilitiesOf(spec, env, flags, true))
 }
 
 /**

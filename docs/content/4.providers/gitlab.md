@@ -12,7 +12,7 @@ The GitLab provider works with gitlab.com and self-managed GitLab. It can read a
 | Detail | Value |
 | --- | --- |
 | Import | `forges/gitlab` |
-| Factories | `gitlab()`, `gitlabLite()` |
+| Factories | `gitlab()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->
@@ -204,7 +204,6 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `notifications.markAllDone` | ✅ | ❌ |
 | `notifications.unreadCount` | ✅ | ❌ |
 | `writes.comment` | issue, PR, commit | ❌ |
-| `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
 | `writes.lock` | issue, PR | ❌ |
@@ -218,7 +217,6 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `writes.setAssignees` | issue, PR | ❌ |
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
-| `writes.approveAndMerge` | ✅ | ❌ |
 | `writes.updateBranch` | ✅ | ❌ |
 | `writes.transfer` | ✅ | ❌ |
 | `writes.markDuplicate` | emulated | ❌ |

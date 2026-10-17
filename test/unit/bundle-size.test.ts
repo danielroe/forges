@@ -15,7 +15,7 @@ beforeEach(() => {
   writeFileSync(join(directory, 'index.mjs'), `export const createForges = ${JSON.stringify('x'.repeat(4_000))}`)
   for (const name of ['github', 'gitlab', 'tangled', 'gitea', 'bitbucket']) {
     mkdirSync(join(directory, name))
-    writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'; export const ${name}Lite = 'lite'`)
+    writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'`)
   }
 })
 
@@ -34,7 +34,7 @@ describe('browser bundle measurements', () => {
     expect(result.stderr).toBe('')
     expect(result.status).toBe(0)
     const snapshot = parseBundleSnapshot(readFileSync(out, 'utf8'))
-    expect(snapshot.bundles).toHaveLength(9)
+    expect(snapshot.bundles).toHaveLength(6)
     expect(snapshot.bundles[0]!.minified).toBeGreaterThan(4_000)
     expect(snapshot.bundles.every(bundle => bundle.gzipped > 0)).toBe(true)
   })
@@ -49,47 +49,47 @@ describe('browser bundle measurements', () => {
   })
 
   it.each([
-    ['github', 'x-hub-signature-256'],
-    ['gitlab', 'x-gitlab-token'],
-    ['tangled', 'x-tangled-signature-256'],
+    ['github', 'x-github-event'],
+    ['gitlab', 'x-gitlab-event'],
+    ['tangled', 'x-tangled-event'],
+    ['gitea', 'pull_request_review_comment_created'],
     ['bitbucket', 'x-event-key'],
-  ])('fails when %s Lite contains webhook code', (name, signature) => {
-    writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'; export const ${name}Lite = '${signature}'`)
+  ])('fails when the %s entry chunk contains webhook translation', (name, marker) => {
+    writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = '${marker}'`)
     const result = measure()
     expect(result.status).toBe(1)
-    expect(result.stderr).toContain(`${name} lite contains ${signature}`)
+    expect(result.stderr).toContain(`forges/${name} contains ${marker}`)
   })
 
   it('measures the base in report mode without enforcing its tree-shaking checks', () => {
-    writeFileSync(join(directory, 'github/index.mjs'), 'export const github = "full"; export const githubLite = "x-hub-signature-256"')
+    writeFileSync(join(directory, 'github/index.mjs'), 'export const github = "x-github-event"')
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(9)
-    expect(result.stdout).toContain('github lite')
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(6)
+    expect(result.stdout).toContain('forges/github')
   })
 
   it('skips bundles the base does not have in report mode', () => {
     rmSync(join(directory, 'tangled'), { recursive: true })
-    writeFileSync(join(directory, 'gitlab/index.mjs'), 'export const gitlab = "full"')
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'github lite', 'forges/gitlab', 'gitea lite', 'bitbucket lite'])
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'forges/gitlab', 'forges/gitea', 'forges/bitbucket'])
   })
 
   it('counts and reports every chunk besides the entry', () => {
     writeFileSync(join(directory, 'shared.mjs'), `export const shared = ${JSON.stringify('s'.repeat(2_000))}`)
     writeFileSync(join(directory, 'one.mjs'), `import { shared } from './shared.mjs'; export const one = shared + 1`)
     writeFileSync(join(directory, 'two.mjs'), `import { shared } from './shared.mjs'; export const two = shared + 2`)
-    writeFileSync(join(directory, 'github/index.mjs'), 'export const github = "full"; export const githubLite = () => Promise.all([import("../one.mjs"), import("../two.mjs")])')
+    writeFileSync(join(directory, 'github/index.mjs'), 'export const github = () => Promise.all([import("../one.mjs"), import("../two.mjs")])')
     const out = join(directory, 'snapshot.json')
     const result = measure('--report', '--out', out)
-    const lite = parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.find(bundle => bundle.name === 'github lite')!
+    const github = parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.find(bundle => bundle.name === 'forges/github')!
 
     expect(result.stdout).toMatch(/one-\S+\.js \d+ \(dynamic import\)/)
     expect(result.stdout).toMatch(/shared-\S+\.js \d+ \(shared\)/)
-    expect(lite.lazy).toBeGreaterThan(2_000)
+    expect(github.lazy).toBeGreaterThan(2_000)
   })
 
   it('fails for a missing bundle outside report mode', () => {

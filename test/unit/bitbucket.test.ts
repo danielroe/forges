@@ -1,9 +1,9 @@
 import type { BitbucketOptions } from '../../src/bitbucket/index.ts'
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
+import { translateBitbucketWebhook } from '../../src/bitbucket/events.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { toMergeMethod } from '../../src/bitbucket/normalise.ts'
-import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
 import { MergeConflictError, UnsupportedOperationError } from '../../src/errors.ts'
 import { repoKey } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
@@ -72,7 +72,7 @@ describe('bitbucket provider', () => {
   it('refuses to merge when the head has moved past the expected sha', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.approveAndMerge!(pull, { sha: 'ffffffffffff' })).rejects.toThrow(MergeConflictError)
+    await expect(instance.threads.merge!(pull, { sha: 'ffffffffffff' })).rejects.toThrow(MergeConflictError)
     expect(calls.every(call => call.method === 'GET')).toBe(true)
   })
 

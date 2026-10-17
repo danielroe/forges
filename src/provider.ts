@@ -2,7 +2,6 @@ import type { FetcherOptions, FetchLike, ForgeRequest } from './fetch.ts'
 import type {
   Actor,
   AddCollaboratorResult,
-  ApproveAndMergeOptions,
   BaseOptions,
   Branch,
   ChangedFile,
@@ -93,8 +92,6 @@ import type {
   TreeOptions,
   UpdateBranchOptions,
   UpdateBranchResult,
-  UpsertCommentInput,
-  UpsertCommentResult,
   User,
   Webhook,
   WebhookDeliveryRecord,
@@ -300,12 +297,10 @@ export interface ForgeCapabilities {
     /** Support for `notifications.unreadCount()`. */
     unreadCount: Support
   }
-  /** Write verbs, per thread kind except `merge`, `approveAndMerge`, `updateBranch`, `transfer` and `markDuplicate`. */
+  /** Write verbs, per thread kind except `merge`, `updateBranch`, `transfer` and `markDuplicate`. */
   writes: {
     /** Support for `threads.comment()`, per thread kind. */
     comment: PerKind
-    /** Composed from `comment`, `comments.list` and `comments.edit`, so `'emulated'` where it works at all, or `'unverified'` where a part is. */
-    upsertComment: PerKind
     /** Support for `threads.close()`, per thread kind. */
     close: PerKind
     /** Support for `threads.reopen()`, per thread kind. */
@@ -332,8 +327,6 @@ export interface ForgeCapabilities {
     requestReview: PerKind
     /** Support for `threads.merge()`. */
     merge: Support
-    /** Composed from `merge` and `reviews.approve`. */
-    approveAndMerge: Support
     /** Support for `threads.updateBranch()`. */
     updateBranch: Support
     /** Support for `threads.transfer()`. */
@@ -569,15 +562,6 @@ export interface LockOptions extends BaseOptions {
 /** Why a comment was hidden. */
 export type HideCommentReason = 'abuse' | 'duplicate' | 'low_quality' | 'off_topic' | 'outdated' | 'resolved' | 'spam'
 
-/** Options for `threads.comment()`. */
-export interface CommentOptions extends BaseOptions {
-  /**
-   * Writes the hidden marker of `upsertComment()` for this key into the body, so that `upsertComment()` with the same
-   * key edits this comment instead of posting another.
-   */
-  key?: string
-}
-
 /**
  * Issues, pull requests and the other kinds of discussion: reading, creating, commenting, labelling,
  * reviewing and merging them.
@@ -624,30 +608,19 @@ export interface ThreadsApi {
   commentsPage: (ref: ThreadRef, options?: ListOptions) => Promise<Page<Comment>>
   /**
    * Reads one conversation comment, as `comments()` lists them, so not an inline review comment. Where the forge has
-   * no endpoint for it, walks `comments()` until the id matches.
+   * no endpoint for it (`capabilities.comments.get` is `'emulated'`), it lists the comments of the thread page by page
+   * until the id matches, which costs a request for each page read.
    */
   getComment: (ref: CommentRef, options?: BaseOptions) => Promise<Comment>
   /**
-   * Adds a comment to a thread. A repeat posts a second comment, so pass a `key` and retry with `upsertComment()`.
+   * Adds a comment to a thread. A repeat posts a second comment; to make it safe to retry, mark the body with
+   * `withCommentMarker()` and retry with `upsertComment()`, both from `forges/helpers`.
    * @example
    * ```ts
-   * await provider.threads.comment(ref, 'Deployed to staging', { key: mutationId })
+   * await provider.threads.comment(ref, 'Deployed to staging')
    * ```
    */
-  comment: (ref: ThreadRef, body: string, options?: CommentOptions) => Promise<Comment>
-  /**
-   * Creates the comment, or edits the one an earlier call with the same `key`
-   * left behind, unless that one already has the same body. The key is carried in the body as a hidden marker; see
-   * {@link commentMarker}. Composed from `comments`, `comment` and
-   * `editComment`, so it costs a listing on every call, which `since` bounds.
-   * @param ref The thread to comment on.
-   * @param input The `key` that identifies the comment across runs, its `body`, and `since` to look at recent comments only.
-   * @example
-   * ```ts
-   * await provider.threads.upsertComment(ref, { key: 'preview', body: 'Preview: https://pr-42.example.com' })
-   * ```
-   */
-  upsertComment: (ref: ThreadRef, input: UpsertCommentInput, options?: BaseOptions) => Promise<UpsertCommentResult>
+  comment: (ref: ThreadRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Replaces the body of a comment. */
   editComment: (ref: CommentRef, body: string, options?: BaseOptions) => Promise<Comment>
   /** Deletes a comment. A repeat can reject with `NotFoundError` once the comment is gone. */
@@ -755,11 +728,6 @@ export interface ThreadsApi {
    */
   merge: (ref: ThreadRef, options?: MergeOptions) => Promise<MergeResult>
   /**
-   * Approves, then merges, and resolves as `merge()` does. The merge method is checked before the approval is sent.
-   * A repeat approves again, as `approve()` does, so once the approval is in, retry with `merge()`.
-   */
-  approveAndMerge: (ref: ThreadRef, options?: ApproveAndMergeOptions) => Promise<MergeResult>
-  /**
    * Brings the base branch into a pull request's head branch, by a merge commit or a rebase. A repeat once the branch
    * is up to date rejects on GitHub, Forgejo and Gitea, and leaves the branch as it is on GitLab.
    * @param ref The pull request to update.
@@ -789,7 +757,11 @@ export interface ThreadsApi {
   reviews: (ref: ThreadRef, options?: PageOptions) => ForgeIterable<Review>
   /** One page of `reviews()`. */
   reviewsPage: (ref: ThreadRef, options?: PageOptions) => Promise<Page<Review>>
-  /** Reads one review by its ref. Where the forge has no endpoint for it, walks `reviews()` until the id matches. */
+  /**
+   * Reads one review by its ref. Where the forge has no endpoint for it (`capabilities.reviews.get` is `'emulated'`),
+   * it lists the reviews of the pull request page by page until the id matches, which costs a request for each page
+   * read.
+   */
   getReview: (ref: ReviewRef, options?: BaseOptions) => Promise<Review>
   /** Creates a review. Without `event` the review is pending where the forge has pending reviews. A repeat adds a second review. */
   createReview: (ref: ThreadRef, input: ReviewInput, options?: BaseOptions) => Promise<Review>
@@ -850,7 +822,11 @@ export interface CiApi {
   jobs: (ref: CiRunRef, options?: PageOptions) => ForgeIterable<CiJob>
   /** One page of `jobs()`. */
   jobsPage: (ref: CiRunRef, options?: PageOptions) => Promise<Page<CiJob>>
-  /** Reads one CI job. Where the forge has no endpoint for it, walks `jobs()` of the ref's `run`, so the ref must name one. */
+  /**
+   * Reads one CI job. Where the forge has no endpoint for it (`capabilities.ci.job` is `'emulated'`), it lists the jobs
+   * of the ref's `run` page by page until the id matches, which costs a request for each page read, so the ref must
+   * name its run.
+   */
   job: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
   /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
@@ -1350,9 +1326,9 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    */
   can: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => boolean
   /**
-   * How well `verb` is supported: `true`, `'experimental'`, `'emulated'`,
-   * `'unverified'` or `false`, for `kind` where support differs by kind. `can()` is `true` for
-   * every level but `false`. Without `kind`, a per-kind verb reports its
+   * How well `verb` is supported: `true`, `'emulated'` or `false`, for
+   * `kind` where support differs by kind. `can()` is `true` for every level
+   * but `false`. Without `kind`, a per-kind verb reports its
    * strongest level across kinds.
    * @param verb The operation, named by its path on the provider, such as `threads.comment`.
    * @param kind The thread kind, for an operation whose support differs by kind.
@@ -1434,27 +1410,13 @@ export interface Forges<Kind extends ForgeKind = never> {
     /** Lists the notifications of every provider, provider by provider. */
     list: (options?: Omit<NotificationListOptions, 'cursor'>) => ForgeIterable<Notification>
   }
-  /** Reads routed to the provider each ref belongs to; an unregistered origin throws `UnknownForgeError`. */
-  repos: {
-    /** Reads a repository from the provider it belongs to. */
-    get: (ref: RepoRef, options?: RepoGetOptions) => Promise<Repo>
-    /** Lists the repositories of an owner from the provider it belongs to. */
-    byOwner: (owner: RepoRef, query?: OwnerRepoQuery) => ForgeIterable<Repo>
-  }
   threads: {
-    /** Reads a thread from the provider it belongs to. */
-    get: (ref: ThreadRef, options?: BaseOptions) => Promise<Thread>
-    /** Grouped per provider, results in input order. An unregistered origin is a per-item warning. */
+    /**
+     * Reads threads from several forges at once: groups the refs by the provider each belongs to, batches each group
+     * with that provider's `threads.getMany()`, and returns the results in input order. A ref whose origin is not
+     * registered becomes a per-item warning.
+     */
     getMany: (refs: ThreadRef[], options?: BaseOptions) => Promise<GetManyResult[]>
-  }
-  releases: {
-    /** Lists the releases of a repository. */
-    list: (repo: RepoRef, options?: PageOptions) => ForgeIterable<Release>
-    /** The latest release of a repository, if any. */
-    latest: (repo: RepoRef, options?: BaseOptions) => Promise<Release | undefined>
-  }
-  securityAlerts: {
-    list: SecurityAlertsApi['list']
   }
   /**
    * Searches every provider that supports search, reading pages as the
@@ -1547,14 +1509,19 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
  * @param factories Factories such as `github()`, or providers that already exist.
  * @example
  * ```ts
- * import { createForges, github, gitlab } from 'forges'
+ * import { createForges, github, gitlab, UnknownForgeError } from 'forges'
  *
  * const forges = createForges([
  *   github({ auth: { type: 'token', token: process.env.GITHUB_TOKEN! } }),
  *   gitlab(),
  * ])
  *
- * const repo = await forges.repos.get({ forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' })
+ * const ref = { forge: 'github', instance: 'github.com', owner: 'danielroe', name: 'forges' } as const
+ * const provider = forges.for(ref)
+ * if (!provider) {
+ *   throw new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, ref)
+ * }
+ * const repo = await provider.repos.get(ref)
  * ```
  */
 export function createForges<const T extends readonly (ForgeProviderFactory | ForgeProvider)[]>(factories: T): Forges<RegisteredKinds<T>> {
@@ -1568,13 +1535,6 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
     seen.add(key)
   }
   const find = (ref: ForgeOrigin) => providers.find(provider => provider.forge === ref.forge && provider.instance === ref.instance)
-  const route = (ref: ForgeOrigin): ForgeProvider => {
-    const provider = find(ref)
-    if (!provider) {
-      throw new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, { forge: ref.forge, instance: ref.instance })
-    }
-    return provider
-  }
   const parseUrl = (url: string | URL) => {
     for (const provider of providers) {
       const parsed = provider.parseUrl(url)
@@ -1590,12 +1550,7 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,
-    repos: {
-      get: (ref, options) => route(ref).repos.get(ref, options),
-      byOwner: (owner, query) => route(owner).repos.byOwner(owner, query),
-    },
     threads: {
-      get: (ref, options) => route(ref).threads.get(ref, options),
       async getMany(refs, options) {
         const groups = new Map<ForgeProvider, number[]>()
         const results: GetManyResult[] = Array.from({ length: refs.length })
@@ -1617,11 +1572,6 @@ export function createForges<const T extends readonly (ForgeProviderFactory | Fo
         return results
       },
     },
-    releases: {
-      list: (repo, options) => route(repo).releases.list(repo, options),
-      latest: (repo, options) => route(repo).releases.latest(repo, options),
-    },
-    securityAlerts: { list: (repo, options) => route(repo).securityAlerts.list(repo, options) },
     search: {
       threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threadsPage(page)),
       repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.reposPage(page)),
