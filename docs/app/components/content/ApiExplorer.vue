@@ -104,7 +104,6 @@ const unsupported = computed(() => loaded.value ? !loaded.value.signedIn.can(ope
 const needsAuth = computed(() => operation.auth || Boolean(forge.value.signedIn) || (loaded.value ? !loaded.value.anonymous.can(operation.verb, kind.value) && !unsupported.value : false))
 const support = computed(() => needsAuth.value ? signedInSupport.value : anonymousSupport.value)
 const runnable = computed(() => Boolean(operation.run) && !forge.value.blocked && !needsAuth.value && !unsupported.value)
-/** Why the call doesn't run: the forge has no such operation, or the provider doesn't support it. */
 const unsupportedText = computed(() => signedInSupport.value === 'not_applicable' ? `${forge.value.name} has no` : `${forge.value.name} doesn't support`)
 
 /** Why the call doesn't run here, when the forge supports it. */

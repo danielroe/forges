@@ -24,6 +24,11 @@ export function summaryFor(provider: CapabilityProvider, view: View): Record<Sup
   return (typeof view === 'string' && provider.credentials?.find(({ id }) => id === view)?.summary) || provider.summary
 }
 
+/** How many capabilities apply to a provider: every capability but the ones the forge has no such operation for. */
+export function applicableTotal(provider: CapabilityProvider): number {
+  return Object.values(provider.summary).reduce((sum, count) => sum + count, 0) - provider.summary.not_applicable
+}
+
 /** The labels of credentials by id, as prose such as "a classic token or an app". */
 export function credentialNames(ids: string[], provider: CapabilityProvider): string {
   const names = ids.map((id) => {

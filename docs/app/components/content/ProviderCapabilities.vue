@@ -11,7 +11,9 @@ if (!provider) {
   throw new Error(`Unknown provider: ${props.provider}`)
 }
 
-const total = Object.values(provider.summary).reduce((sum, count) => sum + count, 0)
+const total = applicableTotal(provider)
+/** The bar shows what a forge does with the capabilities that apply to it, so it leaves out `not_applicable`. */
+const barLevels = supportLevels.filter(level => level !== 'not_applicable')
 const view = useCredentialView()
 const anonymous = computed({
   get: () => view.value === 'anonymous',
@@ -122,7 +124,7 @@ const limits = provider.limits ? Object.entries(provider.limits).map(([key, leng
         :aria-label="supportLevels.map(level => `${summary[level]} ${supportLabels[level].toLowerCase()}`).join(', ')"
       >
         <span
-          v-for="level of supportLevels"
+          v-for="level of barLevels"
           :key="level"
           class="capability-swatch"
           :data-level="level"

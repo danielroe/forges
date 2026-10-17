@@ -29,7 +29,7 @@ type CredentialOptions<O> = Omit<MatrixCredential, 'provider'> & { options: O }
 /** Traits describe the provider, not an operation, so they stay the same without credentials. */
 const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
-/** Without anonymous reads, a provider reaches nothing without credentials. Its traits and `not_applicable` entries stay. */
+/** Without anonymous reads, a provider reaches nothing, but its traits and `not_applicable` entries stay. */
 function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvider {
   const capabilities = structuredClone(provider.capabilities) as unknown as Record<string, Record<string, unknown>>
   for (const { capability } of CAPABILITY_TABLE.filter(entry => !TRAITS.has(entry.capability))) {
