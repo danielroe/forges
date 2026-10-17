@@ -137,6 +137,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
   anonymous: true,
   instance: host => host === 'api.bitbucket.org' ? 'bitbucket.org' : host,
   headers: { accept: 'application/json' },
+  webhooks: bitbucketWebhooks,
   authHeaders({ options: { auth } }) {
     if (!auth || auth.type === 'anonymous') {
       return undefined
@@ -786,10 +787,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
 }
 
 /** Creates a Bitbucket Cloud provider. */
-export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider({ ...BITBUCKET, webhooks: bitbucketWebhooks })
-
-/** `bitbucket()` without webhook ingestion, for bundles that never receive a delivery. */
-export const bitbucketLite: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
+export const bitbucket: ProviderFactoryFunction<BitbucketOptions, true, 'bitbucket', false> = /* @__PURE__ */ defineForgeProvider(BITBUCKET)
 
 /** Bitbucket Cloud scopes, as an app password or OAuth consumer grants them. */
 export function bitbucketScopesFor(verb: ForgeVerb): VerbScopes {

@@ -656,11 +656,11 @@ const SOURCEHUT: ProviderDefinition<SourcehutOptions, undefined, true> = {
   baseUrl: 'https://sr.ht',
   headers: { accept: 'application/json' },
   authHeaders: ({ options }) => async () => ({ authorization: `Bearer ${await resolveToken(options.auth)}` }),
+  webhooks: sourcehutWebhooks,
   setup: setupSourcehut,
 }
 
-const factory: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> = /* @__PURE__ */ defineForgeProvider({ ...SOURCEHUT, webhooks: sourcehutWebhooks })
-const factoryLite: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> = /* @__PURE__ */ defineForgeProvider(SOURCEHUT)
+const factory: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> = /* @__PURE__ */ defineForgeProvider(SOURCEHUT)
 
 /**
  * Creates a Sourcehut provider. Sourcehut cannot write, so `readOnly` is always
@@ -668,9 +668,6 @@ const factoryLite: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> 
  * do, and it cannot be turned off.
  */
 export const sourcehut: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> = options => factory({ ...options, readOnly: true })
-
-/** A Sourcehut provider without webhook ingestion, for a browser bundle. */
-export const sourcehutLite: ProviderFactoryFunction<SourcehutOptions, true, 'sourcehut'> = options => factoryLite({ ...options, readOnly: true })
 
 /** The OAuth grants each Sourcehut operation needs. */
 export function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {

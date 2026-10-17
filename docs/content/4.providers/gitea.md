@@ -12,7 +12,7 @@ The Gitea provider works with gitea.com and self-hosted Gitea instances. It shar
 | Detail | Value |
 | --- | --- |
 | Import | `forges/gitea` |
-| Factories | `gitea()`, `giteaLite()` |
+| Factories | `gitea()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->

@@ -12,7 +12,7 @@ The Cursor Origin provider works with pull requests on Origin, including stacked
 | Detail | Value |
 | --- | --- |
 | Import | `forges/cursor-origin` |
-| Factories | `cursorOrigin()`, `cursorOriginLite()` |
+| Factories | `cursorOrigin()` |
 | Auth | `token`, `app`, `anonymous` |
 ::
 <!-- header:end -->

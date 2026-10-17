@@ -1,6 +1,6 @@
 /**
- * Measures browser entry bundles, checks that Lite bundles exclude webhook
- * code, that the provider-free bundle stays within its budget, and that the
+ * Measures browser entry bundles, checks that their entry chunks exclude
+ * webhook translation, that the provider-free bundle stays within its budget, and that the
  * sizes the docs quote are within 10% of the measured ones. `lazy` totals
  * every chunk besides the entry.
  *
@@ -20,17 +20,14 @@ import { parseArgs } from 'node:util'
 import { gzipSync } from 'node:zlib'
 import { rolldown } from 'rolldown'
 
-/** `absent` is a string only the webhook code holds; `budget` is the most the entry chunk may weigh, minified. */
+/** `absent` is a string only the lazily loaded webhook translation holds; `budget` is the most the entry chunk may weigh, minified. */
 const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: string, budget?: number }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', budget: 5_000 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github' },
-  { name: 'github lite', source: 'github/index.mjs', imports: 'githubLite', absent: 'x-hub-signature-256' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab' },
-  { name: 'gitlab lite', source: 'gitlab/index.mjs', imports: 'gitlabLite', absent: 'x-gitlab-token' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled' },
-  { name: 'tangled lite', source: 'tangled/index.mjs', imports: 'tangledLite', absent: 'x-tangled-signature-256' },
-  { name: 'gitea lite', source: 'gitea/index.mjs', imports: 'giteaLite' },
-  { name: 'bitbucket lite', source: 'bitbucket/index.mjs', imports: 'bitbucketLite', absent: 'x-event-key' },
+  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', absent: 'x-github-event' },
+  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', absent: 'x-gitlab-event' },
+  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', absent: 'x-tangled-event' },
+  { name: 'forges/gitea', source: 'gitea/index.mjs', imports: 'gitea', absent: 'pull_request_review_comment_created' },
+  { name: 'forges/bitbucket', source: 'bitbucket/index.mjs', imports: 'bitbucket', absent: 'x-event-key' },
 ]
 
 interface Size {
@@ -42,7 +39,7 @@ const kB = (bytes: number, digits = 1) => (bytes / 1000).toFixed(digits)
 
 /** The sizes the docs quote: `read` takes them from a match of `pattern`, and `render` writes them back. */
 const DOCUMENTED: Array<{ file: string, bundle: string, pattern: RegExp, read: (match: RegExpMatchArray) => Partial<Size>, render: (size: Size) => string }> = [
-  ...[['GitHub', 'github lite'], ['GitLab', 'gitlab lite'], ['Gitea / Forgejo', 'gitea lite'], ['Bitbucket', 'bitbucket lite']].map(([label, bundle]) => ({
+  ...[['GitHub', 'forges/github'], ['GitLab', 'forges/gitlab'], ['Gitea / Forgejo', 'forges/gitea'], ['Bitbucket', 'forges/bitbucket']].map(([label, bundle]) => ({
     file: 'docs/content/2.guides/8.bundling.md',
     bundle: bundle!,
     pattern: new RegExp(`^\\| ${label!.replace('/', '\\/')} \\| ([\\d.]+) kB, ([\\d.]+) kB gzip \\|`, 'm'),
@@ -51,10 +48,10 @@ const DOCUMENTED: Array<{ file: string, bundle: string, pattern: RegExp, read: (
   })),
   {
     file: 'docs/app/components/content/LandingPage.vue',
-    bundle: 'github lite',
-    pattern: /The GitHub Lite provider is about (\d+) kB gzipped/,
+    bundle: 'forges/github',
+    pattern: /The GitHub provider is about (\d+) kB gzipped/,
     read: match => ({ gzipped: Number(match[1]) * 1000 }),
-    render: size => `The GitHub Lite provider is about ${kB(size.gzipped, 0)} kB gzipped`,
+    render: size => `The GitHub provider is about ${kB(size.gzipped, 0)} kB gzipped`,
   },
 ]
 

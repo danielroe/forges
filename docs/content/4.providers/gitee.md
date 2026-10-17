@@ -12,7 +12,7 @@ The Gitee provider works with gitee.com through the Gitee Open API v5. It can re
 | Detail | Value |
 | --- | --- |
 | Import | `forges/gitee` |
-| Factories | `gitee()`, `giteeLite()` |
+| Factories | `gitee()` |
 | Auth | `token`, `anonymous` |
 ::
 <!-- header:end -->

@@ -12,7 +12,7 @@ The Bitbucket provider works with Bitbucket Cloud (bitbucket.org). It can read a
 | Detail | Value |
 | --- | --- |
 | Import | `forges/bitbucket` |
-| Factories | `bitbucket()`, `bitbucketLite()` |
+| Factories | `bitbucket()` |
 | Auth | `token`, `basic`, `anonymous` |
 ::
 <!-- header:end -->

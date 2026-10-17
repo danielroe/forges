@@ -64,11 +64,10 @@ const { copied, copy, message } = useCopyToClipboard(() => statement)
           <NuxtLink
             v-for="factory of provider.factories"
             :key="factory"
-            :to="factory.endsWith('Lite') ? '/concepts/providers#lite-factories' : '/concepts/providers#factories'"
+            to="/concepts/providers#factories"
             class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 hover:text-primary"
           >
             <code class="font-mono whitespace-nowrap text-highlighted">{{ factory }}()</code>
-            <span class="text-muted whitespace-nowrap">{{ factory.endsWith('Lite') ? 'No webhooks' : 'Full' }}</span>
           </NuxtLink>
         </dd>
       </div>

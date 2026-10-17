@@ -21,7 +21,7 @@ export const COMMANDS: Command[] = [
   { commands: ['pnpm test:types'], scripts: ['test:types'], description: 'Type-checks `src`, `test` and `scripts`' },
   { commands: ['pnpm test:capabilities'], scripts: ['test:capabilities'], description: 'Fails for a capability whose declared level does not match what the tests verify against the forge' },
   { commands: ['pnpm test:knip'], scripts: ['test:knip'], description: 'Finds unused files, exports and dependencies' },
-  { commands: ['pnpm test:size'], scripts: ['test:size'], description: 'Reports browser bundle sizes, and checks Lite tree-shaking, the budget of the provider-free bundle and the sizes the docs quote. Run `pnpm build` first; `--update-docs` updates those sizes' },
+  { commands: ['pnpm test:size'], scripts: ['test:size'], description: 'Reports browser bundle sizes, and checks that webhook translation loads lazily, the budget of the provider-free bundle and the sizes the docs quote. Run `pnpm build` first; `--update-docs` updates those sizes' },
   { commands: ['pnpm lint', 'pnpm lint:fix'], scripts: ['lint', 'lint:fix'], description: 'Lints, and fixes what it can' },
   { commands: ['pnpm capability-matrix'], scripts: ['capability-matrix'], description: 'Updates the capability matrix and the other tables of the docs' },
   { commands: ['pnpm capability-diff [ref]'], scripts: ['capability-diff'], description: 'Shows how the capabilities differ from `ref`, `main` by default' },

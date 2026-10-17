@@ -81,7 +81,7 @@ export function renderBundleSizeDiff(base: BundleSnapshot, head: BundleSnapshot)
       return `| ${name} | ${cell(previous?.minified, current?.minified)} | ${cell(previous?.gzipped, current?.gzipped)} | ${cell(previous?.lazy, current?.lazy)} |`
     }),
     '',
-    'Size changes are informational. `pnpm test:size` checks Lite bundles for webhook code, and the provider-free bundle against its budget.',
+    'Size changes are informational. `pnpm test:size` checks entry chunks for webhook translation, and the provider-free bundle against its budget.',
     '',
   ].join('\n')
 }

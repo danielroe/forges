@@ -799,11 +799,9 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions, undefined, true> = {
     }
     return async () => ({ authorization: `Basic ${btoa(auth.type === 'token' ? `:${await resolveToken(auth)}` : `${auth.username}:${auth.password}`)}` })
   },
+  webhooks: azureDevOpsWebhooks,
   setup: setupAzure,
 }
 
 /** Creates an Azure DevOps provider for one organization on dev.azure.com, or a collection on Azure DevOps Server. */
-export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true, 'azure-devops', false> = /* @__PURE__ */ defineForgeProvider({ ...AZURE_DEVOPS, webhooks: azureDevOpsWebhooks })
-
-/** `azureDevOps()` without webhook ingestion, for bundles that never receive a delivery. */
-export const azureDevOpsLite: ProviderFactoryFunction<AzureDevOpsOptions, true, 'azure-devops', false> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)
+export const azureDevOps: ProviderFactoryFunction<AzureDevOpsOptions, true, 'azure-devops', false> = /* @__PURE__ */ defineForgeProvider(AZURE_DEVOPS)

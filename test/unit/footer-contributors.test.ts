@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { getContributors } from '../../docs/server/utils/contributors.ts'
 import { contributorHomepage, getFooterContributors } from '../../docs/server/utils/footer-contributors.ts'
-import { githubLite } from '../../src/github/index.ts'
+import { github } from '../../src/github/index.ts'
 
 const profileUrl = 'https://github.com/trueberryless'
 
@@ -45,7 +45,7 @@ describe('footer contributors', () => {
       const login = path.slice('/users/'.length)
       return Response.json({ login, html_url: `https://github.com/${login}`, blog: websites[login] ?? '' })
     })
-    const forge = githubLite({ fetch, auth: { type: 'token', token: 'test-token' } }).create()
+    const forge = github({ fetch, auth: { type: 'token', token: 'test-token' } }).create()
     const list = await getContributors(forge)
 
     expect(list.map(contributor => contributor.login)).toEqual(['danielroe', 'trueberryless', 'antfu', 'third', 'fourth'])
@@ -68,7 +68,7 @@ describe('footer contributors', () => {
   })
 
   it('handles fewer than three contributors and a failed profile lookup', async () => {
-    const forge = githubLite({
+    const forge = github({
       fetch: async (url) => {
         if (new URL(url).pathname.startsWith('/repos/')) {
           return Response.json([{
@@ -93,7 +93,7 @@ describe('footer contributors', () => {
 
   it.each([3, 5])('counts remaining contributors with %i other contributors and no danielroe entry', async (count) => {
     const fetch = vi.fn(async () => new Response('Unavailable', { status: 503 }))
-    const forge = githubLite({ fetch }).create()
+    const forge = github({ fetch }).create()
     const list = Array.from({ length: count }, (_, index) => ({
       login: `contributor${index}`,
       contributions: count - index,
@@ -109,7 +109,7 @@ describe('footer contributors', () => {
   })
 
   it('keeps danielroe when GitHub is unavailable', async () => {
-    const forge = githubLite({ fetch: async () => new Response('Unavailable', { status: 503 }) }).create()
+    const forge = github({ fetch: async () => new Response('Unavailable', { status: 503 }) }).create()
     const list = await getContributors(forge).catch(() => [])
     expect(await getFooterContributors(forge, list)).toEqual({
       contributors: [{ login: 'danielroe', to: 'https://github.com/danielroe' }],

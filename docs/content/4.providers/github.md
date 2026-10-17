@@ -12,7 +12,7 @@ The GitHub provider works with github.com and GitHub Enterprise Server. It can r
 | Detail | Value |
 | --- | --- |
 | Import | `forges/github` |
-| Factories | `github()`, `githubLite()` |
+| Factories | `github()` |
 | Auth | `token`, `app`, `anonymous` |
 ::
 <!-- header:end -->

@@ -12,7 +12,7 @@ The Sourcehut provider works with [Sourcehut](https://sr.ht), a suite of small s
 | Detail | Value |
 | --- | --- |
 | Import | `forges/sourcehut` |
-| Factories | `sourcehut()`, `sourcehutLite()` |
+| Factories | `sourcehut()` |
 | Auth | `token` |
 ::
 <!-- header:end -->
@@ -70,8 +70,6 @@ Sourcehut's equivalent of a pull request is a patchset on a mailing list. There 
 Sourcehut signs deliveries with its own ed25519 key rather than a shared secret: `X-Payload-Signature` is the signature of the raw body followed by the `X-Payload-Nonce` header. The provider verifies it against the instance's published public key, which defaults to `sr.ht`'s and can be overridden with `webhookPublicKey` for another instance.
 
 Because a Sourcehut webhook sends the result of a GraphQL query that you register with it, the provider translates the shape it documents for repository and push events. Managing hooks is not implemented.
-
-The webhook code is separate, so `sourcehutLite()` creates the same provider without it, for a browser bundle.
 
 <!-- capabilities:start -->
 ## Capabilities

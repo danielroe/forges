@@ -12,7 +12,7 @@ The Tangled provider works with [Tangled](https://tangled.org), a forge built on
 | Detail | Value |
 | --- | --- |
 | Import | `forges/tangled` |
-| Factories | `tangled()`, `tangledLite()` |
+| Factories | `tangled()` |
 | Auth | `anonymous`, `app_password`, `oauth` |
 ::
 <!-- header:end -->

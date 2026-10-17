@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { translateBitbucketWebhook } from '../../src/bitbucket/webhooks.ts'
+import { translateBitbucketWebhook } from '../../src/bitbucket/events.ts'
 import { completeEvent } from '../../src/events.ts'
+import { translateForgejoWebhook } from '../../src/forgejo/events.ts'
 import { toFeedEvent as toForgejoFeedEvent } from '../../src/forgejo/feed.ts'
-import { translateForgejoWebhook } from '../../src/forgejo/webhooks.ts'
 import { translateGitHubWebhook } from '../../src/github/events.ts'
-import { translateGitLabWebhook } from '../../src/gitlab/webhooks.ts'
+import { translateGitLabWebhook } from '../../src/gitlab/events.ts'
 
 function github(event: string, payload: Record<string, unknown>) {
   return translateGitHubWebhook('github.com', {

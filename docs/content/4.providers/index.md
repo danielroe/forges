@@ -14,18 +14,18 @@ A provider is what connects `forges` to one particular forge. It translates the 
 ::provider-grid
 | Forge | Import | Factories |
 | --- | --- | --- |
-| [GitHub](/providers/github) | `forges/github` | `github()`, `githubLite()` |
-| [GitLab](/providers/gitlab) | `forges/gitlab` | `gitlab()`, `gitlabLite()` |
-| [Bitbucket](/providers/bitbucket) | `forges/bitbucket` | `bitbucket()`, `bitbucketLite()` |
-| [Forgejo](/providers/forgejo) | `forges/forgejo` | `forgejo()`, `forgejoLite()` |
-| [Gitea](/providers/gitea) | `forges/gitea` | `gitea()`, `giteaLite()` |
-| [Gitee](/providers/gitee) | `forges/gitee` | `gitee()`, `giteeLite()` |
-| [Azure DevOps](/providers/azure-devops) | `forges/azure-devops` | `azureDevOps()`, `azureDevOpsLite()` |
-| [Cursor Origin](/providers/cursor-origin) | `forges/cursor-origin` | `cursorOrigin()`, `cursorOriginLite()` |
+| [GitHub](/providers/github) | `forges/github` | `github()` |
+| [GitLab](/providers/gitlab) | `forges/gitlab` | `gitlab()` |
+| [Bitbucket](/providers/bitbucket) | `forges/bitbucket` | `bitbucket()` |
+| [Forgejo](/providers/forgejo) | `forges/forgejo` | `forgejo()` |
+| [Gitea](/providers/gitea) | `forges/gitea` | `gitea()` |
+| [Gitee](/providers/gitee) | `forges/gitee` | `gitee()` |
+| [Azure DevOps](/providers/azure-devops) | `forges/azure-devops` | `azureDevOps()` |
+| [Cursor Origin](/providers/cursor-origin) | `forges/cursor-origin` | `cursorOrigin()` |
 | [Pushin.eu](/providers/pushin) | `forges/pushin` | `pushin()` |
-| [Tangled](/providers/tangled) | `forges/tangled` | `tangled()`, `tangledLite()` |
+| [Tangled](/providers/tangled) | `forges/tangled` | `tangled()` |
 | [Cloudflare Artifacts](/providers/cloudflare-artifacts) | `forges/cloudflare-artifacts` | `cloudflareArtifacts()` |
-| [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()`, `sourcehutLite()` |
+| [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()` |
 ::
 <!-- capabilities:end -->
 
