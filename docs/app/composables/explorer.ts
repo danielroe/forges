@@ -1,7 +1,8 @@
 import type { ForgeProvider, ForgeProviderFactory } from 'forges'
 import type { DecorationItem, HighlighterCore } from 'shiki/core'
+import type { ExplorerCredential, ExplorerInput } from '~~/shared/explorer'
 import { codeTheme } from '~~/shared/code-theme'
-import { EXPLORER_FORGES, placeholderAuth } from '~~/shared/explorer'
+import { authFromValues, EXPLORER_FORGES, placeholderAuth } from '~~/shared/explorer'
 
 const STORAGE_KEY = 'forges:explorer-forge'
 
@@ -38,6 +39,20 @@ export function useExplorerForge() {
 
 type Factory = (options: Record<string, unknown>) => ForgeProviderFactory
 
+const factories = new Map<string, Promise<Factory>>()
+
+/** The factory of a forge, loaded once. A forge's provider is its own chunk, which the bundler splits out. */
+function explorerFactory(id: string): Promise<Factory> {
+  let loaded = factories.get(id)
+  if (!loaded) {
+    const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
+    loaded = forge.load().then(module => (module as Record<string, Factory>)[forge.factory]!)
+    loaded.catch(() => factories.delete(id))
+    factories.set(id, loaded)
+  }
+  return loaded
+}
+
 export interface ExplorerProviders {
   /** Makes the calls that run here. */
   anonymous: ForgeProvider
@@ -54,14 +69,85 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
     const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
     // Options can be required, such as Azure DevOps' `organization`; the forge's own options provide them.
     const options = forge.options?.(forge.sample) ?? {}
-    loaded = forge.load().then((module) => {
-      const factory = (module as Record<string, Factory>)[forge.factory]!
-      return { anonymous: factory(options).create(), signedIn: factory({ ...options, auth: placeholderAuth(forge.auth) }).create() }
-    })
+    loaded = explorerFactory(id).then(factory => ({
+      anonymous: factory(options).create(),
+      signedIn: factory({ ...options, auth: placeholderAuth(forge.credentials[0]!) }).create(),
+    }))
     loaded.catch(() => providers.delete(id))
     providers.set(id, loaded)
   }
   return loaded
+}
+
+/** A provider that sends the credential the person typed. Built fresh for each credential, never cached. */
+export async function explorerCredentialProvider(id: string, input: ExplorerInput, credential: ExplorerCredential, values: Record<string, string>): Promise<ForgeProvider> {
+  const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
+  const options = forge.options?.(input) ?? {}
+  const factory = await explorerFactory(id)
+  return factory({ ...options, auth: authFromValues(credential, values) }).create()
+}
+
+/** A credential the person typed, and the kind it is. */
+export interface ExplorerCredentialState {
+  /** The `ExplorerCredential.kind` the person chose, such as `token` or `basic`. */
+  kind: string
+  /** The value of each field, keyed by field name. */
+  values: Record<string, string>
+}
+
+const CREDENTIALS_KEY = 'forges:explorer-credentials'
+const REMEMBER_KEY = 'forges:explorer-remember'
+
+let restoring = false
+
+/**
+ * The credential each explorer sends, keyed by forge and shared by every explorer. It stays in memory, or in
+ * sessionStorage while "Remember in this tab" is on, and never reaches the URL or the docs server.
+ */
+export function useExplorerCredentials() {
+  const credentials = useState<Record<string, ExplorerCredentialState>>('explorer-credentials', () => ({}))
+  const remember = useState('explorer-remember', () => false)
+
+  if (import.meta.client && !restoring) {
+    restoring = true
+    let restored = false
+    // Read after hydration, so the server and the first client render agree.
+    onMounted(() => {
+      try {
+        if (sessionStorage.getItem(REMEMBER_KEY) === '1') {
+          remember.value = true
+          const saved = sessionStorage.getItem(CREDENTIALS_KEY)
+          if (saved) {
+            credentials.value = JSON.parse(saved)
+          }
+        }
+      }
+      catch {}
+      finally {
+        restored = true
+      }
+    })
+    // Detached, so the watcher outlives the explorer that created it.
+    effectScope(true).run(() => watch([credentials, remember], () => {
+      // A change before the restore finishes must not overwrite what is stored.
+      if (!restored) {
+        return
+      }
+      try {
+        if (remember.value) {
+          sessionStorage.setItem(REMEMBER_KEY, '1')
+          sessionStorage.setItem(CREDENTIALS_KEY, JSON.stringify(credentials.value))
+        }
+        else {
+          sessionStorage.removeItem(REMEMBER_KEY)
+          sessionStorage.removeItem(CREDENTIALS_KEY)
+        }
+      }
+      catch {}
+    }, { deep: true }))
+  }
+
+  return { credentials, remember }
 }
 
 let schemas: Promise<Record<string, Record<string, any>>> | undefined

@@ -3,8 +3,10 @@ import type { ForgeProvider, ThreadKind } from 'forges'
 import type { ExplorerField, ExplorerForge, ExplorerInput } from '~~/shared/explorer'
 import type { ExplorerProviders } from '~/composables/explorer'
 import type { KeyInfo } from '~/utils/explorer-json'
-import { EXPLORER_FIELDS, EXPLORER_FORGES, EXPLORER_OPERATIONS, explorerCode, explorerFields, explorerRefs, REPOSITORY_FIELDS } from '~~/shared/explorer'
+import { credentialComplete, EXPLORER_FIELDS, EXPLORER_FORGES, EXPLORER_OPERATIONS, explorerCode, explorerFields, explorerRefs, REPOSITORY_FIELDS } from '~~/shared/explorer'
 import { providers } from '#capabilities'
+import { explorerCredentialProvider, useExplorerCredentials } from '~/composables/explorer'
+import { credentialLabel } from '~/utils/credentials'
 import { annotateJson, pageSchema } from '~/utils/explorer-json'
 
 const props = defineProps<{
@@ -32,6 +34,8 @@ const PALETTE = ['oklch(0.62 0.16 255)', 'oklch(0.6 0.17 300)', 'oklch(0.62 0.14
 const open = ref(props.expanded)
 const panel = useTemplateRef<HTMLElement>('panel')
 const opener = useTemplateRef<HTMLElement>('opener')
+const credentialPanel = useTemplateRef<HTMLElement>('credentialPanel')
+const credentialToggle = useTemplateRef<HTMLElement>('credentialToggle')
 const id = useId()
 
 /** Opens the explorer and moves focus into it, since the button that opened it goes away. */
@@ -55,9 +59,77 @@ const icons: Record<string, string> = Object.fromEntries(providers.map(provider 
 const forgeTabs = EXPLORER_FORGES.map(entry => ({ value: entry.forge, label: entry.name, icon: icons[entry.forge]! }))
 const input = reactive<ExplorerInput>({ ...forge.value.sample })
 const loaded = shallowRef<ExplorerProviders>()
-const provider = computed(() => loaded.value?.anonymous)
 /** Why the forge's provider failed to load, such as a chunk that a newer deploy replaced. */
 const providerError = ref('')
+
+const { credentials, remember } = useExplorerCredentials()
+/** The credentials the explorer can run with, which the form offers. */
+const runnableCredentials = computed(() => forge.value.credentials.filter(credential => credential.runnable))
+/** The credential the form holds: the kind the person chose, and the value of each field. */
+const credentialState = computed(() => credentials.value[forgeId.value]!)
+const selectedCredential = computed(() => runnableCredentials.value.find(credential => credential.kind === credentialState.value.kind) ?? runnableCredentials.value[0])
+const hasCredential = computed(() => Boolean(selectedCredential.value) && credentialComplete(selectedCredential.value!, credentialState.value.values))
+
+// Every explorer shares one credential, so the first to mount creates the state the form binds to.
+// `credentials` is watched too, because "Remember in this tab" replaces the whole record.
+watch([forgeId, credentials], () => {
+  credentials.value[forgeId.value] ??= { kind: runnableCredentials.value[0]?.kind ?? '', values: {} }
+}, { immediate: true })
+
+const authenticatedProvider = shallowRef<ForgeProvider>()
+const credentialError = ref('')
+/** Counts builds, so a build that a newer change or a cleared credential superseded drops its provider. */
+let builds = 0
+
+// The provider that sends the typed credential. Rebuilt on any credential-field change, since the provider
+// captures the secret when it is created, and on the form fields a forge option depends on (Azure DevOps' organization).
+watch([credentialState, forgeId, () => input.owner, () => input.name], async () => {
+  const build = ++builds
+  if (!hasCredential.value || !selectedCredential.value) {
+    authenticatedProvider.value = undefined
+    credentialError.value = ''
+    return
+  }
+  try {
+    const provider = await explorerCredentialProvider(forgeId.value, { ...input }, selectedCredential.value, { ...credentialState.value.values })
+    if (build === builds) {
+      authenticatedProvider.value = provider
+      credentialError.value = ''
+    }
+  }
+  catch (caught) {
+    if (build === builds) {
+      authenticatedProvider.value = undefined
+      credentialError.value = `The credential couldn't be used: ${caught instanceof Error ? caught.message : String(caught)}`
+    }
+  }
+}, { deep: true, immediate: true })
+
+const SECRET_FIELDS = new Set(['TOKEN', 'PASSWORD', 'PRIVATE_KEY'])
+
+/** Which secret fields show their value instead of masking it. */
+const revealed = reactive<Record<string, boolean>>({})
+
+/** The kind of credential the form offers, when a forge accepts more than one. */
+const credentialItems = computed(() => runnableCredentials.value.map(credential => ({ label: credentialLabel(credential.fields.map(field => field.field)), value: credential.kind })))
+/** The name of the chosen credential, such as "Token" or "Username and password". */
+const credentialName = computed(() => selectedCredential.value ? credentialLabel(selectedCredential.value.fields.map(field => field.field)) : '')
+/** Where to create the chosen credential, with the forge and kind the environment guide preselects. */
+const credentialWizard = computed(() => {
+  const first = selectedCredential.value?.fields[0]
+  return first ? `/guides/environment?forge=${forge.value.forge}&auth=${first.field.toLowerCase()}` : '/guides/environment'
+})
+function isSecret(field: string) {
+  return SECRET_FIELDS.has(field)
+}
+
+async function clearCredential() {
+  credentialState.value.values = {}
+  await nextTick()
+  // The Clear button goes away with the credential, so move focus to a control that stays.
+  const next = credentialPanel.value?.querySelector<HTMLElement>('input') ?? credentialToggle.value
+  next?.focus()
+}
 
 const fields = computed(() => explorerFields(operation, input).map((field, index) => {
   const config = EXPLORER_FIELDS[field]
@@ -97,33 +169,69 @@ watch([open, forgeId], async ([isOpen, id]) => {
 }, { immediate: true })
 
 const kind = computed(() => operation.kind?.(input))
+const anonymousProvider = computed(() => loaded.value?.anonymous)
+/** The provider the call runs through: the one that sends the credential, when there is one, else anonymous. */
+const activeProvider = computed(() => authenticatedProvider.value ?? anonymousProvider.value)
 const anonymousSupport = computed(() => loaded.value?.anonymous.support(operation.verb, kind.value))
 const signedInSupport = computed(() => loaded.value?.signedIn.support(operation.verb, kind.value))
+const activeSupport = computed(() => activeProvider.value?.support(operation.verb, kind.value))
 const unsupported = computed(() => signedInSupport.value === false)
-/** The call needs credentials on this forge, so the code passes `auth`, and it doesn't run here. */
-const needsAuth = computed(() => operation.auth || Boolean(forge.value.signedIn) || (anonymousSupport.value === false && !unsupported.value))
-const support = computed(() => needsAuth.value ? signedInSupport.value : anonymousSupport.value)
-const runnable = computed(() => Boolean(operation.run) && !forge.value.blocked && !needsAuth.value && !unsupported.value)
+/** The call needs credentials on this forge, so the code passes `auth`. */
+const requiresCredentials = computed(() => operation.auth || Boolean(forge.value.signedIn) || (anonymousSupport.value === false && !unsupported.value))
+/** The explorer can make this call here: with the credential it needs, or anonymously. */
+const supportedHere = computed(() => Boolean(operation.run) && !forge.value.blocked && !unsupported.value && activeSupport.value !== false && (!requiresCredentials.value || hasCredential.value))
+/** The scopes the call needs, from the provider that holds placeholder credentials. */
+const credentialScopes = computed(() => {
+  if (!requiresCredentials.value || !loaded.value) {
+    return []
+  }
+  const scopes = loaded.value.signedIn.scopesFor(operation.verb)
+  return [...scopes.token ?? [], ...Object.keys(scopes.permissions ?? {})]
+})
+
+/** Whether the form still points at the forge's sample repository, which the confirmation names. */
+const onSampleRepo = computed(() => input.owner === forge.value.sample.owner && input.name === forge.value.sample.name)
+/** What a write changes, for the confirmation: a repository, or the account for a call that takes no repo. */
+const writeTarget = computed(() => operation.uses === 'none' ? 'your account' : `${input.owner}/${input.name}`)
+const confirmed = ref(false)
+const canRun = computed(() => supportedHere.value && (!operation.mutates || confirmed.value))
+
+watch([() => operation.verb, forgeId, () => input.owner, () => input.name], () => {
+  confirmed.value = false
+})
+
+const credentialsOpen = ref(false)
+// Open the credential form when the call needs one and none is set, so the prompt to add one is actionable.
+watch([open, requiresCredentials, hasCredential], ([isOpen, requires, has]) => {
+  if (isOpen && requires && !has) {
+    credentialsOpen.value = true
+  }
+}, { immediate: true })
 
 /** Why the call doesn't run here, when the forge supports it. */
 const notice = computed(() => {
-  if (unsupported.value || runnable.value) {
+  if (unsupported.value || supportedHere.value) {
     return ''
-  }
-  if (needsAuth.value) {
-    return `${forge.value.name} needs credentials for this, so it can't run here. Copy the code to run it outside the browser.`
   }
   if (!operation.run) {
     return 'Not yet supported in the explorer.'
   }
-  return `${forge.value.blocked} Copy the code to run it outside the browser.`
+  if (forge.value.blocked) {
+    return `${forge.value.blocked} Copy the code to run it outside the browser.`
+  }
+  if (requiresCredentials.value) {
+    return runnableCredentials.value.length
+      ? `${forge.value.name} needs credentials for this. Add one above to run it here, or copy the code.`
+      : `${forge.value.name} needs credentials for this, and the explorer can't hold them here. Copy the code to run it outside the browser.`
+  }
+  return ''
 })
 
 /** The fields the call needs that are empty. */
 const missing = computed(() => explorerFields(operation, input).filter(field => !EXPLORER_FIELDS[field].optional && !input[field].trim()))
 const missingText = computed(() => new Intl.ListFormat('en', { type: 'conjunction' }).format(missing.value.map(field => EXPLORER_FIELDS[field].label)))
 
-const code = computed(() => explorerCode(operation, forge.value, input, needsAuth.value))
+const code = computed(() => explorerCode(operation, forge.value, input, hasCredential.value && selectedCredential.value ? selectedCredential.value : requiresCredentials.value))
 const codeHtml = ref('')
 // Collapsed explorers build no code: a reference page has dozens of them.
 watch(() => open.value ? code.value : undefined, async (current) => {
@@ -178,7 +286,8 @@ function cancelRun() {
 }
 
 async function run() {
-  if (!provider.value || !operation.run || running.value || !runnable.value || missing.value.length) {
+  const provider = activeProvider.value
+  if (!provider || !operation.run || running.value || !canRun.value || missing.value.length) {
     return
   }
   cancelRun()
@@ -186,7 +295,7 @@ async function run() {
   running.value = true
   const started = performance.now()
   try {
-    const value = await operation.run(provider.value, { ...input }, explorerRefs(provider.value, input))
+    const value = await operation.run(provider, { ...input }, explorerRefs(provider, input))
     if (current === runs) {
       result.value = { value, ms: Math.round(performance.now() - started) }
     }
@@ -358,10 +467,10 @@ function exampleUrl(anonymous: ForgeProvider, { sample }: ExplorerForge): string
 }
 
 const urlPlaceholder = computed(() => {
-  if (!provider.value) {
+  if (!anonymousProvider.value) {
     return 'Paste a URL'
   }
-  const example = exampleUrl(provider.value, forge.value)
+  const example = exampleUrl(anonymousProvider.value, forge.value)
   return example ? `Paste a URL, such as ${example}` : `${forge.value.name} has no web URLs to paste`
 })
 
@@ -612,6 +721,124 @@ if (props.permalink) {
           </UFormField>
         </div>
 
+        <!-- The browser sends the credential straight to the forge; it never reaches the URL or the docs server. -->
+        <div
+          v-if="operation.run && runnableCredentials.length"
+          class="overflow-hidden rounded-lg border border-default/70 bg-default/40"
+        >
+          <button
+            :id="`${id}-credentials-toggle`"
+            ref="credentialToggle"
+            type="button"
+            class="flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-left text-sm transition hover:text-highlighted"
+            :class="hasCredential ? 'text-highlighted' : 'text-muted'"
+            :aria-expanded="credentialsOpen"
+            :aria-controls="`${id}-credentials`"
+            @click="credentialsOpen = !credentialsOpen"
+          >
+            <UIcon
+              name="i-lucide-key-round"
+              class="size-4 shrink-0 text-primary"
+              aria-hidden="true"
+            />
+            <span>{{ hasCredential ? `${credentialName} credentials` : 'Add credentials' }}</span>
+            <UIcon
+              name="i-lucide-chevron-down"
+              class="ml-auto size-4 transition-transform"
+              :class="credentialsOpen && 'rotate-180'"
+              aria-hidden="true"
+            />
+          </button>
+          <div
+            v-show="credentialsOpen"
+            :id="`${id}-credentials`"
+            ref="credentialPanel"
+            class="grid gap-3 border-t border-default/70 p-3"
+          >
+            <UFormField
+              v-if="credentialItems.length > 1"
+              label="Credential"
+              size="sm"
+            >
+              <USelect
+                v-model="credentialState.kind"
+                :items="credentialItems"
+                class="w-full sm:w-56"
+              />
+            </UFormField>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <UFormField
+                v-for="field of selectedCredential?.fields ?? []"
+                :key="field.field"
+                :label="field.field"
+                :hint="field.optional ? 'optional' : undefined"
+                size="sm"
+              >
+                <UInput
+                  v-model="credentialState.values[field.field]"
+                  :type="isSecret(field.field) && !revealed[field.field] ? 'password' : 'text'"
+                  :placeholder="isSecret(field.field) ? '••••••••' : undefined"
+                  autocomplete="off"
+                  class="w-full"
+                  :ui="{ trailing: 'pe-1' }"
+                >
+                  <template
+                    v-if="isSecret(field.field)"
+                    #trailing
+                  >
+                    <UButton
+                      :icon="revealed[field.field] ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+                      size="xs"
+                      color="neutral"
+                      variant="ghost"
+                      :aria-label="revealed[field.field] ? `Hide ${field.field}` : `Show ${field.field}`"
+                      @click="revealed[field.field] = !revealed[field.field]"
+                    />
+                  </template>
+                </UInput>
+              </UFormField>
+            </div>
+            <p class="text-xs text-muted">
+              Sent from your browser straight to {{ forge.name }} over HTTPS, and never to forges.link.
+              <ULink
+                :to="credentialWizard"
+                class="text-highlighted underline underline-offset-4"
+              >
+                How to create one
+              </ULink>
+            </p>
+            <p
+              v-if="credentialScopes.length"
+              class="flex flex-wrap items-center gap-1.5 text-xs text-muted"
+            >
+              Needs
+              <code
+                v-for="scope of credentialScopes"
+                :key="scope"
+                class="rounded bg-elevated px-1.5 py-0.5 font-mono text-highlighted"
+              >{{ scope }}</code>
+            </p>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <label class="flex cursor-pointer items-center gap-2 text-xs text-muted">
+                <input
+                  v-model="remember"
+                  type="checkbox"
+                  class="size-3.5 accent-primary"
+                >
+                Remember in this tab
+              </label>
+              <UButton
+                v-if="hasCredential"
+                size="xs"
+                color="neutral"
+                variant="ghost"
+                label="Clear"
+                @click="clearCredential"
+              />
+            </div>
+          </div>
+        </div>
+
         <div class="relative overflow-hidden rounded-lg border border-default/70 bg-default/40">
           <!-- eslint-disable vue/no-v-html -->
           <div
@@ -668,6 +895,7 @@ if (props.permalink) {
           <p
             v-else-if="notice"
             class="flex items-center gap-2 text-sm text-muted"
+            role="status"
           >
             <UIcon
               name="i-lucide-info"
@@ -677,12 +905,23 @@ if (props.permalink) {
             {{ notice }}
           </p>
           <template v-else>
+            <label
+              v-if="operation.mutates"
+              class="flex cursor-pointer items-center gap-2 text-sm text-muted"
+            >
+              <input
+                v-model="confirmed"
+                type="checkbox"
+                class="size-3.5 accent-(--ui-color-error-500)"
+              >
+              I understand this writes to <code class="font-mono">{{ writeTarget }}</code><template v-if="onSampleRepo">, the sample repository</template>.
+            </label>
             <UButton
               icon="i-lucide-play"
-              label="Run"
-              color="neutral"
-              :loading="running || (!provider && !providerError)"
-              :disabled="!provider"
+              :label="operation.mutates ? 'Write' : 'Run'"
+              :color="operation.mutates ? 'error' : 'neutral'"
+              :loading="running || (!activeProvider && !providerError)"
+              :disabled="!activeProvider || (operation.mutates && !confirmed)"
               :aria-disabled="missing.length > 0 || undefined"
               :aria-describedby="missing.length ? `${id}-missing` : undefined"
               @click="run"
@@ -696,10 +935,10 @@ if (props.permalink) {
             </p>
           </template>
           <p
-            v-if="!unsupported && (support === 'experimental' || support === 'emulated' || support === 'unverified')"
+            v-if="!unsupported && (activeSupport === 'experimental' || activeSupport === 'emulated' || activeSupport === 'unverified')"
             class="text-sm text-muted"
           >
-            {{ forge.name }} support for this is {{ support }}.
+            {{ forge.name }} support for this is {{ activeSupport }}.
           </p>
           <span
             v-if="result"
@@ -718,6 +957,14 @@ if (props.permalink) {
           role="alert"
         >
           {{ providerError }}
+        </div>
+
+        <div
+          v-if="credentialError"
+          class="rounded-lg border border-error/40 bg-error/5 p-4 text-sm"
+          role="alert"
+        >
+          {{ credentialError }}
         </div>
 
         <div
