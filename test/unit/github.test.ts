@@ -503,6 +503,14 @@ describe('github app installations', () => {
     expect(calls.at(-1)!.authorization).toBe('Bearer ghs_fixtureinstallationtoken')
   })
 
+  it('shares one installation token exchange between concurrent requests', async () => {
+    const { provider, calls } = appProvider(55123)
+
+    await Promise.all([provider.repos.get(repo), provider.repos.get(repo)])
+
+    expect(calls.filter(call => call.url.endsWith('/access_tokens'))).toHaveLength(1)
+  })
+
   it('reports the retries and rate limits of the installation token exchange', async () => {
     const { fetch: replay } = fixtureFetch('github')
     const onRetry = vi.fn()

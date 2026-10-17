@@ -3,7 +3,7 @@ import type { BaseOptions, InstallationToken } from '../model.ts'
 import type { AnonymousAuth, AppAuth, TokenAuth } from '../provider.ts'
 import type { GitHubInstallationToken } from './types.ts'
 import { signRs256Jwt } from '../crypto.ts'
-import { createFetcher } from '../fetch.ts'
+import { abortable, createFetcher } from '../fetch.ts'
 import { resolveToken } from '../utils.ts'
 
 /**
@@ -49,20 +49,28 @@ const JWT_LIFETIME_SECONDS = 540
 const REFRESH_MARGIN_MS = 60_000
 
 export function createAppCredentials(auth: AppAuth, context: AuthContext): AppCredentials {
-  let jwt: { value: string, expiresAt: number } | undefined
+  let jwt: { value: Promise<string>, expiresAt: number } | undefined
   const tokens = new Map<string, InstallationToken>()
+  // Exchanges in flight, so concurrent requests share one.
+  const exchanges = new Map<string, Promise<InstallationToken>>()
 
   async function appJwt(): Promise<string> {
     if (jwt && jwt.expiresAt > Date.now() + REFRESH_MARGIN_MS) {
       return jwt.value
     }
     const now = Math.floor(Date.now() / 1000)
-    const value = await signRs256Jwt(auth.privateKey, {
+    const value = signRs256Jwt(auth.privateKey, {
       iss: String(auth.appId),
       iat: now - 60,
       exp: now + JWT_LIFETIME_SECONDS,
     })
-    jwt = { value, expiresAt: (now + JWT_LIFETIME_SECONDS) * 1000 }
+    const entry = { value, expiresAt: (now + JWT_LIFETIME_SECONDS) * 1000 }
+    jwt = entry
+    value.catch(() => {
+      if (jwt === entry) {
+        jwt = undefined
+      }
+    })
     return value
   }
 
@@ -76,18 +84,27 @@ export function createAppCredentials(auth: AppAuth, context: AuthContext): AppCr
     if (cached && cached.expiresAt.getTime() > Date.now() + REFRESH_MARGIN_MS) {
       return cached
     }
-    const { data } = await fetcher.json<GitHubInstallationToken>(
-      `/app/installations/${installationId}/access_tokens`,
-      { method: 'POST', signal: options?.signal },
-    )
-    const token: InstallationToken = {
-      token: data.token,
-      expiresAt: new Date(data.expires_at),
-      permissions: data.permissions ?? {},
-      repositorySelection: data.repository_selection,
+    let exchange = exchanges.get(installationId)
+    if (!exchange) {
+      // Not bound to one caller's signal: aborting stops only that caller's wait.
+      exchange = fetcher.json<GitHubInstallationToken>(
+        `/app/installations/${installationId}/access_tokens`,
+        { method: 'POST' },
+      ).then(({ data }) => {
+        const token: InstallationToken = {
+          token: data.token,
+          expiresAt: new Date(data.expires_at),
+          permissions: data.permissions ?? {},
+          repositorySelection: data.repository_selection,
+        }
+        tokens.set(installationId, token)
+        return token
+      })
+      const forget = () => exchanges.delete(installationId)
+      exchange.then(forget, forget)
+      exchanges.set(installationId, exchange)
     }
-    tokens.set(installationId, token)
-    return token
+    return abortable(exchange, options?.signal)
   }
 
   return {
