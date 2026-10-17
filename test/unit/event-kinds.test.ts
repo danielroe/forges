@@ -67,10 +67,10 @@ describe('star, fork, wiki and release events', () => {
   it('dates a GitLab release by its creation only when it is created', () => {
     const [created, updated] = ['create', 'update'].map(action => translateGitLabWebhook('gitlab.com', {
       headers: { 'x-gitlab-event': 'Release Hook' },
-      body: JSON.stringify({ object_kind: 'release', action, id: 3, tag: 'v1.0.0', created_at: '2026-05-01 10:00:00 UTC', project: { id: 1, path_with_namespace: 'acme/widgets' } }),
+      body: JSON.stringify({ object_kind: 'release', action, id: 3, tag: 'v1.0.0', description: '', created_at: '2026-05-01 10:00:00 UTC', project: { id: 1, path_with_namespace: 'acme/widgets' } }),
     })[0])
 
-    expect(created).toMatchObject({ kind: 'release', action: 'published', occurredAt: new Date('2026-05-01T10:00:00Z') })
+    expect(created).toMatchObject({ kind: 'release', action: 'published', detail: { body: '' }, occurredAt: new Date('2026-05-01T10:00:00Z') })
     expect(updated).toMatchObject({ kind: 'release', action: 'edited', undated: true })
   })
 

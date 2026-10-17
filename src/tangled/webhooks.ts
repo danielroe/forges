@@ -100,7 +100,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
         : undefined,
       threadSnapshot: threadSnapshot({
         title: pull.title,
-        body: pull.body || undefined,
+        body: pull.body,
         state,
         stateRaw: pull.state,
         author: pull.owner && toActor(instance, { did: pull.owner.did }, webUrl),

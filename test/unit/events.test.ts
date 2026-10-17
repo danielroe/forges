@@ -67,6 +67,13 @@ describe('thread snapshots', () => {
 
     expect(event!.threadSnapshot).toMatchObject({ state: 'merged', mergedBy: { login: 'hubot' } })
   })
+
+  it('keeps an empty GitLab description as an empty body', () => {
+    const project = { id: 1, path_with_namespace: 'acme/widgets', name: 'widgets', namespace: { full_path: 'acme' } }
+    const [event] = translateGitLabWebhook('gitlab.com', { headers: { 'x-gitlab-event': 'Issue Hook' }, body: JSON.stringify({ object_kind: 'issue', user: { id: 5, username: 'grace' }, project, object_attributes: { iid: 3, action: 'open', state: 'opened', title: 'Bug', description: '' } }) })
+
+    expect(event!.threadSnapshot).toMatchObject({ title: 'Bug', body: '' })
+  })
 })
 
 describe('github webhook detail', () => {

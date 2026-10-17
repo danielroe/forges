@@ -262,7 +262,7 @@ export function toActivityEvent(
     actor,
     repo: thread?.repo,
     thread,
-    threadSnapshot: threadRecord && threadSnapshot({ title: threadRecord.title, body: threadRecord.body || undefined }),
+    threadSnapshot: threadRecord && threadSnapshot({ title: threadRecord.title, body: threadRecord.body }),
     source,
     payload: activity.record ? { uri: activity.uri, ...activity.record } : { uri: activity.uri },
   }

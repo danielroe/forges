@@ -88,7 +88,7 @@ interface GitLabHookThread {
 function snapshotOf(instance: string, raw: GitLabHookThread | undefined): ThreadSnapshot | undefined {
   return raw && threadSnapshot({
     title: raw.title,
-    body: raw.description || undefined,
+    body: raw.description ?? undefined,
     state: raw.state ? toState(raw.state) : undefined,
     stateRaw: raw.state,
     isDraft: raw.draft ?? undefined,
@@ -127,7 +127,7 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
       return {
         kind: 'release',
         action,
-        detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, tag: payload.tag, name: payload.name, body: payload.description || undefined, url: payload.url },
+        detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, tag: payload.tag, name: payload.name, body: payload.description ?? undefined, url: payload.url },
         summary: `${who} ${action} ${payload.name ?? payload.tag ?? 'a release'}`,
       }
     }
