@@ -232,6 +232,17 @@ describe('sourcehut', () => {
     expect(await new Response(await forge.ci.log(jobRef)).text()).toBe('the log')
   })
 
+  it('attributes an account-wide build to its account, not the queried repository', async () => {
+    // `jobs` lists the authenticated account's builds and never names a job's
+    // repository, so the run ref follows the job's account rather than `repo`.
+    const otherJob = { ...JOB, id: 300, owner: ALICE, tags: ['other'] }
+    const withoutJobs = FIXTURES.filter(fixture => fixture.request.operationName !== 'Jobs')
+    const { forge } = provider([...withoutJobs, gql('builds', 'Jobs', {}, { jobs: { results: [otherJob], cursor: null } })])
+    const [run] = (await forge.ci.runsPage(repo)).items
+
+    expect(run!.ref.repo).toMatchObject({ owner: '~alice', name: '', kind: 'namespace' })
+  })
+
   it('reports a not-found for a job, build or patchset that does not exist', async () => {
     const { forge } = provider()
     // A job is a task of its build, so an id the build does not have is not found, not the build's own log.
@@ -303,5 +314,15 @@ describe('sourcehut webhooks', () => {
     const body = JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } })
     const headers = await signDelivery('sourcehut', body, other.privateKey.toString('base64'))
     await expect(forge.webhooks.ingest({ headers, body })).rejects.toThrow()
+  })
+
+  it('verifies with a per-delivery public key that overrides the configured one', async () => {
+    const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
+    // No provider key, so only the delivery's own key can verify the signature.
+    const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch }).create()
+    const body = markPayload(JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } }), 'documented')
+    const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
+
+    await expect(forge.webhooks.ingest({ headers, body, secret: webhookPublicKey })).resolves.toHaveLength(1)
   })
 })

@@ -3,7 +3,7 @@ import { toBase64 } from './crypto.ts'
 import { ContentNotTextError, NotFoundError } from './errors.ts'
 
 /** Decodes base64, tolerating the newlines GitHub and Gitea wrap it in. */
-export function fromBase64(value: string): Uint8Array {
+export function fromBase64(value: string): Uint8Array<ArrayBuffer> {
   const binary = atob(value.replaceAll(/\s/g, ''))
   const bytes = new Uint8Array(binary.length)
   for (let index = 0; index < binary.length; index++) {

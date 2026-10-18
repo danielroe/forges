@@ -207,24 +207,22 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     throw new UnsupportedOperationError(`${FORGE} does not read ${thread.kind} threads`, origin)
   }
 
-  async function listTickets(repo: RepoRef, query: ThreadQuery): Promise<Page<Thread>> {
+  async function listTickets(repo: RepoRef, query: ThreadQuery, warnings?: Page<Thread>['warnings']): Promise<Page<Thread>> {
     const { user } = await todo.query<{ user: { tracker: { tickets: ShPage<ShTicket> } | null } | null }>(Q.TrackerTickets, { ...repoParts(repo), cursor: query.cursor?.token }, query)
     if (!user) {
       throw notFound(repo, origin)
     }
     const page = pageOf(user.tracker?.tickets, ticket => toTicketThread(origin, ticket))
-    const warnings = isFirstPage(query.cursor) ? threadFilterWarnings(query) : undefined
-    return { ...page, items: filterThreads(page.items, query), ...warnings ? { warnings } : {} }
+    return { ...page, items: filterThreads(page.items, query), ...warnings?.length ? { warnings } : {} }
   }
 
-  async function listPatches(repo: RepoRef, query: ThreadQuery): Promise<Page<Thread>> {
+  async function listPatches(repo: RepoRef, query: ThreadQuery, warnings?: Page<Thread>['warnings']): Promise<Page<Thread>> {
     const { user } = await lists.query<{ user: { list: { patches: ShPage<ShPatchset> } | null } | null }>(Q.ListPatches, { ...repoParts(repo), cursor: query.cursor?.token }, query)
     if (!user) {
       throw notFound(repo, origin)
     }
     const page = pageOf(user.list?.patches, patchset => toPatchsetThread(origin, patchset))
-    const warnings = isFirstPage(query.cursor) ? threadFilterWarnings(query) : undefined
-    return { ...page, items: filterThreads(page.items, query), ...warnings ? { warnings } : {} }
+    return { ...page, items: filterThreads(page.items, query), ...warnings?.length ? { warnings } : {} }
   }
 
   function filterThreads(items: Thread[], query: ThreadQuery): Thread[] {
@@ -363,6 +361,11 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     return { items, ...references.cursor ? { cursor: { token: references.cursor } } : {} }
   }
 
+  /**
+   * Each page is newest-first, but tags share pages with branches, so across
+   * pages `releases.list()` is not globally newest-first. `releases.latest()`
+   * sorts the whole set instead.
+   */
   async function releasesPage(repo: RepoRef, options?: PageOptions): Promise<Page<Release>> {
     const page = await tagsOf(repo, options)
     return { ...page, items: page.items.map(({ tag, artifacts, at }) => toRelease(repo, tag, artifacts?.results ?? [], at)) }
@@ -458,15 +461,17 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     threads: {
       get: perKind({ issue: true, pull_request: true }, getThread),
       listPage: perKind({ issue: true, pull_request: true }, (repo, query: ThreadQuery = {}) => {
+        // Both listings ignore the same filters, so warn once, on the first page.
+        const warnings = isFirstPage(query.cursor) ? threadFilterWarnings(query) : undefined
         if (query.kind === 'issue') {
-          return listTickets(repo, query)
+          return listTickets(repo, query, warnings)
         }
         if (query.kind === 'pull_request') {
-          return listPatches(repo, query)
+          return listPatches(repo, query, warnings)
         }
         // No kind: issues live on the tracker, patches on the mailing list, so read one after the other.
         return phased([
-          cursor => listTickets(repo, { ...query, cursor }),
+          cursor => listTickets(repo, { ...query, cursor }, warnings),
           cursor => listPatches(repo, { ...query, cursor }),
         ], query.cursor)
       }),
@@ -549,9 +554,11 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
       }),
     },
     ci: {
-      runsPage: verb('emulated', async (repo: RepoRef, query = {}) => {
+      runsPage: verb('emulated', async (_repo: RepoRef, query = {}) => {
         const { jobs } = await builds.query<{ jobs: ShPage<ShJob> }>(Q.Jobs, { cursor: query.cursor?.token }, query)
-        const page = pageOf(jobs, job => toCiRun(origin, repo, job))
+        // `jobs` lists the authenticated account's builds and never names a job's repository,
+        // so the ref points at the account rather than at the queried repository.
+        const page = pageOf(jobs, job => toCiRun(origin, { ...origin, owner: job.owner.canonicalName, name: '', kind: 'namespace' }, job))
         const warnings = isFirstPage(query.cursor)
           ? [
               { code: 'filter_unsupported' as const, message: 'Sourcehut lists the builds of the authenticated account, not of one repository' },
