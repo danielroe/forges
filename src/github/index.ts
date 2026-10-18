@@ -2384,8 +2384,20 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'orgs') {
     return { token: ['read:org'], permissions: { members: 'read' } }
   }
-  if (group === 'ci' || (group === 'checks' && name !== 'report')) {
-    return { token: ['repo'], permissions: { actions: 'read', checks: name === 'rerun' ? 'write' : 'read' } }
+  if (verb === 'threads.checks') {
+    return { token: ['repo'], permissions: { pull_requests: 'read', checks: 'read', statuses: 'read' } }
+  }
+  if (verb === 'checks.list') {
+    return { token: ['repo'], permissions: { checks: 'read', statuses: 'read' } }
+  }
+  if (verb === 'checks.get') {
+    return { token: ['repo'], permissions: { checks: 'read' } }
+  }
+  if (verb === 'checks.rerun') {
+    return { token: ['repo'], permissions: { checks: 'write', actions: 'write' }, note: 'A check run created by GitHub Actions is re-run as its job, which needs `actions: write`' }
+  }
+  if (group === 'ci') {
+    return { token: ['repo'], permissions: { actions: 'read' } }
   }
   if (verb === 'checks.report') {
     return { token: ['repo:status'], permissions: { checks: 'write', statuses: 'write' } }

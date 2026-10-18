@@ -1402,6 +1402,24 @@ describe('github checks and CI', () => {
     await expect(rerun(404)).rejects.toMatchObject({ status: 422 })
   })
 
+  it('declares the app permissions of the endpoints each checks and CI verb calls', () => {
+    const { provider } = tokenProvider()
+    const verbs = ['threads.checks', 'checks.list', 'checks.get', 'checks.report', 'checks.rerun', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log'] as const
+
+    expect(Object.fromEntries(verbs.map(verb => [verb, provider.scopesFor(verb).permissions]))).toEqual({
+      'threads.checks': { pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'checks.list': { checks: 'read', statuses: 'read' },
+      'checks.get': { checks: 'read' },
+      'checks.report': { checks: 'write', statuses: 'write' },
+      'checks.rerun': { checks: 'write', actions: 'write' },
+      'ci.runs': { actions: 'read' },
+      'ci.getRun': { actions: 'read' },
+      'ci.jobs': { actions: 'read' },
+      'ci.getJob': { actions: 'read' },
+      'ci.log': { actions: 'read' },
+    })
+  })
+
   it('reads workflow runs, their jobs and a job log', async () => {
     const { provider } = tokenProvider()
 

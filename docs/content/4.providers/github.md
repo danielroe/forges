@@ -143,7 +143,7 @@ GitHub doesn't support replies to replies, so when you pass a reply to `replyToR
 
 ## Checks
 
-What `checks.report()` writes depends on your credential. With the credential of an app installation, it writes a check run, and with any other credential it writes a commit status. `checks.rerun()` re-requests a check run, so it can't re-run a commit status.
+What `checks.report()` writes depends on your credential. With the credential of an app installation, it writes a check run, and with any other credential it writes a commit status. `checks.rerun()` re-requests a check run, so it can't re-run a commit status. Only the app that created a check run can re-request it, so for a check run that GitHub Actions created, `checks.rerun()` re-runs its job instead, which needs the `actions: write` permission on a GitHub App.
 
 ## Security advisories
 
