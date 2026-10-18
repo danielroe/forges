@@ -12,6 +12,8 @@ const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAl
 export function tangledWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
+    // Older links point at tangled.sh, which redirects to tangled.org.
+    ...baseUrl === 'https://tangled.org' ? { hosts: ['tangled.sh'] } : {},
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
     thread: ref => SECTIONS[ref.kind] && ref.displayNumber ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.displayNumber)}` : undefined,

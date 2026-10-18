@@ -31,6 +31,10 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
       if (section === 'commits' && id) {
         return { repo, commit: { ...from, repo, sha: id } }
       }
+      const [head, base] = section === 'branches' && id === 'compare' ? segments.slice(4).join('/').split('\r') : []
+      if (head && base) {
+        return { repo, compare: { base, head } }
+      }
       const kind = section ? KINDS.get(section) : undefined
       if (!kind || !id) {
         return { repo }
