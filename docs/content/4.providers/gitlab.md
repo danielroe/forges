@@ -97,7 +97,7 @@ GitLab reports the number of changed files on a single merge request, but not th
 
 ## Retrying pipelines
 
-`ci.rerunFailed()` retries the pipeline, so GitLab re-runs its canceled jobs as well as its failed ones.
+`ci.rerunFailed()` retries the pipeline, so GitLab re-runs its canceled jobs as well as its failed ones. The jobs that `threads.checks()` returns have the pipeline in `run`, unless the pipeline ran in a fork.
 
 ## Releases
 

@@ -16,7 +16,18 @@
       "name": "review: review-docs-cleanup",
       "state": "neutral",
       "stateRaw": "manual",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566857"
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566857",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -34,7 +45,18 @@
       "name": "review: review-docs-deploy",
       "state": "neutral",
       "stateRaw": "manual",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566856"
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566856",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -54,7 +76,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566855",
       "startedAt": "2026-10-01T23:42:13.546Z",
-      "completedAt": "2026-10-01T23:44:54.131Z"
+      "completedAt": "2026-10-01T23:44:54.131Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -74,7 +107,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566854",
       "startedAt": "2026-10-01T23:42:13.450Z",
-      "completedAt": "2026-10-01T23:44:45.480Z"
+      "completedAt": "2026-10-01T23:44:45.480Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -94,7 +138,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566853",
       "startedAt": "2026-10-01T23:42:13.443Z",
-      "completedAt": "2026-10-01T23:44:36.557Z"
+      "completedAt": "2026-10-01T23:44:36.557Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -114,7 +169,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566852",
       "startedAt": "2026-10-01T23:44:47.550Z",
-      "completedAt": "2026-10-01T23:45:16.753Z"
+      "completedAt": "2026-10-01T23:45:16.753Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -134,7 +200,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566851",
       "startedAt": "2026-10-01T23:44:47.206Z",
-      "completedAt": "2026-10-01T23:45:22.753Z"
+      "completedAt": "2026-10-01T23:45:22.753Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -154,7 +231,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566850",
       "startedAt": "2026-10-01T23:45:24.498Z",
-      "completedAt": "2026-10-01T23:49:43.458Z"
+      "completedAt": "2026-10-01T23:49:43.458Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -174,7 +262,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566849",
       "startedAt": "2026-10-01T23:42:13.228Z",
-      "completedAt": "2026-10-01T23:42:34.505Z"
+      "completedAt": "2026-10-01T23:42:34.505Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -194,7 +293,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566848",
       "startedAt": "2026-10-01T23:42:13.144Z",
-      "completedAt": "2026-10-01T23:42:27.424Z"
+      "completedAt": "2026-10-01T23:42:27.424Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -214,7 +324,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566847",
       "startedAt": "2026-10-01T23:42:13.062Z",
-      "completedAt": "2026-10-01T23:45:16.922Z"
+      "completedAt": "2026-10-01T23:45:16.922Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -234,7 +355,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566846",
       "startedAt": "2026-10-01T23:42:13.068Z",
-      "completedAt": "2026-10-01T23:42:24.061Z"
+      "completedAt": "2026-10-01T23:42:24.061Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -254,7 +386,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566845",
       "startedAt": "2026-10-01T23:42:13.030Z",
-      "completedAt": "2026-10-01T23:42:22.305Z"
+      "completedAt": "2026-10-01T23:42:22.305Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -274,7 +417,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566844",
       "startedAt": "2026-10-01T23:42:12.998Z",
-      "completedAt": "2026-10-01T23:42:22.577Z"
+      "completedAt": "2026-10-01T23:42:22.577Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -294,7 +448,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566843",
       "startedAt": "2026-10-01T23:42:12.941Z",
-      "completedAt": "2026-10-01T23:42:34.218Z"
+      "completedAt": "2026-10-01T23:42:34.218Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -314,7 +479,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566842",
       "startedAt": "2026-10-01T23:42:12.910Z",
-      "completedAt": "2026-10-01T23:42:32.249Z"
+      "completedAt": "2026-10-01T23:42:32.249Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -332,7 +508,18 @@
       "name": "application-security-testing: govulncheck",
       "state": "neutral",
       "stateRaw": "manual",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566841"
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566841",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -352,7 +539,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566840",
       "startedAt": "2026-10-01T23:42:12.816Z",
-      "completedAt": "2026-10-01T23:42:26.526Z"
+      "completedAt": "2026-10-01T23:42:26.526Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     },
     {
       "ref": {
@@ -372,7 +570,18 @@
       "stateRaw": "success",
       "url": "https://gitlab.com/gitlab-org/cli/-/jobs/16883566839",
       "startedAt": "2026-10-01T23:42:12.790Z",
-      "completedAt": "2026-10-01T23:43:55.348Z"
+      "completedAt": "2026-10-01T23:43:55.348Z",
+      "run": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2904802294"
+      }
     }
   ]
 }

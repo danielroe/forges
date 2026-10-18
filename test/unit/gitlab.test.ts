@@ -506,7 +506,16 @@ describe('gitlab merge methods', () => {
     const checks = await instance.threads.checks!(mr)
 
     expect(checks.items).toHaveLength(jobs.length)
+    expect(checks.items.some(check => check.run)).toBe(false)
     expect(calls.at(-1)!.url).toBe('https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100')
+  })
+
+  it('names the pipeline of each job on a merge request', async () => {
+    const { instance } = provider()
+
+    const checks = await instance.threads.checks!(mr)
+
+    expect(checks.items.map(check => check.run)).toEqual(checks.items.map(() => ({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '610001' })))
   })
 
   it('re-runs the failed jobs of a pipeline by retrying it', async () => {

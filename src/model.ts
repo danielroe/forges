@@ -720,6 +720,8 @@ export interface Check {
   url?: string
   startedAt?: Date
   completedAt?: Date
+  /** The CI run the check is a job of, where the forge's own CI created it. */
+  run?: CiRunRef
   raw: unknown
 }
 

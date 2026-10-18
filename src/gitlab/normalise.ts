@@ -490,7 +490,7 @@ export function toPipelineSummary(pipeline: GitLabPipeline): ChecksSummary {
   return { state: state === 'neutral' ? 'pending' : state, stateRaw: pipeline.status, ...pipeline.web_url ? { url: pipeline.web_url } : {} }
 }
 
-export function toJobCheck(repo: RepoRef, job: GitLabJob): Check {
+export function toJobCheck(repo: RepoRef, job: GitLabJob, run?: CiRunRef): Check {
   const state = pipelineState(job.status)
   return {
     ref: { forge: FORGE, instance: repo.instance, repo, id: String(job.id), type: 'job' },
@@ -500,6 +500,7 @@ export function toJobCheck(repo: RepoRef, job: GitLabJob): Check {
     url: job.web_url,
     startedAt: toDate(job.started_at),
     completedAt: toDate(job.finished_at),
+    ...run ? { run } : {},
     raw: job,
   }
 }

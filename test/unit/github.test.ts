@@ -1341,6 +1341,25 @@ describe('github checks and CI', () => {
     expect(page.total).toBe(8)
   })
 
+  it('names the workflow run of a check run that GitHub Actions created', async () => {
+    const { fetch } = fixtureFetch('github/recorded/github.com-app/steps/check')
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const h3 = { forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' } as const
+
+    const { items } = await provider.checks.list(h3, '04ba6e021cde76fa6fc0084866f231c575647beb')
+
+    expect(items.filter(check => check.ref.type === 'check_run').map(check => [check.name, check.run?.id])).toEqual([
+      ['codecov/patch', undefined],
+      ['Continuous Releases', undefined],
+      ['publish-pkg-pr-new', '38897280463'],
+      ['Socket Security: Pull Request Alerts', undefined],
+      ['Socket Security: Project Report', undefined],
+      ['autofix', '38897280561'],
+      ['tests', '38897280463'],
+    ])
+    expect(items.find(check => check.run)!.run).toEqual({ forge: 'github', instance: 'github.com', repo: h3, id: '38897280463' })
+  })
+
   it('counts every page of commit statuses', async () => {
     const statusUrl = (page: number) => `https://api.github.com/repos/acme/widgets/commits/${sha}/status?per_page=100${page > 1 ? `&page=${page}` : ''}`
     const provider = github({

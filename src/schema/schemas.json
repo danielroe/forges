@@ -232,6 +232,10 @@
         "type": "string",
         "format": "date-time"
       },
+      "run": {
+        "$ref": "#/components/schemas/CiRunRef",
+        "description": "The CI run the check is a job of, where the forge's own CI created it."
+      },
       "raw": {}
     },
     "required": [

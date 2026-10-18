@@ -638,7 +638,10 @@ export function statusState(state: string): CheckState {
   return state === 'success' ? 'success' : state === 'pending' ? 'pending' : state === 'failure' || state === 'error' ? 'failure' : 'unknown'
 }
 
+const ACTIONS_JOB_URL = /\/actions\/runs\/(\d+)\/job\/\d+$/
+
 export function toCheckRun(repo: RepoRef, raw: GitHubCheckRun): Check {
+  const runId = raw.html_url?.match(ACTIONS_JOB_URL)?.[1]
   return {
     ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), type: 'check_run' },
     name: raw.name,
@@ -648,6 +651,7 @@ export function toCheckRun(repo: RepoRef, raw: GitHubCheckRun): Check {
     url: raw.html_url ?? raw.details_url ?? undefined,
     startedAt: toDate(raw.started_at),
     completedAt: toDate(raw.completed_at),
+    ...runId ? { run: { forge: FORGE, instance: repo.instance, repo, id: runId } } : {},
     raw,
   }
 }
