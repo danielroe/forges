@@ -79,7 +79,7 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
   return loaded
 }
 
-/** A provider that sends the credential the person typed. Built fresh for each credential, never cached. */
+/** A provider that sends the credential the person typed. */
 export async function explorerCredentialProvider(id: string, input: ExplorerInput, credential: ExplorerCredential, values: Record<string, string>): Promise<ForgeProvider> {
   const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
   const options = forge.options?.(input) ?? {}

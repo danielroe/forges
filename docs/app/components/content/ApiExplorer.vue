@@ -68,42 +68,13 @@ const runnableCredentials = computed(() => forge.value.credentials.filter(creden
 /** The credential the form holds: the kind the person chose, and the value of each field. */
 const credentialState = computed(() => credentials.value[forgeId.value]!)
 const selectedCredential = computed(() => runnableCredentials.value.find(credential => credential.kind === credentialState.value.kind) ?? runnableCredentials.value[0])
-const hasCredential = computed(() => Boolean(selectedCredential.value) && isCredentialComplete(selectedCredential.value!, credentialState.value.values))
+const hasCredential = computed(() => selectedCredential.value ? isCredentialComplete(selectedCredential.value, credentialState.value.values) : false)
 
 // Every explorer shares one credential, so the first to mount creates the state the form binds to.
 // `credentials` is watched too, because "Remember in this tab" replaces the whole record.
 watch([forgeId, credentials], () => {
   credentials.value[forgeId.value] ??= { kind: runnableCredentials.value[0]?.kind ?? '', values: {} }
 }, { immediate: true })
-
-const authenticatedProvider = shallowRef<ForgeProvider>()
-const credentialError = ref('')
-/** Counts builds, so a build that a newer change or a cleared credential superseded drops its provider. */
-let builds = 0
-
-// The provider that sends the typed credential. Rebuilt on any credential-field change, since the provider
-// captures the secret when it is created, and on the form fields a forge option depends on (Azure DevOps' organization).
-watch([credentialState, forgeId, () => input.owner, () => input.name], async () => {
-  const build = ++builds
-  if (!hasCredential.value || !selectedCredential.value) {
-    authenticatedProvider.value = undefined
-    credentialError.value = ''
-    return
-  }
-  try {
-    const provider = await explorerCredentialProvider(forgeId.value, { ...input }, selectedCredential.value, { ...credentialState.value.values })
-    if (build === builds) {
-      authenticatedProvider.value = provider
-      credentialError.value = ''
-    }
-  }
-  catch (caught) {
-    if (build === builds) {
-      authenticatedProvider.value = undefined
-      credentialError.value = `The credential couldn't be used: ${caught instanceof Error ? caught.message : String(caught)}`
-    }
-  }
-}, { deep: true, immediate: true })
 
 const SECRET_FIELDS = new Set(['TOKEN', 'PASSWORD', 'PRIVATE_KEY'])
 
@@ -170,10 +141,10 @@ watch([open, forgeId], async ([isOpen, id]) => {
 
 const kind = computed(() => operation.kind?.(input))
 const anonymousProvider = computed(() => loaded.value?.anonymous)
-/** The provider the call runs through: the one that sends the credential, when there is one, else anonymous. */
-const activeProvider = computed(() => authenticatedProvider.value ?? anonymousProvider.value)
+const anonymousSupport = computed(() => loaded.value?.anonymous.support(operation.verb, kind.value))
 const signedInSupport = computed(() => loaded.value?.signedIn.support(operation.verb, kind.value))
-const activeSupport = computed(() => activeProvider.value?.support(operation.verb, kind.value))
+/** Support for the credential the form holds, or for an anonymous call when it holds none. */
+const activeSupport = computed(() => hasCredential.value ? signedInSupport.value : anonymousSupport.value)
 const unsupported = computed(() => loaded.value ? !loaded.value.signedIn.can(operation.verb, kind.value) : false)
 const unsupportedText = computed(() => signedInSupport.value === 'not_applicable' ? `${forge.value.name} has no` : `${forge.value.name} doesn't support`)
 /** The call needs credentials on this forge, so the code passes `auth`. */
@@ -286,8 +257,7 @@ function cancelRun() {
 }
 
 async function run() {
-  const provider = activeProvider.value
-  if (!provider || !operation.run || running.value || !canRun.value || missing.value.length) {
+  if (!operation.run || running.value || !canRun.value || missing.value.length) {
     return
   }
   cancelRun()
@@ -295,6 +265,13 @@ async function run() {
   running.value = true
   const started = performance.now()
   try {
+    // The provider captures the credential when it is created, so it is built fresh for each call.
+    const provider = hasCredential.value && selectedCredential.value
+      ? await explorerCredentialProvider(forgeId.value, { ...input }, selectedCredential.value, { ...credentialState.value.values })
+      : anonymousProvider.value
+    if (!provider) {
+      throw new Error('The provider is still loading')
+    }
     const value = await operation.run(provider, { ...input }, explorerRefs(provider, input))
     if (current === runs) {
       result.value = { value, ms: Math.round(performance.now() - started) }
@@ -920,8 +897,8 @@ if (props.permalink) {
               icon="i-lucide-play"
               :label="operation.mutates ? 'Write' : 'Run'"
               :color="operation.mutates ? 'error' : 'neutral'"
-              :loading="running || (!activeProvider && !providerError)"
-              :disabled="!activeProvider || (operation.mutates && !confirmed)"
+              :loading="running || (!anonymousProvider && !providerError)"
+              :disabled="!anonymousProvider || (operation.mutates && !confirmed)"
               :aria-disabled="missing.length > 0 || undefined"
               :aria-describedby="missing.length ? `${id}-missing` : undefined"
               @click="run"
@@ -957,14 +934,6 @@ if (props.permalink) {
           role="alert"
         >
           {{ providerError }}
-        </div>
-
-        <div
-          v-if="credentialError"
-          class="rounded-lg border border-error/40 bg-error/5 p-4 text-sm"
-          role="alert"
-        >
-          {{ credentialError }}
         </div>
 
         <div
