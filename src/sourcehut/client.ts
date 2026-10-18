@@ -1,21 +1,8 @@
 import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher } from '../fetch.ts'
 import type { BaseOptions } from '../model.ts'
+import type { Service } from './services.ts'
 import { ForgeApiError, InsufficientScopeError } from '../errors.ts'
-
-/** The Sourcehut services this provider talks to. */
-export const SERVICES = ['meta', 'git', 'todo', 'lists', 'builds'] as const
-export type Service = typeof SERVICES[number]
-
-/** The host of one service on an instance, such as `git.sr.ht` for `sr.ht`. */
-export function serviceHost(instance: string, service: Service): string {
-  return `${service}.${instance}`
-}
-
-/** The `https://` root of one service on an instance. */
-export function serviceUrl(instance: string, service: Service): string {
-  return `https://${serviceHost(instance, service)}`
-}
 
 /** The operation name of a GraphQL document, read from its first definition. */
 export function operationNameOf(document: string): string | undefined {

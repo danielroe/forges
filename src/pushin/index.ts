@@ -7,8 +7,8 @@ import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { eventTime } from '../events.ts'
 import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
-import { githubShapedWeb } from '../web.ts'
 import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRepo, toThread } from './normalise.ts'
+import { PUSHIN_WEB } from './web.ts'
 
 /** A personal access token created in Settings (`pun_pat_…`), sent as `Authorization: Bearer`. */
 export type PushinAuth = TokenAuth | AnonymousAuth
@@ -160,15 +160,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         query: { all: listOptions.all, since: listOptions.since?.toISOString() },
       })),
     },
-    web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), {
-      pull: 'pulls',
-      commit: 'commits',
-      raw: false,
-      sections: { forks: null, watchers: null },
-      commentFragment: 'comment-',
-      file: at => `/blob/${encodeURIComponent(at)}`,
-      lineFragment: line => `L${line}`,
-    }),
+    web: PUSHIN_WEB.links({ baseUrl, instance }),
     webhooks: {},
     scopes: pushinScopesFor,
   }

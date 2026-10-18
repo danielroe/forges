@@ -81,7 +81,7 @@ import type {
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { ReferenceSyntax, WebLinks } from '../web.ts'
+import type { WebLinks } from '../web.ts'
 import type { AppCredentials, GitHubAuth } from './auth.ts'
 import type {
   ClosingReferencesResult,
@@ -142,7 +142,6 @@ import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeo
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, degradesToWarning, forgeIterable, getManyConcurrently, hostOf, isFirstPage, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
-import { githubShapedWeb, OWNER_NAME } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { createAppCredentials, createAuthHeaders, tokenKindOf } from './auth.ts'
 import { createGraphQLClient, graphqlError, graphqlOperations, graphqlUrl } from './graphql-client.ts'
@@ -187,6 +186,7 @@ import {
   toWorkflowJob,
   toWorkflowRun,
 } from './normalise.ts'
+import { GITHUB_WEB, isGheCom, webHost } from './web.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 import { githubWebhooks } from './webhooks.ts'
 
@@ -252,8 +252,6 @@ const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
 const CONTRIBUTOR_STATS_DELAYS = [500, 1000, 2000, 4000, 8000]
 
-const GITHUB_RESERVED_PATHS = ['about', 'account', 'apps', 'codespaces', 'collections', 'contact', 'customer-stories', 'dashboard', 'enterprise', 'enterprises', 'events', 'explore', 'features', 'gist', 'issues', 'join', 'login', 'logout', 'marketplace', 'new', 'notifications', 'organizations', 'orgs', 'pricing', 'pulls', 'search', 'security', 'settings', 'signup', 'site', 'sponsors', 'stars', 'topics', 'trending', 'users', 'watching']
-
 const ISSUE_LIKE = { issue: true, pull_request: true, discussion: true } as const
 
 function repoPath(repo: RepoRef): string {
@@ -307,17 +305,6 @@ function threadPath(ref: ResolvedThreadRef): string {
     default:
       return `${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}`
   }
-}
-
-function isGheCom(host: string): boolean {
-  return /^api\.[^.]+\.ghe\.com$/.test(host)
-}
-
-const GITHUB_REFERENCES: ReferenceSyntax = { threads: [{ prefix: '#', kind: 'issue' }, { prefix: 'GH-', kind: 'issue', sameRepo: true }], repo: OWNER_NAME, commits: true }
-
-/** The web host for an API host: `api.github.com` and `api.<name>.ghe.com` drop the `api.` prefix. */
-function webHost(host: string): string {
-  return host === 'api.github.com' || isGheCom(host) ? host.slice(4) : host
 }
 
 function installationId(installation: Installation | string): string {
@@ -1921,7 +1908,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'], limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
     probeVersion: enterprise ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version : undefined,
     installations: credentials ? verb(true, createInstallationsApi(credentials)) : undefined,
-    web: githubShapedWeb(enterprise ? baseUrl.replace(/\/api\/v3$/, '') : `https://${webHost(host)}`, { pull: 'pull', discussions: true, ...host === 'api.github.com' ? { rawOrigin: 'https://raw.githubusercontent.com' } : {}, commentFragment: 'issuecomment-', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, reserved: GITHUB_RESERVED_PATHS, references: GITHUB_REFERENCES }),
+    web: GITHUB_WEB.links({ baseUrl, instance }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitHubHook) => toWebhook(target, raw), { mapError: scopeIs404 })),
       create: verb(true, async (target, input, options) => toWebhook(target, (await fetcher.json<GitHubHook>(hooksPath(target), {

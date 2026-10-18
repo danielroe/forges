@@ -8,7 +8,7 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeApiError, ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { actorLogin, getManyConcurrently, isFirstPage, memo, mergeCommitMessage, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
-import { azureWeb } from './web.ts'
+import { AZURE_DEVOPS_WEB } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
 
 /** The REST API version sent with every request; preview endpoints set their own. */
@@ -773,7 +773,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         unresolveReviewThread: (thread, id, options) => setThreadStatus(thread, id, 'active', options),
       }),
     },
-    web: azureWeb(baseUrl),
+    web: AZURE_DEVOPS_WEB.links({ baseUrl, instance }),
     webhooks: {
     },
     scopes: (verb) => {

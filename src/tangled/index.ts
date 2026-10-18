@@ -51,7 +51,7 @@ import { createTangledNotifications } from './notifications.ts'
 import { applyLabelOp, createTangledRecords, labelsIn, STATE_COLLECTION } from './records.ts'
 import { createTangledSession } from './session.ts'
 import { subscribeJetstream } from './subscribe.ts'
-import { tangledWeb } from './web.ts'
+import { TANGLED_WEB } from './web.ts'
 import { tangledWebhooks } from './webhooks.ts'
 
 export type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
@@ -694,7 +694,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           context,
         })),
       },
-      web: tangledWeb(webUrl),
+      web: TANGLED_WEB.links({ baseUrl: webUrl, instance }),
       scopes: () => ({ note: 'An atproto app password or OAuth session; Tangled has no per-verb scopes' }),
       webhooks: {},
     }

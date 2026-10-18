@@ -30,7 +30,7 @@ import type {
 import type { ShAcl, ShArtifact, ShCommit, ShEmail, ShEntity, ShEvent, ShEventDetail, ShFileMatch, ShJob, ShPatchset, ShPatchsetStatus, ShReference, ShRepository, ShTask, ShTicket, ShTicketResolution, ShTreeEntry, ShUser, ShVisibility } from './types.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
-import { serviceUrl } from './client.ts'
+import { serviceUrl } from './services.ts'
 
 export const FORGE = 'sourcehut' as const
 

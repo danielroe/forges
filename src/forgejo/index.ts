@@ -59,7 +59,7 @@ import type {
   VerbScopes,
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { WebLinks } from '../web.ts'
+import type { WebDefinition, WebLinks } from '../web.ts'
 import type {
   ForgejoActionRun,
   ForgejoActionRunJob,
@@ -97,10 +97,10 @@ import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, mapConcurrent, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
-import { githubShapedWeb } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
+import { FORGEJO_WEB } from './web.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
 import { forgejoWebhooks } from './webhooks.ts'
 
@@ -127,13 +127,13 @@ export interface ForgejoOptions extends ForgeOptionsBase {
 /** What distinguishes a deployment family sharing the Forgejo implementation. */
 export interface ForgejoProfile {
   forge: 'forgejo' | 'gitea'
-  defaultBaseUrl: string
+  web: WebDefinition<'forgejo' | 'gitea'>
   headers: WebhookHeaderNames
 }
 
 export const FORGEJO_PROFILE: ForgejoProfile = {
   forge: 'forgejo',
-  defaultBaseUrl: 'https://codeberg.org',
+  web: FORGEJO_WEB,
   headers: FORGEJO_HEADERS,
 }
 
@@ -170,16 +170,14 @@ function sameLogin(user: ForgejoUser | null | undefined, login: string | undefin
   return !login || user?.login.toLowerCase() === login.toLowerCase()
 }
 
-const FORGEJO_RESERVED_PATHS = ['-', '.well-known', 'admin', 'api', 'assets', 'attachments', 'avatars', 'captcha', 'explore', 'issues', 'login', 'milestones', 'notifications', 'org', 'pulls', 'repo', 'repo-avatars', 'search', 'user']
-
 /** The Forgejo implementation for one deployment family. Shared by `forgejo()` and `gitea()`. */
 export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<ForgejoOptions, undefined, true> {
   return {
     forge: profile.forge,
     hasWeb: true,
-    baseUrl: profile.defaultBaseUrl,
+    baseUrl: profile.web.baseUrl,
     anonymous: true,
-    apiPath: '/api/v1',
+    apiPath: profile.web.apiPath,
     headers: { accept: 'application/json' },
     authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `token ${await resolveToken(auth)}` }) : undefined,
     webhooks: forgejoWebhooks(profile),
@@ -599,7 +597,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** Codeberg and gitea.com run a current release, so only a self-hosted instance waits for its version. */
   function released(minimum: string): SupportInput {
-    return hostOf(baseUrl) === hostOf(profile.defaultBaseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
+    return hostOf(baseUrl) === hostOf(profile.web.baseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
   }
 
   function actions(forgejoMinimum: string, giteaMinimum: string): SupportInput {
@@ -1132,26 +1130,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         },
       }),
     },
-    web: githubShapedWeb(baseUrl.replace(/\/api\/v1$/, ''), {
-      pull: 'pulls',
-      // Forgejo and Gitea list stargazers at `/stars`, not `/stargazers`.
-      sections: { stargazers: 'stars' },
-      commentFragment: 'issuecomment-',
-      file: at => /^[0-9a-f]{40}$/.test(at) ? `/src/commit/${at}` : `/src/${encodeURIComponent(at)}`,
-      parseFile: ([route, qualifier, ref, ...rest]) => {
-        if (route !== 'src' || !qualifier || !ref) {
-          return undefined
-        }
-        // Gitea and Forgejo write `/src/branch/{ref}`, `/src/tag/{ref}` or
-        // `/src/commit/{sha}`, and accept the shorter `/src/{ref}` too.
-        if (qualifier === 'branch' || qualifier === 'tag' || qualifier === 'commit') {
-          return rest.length ? { at: ref, path: rest.join('/') } : undefined
-        }
-        return { at: qualifier, path: [ref, ...rest].join('/') }
-      },
-      lineFragment: line => `L${line}`,
-      reserved: FORGEJO_RESERVED_PATHS,
-    }),
+    web: profile.web.links({ baseUrl, instance: origin.instance }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: ForgejoHook) => toWebhook(target, raw))),
       create: verb(true, async (target, input, options) => toWebhook(target, (await fetcher.json<ForgejoHook>(hooksPath(target), {

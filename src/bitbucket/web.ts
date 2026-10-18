@@ -1,5 +1,5 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
-import type { RepoSection, WebLinks } from '../web.ts'
+import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests' }
@@ -8,7 +8,7 @@ const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequ
 
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
-export function bitbucketWeb(baseUrl: string): WebLinks {
+function bitbucketWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
     repo: repoPath,
@@ -54,4 +54,15 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
     },
     references: { threads: [{ prefix: '#', kind: 'issue' }, { prefix: 'pull request #', kind: 'pull_request' }], commits: true },
   }
+}
+
+export function bitbucketInstance(host: string): string {
+  return host === 'api.bitbucket.org' ? 'bitbucket.org' : host
+}
+
+export const BITBUCKET_WEB: WebDefinition<'bitbucket'> = {
+  forge: 'bitbucket',
+  baseUrl: 'https://api.bitbucket.org/2.0',
+  instance: bitbucketInstance,
+  links: ({ baseUrl }) => bitbucketWeb(new URL(baseUrl).host === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')),
 }

@@ -20,7 +20,7 @@ import { parseArgs } from 'node:util'
 import { gzipSync } from 'node:zlib'
 import { rolldown } from 'rolldown'
 
-/** `absent` is a string only the lazily loaded webhook translation holds; `budget` is the most the entry chunk may weigh, minified. */
+/** `absent` is a string the entry chunk must not hold, such as one only the lazily loaded webhook translation holds; `budget` is the most the entry chunk may weigh, minified. */
 const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: string, budget?: number }> = [
   { name: 'forges', source: 'index.mjs', imports: 'createForges', budget: 5_000 },
   { name: 'forges/github', source: 'github/index.mjs', imports: 'github', absent: 'x-github-event' },
@@ -28,6 +28,7 @@ const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: s
   { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', absent: 'x-tangled-event' },
   { name: 'forges/gitea', source: 'gitea/index.mjs', imports: 'gitea', absent: 'pull_request_review_comment_created' },
   { name: 'forges/bitbucket', source: 'bitbucket/index.mjs', imports: 'bitbucket', absent: 'x-event-key' },
+  { name: 'forges/web', source: 'web/index.mjs', imports: 'github', absent: 'x-github-api-version', budget: 10_000 },
 ]
 
 interface Size {
@@ -46,6 +47,13 @@ const DOCUMENTED: Array<{ file: string, bundle: string, pattern: RegExp, read: (
     read: (match: RegExpMatchArray) => ({ minified: Number(match[1]) * 1000, gzipped: Number(match[2]) * 1000 }),
     render: (size: Size) => `| ${label} | ${kB(size.minified)} kB, ${kB(size.gzipped)} kB gzip |`,
   })),
+  {
+    file: 'docs/content/2.guides/8.bundling.md',
+    bundle: 'forges/web',
+    pattern: /The GitHub links are about ([\d.]+) kB gzipped/,
+    read: match => ({ gzipped: Number(match[1]) * 1000 }),
+    render: size => `The GitHub links are about ${kB(size.gzipped)} kB gzipped`,
+  },
   {
     file: 'docs/app/components/content/LandingPage.vue',
     bundle: 'forges/github',

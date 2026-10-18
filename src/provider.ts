@@ -109,6 +109,7 @@ import type { ForgeVerb } from './supports.ts'
 import type { ParsedForgeUrl, ParsedReference, ParseReferencesOptions, ReferenceOptions, UrlTarget } from './web.ts'
 import { UnknownForgeError } from './errors.ts'
 import { forgeIterable, toWarning } from './utils.ts'
+import { routeForges } from './web.ts'
 
 /** No credentials: public reads only. Every write, notifications and subscriptions are unsupported. */
 export interface AnonymousAuth {
@@ -1529,31 +1530,12 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
  * ```
  */
 export function createForges<const T extends readonly ForgeProvider[]>(providers: T): Forges<RegisteredKinds<T>> {
-  const seen = new Set<string>()
-  for (const provider of providers) {
-    const key = `${provider.forge}:${provider.instance}`
-    if (seen.has(key)) {
-      throw new TypeError(`Two providers are registered for ${provider.forge} on ${provider.instance}; pass \`instance\` to tell them apart`)
-    }
-    seen.add(key)
-  }
-  const find = (ref: ForgeOrigin) => providers.find(provider => provider.forge === ref.forge && provider.instance === ref.instance)
-  const parseUrl = (url: string | URL) => {
-    for (const provider of providers) {
-      const parsed = provider.parseUrl(url)
-      if (parsed) {
-        return { ...parsed, provider }
-      }
-    }
-    return undefined
-  }
+  const routes = routeForges<ForgeProvider>(providers)
+  const find = routes.for
 
   return {
-    providers: [...providers],
-    for: find,
-    forUrl: url => parseUrl(url)?.provider,
-    parseUrl,
-    parseReferences: (text, options) => find(options.from)?.parseReferences(text, options) ?? [],
+    ...routes,
+    get: routes.get as Forges<RegisteredKinds<T>>['get'],
     threads: {
       async getMany(refs, options) {
         const groups = new Map<ForgeProvider, number[]>()
@@ -1580,10 +1562,6 @@ export function createForges<const T extends readonly ForgeProvider[]>(providers
       threads: (query = {}) => mergeByTime(providers, 'search.threads', query, (provider, page) => provider.search.threads(page).page()),
       repos: (query = {}) => mergeByTime(providers, 'search.repos', query, (provider, page) => provider.search.repos(page).page()),
     },
-    get: ((forge: ForgeKind, instance?: ForgeInstance) => providers.find(
-      provider => provider.forge === forge && (!instance || provider.instance === instance),
-    )) as Forges<RegisteredKinds<T>>['get'],
-    all: forge => providers.filter(provider => provider.forge === forge),
     notifications: {
       list(options) {
         const warnings: ForgeWarning[] = []

@@ -1,5 +1,5 @@
 import type { RepoRef, ThreadRef } from '../model.ts'
-import type { RepoSection, WebLinks } from '../web.ts'
+import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
@@ -10,7 +10,13 @@ const version = (at: string) => `${isSha(at) ? 'GC' : 'GB'}${encodeURIComponent(
 /** A revision in a query, such as the `version` of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
 const FILE_VERSION_RE = /^G[BCT](.+)$/
 
-export function azureWeb(baseUrl: string): WebLinks {
+export const AZURE_DEVOPS_WEB: WebDefinition<'azure-devops'> = {
+  forge: 'azure-devops',
+  baseUrl: 'https://dev.azure.com',
+  links: ({ baseUrl }) => azureWeb(baseUrl),
+}
+
+function azureWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
     repo: repo => repo.kind === 'namespace' ? `/${encode(repo.owner)}` : gitPath(repo),

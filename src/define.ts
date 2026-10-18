@@ -37,8 +37,8 @@ import { completeEvent } from './events.ts'
 import { createFetcher, createRequest } from './fetch.ts'
 import { isUnsupported } from './model.ts'
 import { can, support } from './supports.ts'
-import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
-import { parseReferences, parseWebUrl, referenceFor, webUrlFor } from './web.ts'
+import { forgeIterable, isFirstPage, iteratePages, memo } from './utils.ts'
+import { parseReferences, parseWebUrl, referenceFor, resolveInstance, webUrlFor } from './web.ts'
 
 /** What support can depend on once the provider exists. */
 export interface CapabilityEnv {
@@ -463,15 +463,6 @@ function readPath(source: unknown, path: string): any {
   return path.split('.').reduce<any>((value, key) => value?.[key], source)
 }
 
-function instanceHost(baseUrl: string, kind: ForgeKind): string {
-  try {
-    return hostOf(baseUrl)
-  }
-  catch (cause) {
-    throw new TypeError(`Invalid baseUrl for ${kind}: ${JSON.stringify(baseUrl)}`, { cause })
-  }
-}
-
 /** Most reads spent looking for a first item when a provider's filtering empties a page. */
 const MAX_EMPTY_READS = 10
 
@@ -516,10 +507,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const givenAuth = (givenOptions as { auth?: { type: string } }).auth
   const anonymous = Boolean(definition.anonymous) && (!givenAuth || givenAuth.type === 'anonymous')
   const options = anonymous && !givenAuth ? { ...givenOptions, auth: { type: 'anonymous' } } as TOptions : givenOptions
-  const root = (options.baseUrl ?? definition.baseUrl).replace(/\/$/, '')
-  const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath) ? `${root}${definition.apiPath}` : root
-  const host = instanceHost(baseUrl, definition.forge)
-  const instance = options.instance ?? definition.instance?.(host) ?? host
+  const { baseUrl, instance } = resolveInstance(definition, options)
   const origin = { forge: definition.forge, instance }
   // Browsers send their own user agent, and setting one can trigger a CORS preflight that some forges reject.
   const browser = 'document' in globalThis || 'WorkerGlobalScope' in globalThis

@@ -1,4 +1,4 @@
-import type { CommentRef, CommitRef, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
+import type { CommentRef, CommitRef, ForgeInstance, ForgeKind, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
 import { isResolvedThread, normaliseRepoName } from './model.ts'
 
 /** A repository's section, for linking to the section itself rather than one entry in it. */
@@ -408,5 +408,132 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       repo: OWNER_NAME,
       commits: true,
     },
+  }
+}
+
+/** Where a forge's instance is, as a provider's options give it. */
+export interface WebOptions {
+  /** API base URL. Defaults to the forge's public instance. */
+  baseUrl?: string
+  /** Host used in refs and keys. Defaults to the host of `baseUrl`, with API subdomains mapped to the public host. */
+  instance?: string
+}
+
+/** A forge's website without its API: its public instance, and its web links on an instance. */
+export interface WebDefinition<Forge extends ForgeKind = ForgeKind> {
+  forge: Forge
+  /** The API base URL of the public instance. */
+  baseUrl: string
+  /** The path that a `baseUrl` given without it gets, such as `/api/v4`. */
+  apiPath?: string
+  /** The instance for the host of the API base URL; the host itself by default. */
+  instance?: (host: string) => string
+  /** The web links of the instance whose API base URL is `baseUrl`. */
+  links: (base: { baseUrl: string, instance: ForgeInstance }) => WebLinks
+}
+
+/** The API base URL and the instance that `options` select. */
+export function resolveInstance(definition: Omit<WebDefinition, 'links'>, options: WebOptions): { baseUrl: string, instance: ForgeInstance } {
+  const root = (options.baseUrl ?? definition.baseUrl).replace(/\/$/, '')
+  const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath) ? `${root}${definition.apiPath}` : root
+  let host: string
+  try {
+    host = new URL(baseUrl).host
+  }
+  catch (cause) {
+    throw new TypeError(`Invalid baseUrl for ${definition.forge}: ${JSON.stringify(baseUrl)}`, { cause })
+  }
+  return { baseUrl, instance: options.instance ?? definition.instance?.(host) ?? host }
+}
+
+/** The web pages and references of one forge instance, without an API client. */
+export interface ForgeWeb<Forge extends ForgeKind = ForgeKind> {
+  readonly forge: Forge
+  readonly instance: ForgeInstance
+  /** The origin of the forge's website, such as `https://github.com`. */
+  readonly webOrigin: string
+  /** The web page for `target`; `undefined` when the forge has no such page. */
+  urlFor: {
+    (target: { repo: RepoRef, section?: undefined }): string
+    (target: UrlTarget): string | undefined
+  }
+  /** Reads a web URL, clone URL or npm `repository` value on this instance into refs; `undefined` for anything else. */
+  parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
+  /** How to mention `ref` in Markdown on this forge, short when written in `from`; the page URL where the forge has no reference syntax. */
+  referenceFor: (ref: ThreadRef | CommitRef, options?: ReferenceOptions) => string | undefined
+  /** The references to threads and commits in `text`, with their offsets, in order. */
+  parseReferences: (text: string, options: ParseReferencesOptions) => ParsedReference[]
+}
+
+export function defineForgeWeb<Forge extends ForgeKind>(definition: WebDefinition<Forge>): (options?: WebOptions) => ForgeWeb<Forge> {
+  return (options = {}) => {
+    const { baseUrl, instance } = resolveInstance(definition, options)
+    const origin = { forge: definition.forge, instance }
+    const web = definition.links({ baseUrl, instance })
+    return {
+      ...origin,
+      webOrigin: new URL(web.baseUrl).origin,
+      urlFor: (target: UrlTarget) => webUrlFor(web, target),
+      parseUrl: url => parseWebUrl(web, url, origin),
+      referenceFor: (ref, referenceOptions) => referenceFor(web, ref, referenceOptions),
+      parseReferences: (text, { from }) => parseReferences(web, text, from, origin),
+    } as ForgeWeb<Forge>
+  }
+}
+
+/** What `createForges()` routes between. */
+export interface RoutedForge {
+  readonly forge: ForgeKind
+  readonly instance: ForgeInstance
+  /** Reads a web URL, clone URL or npm `repository` value on this instance into refs; `undefined` for anything else. */
+  parseUrl: (url: string | URL) => ParsedForgeUrl | undefined
+  /** The references to threads and commits in `text`, with their offsets, in order. */
+  parseReferences: (text: string, options: ParseReferencesOptions) => ParsedReference[]
+}
+
+/** A registry of forges that routes each ref, URL or text to the forge it belongs to. */
+export interface WebForges<T extends RoutedForge = ForgeWeb> {
+  readonly providers: T[]
+  /** The first forge of kind `forge`, optionally on one instance. */
+  get: (forge: ForgeKind, instance?: ForgeInstance) => T | undefined
+  /** Every instance of a forge. */
+  all: (forge: ForgeKind) => T[]
+  /** The forge a ref belongs to, by `forge` and `instance`. */
+  for: (ref: ForgeOrigin) => T | undefined
+  /** The forge whose instance serves `url`. */
+  forUrl: (url: string | URL) => T | undefined
+  /** Reads a web URL, clone URL or npm `repository` value on any registered instance. */
+  parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: T }) | undefined
+  /** The references in `text`, read by the forge of `options.from`; empty when none is registered. */
+  parseReferences: (text: string, options: ParseReferencesOptions) => ParsedReference[]
+}
+
+export function routeForges<T extends RoutedForge>(providers: readonly T[]): WebForges<T> {
+  const seen = new Set<string>()
+  for (const provider of providers) {
+    const key = `${provider.forge}:${provider.instance}`
+    if (seen.has(key)) {
+      throw new TypeError(`Two providers are registered for ${provider.forge} on ${provider.instance}; pass \`instance\` to tell them apart`)
+    }
+    seen.add(key)
+  }
+  const find = (ref: ForgeOrigin) => providers.find(provider => provider.forge === ref.forge && provider.instance === ref.instance)
+  const parseUrl = (url: string | URL) => {
+    for (const provider of providers) {
+      const parsed = provider.parseUrl(url)
+      if (parsed) {
+        return { ...parsed, provider }
+      }
+    }
+    return undefined
+  }
+  return {
+    providers: [...providers],
+    get: (forge, instance) => providers.find(provider => provider.forge === forge && (!instance || provider.instance === instance)),
+    all: forge => providers.filter(provider => provider.forge === forge),
+    for: find,
+    forUrl: url => parseUrl(url)?.provider,
+    parseUrl,
+    parseReferences: (text, options) => find(options.from)?.parseReferences(text, options) ?? [],
   }
 }
