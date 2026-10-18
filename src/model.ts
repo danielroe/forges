@@ -1769,6 +1769,19 @@ export interface RepoQuery extends PageOptions {
   direction?: 'asc' | 'desc'
 }
 
+/** Filters for `repos.contributors()`. */
+export interface ContributorQuery extends PageOptions {
+  /**
+   * Includes contributors the forge has not linked to an account, as GitHub's `anon=1` does. GitHub links
+   * only the first 500 author emails of a repository to accounts, and reports the rest with a `name` and an
+   * `email` but no `actor`. GitLab and Gitee link no accounts, so all of theirs are already unlinked: `true`
+   * changes nothing there, while `false` warns, since it asks for a list neither forge can report.
+   *
+   * @default false
+   */
+  includeUnlinked?: boolean
+}
+
 /** Filters for `repos.byOwner()`. */
 export interface OwnerRepoQuery extends PageOptions {
   /** Only repositories with this visibility. */

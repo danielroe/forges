@@ -51,7 +51,7 @@ GitLab projects can live in nested groups, so `RepoRef.owner` holds the full nam
 
 ## Contributors
 
-GitLab counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`.
+GitLab counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`. GitLab links no contributor accounts, so every contributor is already unlinked: `includeUnlinked: true` changes nothing, and `includeUnlinked: false` adds a `filter_unsupported` warning to the first page, since GitLab cannot leave the unlinked ones out.
 
 ## Templates
 

@@ -78,6 +78,7 @@ export type {
   CompareOptions,
   Comparison,
   Contributor,
+  ContributorQuery,
   ContributorStats,
   ContributorWeek,
   Cursor,

@@ -1,16 +1,16 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/contributors?anon=1&per_page=3"
+    "url": "https://api.github.com/repos/h3js/h3/contributors?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=65>; rel=\"last\"",
-      "etag": "W/\"77fa12b5dd8535fdcb1ed8c89315460f223e05291a7650ee35b2e9902cc0763d\"",
+      "link": "<https://api.github.com/repositories/313641207/contributors?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/contributors?per_page=3&page=63>; rel=\"last\"",
+      "etag": "W/\"679787b0b48517ab1c57b3e9737eb7c5478b9eb4f760eb332b66499f0ede0b89\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4963",
-      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-remaining": "4983",
+      "x-ratelimit-reset": "1792375420",
       "x-ratelimit-resource": "core"
     },
     "body": [

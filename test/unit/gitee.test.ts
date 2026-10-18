@@ -105,6 +105,25 @@ describe('gitee', () => {
     expect(urls).toHaveLength(5)
   })
 
+  it('warns only when asked to leave unlinked contributors out, which Gitee cannot do', async () => {
+    const urls: string[] = []
+    const forge = gitee({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([{ name: 'Ada', email: 'ada@example.com', contributions: 3 }])
+    } })
+
+    const implied = await forge.repos.contributors(repo).page()
+    const asked = await forge.repos.contributors(repo, { includeUnlinked: true }).page()
+    const declined = await forge.repos.contributors(repo, { includeUnlinked: false }).page()
+    const later = await forge.repos.contributors(repo, { includeUnlinked: false, cursor: { token: '30' } }).page()
+
+    expect(urls.map(url => new URL(url).searchParams.has('anon'))).toEqual([false, false, false, false])
+    expect(implied.warnings).toBeUndefined()
+    expect(asked.warnings).toBeUndefined()
+    expect(declined.warnings).toContainEqual({ code: 'filter_unsupported', message: 'Gitee links no contributor accounts, so it cannot leave the unlinked ones out; the option was ignored' })
+    expect(later.warnings).toBeUndefined()
+  })
+
   it('sends the token in the Authorization header, never the URL', async () => {
     const { fetch, calls } = fixtureFetch('gitee')
     await gitee({ auth: { type: 'token', token: 'gitee-token' }, fetch }).repos.get(repo)

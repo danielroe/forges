@@ -28,6 +28,7 @@ import type {
   CompareOptions,
   Comparison,
   Contributor,
+  ContributorQuery,
   ContributorStats,
   Cursor,
   DownloadAssetOptions,
@@ -1047,8 +1048,11 @@ export interface ReposApi {
   issueTypes: (repo: RepoRef, options?: BaseOptions) => Promise<IssueType[]>
   /** Lists the collaborators of a repository, with their roles. */
   collaborators: (repo: RepoRef, options?: PageOptions) => ForgeListing<Collaborator>
-  /** Lists the commit authors of a repository with their commit counts, most commits first. */
-  contributors: (repo: RepoRef, options?: PageOptions) => ForgeListing<Contributor>
+  /**
+   * Lists the commit authors of a repository with their commit counts, most commits first. Pass
+   * `includeUnlinked: true` to include the contributors the forge has not linked to an account.
+   */
+  contributors: (repo: RepoRef, options?: ContributorQuery) => ForgeListing<Contributor>
   /**
    * Weekly commit activity of each contributor to a repository. Where the forge computes the statistics in the
    * background, the provider waits for them, and throws a `ForgeApiError` with status `202` if they are still not ready.

@@ -661,23 +661,29 @@ describe('github repository and thread metadata', () => {
     expect(collaborators.map(item => [item.actor.login, item.role])).toEqual([['octocat', 'maintain'], ['hubot', 'read']])
   })
 
-  it('lists contributors with and without an account', async () => {
+  it('leaves unlinked contributors out unless they are asked for', async () => {
     const urls: string[] = []
     const provider = github({ fetch: async (url) => {
       urls.push(url)
-      return Response.json([
-        { login: 'octocat', id: 1, type: 'User', contributions: 10 },
-        { type: 'Anonymous', name: 'Ada', email: 'ada@example.com', contributions: 3 },
-      ])
+      const linked = [{ login: 'octocat', id: 1, type: 'User', contributions: 10 }]
+      const anonymous = [...linked, { type: 'Anonymous', name: 'Ada', email: 'ada@example.com', contributions: 3 }]
+      return Response.json(new URL(url).searchParams.has('anon') ? anonymous : linked)
     } })
 
-    const { items } = await provider.repos.contributors(repo).page()
+    const implied = await provider.repos.contributors(repo).page()
+    const declined = await provider.repos.contributors(repo, { includeUnlinked: false }).page()
+    const asked = await provider.repos.contributors(repo, { includeUnlinked: true }).page()
 
-    expect(new URL(urls[0]!).searchParams.get('anon')).toBe('1')
-    expect(items.map(({ actor, name, email, contributions }) => ({ login: actor?.login, name, email, contributions }))).toEqual([
+    expect(urls.map(url => new URL(url).searchParams.get('anon'))).toEqual([null, null, '1'])
+    expect(implied.items.map(item => item.actor?.login)).toEqual(['octocat'])
+    expect(declined.items).toEqual(implied.items)
+    expect(asked.items.map(({ actor, name, email, contributions }) => ({ login: actor?.login, name, email, contributions }))).toEqual([
       { login: 'octocat', name: undefined, email: undefined, contributions: 10 },
       { login: undefined, name: 'Ada', email: 'ada@example.com', contributions: 3 },
     ])
+
+    expect(await Array.fromAsync(provider.repos.contributors(repo, { includeUnlinked: true }))).toEqual(asked.items)
+    expect(new URL(urls.at(-1)!).searchParams.get('anon')).toBe('1')
   })
 
   it('reads one account\'s role on a repository', async () => {

@@ -74,6 +74,8 @@ export interface Step {
 }
 
 const page = { perPage: 3 }
+/** GitHub reports unlinked contributors only once a page is wide enough to reach them. */
+const unlinkedPage = { perPage: 30 }
 /** Feeds mix many kinds of event, so a step reads more of one to cover them. */
 const feedPage = { perPage: 10 }
 
@@ -303,6 +305,8 @@ export const STEPS: Step[] = [
   { name: 'issue types', verb: 'repos.issueTypes', run: (provider, manifest) => provider.repos.issueTypes(manifest.repo) },
   { name: 'collaborators', verb: 'repos.collaborators', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaborators(repo, page).page()) },
   { name: 'contributors', verb: 'repos.contributors', run: (provider, manifest) => provider.repos.contributors(manifest.repo, page).page() },
+  // GitHub is the only forge that distinguishes contributors with an account from those without.
+  { name: 'unlinked contributors', verb: 'repos.contributors', when: provider => provider.forge === 'github', run: (provider, manifest) => provider.repos.contributors(manifest.repo, { ...unlinkedPage, includeUnlinked: true }).page() },
   { name: 'templates', verb: 'repos.templates', run: (provider, manifest) => provider.repos.templates(manifest.repo) },
   { name: 'contributor stats', verb: 'repos.contributorStats', run: (provider, manifest) => provider.repos.contributorStats(manifest.scratch ?? manifest.repo) },
   { name: 'assignable users', verb: 'repos.assignableUsers', run: (provider, manifest) => provider.repos.assignableUsers(manifest.repo, page).page() },

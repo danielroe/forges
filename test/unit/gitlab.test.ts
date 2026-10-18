@@ -342,6 +342,25 @@ describe('gitlab provider', () => {
     expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'sort_unsupported' }))
   })
 
+  it('warns only when asked to leave unlinked contributors out, which GitLab cannot do', async () => {
+    const urls: string[] = []
+    const instance = gitlab({ fetch: async (url) => {
+      urls.push(url)
+      return Response.json([{ name: 'Ada', email: 'ada@example.com', commits: 3 }])
+    } })
+
+    const implied = await instance.repos.contributors(repo).page()
+    const asked = await instance.repos.contributors(repo, { includeUnlinked: true }).page()
+    const declined = await instance.repos.contributors(repo, { includeUnlinked: false }).page()
+    const later = await instance.repos.contributors(repo, { includeUnlinked: false, cursor: { token: '30' } }).page()
+
+    expect(urls.map(url => new URL(url).searchParams.has('anon'))).toEqual([false, false, false, false])
+    expect(implied.warnings).toBeUndefined()
+    expect(asked.warnings).toBeUndefined()
+    expect(declined.warnings).toContainEqual({ code: 'filter_unsupported', message: 'GitLab links no contributor accounts, so it cannot leave the unlinked ones out; the option was ignored' })
+    expect(later.warnings).toBeUndefined()
+  })
+
   it('reads a missing nested group as missing rather than as a user', async () => {
     const urls: string[] = []
     const instance = gitlab({ fetch: async (url) => {

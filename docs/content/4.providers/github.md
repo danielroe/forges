@@ -99,7 +99,7 @@ With `visibility: 'public'`, `repos.byOwner()` lists the repositories of a user 
 
 ## Contributors
 
-GitHub links at most the first 500 author emails in a repository to accounts. A contributor from `repos.contributors()` whose email is not linked has a `name` and an `email` but no `actor`. GitHub does not list the contributors of a repository whose history is too large.
+GitHub groups commits by account and links only the first 500 author emails in a repository to accounts; the rest come back with a `name` and an `email` but no `actor`. `repos.contributors()` leaves those unlinked contributors out, as GitHub's own listing does, so a count taken from the default listing runs low for a repository with more than 500 author emails; pass `includeUnlinked: true` to include them. GitHub does not list the contributors of a repository whose history or contributor list is too large, and its contributor data can be a few hours old.
 
 ## Contributor statistics
 

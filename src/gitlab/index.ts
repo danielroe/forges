@@ -859,7 +859,10 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
         milestonesPage: verb(!anonymous, milestonesPage),
         collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${projectPath(repo)}/members/all`, listOptions, (raw: GitLabMember) => ({ actor: toActor(instance, raw)!, role: toRole(raw.access_level), roleRaw: String(raw.access_level), raw }))),
         templates: verb(true, templates),
-        contributorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/contributors`, listOptions, (raw: GitLabContributor) => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.commits, raw }), { query: { order_by: 'commits', sort: 'desc' } })),
+        contributorsPage: verb(true, (repo, listOptions = {}) => list(`${projectPath(repo)}/repository/contributors`, listOptions, (raw: GitLabContributor) => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.commits, raw }), {
+          query: { order_by: 'commits', sort: 'desc' },
+          warnings: listOptions.includeUnlinked === false && isFirstPage(listOptions.cursor) ? [{ code: 'filter_unsupported', message: 'GitLab links no contributor accounts, so it cannot leave the unlinked ones out; the option was ignored' }] : [],
+        })),
         permissionFor: verb(!anonymous, async (repo, actor, options) => {
           try {
             const { data } = await fetcher.json<GitLabMember>(`${projectPath(repo)}/members/all/${await userId(actor)}`, { signal: options?.signal })

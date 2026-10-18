@@ -2011,7 +2011,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return data.map(raw => toIssueType(raw)!)
       }),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
-      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: { anon: 1 } })),
+      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: listOptions.includeUnlinked ? { anon: 1 } : {} })),
       contributorStats: verb(true, contributorStats),
       templates: verb(true, templates),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {

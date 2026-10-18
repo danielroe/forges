@@ -41,7 +41,7 @@ The instance is `gitee.com`. The `baseUrl` defaults to `https://gitee.com`, and 
 
 ## Contributors
 
-Gitee counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`.
+Gitee counts commits per author email, so `repos.contributors()` returns one contributor per email, with a `name` and an `email` but no `actor`. Gitee links no contributor accounts, so every contributor is already unlinked: `includeUnlinked: true` changes nothing, and `includeUnlinked: false` adds a `filter_unsupported` warning to the first page, since Gitee cannot leave the unlinked ones out.
 
 ## Issue numbers and states
 

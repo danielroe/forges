@@ -403,9 +403,12 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
       }),
       contributorsPage: verb(true, async (repo, listOptions = {}) => {
+        const warnings: ForgeWarning[] = listOptions.includeUnlinked === false && isFirstPage(listOptions.cursor)
+          ? [{ code: 'filter_unsupported', message: 'Gitee links no contributor accounts, so it cannot leave the unlinked ones out; the option was ignored' }]
+          : []
         const result = await fetcher.json<GiteeContributor[]>(`${repoPath(repo)}/contributors`, { etag: firstPageEtag(listOptions.cursor), signal: listOptions.signal })
         if (result.notModified) {
-          return withEtag({ items: [], notModified: true, ...rateLimitPart(result.response) }, result, listOptions.cursor)
+          return withEtag({ items: [], notModified: true, ...warnings.length ? { warnings } : {}, ...rateLimitPart(result.response) }, result, listOptions.cursor)
         }
         const all = result.data ?? []
         const offset = Number(listOptions.cursor?.token ?? 0)
@@ -414,6 +417,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
           items: all.slice(offset, end).map(raw => ({ name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw })),
           cursor: end < all.length ? { token: String(end) } : undefined,
           total: all.length,
+          ...warnings.length ? { warnings } : {},
           ...rateLimitPart(result.response),
         }, result, listOptions.cursor)
       }),
