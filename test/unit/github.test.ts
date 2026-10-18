@@ -1440,6 +1440,19 @@ describe('github checks and CI', () => {
     })
   })
 
+  it('declares the check permissions of the reads that fill the checks of a pull request', () => {
+    const { provider } = tokenProvider()
+    const verbs = ['threads.get', 'threads.getMany', 'threads.list', 'threads.closingPullRequests', 'threads.closingIssues'] as const
+
+    expect(Object.fromEntries(verbs.map(verb => [verb, provider.scopesFor(verb).permissions]))).toEqual({
+      'threads.get': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'threads.getMany': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'threads.list': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'threads.closingPullRequests': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'threads.closingIssues': { issues: 'read', pull_requests: 'read' },
+    })
+  })
+
   it('re-runs the failed jobs of a workflow run', async () => {
     const { provider, calls } = tokenProvider()
 
