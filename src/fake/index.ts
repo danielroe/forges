@@ -1548,8 +1548,8 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             throw new ForgeApiError(`No issue type named ${name}`, 422, '', origin)
           }
           if (before?.id !== found.id) {
-            thread.issueType = found
-            record(by, ref, 'issue_type', 'typed', `set the issue type ${found.name}`, { type: 'issue_type', issueType: found })
+            thread.issueType = copyOf(found)
+            record(by, ref, 'issue_type', 'typed', `set the issue type ${found.name}`, { type: 'issue_type', issueType: copyOf(found) })
           }
           return found
         }),

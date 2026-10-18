@@ -803,6 +803,16 @@ describe('fake write results', () => {
     ])
   })
 
+  it('keeps a set issue type and its event apart from the repository\'s issue types', async () => {
+    const forge = fake({ seed: { ...seed, repos: [{ repo: 'acme/widgets', issueTypes: ['Bug', 'Feature'] }] } })
+
+    const feature = await forge.threads.setIssueType(issue, 'Feature')
+    forge.store.repos.get('acme/widgets')!.issueTypes[1]!.name = 'Renamed'
+
+    expect((await forge.threads.get(issue)).issueType).toEqual(feature)
+    expect(forge.store.events[0]!.detail).toEqual({ type: 'issue_type', issueType: feature })
+  })
+
   it('moves the head of a pull request on updateBranch, and refuses an update from a head that has moved', async () => {
     const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, head: { sha: 'a'.repeat(40) } } : thread) } })
 
