@@ -7,7 +7,7 @@ const gitPath = (repo: RepoRef) => `/${encode(repo.owner)}/_git/${encodeURICompo
 const REPO_PAGES: Partial<Record<RepoSection, string>> = { pullRequests: 'pullrequests', compare: 'branchCompare' }
 const isSha = (at: string) => /^[0-9a-f]{40}$/i.test(at)
 const version = (at: string) => `${isSha(at) ? 'GC' : 'GB'}${encodeURIComponent(at)}`
-/** The `version` query of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
+/** A revision in a query, such as the `version` of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
 const FILE_VERSION_RE = /^G[BCT](.+)$/
 
 export function azureWeb(baseUrl: string): WebLinks {
@@ -54,6 +54,11 @@ export function azureWeb(baseUrl: string): WebLinks {
       }
       if (rest[1] === 'commit' && rest[2]) {
         return { repo, commit: { ...from, repo, sha: rest[2] } }
+      }
+      const base = FILE_VERSION_RE.exec(url.searchParams.get('baseVersion') ?? '')?.[1]
+      const head = FILE_VERSION_RE.exec(url.searchParams.get('targetVersion') ?? '')?.[1]
+      if (rest[1] === 'branchCompare' && base && head) {
+        return { repo, compare: { base, head } }
       }
       if (rest[1] !== 'pullrequest' || !rest[2]) {
         return { repo }

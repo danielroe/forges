@@ -207,6 +207,57 @@ describe('web links', () => {
     expect(gh.parseUrl('https://gitlab.com/acme/widgets')).toBeUndefined()
   })
 
+  it('reads a Tangled URL on tangled.sh as tangled.org', () => {
+    expect(tg.parseUrl('https://tangled.sh/@acme.dev/core/issues/4')).toMatchObject({ repo: { instance: 'tangled.org', owner: 'acme.dev', name: 'core' }, thread: { kind: 'issue', displayNumber: '4' } })
+    expect(tangled({ baseUrl: 'https://knot.example.com' }).parseUrl('https://tangled.sh/@acme.dev/core')).toBeUndefined()
+  })
+
+  it('reads a GitLab tag page as the tag, and a release page as the release', () => {
+    expect(gl.parseUrl('https://gitlab.com/acme/platform/widgets/-/tags/v1.0.0')).toEqual({ repo: { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' }, tag: 'v1.0.0' })
+    expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/tags/release/1.0')?.tag).toBe('release/1.0')
+    expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/tags')?.tag).toBeUndefined()
+    expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/releases/v1.0.0')).toMatchObject({ release: { tag: 'v1.0.0' } })
+    expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/releases/v1.0.0')?.tag).toBeUndefined()
+  })
+
+  it.each([
+    ['github', gh, 'https://github.com/acme/widgets/compare/main...feat/a', { base: 'main', head: 'feat/a' }],
+    ['github two-dot', gh, 'https://github.com/acme/widgets/compare/v1.0.0..v1.1.0', { base: 'v1.0.0', head: 'v1.1.0' }],
+    ['github across forks', gh, 'https://github.com/acme/widgets/compare/main...octocat:widgets:feat', { base: 'main', head: 'octocat:widgets:feat' }],
+    ['forgejo', cb, 'https://codeberg.org/acme/widgets/compare/main...feat', { base: 'main', head: 'feat' }],
+    ['gitlab', gl, 'https://gitlab.com/acme/platform/widgets/-/compare/main...feat?from_project_id=1', { base: 'main', head: 'feat' }],
+    ['gitlab two-dot', gl, 'https://gitlab.com/acme/platform/widgets/-/compare/main..feat', { base: 'main', head: 'feat' }],
+    ['bitbucket', bb, 'https://bitbucket.org/acme/widgets/branches/compare/feat%0Dmain', { base: 'main', head: 'feat' }],
+    ['azure-devops', az, `https://dev.azure.com/contoso/Widgets/_git/widgets/branchCompare?baseVersion=GBmain&targetVersion=GC${sha}`, { base: 'main', head: sha }],
+  ] as const)('reads the revisions of a %s comparison', (_, provider, url, compare) => {
+    expect(provider.parseUrl(url)?.compare).toEqual(compare)
+  })
+
+  it.each([
+    ['github', gh, repo],
+    ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }],
+    ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }],
+    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }],
+    ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }],
+  ] as const)('reads back the %s comparison URL it builds', (_, provider, target) => {
+    const compare = { base: 'main', head: 'feat/a' }
+    expect(provider.parseUrl(provider.urlFor({ compare: { repo: target, ...compare } })!)?.compare).toEqual(compare)
+  })
+
+  it('leaves the comparison off a compare page without two revisions', () => {
+    expect(gh.parseUrl('https://github.com/acme/widgets/compare')?.compare).toBeUndefined()
+    expect(gh.parseUrl('https://github.com/acme/widgets/compare/feat')?.compare).toBeUndefined()
+    expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/compare')?.compare).toBeUndefined()
+  })
+
+  it.each([
+    ['github', gh, `https://github.com/acme/widgets/pull/42/commits/${sha}`, { owner: 'acme', name: 'widgets' }],
+    ['forgejo', cb, `https://codeberg.org/acme/widgets/pulls/42/commits/${sha}`, { owner: 'acme', name: 'widgets' }],
+    ['gitlab', gl, `https://gitlab.com/acme/platform/widgets/-/merge_requests/42/diffs?commit_id=${sha}`, { owner: 'acme/platform', name: 'widgets' }],
+  ] as const)('reads a commit of a %s pull request as the pull request and the commit', (_, provider, url, target) => {
+    expect(provider.parseUrl(url)).toMatchObject({ thread: { kind: 'pull_request', number: '42', repo: target }, commit: { sha, repo: target } })
+  })
+
   it.each([
     ['github', gh, 'https://github.com/acme/widgets/blob/main/src/a%20b.ts#L3', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'src/a b.ts', line: 3 }],
     ['github at a line range', gh, 'https://github.com/acme/widgets/blob/main/README.md?plain=1#L3-L5', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],

@@ -26,6 +26,10 @@ export interface ParsedForgeUrl {
   comment?: CommentRef
   commit?: CommitRef
   release?: ReleaseRef
+  /** The tag of a tag page that is not a release page, such as GitLab's `-/tags/{tag}`. */
+  tag?: string
+  /** The revisions of a page that compares two, such as `compare/{base}...{head}` or `compare/{base}..{head}`. */
+  compare?: { base: string, head: string }
   /**
    * A file page: the repository-relative `path`, the revision `at` and the first selected `line`.
    * `at` is unset when the URL leaves the revision to the default branch. An unencoded `/` in
@@ -50,6 +54,8 @@ export interface ReferenceOptions {
 export interface WebLinks {
   /** The base URL of the forge website, such as `https://github.com` or `https://example.com/gitlab`. */
   baseUrl: string
+  /** Other hosts that serve the same pages, such as a domain the forge has moved from. `parse` reads their URLs too. */
+  hosts?: readonly string[]
   /** The page of a repository. */
   repo: (repo: RepoRef) => string
   /** The page of one of a repository's sections, such as its issues, pull requests, stargazers or forks. */
@@ -85,6 +91,14 @@ export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
 export function lineOf(value: string | null | undefined): { line?: number } {
   const line = Number.parseInt(value ?? '', 10)
   return line > 0 ? { line } : {}
+}
+
+/** Reads `base...head` or `base..head`. Git forbids `..` in a ref name, so the first `..` separates the two. */
+export function rangeOf(value: string): { compare?: { base: string, head: string } } {
+  const at = value.indexOf('..')
+  const base = value.slice(0, at)
+  const head = value.slice(value[at + 2] === '.' ? at + 3 : at + 2)
+  return at > 0 && head ? { compare: { base, head } } : {}
 }
 
 function encodePath(path: string): string {
@@ -147,7 +161,7 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
   catch {
     return undefined
   }
-  if ((url.protocol !== 'http:' && url.protocol !== 'https:') || url.host !== base.host || url.username || url.password) {
+  if ((url.protocol !== 'http:' && url.protocol !== 'https:') || (url.host !== base.host && !web.hosts?.includes(url.host)) || url.username || url.password) {
     return undefined
   }
   if (prefix && !url.pathname.startsWith(`${prefix}/`)) {
@@ -256,10 +270,16 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       if (section === commitPath && id) {
         return { repo, commit: { ...from, repo, sha: id } }
       }
+      if (section === 'compare' && id) {
+        return { repo, ...rangeOf(segments.slice(3).join('/')) }
+      }
       if (!kind || !id) {
         return { repo }
       }
       const thread: ThreadRef = { ...from, repo, kind, number: id }
+      if (kind === 'pull_request' && segments[4] === 'commits' && segments[5]) {
+        return { repo, thread, commit: { ...from, repo, sha: segments[5] } }
+      }
       const comment = url.hash.startsWith(`#${shape.commentFragment}`) ? url.hash.slice(shape.commentFragment.length + 1) : undefined
       return { repo, thread, ...comment ? { comment: { ...from, thread, id: comment } } : {} }
     },
