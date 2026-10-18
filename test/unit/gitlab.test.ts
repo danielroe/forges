@@ -495,19 +495,25 @@ describe('gitlab merge methods', () => {
     expect((error as MergeMethodRequiredError).allowed).toEqual(['rebase_merge', 'squash'])
   })
 
-  it('reads the jobs of a fork pipeline from the fork', async () => {
+  it('reads the jobs of a fork pipeline from the fork, and addresses them there', async () => {
     const thread = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}thread-mr-23.json`, 'utf8')).response.body
     const jobs = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}pipeline-jobs-610001.json`, 'utf8')).response.body
+    const fork = { forge: 'gitlab', instance: 'gitlab.com', owner: 'contributor', name: 'widgets', externalId: '999' }
     const { instance, calls } = provider({
-      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, source_project_id: 999, head_pipeline: { ...thread.head_pipeline, project_id: 999 } } },
+      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, source_project_id: 999, head_pipeline: { ...thread.head_pipeline, project_id: 999, web_url: 'https://gitlab.com/contributor/widgets/-/pipelines/610001' } } },
       'GET https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100': { status: 200, body: jobs },
+      'POST https://gitlab.com/api/v4/projects/contributor%2Fwidgets/jobs/720001/retry': { status: 201, body: {} },
     })
 
     const checks = await instance.threads.checks!(mr)
+    await instance.checks.rerun(checks.items[0]!.ref)
 
     expect(checks.items).toHaveLength(jobs.length)
-    expect(checks.items.some(check => check.run)).toBe(false)
-    expect(calls.at(-1)!.url).toBe('https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100')
+    expect(checks.items.map(check => [check.ref.repo, check.run])).toEqual(checks.items.map(() => [fork, { forge: 'gitlab', instance: 'gitlab.com', repo: fork, id: '610001' }]))
+    expect(calls.slice(-2).map(call => call.url)).toEqual([
+      'https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100',
+      'https://gitlab.com/api/v4/projects/contributor%2Fwidgets/jobs/720001/retry',
+    ])
   })
 
   it('names the pipeline of each job on a merge request', async () => {

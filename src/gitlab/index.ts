@@ -1101,8 +1101,9 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           const pipelineProject = data.head_pipeline.project_id
           const own = pipelineProject === undefined || pipelineProject === data.target_project_id
           const project = own ? projectPath(ref.repo) : `/projects/${pipelineProject}`
-          const run = own ? { forge: FORGE, instance, repo: ref.repo, id: String(data.head_pipeline.id) } : undefined
-          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 }, signal: options?.signal }), job => toJobCheck(ref.repo, job, run)) }
+          const repo = own ? ref.repo : repoRefFromWebUrl(instance, data.head_pipeline.web_url, pipelineProject)
+          const run = repo && { forge: FORGE, instance, repo, id: String(data.head_pipeline.id) }
+          return { items: await Array.fromAsync(fetcher.items<GitLabJob>(`${project}/pipelines/${data.head_pipeline.id}/jobs`, { query: { per_page: 100 }, signal: options?.signal }), job => toJobCheck(repo ?? ref.repo, job, run)) }
         }),
         get: perKind({ issue: true, pull_request: true }, get),
         getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
