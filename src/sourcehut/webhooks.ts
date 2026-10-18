@@ -5,7 +5,7 @@ import type { SourcehutOptions } from './index.ts'
 import { headerValue } from '../crypto.ts'
 
 /** The public key of `sr.ht`, from https://man.sr.ht/graphql.md#webhook-authenticity. */
-export const SRHT_WEBHOOK_PUBLIC_KEY = 'uX7KWyyDNMaBma4aVbJ/cbUQpdjqczuCyK/HxzV+f+4='
+export const SRHT_WEBHOOK_PUBLIC_KEY = 'uX7KWyyDNMaBma4aVbJ/cbUQpdjqczuCyK/HxzV/u+4='
 
 function bytes(value: string | Uint8Array): Uint8Array {
   return typeof value === 'string' ? new TextEncoder().encode(value) : value
