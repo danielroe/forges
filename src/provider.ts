@@ -106,7 +106,7 @@ import type {
   WebhookUpdate,
 } from './model.ts'
 import type { ForgeVerb } from './supports.ts'
-import type { ParsedForgeUrl, ReferenceOptions, UrlTarget } from './web.ts'
+import type { ParsedForgeUrl, ParsedReference, ParseReferencesOptions, ReferenceOptions, UrlTarget } from './web.ts'
 import { UnknownForgeError } from './errors.ts'
 import { forgeIterable, toWarning } from './utils.ts'
 
@@ -1371,6 +1371,17 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
    * @param options The repository the reference is written in, so that a reference within it is short.
    */
   referenceFor: (ref: ThreadRef | CommitRef, options?: ReferenceOptions) => string | undefined
+  /**
+   * The references to threads and commits in `text`, as `referenceFor()` writes them and people type them
+   * (`#42`, `!42`, `GH-42`, `acme/widgets#42`, `acme/widgets@abc1234` or a bare sha), with their offsets,
+   * in order. `#42` reads as an issue where issues and pull requests share numbers; `threads.get()`
+   * returns the thread with its kind. A bare sha has 7 to 40 hex characters, with a letter and a digit.
+   * Text inside a URL is skipped, but code spans are not, so leave them out of `text`. Empty when `from`
+   * is on another instance, or the forge has no reference syntax.
+   * @param text The text to read, such as a Markdown text node.
+   * @param options The repository the text is written in, which a short reference points into.
+   */
+  parseReferences: (text: string, options: ParseReferencesOptions) => ParsedReference[]
 }
 
 type UnionToIntersection<U> = (U extends unknown ? (union: U) => void : never) extends (intersection: infer I) => void ? I : never
@@ -1396,6 +1407,8 @@ export interface Forges<Kind extends ForgeKind = never> {
   forUrl: (url: string | URL) => ForgeProvider | undefined
   /** Reads a web URL, clone URL or npm `repository` value on any registered instance. */
   parseUrl: (url: string | URL) => (ParsedForgeUrl & { provider: ForgeProvider }) | undefined
+  /** The references in `text`, read by the provider of `options.from`; empty when none is registered. */
+  parseReferences: (text: string, options: ParseReferencesOptions) => ParsedReference[]
   /** Notifications from every registered provider, provider by provider. */
   notifications: {
     /** Lists the notifications of every provider, provider by provider. */
@@ -1540,6 +1553,7 @@ export function createForges<const T extends readonly ForgeProvider[]>(providers
     for: find,
     forUrl: url => parseUrl(url)?.provider,
     parseUrl,
+    parseReferences: (text, options) => find(options.from)?.parseReferences(text, options) ?? [],
     threads: {
       async getMany(refs, options) {
         const groups = new Map<ForgeProvider, number[]>()

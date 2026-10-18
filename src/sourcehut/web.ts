@@ -65,5 +65,6 @@ export function sourcehutWeb(instance: string): WebLinks {
       const number = ref.number
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}`
     },
+    references: { threads: [{ prefix: '#', kind: 'issue' }], repo: String.raw`~[\w.-]+\/[\w.-]+`, commits: true },
   }
 }

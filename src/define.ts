@@ -38,7 +38,7 @@ import { createFetcher, createRequest } from './fetch.ts'
 import { isUnsupported } from './model.ts'
 import { can, support } from './supports.ts'
 import { forgeIterable, hostOf, isFirstPage, iteratePages, memo } from './utils.ts'
-import { parseWebUrl, referenceFor, webUrlFor } from './web.ts'
+import { parseReferences, parseWebUrl, referenceFor, webUrlFor } from './web.ts'
 
 /** What support can depend on once the provider exists. */
 export interface CapabilityEnv {
@@ -857,6 +857,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     webOrigin: (spec.web ? new URL(spec.web.baseUrl).origin : undefined) as HasWeb extends true ? string : string | undefined,
     parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
     referenceFor: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
+    parseReferences: (text, { from }) => parseReferences(spec.web, text, from, origin),
   }, () => capabilitiesOf(spec, env, flags, true))
 }
 

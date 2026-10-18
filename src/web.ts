@@ -47,6 +47,38 @@ export interface ReferenceOptions {
   expand?: boolean
 }
 
+/** Options for `provider.parseReferences()`. */
+export interface ParseReferencesOptions {
+  /** Repository the text is written in, which a short reference such as `#42` points into. */
+  from: RepoRef
+}
+
+/** A reference that `parseReferences()` found in text. */
+export interface ParsedReference {
+  /** The offset of the reference's first character. */
+  start: number
+  /** The offset just past the reference. */
+  end: number
+  /** The thread or commit it refers to. A commit `sha` is as written, so it can be abbreviated. */
+  ref: ThreadRef | CommitRef
+}
+
+/** How a forge writes references in Markdown, read back by `parseReferences()`. */
+export interface ReferenceSyntax {
+  /**
+   * The prefixes before a thread number, such as `#` or `!`, and the kind of thread each refers to.
+   * `number` is the source of a regular expression for the number, digits by default. `sameRepo`
+   * marks a prefix that takes no repository, and `namespace` one that refers to the namespace of `from`.
+   */
+  threads: ReadonlyArray<{ prefix: string, kind: ThreadKind, number?: string, sameRepo?: boolean, namespace?: boolean }>
+  /** The source of a regular expression for the `owner/name` before a reference to another repository; unset when the forge has none. */
+  repo?: string
+  /** The source of a regular expression for what may follow a thread number, such as GitLab's `+`. */
+  suffix?: string
+  /** Whether a bare sha, and `owner/name@sha` where the forge has `repo`, refer to commits. */
+  commits?: boolean
+}
+
 /**
  * How a provider builds and reads its web URLs. Builders return a path relative
  * to `baseUrl` or an absolute URL, and may return `undefined` when the forge has no such page.
@@ -78,6 +110,8 @@ export interface WebLinks {
   parse: (segments: string[], url: URL, origin: ForgeOrigin) => ParsedForgeUrl | undefined
   /** The forge's cross-reference syntax; `undefined` falls back to the page URL. */
   reference?: (ref: ResolvedThreadRef | CommitRef, sameRepo: boolean, expand: boolean) => string | undefined
+  /** The references that `parseReferences()` reads; unset when the forge has none. */
+  references?: ReferenceSyntax
 }
 
 export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
@@ -184,6 +218,83 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef | CommitR
   return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, 'sha' in ref ? { commit: ref } : { thread: ref })
 }
 
+/** `owner/name`, for forges that nest no deeper. */
+export const OWNER_NAME = String.raw`[\w.-]+\/[\w.-]+`
+
+/** What cannot come right before a reference, so that a path, an email address or a word does not read as one. */
+const BEFORE = String.raw`(?<![\w/.@#~&!+-])`
+/** What cannot come right after a reference: a word character, or a dot, slash or `@` that continues a word. */
+const AFTER = String.raw`(?![\w-]|[./@]\w)`
+const SHA = '[0-9a-f]{7,40}'
+const URL_RE = /[a-z][\w+.-]*:\/\/\S+/gi
+
+interface ReferenceRule {
+  pattern: RegExp
+  read: (groups: Record<string, string>, from: RepoRef, origin: ForgeOrigin) => ThreadRef | CommitRef | undefined
+}
+
+const rules = new WeakMap<ReferenceSyntax, ReferenceRule[]>()
+
+function repoIn(slug: string, origin: ForgeOrigin): RepoRef {
+  const at = slug.lastIndexOf('/')
+  return { ...origin, owner: slug.slice(0, at), name: slug.slice(at + 1) }
+}
+
+/** A bare sha needs a letter and a digit, so that neither a number nor a word reads as one. */
+function isBareSha(value: string): boolean {
+  return /[a-f]/.test(value) && /\d/.test(value)
+}
+
+function rulesFor(syntax: ReferenceSyntax): ReferenceRule[] {
+  const cached = rules.get(syntax)
+  if (cached) {
+    return cached
+  }
+  const compiled: ReferenceRule[] = []
+  const rule = (source: string, read: ReferenceRule['read']) => compiled.push({ pattern: new RegExp(`${BEFORE}${source}${AFTER}`, 'g'), read })
+  const suffix = syntax.suffix ? `(?:${syntax.suffix})?` : ''
+  for (const { prefix, kind, number = String.raw`[1-9]\d*`, sameRepo: local, namespace } of syntax.threads) {
+    const thread = `${prefix.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&')}(?<id>${number})${suffix}`
+    rule(thread, ({ id }, from, origin) => ({ ...origin, repo: namespace ? { ...origin, owner: from.owner, name: '', kind: 'namespace' } : from, kind, number: id! }))
+    if (syntax.repo && !local) {
+      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), kind, number: id! }))
+    }
+  }
+  if (syntax.commits) {
+    rule(`(?<sha>${SHA})`, ({ sha }, from, origin) => isBareSha(sha!) ? { ...origin, repo: from, sha: sha! } : undefined)
+    if (syntax.repo) {
+      rule(`(?<slug>${syntax.repo})@(?<sha>${SHA})`, ({ slug, sha }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), sha: sha! }))
+    }
+  }
+  rules.set(syntax, compiled)
+  return compiled
+}
+
+export function parseReferences(web: WebLinks | undefined, text: string, from: RepoRef, origin: ForgeOrigin): ParsedReference[] {
+  if (!web?.references || from.forge !== origin.forge || from.instance !== origin.instance) {
+    return []
+  }
+  const urls = [...text.matchAll(URL_RE)].map(match => [match.index, match.index + match[0].length] as const)
+  const found: ParsedReference[] = []
+  for (const { pattern, read } of rulesFor(web.references)) {
+    for (const match of text.matchAll(pattern)) {
+      const ref = urls.some(([start, end]) => match.index >= start && match.index < end) ? undefined : read(match.groups!, from, origin)
+      if (ref) {
+        found.push({ start: match.index, end: match.index + match[0].length, ref })
+      }
+    }
+  }
+  found.sort((a, b) => a.start - b.start || b.end - a.end)
+  let end = 0
+  return found.filter((match) => {
+    if (match.start < end) {
+      return false
+    }
+    end = match.end
+    return true
+  })
+}
+
 /** How a forge that lays out its website like GitHub differs from GitHub. */
 export interface GitHubShape {
   /** The path segment of pull requests, such as `pull` or `pulls`. */
@@ -214,6 +325,8 @@ export interface GitHubShape {
   sections?: Partial<Record<RepoSection, string | null>>
   /** Reserved owner segments. */
   reserved?: readonly string[]
+  /** The references that `parseReferences()` reads; defaults to `#{n}` and `pullPrefix`, with `owner/name` before them, and commit shas. */
+  references?: ReferenceSyntax
 }
 
 /** Reads GitHub's file route, `blob/{at}/{path}`. */
@@ -289,6 +402,11 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       }
       const prefix = ref.kind === 'pull_request' && shape.pullPrefix ? shape.pullPrefix : '#'
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}`
+    },
+    references: shape.references ?? {
+      threads: [{ prefix: '#', kind: 'issue' }, ...shape.pullPrefix ? [{ prefix: shape.pullPrefix, kind: 'pull_request' as const }] : []],
+      repo: OWNER_NAME,
+      commits: true,
     },
   }
 }
