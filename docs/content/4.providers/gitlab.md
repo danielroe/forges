@@ -194,7 +194,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `comments.get` | issue, PR, commit (emulated) | commit (unverified) |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |

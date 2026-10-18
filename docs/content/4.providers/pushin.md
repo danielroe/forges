@@ -83,7 +83,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
 | `users.events` | ❌ | ❌ |
-| `users.block` | ❌ | ❌ |
+| `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ❌ | ❌ |
 | `repos.labels` | ✅ | ✅ |
@@ -92,7 +92,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
-| `repos.templates` | ❌ | ❌ |
+| `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
@@ -100,7 +100,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
-| `orgs.block` | ❌ | ❌ |
+| `orgs.block` | ∅ | ∅ |
 | `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
@@ -111,7 +111,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.edit` | ∅ | ∅ |
 | `comments.delete` | ∅ | ∅ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ∅ | ∅ |
@@ -124,7 +124,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `writes.upsertComment` | ∅ | ∅ |
 | `writes.close` | ∅ | ∅ |
 | `writes.reopen` | ∅ | ∅ |
-| `writes.lock` | ❌ | ❌ |
+| `writes.lock` | ∅ | ∅ |
 | `writes.create` | ∅ | ∅ |
 | `writes.update` | ∅ | ∅ |
 | `writes.setLabels` | ∅ | ∅ |
@@ -136,7 +136,7 @@ Since `pushin()` contains no webhook code, there is no `pushinLite()` factory fo
 | `writes.requestReview` | ∅ | ∅ |
 | `writes.merge` | ∅ | ∅ |
 | `writes.approveAndMerge` | ∅ | ∅ |
-| `writes.updateBranch` | ❌ | ❌ |
+| `writes.updateBranch` | ∅ | ∅ |
 | `writes.transfer` | ∅ | ∅ |
 | `writes.markDuplicate` | ∅ | ∅ |
 | `subscriptions.get` | ❌ | ❌ |

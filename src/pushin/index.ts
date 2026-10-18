@@ -127,6 +127,12 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       'webhooks.rotateSecret',
       'webhooks.deliveries',
       'webhooks.redeliver',
+      'users.block',
+      'orgs.block',
+      'repos.templates',
+      'comments.hide',
+      'writes.lock',
+      'writes.updateBranch',
     ],
     users: {
       me: verb(true, async (options) => {

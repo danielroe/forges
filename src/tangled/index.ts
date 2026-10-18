@@ -565,6 +565,12 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         'webhooks.deliveries',
         'webhooks.redeliver',
         'securityAlerts',
+        'users.block',
+        'orgs.block',
+        'repos.templates',
+        'comments.hide',
+        'writes.lock',
+        'writes.updateBranch',
       ],
       request: api,
       repos: {

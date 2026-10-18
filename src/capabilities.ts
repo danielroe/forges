@@ -192,12 +192,7 @@ function update(target: unknown, path: string, change: (value: unknown) => unkno
 const notApplicable = (declared: unknown) => ({ ...declared as object, support: 'not_applicable' as const })
 const notApplicableKinds = (declared: unknown) => ({ ...declared as object, kinds: NOT_APPLICABLE_KINDS })
 
-/**
- * Populates `spec` with `'not_applicable'` entries before anything resolves it,
- * so derived capabilities (`sources.poll`, `reviews.get`, `writes.approveAndMerge`, …)
- * inherit the level from their parts. The few capabilities whose value does not
- * come from a declared verb are set here by hand.
- */
+/** Fills `spec` with `'not_applicable'` entries before anything resolves it, so derived capabilities inherit the level from their parts. */
 export function applyNotApplicable<T extends ProviderSpec>(spec: T): T {
   if (!spec.notApplicable?.length) {
     return spec

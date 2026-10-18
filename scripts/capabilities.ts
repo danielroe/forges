@@ -29,7 +29,7 @@ type CredentialOptions<O> = Omit<MatrixCredential, 'provider'> & { options: O }
 /** Traits describe the provider, not an operation, so they stay the same without credentials. */
 const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
 
-/** Without anonymous reads, a provider reaches nothing without credentials. Its traits and `not_applicable` entries stay. */
+/** Without anonymous reads, a provider reaches nothing, but its traits and `not_applicable` entries stay. */
 function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvider {
   const capabilities = structuredClone(provider.capabilities) as unknown as Record<string, Record<string, unknown>>
   for (const { capability } of CAPABILITY_TABLE.filter(entry => !TRAITS.has(entry.capability))) {
@@ -127,7 +127,10 @@ export function supportCell(value: unknown): SupportCell {
     return { level: levelOf(value) }
   }
   const kinds = Object.entries(value).map(([kind, support]) => ({ kind, label: KINDS[kind] ?? kind, level: levelOf(support) }))
-  const level = LEVEL_RANK.find(rank => kinds.some(kind => kind.level === rank)) ?? 'none'
+  // ∅ only when the forge has no such operation for any kind; one unavailable kind keeps it applicable.
+  const level = kinds.every(kind => kind.level === 'not_applicable')
+    ? 'not_applicable'
+    : LEVEL_RANK.filter(rank => rank !== 'not_applicable').find(rank => kinds.some(kind => kind.level === rank)) ?? 'none'
   return { level, kinds }
 }
 
@@ -191,7 +194,7 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
 
 function supportText({ level, kinds, credentials }: SupportCell): string {
   const text = kinds
-    ? kinds.filter(kind => !isUnsupportedLevel(kind.level)).map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || (kinds.some(kind => kind.level === 'not_applicable') ? '∅' : '❌')
+    ? kinds.filter(kind => !isUnsupportedLevel(kind.level)).map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || (kinds.every(kind => kind.level === 'not_applicable') ? '∅' : '❌')
     : level === 'native' ? '✅' : level === 'none' ? '❌' : level === 'not_applicable' ? '∅' : level
   return credentials ? `${text} (only with ${credentials.map(id => `\`${id}\``).join(' or ')})` : text
 }

@@ -468,6 +468,12 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       'webhooks.rotateSecret',
       'webhooks.deliveries',
       'webhooks.redeliver',
+      'users.block',
+      'orgs.block',
+      'repos.templates',
+      'comments.hide',
+      'writes.lock',
+      'writes.updateBranch',
     ],
     search: { threadsPage: verb(!anonymous, searchThreadsPage) },
     repos: {

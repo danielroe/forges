@@ -116,7 +116,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
 | `users.events` | ❌ | ❌ |
-| `users.block` | ❌ | ❌ |
+| `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ∅ | ∅ |
@@ -125,7 +125,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
-| `repos.templates` | ❌ | ❌ |
+| `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
@@ -133,7 +133,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
-| `orgs.block` | ❌ | ❌ |
+| `orgs.block` | ∅ | ∅ |
 | `threads.get` | PR, commit | PR, commit |
 | `threads.list` | PR | PR |
 | `threads.getMany` | ✅ | ✅ |
@@ -144,7 +144,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `comments.get` | PR (emulated), commit (emulated) | PR (unverified), commit (unverified) |
 | `comments.edit` | PR, commit | ❌ |
 | `comments.delete` | PR, commit | ❌ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | ∅ | ∅ |
 | `notifications.list` | ∅ | ∅ |
 | `notifications.markRead` | ∅ | ∅ |
@@ -157,7 +157,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `writes.upsertComment` | PR (emulated), commit (emulated) | ❌ |
 | `writes.close` | PR | ❌ |
 | `writes.reopen` | ❌ | ❌ |
-| `writes.lock` | ❌ | ❌ |
+| `writes.lock` | ∅ | ∅ |
 | `writes.create` | PR | ❌ |
 | `writes.update` | PR | ❌ |
 | `writes.setLabels` | ∅ | ∅ |
@@ -169,7 +169,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `writes.requestReview` | PR | ❌ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ✅ | ❌ |
-| `writes.updateBranch` | ❌ | ❌ |
+| `writes.updateBranch` | ∅ | ∅ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |
 | `subscriptions.get` | ❌ | ❌ |

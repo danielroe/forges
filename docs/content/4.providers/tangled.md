@@ -193,7 +193,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ❌ | ❌ |
 | `users.events` | ✅ | ✅ |
-| `users.block` | ❌ | ❌ |
+| `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ✅ | ✅ |
 | `repos.labels` | ✅ | ✅ |
@@ -202,7 +202,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `repos.collaborators` | ✅ | ✅ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
-| `repos.templates` | ❌ | ❌ |
+| `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ✅ | ✅ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
@@ -210,7 +210,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `repos.events` | ❌ | ❌ |
 | `orgs.teams` | ❌ | ❌ |
 | `orgs.teamMembers` | ❌ | ❌ |
-| `orgs.block` | ❌ | ❌ |
+| `orgs.block` | ∅ | ∅ |
 | `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |
 | `threads.getMany` | ✅ | ✅ |
@@ -221,7 +221,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `comments.get` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | experimental | ❌ |
 | `notifications.markRead` | experimental | ❌ |
@@ -234,7 +234,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ❌ | ❌ |
+| `writes.lock` | ∅ | ∅ |
 | `writes.create` | issue, PR | ❌ |
 | `writes.update` | issue, PR | ❌ |
 | `writes.setLabels` | issue, PR | ❌ |
@@ -246,7 +246,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `writes.requestReview` | ∅ | ∅ |
 | `writes.merge` | ✅ | ❌ |
 | `writes.approveAndMerge` | ∅ | ∅ |
-| `writes.updateBranch` | ❌ | ❌ |
+| `writes.updateBranch` | ∅ | ∅ |
 | `writes.transfer` | ❌ | ❌ |
 | `writes.markDuplicate` | ❌ | ❌ |
 | `subscriptions.get` | issue, PR | ❌ |

@@ -148,7 +148,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `comments.get` | issue, PR | issue, PR |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |

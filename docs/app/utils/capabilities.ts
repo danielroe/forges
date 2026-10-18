@@ -92,7 +92,7 @@ export function describeCell(cell: SupportCell, provider?: CapabilityProvider): 
     ? shortSupportLabels[cell.level]
     : supported.length
       ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
-      : cell.kinds!.some(kind => kind.level === 'not_applicable') ? shortSupportLabels.not_applicable : shortSupportLabels.none
+      : cell.kinds!.every(kind => kind.level === 'not_applicable') ? shortSupportLabels.not_applicable : shortSupportLabels.none
   return cell.credentials && provider ? `${text}, only with ${credentialNames(cell.credentials, provider)}` : text
 }
 

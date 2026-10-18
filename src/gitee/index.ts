@@ -365,6 +365,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       'reviews.list',
       'webhooks.deliveries',
       'webhooks.redeliver',
+      'comments.hide',
     ],
     users: {
       get: verb(true, (login, options) => readUser(`/users/${encodeURIComponent(login)}`, options?.signal)),

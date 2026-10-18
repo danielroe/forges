@@ -555,6 +555,12 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         'releases.update',
         'webhooks.deliveries',
         'webhooks.redeliver',
+        'users.block',
+        'orgs.block',
+        'repos.templates',
+        'comments.hide',
+        'writes.lock',
+        'writes.updateBranch',
       ],
       normaliseMarkdown,
       users: {

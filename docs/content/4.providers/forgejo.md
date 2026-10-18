@@ -180,7 +180,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `comments.get` | issue, PR | issue, PR |
 | `comments.edit` | issue, PR | ❌ |
 | `comments.delete` | issue, PR | ❌ |
-| `comments.hide` | ❌ | ❌ |
+| `comments.hide` | ∅ | ∅ |
 | `reactions.list` | issue, PR | issue, PR |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |
@@ -193,7 +193,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `writes.upsertComment` | issue (emulated), PR (emulated) | ❌ |
 | `writes.close` | issue, PR | ❌ |
 | `writes.reopen` | issue, PR | ❌ |
-| `writes.lock` | ❌ | ❌ |
+| `writes.lock` | ∅ | ∅ |
 | `writes.create` | issue, PR | ❌ |
 | `writes.update` | issue, PR | ❌ |
 | `writes.setLabels` | issue, PR | ❌ |
