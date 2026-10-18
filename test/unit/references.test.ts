@@ -67,6 +67,10 @@ describe('parseReferences', () => {
     expect(gh.parseReferences(text, { from: ghRepo })).toEqual([])
   })
 
+  it('reads a long run of word characters in linear time', () => {
+    expect(gh.parseReferences('a'.repeat(200_000), { from: ghRepo })).toEqual([])
+  })
+
   it('reads nothing when the text is written on another instance', () => {
     expect(gh.parseReferences('#42', { from: { ...ghRepo, instance: 'ghe.example.com' } })).toEqual([])
     expect(gh.parseReferences('#42', { from: repoOn(gitlab(), 'acme', 'widgets') })).toEqual([])

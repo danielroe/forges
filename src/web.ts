@@ -226,7 +226,9 @@ const BEFORE = String.raw`(?<![\w/.@#~&!+-])`
 /** What cannot come right after a reference: a word character, or a dot, slash or `@` that continues a word. */
 const AFTER = String.raw`(?![\w-]|[./@]\w)`
 const SHA = '[0-9a-f]{7,40}'
-const URL_RE = /[a-z][\w+.-]*:\/\/\S+/gi
+const SCHEME_CHAR = /[\w+.-]/
+const LETTER = /[a-z]/i
+const SPACE = /\s/
 
 interface ReferenceRule {
   pattern: RegExp
@@ -238,6 +240,30 @@ const rules = new WeakMap<ReferenceSyntax, ReferenceRule[]>()
 function repoIn(slug: string, origin: ForgeOrigin): RepoRef {
   const at = slug.lastIndexOf('/')
   return { ...origin, owner: slug.slice(0, at), name: slug.slice(at + 1) }
+}
+
+/** The spans of URLs in `text`, each from its scheme to the next whitespace. */
+function urlSpans(text: string): Array<readonly [number, number]> {
+  const spans: Array<readonly [number, number]> = []
+  for (let at = text.indexOf('://'); at !== -1; at = text.indexOf('://', at + 1)) {
+    let start = at
+    while (start > 0 && SCHEME_CHAR.test(text[start - 1]!)) {
+      start--
+    }
+    while (start < at && !LETTER.test(text[start]!)) {
+      start++
+    }
+    if (start === at || at + 3 >= text.length || SPACE.test(text[at + 3]!)) {
+      continue
+    }
+    let end = at + 4
+    while (end < text.length && !SPACE.test(text[end]!)) {
+      end++
+    }
+    spans.push([start, end])
+    at = end
+  }
+  return spans
 }
 
 /** A bare sha needs a letter and a digit, so that neither a number nor a word reads as one. */
@@ -274,7 +300,7 @@ export function parseReferences(web: WebLinks | undefined, text: string, from: R
   if (!web?.references || from.forge !== origin.forge || from.instance !== origin.instance) {
     return []
   }
-  const urls = [...text.matchAll(URL_RE)].map(match => [match.index, match.index + match[0].length] as const)
+  const urls = urlSpans(text)
   const found: ParsedReference[] = []
   for (const { pattern, read } of rulesFor(web.references)) {
     for (const match of text.matchAll(pattern)) {
