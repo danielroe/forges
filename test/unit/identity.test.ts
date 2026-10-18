@@ -11,6 +11,7 @@ import { gitlab } from '../../src/gitlab/index.ts'
 import { createForges, parseNotificationKey, parseRepoKey, parseThreadKey, repoKey, repoSlug, threadKey, threadSlug, UnknownForgeError } from '../../src/index.ts'
 import { forgeIterable } from '../../src/kit.ts'
 import { pushin } from '../../src/pushin/index.ts'
+import { sourcehut } from '../../src/sourcehut/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 
 const auth = { type: 'token', token: 't' } as const
@@ -106,6 +107,7 @@ describe('web links', () => {
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://bitbucket.org/acme/widgets/commits/${sha}`],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, 'https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2Fsrc%2Fa%20b.ts&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=branch&$format=octetStream', `https://dev.azure.com/contoso/Widgets/_git/widgets/commit/${sha}`],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/raw/v1.0.0/src/a%20b.ts', `https://tangled.org/acme.dev/widgets/commit/${sha}`],
+    ['sourcehut', sourcehut({ auth }).create(), { ...repo, forge: 'sourcehut', instance: 'sr.ht', owner: '~acme' }, 'https://git.sr.ht/~acme/widgets/blob/v1.0.0/src/a%20b.ts', `https://git.sr.ht/~acme/widgets/commit/${sha}`],
   ] as const)('builds raw file and commit URLs on %s', (_, provider, target, raw, commit) => {
     expect(provider.urlFor({ raw: { repo: target, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe(raw)
     expect(provider.urlFor({ commit: { repo: target, sha } })).toBe(commit)

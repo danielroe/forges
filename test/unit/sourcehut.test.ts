@@ -263,6 +263,16 @@ describe('sourcehut', () => {
   })
 })
 
+describe('sourcehut web links', () => {
+  const forge = sourcehut({ auth: TOKEN }).create()
+
+  it('builds a raw file URL on the blob route', () => {
+    // Sourcehut serves raw bytes on `blob`, unlike GitHub's `raw`.
+    expect(forge.urlFor({ raw: { repo, path: 'README.md', at: 'master' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/master/README.md')
+    expect(forge.urlFor({ raw: { repo, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/v1.0.0/src/a%20b.ts')
+  })
+})
+
 describe('sourcehut webhooks', () => {
   const { privateKey, publicKey } = generateKeyPairSync('ed25519', {
     privateKeyEncoding: { type: 'pkcs8', format: 'der' },

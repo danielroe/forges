@@ -43,6 +43,8 @@ export function sourcehutWeb(instance: string): WebLinks {
     },
     // A file page carries the `item` segment; a directory page does not.
     file: (repo, path, at, line) => `${repoPath(repo)}/tree/${encodeURIComponent(at)}/item/${encodePath(path)}${line ? `#L${line}` : ''}`,
+    // The raw bytes are on `blob` and the rendered page on `tree/<at>/item`, the reverse of GitHub.
+    raw: (repo, path, at) => `${repoPath(repo)}/blob/${encodeURIComponent(at)}/${encodePath(path)}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/tree/${encodeURIComponent(ref.tag)}` : undefined,
     parse: (segments, url, from) => {
       const [owner, name, section, at, marker] = segments
