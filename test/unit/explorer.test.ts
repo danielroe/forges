@@ -10,13 +10,13 @@ import { explorerHovers, explorerPageMembers } from '../../docs/shared/explorer-
 import {
   authCode,
   authFromValues,
-  credentialComplete,
   explorable,
   EXPLORER_FORGES,
   EXPLORER_NAMESPACE_TITLES,
   EXPLORER_OPERATIONS,
   explorerCode,
   explorerRefs,
+  isCredentialComplete,
   placeholderAuth,
 } from '../../docs/shared/explorer.ts'
 import { ENTRIES } from '../../scripts/api-docs/config.ts'
@@ -157,11 +157,11 @@ describe('explorer credentials', () => {
 
   it('call a credential complete only with every required field', () => {
     const basic = EXPLORER_FORGES.find(forge => forge.forge === 'bitbucket')!.credentials.find(credential => credential.kind === 'basic')!
-    expect(credentialComplete(basic, { USERNAME: 'me' })).toBe(false)
-    expect(credentialComplete(basic, { USERNAME: 'me', PASSWORD: 'secret' })).toBe(true)
+    expect(isCredentialComplete(basic, { USERNAME: 'me' })).toBe(false)
+    expect(isCredentialComplete(basic, { USERNAME: 'me', PASSWORD: 'secret' })).toBe(true)
 
     const app = EXPLORER_FORGES.find(forge => forge.forge === 'github')!.credentials.find(credential => credential.kind === 'app')!
-    expect(credentialComplete(app, { APP_ID: '1', PRIVATE_KEY: 'key' })).toBe(true)
+    expect(isCredentialComplete(app, { APP_ID: '1', PRIVATE_KEY: 'key' })).toBe(true)
   })
 
   it('print the chosen credential in the code, not the forge default', () => {

@@ -214,7 +214,7 @@ export function authFromValues(credential: ExplorerCredential, values: Record<st
 }
 
 /** Whether every required field of a credential holds a value. */
-export function credentialComplete(credential: ExplorerCredential, values: Record<string, string>): boolean {
+export function isCredentialComplete(credential: ExplorerCredential, values: Record<string, string>): boolean {
   return credential.fields.every(entry => entry.optional || Boolean(values[entry.field]?.trim()))
 }
 

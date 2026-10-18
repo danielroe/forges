@@ -3,7 +3,7 @@ import type { ForgeProvider, ThreadKind } from 'forges'
 import type { ExplorerField, ExplorerForge, ExplorerInput } from '~~/shared/explorer'
 import type { ExplorerProviders } from '~/composables/explorer'
 import type { KeyInfo } from '~/utils/explorer-json'
-import { credentialComplete, EXPLORER_FIELDS, EXPLORER_FORGES, EXPLORER_OPERATIONS, explorerCode, explorerFields, explorerRefs, REPOSITORY_FIELDS } from '~~/shared/explorer'
+import { EXPLORER_FIELDS, EXPLORER_FORGES, EXPLORER_OPERATIONS, explorerCode, explorerFields, explorerRefs, isCredentialComplete, REPOSITORY_FIELDS } from '~~/shared/explorer'
 import { providers } from '#capabilities'
 import { explorerCredentialProvider, useExplorerCredentials } from '~/composables/explorer'
 import { credentialLabel } from '~/utils/credentials'
@@ -68,7 +68,7 @@ const runnableCredentials = computed(() => forge.value.credentials.filter(creden
 /** The credential the form holds: the kind the person chose, and the value of each field. */
 const credentialState = computed(() => credentials.value[forgeId.value]!)
 const selectedCredential = computed(() => runnableCredentials.value.find(credential => credential.kind === credentialState.value.kind) ?? runnableCredentials.value[0])
-const hasCredential = computed(() => Boolean(selectedCredential.value) && credentialComplete(selectedCredential.value!, credentialState.value.values))
+const hasCredential = computed(() => Boolean(selectedCredential.value) && isCredentialComplete(selectedCredential.value!, credentialState.value.values))
 
 // Every explorer shares one credential, so the first to mount creates the state the form binds to.
 // `credentials` is watched too, because "Remember in this tab" replaces the whole record.
