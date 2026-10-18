@@ -46,8 +46,8 @@ export const tangled: (options?: WebOptions) => ForgeWeb<'tangled'> = /* @__PURE
  * ```ts
  * import { createForges, github, gitlab } from 'forges/web'
  *
- * const forges = createForges([github(), gitlab()])
- * const parsed = forges.parseUrl('https://gitlab.com/acme/widgets/-/merge_requests/3')
+ * const forges = createForges([github(), gitlab({ baseUrl: 'https://gitlab.example.com' })])
+ * const parsed = forges.parseUrl('https://gitlab.example.com/acme/widgets/-/merge_requests/3')
  * ```
  */
 export function createForges<const T extends ForgeWeb>(forges: readonly T[]): WebForges<T> {
