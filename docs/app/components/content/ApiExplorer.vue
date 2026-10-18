@@ -6,7 +6,7 @@ import type { KeyInfo } from '~/utils/explorer-json'
 import { EXPLORER_FIELDS, EXPLORER_FORGES, EXPLORER_OPERATIONS, explorerCode, explorerFields, explorerRefs, isCredentialComplete, REPOSITORY_FIELDS } from '~~/shared/explorer'
 import { providers } from '#capabilities'
 import { explorerCredentialProvider, useExplorerCredentials } from '~/composables/explorer'
-import { credentialLabel } from '~/utils/credentials'
+import { credentialLabel, mergeScopes } from '~/utils/credentials'
 import { annotateJson, pageSchema } from '~/utils/explorer-json'
 
 const props = defineProps<{
@@ -70,11 +70,11 @@ const credentialState = computed(() => credentials.value[forgeId.value]!)
 const selectedCredential = computed(() => runnableCredentials.value.find(credential => credential.kind === credentialState.value.kind) ?? runnableCredentials.value[0])
 const hasCredential = computed(() => selectedCredential.value ? isCredentialComplete(selectedCredential.value, credentialState.value.values) : false)
 
-// Every explorer shares one credential, so the first to mount creates the state the form binds to.
-// `credentials` is watched too, because "Remember in this tab" replaces the whole record.
-watch([forgeId, credentials], () => {
+// Every explorer shares one credential, so create the state the form binds to for the current forge. It runs
+// again when the forge changes or "Remember in this tab" replaces the record.
+watchEffect(() => {
   credentials.value[forgeId.value] ??= { kind: runnableCredentials.value[0]?.kind ?? '', values: {} }
-}, { immediate: true })
+})
 
 const SECRET_FIELDS = new Set(['TOKEN', 'PASSWORD', 'PRIVATE_KEY'])
 
@@ -90,9 +90,12 @@ const credentialWizard = computed(() => {
   const first = selectedCredential.value?.fields[0]
   return first ? `/guides/environment?forge=${forge.value.forge}&auth=${first.field.toLowerCase()}` : '/guides/environment'
 })
-function isSecret(field: string) {
-  return SECRET_FIELDS.has(field)
-}
+/** The chosen credential's fields, with the mask each one needs. */
+const credentialFields = computed(() => (selectedCredential.value?.fields ?? []).map(field => ({
+  name: field.field,
+  optional: field.optional,
+  secret: SECRET_FIELDS.has(field.field),
+})))
 
 async function clearCredential() {
   credentialState.value.values = {}
@@ -156,8 +159,8 @@ const credentialScopes = computed(() => {
   if (!requiresCredentials.value || !loaded.value) {
     return []
   }
-  const scopes = loaded.value.signedIn.scopesFor(operation.verb)
-  return [...scopes.token ?? [], ...Object.keys(scopes.permissions ?? {})]
+  const { token, permissions } = mergeScopes([loaded.value.signedIn.scopesFor(operation.verb)])
+  return [...token, ...permissions.map(([name]) => name)]
 })
 
 /** Whether the form still points at the forge's sample repository, which the confirmation names. */
@@ -745,31 +748,31 @@ if (props.permalink) {
             </UFormField>
             <div class="grid gap-3 sm:grid-cols-2">
               <UFormField
-                v-for="field of selectedCredential?.fields ?? []"
-                :key="field.field"
-                :label="field.field"
+                v-for="field of credentialFields"
+                :key="field.name"
+                :label="field.name"
                 :hint="field.optional ? 'optional' : undefined"
                 size="sm"
               >
                 <UInput
-                  v-model="credentialState.values[field.field]"
-                  :type="isSecret(field.field) && !revealed[field.field] ? 'password' : 'text'"
-                  :placeholder="isSecret(field.field) ? '••••••••' : undefined"
+                  v-model="credentialState.values[field.name]"
+                  :type="field.secret && !revealed[field.name] ? 'password' : 'text'"
+                  :placeholder="field.secret ? '••••••••' : undefined"
                   autocomplete="off"
                   class="w-full"
                   :ui="{ trailing: 'pe-1' }"
                 >
                   <template
-                    v-if="isSecret(field.field)"
+                    v-if="field.secret"
                     #trailing
                   >
                     <UButton
-                      :icon="revealed[field.field] ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+                      :icon="revealed[field.name] ? 'i-lucide-eye-off' : 'i-lucide-eye'"
                       size="xs"
                       color="neutral"
                       variant="ghost"
-                      :aria-label="revealed[field.field] ? `Hide ${field.field}` : `Show ${field.field}`"
-                      @click="revealed[field.field] = !revealed[field.field]"
+                      :aria-label="revealed[field.name] ? `Hide ${field.name}` : `Show ${field.name}`"
+                      @click="revealed[field.name] = !revealed[field.name]"
                     />
                   </template>
                 </UInput>
