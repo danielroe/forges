@@ -70,6 +70,9 @@ jobs:
 
   docs:
     runs-on: ubuntu-24.04-arm
+    env:
+      # The docs tests don't need a deployable build.
+      DOCS_TEST_ONLY_BUILD: '1'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -92,6 +95,8 @@ jobs:
   links:
     runs-on: ubuntu-24.04-arm
     env:
+      # The link check doesn't need a deployable build.
+      DOCS_TEST_ONLY_BUILD: '1'
       LYCHEE_ARGS: --config lychee.toml --cache --cache-exclude-status '429, 500..' --remap 'https://github\.com/danielroe/forges/(?:blob|tree)/main/(.*) file://${{ github.workspace }}/$1' --include-fragments docs/.output/public README.md CONTRIBUTING.md CODE_OF_CONDUCT.md docs/README.md docs/content examples test/fixtures
 
     steps:

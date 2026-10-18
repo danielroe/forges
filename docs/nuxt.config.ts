@@ -7,8 +7,15 @@ import { codeThemes } from './shared/code-theme.ts'
 const previewUrl = process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined
 const url = previewUrl ?? 'https://forges.link'
 
+// CI builds only to run the docs tests, so drop server source maps and the
+// node_modules trace. Env-gated: Vercel's deploy needs the trace.
+const isTestBuild = process.env.DOCS_TEST_ONLY_BUILD === '1'
+
 export default defineNuxtConfig({
   extends: ['docus'],
+  nitro: isTestBuild
+    ? { sourceMap: false, externals: { trace: false } }
+    : {},
   modules: ['@nuxt/fonts', '@nuxtjs/critters'],
   content: {
     build: {
