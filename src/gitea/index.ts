@@ -2,6 +2,7 @@ import type { ProviderFactoryFunction } from '../define.ts'
 import type { ForgejoOptions, ForgejoProfile } from '../forgejo/index.ts'
 import { defineForgeProvider } from '../define.ts'
 import { forgejoDefinition } from '../forgejo/index.ts'
+import { GITEA_WEB } from '../forgejo/web.ts'
 import { GITEA_HEADERS } from '../forgejo/webhook-events.ts'
 
 /** Options for `gitea()`, the same as for `forgejo()`. */
@@ -13,7 +14,7 @@ export type GiteaOptions = ForgejoOptions
  */
 export const GITEA_PROFILE: ForgejoProfile = {
   forge: 'gitea',
-  defaultBaseUrl: 'https://gitea.com',
+  web: GITEA_WEB,
   headers: GITEA_HEADERS,
 }
 

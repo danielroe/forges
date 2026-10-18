@@ -27,14 +27,15 @@ import type {
 import type { ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { Service, SourcehutGraphQL } from './client.ts'
+import type { SourcehutGraphQL } from './client.ts'
+import type { Service } from './services.ts'
 import type { ShAcl, ShCommit, ShEmail, ShEvent, ShJob, ShLabel, ShPage, ShPatchset, ShReference, ShRepository, ShTicket, ShUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { InsufficientScopeError, NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { getManyConcurrently, isFirstPage, phased, requireThread, resolveToken, toDate } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
-import { createSourcehutClient, serviceHost, SERVICES, serviceUrl } from './client.ts'
+import { createSourcehutClient } from './client.ts'
 import {
   branchOf,
   FORGE,
@@ -59,7 +60,8 @@ import {
   usernameOf,
 } from './normalise.ts'
 import * as Q from './queries.ts'
-import { sourcehutWeb } from './web.ts'
+import { serviceHost, SERVICES, serviceUrl } from './services.ts'
+import { SOURCEHUT_WEB } from './web.ts'
 import { sourcehutWebhooks } from './webhooks.ts'
 
 /** A Sourcehut personal access token or OAuth bearer token, sent as `Authorization: Bearer`. */
@@ -162,7 +164,7 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     json: (path, requestOptions) => (byHost.get(hostOf(path)) ?? fetcher).json(path, requestOptions),
     stream: (path, requestOptions) => (byHost.get(hostOf(path)) ?? fetcher).stream(path, requestOptions),
   }
-  const web = sourcehutWeb(instance)
+  const web = SOURCEHUT_WEB.links({ baseUrl: ctx.baseUrl, instance })
 
   const repoParts = (repo: RepoRef) => ({ owner: usernameOf(repo.owner), name: repo.name })
 

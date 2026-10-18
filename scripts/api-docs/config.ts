@@ -12,6 +12,7 @@ export const ENTRIES: Record<string, string> = {
   'forges/helpers': 'src/helpers.ts',
   'forges/kit': 'src/kit.ts',
   'forges/testing': 'src/testing/index.ts',
+  'forges/web': 'src/web/index.ts',
 }
 
 /** Where the reference pages go, under the content directory. */
@@ -107,6 +108,7 @@ export const PAGES: PageConfig[] = [
       { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ProviderFactoryFunction'] },
       { title: 'Registry methods', members: { of: 'Forges' } },
       { title: 'Create from the environment', intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).', entry: 'forges/env', names: [/./] },
+      { title: 'Web links without a client', intro: 'Import from `forges/web`. Each factory takes the `baseUrl` and `instance` of its provider and reads and builds web URLs and references, with no API client. See [Links without a client](/guides/bundling#links-without-a-client).', entry: 'forges/web', names: [/./] },
     ],
   },
   {

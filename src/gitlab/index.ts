@@ -133,7 +133,7 @@ import {
   toWebhook,
   toWebhookDelivery,
 } from './normalise.ts'
-import { gitlabWeb } from './web.ts'
+import { GITLAB_WEB } from './web.ts'
 import { GITLAB_NATIVE_EVENTS } from './webhook-events.ts'
 import { gitlabWebhooks } from './webhooks.ts'
 
@@ -214,7 +214,7 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
   setup({ options, instance, baseUrl, origin: context, fetcher }) {
     /** GitLab serves notes, labels, milestones, members, commit statuses, commit and code search and vulnerabilities only to signed-in users. */
     const anonymous = options.auth?.type === 'anonymous'
-    const web = gitlabWeb(baseUrl.replace(/\/api\/v4$/, ''))
+    const web = GITLAB_WEB.links({ baseUrl, instance })
     /**
      * GitLab lists pending and done to-dos separately. With `all`, pending
      * pages are followed by done pages; `cursor.token` marks the switch. Only

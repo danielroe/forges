@@ -1,5 +1,5 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
-import type { ReferenceSyntax, RepoSection, WebLinks } from '../web.ts'
+import type { ReferenceSyntax, RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf, rangeOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests' }
@@ -17,7 +17,7 @@ const REFERENCES: ReferenceSyntax = {
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const projectPath = (repo: RepoRef) => `/${encode(repo.owner)}/${encodeURIComponent(repo.name)}`
 
-export function gitlabWeb(baseUrl: string): WebLinks {
+function gitlabWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
     repo: repo => repo.kind === 'namespace' ? `/${encode(repo.owner)}` : projectPath(repo),
@@ -78,4 +78,11 @@ export function gitlabWeb(baseUrl: string): WebLinks {
     },
     references: REFERENCES,
   }
+}
+
+export const GITLAB_WEB: WebDefinition<'gitlab'> = {
+  forge: 'gitlab',
+  baseUrl: 'https://gitlab.com',
+  apiPath: '/api/v4',
+  links: ({ baseUrl }) => gitlabWeb(baseUrl.replace(/\/api\/v4$/, '')),
 }

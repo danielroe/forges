@@ -17,6 +17,8 @@ beforeEach(() => {
     mkdirSync(join(directory, name))
     writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'`)
   }
+  mkdirSync(join(directory, 'web'))
+  writeFileSync(join(directory, 'web', 'index.mjs'), `export const github = 'links'`)
 })
 
 afterEach(() => {
@@ -34,7 +36,7 @@ describe('browser bundle measurements', () => {
     expect(result.stderr).toBe('')
     expect(result.status).toBe(0)
     const snapshot = parseBundleSnapshot(readFileSync(out, 'utf8'))
-    expect(snapshot.bundles).toHaveLength(6)
+    expect(snapshot.bundles).toHaveLength(7)
     expect(snapshot.bundles[0]!.minified).toBeGreaterThan(4_000)
     expect(snapshot.bundles.every(bundle => bundle.gzipped > 0)).toBe(true)
   })
@@ -61,12 +63,19 @@ describe('browser bundle measurements', () => {
     expect(result.stderr).toContain(`forges/${name} contains ${marker}`)
   })
 
+  it('fails when the forges/web entry chunk contains API client code', () => {
+    writeFileSync(join(directory, 'web', 'index.mjs'), `export const github = 'x-github-api-version'`)
+    const result = measure()
+    expect(result.status).toBe(1)
+    expect(result.stderr).toContain('forges/web contains x-github-api-version')
+  })
+
   it('measures the base in report mode without enforcing its tree-shaking checks', () => {
     writeFileSync(join(directory, 'github/index.mjs'), 'export const github = "x-github-event"')
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(6)
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(7)
     expect(result.stdout).toContain('forges/github')
   })
 
@@ -75,7 +84,7 @@ describe('browser bundle measurements', () => {
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'forges/gitlab', 'forges/gitea', 'forges/bitbucket'])
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'forges/gitlab', 'forges/gitea', 'forges/bitbucket', 'forges/web'])
   })
 
   it('counts and reports every chunk besides the entry', () => {

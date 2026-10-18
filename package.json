@@ -59,6 +59,7 @@
     "./sourcehut": "./src/sourcehut/index.ts",
     "./tangled": "./src/tangled/index.ts",
     "./testing": "./src/testing/index.ts",
+    "./web": "./src/web/index.ts",
     "./package.json": "./package.json",
     "./schema/*.json": "./dist/schema/*.json"
   },
@@ -84,6 +85,7 @@
       "./sourcehut": "./dist/sourcehut/index.mjs",
       "./tangled": "./dist/tangled/index.mjs",
       "./testing": "./dist/testing/index.mjs",
+      "./web": "./dist/web/index.mjs",
       "./package.json": "./package.json",
       "./schema/*.json": "./dist/schema/*.json"
     }

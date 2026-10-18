@@ -1,5 +1,5 @@
 import type { RepoRef, ThreadKind } from '../model.ts'
-import type { RepoSection, WebLinks } from '../web.ts'
+import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
@@ -8,8 +8,14 @@ const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequ
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`
 
+export const TANGLED_WEB: WebDefinition<'tangled'> = {
+  forge: 'tangled',
+  baseUrl: 'https://tangled.org',
+  links: ({ baseUrl }) => tangledWeb(baseUrl),
+}
+
 /** Tangled pages address threads by their display number, so parsed refs carry `displayNumber` and need resolving. */
-export function tangledWeb(baseUrl: string): WebLinks {
+function tangledWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
     // Older links point at tangled.sh, which redirects to tangled.org.

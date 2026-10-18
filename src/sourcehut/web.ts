@@ -1,16 +1,22 @@
 import type { RepoRef } from '../model.ts'
-import type { WebLinks } from '../web.ts'
+import type { WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
-import { serviceUrl } from './client.ts'
+import { serviceUrl } from './services.ts'
 
 const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
+
+export const SOURCEHUT_WEB: WebDefinition<'sourcehut'> = {
+  forge: 'sourcehut',
+  baseUrl: 'https://sr.ht',
+  links: ({ instance }) => sourcehutWeb(instance),
+}
 
 /**
  * Sourcehut puts each service on its own subdomain. `baseUrl` is the git host,
  * the only host `parseUrl` reads back; issues and patches get absolute URLs.
  */
-export function sourcehutWeb(instance: string): WebLinks {
+function sourcehutWeb(instance: string): WebLinks {
   const git = serviceUrl(instance, 'git')
   const todo = serviceUrl(instance, 'todo')
   const lists = serviceUrl(instance, 'lists')
