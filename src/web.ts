@@ -219,7 +219,7 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef | CommitR
 }
 
 /** `owner/name`, for forges that nest no deeper. */
-export const OWNER_NAME = String.raw`[\w.-]+\/[\w.-]+`
+export const OWNER_NAME: string = String.raw`[\w.-]+\/[\w.-]+`
 
 /** What cannot come right before a reference, so that a path, an email address or a word does not read as one. */
 const BEFORE = String.raw`(?<![\w/.@#~&!+-])`
