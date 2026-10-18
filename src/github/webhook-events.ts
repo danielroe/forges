@@ -18,6 +18,7 @@ export const GITHUB_NATIVE_EVENTS: NativeEventMap = {
   star: ['star'],
   fork: ['fork'],
   wiki: ['gollum'],
+  issue_type: ['issues'],
 }
 
 /** Normalised kinds and actions GitHub deliveries translate into. */
@@ -60,4 +61,6 @@ export const GITHUB_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'fork', action: 'created' },
   { kind: 'wiki', action: 'created' },
   { kind: 'wiki', action: 'edited' },
+  { kind: 'issue_type', action: 'typed' },
+  { kind: 'issue_type', action: 'untyped' },
 ]

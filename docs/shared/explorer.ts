@@ -8,7 +8,7 @@ export type ExplorerField
     | 'reviewEvent' | 'reviewId' | 'reviewThread' | 'closeReason' | 'milestone' | 'canonical' | 'targetOwner'
     | 'targetName' | 'labelName' | 'colour' | 'role' | 'team' | 'key' | 'commentId' | 'notificationId' | 'webhookId'
     | 'deliveryId' | 'webhookUrl' | 'secret' | 'checkName' | 'checkState' | 'checkId' | 'branch' | 'message' | 'content'
-    | 'updateMethod' | 'lockReason' | 'hideReason'
+    | 'updateMethod' | 'lockReason' | 'hideReason' | 'issueType'
 
 /** The values a form holds. Lists are comma-separated. */
 export type ExplorerInput = Record<ExplorerField, string>
@@ -59,6 +59,7 @@ export const EXPLORER_FIELDS: Record<ExplorerField, ExplorerFieldConfig> = {
   reviewThread: { label: 'Review thread id', default: '456' },
   closeReason: { label: 'Reason', items: options('completed', 'not_planned', 'duplicate'), default: 'completed' },
   milestone: { label: 'Milestone', default: 'v1.0' },
+  issueType: { label: 'Issue type', default: 'Bug' },
   canonical: { label: 'Duplicate of number', default: '1' },
   targetOwner: { label: 'Target owner', default: 'acme' },
   targetName: { label: 'Target repository', default: 'archive' },
@@ -379,6 +380,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('repos.byOwner', { returns: 'Page<Repo>', uses: 'none', fields: fields('owner'), args: ({ origin, value }) => `{ ${origin}, owner: ${value('owner')}, name: '', kind: 'namespace' }, { perPage: 5 }`, run: (p, input, { origin }) => p.repos.byOwner({ ...origin, owner: input.owner, name: '', kind: 'namespace' }, perPage).page() }),
   repoRead('repos.labels', 'Page<Label>', (p, _, { repo }) => p.repos.labels(repo, perPage).page()),
   repoRead('repos.milestones', 'Page<Milestone>', (p, _, { repo }) => p.repos.milestones(repo, perPage).page()),
+  operation('repos.issueTypes', { returns: 'IssueType[]', auth: true, args: () => 'repo', run: (p, _, { repo }) => p.repos.issueTypes(repo) }),
   repoRead('repos.collaborators', 'Page<Collaborator>', (p, _, { repo }) => p.repos.collaborators(repo, perPage).page()),
   repoRead('repos.contributors', 'Page<Contributor>', (p, _, { repo }) => p.repos.contributors(repo, perPage).page()),
   repoRead('repos.contributorStats', 'ContributorStats[]', (p, _, { repo }) => p.repos.contributorStats(repo)),
@@ -443,6 +445,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   threadWrite('threads.removeLabels', 'Label[]', ['labels'], ({ list }) => `thread, ${list('labels')}`, (p, input, { thread }) => p.threads.removeLabels(thread, listOf(input.labels))),
   threadWrite('threads.setLabels', 'Label[]', ['labels'], ({ list }) => `thread, ${list('labels')}`, (p, input, { thread }) => p.threads.setLabels(thread, listOf(input.labels))),
   threadWrite('threads.setMilestone', 'Milestone | undefined', ['milestone'], ({ value }) => `thread, ${value('milestone')}`, (p, input, { thread }) => p.threads.setMilestone(thread, input.milestone)),
+  threadWrite('threads.setIssueType', 'IssueType | undefined', ['issueType'], ({ value }) => `thread, ${value('issueType')}`, (p, input, { thread }) => p.threads.setIssueType(thread, input.issueType)),
   threadWrite('threads.react', 'void', ['reaction'], ({ value }) => `thread, ${value('reaction')}`, (p, input, { thread }) => p.threads.react(thread, input.reaction as ReactionContent)),
   threadWrite('threads.unreact', 'void', ['reaction'], ({ value }) => `thread, ${value('reaction')}`, (p, input, { thread }) => p.threads.unreact(thread, input.reaction as ReactionContent)),
   threadWrite('threads.subscribe', 'void', [], () => 'thread', (p, _, { thread }) => p.threads.subscribe(thread)),

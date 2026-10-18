@@ -66,10 +66,12 @@ describe('github webhook times', () => {
   it('dates recorded deliveries from their payloads', () => {
     const recording = 'github/recorded/github.com-webhooks'
 
-    expect(translate(recorded(recording, '02-issues'))).toEqual([{ occurredAt: '2026-10-09T19:56:52.000Z' }])
-    expect(translate(recorded(recording, '03-issues'))).toEqual([{ occurredAt: '2026-10-09T19:56:54.000Z' }])
-    expect(translate(recorded(recording, '04-issue_comment'))).toEqual([{ occurredAt: '2026-10-09T19:56:53.000Z' }])
-    expect(translate(recorded(recording, '05-push'))).toEqual([{ occurredAt: '2026-10-09T19:56:55.000Z' }])
+    expect(translate(recorded(recording, '03-push'))).toEqual([{ occurredAt: '2026-10-18T15:36:54.000Z' }])
+    expect(translate(recorded(recording, '04-issues'))).toEqual([{ occurredAt: '2026-10-18T15:36:54.000Z' }])
+    expect(translate(recorded(recording, '05-issue_comment'))).toEqual([{ occurredAt: '2026-10-18T15:36:55.000Z' }])
+    expect(translate(recorded(recording, '06-issues'))).toEqual([{ occurredAt: '2026-10-18T15:36:56.000Z' }])
+    expect(translate(recorded(recording, '07-issues'))).toEqual([{ occurredAt: '2026-10-18T15:36:57.000Z' }])
+    expect(translate(recorded(recording, '08-issues'))).toEqual([{ occurredAt: '2026-10-18T15:36:58.000Z' }])
   })
 
   it('dates a merge, an edit, a review and a label from the payload', () => {

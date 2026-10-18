@@ -133,6 +133,15 @@ export interface GitHubMilestone {
   html_url?: string
 }
 
+export interface GitHubIssueType {
+  id: number
+  node_id: string
+  name: string
+  description?: string | null
+  color?: string | null
+  is_enabled?: boolean
+}
+
 export interface GitHubLabel {
   name: string
   color?: string | null
@@ -189,6 +198,7 @@ export interface GitHubIssue {
   commits?: number
   pull_request?: { url?: string, merged_at?: string | null }
   milestone?: GitHubMilestone | null
+  type?: GitHubIssueType | null
   reactions?: GitHubReactions
 }
 

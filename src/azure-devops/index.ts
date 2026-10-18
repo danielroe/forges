@@ -34,7 +34,8 @@ export interface AzureDevOpsOptions extends ForgeOptionsBase {
    */
   baseUrl?: string
   /**
-   * Work item type `threads.create({ kind: 'issue' })` creates. Scrum projects use `Impediment` or `Product Backlog Item`.
+   * Work item type `threads.create({ kind: 'issue' })` creates, read back as `thread.issueType`. Scrum projects use
+   * `Impediment` or `Product Backlog Item`.
    * @default Issue
    */
   issueType?: string

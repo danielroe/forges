@@ -1013,6 +1013,8 @@
       "unarchived",
       "added",
       "removed",
+      "typed",
+      "untyped",
       "other"
     ],
     "description": "What happened, independent of `kind`, so \"anything that closed\" is `action === 'closed'` whatever the subject.",
@@ -1379,6 +1381,22 @@
         "properties": {
           "type": {
             "type": "string",
+            "const": "issue_type"
+          },
+          "issueType": {
+            "$ref": "#/components/schemas/IssueType"
+          }
+        },
+        "required": [
+          "type",
+          "issueType"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
             "const": "repo_visibility"
           },
           "isPublic": {
@@ -1444,6 +1462,7 @@
       "star",
       "fork",
       "wiki",
+      "issue_type",
       "other"
     ],
     "description": "What an event is about.",
@@ -1584,6 +1603,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.milestones()`."
           },
+          "issueTypes": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.issueTypes()`."
+          },
           "collaborators": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.collaborators()`."
@@ -1628,6 +1651,7 @@
           "labels",
           "createLabel",
           "milestones",
+          "issueTypes",
           "collaborators",
           "contributors",
           "contributorStats",
@@ -1811,6 +1835,10 @@
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.setMilestone()`, per thread kind."
           },
+          "setIssueType": {
+            "$ref": "#/components/schemas/PerKind",
+            "description": "Support for `threads.setIssueType()`, per thread kind."
+          },
           "setAssignees": {
             "$ref": "#/components/schemas/PerKind",
             "description": "Support for `threads.setAssignees()`, per thread kind."
@@ -1919,6 +1947,7 @@
           "addLabels",
           "removeLabels",
           "setMilestone",
+          "setIssueType",
           "setAssignees",
           "requestReview",
           "merge",
@@ -2613,6 +2642,37 @@
     ],
     "description": "A short-lived token that acts as one app installation.",
     "x-forges-type": "InstallationToken"
+  },
+  "IssueType": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Forge-native id: a node id on GitHub, the name on Azure DevOps."
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "colour": {
+        "type": "string",
+        "description": "The forge's own colour, a name such as `red` on GitHub."
+      },
+      "enabled": {
+        "type": "boolean",
+        "description": "Whether issues can be given the type."
+      },
+      "raw": {}
+    },
+    "required": [
+      "id",
+      "name",
+      "raw"
+    ],
+    "description": "A kind of issue, such as a bug or a feature, from the set its repository offers.",
+    "x-forges-type": "IssueType"
   },
   "KnownForgeKind": {
     "type": "string",
@@ -4397,6 +4457,10 @@
       "milestone": {
         "$ref": "#/components/schemas/Milestone"
       },
+      "issueType": {
+        "$ref": "#/components/schemas/IssueType",
+        "description": "Issues only, where the forge has issue types and the issue has one."
+      },
       "reactions": {
         "$ref": "#/components/schemas/ReactionSummary"
       },
@@ -4528,6 +4592,10 @@
         "items": {
           "$ref": "#/components/schemas/Label"
         }
+      },
+      "issueType": {
+        "$ref": "#/components/schemas/IssueType",
+        "description": "Absent both when the issue has no type and when the source doesn't report one."
       },
       "url": {
         "type": "string"

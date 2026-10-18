@@ -571,6 +571,8 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         'threads.hideComment',
         'threads.lock',
         'threads.updateBranch',
+        'repos.issueTypes',
+        'threads.setIssueType',
       ],
       request: api,
       repos: {

@@ -870,6 +870,63 @@ describe('github moderation', () => {
   })
 })
 
+describe('github issue types', () => {
+  const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
+  const bug = { id: 'IT_kwDOAAB5ac4AABAG', name: 'Bug', description: 'An unexpected problem or behavior', colour: 'red', enabled: true }
+  const issueUrl = 'https://api.github.com/repos/acme/widgets/issues/17'
+
+  it('lists the issue types of a repository', async () => {
+    const { provider, calls } = tokenProvider()
+
+    const types = await provider.repos.issueTypes(repo)
+
+    expect(types.map(({ raw, ...type }) => type)).toEqual([
+      { id: 'IT_kwDOAAB5ac4AABAF', name: 'Task', description: 'A specific piece of work', colour: 'yellow', enabled: true },
+      bug,
+      { id: 'IT_kwDOAAB5ac4AABAH', name: 'Feature', description: 'A request, idea, or new functionality', colour: 'blue', enabled: true },
+    ])
+    expect(calls.map(call => call.url)).toEqual(['https://api.github.com/repos/acme/widgets/issue-types'])
+    expect(provider.scopesFor('repos.issueTypes')).toEqual({ token: ['repo'], permissions: { metadata: 'read' } })
+  })
+
+  it('reads the type of each issue in a listing, and over GraphQL', async () => {
+    const { provider } = tokenProvider()
+
+    const { items } = await provider.threads.list(repo).page()
+    const closing = await provider.threads.closingIssues(pull).page()
+
+    expect(items.map(thread => [thread.ref.number, thread.issueType?.name])).toEqual([['42', undefined], ['17', 'Bug']])
+    expect(items[1]!.issueType).toMatchObject(bug)
+    expect(closing.items[0]!.issueType).toMatchObject(bug)
+  })
+
+  it('sets an issue type by name or as listed, and clears it', async () => {
+    const { provider, calls } = tokenProvider()
+    const cleared = tokenProvider({ [`PATCH ${issueUrl}`]: { status: 200, headers: {}, body: { number: 17, title: 'Crash on empty config', state: 'open', type: null } } })
+
+    await expect(provider.threads.setIssueType(issue, 'Bug')).resolves.toMatchObject(bug)
+    await expect(provider.threads.setIssueType(issue, { ...bug, raw: {} })).resolves.toMatchObject(bug)
+    await expect(cleared.provider.threads.setIssueType(issue, undefined)).resolves.toBeUndefined()
+
+    expect([...calls, ...cleared.calls].map(call => `${call.method} ${call.url} ${call.body}`)).toEqual([
+      `PATCH ${issueUrl} {"type":"Bug"}`,
+      `PATCH ${issueUrl} {"type":"Bug"}`,
+      `PATCH ${issueUrl} {"type":null}`,
+    ])
+  })
+
+  it('sets types on issues only, and lists them only on github.com with a credential', async () => {
+    const { provider, calls } = tokenProvider()
+    const enterprise = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } })
+
+    await expect(provider.threads.setIssueType(pull, 'Bug')).rejects.toThrow(UnsupportedOperationError)
+    expect(calls).toEqual([])
+    expect(github({}).can('repos.issueTypes')).toBe(false)
+    expect(enterprise.can('repos.issueTypes')).toBe(false)
+    expect(enterprise.can('threads.setIssueType', 'issue')).toBe(true)
+  })
+})
+
 describe('github closing references', () => {
   const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
 
@@ -1667,7 +1724,7 @@ describe('github webhook management', () => {
 
     expect(items[0]).toMatchObject({ url: 'https://hooks.example/forges', active: true, contentType: 'json' })
     expect(items[0]!.nativeEvents).toEqual(['issues', 'issue_comment', 'push'])
-    expect(items[0]!.events.sort()).toEqual(['assignment', 'comment', 'label', 'push', 'state_change'])
+    expect(items[0]!.events.sort()).toEqual(['assignment', 'comment', 'issue_type', 'label', 'push', 'state_change'])
   })
 
   it('translates normalised kinds into native event names on create', async () => {

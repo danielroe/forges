@@ -91,6 +91,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `repos.labels` | emulated | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
+| `repos.issueTypes` | ❌ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -126,6 +127,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `threads.addLabels` | ❌ | ❌ |
 | `threads.removeLabels` | ❌ | ❌ |
 | `threads.setMilestone` | ❌ | ❌ |
+| `threads.setIssueType` | ❌ | ❌ |
 | `threads.setAssignees` | ❌ | ❌ |
 | `threads.requestReview` | ❌ | ❌ |
 | `threads.merge` | ❌ | ❌ |

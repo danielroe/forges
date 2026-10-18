@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/issue-types"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"feef966b69dc6a9a9652c21f095043b6a5bae6092b83da996f9fe0abc1c368f4\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4991",
+      "x-ratelimit-reset": "1792341340",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 897945872,
+        "node_id": "IT_kwDOFEVkf841hZEQ",
+        "name": "Task",
+        "description": "A specific piece of work",
+        "color": "yellow",
+        "created_at": "2026-10-09T10:56:49Z",
+        "updated_at": "2026-10-09T10:56:49Z",
+        "is_enabled": true
+      },
+      {
+        "id": 897945873,
+        "node_id": "IT_kwDOFEVkf841hZER",
+        "name": "Bug",
+        "description": "An unexpected problem or behavior",
+        "color": "red",
+        "created_at": "2026-10-09T10:56:49Z",
+        "updated_at": "2026-10-09T10:56:49Z",
+        "is_enabled": true
+      },
+      {
+        "id": 897945874,
+        "node_id": "IT_kwDOFEVkf841hZES",
+        "name": "Feature",
+        "description": "A request, idea, or new functionality",
+        "color": "blue",
+        "created_at": "2026-10-09T10:56:49Z",
+        "updated_at": "2026-10-09T10:56:49Z",
+        "is_enabled": true
+      }
+    ]
+  }
+}

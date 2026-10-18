@@ -85,6 +85,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
+| `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -120,6 +121,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.addLabels` | ∅ | ∅ |
 | `threads.removeLabels` | ∅ | ∅ |
 | `threads.setMilestone` | ∅ | ∅ |
+| `threads.setIssueType` | ∅ | ∅ |
 | `threads.setAssignees` | ∅ | ∅ |
 | `threads.requestReview` | ∅ | ∅ |
 | `threads.merge` | ∅ | ∅ |

@@ -39,7 +39,11 @@
       "createdAt": "<now>",
       "updatedAt": "<now>",
       "lastActivityAt": "<now>",
-      "commentCount": 0
+      "commentCount": 0,
+      "issueType": {
+        "id": "Issue",
+        "name": "Issue"
+      }
     },
     {
       "ref": {
@@ -95,7 +99,11 @@
       "createdAt": "<now>",
       "updatedAt": "<now>",
       "lastActivityAt": "<now>",
-      "commentCount": 0
+      "commentCount": 0,
+      "issueType": {
+        "id": "Issue",
+        "name": "Issue"
+      }
     },
     {
       "ref": {
@@ -151,7 +159,11 @@
       "createdAt": "<now>",
       "updatedAt": "<now>",
       "lastActivityAt": "<now>",
-      "commentCount": 1
+      "commentCount": 1,
+      "issueType": {
+        "id": "Issue",
+        "name": "Issue"
+      }
     }
   ],
   "cursor": {

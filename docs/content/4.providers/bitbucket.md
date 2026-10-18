@@ -120,6 +120,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.labels` | ∅ | ∅ |
 | `repos.createLabel` | ∅ | ∅ |
 | `repos.milestones` | ∅ | ∅ |
+| `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -155,6 +156,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `threads.addLabels` | ∅ | ∅ |
 | `threads.removeLabels` | ∅ | ∅ |
 | `threads.setMilestone` | ∅ | ∅ |
+| `threads.setIssueType` | ∅ | ∅ |
 | `threads.setAssignees` | ❌ | ❌ |
 | `threads.requestReview` | PR | ❌ |
 | `threads.merge` | ✅ | ❌ |

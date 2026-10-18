@@ -67,7 +67,7 @@ Work items belong to a project and not to a repository, so their refs use a name
 
 ## Work items as issues
 
-`threads.create({ kind: 'issue' })` creates a work item of the type `Issue`. If your process template uses a different type, such as `Product Backlog Item`, set the `issueType` option. The tags of a work item are its labels, and `System.AssignedTo` is its single assignee.
+`threads.create({ kind: 'issue' })` creates a work item of the type `Issue`. If your process template uses a different type, such as `Product Backlog Item`, set the `issueType` option. Every work item carries its type as `thread.issueType`, whose `id` and `name` are both the type's name. The tags of a work item are its labels, and `System.AssignedTo` is its single assignee.
 
 ## Merging
 
@@ -139,6 +139,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
+| `repos.issueTypes` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -174,6 +175,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `threads.addLabels` | ❌ | ❌ |
 | `threads.removeLabels` | ❌ | ❌ |
 | `threads.setMilestone` | ❌ | ❌ |
+| `threads.setIssueType` | ❌ | ❌ |
 | `threads.setAssignees` | issue | ❌ |
 | `threads.requestReview` | PR | ❌ |
 | `threads.merge` | ✅ | ❌ |

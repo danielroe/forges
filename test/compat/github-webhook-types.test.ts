@@ -9,6 +9,8 @@ export type Translated = [
   Accepts<Schemas['webhook-issue-comment-created']>,
   Accepts<Schemas['webhook-issues-closed']>,
   Accepts<Schemas['webhook-issues-labeled']>,
+  Accepts<Schemas['webhook-issues-typed']>,
+  Accepts<Schemas['webhook-issues-untyped']>,
   Accepts<Schemas['webhook-pull-request-closed']>,
   Accepts<Schemas['webhook-pull-request-synchronize']>,
   Accepts<Schemas['webhook-pull-request-review-submitted']>,

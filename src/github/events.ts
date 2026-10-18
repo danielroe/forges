@@ -1,12 +1,12 @@
 import type { Actor, CommitRef, EventAction, EventDetail, EventKind, ForgeEventInput, RepoRef, SourceKind, ThreadKind, ThreadRef, ThreadSnapshot } from '../model.ts'
 import type { WebhookDelivery } from '../provider.ts'
-import type { GitHubFeedEvent, GitHubIssue, GitHubRepository, GitHubUser } from './types.ts'
+import type { GitHubFeedEvent, GitHubIssue, GitHubIssueType, GitHubRepository, GitHubUser } from './types.ts'
 import { bodyText, headerValue } from '../crypto.ts'
 import { WebhookVerificationError } from '../errors.ts'
 import { eventAction, eventTime, reviewState, threadSnapshot } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { refEvent } from '../webhooks.ts'
-import { FORGE, toActor, toLabels, toRepoRef, toThreadState } from './normalise.ts'
+import { FORGE, toActor, toIssueType, toLabels, toRepoRef, toThreadState } from './normalise.ts'
 
 const EVENT_HEADER = 'x-github-event'
 const DELIVERY_HEADER = 'x-github-delivery'
@@ -33,6 +33,8 @@ export interface GitHubEventPayload {
   assignee?: GitHubUser | null
   requested_reviewer?: GitHubUser | null
   label?: { name?: string }
+  /** The issue type a `typed` or `untyped` delivery added or removed. */
+  type?: GitHubIssueType | null
   /** Webhooks name each commit by `id`, and the feeds that list commits by `sha`. */
   commits?: Array<{ id?: string, sha?: string, message: string, timestamp?: string, url?: string, author?: { name?: string, username?: string } }>
   head_commit?: { id: string, timestamp?: string } | null
@@ -69,6 +71,7 @@ interface GitHubEventThread extends GitHubEventSubject, Partial<Pick<GitHubIssue
   merge_commit_sha?: string | null
   user?: GitHubUser | null
   labels?: GitHubIssue['labels']
+  type?: GitHubIssueType | null
   head?: { ref: string, sha: string, repo?: (Partial<GitHubRepository> & { url?: string }) | null }
 }
 
@@ -256,6 +259,7 @@ function snapshotOf(instance: string, payload: GitHubEventPayload): ThreadSnapsh
     isDraft: raw.draft,
     author: toActor(instance, raw.user),
     labels: raw.labels && toLabels(raw.labels),
+    issueType: toIssueType(raw.type),
     url: raw.html_url,
     branches: raw.head && raw.base
       ? {
@@ -279,6 +283,9 @@ function eventKindFor(event: string, payload: GitHubEventPayload): EventKind {
       case 'labeled':
       case 'unlabeled':
         return 'label'
+      case 'typed':
+      case 'untyped':
+        return 'issue_type'
       case 'assigned':
       case 'unassigned':
         return 'assignment'
@@ -305,6 +312,9 @@ function eventKindFor(event: string, payload: GitHubEventPayload): EventKind {
 }
 
 function summarise(event: string, payload: GitHubEventPayload, actor: string): string {
+  if (event === 'issues' && (payload.action === 'typed' || payload.action === 'untyped')) {
+    return `${actor} ${payload.action === 'typed' ? 'set' : 'removed'} the issue type ${payload.type?.name ?? ''}`.trim()
+  }
   switch (event) {
     case 'issue_comment':
     case 'discussion_comment':
@@ -372,6 +382,8 @@ function detailOf(kind: EventKind, thread: ThreadRef | undefined, commit: Commit
       }
     case 'label':
       return payload.label?.name ? { type: 'label', label: payload.label.name } : undefined
+    case 'issue_type':
+      return payload.type ? { type: 'issue_type', issueType: toIssueType(payload.type)! } : undefined
     case 'assignment':
       return { type: 'assignment', assignee: toActor(instance, payload.assignee ?? payload.requested_reviewer ?? undefined) }
     case 'state_change': {

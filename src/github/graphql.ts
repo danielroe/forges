@@ -1,4 +1,4 @@
-import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, SubscriptionState, Thread } from '../model.ts'
+import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, IssueType, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, SubscriptionState, Thread } from '../model.ts'
 import { eventTime } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { toAuthorAssociation } from './association.ts'
@@ -121,6 +121,7 @@ const ISSUE_FIELDS = `id number title body state stateReason createdAt updatedAt
       comments { totalCount }
       participants(first: 20) { nodes { ${USER_FIELDS} } }
       milestone { number title state description dueOn url }
+      issueType { id name description color isEnabled }
       viewerSubscription`
 
 const PULL_FIELDS = `id number title body state isDraft createdAt updatedAt closedAt mergedAt url locked
@@ -206,6 +207,14 @@ export function toGraphQLMilestone(raw: GraphQLMilestone | null | undefined): Mi
     : undefined
 }
 
+export interface GraphQLIssueType { id: string, name: string, description?: string | null, color?: string, isEnabled?: boolean }
+
+function toGraphQLIssueType(raw: GraphQLIssueType | null | undefined): IssueType | undefined {
+  return raw
+    ? { id: raw.id, name: raw.name, description: raw.description || undefined, colour: raw.color?.toLowerCase(), enabled: raw.isEnabled, raw }
+    : undefined
+}
+
 export function toViewerSubscription(value: string | null | undefined): SubscriptionState | undefined {
   return value === 'SUBSCRIBED' ? 'subscribed' : value === 'IGNORED' ? 'ignored' : value === 'UNSUBSCRIBED' ? 'none' : undefined
 }
@@ -233,6 +242,7 @@ export interface GraphQLIssueOrPull {
   comments?: { totalCount: number }
   participants?: { nodes: GraphQLActor[] }
   milestone?: GraphQLMilestone | null
+  issueType?: GraphQLIssueType | null
   viewerSubscription?: string | null
   headRefName?: string
   headRefOid?: string
@@ -309,6 +319,7 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     assignees: (raw.assignees?.nodes ?? []).flatMap(actor => toGraphQLActor(instance, actor) ?? []),
     participants: (raw.participants?.nodes ?? []).flatMap(actor => toGraphQLActor(instance, actor) ?? []),
     milestone: toGraphQLMilestone(raw.milestone),
+    issueType: toGraphQLIssueType(raw.issueType),
     subscription: toViewerSubscription(raw.viewerSubscription),
     reviewers,
     labels: (raw.labels?.nodes ?? []).map(label => ({ name: label.name, colour: label.color, description: label.description ?? undefined })),

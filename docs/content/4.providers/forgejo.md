@@ -156,6 +156,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ✅ |
+| `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -191,6 +192,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.addLabels` | issue, PR | ❌ |
 | `threads.removeLabels` | issue, PR | ❌ |
 | `threads.setMilestone` | issue, PR | ❌ |
+| `threads.setIssueType` | ∅ | ∅ |
 | `threads.setAssignees` | issue, PR | ❌ |
 | `threads.requestReview` | PR | ❌ |
 | `threads.merge` | ✅ | ❌ |

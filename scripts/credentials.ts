@@ -217,7 +217,7 @@ export interface CredentialTask {
 }
 
 const TASKS: CredentialTask[] = [
-  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
+  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.issueTypes', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
   { id: 'orgs', group: 'Read', label: 'Organisation teams', capabilities: ['orgs.teams', 'orgs.teamMembers'] },
   { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.closingIssues', 'threads.closingPullRequests', 'threads.events', 'threads.comments', 'threads.getComment', 'threads.reactions', 'threads.reviews', 'threads.getReview', 'threads.files', 'threads.commits'] },
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.getFile', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'commits.list', 'commits.get', 'contents.compare', 'commits.comments', 'commits.getComment'] },
@@ -228,7 +228,7 @@ const TASKS: CredentialTask[] = [
   { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'threads.subscription'] },
   { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['threads.createComment', 'threads.updateComment', 'threads.deleteComment', 'threads.react', 'commits.createComment', 'commits.updateComment', 'commits.deleteComment'] },
   { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['threads.create', 'threads.update', 'threads.close', 'threads.reopen', 'threads.transfer', 'threads.markDuplicate'] },
-  { id: 'triage', group: 'Write', label: 'Labels, assignees and milestones', capabilities: ['threads.setLabels', 'threads.addLabels', 'threads.removeLabels', 'threads.setMilestone', 'threads.setAssignees', 'repos.createLabel'] },
+  { id: 'triage', group: 'Write', label: 'Labels, assignees, milestones and issue types', capabilities: ['threads.setLabels', 'threads.addLabels', 'threads.removeLabels', 'threads.setMilestone', 'threads.setIssueType', 'threads.setAssignees', 'repos.createLabel'] },
   { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['threads.requestReview', 'threads.createReview', 'threads.submitReview', 'threads.approve', 'threads.replyToReviewComment', 'threads.resolveReviewThread'] },
   { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['threads.merge', 'threads.updateBranch'] },
   { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun'] },

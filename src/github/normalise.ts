@@ -17,6 +17,7 @@ import type {
   EventDetail,
   EventKind,
   ForgeEventInput,
+  IssueType,
   Label,
   MergeCommitDefaults,
   Milestone,
@@ -65,6 +66,7 @@ import type {
   GitHubHook,
   GitHubHookDelivery,
   GitHubIssue,
+  GitHubIssueType,
   GitHubLabel,
   GitHubMilestone,
   GitHubNotification,
@@ -242,6 +244,19 @@ export function toMilestone(raw: GitHubMilestone | null | undefined): Milestone 
         description: raw.description ?? undefined,
         dueOn: toDate(raw.due_on),
         url: raw.html_url,
+        raw,
+      }
+    : undefined
+}
+
+export function toIssueType(raw: GitHubIssueType | null | undefined): IssueType | undefined {
+  return raw
+    ? {
+        id: raw.node_id,
+        name: raw.name,
+        description: raw.description || undefined,
+        colour: raw.color ?? undefined,
+        enabled: raw.is_enabled,
         raw,
       }
     : undefined
@@ -469,6 +484,7 @@ export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
     locked: raw.locked,
     commentCount: raw.comments,
     milestone: toMilestone(raw.milestone),
+    issueType: toIssueType(raw.type),
     reactions: toReactions(raw.reactions),
     branches: raw.head && raw.base
       ? {

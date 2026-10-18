@@ -42,6 +42,7 @@ import type {
   GetManyResult,
   Installation,
   InstallationToken,
+  IssueType,
   Label,
   LabelInput,
   ListOptions,
@@ -216,6 +217,8 @@ export interface ForgeCapabilities {
     createLabel: Support
     /** Support for `repos.milestones()`. */
     milestones: Support
+    /** Support for `repos.issueTypes()`. */
+    issueTypes: Support
     /** Support for `repos.collaborators()`. */
     collaborators: Support
     /** Support for `repos.contributors()`. */
@@ -313,6 +316,8 @@ export interface ForgeCapabilities {
     removeLabels: PerKind
     /** Support for `threads.setMilestone()`, per thread kind. */
     setMilestone: PerKind
+    /** Support for `threads.setIssueType()`, per thread kind. */
+    setIssueType: PerKind
     /** Support for `threads.setAssignees()`, per thread kind. */
     setAssignees: PerKind
     /** Support for `threads.requestReview()`, per thread kind. */
@@ -697,6 +702,17 @@ export interface ThreadsApi {
    * @returns The milestone the thread is in afterwards, or `undefined` once it is cleared.
    */
   setMilestone: (ref: ThreadRef, milestone: Milestone | string | undefined, options?: BaseOptions) => Promise<Milestone | undefined>
+  /**
+   * Sets the issue's type, by issue type or name, or clears it with `undefined`. GitHub leaves the type as it was,
+   * without an error, when the account cannot push to the repository, so compare the result with what you asked for.
+   * @returns The type the issue has afterwards, or `undefined` once it is cleared.
+   * @example
+   * ```ts
+   * const bug = (await provider.repos.issueTypes(repo)).find(type => type.name === 'Bug')
+   * await provider.threads.setIssueType(ref, bug)
+   * ```
+   */
+  setIssueType: (ref: ThreadRef, issueType: IssueType | string | undefined, options?: BaseOptions) => Promise<IssueType | undefined>
   /** Reactions left on the thread or on one of its comments. */
   reactions: (target: ThreadRef | CommentRef, options?: ListOptions) => ForgeListing<Reaction>
   /**
@@ -1022,6 +1038,8 @@ export interface ReposApi {
   createLabel: (repo: RepoRef, label: LabelInput, options?: BaseOptions) => Promise<Label>
   /** Lists the milestones of a repository. */
   milestones: (repo: RepoRef, options?: MilestoneListOptions) => ForgeListing<Milestone>
+  /** The issue types that issues in the repository can have. On GitHub, the enabled types of the account that owns it. */
+  issueTypes: (repo: RepoRef, options?: BaseOptions) => Promise<IssueType[]>
   /** Lists the collaborators of a repository, with their roles. */
   collaborators: (repo: RepoRef, options?: PageOptions) => ForgeListing<Collaborator>
   /** Lists the commit authors of a repository with their commit counts, most commits first. */

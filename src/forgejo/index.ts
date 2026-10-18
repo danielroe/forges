@@ -766,6 +766,8 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       ...isGitea ? [] : ['threads.lock' as const],
       'threads.hideComment',
       'threads.resolveReviewThread',
+      'repos.issueTypes',
+      'threads.setIssueType',
       'checks.rerun',
       'webhooks.deliveries',
       'webhooks.redeliver',

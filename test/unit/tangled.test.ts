@@ -814,3 +814,14 @@ describe('tangled thread updates', () => {
     expect(written(calls)).toEqual([])
   })
 })
+
+describe('tangled issue types', () => {
+  it('has no issue types, and rejects without a request', async () => {
+    const { instance, calls } = provider()
+
+    await expect(instance.repos.issueTypes(repo)).rejects.toThrow('tangled has no repos.issueTypes')
+    await expect(instance.threads.setIssueType({ ...pull, kind: 'issue' }, 'Bug')).rejects.toThrow('tangled has no threads.setIssueType')
+    expect(calls).toEqual([])
+    expect(instance.capabilities.threads.setIssueType.issue).toBe('not_applicable')
+  })
+})

@@ -762,8 +762,8 @@ async function relay(): Promise<DeliverySource> {
 const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-]+|content-type|user-agent|authorization)$/
 
 /**
- * Records webhook deliveries of the scratch repository: creates a hook, opens
- * and comments on an issue and pushes a branch, then reads the deliveries back
+ * Records webhook deliveries of the scratch repository: creates a hook, opens,
+ * comments on, types and closes an issue and pushes a branch, then reads the deliveries back
  * from the forge's API or, where the forge keeps no payloads, from a relay the
  * hook points at. Each body is redacted and signed again with the dummy
  * secret, so a replay verifies it like a live delivery.
@@ -774,7 +774,8 @@ async function recordWebhooks(): Promise<void> {
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const base = await harness.prepare()
   const relayed = forgeRecord(harness) ?? await relay()
-  const hook = await plain.webhooks.create(scratch, { url: relayed.url, events: ['comment', 'state_change', 'push'], secret: FIXTURE_HOOK_SECRET, contentType: 'json' })
+  const typed = plain.can('threads.setIssueType', 'issue') ? (await plain.repos.issueTypes(scratch))[0] : undefined
+  const hook = await plain.webhooks.create(scratch, { url: relayed.url, events: ['comment', 'state_change', 'push', ...typed ? ['issue_type' as const] : []], secret: FIXTURE_HOOK_SECRET, contentType: 'json' })
   const branch = `forges-fixtures/${id}-webhooks`
   let deliveries: HookDelivery[] = []
   try {
@@ -784,6 +785,10 @@ async function recordWebhooks(): Promise<void> {
       ? await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
       : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
     await plain.threads.createComment(thread.ref, `A comment from run ${id}.`)
+    if (typed) {
+      await plain.threads.setIssueType(thread.ref, typed)
+      await plain.threads.setIssueType(thread.ref, undefined)
+    }
     await plain.threads.close(thread.ref)
     // The push, open, comment and close above produce at least four deliveries; forges may send more, so stop once two polls in a row find nothing new.
     for (let attempt = 0, quiet = 0; attempt < 12 && quiet < 2; attempt++) {

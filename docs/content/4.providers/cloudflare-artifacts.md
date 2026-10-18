@@ -90,6 +90,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `repos.labels` | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
+| `repos.issueTypes` | ❌ | ❌ |
 | `repos.collaborators` | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -125,6 +126,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `threads.addLabels` | ❌ | ❌ |
 | `threads.removeLabels` | ❌ | ❌ |
 | `threads.setMilestone` | ❌ | ❌ |
+| `threads.setIssueType` | ❌ | ❌ |
 | `threads.setAssignees` | ❌ | ❌ |
 | `threads.requestReview` | ❌ | ❌ |
 | `threads.merge` | ❌ | ❌ |

@@ -107,9 +107,10 @@ export function toWorkItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem, cat
   const instance = ref.instance
   const assignee = field<AzureIdentity>(raw, 'System.AssignedTo')
   const tags = field<string>(raw, 'System.Tags')
+  const type = field<string>(raw, 'System.WorkItemType')
   const state = category === undefined ? 'unknown' : category === 'Completed' || category === 'Removed' ? 'closed' : 'open'
   return {
-    ref: { ...ref, kind: 'issue', number: String(raw.id), typeRaw: field<string>(raw, 'System.WorkItemType') },
+    ref: { ...ref, kind: 'issue', number: String(raw.id), typeRaw: type },
     kind: 'issue',
     title: field<string>(raw, 'System.Title') ?? '',
     body: field<string>(raw, 'System.Description'),
@@ -127,6 +128,7 @@ export function toWorkItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem, cat
     closedAt: toDate(field<string>(raw, 'Microsoft.VSTS.Common.ClosedDate')),
     lastActivityAt: toDate(field<string>(raw, 'System.ChangedDate')),
     commentCount: field<number>(raw, 'System.CommentCount'),
+    issueType: type ? { id: type, name: type, raw: type } : undefined,
     raw,
   }
 }

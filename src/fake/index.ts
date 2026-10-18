@@ -25,6 +25,7 @@ import type {
   ForgeEvent,
   ForgeEventInput,
   ForgeKind,
+  IssueType,
   Label,
   ListOptions,
   Notification,
@@ -83,6 +84,8 @@ export interface FakeRepoSeed {
   visibility?: Repo['visibility']
   /** Names of the labels that the repository defines. */
   labels?: string[]
+  /** Names of the issue types that issues in the repository can have. */
+  issueTypes?: string[]
 }
 
 /** An issue, pull request or discussion to seed. */
@@ -106,6 +109,8 @@ export interface FakeThreadSeed {
   assignees?: string[]
   /** The title of the milestone the thread belongs to. */
   milestone?: string
+  /** The name of the issue's type. */
+  issueType?: string
   comments?: Array<{ body: string, author?: string, authorAssociation?: AuthorAssociation }>
   checks?: Array<{ name: string, state: CheckState }>
   /** Files the pull request changes. */
@@ -307,6 +312,7 @@ export interface FakeStore {
   repos: Map<string, {
     repo: Repo
     labels: string[]
+    issueTypes: IssueType[]
     threads: Map<string, FakeThreadState>
     releases: Release[]
     statuses: Map<string, Check[]>
@@ -341,6 +347,7 @@ const FAKE_WEBHOOK_EVENTS: WebhookEventType[] = [
   { kind: 'assignment' },
   { kind: 'review' },
   { kind: 'push' },
+  { kind: 'issue_type' },
 ]
 
 /**
@@ -610,6 +617,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const notFound = (message: string) => new NotFoundError(message, 404, '', origin)
   const actor = (login: string): Actor => ({ ...origin, login, id: login, isBotHint: login.endsWith('[bot]') })
   const label = (name: string): Label => ({ name })
+  const issueType = (name: string): IssueType => ({ id: name, name, enabled: true, raw: { name } })
   const repoRef = (slug: string): RepoRef => ({ ...origin, ...splitRepo(slug) })
   const slugOf = (repo: RepoRef) => `${repo.owner}/${repo.name}`
 
@@ -636,6 +644,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         raw: seed,
       },
       labels: seed.labels ?? [],
+      issueTypes: (seed.issueTypes ?? []).map(issueType),
       threads: new Map(),
       releases: [],
       statuses: new Map(),
@@ -718,6 +727,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       reviewers: [],
       labels: (seed.labels ?? []).map(label),
       ...seed.milestone === undefined ? {} : { milestone: { id: seed.milestone, title: seed.milestone, state: 'open' as const, raw: { title: seed.milestone } } },
+      ...seed.issueType === undefined ? {} : { issueType: issueType(seed.issueType) },
       url: `https://${instance}/${seed.repo}/${seed.kind === 'pull_request' ? 'pull' : seed.kind === 'discussion' ? 'discussions' : 'issues'}/${number}`,
       createdAt: at,
       updatedAt: at,
@@ -1284,6 +1294,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           return query.sort && query.sort !== 'name' && !query.cursor ? { ...page, warnings: [{ code: 'sort_unsupported', message: 'The fake forge keeps no repository dates; sorted in seed order' }] } : page
         }),
         eventsPage: verb(support('repos.events', true), async (repo, listOptions = {}) => conditional(pageOf(feed(event => event.repo?.owner === repo.owner && event.repo.name === repo.name), listOptions), listOptions)),
+        issueTypes: verb(support('repos.issueTypes', true), async repo => repoState(repo).issueTypes),
       },
       search: {
         threadsPage: verb(support('search.threads', true), async (query = {}) => {
@@ -1521,6 +1532,27 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           return thread.labels
         }),
         setLabels: perKind(kinds('threads.setLabels', WRITABLE), async (ref, labels) => setLabels(by, ref, labels)),
+        setIssueType: perKind(kinds('threads.setIssueType', { issue: true }), async (ref, wanted) => {
+          const thread = threadState(ref).thread
+          const before = thread.issueType
+          const name = typeof wanted === 'object' ? wanted.name : wanted
+          if (name === undefined) {
+            delete thread.issueType
+            if (before) {
+              record(by, ref, 'issue_type', 'untyped', `removed the issue type ${before.name}`, { type: 'issue_type', issueType: before })
+            }
+            return undefined
+          }
+          const found = repoState(ref.repo).issueTypes.find(item => item.name === name)
+          if (!found) {
+            throw new ForgeApiError(`No issue type named ${name}`, 422, '', origin)
+          }
+          if (before?.id !== found.id) {
+            thread.issueType = found
+            record(by, ref, 'issue_type', 'typed', `set the issue type ${found.name}`, { type: 'issue_type', issueType: found })
+          }
+          return found
+        }),
         setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(by, ref, assignees)),
         requestReview: perKind(kinds('threads.requestReview', PULLS), async (ref, reviewers) => {
           const thread = threadState(ref).thread

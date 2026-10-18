@@ -197,6 +197,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `repos.labels` | ✅ | ✅ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
+| `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ✅ | ✅ |
 | `repos.contributors` | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -232,6 +233,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.addLabels` | issue, PR | ❌ |
 | `threads.removeLabels` | issue, PR | ❌ |
 | `threads.setMilestone` | ❌ | ❌ |
+| `threads.setIssueType` | ∅ | ∅ |
 | `threads.setAssignees` | issue, PR | ❌ |
 | `threads.requestReview` | ∅ | ∅ |
 | `threads.merge` | ✅ | ❌ |

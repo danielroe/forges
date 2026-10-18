@@ -138,6 +138,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     labelsPage?: Verb<PageOf<ReposApi['labels']>>
     createLabel?: Verb<ReposApi['createLabel']>
     milestonesPage?: Verb<PageOf<ReposApi['milestones']>>
+    issueTypes?: Verb<ReposApi['issueTypes']>
     collaboratorsPage?: Verb<PageOf<ReposApi['collaborators']>>
     contributorsPage?: Verb<PageOf<ReposApi['contributors']>>
     contributorStats?: Verb<ReposApi['contributorStats']>
@@ -197,6 +198,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     addLabels?: ThreadVerb<'addLabels'>
     removeLabels?: ThreadVerb<'removeLabels'>
     setMilestone?: ThreadVerb<'setMilestone'>
+    setIssueType?: ThreadVerb<'setIssueType'>
     /** One capability covers reacting and removing a reaction. */
     reactions?: KindVerb<{ [K in 'react' | 'unreact']: NonNullable<ThreadsApi[K]> }>
     /** Listing the reactions on a thread or one of its comments. */

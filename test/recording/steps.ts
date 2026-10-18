@@ -300,6 +300,7 @@ export const STEPS: Step[] = [
   { name: 'repo licence', verb: 'repos.get', run: (provider, manifest) => provider.repos.get(manifest.repo, { licence: true }) },
   { name: 'labels', verb: 'repos.labels', run: (provider, manifest) => provider.repos.labels(manifest.repo, page).page() },
   { name: 'milestones', verb: 'repos.milestones', run: (provider, manifest) => provider.repos.milestones(manifest.repo, page).page() },
+  { name: 'issue types', verb: 'repos.issueTypes', run: (provider, manifest) => provider.repos.issueTypes(manifest.repo) },
   { name: 'collaborators', verb: 'repos.collaborators', run: (provider, manifest) => orScratch(manifest, repo => provider.repos.collaborators(repo, page).page()) },
   { name: 'contributors', verb: 'repos.contributors', run: (provider, manifest) => provider.repos.contributors(manifest.repo, page).page() },
   { name: 'templates', verb: 'repos.templates', run: (provider, manifest) => provider.repos.templates(manifest.repo) },

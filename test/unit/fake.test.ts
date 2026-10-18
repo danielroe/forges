@@ -784,6 +784,25 @@ describe('fake write results', () => {
     await expect(forge.users.unblock('troll')).rejects.toMatchObject({ status: 422 })
   })
 
+  it('lists, sets and clears issue types, recording each change', async () => {
+    const forge = fake({ seed: { ...seed, repos: [{ repo: 'acme/widgets', issueTypes: ['Bug', 'Feature'] }], threads: [{ ...seed.threads[0]!, issueType: 'Bug' }, seed.threads[1]!] } })
+
+    const [bug, feature] = await forge.repos.issueTypes(repo)
+    expect((await forge.threads.get(issue)).issueType).toEqual(bug)
+
+    await expect(forge.threads.setIssueType(issue, feature)).resolves.toEqual(feature)
+    await expect(forge.threads.setIssueType(issue, 'Feature')).resolves.toEqual(feature)
+    await expect(forge.threads.setIssueType(issue, undefined)).resolves.toBeUndefined()
+    expect((await forge.threads.get(issue)).issueType).toBeUndefined()
+    await expect(forge.threads.setIssueType(issue, 'Epic')).rejects.toMatchObject({ status: 422 })
+    await expect(forge.threads.setIssueType(pull, 'Bug')).rejects.toBeInstanceOf(UnsupportedOperationError)
+
+    expect(forge.store.events.map(event => [event.kind, event.action, event.detail])).toEqual([
+      ['issue_type', 'typed', { type: 'issue_type', issueType: feature }],
+      ['issue_type', 'untyped', { type: 'issue_type', issueType: feature }],
+    ])
+  })
+
   it('moves the head of a pull request on updateBranch, and refuses an update from a head that has moved', async () => {
     const forge = fake({ seed: { ...seed, threads: seed.threads.map(thread => thread.kind === 'pull_request' ? { ...thread, head: { sha: 'a'.repeat(40) } } : thread) } })
 

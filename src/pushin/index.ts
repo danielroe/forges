@@ -133,6 +133,8 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       'threads.hideComment',
       'threads.lock',
       'threads.updateBranch',
+      'repos.issueTypes',
+      'threads.setIssueType',
     ],
     users: {
       me: verb(true, async (options) => {

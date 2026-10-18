@@ -292,6 +292,12 @@ Deliveries of the `installation` and `installation_repositories` events become `
 
 `orgs.block()` blocks an account from the organisation and needs the `admin:org` scope, or the `organization_user_blocking` write permission. `users.block()` blocks it for the account the token belongs to, so it needs a user token with the `user` scope, or the `blocking` write permission; `can('users.block')` is `false` for a GitHub App installation. A repeat can reject with a `ForgeApiError` with `status` 422.
 
+## Issue types
+
+An organisation defines its issue types, and its repositories inherit them. `repos.issueTypes()` reads the types enabled for a repository with `GET /repos/{owner}/{repo}/issue-types`. It needs a credential, because GitHub responds to an anonymous request with 404. The `id` of an `IssueType` is its node ID, and its `colour` is one of GitHub's named colours, such as `red`. An issue that you read through REST, GraphQL or a webhook delivery carries its type as `thread.issueType`.
+
+`threads.setIssueType()` sets a type by name, or clears it with `undefined`. When the token cannot push to the repository, GitHub leaves the type as it was and still responds with 200, so compare the result with the type that you asked for. Deliveries of `issues` with the actions `typed` and `untyped` become `issue_type` events. GitHub Enterprise Server doesn't document the listing or these deliveries, so `can('repos.issueTypes')` is `false` there.
+
 ## Organisation teams
 
 `orgs.teams()` reads the teams of an organisation with `GET /orgs/{org}/teams`, and `orgs.teamMembers()` reads `GET /orgs/{org}/teams/{slug}/members`. Both need a token with the `read:org` scope, or the `members` read permission on a fine-grained token, so `can('orgs.teams')` is `false` without a credential. A team's members include the members of its child teams.
@@ -316,6 +322,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `repos.labels` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.createLabel` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.milestones` | ✅ | ✅ | ✅ | ❌ | ✅ |
+| `repos.issueTypes` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.collaborators` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.contributors` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.contributorStats` | ✅ | ✅ | ✅ | ❌ | ✅ |
@@ -351,6 +358,7 @@ Deliveries of the `installation` and `installation_repositories` events become `
 | `threads.addLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
 | `threads.removeLabels` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
 | `threads.setMilestone` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
+| `threads.setIssueType` | issue | issue | issue | ❌ | ❌ |
 | `threads.setAssignees` | issue, PR | issue, PR | issue, PR | ❌ | ❌ |
 | `threads.requestReview` | PR | PR | PR | ❌ | ❌ |
 | `threads.merge` | ✅ | ✅ | ✅ | ❌ | ❌ |

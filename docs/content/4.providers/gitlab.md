@@ -170,6 +170,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.labels` | ✅ | ❌ |
 | `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ✅ | ❌ |
+| `repos.issueTypes` | ❌ | ❌ |
 | `repos.collaborators` | ✅ | ❌ |
 | `repos.contributors` | ✅ | ✅ |
 | `repos.contributorStats` | ❌ | ❌ |
@@ -205,6 +206,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `threads.addLabels` | issue, PR | ❌ |
 | `threads.removeLabels` | issue, PR | ❌ |
 | `threads.setMilestone` | issue, PR | ❌ |
+| `threads.setIssueType` | ❌ | ❌ |
 | `threads.setAssignees` | issue, PR | ❌ |
 | `threads.requestReview` | PR | ❌ |
 | `threads.merge` | ✅ | ❌ |

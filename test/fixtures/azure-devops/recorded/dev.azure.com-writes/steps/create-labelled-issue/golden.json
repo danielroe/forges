@@ -52,5 +52,9 @@
   "createdAt": "<now>",
   "updatedAt": "<now>",
   "lastActivityAt": "<now>",
-  "commentCount": 0
+  "commentCount": 0,
+  "issueType": {
+    "id": "Issue",
+    "name": "Issue"
+  }
 }

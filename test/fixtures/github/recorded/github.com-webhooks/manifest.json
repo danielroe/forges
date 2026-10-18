@@ -13,14 +13,16 @@
     "name": "forges-fixtures"
   },
   "webhookSecret": "forges-fixture-secret",
-  "recordedAt": "2026-10-09T19:57:04.915Z",
+  "recordedAt": "2026-10-18T15:37:18.387Z",
   "steps": [],
   "deliveries": [
     "01-ping",
-    "02-issues",
-    "03-issues",
-    "04-issue_comment",
-    "05-push",
-    "06-push"
+    "02-push",
+    "03-push",
+    "04-issues",
+    "05-issue_comment",
+    "06-issues",
+    "07-issues",
+    "08-issues"
   ]
 }

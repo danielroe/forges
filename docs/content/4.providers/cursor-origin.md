@@ -112,6 +112,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.labels` | ❌ | ❌ | ❌ | ❌ |
 | `repos.createLabel` | ❌ | ❌ | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ | ❌ | ❌ |
+| `repos.issueTypes` | ∅ | ∅ | ∅ | ∅ |
 | `repos.collaborators` | ❌ | ❌ | ❌ | ❌ |
 | `repos.contributors` | ❌ | ❌ | ❌ | ❌ |
 | `repos.contributorStats` | ❌ | ❌ | ❌ | ❌ |
@@ -147,6 +148,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.addLabels` | ❌ | ❌ | ❌ | ❌ |
 | `threads.removeLabels` | ❌ | ❌ | ❌ | ❌ |
 | `threads.setMilestone` | ❌ | ❌ | ❌ | ❌ |
+| `threads.setIssueType` | ∅ | ∅ | ∅ | ∅ |
 | `threads.setAssignees` | ❌ | ❌ | ❌ | ❌ |
 | `threads.requestReview` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `threads.merge` | experimental | experimental | ❌ | ❌ |

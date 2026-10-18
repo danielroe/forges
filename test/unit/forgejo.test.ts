@@ -813,3 +813,16 @@ describe('forgejo and gitea moderation', () => {
     expect(at('1.24.0')).toMatchObject({ threads: { lock: { issue: true, pull_request: true } } })
   })
 })
+
+describe('forgejo issue types', () => {
+  it('has no issue types on Forgejo or Gitea, and rejects without a request', async () => {
+    const { instance, calls } = provider()
+    const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
+    const issue = { forge: 'forgejo', instance: 'codeberg.org', repo, kind: 'issue', number: '7' } as const
+
+    await expect(instance.repos.issueTypes(repo)).rejects.toThrow('forgejo has no repos.issueTypes')
+    await expect(instance.threads.setIssueType(issue, 'Bug')).rejects.toThrow('forgejo has no threads.setIssueType')
+    expect(calls).toEqual([])
+    expect(gitea({ auth: { type: 'token', token: 't' } }).support('repos.issueTypes')).toBe('not_applicable')
+  })
+})

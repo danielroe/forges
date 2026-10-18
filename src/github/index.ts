@@ -119,6 +119,7 @@ import type {
   GitHubHookDelivery,
   GitHubInstallation,
   GitHubIssue,
+  GitHubIssueType,
   GitHubLabel,
   GitHubMilestone,
   GitHubNotification,
@@ -162,6 +163,7 @@ import {
   toDependabotAlert,
   toEvent,
   toGitCommit,
+  toIssueType,
   toLabel,
   toLabels,
   toMilestone,
@@ -1995,6 +1997,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         signal: options?.signal,
       })).data)),
       milestonesPage: verb(true, milestonesPage),
+      issueTypes: verb(!anonymous && !enterprise, async (repo, options) => {
+        const { data } = await fetcher.json<GitHubIssueType[]>(`${repoPath(repo)}/issue-types`, { signal: options?.signal })
+        return data.map(raw => toIssueType(raw)!)
+      }),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
       contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: { anon: 1 } })),
       contributorStats: verb(true, contributorStats),
@@ -2224,6 +2230,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         'set the milestone of',
         options?.signal,
       )).milestone)),
+      setIssueType: perKind({ issue: enterprise ? 'unverified' : true }, async (thread, issueType, options) => toIssueType((await issuePatch(
+        thread,
+        { type: typeof issueType === 'object' ? issueType.name : issueType ?? null },
+        'set the type of',
+        options?.signal,
+      )).type)),
       reactions: perKind({ issue: true, pull_request: true, discussion: true }, { react, unreact }),
       locking: perKind({ issue: true, pull_request: true, discussion: true }, {
         lock: async (thread: ThreadRef, options: LockOptions = {}) => {
@@ -2380,6 +2392,12 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
   }
   if (verb === 'threads.updateBranch') {
     return { token: ['repo', 'public_repo'], permissions: { pull_requests: 'write', contents: 'write' }, note: 'A GitHub App needs `contents: write` on the head repository' }
+  }
+  if (verb === 'repos.issueTypes') {
+    return { token: ['repo'], permissions: { metadata: 'read' } }
+  }
+  if (verb === 'threads.setIssueType') {
+    return { token: ['repo', 'public_repo'], permissions: { issues: 'write' }, note: 'Needs push access: without it, GitHub leaves the type unchanged' }
   }
   const write = WRITE_VERBS.has(verb)
   if (group === 'threads') {

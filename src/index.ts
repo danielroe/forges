@@ -101,6 +101,7 @@ export type {
   GetManyResult,
   Installation,
   InstallationToken,
+  IssueType,
   KnownForgeKind,
   Label,
   LabelInput,

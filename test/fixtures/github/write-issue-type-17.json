@@ -1,0 +1,39 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/acme/widgets/issues/17"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "number": 17,
+      "node_id": "I_kwDOAAB5ac5abc017",
+      "title": "Crash on empty config",
+      "state": "open",
+      "user": {
+        "login": "octocat",
+        "id": 583231,
+        "type": "User",
+        "avatar_url": "https://avatars.example/u/583231"
+      },
+      "labels": [],
+      "assignees": [],
+      "comments": 1,
+      "created_at": "2025-09-14T10:00:00Z",
+      "updated_at": "2025-09-18T11:00:00Z",
+      "html_url": "https://github.com/acme/widgets/issues/17",
+      "type": {
+        "id": 4102,
+        "node_id": "IT_kwDOAAB5ac4AABAG",
+        "name": "Bug",
+        "description": "An unexpected problem or behavior",
+        "color": "red",
+        "created_at": "2025-01-25T12:32:23Z",
+        "updated_at": "2025-01-25T12:32:23Z",
+        "is_enabled": true
+      }
+    }
+  }
+}

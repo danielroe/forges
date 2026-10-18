@@ -43,6 +43,8 @@ const ACTIONS: Record<string, EventAction> = {
   unarchived: 'unarchived',
   added: 'added',
   removed: 'removed',
+  typed: 'typed',
+  untyped: 'untyped',
 }
 
 /** What a comment or review event means when the forge names no verb. */
@@ -97,6 +99,6 @@ export function threadSnapshot(fields: Omit<ThreadSnapshot, 'state'> & { state?:
 }
 
 /** The {@link ThreadSnapshot} of a thread normalised from the issue or pull request an event embeds. */
-export function snapshotOfThread({ title, body, state, stateRaw, stateReason, isDraft, author, labels, url, branches, stats, mergedBy }: Partial<Thread>): ThreadSnapshot | undefined {
-  return threadSnapshot({ title, body, state, stateRaw, stateReason, isDraft, author, labels, url, branches, stats, mergedBy })
+export function snapshotOfThread({ title, body, state, stateRaw, stateReason, isDraft, author, labels, issueType, url, branches, stats, mergedBy }: Partial<Thread>): ThreadSnapshot | undefined {
+  return threadSnapshot({ title, body, state, stateRaw, stateReason, isDraft, author, labels, issueType, url, branches, stats, mergedBy })
 }

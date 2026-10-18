@@ -1,4 +1,4 @@
-import type { Actor, Comment, CommentRef, Commit, CommitComment, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
+import type { Actor, Comment, CommentRef, Commit, CommitComment, IssueType, Milestone, Notification, Release, RepoRef, Review, ReviewComment, Thread, ThreadRef, Webhook, WebhookDeliveryRecord } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import type { RecordingManifest } from './steps.ts'
 import { createHash } from 'node:crypto'
@@ -74,6 +74,7 @@ export interface WriteContext {
   comments: Partial<Record<WriteKind, Comment>>
   commitComment?: CommitComment
   milestone?: Milestone
+  issueType?: IssueType
   review?: Review
   /** The first comment of a review the run left, to read back on its own. */
   reviewComment?: CommentRef
@@ -186,6 +187,8 @@ function threadWrites(kind: WriteKind): WriteStep[] {
     { name: `${prefix} add labels`, verb: 'threads.addLabels', kind, run: (provider, manifest, context) => provider.threads.addLabels(ref(context), [label(manifest)]) },
     { name: `${prefix} set milestone`, verb: 'threads.setMilestone', kind, run: (provider, _manifest, context) => provider.threads.setMilestone(ref(context), need(context.milestone, 'an open milestone')) },
     { name: `${prefix} clear milestone`, verb: 'threads.setMilestone', kind, run: (provider, _manifest, context) => provider.threads.setMilestone(ref(context), undefined) },
+    { name: `${prefix} set issue type`, verb: 'threads.setIssueType', kind, run: (provider, _manifest, context) => provider.threads.setIssueType(ref(context), need(context.issueType, 'an issue type')) },
+    { name: `${prefix} clear issue type`, verb: 'threads.setIssueType', kind, run: (provider, _manifest, context) => provider.threads.setIssueType(ref(context), undefined) },
     { name: `${prefix} assign`, verb: 'threads.setAssignees', kind, run: (provider, _manifest, context) => provider.threads.setAssignees(ref(context), [need(context.author, 'the author')]) },
     { name: `${prefix} unsubscribe`, verb: 'threads.unsubscribe', kind, run: (provider, _manifest, context) => provider.threads.unsubscribe(ref(context)) },
     { name: `${prefix} subscribe`, verb: 'threads.subscribe', kind, run: (provider, _manifest, context) => provider.threads.subscribe(ref(context)) },
@@ -235,6 +238,11 @@ export const WRITE_STEPS: WriteStep[] = [
     const result = await provider.repos.milestones(manifest.scratch, page).page()
     context.milestone = result.items.find(milestone => milestone.state === 'open')
     return result
+  } },
+  { name: 'issue types', verb: 'repos.issueTypes', run: async (provider, manifest, context) => {
+    const types = await provider.repos.issueTypes(manifest.scratch)
+    context.issueType = types[0]
+    return types
   } },
   { name: 'add collaborator', verb: 'repos.addCollaborator', run: (provider, manifest, context) => provider.repos.addCollaborator(manifest.collaborators ?? manifest.scratch, need(context.reviewer, 'the reviewer'), 'write') },
 

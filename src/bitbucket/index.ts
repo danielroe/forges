@@ -566,6 +566,8 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
         'threads.hideComment',
         'threads.lock',
         'threads.updateBranch',
+        'repos.issueTypes',
+        'threads.setIssueType',
       ],
       normaliseMarkdown,
       users: {

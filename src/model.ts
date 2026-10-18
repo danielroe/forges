@@ -544,6 +544,19 @@ export interface Milestone {
   raw: unknown
 }
 
+/** A kind of issue, such as a bug or a feature, from the set its repository offers. */
+export interface IssueType {
+  /** Forge-native id: a node id on GitHub, the name on Azure DevOps. */
+  id: string
+  name: string
+  description?: string
+  /** The forge's own colour, a name such as `red` on GitHub. */
+  colour?: string
+  /** Whether issues can be given the type. */
+  enabled?: boolean
+  raw: unknown
+}
+
 /**
  * Thread state. `'unknown'` is distinct from any real state and signals that
  * the value was not present in the payload, so the caller may enrich it with
@@ -1209,6 +1222,8 @@ export interface Thread {
   /** The authenticated account's subscription, where the thread read already carries it. */
   subscription?: SubscriptionState
   milestone?: Milestone
+  /** Issues only, where the forge has issue types and the issue has one. */
+  issueType?: IssueType
   reactions?: ReactionSummary
   /** Pull requests only. */
   branches?: PullBranches
@@ -1288,6 +1303,7 @@ export type EventKind
     | 'star'
     | 'fork'
     | 'wiki'
+    | 'issue_type'
     | 'other'
 
 /** A commit as a push delivery reports it. */
@@ -1326,6 +1342,8 @@ export type EventAction
     | 'unarchived'
     | 'added'
     | 'removed'
+    | 'typed'
+    | 'untyped'
     | 'other'
 
 /** Typed detail for an event. Discriminated by `type`. */
@@ -1351,6 +1369,8 @@ export type EventDetail
     | { type: 'fork', fork?: RepoRef }
     /** One wiki page. */
     | { type: 'wiki', title?: string, url?: string }
+    /** The issue type an issue was given (`typed`) or lost (`untyped`). */
+    | { type: 'issue_type', issueType: IssueType }
     | { type: 'repo_visibility', isPublic: boolean }
     /** A cross-reference: another thread or commit mentioned this one. */
     | { type: 'referenced', from?: ThreadRef | CommitRef, fromRepo?: RepoRef, text?: string }
@@ -1369,6 +1389,8 @@ export interface ThreadSnapshot {
   isDraft?: boolean
   author?: Actor
   labels?: Label[]
+  /** Absent both when the issue has no type and when the source doesn't report one. */
+  issueType?: IssueType
   url?: string
   branches?: PullBranches
   stats?: PullStats
