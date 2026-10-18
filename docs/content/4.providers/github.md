@@ -394,6 +394,7 @@ An organisation defines its issue types, and its repositories inherit them. `rep
 | `ci.jobs` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.getJob` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `ci.log` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `ci.rerunFailed` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `contents.getFile` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.tree` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `contents.branches` | ✅ | ✅ | ✅ | ❌ | ✅ |

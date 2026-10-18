@@ -245,7 +245,7 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     /** The implementation of `provider.checks.rerun()`. */
     rerun?: Verb<ChecksApi['rerun']>
   }
-  /** Read-only CI. Listings are declared as pages; core derives the iterables. */
+  /** CI runs and jobs. Listings are declared as pages; core derives the iterables. */
   ci?: {
     /** The implementation of `provider.ci.runs()`, one page at a time. */
     runsPage?: Verb<PageOf<CiApi['runs']>>
@@ -257,6 +257,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     getJob?: Verb<CiApi['getJob']>
     /** The implementation of `provider.ci.log()`. */
     log?: Verb<CiApi['log']>
+    /** The implementation of `provider.ci.rerunFailed()`. */
+    rerunFailed?: Verb<CiApi['rerunFailed']>
   }
   /** Repository contents. Listings are declared as pages; core derives the iterables. */
   contents?: {

@@ -192,6 +192,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `ci.jobs` | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |

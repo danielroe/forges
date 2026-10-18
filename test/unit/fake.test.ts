@@ -309,6 +309,16 @@ describe('fake forge', () => {
     expect(run).toMatchObject({ name: 'ci', state: 'failure' })
     expect(log).toBe('lint failed\n')
   })
+  it('re-runs the failed jobs of a run', async () => {
+    const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', state: 'failure' as const, jobs: [{ name: 'test', state: 'success' as const }, { name: 'lint', state: 'failure' as const }] }] } })
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const [run] = (await forge.ci.runs(repo).page()).items
+
+    await forge.ci.rerunFailed(run!.ref)
+
+    expect((await forge.ci.getRun(run!.ref)).state).toBe('pending')
+    expect((await forge.ci.jobs(run!.ref).page()).items.map(job => [job.name, job.state])).toEqual([['test', 'success'], ['lint', 'pending']])
+  })
   it('comments on a commit, edits, reads back and deletes the comment', async () => {
     const forge = fake({ seed })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }

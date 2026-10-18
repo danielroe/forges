@@ -1808,6 +1808,16 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           }
           return new Blob([job.log]).stream()
         }),
+        rerunFailed: verb(support('ci.rerunFailed', true), async (ref) => {
+          const state = runState(ref)
+          const failed = state.jobs.filter(item => item.job.state === 'failure')
+          for (const item of failed) {
+            item.job = { ...item.job, state: 'pending', stateRaw: 'pending', completedAt: undefined }
+          }
+          if (failed.length) {
+            state.run = { ...state.run, state: 'pending', stateRaw: 'pending', completedAt: undefined }
+          }
+        }),
       },
       releases: {
         listPage: verb(support('releases.list', true), async (repo, listOptions = {}) => pageOf(repoState(repo).releases.toReversed(), listOptions)),

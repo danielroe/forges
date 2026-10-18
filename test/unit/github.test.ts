@@ -1404,7 +1404,7 @@ describe('github checks and CI', () => {
 
   it('declares the app permissions of the endpoints each checks and CI verb calls', () => {
     const { provider } = tokenProvider()
-    const verbs = ['threads.checks', 'checks.list', 'checks.get', 'checks.report', 'checks.rerun', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log'] as const
+    const verbs = ['threads.checks', 'checks.list', 'checks.get', 'checks.report', 'checks.rerun', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log', 'ci.rerunFailed'] as const
 
     expect(Object.fromEntries(verbs.map(verb => [verb, provider.scopesFor(verb).permissions]))).toEqual({
       'threads.checks': { pull_requests: 'read', checks: 'read', statuses: 'read' },
@@ -1417,7 +1417,17 @@ describe('github checks and CI', () => {
       'ci.jobs': { actions: 'read' },
       'ci.getJob': { actions: 'read' },
       'ci.log': { actions: 'read' },
+      'ci.rerunFailed': { actions: 'write' },
     })
+  })
+
+  it('re-runs the failed jobs of a workflow run', async () => {
+    const { provider, calls } = tokenProvider()
+
+    await provider.ci.rerunFailed({ forge: 'github', instance: 'github.com', repo, id: '77' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://api.github.com/repos/acme/widgets/actions/runs/77/rerun-failed-jobs'])
+    expect(github({}).can('ci.rerunFailed')).toBe(false)
   })
 
   it('reads workflow runs, their jobs and a job log', async () => {

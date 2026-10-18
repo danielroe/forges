@@ -163,6 +163,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `ci.jobs` | ✅ | ❌ |
 | `ci.getJob` | emulated | ❌ |
 | `ci.log` | ✅ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ✅ | ❌ |
 | `contents.tree` | ✅ | ❌ |
 | `contents.branches` | ✅ | ❌ |

@@ -410,6 +410,8 @@ export interface ForgeCapabilities {
     getJob: Support
     /** Support for `ci.log()`. `false` where job logs are not reachable over the API. */
     log: Support
+    /** Support for `ci.rerunFailed()`. */
+    rerunFailed: Support
   }
   contents: {
     /** Support for `contents.getFile()`. */
@@ -844,7 +846,7 @@ export interface ChecksApi {
   rerun: (ref: CheckRef, options?: BaseOptions) => Promise<void>
 }
 
-/** Reading CI runs and their jobs. CI is read-only. */
+/** Reading CI runs and their jobs, and re-running the jobs that failed. */
 export interface CiApi {
   /** Lists the CI runs of a repository. */
   runs: (repo: RepoRef, query?: CiRunQuery) => ForgeListing<CiRun>
@@ -858,8 +860,10 @@ export interface CiApi {
    * name its run.
    */
   getJob: (ref: CiJobRef, options?: BaseOptions) => Promise<CiJob>
-  /** The job's log as it arrives. There is no workflow dispatch: CI is read-only here. */
+  /** The job's log as it arrives. */
   log: (ref: CiJobRef, options?: BaseOptions) => Promise<ReadableStream<Uint8Array>>
+  /** Re-runs the jobs of a CI run that failed, and the jobs that depend on them. A repeat can start another attempt. */
+  rerunFailed: (ref: CiRunRef, options?: BaseOptions) => Promise<void>
 }
 
 /** Commits of a repository and the comments on them. */

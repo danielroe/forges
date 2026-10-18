@@ -269,6 +269,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `ci.jobs` | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |

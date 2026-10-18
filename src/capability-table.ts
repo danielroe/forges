@@ -115,6 +115,7 @@ const TABLE = [
   { capability: 'ci.jobs', listing: true },
   { capability: 'ci.getJob', spec: 'ci.getJob', derived: 'ciJob' },
   { capability: 'ci.log' },
+  { capability: 'ci.rerunFailed', write: true },
   { capability: 'contents.getFile' },
   { capability: 'contents.tree', listing: true },
   { capability: 'contents.branches', listing: true },

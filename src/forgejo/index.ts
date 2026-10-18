@@ -147,6 +147,9 @@ const FORGEJO_ACTION_JOBS = '16.0'
 const GITEA_ACTION_RUNS = '1.25'
 const GITEA_ACTION_LOGS = '1.24'
 
+/** Gitea version with re-running the failed jobs of a run. */
+const GITEA_RERUN_FAILED = '1.26'
+
 /** Gitea version with replies to review comments. */
 const GITEA_REVIEW_REPLIES = '1.27'
 
@@ -873,6 +876,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return toGiteaActionJob(run, data)
       }),
       log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
+      rerunFailed: verb(isGitea && released(GITEA_RERUN_FAILED), async (ref, options) => {
+        await fetcher.raw(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/rerun-failed-jobs`, { method: 'POST', signal: options?.signal })
+      }),
     },
     contents: {
       getFile: verb(true, readFile),

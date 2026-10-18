@@ -2098,6 +2098,10 @@
           "log": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `ci.log()`. `false` where job logs are not reachable over the API."
+          },
+          "rerunFailed": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `ci.rerunFailed()`."
           }
         },
         "required": [
@@ -2105,7 +2109,8 @@
           "getRun",
           "jobs",
           "getJob",
-          "log"
+          "log",
+          "rerunFailed"
         ]
       },
       "contents": {

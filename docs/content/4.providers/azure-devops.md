@@ -211,6 +211,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `ci.jobs` | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |

@@ -379,11 +379,11 @@ describe('forgejo actions', () => {
   it('reads Actions on Codeberg and gates a self-hosted instance on its version', () => {
     const ci = (options: { baseUrl?: string, instanceVersion?: string }) => forgejo({ auth, ...options }).capabilities.ci
 
-    expect(ci({})).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
-    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: false, getJob: false, log: false })
-    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
-    expect(forgejo({ auth: { type: 'anonymous' } }).capabilities.ci).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true })
+    expect(ci({})).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true, rerunFailed: false })
+    expect(ci({ baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false, rerunFailed: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '15.0.2+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: false, getJob: false, log: false, rerunFailed: false })
+    expect(ci({ baseUrl: 'https://git.example.org', instanceVersion: '16.0.0+gitea-1.22.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true, rerunFailed: false })
+    expect(forgejo({ auth: { type: 'anonymous' } }).capabilities.ci).toEqual({ runs: true, getRun: true, jobs: true, getJob: 'emulated', log: true, rerunFailed: false })
   })
 
   it('pages runs explicitly and keeps the branch where Forgejo ignores `ref`', async () => {
@@ -449,11 +449,21 @@ describe('gitea actions', () => {
   it('reads Actions on gitea.com and gates a self-hosted instance on its version', () => {
     const ci = (options: { auth?: typeof auth | { type: 'anonymous' }, baseUrl?: string, instanceVersion?: string }) => gitea(options).capabilities.ci
 
-    expect(ci({ auth })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true })
-    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, getRun: true, jobs: true, getJob: true, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: true })
-    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true })
+    expect(ci({ auth })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true, rerunFailed: true })
+    expect(ci({ auth: { type: 'anonymous' } })).toEqual({ runs: false, getRun: true, jobs: true, getJob: true, log: false, rerunFailed: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: false, rerunFailed: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.24.7' })).toEqual({ runs: false, getRun: false, jobs: false, getJob: false, log: true, rerunFailed: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.25.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true, rerunFailed: false })
+    expect(ci({ auth, baseUrl: 'https://git.example.org', instanceVersion: '1.26.0' })).toEqual({ runs: true, getRun: true, jobs: true, getJob: true, log: true, rerunFailed: true })
+  })
+
+  it('re-runs the failed jobs of a run', async () => {
+    const { fetch, calls } = fixtureFetch('gitea')
+    const provider = gitea({ auth, fetch })
+
+    await provider.ci.rerunFailed({ forge: 'gitea', instance: 'gitea.com', repo: { ...repo, instance: 'gitea.com' }, id: '7' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://gitea.com/api/v1/repos/acme/widgets/actions/runs/7/rerun-failed-jobs'])
   })
 
   it('reads a job whose ref names no run, and names the run from the job', async () => {

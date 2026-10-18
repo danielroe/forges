@@ -509,6 +509,15 @@ describe('gitlab merge methods', () => {
     expect(calls.at(-1)!.url).toBe('https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100')
   })
 
+  it('re-runs the failed jobs of a pipeline by retrying it', async () => {
+    const { instance, calls } = provider()
+
+    await instance.ci.rerunFailed({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '610001' })
+
+    expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/pipelines/610001/retry`])
+    expect(instance.scopesFor('ci.rerunFailed')).toEqual({ token: ['api'] })
+  })
+
   it('can queue the merge until the pipeline succeeds', async () => {
     const queued = { iid: 23, state: 'opened', merge_when_pipeline_succeeds: true }
     const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: queued } })

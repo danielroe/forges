@@ -162,6 +162,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `ci.jobs` | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ✅ | ❌ |
 | `contents.tree` | ✅ | ❌ |
 | `contents.branches` | ❌ | ❌ |

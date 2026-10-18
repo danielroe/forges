@@ -184,6 +184,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `ci.jobs` | ❌ | ❌ | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ | ❌ | ❌ |
 | `contents.getFile` | unverified | unverified | ❌ | ❌ |
 | `contents.tree` | unverified | unverified | ❌ | ❌ |
 | `contents.branches` | unverified | unverified | ❌ | ❌ |

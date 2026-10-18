@@ -1036,6 +1036,9 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
           return toCiJob(run, data)
         }),
         log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${projectPath(ref.repo)}/jobs/${encodeURIComponent(ref.id)}/trace`, { signal: options?.signal })).body),
+        rerunFailed: verb(true, async (ref, options) => {
+          await fetcher.raw(`${projectPath(ref.repo)}/pipelines/${encodeURIComponent(ref.id)}/retry`, { method: 'POST', signal: options?.signal })
+        }),
       },
       securityAlerts: {
         kinds: { dependency: !anonymous, code_scanning: !anonymous, secret: !anonymous },

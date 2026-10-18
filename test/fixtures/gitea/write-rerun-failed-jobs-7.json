@@ -1,0 +1,11 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitea.com/api/v1/repos/acme/widgets/actions/runs/7/rerun-failed-jobs"
+  },
+  "response": {
+    "status": 201,
+    "headers": {}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/pipelines/610001/retry"
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "id": 610001,
+      "iid": 11,
+      "status": "pending",
+      "ref": "main",
+      "sha": "9f1c2e3d4b5a",
+      "web_url": "https://gitlab.com/acme/platform/widgets/-/pipelines/610001"
+    }
+  }
+}

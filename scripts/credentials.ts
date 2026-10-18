@@ -231,7 +231,7 @@ const TASKS: CredentialTask[] = [
   { id: 'triage', group: 'Write', label: 'Labels, assignees, milestones and issue types', capabilities: ['threads.setLabels', 'threads.addLabels', 'threads.removeLabels', 'threads.setMilestone', 'threads.setIssueType', 'threads.setAssignees', 'repos.createLabel'] },
   { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['threads.requestReview', 'threads.createReview', 'threads.submitReview', 'threads.approve', 'threads.replyToReviewComment', 'threads.resolveReviewThread'] },
   { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['threads.merge', 'threads.updateBranch'] },
-  { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun'] },
+  { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun', 'ci.rerunFailed'] },
   { id: 'push', group: 'Write', label: 'Commit files', capabilities: ['contents.commitFiles'] },
   { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },
   { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'threads.subscribe'] },

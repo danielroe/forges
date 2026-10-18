@@ -157,6 +157,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `ci.jobs` | ❌ | ❌ |
 | `ci.getJob` | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ |
+| `ci.rerunFailed` | ❌ | ❌ |
 | `contents.getFile` | ❌ | ❌ |
 | `contents.tree` | ❌ | ❌ |
 | `contents.branches` | ❌ | ❌ |

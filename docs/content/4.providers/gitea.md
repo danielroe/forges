@@ -67,7 +67,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 
 `checks.list()` reads commit statuses, and `checks.report()` writes them.
 
-The `ci` methods read Gitea Actions. Runs and their jobs need Gitea 1.25 or later, and job logs need Gitea 1.24. gitea.com runs a recent build, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
+The `ci` methods read Gitea Actions. Runs and their jobs need Gitea 1.25 or later, job logs need Gitea 1.24, and `ci.rerunFailed()` needs Gitea 1.26. gitea.com runs a recent build, so they work there out of the box. For a self-hosted instance, pass `instanceVersion` or call `refreshCapabilities()` first.
 
 Gitea 1.25 is stricter about the list of runs: it shows it only to the owners of the repository and to site admins, and responds with `403` to anyone else. From 1.26, everyone who can read the repository can list its runs. Without a token, Gitea responds with `401` to the list of runs and to job logs, so an anonymous provider can read a run and its jobs, but not list runs or read logs.
 
@@ -196,6 +196,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `ci.jobs` | ✅ | ✅ |
 | `ci.getJob` | ✅ | unverified |
 | `ci.log` | ✅ | ❌ |
+| `ci.rerunFailed` | ✅ | ❌ |
 | `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |

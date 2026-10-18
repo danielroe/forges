@@ -1840,6 +1840,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       })),
       getJob: verb(true, getJob),
       log: verb(!anonymous, async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
+      rerunFailed: verb(true, async (ref, options) => {
+        await fetcher.raw(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/rerun-failed-jobs`, { method: 'POST', signal: options?.signal })
+      }),
     },
     contents: {
       getFile: verb(true, readFile),
@@ -2397,7 +2400,7 @@ export function githubScopesFor(verb: ForgeVerb): VerbScopes {
     return { token: ['repo'], permissions: { checks: 'write', actions: 'write' }, note: 'A check run created by GitHub Actions is re-run as its job, which needs `actions: write`' }
   }
   if (group === 'ci') {
-    return { token: ['repo'], permissions: { actions: 'read' } }
+    return { token: ['repo'], permissions: { actions: WRITE_VERBS.has(verb) ? 'write' : 'read' } }
   }
   if (verb === 'checks.report') {
     return { token: ['repo:status'], permissions: { checks: 'write', statuses: 'write' } }

@@ -1,0 +1,12 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/acme/widgets/actions/runs/77/rerun-failed-jobs"
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {}
+  }
+}

@@ -95,6 +95,10 @@ GitLab can only rebase a merge request onto its target branch, so `updateBranch(
 
 GitLab reports the number of changed files on a single merge request, but not the lines added or removed or the number of commits, so `thread.stats` holds only `changedFileCount`. Past the diff limit of the instance, GitLab reports a capped count such as `1000+` instead of the number, and `thread.stats` is absent.
 
+## Retrying pipelines
+
+`ci.rerunFailed()` retries the pipeline, so GitLab re-runs its canceled jobs as well as its failed ones.
+
 ## Releases
 
 GitLab releases have no draft or prerelease state, so every release is published as soon as you create it. `releases.create()` and `releases.update()` reject `draft: true` and `prerelease: true` with `UnsupportedOperationError` before they send a request. If the tag doesn't exist yet, `releases.create()` needs `target`, the branch or commit to tag.
@@ -242,6 +246,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `ci.jobs` | ✅ | ✅ |
 | `ci.getJob` | ✅ | emulated |
 | `ci.log` | ✅ | ❌ |
+| `ci.rerunFailed` | ✅ | ❌ |
 | `contents.getFile` | ✅ | ✅ |
 | `contents.tree` | ✅ | ✅ |
 | `contents.branches` | ✅ | ✅ |

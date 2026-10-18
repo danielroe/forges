@@ -479,6 +479,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('ci.getRun', { returns: 'CiRun', fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.getRun({ ...origin, repo, id: input.runId }) }),
   operation('ci.jobs', { returns: 'Page<CiJob>', fields: fields('runId'), args: context => `${repoChild('repo', 'runId')(context)}, { perPage: 5 }`, run: (p, input, { origin, repo }) => p.ci.jobs({ ...origin, repo, id: input.runId }, perPage).page() }),
   operation('ci.log', { returns: 'ReadableStream<Uint8Array>', fields: fields('runId'), args: ({ origin, value }) => `{ ${origin}, repo, run: { ${origin}, repo, id: ${value('runId')} }, id: '1' }` }),
+  operation('ci.rerunFailed', { fields: fields('runId'), args: repoChild('repo', 'runId'), run: (p, input, { origin, repo }) => p.ci.rerunFailed({ ...origin, repo, id: input.runId }) }),
   operation('securityAlerts.list', { returns: 'Page<SecurityAlert>', auth: true, args: () => 'repo, { perPage: 5 }', run: (p, _, { repo }) => p.securityAlerts.list(repo, perPage).page() }),
 
   // Notifications
