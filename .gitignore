@@ -4,6 +4,7 @@ coverage
 .vscode
 .DS_Store
 .eslintcache
+.lycheecache
 *.log*
 !test/fixtures/**/*.log.json
 .env*

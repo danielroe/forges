@@ -117,6 +117,15 @@ jobs:
       - name: 🛠 Build docs
         run: pnpm build:docs
 
+      # Persist lychee's `.lycheecache` so each run only re-checks stale links.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lycheecache
+          key: lychee-${{ github.ref }}-${{ github.run_id }}
+          restore-keys: |
+            lychee-${{ github.ref }}-
+            lychee-
+
       - name: 🔗 Check links
         id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
