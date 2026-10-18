@@ -67,5 +67,6 @@ export function azureWeb(baseUrl: string): WebLinks {
       return { repo, thread }
     },
     reference: ref => 'sha' in ref ? undefined : ref.kind === 'issue' ? `#${ref.number}` : `!${ref.number}`,
+    references: { threads: [{ prefix: '#', kind: 'issue', namespace: true }, { prefix: '!', kind: 'pull_request' }] },
   }
 }

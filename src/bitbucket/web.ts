@@ -52,5 +52,6 @@ export function bitbucketWeb(baseUrl: string): WebLinks {
       }
       return ref.kind === 'issue' ? `#${ref.number}` : ref.kind === 'pull_request' ? `pull request #${ref.number}` : undefined
     },
+    references: { threads: [{ prefix: '#', kind: 'issue' }, { prefix: 'pull request #', kind: 'pull_request' }], commits: true },
   }
 }

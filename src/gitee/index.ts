@@ -2,13 +2,13 @@ import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, Prov
 import type { Actor, BaseOptions, Check, Comment, Cursor, EventKind, ForgeEventInput, ForgeWarning, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, PageOptions, Release, Repo, RepoRef, RepoSearchQuery, ResolvedThreadRef, Review, ReviewInput, SearchQuery, Thread, ThreadQuery, ThreadRef, User } from '../model.ts'
 import type { AnonymousAuth, BulkNotificationOptions, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
-import type { WebLinks } from '../web.ts'
+import type { ReferenceSyntax, WebLinks } from '../web.ts'
 import type { GiteeBranch, GiteeCheckRun, GiteeComment, GiteeCommit, GiteeCompare, GiteeContentFile, GiteeContributor, GiteeEvent, GiteeHook, GiteeIssue, GiteeLabel, GiteeNotification, GiteeOperateLog, GiteePullRequest, GiteeRelease, GiteeRepository, GiteeTree, GiteeUser } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { ForgeError, MergeMethodRequiredError, NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { actorLogin, firstPageEtag, getManyConcurrently, hasEveryLabel, hexColour, isFirstPage, iteratePages, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, toDate, toPage, toWarning, withEtag } from '../utils.ts'
-import { githubShapedWeb } from '../web.ts'
+import { githubShapedWeb, OWNER_NAME } from '../web.ts'
 import { nativeEventsFor } from '../webhooks.ts'
 import { FORGE, isConversationComment, toActor, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toIssueThread, toLabel, toLogEvent, toNotification, toPullThread, toRelease, toRepo, toRepoRef, toTag, toTreeEntry, toWebhook } from './normalise.ts'
 import { GITEE_NATIVE_EVENTS } from './webhook-events.ts'
@@ -34,6 +34,8 @@ export interface GiteeOptions extends ForgeOptionsBase {
 const PULL = { pull_request: true } as const
 const PER_PAGE = 50
 const COMPARE_COMMITS = 100
+/** Gitee numbers issues with an `I` and five letters or digits, such as `I6XZ2N`, and pull requests with digits. */
+const GITEE_REFERENCES: ReferenceSyntax = { threads: [{ prefix: '#', kind: 'issue', number: 'I[A-Z0-9]{5}' }, { prefix: '!', kind: 'pull_request' }], repo: OWNER_NAME, commits: true }
 
 function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<GiteeOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -615,7 +617,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       createReview: verb('unverified', createReview),
     },
-    web: githubShapedWeb(baseUrl.replace(/\/api\/v5$/, ''), { pull: 'pulls', sections: { forks: 'members' }, commentFragment: 'note_', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, pullPrefix: '!' }),
+    web: githubShapedWeb(baseUrl.replace(/\/api\/v5$/, ''), { pull: 'pulls', sections: { forks: 'members' }, commentFragment: 'note_', file: at => `/blob/${encodeURIComponent(at)}`, lineFragment: line => `L${line}`, pullPrefix: '!', references: GITEE_REFERENCES }),
     webhooks: {
       listPage: verb('unverified', async (target, listOptions = {}) => {
         const page = await numberedPage<GiteeHook>(`${repoPath(target)}/hooks`, {}, listOptions)

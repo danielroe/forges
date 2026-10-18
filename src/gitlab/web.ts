@@ -1,5 +1,5 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
-import type { RepoSection, WebLinks } from '../web.ts'
+import type { ReferenceSyntax, RepoSection, WebLinks } from '../web.ts'
 import { lineOf, rangeOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests' }
@@ -7,6 +7,12 @@ const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section
 const PREFIXES: Partial<Record<ThreadKind, string>> = { issue: '#', pull_request: '!' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'merge_requests', compare: 'compare', releases: 'releases', stargazers: 'starrers', forks: 'forks' }
 const GROUP_PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'merge_requests' }
+const REFERENCES: ReferenceSyntax = {
+  threads: [{ prefix: '#', kind: 'issue' }, { prefix: '!', kind: 'pull_request' }],
+  repo: String.raw`(?:[\w.-]+\/)+[\w.-]+`,
+  suffix: String.raw`\+s?`,
+  commits: true,
+}
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const projectPath = (repo: RepoRef) => `/${encode(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -70,5 +76,6 @@ export function gitlabWeb(baseUrl: string): WebLinks {
       }
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}${expand ? '+' : ''}`
     },
+    references: REFERENCES,
   }
 }
