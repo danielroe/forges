@@ -1,0 +1,356 @@
+[
+  {
+    "kind": "issue",
+    "name": "Step 1: Report a problem or need",
+    "path": ".forgejo/issue_template/1-problem.yaml",
+    "format": "form",
+    "body": "name: \"Step 1: Report a problem or need\"\ndescription: Please start here and describe your situation.\ntitle: \"problem: \"\nlabels: [\"problem\", \"impact/unknown\"]\nbody:\n- type: markdown\n  attributes:\n    value: |\n      **NOTE: If your issue is a security concern, please email <security@forgejo.org> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n- type: markdown\n  attributes:\n    value: |\n      - Please speak English, as this is the language all maintainers can speak and write.\n      - Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n      - Take a moment to [check if a similar problem has already been discussed in the past.](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137). Feel free to add your own experience there, if applicable.\n- type: markdown\n  attributes:\n    value: |\n      ### New workflow\n      \n      We are currently experimenting with a new workflow to manage issues and better understand your problems and needs. This is step 1 of the workflow: Please try to focus on explaining the problem you are facing, which could be a bug in the code, a moment of confusion, or a need that you have.\n      \n      We do not expect anything from Forgejo users after creating a problem report, but we appreciate if you stay responsive to further questions. If you want, you can also participate in a discussion for solutions.\n      \n      Forgejo contributors will review your report, try to understand how important it is to you and other Forgejo users, and suggest potential solutions. In a next step, solutions can be documented and implemented.\n      \n      If you want to learn more about the background of our workflow, feel invited to read and participate in [the discussion that led to the current approach](https://codeberg.org/forgejo/discussions/issues/415). We are looking forward to your feedback.\n- type: dropdown\n  id: can-reproduce\n  attributes:\n    label: Does your problem still exist on the latest Forgejo version?\n    description: |\n      Please try reproducing your problem at https://dev.next.forgejo.org or a local development version of Forgejo.\n      If you check that your problem is not already addressed by a recent change, this will save all volunteers involved a lot of time.\n    options:\n    - \"Yes, the problem still exists (tested on a next instance)\"\n    - \"Yes, the problem still exists (tested locally with the latest development version)\"\n    - \"Unknown, I can't try it for some reason (please explain)\"\n  validations:\n    required: true\n- type: textarea\n  id: environment\n  attributes:\n    label: About your usage of Forgejo\n    description: |\n      Please provide a brief description of your usage of Forgejo. There is no clear guideline on how much you need to share here. You can be brief, but we value the insights you provide us to better understand your use case. Thank you very much!\n      <details><summary>Further instructions</summary>\n      \n      * When reporting problems with certain functionality, you should include related information. Examples:\n        * When reporting an issue with setting up an identity provider, it is useful to know if you use Forgejo in a 10-users non-profit / start up, or if you are talking about a school / university with several thousands of users.\n        * When describing confusion, it will be relevant to know your skill level and background (\"New, but used a similar product\", \"In my role as a project manager ...\"), so we know for which target audience we need to design the functionality.\n        * When reporting workflow issues or needs, it will be useful to know how large your project is, how many team members you have, which skill level we are talking about etc. For example, we might choose a different design depending on whether a feature is only for professional developers or for hobby coders.\n      * If you want, we always appreciate generic information about your Forgejo usage to help us understand your usage and make better decisions. For example:\n        * Your personal relation to Forgejo and user role (\"I'm new to Forgejo, but used a comparable product called …\", \"In my role as a designer, …\").\n      * If you already explained your usage of Forgejo elsewhere (e.g. in another issue or in a user research repository), feel free to just drop a link.\n      \n      </details>\n  validations:\n    required: true\n- type: textarea\n  id: description\n  attributes:\n    label: Problem description\n    description: |\n      Please describe your problem as a first-hand experience. Try to focus on the problem. You do not have to find a solution, you can leave this to us.\n      <details><summary>Further instructions</summary>\n      \n      * Start by explaining what you want to achieve (\"I wanted to find an issue to work on\").\n      * Try to include steps that you took and that resulted in the current situation. (\"I opened the issue tracker, clicked on …, then …\").\n      * If there were moments of confusion, please describe them. (\"There was a button saying … and I was not sure if it would do what I expect\").\n      * If you want to do something and don't know how or if it is possible, explain the goal (\"I would like to know if there are issues that meet the following criteria …\").\n      \n      </details>\n  validations:\n    required: true\n- type: textarea\n  id: workarounds\n  attributes:\n    label: Potential workarounds\n    description: |\n      If you found a solution to your problem, even if it is not great, please share your experiences with it.\n      <details><summary>Further instructions</summary>\n      \n      * Start by explaining what you tried and how it worked out (\"I used X and it gives me the results, but it takes a lot of time to click through the UI\").\n      * What are the major problems with your workaround(s)? (\"It takes long to get there\", \"It looks very ugly\")\n      \n      </details>\n- type: input\n  id: forgejo-ver\n  attributes:\n    label: Forgejo Version\n    description: Forgejo version (or commit reference) your instance is running or that you used to reproduce the bug on Forgejo Next.\n- type: textarea\n  id: versions\n  attributes:\n    label: Other details about your environment (software names and versions)\n    description: |\n      Please include details to help us understand your problem: browser engine and version (for UI issues), operating system and version running Forgejo, database engine and version, deployment methods and relevant third-party packages (e.g. renderers, identity providers)\n  validations:\n    required: true\n- type: markdown\n  attributes:\n    value: |\n      ### Solutions\n      \n      *Accepted solutions to address this problem will go here*\n  visible: [content]\n",
+    "title": "problem: ",
+    "about": "Please start here and describe your situation.",
+    "labels": [
+      "problem",
+      "impact/unknown"
+    ],
+    "fields": [
+      {
+        "type": "markdown",
+        "id": "0",
+        "attributes": {
+          "value": "**NOTE: If your issue is a security concern, please email <redacted@example.invalid> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n"
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "1",
+        "attributes": {
+          "value": "- Please speak English, as this is the language all maintainers can speak and write.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- Take a moment to [check if a similar problem has already been discussed in the past.](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137). Feel free to add your own experience there, if applicable.\n"
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "2",
+        "attributes": {
+          "value": "### New workflow\n\nWe are currently experimenting with a new workflow to manage issues and better understand your problems and needs. This is step 1 of the workflow: Please try to focus on explaining the problem you are facing, which could be a bug in the code, a moment of confusion, or a need that you have.\n\nWe do not expect anything from Forgejo users after creating a problem report, but we appreciate if you stay responsive to further questions. If you want, you can also participate in a discussion for solutions.\n\nForgejo contributors will review your report, try to understand how important it is to you and other Forgejo users, and suggest potential solutions. In a next step, solutions can be documented and implemented.\n\nIf you want to learn more about the background of our workflow, feel invited to read and participate in [the discussion that led to the current approach](https://codeberg.org/forgejo/discussions/issues/415). We are looking forward to your feedback.\n"
+        }
+      },
+      {
+        "type": "dropdown",
+        "id": "can-reproduce",
+        "attributes": {
+          "description": "Please try reproducing your problem at https://dev.next.forgejo.org or a local development version of Forgejo.\nIf you check that your problem is not already addressed by a recent change, this will save all volunteers involved a lot of time.\n",
+          "label": "Does your problem still exist on the latest Forgejo version?",
+          "options": [
+            "Yes, the problem still exists (tested on a next instance)",
+            "Yes, the problem still exists (tested locally with the latest development version)",
+            "Unknown, I can't try it for some reason (please explain)"
+          ]
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "environment",
+        "attributes": {
+          "description": "Please provide a brief description of your usage of Forgejo. There is no clear guideline on how much you need to share here. You can be brief, but we value the insights you provide us to better understand your use case. Thank you very much!\n<details><summary>Further instructions</summary>\n\n* When reporting problems with certain functionality, you should include related information. Examples:\n  * When reporting an issue with setting up an identity provider, it is useful to know if you use Forgejo in a 10-users non-profit / start up, or if you are talking about a school / university with several thousands of users.\n  * When describing confusion, it will be relevant to know your skill level and background (\"New, but used a similar product\", \"In my role as a project manager ...\"), so we know for which target audience we need to design the functionality.\n  * When reporting workflow issues or needs, it will be useful to know how large your project is, how many team members you have, which skill level we are talking about etc. For example, we might choose a different design depending on whether a feature is only for professional developers or for hobby coders.\n* If you want, we always appreciate generic information about your Forgejo usage to help us understand your usage and make better decisions. For example:\n  * Your personal relation to Forgejo and user role (\"I'm new to Forgejo, but used a comparable product called …\", \"In my role as a designer, …\").\n* If you already explained your usage of Forgejo elsewhere (e.g. in another issue or in a user research repository), feel free to just drop a link.\n\n</details>\n",
+          "label": "About your usage of Forgejo"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "attributes": {
+          "description": "Please describe your problem as a first-hand experience. Try to focus on the problem. You do not have to find a solution, you can leave this to us.\n<details><summary>Further instructions</summary>\n\n* Start by explaining what you want to achieve (\"I wanted to find an issue to work on\").\n* Try to include steps that you took and that resulted in the current situation. (\"I opened the issue tracker, clicked on …, then …\").\n* If there were moments of confusion, please describe them. (\"There was a button saying … and I was not sure if it would do what I expect\").\n* If you want to do something and don't know how or if it is possible, explain the goal (\"I would like to know if there are issues that meet the following criteria …\").\n\n</details>\n",
+          "label": "Problem description"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "workarounds",
+        "attributes": {
+          "description": "If you found a solution to your problem, even if it is not great, please share your experiences with it.\n<details><summary>Further instructions</summary>\n\n* Start by explaining what you tried and how it worked out (\"I used X and it gives me the results, but it takes a lot of time to click through the UI\").\n* What are the major problems with your workaround(s)? (\"It takes long to get there\", \"It looks very ugly\")\n\n</details>\n",
+          "label": "Potential workarounds"
+        }
+      },
+      {
+        "type": "input",
+        "id": "forgejo-ver",
+        "attributes": {
+          "description": "Forgejo version (or commit reference) your instance is running or that you used to reproduce the bug on Forgejo Next.",
+          "label": "Forgejo Version"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "versions",
+        "attributes": {
+          "description": "Please include details to help us understand your problem: browser engine and version (for UI issues), operating system and version running Forgejo, database engine and version, deployment methods and relevant third-party packages (e.g. renderers, identity providers)\n",
+          "label": "Other details about your environment (software names and versions)"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "9",
+        "attributes": {
+          "value": "### Solutions\n\n*Accepted solutions to address this problem will go here*\n"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "issue",
+    "name": "Step 2: Enhancement",
+    "path": ".forgejo/issue_template/2-enhancement.yaml",
+    "format": "form",
+    "body": "name: \"Step 2: Enhancement\"\ndescription: \"[Advanced users only] Suggest a solution to one or multiple problems that have already been reported (see step 1).\"\ntitle: \"enh: \"\nlabels: [\"enhancement/feature\"]\nbody:\n- type: markdown\n  attributes:\n    value: |\n      - Please speak English, as this is the language all maintainers can speak and write.\n      - Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- type: markdown\n  attributes:\n    value: |\n      ### New workflow\n      \n      We are currently experimenting with a new workflow to manage issues and better understand your problems and needs. This is step 2 of the workflow, which is intended for Forgejo contributors: If you just want to raise a problem or need you have, please refer to step 1.\n      \n      This step allows to document a solution to one or multiple problems. It allows developers to focus on actionable implementation tasks without the clutter of previous discussions or triaging work.\n      \n      If you want to learn more about the background of our workflow, feel invited to read and participate in [the discussion that led to the current approach](https://codeberg.org/forgejo/discussions/issues/415). We are looking forward to your feedback.\n- type: textarea\n  id: problems\n  attributes:\n    label: Existing problems this enhancement addresses\n    description: Only list the issue numbers of the **existing** problems that your proposal addresses. **Do not add new descriptions.** If you haven't previously described a problem, please [complete step one of the workflow](https://codeberg.org/forgejo/forgejo/issues/new?template=.forgejo%2fissue_template%2fproblem.yaml) and describe the problem you'd like to solve first.\n  validations:\n    required: true\n- type: textarea\n  id: description\n  attributes:\n    label: Enhancement description\n    description: Describe the changes you suggest for Forgejo and explain how they address the problems.\n  validations:\n    required: true\n- type: textarea\n  id: details\n  attributes:\n    label: Details and notes\n    description: Feel free to supply additional information like technical considerations, link to alternative solutions, UI mockups etc.\n",
+    "title": "enh: ",
+    "about": "[Advanced users only] Suggest a solution to one or multiple problems that have already been reported (see step 1).",
+    "labels": [
+      "enhancement/feature"
+    ],
+    "fields": [
+      {
+        "type": "markdown",
+        "id": "0",
+        "attributes": {
+          "value": "- Please speak English, as this is the language all maintainers can speak and write.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n"
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "1",
+        "attributes": {
+          "value": "### New workflow\n\nWe are currently experimenting with a new workflow to manage issues and better understand your problems and needs. This is step 2 of the workflow, which is intended for Forgejo contributors: If you just want to raise a problem or need you have, please refer to step 1.\n\nThis step allows to document a solution to one or multiple problems. It allows developers to focus on actionable implementation tasks without the clutter of previous discussions or triaging work.\n\nIf you want to learn more about the background of our workflow, feel invited to read and participate in [the discussion that led to the current approach](https://codeberg.org/forgejo/discussions/issues/415). We are looking forward to your feedback.\n"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "problems",
+        "attributes": {
+          "description": "Only list the issue numbers of the **existing** problems that your proposal addresses. **Do not add new descriptions.** If you haven't previously described a problem, please [complete step one of the workflow](https://codeberg.org/forgejo/forgejo/issues/new?template=.forgejo%2fissue_template%2fproblem.yaml) and describe the problem you'd like to solve first.",
+          "label": "Existing problems this enhancement addresses"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "attributes": {
+          "description": "Describe the changes you suggest for Forgejo and explain how they address the problems.",
+          "label": "Enhancement description"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "details",
+        "attributes": {
+          "description": "Feel free to supply additional information like technical considerations, link to alternative solutions, UI mockups etc.",
+          "label": "Details and notes"
+        }
+      }
+    ]
+  },
+  {
+    "kind": "issue",
+    "name": "🦋 Bug Report (web interface / frontend)",
+    "path": ".forgejo/issue_template/3-bug-report-ui.yaml",
+    "format": "form",
+    "body": "name: 🦋 Bug Report (web interface / frontend)\ndescription: \"[Advanced users only] Something doesn't look quite as it should?  Report it here!\"\ntitle: \"bug: \"\nlabels: [\"bug/new-report\", \"forgejo/ui\"]\nbody:\n- type: markdown\n  attributes:\n    value: |\n      **NOTE: If your issue is a security concern, please email <security@forgejo.org> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n- type: markdown\n  attributes:\n    value: |\n      - Please speak English, as this is the language all maintainers can speak and write.\n      - Be as clear and concise as possible. A very verbose report is harder to interpret in a concrete way.\n      - Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n      - Take a moment to [check that your issue hasn't been reported before](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137).\n- type: dropdown\n  id: can-reproduce\n  attributes:\n    label: Can you reproduce the bug on the Forgejo test instance?\n    description: |\n      Please try reproducing your issue at https://dev.next.forgejo.org.\n      It is running the latest development branch and will confirm the problem is not already fixed.\n      If you can reproduce it, provide a URL in the description.\n    options:\n    - \"Yes, I've linked the repository below\"\n    - \"No, I've tried it and the problem is not present there\"\n    - \"No, I can't try it on the test instance for some reason\"\n  validations:\n    required: true\n- type: textarea\n  id: description\n  attributes:\n    label: Description\n    description: |\n      Please provide a description of your issue here, with a URL if you were able to reproduce the issue (see above).\n      If you think this is a JavaScript error, include a copy of the JavaScript console.\n  validations:\n    required: true\n- type: textarea\n  id: screenshots\n  attributes:\n    label: Screenshots\n    description: Please provide at least one screenshot showing the issue.\n  validations:\n    required: true\n- type: input\n  id: forgejo-ver\n  attributes:\n    label: Forgejo Version\n    description: Forgejo version (or commit reference) your instance is running\n- type: input\n  id: browser-ver\n  attributes:\n    label: Browser Version\n    description: The browser and version that you are using to access Forgejo\n  validations:\n    required: true\n",
+    "title": "bug: ",
+    "about": "[Advanced users only] Something doesn't look quite as it should?  Report it here!",
+    "labels": [
+      "bug/new-report",
+      "forgejo/ui"
+    ],
+    "fields": [
+      {
+        "type": "markdown",
+        "id": "0",
+        "attributes": {
+          "value": "**NOTE: If your issue is a security concern, please email <redacted@example.invalid> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n"
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "1",
+        "attributes": {
+          "value": "- Please speak English, as this is the language all maintainers can speak and write.\n- Be as clear and concise as possible. A very verbose report is harder to interpret in a concrete way.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- Take a moment to [check that your issue hasn't been reported before](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137).\n"
+        }
+      },
+      {
+        "type": "dropdown",
+        "id": "can-reproduce",
+        "attributes": {
+          "description": "Please try reproducing your issue at https://dev.next.forgejo.org.\nIt is running the latest development branch and will confirm the problem is not already fixed.\nIf you can reproduce it, provide a URL in the description.\n",
+          "label": "Can you reproduce the bug on the Forgejo test instance?",
+          "options": [
+            "Yes, I've linked the repository below",
+            "No, I've tried it and the problem is not present there",
+            "No, I can't try it on the test instance for some reason"
+          ]
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "attributes": {
+          "description": "Please provide a description of your issue here, with a URL if you were able to reproduce the issue (see above).\nIf you think this is a JavaScript error, include a copy of the JavaScript console.\n",
+          "label": "Description"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "screenshots",
+        "attributes": {
+          "description": "Please provide at least one screenshot showing the issue.",
+          "label": "Screenshots"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "input",
+        "id": "forgejo-ver",
+        "attributes": {
+          "description": "Forgejo version (or commit reference) your instance is running",
+          "label": "Forgejo Version"
+        }
+      },
+      {
+        "type": "input",
+        "id": "browser-ver",
+        "attributes": {
+          "description": "The browser and version that you are using to access Forgejo",
+          "label": "Browser Version"
+        },
+        "validations": {
+          "required": true
+        }
+      }
+    ]
+  },
+  {
+    "kind": "issue",
+    "name": "🐛 Bug Report (server / backend)",
+    "path": ".forgejo/issue_template/4-bug-report.yaml",
+    "format": "form",
+    "body": "name: 🐛 Bug Report (server / backend)\ndescription: \"[Advanced users only] Found something you weren't expecting? Report it here!\"\ntitle: \"bug: \"\nlabels: bug/new-report\nbody:\n- type: markdown\n  attributes:\n    value: |\n      **NOTE: If your issue is a security concern, please email <security@forgejo.org> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n- type: markdown\n  attributes:\n    value: |\n      - Please speak English, as this is the language all maintainers can speak and write.\n      - Be as clear and concise as possible. A very verbose report is harder to interpret in a concrete way.\n      - Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n      - Take a moment to [check that your issue hasn't been reported before](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137).\n- type: dropdown\n  id: can-reproduce\n  attributes:\n    label: Can you reproduce the bug on the Forgejo test instance?\n    description: |\n      Please try reproducing your issue at https://dev.next.forgejo.org.\n      It is running the latest development branch and will confirm the problem is not already fixed.\n      If you can reproduce it, provide a URL in the description.\n    options:\n    - \"Yes, I've linked the repository below\"\n    - \"No, I've tried it and the problem is not present there\"\n    - \"No, I can't try it on the test instance for some reason\"\n  validations:\n    required: true\n- type: textarea\n  id: description\n  attributes:\n    label: Description\n    description: |\n      Please provide a description of your issue here, with a URL if you were able to reproduce the issue (see above).\n  validations:\n    required: true\n- type: input\n  id: forgejo-ver\n  attributes:\n    label: Forgejo Version\n    description: Forgejo version (or commit reference) of your instance\n- type: textarea\n  id: run-info\n  attributes:\n    label: How are you running Forgejo?\n    description: |\n      Please include information on whether you built Forgejo yourself, used one of our downloads, or are using some other package.\n      Please also tell us how you are running Forgejo, e.g. if it is being run from a container, a command-line, systemd etc.\n      If you are using a package or systemd tell us what distribution you are using.\n  validations:\n    required: true\n- type: textarea\n  id: logs\n  attributes:\n    label: Logs\n    description: |\n      It's really important to provide pertinent logs. You must give us `DEBUG` level logs.\n      Please read https://forgejo.org/docs/latest/admin/troubleshooting/logging/.\n      In addition, if your problem relates to git commands set `RUN_MODE=dev` at the top of `app.ini`.\n\n      Please copy and paste your logs here, with any sensitive information (e.g. API keys) removed/hidden.\n      You can wrap your logs in `<details>...</details>` tags so it doesn't take up too much space in the issue.\n- type: dropdown\n  id: database\n  attributes:\n    label: Database\n    description: What database system are you running?\n    options:\n    - SQLite\n    - PostgreSQL\n    - MySQL\n",
+    "title": "bug: ",
+    "about": "[Advanced users only] Found something you weren't expecting? Report it here!",
+    "labels": [
+      "bug/new-report"
+    ],
+    "fields": [
+      {
+        "type": "markdown",
+        "id": "0",
+        "attributes": {
+          "value": "**NOTE: If your issue is a security concern, please email <redacted@example.invalid> ([security.txt](https://forgejo.org/.well-known/security.txt)) instead of opening a public issue.**\n"
+        }
+      },
+      {
+        "type": "markdown",
+        "id": "1",
+        "attributes": {
+          "value": "- Please speak English, as this is the language all maintainers can speak and write.\n- Be as clear and concise as possible. A very verbose report is harder to interpret in a concrete way.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- Take a moment to [check that your issue hasn't been reported before](https://codeberg.org/forgejo/forgejo/issues?q=&type=all&labels=78137).\n"
+        }
+      },
+      {
+        "type": "dropdown",
+        "id": "can-reproduce",
+        "attributes": {
+          "description": "Please try reproducing your issue at https://dev.next.forgejo.org.\nIt is running the latest development branch and will confirm the problem is not already fixed.\nIf you can reproduce it, provide a URL in the description.\n",
+          "label": "Can you reproduce the bug on the Forgejo test instance?",
+          "options": [
+            "Yes, I've linked the repository below",
+            "No, I've tried it and the problem is not present there",
+            "No, I can't try it on the test instance for some reason"
+          ]
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "attributes": {
+          "description": "Please provide a description of your issue here, with a URL if you were able to reproduce the issue (see above).\n",
+          "label": "Description"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "input",
+        "id": "forgejo-ver",
+        "attributes": {
+          "description": "Forgejo version (or commit reference) of your instance",
+          "label": "Forgejo Version"
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "run-info",
+        "attributes": {
+          "description": "Please include information on whether you built Forgejo yourself, used one of our downloads, or are using some other package.\nPlease also tell us how you are running Forgejo, e.g. if it is being run from a container, a command-line, systemd etc.\nIf you are using a package or systemd tell us what distribution you are using.\n",
+          "label": "How are you running Forgejo?"
+        },
+        "validations": {
+          "required": true
+        }
+      },
+      {
+        "type": "textarea",
+        "id": "logs",
+        "attributes": {
+          "description": "It's really important to provide pertinent logs. You must give us `DEBUG` level logs.\nPlease read https://forgejo.org/docs/latest/admin/troubleshooting/logging/.\nIn addition, if your problem relates to git commands set `RUN_MODE=dev` at the top of `app.ini`.\n\nPlease copy and paste your logs here, with any sensitive information (e.g. API keys) removed/hidden.\nYou can wrap your logs in `<details>...</details>` tags so it doesn't take up too much space in the issue.\n",
+          "label": "Logs"
+        }
+      },
+      {
+        "type": "dropdown",
+        "id": "database",
+        "attributes": {
+          "description": "What database system are you running?",
+          "label": "Database",
+          "options": [
+            "SQLite",
+            "PostgreSQL",
+            "MySQL"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "kind": "pull_request",
+    "name": "pull_request_template.md",
+    "path": ".forgejo/pull_request_template.md",
+    "format": "markdown",
+    "body": "---\n\nname: \"Pull Request Template\"\nabout: \"Template for all Pull Requests\"\nlabels:\n\n- test/needed\n\n---\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [ ] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n(can be removed for JavaScript changes)\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [ ] `make pr-go` before pushing\n\n### Tests for JavaScript changes\n\n(can be removed for Go changes)\n\n- I added test coverage for JavaScript changes...\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [ ] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [ ] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n"
+  }
+]

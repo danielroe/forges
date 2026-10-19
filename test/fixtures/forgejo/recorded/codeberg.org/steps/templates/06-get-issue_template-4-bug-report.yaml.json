@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/4-bug-report.yaml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1990;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "name": "4-bug-report.yaml",
+      "path": ".forgejo/issue_template/4-bug-report.yaml",
+      "sha": "e8b26089f05ff6ddc58297a2861223b3d80ae8a4",
+      "last_commit_sha": "8fb1a078987991d1cdbd336ee09bfc0c291cf420",
+      "last_commit_when": "2026-08-06T23:57:11+02:00",
+      "type": "file",
+      "size": 3124,
+      "encoding": "base64",
+      "content": "bmFtZTog8J+QmyBCdWcgUmVwb3J0IChzZXJ2ZXIgLyBiYWNrZW5kKQpkZXNjcmlwdGlvbjogIltBZHZhbmNlZCB1c2VycyBvbmx5XSBGb3VuZCBzb21ldGhpbmcgeW91IHdlcmVuJ3QgZXhwZWN0aW5nPyBSZXBvcnQgaXQgaGVyZSEiCnRpdGxlOiAiYnVnOiAiCmxhYmVsczogYnVnL25ldy1yZXBvcnQKYm9keToKLSB0eXBlOiBtYXJrZG93bgogIGF0dHJpYnV0ZXM6CiAgICB2YWx1ZTogfAogICAgICAqKk5PVEU6IElmIHlvdXIgaXNzdWUgaXMgYSBzZWN1cml0eSBjb25jZXJuLCBwbGVhc2UgZW1haWwgPHNlY3VyaXR5QGZvcmdlam8ub3JnPiAoW3NlY3VyaXR5LnR4dF0oaHR0cHM6Ly9mb3JnZWpvLm9yZy8ud2VsbC1rbm93bi9zZWN1cml0eS50eHQpKSBpbnN0ZWFkIG9mIG9wZW5pbmcgYSBwdWJsaWMgaXNzdWUuKioKLSB0eXBlOiBtYXJrZG93bgogIGF0dHJpYnV0ZXM6CiAgICB2YWx1ZTogfAogICAgICAtIFBsZWFzZSBzcGVhayBFbmdsaXNoLCBhcyB0aGlzIGlzIHRoZSBsYW5ndWFnZSBhbGwgbWFpbnRhaW5lcnMgY2FuIHNwZWFrIGFuZCB3cml0ZS4KICAgICAgLSBCZSBhcyBjbGVhciBhbmQgY29uY2lzZSBhcyBwb3NzaWJsZS4gQSB2ZXJ5IHZlcmJvc2UgcmVwb3J0IGlzIGhhcmRlciB0byBpbnRlcnByZXQgaW4gYSBjb25jcmV0ZSB3YXkuCiAgICAgIC0gQmUgY2l2aWwsIGFuZCBmb2xsb3cgdGhlIFtGb3JnZWpvIENvZGUgb2YgQ29uZHVjdF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9jb2RlLW9mLWNvbmR1Y3QpLgogICAgICAtIFRha2UgYSBtb21lbnQgdG8gW2NoZWNrIHRoYXQgeW91ciBpc3N1ZSBoYXNuJ3QgYmVlbiByZXBvcnRlZCBiZWZvcmVdKGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZm9yZ2Vqby9pc3N1ZXM/cT0mdHlwZT1hbGwmbGFiZWxzPTc4MTM3KS4KLSB0eXBlOiBkcm9wZG93bgogIGlkOiBjYW4tcmVwcm9kdWNlCiAgYXR0cmlidXRlczoKICAgIGxhYmVsOiBDYW4geW91IHJlcHJvZHVjZSB0aGUgYnVnIG9uIHRoZSBGb3JnZWpvIHRlc3QgaW5zdGFuY2U/CiAgICBkZXNjcmlwdGlvbjogfAogICAgICBQbGVhc2UgdHJ5IHJlcHJvZHVjaW5nIHlvdXIgaXNzdWUgYXQgaHR0cHM6Ly9kZXYubmV4dC5mb3JnZWpvLm9yZy4KICAgICAgSXQgaXMgcnVubmluZyB0aGUgbGF0ZXN0IGRldmVsb3BtZW50IGJyYW5jaCBhbmQgd2lsbCBjb25maXJtIHRoZSBwcm9ibGVtIGlzIG5vdCBhbHJlYWR5IGZpeGVkLgogICAgICBJZiB5b3UgY2FuIHJlcHJvZHVjZSBpdCwgcHJvdmlkZSBhIFVSTCBpbiB0aGUgZGVzY3JpcHRpb24uCiAgICBvcHRpb25zOgogICAgLSAiWWVzLCBJJ3ZlIGxpbmtlZCB0aGUgcmVwb3NpdG9yeSBiZWxvdyIKICAgIC0gIk5vLCBJJ3ZlIHRyaWVkIGl0IGFuZCB0aGUgcHJvYmxlbSBpcyBub3QgcHJlc2VudCB0aGVyZSIKICAgIC0gIk5vLCBJIGNhbid0IHRyeSBpdCBvbiB0aGUgdGVzdCBpbnN0YW5jZSBmb3Igc29tZSByZWFzb24iCiAgdmFsaWRhdGlvbnM6CiAgICByZXF1aXJlZDogdHJ1ZQotIHR5cGU6IHRleHRhcmVhCiAgaWQ6IGRlc2NyaXB0aW9uCiAgYXR0cmlidXRlczoKICAgIGxhYmVsOiBEZXNjcmlwdGlvbgogICAgZGVzY3JpcHRpb246IHwKICAgICAgUGxlYXNlIHByb3ZpZGUgYSBkZXNjcmlwdGlvbiBvZiB5b3VyIGlzc3VlIGhlcmUsIHdpdGggYSBVUkwgaWYgeW91IHdlcmUgYWJsZSB0byByZXByb2R1Y2UgdGhlIGlzc3VlIChzZWUgYWJvdmUpLgogIHZhbGlkYXRpb25zOgogICAgcmVxdWlyZWQ6IHRydWUKLSB0eXBlOiBpbnB1dAogIGlkOiBmb3JnZWpvLXZlcgogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogRm9yZ2VqbyBWZXJzaW9uCiAgICBkZXNjcmlwdGlvbjogRm9yZ2VqbyB2ZXJzaW9uIChvciBjb21taXQgcmVmZXJlbmNlKSBvZiB5b3VyIGluc3RhbmNlCi0gdHlwZTogdGV4dGFyZWEKICBpZDogcnVuLWluZm8KICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IEhvdyBhcmUgeW91IHJ1bm5pbmcgRm9yZ2Vqbz8KICAgIGRlc2NyaXB0aW9uOiB8CiAgICAgIFBsZWFzZSBpbmNsdWRlIGluZm9ybWF0aW9uIG9uIHdoZXRoZXIgeW91IGJ1aWx0IEZvcmdlam8geW91cnNlbGYsIHVzZWQgb25lIG9mIG91ciBkb3dubG9hZHMsIG9yIGFyZSB1c2luZyBzb21lIG90aGVyIHBhY2thZ2UuCiAgICAgIFBsZWFzZSBhbHNvIHRlbGwgdXMgaG93IHlvdSBhcmUgcnVubmluZyBGb3JnZWpvLCBlLmcuIGlmIGl0IGlzIGJlaW5nIHJ1biBmcm9tIGEgY29udGFpbmVyLCBhIGNvbW1hbmQtbGluZSwgc3lzdGVtZCBldGMuCiAgICAgIElmIHlvdSBhcmUgdXNpbmcgYSBwYWNrYWdlIG9yIHN5c3RlbWQgdGVsbCB1cyB3aGF0IGRpc3RyaWJ1dGlvbiB5b3UgYXJlIHVzaW5nLgogIHZhbGlkYXRpb25zOgogICAgcmVxdWlyZWQ6IHRydWUKLSB0eXBlOiB0ZXh0YXJlYQogIGlkOiBsb2dzCiAgYXR0cmlidXRlczoKICAgIGxhYmVsOiBMb2dzCiAgICBkZXNjcmlwdGlvbjogfAogICAgICBJdCdzIHJlYWxseSBpbXBvcnRhbnQgdG8gcHJvdmlkZSBwZXJ0aW5lbnQgbG9ncy4gWW91IG11c3QgZ2l2ZSB1cyBgREVCVUdgIGxldmVsIGxvZ3MuCiAgICAgIFBsZWFzZSByZWFkIGh0dHBzOi8vZm9yZ2Vqby5vcmcvZG9jcy9sYXRlc3QvYWRtaW4vdHJvdWJsZXNob290aW5nL2xvZ2dpbmcvLgogICAgICBJbiBhZGRpdGlvbiwgaWYgeW91ciBwcm9ibGVtIHJlbGF0ZXMgdG8gZ2l0IGNvbW1hbmRzIHNldCBgUlVOX01PREU9ZGV2YCBhdCB0aGUgdG9wIG9mIGBhcHAuaW5pYC4KCiAgICAgIFBsZWFzZSBjb3B5IGFuZCBwYXN0ZSB5b3VyIGxvZ3MgaGVyZSwgd2l0aCBhbnkgc2Vuc2l0aXZlIGluZm9ybWF0aW9uIChlLmcuIEFQSSBrZXlzKSByZW1vdmVkL2hpZGRlbi4KICAgICAgWW91IGNhbiB3cmFwIHlvdXIgbG9ncyBpbiBgPGRldGFpbHM+Li4uPC9kZXRhaWxzPmAgdGFncyBzbyBpdCBkb2Vzbid0IHRha2UgdXAgdG9vIG11Y2ggc3BhY2UgaW4gdGhlIGlzc3VlLgotIHR5cGU6IGRyb3Bkb3duCiAgaWQ6IGRhdGFiYXNlCiAgYXR0cmlidXRlczoKICAgIGxhYmVsOiBEYXRhYmFzZQogICAgZGVzY3JpcHRpb246IFdoYXQgZGF0YWJhc2Ugc3lzdGVtIGFyZSB5b3UgcnVubmluZz8KICAgIG9wdGlvbnM6CiAgICAtIFNRTGl0ZQogICAgLSBQb3N0Z3JlU1FMCiAgICAtIE15U1FMCg==",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/4-bug-report.yaml?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/4-bug-report.yaml",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e8b26089f05ff6ddc58297a2861223b3d80ae8a4",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/issue_template/4-bug-report.yaml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/4-bug-report.yaml?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e8b26089f05ff6ddc58297a2861223b3d80ae8a4",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/4-bug-report.yaml"
+      }
+    }
+  }
+}

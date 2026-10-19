@@ -4,7 +4,7 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19648392"
+        "id": "19950688"
       },
       "subject": {
         "type": "thread",
@@ -20,17 +20,17 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "31"
+          "number": "89"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261012113646: issue, edited",
+      "title": "forges fixture 20261017151708: issue, edited",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31",
+      "updatedAt": "2026-10-17T15:23:56.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/89",
       "latestComment": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -46,16 +46,16 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "31"
+          "number": "89"
         },
-        "id": "25158678"
+        "id": "25515535"
       }
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19648395"
+        "id": "19950694"
       },
       "subject": {
         "type": "thread",
@@ -71,23 +71,23 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "32"
+          "number": "90"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261012113646: labelled issue s2-v8yaFqjbILt3YHl-KHr4gw-5NxHhEL0A40vn4fWik-GPXRO5Sjtgnk3I22eby",
+      "title": "forges fixture 20261017151708: labelled issue ZL2yEuLoMhaOiy456SFy0pOufQnOfEBZs1O04gtkVDxycsV8jY3wp_3SBtj8H6YQ",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/32"
+      "updatedAt": "2026-10-17T15:23:56.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/90"
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19648398"
+        "id": "19950697"
       },
       "subject": {
         "type": "thread",
@@ -103,18 +103,24 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "33"
+          "number": "91"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261012113646: duplicate _vFHYLhcythVikYIN9m_EDVCc1HzJQKHOvb3cSgZ_EDDBxQ4t-EX6JmZYx6UV90f",
+      "title": "forges fixture 20261017151708: duplicate NJ4uzJJxvDnMLAcBZOiVsWQLMzGY7O1awWvP5XOFLpaSExq9oUF6M4Yn7DNl12dK",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/33"
+      "updatedAt": "2026-10-17T15:23:56.000Z",
+      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/91"
     }
   ],
-  "notModified": false
+  "notModified": false,
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1947,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

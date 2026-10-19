@@ -8,26 +8,25 @@
       "owner": "forgejo",
       "name": "runner"
     },
-    "id": "196211"
+    "id": "197466"
   },
-  "name": "test-multi-platform.yml",
+  "name": "test.yml",
   "state": "failure",
   "stateRaw": "failure",
-  "number": "23966",
-  "eventRaw": "schedule",
-  "branch": "main",
-  "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966",
+  "number": "24006",
+  "eventRaw": "pull_request",
+  "sha": "f0d739b7ad9b886d11ba6540845872355ec2936f",
+  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006",
   "actor": {
     "forge": "forgejo",
     "instance": "code.forgejo.org",
-    "login": "forgejo-actions",
-    "id": "-2",
-    "name": "Forgejo Actions",
-    "avatarUrl": "https://code.forgejo.org/assets/img/avatar_default.png",
-    "url": "https://code.forgejo.org/forgejo-actions",
-    "isBotHint": true
+    "login": "eleboucher",
+    "id": "2226",
+    "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
+    "url": "https://code.forgejo.org/eleboucher",
+    "isBotHint": false
   },
-  "createdAt": "2026-10-09T12:00:15.000Z",
-  "completedAt": "2026-10-09T13:20:24.000Z"
+  "createdAt": "2026-10-18T17:32:43.000Z",
+  "startedAt": "2026-10-18T17:32:44.000Z",
+  "completedAt": "2026-10-18T17:57:04.000Z"
 }

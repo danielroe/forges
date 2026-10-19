@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/3-bug-report-ui.yaml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1989;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "name": "3-bug-report-ui.yaml",
+      "path": ".forgejo/issue_template/3-bug-report-ui.yaml",
+      "sha": "4a70dbc8ba31061125863c10f1abfc04ebff8cd2",
+      "last_commit_sha": "867665596a282d54cb16e8af4be7b24cb613a059",
+      "last_commit_when": "2025-12-19T09:41:28+01:00",
+      "type": "file",
+      "size": 2385,
+      "encoding": "base64",
+      "content": "bmFtZTog8J+miyBCdWcgUmVwb3J0ICh3ZWIgaW50ZXJmYWNlIC8gZnJvbnRlbmQpCmRlc2NyaXB0aW9uOiAiW0FkdmFuY2VkIHVzZXJzIG9ubHldIFNvbWV0aGluZyBkb2Vzbid0IGxvb2sgcXVpdGUgYXMgaXQgc2hvdWxkPyAgUmVwb3J0IGl0IGhlcmUhIgp0aXRsZTogImJ1ZzogIgpsYWJlbHM6IFsiYnVnL25ldy1yZXBvcnQiLCAiZm9yZ2Vqby91aSJdCmJvZHk6Ci0gdHlwZTogbWFya2Rvd24KICBhdHRyaWJ1dGVzOgogICAgdmFsdWU6IHwKICAgICAgKipOT1RFOiBJZiB5b3VyIGlzc3VlIGlzIGEgc2VjdXJpdHkgY29uY2VybiwgcGxlYXNlIGVtYWlsIDxzZWN1cml0eUBmb3JnZWpvLm9yZz4gKFtzZWN1cml0eS50eHRdKGh0dHBzOi8vZm9yZ2Vqby5vcmcvLndlbGwta25vd24vc2VjdXJpdHkudHh0KSkgaW5zdGVhZCBvZiBvcGVuaW5nIGEgcHVibGljIGlzc3VlLioqCi0gdHlwZTogbWFya2Rvd24KICBhdHRyaWJ1dGVzOgogICAgdmFsdWU6IHwKICAgICAgLSBQbGVhc2Ugc3BlYWsgRW5nbGlzaCwgYXMgdGhpcyBpcyB0aGUgbGFuZ3VhZ2UgYWxsIG1haW50YWluZXJzIGNhbiBzcGVhayBhbmQgd3JpdGUuCiAgICAgIC0gQmUgYXMgY2xlYXIgYW5kIGNvbmNpc2UgYXMgcG9zc2libGUuIEEgdmVyeSB2ZXJib3NlIHJlcG9ydCBpcyBoYXJkZXIgdG8gaW50ZXJwcmV0IGluIGEgY29uY3JldGUgd2F5LgogICAgICAtIEJlIGNpdmlsLCBhbmQgZm9sbG93IHRoZSBbRm9yZ2VqbyBDb2RlIG9mIENvbmR1Y3RdKGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vY29kZS1vZi1jb25kdWN0KS4KICAgICAgLSBUYWtlIGEgbW9tZW50IHRvIFtjaGVjayB0aGF0IHlvdXIgaXNzdWUgaGFzbid0IGJlZW4gcmVwb3J0ZWQgYmVmb3JlXShodHRwczovL2NvZGViZXJnLm9yZy9mb3JnZWpvL2Zvcmdlam8vaXNzdWVzP3E9JnR5cGU9YWxsJmxhYmVscz03ODEzNykuCi0gdHlwZTogZHJvcGRvd24KICBpZDogY2FuLXJlcHJvZHVjZQogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogQ2FuIHlvdSByZXByb2R1Y2UgdGhlIGJ1ZyBvbiB0aGUgRm9yZ2VqbyB0ZXN0IGluc3RhbmNlPwogICAgZGVzY3JpcHRpb246IHwKICAgICAgUGxlYXNlIHRyeSByZXByb2R1Y2luZyB5b3VyIGlzc3VlIGF0IGh0dHBzOi8vZGV2Lm5leHQuZm9yZ2Vqby5vcmcuCiAgICAgIEl0IGlzIHJ1bm5pbmcgdGhlIGxhdGVzdCBkZXZlbG9wbWVudCBicmFuY2ggYW5kIHdpbGwgY29uZmlybSB0aGUgcHJvYmxlbSBpcyBub3QgYWxyZWFkeSBmaXhlZC4KICAgICAgSWYgeW91IGNhbiByZXByb2R1Y2UgaXQsIHByb3ZpZGUgYSBVUkwgaW4gdGhlIGRlc2NyaXB0aW9uLgogICAgb3B0aW9uczoKICAgIC0gIlllcywgSSd2ZSBsaW5rZWQgdGhlIHJlcG9zaXRvcnkgYmVsb3ciCiAgICAtICJObywgSSd2ZSB0cmllZCBpdCBhbmQgdGhlIHByb2JsZW0gaXMgbm90IHByZXNlbnQgdGhlcmUiCiAgICAtICJObywgSSBjYW4ndCB0cnkgaXQgb24gdGhlIHRlc3QgaW5zdGFuY2UgZm9yIHNvbWUgcmVhc29uIgogIHZhbGlkYXRpb25zOgogICAgcmVxdWlyZWQ6IHRydWUKLSB0eXBlOiB0ZXh0YXJlYQogIGlkOiBkZXNjcmlwdGlvbgogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogRGVzY3JpcHRpb24KICAgIGRlc2NyaXB0aW9uOiB8CiAgICAgIFBsZWFzZSBwcm92aWRlIGEgZGVzY3JpcHRpb24gb2YgeW91ciBpc3N1ZSBoZXJlLCB3aXRoIGEgVVJMIGlmIHlvdSB3ZXJlIGFibGUgdG8gcmVwcm9kdWNlIHRoZSBpc3N1ZSAoc2VlIGFib3ZlKS4KICAgICAgSWYgeW91IHRoaW5rIHRoaXMgaXMgYSBKYXZhU2NyaXB0IGVycm9yLCBpbmNsdWRlIGEgY29weSBvZiB0aGUgSmF2YVNjcmlwdCBjb25zb2xlLgogIHZhbGlkYXRpb25zOgogICAgcmVxdWlyZWQ6IHRydWUKLSB0eXBlOiB0ZXh0YXJlYQogIGlkOiBzY3JlZW5zaG90cwogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogU2NyZWVuc2hvdHMKICAgIGRlc2NyaXB0aW9uOiBQbGVhc2UgcHJvdmlkZSBhdCBsZWFzdCBvbmUgc2NyZWVuc2hvdCBzaG93aW5nIHRoZSBpc3N1ZS4KICB2YWxpZGF0aW9uczoKICAgIHJlcXVpcmVkOiB0cnVlCi0gdHlwZTogaW5wdXQKICBpZDogZm9yZ2Vqby12ZXIKICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IEZvcmdlam8gVmVyc2lvbgogICAgZGVzY3JpcHRpb246IEZvcmdlam8gdmVyc2lvbiAob3IgY29tbWl0IHJlZmVyZW5jZSkgeW91ciBpbnN0YW5jZSBpcyBydW5uaW5nCi0gdHlwZTogaW5wdXQKICBpZDogYnJvd3Nlci12ZXIKICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IEJyb3dzZXIgVmVyc2lvbgogICAgZGVzY3JpcHRpb246IFRoZSBicm93c2VyIGFuZCB2ZXJzaW9uIHRoYXQgeW91IGFyZSB1c2luZyB0byBhY2Nlc3MgRm9yZ2VqbwogIHZhbGlkYXRpb25zOgogICAgcmVxdWlyZWQ6IHRydWUK",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/3-bug-report-ui.yaml?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/3-bug-report-ui.yaml",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/4a70dbc8ba31061125863c10f1abfc04ebff8cd2",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/issue_template/3-bug-report-ui.yaml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/issue_template/3-bug-report-ui.yaml?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/4a70dbc8ba31061125863c10f1abfc04ebff8cd2",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/issue_template/3-bug-report-ui.yaml"
+      }
+    }
+  }
+}

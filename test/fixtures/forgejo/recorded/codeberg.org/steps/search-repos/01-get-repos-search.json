@@ -6,8 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/search?limit=3&page=719&q=forgejo>; rel=\"last\"",
-      "x-total-count": "2156"
+      "link": "<https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/search?limit=3&page=726&q=forgejo>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1923;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
+      "x-total-count": "2176"
     },
     "body": {
       "ok": true,

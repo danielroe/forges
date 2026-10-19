@@ -554,5 +554,11 @@
       "url": "https://codeberg.org/xtex",
       "isBotHint": false
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1986,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

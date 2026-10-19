@@ -186,8 +186,14 @@
       }
     }
   ],
-  "total": 2101,
+  "total": 2122,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1858,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/issue_template/feature-request.yaml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "feature-request.yaml",
+      "path": ".forgejo/issue_template/feature-request.yaml",
+      "sha": "c32f3f48c87e3fb58d9a026b48d12174ee2a8dad",
+      "last_commit_sha": "d51f20b1dbb92486f42a65f0f0af900624f8246d",
+      "last_commit_when": "2025-07-08T16:26:20+02:00",
+      "type": "file",
+      "size": 1339,
+      "encoding": "base64",
+      "content": "bmFtZTog8J+SoSBGZWF0dXJlIFJlcXVlc3QKZGVzY3JpcHRpb246IEdvdCBhbiBpZGVhIHJlYWR5IHRvIGJlIGltcGxlbWVudGVkPyBTdWdnZXN0IGl0IGhlcmUhCnRpdGxlOiAiZmVhdDogIgpsYWJlbHM6IFsiS2luZC9FbmhhbmNlbWVudCJdCmJvZHk6Ci0gdHlwZTogbWFya2Rvd24KICBhdHRyaWJ1dGVzOgogICAgdmFsdWU6IHwKICAgICAgLSBOZXcgaWRlYXMgbXVzdCBiZSBbcHJvcG9zZWQgaW4gYW4gaXNzdWUgdHJhY2tlciBkZWRpY2F0ZWQgdG8gZmVhdHVyZSByZXF1ZXN0c10oaHR0cHM6Ly9jb2RlLmZvcmdlam8ub3JnL2Zvcmdlam8vZm9yZ2Vqby1hY3Rpb25zLWZlYXR1cmUtcmVxdWVzdHMvaXNzdWVzL25ldz90ZW1wbGF0ZT0uZm9yZ2VqbyUyZmlzc3VlX3RlbXBsYXRlJTJmZmVhdHVyZS1yZXF1ZXN0LnlhbWwpLgogICAgICAtIElkZWFzIHRoYXQgaGF2ZSBiZWVuIHByZXBhcmVkIHRoZXJlIGFuZCBhcmUgcmVhZHkgdG8gYmUgaW1wbGVtZW50ZWQgY2FuIGJlIHByb3Bvc2VkIGhlcmUuCiAgICAgIC0gQmUgY2l2aWwsIGFuZCBmb2xsb3cgdGhlIFtGb3JnZWpvIENvZGUgb2YgQ29uZHVjdF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9jb2RlLW9mLWNvbmR1Y3QpLgogICAgICAtIFBsZWFzZSBtYWtlIHN1cmUgeW91IGFyZSB1c2luZyB0aGUgbGF0ZXN0IHJlbGVhc2Ugb2YgdGhlIHJ1bm5lciBhbmQgdGFrZSBhIG1vbWVudCB0byBbY2hlY2sgdGhhdCB5b3VyIGZlYXR1cmUgaGFzbid0IGFscmVhZHkgYmVlbiBzdWdnZXN0ZWRdKGh0dHBzOi8vY29kZS5mb3JnZWpvLm9yZy9mb3JnZWpvL3J1bm5lci9pc3N1ZXM/cT0mdHlwZT1hbGwpLgotIHR5cGU6IHRleHRhcmVhCiAgaWQ6IHVybAogIGF0dHJpYnV0ZXM6CiAgICBsYWJlbDogIEZlYXR1cmUgcmVxdWVzdCBVUkwKICAgIGRlc2NyaXB0aW9uOiBUaGUgVVJMIHRvIHRoZSBbZmVhdHVyZSByZXF1ZXN0XShodHRwczovL2NvZGUuZm9yZ2Vqby5vcmcvZm9yZ2Vqby9mb3JnZWpvLWFjdGlvbnMtZmVhdHVyZS1yZXF1ZXN0cy9pc3N1ZXM/bGFiZWxzPTk5MCkgaW4gdGhlIGByZWFkeWAgc3RhZ2UKICAgIHBsYWNlaG9sZGVyOiB8CiAgICAgIGh0dHBzOi8vY29kZS5mb3JnZWpvLm9yZy9mb3JnZWpvL2Zvcmdlam8tYWN0aW9ucy1mZWF0dXJlLXJlcXVlc3RzL2lzc3Vlcy8/Pz8KICB2YWxpZGF0aW9uczoKICAgIHJlcXVpcmVkOiB0cnVlCi0gdHlwZTogdGV4dGFyZWEKICBpZDogRGVzY3JpcHRpb24KICBhdHRyaWJ1dGVzOgogICAgbGFiZWw6IENvcHkvcGFzdGUgb2YgdGhlIGRlc2NyaXB0aW9uIG9mIHRoZSBmZWF0dXJlIHJlcXVlc3QKICB2YWxpZGF0aW9uczoKICAgIHJlcXVpcmVkOiB0cnVlCg==",
+      "target": null,
+      "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/issue_template/feature-request.yaml?ref=main",
+      "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/issue_template/feature-request.yaml",
+      "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/c32f3f48c87e3fb58d9a026b48d12174ee2a8dad",
+      "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/issue_template/feature-request.yaml",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/issue_template/feature-request.yaml?ref=main",
+        "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/c32f3f48c87e3fb58d9a026b48d12174ee2a8dad",
+        "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/issue_template/feature-request.yaml"
+      }
+    }
+  }
+}

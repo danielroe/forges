@@ -1,0 +1,596 @@
+{
+  "items": [
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1195556",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1775"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1775"
+          },
+          "id": "103919"
+        },
+        "body": "I am getting 500s when trying to create a PR, but the fix would be https://code.forgejo.org/mfrw/runner/commit/15b0ef52d364cb1da848d2be2fe595a91bf2fe7b\r\n\r\nWhat I'm not sure about is why the custom dialer was used in the first place, there might be some obscure reason it was needed that would be break with this commit."
+      },
+      "summary": "mfrw commented on issue 1775",
+      "occurredAt": "2026-10-18T21:34:55.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "mfrw",
+        "id": "3122",
+        "avatarUrl": "https://code.forgejo.org/avatars/13c91943b132598561dfadccd4e3b336a6030be7269a01d03f629a9abc5b8827",
+        "url": "https://code.forgejo.org/mfrw",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1195516",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1775"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1775"
+          },
+          "id": "103918"
+        },
+        "body": "Made a fork of the nspawn plugin since that is tonic already for reproduction: https://codeberg.org/mafrw/runner-systemd-nspawn\r\nAdded to the runner config:\r\n```yaml\r\nplugins:\r\n  systemd-nspawn:\r\n    address: unix:///tmp/nspawn-plugin.sock\r\n```\r\nDownloaded the latest runner binary release, connected it to the forgejo test instance and created a workflow that depends on that backend\r\n```yaml\r\nname: helloworld\r\n\r\non:\r\n  workflow_dispatch:\r\n  push:\r\n\r\njobs:\r\n  hello:\r\n    name: hello\r\n    runs-on: nspawn-fedora-44\r\n    steps:\r\n      - run: echo Hello World!\r\n```\r\nGives us the error mentioned above\r\n```\r\nRunner e6730f12-c52a-478d-9cf4-f962a5d2a4a3 (version:v13.2.0) received task 2651 of job hello, triggered by event: workflow_dispatch\r\nworkflow prepared\r\n🔌 Connecting to plugin systemd-nspawn at unix:///tmp/nspawn-plugin.sock\r\nplugin systemd-nspawn: health check plugin at passthrough:////tmp/nspawn-plugin.sock: rpc error: code = Internal desc = stream terminated by RST_STREAM with error code: PROTOCOL_ERROR\r\n```"
+      },
+      "summary": "mfrw commented on issue 1775",
+      "occurredAt": "2026-10-18T20:00:13.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "mfrw",
+        "id": "3122",
+        "avatarUrl": "https://code.forgejo.org/avatars/13c91943b132598561dfadccd4e3b336a6030be7269a01d03f629a9abc5b8827",
+        "url": "https://code.forgejo.org/mfrw",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1195442",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1773"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1773"
+          },
+          "id": "103917"
+        },
+        "body": "Hi @mfenniak. Thank you for your work on the plugin architecture. I test and use it actively with your [runner-systemd-nspawn](https://codeberg.org/mfenniak/runner-systemd-nspawn) plugin and have created a few feature requests specific to that plugin there:\r\n\r\n1. [Use machines of any type (raw images, directories, etc.)](https://codeberg.org/mfenniak/runner-systemd-nspawn/issues/61)\r\n2. [User namespacing, --private-users=pick or --private-users=managed](https://codeberg.org/mfenniak/runner-systemd-nspawn/issues/71)\r\n3. [Consider using --notify-ready=true and avoid checking multi-user.target and network-online.target](https://codeberg.org/mfenniak/runner-systemd-nspawn/issues/72)\r\n4. [Consider allowing container: options: to pass through to faciliate testing of options](https://codeberg.org/mfenniak/runner-systemd-nspawn/issues/78)\r\n\r\nI agree with @roman-eidenai about the current options/defaults being targeted toward docker."
+      },
+      "summary": "amessina commented on issue 1773",
+      "occurredAt": "2026-10-18T17:36:30.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "amessina",
+        "id": "1440",
+        "avatarUrl": "https://code.forgejo.org/avatars/a41eb15532eb32fd0d5d99a7266434f7745bd66f031d39a84d326dd0d4074c4e",
+        "url": "https://code.forgejo.org/amessina",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1195029",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1779"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1779"
+          },
+          "id": "103893"
+        },
+        "body": "Forgejo Runner uses `git` to clone actions since version 12.5 instead of [go-git](https://github.com/go-git/go-git). Forgejo Runner isn't doing anything special. Do you have the same problems when cloning the same repositories using `git` directly as part of a workflow?"
+      },
+      "summary": "aahlenst commented on issue 1779",
+      "occurredAt": "2026-10-18T11:37:25.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "aahlenst",
+        "id": "1580",
+        "name": "Andreas Ahlenstorf",
+        "avatarUrl": "https://code.forgejo.org/avatars/5d71ade99e3af4a5a8754763e636be96c46044cd6bad6d1a16762e3116ec1542",
+        "url": "https://code.forgejo.org/aahlenst",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1194932",
+      "kindRaw": "create_issue",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1779"
+      },
+      "threadSnapshot": {
+        "title": "bug: Intermittent Connection issues after 12.4.0 (feels like MTU)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "NRoach44 opened issue 1779",
+      "occurredAt": "2026-10-18T10:34:46.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "NRoach44",
+        "id": "3158",
+        "avatarUrl": "https://code.forgejo.org/avatars/17faa55a8249ccdd9524180a0b09a52e",
+        "url": "https://code.forgejo.org/NRoach44",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1193854",
+      "kindRaw": "create_issue",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1778"
+      },
+      "threadSnapshot": {
+        "title": "A composite action's job summary is shown twice (runner 13.2.0)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "MatejGomboc opened issue 1778",
+      "occurredAt": "2026-10-17T14:38:48.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "MatejGomboc",
+        "id": "3162",
+        "avatarUrl": "https://code.forgejo.org/avatars/ac8b9d924857d4177e30edef9b718252a290412e596c11c9dfd8decfb5627d00",
+        "url": "https://code.forgejo.org/MatejGomboc",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1189173",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1777"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1777"
+          },
+          "id": "103325"
+        },
+        "body": "It used to work exactly like that before schema validation has been introduced.\r\n\r\nMy goal is to, on `workflow_dispatch`, build only the specific image I've picked. I build images on a matrix, as the instructions are exact same and only the name or some other parameters change."
+      },
+      "summary": "Cysioland commented on issue 1777",
+      "occurredAt": "2026-10-15T20:55:15.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "Cysioland",
+        "id": "417",
+        "avatarUrl": "https://code.forgejo.org/avatars/fc180af8c83a99342a28b987a6fcb4a9582bbbacbbf5c54679648e6b71f52785",
+        "url": "https://code.forgejo.org/Cysioland",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1189126",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1777"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1777"
+          },
+          "id": "103322"
+        },
+        "body": "This case seems to be the equivalent of `github.event.inputs.image == \"option1\" ||  github.event.inputs.image == \"option2\"`, without a matrix, since the both jobs of the matrix are never run.  Alternatively, it could be similar to a reusable workflow where `github.event.inputs.name` is used as an input.\r\n\r\nIt's a little hard to tell from this cut-down sample what you're trying to accomplish.  I agree with @aahlenst's analysis that the problem is trying to use a value that isn't available in `if`.  Instead of just providing a reproduction, can you describe what you are trying to accomplish?  We may be able to help more in providing a useful direction."
+      },
+      "summary": "mfenniak commented on issue 1777",
+      "occurredAt": "2026-10-15T20:49:09.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "mfenniak",
+        "id": "1324",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+        "url": "https://code.forgejo.org/mfenniak",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1189075",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1777"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "code.forgejo.org",
+              "owner": "forgejo",
+              "name": "runner",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "1777"
+          },
+          "id": "103321"
+        },
+        "body": "@Cysioland wrote in https://code.forgejo.org/forgejo/runner/issues/1777#issue-14934:\r\n\r\n> I cannot reproduce on next because of there being no runner (unless I'm doing something wrong).\r\n\r\nYou should be able to attach a runner yourself. But it's rarely necessary.\r\n\r\n> The issue is that before validation of workflows has been introduced (so, a long time ago), I was able to select which matrix steps to run through `workflow_dispatch` parameters, now it's impossible.\r\n\r\nThe problem is the usage of `matrix` in `if:`. `matrix` is not [available there](https://forgejo.org/docs/latest/user/actions/reference/#availability). GitHub [agrees](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability). It's unlikely that we'll add `matrix` there because it will cause precedence problems.\r\n\r\nI don't have an idea for a workaround right now."
+      },
+      "summary": "aahlenst commented on issue 1777",
+      "occurredAt": "2026-10-15T20:34:57.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "aahlenst",
+        "id": "1580",
+        "name": "Andreas Ahlenstorf",
+        "avatarUrl": "https://code.forgejo.org/avatars/5d71ade99e3af4a5a8754763e636be96c46044cd6bad6d1a16762e3116ec1542",
+        "url": "https://code.forgejo.org/aahlenst",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1188005",
+      "kindRaw": "create_issue",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "1777"
+      },
+      "threadSnapshot": {
+        "title": "bug:"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "Cysioland opened issue 1777",
+      "occurredAt": "2026-10-14T22:58:14.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "Cysioland",
+        "id": "417",
+        "avatarUrl": "https://code.forgejo.org/avatars/fc180af8c83a99342a28b987a6fcb4a9582bbbacbbf5c54679648e6b71f52785",
+        "url": "https://code.forgejo.org/Cysioland",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner",
+        "externalId": "2"
+      },
+      "isPublic": true,
+      "source": "poll"
+    }
+  ],
+  "total": 6098,
+  "cursor": {
+    "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/activities/feeds?limit=10&page=2"
+  }
+}

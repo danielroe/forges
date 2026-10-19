@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1989;t=600",
+      "ratelimit": "\"baseline\";r=1911;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": [
@@ -167,9 +167,9 @@
       {
         "name": "workflows",
         "path": ".forgejo/workflows",
-        "sha": "df4e1f39af0e1845e463d2d7ca0b94ffaa384e5a",
-        "last_commit_sha": "1ef4fc61167ffcd00b4790f55c0ea8101d025473",
-        "last_commit_when": "2026-10-10T15:49:54+02:00",
+        "sha": "14a02120b2b25cece68374dcdfb71b56d590e522",
+        "last_commit_sha": "56435ef6374da77d37acfb283130b87764614a03",
+        "last_commit_when": "2026-10-17T16:29:20+02:00",
         "type": "dir",
         "size": 0,
         "encoding": null,
@@ -177,12 +177,12 @@
         "target": null,
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/workflows?ref=forgejo",
         "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows",
-        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/df4e1f39af0e1845e463d2d7ca0b94ffaa384e5a",
+        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/14a02120b2b25cece68374dcdfb71b56d590e522",
         "download_url": null,
         "submodule_git_url": null,
         "_links": {
           "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/workflows?ref=forgejo",
-          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/df4e1f39af0e1845e463d2d7ca0b94ffaa384e5a",
+          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/14a02120b2b25cece68374dcdfb71b56d590e522",
           "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows"
         }
       }

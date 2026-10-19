@@ -1,0 +1,19 @@
+{
+  "length": 16384,
+  "head": [
+    "2026-10-18T17:32:44.1630757Z Runner 5a43e12b-0d29-4802-a9b1-0d86f7f944d1 (version:v13.1.0) received task 331146 of job build, triggered by event: pull_request",
+    "2026-10-18T17:32:44.1662163Z workflow prepared",
+    "2026-10-18T17:32:44.1718935Z 🚀  Start image=data.forgejo.org/oci/ci:3",
+    "2026-10-18T17:32:44.1720087Z The network alias is build_forgejo_runner (sanitized version of Build Forgejo Runner)",
+    "2026-10-18T17:32:44.1770347Z Cleaning up network for job Build Forgejo Runner, and network name is: WORKFLOW-ef80d2bfc4d47c8cc31f7b11b1bf3269",
+    "2026-10-18T17:32:44.3012445Z   🐳  docker create image=data.forgejo.org/oci/ci:3 platform=linux/amd64 entrypoint=[\"tail\" \"-f\" \"/dev/null\"] cmd=[] network=\"WORKFLOW-ef80d2bfc4d47c8cc31f7b11b1bf3269\"",
+    "2026-10-18T17:32:45.7064755Z   🐳  docker run image=data.forgejo.org/oci/ci:3 platform=linux/amd64 entrypoint=[\"tail\" \"-f\" \"/dev/null\"] cmd=[] network=\"WORKFLOW-ef80d2bfc4d47c8cc31f7b11b1bf3269\"",
+    "2026-10-18T17:32:46.3665476Z   ☁️  git fetch 'https://data.forgejo.org/actions/checkout' skipped; ref=fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 cached",
+    "2026-10-18T17:32:46.3899780Z   ☁️  git fetch 'https://data.forgejo.org/actions/setup-go' skipped; ref=924ae3a1cded613372ab5595356fb5720e22ba16 cached",
+    "2026-10-18T17:32:46.4414881Z   ☁️  git fetch 'https://data.forgejo.org/actions/upload-artifact' skipped; ref=c6a366c94c3e0affe28c06c8df20a878f24da3cf cached",
+    "2026-10-18T17:32:46.4716496Z ⭐ Run Main https://data.forgejo.org/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+    "2026-10-18T17:32:46.4786534Z   🐳  docker cp src=/home/debian/.cache/act/39/7c98288bc27173498cc49c3fbf432cd8d382dfd424c7570326b852ca433777/ dst=/var/run/act/actions/39/7c98288bc27173498cc49c3fbf432cd8d382dfd424c7570326b852ca433777/",
+    "2026-10-18T17:32:46.4976393Z   🐳  docker exec cmd=[node /var/run/act/actions/39/7c98288bc27173498cc49c3fbf432cd8d382dfd424c7570326b852ca433777/dist/index.js] user= workdir=",
+    "2026-10-18T17:32:46.7028833Z   ❓ add-matcher /run/act/actions/39/7c98288bc27173498cc49c"
+  ]
+}

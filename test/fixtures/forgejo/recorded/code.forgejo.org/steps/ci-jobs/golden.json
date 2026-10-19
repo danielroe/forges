@@ -10,7 +10,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407308",
+        "id": "412294",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -20,41 +20,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
-        }
-      },
-      "name": "arm64",
-      "state": "failure",
-      "stateRaw": "failure",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/0/attempt/1"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner"
-        },
-        "id": "407309",
-        "run": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "repo": {
-            "forge": "forgejo",
-            "instance": "code.forgejo.org",
-            "owner": "forgejo",
-            "name": "runner"
-          },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Build Forgejo Runner",
       "state": "success",
       "stateRaw": "success",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/1/attempt/1"
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/0/attempt/1"
     },
     {
       "ref": {
@@ -66,7 +38,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407310",
+        "id": "412295",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -76,13 +48,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Build unsupported platforms",
-      "state": "neutral",
-      "stateRaw": "skipped",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/2/attempt/1"
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/1/attempt/1"
     },
     {
       "ref": {
@@ -94,7 +66,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407311",
+        "id": "412296",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -104,13 +76,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Run exec tests with Docker (docker-latest)",
       "state": "success",
       "stateRaw": "success",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/3/attempt/1"
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/2/attempt/1"
     },
     {
       "ref": {
@@ -122,7 +94,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407312",
+        "id": "412297",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -132,13 +104,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Run integration tests with Docker (docker-latest)",
-      "state": "failure",
-      "stateRaw": "failure",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/4/attempt/1"
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/3/attempt/1"
     },
     {
       "ref": {
@@ -150,7 +122,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407313",
+        "id": "412298",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -160,13 +132,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Run integration tests with Docker (docker-stable)",
-      "state": "failure",
-      "stateRaw": "failure",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/5/attempt/1"
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/4/attempt/1"
     },
     {
       "ref": {
@@ -178,7 +150,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407314",
+        "id": "412299",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -188,13 +160,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "Run integration tests with Podman",
-      "state": "failure",
-      "stateRaw": "failure",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/6/attempt/1"
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/5/attempt/1"
     },
     {
       "ref": {
@@ -206,7 +178,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407315",
+        "id": "412300",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -216,13 +188,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "validate mocks",
-      "state": "neutral",
-      "stateRaw": "skipped",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/7/attempt/1"
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/6/attempt/1"
     },
     {
       "ref": {
@@ -234,7 +206,7 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "407316",
+        "id": "412301",
         "run": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
@@ -244,13 +216,13 @@
             "owner": "forgejo",
             "name": "runner"
           },
-          "id": "196211"
+          "id": "197466"
         }
       },
       "name": "validate pre-commit-hooks file",
-      "state": "neutral",
-      "stateRaw": "skipped",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966/jobs/8/attempt/1"
+      "state": "failure",
+      "stateRaw": "failure",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/7/attempt/1"
     }
   ]
 }
