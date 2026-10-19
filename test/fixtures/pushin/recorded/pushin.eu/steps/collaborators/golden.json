@@ -1,8 +1,31 @@
 {
-  "items": [],
+  "items": [
+    {
+      "actor": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "login": "roebot",
+        "id": "692",
+        "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+        "url": "https://pushin.eu/roebot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "role": "admin",
+      "roleRaw": "admin",
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
+    }
+  ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4966,
-    "resetAt": "<now>"
+    "remaining": 4985,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }
