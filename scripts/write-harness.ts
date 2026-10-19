@@ -25,6 +25,8 @@ export interface WriteHarness {
   prepare: () => Promise<string>
   /** Creates `branch` from `base` with one commit adding `path`; absent where pull requests are not opened from branches. */
   createBranch?: (base: string, branch: string, path: string) => Promise<void>
+  /** Creates `tag` at the tip of `base`; absent where creating a release creates its tag. */
+  createTag?: (base: string, tag: string) => Promise<void>
   /** Closes open threads a fixture run opened, and deletes `branches`, `label`, the run's `hooks` and every fixture release and tag. Best effort. */
   cleanUp: (branches: string[], label: string | undefined, hooks: string[]) => Promise<void>
   /** Removes the account `id` from `repo` again, so the next run can add it. */
@@ -310,6 +312,60 @@ function azureDevOps({ baseUrl, authorization, scratch }: HarnessOptions): Write
   }
 }
 
+/** Pushin.eu has no API for branches or tags, so they are created and deleted over git. */
+function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
+  const call = client(baseUrl, authorization)
+  const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
+  const remote = `${baseUrl.replace(/\/api\/v1$/, '')}/${enc(scratch.owner)}/${enc(scratch.name)}.git`
+  // Git over HTTPS accepts the token as a basic-auth password, not as a bearer token.
+  const auth = extraHeader(`Authorization: Basic ${base64(`forges:${authorization.replace(/^\S+ /, '')}`)}`)
+  let clone: string | undefined
+  const checkout = (base: string) => {
+    if (!clone) {
+      clone = mkdtempSync(join(tmpdir(), 'forges-pushin-'))
+      git(clone, ['clone', '-q', '--depth', '1', '--branch', base, remote, '.'], auth)
+    }
+    return clone
+  }
+  return {
+    scope: [`${baseUrl}${repo}`],
+    async prepare() {
+      const data = await call<{ default_branch: string, permissions?: { admin?: boolean } }>(repo)
+      if (!data.permissions?.admin) {
+        throw new Error('The author credential does not administer the scratch repository')
+      }
+      return data.default_branch
+    },
+    async createBranch(base, branch, path) {
+      const directory = checkout(base)
+      git(directory, ['switch', '-q', '-C', branch, `origin/${base}`])
+      mkdirSync(dirname(join(directory, path)), { recursive: true })
+      writeFileSync(join(directory, path), fixtureContent(branch))
+      git(directory, ['add', path])
+      git(directory, ['commit', '-q', '-m', `test: add ${path}`])
+      git(directory, ['push', '-q', 'origin', branch], auth)
+    },
+    async createTag(base, tag) {
+      git(checkout(base), ['push', '-q', 'origin', `refs/remotes/origin/${base}:refs/tags/${tag}`], auth)
+    },
+    async cleanUp(branches) {
+      const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?per_page=100`).catch(() => [])
+      await settle([
+        ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
+        async () => {
+          const directory = mkdtempSync(join(tmpdir(), 'forges-pushin-'))
+          git(directory, ['init', '-q'])
+          const stale = git(directory, ['ls-remote', remote], auth).split('\n').map(line => line.split('\t')[1] ?? '').filter(ref =>
+            ref.startsWith(`refs/tags/${FIXTURE_TAG}`) || ref.startsWith('refs/heads/forges-fixtures/') || branches.some(branch => ref === `refs/heads/${branch}`))
+          if (stale.length) {
+            git(directory, ['push', '-q', remote, ...stale.map(ref => `:${ref}`)], auth)
+          }
+        },
+      ])
+    },
+  }
+}
+
 /**
  * Tangled writes are records in the signed-in account's own repository on its
  * PDS. A new record may only name the scratch repository, a record of that
@@ -368,12 +424,7 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
   /** Pushes `refspecs` to the knot over HTTPS, with the token in the environment rather than the command line. */
   async function push(directory: string, ...refspecs: string[]): Promise<void> {
     const { origin, repoDid } = await knot()
-    const count = Number(process.env.GIT_CONFIG_COUNT ?? 0)
-    git(directory, ['push', '-q', `${origin}/${repoDid}`, ...refspecs], {
-      GIT_CONFIG_COUNT: String(count + 1),
-      [`GIT_CONFIG_KEY_${count}`]: 'http.extraHeader',
-      [`GIT_CONFIG_VALUE_${count}`]: `Authorization: Bearer ${await serviceToken('sh.tangled.repo.push')}`,
-    })
+    git(directory, ['push', '-q', `${origin}/${repoDid}`, ...refspecs], extraHeader(`Authorization: Bearer ${await serviceToken('sh.tangled.repo.push')}`))
   }
   let clone: Promise<string> | undefined
   const checkout = (base: string) => clone ??= knot().then(({ origin, repoDid }) => {
@@ -509,8 +560,14 @@ const GIT_ENV = {
   GIT_COMMITTER_EMAIL: 'forges-fixtures@example.invalid',
 }
 
-function git(directory: string, args: string[], env: Record<string, string> = {}): void {
-  execFileSync('git', args, { cwd: directory, stdio: ['ignore', 'ignore', 'inherit'], env: { ...process.env, ...GIT_ENV, ...env } })
+function git(directory: string, args: string[], env: Record<string, string> = {}): string {
+  return execFileSync('git', args, { cwd: directory, stdio: ['ignore', 'pipe', 'inherit'], encoding: 'utf8', env: { ...process.env, ...GIT_ENV, ...env } })
+}
+
+/** Sends `header` with every HTTP request git makes, through the environment rather than the command line. */
+function extraHeader(header: string): Record<string, string> {
+  const count = Number(process.env.GIT_CONFIG_COUNT ?? 0)
+  return { GIT_CONFIG_COUNT: String(count + 1), [`GIT_CONFIG_KEY_${count}`]: 'http.extraHeader', [`GIT_CONFIG_VALUE_${count}`]: header }
 }
 
 async function resolvePds(identifier: string): Promise<string> {
@@ -530,6 +587,7 @@ const HARNESSES: Record<string, (options: HarnessOptions) => WriteHarness> = {
   'bitbucket': bitbucket,
   'gitee': gitee,
   'azure-devops': azureDevOps,
+  'pushin': pushin,
 }
 
 /** The setup and teardown for `options.forge`, or `undefined` where write recordings are not supported. */

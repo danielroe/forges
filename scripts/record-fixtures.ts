@@ -18,7 +18,7 @@ import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
 import { seedScratch } from '../test/recording/seed.ts'
 import { LOG_LIMIT, STEPS } from '../test/recording/steps.ts'
-import { filesBranch, FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, WRITE_STEPS } from '../test/recording/write-steps.ts'
+import { filesBranch, FIXTURE_HOOK_SECRET, FIXTURE_HOOK_URL, FIXTURE_TITLE, fixtureLabel, fixtureTag, WRITE_STEPS } from '../test/recording/write-steps.ts'
 import { differingKeys, PENDING_SPLICE, reportSplice, spliceWrites } from './partial-writes.ts'
 import { patientFetch } from './rate-limits.ts'
 import { connectedSteps, trackReads, writeRecording } from './recording-store.ts'
@@ -624,6 +624,9 @@ async function recordWrites(): Promise<void> {
   await harness.cleanUp([], undefined, [])
   for (const [index, branch] of harness.createBranch ? run.branches.entries() : []) {
     await harness.createBranch!(run.base, branch, run.files[index]!)
+  }
+  for (const tag of harness.createTag ? [fixtureTag(run, 'draft'), fixtureTag(run)] : []) {
+    await harness.createTag!(run.base, tag)
   }
 
   const { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
