@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a26d9e723ea7fc74696d9df44286ed54\"",
-      "ratelimit-limit": "500",
-      "ratelimit-remaining": "497",
-      "ratelimit-reset": "1791804660"
+      "etag": "W/\"c1765da98bf3deb8d39b022f97c1ecfa\"",
+      "ratelimit-limit": "1",
+      "ratelimit-remaining": "58",
+      "ratelimit-reset": "1792386000",
+      "ratelimit-name": "unauthenticated_traffic_per_ip"
     },
     "body": {
       "id": 34675721,
@@ -26,10 +27,10 @@
       "http_url_to_repo": "https://gitlab.com/gitlab-org/cli.git",
       "web_url": "https://gitlab.com/gitlab-org/cli",
       "readme_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/README.md",
-      "forks_count": 488,
-      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1791802716",
+      "forks_count": 492,
+      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1792383234",
       "star_count": 1106,
-      "last_activity_at": "2026-10-12T10:27:18.511Z",
+      "last_activity_at": "2026-10-19T04:13:54.338Z",
       "visibility": "public",
       "namespace": {
         "id": 9970,

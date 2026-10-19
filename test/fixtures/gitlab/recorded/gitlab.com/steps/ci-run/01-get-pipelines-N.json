@@ -1,46 +1,47 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2938354390"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"351714867028b33097227ff3c8734aba\"",
+      "etag": "W/\"77873312663ecccf836278d5c4fc3198\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1953",
-      "ratelimit-reset": "1791804600"
+      "ratelimit-remaining": "1934",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
-      "id": 2938354390,
-      "iid": 15128,
+      "id": 2961499559,
+      "iid": 15548,
       "project_id": 34675721,
-      "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
-      "ref": "main",
+      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "ref": "refs/workloads/86279be7d1a",
       "status": "success",
-      "source": "push",
-      "created_at": "2026-10-12T10:58:37.988Z",
-      "updated_at": "2026-10-12T11:11:55.378Z",
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2938354390",
-      "before_sha": "6ff113fb6793eb4963464a2923de28890f1127f9",
+      "source": "duo_workflow",
+      "created_at": "2026-10-19T03:47:23.987Z",
+      "updated_at": "2026-10-19T03:48:32.298Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559",
+      "before_sha": "0000000000000000000000000000000000000000",
       "tag": false,
       "yaml_errors": null,
       "user": {
-        "id": 11334402,
-        "username": "ahmed.hemdan",
-        "public_email": "",
-        "name": "Ahmed Hemdan",
+        "id": 32742181,
+        "username": "duo-code-review-gitlab-org",
+        "public_email": null,
+        "name": "Duo Code Review",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791801783",
-        "web_url": "https://gitlab.com/ahmed.hemdan"
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
+        "web_url": "https://gitlab.com/duo-code-review-gitlab-org"
       },
-      "started_at": "2026-10-12T10:58:39.626Z",
-      "finished_at": "2026-10-12T11:11:55.367Z",
+      "started_at": "2026-10-19T03:47:24.578Z",
+      "finished_at": "2026-10-19T03:48:32.286Z",
       "committed_at": null,
-      "duration": 795,
-      "queued_duration": 1,
-      "coverage": "70.50",
+      "duration": 66,
+      "queued_duration": null,
+      "coverage": null,
       "detailed_status": {
         "icon": "status_success",
         "text": "Passed",
@@ -48,7 +49,7 @@
         "group": "success",
         "tooltip": "passed",
         "has_details": true,
-        "details_path": "/gitlab-org/cli/-/pipelines/2938354390",
+        "details_path": "/gitlab-org/cli/-/pipelines/2961499559",
         "illustration": null,
         "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
       },

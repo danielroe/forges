@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/graphql",
+    "operationName": "CodeSearchProjects",
+    "variables": {
+      "ids": [
+        "gid://gitlab/Project/87449621",
+        "gid://gitlab/Project/87428720"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"4273a148d83877b2c1b1e8c8459ded8f\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1946",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
+    },
+    "body": {
+      "data": {
+        "projects": {
+          "nodes": [
+            {
+              "id": "gid://gitlab/Project/87449621",
+              "fullPath": "roebot/forges-fixtures-outside"
+            },
+            {
+              "id": "gid://gitlab/Project/87428720",
+              "fullPath": "forges-fixtures/forges-fixtures"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

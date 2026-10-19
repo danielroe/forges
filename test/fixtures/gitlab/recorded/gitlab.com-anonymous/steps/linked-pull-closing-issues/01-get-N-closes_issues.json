@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/4122/closes_issues?id=gitlab-org%2Fcli&merge_request_iid=4122&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/4122/closes_issues?id=gitlab-org%2Fcli&merge_request_iid=4122&page=1&per_page=3>; rel=\"last\"",
-      "etag": "W/\"8c3726cfdac122d84bb1bb76f10e6260\"",
+      "etag": "W/\"343feeea229a8cc6ca2c4627efbcabbc\"",
       "ratelimit-limit": "1",
-      "ratelimit-remaining": "43",
-      "ratelimit-reset": "1792249200",
+      "ratelimit-remaining": "48",
+      "ratelimit-reset": "1792386000",
       "ratelimit-name": "unauthenticated_traffic_per_ip",
       "x-total": "1",
       "x-total-pages": "1",
@@ -36,7 +36,7 @@
           "name": "Kai Armstrong",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792239409",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
           "web_url": "https://gitlab.com/phikai"
         },
         "labels": [

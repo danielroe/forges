@@ -7,73 +7,74 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
-      "etag": "W/\"332a98ec0da1ab93fda3dfc00e9e7716\"",
-      "ratelimit-limit": "500",
-      "ratelimit-remaining": "461",
-      "ratelimit-reset": "1791804660",
+      "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\"",
+      "ratelimit-limit": "1",
+      "ratelimit-remaining": "38",
+      "ratelimit-reset": "1792386000",
+      "ratelimit-name": "unauthenticated_traffic_per_ip",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
-        "short_id": "b67f19b0",
-        "created_at": "2026-10-12T12:58:35.000+02:00",
+        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "short_id": "e74ebf81",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
         "parent_ids": [
-          "6ff113fb6793eb4963464a2923de28890f1127f9",
-          "c3151df7594b6208664ed7c51dd97ffd671067d6"
+          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
         ],
-        "title": "Merge branch '8577-ssh-key-add-replace' into 'main'",
-        "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
-        "author_name": "Ahmed Hemdan",
-        "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-12T12:58:35.000+02:00",
-        "committer_name": "GitLab",
-        "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-12T12:58:35.000+02:00",
-        "trailers": {},
-        "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6"
-      },
-      {
-        "id": "c3151df7594b6208664ed7c51dd97ffd671067d6",
-        "short_id": "c3151df7",
-        "created_at": "2026-10-12T12:58:34.000+02:00",
-        "parent_ids": [
-          "9a7963a1f19651973a02d75b8a7ae16ba81e27e5"
-        ],
-        "title": "feat(ssh-key): add --replace flag to ssh-key add",
-        "message": "feat(ssh-key): add --replace flag to ssh-key add\n",
-        "author_name": "Radek Antoniuk",
-        "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-12T12:58:34.000+02:00",
-        "committer_name": "GitLab",
-        "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-12T12:58:34.000+02:00",
-        "trailers": {},
-        "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c3151df7594b6208664ed7c51dd97ffd671067d6"
-      },
-      {
-        "id": "6ff113fb6793eb4963464a2923de28890f1127f9",
-        "short_id": "6ff113fb",
-        "created_at": "2026-10-12T13:50:24.000+10:00",
-        "parent_ids": [
-          "a969ac1df2dc0e9b2599ca55d7f0e512947e0044",
-          "75a8012317b9aee63bce29dc3bbf5a98d3b50b4e"
-        ],
-        "title": "Merge branch '7977-time-tracking-update' into 'main'",
-        "message": "Merge branch '7977-time-tracking-update' into 'main'\n\nfeat: time tracking support on issue update\n\nCloses #7977\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4019\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Erran Carey <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Giannis Kepas <redacted@example.invalid>",
+        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-12T13:50:24.000+10:00",
+        "authored_date": "2026-10-19T12:02:22.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-12T13:50:24.000+10:00",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6ff113fb6793eb4963464a2923de28890f1127f9"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      },
+      {
+        "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
+        "short_id": "d5034f13",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "parent_ids": [
+          "a300719a2aac26acb25eee65fe08398188c99a0e"
+        ],
+        "title": "feat(issue): add date filters to issue list",
+        "message": "feat(issue): add date filters to issue list\n",
+        "author_name": "Hamza Hassanain",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T05:02:22.000+03:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      },
+      {
+        "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "short_id": "5573de7d",
+        "created_at": "2026-10-19T11:56:01.000+10:00",
+        "parent_ids": [
+          "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+          "74931758500a9c66e56ca2c443a0c2a987c5923f"
+        ],
+        "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
+        "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T11:56:01.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T11:56:01.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
       }
     ]
   }

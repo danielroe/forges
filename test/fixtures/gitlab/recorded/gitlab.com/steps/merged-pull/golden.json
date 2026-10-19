@@ -10,12 +10,12 @@
         "name": "cli"
       },
       "kind": "pull_request",
-      "number": "4098",
-      "externalId": "547691658"
+      "number": "4139",
+      "externalId": "550529863"
     },
     "kind": "pull_request",
-    "title": "fix(binarymgr): write install progress to stderr",
-    "body": "## Description\n\nInstall and download progress from the binary manager (for example the first run of `glab orbit`) was written to stdout. Redirecting a command, like `glab orbit --yes skills get orbit > SKILL.md`, put those progress lines into the output file. Progress and status messages now go to stderr, so stdout carries only the command's own output.\n\n## Related Issues\n\nNo project issue yet.\n\n## How has this been tested?\n\n`go test ./internal/binarymgr/... ./internal/commands/orbit/...` and `golangci-lint run ./internal/binarymgr/...`. The checksum and below-minimum-version tests assert stdout stays empty and the message lands on stderr. A new `HandleInstall` test runs the full download and install against a mocked registry and checks that stdout is empty while stderr has the progress lines.\n\n<details>\n<summary>Agent context</summary>\n\n- `manager.go`: download, checksum, and installed-path messages switched from `LogInfof` to `LogErrorf`.\n- `runner.go`: the custom-binary notice on the run path, the \"No version installed\" line in update, the below-minimum-version warning, and the warning helper also go to stderr.\n- Left on stdout: results of explicit `install`/`update` commands (for example \"already installed\", \"Successfully updated\"), because those are the command's own output.\n\n</details>",
+    "title": "perf(api): reuse connections across API clients",
+    "body": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
     "state": "merged",
     "stateRaw": "merged",
     "isDraft": false,
@@ -23,11 +23,11 @@
       {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "dgruzd",
-        "id": "5054237",
-        "name": "Dmitry Gruzd",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
-        "url": "https://gitlab.com/dgruzd",
+        "login": "ash2k",
+        "id": "4855585",
+        "name": "Mikhail Mazurskiy",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "url": "https://gitlab.com/ash2k",
         "isBotHint": false
       }
     ],
@@ -36,11 +36,11 @@
         "actor": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "phikai",
-          "id": "2935693",
-          "name": "Kai Armstrong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
-          "url": "https://gitlab.com/phikai",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
           "isBotHint": false
         },
         "state": "unknown"
@@ -52,18 +52,18 @@
           "login": "GitLabDuo",
           "id": "21826781",
           "name": "GitLab Duo",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
           "url": "https://gitlab.com/GitLabDuo",
           "isBotHint": false
         },
         "state": "unknown"
       }
     ],
-    "lastActivityAt": "2026-10-13T16:14:10.575Z",
+    "lastActivityAt": "2026-10-19T01:56:02.486Z",
     "branches": {
       "head": {
-        "ref": "binarymgr-progress-stderr",
-        "sha": "eda9b216372c167f51da049fa5222922bbcd71c0",
+        "ref": "ash2k/perf-share-http-transport",
+        "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -74,31 +74,31 @@
       "base": {
         "ref": "main"
       },
-      "mergeCommitSha": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+      "mergeCommitSha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
     },
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "dgruzd",
-      "id": "5054237",
-      "name": "Dmitry Gruzd",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
-      "url": "https://gitlab.com/dgruzd",
+      "login": "ash2k",
+      "id": "4855585",
+      "name": "Mikhail Mazurskiy",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+      "url": "https://gitlab.com/ash2k",
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4098",
-    "createdAt": "2026-10-13T12:04:43.342Z",
-    "updatedAt": "2026-10-13T16:14:10.575Z",
-    "mergedAt": "2026-10-13T16:14:16.990Z",
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+    "createdAt": "2026-10-17T01:02:53.292Z",
+    "updatedAt": "2026-10-19T01:56:02.486Z",
+    "mergedAt": "2026-10-19T01:56:02.696Z",
     "mergedBy": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "phikai",
-      "id": "2935693",
-      "name": "Kai Armstrong",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
-      "url": "https://gitlab.com/phikai",
+      "login": "jay_mccure",
+      "id": "11809982",
+      "name": "Jay McCure",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+      "url": "https://gitlab.com/jay_mccure",
       "isBotHint": false
     },
     "labels": [
@@ -106,19 +106,19 @@
         "name": "category:gitlab cli"
       },
       {
-        "name": "devops::ai coding"
+        "name": "group::workflow engine"
       },
       {
-        "name": "group::code review"
+        "name": "maintenance::performance"
       },
       {
-        "name": "section::ai"
+        "name": "section::primitives"
       },
       {
-        "name": "type::bug"
+        "name": "type::maintenance"
       }
     ],
-    "commentCount": 5,
+    "commentCount": 4,
     "milestone": {
       "id": "7324669",
       "title": "19.6",
@@ -143,12 +143,12 @@
         "name": "cli"
       },
       "kind": "pull_request",
-      "number": "4098",
-      "externalId": "547691658"
+      "number": "4139",
+      "externalId": "550529863"
     },
     "kind": "pull_request",
-    "title": "fix(binarymgr): write install progress to stderr",
-    "body": "## Description\n\nInstall and download progress from the binary manager (for example the first run of `glab orbit`) was written to stdout. Redirecting a command, like `glab orbit --yes skills get orbit > SKILL.md`, put those progress lines into the output file. Progress and status messages now go to stderr, so stdout carries only the command's own output.\n\n## Related Issues\n\nNo project issue yet.\n\n## How has this been tested?\n\n`go test ./internal/binarymgr/... ./internal/commands/orbit/...` and `golangci-lint run ./internal/binarymgr/...`. The checksum and below-minimum-version tests assert stdout stays empty and the message lands on stderr. A new `HandleInstall` test runs the full download and install against a mocked registry and checks that stdout is empty while stderr has the progress lines.\n\n<details>\n<summary>Agent context</summary>\n\n- `manager.go`: download, checksum, and installed-path messages switched from `LogInfof` to `LogErrorf`.\n- `runner.go`: the custom-binary notice on the run path, the \"No version installed\" line in update, the below-minimum-version warning, and the warning helper also go to stderr.\n- Left on stdout: results of explicit `install`/`update` commands (for example \"already installed\", \"Successfully updated\"), because those are the command's own output.\n\n</details>",
+    "title": "perf(api): reuse connections across API clients",
+    "body": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
     "state": "merged",
     "stateRaw": "merged",
     "isDraft": false,
@@ -156,11 +156,11 @@
       {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "dgruzd",
-        "id": "5054237",
-        "name": "Dmitry Gruzd",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
-        "url": "https://gitlab.com/dgruzd",
+        "login": "ash2k",
+        "id": "4855585",
+        "name": "Mikhail Mazurskiy",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "url": "https://gitlab.com/ash2k",
         "isBotHint": false
       }
     ],
@@ -169,11 +169,11 @@
         "actor": {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "phikai",
-          "id": "2935693",
-          "name": "Kai Armstrong",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
-          "url": "https://gitlab.com/phikai",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
           "isBotHint": false
         },
         "state": "unknown"
@@ -185,18 +185,18 @@
           "login": "GitLabDuo",
           "id": "21826781",
           "name": "GitLab Duo",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
           "url": "https://gitlab.com/GitLabDuo",
           "isBotHint": false
         },
         "state": "unknown"
       }
     ],
-    "lastActivityAt": "2026-10-13T16:14:10.575Z",
+    "lastActivityAt": "2026-10-19T01:56:02.486Z",
     "branches": {
       "head": {
-        "ref": "binarymgr-progress-stderr",
-        "sha": "eda9b216372c167f51da049fa5222922bbcd71c0",
+        "ref": "ash2k/perf-share-http-transport",
+        "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
         "repo": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -206,36 +206,36 @@
       },
       "base": {
         "ref": "main",
-        "sha": "5686d7484e65cb08b6e3b92f86d2ccffb415bdc0"
+        "sha": "a300719a2aac26acb25eee65fe08398188c99a0e"
       },
-      "mergeCommitSha": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+      "mergeCommitSha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
     },
     "stats": {
-      "changedFileCount": 4
+      "changedFileCount": 7
     },
     "author": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "dgruzd",
-      "id": "5054237",
-      "name": "Dmitry Gruzd",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5054237/avatar.png?v=1791913354",
-      "url": "https://gitlab.com/dgruzd",
+      "login": "ash2k",
+      "id": "4855585",
+      "name": "Mikhail Mazurskiy",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+      "url": "https://gitlab.com/ash2k",
       "typeRaw": "user",
       "isBotHint": false
     },
-    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4098",
-    "createdAt": "2026-10-13T12:04:43.342Z",
-    "updatedAt": "2026-10-13T16:14:10.575Z",
-    "mergedAt": "2026-10-13T16:14:16.990Z",
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+    "createdAt": "2026-10-17T01:02:53.292Z",
+    "updatedAt": "2026-10-19T01:56:02.486Z",
+    "mergedAt": "2026-10-19T01:56:02.696Z",
     "mergedBy": {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "phikai",
-      "id": "2935693",
-      "name": "Kai Armstrong",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791924320",
-      "url": "https://gitlab.com/phikai",
+      "login": "jay_mccure",
+      "id": "11809982",
+      "name": "Jay McCure",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+      "url": "https://gitlab.com/jay_mccure",
       "isBotHint": false
     },
     "labels": [
@@ -243,19 +243,19 @@
         "name": "category:gitlab cli"
       },
       {
-        "name": "devops::ai coding"
+        "name": "group::workflow engine"
       },
       {
-        "name": "group::code review"
+        "name": "maintenance::performance"
       },
       {
-        "name": "section::ai"
+        "name": "section::primitives"
       },
       {
-        "name": "type::bug"
+        "name": "type::maintenance"
       }
     ],
-    "commentCount": 5,
+    "commentCount": 4,
     "milestone": {
       "id": "7324669",
       "title": "19.6",
@@ -271,7 +271,7 @@
     "checks": {
       "state": "success",
       "stateRaw": "success",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2943225405"
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961271512"
     }
   }
 }

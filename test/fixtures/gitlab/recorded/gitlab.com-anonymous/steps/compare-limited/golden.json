@@ -1,0 +1,67 @@
+{
+  "base": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+  "head": "main",
+  "aheadBy": 7,
+  "commits": [
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      },
+      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "author": {
+        "name": "Jay McCure",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-19T02:02:22.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-19T02:02:22.000Z"
+      },
+      "parents": [
+        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      },
+      "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
+      "message": "feat(issue): add date filters to issue list\n",
+      "author": {
+        "name": "Hamza Hassanain",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-19T02:02:22.000Z"
+      },
+      "committer": {
+        "name": "GitLab",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-19T02:02:22.000Z"
+      },
+      "parents": [
+        "a300719a2aac26acb25eee65fe08398188c99a0e"
+      ],
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+    }
+  ],
+  "files": []
+}

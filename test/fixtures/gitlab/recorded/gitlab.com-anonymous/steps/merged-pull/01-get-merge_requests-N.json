@@ -1,0 +1,239 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/4139"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a044364eebefc787bc6b218ab542d1cf\"",
+      "ratelimit-limit": "1",
+      "ratelimit-remaining": "47",
+      "ratelimit-reset": "1792386000",
+      "ratelimit-name": "unauthenticated_traffic_per_ip"
+    },
+    "body": {
+      "id": 550529863,
+      "iid": 4139,
+      "project_id": 34675721,
+      "title": "perf(api): reuse connections across API clients",
+      "description": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
+      "state": "merged",
+      "created_at": "2026-10-17T01:02:53.292Z",
+      "updated_at": "2026-10-19T01:56:02.486Z",
+      "merged_by": {
+        "id": 11809982,
+        "username": "jay_mccure",
+        "public_email": "",
+        "name": "Jay McCure",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "web_url": "https://gitlab.com/jay_mccure"
+      },
+      "merge_user": {
+        "id": 11809982,
+        "username": "jay_mccure",
+        "public_email": "",
+        "name": "Jay McCure",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "web_url": "https://gitlab.com/jay_mccure"
+      },
+      "merged_at": "2026-10-19T01:56:02.696Z",
+      "closed_by": null,
+      "closed_at": null,
+      "target_branch": "main",
+      "source_branch": "ash2k/perf-share-http-transport",
+      "user_notes_count": 4,
+      "upvotes": 0,
+      "downvotes": 0,
+      "author": {
+        "id": 4855585,
+        "username": "ash2k",
+        "public_email": "",
+        "name": "Mikhail Mazurskiy",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "web_url": "https://gitlab.com/ash2k",
+        "bot": false
+      },
+      "assignees": [
+        {
+          "id": 4855585,
+          "username": "ash2k",
+          "public_email": "",
+          "name": "Mikhail Mazurskiy",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+          "web_url": "https://gitlab.com/ash2k"
+        }
+      ],
+      "assignee": {
+        "id": 4855585,
+        "username": "ash2k",
+        "public_email": "",
+        "name": "Mikhail Mazurskiy",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "web_url": "https://gitlab.com/ash2k"
+      },
+      "reviewers": [
+        {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        {
+          "id": 21826781,
+          "username": "GitLabDuo",
+          "public_email": null,
+          "name": "GitLab Duo",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+          "web_url": "https://gitlab.com/GitLabDuo"
+        }
+      ],
+      "source_project_id": 34675721,
+      "target_project_id": 34675721,
+      "labels": [
+        "category:gitlab cli",
+        "group::workflow engine",
+        "maintenance::performance",
+        "section::primitives",
+        "type::maintenance"
+      ],
+      "draft": false,
+      "imported": false,
+      "imported_from": "none",
+      "work_in_progress": false,
+      "milestone": {
+        "id": 7324669,
+        "iid": 144,
+        "group_id": 9970,
+        "title": "19.6",
+        "description": "",
+        "state": "active",
+        "created_at": "2026-03-03T22:58:31.265Z",
+        "updated_at": "2026-03-03T22:58:31.265Z",
+        "due_date": "2026-11-13",
+        "start_date": "2026-10-10",
+        "expired": false,
+        "web_url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+      },
+      "merge_when_pipeline_succeeds": true,
+      "merge_status": "can_be_merged",
+      "detailed_merge_status": "not_open",
+      "merge_after": null,
+      "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+      "merge_commit_sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+      "squash_commit_sha": null,
+      "discussion_locked": null,
+      "should_remove_source_branch": null,
+      "force_remove_source_branch": true,
+      "prepared_at": "2026-10-17T01:02:55.149Z",
+      "reference": "!4139",
+      "references": {
+        "short": "!4139",
+        "relative": "!4139",
+        "full": "gitlab-org/cli!4139"
+      },
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+      "time_stats": {
+        "time_estimate": 0,
+        "total_time_spent": 0,
+        "human_time_estimate": null,
+        "human_total_time_spent": null
+      },
+      "squash": false,
+      "squash_on_merge": false,
+      "task_completion_status": {
+        "count": 0,
+        "completed_count": 0
+      },
+      "has_conflicts": false,
+      "blocking_discussions_resolved": true,
+      "approvals_before_merge": null,
+      "subscribed": false,
+      "changes_count": "7",
+      "latest_build_started_at": "2026-10-19T01:36:32.994Z",
+      "latest_build_finished_at": "2026-10-19T01:56:00.822Z",
+      "first_deployed_to_production_at": null,
+      "pipeline": {
+        "id": 2961271512,
+        "iid": 15535,
+        "project_id": 34675721,
+        "sha": "d93a088fb28ad949e0af4a09ebf5f01ef258b072",
+        "ref": "refs/merge-requests/4139/train",
+        "status": "success",
+        "source": "merge_request_event",
+        "created_at": "2026-10-19T01:36:31.024Z",
+        "updated_at": "2026-10-19T01:56:00.833Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961271512"
+      },
+      "head_pipeline": {
+        "id": 2961271512,
+        "iid": 15535,
+        "project_id": 34675721,
+        "sha": "d93a088fb28ad949e0af4a09ebf5f01ef258b072",
+        "ref": "refs/merge-requests/4139/train",
+        "status": "success",
+        "source": "merge_request_event",
+        "created_at": "2026-10-19T01:36:31.024Z",
+        "updated_at": "2026-10-19T01:56:00.833Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961271512",
+        "before_sha": "d93a088fb28ad949e0af4a09ebf5f01ef258b072",
+        "tag": false,
+        "yaml_errors": null,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "started_at": "2026-10-19T01:36:32.994Z",
+        "finished_at": "2026-10-19T01:56:00.822Z",
+        "committed_at": null,
+        "duration": 1165,
+        "queued_duration": 1,
+        "coverage": "72.40",
+        "detailed_status": {
+          "icon": "status_success",
+          "text": "Passed",
+          "label": "passed",
+          "group": "success",
+          "tooltip": "passed",
+          "has_details": true,
+          "details_path": "/gitlab-org/cli/-/pipelines/2961271512",
+          "illustration": null,
+          "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
+        },
+        "archived": false
+      },
+      "diff_refs": {
+        "base_sha": "a300719a2aac26acb25eee65fe08398188c99a0e",
+        "head_sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+        "start_sha": "a300719a2aac26acb25eee65fe08398188c99a0e"
+      },
+      "merge_error": null,
+      "first_contribution": false,
+      "user": {
+        "can_merge": false
+      }
+    }
+  }
+}

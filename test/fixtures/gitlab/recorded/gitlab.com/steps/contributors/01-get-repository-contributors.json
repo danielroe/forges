@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?order_by=commits&sort=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=64&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"acc99fde838521ccacbdd6b140b5f8b3\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1994",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api",
+      "x-total": "192",
+      "x-total-pages": "64",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "name": "GitLab Renovate Bot",
+        "email": "redacted@example.invalid",
+        "commits": 478,
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "name": "Kai Armstrong",
+        "email": "redacted@example.invalid",
+        "commits": 233,
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "name": "Timo Furrer",
+        "email": "redacted@example.invalid",
+        "commits": 185,
+        "additions": 0,
+        "deletions": 0
+      }
+    ]
+  }
+}

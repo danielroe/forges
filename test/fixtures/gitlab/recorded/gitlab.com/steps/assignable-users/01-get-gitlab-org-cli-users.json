@@ -6,13 +6,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=986&per_page=3>; rel=\"last\"",
-      "etag": "W/\"3d33caf7714921d336d82f7f0325af24\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=983&per_page=3>; rel=\"last\"",
+      "etag": "W/\"95147522dd82f093548ac2741ae08ddb\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1994",
-      "ratelimit-reset": "1791804600",
-      "x-total": "2956",
-      "x-total-pages": "986",
+      "ratelimit-remaining": "1982",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api",
+      "x-total": "2948",
+      "x-total-pages": "983",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
@@ -29,24 +30,24 @@
         "web_url": "https://gitlab.com/sytses"
       },
       {
-        "id": 2293,
-        "username": "brodock",
-        "public_email": "",
-        "name": "Gabriel Mazzetto",
-        "state": "active",
-        "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791783930",
-        "web_url": "https://gitlab.com/brodock"
-      },
-      {
         "id": 4849,
         "username": "balasankarc",
         "public_email": "",
         "name": "Balasankar 'Balu' C",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791802325",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1792382439",
         "web_url": "https://gitlab.com/balasankarc"
+      },
+      {
+        "id": 5332,
+        "username": "bbodenmiller",
+        "public_email": "",
+        "name": "Ben Bodenmiller",
+        "state": "active",
+        "locked": false,
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/5332/avatar.png?v=1792381631",
+        "web_url": "https://gitlab.com/bbodenmiller"
       }
     ]
   }

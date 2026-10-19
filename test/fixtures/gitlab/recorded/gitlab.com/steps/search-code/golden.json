@@ -26,7 +26,7 @@
       "url": "https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/variable/import/import.go#L27"
     }
   ],
-  "total": 1202,
+  "total": 1229,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=2&per_page=3&scope=blobs&search=import",
     "etag": "W/\"b4a2a0661912cf5aaaaf63ae886dbb7f\""
@@ -34,7 +34,8 @@
   "etag": "W/\"b4a2a0661912cf5aaaaf63ae886dbb7f\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1930,
-    "resetAt": "<now>"
+    "remaining": 1906,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

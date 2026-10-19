@@ -7,17 +7,49 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=56&per_page=3&sort=desc>; rel=\"last\"",
-      "etag": "W/\"87c5b395900b53d2c38a577f2adcf119\"",
+      "etag": "W/\"60dc712b4e700bf3b12baf2988b8a25a\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "466",
-      "ratelimit-reset": "1791731100",
-      "x-total": "166",
+      "ratelimit-remaining": "443",
+      "ratelimit-reset": "1792384860",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-total": "167",
       "x-total-pages": "56",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
+      {
+        "name": "v1.123.0",
+        "message": "Release v1.123.0",
+        "target": "68419deecb449e6192f1a7756087728317413ed7",
+        "commit": {
+          "id": "5686d7484e65cb08b6e3b92f86d2ccffb415bdc0",
+          "short_id": "5686d748",
+          "created_at": "2026-10-13T20:10:24.000+09:00",
+          "parent_ids": [
+            "527524bbbad9d97dfd60119ec971e4cfafb89c28",
+            "8358d316068165835bc09c4a2f000b67c7a9a274"
+          ],
+          "title": "Merge branch 'docs-contributing-squash-link' into 'main'",
+          "message": "Merge branch 'docs-contributing-squash-link' into 'main'\n\ndocs(contributing): update squash and merge link to canonical documentation URL\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4059\n\nMerged-by: Marcel Amirault <redacted@example.invalid>\nApproved-by: Vitali Tatarintev <redacted@example.invalid>\nApproved-by: Marcel Amirault <redacted@example.invalid>\nReviewed-by: Marcel Amirault <redacted@example.invalid>\nCo-authored-by: sai krishna chowdary <redacted@example.invalid>",
+          "author_name": "Marcel Amirault",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-13T20:10:24.000+09:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-13T20:10:24.000+09:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5686d7484e65cb08b6e3b92f86d2ccffb415bdc0"
+        },
+        "release": {
+          "tag_name": "v1.123.0",
+          "description": "## Changelog   \n### ✨ Features   \n* 13ee9952: feat(df): fail closed on unparseable in-scope proxy traffic (Michael Eddington <redacted@example.invalid>)   \n* 2d427c3f: feat(repo): add --exclude-subgroup to group clone (Radek Antoniuk <redacted@example.invalid>)   \n* dcd1c99c: feat(skills): install remote orbit skill from the self-updating wrapper (Dmitry Gruzd <redacted@example.invalid>)   \n* c3151df7: feat(ssh-key): add --replace flag to ssh-key add (Radek Antoniuk <redacted@example.invalid>)   \n* 75a80123: feat: time tracking support on issue update (Giannis Kepas <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 1925cb6c: fix(api): send --input bodies as JSON unless a Content-Type is given (ANBUCHELVAN GANESAN CSE <redacted@example.invalid>)   \n* ba969f53: fix(auth): persist registry domains for token logins (Himanshu Jha <redacted@example.invalid>)   \n* 5d6ca7d5: fix(duo): keep missing binary versions empty (Himanshu Jha <redacted@example.invalid>)   \n* b06b06a9: fix(glrepo): skip fork candidates without local remotes (Himanshu Jha <redacted@example.invalid>)   \n* c80f417f: fix(issue): show the real total in the list header (unstable-code <redacted@example.invalid>)   \n* bb4e8108: fix(repo): correct default visibility in repo create help (Anish Kumar <redacted@example.invalid>)   \n### 📝 Documentation   \n* 8358d316: docs(contributing): update squash and merge link (sai krishna chowdary <redacted@example.invalid>)   \n* 6f1ec84c: docs: fix dead handbook and docs links in contributor docs (Anish Kumar <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 372ed845: chore(deps): replace mgutz/ansi with local SGR codes (Radek Antoniuk <redacted@example.invalid>)   \n* dd610822: chore(deps): update module charm.land/bubbletea/v2 to v2.0.10 (GitLab Renovate Bot <redacted@example.invalid>)   \n* f758eb8e: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.18.0 (GitLab Dependency Bot <redacted@example.invalid>)   \n* 65f7619a: chore(deps): update module golang.org/x/sync to v0.24.0 (GitLab Dependency Bot <redacted@example.invalid>)   \n* f2a00e54: chore(deps): update module k8s.io/client-go to v0.37.1 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 392ad277: chore: remove redundant \"make fix\" tools (Ville Skyttä <redacted@example.invalid>)\n\n"
+        },
+        "protected": true,
+        "created_at": "2026-10-13T12:09:05.000Z"
+      },
       {
         "name": "v1.122.0",
         "message": "Release v1.122.0",
@@ -79,37 +111,6 @@
         },
         "protected": true,
         "created_at": "2026-10-06T12:08:58.000Z"
-      },
-      {
-        "name": "v1.120.0",
-        "message": "Release v1.120.0",
-        "target": "5eabdba6c3ac3fda6574b6b191e98917138f36db",
-        "commit": {
-          "id": "78790114c4d7196c97b2b1a1263a0d725835640d",
-          "short_id": "78790114",
-          "created_at": "2026-09-29T17:12:44.000+10:00",
-          "parent_ids": [
-            "b8b4e0988bbf2f6fed4752a88ce29ecfb7df44cc",
-            "6df4dae42c464a2dba3865697cd5fbbcd531f719"
-          ],
-          "title": "Merge branch 'kxrma47/8547-validate-list-output' into 'main'",
-          "message": "Merge branch 'kxrma47/8547-validate-list-output' into 'main'\n\nfix(issue): reject invalid list output flags\n\nCloses #8547\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/3941\n\nMerged-by: James Hebden <redacted@example.invalid>\nApproved-by: James Hebden <redacted@example.invalid>\nCo-authored-by: Mahidul Haque <redacted@example.invalid>",
-          "author_name": "James Hebden",
-          "author_email": "redacted@example.invalid",
-          "authored_date": "2026-09-29T17:12:44.000+10:00",
-          "committer_name": "GitLab",
-          "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-09-29T17:12:44.000+10:00",
-          "trailers": {},
-          "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/78790114c4d7196c97b2b1a1263a0d725835640d"
-        },
-        "release": {
-          "tag_name": "v1.120.0",
-          "description": "## Changelog   \n### ✨ Features   \n* c81a40c8: feat(df): add package command to check a single PURL (Michael Eddington <redacted@example.invalid>)   \n* cd957b0d: feat(mcp): close annotation coverage gaps and add coverage test (James Hebden <redacted@example.invalid>)   \n* 6d7a7473: feat(stack): add a command to delete a stack (Maksym Tymoshyk <redacted@example.invalid>)   \n* 9ae8b354: feat(stack): properly update branches on stack reorder and add guards rebase in-progress (Casey Morris <redacted@example.invalid>)   \n* 0a2765c7: feat(telemetry): distinguish MCP tool calls from direct CLI use (Kai Armstrong <redacted@example.invalid>)   \n* d5dde305: feat: delegate path ownership to domain teams without Maintainer (Kai Armstrong <redacted@example.invalid>)   \n* b20fb66d: feat: mr note create support for internal notes/threads (Giannis Kepas <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 6df4dae4: fix(issue): reject invalid list output flags (Mahidul Haque <redacted@example.invalid>)   \n* cb7c3eb5: fix(mr): fast-forward a checked-out branch on repeat checkout (Jeston Singh <redacted@example.invalid>)   \n* f1a933b9: fix(orbit): require Orbit CLI 0.130.0 so setup picks your agents (Jean-Gabriel Doyon <redacted@example.invalid>)   \n* c9b48d28: fix: cmd/glab tests fail under goleak (Syed Saif Ali Alvi <redacted@example.invalid>)   \n### 📝 Documentation   \n* 7b5192e7: docs(agents): drop the removed gen-config command (Kai Armstrong <redacted@example.invalid>)   \n* 00edd69e: docs(skills): add contributing section to bundled glab skill (Dmitry Gruzd <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 008bcb03: chore(deps): update dependency @commitlint/cli to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 542d54c2: chore(deps): update dependency @commitlint/config-conventional to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 77a8e92e: chore(deps): update dependency @commitlint/format to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 93f95503: chore(deps): update dependency @commitlint/lint to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 9b8d080c: chore(deps): update dependency @commitlint/read to ^21.2.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 8446d1de: chore(deps): update dependency markdownlint-cli2 to v0.23.3 (GitLab Renovate Bot <redacted@example.invalid>)   \n* cee1c145: chore(deps): update module github.com/dustin/go-humanize to v1.1.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 5c3f65ad: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.14.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* ad728cd0: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.15.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 32512e34: chore: add tw-docops CODEOWNERS for docs lint config (Marcel Amirault <redacted@example.invalid>)   \n* 729129ac: refactor: remove the custom --project and --hostname flag pair (Jean van der Walt <redacted@example.invalid>)   \n### 🔀 Others   \n* f91498fc: test(mr): scope the mr note publish integration test to API contract (Kai Armstrong <redacted@example.invalid>)\n\n"
-        },
-        "protected": true,
-        "created_at": "2026-09-29T12:09:46.000Z"
       }
     ]
   }

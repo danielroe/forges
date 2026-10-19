@@ -8,7 +8,7 @@
       "owner": "gitlab-org",
       "name": "cli"
     },
-    "id": "17110223356",
+    "id": "17272413278",
     "run": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -18,14 +18,14 @@
         "owner": "gitlab-org",
         "name": "cli"
       },
-      "id": "2938354390"
+      "id": "2961499559"
     }
   },
-  "name": "snapcraft_release_edge",
+  "name": "workload",
   "state": "success",
   "stateRaw": "success",
-  "stage": "release",
-  "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17110223356",
+  "stage": "build",
+  "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
   "startedAt": "<now>",
   "completedAt": "<now>"
 }

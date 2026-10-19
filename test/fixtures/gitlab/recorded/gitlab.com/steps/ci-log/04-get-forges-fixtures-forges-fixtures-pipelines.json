@@ -1,0 +1,63 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines?id=forges-fixtures%2Fforges-fixtures&order_by=id&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines?id=forges-fixtures%2Fforges-fixtures&order_by=id&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines?id=forges-fixtures%2Fforges-fixtures&order_by=id&page=63&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"00392da5cf3919224631d421fd9b6bf8\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1929",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api",
+      "x-total": "188",
+      "x-total-pages": "63",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 2958671919,
+        "iid": 188,
+        "project_id": 87428720,
+        "sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
+        "ref": "forges-fixture-20261017151708",
+        "status": "failed",
+        "source": "push",
+        "created_at": "2026-10-17T15:18:41.357Z",
+        "updated_at": "2026-10-17T15:18:41.357Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2958671919",
+        "name": null
+      },
+      {
+        "id": 2958671905,
+        "iid": 187,
+        "project_id": 87428720,
+        "sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
+        "ref": "main",
+        "status": "success",
+        "source": "push",
+        "created_at": "2026-10-17T15:18:40.129Z",
+        "updated_at": "2026-10-17T15:18:50.060Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2958671905",
+        "name": null
+      },
+      {
+        "id": 2958671871,
+        "iid": 186,
+        "project_id": 87428720,
+        "sha": "1ece757bbc43d35fe440e8f406c032f36436448c",
+        "ref": "refs/merge-requests/53/head",
+        "status": "failed",
+        "source": "merge_request_event",
+        "created_at": "2026-10-17T15:18:37.182Z",
+        "updated_at": "2026-10-17T15:18:37.182Z",
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2958671871",
+        "name": null
+      }
+    ]
+  }
+}

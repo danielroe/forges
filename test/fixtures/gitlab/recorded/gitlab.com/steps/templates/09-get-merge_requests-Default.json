@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/merge_requests/Default"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"61817277fe9a8d803fc12ae8f44a403f\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1991",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api"
+    },
+    "body": {
+      "name": "Default",
+      "content": "## Description\n<!--- Describe your changes in detail -->\n\n%{all_commits}\n\n## Related Issues\n<!--- This project only accepts merge requests related to open issues -->\n<!--- If suggesting a new feature or change, please discuss it in an issue first -->\n<!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->\nResolves #[issue_number]\n\n## How has this been tested?\n<!--- Please describe in detail how you tested your changes. -->\n<!--- Include details of your testing environment, and the tests you ran to -->\n<!--- see how your change affects other areas of the code, etc. -->\n\n## Screenshots (if appropriate):\n\n/label ~\"devops::ai clients\" ~\"group::developer clients\" ~\"category:gitlab cli\"\n/assign me\n"
+    }
+  }
+}

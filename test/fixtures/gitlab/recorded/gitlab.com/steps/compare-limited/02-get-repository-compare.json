@@ -1,124 +1,183 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/compare?from=b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f&to=main"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/compare?from=0c70d17a21abdb54ba58828aca394a582d0b3f79&to=main"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"0057774d97584ceacdbaa723c4b24454\"",
+      "etag": "W/\"198c0e57f6aba3d0f5905efb8f36919d\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1925",
-      "ratelimit-reset": "1791928020"
+      "ratelimit-remaining": "1914",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "commit": {
-        "id": "22ef0830b3575048b558d32c2d930d41a5b32ffc",
-        "short_id": "22ef0830",
-        "created_at": "2026-10-13T13:05:31.000-05:00",
+        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "short_id": "e74ebf81",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
         "parent_ids": [
-          "24a87522cd40bd8a707416b85b57d5e2684def41",
-          "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
         ],
-        "title": "Merge branch 'orbit-help-skill-pointer' into 'main'",
-        "message": "Merge branch 'orbit-help-skill-pointer' into 'main'\n\ndocs(orbit): point agents to the Orbit skill in help\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4072\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
-        "author_name": "Kai Armstrong",
+        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-13T13:05:31.000-05:00",
+        "authored_date": "2026-10-19T12:02:22.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-13T13:05:31.000-05:00",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/22ef0830b3575048b558d32c2d930d41a5b32ffc"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
       },
       "commits": [
         {
-          "id": "509e14e850a2a3dd66bb8a889f08b7529ccb5bbd",
-          "short_id": "509e14e8",
-          "created_at": "2026-10-13T18:52:06.000+02:00",
+          "id": "fab36a75f5e21664548604036d395bf6d52276df",
+          "short_id": "fab36a75",
+          "created_at": "2026-10-16T15:09:58.000+00:00",
           "parent_ids": [
-            "87bf8c8e8337829971c05f535c5d4385bda45dbf"
+            "ce99c24356c3599f5b5a8c1265e88facc966732a"
           ],
-          "title": "fix(auth): fail clearly on a missing keyring token",
-          "message": "fix(auth): fail clearly on a missing keyring token\n",
+          "title": "chore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10",
+          "message": "chore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n",
+          "author_name": "GitLab Dependency Bot",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-16T15:09:58.000+00:00",
+          "committer_name": "GitLab Dependency Bot",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-16T15:09:58.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/fab36a75f5e21664548604036d395bf6d52276df"
+        },
+        {
+          "id": "9c9cfb84395dd355c0d71448d16f97e9d8edd671",
+          "short_id": "9c9cfb84",
+          "created_at": "2026-10-17T12:43:36.000+11:00",
+          "parent_ids": [
+            "a300719a2aac26acb25eee65fe08398188c99a0e"
+          ],
+          "title": "perf(api): reuse connections across API clients",
+          "message": "perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n",
+          "author_name": "Mikhail Mazurskiy",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-17T12:07:17.000+11:00",
+          "committer_name": "Mikhail Mazurskiy",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-17T12:43:36.000+11:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9c9cfb84395dd355c0d71448d16f97e9d8edd671"
+        },
+        {
+          "id": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+          "short_id": "74931758",
+          "created_at": "2026-10-17T12:43:36.000+11:00",
+          "parent_ids": [
+            "9c9cfb84395dd355c0d71448d16f97e9d8edd671"
+          ],
+          "title": "perf(api): keep up to 25 idle connections per host",
+          "message": "perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1. 25 matches client-go's shared\nTLS transport cache.\n",
+          "author_name": "Mikhail Mazurskiy",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-17T12:07:54.000+11:00",
+          "committer_name": "Mikhail Mazurskiy",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-17T12:43:36.000+11:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/74931758500a9c66e56ca2c443a0c2a987c5923f"
+        },
+        {
+          "id": "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+          "short_id": "6f512fe3",
+          "created_at": "2026-10-19T11:14:45.000+10:00",
+          "parent_ids": [
+            "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+            "fab36a75f5e21664548604036d395bf6d52276df"
+          ],
+          "title": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'",
+          "message": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'\n\nchore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4133\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-19T11:14:45.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-19T11:14:45.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6f512fe3ef14c70281a68b1d9518be54ad8bf4e7"
+        },
+        {
+          "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+          "short_id": "5573de7d",
+          "created_at": "2026-10-19T11:56:01.000+10:00",
+          "parent_ids": [
+            "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+            "74931758500a9c66e56ca2c443a0c2a987c5923f"
+          ],
+          "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
+          "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-19T11:56:01.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-19T11:56:01.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        },
+        {
+          "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
+          "short_id": "d5034f13",
+          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "parent_ids": [
+            "a300719a2aac26acb25eee65fe08398188c99a0e"
+          ],
+          "title": "feat(issue): add date filters to issue list",
+          "message": "feat(issue): add date filters to issue list\n",
           "author_name": "Hamza Hassanain",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-13T19:52:06.000+03:00",
+          "authored_date": "2026-10-19T05:02:22.000+03:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-13T18:52:06.000+02:00",
+          "committed_date": "2026-10-19T12:02:22.000+10:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/509e14e850a2a3dd66bb8a889f08b7529ccb5bbd"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
         },
         {
-          "id": "24a87522cd40bd8a707416b85b57d5e2684def41",
-          "short_id": "24a87522",
-          "created_at": "2026-10-13T18:52:09.000+02:00",
+          "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+          "short_id": "e74ebf81",
+          "created_at": "2026-10-19T12:02:22.000+10:00",
           "parent_ids": [
-            "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f",
-            "509e14e850a2a3dd66bb8a889f08b7529ccb5bbd"
+            "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+            "d5034f1360ab44a22989cd0d4c97f1bf97214759"
           ],
-          "title": "Merge branch '8552-keyring-missing-token-error' into 'main'",
-          "message": "Merge branch '8552-keyring-missing-token-error' into 'main'\n\nfix(auth): fail clearly on a missing keyring token\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4061\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
-          "author_name": "Ahmed Hemdan",
+          "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+          "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+          "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-13T18:52:09.000+02:00",
+          "authored_date": "2026-10-19T12:02:22.000+10:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-13T18:52:09.000+02:00",
+          "committed_date": "2026-10-19T12:02:22.000+10:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/24a87522cd40bd8a707416b85b57d5e2684def41"
-        },
-        {
-          "id": "8fe3673c932ac91e4299dc16835bf33a002af7ff",
-          "short_id": "8fe3673c",
-          "created_at": "2026-10-13T13:05:30.000-05:00",
-          "parent_ids": [
-            "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
-          ],
-          "title": "docs(orbit): point agents to the Orbit skill in help",
-          "message": "docs(orbit): point agents to the Orbit skill in help\n",
-          "author_name": "Dmitry Gruzd",
-          "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-13T20:05:30.000+02:00",
-          "committer_name": "GitLab",
-          "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-13T13:05:30.000-05:00",
-          "trailers": {},
-          "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/8fe3673c932ac91e4299dc16835bf33a002af7ff"
-        },
-        {
-          "id": "22ef0830b3575048b558d32c2d930d41a5b32ffc",
-          "short_id": "22ef0830",
-          "created_at": "2026-10-13T13:05:31.000-05:00",
-          "parent_ids": [
-            "24a87522cd40bd8a707416b85b57d5e2684def41",
-            "8fe3673c932ac91e4299dc16835bf33a002af7ff"
-          ],
-          "title": "Merge branch 'orbit-help-skill-pointer' into 'main'",
-          "message": "Merge branch 'orbit-help-skill-pointer' into 'main'\n\ndocs(orbit): point agents to the Orbit skill in help\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4072\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
-          "author_name": "Kai Armstrong",
-          "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-13T13:05:31.000-05:00",
-          "committer_name": "GitLab",
-          "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-13T13:05:31.000-05:00",
-          "trailers": {},
-          "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/22ef0830b3575048b558d32c2d930d41a5b32ffc"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
         }
       ],
       "diffs": [
         {
-          "diff": "@@ -90,7 +90,7 @@ Run `glab --help` to view a list of core commands in your terminal.\n - [`glab milestone`](docs/source/milestone): Manage group or project milestones.\n - [`glab mr`](docs/source/mr): Create, view, and manage merge requests.\n - [`glab opentofu`](docs/source/opentofu): Work with the OpenTofu or Terraform integration.\n-- [`glab orbit`](docs/source/orbit): Run the GitLab Orbit CLI. (EXPERIMENTAL)\n+- [`glab orbit`](docs/source/orbit): Query the GitLab Orbit context graph. (EXPERIMENTAL)\n - [`glab packages`](docs/source/packages): Manage packages in the GitLab package registry.\n - [`glab release`](docs/source/release): Manage GitLab releases.\n - [`glab repo`](docs/source/repo): Work with GitLab repositories and projects.\n",
+          "diff": "@@ -34,6 +34,7 @@ glab incident list --all\n glab incident ls --all\n glab incident list --assignee=@me\n glab incident list --milestone release-2.0.0 --opened\n+glab incident list --updated-after 2026-10-01T00:00:00Z\n ```\n \n ## Options\n@@ -44,6 +45,8 @@ glab incident list --milestone release-2.0.0 --opened\n       --author string          Filter incident by author <username>.\n   -c, --closed                 Get only closed incidents.\n   -C, --confidential           Filter by confidential incidents.\n+      --created-after time     Filter incidents created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --created-before time    Filter incidents created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n   -e, --epic int               List issues belonging to a given epic (requires --group, no pagination support).\n   -g, --group string           Select a group or subgroup. Ignored if a repo argument is set.\n       --in string              Search in: title, description. (default \"title,description\")\n@@ -61,6 +64,8 @@ glab incident list --milestone release-2.0.0 --opened\n   -R, --repo string            Select another repository. You can use either OWNER/REPO or GROUP/NAMESPACE/REPO. The full URL or Git URL is also accepted.\n       --search string          Search <string> in the fields defined by '--in'.\n   -s, --sort string            Sort direction for --order field: asc or desc. (default \"desc\")\n+      --updated-after time     Filter incidents updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --updated-before time    Filter incidents updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n ```\n \n ## Options inherited from parent commands\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "README.md",
-          "old_path": "README.md",
+          "new_path": "docs/source/incident/list.md",
+          "old_path": "docs/source/incident/list.md",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -127,11 +186,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -10,12 +10,14 @@ This documentation is auto generated by a script.\n Please do not edit this file directly. Run `make gen-docs` instead.\n -->\n \n-Run the GitLab Orbit CLI. (EXPERIMENTAL)\n+Query the GitLab Orbit context graph. (EXPERIMENTAL)\n \n ## Synopsis\n \n Run the GitLab Orbit CLI through glab.\n \n+Coding agents: run `glab orbit --yes skills get orbit` to load the Orbit skill. `--yes` installs the binary without a prompt on first use.\n+\n Every command and flag, including `--help`, is forwarded verbatim to the managed Orbit binary. glab downloads, verifies, and updates that binary for you on first use. Until the binary is installed, `--help` shows this text instead. glab passes your resolved GitLab credential to the binary on every invocation, so remote commands such as `glab orbit query` need no separate login.\n \n glab handles only the `update` command and the `--install`, `--update`, and `--yes` flags itself. Run `glab help orbit` to see them.\n",
+          "diff": "@@ -34,6 +34,7 @@ glab issue list --all\n glab issue ls --all\n glab issue list --assignee=@me\n glab issue list --milestone release-2.0.0 --opened\n+glab issue list --updated-after 2026-10-01T00:00:00Z\n ```\n \n ## Options\n@@ -44,6 +45,8 @@ glab issue list --milestone release-2.0.0 --opened\n       --author string          Filter issue by author <username>.\n   -c, --closed                 Get only closed issues.\n   -C, --confidential           Filter by confidential issues.\n+      --created-after time     Filter issues created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --created-before time    Filter issues created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n   -e, --epic int               List issues belonging to a given epic (requires --group, no pagination support).\n   -g, --group string           Select a group or subgroup. Ignored if a repo argument is set.\n       --in string              Search in: title, description. (default \"title,description\")\n@@ -63,6 +66,8 @@ glab issue list --milestone release-2.0.0 --opened\n   -R, --repo string            Select another repository. You can use either OWNER/REPO or GROUP/NAMESPACE/REPO. The full URL or Git URL is also accepted.\n       --search string          Search <string> in the fields defined by '--in'.\n   -s, --sort string            Sort direction for --order field: asc or desc. (default \"desc\")\n+      --updated-after time     Filter issues updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --updated-before time    Filter issues updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n ```\n \n ## Options inherited from parent commands\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "docs/source/orbit/_index.md",
-          "old_path": "docs/source/orbit/_index.md",
+          "new_path": "docs/source/issue/list.md",
+          "old_path": "docs/source/issue/list.md",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -140,7 +199,33 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -321,6 +321,8 @@ type fromConfigOptions struct {\n \t// is deliberately excluded from this option: CI_JOB_TOKEN authentication\n \t// must keep working under CI auto-login regardless.\n \tsearchEnvForIdentity bool\n+\n+\twithoutAuthentication bool\n }\n \n // WithoutTokenFromEnvironment resolves the access token and the is_oauth2\n@@ -338,6 +340,22 @@ func WithoutTokenFromEnvironment() FromConfigOption {\n \t}\n }\n \n+// WithoutAuthentication builds an unauthenticated client that still uses the\n+// host's transport settings from config (proxy, CA, client certificate,\n+// skip_tls_verify, API host, and custom headers). Tokens from config, the\n+// keyring, and the environment are neither read nor sent, so a missing or\n+// unreadable keyring entry does not fail the build.\n+//\n+// Use it where a missing token is expected, such as the OAuth2 flow in\n+// `glab auth login`, which sets use_keyring before it stores a token, or\n+// where only the host's transport is needed, such as the Docker credential\n+// helper.\n+func WithoutAuthentication() FromConfigOption {\n+\treturn func(o *fromConfigOptions) {\n+\t\to.withoutAuthentication = true\n+\t}\n+}\n+\n // NewClientFromConfig initializes the global api with the config data\n func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, userAgent string, opts ...FromConfigOption) (*Client, error) {\n \tfromCfg := fromConfigOptions{searchEnvForIdentity: true}\n@@ -358,14 +376,22 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \n \tisOAuth2Cfg, isOAuth2Source, _ := cfg.GetWithSource(repoHost, \"is_oauth2\", fromCfg.searchEnvForIdentity)\n \n-\t// token and job_token may be backed by the OS keyring. Surface read errors\n-\t// (locked keyring, denied access, unavailable backend) instead of silently\n-\t// treating them as an empty credential, which produces confusing downstream\n-\t// auth errors. A credential that is simply not stored returns \"\" with no\n-\t// error.\n-\ttoken, tokenSource, err := cfg.GetWithSource(repoHost, \"token\", fromCfg.searchEnvForIdentity)\n-\tif err != nil {\n-\t\treturn nil, fmt.Errorf(\"failed to read the access token for %q: %w\", repoHost, err)\n+\tvar token, tokenSource, jobToken string\n+\tif !fromCfg.withoutAuthentication {\n+\t\t// token and job_token may be backed by the OS keyring. Surface read errors\n+\t\t// (locked keyring, denied access, unavailable backend) instead of silently\n+\t\t// treating them as an empty credential, which produces confusing downstream\n+\t\t// auth errors. A credential that is simply not stored returns \"\" with no\n+\t\t// error.\n+\t\tvar err error\n+\t\ttoken, tokenSource, err = cfg.GetWithSource(repoHost, \"token\", fromCfg.searchEnvForIdentity)\n+\t\tif err != nil {\n+\t\t\treturn nil, fmt.Errorf(\"failed to read the access token for %q: %w\", repoHost, err)\n+\t\t}\n+\t\tjobToken, err = cfg.Get(repoHost, \"job_token\")\n+\t\tif err != nil {\n+\t\t\treturn nil, fmt.Errorf(\"failed to read the job token for %q: %w\", repoHost, err)\n+\t\t}\n \t}\n \n \tisOAuth2 := isOAuth2Cfg == \"true\"\n@@ -374,10 +400,6 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \tif isEnvironmentPAT && !isEnvironmentOAuth2 {\n \t\tisOAuth2 = false\n \t}\n-\tjobToken, err := cfg.Get(repoHost, \"job_token\")\n-\tif err != nil {\n-\t\treturn nil, fmt.Errorf(\"failed to read the job token for %q: %w\", repoHost, err)\n-\t}\n \ttlsVerify, _ := cfg.Get(repoHost, \"skip_tls_verify\")\n \tskipTlsVerify := tlsVerify == \"true\" || tlsVerify == \"1\"\n \tcaCert, _ := cfg.Get(repoHost, \"ca_cert\")\n@@ -421,6 +443,10 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \t// determine auth source\n \tvar newAuthSource newAuthSource\n \tswitch {\n+\tcase fromCfg.withoutAuthentication:\n+\t\tnewAuthSource = func(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\treturn gitlab.Unauthenticated{}, nil\n+\t\t}\n \tcase isOAuth2:\n \t\t// If the refresh token can't be read but a usable access token is still\n \t\t// present, fall through to access-token-only auth rather than failing\n@@ -462,6 +488,10 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \t\t\treturn gitlab.JobTokenAuthSource{Token: jobToken}, nil\n \t\t}\n \tdefault:\n+\t\tif config.HostUsesKeyring(cfg, repoHost) {\n+\t\t\treturn nil, fmt.Errorf(\"the token for %q is missing from the operating system keyring; run `glab auth login --hostname %s` to re-authenticate\", repoHost, repoHost)\n+\t\t}\n+\n \t\t// NOTE: use an unauthenticated client.\n \t\tnewAuthSource = func(*http.Client) (gitlab.AuthSource, error) {\n \t\t\treturn gitlab.Unauthenticated{}, nil\n",
+          "diff": "@@ -18,7 +18,7 @@ require (\n \tgithub.com/d2lang/d2 v0.9.0\n \tgithub.com/denisbrodbeck/machineid v1.0.1\n \tgithub.com/docker/cli v29.9.0+incompatible\n-\tgithub.com/docker/docker-credential-helpers v0.9.9\n+\tgithub.com/docker/docker-credential-helpers v0.9.10\n \tgithub.com/dustin/go-humanize v1.1.0\n \tgithub.com/gdamore/tcell/v2 v2.13.10\n \tgithub.com/golang-jwt/jwt/v5 v5.3.1\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "go.mod",
+          "old_path": "go.mod",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -110,8 +110,8 @@ github.com/dlclark/regexp2/v2 v2.6.0 h1:KugbSrpXcRpziHIcqqFEXwKwi09LbPkTzvLRItf2\n github.com/dlclark/regexp2/v2 v2.6.0/go.mod h1:avUrQvPaLz2DrFNHJF0taWAFFX2C1GMSSoeiqFjcBmU=\n github.com/docker/cli v29.9.0+incompatible h1:Cw9x50ioSGgGwXJ4eO+hIBry/w3LLbyF8GPAEKz1fnE=\n github.com/docker/cli v29.9.0+incompatible/go.mod h1:JLrzqnKDaYBop7H2jaqPtU4hHvMKP+vjCwu2uszcLI8=\n-github.com/docker/docker-credential-helpers v0.9.9 h1:BkydjIgZ46JnDbqyM2p2fc63KMw6y+KHL3Em/2AGJ7w=\n-github.com/docker/docker-credential-helpers v0.9.9/go.mod h1:v1S+hepowrQXITkEfw6o4+BMbGot02wiKpzWhGUZK6c=\n+github.com/docker/docker-credential-helpers v0.9.10 h1:LCWwv7UmS7fQVmdKDWeMuureOeY5kkbC5kZfkzxkS6k=\n+github.com/docker/docker-credential-helpers v0.9.10/go.mod h1:v1S+hepowrQXITkEfw6o4+BMbGot02wiKpzWhGUZK6c=\n github.com/dustin/go-humanize v1.1.0 h1:dbKTrvD0klcbBV/h4AWJdMuZogJACoMlvWIWZ5b2xWg=\n github.com/dustin/go-humanize v1.1.0/go.mod h1:hc1CvRkJMsgxqjmjMQF3QNRAZBwY8AXBAzKYoSX9sFI=\n github.com/emicklei/go-restful/v3 v3.13.0 h1:C4Bl2xDndpU6nJ4bc1jXd+uTmYPVUwkD6bFY/oTyCes=\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "go.sum",
+          "old_path": "go.sum",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -3,11 +3,9 @@ package api\n import (\n \t\"context\"\n \t\"crypto/tls\"\n-\t\"crypto/x509\"\n \t\"errors\"\n \t\"fmt\"\n \t\"io\"\n-\t\"net\"\n \t\"net/http\"\n \t\"net/url\"\n \t\"os\"\n@@ -62,7 +60,9 @@ type Client struct {\n \n \tcustomHeaders          map[string]string\n \tcustomHeaderExtraHosts map[string]struct{}\n-\tproxy                  func(*http.Request) (*url.URL, error)\n+\t// proxyURL is nil when the proxy comes from the environment.\n+\tproxyURL   *url.URL\n+\ttransports *TransportCache\n }\n \n func (c *Client) HTTPClient() *http.Client {\n@@ -96,9 +96,7 @@ type newAuthSource func(c *http.Client) (authSource gitlab.AuthSource, err error\n // NewClient initializes a api client for use throughout glab.\n func NewClient(newAuthSource newAuthSource, options ...ClientOption) (*Client, error) {\n \t// 0. initialize empty Client\n-\tclient := &Client{\n-\t\tproxy: http.ProxyFromEnvironment,\n-\t}\n+\tclient := &Client{}\n \n \t// 1. apply provided option functions to populate client\n \tfor _, option := range options {\n@@ -149,67 +147,35 @@ func (c *Client) initializeHTTPClient() error {\n \t\treturn nil\n \t}\n \n-\t// Create TLS configuration based on client settings\n-\ttlsConfig := &tls.Config{\n-\t\tMinVersion:         tls.VersionTLS12,\n-\t\tInsecureSkipVerify: c.allowInsecure,\n-\t}\n-\n-\t// Set secure cipher suites for gitlab.com\n \tu, err := url.Parse(c.baseURL)\n \tif err != nil {\n \t\treturn err\n \t}\n-\tif !glinstance.IsSelfHosted(u.Hostname()) {\n-\t\ttlsConfig.CipherSuites = secureCipherSuites\n+\n+\tkey := transportKey{\n+\t\tcaFile:         c.caFile,\n+\t\tclientCertFile: c.clientCertFile,\n+\t\tclientKeyFile:  c.clientKeyFile,\n+\t\tinsecure:       c.allowInsecure,\n+\t\tgitlabCom:      !glinstance.IsSelfHosted(u.Hostname()),\n+\t}\n+\tif c.proxyURL != nil {\n+\t\tkey.proxyURL = c.proxyURL.String()\n \t}\n \n-\t// Configure custom CA if provided\n-\tif c.caFile != \"\" {\n-\t\tcaCert, err := os.ReadFile(c.caFile)\n-\t\tif err != nil {\n-\t\t\treturn fmt.Errorf(\"error reading cert file: %w\", err)\n-\t\t}\n-\t\t// use system cert pool as a baseline\n-\t\tcaCertPool, err := x509.SystemCertPool()\n+\tvar rt http.RoundTripper\n+\tif c.transports != nil {\n+\t\tt, err := c.transports.transport(key)\n \t\tif err != nil {\n \t\t\treturn err\n \t\t}\n-\t\tcaCertPool.AppendCertsFromPEM(caCert)\n-\t\ttlsConfig.RootCAs = caCertPool\n-\t}\n-\n-\t// Configure client certificates if provided\n-\tif c.clientCertFile != \"\" && c.clientKeyFile != \"\" {\n-\t\tclientCert, err := tls.LoadX509KeyPair(c.clientCertFile, c.clientKeyFile)\n+\t\trt = &pooledTransport{rt: t}\n+\t} else {\n+\t\tt, err := newTransport(key)\n \t\tif err != nil {\n \t\t\treturn err\n \t\t}\n-\t\ttlsConfig.Certificates = []tls.Certificate{clientCert}\n-\t}\n-\n-\t// Set appropriate timeouts based on whether custom CA is used\n-\tdialTimeout := 5 * time.Second\n-\tkeepAlive := 5 * time.Second\n-\tidleTimeout := 30 * time.Second\n-\tif c.caFile != \"\" {\n-\t\tdialTimeout = 30 * time.Second\n-\t\tkeepAlive = 30 * time.Second\n-\t\tidleTimeout = 90 * time.Second\n-\t}\n-\n-\tvar rt http.RoundTripper = &http.Transport{\n-\t\tProxy: c.proxy,\n-\t\tDialContext: (&net.Dialer{\n-\t\t\tTimeout:   dialTimeout,\n-\t\t\tKeepAlive: keepAlive,\n-\t\t}).DialContext,\n-\t\tForceAttemptHTTP2:     true,\n-\t\tMaxIdleConns:          100,\n-\t\tIdleConnTimeout:       idleTimeout,\n-\t\tTLSHandshakeTimeout:   10 * time.Second,\n-\t\tExpectContinueTimeout: 1 * time.Second,\n-\t\tTLSClientConfig:       tlsConfig,\n+\t\trt = t\n \t}\n \n \tif enabled, found := utils.IsEnvVarEnabled(\"GLAB_DEBUG_HTTP\"); found && enabled {\n@@ -229,10 +195,11 @@ func (c *Client) initializeHTTPClient() error {\n \treturn nil\n }\n \n-// WithProxy allows overriding the proxy function for the transport\n-func WithProxy(proxy func(*http.Request) (*url.URL, error)) ClientOption {\n+// WithProxy routes requests through proxyURL. A nil proxyURL uses the proxy\n+// from the environment.\n+func WithProxy(proxyURL *url.URL) ClientOption {\n \treturn func(c *Client) error {\n-\t\tc.proxy = proxy\n+\t\tc.proxyURL = proxyURL\n \t\treturn nil\n \t}\n }\n@@ -309,9 +276,9 @@ func WithUserAgent(userAgent string) ClientOption {\n }\n \n // FromConfigOption customizes how NewClientFromConfig resolves credentials\n-// out of config. Distinct from ClientOption, which configures the client\n-// that has already been built: this affects resolution that happens before\n-// a Client exists.\n+// out of config and how it builds the client. Distinct from ClientOption,\n+// which configures the client that has already been built: this affects\n+// resolution that happens before a Client exists.\n type FromConfigOption func(*fromConfigOptions)\n \n type fromConfigOptions struct {\n@@ -323,6 +290,8 @@ type fromConfigOptions struct {\n \tsearchEnvForIdentity bool\n \n \twithoutAuthentication bool\n+\n+\ttransports *TransportCache\n }\n \n // WithoutTokenFromEnvironment resolves the access token and the is_oauth2\n@@ -356,6 +325,14 @@ func WithoutAuthentication() FromConfigOption {\n \t}\n }\n \n+// WithTransportCache makes the client share its connection pool with other\n+// clients built with the same cache and the same transport settings.\n+func WithTransportCache(cache *TransportCache) FromConfigOption {\n+\treturn func(o *fromConfigOptions) {\n+\t\to.transports = cache\n+\t}\n+}\n+\n // NewClientFromConfig initializes the global api with the config data\n func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, userAgent string, opts ...FromConfigOption) (*Client, error) {\n \tfromCfg := fromConfigOptions{searchEnvForIdentity: true}\n@@ -405,15 +382,19 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \tcaCert, _ := cfg.Get(repoHost, \"ca_cert\")\n \tclientCert, _ := cfg.Get(repoHost, \"client_cert\")\n \tkeyFile, _ := cfg.Get(repoHost, \"client_key\")\n-\tproxy, err := ProxyFromConfig(cfg, repoHost)\n+\tproxyURL, err := config.ResolveHostProxy(cfg, repoHost)\n \tif err != nil {\n-\t\treturn nil, fmt.Errorf(\"failed to resolve proxy function: %w\", err)\n+\t\treturn nil, fmt.Errorf(\"failed to resolve proxy: %w\", err)\n \t}\n \n \t// Build options based on configuration\n \toptions := []ClientOption{\n \t\tWithUserAgent(userAgent),\n-\t\tWithProxy(proxy),\n+\t\tWithProxy(proxyURL),\n+\t\tfunc(c *Client) error {\n+\t\t\tc.transports = fromCfg.transports\n+\t\t\treturn nil\n+\t\t},\n \t}\n \n \theaders, err := config.ResolveCustomHeaders(cfg, repoHost)\n",
           "collapsed": false,
           "too_large": false,
           "new_path": "internal/api/client.go",
@@ -153,11 +238,24 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -426,6 +426,167 @@ func TestNewClientFromConfig_SurfacesKeyringReadError(t *testing.T) {\n \tassert.Contains(t, err.Error(), \"keyring\")\n }\n \n+func TestNewClientFromConfig_KeyringTokenMissing(t *testing.T) {\n+\tkeyring.MockInit()\n+\tt.Cleanup(keyring.MockInit)\n+\n+\tt.Setenv(\"GITLAB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_ACCESS_TOKEN\", \"\")\n+\tt.Setenv(\"OAUTH_TOKEN\", \"\")\n+\tt.Setenv(\"GLAB_IS_OAUTH2\", \"\")\n+\tt.Setenv(\"JOB_TOKEN\", \"\")\n+\tt.Setenv(\"CI_JOB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_CI\", \"\")\n+\tt.Setenv(\"GLAB_ENABLE_CI_AUTOLOGIN\", \"\")\n+\tt.Setenv(\"GLAB_USE_KEYRING\", \"\")\n+\tt.Setenv(\"USE_KEYRING\", \"\")\n+\n+\tkeyringHost := \"---\\nhosts:\\n  gitlab.example.com:\\n    use_keyring: \\\"true\\\"\\n\"\n+\n+\tt.Run(\"returns an actionable error\", func(t *testing.T) {\n+\t\t_, err := NewClientFromConfig(\"gitlab.example.com\", config.NewFromString(keyringHost), false, \"test-agent\")\n+\t\trequire.Error(t, err)\n+\t\tassert.Contains(t, err.Error(), \"keyring\")\n+\t\tassert.Contains(t, err.Error(), \"re-authenticate\")\n+\t\tassert.Contains(t, err.Error(), \"glab auth login --hostname gitlab.example.com\")\n+\t})\n+\n+\tt.Run(\"a token from the environment still wins\", func(t *testing.T) {\n+\t\tt.Setenv(\"GITLAB_TOKEN\", \"env-pat\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", config.NewFromString(keyringHost), false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tkey, value, err := client.AuthSource().Header(t.Context())\n+\t\trequire.NoError(t, err)\n+\t\tassert.Equal(t, gitlab.AccessTokenHeaderName, key)\n+\t\tassert.Equal(t, \"env-pat\", value)\n+\t})\n+\n+\tt.Run(\"a job token still authenticates\", func(t *testing.T) {\n+\t\tt.Setenv(\"GLAB_ENABLE_CI_AUTOLOGIN\", \"true\")\n+\t\tt.Setenv(\"GITLAB_CI\", \"true\")\n+\t\tt.Setenv(\"CI_JOB_TOKEN\", \"env-job-token\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", config.NewFromString(keyringHost), false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tkey, value, err := client.AuthSource().Header(t.Context())\n+\t\trequire.NoError(t, err)\n+\t\tassert.Equal(t, gitlab.JobTokenHeaderName, key)\n+\t\tassert.Equal(t, \"env-job-token\", value)\n+\t})\n+\n+\tt.Run(\"a host without use_keyring stays unauthenticated\", func(t *testing.T) {\n+\t\tcfg := config.NewFromString(\"---\\nhosts:\\n  gitlab.example.com:\\n    user: someone\\n\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\t_, _, err = client.AuthSource().Header(t.Context())\n+\t\trequire.ErrorContains(t, err, \"unauthenticated\")\n+\t})\n+\n+\t// The keyring is only read when the host itself sets use_keyring, so\n+\t// GLAB_USE_KEYRING alone must not turn a tokenless host into an error.\n+\tt.Run(\"GLAB_USE_KEYRING does not apply to a host without use_keyring\", func(t *testing.T) {\n+\t\tt.Setenv(\"GLAB_USE_KEYRING\", \"true\")\n+\t\tcfg := config.NewFromString(\"---\\nhosts:\\n  gitlab.example.com:\\n    user: someone\\n\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\t_, _, err = client.AuthSource().Header(t.Context())\n+\t\trequire.ErrorContains(t, err, \"unauthenticated\")\n+\t})\n+\n+\tt.Run(\"a top-level use_keyring does not apply to a host without use_keyring\", func(t *testing.T) {\n+\t\tcfg := config.NewFromString(\"---\\nuse_keyring: \\\"true\\\"\\nhosts:\\n  gitlab.example.com:\\n    user: someone\\n\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\t_, _, err = client.AuthSource().Header(t.Context())\n+\t\trequire.ErrorContains(t, err, \"unauthenticated\")\n+\t})\n+\n+\tt.Run(\"a top-level use_keyring keeps the token from the host entry\", func(t *testing.T) {\n+\t\tcfg := config.NewFromString(\"---\\nuse_keyring: \\\"true\\\"\\nhosts:\\n  gitlab.example.com:\\n    token: config-pat\\n\")\n+\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"test-agent\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tkey, value, err := client.AuthSource().Header(t.Context())\n+\t\trequire.NoError(t, err)\n+\t\tassert.Equal(t, gitlab.AccessTokenHeaderName, key)\n+\t\tassert.Equal(t, \"config-pat\", value)\n+\t})\n+}\n+\n+func TestNewClientFromConfig_WithoutAuthentication(t *testing.T) {\n+\tkeyring.MockInit()\n+\tt.Cleanup(keyring.MockInit)\n+\n+\tt.Setenv(\"GITLAB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_ACCESS_TOKEN\", \"\")\n+\tt.Setenv(\"OAUTH_TOKEN\", \"\")\n+\tt.Setenv(\"GLAB_IS_OAUTH2\", \"\")\n+\tt.Setenv(\"JOB_TOKEN\", \"\")\n+\tt.Setenv(\"CI_JOB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_CI\", \"\")\n+\tt.Setenv(\"GLAB_USE_KEYRING\", \"\")\n+\tt.Setenv(\"USE_KEYRING\", \"\")\n+\n+\tvar gotHeader string\n+\tserver := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n+\t\tgotHeader = r.Header.Get(\"X-Test-Header\")\n+\t\tw.WriteHeader(http.StatusOK)\n+\t}))\n+\tt.Cleanup(server.Close)\n+\n+\thostname := strings.TrimPrefix(server.URL, \"https://\")\n+\tcfg := config.NewFromString(fmt.Sprintf(`\n+---\n+hosts:\n+  %s:\n+    use_keyring: \"true\"\n+    is_oauth2: \"true\"\n+    skip_tls_verify: \"true\"\n+    custom_headers:\n+      - name: X-Test-Header\n+        value: from-config\n+`, hostname))\n+\n+\tclient, err := NewClientFromConfig(hostname, cfg, false, \"test-agent\", WithoutAuthentication())\n+\trequire.NoError(t, err)\n+\n+\t_, _, err = client.AuthSource().Header(t.Context())\n+\trequire.ErrorContains(t, err, \"unauthenticated\")\n+\n+\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, server.URL, http.NoBody)\n+\trequire.NoError(t, err)\n+\tresp, err := client.HTTPClient().Do(req)\n+\trequire.NoError(t, err)\n+\trequire.NoError(t, resp.Body.Close())\n+\tassert.Equal(t, http.StatusOK, resp.StatusCode)\n+\tassert.Equal(t, \"from-config\", gotHeader)\n+}\n+\n+func TestNewClientFromConfig_WithoutAuthenticationSkipsKeyringRead(t *testing.T) {\n+\tt.Setenv(\"GITLAB_TOKEN\", \"\")\n+\tkeyring.MockInitWithError(errors.New(\"keyring locked\"))\n+\tt.Cleanup(keyring.MockInit)\n+\n+\tcfg := config.NewBlankConfig()\n+\trequire.NoError(t, cfg.Set(\"example.gitlab.com\", \"use_keyring\", \"true\"))\n+\n+\tclient, err := NewClientFromConfig(\"example.gitlab.com\", cfg, false, \"dummy user agent\", WithoutAuthentication())\n+\trequire.NoError(t, err)\n+\n+\t_, _, err = client.AuthSource().Header(t.Context())\n+\trequire.ErrorContains(t, err, \"unauthenticated\")\n+}\n+\n // TestNewClientFromConfig_WithoutTokenFromEnvironment pins the option glab\n // uses when it acts on behalf of a process that inherits the user's shell\n // environment, such as the Docker credential helper: the environment must\n",
+          "diff": "@@ -12,45 +12,40 @@ import (\n \t\"gitlab.com/gitlab-org/cli/internal/config\"\n )\n \n-func TestProxyFromConfig(t *testing.T) {\n-\tcfg := config.NewBlankConfig()\n-\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"proxy\", \"https://proxy.local:8443\"))\n-\n-\tproxy, err := ProxyFromConfig(cfg, \"gitlab.example.com\")\n-\trequire.NoError(t, err)\n-\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://gitlab.example.com/api/v4\", http.NoBody)\n-\trequire.NoError(t, err)\n-\n-\tproxyURL, err := proxy(req)\n-\trequire.NoError(t, err)\n-\trequire.NotNil(t, proxyURL)\n-\tassert.Equal(t, \"https://proxy.local:8443\", proxyURL.String())\n-}\n+func TestNewClientFromConfigProxy(t *testing.T) {\n+\tt.Run(\"configured proxy\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"token\", \"glpat-test\"))\n+\t\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"proxy\", \"https://proxy.local:8443\"))\n \n-func TestProxyFromConfigFallbacks(t *testing.T) {\n-\tcfg := config.NewBlankConfig()\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"glab-test\")\n+\t\trequire.NoError(t, err)\n+\t\ttransport, ok := client.HTTPClient().Transport.(*http.Transport)\n+\t\trequire.True(t, ok)\n+\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://gitlab.example.com/api/v4\", http.NoBody)\n+\t\trequire.NoError(t, err)\n \n-\tt.Run(\"empty host\", func(t *testing.T) {\n-\t\tproxy, err := ProxyFromConfig(cfg, \"\")\n+\t\tproxyURL, err := transport.Proxy(req)\n \t\trequire.NoError(t, err)\n-\t\trequire.NotNil(t, proxy)\n+\t\trequire.NotNil(t, proxyURL)\n+\t\tassert.Equal(t, \"https://proxy.local:8443\", proxyURL.String())\n \t})\n \n-\tt.Run(\"missing host\", func(t *testing.T) {\n-\t\tproxy, err := ProxyFromConfig(cfg, \"missing.example.com\")\n-\t\trequire.NoError(t, err)\n-\t\trequire.NotNil(t, proxy)\n-\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://missing.example.com\", http.NoBody)\n-\t\trequire.NoError(t, err)\n-\t\tgot, err := proxy(req)\n+\tt.Run(\"missing host uses the environment\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"missing.example.com\", \"token\", \"glpat-test\"))\n+\n+\t\tclient, err := NewClientFromConfig(\"missing.example.com\", cfg, false, \"glab-test\")\n \t\trequire.NoError(t, err)\n-\t\tassert.Nil(t, got)\n+\t\tassert.Nil(t, client.proxyURL)\n \t})\n \n \tt.Run(\"invalid configured proxy\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"bad.example.com\", \"token\", \"glpat-test\"))\n \t\trequire.NoError(t, cfg.Set(\"bad.example.com\", \"proxy\", \"://bad-url\"))\n-\t\tproxy, err := ProxyFromConfig(cfg, \"bad.example.com\")\n-\t\trequire.Error(t, err)\n-\t\tassert.Nil(t, proxy)\n+\n+\t\t_, err := NewClientFromConfig(\"bad.example.com\", cfg, false, \"glab-test\")\n+\t\trequire.ErrorContains(t, err, \"failed to resolve proxy\")\n \t})\n }\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/api/client_test.go",
-          "old_path": "internal/api/client_test.go",
+          "new_path": "internal/api/client_proxy_test.go",
+          "old_path": "internal/api/default_proxy_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": true,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -1,12 +1,6 @@\n package api\n \n-import (\n-\t\"net/http\"\n-\t\"net/url\"\n-\t\"strings\"\n-\n-\t\"gitlab.com/gitlab-org/cli/internal/config\"\n-)\n+import \"strings\"\n \n var DefaultListLimit int64 = 30\n \n@@ -18,15 +12,3 @@ const MaxPerPage = 100\n func IsTokenConfigured(token string) bool {\n \treturn strings.TrimSpace(token) != \"\"\n }\n-\n-// ProxyFromConfig returns an http.Proxy func using a configured proxy when provided.\n-func ProxyFromConfig(cfg config.Config, repoHost string) (func(*http.Request) (*url.URL, error), error) {\n-\tproxyURL, err := config.ResolveHostProxy(cfg, repoHost)\n-\tif err != nil {\n-\t\treturn nil, err\n-\t}\n-\tif proxyURL == nil {\n-\t\treturn http.ProxyFromEnvironment, nil\n-\t}\n-\treturn http.ProxyURL(proxyURL), nil\n-}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/api/default.go",
+          "old_path": "internal/api/default.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -166,24 +264,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -9,6 +9,7 @@ import (\n \t\"github.com/docker/docker-credential-helpers/credentials\"\n \t\"github.com/spf13/cobra\"\n \n+\t\"gitlab.com/gitlab-org/cli/internal/api\"\n \t\"gitlab.com/gitlab-org/cli/internal/cmdutils\"\n \t\"gitlab.com/gitlab-org/cli/internal/mcpannotations\"\n )\n@@ -70,7 +71,10 @@ func NewCmdCredentialHelper(f cmdutils.Factory) *cobra.Command {\n \t\t\tmcpannotations.Destructive: \"true\",\n \t\t},\n \t\tRunE: func(cmd *cobra.Command, args []string) error {\n-\t\t\tapiClient, err := f.ApiClient(\"\")\n+\t\t\t// Only the default host's transport is used here. Each registry\n+\t\t\t// lookup reads its own host's credentials, so a missing default-host\n+\t\t\t// token must not block a registry on another host.\n+\t\t\tapiClient, err := api.NewClientFromConfig(f.DefaultHostname(), f.Config(), false, f.BuildInfo().UserAgent(), api.WithoutAuthentication())\n \t\t\tif err != nil {\n \t\t\t\treturn err\n \t\t\t}\n",
+          "diff": "@@ -0,0 +1,135 @@\n+package api\n+\n+import (\n+\t\"crypto/tls\"\n+\t\"crypto/x509\"\n+\t\"fmt\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/url\"\n+\t\"os\"\n+\t\"sync\"\n+\t\"time\"\n+)\n+\n+// transportKey holds every input newTransport reads, so two clients with equal\n+// keys can share one connection pool.\n+type transportKey struct {\n+\t// proxyURL is empty when the proxy comes from the environment.\n+\tproxyURL       string\n+\tcaFile         string\n+\tclientCertFile string\n+\tclientKeyFile  string\n+\tinsecure       bool\n+\tgitlabCom      bool\n+}\n+\n+// TransportCache lets API clients with identical transport settings share a\n+// connection pool, so requests to the same host reuse a warm connection\n+// instead of paying for a new TLS handshake.\n+// Safe for concurrent use.\n+type TransportCache struct {\n+\tmu    sync.Mutex\n+\tbyKey map[transportKey]*http.Transport\n+}\n+\n+func NewTransportCache() *TransportCache {\n+\treturn &TransportCache{\n+\t\tbyKey: make(map[transportKey]*http.Transport),\n+\t}\n+}\n+\n+func (tc *TransportCache) transport(key transportKey) (*http.Transport, error) {\n+\ttc.mu.Lock()\n+\tdefer tc.mu.Unlock()\n+\n+\tif t, ok := tc.byKey[key]; ok {\n+\t\treturn t, nil\n+\t}\n+\n+\tt, err := newTransport(key)\n+\tif err != nil {\n+\t\treturn nil, err\n+\t}\n+\n+\ttc.byKey[key] = t\n+\treturn t, nil\n+}\n+\n+func newTransport(key transportKey) (*http.Transport, error) {\n+\ttlsConfig := &tls.Config{\n+\t\tMinVersion:         tls.VersionTLS12,\n+\t\tInsecureSkipVerify: key.insecure,\n+\t}\n+\n+\tif key.gitlabCom {\n+\t\ttlsConfig.CipherSuites = secureCipherSuites\n+\t}\n+\n+\tif key.caFile != \"\" {\n+\t\tcaCert, err := os.ReadFile(key.caFile)\n+\t\tif err != nil {\n+\t\t\treturn nil, fmt.Errorf(\"error reading cert file: %w\", err)\n+\t\t}\n+\t\t// use system cert pool as a baseline\n+\t\tcaCertPool, err := x509.SystemCertPool()\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\tcaCertPool.AppendCertsFromPEM(caCert)\n+\t\ttlsConfig.RootCAs = caCertPool\n+\t}\n+\n+\tif key.clientCertFile != \"\" && key.clientKeyFile != \"\" {\n+\t\tclientCert, err := tls.LoadX509KeyPair(key.clientCertFile, key.clientKeyFile)\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\ttlsConfig.Certificates = []tls.Certificate{clientCert}\n+\t}\n+\n+\t// Set appropriate timeouts based on whether custom CA is used\n+\tdialTimeout := 5 * time.Second\n+\tkeepAlive := 5 * time.Second\n+\tidleTimeout := 30 * time.Second\n+\tif key.caFile != \"\" {\n+\t\tdialTimeout = 30 * time.Second\n+\t\tkeepAlive = 30 * time.Second\n+\t\tidleTimeout = 90 * time.Second\n+\t}\n+\n+\tproxy := http.ProxyFromEnvironment\n+\tif key.proxyURL != \"\" {\n+\t\tu, err := url.Parse(key.proxyURL)\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\tproxy = http.ProxyURL(u)\n+\t}\n+\n+\treturn &http.Transport{\n+\t\tProxy: proxy,\n+\t\tDialContext: (&net.Dialer{\n+\t\t\tTimeout:   dialTimeout,\n+\t\t\tKeepAlive: keepAlive,\n+\t\t}).DialContext,\n+\t\tForceAttemptHTTP2:     true,\n+\t\tMaxIdleConns:          100,\n+\t\tMaxIdleConnsPerHost:   25,\n+\t\tIdleConnTimeout:       idleTimeout,\n+\t\tTLSHandshakeTimeout:   10 * time.Second,\n+\t\tExpectContinueTimeout: 1 * time.Second,\n+\t\tTLSClientConfig:       tlsConfig,\n+\t}, nil\n+}\n+\n+// pooledTransport hides CloseIdleConnections, which go-retryablehttp calls\n+// after every failed request, so that one client's failure does not drop the\n+// connections other clients share.\n+type pooledTransport struct {\n+\trt http.RoundTripper\n+}\n+\n+func (t *pooledTransport) RoundTrip(req *http.Request) (*http.Response, error) {\n+\treturn t.rt.RoundTrip(req)\n+}\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/commands/auth/docker/docker.go",
-          "old_path": "internal/commands/auth/docker/docker.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -0,0 +1,88 @@\n+//go:build !integration\n+\n+package docker\n+\n+import (\n+\t\"encoding/json\"\n+\t\"testing\"\n+\n+\t\"github.com/docker/docker-credential-helpers/credentials\"\n+\t\"github.com/stretchr/testify/assert\"\n+\t\"github.com/stretchr/testify/require\"\n+\t\"github.com/zalando/go-keyring\"\n+\n+\t\"gitlab.com/gitlab-org/cli/internal/api\"\n+\t\"gitlab.com/gitlab-org/cli/internal/config\"\n+\t\"gitlab.com/gitlab-org/cli/internal/glinstance\"\n+\t\"gitlab.com/gitlab-org/cli/internal/testing/cmdtest\"\n+)\n+\n+func TestCredentialHelper_DefaultHostMissingKeyringToken(t *testing.T) {\n+\tkeyring.MockInit()\n+\tt.Cleanup(keyring.MockInit)\n+\n+\tt.Setenv(\"GITLAB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_ACCESS_TOKEN\", \"\")\n+\tt.Setenv(\"OAUTH_TOKEN\", \"\")\n+\tt.Setenv(\"GLAB_IS_OAUTH2\", \"\")\n+\tt.Setenv(\"JOB_TOKEN\", \"\")\n+\tt.Setenv(\"CI_JOB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_CI\", \"\")\n+\tt.Setenv(\"GLAB_ENABLE_CI_AUTOLOGIN\", \"\")\n+\n+\tcfg := config.NewFromString(`\n+---\n+hosts:\n+  gitlab.com:\n+    use_keyring: \"true\"\n+    user: default-user\n+    container_registry_domains: registry.gitlab.com\n+    artifact_registry_domains: artifacts.gitlab.com\n+  gitlab.example.com:\n+    user: example-user\n+    token: example-token\n+    container_registry_domains: registry.gitlab.example.com\n+`)\n+\n+\trun := func(t *testing.T, registry string) (string, error) {\n+\t\tt.Helper()\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, NewCmdCredentialHelper, false,\n+\t\t\tcmdtest.WithConfig(cfg),\n+\t\t\tcmdtest.WithStdin(registry),\n+\t\t\t// Same as the real factory, so the default host's missing token\n+\t\t\t// fails here if the helper builds its client through f.ApiClient.\n+\t\t\tcmdtest.WithApiClientFunc(func(repoHost string) (*api.Client, error) {\n+\t\t\t\tif repoHost == \"\" {\n+\t\t\t\t\trepoHost = glinstance.DefaultHostname\n+\t\t\t\t}\n+\t\t\t\treturn api.NewClientFromConfig(repoHost, cfg, false, \"test-agent\")\n+\t\t\t}),\n+\t\t)\n+\n+\t\tout, err := exec(\"get\")\n+\t\treturn out.String(), err\n+\t}\n+\n+\tt.Run(\"a registry on another host still gets its credentials\", func(t *testing.T) {\n+\t\tout, err := run(t, \"registry.gitlab.example.com\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tvar creds credentials.Credentials\n+\t\trequire.NoError(t, json.Unmarshal([]byte(out), &creds))\n+\t\tassert.Equal(t, \"example-user\", creds.Username)\n+\t\tassert.Equal(t, \"example-token\", creds.Secret)\n+\t})\n+\n+\tt.Run(\"the default host's container registry still fails\", func(t *testing.T) {\n+\t\t_, err := run(t, \"registry.gitlab.com\")\n+\t\trequire.ErrorContains(t, err, \"glab token for this registryURL (hostname) is empty\")\n+\t})\n+\n+\tt.Run(\"the default host's artifact registry names the missing keyring token\", func(t *testing.T) {\n+\t\t_, err := run(t, \"artifacts.gitlab.com\")\n+\t\trequire.Error(t, err)\n+\t\tassert.Contains(t, err.Error(), \"operating system keyring\")\n+\t\tassert.Contains(t, err.Error(), \"glab auth login --hostname gitlab.com\")\n+\t})\n+}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/auth/docker/docker_test.go",
-          "old_path": "internal/commands/auth/docker/docker_test.go",
+          "new_path": "internal/api/transport_cache.go",
+          "old_path": "internal/api/transport_cache.go",
           "a_mode": "0",
           "b_mode": "100644",
           "new_file": true,
@@ -192,76 +277,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -35,6 +35,8 @@ type LoginOptions struct {\n \tapiClient       func(repoHost string) (*api.Client, error)\n \tdefaultHostname string\n \n+\tunauthenticatedAPIClient func(repoHost string) (*api.Client, error)\n+\n \tInteractive bool\n \n \tHostname string\n@@ -61,6 +63,11 @@ func NewCmdLogin(f cmdutils.Factory) *cobra.Command {\n \t\tConfig:          f.Config,\n \t\tapiClient:       f.ApiClient,\n \t\tdefaultHostname: f.DefaultHostname(),\n+\t\t// loginRun sets use_keyring before the OAuth2 flow stores a token, so\n+\t\t// f.ApiClient would fail here on the missing keyring token.\n+\t\tunauthenticatedAPIClient: func(repoHost string) (*api.Client, error) {\n+\t\t\treturn api.NewClientFromConfig(repoHost, f.Config(), false, f.BuildInfo().UserAgent(), api.WithoutAuthentication())\n+\t\t},\n \t}\n \n \tvar tokenStdin bool\n@@ -624,7 +631,7 @@ func loginRun(ctx context.Context, opts *LoginOptions) error {\n \t\t\treturn err\n \t\t}\n \t} else {\n-\t\tclient, err := opts.apiClient(hostname)\n+\t\tclient, err := opts.unauthenticatedAPIClient(hostname)\n \t\tif err != nil {\n \t\t\treturn err\n \t\t}\n",
+          "diff": "@@ -0,0 +1,205 @@\n+//go:build !integration\n+\n+package api\n+\n+import (\n+\t\"encoding/pem\"\n+\t\"fmt\"\n+\t\"io\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/http/httptest\"\n+\t\"os\"\n+\t\"path/filepath\"\n+\t\"strings\"\n+\t\"sync/atomic\"\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/assert\"\n+\t\"github.com/stretchr/testify/require\"\n+\n+\t\"gitlab.com/gitlab-org/cli/internal/config\"\n+)\n+\n+// newConnCountingServer starts a TLS server and reports how many TCP\n+// connections clients have opened to it.\n+func newConnCountingServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, *atomic.Int64) {\n+\tt.Helper()\n+\n+\tvar conns atomic.Int64\n+\tsrv := httptest.NewUnstartedServer(handler)\n+\tsrv.Config.ConnState = func(_ net.Conn, state http.ConnState) {\n+\t\tif state == http.StateNew {\n+\t\t\tconns.Add(1)\n+\t\t}\n+\t}\n+\tsrv.StartTLS()\n+\tt.Cleanup(srv.Close)\n+\treturn srv, &conns\n+}\n+\n+func serverHost(srv *httptest.Server) string {\n+\treturn strings.TrimPrefix(srv.URL, \"https://\")\n+}\n+\n+// newServerConfig points host at srv and applies the extra host settings.\n+func newServerConfig(t *testing.T, srv *httptest.Server, settings map[string]string) config.Config {\n+\tt.Helper()\n+\n+\thost := serverHost(srv)\n+\tcfg := config.NewBlankConfig()\n+\trequire.NoError(t, cfg.Set(host, \"api_host\", host))\n+\trequire.NoError(t, cfg.Set(host, \"token\", \"glpat-test\"))\n+\tfor key, value := range settings {\n+\t\trequire.NoError(t, cfg.Set(host, key, value))\n+\t}\n+\treturn cfg\n+}\n+\n+func writeServerCA(t *testing.T, srv *httptest.Server, path string) {\n+\tt.Helper()\n+\n+\tpemBytes := pem.EncodeToMemory(&pem.Block{Type: \"CERTIFICATE\", Bytes: srv.Certificate().Raw})\n+\trequire.NoError(t, os.WriteFile(path, pemBytes, 0o600))\n+}\n+\n+func mustGet(t *testing.T, client *Client, url string) {\n+\tt.Helper()\n+\n+\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, url, http.NoBody)\n+\trequire.NoError(t, err)\n+\tresp, err := client.HTTPClient().Do(req)\n+\trequire.NoError(t, err)\n+\tdefer func() { require.NoError(t, resp.Body.Close()) }()\n+\t_, err = io.Copy(io.Discard, resp.Body)\n+\trequire.NoError(t, err)\n+}\n+\n+func okHandler(w http.ResponseWriter, _ *http.Request) {\n+\tw.WriteHeader(http.StatusOK)\n+}\n+\n+func TestTransportCache_SameSettingsShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcache := NewTransportCache()\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_WithoutCacheClientsDoNotShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\")\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\")\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(2), conns.Load())\n+}\n+\n+func TestTransportCache_CloseIdleConnectionsKeepsSharedPool(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcache := NewTransportCache()\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tfirst.HTTPClient().CloseIdleConnections()\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_DifferentSettingsDoNotShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcache := NewTransportCache()\n+\tcaPath := filepath.Join(t.TempDir(), \"ca.pem\")\n+\twriteServerCA(t, srv, caPath)\n+\tinsecureCfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcaCfg := newServerConfig(t, srv, map[string]string{\"ca_cert\": caPath})\n+\n+\tinsecure, err := NewClientFromConfig(serverHost(srv), insecureCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\twithCA, err := NewClientFromConfig(serverHost(srv), caCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, insecure, srv.URL)\n+\tmustGet(t, withCA, srv.URL)\n+\n+\tassert.Equal(t, int64(2), conns.Load())\n+}\n+\n+func TestTransportCache_CustomHeadersStayPerClient(t *testing.T) {\n+\tt.Parallel()\n+\n+\theaders := make(chan string, 2)\n+\tsrv, conns := newConnCountingServer(t, func(w http.ResponseWriter, r *http.Request) {\n+\t\theaders <- r.Header.Get(\"X-Custom\")\n+\t\tw.WriteHeader(http.StatusOK)\n+\t})\n+\tcache := NewTransportCache()\n+\tplainCfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\theaderCfg := config.NewFromString(fmt.Sprintf(`hosts:\n+  %q:\n+    api_host: %q\n+    token: glpat-test\n+    skip_tls_verify: true\n+    custom_headers:\n+      - name: X-Custom\n+        value: from-config\n+`, serverHost(srv), serverHost(srv)))\n+\n+\twithHeader, err := NewClientFromConfig(serverHost(srv), headerCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tplain, err := NewClientFromConfig(serverHost(srv), plainCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, withHeader, srv.URL)\n+\tmustGet(t, plain, srv.URL)\n+\n+\tassert.Equal(t, \"from-config\", <-headers)\n+\tassert.Empty(t, <-headers)\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_BuildErrorIsNotCached(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, _ := newConnCountingServer(t, okHandler)\n+\tcaPath := filepath.Join(t.TempDir(), \"ca.pem\")\n+\tcfg := newServerConfig(t, srv, map[string]string{\"ca_cert\": caPath})\n+\tcache := NewTransportCache()\n+\n+\t_, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.ErrorContains(t, err, \"error reading cert file\")\n+\n+\twriteServerCA(t, srv, caPath)\n+\tclient, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tmustGet(t, client, srv.URL)\n+}\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/commands/auth/login/login.go",
-          "old_path": "internal/commands/auth/login/login.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -5,6 +5,8 @@ package login\n import (\n \t\"bytes\"\n \t\"errors\"\n+\t\"net/http\"\n+\t\"net/http/httptest\"\n \t\"os\"\n \t\"os/exec\"\n \t\"path/filepath\"\n@@ -1030,3 +1032,43 @@ func Test_nonInteractiveLoginDefaultsToTheResolvedHost(t *testing.T) {\n \tonDefault, _ := cfg.Get(\"gitlab.com\", \"job_token\")\n \tassert.Empty(t, onDefault, \"credentials should not land on gitlab.com\")\n }\n+\n+// loginRun stores use_keyring before the OAuth2 flow has a token, so the\n+// client for that flow must not depend on a stored token.\n+func Test_deviceLoginWithKeyringAndNoStoredToken(t *testing.T) {\n+\tkeyring.MockInit()\n+\tt.Setenv(\"GITLAB_CI\", \"\")\n+\tt.Setenv(\"CI\", \"\")\n+\tt.Setenv(\"GITLAB_TOKEN\", \"\")\n+\tt.Setenv(\"GITLAB_ACCESS_TOKEN\", \"\")\n+\tt.Setenv(\"OAUTH_TOKEN\", \"\")\n+\n+\trequests := make(chan string, 10)\n+\tserver := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n+\t\trequests <- r.URL.Path\n+\t\tw.WriteHeader(http.StatusBadRequest)\n+\t}))\n+\tt.Cleanup(server.Close)\n+\thostname := strings.TrimPrefix(server.URL, \"https://\")\n+\n+\td := t.TempDir()\n+\tt.Setenv(\"GLAB_CONFIG_DIR\", d)\n+\tcfg := config.NewBlankConfigInDir(d)\n+\trequire.NoError(t, cfg.Set(hostname, \"client_id\", \"test-client-id\"))\n+\trequire.NoError(t, cfg.Set(hostname, \"skip_tls_verify\", \"true\"))\n+\n+\texec := cmdtest.SetupCmdForTest(t, NewCmdLogin, false,\n+\t\tcmdtest.WithConfig(cfg),\n+\t\tcmdtest.WithApiClientFunc(func(repoHost string) (*api.Client, error) {\n+\t\t\treturn api.NewClientFromConfig(repoHost, cfg, false, \"test-agent\")\n+\t\t}),\n+\t)\n+\n+\t_, err := exec(\"--hostname \" + hostname + \" --device\")\n+\trequire.ErrorContains(t, err, \"failed to start device authorization\")\n+\trequire.Len(t, requests, 1)\n+\tassert.Equal(t, \"/oauth/authorize_device\", <-requests)\n+\n+\tuseKeyring, _ := cfg.Get(hostname, \"use_keyring\")\n+\tassert.Equal(t, \"true\", useKeyring)\n+}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/auth/login/login_test.go",
-          "old_path": "internal/commands/auth/login/login_test.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -31,10 +31,12 @@ func NewCmd(f cmdutils.Factory) *cobra.Command {\n \topts := &options{io: f.IO(), cfg: f.Config(), factory: f, execute: executeOrbit}\n \tcmd := &cobra.Command{\n \t\tUse:   \"orbit [<command>] [flags]\",\n-\t\tShort: `Run the GitLab Orbit CLI. (EXPERIMENTAL)`,\n+\t\tShort: `Query the GitLab Orbit context graph. (EXPERIMENTAL)`,\n \t\tLong: heredoc.Docf(`\n \t\t\tRun the GitLab Orbit CLI through glab.\n \n+\t\t\tCoding agents: run %[1]sglab orbit --yes skills get orbit%[1]s to load the Orbit skill. %[1]s--yes%[1]s installs the binary without a prompt on first use.\n+\n \t\t\tEvery command and flag, including %[1]s--help%[1]s, is forwarded verbatim to the managed Orbit binary. glab downloads, verifies, and updates that binary for you on first use. Until the binary is installed, %[1]s--help%[1]s shows this text instead. glab passes your resolved GitLab credential to the binary on every invocation, so remote commands such as %[1]sglab orbit query%[1]s need no separate login.\n \n \t\t\tglab handles only the %[1]supdate%[1]s command and the %[1]s--install%[1]s, %[1]s--update%[1]s, and %[1]s--yes%[1]s flags itself. Run %[1]sglab help orbit%[1]s to see them.\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/orbit/orbit.go",
-          "old_path": "internal/commands/orbit/orbit.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -184,6 +184,7 @@ func TestNewCmd_HelpShowsGlabTextUntilBinaryIsInstalled(t *testing.T) {\n \t\tout, err := exec(args)\n \t\trequire.NoError(t, err, args)\n \t\tassert.Contains(t, out.String(), \"Run the GitLab Orbit CLI\", args)\n+\t\tassert.Contains(t, out.String(), \"glab orbit --yes skills get orbit\", args)\n \t}\n }\n \n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/orbit/orbit_test.go",
-          "old_path": "internal/commands/orbit/orbit_test.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -17,3 +17,19 @@ func (c *fileConfig) configForHost(hostname string) (*HostConfig, error) {\n \t}\n \treturn nil, &NotFoundError{fmt.Errorf(\"could not find config entry for %q\", hostname)}\n }\n+\n+// HostUsesKeyring reports whether the host's own config entry sets use_keyring\n+// to \"true\". GetWithSource reads the keyring under the same rule, so the\n+// environment and the top-level config do not count.\n+func HostUsesKeyring(cfg Config, hostname string) bool {\n+\tfc, ok := cfg.(*fileConfig)\n+\tif !ok {\n+\t\treturn false\n+\t}\n+\thostCfg, err := fc.configForHost(hostname)\n+\tif err != nil {\n+\t\treturn false\n+\t}\n+\tuseKeyring, _ := hostCfg.GetStringValue(\"use_keyring\")\n+\treturn useKeyring == \"true\"\n+}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/config/host_config.go",
-          "old_path": "internal/config/host_config.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -0,0 +1,34 @@\n+//go:build !integration\n+\n+package config\n+\n+import (\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/assert\"\n+)\n+\n+func TestHostUsesKeyring(t *testing.T) {\n+\tt.Setenv(\"GLAB_USE_KEYRING\", \"\")\n+\tt.Setenv(\"USE_KEYRING\", \"\")\n+\n+\tt.Run(\"the host entry sets use_keyring\", func(t *testing.T) {\n+\t\tcfg := NewFromString(\"---\\nhosts:\\n  gitlab.example.com:\\n    use_keyring: \\\"true\\\"\\n\")\n+\n+\t\tassert.True(t, HostUsesKeyring(cfg, \"gitlab.example.com\"))\n+\t\tassert.False(t, HostUsesKeyring(cfg, \"other.example.com\"))\n+\t})\n+\n+\tt.Run(\"a top-level use_keyring does not count\", func(t *testing.T) {\n+\t\tcfg := NewFromString(\"---\\nuse_keyring: \\\"true\\\"\\nhosts:\\n  gitlab.example.com:\\n    user: someone\\n\")\n+\n+\t\tassert.False(t, HostUsesKeyring(cfg, \"gitlab.example.com\"))\n+\t})\n+\n+\tt.Run(\"GLAB_USE_KEYRING does not count\", func(t *testing.T) {\n+\t\tt.Setenv(\"GLAB_USE_KEYRING\", \"true\")\n+\t\tcfg := NewFromString(\"---\\nhosts:\\n  gitlab.example.com:\\n    user: someone\\n\")\n+\n+\t\tassert.False(t, HostUsesKeyring(cfg, \"gitlab.example.com\"))\n+\t})\n+}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/config/host_config_test.go",
-          "old_path": "internal/config/host_config_test.go",
+          "new_path": "internal/api/transport_cache_test.go",
+          "old_path": "internal/api/transport_cache_test.go",
           "a_mode": "0",
           "b_mode": "100644",
           "new_file": true,
@@ -270,11 +290,50 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -200,6 +200,13 @@ func WithApiClient(client *api.Client) FactoryOption {\n \t}\n }\n \n+// WithApiClientFunc configures the Factory to build API clients with the given function\n+func WithApiClientFunc(apiClient func(repoHost string) (*api.Client, error)) FactoryOption {\n+\treturn func(f *Factory) {\n+\t\tf.ApiClientStub = apiClient\n+\t}\n+}\n+\n // WithGitLabClient configures the Factory with a specific GitLab client\n func WithGitLabClient(client *gitlab.Client) FactoryOption {\n \treturn func(f *Factory) {\n",
+          "diff": "@@ -45,6 +45,7 @@ type DefaultFactory struct {\n \tbuildInfo       api.BuildInfo\n \tdefaultHostname string\n \tdefaultProtocol string\n+\ttransports      *api.TransportCache\n \n \tmu sync.Mutex // protects the fields below\n \t// cachedBaseRepo if set is the SSoT of the repository to use in BaseRepo(), GitLabClient() and other factory function that require a repository.\n@@ -60,6 +61,7 @@ func NewFactory(io *iostreams.IOStreams, resolveRepos bool, cfg config.Config, b\n \t\tbuildInfo:       buildInfo,\n \t\tdefaultHostname: glinstance.DefaultHostname,\n \t\tdefaultProtocol: glinstance.DefaultProtocol,\n+\t\ttransports:      api.NewTransportCache(),\n \t}\n \n \t// Fetch the custom host config from env vars, then local config.yml, then global config,yml.\n@@ -104,7 +106,7 @@ func (f *DefaultFactory) ApiClient(repoHost string) (*api.Client, error) {\n \tif repoHost == \"\" {\n \t\trepoHost = f.defaultHostname\n \t}\n-\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent())\n+\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n@@ -133,7 +135,7 @@ func (f *DefaultFactory) GitLabClient() (*gitlab.Client, error) {\n \t\tdbg.Debug(\"The current command request Factory.GitLabClient() without being able to resolve a base repository. The command should probably use Factory.ApiClient() instead\")\n \t}\n \n-\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent())\n+\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n@@ -169,7 +171,7 @@ func (f *DefaultFactory) resolveBaseRepoFromRemotes(ctx context.Context) (glrepo\n \t\treturn remotes[0], nil\n \t}\n \n-\tac, err := api.NewClientFromConfig(remotes[0].RepoHost(), f.config, false, f.buildInfo.UserAgent())\n+\tac, err := api.NewClientFromConfig(remotes[0].RepoHost(), f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/testing/cmdtest/factory.go",
-          "old_path": "internal/testing/cmdtest/factory.go",
+          "new_path": "internal/cmdutils/factory.go",
+          "old_path": "internal/cmdutils/factory.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -3,7 +3,14 @@\n package cmdutils\n \n import (\n+\t\"fmt\"\n+\t\"io\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/http/httptest\"\n \t\"net/url\"\n+\t\"strings\"\n+\t\"sync/atomic\"\n \t\"testing\"\n \n \t\"github.com/MakeNowJust/heredoc/v2\"\n@@ -102,6 +109,46 @@ func TestFactory_GitLabClientUsesCorrectHost(t *testing.T) {\n \t}\n }\n \n+func TestFactory_ApiClientsReuseConnection(t *testing.T) {\n+\t// GIVEN\n+\tvar conns atomic.Int64\n+\tsrv := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {\n+\t\tw.WriteHeader(http.StatusOK)\n+\t}))\n+\tsrv.Config.ConnState = func(_ net.Conn, state http.ConnState) {\n+\t\tif state == http.StateNew {\n+\t\t\tconns.Add(1)\n+\t\t}\n+\t}\n+\tsrv.StartTLS()\n+\tdefer srv.Close()\n+\n+\thost := strings.TrimPrefix(srv.URL, \"https://\")\n+\tcfg := config.NewFromString(fmt.Sprintf(`hosts:\n+  %q:\n+    api_host: %q\n+    token: glpat-test\n+    skip_tls_verify: true\n+`, host, host))\n+\tf := NewFactory(nil, false, cfg, api.BuildInfo{})\n+\n+\t// WHEN\n+\tfor range 2 {\n+\t\tc, err := f.ApiClient(host)\n+\t\trequire.NoError(t, err)\n+\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, srv.URL, http.NoBody)\n+\t\trequire.NoError(t, err)\n+\t\tresp, err := c.HTTPClient().Do(req)\n+\t\trequire.NoError(t, err)\n+\t\t_, err = io.Copy(io.Discard, resp.Body)\n+\t\trequire.NoError(t, err)\n+\t\trequire.NoError(t, resp.Body.Close())\n+\t}\n+\n+\t// THEN\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n func mustURL(t *testing.T, s string) *url.URL {\n \tt.Helper()\n \n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/cmdutils/factory_test.go",
+          "old_path": "internal/cmdutils/factory_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -6,6 +6,7 @@ import (\n \t\"net/url\"\n \t\"strconv\"\n \t\"strings\"\n+\t\"time\"\n \n \t\"github.com/MakeNowJust/heredoc/v2\"\n \t\"github.com/spf13/cobra\"\n@@ -45,6 +46,12 @@ type ListOptions struct {\n \tAll          bool\n \tConfidential bool\n \n+\t// dates\n+\tCreatedAfter  time.Time\n+\tCreatedBefore time.Time\n+\tUpdatedAfter  time.Time\n+\tUpdatedBefore time.Time\n+\n \t// Pagination\n \tPage    int64\n \tPerPage int64\n@@ -87,7 +94,8 @@ func NewCmdList(f cmdutils.Factory, runE func(opts *ListOptions) error, issueTyp\n \t\t\tglab %[1]s list --all\n \t\t\tglab %[1]s ls --all\n \t\t\tglab %[1]s list --assignee=@me\n-\t\t\tglab %[1]s list --milestone release-2.0.0 --opened`, issueType)),\n+\t\t\tglab %[1]s list --milestone release-2.0.0 --opened\n+\t\t\tglab %[1]s list --updated-after 2026-10-01T00:00:00Z`, issueType)),\n \t\tArgs:              cobra.NoArgs,\n \t\tValidArgsFunction: cobra.NoFileCompletions,\n \t\tAnnotations: map[string]string{\n@@ -165,6 +173,10 @@ func NewCmdList(f cmdutils.Factory, runE func(opts *ListOptions) error, issueTyp\n \tissueListCmd.Flags().BoolVarP(&opts.All, \"all\", \"A\", false, fmt.Sprintf(\"Get all %ss.\", issueType))\n \tissueListCmd.Flags().BoolVarP(&opts.Closed, \"closed\", \"c\", false, fmt.Sprintf(\"Get only closed %ss.\", issueType))\n \tissueListCmd.Flags().BoolVarP(&opts.Confidential, \"confidential\", \"C\", false, fmt.Sprintf(\"Filter by confidential %ss.\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.CreatedAfter, \"created-after\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.CreatedBefore, \"created-before\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.UpdatedAfter, \"updated-after\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.UpdatedBefore, \"updated-before\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n \tissueListCmd.Flags().VarP(cmdutils.NewEnumValue([]string{\"details\", \"ids\", \"urls\"}, \"details\", &opts.OutputFormat), \"output-format\", \"F\", \"Options: 'details', 'ids', 'urls'.\")\n \tcmdutils.EnableJSONOutputP(issueListCmd, f.IO(), &opts.Output, \"O\", \"Options: 'text' or 'json'.\")\n \tissueListCmd.Flags().Int64VarP(&opts.Page, \"page\", \"p\", 1, \"Page number.\")\n@@ -277,6 +289,22 @@ func listRun(opts *ListOptions) error {\n \t\tlistOpts.Confidential = new(opts.Confidential)\n \t\topts.ListType = \"search\"\n \t}\n+\tif !opts.CreatedAfter.IsZero() {\n+\t\tlistOpts.CreatedAfter = new(opts.CreatedAfter)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.CreatedBefore.IsZero() {\n+\t\tlistOpts.CreatedBefore = new(opts.CreatedBefore)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.UpdatedAfter.IsZero() {\n+\t\tlistOpts.UpdatedAfter = new(opts.UpdatedAfter)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.UpdatedBefore.IsZero() {\n+\t\tlistOpts.UpdatedBefore = new(opts.UpdatedBefore)\n+\t\topts.ListType = \"search\"\n+\t}\n \tif opts.Page != 0 {\n \t\tlistOpts.Page = opts.Page\n \t\topts.ListType = \"search\"\n@@ -467,6 +495,18 @@ func isMatch(issue *gitlab.Issue, opts *gitlab.ListProjectIssuesOptions) bool {\n \tif opts.Confidential != nil && *opts.Confidential != issue.Confidential {\n \t\treturn false\n \t}\n+\tif opts.CreatedAfter != nil && (issue.CreatedAt == nil || issue.CreatedAt.Before(*opts.CreatedAfter)) {\n+\t\treturn false\n+\t}\n+\tif opts.CreatedBefore != nil && (issue.CreatedAt == nil || issue.CreatedAt.After(*opts.CreatedBefore)) {\n+\t\treturn false\n+\t}\n+\tif opts.UpdatedAfter != nil && (issue.UpdatedAt == nil || issue.UpdatedAt.Before(*opts.UpdatedAfter)) {\n+\t\treturn false\n+\t}\n+\tif opts.UpdatedBefore != nil && (issue.UpdatedAt == nil || issue.UpdatedAt.After(*opts.UpdatedBefore)) {\n+\t\treturn false\n+\t}\n \n \treturn true\n }\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/commands/issuable/list/issuable_list.go",
+          "old_path": "internal/commands/issuable/list/issuable_list.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -546,6 +546,129 @@ func TestIssueList_filterByIteration(t *testing.T) {\n `, output.String())\n }\n \n+func TestIssueList_filterByDates(t *testing.T) {\n+\t// NOTE: These subtests cannot run in parallel because they use cmdutils.GroupOverride()\n+\t// which modifies global viper state (SetEnvPrefix, BindEnv).\n+\tt.Run(\"project\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListProjectIssues(\"OWNER/REPO\", gomock.Any()).\n+\t\t\tDoAndReturn(func(pid any, opts *gitlab.ListProjectIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\trequire.NotNil(t, opts.CreatedAfter)\n+\t\t\t\trequire.NotNil(t, opts.CreatedBefore)\n+\t\t\t\trequire.NotNil(t, opts.UpdatedAfter)\n+\t\t\t\trequire.NotNil(t, opts.UpdatedBefore)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), *opts.CreatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC), *opts.CreatedBefore)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 3, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedBefore)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\toutput, err := exec(\"--created-after 2026-01-01T00:00:00Z --created-before 2026-02-01T00:00:00Z --updated-after 2026-03-01T00:00:00Z --updated-before 2026-04-01T00:00:00Z\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tassert.Empty(t, output.Stderr())\n+\t\tassert.Equal(t, `No open issues match your search in OWNER/REPO.\n+\n+\n+`, output.String())\n+\t})\n+\tt.Run(\"no date flags\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListProjectIssues(\"OWNER/REPO\", gomock.Any()).\n+\t\t\tDoAndReturn(func(pid any, opts *gitlab.ListProjectIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\tassert.Nil(t, opts.CreatedAfter)\n+\t\t\t\tassert.Nil(t, opts.CreatedBefore)\n+\t\t\t\tassert.Nil(t, opts.UpdatedAfter)\n+\t\t\t\tassert.Nil(t, opts.UpdatedBefore)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\t_, err = exec(\"\")\n+\t\trequire.NoError(t, err)\n+\t})\n+\tt.Run(\"group\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListGroupIssues(\"GROUP\", gomock.Any()).\n+\t\t\tDoAndReturn(func(gid any, opts *gitlab.ListGroupIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\trequire.NotNil(t, opts.UpdatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 10, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedAfter)\n+\t\t\t\tassert.Nil(t, opts.CreatedAfter)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\toutput, err := exec(\"--group GROUP --updated-after 2026-10-01T00:00:00Z\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tassert.Empty(t, output.Stderr())\n+\t\tassert.Equal(t, `No open issues match your search in GROUP.\n+\n+\n+`, output.String())\n+\t})\n+\tt.Run(\"invalid format\", func(t *testing.T) {\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\t_, err := exec(\"--created-after 2026-10-01\")\n+\t\trequire.ErrorContains(t, err, \"invalid time format\")\n+\t})\n+}\n+\n func TestIssueList_tty_withIssueType(t *testing.T) {\n \t// NOTE: we need to force disable colors, otherwise we'd need ANSI sequences in our test output assertions.\n \tt.Setenv(\"NO_COLOR\", \"true\")\n@@ -975,6 +1098,8 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\t\tID: 103,\n \t\t\t},\n \t\t\tConfidential: false,\n+\t\t\tCreatedAt:    new(time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)),\n+\t\t\tUpdatedAt:    new(time.Date(2026, 3, 1, 0, 0, 0, 0, time.UTC)),\n \t\t},\n \t\t{\n \t\t\tIID:   2,\n@@ -992,6 +1117,8 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\t\tID: 203,\n \t\t\t},\n \t\t\tConfidential: true,\n+\t\t\tCreatedAt:    new(time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC)),\n+\t\t\tUpdatedAt:    new(time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC)),\n \t\t},\n \t}\n \n@@ -1079,6 +1206,31 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\tcommandLine: `--group testGroupID --epic 42 --all --confidential`,\n \t\t\twantIDs:     []int{2},\n \t\t},\n+\t\t{\n+\t\t\tname:        \"created-after flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-after 2026-01-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"created-before flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-before 2026-01-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{1},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"updated-after flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --updated-after 2026-03-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"updated-before flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --updated-before 2026-03-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{1},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"date flags include the boundary\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-after 2026-02-01T00:00:00Z --created-before 2026-02-01T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n \t\t{\n \t\t\tname:        \"page flag\",\n \t\t\tcommandLine: `--group testGroupID --epic 42 --all --page=2`,\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/commands/issuable/list/issuable_list_test.go",
+          "old_path": "internal/commands/issuable/list/issuable_list_test.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -285,7 +344,7 @@
       ],
       "compare_timeout": false,
       "compare_same_ref": false,
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/compare/b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f...22ef0830b3575048b558d32c2d930d41a5b32ffc"
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/compare/0c70d17a21abdb54ba58828aca394a582d0b3f79...e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
     }
   }
 }

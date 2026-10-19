@@ -11,49 +11,113 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8601",
-        "externalId": "206228396"
+        "number": "8629",
+        "externalId": "207093591"
       },
       "kind": "issue",
-      "title": "feat: add --message-file to issue note and mr note (consistency with --description-file)",
-      "body": "### Problem to solve\n\n`glab issue note` and `glab mr note create` only accept the comment body via the inline `--message` flag. This makes multiline comments, code blocks with backticks, and shell-quoted content error-prone or impossible to pass safely from the command line:\n\n```sh\n# backticks and $(...) inside the message are subject to shell command substitution\nglab issue note 3 --message \"run `git status` and paste the output of $(date)\"\n```\n\nThis is a real footgun: the text can be silently mangled by the shell before glab ever sees it.\n\n### Proposal\n\nAdd file/stdin input for note bodies, consistent with the existing `--description-file` flag on `glab issue create` and `glab mr create`:\n\n- `glab issue note <id> --message-file <file>` (and `-` for stdin)\n- `glab mr note create --message-file <file>` (and `-` for stdin)\n\nThis restores symmetry with the create commands and makes it practical to script comments containing backticks, `$()`, or long Markdown.\n\n### Related\n\n- #7500 \"Allow mr note to use a file as message\" was closed (2026-09-23) but as of glab 1.122.0 neither `mr note create` nor `issue note` ships a `--message-file` flag, so the request appears unresolved.\n- Current workaround: `glab api --method POST projects/<id>/issues/<iid>/notes -F body=@file`, which works but bypasses the CLI UX and requires knowing the numeric project ID / URL-encoding the path.\n\n### Environment\n\n- glab 1.122.0 (89d0008af), macOS (Homebrew)\n- Affected commands: `glab issue note`, `glab mr note create`",
+      "title": "govern audit sync fails with \"Too many total parameters\" for long sessions",
+      "body": "`glab govern audit sync` batches audit events by count only (500 per request), but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. So a session with more than about 200 events to upload fails with:\n\n```plaintext\ncould not post audit events: could not post audit events: POST https://gitlab.com/api/v4/projects/<id>/ai_agent/audit_events: 400 {error: Too many total parameters}\n```\n\nThe cursor doesn't move on failure, so every later sync sends the same batch and the session never finishes syncing. The error prefix is also repeated.\n\nGitLab is raising the limit in https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119, but older self-managed versions keep 5,000, so glab needs to batch by size too.\n\nDetails and the customer report: https://gitlab.com/gitlab-org/gitlab/-/work_items/634442",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [
+        {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jeanvdw",
+          "id": "27487407",
+          "name": "Jean van der Walt",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+          "url": "https://gitlab.com/jeanvdw",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "lastActivityAt": "2026-10-19T02:48:22.205Z",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jeanvdw",
+        "id": "27487407",
+        "name": "Jean van der Walt",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+        "url": "https://gitlab.com/jeanvdw",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8629",
+      "createdAt": "2026-10-19T02:48:20.600Z",
+      "updatedAt": "2026-10-19T02:48:22.205Z",
+      "labels": [
+        {
+          "name": "Category:AI Governance"
+        },
+        {
+          "name": "devops::security governance"
+        },
+        {
+          "name": "group::ai governance"
+        },
+        {
+          "name": "section::sec"
+        },
+        {
+          "name": "type::bug"
+        }
+      ],
+      "commentCount": 0,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8628",
+        "externalId": "207092717"
+      },
+      "kind": "issue",
+      "title": "feat: report pipeline status via OSC 7501 in `ci status --live`",
+      "body": "### Problem to solve\n\nAs a developer running `glab ci status --live` or `glab ci status --wait`, I want my terminal tab to show whether the pipeline is still running, has passed, or has failed, so I can switch to other work without repeatedly checking the tab.\n\n### Proposal\n\nReport pipeline state from `glab ci status --live` / `--wait` using the [Program Status Protocol (OSC 7501)](https://github.com/charmbracelet/bubbletea/releases), which recent Bubble Tea releases support:\n\n| Pipeline state | Program status | Reason |\n|---|---|---|\n| `created`, `pending`, `running` | working | e.g. `pipeline #123 running (4/12 jobs)` |\n| `success` | finished | `pipeline #123 passed` |\n| `failed` | failed | e.g. `job rspec 3/8 failed` |\n| `canceled`, `skipped` | finished/failed | pipeline status |\n| `manual` (blocked) | waiting on user | `pipeline #123 waiting on manual job` |\n\nImplementation notes:\n\n- `ci status` renders through `uilive`, not a `tea.Program`, so add a small helper in `internal/iostreams` (for example `SetProgramStatus(state, reason)`) that writes the sequence directly.\n- Emit only when output is a TTY. Never emit for `--output json`, piped output, or `GITLAB_CI`.\n- Reset the status on exit, including Ctrl+C, so a stale \"working\" indicator isn't left behind.\n- Consider an opt-out (config key in `KeySchema` or env var) while terminal support is new.\n\n### Further details\n\nOnce the helper exists, other long-running or interactive commands can reuse it in follow-ups: `ci trace`, `mr merge` waiting on pipelines, `auth login`, `stack sync` conflicts, `duo ask`, and the shared `Confirm`/`Input`/`Select` prompts and spinner.\n\n### Links / references\n\n- Bubble Tea release announcing OSC 7501 support\n- `internal/commands/ci/status/status.go`",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
       "assignees": [],
       "reviewers": [],
-      "lastActivityAt": "2026-10-12T06:53:15.809Z",
+      "lastActivityAt": "2026-10-19T03:09:40.451Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "wlnpu",
-        "id": "43270189",
-        "name": "wlnpu",
-        "avatarUrl": "https://secure.gravatar.com/avatar/3195812a46f84e62aa63220238e48bccb42bcffaf8faf4afae0e0a99b7a4e116?s=80&d=identicon",
-        "url": "https://gitlab.com/wlnpu",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8601",
-      "createdAt": "2026-10-12T03:29:56.054Z",
-      "updatedAt": "2026-10-12T06:53:15.809Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8628",
+      "createdAt": "2026-10-19T02:35:53.439Z",
+      "updatedAt": "2026-10-19T03:09:40.451Z",
       "labels": [
         {
-          "name": "automation:ml"
-        },
-        {
-          "name": "backend"
+          "name": "automation:quick-win-judged"
         },
         {
           "name": "category:gitlab cli"
         },
         {
-          "name": "devops::ai coding"
+          "name": "devops::ai clients"
         },
         {
-          "name": "feature::addition"
-        },
-        {
-          "name": "group::code review"
+          "name": "group::developer clients"
         },
         {
           "name": "section::ai"
@@ -62,7 +126,7 @@
           "name": "type::feature"
         }
       ],
-      "commentCount": 3,
+      "commentCount": 0,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -79,12 +143,12 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8600",
-        "externalId": "206226142"
+        "number": "8627",
+        "externalId": "207091807"
       },
       "kind": "issue",
-      "title": "Release create webhook omits asset links added by glab release create",
-      "body": "## Summary\n\nWhen `glab release create` creates a new release, the `create` release webhook payload has no `assets.links`. A later `update` webhook (for example, after editing the release notes) has them. The CI/CD `release:` keyword runs `glab release create`, so releases created from pipelines are affected.\n\nThe cause is that glab creates the release first and then adds each asset link with a separate `CreateReleaseLink` request. The `create` webhook fires before any links exist.\n\nOriginally reported against the GitLab project in gitlab-org/gitlab#574029, which was closed without a fix because the behavior is client-side.\n\n## Steps to reproduce\n\n1. Add a project webhook for release events.\n1. Run `glab release create v1.0.0 --assets-links='[{\"name\":\"asset\",\"url\":\"https://example.com/asset\"}]'`, or use a `release:` job with `assets: links:`.\n1. Inspect the `create` webhook payload: `assets.links` is empty.\n\n## Expected behavior\n\nThe `create` webhook payload includes every asset link passed to `glab release create`.\n\n## Proposed fix\n\nOn the create path, send the links in the `assets.links` field of the [create release](https://docs.gitlab.com/api/releases/#create-a-release) request instead of adding them afterwards. Existing releases keep using the per-link route, because the update API has no assets field.\n\nThis applies to both:\n\n- JSON links from `--assets-links`.\n- Files passed as positional arguments. Neither generic package uploads nor project markdown uploads need the release to exist, so files can be uploaded before the release is created and their links included in the create request.\n\n## Related\n\n- gitlab-org/cli!4040 (fixes `--assets-links`; uploaded files are still linked after creation)\n- gitlab-org/cli#7859",
+      "title": "Terminal background-colour query blocks every TTY command, up to 5s per query",
+      "body": "## Summary\n\nWhen stdout is a terminal, every glab command blocks on a terminal background-colour query (an OSC 11 request that waits for the terminal's reply).\n\n- `NewCmdRoot` (`internal/commands/root.go:64`) calls `f.IO().Color()` eagerly, only to colour one help string.\n- `Color()` runs `termenv.HasDarkBackground()` (`internal/iostreams/color.go:55`), which waits for the terminal to answer. Nothing caches the result, so the query runs again on every `Color()` call.\n- `termenv.HasDarkBackground()` is also called directly in `internal/iostreams/iostreams.go:373` and `internal/commands/help/help.go:31`.\n- fang runs its own query on help and error output.\n\nResult: 1 query for `glab version`, and 2 for `mr list`, `issue list` and `--help`.\n\n## Impact\n\n- Local terminal: about zero.\n- Over SSH at 50ms RTT: adds 50–100ms per command.\n- A terminal that never answers waits out `termenv.OSCTimeout` (5s) on each query: about 5s for `version` and 9s for `--help`.\n- Setting `glamour_style` or `GLAB_GLAMOUR_STYLE=dark` does not skip the query. Only `NO_COLOR` does.\n\n## Proposal\n\n1. Drop the eager `Color()` call in `NewCmdRoot`, and colour the help string lazily.\n2. Detect the background once per process and reuse the result in all call sites (`color.go`, `iostreams.go`, `help/help.go`).\n3. Honour an explicit style (`glamour_style` / `GLAB_GLAMOUR_STYLE` set to `dark` or `light`) before probing the terminal.\n4. Lower `termenv.OSCTimeout` from its 5s default.\n5. Upstream: ask fang for an option to accept a known dark/light value, so it doesn't run its own query.\n\n## Acceptance criteria\n\n- At most one background query per process, and none when the style is set explicitly or `NO_COLOR` is set.\n- A terminal that never answers does not delay commands by seconds.\n\nFound during review of https://gitlab.com/gitlab-org/cli/-/merge_requests/4139. Related: https://gitlab.com/gitlab-org/cli/-/work_items/8626 (telemetry blocks exit).",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -92,148 +156,70 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "RabadanDotDev",
-          "id": "27526901",
-          "name": "Raul Rabadan Arroyo",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27526901/avatar.png?v=1791753570",
-          "url": "https://gitlab.com/RabadanDotDev",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
           "isBotHint": false
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "2026-10-12T06:58:21.611Z",
+      "lastActivityAt": "2026-10-19T02:33:16.145Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8600",
-      "createdAt": "2026-10-12T02:24:10.630Z",
-      "updatedAt": "2026-10-12T06:58:21.611Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8627",
+      "createdAt": "2026-10-19T02:28:20.359Z",
+      "updatedAt": "2026-10-19T02:33:16.145Z",
       "labels": [
         {
-          "name": "automation:quick-win-judged"
-        },
-        {
-          "name": "bug::functional"
+          "name": "agent-experience"
         },
         {
           "name": "category:gitlab cli"
         },
         {
-          "name": "devops::ai coding"
+          "name": "devops::ai clients"
         },
         {
-          "name": "group::code review"
+          "name": "group::developer clients"
         },
         {
-          "name": "section::ai"
-        },
-        {
-          "name": "type::bug"
-        }
-      ],
-      "commentCount": 1,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8599",
-        "externalId": "206201316"
-      },
-      "kind": "issue",
-      "title": "Release note file lookup leaves the repository directory handle open",
-      "body": "When `glab release create --experimental-notes-text-or-file` checks a file, `resolveNotesFileOrText` opens the repository directory with `os.OpenRoot`.\n\nThe function closes the note file but does not close the directory handle. The handle also stays open when the file is missing.\n\nOn Windows, the existing `TestReleaseCreate_ExperimentalNotes` tests fail when they remove their temporary directories.\n\n### Reproduction\n\nBaseline: `9a7963a1f` on `main`, Go 1.27.2, Windows.\n\nRun `go test ./internal/commands/release/create -run TestReleaseCreate_ExperimentalNotes -count=1`.\n\nThe existing-file and leading-space cases fail with `The process cannot access the file because it is being used by another process`.\n\n### Expected result\n\nClose the directory handle on each return path. Preserve read errors and close errors.\n\nA local patch closes both handles and passes the full release-create suite. Additional tests cover a file, a missing file, and a directory read error.\n\n### AI assistance\n\nInvestigated and tested with OpenAI Codex.",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "vivekyarra567",
-          "id": "39012371",
-          "name": "Yarra Vivek",
-          "avatarUrl": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-          "url": "https://gitlab.com/vivekyarra567",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "lastActivityAt": "2026-10-12T06:45:34.767Z",
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "vivekyarra567",
-        "id": "39012371",
-        "name": "Yarra Vivek",
-        "avatarUrl": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-        "url": "https://gitlab.com/vivekyarra567",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8599",
-      "createdAt": "2026-10-11T17:32:53.675Z",
-      "updatedAt": "2026-10-12T06:45:34.767Z",
-      "labels": [
-        {
-          "name": "automation:ml"
-        },
-        {
-          "name": "backend"
-        },
-        {
-          "name": "bug::functional"
-        },
-        {
-          "name": "category:gitlab cli"
-        },
-        {
-          "name": "devops::ai coding"
-        },
-        {
-          "name": "group::code review"
+          "name": "maintenance::performance"
         },
         {
           "name": "section::ai"
         },
         {
-          "name": "type::bug"
+          "name": "type::maintenance"
         }
       ],
-      "commentCount": 4,
+      "commentCount": 0,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 262,
+  "total": 252,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false",
-    "etag": "W/\"ca8e5ce0dbfce0a65832dcf1c75069b1\"",
+    "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\"",
     "token": "0:"
   },
   "rateLimit": {
-    "limit": 500,
-    "remaining": 482,
-    "resetAt": "<now>"
+    "limit": 1,
+    "remaining": 46,
+    "resetAt": "<now>",
+    "resource": "unauthenticated_traffic_per_ip"
   },
-  "etag": "W/\"ca8e5ce0dbfce0a65832dcf1c75069b1\""
+  "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\""
 }

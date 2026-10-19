@@ -1,0 +1,656 @@
+{
+  "items": [
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153890198",
+      "kindRaw": "DiscussionNote.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039460255"
+        },
+        "body": "Thanks @sjestonsingh, I've left a couple of suggestions"
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153889180",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039458973"
+        },
+        "body": "Suggestion: `last_update_check_timestamp` could also be managed globally."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153887994",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039457611"
+        },
+        "body": "Hi @phikai, just a sanity check as you are familiar with the external binaries (orbit, duo cli). Is there a use case for being able to configure the binaries locally? With this MR we would only be able to configure `duo_cli_binary_path` and `orbit_cli_binary_path` (and related configs) globally. I think this makes sense but just wanted a sanity check."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153868535",
+      "kindRaw": "DiffNote.commented on",
+      "actionRaw": "commented on",
+      "kind": "review_comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "review_comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039432960"
+        },
+        "body": "Re the \"one decision\" in the description: I'd keep the routing, but say so on stderr rather than doing it silently.\n\nNobody reaches these keys through `glab config set` by accident: glab itself updates them via `cfg.Set`, not this command. So whoever runs `glab config set duo_cli_binary_version ...` typed it deliberately (usually debugging or forcing a re-download) and asked for the local file. Silently writing global instead changes every repository without telling them. A one-line notice keeps the convenience and removes the surprise:\n\n```suggestion:-3+0\n\t// A key glab maintains for itself is read from the global file only, so a\n\t// local write would land where nothing reads it and the old local value\n\t// would keep winning. Route those to the global file instead.\n\trouted := !o.isGlobal && o.hostname == \"\" && config.IsGlobalOnlyKey(o.key)\n\twriteGlobal := o.isGlobal || o.hostname != \"\" || routed\n\tif routed {\n\t\to.io.LogErrorf(\"%s %s is managed by glab and is always stored in the global configuration: %s\\n\",\n\t\t\to.io.Color().DotWarnIcon(), o.key, config.ConfigFile())\n\t}\n```\n\n`TestConfigSet_GlobalOnlyKeyWritesGloballyWithoutTheFlag` would then need to assert the notice instead of `assert.Empty(t, out.Stderr())`, e.g. `assert.Contains(t, out.Stderr(), \"always stored in the global configuration\")`."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153797912",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039357682"
+        },
+        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Reconciled my earlier thread: the fake `NotFoundError` is gone and `GetWithSource` now guards the local read with `skipLocal`, so that point is fixed.\n- Checked the new read path. For glab-managed keys it goes straight to the global lookup. Other keys keep their local-over-global behavior.\n- Checked `IsGlobalOnlyKey`. It resolves aliases through `ConfigKeyEquivalence`, and the set is built from `KeySchema` at init, so aliases and names are both covered.\n- Checked `config set`. A glab-managed key routes both the set and the write to the global config, with and without `--global`, and the hostname path is unchanged.\n- Checked the tests. They cover both halves of the fix, the schema drift guard and local precedence for ordinary keys. I found no problems."
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153797909",
+      "kindRaw": "MergeRequest.approved",
+      "actionRaw": "approved",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "approval:GitLabDuo"
+        }
+      },
+      "summary": "GitLabDuo approved merge request",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153790642",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4062"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4062"
+          },
+          "id": "4039351320"
+        },
+        "body": "Thanks @HamzaHassanain , just one suggestion. :bow: Apologies, but you will have to fix conflicts before we can get this merged."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): use host key only as a fallback"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153781763",
+      "kindRaw": "DiffNote.commented on",
+      "actionRaw": "commented on",
+      "kind": "review_comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4062"
+      },
+      "detail": {
+        "type": "review_comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4062"
+          },
+          "id": "4039344382"
+        },
+        "body": "**suggestion (non-blocking):** When a config-file `host` matches no remote, glab now switches to the remote's host without saying so. That's the intended behavior, but a user who expected the configured instance (for example, someone not signed in to gitlab.com, in a repository whose only remote is on gitlab.com) gets a 401/404 with no hint that the configured `host` was set aside. A debug line here would make that easy to spot with `GLAB_DEBUG=true`:\n\n```go\ndbg.Debug(\"config host \" + hostOverride + \" matches no git remote; resolving from remotes instead\")\n```\n\n`dbg` is already used in `factory.go`."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): use host key only as a fallback"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153778201",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4148"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4148"
+          },
+          "id": "4039340929"
+        },
+        "body": "@jay_mccure Are you able to review this MR please?"
+      },
+      "summary": "jeanvdw commented",
+      "threadSnapshot": {
+        "title": "fix(govern): keep audit event batches within GitLab's limits"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jeanvdw",
+        "id": "27487407",
+        "name": "Jean van der Walt",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+        "url": "https://gitlab.com/jeanvdw",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153736615",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4148"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4148"
+          },
+          "id": "4039301590"
+        },
+        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- The wait seam was the only change since my last review. It is now a `waitFor` field on `options` with an `options.wait` method, and no package-level var is left. That addresses my earlier thread.\n- `options.wait` returns `ctx.Err()` on cancellation and otherwise waits on `time.After(d)`. The new cancellation test covers this and is correct.\n- `recordWaits(opts)` is called before each use in the rate-limit tests. Each subtest has its own `tt` and `opts`, so the per-test recording is safe.\n- The hook case in `TestSyncSession_ByCaller` still fails fast and posts nothing. The manual case waits through the stubbed seam and posts 1 event. Both match the intended behavior.\n- I found no new correctness problems in the lines added since my last review."
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "fix(govern): keep audit event batches within GitLab's limits"
+      },
+      "occurredAt": "2026-10-19T03:22:54.732Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/events?id=gitlab-org%2Fcli&page=2&per_page=10&sort=desc",
+    "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\""
+  },
+  "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\"",
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1945,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
+  }
+}

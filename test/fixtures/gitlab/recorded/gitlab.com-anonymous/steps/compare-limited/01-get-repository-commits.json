@@ -1,0 +1,121 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?ref_name=main&per_page=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"first\"",
+      "etag": "W/\"e39b5d685e0c52fc0399bbec46da5bf2\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "437",
+      "ratelimit-reset": "1792384860",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "5"
+    },
+    "body": [
+      {
+        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "short_id": "e74ebf81",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "parent_ids": [
+          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        ],
+        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T12:02:22.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      },
+      {
+        "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
+        "short_id": "d5034f13",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "parent_ids": [
+          "a300719a2aac26acb25eee65fe08398188c99a0e"
+        ],
+        "title": "feat(issue): add date filters to issue list",
+        "message": "feat(issue): add date filters to issue list\n",
+        "author_name": "Hamza Hassanain",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T05:02:22.000+03:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      },
+      {
+        "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "short_id": "5573de7d",
+        "created_at": "2026-10-19T11:56:01.000+10:00",
+        "parent_ids": [
+          "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+          "74931758500a9c66e56ca2c443a0c2a987c5923f"
+        ],
+        "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
+        "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T11:56:01.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T11:56:01.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+      },
+      {
+        "id": "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+        "short_id": "6f512fe3",
+        "created_at": "2026-10-19T11:14:45.000+10:00",
+        "parent_ids": [
+          "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+          "fab36a75f5e21664548604036d395bf6d52276df"
+        ],
+        "title": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'",
+        "message": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'\n\nchore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4133\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T11:14:45.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T11:14:45.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6f512fe3ef14c70281a68b1d9518be54ad8bf4e7"
+      },
+      {
+        "id": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+        "short_id": "0c70d17a",
+        "created_at": "2026-10-19T11:13:03.000+10:00",
+        "parent_ids": [
+          "8ef1da7226ac68f855a6a5d883d51799ed02d5e4",
+          "7fae9b8f5d2b701367d71297faf83b80e7daa69e"
+        ],
+        "title": "Merge branch 'renovate/golang.org-x-crypto-0.x' into 'main'",
+        "message": "Merge branch 'renovate/golang.org-x-crypto-0.x' into 'main'\n\nchore(deps): update module golang.org/x/crypto to v0.58.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4135\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+        "author_name": "Jay McCure",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-19T11:13:03.000+10:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-19T11:13:03.000+10:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0c70d17a21abdb54ba58828aca394a582d0b3f79"
+      }
+    ]
+  }
+}

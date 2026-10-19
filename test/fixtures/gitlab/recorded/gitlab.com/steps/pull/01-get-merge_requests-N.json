@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"84d11b9cd16164029d6a44dfdb7583c1\"",
+      "etag": "W/\"e524bcab926efd5781482a6651551b8d\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1993",
-      "ratelimit-reset": "1791804600"
+      "ratelimit-remaining": "1979",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "id": 541465719,
@@ -27,7 +28,7 @@
         "name": "Jay McCure",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
         "web_url": "https://gitlab.com/jay_mccure"
       },
       "merge_user": {
@@ -37,7 +38,7 @@
         "name": "Jay McCure",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
         "web_url": "https://gitlab.com/jay_mccure"
       },
       "merged_at": "2026-10-01T23:49:46.956Z",
@@ -89,7 +90,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
           "web_url": "https://gitlab.com/jay_mccure"
         }
       ],
@@ -182,7 +183,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
           "web_url": "https://gitlab.com/jay_mccure"
         },
         "started_at": "2026-10-01T23:42:13.675Z",

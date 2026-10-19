@@ -6,48 +6,49 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f122ccd0eecff038f358103f2541f85e\"",
+      "etag": "W/\"3101d590e62ac7a5749b053fc24d58ae\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1943",
-      "ratelimit-reset": "1791804600"
+      "ratelimit-remaining": "1920",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
-      "id": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
-      "short_id": "b67f19b0",
-      "created_at": "2026-10-12T12:58:35.000+02:00",
+      "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "short_id": "e74ebf81",
+      "created_at": "2026-10-19T12:02:22.000+10:00",
       "parent_ids": [
-        "6ff113fb6793eb4963464a2923de28890f1127f9",
-        "c3151df7594b6208664ed7c51dd97ffd671067d6"
+        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
       ],
-      "title": "Merge branch '8577-ssh-key-add-replace' into 'main'",
-      "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
-      "author_name": "Ahmed Hemdan",
+      "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "author_name": "Jay McCure",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-12T12:58:35.000+02:00",
+      "authored_date": "2026-10-19T12:02:22.000+10:00",
       "committer_name": "GitLab",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-12T12:58:35.000+02:00",
+      "committed_date": "2026-10-19T12:02:22.000+10:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
       "stats": {
-        "additions": 277,
-        "deletions": 24,
-        "total": 301
+        "additions": 203,
+        "deletions": 1,
+        "total": 204
       },
       "status": "success",
       "project_id": 34675721,
       "last_pipeline": {
-        "id": 2938354390,
-        "iid": 15128,
+        "id": 2961304567,
+        "iid": 15538,
         "project_id": 34675721,
-        "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
+        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
         "ref": "main",
         "status": "success",
         "source": "push",
-        "created_at": "2026-10-12T10:58:37.988Z",
-        "updated_at": "2026-10-12T11:11:55.378Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2938354390"
+        "created_at": "2026-10-19T02:02:25.218Z",
+        "updated_at": "2026-10-19T02:21:35.568Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961304567"
       }
     }
   }

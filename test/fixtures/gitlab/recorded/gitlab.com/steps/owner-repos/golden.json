@@ -4,9 +4,57 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/frontend",
-        "name": "gitlab-mfe",
-        "externalId": "83118773"
+        "owner": "gitlab-org/technical-writing",
+        "name": "docs-gitlab-com",
+        "externalId": "51970333"
+      },
+      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
+        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
+      },
+      "createdAt": "2023-11-07T18:07:49.139Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 91,
+      "stars": 56,
+      "forks": 128,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "merge": {
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+        },
+        "squash": {
+          "template": "%{first_commit}"
+        }
+      },
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org/analytics-section/platform-insights",
+        "name": "general",
+        "externalId": "64468833"
       },
       "defaultBranch": "main",
       "visibility": "public",
@@ -14,16 +62,16 @@
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/gitlab-org/frontend/gitlab-mfe",
+      "url": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/frontend/gitlab-mfe.git",
-        "ssh": "git@gitlab.com:gitlab-org/frontend/gitlab-mfe.git"
+        "https": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general.git",
+        "ssh": "git@gitlab.com:gitlab-org/analytics-section/platform-insights/general.git"
       },
-      "createdAt": "2026-06-10T19:11:52.728Z",
+      "createdAt": "2024-11-12T21:16:03.594Z",
       "updatedAt": "<now>",
-      "openIssueCount": 3,
+      "openIssueCount": 6,
       "stars": 0,
-      "forks": 1,
+      "forks": 0,
       "mergeMethods": [
         "merge",
         "squash"
@@ -44,32 +92,30 @@
         "forge": "gitlab",
         "instance": "gitlab.com",
         "owner": "gitlab-org",
-        "name": "gitlab-shell",
-        "externalId": "14022"
+        "name": "gitlab-foss",
+        "externalId": "13083"
       },
-      "description": "SSH access for GitLab",
-      "defaultBranch": "main",
+      "description": "GitLab FOSS is a read-only mirror of GitLab, with all proprietary code removed.\n\nThis project was previously used to host GitLab Community Edition, but all development has now moved to https://gitlab.com/gitlab-org/gitlab.\n",
+      "defaultBranch": "master",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [
         "Canonical",
-        "golang",
         "hacktoberfest",
-        "infra-mgmt Managed",
-        "ssh"
+        "infra-mgmt Managed"
       ],
-      "url": "https://gitlab.com/gitlab-org/gitlab-shell",
+      "url": "https://gitlab.com/gitlab-org/gitlab-foss",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/gitlab-shell.git",
-        "ssh": "git@gitlab.com:gitlab-org/gitlab-shell.git"
+        "https": "https://gitlab.com/gitlab-org/gitlab-foss.git",
+        "ssh": "git@gitlab.com:gitlab-org/gitlab-foss.git"
       },
-      "createdAt": "2013-10-07T16:48:29.000Z",
+      "createdAt": "2013-09-26T06:02:36.000Z",
       "updatedAt": "<now>",
-      "openIssueCount": 77,
-      "stars": 233,
-      "forks": 338,
+      "openIssueCount": 0,
+      "stars": 7173,
+      "forks": 8274,
       "mergeMethods": [
         "merge",
         "squash"
@@ -87,58 +133,20 @@
         "discussions": false,
         "wiki": false,
         "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/build/omnibus-mirror",
-        "name": "prometheus",
-        "externalId": "2715353"
-      },
-      "description": "",
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/build/omnibus-mirror/prometheus",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/build/omnibus-mirror/prometheus.git",
-        "ssh": "git@gitlab.com:gitlab-org/build/omnibus-mirror/prometheus.git"
-      },
-      "createdAt": "2017-02-16T09:31:07.334Z",
-      "updatedAt": "<now>",
-      "stars": 1,
-      "forks": 0,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": false,
-        "pullRequests": false,
-        "discussions": false,
-        "wiki": false,
-        "projects": false,
-        "releases": true
+        "releases": false
       }
     }
   ],
-  "total": 3749,
+  "total": 3762,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"6561eee86a17534cb5960c05c4f7af42\""
+    "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\""
   },
-  "etag": "W/\"6561eee86a17534cb5960c05c4f7af42\"",
+  "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1961,
-    "resetAt": "<now>"
+    "remaining": 1942,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/jobs/17272413278/trace"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1930",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
+    },
+    "body": {
+      "message": "403 Forbidden"
+    }
+  }
+}

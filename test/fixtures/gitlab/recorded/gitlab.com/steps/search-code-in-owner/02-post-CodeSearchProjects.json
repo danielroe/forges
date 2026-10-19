@@ -14,8 +14,9 @@
     "headers": {
       "etag": "W/\"b4c614d61a923c4e8549993ecb85c9bc\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1929",
-      "ratelimit-reset": "1791805800"
+      "ratelimit-remaining": "1999",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "data": {

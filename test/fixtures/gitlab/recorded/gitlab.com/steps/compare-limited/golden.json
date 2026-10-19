@@ -1,7 +1,7 @@
 {
-  "base": "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f",
+  "base": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
   "head": "main",
-  "aheadBy": 4,
+  "aheadBy": 7,
   "commits": [
     {
       "ref": {
@@ -13,25 +13,25 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "22ef0830b3575048b558d32c2d930d41a5b32ffc"
+        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
       },
-      "sha": "22ef0830b3575048b558d32c2d930d41a5b32ffc",
-      "message": "Merge branch 'orbit-help-skill-pointer' into 'main'\n\ndocs(orbit): point agents to the Orbit skill in help\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4072\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: Kai Armstrong <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Dmitry Gruzd <redacted@example.invalid>",
+      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
       "author": {
-        "name": "Kai Armstrong",
+        "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-13T18:05:31.000Z"
+        "date": "2026-10-19T02:02:22.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-13T18:05:31.000Z"
+        "date": "2026-10-19T02:02:22.000Z"
       },
       "parents": [
-        "24a87522cd40bd8a707416b85b57d5e2684def41",
-        "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/22ef0830b3575048b558d32c2d930d41a5b32ffc"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
     },
     {
       "ref": {
@@ -43,24 +43,24 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "8fe3673c932ac91e4299dc16835bf33a002af7ff"
+        "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759"
       },
-      "sha": "8fe3673c932ac91e4299dc16835bf33a002af7ff",
-      "message": "docs(orbit): point agents to the Orbit skill in help\n",
+      "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
+      "message": "feat(issue): add date filters to issue list\n",
       "author": {
-        "name": "Dmitry Gruzd",
+        "name": "Hamza Hassanain",
         "email": "redacted@example.invalid",
-        "date": "2026-10-13T18:05:30.000Z"
+        "date": "2026-10-19T02:02:22.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-13T18:05:30.000Z"
+        "date": "2026-10-19T02:02:22.000Z"
       },
       "parents": [
-        "b3bf6ccba7d855c656fb6bd4e1d8feb62fe8285f"
+        "a300719a2aac26acb25eee65fe08398188c99a0e"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/8fe3673c932ac91e4299dc16835bf33a002af7ff"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
     }
   ],
   "files": []

@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/merge_requests/Documentation"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a3161f8ea14601c05703e8acea2b31c9\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1990",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api"
+    },
+    "body": {
+      "name": "Documentation",
+      "content": "## Description\n\n<!--- Describe your changes in detail -->\n\n## Related issues and merge requests\n\n## Documentation\n\nIf this MR adds or updates CLI command documentation, follow the conventions in the\n[GitLab CLI (glab) documentation style guide](https://docs.gitlab.com/development/documentation/cli_styleguide/),\nrun `make gen-docs`, and commit the updated files in `docs/source/`.\n\n/label ~\"devops::ai clients\" ~\"group::developer clients\" ~\"category:gitlab cli\" ~\"section::ai\"\n/label ~documentation ~\"type::maintenance\" ~\"docs::improvement\" ~\"maintenance::refactor\"\n/assign me\n"
+    }
+  }
+}

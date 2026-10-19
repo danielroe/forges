@@ -43,15 +43,16 @@
       "roleRaw": "30"
     }
   ],
-  "total": 3184,
+  "total": 3177,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/members/all?id=gitlab-org%2Fcli&page=2&per_page=3",
-    "etag": "W/\"6b90f86c91d56b4114c8aabba63aa2ee\""
+    "etag": "W/\"0eae0b7cb3bbc4259477bccb9a0b49b7\""
   },
-  "etag": "W/\"6b90f86c91d56b4114c8aabba63aa2ee\"",
+  "etag": "W/\"0eae0b7cb3bbc4259477bccb9a0b49b7\"",
   "rateLimit": {
     "limit": 2000,
     "remaining": 1995,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

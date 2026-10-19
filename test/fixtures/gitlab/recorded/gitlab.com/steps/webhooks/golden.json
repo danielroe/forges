@@ -29,10 +29,11 @@
     }
   ],
   "total": 1,
-  "etag": "W/\"62534c80909ecbb71d6b48d5c295a8ae\"",
+  "etag": "W/\"49555184f42bed6e7d98b53ad319a3e6\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1927,
-    "resetAt": "<now>"
+    "remaining": 1997,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

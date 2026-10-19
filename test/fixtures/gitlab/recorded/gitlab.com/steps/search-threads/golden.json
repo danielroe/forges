@@ -11,12 +11,12 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8345",
-        "externalId": "191616783"
+        "number": "8626",
+        "externalId": "207091602"
       },
       "kind": "issue",
-      "title": "glab mr merge --rebase --auto-merge doesn't rebase",
-      "body": "### Checklist\n\n<!-- Please test the latest versions, that will remove the possibility that you see a bug that is fixed in a newer version. -->\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.101.0\n- [x] Operating system and version: Windows 11\n- [x] Gitlab.com or self-managed instance? self-managed instance\n- [x] GitLab version (if self-managed) 18.3.0-ee\n  (Use the `version` endpoint, like this: gitlab.my-company.com/api/v4/version) \n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\n`glab mr merge --rebase --auto-merge` doesn't work as expected. I expected it does rebase on master then \"Set to auto-merge\" but it just merges already approved task without rebasing.",
+      "title": "Telemetry send blocks every command's exit for up to 2s",
+      "body": "## Summary\n\nglab sends its usage event (`POST /usage_data/track_event`) synchronously at exit on every command (`cmd/glab/telemetry.go`, `cobra.OnFinalize`, capped by `telemetrySendTimeout = 2s`). The user waits for this round trip after the command's own work is done. It is sent even when no token is configured, in which case it falls back to `gitlab.Unauthenticated{}` and gitlab.com returns 401.\n\nCommit 1ce119cae (`fix(telemetry): deliver the usage event reliably and cheaply`) made the send synchronous so events are actually delivered. Any fix must keep delivery reliable.\n\n## Measurements\n\nAt 50ms RTT against a mock GitLab (from the discussion on https://gitlab.com/gitlab-org/cli/-/merge_requests/4139):\n\n| Command     | Telemetry off | Telemetry on |\n|-------------|---------------|--------------|\n| `version`   | 14ms          | 153ms        |\n| `mr list`   | 158ms         | 284ms        |\n| `api user`  | 156ms         | 294ms        |\n| `mr view 1` | 290ms         | 413ms        |\n\nAgainst gitlab.com (about 10ms TCP / 33ms TLS connect), median of 20 runs, built from the https://gitlab.com/gitlab-org/cli/-/merge_requests/4139 branch:\n\n| Command        | Telemetry on | Telemetry off | Cost            |\n|----------------|--------------|---------------|-----------------|\n| `mr view 4139` | 1491ms       | 1146ms        | +346ms (23%)    |\n| `mr list`      | 1035ms       | 731ms         | +304ms (29%)    |\n\nThe on/off runs were not interleaved, so treat these as approximate. On slow networks, every command can wait the full 2s.\n\nhttps://gitlab.com/gitlab-org/cli/-/merge_requests/4139 lets telemetry reuse the command's warm connection. Commands that make no API request of their own (`version`, `config`, and similar) still open a dedicated TLS connection just for telemetry.\n\n## Proposal\n\nIn order of cost:\n\n1. **Skip the event when there is no token.** Unauthenticated events are rejected with 401, so sending them only adds latency.\n2. **Start the POST in a goroutine when the command starts**, and at exit wait only for what remains (still capped). With shared transports, it overlaps the command's own requests on the same connection, so the wait at exit is usually close to zero. Limitation: the event is sent before the command's outcome is known, which the current event doesn't report anyway.\n3. **Optional: spool events to a file.** Network-free commands only append to it (sub-millisecond). Commands that already use the API flush the spool concurrently with their own requests, batch events into one request, and never block at exit (unsent events stay spooled for the next run). Needs: file locking for concurrent glab processes, grouping events by host, timestamps taken from the spool, a cap on file size, and respect for opt-out on events already spooled.\n\nSteps 1 and 2 should recover most of the cost. Consider step 3 only if network-free commands or high-latency users still need it.\n\n## Acceptance criteria\n\n- No usage request when no credentials are configured.\n- Telemetry adds no measurable exit latency to commands that make API requests (compare `GLAB_SEND_TELEMETRY=false` vs `true`).\n- Events are still delivered (no regression of 1ce119cae).",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -24,126 +24,44 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "rantoniuk",
-          "id": "241647",
-          "name": "Radek Antoniuk",
-          "avatarUrl": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
-          "url": "https://gitlab.com/rantoniuk",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
           "isBotHint": false
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "<now>",
+      "lastActivityAt": "2026-10-19T02:57:13.144Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "QuAzI",
-        "id": "721050",
-        "name": "Ruslan Yakauleu",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/721050/avatar.png?v=1789010864",
-        "url": "https://gitlab.com/QuAzI",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8345",
-      "createdAt": "2026-06-02T19:39:25.013Z",
-      "updatedAt": "<now>",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8626",
+      "createdAt": "2026-10-19T02:23:45.411Z",
+      "updatedAt": "2026-10-19T02:57:13.144Z",
       "labels": [
         {
-          "name": "automation:ml"
-        },
-        {
-          "name": "bug::functional"
+          "name": "agent-experience"
         },
         {
           "name": "category:gitlab cli"
         },
         {
-          "name": "devops::ai coding"
+          "name": "devops::ai clients"
         },
         {
-          "name": "group::code review"
+          "name": "group::developer clients"
         },
         {
-          "name": "section::ai"
-        },
-        {
-          "name": "type::bug"
-        }
-      ],
-      "commentCount": 4,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8523",
-        "externalId": "200649074"
-      },
-      "kind": "issue",
-      "title": "Convert credentialhelper and git-credential to api.Client.Credential",
-      "body": "## Summary\n\nFinish the work !3805 started: make every consumer of `Client.AuthSource()` go through\n`Client.Credential`, so the auth-source-to-credential-kind mapping lives in exactly one place.\n\n!3805 added `Credential` and converted the two consumers no other open MR touched\n(`cluster graph`, `opentofu init`). Two remain, both blocked at the time on !3798 and !3794:\n\n- `internal/commands/auth/credentialhelper/credentialhelper.go`\n- `internal/commands/auth/login/helper.go`\n\n## Why it matters beyond tidiness\n\nEach remaining consumer re-derives whether the credential is OAuth2, and one of them gets it\nwrong. `login/helper.go` branches on `cfg.Get(host, \"is_oauth2\")` rather than on what the\nclient actually resolved, so with `OAUTH_TOKEN` set and nothing stored for the host it emits\n`username=personal-access-token` alongside an OAuth token. Measured on the merged\n!3798 + !3794 branches:\n\n```\nis_oauth2=\"\" job_token=\"\" token=\"env-oauth-token\" user=\"\" -> takes OAuth branch: false\n```\n\nOnly `internal/api` knows the answer, because only it applies the `GLAB_IS_OAUTH2` /\nvariable-provenance / stored-flag precedence. Any consumer that asks configuration instead is\nanswering a different question.\n\n## Scope\n\n1. `credentialhelper`: replace the type switch and `tokenFromHeader` with `Credential`.\n   `tokenFromHeader` recovers the kind by matching the header name and stripping `Bearer `,\n   which is information `internal/api` had and discarded.\n2. `login/helper.go`: switch on the resolved credential rather than on stored `is_oauth2`,\n   which fixes the `OAUTH_TOKEN` case above.\n3. Once both are converted, `api.OAuth2AccessTokenOnlyAuthSource` may no longer need to be\n   exported.\n\nNote that `AuthSource().Header()` cannot serve `git-credential`: `OAuthTokenSource` and the\naccess-token-only source both emit `Authorization: Bearer`, but only the first has an expiry\nand refresh token to report to Git. `Credential` carries both, which is why it is the right\nseam.\n\n## Out of scope\n\n`glab cluster graph` still refuses a personal access token supplied through `OAUTH_TOKEN`,\nbecause KAS accepts only the `pat:` authorization scheme and the token is classified as\nOAuth2. That is a separate question about the KAS scheme, not about this seam.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nScope items 1 and 3 landed in !3798. Only `internal/commands/auth/login/helper.go` is left.\n\n1. In `(*options).run` (`internal/commands/auth/login/helper.go:107`), stop using config to pick the branch. Keep `cfg.Get(host, \"user\")`, since the PAT username is not part of a credential, and drop the `is_oauth2`, `job_token` and `token` reads. Build the client once for every path: `apiClient, err := o.apiClient(host)`, then `cred, err := apiClient.Credential(ctx)`.\n2. Map the errors. `errors.Is(err, api.ErrUnauthenticated)` must return `cmdutils.SilentError`, matching today's `default:` arm at line 153, so Git falls through to the next helper on an unconfigured host instead of failing. Any other error keeps a wrapped message naming the host.\n3. Replace the `switch {}` at line 122 with `switch cred.Kind`. `api.CredentialOAuth2` keeps the existing body (username `oauth2`, `password_expiry_utc` when `cred.Expiry` is non-zero, `oauth_refresh_token` when non-empty) but no longer needs the kind re-check at line 133. `api.CredentialJobToken` emits `gitlab-ci-token`. `api.CredentialPAT` emits the configured user, falling back to `personalAccessTokenUsername`. Leave the `expectedParams[\"username\"]` mismatch check and the `capability[]=authtype` preamble untouched.\n4. Note the behavior change in the MR description: a host with both `token` and `job_token` stored now authenticates as a PAT, matching `internal/api/client.go:454`, where git-credential previously preferred the job token.\n5. Extend `Test_helperRun` in `internal/commands/auth/login/helper_test.go`. Every case now needs an API client, not just the `testOAuth2` ones, so in the runner at line 440 default `tt.opts.apiClient` when nil to `func(repoHost string) (*api.Client, error) { return api.NewClientFromConfig(repoHost, tt.opts.config(), false, \"test\") }`. Add two cases: a host with stored `is_oauth2: \"true\"` plus `GITLAB_TOKEN` set, which `internal/api/client.go:371` demotes to a PAT and which errors today; and a host with both `token` and `job_token` stored, asserting the PAT wins. The new env case must not clear `GITLAB_TOKEN` the way the table preamble at line 36 does, so give it its own `t.Setenv`.\n6. No help text or flags change, so `make gen-docs` is not needed. Run `go test ./internal/commands/auth/login/...` and `go test ./internal/api/...`.",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "rantoniuk",
-          "id": "241647",
-          "name": "Radek Antoniuk",
-          "avatarUrl": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
-          "url": "https://gitlab.com/rantoniuk",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "lastActivityAt": "<now>",
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "phikai",
-        "id": "2935693",
-        "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791763705",
-        "url": "https://gitlab.com/phikai",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8523",
-      "createdAt": "2026-08-31T14:43:36.614Z",
-      "updatedAt": "<now>",
-      "labels": [
-        {
-          "name": "automation:ml"
-        },
-        {
-          "name": "automation:quick-win-judged"
-        },
-        {
-          "name": "backend"
-        },
-        {
-          "name": "category:gitlab cli"
-        },
-        {
-          "name": "devops::ai coding"
-        },
-        {
-          "name": "group::code review"
-        },
-        {
-          "name": "maintenance::refactor"
+          "name": "maintenance::performance"
         },
         {
           "name": "section::ai"
@@ -152,7 +70,7 @@
           "name": "type::maintenance"
         }
       ],
-      "commentCount": 4,
+      "commentCount": 1,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -169,14 +87,82 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8508",
-        "externalId": "198078977"
+        "number": "8553",
+        "externalId": "203186756"
       },
       "kind": "issue",
-      "title": "Let glab artifact-registry login write Maven's and sbt's config where the tool actually reads it",
-      "body": "Follow-up from !3710 ([thread](https://gitlab.com/gitlab-org/cli/-/merge_requests/3710#note_3709462370)), agreed with @timofurrer.\n\n`glab artifact-registry login --sbt` writes `~/.sbt/1.0/credentials.sbt`, and `--maven` writes `~/.m2/settings.xml`. Neither location is fixed, and neither tool exposes an environment variable this command can read, so a user whose tool looks elsewhere gets a green check and a build that still authenticates with nothing.\n\n- **sbt**: the global base is `defaultGlobalBase/<binary version>`, overridable with the JVM property `-Dsbt.global.base` from the sbt command line, `SBT_OPTS`, `JAVA_OPTS` or an `.sbtopts` file ([`BuildPaths.scala` at v1.10.7](https://github.com/sbt/sbt/blob/v1.10.7/main/src/main/scala/sbt/BuildPaths.scala)). The `1.0` segment is the binary version, so it is right for sbt 1.x only. On `develop` the default has moved off `~/.sbt` entirely and is env-driven (`SBT_CONFIG_HOME`, then `XDG_CONFIG_HOME/sbt`, then `LOCALAPPDATA/sbt`, else `user.home/.config/sbt`, see [`SysProp.scala`](https://github.com/sbt/sbt/blob/develop/main/src/main/scala/sbt/internal/SysProp.scala)).\n- **maven**: `settings.xml` can be pointed elsewhere with `-s`, so the same shape applies.\n\n`--gradle` and `--npm` need nothing here: !3710 honours `GRADLE_USER_HOME` and `npm_config_userconfig`, which are the variables those tools actually read.\n\n## Proposal\n\nOne explicit override for the file this command writes, serving both `--maven` and `--sbt`, rather than an sbt-specific knob. It covers sbt 1.x, sbt 2.x and `-Dsbt.global.base` without modelling any of them.\n\nParsing `SBT_OPTS` was considered and rejected: it covers one of the several places the property can come from and quietly misses the rest, so whether the login worked would depend on how the user happens to launch sbt. That is the same silent failure the writers are built to avoid, only harder to reason about.\n\n## Current state\n\n!3710 documents the assumption instead: `sbtCredentialsPathFor`'s doc comment says it assumes a stock sbt 1.x, and the `--sbt` bullet in the command's help says an sbt that moved its global base does not read that file.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nAdd one `--config-file` flag that overrides the file `--maven` and `--sbt` write. `--docker`, `--gradle` and `--npm` are out of scope: the last two already honour `GRADLE_USER_HOME` and `npm_config_userconfig` (`internal/commands/artifactregistry/login/gradle.go:105`, `npm.go:19`).\n\n1. **Add the flag.** In `NewCmd` (`internal/commands/artifactregistry/login/login.go`), add a `configFile string` field to `options` and register `cmd.Flags().StringVar(&opts.configFile, \"config-file\", \"\", \"Path to the file to write (Maven/sbt only). Defaults to ~/.m2/settings.xml for --maven and ~/.sbt/1.0/credentials.sbt for --sbt.\")`. `--config-file` already exists elsewhere in the tree (`internal/commands/changelog/generate/changelog_generate.go:128`), so the spelling is not new.\n\n2. **Reject the values that cannot work.** In `options.validate`, return a `*cmdutils.FlagError` when `--config-file` is set and the path is a directory, or when it is a relative path you cannot resolve. Follow the existing message shape: start with `invalid --config-file: ...`, never with the flag name capitalized (see the comment above `validate`).\n\n3. **Warn when it does not apply.** In `options.run`, mirror the `--registry-alias` precedent at `login.go:311`: if `o.configFile != \"\" && !o.maven && !o.sbt`, emit `o.io.LogErrorf(\"%s --config-file is ignored outside --maven/--sbt logins.\\n\", o.io.Color().WarnIcon())`. Silently writing the default path while the user named another one is the same \"green check, no credential\" failure this package is built to avoid.\n\n4. **Thread the resolved path into the writers.** Change `loginMaven(alias, token)` to take the target path and `loginSbt(registry, token)` likewise, resolving it in `run` as `o.configFile` when set and `mavenSettingsPathFor(home)` / `sbtCredentialsPathFor(home)` otherwise. `loginSbt` already calls `upsertLines(sbtCredentialsPathFor(home), ...)` (`sbt.go:136`), and `upsertLines` creates the parent directory itself, so only the path source changes. In `loginMaven` (`maven.go:148`) replace the `filepath.Join(home, \".m2\")` pair with `filepath.Dir(path)` and `path`.\n\n5. **Tests.** Extend `internal/commands/artifactregistry/login/maven_test.go` and `sbt_test.go` with a case each that passes an explicit path under `t.TempDir()` and asserts nothing is written under the home set by `setHome` (the shape `TestLoginGradle` already uses for `GRADLE_USER_HOME` at `gradle_test.go:283`). Add to `login_test.go`: the ignored-flag warning, and the validation error. Updating the existing `loginMaven`/`loginSbt` call sites for the new parameter is mechanical, about 50 lines across the two test files.\n\n6. **Docs.** Update the `--maven` and `--sbt` bullets in `Long`, including the sentence at `login.go:151` that today says an sbt which moved its global base does not read the file, then run `make gen-docs` and commit `docs/source/artifact-registry/login.md` in the same commit.",
+      "title": "macOS: OAuth token exchange and API calls time out resolving gitlab.com while curl/browser access succeeds",
+      "body": "### Checklist\n\n- [ ] Tested the latest release. Reproduced on glab 1.117.0 (44790937b), installed via Homebrew. v1.118.0 is now available but has not yet been tested.\n- [x] Operating system: macOS 15.7.7 (24G720), Apple Silicon / arm64.\n- [x] Instance: GitLab.com.\n- [x] Ran `glab auth status`.\n- [x] Collected resolver diagnostics using `GODEBUG=netdns=cgo+2` and `GODEBUG=netdns=go+2` (relevant output below; full GLAB_DEBUG HTTP logging was not collected).\n\n### Summary\n\nI cannot reliably authenticate glab or make API calls from macOS while connected to our required GlobalProtect VPN. Browsers and curl can reach gitlab.com on the same connection.\n\nWith web/OAuth login, the browser opens and authorization succeeds, but the local callback page reports a DNS timeout when the CLI attempts to exchange the authorization code at https://gitlab.com/oauth/token. A colleague independently reports the same callback failure and timeouts with token authentication. They report that it worked a few weeks ago; their current and last-working versions have not yet been established.\n\nThe root cause is unconfirmed. I am reporting this to help determine whether it is a glab/Go resolver issue, an interaction with the VPN, or another network/resolver problem. I have not established a regression between CLI versions.\n\n### Environment\n\n- OS: macOS 15.7.7 (24G720), arm64\n- SHELL: zsh\n- GLAB: 1.117.0 (44790937b), Homebrew installation\n- Go version reported in the installed binary: go1.27.1\n- GlobalProtect network extension: 6.0.12-1256\n- GlobalProtect remains connected because it is required for our GitLab access. No VPN-disconnected comparison was performed.\n\n### Steps to reproduce\n\nOn the affected machine with GlobalProtect connected:\n\n1. Run `glab auth login --hostname gitlab.com --web`.\n2. Authorize the CLI in the browser.\n3. The browser redirects to the local OAuth callback. The page displays the token-exchange error below.\n4. `glab auth status --hostname gitlab.com` and diagnostic API requests also encounter DNS timeouts.\n5. Compare with `curl -I --max-time 10 https://gitlab.com`, which succeeds on the same connection.\n\n### Current behavior\n\n```text\nToken exchange failed: Post \"https://gitlab.com/oauth/token\": dial tcp: lookup gitlab.com: i/o timeout\n```\n\nThe browser reaching the callback does not result in a successful CLI login. API requests can fail with the same hostname-lookup timeout or with a context deadline exceeded error.\n\n### Expected behavior\n\nOAuth token exchange and subsequent API requests complete successfully on a connection where GitLab is reachable, or diagnostics identify the resolver failure more precisely.\n\n### Relevant diagnostics\n\nA credential-free reproduction using an intentionally invalid token (to test connectivity without disclosing credentials):\n\n```sh\nGITLAB_TOKEN=diagnostic-invalid-token GODEBUG=netdns=cgo+2 glab api user --hostname gitlab.com\n```\n\n```text\ngo package net: confVal.netCgo = true  netGo = false\ngo package net: GODEBUG setting forcing use of the cgo resolver\ngo package net: hostLookupOrder(gitlab.com) = cgo\nGet \"https://gitlab.com/api/v4/user\": dial tcp: lookup gitlab.com: i/o timeout.\n```\n\nForcing `GODEBUG=netdns=go+2` also timed out (lookup order: files,dns).\n\nAdditional observations during troubleshooting:\n\n- macOS registers the VPN DNS server through GlobalProtect's DNS configuration.\n- Direct queries to the VPN DNS server returned A records over UDP, but AAAA queries for gitlab.com and example.com timed out with a 2-second timeout and one attempt.\n- Both A and AAAA queries succeeded over TCP, in roughly 30–35 ms.\n- Queries addressed to the local router showed the same UDP AAAA timeout while the VPN was connected. We have not determined whether the VPN intercepted these requests or where they were dropped.\n- Ordinary native Python lookups returned promptly. A lookup with `AI_CANONNAME | AI_V4MAPPED | AI_ALL` eventually returned an IPv4 result after approximately 5 seconds.\n- Adding process-local `RES_OPTIONS=usevc` did not resolve the glab timeout.\n- A temporary per-domain TCP DNS configuration did not reliably help. A temporary hosts-file entry also did not resolve the reported OAuth failure; we did not establish whether the failing OAuth process consumed the new entry or retained prior resolver state. Both workarounds have been removed.\n\nOne API attempt reached GitLab and returned a revoked-token 401 (the old credential had deliberately been revoked). That is a separate credential issue; fresh OAuth attempts and requests using the diagnostic invalid token fail during DNS resolution before authentication completes.\n\n### Possible fixes / investigation\n\nNo confirmed fix. Guidance on capturing useful resolver diagnostics, or comparing resolver behavior across glab/Go versions, would be appreciated. The UDP/TCP AAAA difference is an observation, not a confirmed explanation for all failures. No packet capture or controlled older/newer-version comparison has been performed yet.",
       "state": "open",
       "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [],
+      "reviewers": [],
+      "lastActivityAt": "2026-10-19T02:37:11.037Z",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "yashb4",
+        "id": "28251233",
+        "name": "Yash Baleri",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/28251233/avatar.png?v=1792096462",
+        "url": "https://gitlab.com/yashb4",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8553",
+      "createdAt": "2026-09-15T17:59:15.878Z",
+      "updatedAt": "2026-10-19T02:37:11.037Z",
+      "labels": [
+        {
+          "name": "automation:ml"
+        },
+        {
+          "name": "backend"
+        },
+        {
+          "name": "bug::functional"
+        },
+        {
+          "name": "category:gitlab cli"
+        },
+        {
+          "name": "devops::ai clients"
+        },
+        {
+          "name": "group::developer clients"
+        },
+        {
+          "name": "section::ai"
+        },
+        {
+          "name": "type::bug"
+        }
+      ],
+      "commentCount": 5,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8304",
+        "externalId": "189982774"
+      },
+      "kind": "issue",
+      "title": "snap version of `cluster agent update-kubeconfig` can't write to kubeconfig",
+      "body": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.95.0\n- [x] Operating system and version: Ubuntu 24.04.3\n- [x] Gitlab.com or self-managed instance? both\n- [x] GitLab version (if self-managed) 18.8.9-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe snap confinement, lacking the [personal-files write permission](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/), doesn't allow `glab cluster agent update-kubeconfig` to write to the default kubeconfig location (`~/.kube/config`), resulting in silent failure to update anything.\n\n### Environment\n\n- OS: Linux 6.8.0-111-generic x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.95.0 (6a2f207)\n\nOther:\n\n### Steps to reproduce\n\ne.g.\n`glab cluster agent update-kubeconfig --agent 6 -u` in a repo with a valid glab agent config.\n\n### What is the current _bug_ behavior?\n\n```\n[git remote -v]\n[git config --get-regexp ^remote\\..*\\.glab-resolved(-base|-head)?$]\nUpdated context gitlab_some_host-my_group_k8s_cluster-dev.\nUsing context gitlab_some_host-my_group_k8s_cluster-dev.\n```\nbut `cat ~/.kube/config` is still blank.\n\n### What is the expected _correct_ behavior?\n\nFill in `~/.kube/config` with the relevant context.\n\n### Possible fixes\n\nCan workaround by setting `$KUBECONFIG` to a non-hidden location e.g. \n```\nexport KUBECONFIG=~/kubeconfig\nglab cluster agent update-kubeconfig --agent 6 -u\n```\nsince this is included in the [home interface](https://snapcraft.io/docs/reference/interfaces/home-interface/) that the snap does have.\n\nActual fix is IMO to add the [personal-files interface](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/) with a write permssions for `~/.kube/config` to the snap.",
+      "state": "closed",
+      "stateRaw": "closed",
       "isDraft": false,
       "assignees": [
         {
@@ -191,59 +177,67 @@
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "<now>",
+      "lastActivityAt": "2026-10-18T21:15:17.529Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "sylviashen",
-        "id": "27667902",
-        "name": "Sylvia Shen",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27667902/avatar.png?v=1791758098",
-        "url": "https://gitlab.com/sylviashen",
+        "login": "PointyShinyBurning",
+        "id": "2046022",
+        "name": "Daniel Key",
+        "avatarUrl": "https://secure.gravatar.com/avatar/55b09e638496440f571ce3a83db934420e018af607cf3c3dbc2138e3c8b86811?s=80&d=identicon",
+        "url": "https://gitlab.com/PointyShinyBurning",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8508",
-      "createdAt": "2026-08-20T14:16:41.379Z",
-      "updatedAt": "<now>",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8304",
+      "createdAt": "2026-05-11T10:35:31.045Z",
+      "updatedAt": "2026-10-18T21:15:17.529Z",
+      "closedAt": "2026-10-16T02:02:12.404Z",
       "labels": [
         {
-          "name": "Category:Artifact Registry"
+          "name": "automation:ml"
         },
         {
-          "name": "artifact-registry::authn"
+          "name": "bug::functional"
         },
         {
-          "name": "automation:quick-win-judged"
+          "name": "category:code review workflow"
         },
         {
-          "name": "devops::package"
+          "name": "category:gitlab cli"
         },
         {
-          "name": "group::container registry"
+          "name": "devops::ai clients"
         },
         {
-          "name": "section::ci"
+          "name": "group::developer clients"
         },
         {
-          "name": "type::feature"
+          "name": "section::ai"
+        },
+        {
+          "name": "type::bug"
+        },
+        {
+          "name": "workflow::complete"
         }
       ],
-      "commentCount": 2,
+      "commentCount": 3,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 648,
+  "total": 660,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false",
-    "etag": "W/\"7fbd9ce91351349da5ea872f49cda2be\"",
+    "etag": "W/\"dd426729a025ea3118b6a47f80d55fcf\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1934,
-    "resetAt": "<now>"
+    "remaining": 1909,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

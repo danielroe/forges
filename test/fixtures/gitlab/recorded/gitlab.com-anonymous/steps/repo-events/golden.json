@@ -3,440 +3,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6120348569",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8608"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "issue",
-            "number": "8608"
-          },
-          "id": "4004330668"
-        },
-        "body": "Status: on `main`, `glab token rotate` only prints the new token to stdout and never updates the keyring or config file (`internal/commands/token/rotate/rotate.go`). The `--self` flag this issue builds on is in open MR !3915, and draft !4095 (stacked on it) adds the store-and-warn behavior with tests for keyring, config file, environment, no stored token, and a failed write. Until then, `glab token rotate --user @me <token-name> | glab auth login --stdin` re-stores the token (add `--hostname <host>` for a self-managed instance). Remaining work is medium: land !3915, then rebase and review !4095. Related: #7856.\n\n_This triage was AI-assisted and has not been validated by a maintainer. Treat the findings as a starting point._"
-      },
-      "summary": "phikai commented",
-      "threadSnapshot": {
-        "title": "glab token rotate --self leaves the revoked token in the keyring, config file, or environment"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "phikai",
-        "id": "2935693",
-        "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791890211",
-        "url": "https://gitlab.com/phikai",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120339578",
-      "kindRaw": "Issue.closed",
-      "actionRaw": "closed",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8606"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "phikai closed issue",
-      "threadSnapshot": {
-        "title": "Resolve the overdue \"remove by GitLab 18.3\" TODO on the hidden global repo override"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "phikai",
-        "id": "2935693",
-        "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791890211",
-        "url": "https://gitlab.com/phikai",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120339575",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8606"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "issue",
-            "number": "8606"
-          },
-          "id": "4004321915"
-        },
-        "body": "Closing as a duplicate of #8204, which tracks removing the hidden global `-R` override from the root command, including why the 18.3 TODO no longer holds and the breaking-change impact. The TODO is still at [`internal/commands/root.go`](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/root.go#L157-160). !2947 implemented the removal and was closed for inactivity, so it can be reopened or picked up from there. Note that `internal/commands/mcp/serve/server_test.go` models the hidden root flag and needs updating with the removal.\n\nIf you think this should remain open or be revisited, please let us know."
-      },
-      "summary": "phikai commented",
-      "threadSnapshot": {
-        "title": "Resolve the overdue \"remove by GitLab 18.3\" TODO on the hidden global repo override"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "phikai",
-        "id": "2935693",
-        "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791890211",
-        "url": "https://gitlab.com/phikai",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120338411",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8607"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "issue",
-            "number": "8607"
-          },
-          "id": "4004320840"
-        },
-        "body": "Today [`ListGitLabTemplates`](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/cmdutils/cmdutils.go#L129-159) returns an empty list for any error. Missing: distinguishing \"not exist\" and \"not in a repository\" (stay quiet) from other errors (return them), plus test cases for each. Callers in `issue create` and `mr create` already surface returned errors, so this is a small change confined to one function and its test.\n\n_This triage was AI-assisted and has not been validated by a maintainer. Treat the findings as a starting point._"
-      },
-      "summary": "phikai commented",
-      "threadSnapshot": {
-        "title": "ListGitLabTemplates swallows every error and returns an empty list"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "phikai",
-        "id": "2935693",
-        "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791890211",
-        "url": "https://gitlab.com/phikai",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120319845",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4061"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4061"
-          },
-          "id": "4004302500"
-        },
-        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Login: the web and device flow now builds its client with `WithoutAuthentication`. The new `--device` test covers a keyring host with no stored token, so my earlier missing-test point is addressed.\n- Docker helper: it builds the default-host client without a token. Each registry lookup reads its own host's credentials, so a registry on another host still works. The new test covers that case, the default host's container registry and its artifact registry.\n- Client: `WithoutAuthentication` skips the token and job-token reads, so a locked keyring cannot fail the build. The new test covers this. Host transport settings (TLS, custom headers) are still applied, and a test checks that.\n- The keyring-missing error only fires in the tokenless default branch, and only when the host's own `use_keyring` is set. The env-token, job-token and `GLAB_USE_KEYRING` cases are covered and I found no regression."
-      },
-      "summary": "GitLabDuo commented",
-      "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
-        "url": "https://gitlab.com/GitLabDuo",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120319692",
-      "kindRaw": "MergeRequest.approved",
-      "actionRaw": "approved",
-      "kind": "review",
-      "action": "submitted",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4061"
-      },
-      "detail": {
-        "type": "review",
-        "state": "approved",
-        "stateRaw": "approved",
-        "review": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4061"
-          },
-          "id": "approval:GitLabDuo"
-        }
-      },
-      "summary": "GitLabDuo approved merge request",
-      "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
-        "url": "https://gitlab.com/GitLabDuo",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120302107",
-      "kindRaw": "MergeRequest.approved",
-      "actionRaw": "approved",
-      "kind": "review",
-      "action": "submitted",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4061"
-      },
-      "detail": {
-        "type": "review",
-        "state": "approved",
-        "stateRaw": "approved",
-        "review": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4061"
-          },
-          "id": "approval:ahmed.hemdan"
-        }
-      },
-      "summary": "ahmed.hemdan approved merge request",
-      "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "ahmed.hemdan",
-        "id": "11334402",
-        "name": "Ahmed Hemdan",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791890925",
-        "url": "https://gitlab.com/ahmed.hemdan",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6120302025",
+      "id": "6153890198",
       "kindRaw": "DiscussionNote.commented on",
       "actionRaw": "commented on",
       "kind": "comment",
@@ -451,7 +18,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4061"
+        "number": "4004"
       },
       "detail": {
         "type": "comment",
@@ -468,25 +35,25 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4061"
+            "number": "4004"
           },
-          "id": "4004287266"
+          "id": "4039460255"
         },
-        "body": "@HamzaHassanain Thanks for addressing the feedback!\n\nLeft two non-blocking test-setup suggestions. Approved from my side. :white_check_mark:"
+        "body": "Thanks @sjestonsingh, I've left a couple of suggestions"
       },
-      "summary": "ahmed.hemdan commented",
+      "summary": "jay_mccure commented",
       "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
+        "title": "fix(config): keep glab-managed keys in the global config"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "ahmed.hemdan",
-        "id": "11334402",
-        "name": "Ahmed Hemdan",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791890925",
-        "url": "https://gitlab.com/ahmed.hemdan",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "repo": {
@@ -500,7 +67,135 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6120302010",
+      "id": "6153889180",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039458973"
+        },
+        "body": "Suggestion: `last_update_check_timestamp` could also be managed globally."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153887994",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039457611"
+        },
+        "body": "Hi @phikai, just a sanity check as you are familiar with the external binaries (orbit, duo cli). Is there a use case for being able to configure the binaries locally? With this MR we would only be able to configure `duo_cli_binary_path` and `orbit_cli_binary_path` (and related configs) globally. I think this makes sense but just wanted a sanity check."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153868535",
       "kindRaw": "DiffNote.commented on",
       "actionRaw": "commented on",
       "kind": "review_comment",
@@ -515,7 +210,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4061"
+        "number": "4004"
       },
       "detail": {
         "type": "review_comment",
@@ -532,25 +227,25 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4061"
+            "number": "4004"
           },
-          "id": "4004287246"
+          "id": "4039432960"
         },
-        "body": "Thanks for addressing this! :white_check_mark:"
+        "body": "Re the \"one decision\" in the description: I'd keep the routing, but say so on stderr rather than doing it silently.\n\nNobody reaches these keys through `glab config set` by accident: glab itself updates them via `cfg.Set`, not this command. So whoever runs `glab config set duo_cli_binary_version ...` typed it deliberately (usually debugging or forcing a re-download) and asked for the local file. Silently writing global instead changes every repository without telling them. A one-line notice keeps the convenience and removes the surprise:\n\n```suggestion:-3+0\n\t// A key glab maintains for itself is read from the global file only, so a\n\t// local write would land where nothing reads it and the old local value\n\t// would keep winning. Route those to the global file instead.\n\trouted := !o.isGlobal && o.hostname == \"\" && config.IsGlobalOnlyKey(o.key)\n\twriteGlobal := o.isGlobal || o.hostname != \"\" || routed\n\tif routed {\n\t\to.io.LogErrorf(\"%s %s is managed by glab and is always stored in the global configuration: %s\\n\",\n\t\t\to.io.Color().DotWarnIcon(), o.key, config.ConfigFile())\n\t}\n```\n\n`TestConfigSet_GlobalOnlyKeyWritesGloballyWithoutTheFlag` would then need to assert the notice instead of `assert.Empty(t, out.Stderr())`, e.g. `assert.Contains(t, out.Stderr(), \"always stored in the global configuration\")`."
       },
-      "summary": "ahmed.hemdan commented",
+      "summary": "jay_mccure commented",
       "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
+        "title": "fix(config): keep glab-managed keys in the global config"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "ahmed.hemdan",
-        "id": "11334402",
-        "name": "Ahmed Hemdan",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791890925",
-        "url": "https://gitlab.com/ahmed.hemdan",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "repo": {
@@ -564,7 +259,200 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6120301907",
+      "id": "6153797912",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "4039357682"
+        },
+        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Reconciled my earlier thread: the fake `NotFoundError` is gone and `GetWithSource` now guards the local read with `skipLocal`, so that point is fixed.\n- Checked the new read path. For glab-managed keys it goes straight to the global lookup. Other keys keep their local-over-global behavior.\n- Checked `IsGlobalOnlyKey`. It resolves aliases through `ConfigKeyEquivalence`, and the set is built from `KeySchema` at init, so aliases and names are both covered.\n- Checked `config set`. A glab-managed key routes both the set and the write to the global config, with and without `--global`, and the hostname path is unchanged.\n- Checked the tests. They cover both halves of the fix, the schema drift guard and local precedence for ordinary keys. I found no problems."
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153797909",
+      "kindRaw": "MergeRequest.approved",
+      "actionRaw": "approved",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4004"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approved",
+        "review": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4004"
+          },
+          "id": "approval:GitLabDuo"
+        }
+      },
+      "summary": "GitLabDuo approved merge request",
+      "threadSnapshot": {
+        "title": "fix(config): keep glab-managed keys in the global config"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153790642",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4062"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4062"
+          },
+          "id": "4039351320"
+        },
+        "body": "Thanks @HamzaHassanain , just one suggestion. :bow: Apologies, but you will have to fix conflicts before we can get this merged."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "fix(config): use host key only as a fallback"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153781763",
       "kindRaw": "DiffNote.commented on",
       "actionRaw": "commented on",
       "kind": "review_comment",
@@ -579,7 +467,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4061"
+        "number": "4062"
       },
       "detail": {
         "type": "review_comment",
@@ -596,25 +484,153 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4061"
+            "number": "4062"
           },
-          "id": "4004287159"
+          "id": "4039344382"
         },
-        "body": "Thank you for fixing this! :pray_tone2:"
+        "body": "**suggestion (non-blocking):** When a config-file `host` matches no remote, glab now switches to the remote's host without saying so. That's the intended behavior, but a user who expected the configured instance (for example, someone not signed in to gitlab.com, in a repository whose only remote is on gitlab.com) gets a 401/404 with no hint that the configured `host` was set aside. A debug line here would make that easy to spot with `GLAB_DEBUG=true`:\n\n```go\ndbg.Debug(\"config host \" + hostOverride + \" matches no git remote; resolving from remotes instead\")\n```\n\n`dbg` is already used in `factory.go`."
       },
-      "summary": "ahmed.hemdan commented",
+      "summary": "jay_mccure commented",
       "threadSnapshot": {
-        "title": "fix(auth): fail clearly on a missing keyring token"
+        "title": "fix(config): use host key only as a fallback"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "ahmed.hemdan",
-        "id": "11334402",
-        "name": "Ahmed Hemdan",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791890925",
-        "url": "https://gitlab.com/ahmed.hemdan",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153778201",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4148"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4148"
+          },
+          "id": "4039340929"
+        },
+        "body": "@jay_mccure Are you able to review this MR please?"
+      },
+      "summary": "jeanvdw commented",
+      "threadSnapshot": {
+        "title": "fix(govern): keep audit event batches within GitLab's limits"
+      },
+      "occurredAt": "2026-10-19T03:40:08.059Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jeanvdw",
+        "id": "27487407",
+        "name": "Jean van der Walt",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+        "url": "https://gitlab.com/jeanvdw",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6153736615",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4148"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4148"
+          },
+          "id": "4039301590"
+        },
+        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- The wait seam was the only change since my last review. It is now a `waitFor` field on `options` with an `options.wait` method, and no package-level var is left. That addresses my earlier thread.\n- `options.wait` returns `ctx.Err()` on cancellation and otherwise waits on `time.After(d)`. The new cancellation test covers this and is correct.\n- `recordWaits(opts)` is called before each use in the rate-limit tests. Each subtest has its own `tt` and `opts`, so the per-test recording is safe.\n- The hook case in `TestSyncSession_ByCaller` still fails fast and posts nothing. The manual case waits through the stubbed seam and posts 1 event. Both match the intended behavior.\n- I found no new correctness problems in the lines added since my last review."
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "fix(govern): keep audit event batches within GitLab's limits"
+      },
+      "occurredAt": "2026-10-19T03:22:54.732Z",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
         "isBotHint": false
       },
       "repo": {
@@ -628,12 +644,13 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/events?id=gitlab-org%2Fcli&page=2&per_page=10&sort=desc",
-    "etag": "W/\"459b680f15caf15b21bd325e56df4329\""
+    "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\""
   },
-  "etag": "W/\"459b680f15caf15b21bd325e56df4329\"",
+  "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\"",
   "rateLimit": {
     "limit": 500,
-    "remaining": 474,
-    "resetAt": "<now>"
+    "remaining": 456,
+    "resetAt": "<now>",
+    "resource": "throttle_unauthenticated_api"
   }
 }

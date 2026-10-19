@@ -11,92 +11,12 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4090",
-        "externalId": "547053015"
+        "number": "4148",
+        "externalId": "551173292"
       },
       "kind": "pull_request",
-      "title": "Draft: fix(issue): resolve issue instance / project correctly",
-      "body": "## Description\n\nWhen passing issues to glab as URL, issues could be from other gitlab instances; but IssueFromArg / IssueFromArgs didn't return this information.\n\nAs a result, later operations (like looking up comments with `glab issue view --comments` ) were done against the wrong gitlab instance and failed.\n\nTo solve this, return a full Client / Repository / Issue tuple that can be used by the caller.\n\n## Related Issues\n\nResolves #8084\n\n## How has this been tested?\n\nVerified that `glab issue view --comments https://other-gitlab.internal/...` from a gitlab git repository now returns the correct results (used to error with 404 or 401 after querying the git repo's gitlab instance)\n\nAdded regression tests\n\n## Screenshots (if appropriate):",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": true,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "secDre4mer",
-          "id": "42934814",
-          "name": "Max Altgelt",
-          "avatarUrl": "https://secure.gravatar.com/avatar/384b858548f767bef64f4c91b6f003d8cbb3eddd532de9b5d3bf3c40711ce384?s=80&d=identicon",
-          "url": "https://gitlab.com/secDre4mer",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "lastActivityAt": "<now>",
-      "branches": {
-        "head": {
-          "ref": "fix/resolve-gitlab-issue-instance",
-          "sha": "bd792c0e00929dc20e52e8831a2f857dd087b582"
-        },
-        "base": {
-          "ref": "main"
-        }
-      },
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "secDre4mer",
-        "id": "42934814",
-        "name": "Max Altgelt",
-        "avatarUrl": "https://secure.gravatar.com/avatar/384b858548f767bef64f4c91b6f003d8cbb3eddd532de9b5d3bf3c40711ce384?s=80&d=identicon",
-        "url": "https://gitlab.com/secDre4mer",
-        "typeRaw": "user",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4090",
-      "createdAt": "<now>",
-      "updatedAt": "<now>",
-      "labels": [
-        {
-          "name": "1st contribution"
-        },
-        {
-          "name": "Community contribution"
-        },
-        {
-          "name": "Hackathon"
-        },
-        {
-          "name": "linked-issue"
-        },
-        {
-          "name": "workflow::in dev"
-        }
-      ],
-      "commentCount": 2,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4089",
-        "externalId": "546876490"
-      },
-      "kind": "pull_request",
-      "title": "docs: fix dead handbook and docs links in contributor docs",
-      "body": "## Description\n\nSeven links in the contributor and maintainer docs point to pages that moved. The handbook links return 404, the release docs link redirects to the root of the `release/docs` repository, and two docs.gitlab.com links use anchors that no longer exist on the page. This MR points each one at the current page. Only URLs change.\n\n| File | Old | New |\n| --- | --- | --- |\n| `docs/maintainer.md` (2 links) | `handbook/business-technology/end-user-services/onboarding-access-requests/access-requests/` (404) | `handbook/eta/corporate-it/end-user-services/access-requests/` |\n| `docs/triaging_bugs.md` | `handbook/engineering/infrastructure/engineering-productivity/issue-triage/#severity` (404) | `handbook/product-development/how-we-work/issue-triage/#severity` |\n| `SECURITY.md` | `handbook/security/product-security/application-security/vulnerability-management/#vulnerability-vs-feature-vs-bug` (404) | `handbook/security/product-security/security-platforms-architecture/application-security/vulnerability-management/#vulnerability-vs-feature-vs-bug` |\n| `docs/security_releases.md` | `release/docs/-/blob/master/general/security/developer.md` (file renamed) | `release/docs/-/blob/master/general/security/engineer.md` |\n| `CONTRIBUTING.md` | `cli_styleguide/#deprecation-messages` (no such anchor) | `cli_styleguide/#deprecations` |\n| `docs/development_process.md` | `automatic_reviewer_assignment/#assign-reviewers-with-the-recommend-reviewers-flow` (no such anchor) | `automatic_reviewer_assignment/#recommend-reviewers-flow` |\n\nEach new page covers the same topic as the old link: the Access Requests page, the Issue Triage page with its Severity section, the Application Vulnerability Management Procedure with its \"Vulnerability vs. Feature vs. Bug?\" section, the release docs engineer guide (`developer.md` was renamed to `engineer.md` in `release/docs@6f229680`), the CLI style guide Deprecations section, and the Recommend Reviewers flow section.\n\n## Related issues and merge requests\n\nNone.\n\n## Documentation\n\nNo CLI command docs change, so `make gen-docs` is not needed.\n\n## How was this checked?\n\n- `curl -sL -o /dev/null -w '%{http_code} %{url_effective}'` on each old URL: 404 for the three handbook links; the `developer.md` link ends at `release/docs/-/tree/master`.\n- Same command on each new URL: 200. Each `#anchor` is an `id` in the live page HTML.\n- `release/docs` commit `6f229680` renames `general/security/developer.md` to `general/security/engineer.md`.\n\nThis contribution was prepared with the help of an AI assistant. I reviewed the changes and take responsibility for them.",
+      "title": "fix(govern): keep audit event batches within GitLab's limits",
+      "body": "## Description\n\n`glab govern audit sync` sent audit events in batches of 500, but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. Sessions with more than about 200 events to upload failed with `400 Too many total parameters` on every sync, because the cursor doesn't move on failure.\n\nThis MR:\n\n- Batches events by JSON element count as well as by number. It counts the way GitLab's `Gitlab::Json::StreamValidator` does, and keeps each request under 4,500 elements. That stays under 5,000 on older self-managed versions too, while https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119 raises the GitLab.com limit.\n- If GitLab still answers with one of its JSON limit errors, posts each half of the batch separately. An event over a limit on its own can never be accepted, so it's skipped. `glab govern doctor` shows how many were skipped. Any other error keeps the cursor where it is, same as before.\n- Removes the repeated \"could not post audit events\" prefix.\n- Waits out GitLab's rate limit on this endpoint (10 requests a minute per user and project). The API client ignores `Retry-After` and gives up after a few seconds, so a session needing more than 10 requests got stuck the same way. The fallback job and manual syncs now wait as GitLab asks, up to 90 seconds at a time, 5 times per request and 20 minutes per run. Hooks still fail fast.\n\nThe fake GitLab in the tests now enforces the element limit. The old one only checked the event count, which is why the tests didn't catch this. A unit test pins the element count of a nested event to the 41 that GitLab's validator gives for it.\n\n## Related Issues\n\nCloses https://gitlab.com/gitlab-org/cli/-/work_items/8629\n\nRelated to https://gitlab.com/gitlab-org/gitlab/-/work_items/634442\n\n## How has this been tested?\n\n- `go test ./internal/commands/govern/...`\n- Each new sync test fails without the change it covers.\n- Compared the element count with `Gitlab::Json::StreamValidator` in GDK.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -104,11 +24,11 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "anishisbusy",
-          "id": "25337378",
-          "name": "Anish Kumar",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791793279",
-          "url": "https://gitlab.com/anishisbusy",
+          "login": "jeanvdw",
+          "id": "27487407",
+          "name": "Jean van der Walt",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+          "url": "https://gitlab.com/jeanvdw",
           "isBotHint": false
         }
       ],
@@ -117,11 +37,11 @@
           "actor": {
             "forge": "gitlab",
             "instance": "gitlab.com",
-            "login": "jhebden",
-            "id": "12294975",
-            "name": "James Hebden",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1791801308",
-            "url": "https://gitlab.com/jhebden",
+            "login": "jay_mccure",
+            "id": "11809982",
+            "name": "Jay McCure",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "url": "https://gitlab.com/jay_mccure",
             "isBotHint": false
           },
           "state": "unknown"
@@ -133,18 +53,24 @@
             "login": "GitLabDuo",
             "id": "21826781",
             "name": "GitLab Duo",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
             "url": "https://gitlab.com/GitLabDuo",
             "isBotHint": false
           },
           "state": "unknown"
         }
       ],
-      "lastActivityAt": "2026-10-12T09:14:38.070Z",
+      "lastActivityAt": "<now>",
       "branches": {
         "head": {
-          "ref": "anishisbusy/contributor-docs-dead-links",
-          "sha": "afce4da4d5fe7d2fd0647b5b864526ea0a2827cb"
+          "ref": "634442-govern-audit-batch-size",
+          "sha": "88ee9a03e40e09a6d3aec5058968d02b76109703",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          }
         },
         "base": {
           "ref": "main"
@@ -153,32 +79,32 @@
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "anishisbusy",
-        "id": "25337378",
-        "name": "Anish Kumar",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25337378/avatar.png?v=1791793279",
-        "url": "https://gitlab.com/anishisbusy",
+        "login": "jeanvdw",
+        "id": "27487407",
+        "name": "Jean van der Walt",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
+        "url": "https://gitlab.com/jeanvdw",
         "typeRaw": "user",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4089",
-      "createdAt": "2026-10-12T06:09:54.504Z",
-      "updatedAt": "2026-10-12T09:14:38.070Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4148",
+      "createdAt": "2026-10-19T02:51:14.097Z",
+      "updatedAt": "<now>",
       "labels": [
         {
-          "name": "Community contribution"
+          "name": "Category:AI Governance"
         },
         {
-          "name": "Hackathon"
+          "name": "devops::security governance"
         },
         {
-          "name": "documentation"
+          "name": "group::ai governance"
         },
         {
-          "name": "tw::triaged"
+          "name": "section::sec"
         },
         {
-          "name": "workflow::ready for review"
+          "name": "type::bug"
         }
       ],
       "commentCount": 6,
@@ -198,12 +124,12 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4088",
-        "externalId": "546832189"
+        "number": "4147",
+        "externalId": "551149261"
       },
       "kind": "pull_request",
-      "title": "fix(release): close the release notes directory handle",
-      "body": "## Description\n\nRelease-note file lookup opens the repository directory with `os.OpenRoot` but never closes that handle.\nOn Windows, this prevents removal of the directory after the command returns.\nClose the directory on every return path and preserve file and directory close errors.\n\nCloses #8599\n\n## Validation\n\nThree regressions cover reading a file, falling back to text for a missing file, and a directory read error.\nEach case fails to remove its directory on the original Windows code and passes with this change.\nThe full release-create suite also passes, including the two existing cleanup failures reproduced in the issue.\nThe full affected package suite passes on Linux with Go 1.27.2.\n\n## AI assistance\n\nImplemented and tested with OpenAI Codex.",
+      "title": "chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.29.0",
+      "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [gitlab.com/gitlab-org/api/client-go/v3](https://gitlab.com/gitlab-org/api/client-go) | require | minor | `v3.25.0` → `v3.29.0` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>gitlab-org/api/client-go (gitlab.com/gitlab-org/api/client-go/v3)</summary>\n\n### [`v3.29.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.29.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.28.0...v3.29.0)\n\n#### 3.29.0\n\n##### 🚀 Features\n\n- feat(issues): add milestone, severity and start_date to create and update issue options ([!3131](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3131)) by [Zubeen](https://gitlab.com/syedzubeen)\n- feat(merge_requests): add milestone and merge_after to create and update options ([!3128](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3128)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n### [3.29.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.28.0...v3.29.0) (2026-10-18)\n##### Features\n\n* **issues:** add milestone, severity and start_date to create and update issue options ([52fe1bf](https://gitlab.com/gitlab-org/api/client-go/commit/52fe1bfb3ee63517504daa06100f12a60015fb85))\n* **merge_requests:** add milestone and merge_after to create and update options ([85e2b01](https://gitlab.com/gitlab-org/api/client-go/commit/85e2b0106350dda78c795bfde738c94cf8d0779c))\n\n### [`v3.28.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.28.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.27.0...v3.28.0)\n\n#### 3.28.0\n\n##### 🚀 Features\n\n- feat(packages): add package_version filter to ListGroupPackagesOptions ([!3132](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3132)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n##### 🔄 Other Changes\n\n- docs(members): point member doc links at the group and project members pages ([!3086](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3086)) by [Anish Kumar](https://gitlab.com/anishisbusy)\n\n### [3.28.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.27.0...v3.28.0) (2026-10-18)\n##### Features\n\n* **packages:** add package_version filter to ListGroupPackagesOptions ([b4794f9](https://gitlab.com/gitlab-org/api/client-go/commit/b4794f9f4e4442f600cb83202336bd30c47d0de9))\n\n### [`v3.27.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.27.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.26.0...v3.27.0)\n\n#### 3.27.0\n\n##### 🚀 Features\n\n- feat(projects): add merge_train_enforcement to project structs ([!3141](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3141)) by [Jeremy T](https://gitlab.com/jeremad)\n\n##### 🔄 Other Changes\n\n- test: assert request params and bodies for group boards, project access tokens and pipelines ([!3137](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3137)) by [Zubeen](https://gitlab.com/syedzubeen)\n- chore(deps): update module golang.org/x/time to v0.16.0 ([!3070](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3070)) by [GitLab Dependency Bot](https://gitlab.com/gitlab-dependency-update-bot)\n\n### [3.27.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.26.0...v3.27.0) (2026-10-17)\n##### Features\n\n* **projects:** add merge_train_enforcement to project structs ([222dd41](https://gitlab.com/gitlab-org/api/client-go/commit/222dd41abc49b4b38eeca075043c751815a0fb14))\n\n### [`v3.26.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.26.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.25.0...v3.26.0)\n\n#### 3.26.0\n\n##### 🚀 Features\n\n- feat(group_milestones): add web_url field to GroupMilestone ([!3126](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3126)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n##### 🔄 Other Changes\n\n- docs(repository_storage_moves): fix broken API doc anchors ([!3119](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3119)) by [Anish Kumar](https://gitlab.com/anishisbusy)\n\n### [3.26.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.25.0...v3.26.0) (2026-10-17)\n##### Features\n\n* **group_milestones:** add web_url field to GroupMilestone ([a0065fe](https://gitlab.com/gitlab-org/api/client-go/commit/a0065fe76efd97c6b2a7fa0c003f62d61efb4a00))\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -211,20 +137,34 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "vivekyarra567",
-          "id": "39012371",
-          "name": "Yarra Vivek",
-          "avatarUrl": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-          "url": "https://gitlab.com/vivekyarra567",
+          "login": "gitlab-dependency-update-bot",
+          "id": "8420142",
+          "name": "GitLab Dependency Bot",
+          "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "url": "https://gitlab.com/gitlab-dependency-update-bot",
           "isBotHint": false
         }
       ],
-      "reviewers": [],
-      "lastActivityAt": "2026-10-12T07:13:35.199Z",
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jhebden",
+            "id": "12294975",
+            "name": "James Hebden",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+            "url": "https://gitlab.com/jhebden",
+            "isBotHint": false
+          },
+          "state": "unknown"
+        }
+      ],
+      "lastActivityAt": "2026-10-19T03:09:05.334Z",
       "branches": {
         "head": {
-          "ref": "fix/8599-release-notes-root-handle",
-          "sha": "717e6ad0d7051f615aabcc430f551c6e8d2c3dc5"
+          "ref": "renovate/gitlab.com-gitlab-org-api-client-go-v3-3.x",
+          "sha": "473947660414d597cd3d23ac5d125635c415799f"
         },
         "base": {
           "ref": "main"
@@ -233,41 +173,38 @@
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "vivekyarra567",
-        "id": "39012371",
-        "name": "Yarra Vivek",
-        "avatarUrl": "https://secure.gravatar.com/avatar/2e76193c97431532a49acc6f40e4aa54d6f460f91da23202bad1a76ab610ff43?s=80&d=identicon",
-        "url": "https://gitlab.com/vivekyarra567",
+        "login": "gitlab-dependency-update-bot",
+        "id": "8420142",
+        "name": "GitLab Dependency Bot",
+        "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+        "url": "https://gitlab.com/gitlab-dependency-update-bot",
         "typeRaw": "user",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4088",
-      "createdAt": "2026-10-12T02:42:37.835Z",
-      "updatedAt": "2026-10-12T07:13:35.199Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4147",
+      "createdAt": "2026-10-19T01:09:47.399Z",
+      "updatedAt": "2026-10-19T03:09:05.334Z",
       "labels": [
         {
-          "name": "Community contribution"
+          "name": "automation:bot-authored"
         },
         {
-          "name": "Hackathon"
+          "name": "category:gitlab cli"
         },
         {
-          "name": "devops::ai coding"
+          "name": "devops::ai clients"
         },
         {
-          "name": "group::code review"
+          "name": "group::developer clients"
         },
         {
-          "name": "linked-issue"
+          "name": "maintenance::dependency"
         },
         {
           "name": "section::ai"
         },
         {
-          "name": "type::bug"
-        },
-        {
-          "name": "workflow::in dev"
+          "name": "type::maintenance"
         }
       ],
       "commentCount": 2,
@@ -275,18 +212,119 @@
         "total": 0,
         "counts": {}
       }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4146",
+        "externalId": "551149168"
+      },
+      "kind": "pull_request",
+      "title": "chore(deps): update module software.sslmate.com/src/go-pkcs12 to v0.7.4",
+      "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [software.sslmate.com/src/go-pkcs12](https://software.sslmate.com/src/go-pkcs12) | require | patch | `v0.7.3` → `v0.7.4` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [
+        {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "gitlab-dependency-update-bot",
+          "id": "8420142",
+          "name": "GitLab Dependency Bot",
+          "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jhebden",
+            "id": "12294975",
+            "name": "James Hebden",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+            "url": "https://gitlab.com/jhebden",
+            "isBotHint": false
+          },
+          "state": "unknown"
+        }
+      ],
+      "lastActivityAt": "2026-10-19T01:10:01.157Z",
+      "branches": {
+        "head": {
+          "ref": "renovate/software.sslmate.com-src-go-pkcs12-0.x",
+          "sha": "3fa4ec7b9bc93d3e517e929d235b324a6c8089f2"
+        },
+        "base": {
+          "ref": "main"
+        }
+      },
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "gitlab-dependency-update-bot",
+        "id": "8420142",
+        "name": "GitLab Dependency Bot",
+        "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+        "url": "https://gitlab.com/gitlab-dependency-update-bot",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4146",
+      "createdAt": "2026-10-19T01:09:33.247Z",
+      "updatedAt": "2026-10-19T01:10:01.157Z",
+      "labels": [
+        {
+          "name": "automation:bot-authored"
+        },
+        {
+          "name": "category:gitlab cli"
+        },
+        {
+          "name": "devops::ai clients"
+        },
+        {
+          "name": "group::developer clients"
+        },
+        {
+          "name": "maintenance::dependency"
+        },
+        {
+          "name": "section::ai"
+        },
+        {
+          "name": "type::maintenance"
+        }
+      ],
+      "commentCount": 1,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
     }
   ],
-  "total": 99,
+  "total": 74,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-    "etag": "W/\"28d996910be482aec73101ae8b66b6e4\"",
+    "etag": "W/\"478afae8c455fa51866e775e652d5664\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 500,
-    "remaining": 493,
-    "resetAt": "<now>"
+    "remaining": 480,
+    "resetAt": "<now>",
+    "resource": "throttle_unauthenticated_api"
   },
-  "etag": "W/\"28d996910be482aec73101ae8b66b6e4\""
+  "etag": "W/\"478afae8c455fa51866e775e652d5664\""
 }

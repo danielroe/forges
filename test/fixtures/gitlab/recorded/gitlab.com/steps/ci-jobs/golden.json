@@ -10,7 +10,7 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "17110223356",
+        "id": "17272413278",
         "run": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -20,89 +20,24 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2938354390"
+          "id": "2961499559"
         }
       },
-      "name": "snapcraft_release_edge",
-      "state": "success",
-      "stateRaw": "success",
-      "stage": "release",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17110223356",
-      "startedAt": "<now>",
-      "completedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "id": "17110223355",
-        "run": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "id": "2938354390"
-        }
-      },
-      "name": "snapcraft_build_edge",
+      "name": "workload",
       "state": "success",
       "stateRaw": "success",
       "stage": "build",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17110223355",
-      "startedAt": "<now>",
-      "completedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "id": "17110223354",
-        "run": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "gitlab-org",
-            "name": "cli"
-          },
-          "id": "2938354390"
-        }
-      },
-      "name": "build_windows: [arm64]",
-      "state": "success",
-      "stateRaw": "success",
-      "stage": "build",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17110223354",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
       "startedAt": "<now>",
       "completedAt": "<now>"
     }
   ],
-  "total": 19,
-  "cursor": {
-    "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2938354390/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2938354390",
-    "etag": "W/\"92f2085c0057ddadf8aa794e72f3cf8f\""
-  },
-  "etag": "W/\"92f2085c0057ddadf8aa794e72f3cf8f\"",
+  "total": 1,
+  "etag": "W/\"dc3a19b7939576947c537d861efe28e4\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1952,
-    "resetAt": "<now>"
+    "remaining": 1933,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

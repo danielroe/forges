@@ -94,13 +94,14 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/todos?page=2&per_page=3&state=pending",
-    "etag": "W/\"839c99119dd1ab5bac0f388dc83195cf\""
+    "etag": "W/\"1c0c134e58a6bc92f390e50b1bfba759\""
   },
   "notModified": false,
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1958,
-    "resetAt": "<now>"
+    "remaining": 1939,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   },
-  "etag": "W/\"839c99119dd1ab5bac0f388dc83195cf\""
+  "etag": "W/\"1c0c134e58a6bc92f390e50b1bfba759\""
 }
