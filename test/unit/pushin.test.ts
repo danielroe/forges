@@ -67,6 +67,11 @@ describe('pushin', () => {
     expect((await forge.threads.comments(pull).page()).items.map(comment => comment.body)).toEqual(['Looks good'])
   })
 
+  it('rejects adding a collaborator without a role', async () => {
+    const { forge } = provider({})
+    await expect(forge.repos.addCollaborator(repo, 'octocat', 'none')).rejects.toBeInstanceOf(UnsupportedOperationError)
+  })
+
   it('passes all states to the pull listing', async () => {
     const { forge } = provider({
       [`GET ${base}/repos/acme/widgets/pulls?state=all&per_page=1`]: { status: 200, body: [raw] },

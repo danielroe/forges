@@ -1,5 +1,5 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, PageOptions, Release, ReleaseUpdate, RepoRef, ResolvedThreadRef, ReviewComment, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, PageOptions, Release, ReleaseUpdate, RepoRef, RepoRole, ResolvedThreadRef, ReviewComment, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
@@ -27,6 +27,8 @@ export interface PushinOptions extends ForgeOptionsBase {
    */
   baseUrl?: string
 }
+
+const COLLABORATOR_PERMISSIONS: Partial<Record<RepoRole, string>> = { admin: 'admin', maintain: 'push', write: 'push', triage: 'pull', read: 'pull' }
 
 function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const anonymous = options.auth?.type === 'anonymous'
@@ -187,9 +189,13 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         return toPermissionRole(data.role_name)
       }),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
+        const permission = COLLABORATOR_PERMISSIONS[role]
+        if (!permission) {
+          throw new UnsupportedOperationError(`Pushin.eu has no ${role} collaborator permission`, context)
+        }
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
           method: 'PUT',
-          json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'pull' : 'push' },
+          json: { permission },
           signal: options?.signal,
         })
         return { status: 'added' }

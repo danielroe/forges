@@ -53,7 +53,7 @@ Listings use `Link` pagination, and they include rate-limit information from the
 
 ## Collaborators
 
-The API grants `pull`, `push` and `admin` permissions only. `repos.addCollaborator()` grants `push` for `maintain` and `pull` for `triage`. The collaborator has access immediately, without an invitation.
+The API grants `pull`, `push` and `admin` permissions only. `repos.addCollaborator()` grants `push` for `maintain` and `pull` for `triage`, and rejects `none`. The collaborator has access immediately, without an invitation.
 
 ## Notifications
 
