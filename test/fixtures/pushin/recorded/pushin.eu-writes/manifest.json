@@ -1,0 +1,29 @@
+{
+  "baseUrl": "https://pushin.eu/api/v1",
+  "repo": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "owner": "forges-fixtures",
+    "name": "forges-fixtures"
+  },
+  "run": {
+    "id": "20261019195524",
+    "base": "main",
+    "branches": [
+      "forges-fixtures/20261019195524-1",
+      "forges-fixtures/20261019195524-2",
+      "forges-fixtures/20261019195524-3"
+    ],
+    "files": [
+      "forges-fixtures/20261019195524-1.md",
+      "forges-fixtures/20261019195524-2.md",
+      "forges-fixtures/20261019195524-3.md"
+    ]
+  }
+}

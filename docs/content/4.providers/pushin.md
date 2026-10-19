@@ -184,8 +184,8 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `releases.latest` | ✅ | ✅ |
 | `releases.getByTag` | ✅ | ✅ |
 | `releases.downloadAsset` | ✅ | ✅ |
-| `releases.create` | unverified | ❌ |
-| `releases.update` | unverified | ❌ |
+| `releases.create` | ✅ | ❌ |
+| `releases.update` | ✅ | ❌ |
 | `webhooks.ingest` | ∅ | ∅ |
 | `webhooks.list` | ∅ | ∅ |
 | `webhooks.create` | ∅ | ∅ |

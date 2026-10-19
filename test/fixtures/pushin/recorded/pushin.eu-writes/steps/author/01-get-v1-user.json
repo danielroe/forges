@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1792440000",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 692,
+      "name": null,
+      "type": "User",
+      "company": null,
+      "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+      "html_url": "https://pushin.eu/roebot",
+      "login": "roebot",
+      "node_id": "REDACTED"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/releases/6",
+    "body": {
+      "body": "Published by run 20261019195524.",
+      "draft": false,
+      "prerelease": false
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4994",
+      "x-ratelimit-reset": "1792440000",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 6,
+      "name": "forges fixture 20261019195524: draft",
+      "author": {
+        "id": 692,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+        "html_url": "https://pushin.eu/roebot",
+        "login": "roebot",
+        "node_id": "REDACTED"
+      },
+      "body": "Published by run 20261019195524.",
+      "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/releases/6",
+      "updated_at": "2026-10-19T19:55:01.272299Z",
+      "tag_name": "forges-fixture-20261019195524-draft",
+      "created_at": "2026-10-19T19:55:00.260494Z",
+      "draft": false,
+      "assets": [],
+      "immutable": false,
+      "published_at": "2026-10-19T19:55:01.272260Z",
+      "prerelease": false,
+      "target_commitish": "main",
+      "html_url": "https://pushin.eu/forges-fixtures/forges-fixtures/releases/tag/forges-fixture-20261019195524-draft",
+      "node_id": "rel_034inaQGBGNSiCbVZ1Pr5P",
+      "assets_url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/releases/6/assets",
+      "tarball_url": "https://pushin.eu/forges-fixtures/forges-fixtures/archive/refs/tags/forges-fixture-20261019195524-draft.tar.gz",
+      "upload_url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/releases/6/assets{?name,label}",
+      "zipball_url": "https://pushin.eu/forges-fixtures/forges-fixtures/archive/refs/tags/forges-fixture-20261019195524-draft.zip"
+    }
+  }
+}

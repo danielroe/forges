@@ -196,8 +196,8 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         headers: { accept: 'application/octet-stream' },
         signal: downloadOptions.signal,
       })).body),
-      create: verb('unverified', (repo, input, options) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input, options)),
-      update: verb('unverified', (ref, update, options) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update, options)),
+      create: verb(true, (repo, input, options) => writeRelease(repo, `${repoPath(repo)}/releases`, 'POST', input, options)),
+      update: verb(true, (ref, update, options) => writeRelease(ref.repo, `${repoPath(ref.repo)}/releases/${encodeURIComponent(ref.id)}`, 'PATCH', update, options)),
     },
   }
 }
