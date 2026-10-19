@@ -1,0 +1,46 @@
+{
+  "ref": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "repo": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "1",
+    "externalId": "iss_034ioPQQtxpxJqTaI8FQbO"
+  },
+  "kind": "pull_request",
+  "title": "Review fixture",
+  "body": "A pull request that the forges fixtures review. Keep it open.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "login": "roebot",
+    "id": "692",
+    "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+    "url": "https://pushin.eu/roebot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/1",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "review-fixture"
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}

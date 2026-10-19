@@ -1,8 +1,72 @@
 {
-  "items": [],
+  "items": [
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "261"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "repo_034inZxoNEB2PrNvbqCpU1"
+          },
+          "kind": "issue",
+          "number": "3"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "mention",
+      "reasonRaw": "mention",
+      "unread": true,
+      "title": "forges fixture 20261019204741: issue",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "url": "https://pushin.eu/notifications/not_034iosQgDbPQgiMsYnEWDe"
+    },
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "251"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "repo_034inZxoNEB2PrNvbqCpU1"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "author",
+      "reasonRaw": "author",
+      "unread": false,
+      "title": "Review fixture",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "lastReadAt": "<now>",
+      "url": "https://pushin.eu/notifications/not_034iokEtkGIRwYNuyXMTcV"
+    }
+  ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4986,
+    "remaining": 4959,
     "resetAt": "<now>",
     "resource": "core"
   }

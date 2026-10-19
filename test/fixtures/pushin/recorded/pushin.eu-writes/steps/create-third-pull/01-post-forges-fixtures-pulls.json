@@ -1,0 +1,55 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/pulls",
+    "body": {
+      "title": "forges fixture 20261019204741: pull 3",
+      "body": "Opened by run 20261019204741.",
+      "head": "forges-fixtures/20261019204741-3",
+      "base": "main"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4979",
+      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 8041,
+      "state": "open",
+      "user": {
+        "id": 692,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+        "html_url": "https://pushin.eu/roebot",
+        "login": "roebot",
+        "node_id": "REDACTED"
+      },
+      "number": 7,
+      "title": "forges fixture 20261019204741: pull 3",
+      "head": {
+        "sha": null,
+        "ref": "forges-fixtures/20261019204741-3"
+      },
+      "body": "Opened by run 20261019204741.",
+      "base": {
+        "ref": "main"
+      },
+      "labels": [],
+      "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/pulls/7",
+      "updated_at": "2026-10-19T20:47:25.290560Z",
+      "merged": false,
+      "created_at": "2026-10-19T20:47:25.290560Z",
+      "draft": false,
+      "merge_commit_sha": null,
+      "closed_at": null,
+      "merged_at": null,
+      "html_url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/7",
+      "node_id": "iss_034iosB42uMWVhFUmTTXgK",
+      "issue_url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/issues/7"
+    }
+  }
+}

@@ -176,7 +176,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       get: verb(true, async (repo, options) => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
-      createLabel: verb('unverified', async (repo, label, options) => toLabel((await fetcher.json<PushinLabel>(`${repoPath(repo)}/labels`, {
+      createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<PushinLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',
         json: { name: label.name, color: label.colour, description: label.description },
         signal: options?.signal,
@@ -186,7 +186,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         const { data } = await fetcher.json<{ role_name: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
         return toPermissionRole(data.role_name)
       }),
-      addCollaborator: verb('unverified', async (repo, actor, role, options) => {
+      addCollaborator: verb(true, async (repo, actor, role, options) => {
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
           method: 'PUT',
           json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'pull' : 'push' },
@@ -225,7 +225,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         const { data } = await fetcher.json<PushinReview>(`${threadPath(pull)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
         return toReview(pull, data, await reviewComments(pull, ref.id, options?.signal))
       }),
-      replyToReviewComment: verb('unverified', async (thread, comment, body, options) => {
+      replyToReviewComment: verb(true, async (thread, comment, body, options) => {
         const pull = requirePull(thread, 'reviewed')
         const id = comment.inReplyTo ?? comment.ref?.id
         if (id === undefined) {
@@ -234,16 +234,16 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         const { data } = await fetcher.json<PushinReviewComment>(`${threadPath(pull)}/comments/${encodeURIComponent(id)}/replies`, { method: 'POST', json: { body }, signal: options?.signal })
         return toReviewComment(pull, data)
       }),
-      reviewThreads: verb('unverified', {
+      reviewThreads: verb(true, {
         resolveReviewThread: (ref, id, options) => setResolved(ref, id, true, options),
         unresolveReviewThread: (ref, id, options) => setResolved(ref, id, false, options),
       }),
-      createComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, body, options) => {
+      createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         const { data } = await fetcher.json<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
         return toComment(ref, data)
       }),
-      create: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (repo, input, options) => {
+      create: perKind({ issue: true, pull_request: true }, async (repo, input, options) => {
         if (input.assignees?.length) {
           throw new UnsupportedOperationError('Pushin.eu does not set assignees on new threads', context)
         }

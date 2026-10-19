@@ -1,0 +1,130 @@
+{
+  "reviews": {
+    "items": [
+      {
+        "ref": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "thread": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "repo": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "1",
+            "externalId": "iss_034ioPQQtxpxJqTaI8FQbO"
+          },
+          "id": "95"
+        },
+        "author": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "login": "danielroe",
+          "id": "277",
+          "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "url": "https://pushin.eu/danielroe",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "commented",
+        "stateRaw": "COMMENTED",
+        "submittedAt": "<now>",
+        "comments": [
+          {
+            "ref": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "thread": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "repo": {
+                  "forge": "pushin",
+                  "instance": "pushin.eu",
+                  "owner": "forges-fixtures",
+                  "name": "forges-fixtures"
+                },
+                "kind": "pull_request",
+                "number": "1",
+                "externalId": "iss_034ioPQQtxpxJqTaI8FQbO"
+              },
+              "id": "2257"
+            },
+            "body": "this is a comment on the second line to comment on (L4)",
+            "author": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "login": "danielroe",
+              "id": "277",
+              "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+              "url": "https://pushin.eu/danielroe",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "path": "review.md",
+            "line": 4,
+            "side": "right",
+            "thread": {
+              "id": "2257",
+              "resolved": false
+            },
+            "createdAt": "<now>",
+            "url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/1#discussion_rcom_034iojtjrGmC1VJvJejy9D"
+          },
+          {
+            "ref": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "thread": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "repo": {
+                  "forge": "pushin",
+                  "instance": "pushin.eu",
+                  "owner": "forges-fixtures",
+                  "name": "forges-fixtures"
+                },
+                "kind": "pull_request",
+                "number": "1",
+                "externalId": "iss_034ioPQQtxpxJqTaI8FQbO"
+              },
+              "id": "2260"
+            },
+            "body": "A reply from run 20261019204741.",
+            "author": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "login": "roebot",
+              "id": "692",
+              "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+              "url": "https://pushin.eu/roebot",
+              "typeRaw": "User",
+              "isBotHint": false
+            },
+            "path": "review.md",
+            "line": 4,
+            "side": "right",
+            "inReplyTo": "2257",
+            "thread": {
+              "id": "2257",
+              "resolved": false
+            },
+            "createdAt": "<now>",
+            "url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/1#discussion_rcom_034iosFkXDPNdAsORFj0UO"
+          }
+        ],
+        "url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/1#pullrequestreview-rev_034iojthQD2HFindJ8M2we"
+      }
+    ],
+    "rateLimit": {
+      "limit": 5000,
+      "remaining": 4967,
+      "resetAt": "<now>",
+      "resource": "core"
+    }
+  },
+  "id": "2257"
+}

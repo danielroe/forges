@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/pulls/1/reviews/95/comments?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 2257,
+        "line": 4,
+        "user": {
+          "id": 277,
+          "type": "User",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+          "html_url": "https://pushin.eu/danielroe",
+          "login": "danielroe",
+          "node_id": "REDACTED"
+        },
+        "path": "review.md",
+        "resolved": false,
+        "body": "this is a comment on the second line to comment on (L4)",
+        "updated_at": "2026-10-19T20:41:58.801300Z",
+        "created_at": "2026-10-19T20:41:58.801300Z",
+        "start_line": null,
+        "start_side": null,
+        "side": "RIGHT",
+        "diff_hunk": "@@ -0,0 +3,3 @@\n+The first line to comment on.\n+The second line to comment on.\n+The third line to comment on.",
+        "html_url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/1#discussion_rcom_034iojtjrGmC1VJvJejy9D",
+        "in_reply_to_id": null,
+        "node_id": "com_034iojtjrGmC1VJvJejy9D",
+        "commit_id": "4a4eb4ed6e96369a14f5f4c5165465d29e333073",
+        "pull_request_review_id": 95
+      }
+    ]
+  }
+}

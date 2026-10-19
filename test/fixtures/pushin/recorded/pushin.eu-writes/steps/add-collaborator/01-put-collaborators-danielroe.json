@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/collaborators/danielroe",
+    "body": {
+      "permission": "push"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4986",
+      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 277,
+      "type": "User",
+      "permissions": {
+        "push": true,
+        "pull": true,
+        "admin": false,
+        "maintain": false,
+        "triage": true
+      },
+      "role_name": "write",
+      "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "html_url": "https://pushin.eu/danielroe",
+      "login": "danielroe",
+      "node_id": "REDACTED"
+    }
+  }
+}

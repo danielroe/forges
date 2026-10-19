@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/labels",
+    "body": {
+      "name": "forges-fixture-20261019204741",
+      "color": "0e8a16",
+      "description": "Created by run 20261019204741"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4987",
+      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "default": false,
+      "id": 6301,
+      "name": "forges-fixture-20261019204741",
+      "description": "Created by run 20261019204741",
+      "color": "0e8a16",
+      "node_id": "lab_034iorzyPx7DnQZ3tUr6fx"
+    }
+  }
+}

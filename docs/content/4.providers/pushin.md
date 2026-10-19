@@ -89,7 +89,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ❌ | ❌ |
 | `repos.labels` | ✅ | ✅ |
-| `repos.createLabel` | unverified | ❌ |
+| `repos.createLabel` | ✅ | ❌ |
 | `repos.milestones` | ❌ | ❌ |
 | `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ✅ | ❌ |
@@ -97,7 +97,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ✅ | ❌ |
-| `repos.addCollaborator` | unverified | ❌ |
+| `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
 | `repos.events` | ❌ | ❌ |
@@ -112,13 +112,13 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `threads.comments` | issue, PR | issue, PR |
 | `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `threads.createComment` | issue (unverified), PR (unverified) | ❌ |
+| `threads.createComment` | issue, PR | ❌ |
 | `threads.updateComment` | ∅ | ∅ |
 | `threads.deleteComment` | ∅ | ∅ |
 | `threads.hideComment` | ∅ | ∅ |
 | `threads.reactions` | ❌ | ❌ |
 | `threads.react` | ∅ | ∅ |
-| `threads.create` | issue (unverified), PR (unverified) | ❌ |
+| `threads.create` | issue, PR | ❌ |
 | `threads.update` | ∅ | ∅ |
 | `threads.close` | ∅ | ∅ |
 | `threads.reopen` | ∅ | ∅ |
@@ -144,8 +144,8 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.createReview` | ❌ | ❌ |
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ❌ | ❌ |
-| `threads.replyToReviewComment` | unverified | ❌ |
-| `threads.resolveReviewThread` | unverified | ❌ |
+| `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ∅ | ∅ |
 | `notifications.markDone` | ∅ | ∅ |

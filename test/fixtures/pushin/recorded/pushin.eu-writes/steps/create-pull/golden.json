@@ -1,0 +1,46 @@
+{
+  "ref": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "repo": {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "5",
+    "externalId": "iss_034ios7tuhLjfK8pKdzdHV"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261019204741: pull 1",
+  "body": "Opened by run 20261019204741.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "pushin",
+    "instance": "pushin.eu",
+    "login": "roebot",
+    "id": "692",
+    "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+    "url": "https://pushin.eu/roebot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://pushin.eu/forges-fixtures/forges-fixtures/pulls/5",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261019204741-1"
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}

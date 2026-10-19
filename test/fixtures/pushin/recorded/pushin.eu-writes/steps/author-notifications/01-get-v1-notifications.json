@@ -7,10 +7,93 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4991",
-      "x-ratelimit-reset": "1792440000",
+      "x-ratelimit-remaining": "4959",
+      "x-ratelimit-reset": "1792443600",
       "x-ratelimit-resource": "core"
     },
-    "body": []
+    "body": [
+      {
+        "id": 261,
+        "reason": "mention",
+        "updated_at": "2026-10-19T20:47:35.075660Z",
+        "subject": {
+          "type": "Issue",
+          "title": "forges fixture 20261019204741: issue",
+          "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/issues/3"
+        },
+        "unread": true,
+        "repository": {
+          "id": 1200,
+          "name": "forges-fixtures",
+          "owner": {
+            "id": 114,
+            "type": "Organization",
+            "html_url": "https://pushin.eu/forges-fixtures",
+            "login": "forges-fixtures",
+            "node_id": "REDACTED"
+          },
+          "private": false,
+          "description": "Scratch repository that forges records its fixtures against.",
+          "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures",
+          "updated_at": "2026-10-19T20:47:18.043820Z",
+          "topics": [],
+          "created_at": "2026-10-19T19:54:42.166376Z",
+          "full_name": "forges-fixtures/forges-fixtures",
+          "visibility": "public",
+          "default_branch": "main",
+          "homepage": null,
+          "html_url": "https://pushin.eu/forges-fixtures/forges-fixtures",
+          "node_id": "repo_034inZxoNEB2PrNvbqCpU1",
+          "clone_url": "https://git.pushin.eu/forges-fixtures/forges-fixtures.git",
+          "forks_count": 0,
+          "stargazers_count": 0,
+          "watchers_count": 0
+        },
+        "html_url": "https://pushin.eu/notifications/not_034iosQgDbPQgiMsYnEWDe",
+        "node_id": "not_034iosQgDbPQgiMsYnEWDe",
+        "last_read_at": null
+      },
+      {
+        "id": 251,
+        "reason": "author",
+        "updated_at": "2026-10-19T20:42:12.051899Z",
+        "subject": {
+          "type": "PullRequest",
+          "title": "Review fixture",
+          "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures/pulls/1"
+        },
+        "unread": false,
+        "repository": {
+          "id": 1200,
+          "name": "forges-fixtures",
+          "owner": {
+            "id": 114,
+            "type": "Organization",
+            "html_url": "https://pushin.eu/forges-fixtures",
+            "login": "forges-fixtures",
+            "node_id": "REDACTED"
+          },
+          "private": false,
+          "description": "Scratch repository that forges records its fixtures against.",
+          "url": "https://pushin.eu/api/v1/repos/forges-fixtures/forges-fixtures",
+          "updated_at": "2026-10-19T20:47:18.043820Z",
+          "topics": [],
+          "created_at": "2026-10-19T19:54:42.166376Z",
+          "full_name": "forges-fixtures/forges-fixtures",
+          "visibility": "public",
+          "default_branch": "main",
+          "homepage": null,
+          "html_url": "https://pushin.eu/forges-fixtures/forges-fixtures",
+          "node_id": "repo_034inZxoNEB2PrNvbqCpU1",
+          "clone_url": "https://git.pushin.eu/forges-fixtures/forges-fixtures.git",
+          "forks_count": 0,
+          "stargazers_count": 0,
+          "watchers_count": 0
+        },
+        "html_url": "https://pushin.eu/notifications/not_034iokEtkGIRwYNuyXMTcV",
+        "node_id": "not_034iokEtkGIRwYNuyXMTcV",
+        "last_read_at": "2026-10-19T20:47:28.311185Z"
+      }
+    ]
   }
 }
