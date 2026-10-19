@@ -1,0 +1,217 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/pullrequests?searchCriteria.status=completed&%24top=10&%24skip=0&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "value": [
+        {
+          "repository": {
+            "id": "2459d599-fdb2-4d28-9810-daeec061cf90",
+            "name": "dotnet-public-wiki",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90",
+            "project": {
+              "id": "cbb18261-c48f-4abb-8651-8cdcb5474649",
+              "name": "public",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 5,
+          "codeReviewId": 5,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "MerlinBot",
+            "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+              }
+            },
+            "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+            "uniqueName": null,
+            "imageUrl": null,
+            "descriptor": "svc.NmZjYzkyZTUtNzNhNy00Zjg4LThkMTMtZDkwNDViNDVmYjI3OkFwcGxpY2F0aW9uOjU2YjBmMDQyLWIwNWUtODZkOS1iMGY3LWM1ZGRiMWU3NjM4NQ"
+          },
+          "creationDate": "2026-02-18T04:35:01.9643061Z",
+          "closedDate": "2026-02-18T04:35:05.1682215Z",
+          "title": "Inventory bootstrapping",
+          "description": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://pr",
+          "sourceRefName": "refs/heads/invBootstrap",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "300b2edb-c12b-45ac-be2f-b124ba120ec0",
+          "lastMergeSourceCommit": {
+            "commitId": "3aae318f1661c50c34effbbf6882119ed161f2d6",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/3aae318f1661c50c34effbbf6882119ed161f2d6"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "2adc745e20d7a07fb7f177853d3e78a95b007aef",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/2adc745e20d7a07fb7f177853d3e78a95b007aef"
+          },
+          "lastMergeCommit": {
+            "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/08c37c0d-dc6c-6635-9662-1fa8dad90878",
+              "vote": 0,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "Mark Wilkie",
+              "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/08c37c0d-dc6c-6635-9662-1fa8dad90878",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.MDhjMzdjMGQtZGM2Yy03NjM1LTk2NjItMWZhOGRhZDkwODc4"
+                }
+              },
+              "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+              "uniqueName": null,
+              "imageUrl": null
+            },
+            {
+              "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/ab548af8-1ef9-4928-8fd6-2014ea725a67",
+              "vote": 0,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "Matt Mitchell (.NET)",
+              "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/ab548af8-1ef9-4928-8fd6-2014ea725a67",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.NzIwMmY4NmUtODhlOC03Yjc0LWFlYzYtMTMwZGQzMDI5MGI1"
+                }
+              },
+              "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+              "uniqueName": null,
+              "imageUrl": null
+            },
+            {
+              "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5/reviewers/bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+              "vote": 0,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "Michael Stuckey",
+              "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.YmQ0MTNlZjEtNzZkNS03MzMzLTgxZTYtODJjZDVkNmMzNjVk"
+                }
+              },
+              "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+              "uniqueName": null,
+              "imageUrl": null
+            }
+          ],
+          "labels": [
+            {
+              "id": "50382a5b-2410-4c56-9bb7-b093866bb004",
+              "name": "NonProductionRepo",
+              "active": true
+            },
+            {
+              "id": "d2a9d5ec-bda6-4985-92ed-2287c19b147f",
+              "name": "SingleServiceRepo",
+              "active": true
+            }
+          ],
+          "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/5",
+          "completionOptions": {
+            "deleteSourceBranch": true,
+            "squashMerge": true,
+            "mergeStrategy": "squash",
+            "triggeredByAutoComplete": true
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2026-02-18T04:35:04.2382254Z"
+        },
+        {
+          "repository": {
+            "id": "2459d599-fdb2-4d28-9810-daeec061cf90",
+            "name": "dotnet-public-wiki",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90",
+            "project": {
+              "id": "cbb18261-c48f-4abb-8651-8cdcb5474649",
+              "name": "public",
+              "state": "unchanged",
+              "visibility": "unchanged",
+              "lastUpdateTime": "0001-01-01T00:00:00"
+            }
+          },
+          "pullRequestId": 1,
+          "codeReviewId": 1,
+          "status": "completed",
+          "createdBy": {
+            "displayName": "Ilya Skuratovsky",
+            "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/0994e4e4-d484-4337-a745-54d4db413c14",
+            "_links": {
+              "avatar": {
+                "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aad.YjI5ZmEwOGMtMjQ2YS03ODFmLTk0MzktM2VmMzAwZDJhYjEy"
+              }
+            },
+            "id": "0994e4e4-d484-4337-a745-54d4db413c14",
+            "uniqueName": null,
+            "imageUrl": null,
+            "descriptor": "aad.YjI5ZmEwOGMtMjQ2YS03ODFmLTk0MzktM2VmMzAwZDJhYjEy"
+          },
+          "creationDate": "2023-05-09T21:37:43.9987594Z",
+          "closedDate": "2023-05-16T15:27:53.4526591Z",
+          "title": "Landing Page for Customers",
+          "description": "As discussed, I have created a landing page for our customers to help answer some of the most common questions. \n\nAsk: Please let me know if there are any additional subjects that should be added for this initial upload. ",
+          "sourceRefName": "refs/heads/ilyas-docs",
+          "targetRefName": "refs/heads/main",
+          "mergeStatus": "succeeded",
+          "isDraft": false,
+          "mergeId": "56af330b-7aa2-49f1-bb03-f6afdc350a54",
+          "lastMergeSourceCommit": {
+            "commitId": "cd6039e649dcf41c410d9e970d391165cf9b8124",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/cd6039e649dcf41c410d9e970d391165cf9b8124"
+          },
+          "lastMergeTargetCommit": {
+            "commitId": "4728a89a4e2f5cfdfecd0e216d864e649d9cb28a",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/4728a89a4e2f5cfdfecd0e216d864e649d9cb28a"
+          },
+          "lastMergeCommit": {
+            "commitId": "ea46e51423f53ceb2e9632a71920201e413b9e42",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/commits/ea46e51423f53ceb2e9632a71920201e413b9e42"
+          },
+          "reviewers": [
+            {
+              "reviewerUrl": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/1/reviewers/e13d05ab-dfe1-4d58-8226-de02d1582e01",
+              "vote": 0,
+              "hasDeclined": false,
+              "isFlagged": false,
+              "displayName": "[TEAM FOUNDATION]\\.NET Eng Services",
+              "url": "https://spsprodcus4.vssps.visualstudio.com/A10a5dd58-16e3-41e8-b079-e25cb8111111/_apis/Identities/e13d05ab-dfe1-4d58-8226-de02d1582e01",
+              "_links": {
+                "avatar": {
+                  "href": "https://dev.azure.com/dnceng-public/_apis/GraphProfile/MemberAvatars/aadgp.Uy0xLTktMTU1MTM3NDI0NS0xMjA0NDAwOTY5LTI0MDI5ODY0MTMtMjE3OTQwODYxNi0zLTUwMzEwOTQ3Ny0xMTQzNDMzNTQyLTIyNzI4Nzc3ODMtMzYxODAyNzg2Nw"
+                }
+              },
+              "id": "e13d05ab-dfe1-4d58-8226-de02d1582e01",
+              "uniqueName": null,
+              "imageUrl": null,
+              "isContainer": true
+            }
+          ],
+          "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/pullRequests/1",
+          "completionOptions": {
+            "mergeCommitMessage": "Merged PR 1: Landing Page for Customers\n\nAs discussed, I have created a landing page for our customers to help answer some of the most common questions. \n\nAsk: Please let me know if there are any additional subjects that should be added for this initial upload. ",
+            "deleteSourceBranch": true,
+            "mergeStrategy": "noFastForward",
+            "transitionWorkItems": true,
+            "autoCompleteIgnoreConfigIds": []
+          },
+          "supportsIterations": true,
+          "completionQueueTime": "2023-05-16T15:27:52.4992714Z"
+        }
+      ],
+      "count": 2
+    }
+  }
+}

@@ -12,12 +12,12 @@
           "kind": "namespace"
         },
         "kind": "issue",
-        "number": "24",
+        "number": "27",
         "typeRaw": "Issue"
       },
       "kind": "issue",
-      "title": "forges fixture 20261012114218: issue, edited",
-      "body": "Edited by run 20261012114218.",
+      "title": "forges fixture 20261012220452: issue, edited",
+      "body": "Edited by run 20261012220452.",
       "state": "open",
       "stateRaw": "To Do",
       "stateReason": "Reactivated",
@@ -32,28 +32,17 @@
         "typeRaw": "user",
         "isBotHint": false
       },
-      "assignees": [
-        {
-          "forge": "azure-devops",
-          "instance": "dev.azure.com",
-          "login": "redacted@example.invalid",
-          "id": "567dfc49-0db7-43e6-83c1-d91d91db58b1",
-          "name": "danielroebot outlook.com",
-          "avatarUrl": "https://dev.azure.com/forges/_apis/GraphProfile/MemberAvatars/aad.MzE2OTUzNzAtY2RlZS03NzVkLWEwYjctMzUwYTkyZTJhMjc5",
-          "typeRaw": "user",
-          "isBotHint": false
-        }
-      ],
+      "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "forges-fixture-20261012114218"
+          "name": "forges-fixture-20261012220452"
         }
       ],
-      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/24",
-      "createdAt": "<now>",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/27",
+      "createdAt": "2026-10-12T22:04:56.600Z",
+      "updatedAt": "2026-10-12T22:04:58.530Z",
+      "lastActivityAt": "2026-10-12T22:04:58.530Z",
       "commentCount": 1,
       "issueType": {
         "id": "Issue",
@@ -72,12 +61,12 @@
           "kind": "namespace"
         },
         "kind": "issue",
-        "number": "26",
+        "number": "29",
         "typeRaw": "Issue"
       },
       "kind": "issue",
-      "title": "forges fixture 20261012114218: duplicate",
-      "body": "Opened by run 20261012114218.",
+      "title": "forges fixture 20261012220452: duplicate",
+      "body": "Opened by run 20261012220452.",
       "state": "open",
       "stateRaw": "To Do",
       "stateReason": "Added to backlog",
@@ -95,10 +84,10 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/26",
-      "createdAt": "<now>",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/29",
+      "createdAt": "2026-10-12T22:04:58.240Z",
+      "updatedAt": "2026-10-12T22:04:58.240Z",
+      "lastActivityAt": "2026-10-12T22:04:58.240Z",
       "commentCount": 0,
       "issueType": {
         "id": "Issue",
@@ -117,12 +106,12 @@
           "kind": "namespace"
         },
         "kind": "issue",
-        "number": "25",
+        "number": "28",
         "typeRaw": "Issue"
       },
       "kind": "issue",
-      "title": "forges fixture 20261012114218: labelled issue",
-      "body": "Opened by run 20261012114218.",
+      "title": "forges fixture 20261012220452: labelled issue",
+      "body": "Opened by run 20261012220452.",
       "state": "open",
       "stateRaw": "To Do",
       "stateReason": "Added to backlog",
@@ -152,13 +141,13 @@
       "reviewers": [],
       "labels": [
         {
-          "name": "forges-fixture-20261012114218"
+          "name": "forges-fixture-20261012220452"
         }
       ],
-      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/25",
-      "createdAt": "<now>",
-      "updatedAt": "<now>",
-      "lastActivityAt": "<now>",
+      "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_workitems/edit/28",
+      "createdAt": "2026-10-12T22:04:58.093Z",
+      "updatedAt": "2026-10-12T22:04:58.093Z",
+      "lastActivityAt": "2026-10-12T22:04:58.093Z",
       "commentCount": 0,
       "issueType": {
         "id": "Issue",

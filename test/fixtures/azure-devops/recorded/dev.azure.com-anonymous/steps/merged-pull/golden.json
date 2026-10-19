@@ -1,0 +1,204 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki",
+        "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+      },
+      "kind": "pull_request",
+      "number": "5"
+    },
+    "kind": "pull_request",
+    "title": "Inventory bootstrapping",
+    "body": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://pr",
+    "state": "merged",
+    "stateRaw": "completed",
+    "isDraft": false,
+    "author": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "MerlinBot",
+      "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+      "name": "MerlinBot",
+      "avatarUrl": null,
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Mark Wilkie",
+          "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "name": "Mark Wilkie",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Matt Mitchell (.NET)",
+          "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "name": "Matt Mitchell (.NET)",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Michael Stuckey",
+          "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "name": "Michael Stuckey",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      }
+    ],
+    "labels": [
+      {
+        "name": "NonProductionRepo"
+      },
+      {
+        "name": "SingleServiceRepo"
+      }
+    ],
+    "createdAt": "2026-02-18T04:35:01.964Z",
+    "closedAt": "2026-02-18T04:35:05.168Z",
+    "mergedAt": "2026-02-18T04:35:05.168Z",
+    "lastActivityAt": "2026-02-18T04:35:05.168Z",
+    "branches": {
+      "head": {
+        "ref": "invBootstrap",
+        "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+      },
+      "mergeCommitSha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "repo": {
+        "forge": "azure-devops",
+        "instance": "dev.azure.com",
+        "owner": "dnceng-public/public",
+        "name": "dotnet-public-wiki",
+        "externalId": "2459d599-fdb2-4d28-9810-daeec061cf90"
+      },
+      "kind": "pull_request",
+      "number": "5",
+      "externalId": "vstfs:///Git/PullRequestId/cbb18261-c48f-4abb-8651-8cdcb5474649%2f2459d599-fdb2-4d28-9810-daeec061cf90%2f5"
+    },
+    "kind": "pull_request",
+    "title": "Inventory bootstrapping",
+    "body": "This **automated pull request**, created by **1ES**, is part of the **[Inventory-As-Code](https://aka.ms/inventory-as-code)** onboarding to improve **bug-routing** and **incident response** and **permissions management**.\n \n#🚀 What’s Changing?\n\n- This PR adds inventory metadata to your repository sourced from Product Catalog.\n- Once merged, this metadata will supersede [Product Catalog](https://product-catalog-web.prod.space.microsoft.com/), which will eventually be retired. You'll manage repository inventory directly via source code.\n\n#✅ Action Required :\n\n##1. Review the YAML file(s)\n- Ensure the repository inventory metadata is accurate.\n\n##2. If the metadata is inaccurate\n- **[Preferred]** Edit the PR directly\n- **Alternatively**: Approve and merge the PR, then open a new PR with corrections.\n- **[Not Recommended]** Reject the PR and manually configure inventory by adding es-metadata.yml file.\n\n##3. Approve and Merge the Pull Request\n- Once reviewed, approve and merge the PR to onboard your repository to Inventory-As-Code.\n  **Note**: For repositories under orgs that have [opted into auto-merge](https://eng.ms/docs/cloud-ai-platform/devdiv/one-engineering-system-1es/1es-docs/product-catalog/inventory-as-code/auto-prsforinventory-as-code#:~:text=in%20the%20extension.-%2c%F0%9F%91%80%20What%20Happens%20When%20You%20Receive%20an%20Auto-PR?%2c-%E2%9C%85%20PR%20Title:%20The), this PR will be automatically merged within 24 hours of creation\n\n#ℹ️ Why You’re Receiving This PR\nYou are listed as a service admin for the service this repository is assigned to.\nIf this repo should not be associated with your service:\n    1. Visit: https://product-catalog-web.prod.space.microsoft.com/Product/serviced\n    2. Replace serviceId with the service value from es-metadata.yml file and unassign the repo.\n\n#ℹ️ How does this impact permissions\n• For organizations onboarded to the 1ES Permission Service (https://aka.ms/engtenant/access), the owning Service retains administrative permissions.\n• Consuming services (if applicable) will have contribute access on the repository.\n• Read more on how Inventory-As-Code and the 1ES Permission Service here (https://eng.ms/docs/more/engineering-tenant-esme/perms/inventory).\n\n**Need Assistance?**\n \n📩 **Questions:** [Teams Channel for InventoryAsCode](https://teams.microsoft.com/l/channel/19%3Af82f631a47e248d6a573712683c4a96b%40thread.skype/InventoryAsCode%20Migration?groupId=fa2bea20-1f8d-42f6-9697-ebe18dbb7bc3&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47)\n📖 **Learn More:** https://aka.ms/inventory-as-code\n<!-- GitOpsUserAgent=GitOps.Apps.Job.inventorybootstrapping -->\n",
+    "state": "merged",
+    "stateRaw": "completed",
+    "isDraft": false,
+    "author": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "MerlinBot",
+      "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+      "name": "MerlinBot",
+      "avatarUrl": null,
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Mark Wilkie",
+          "id": "08c37c0d-dc6c-6635-9662-1fa8dad90878",
+          "name": "Mark Wilkie",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Matt Mitchell (.NET)",
+          "id": "ab548af8-1ef9-4928-8fd6-2014ea725a67",
+          "name": "Matt Mitchell (.NET)",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      },
+      {
+        "actor": {
+          "forge": "azure-devops",
+          "instance": "dev.azure.com",
+          "login": "Michael Stuckey",
+          "id": "bd413ef1-76d5-6333-81e6-82cd5d6c365d",
+          "name": "Michael Stuckey",
+          "avatarUrl": null,
+          "typeRaw": "user",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "vote:0"
+      }
+    ],
+    "labels": [],
+    "createdAt": "2026-02-18T04:35:01.964Z",
+    "closedAt": "2026-02-18T04:35:05.168Z",
+    "mergedAt": "2026-02-18T04:35:05.168Z",
+    "mergedBy": {
+      "forge": "azure-devops",
+      "instance": "dev.azure.com",
+      "login": "MerlinBot",
+      "id": "56b0f042-b05e-86d9-b0f7-c5ddb1e76385",
+      "name": "MerlinBot",
+      "avatarUrl": null,
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "lastActivityAt": "2026-02-18T04:35:05.168Z",
+    "branches": {
+      "head": {
+        "ref": "invBootstrap",
+        "sha": "3aae318f1661c50c34effbbf6882119ed161f2d6"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "2adc745e20d7a07fb7f177853d3e78a95b007aef"
+      },
+      "mergeCommitSha": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+    }
+  }
+}
