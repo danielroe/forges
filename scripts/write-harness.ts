@@ -348,9 +348,19 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
     async createTag(base, tag) {
       git(checkout(base), ['push', '-q', 'origin', `refs/remotes/origin/${base}:refs/tags/${tag}`], auth)
     },
+    /**
+     * The API cannot close threads, so fixture issues and pull requests are closed by importing them
+     * again with `state: 'closed'`, which replaces every field the import leaves out.
+     */
     async cleanUp(branches) {
+      interface Open { number: number, title: string, body: string | null, pull_request?: unknown, head?: { ref: string }, base?: { ref: string } }
+      const pulls = await call<Open[]>(`${repo}/pulls?state=open&per_page=100`).catch(() => [])
+      const issues = await call<Open[]>(`${repo}/issues?state=open&per_page=100`).catch(() => [])
       const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?per_page=100`).catch(() => [])
+      const fixture = (item: Open) => item.title.startsWith(FIXTURE_TITLE)
       await settle([
+        ...pulls.filter(fixture).map(item => () => call(`${repo}/pulls`, { method: 'POST', json: { number: item.number, title: item.title, body: item.body, head: item.head?.ref, base: item.base?.ref, state: 'closed' } })),
+        ...issues.filter(item => fixture(item) && !item.pull_request).map(item => () => call(`${repo}/issues`, { method: 'POST', json: { number: item.number, title: item.title, body: item.body, state: 'closed' } })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
         async () => {
           const directory = mkdtempSync(join(tmpdir(), 'forges-pushin-'))
