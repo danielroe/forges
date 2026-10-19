@@ -1,0 +1,138 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "kind": "pull_request",
+      "number": "1146",
+      "externalId": "512394"
+    },
+    "kind": "pull_request",
+    "title": "revert: tea 1.0 rewrite (#1122–#1126)",
+    "body": "Reverts #1126, #1125, #1124, #1123 and #1122.\r\n\r\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\r\n\r\nreopens #69\r\nreopens #141\r\nreopens #162\r\nreopens #172\r\nreopens #197\r\nreopens #232\r\nreopens #240\r\nreopens #246\r\nreopens #323\r\nreopens #325\r\nreopens #326\r\nreopens #328\r\nreopens #344\r\nreopens #351\r\nreopens #373\r\nreopens #403\r\nreopens #406\r\nreopens #417\r\nreopens #430\r\nreopens #457\r\nreopens #480\r\nreopens #482\r\nreopens #489\r\nreopens #490\r\nreopens #498\r\nreopens #500\r\nreopens #504\r\nreopens #510\r\nreopens #516\r\nreopens #523\r\nreopens #556\r\nreopens #560\r\nreopens #569\r\nreopens #571\r\nreopens #602\r\nreopens #632\r\nreopens #633\r\nreopens #643\r\nreopens #666\r\nreopens #670\r\nreopens #672\r\nreopens #677\r\nreopens #683\r\nreopens #697\r\nreopens #726\r\nreopens #737\r\nreopens #770\r\nreopens #779\r\nreopens #804\r\nreopens #817\r\nreopens #831\r\nreopens #833\r\nreopens #834\r\nreopens #908\r\nreopens #966\r\nreopens #1023\r\nreopens #1029\r\nreopens #1032\r\nreopens #1050\r\nreopens #1052\r\nreopens #1069\r\nreopens #1073\r\nreopens #1087\r\nreopens #1091\r\nreopens #1094\r\nreopens #1110\r\nreopens #1115\r\nreopens #1116\r\nreopens #1118\r\n",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "bircni",
+      "id": "173651",
+      "name": "bircni",
+      "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+      "url": "https://gitea.com/bircni",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://gitea.com/gitea/tea/pulls/1146",
+    "createdAt": "2026-10-18T09:05:15.000Z",
+    "updatedAt": "2026-10-18T20:56:34.000Z",
+    "closedAt": "2026-10-18T20:56:34.000Z",
+    "mergedAt": "2026-10-18T20:56:34.000Z",
+    "lastActivityAt": "2026-10-18T20:56:34.000Z",
+    "locked": false,
+    "commentCount": 0
+  },
+  "read": {
+    "ref": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea"
+      },
+      "kind": "pull_request",
+      "number": "1146",
+      "externalId": "206678"
+    },
+    "kind": "pull_request",
+    "title": "revert: tea 1.0 rewrite (#1122–#1126)",
+    "body": "Reverts #1126, #1125, #1124, #1123 and #1122.\r\n\r\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\r\n\r\nreopens #69\r\nreopens #141\r\nreopens #162\r\nreopens #172\r\nreopens #197\r\nreopens #232\r\nreopens #240\r\nreopens #246\r\nreopens #323\r\nreopens #325\r\nreopens #326\r\nreopens #328\r\nreopens #344\r\nreopens #351\r\nreopens #373\r\nreopens #403\r\nreopens #406\r\nreopens #417\r\nreopens #430\r\nreopens #457\r\nreopens #480\r\nreopens #482\r\nreopens #489\r\nreopens #490\r\nreopens #498\r\nreopens #500\r\nreopens #504\r\nreopens #510\r\nreopens #516\r\nreopens #523\r\nreopens #556\r\nreopens #560\r\nreopens #569\r\nreopens #571\r\nreopens #602\r\nreopens #632\r\nreopens #633\r\nreopens #643\r\nreopens #666\r\nreopens #670\r\nreopens #672\r\nreopens #677\r\nreopens #683\r\nreopens #697\r\nreopens #726\r\nreopens #737\r\nreopens #770\r\nreopens #779\r\nreopens #804\r\nreopens #817\r\nreopens #831\r\nreopens #833\r\nreopens #834\r\nreopens #908\r\nreopens #966\r\nreopens #1023\r\nreopens #1029\r\nreopens #1032\r\nreopens #1050\r\nreopens #1052\r\nreopens #1069\r\nreopens #1073\r\nreopens #1087\r\nreopens #1091\r\nreopens #1094\r\nreopens #1110\r\nreopens #1115\r\nreopens #1116\r\nreopens #1118\r\n",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "bircni",
+      "id": "173651",
+      "name": "bircni",
+      "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+      "url": "https://gitea.com/bircni",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "TheFox0x7",
+          "id": "95654",
+          "avatarUrl": "https://gitea.com/avatars/9fcf0c2f6adb1fa00eae875ba67a5e1d",
+          "url": "https://gitea.com/TheFox0x7",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "requested"
+      }
+    ],
+    "labels": [],
+    "url": "https://gitea.com/gitea/tea/pulls/1146",
+    "createdAt": "2026-10-18T09:05:15.000Z",
+    "updatedAt": "2026-10-18T20:56:34.000Z",
+    "closedAt": "2026-10-18T20:56:34.000Z",
+    "mergedAt": "2026-10-18T20:56:34.000Z",
+    "mergedBy": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "login": "bircni",
+      "id": "173651",
+      "name": "bircni",
+      "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+      "url": "https://gitea.com/bircni",
+      "isBotHint": false
+    },
+    "lastActivityAt": "2026-10-18T20:56:34.000Z",
+    "locked": false,
+    "commentCount": 0,
+    "branches": {
+      "head": {
+        "ref": "revert-1.0-stack",
+        "sha": "d3f41d37e7544c8e6466ddcf378cfe4384d5130f",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "bircni",
+          "name": "tea",
+          "externalId": "127298"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "c5f674111ab7a61418829c66b240573400d46ae4"
+      },
+      "mergeCommitSha": "c5f674111ab7a61418829c66b240573400d46ae4"
+    },
+    "stats": {
+      "additions": 33711,
+      "deletions": 35545,
+      "changedFileCount": 604
+    },
+    "checks": {
+      "state": "success",
+      "total": 2,
+      "failed": 0
+    }
+  }
+}

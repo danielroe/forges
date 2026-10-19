@@ -59,26 +59,6 @@
       },
       "files": [
         {
-          "path": "cmd/issues/create_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/pulls/create_app_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/pulls/create_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/task/pull_merge_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
           "path": "cmd/issues/create.go",
           "status": "modified",
           "statusRaw": "modified"
@@ -122,6 +102,26 @@
           "path": "modules/task/pull_merge.go",
           "status": "modified",
           "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/issues/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_app_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_merge_test.go",
+          "status": "added",
+          "statusRaw": "added"
         }
       ]
     },
@@ -181,41 +181,6 @@
       },
       "files": [
         {
-          "path": "cmd/flags/issue_pr.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "cmd/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "docs/CLI.md",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "go.mod",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/config/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/interact/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/login_create.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
           "path": "cmd/flags/body.go",
           "status": "added",
           "statusRaw": "added"
@@ -254,6 +219,41 @@
           "path": "modules/task/login_status_test.go",
           "status": "added",
           "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/issue_pr.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "docs/CLI.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/config/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/interact/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/login_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
         }
       ]
     },

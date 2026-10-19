@@ -10,6 +10,3117 @@
           "owner": "gitea",
           "name": "tea"
         },
+        "sha": "c5f674111ab7a61418829c66b240573400d46ae4"
+      },
+      "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+      "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-18T20:56:33.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-18T20:56:33.000Z"
+      },
+      "parents": [
+        "33bb12729e6de375813fb94fbcfbfa110d45c107"
+      ],
+      "url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+      "stats": {
+        "additions": 33711,
+        "deletions": 35545,
+        "total": 69256
+      },
+      "files": [
+        {
+          "path": "cmd/actions.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs/logs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/runs/view.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/delete_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/secrets/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/delete_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/set.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/variables/set_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows/disable.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows/dispatch.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows/enable.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/actions/workflows/view.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin/users/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin/users/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin/users/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin/users/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/admin/users/shared.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/api.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/api_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/attachments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/attachments/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/attachments/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/attachments/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/branches.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/branches/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/branches/protect.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/branches/rename.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/branches/rename_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/categories.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/clone.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/cmd.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comment.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/add.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/body.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/body_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/comments/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/detail_json.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/body.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/body_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/csvflag.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/generic.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/generic_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/flags/issue_pr.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/close.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues/reopen.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/issues_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/labels/update.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/add.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/default.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/helper.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/oauth_refresh.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/login/status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/logout.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/man.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/close.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/issues.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/milestones/reopen.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/notifications.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/notifications/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/notifications/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/notifications/mark_as.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/open.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/organizations.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/organizations/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/organizations/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/organizations/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/approve.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/checkout.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/clean.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/close.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_app_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/merge.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/reject.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/reopen.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/reply.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/reply_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/resolve.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/review.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/review_comments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/review_helpers.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/review_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/pulls/unresolve.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/releases/utils.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/create_from_template.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/flags.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/fork.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/migrate.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/repos/search.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/sshkeys.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/sshkeys/add.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/sshkeys/add_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/sshkeys/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/sshkeys/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/times.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/times/add.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/times/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/times/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/times/reset.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/delete.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/delete_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/list.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/list_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/update.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/webhooks/update_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/whoami.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki/read.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki/read_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki/write.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki/write_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "cmd/wiki_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "contrib/autocomplete.ps1",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "contrib/autocomplete.sh",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "contrib/autocomplete.zsh",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "demo.gif",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "docs/CLI.md",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "docs/docs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/api/client.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/auth/oauth.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/auth/oauth_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/config.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/credstore.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/lock.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/lock_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/login.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/login_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/config/testtools.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_login.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_prompt_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_remote.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_repo.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_require.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_require_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/context/context_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/debug/debug.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/filelock/filelock.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/filelock/filelock_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/filelock/filelock_unix.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/filelock/filelock_windows.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/auth.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/backend.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/backend_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/branch.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/cli_backend.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/cli_backend_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/network.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/remote.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/repo.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/repo_cli_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/types.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/url.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/git/url_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/httputil/httputil.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/httputil/transport.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/httputil/transport_stall_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/comments.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/issue_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/issue_edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/login.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/login_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/milestone_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/print.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/prompts.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/pull_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/pull_merge.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/interact/pull_review.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/actions.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/actions_runs.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/actions_runs_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/actions_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/attachment.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/branch.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/branch_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/comment.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/formatters.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/issue.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/label.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/login.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/login_status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/login_status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/markdown.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/milestone.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/notification.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/organization.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/pull.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/pull_review_comment.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/pull_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/release.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/repo.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/repo_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/sshkey.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/table.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/table_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/times.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/user.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/webhook.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/webhook_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/wiki.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/print/wiki_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/assignees.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/issue_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/issue_edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/labels.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/labels_export.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_httpsign.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_ssh.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_status.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/login_status_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/milestone_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_checkout.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_clean.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_create.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_edit.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_merge.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_merge_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_review.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/pull_review_comment.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/repo_clone.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/wiki.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/task/wiki_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/theme/background.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/theme/theme.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/theme/theme_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/draft.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/draft_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/input.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/parse.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/parse_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/path.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/utils.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/utils/validate.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "modules/version/version.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/README.md",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/admin_users_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/cmd_labels_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/comments_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/config_lock_unix_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/context_init_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/git_branch_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/git_repo_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/pulls_reply_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/repos_create_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/sshkeys_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/task_issue_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/task_labels_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/task_pull_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "tests/integration/wiki_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "docs/migration-1.0.md",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/aliases/aliases.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/aliases/aliases_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/action_jobs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/action_logs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/action_logs_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/action_values.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/action_values_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/actions.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/actions_integration_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/actions_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/admin_users.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/admin_users_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/alias_completion_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/api.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/api_integration_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/api_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/app.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/app_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/args.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/args_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/artifacts.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/artifacts_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/auth.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/auth_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/branches.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/branches_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/browser.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/browser_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/checkout.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/checkout_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/checks.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/checks_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/clone_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/comments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/comments_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/config.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/config_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/deadline.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/deadline_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/diff_review.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/diff_review_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/discussion_search.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/discussion_search_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/discussion_view.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/discussion_view_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/doctor.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/doctor_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/download.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/download_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/editor.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/editor_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/git.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/git_credentials.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/git_credentials_integration_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/git_credentials_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/helpers_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/human_output.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/human_output_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/integration_helpers_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/integration_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_attachments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_attachments_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_bulk_edit_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_create_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_edit_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_filters_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issue_inputs_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/issues.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/label_export.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/label_export_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/label_options_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/labelfile.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/labelfile_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/man.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/man_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/metadata.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_bulk_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_create_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_description_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_issues.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_names_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/milestone_state.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/mutations.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/notifications.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/notifications_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/organizations.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/output_fields_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_clean.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_clean_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_create_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_edit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_edit_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_integration_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_merge_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_merge_title_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review_lifecycle.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review_requests.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review_requests_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_review_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pull_view_current_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pulls.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/pulls_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/release_assets.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/release_assets_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/releases.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/releases_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repos.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_argument_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_create.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_create_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_edit_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_migrate.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/repository_sync.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/search.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/ssh_keys.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/ssh_keys_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/status.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/status_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/target.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/target_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/teams.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/time.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/time_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/validation_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/webhooks.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/app/wiki.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/credentials.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/gitcredential.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/gitcredential_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/httpsign.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/httpsign_agent.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/httpsign_agent_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/httpsign_agent_windows.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/httpsign_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/manager.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/manager_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/oauth.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/auth/oauth_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/clierr/errors.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/clierr/errors_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/filelock/filelock.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/filelock/filelock_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/filelock/filelock_unix.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/filelock/filelock_windows.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/agit.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/agit_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/checkout.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/checkout_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/clean.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/clean_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/credentials.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/credentials_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/discover.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/discover_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/runner.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/runner_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/ssh.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/sync.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/git/sync_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/action_logs.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/action_logs_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/action_values.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/action_values_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/actions.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/actions_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/admin_users.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/admin_users_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/api.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/api_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/artifacts.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/artifacts_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/attachments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/branches.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/branches_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/checks.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/checks_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/comments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/comments_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/convert.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/convert_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/draft.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/draft_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/errors.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/helpers.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/helpers_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/identity.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/identity_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issue_attachments.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issue_create_selectables.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issue_create_selectables_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issue_dependencies.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issue_labels_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issues.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/issues_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/label_selection.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/label_selection_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/metadata.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/metadata_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/milestone_deadline_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/milestone_selection.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/milestone_selection_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/notifications.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/notifications_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/organizations.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/organizations_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/pagination_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/pull_create_selectables.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/pulls.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/pulls_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/raw.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/raw_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/releases.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/releases_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repositories.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repositories_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repository_search.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repository_search_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repository_setup.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/repository_setup_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/review_requests.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/review_requests_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/reviews.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/reviews_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/sdk.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/sdk_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/search.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/search_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/ssh_keys.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/ssh_keys_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/status.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/status_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/teams.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/teams_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/time.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/time_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/webhooks.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/webhooks_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/wiki.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/services/wiki_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/remote.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/remote_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/ssh.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/ssh_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/store.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/store_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/browser.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/browser_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/color.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/color_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/editor.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/editor_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/issue_edit_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/issue_edit_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/issue_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/issue_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/merge_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/milestone_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/milestone_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/output.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/output_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/pager.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/pager_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/pull_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/pull_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/review_form.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/review_form_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/streams.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/streams_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/table.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/terminal/table_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/api.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/api_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/client.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/client_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/debug.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/download.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/transport/download_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/version/version.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "main_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "scripts/integration-tokens.py",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tools/cli-docs/main.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "tools/cli-docs/main_test.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": ".gitea/workflows/release-nightly.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".gitea/workflows/release-tag.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".gitea/workflows/test-pr.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".gitignore",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".golangci.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".goreleaser.yaml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "Makefile",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "docs/example-workflows.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "flake.nix",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.sum",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "main.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "snap/snapcraft.yaml",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
         "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107"
       },
       "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
@@ -82,7 +3193,7 @@
           "login": "bircni",
           "id": "173651",
           "name": "bircni",
-          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
           "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
@@ -97,7 +3208,7 @@
           "login": "bircni",
           "id": "173651",
           "name": "bircni",
-          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
           "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
@@ -2396,465 +5507,9 @@
           "statusRaw": "modified"
         }
       ]
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83"
-      },
-      "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
-      "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "bircni",
-          "id": "173651",
-          "name": "bircni",
-          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-          "url": "https://gitea.com/bircni",
-          "isBotHint": false
-        },
-        "name": "bircni",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T17:15:41.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "bircni",
-          "id": "173651",
-          "name": "bircni",
-          "avatarUrl": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-          "url": "https://gitea.com/bircni",
-          "isBotHint": false
-        },
-        "name": "bircni",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T17:15:41.000Z"
-      },
-      "parents": [
-        "faea86cd948384deee5e192b7c3441c2d7861ef7"
-      ],
-      "url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-      "stats": {
-        "additions": 9512,
-        "deletions": 0,
-        "total": 9512
-      },
-      "files": [
-        {
-          "path": "internal/services/action_logs.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/action_logs_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/action_values.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/action_values_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/actions.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/actions_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/admin_users.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/admin_users_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/api.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/api_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/artifacts.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/artifacts_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/attachments.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/branches.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/branches_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/checks.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/checks_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/comments.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/comments_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/convert.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/convert_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/draft.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/draft_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/errors.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/helpers.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/helpers_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/identity.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/identity_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issue_attachments.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issue_create_selectables.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issue_create_selectables_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issue_dependencies.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issue_labels_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issues.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/issues_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/label_selection.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/label_selection_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/metadata.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/metadata_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/milestone_deadline_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/milestone_selection.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/milestone_selection_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/notifications.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/notifications_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/organizations.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/organizations_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/pagination_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/pull_create_selectables.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/pulls.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/pulls_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/raw.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/raw_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/releases.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/releases_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repositories.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repositories_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repository_search.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repository_search_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repository_setup.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/repository_setup_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/review_requests.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/review_requests_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/reviews.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/reviews_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/sdk.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/sdk_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/search.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/search_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/ssh_keys.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/ssh_keys_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/status.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/status_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/teams.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/teams_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/time.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/time_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/webhooks.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/webhooks_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/wiki.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "internal/services/wiki_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        }
-      ]
     }
   ],
-  "total": 634,
+  "total": 635,
   "cursor": {
     "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3&page=2"
   }

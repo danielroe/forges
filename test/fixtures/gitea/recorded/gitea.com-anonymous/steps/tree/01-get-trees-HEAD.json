@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "30"
+      "x-total-count": "32"
     },
     "body": {
-      "sha": "372af7eb19c4f398b67f21c121f7949f03b41675",
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/372af7eb19c4f398b67f21c121f7949f03b41675",
+      "sha": "b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
       "tree": [
         {
           "path": ".changelog.yml",
@@ -39,7 +39,7 @@
       ],
       "truncated": true,
       "page": 1,
-      "total_count": 30
+      "total_count": 32
     }
   }
 }

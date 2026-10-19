@@ -312,14 +312,14 @@
       },
       "files": [
         {
-          "path": "modules/git/cli_backend_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
           "path": "modules/git/cli_backend.go",
           "status": "modified",
           "statusRaw": "modified"
+        },
+        {
+          "path": "modules/git/cli_backend_test.go",
+          "status": "added",
+          "statusRaw": "added"
         }
       ]
     }

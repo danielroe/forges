@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "issue_template",
+        "path": ".gitea/issue_template",
+        "sha": "ed0cf8f7a676e14afb42e5eaa6d4b366c6e2b686",
+        "last_commit_sha": "7e700e36f89fcbd6c91249c75e4ce01456e65112",
+        "last_committer_date": "2024-07-18T18:11:32Z",
+        "last_author_date": "2024-07-18T18:11:32Z",
+        "type": "dir",
+        "mode": "40000",
+        "size": 0,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/issue_template?ref=main",
+        "html_url": "https://gitea.com/gitea/tea/src/branch/main/.gitea/issue_template",
+        "git_url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/ed0cf8f7a676e14afb42e5eaa6d4b366c6e2b686",
+        "download_url": null,
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/issue_template?ref=main",
+          "git": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/ed0cf8f7a676e14afb42e5eaa6d4b366c6e2b686",
+          "html": "https://gitea.com/gitea/tea/src/branch/main/.gitea/issue_template"
+        }
+      },
+      {
+        "name": "workflows",
+        "path": ".gitea/workflows",
+        "sha": "68b04269c422c0760446613db17de50dfc3b1f25",
+        "last_commit_sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+        "last_committer_date": "2026-10-18T20:56:33Z",
+        "last_author_date": "2026-10-18T20:56:33Z",
+        "type": "dir",
+        "mode": "40000",
+        "size": 0,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/workflows?ref=main",
+        "html_url": "https://gitea.com/gitea/tea/src/branch/main/.gitea/workflows",
+        "git_url": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/68b04269c422c0760446613db17de50dfc3b1f25",
+        "download_url": null,
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://gitea.com/api/v1/repos/gitea/tea/contents/.gitea/workflows?ref=main",
+          "git": "https://gitea.com/api/v1/repos/gitea/tea/git/blobs/68b04269c422c0760446613db17de50dfc3b1f25",
+          "html": "https://gitea.com/gitea/tea/src/branch/main/.gitea/workflows"
+        }
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/compare/88b91faa546b69f651ea8eec5f935bc74ddf9097...main?files=false"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/compare/faea86cd948384deee5e192b7c3441c2d7861ef7...main?files=false"
   },
   "response": {
     "status": 200,
@@ -9,6 +9,87 @@
     "body": {
       "total_commits": 4,
       "commits": [
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+          "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+          "created": "2026-10-18T20:56:33Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+            "author": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-18T20:56:33Z"
+            },
+            "committer": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-18T20:56:33Z"
+            },
+            "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+              "sha": "b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+              "created": "2026-10-18T20:56:33Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "committer": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
+              "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 69256,
+            "additions": 33711,
+            "deletions": 35545
+          }
+        },
         {
           "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
           "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
@@ -71,9 +152,9 @@
             "location": "Silicon Valley",
             "website": "https://gitea.com",
             "description": "",
-            "followers_count": 114,
+            "followers_count": 115,
             "following_count": 95,
-            "starred_repos_count": 366,
+            "starred_repos_count": 367,
             "username": "lunny"
           },
           "parents": [
@@ -128,7 +209,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -146,7 +227,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -209,7 +290,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -227,7 +308,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -250,87 +331,6 @@
             "total": 9512,
             "additions": 9512,
             "deletions": 0
-          }
-        },
-        {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-          "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
-          "created": "2026-10-11T17:12:23Z",
-          "html_url": "https://gitea.com/gitea/tea/commit/faea86cd948384deee5e192b7c3441c2d7861ef7",
-          "commit": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-            "author": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:12:23Z"
-            },
-            "committer": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:12:23Z"
-            },
-            "message": "refactor: add terminal output and forms package (#1124)\n\n- `internal/terminal`: streams and the prompting policy, interactive forms (issue, PR, review, merge, milestone), editor / pager / browser launching, JSON and `--jq` output.\n- An aligned table renderer and a record renderer for human output; both strip control and escape characters from server-supplied text so titles and bodies cannot inject terminal sequences.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1124\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-            "tree": {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/e57e7a2e9009062cced5eb316c008d985bb1c25f",
-              "sha": "e57e7a2e9009062cced5eb316c008d985bb1c25f",
-              "created": "2026-10-11T17:12:23Z"
-            },
-            "verification": {
-              "verified": false,
-              "reason": "gpg.error.not_signed_commit",
-              "signature": "",
-              "signer": null,
-              "payload": ""
-            }
-          },
-          "author": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "committer": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "parents": [
-            {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/88b91faa546b69f651ea8eec5f935bc74ddf9097",
-              "sha": "88b91faa546b69f651ea8eec5f935bc74ddf9097",
-              "created": "0001-01-01T00:00:00Z"
-            }
-          ],
-          "files": null,
-          "stats": {
-            "total": 1942,
-            "additions": 1941,
-            "deletions": 1
           }
         }
       ]

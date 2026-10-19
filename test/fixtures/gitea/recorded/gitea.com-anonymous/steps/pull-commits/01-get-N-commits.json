@@ -54,9 +54,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "committer": {
@@ -72,9 +72,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "parents": [
@@ -193,9 +193,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "committer": {
@@ -211,9 +211,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "parents": [
@@ -229,34 +229,6 @@
           }
         ],
         "files": [
-          {
-            "filename": "cmd/flags/issue_pr.go",
-            "status": "modified"
-          },
-          {
-            "filename": "cmd/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "docs/CLI.md",
-            "status": "modified"
-          },
-          {
-            "filename": "go.mod",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/config/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/interact/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/task/login_create.go",
-            "status": "modified"
-          },
           {
             "filename": "cmd/flags/body.go",
             "status": "added"
@@ -288,6 +260,34 @@
           {
             "filename": "modules/task/login_status_test.go",
             "status": "added"
+          },
+          {
+            "filename": "cmd/flags/issue_pr.go",
+            "status": "modified"
+          },
+          {
+            "filename": "cmd/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "docs/CLI.md",
+            "status": "modified"
+          },
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/config/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/interact/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/login_create.go",
+            "status": "modified"
           }
         ],
         "stats": {
@@ -340,9 +340,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "committer": {
@@ -358,9 +358,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "parents": [
@@ -372,12 +372,12 @@
         ],
         "files": [
           {
-            "filename": "modules/git/cli_backend.go",
-            "status": "modified"
-          },
-          {
             "filename": "modules/git/cli_backend_test.go",
             "status": "added"
+          },
+          {
+            "filename": "modules/git/cli_backend.go",
+            "status": "modified"
           }
         ],
         "stats": {

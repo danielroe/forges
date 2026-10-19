@@ -7,11 +7,2537 @@
     "status": 200,
     "headers": {
       "link": "<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=3&page=212>; rel=\"last\"",
-      "x-total": "634",
-      "x-total-count": "634",
+      "x-total": "635",
+      "x-total-count": "635",
       "x-page": "1"
     },
     "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+        "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+        "created": "2026-10-18T20:56:33Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T20:56:33Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T20:56:33Z"
+          },
+          "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+            "sha": "b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+            "created": "2026-10-18T20:56:33Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
+            "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "cmd/actions.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs/logs.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/runs/view.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/delete_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/secrets/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/delete_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/set.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/variables/set_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows/disable.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows/dispatch.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows/enable.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/actions/workflows/view.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin/users/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin/users/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin/users/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin/users/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/admin/users/shared.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/api.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/api_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/attachments.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/attachments/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/attachments/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/attachments/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/branches.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/branches/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/branches/protect.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/branches/rename.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/branches/rename_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/categories.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/clone.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/cmd.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comment.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/add.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/body.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/body_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/comments/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/detail_json.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/body.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/body_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/csvflag.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/generic.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/generic_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/flags/issue_pr.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/close.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues/reopen.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/issues_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/labels/update.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/add.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/default.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/helper.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/oauth_refresh.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/login/status.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/logout.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/man.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/close.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/issues.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/milestones/reopen.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/notifications.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/notifications/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/notifications/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/notifications/mark_as.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/open.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/organizations.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/organizations/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/organizations/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/organizations/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/approve.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/checkout.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/clean.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/close.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/create_app_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/merge.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/reject.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/reopen.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/reply.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/reply_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/resolve.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/review.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/review_comments.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/review_helpers.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/review_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/pulls/unresolve.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/releases/utils.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/create_from_template.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/flags.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/fork.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/migrate.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/repos/search.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/sshkeys.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/sshkeys/add.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/sshkeys/add_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/sshkeys/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/sshkeys/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/times.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/times/add.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/times/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/times/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/times/reset.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/create.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/delete.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/delete_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/list.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/list_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/update.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/webhooks/update_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/whoami.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki/read.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki/read_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki/write.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki/write_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "cmd/wiki_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "contrib/autocomplete.ps1",
+            "status": "added"
+          },
+          {
+            "filename": "contrib/autocomplete.sh",
+            "status": "added"
+          },
+          {
+            "filename": "contrib/autocomplete.zsh",
+            "status": "added"
+          },
+          {
+            "filename": "demo.gif",
+            "status": "added"
+          },
+          {
+            "filename": "docs/CLI.md",
+            "status": "added"
+          },
+          {
+            "filename": "docs/docs.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/api/client.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/auth/oauth.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/auth/oauth_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/config.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/credstore.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/lock.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/lock_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/login.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/login_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/config/testtools.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_login.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_prompt_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_remote.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_repo.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_require.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_require_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/context/context_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/debug/debug.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/filelock/filelock.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/filelock/filelock_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/filelock/filelock_unix.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/filelock/filelock_windows.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/auth.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/backend.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/backend_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/branch.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/cli_backend.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/cli_backend_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/network.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/remote.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/repo.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/repo_cli_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/types.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/url.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/git/url_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/httputil/httputil.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/httputil/transport.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/httputil/transport_stall_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/comments.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/issue_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/issue_edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/login.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/login_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/milestone_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/print.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/prompts.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/pull_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/pull_merge.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/pull_review.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/actions.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/actions_runs.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/actions_runs_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/actions_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/attachment.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/branch.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/branch_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/comment.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/formatters.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/issue.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/label.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/login.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/login_status.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/login_status_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/markdown.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/milestone.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/notification.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/organization.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/pull.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/pull_review_comment.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/pull_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/release.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/repo.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/repo_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/sshkey.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/table.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/table_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/times.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/user.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/webhook.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/webhook_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/wiki.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/print/wiki_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/assignees.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/issue_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/issue_edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/labels.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/labels_export.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_httpsign.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_ssh.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_status.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/login_status_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/milestone_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_checkout.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_clean.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_create.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_edit.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_merge.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_merge_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_review.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/pull_review_comment.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/repo_clone.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/wiki.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/task/wiki_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/theme/background.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/theme/theme.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/theme/theme_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/draft.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/draft_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/input.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/parse.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/parse_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/path.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/utils.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/utils/validate.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/version/version.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/README.md",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/admin_users_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/cmd_labels_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/comments_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/config_lock_unix_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/context_init_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/git_branch_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/git_repo_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/helpers_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/pulls_reply_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/repos_create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/sshkeys_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/task_issue_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/task_labels_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/task_pull_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "tests/integration/wiki_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "docs/migration-1.0.md",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/aliases/aliases.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/aliases/aliases_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/action_jobs.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/action_logs.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/action_logs_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/action_values.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/action_values_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/actions.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/actions_integration_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/actions_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/admin_users.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/admin_users_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/alias_completion_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/api.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/api_integration_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/api_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/app.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/app_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/args.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/args_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/artifacts.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/artifacts_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/auth.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/auth_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/branches.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/branches_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/browser.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/browser_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/checkout.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/checkout_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/checks.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/checks_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/clone_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/comments.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/comments_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/config.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/config_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/deadline.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/deadline_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/diff_review.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/diff_review_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/discussion_search.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/discussion_search_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/discussion_view.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/discussion_view_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/doctor.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/doctor_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/download.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/download_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/editor.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/editor_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/git.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/git_credentials.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/git_credentials_integration_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/git_credentials_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/helpers_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/human_output.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/human_output_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/integration_helpers_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/integration_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_attachments.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_attachments_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_bulk_edit_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_create_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_create_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_edit.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_edit_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_filters_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issue_inputs_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/issues.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/label_export.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/label_export_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/label_options_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/labelfile.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/labelfile_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/man.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/man_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/metadata.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_bulk_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_create_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_description_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_issues.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_names_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/milestone_state.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/mutations.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/notifications.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/notifications_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/organizations.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/output_fields_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_clean.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_clean_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_create.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_create_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_create_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_edit.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_edit_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_integration_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_merge_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_merge_title_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review_lifecycle.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review_requests.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review_requests_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_review_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pull_view_current_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pulls.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/pulls_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/release_assets.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/release_assets_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/releases.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/releases_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repos.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_argument_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_create.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_create_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_edit_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_migrate.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/repository_sync.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/search.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/ssh_keys.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/ssh_keys_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/status.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/status_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/target.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/target_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/teams.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/time.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/time_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/webhooks.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/app/wiki.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/credentials.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/gitcredential.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/gitcredential_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/httpsign.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/httpsign_agent.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/httpsign_agent_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/httpsign_agent_windows.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/httpsign_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/manager.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/manager_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/oauth.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/auth/oauth_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/clierr/errors.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/clierr/errors_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/filelock/filelock.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/filelock/filelock_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/filelock/filelock_unix.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/filelock/filelock_windows.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/agit.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/agit_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/checkout.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/checkout_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/clean.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/clean_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/credentials.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/credentials_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/discover.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/discover_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/runner.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/runner_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/ssh.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/sync.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/git/sync_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/action_logs.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/action_logs_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/action_values.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/action_values_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/actions.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/actions_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/admin_users.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/admin_users_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/api.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/api_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/artifacts.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/artifacts_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/attachments.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/branches.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/branches_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/checks.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/checks_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/comments.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/comments_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/convert.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/convert_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/draft.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/draft_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/errors.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/helpers.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/helpers_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/identity.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/identity_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issue_attachments.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issue_create_selectables.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issue_create_selectables_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issue_dependencies.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issue_labels_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issues.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/issues_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/label_selection.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/label_selection_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/metadata.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/metadata_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/milestone_deadline_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/milestone_selection.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/milestone_selection_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/notifications.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/notifications_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/organizations.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/organizations_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/pagination_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/pull_create_selectables.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/pulls.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/pulls_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/raw.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/raw_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/releases.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/releases_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repositories.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repositories_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repository_search.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repository_search_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repository_setup.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/repository_setup_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/review_requests.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/review_requests_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/reviews.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/reviews_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/sdk.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/sdk_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/search.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/search_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/ssh_keys.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/ssh_keys_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/status.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/status_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/teams.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/teams_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/time.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/time_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/webhooks.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/webhooks_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/wiki.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/services/wiki_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/remote.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/remote_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/ssh.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/ssh_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/store.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/settings/store_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/browser.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/browser_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/color.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/color_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/editor.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/editor_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/issue_edit_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/issue_edit_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/issue_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/issue_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/merge_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/milestone_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/milestone_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/output.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/output_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/pager.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/pager_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/pull_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/pull_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/review_form.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/review_form_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/streams.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/streams_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/table.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/terminal/table_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/api.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/api_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/client.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/client_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/debug.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/download.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/transport/download_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "internal/version/version.go",
+            "status": "removed"
+          },
+          {
+            "filename": "main_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": "scripts/integration-tokens.py",
+            "status": "removed"
+          },
+          {
+            "filename": "tools/cli-docs/main.go",
+            "status": "removed"
+          },
+          {
+            "filename": "tools/cli-docs/main_test.go",
+            "status": "removed"
+          },
+          {
+            "filename": ".gitea/workflows/release-nightly.yml",
+            "status": "modified"
+          },
+          {
+            "filename": ".gitea/workflows/release-tag.yml",
+            "status": "modified"
+          },
+          {
+            "filename": ".gitea/workflows/test-pr.yml",
+            "status": "modified"
+          },
+          {
+            "filename": ".gitignore",
+            "status": "modified"
+          },
+          {
+            "filename": ".golangci.yml",
+            "status": "modified"
+          },
+          {
+            "filename": ".goreleaser.yaml",
+            "status": "modified"
+          },
+          {
+            "filename": "CONTRIBUTING.md",
+            "status": "modified"
+          },
+          {
+            "filename": "Makefile",
+            "status": "modified"
+          },
+          {
+            "filename": "README.md",
+            "status": "modified"
+          },
+          {
+            "filename": "docs/example-workflows.md",
+            "status": "modified"
+          },
+          {
+            "filename": "flake.nix",
+            "status": "modified"
+          },
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          },
+          {
+            "filename": "main.go",
+            "status": "modified"
+          },
+          {
+            "filename": "snap/snapcraft.yaml",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 69256,
+          "additions": 33711,
+          "deletions": 35545
+        }
+      },
       {
         "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
         "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
@@ -74,9 +2600,9 @@
           "location": "Silicon Valley",
           "website": "https://gitea.com",
           "description": "",
-          "followers_count": 114,
+          "followers_count": 115,
           "following_count": 95,
-          "starred_repos_count": 366,
+          "starred_repos_count": 367,
           "username": "lunny"
         },
         "parents": [
@@ -136,7 +2662,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -154,7 +2680,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
+          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -2002,408 +4528,6 @@
           "total": 52907,
           "additions": 18892,
           "deletions": 34015
-        }
-      },
-      {
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "created": "2026-10-11T17:15:41Z",
-        "html_url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "commit": {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-          "author": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:15:41Z"
-          },
-          "committer": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:15:41Z"
-          },
-          "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-            "sha": "1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-            "created": "2026-10-11T17:15:41Z"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "committer": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/6e5afe455623d71267c5c263a9c5a919f46f6d3a7838f4e17b4d72641b63432c",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "parents": [
-          {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-            "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "internal/services/action_logs.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_logs_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_values.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_values_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/actions.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/actions_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/admin_users.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/admin_users_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/api.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/api_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/artifacts.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/artifacts_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/attachments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/branches.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/branches_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/checks.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/checks_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/comments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/comments_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/convert.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/convert_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/draft.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/draft_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/errors.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/helpers.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/helpers_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/identity.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/identity_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_attachments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_create_selectables.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_create_selectables_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_dependencies.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_labels_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issues.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issues_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/label_selection.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/label_selection_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/metadata.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/metadata_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_deadline_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_selection.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_selection_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/notifications.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/notifications_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/organizations.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/organizations_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pagination_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pull_create_selectables.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pulls.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pulls_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/raw.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/raw_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/releases.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/releases_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repositories.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repositories_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_search.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_search_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_setup.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_setup_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/review_requests.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/review_requests_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/reviews.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/reviews_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/sdk.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/sdk_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/search.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/search_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/ssh_keys.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/ssh_keys_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/status.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/status_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/teams.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/teams_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/time.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/time_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/webhooks.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/webhooks_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/wiki.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/wiki_test.go",
-            "status": "added"
-          }
-        ],
-        "stats": {
-          "total": 9512,
-          "additions": 9512,
-          "deletions": 0
         }
       }
     ]

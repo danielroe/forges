@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=20>; rel=\"last\"",
-      "x-total-count": "58"
+      "x-total-count": "59"
     },
     "body": [
       {
@@ -25,7 +25,7 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 136,
+          "followers_count": 137,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"
@@ -117,7 +117,7 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 136,
+          "followers_count": 137,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"
@@ -209,7 +209,7 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 136,
+          "followers_count": 137,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"
@@ -222,7 +222,7 @@
         "fork": false,
         "template": false,
         "mirror": false,
-        "size": 78562,
+        "size": 82976,
         "language": "Go",
         "languages_url": "https://gitea.com/api/v1/repos/gitea/tea/languages",
         "html_url": "https://gitea.com/gitea/tea",
@@ -232,17 +232,17 @@
         "clone_url": "https://gitea.com/gitea/tea.git",
         "original_url": "",
         "website": "",
-        "stars_count": 276,
-        "forks_count": 146,
-        "watchers_count": 75,
-        "branch_count": 9,
-        "open_issues_count": 35,
-        "open_pr_counter": 20,
+        "stars_count": 277,
+        "forks_count": 147,
+        "watchers_count": 76,
+        "branch_count": 10,
+        "open_issues_count": 104,
+        "open_pr_counter": 16,
         "release_counter": 27,
         "default_branch": "main",
         "archived": false,
         "created_at": "2019-05-19T11:37:14Z",
-        "updated_at": "2026-10-12T00:56:37Z",
+        "updated_at": "2026-10-18T20:56:36Z",
         "archived_at": "1970-01-01T00:00:00Z",
         "permissions": {
           "admin": false,
