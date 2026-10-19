@@ -97,7 +97,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ✅ | ❌ |
-| `repos.addCollaborator` | ❌ | ❌ |
+| `repos.addCollaborator` | unverified | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
 | `repos.events` | ❌ | ❌ |

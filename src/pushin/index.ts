@@ -170,6 +170,14 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         const { data } = await fetcher.json<{ role_name: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
         return toPermissionRole(data.role_name)
       }),
+      addCollaborator: verb('unverified', async (repo, actor, role, options) => {
+        await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
+          method: 'PUT',
+          json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'pull' : 'push' },
+          signal: options?.signal,
+        })
+        return { status: 'added' }
+      }),
     },
     orgs: {
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(`/orgs/${encodeURIComponent(org.owner)}/teams`, listOptions, (raw: PushinTeam) => toTeam(teamOrg(org), raw))),
