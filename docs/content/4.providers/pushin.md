@@ -139,13 +139,13 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.checks` | ❌ | ❌ |
 | `threads.files` | ❌ | ❌ |
 | `threads.commits` | ❌ | ❌ |
-| `threads.reviews` | ❌ | ❌ |
-| `threads.getReview` | ❌ | ❌ |
+| `threads.reviews` | ✅ | ✅ |
+| `threads.getReview` | ✅ | ✅ |
 | `threads.createReview` | ❌ | ❌ |
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ❌ | ❌ |
-| `threads.replyToReviewComment` | ❌ | ❌ |
-| `threads.resolveReviewThread` | ❌ | ❌ |
+| `threads.replyToReviewComment` | unverified | ❌ |
+| `threads.resolveReviewThread` | unverified | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ∅ | ∅ |
 | `notifications.markDone` | ∅ | ∅ |

@@ -1,0 +1,85 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "danielroe",
+            "name": "roe.dev-test"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "93"
+      },
+      "author": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "login": "danielroe",
+        "id": "277",
+        "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+        "url": "https://pushin.eu/danielroe",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "state": "changes_requested",
+      "stateRaw": "CHANGES_REQUESTED",
+      "body": "overall review comment",
+      "submittedAt": "2026-10-11T12:48:17.300Z",
+      "comments": [
+        {
+          "ref": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "thread": {
+              "forge": "pushin",
+              "instance": "pushin.eu",
+              "repo": {
+                "forge": "pushin",
+                "instance": "pushin.eu",
+                "owner": "danielroe",
+                "name": "roe.dev-test"
+              },
+              "kind": "pull_request",
+              "number": "1"
+            },
+            "id": "2138"
+          },
+          "body": "this is an inline comment",
+          "author": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "login": "danielroe",
+            "id": "277",
+            "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+            "url": "https://pushin.eu/danielroe",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "path": "README.md",
+          "line": 10,
+          "side": "right",
+          "thread": {
+            "id": "2138",
+            "resolved": false
+          },
+          "createdAt": "2026-10-11T12:48:03.649Z",
+          "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1#discussion_rcom_034e4OeJlns9xu6tZgvpgd"
+        }
+      ],
+      "url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1#pullrequestreview-rev_034e4OeGqbHA2Rm1ZS57bB"
+    }
+  ],
+  "rateLimit": {
+    "limit": 90,
+    "remaining": 35,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

@@ -1,14 +1,14 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
-import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, PageOptions, Release, ReleaseUpdate, RepoRef, ResolvedThreadRef, Thread, ThreadQuery, ThreadRef } from '../model.ts'
+import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, PageOptions, Release, ReleaseUpdate, RepoRef, ResolvedThreadRef, ReviewComment, Thread, ThreadQuery, ThreadRef } from '../model.ts'
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinTeam, PushinThread, PushinUser } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinReview, PushinReviewComment, PushinTeam, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { eventTime } from '../events.ts'
-import { actorLogin, createListing, getManyConcurrently, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
-import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toPermissionRole, toRelease, toRepo, toTeam, toThread } from './normalise.ts'
+import { actorLogin, createListing, getManyConcurrently, rateLimitPart, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
+import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toPermissionRole, toRelease, toRepo, toReview, toReviewComment, toTeam, toThread } from './normalise.ts'
 import { PUSHIN_WEB } from './web.ts'
 
 /** A personal access token created in Settings (`pun_pat_…`), sent as `Authorization: Bearer`. */
@@ -35,6 +35,24 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
 
   function threadPath(ref: ResolvedThreadRef): string {
     return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
+  }
+
+  function requirePull(thread: ThreadRef, action: string): ResolvedThreadRef {
+    const ref = requireIssueOrPull(thread, context, action)
+    if (ref.kind !== 'pull_request') {
+      throw new UnsupportedOperationError(`Only pull requests can be ${action}`, context)
+    }
+    return ref
+  }
+
+  async function reviewComments(pull: ResolvedThreadRef, id: string, signal?: AbortSignal): Promise<ReviewComment[]> {
+    const { data } = await fetcher.json<PushinReviewComment[]>(`${threadPath(pull)}/reviews/${encodeURIComponent(id)}/comments`, { query: { per_page: 100 }, signal })
+    return data.map(raw => toReviewComment(pull, raw))
+  }
+
+  async function setResolved(thread: ThreadRef, id: string, resolved: boolean, options?: BaseOptions): Promise<void> {
+    const pull = requirePull(thread, 'reviewed')
+    await fetcher.raw(`${repoPath(pull.repo)}/pulls/comments/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: options?.signal })
   }
 
   async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
@@ -191,6 +209,35 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
+      reviewsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
+        const ref = requirePull(thread, 'reviewed')
+        const result = await fetcher.page<PushinReview>(`${threadPath(ref)}/reviews`, {
+          query: { per_page: listOptions.perPage },
+          cursor: listOptions.cursor,
+          signal: listOptions.signal,
+          conditional: false,
+        })
+        const items = await Promise.all((result.data ?? []).map(async raw => toReview(ref, raw, await reviewComments(ref, String(raw.id), listOptions.signal))))
+        return { items, cursor: result.cursor, ...rateLimitPart(result.response) }
+      }),
+      getReview: verb(true, async (ref, options) => {
+        const pull = requirePull(ref.thread, 'reviewed')
+        const { data } = await fetcher.json<PushinReview>(`${threadPath(pull)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
+        return toReview(pull, data, await reviewComments(pull, ref.id, options?.signal))
+      }),
+      replyToReviewComment: verb('unverified', async (thread, comment, body, options) => {
+        const pull = requirePull(thread, 'reviewed')
+        const id = comment.inReplyTo ?? comment.ref?.id
+        if (id === undefined) {
+          throw new UnsupportedOperationError('Pushin.eu replies to a review comment by its id; pass the comment with its `ref`', context)
+        }
+        const { data } = await fetcher.json<PushinReviewComment>(`${threadPath(pull)}/comments/${encodeURIComponent(id)}/replies`, { method: 'POST', json: { body }, signal: options?.signal })
+        return toReviewComment(pull, data)
+      }),
+      reviewThreads: verb('unverified', {
+        resolveReviewThread: (ref, id, options) => setResolved(ref, id, true, options),
+        unresolveReviewThread: (ref, id, options) => setResolved(ref, id, false, options),
+      }),
       createComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         const { data } = await fetcher.json<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
