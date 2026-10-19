@@ -12,13 +12,15 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4933",
-      "x-ratelimit-reset": "1791737440"
+      "x-ratelimit-remaining": "4925",
+      "x-ratelimit-reset": "1792386290",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
         "node": {
           "reactions": {
+            "totalCount": 0,
             "pageInfo": {
               "hasNextPage": false,
               "endCursor": null

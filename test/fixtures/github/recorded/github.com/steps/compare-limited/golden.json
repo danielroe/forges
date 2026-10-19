@@ -1,9 +1,9 @@
 {
-  "base": "ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
+  "base": "1a1f4881def62b3a58e940b3db9d21854996bd06",
   "head": "main",
   "aheadBy": 4,
   "behindBy": 0,
-  "mergeBaseSha": "ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
+  "mergeBaseSha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
   "commits": [
     {
       "ref": {
@@ -15,10 +15,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
       },
-      "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-      "message": "chore(release): v2.0.2",
+      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
       "author": {
         "actor": {
           "forge": "github",
@@ -32,7 +32,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:37:06.000Z"
+        "date": "2026-10-18T13:53:32.000Z"
       },
       "committer": {
         "actor": {
@@ -47,12 +47,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:37:06.000Z"
+        "date": "2026-10-18T13:59:46.000Z"
       },
       "parents": [
-        "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        "b64166ae78a68dd15c41e5bdf21af4d235804876"
       ],
-      "url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98"
+      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
     },
     {
       "ref": {
@@ -64,10 +64,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
       },
-      "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-      "message": "chore: update release script",
+      "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+      "message": "chore(release): v2.0.5",
       "author": {
         "actor": {
           "forge": "github",
@@ -81,7 +81,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:36:38.000Z"
+        "date": "2026-10-18T02:39:39.000Z"
       },
       "committer": {
         "actor": {
@@ -96,12 +96,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:36:38.000Z"
+        "date": "2026-10-18T02:39:39.000Z"
       },
       "parents": [
-        "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+        "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
       ],
-      "url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+      "url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
     }
   ],
   "files": []

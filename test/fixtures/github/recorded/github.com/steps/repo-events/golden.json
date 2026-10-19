@@ -1,0 +1,418 @@
+{
+  "items": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24493068302",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-17T12:13:11.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "badc762899af14ec024ee18dd2cc930bfb97e160",
+        "after": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24463597672",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:39:52.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "after": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24460174861",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:16:19.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "after": "b48b480030becd6507485429dada6d6612fb1084",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24460092963",
+      "kind": "ref",
+      "action": "created",
+      "kindRaw": "CreateEvent",
+      "summary": "pi0x created branch build/no-docs",
+      "occurredAt": "2026-10-18T02:14:45.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "build/no-docs",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24454128873",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T14:00:07.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "after": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24440951808",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:18:11.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b48b480030becd6507485429dada6d6612fb1084",
+        "after": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17538452289",
+      "kind": "star",
+      "action": "created",
+      "kindRaw": "WatchEvent.started",
+      "actionRaw": "started",
+      "summary": "auxcoder starred the repository",
+      "occurredAt": "2026-10-18T15:38:13.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "auxcoder",
+        "id": "13837582",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/13837582?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24437338319",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T02:38:52.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "after": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17534179457",
+      "kind": "state_change",
+      "kindRaw": "IssuesEvent.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed",
+        "reason": "completed"
+      },
+      "summary": "pi0x closed issues",
+      "occurredAt": "2026-10-18T14:00:08.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
+      },
+      "threadSnapshot": {
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1603"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17533452039",
+      "kind": "state_change",
+      "kindRaw": "IssuesEvent.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "pi0x opened issues",
+      "occurredAt": "2026-10-18T13:43:04.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
+      },
+      "threadSnapshot": {
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1603"
+      },
+      "source": "poll",
+      "isPublic": true
+    }
+  ],
+  "total": 300,
+  "cursor": {
+    "nextUrl": "https://api.github.com/repositories/313641207/events?per_page=10&page=2",
+    "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\""
+  },
+  "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\"",
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4913,
+    "resetAt": "<now>",
+    "resource": "core"
+  },
+  "nextPollAt": "<now>"
+}

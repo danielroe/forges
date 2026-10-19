@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/contents/.github"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"f60a2a47abeb5c7bf7b5e46049cc312f2239f930\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4990",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": "CODEOWNERS",
+        "path": ".github/CODEOWNERS",
+        "sha": "f1d8d0cb0e99974fa4dce17c03bc38c6d258bac5",
+        "size": 7,
+        "url": "https://api.github.com/repos/h3js/h3/contents/.github/CODEOWNERS?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/.github/CODEOWNERS",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/f1d8d0cb0e99974fa4dce17c03bc38c6d258bac5",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/.github/CODEOWNERS",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/.github/CODEOWNERS?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/f1d8d0cb0e99974fa4dce17c03bc38c6d258bac5",
+          "html": "https://github.com/h3js/h3/blob/main/.github/CODEOWNERS"
+        }
+      },
+      {
+        "name": "banner.svg",
+        "path": ".github/banner.svg",
+        "sha": "248cd4be380c78a3513c4eec32cda83b1a31f004",
+        "size": 189351,
+        "url": "https://api.github.com/repos/h3js/h3/contents/.github/banner.svg?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/.github/banner.svg",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/248cd4be380c78a3513c4eec32cda83b1a31f004",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/.github/banner.svg",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/.github/banner.svg?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/248cd4be380c78a3513c4eec32cda83b1a31f004",
+          "html": "https://github.com/h3js/h3/blob/main/.github/banner.svg"
+        }
+      },
+      {
+        "name": "codecov.yml",
+        "path": ".github/codecov.yml",
+        "sha": "5077db3009d4a2c6895a36e9f807fdf91bb5d6c4",
+        "size": 70,
+        "url": "https://api.github.com/repos/h3js/h3/contents/.github/codecov.yml?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/.github/codecov.yml",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/5077db3009d4a2c6895a36e9f807fdf91bb5d6c4",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/.github/codecov.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/.github/codecov.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/5077db3009d4a2c6895a36e9f807fdf91bb5d6c4",
+          "html": "https://github.com/h3js/h3/blob/main/.github/codecov.yml"
+        }
+      },
+      {
+        "name": "workflows",
+        "path": ".github/workflows",
+        "sha": "581e9f775e993d4ab77a331f89be372da842d703",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/.github/workflows?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/.github/workflows",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/581e9f775e993d4ab77a331f89be372da842d703",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/.github/workflows?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/581e9f775e993d4ab77a331f89be372da842d703",
+          "html": "https://github.com/h3js/h3/tree/main/.github/workflows"
+        }
+      }
+    ]
+  }
+}

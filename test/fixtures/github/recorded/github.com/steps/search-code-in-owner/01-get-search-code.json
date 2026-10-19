@@ -6,22 +6,23 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/search/code?q=import%20user%3Ah3js&page=2&per_page=3>; rel=\"next\", <https://api.github.com/search/code?q=import%20user%3Ah3js&page=1&per_page=3>; rel=\"first\", <https://api.github.com/search/code?q=import%20user%3Ah3js&page=180&per_page=3>; rel=\"last\"",
+      "link": "<https://api.github.com/search/code?q=import%20user%3Ah3js&page=2&per_page=3>; rel=\"next\", <https://api.github.com/search/code?q=import%20user%3Ah3js&page=1&per_page=3>; rel=\"first\", <https://api.github.com/search/code?q=import%20user%3Ah3js&page=189&per_page=3>; rel=\"last\"",
       "x-ratelimit-limit": "10",
       "x-ratelimit-remaining": "8",
-      "x-ratelimit-reset": "1791734779"
+      "x-ratelimit-reset": "1792384803",
+      "x-ratelimit-resource": "code_search"
     },
     "body": {
-      "total_count": 540,
+      "total_count": 565,
       "incomplete_results": false,
       "items": [
         {
           "name": "h3.ts",
           "path": "src/h3.ts",
           "sha": "4e9d459fe23a2ad3b1ad4a2790a4de4a04963153",
-          "url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
           "git_url": "https://api.github.com/repositories/313641207/git/blobs/4e9d459fe23a2ad3b1ad4a2790a4de4a04963153",
-          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/src/h3.ts",
+          "html_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src/h3.ts",
           "repository": {
             "id": 313641207,
             "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -92,7 +93,7 @@
           "score": 1,
           "text_matches": [
             {
-              "object_url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_url": "https://api.github.com/repositories/313641207/contents/src/h3.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
               "object_type": "FileContent",
               "property": "content",
               "fragment": "import { createRouter, addRoute, findRoute } from \"rou3\";\nimport { H3Event, kMalformedURL } from \"./event.ts\";\nimport { HTTPError } from \"./error.ts\";\nimport { toResponse, kNotFound } from \"./response.ts\";\nimport {\n  callMiddleware,\n  composeHandler,",
@@ -140,9 +141,9 @@
           "name": "3.v2.md",
           "path": "docs/99.blog/3.v2.md",
           "sha": "8b6b090ca28dd58f79d1f753ee50688377be7332",
-          "url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+          "url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
           "git_url": "https://api.github.com/repositories/313641207/git/blobs/8b6b090ca28dd58f79d1f753ee50688377be7332",
-          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md",
+          "html_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs/99.blog/3.v2.md",
           "repository": {
             "id": 313641207,
             "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -213,7 +214,7 @@
           "score": 1,
           "text_matches": [
             {
-              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
               "object_type": "FileContent",
               "property": "content",
               "fragment": "```js\nimport { H3, serve } from \"h3\";\n",
@@ -228,7 +229,7 @@
               ]
             },
             {
-              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_url": "https://api.github.com/repositories/313641207/contents/docs/99.blog/3.v2.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
               "object_type": "FileContent",
               "property": "content",
               "fragment": "```js\nimport { defineHandler } from \"h3\";\n",
@@ -247,10 +248,10 @@
         {
           "name": "h3.mjs",
           "path": "bin/h3.mjs",
-          "sha": "cfea8543d2d77d5e7d82c1a3ced885277c2a8458",
-          "url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=66cfb8a357b6285451bad498c2c40002601fae98",
-          "git_url": "https://api.github.com/repositories/313641207/git/blobs/cfea8543d2d77d5e7d82c1a3ced885277c2a8458",
-          "html_url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/bin/h3.mjs",
+          "sha": "04bb7764331351c99dd68de79804332684045a74",
+          "url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "git_url": "https://api.github.com/repositories/313641207/git/blobs/04bb7764331351c99dd68de79804332684045a74",
+          "html_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/bin/h3.mjs",
           "repository": {
             "id": 313641207,
             "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -321,10 +322,10 @@
           "score": 1,
           "text_matches": [
             {
-              "object_url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=66cfb8a357b6285451bad498c2c40002601fae98",
+              "object_url": "https://api.github.com/repositories/313641207/contents/bin/h3.mjs?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
               "object_type": "FileContent",
               "property": "content",
-              "fragment": "#!/usr/bin/env node\nimport { execFileSync, execSync } from \"node:child_process\";\nimport { fileURLToPath } from \"node:url\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs",
+              "fragment": "#!/usr/bin/env node\nimport { spawn } from \"node:child_process\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs\nif (process.argv[2] === \"docs\") {",
               "matches": [
                 {
                   "text": "import",
@@ -336,22 +337,15 @@
                 {
                   "text": "import",
                   "indices": [
-                    81,
-                    87
+                    64,
+                    70
                   ]
                 },
                 {
                   "text": "import",
                   "indices": [
-                    123,
-                    129
-                  ]
-                },
-                {
-                  "text": "import",
-                  "indices": [
-                    156,
-                    162
+                    97,
+                    103
                   ]
                 }
               ]

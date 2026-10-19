@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/2-feature-request.yml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"80374ed837ec559c57f375ce5c22be2b6838d6f9\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4984",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "name": "2-feature-request.yml",
+      "path": ".github/ISSUE_TEMPLATE/2-feature-request.yml",
+      "sha": "80374ed837ec559c57f375ce5c22be2b6838d6f9",
+      "size": 927,
+      "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/2-feature-request.yml?ref=main",
+      "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/2-feature-request.yml",
+      "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/80374ed837ec559c57f375ce5c22be2b6838d6f9",
+      "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/2-feature-request.yml",
+      "type": "file",
+      "content": "bmFtZTogIvCfmoAgRmVhdHVyZSByZXF1ZXN0IgpkZXNjcmlwdGlvbjogU3Vn\nZ2VzdCBhIGZlYXR1cmUgb3IgYW4gaW1wcm92ZW1lbnQKbGFiZWxzOiBbImVu\naGFuY2VtZW50IiwgInBlbmRpbmcgdHJpYWdlIl0KYm9keToKICAtIHR5cGU6\nIG1hcmtkb3duCiAgICBhdHRyaWJ1dGVzOgogICAgICB2YWx1ZTogVGhhbmsg\neW91IGZvciB0YWtpbmcgdGhlIHRpbWUgdG8gZmlsbCBvdXQgdGhpcyBmZWF0\ndXJlIHJlcXVlc3QhCiAgLSB0eXBlOiB0ZXh0YXJlYQogICAgaWQ6IGZlYXR1\ncmUtZGVzY3JpcHRpb24KICAgIGF0dHJpYnV0ZXM6CiAgICAgIGxhYmVsOiBE\nZXNjcmliZSB0aGUgZmVhdHVyZQogICAgICBkZXNjcmlwdGlvbjogQSBjbGVh\nciBhbmQgY29uY2lzZSBkZXNjcmlwdGlvbiBvZiB3aGF0IHlvdSB0aGluayB3\nb3VsZCBiZSBhIGhlbHBmdWwgYWRkaXRpb24sIGluY2x1ZGluZyB0aGUgcG9z\nc2libGUgdXNlIGNhc2VzIGFuZCBhbHRlcm5hdGl2ZXMgeW91IGhhdmUgY29u\nc2lkZXJlZC4gSWYgeW91IGhhdmUgYSB3b3JraW5nIHByb3RvdHlwZSBvciBt\nb2R1bGUgdGhhdCBpbXBsZW1lbnRzIGl0LCBwbGVhc2UgaW5jbHVkZSBhIGxp\nbmsuCiAgICAgIHBsYWNlaG9sZGVyOiBGZWF0dXJlIGRlc2NyaXB0aW9uCiAg\nICB2YWxpZGF0aW9uczoKICAgICAgcmVxdWlyZWQ6IHRydWUKICAtIHR5cGU6\nIGNoZWNrYm94ZXMKICAgIGlkOiBhZGRpdGlvbmFsLWluZm8KICAgIGF0dHJp\nYnV0ZXM6CiAgICAgIGxhYmVsOiBBZGRpdGlvbmFsIGluZm9ybWF0aW9uCiAg\nICAgIGRlc2NyaXB0aW9uOiBBZGRpdGlvbmFsIGluZm9ybWF0aW9uIHRoYXQg\naGVscHMgdXMgZGVjaWRlIGhvdyB0byBwcm9jZWVkLgogICAgICBvcHRpb25z\nOgogICAgICAgIC0gbGFiZWw6IFdvdWxkIHlvdSBiZSB3aWxsaW5nIHRvIGhl\nbHAgaW1wbGVtZW50IHRoaXMgZmVhdHVyZT8K\n",
+      "encoding": "base64",
+      "_links": {
+        "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/2-feature-request.yml?ref=main",
+        "git": "https://api.github.com/repos/h3js/.github/git/blobs/80374ed837ec559c57f375ce5c22be2b6838d6f9",
+        "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/2-feature-request.yml"
+      }
+    }
+  }
+}

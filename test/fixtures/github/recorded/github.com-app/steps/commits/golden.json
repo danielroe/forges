@@ -10,10 +10,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
       },
-      "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-      "message": "chore(release): v2.0.2",
+      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
       "author": {
         "actor": {
           "forge": "github",
@@ -27,7 +27,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:37:06.000Z"
+        "date": "2026-10-18T13:53:32.000Z"
       },
       "committer": {
         "actor": {
@@ -42,12 +42,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:37:06.000Z"
+        "date": "2026-10-18T13:59:46.000Z"
       },
       "parents": [
-        "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        "b64166ae78a68dd15c41e5bdf21af4d235804876"
       ],
-      "url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98"
+      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
     },
     {
       "ref": {
@@ -59,10 +59,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+        "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
       },
-      "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-      "message": "chore: update release script",
+      "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+      "message": "chore(release): v2.0.5",
       "author": {
         "actor": {
           "forge": "github",
@@ -76,7 +76,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:36:38.000Z"
+        "date": "2026-10-18T02:39:39.000Z"
       },
       "committer": {
         "actor": {
@@ -91,12 +91,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:36:38.000Z"
+        "date": "2026-10-18T02:39:39.000Z"
       },
       "parents": [
-        "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+        "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
       ],
-      "url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+      "url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
     },
     {
       "ref": {
@@ -108,10 +108,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+        "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
       },
-      "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca",
-      "message": "chore: update deps",
+      "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+      "message": "fix(cli): harden `h3 docs` page handling\n\n- Only open URLs whose origin is `https://h3.dev` (rejects absolute URLs,\n  `file:`/`javascript:`, `//host`, `\\\\host`, whitespace-prefixed hosts).\n- On Windows, open via `rundll32 url.dll,FileProtocolHandler` (absolute\n  System32 path) instead of `cmd /c start`, so cmd.exe metacharacters in\n  the page (`&`, `|`, `%VAR%`) can no longer inject commands.\n- Strip userinfo and collapse repeated slashes in the path.",
       "author": {
         "actor": {
           "forge": "github",
@@ -125,7 +125,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:34:26.000Z"
+        "date": "2026-10-18T02:32:22.000Z"
       },
       "committer": {
         "actor": {
@@ -140,23 +140,24 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T12:35:01.000Z"
+        "date": "2026-10-18T02:32:22.000Z"
       },
       "parents": [
-        "44dbfb8870d4fbad7f272d5811fdfa033faa8562"
+        "2084ecaa855273b2971a10d1a858ecd2188b3df0"
       ],
-      "url": "https://github.com/h3js/h3/commit/ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+      "url": "https://github.com/h3js/h3/commit/7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
     }
   ],
-  "total": 1617,
+  "total": 1638,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/commits?per_page=3&page=2",
-    "etag": "W/\"7dab143fb63d3bd6c63d733b388340a11d2aa8f09c74d0001311b3ae71df508a\""
+    "etag": "W/\"20750573470fb286953495903f1c7fc58729b8d1a8bf5fe108d849aa40c1072c\""
   },
-  "etag": "W/\"7dab143fb63d3bd6c63d733b388340a11d2aa8f09c74d0001311b3ae71df508a\"",
+  "etag": "W/\"20750573470fb286953495903f1c7fc58729b8d1a8bf5fe108d849aa40c1072c\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4955,
-    "resetAt": "2026-10-11T17:05:29.000Z"
+    "remaining": 4949,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

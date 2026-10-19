@@ -6,42 +6,43 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/tags?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/tags?per_page=3&page=56>; rel=\"last\"",
-      "etag": "W/\"2826c0778b007ae2b602bfa6fdb905f1e7ece17c2f2f54a248f825428d49ac4f\"",
+      "link": "<https://api.github.com/repositories/313641207/tags?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/tags?per_page=3&page=57>; rel=\"last\"",
+      "etag": "W/\"e609c00d7f2363b9db0d5bcb832288167ab6978bd2da244f246dda8a2df05722\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4957",
-      "x-ratelimit-reset": "1791738329"
+      "x-ratelimit-remaining": "4951",
+      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {
-        "name": "v2.0.2",
-        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.2",
-        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.2",
+        "name": "v2.0.5",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.5",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.5",
         "commit": {
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-          "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876"
         },
-        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjI="
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjU="
       },
       {
-        "name": "v2.0.1",
-        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.1",
-        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.1",
+        "name": "v2.0.4",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.4",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.4",
         "commit": {
-          "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5",
-          "url": "https://api.github.com/repos/h3js/h3/commits/26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
+          "sha": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+          "url": "https://api.github.com/repos/h3js/h3/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0"
         },
-        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjE="
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjQ="
       },
       {
-        "name": "v2.0.1-rc.33",
-        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.1-rc.33",
-        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.1-rc.33",
+        "name": "v2.0.3",
+        "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/refs/tags/v2.0.3",
+        "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/refs/tags/v2.0.3",
         "commit": {
-          "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b",
-          "url": "https://api.github.com/repos/h3js/h3/commits/3cbc7535a61bfb7d3fcce949f30de471a90d572b"
+          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+          "url": "https://api.github.com/repos/h3js/h3/commits/d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
         },
-        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjEtcmMuMzM="
+        "node_id": "MDM6UmVmMzEzNjQxMjA3OnJlZnMvdGFncy92Mi4wLjM="
       }
     ]
   }

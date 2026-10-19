@@ -1,0 +1,117 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "pull_request",
+        "number": "1559",
+        "externalId": "PR_kwDOErHI988AAAABFPGdYg"
+      },
+      "kind": "pull_request",
+      "title": "feat(rules): skip `redirect` when the request is already at the target",
+      "body": "Resolves #1558\n\nA `redirect` rule no longer fires when the request path already has the shape of its target, so a target inside its own pattern doesn't loop and doesn't need a `false` reset:\n\n```ts\nrouteRules({\n  \"/docs/**\": { redirect: \"/docs/v2/**\" }, // /docs/v2/** is left alone\n  \"GET:MD /blog/**\": { redirect: \"/blog/**.md\" }, // any /blog/**.md is left alone\n});\n```\n\n### Shape rules (`src/rules/handlers/_at-target.ts`)\n\nThe shape is worked out once when the handler is built. At request time the guard costs a `startsWith`/`endsWith` check plus the scope check.\n\n- **Trailing `/**`** (`/docs/v2/**`): skip on `/docs/v2` or anything under `/docs/v2/`.\n- **Interpolated `**`** (`/blog/**.md`): skip when the path starts with the literal before the first `**` and ends with the literal after the last one, at any depth.\n- **No `**` in the path** (`/new`, `/new?from=**`, `/app/#/**`): skip only on that exact path.\n- **Only the path of `to` is compared.** Target literals are encoded the way `event.url.pathname` is served, so `/café` matches.\n\n### Never skipped\n\n- **Absolute URL targets.** Their origin could only be compared against the client-controlled `Host`. This is stricter than the issue, which only asked that other-origin targets keep today's behavior.\n- **Degenerate shapes** such as a bare `/**`. Skipping would disable the rule entirely.\n- **A `**` in the middle of a segment** (`/docs/v2-**`).\n- **Requests the rule would reject.** The target is resolved before the skip decision, so every existing 400 (for example, a variable-width key prefix like `/:lang?/old/**`) still stands.\n- **Encoded traversals.** A wildcard shape is only honored when every canonical reading of the path stays within the target's own directory (`isPathInScope`). So `/docs/v2/..%2f..%2fadmin` still reaches the rule and gets its `400`, and is never let through to the app.\n\n### Behavior change\n\nA rule that deliberately redirected a path to another path of the same target shape (e.g. `/a/b/c` → `/a/b/b/c`) will stop firing there. This should go in the changelog.\n\n### Review\n\nAn independent subagent reviewed this. Its findings are addressed in the second commit:\n- a `**` only in the query or fragment gave a truncated prefix\n- mid-segment prefixes could be skipped past an encoded traversal\n- the check trusted `Host`\n- target literals weren't compared in their served (percent-encoded) spelling\n\nIt also flagged a pre-existing, unrelated issue: a mid-segment target such as `to: \"/docs/v2-**\"` answers 400 to every non-empty tail (`GET /docs/intro` → 400 on `main` too). That's left for a separate fix.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n- **Bug Fixes**\n  - Redirects are skipped when a request path already matches an eligible relative target, including exact-path and wildcard targets. Comparisons ignore query strings and fragments. Absolute targets and catch-all targets still redirect, as do paths outside the target’s served scope.\n- **Documentation**\n  - Clarified which target patterns qualify for redirect skipping and how wildcard paths are compared.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->\n",
+      "state": "merged",
+      "stateRaw": "merged",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "name": "pi0x",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+        "url": "https://github.com/pi0x",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "contributor",
+      "authorAssociationRaw": "CONTRIBUTOR",
+      "assignees": [],
+      "participants": [
+        {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "name": "pi0x",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "name": "Pooya Parsa",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        }
+      ],
+      "subscription": "none",
+      "reviewers": [],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1559",
+      "createdAt": "2026-09-26T09:58:17.000Z",
+      "updatedAt": "2026-09-28T22:20:49.000Z",
+      "closedAt": "2026-09-28T22:20:46.000Z",
+      "mergedAt": "2026-09-28T22:20:46.000Z",
+      "mergedBy": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "name": "Pooya Parsa",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+        "url": "https://github.com/pi0",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "lastActivityAt": "2026-09-28T22:20:49.000Z",
+      "locked": false,
+      "commentCount": 3,
+      "checks": {
+        "state": "success",
+        "stateRaw": "success",
+        "total": 8,
+        "failed": 0,
+        "url": "https://github.com/h3js/h3/pull/1559/checks"
+      },
+      "branches": {
+        "head": {
+          "ref": "fix/redirect-skip",
+          "sha": "fb0878d80b62ce35170bf9c9c12fba1f8bf61b39",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "h3js",
+            "name": "h3",
+            "externalId": "313641207"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "75c68e2200d56f5d8c05ecd9bd38ac7ca31df17f"
+        },
+        "mergeCommitSha": "f5b33e4e3170e3d1941163930f1693495be9834b"
+      },
+      "stats": {
+        "additions": 271,
+        "deletions": 1,
+        "changedFileCount": 6,
+        "commitCount": 4
+      }
+    }
+  ]
+}

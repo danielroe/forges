@@ -6,11 +6,12 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D>; rel=\"next\"",
-      "etag": "W/\"836b8dbe38516d3178e803d2d0ca74fe8faa6f8fd8d2b5a25342a4c8ae1c7fa0\"",
+      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAFyLQ5WBBnPAAAAAc59BOc%3D>; rel=\"next\"",
+      "etag": "W/\"94ebb120420afd40713b6ce13f5ce2a6eeaa3bf08fcbc9c14787ea110150eb3a\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4988",
-      "x-ratelimit-reset": "1791737987"
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1792385741",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {
@@ -22,6 +23,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -169,6 +171,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -262,8 +265,8 @@
             }
           },
           "epss": {
-            "percentage": 0.00377,
-            "percentile": 0.29561
+            "percentage": 0.00402,
+            "percentile": 0.32803
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
@@ -310,6 +313,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -404,8 +408,8 @@
             }
           },
           "epss": {
-            "percentage": 0.0185,
-            "percentile": 0.78503
+            "percentage": 0.01823,
+            "percentile": 0.78429
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",

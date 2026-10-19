@@ -16,8 +16,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4974",
-      "x-ratelimit-reset": "1792183590",
+      "x-ratelimit-remaining": "4998",
+      "x-ratelimit-reset": "1792388329",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -49,7 +49,7 @@
                   "databaseId": 90172742,
                   "name": null
                 },
-                "authorAssociation": "NONE",
+                "authorAssociation": "CONTRIBUTOR",
                 "labels": {
                   "nodes": []
                 },

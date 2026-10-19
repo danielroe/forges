@@ -7,8 +7,9 @@
     "status": 404,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4971",
-      "x-ratelimit-reset": "1791808136"
+      "x-ratelimit-remaining": "4966",
+      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "message": "Not Found",

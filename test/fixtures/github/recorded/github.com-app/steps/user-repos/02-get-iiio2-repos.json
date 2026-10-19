@@ -6,11 +6,12 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/user/47961062/repos?type=owner&per_page=3&page=2>; rel=\"next\", <https://api.github.com/user/47961062/repos?type=owner&per_page=3&page=32>; rel=\"last\"",
-      "etag": "W/\"a51dc34584f467d67aa0cb8a9eb84bdd607ad2ab38579c20b5433ddf7f88f950\"",
+      "link": "<https://api.github.com/user/47961062/repos?type=owner&per_page=3&page=2>; rel=\"next\", <https://api.github.com/user/47961062/repos?type=owner&per_page=3&page=33>; rel=\"last\"",
+      "etag": "W/\"a806ded4294fc423731885be0f65fd74d4074c1fccdc28e756f5e6ef000e0120\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4970",
-      "x-ratelimit-reset": "1791808136"
+      "x-ratelimit-remaining": "4965",
+      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-resource": "core"
     },
     "body": [
       {

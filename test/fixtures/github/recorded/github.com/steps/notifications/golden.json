@@ -4,7 +4,7 @@
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26407023794"
+        "id": "26452313666"
       },
       "subject": {
         "type": "thread",
@@ -14,23 +14,23 @@
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "danielroe",
-            "name": "nuxt-web-bundle",
-            "externalId": "551896913"
+            "owner": "nuxt",
+            "name": "nuxt",
+            "externalId": "71995937"
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "504"
+          "number": "36637"
         }
       },
       "subjectTypeRaw": "PullRequest",
-      "reason": "author",
-      "reasonRaw": "author",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
       "unread": true,
-      "title": "feat: support nuxt v5",
+      "title": "chore(deps): update webpack (main)",
       "subjectState": "unknown",
-      "updatedAt": "<now>",
-      "url": "https://api.github.com/repos/danielroe/nuxt-web-bundle/pulls/504",
+      "updatedAt": "2026-10-19T03:10:43.000Z",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36637",
       "latestComment": {
         "forge": "github",
         "instance": "github.com",
@@ -40,54 +40,79 @@
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "danielroe",
-            "name": "nuxt-web-bundle",
-            "externalId": "551896913"
+            "owner": "nuxt",
+            "name": "nuxt",
+            "externalId": "71995937"
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "504"
+          "number": "36637"
         },
-        "id": "6223458587"
+        "id": "6258807510"
       }
     },
     {
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26406856138"
+        "id": "26452270939"
       },
       "subject": {
-        "type": "other",
-        "typeRaw": "CheckSuite",
-        "repo": {
+        "type": "thread",
+        "thread": {
           "forge": "github",
           "instance": "github.com",
-          "owner": "nuxt-modules",
-          "name": "turnstile",
-          "externalId": "544189832"
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "nuxt",
+            "name": "image",
+            "externalId": "292835647"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "2356"
         }
       },
-      "subjectTypeRaw": "CheckSuite",
-      "reason": "ci_activity",
-      "reasonRaw": "ci_activity",
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
       "unread": true,
-      "title": "ci workflow run failed for main branch",
+      "title": "chore(deps): update all non-major dependencies",
       "subjectState": "unknown",
-      "updatedAt": "<now>",
-      "url": "https://api.github.com/notifications/threads/26406856138"
+      "updatedAt": "2026-10-19T03:08:43.000Z",
+      "url": "https://api.github.com/repos/nuxt/image/pulls/2356",
+      "latestComment": {
+        "forge": "github",
+        "instance": "github.com",
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "nuxt",
+            "name": "image",
+            "externalId": "292835647"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "2356"
+        },
+        "id": "6258785054"
+      }
     }
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-    "etag": "W/\"eb589e2a6156d1f6cefdbe5bc15f48538ab07ac4870cef3c3dd1c68e372ba3ea\""
+    "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\""
   },
-  "etag": "W/\"eb589e2a6156d1f6cefdbe5bc15f48538ab07ac4870cef3c3dd1c68e372ba3ea\"",
+  "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\"",
   "notModified": false,
   "nextPollAt": "<now>",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4679,
+    "remaining": 4906,
     "resetAt": "<now>",
     "resource": "core"
   }

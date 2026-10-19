@@ -8,8 +8,9 @@
     "headers": {
       "etag": "W/\"12f104a67968914fd0cb589b538bf1c5204678b88bfa80e2fbf40c336386efbe\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4960",
-      "x-ratelimit-reset": "1791735363"
+      "x-ratelimit-remaining": "4936",
+      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "state": "pending",

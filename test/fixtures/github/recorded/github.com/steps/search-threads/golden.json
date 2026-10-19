@@ -10,37 +10,37 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "kind": "pull_request",
-        "number": "1577",
-        "externalId": "PR_kwDOErHI988AAAABHklkKw"
+        "kind": "issue",
+        "number": "1584",
+        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
       },
-      "kind": "pull_request",
-      "title": "docs: fix broken section anchors",
-      "body": "A few docs links point at heading ids that don't exist on h3.dev, so they open the page but don't jump to the section:\n\n- basics/middleware: `lifecycle#\\_3-dispatch-request` → `#3-dispatch-request` (the escaped underscore ends up in the href)\n- basics/response: `h3event#eventres` → `#h3eventres`\n- api/h3event: `request#getrouterparamsevent-opts-decode` → `#getrouterparamsevent-opts--decode-`, and `security#resolvedotsegments` → `#resolvedotsegmentspath-opts` (these are the ids automd generates from the signatures)\n\nI checked every new fragment against the live ids on h3.dev.\n\nNot fixed here: routing.md links `removeRoute` to `/utils/more#removerouteapp-method-route`, but `src/utils/route.ts` (`defineRoute` / `removeRoute`) isn't in any automd block, so that section doesn't exist. Adding a `<!-- automd:jsdocs src=\"../../src/utils/route.ts\" -->` block would cover it. I left that for you to decide.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated several guide links to point to the correct sections for request dispatch, response APIs, and pathname encoding.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "kind": "issue",
+      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
+      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "SatvikMishra08",
-        "id": "89024979",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/89024979?v=4",
-        "url": "https://github.com/SatvikMishra08",
+        "login": "TalhaHunter101",
+        "id": "51529912",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+        "url": "https://github.com/TalhaHunter101",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "first_time_contributor",
-      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1577",
-      "createdAt": "2026-10-09T16:25:08.000Z",
-      "updatedAt": "2026-10-09T16:29:31.000Z",
-      "lastActivityAt": "2026-10-09T16:29:31.000Z",
+      "url": "https://github.com/h3js/h3/issues/1584",
+      "createdAt": "2026-10-11T14:13:28.000Z",
+      "updatedAt": "2026-10-11T14:13:28.000Z",
+      "lastActivityAt": "2026-10-11T14:13:28.000Z",
       "locked": false,
-      "commentCount": 1,
+      "commentCount": 0,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -57,22 +57,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1590",
-        "externalId": "PR_kwDOErHI988AAAABH3rmoA"
+        "number": "1583",
+        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
       },
       "kind": "pull_request",
-      "title": "fix(sse): preserve empty event ids",
-      "body": "An SSE message with `id: \"\"` must send an empty `id` field so an EventSource client can clear its last event ID. The current truthiness check drops that field, leaving the previous reconnection cursor in effect. The [HTML SSE specification](https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream) defines an empty `id` value as resetting the last event ID.\n\nCheck whether the optional ID is a string so empty IDs are emitted and omitted IDs remain omitted. Wire-format regressions cover both a single message and an empty ID following a non-empty ID in a batch.\n\nValidation on Node 24.21.0:\n- Both new wire-format cases fail before the fix; all 53 SSE unit and integration tests pass after it.\n- Lint, formatting, typecheck and `pnpm build` pass.\n- The full unmodified test fixture run reports only the existing loopback IP expectation failure (`::ffff:127.0.0.1`); 3,037 tests pass, 51 skip after `pnpm build` (matching the CI build/test order). Applying the independent loopback test expectation locally allows the full suite to pass (3,038 passed, 51 skipped); that test-only change is excluded from this PR.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Empty event IDs are now included in formatted event stream messages, both individually and in batches. IDs continue to have newline characters removed.\n* **Documentation**\n  * Clarified that an empty event ID resets the client’s last event ID, while omitting the ID leaves it unchanged.\n  * Added documentation explaining that event stream comments are terminated by a blank line.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "docs: fix file paths in static assets example",
+      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "xiehuanyi",
-        "id": "74809554",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/74809554?v=4",
-        "url": "https://github.com/xiehuanyi",
+        "login": "aaronanish-t",
+        "id": "217176403",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+        "url": "https://github.com/aaronanish-t",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -81,12 +81,12 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1590",
-      "createdAt": "2026-10-11T23:14:10.000Z",
-      "updatedAt": "2026-10-11T23:23:51.000Z",
-      "lastActivityAt": "2026-10-11T23:23:51.000Z",
+      "url": "https://github.com/h3js/h3/pull/1583",
+      "createdAt": "2026-10-11T09:57:49.000Z",
+      "updatedAt": "2026-10-16T19:22:11.000Z",
+      "lastActivityAt": "2026-10-16T19:22:11.000Z",
       "locked": false,
-      "commentCount": 1,
+      "commentCount": 2,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -103,49 +103,50 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1587",
-        "externalId": "PR_kwDOErHI988AAAABH0yeSg"
+        "number": "1585",
+        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
       },
       "kind": "pull_request",
-      "title": "docs: fix more utils code example",
-      "body": "Resolves #1586\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the `withBase` code example to remove an extra semicolon, keeping the example’s formatting consistent. No behavior or functionality has changed.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "otowa1",
-        "id": "90172742",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
-        "url": "https://github.com/otowa1",
+        "login": "TalhaHunter101",
+        "id": "51529912",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+        "url": "https://github.com/TalhaHunter101",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "first_timer",
-      "authorAssociationRaw": "FIRST_TIMER",
+      "authorAssociation": "first_time_contributor",
+      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1587",
-      "createdAt": "2026-10-11T15:16:44.000Z",
-      "updatedAt": "2026-10-11T15:17:48.000Z",
-      "lastActivityAt": "2026-10-11T15:17:48.000Z",
+      "url": "https://github.com/h3js/h3/pull/1585",
+      "createdAt": "2026-10-11T14:13:38.000Z",
+      "updatedAt": "2026-10-17T12:36:56.000Z",
+      "lastActivityAt": "2026-10-17T12:36:56.000Z",
       "locked": false,
-      "commentCount": 1,
+      "commentCount": 3,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 831,
+  "total": 841,
   "cursor": {
     "nextUrl": "https://api.github.com/search/issues?q=%28fix%29+repo%3Ah3js%2Fh3+%28is%3Aissue+OR+is%3Apr%29&advanced_search=true&per_page=3&page=2"
   },
   "rateLimit": {
     "limit": 30,
-    "remaining": 29,
-    "resetAt": "<now>"
+    "remaining": 28,
+    "resetAt": "<now>",
+    "resource": "search"
   }
 }

@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/3-documentation.yml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"450d28af70e4e98e2a792f3108663173adc75e00\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4982",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "name": "3-documentation.yml",
+      "path": ".github/ISSUE_TEMPLATE/3-documentation.yml",
+      "sha": "450d28af70e4e98e2a792f3108663173adc75e00",
+      "size": 1078,
+      "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/3-documentation.yml?ref=main",
+      "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/3-documentation.yml",
+      "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/450d28af70e4e98e2a792f3108663173adc75e00",
+      "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/3-documentation.yml",
+      "type": "file",
+      "content": "bmFtZTog8J+TliBEb2N1bWVudGF0aW9uCmRlc2NyaXB0aW9uOiBSZXBvcnQg\nYSBkb2N1bWVudGF0aW9uIGlzc3VlIG9yIHN1Z2dlc3QgYW4gaW1wcm92ZW1l\nbnQKbGFiZWxzOiBbImRvY3VtZW50YXRpb24iLCAicGVuZGluZyB0cmlhZ2Ui\nXQpib2R5OgogIC0gdHlwZTogbWFya2Rvd24KICAgIGF0dHJpYnV0ZXM6CiAg\nICAgIHZhbHVlOiBUaGFuayB5b3UgZm9yIHRha2luZyB0aGUgdGltZSB0byBm\naWxsIG91dCB0aGlzIGRvY3VtZW50YXRpb24gaXNzdWUgb3Igc3VnZ2VzdGlv\nbiEKICAtIHR5cGU6IHRleHRhcmVhCiAgICBpZDogZG9jdW1lbnRhdGlvbi1k\nZXNjcmlwdGlvbgogICAgYXR0cmlidXRlczoKICAgICAgbGFiZWw6IERlc2Ny\naWJlIHRoZSBjaGFuZ2UKICAgICAgZGVzY3JpcHRpb246IEEgY2xlYXIgYW5k\nIGNvbmNpc2UgZGVzY3JpcHRpb24gb2Ygd2hhdCB5b3UgdGhpbmsgc2hvdWxk\nIGJlIGNoYW5nZWQsIGluY2x1ZGluZyB0aGUgcG9zc2libGUgdXNlIGNhc2Vz\nIGFuZCBhbHRlcm5hdGl2ZXMgeW91IGhhdmUgY29uc2lkZXJlZC4KICAgICAg\ncGxhY2Vob2xkZXI6IERlc2NyaXB0aW9uCiAgICB2YWxpZGF0aW9uczoKICAg\nICAgcmVxdWlyZWQ6IHRydWUKICAtIHR5cGU6IHRleHRhcmVhCiAgICBpZDog\nY29udGVudC11cmxzCiAgICBhdHRyaWJ1dGVzOgogICAgICBsYWJlbDogVVJM\ncwogICAgICBkZXNjcmlwdGlvbjogQSBsaXN0IChvciBhIGxpbmspIHRvIHRo\nZSBVUkxzIHRoYXQgeW91IHRoaW5rIHNob3VsZCBiZSBjaGFuZ2VkIChpZiBh\ncHBsaWNhYmxlKS4KICAgICAgcGxhY2Vob2xkZXI6IFVSTHMKICAgIHZhbGlk\nYXRpb25zOgogICAgICByZXF1aXJlZDogZmFsc2UKICAtIHR5cGU6IGNoZWNr\nYm94ZXMKICAgIGlkOiBhZGRpdGlvbmFsLWluZm8KICAgIGF0dHJpYnV0ZXM6\nCiAgICAgIGxhYmVsOiBBZGRpdGlvbmFsIGluZm9ybWF0aW9uCiAgICAgIGRl\nc2NyaXB0aW9uOiBBZGRpdGlvbmFsIGluZm9ybWF0aW9uIHRoYXQgaGVscHMg\ndXMgZGVjaWRlIGhvdyB0byBwcm9jZWVkLgogICAgICBvcHRpb25zOgogICAg\nICAgIC0gbGFiZWw6IFdvdWxkIHlvdSBiZSB3aWxsaW5nIHRvIGhlbHA/Cg==\n",
+      "encoding": "base64",
+      "_links": {
+        "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/3-documentation.yml?ref=main",
+        "git": "https://api.github.com/repos/h3js/.github/git/blobs/450d28af70e4e98e2a792f3108663173adc75e00",
+        "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/3-documentation.yml"
+      }
+    }
+  }
+}

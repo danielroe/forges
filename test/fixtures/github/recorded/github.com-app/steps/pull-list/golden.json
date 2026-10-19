@@ -11,186 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1601",
-        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
+        "number": "1585",
+        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
       },
       "kind": "pull_request",
-      "title": "fix(body): match form content type case-insensitively in `readBody`",
-      "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "giaBaoJS",
-        "id": "39545125",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
-        "url": "https://github.com/giaBaoJS",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1601",
-      "createdAt": "2026-10-16T11:57:58.000Z",
-      "updatedAt": "2026-10-16T12:00:10.000Z",
-      "lastActivityAt": "2026-10-16T12:00:10.000Z",
-      "locked": false,
-      "commentCount": 3,
-      "branches": {
-        "head": {
-          "ref": "fix/readbody-media-type-case",
-          "sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "giaBaoJS",
-            "name": "h3",
-            "externalId": "1403836583"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-        },
-        "mergeCommitSha": "df5887f541ca0a9e5638be248fff204da801f496"
-      },
-      "checks": {
-        "state": "success",
-        "stateRaw": "success",
-        "total": 8,
-        "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1601/checks"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1599",
-        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-      },
-      "kind": "pull_request",
-      "title": "fix(static): normalize indexNames path join with single boundary slash",
-      "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-        "url": "https://github.com/lx3133584",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1599",
-      "createdAt": "2026-10-15T04:37:40.000Z",
-      "updatedAt": "2026-10-15T04:39:44.000Z",
-      "lastActivityAt": "2026-10-15T04:39:44.000Z",
-      "locked": false,
-      "commentCount": 3,
-      "branches": {
-        "head": {
-          "ref": "fix/static-index-names-join-path",
-          "sha": "21c2b0a09feebd8b495297a2c06eab742b130ebe",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "lx3133584",
-            "name": "h3",
-            "externalId": "1346891621"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-        },
-        "mergeCommitSha": "999c1696808dfc1df2fea710965f2f4aa8051a81"
-      },
-      "checks": {
-        "state": "success",
-        "stateRaw": "success",
-        "total": 8,
-        "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1599/checks"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1598",
-        "externalId": "PR_kwDOErHI988AAAABISBMpA"
-      },
-      "kind": "pull_request",
-      "title": "fix(static): normalize directory-index path join in idSearchPaths (#1584)",
-      "body": "### Summary\n\nFixes #1584.\n\nIn `src/utils/static.ts`, `idSearchPaths` previously concatenated candidate asset IDs directly with `${id}${suffix}`.\nBecause root requests normalize to `id = \"/\"`:\n1. When using the default `indexNames: [\"/index.html\"]`, requesting root `GET /` produced candidate asset ID `\"//index.html\"`. For backends keyed by canonical asset paths, looking up `\"//index.html\"` fails with 404.\n2. When configuring relative index names such as `indexNames: [\"index.html\"]`, subdirectory requests like `GET /docs` produced `\"/docsindex.html\"` due to a missing boundary slash.\n\nThis change normalizes `assetId` join boundaries in `idSearchPaths` so that:\n- Root `GET /` with `\"/index.html\"` or `\"index.html\"` maps to `\"/index.html\"`.\n- Subdirectory `GET /docs` with `\"/index.html\"` or `\"index.html\"` maps to `\"/docs/index.html\"`.\n\nUnit tests covering root and subdirectory lookups with both absolute and relative index names have been added in `test/static.test.ts`.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file lookup paths to handle root and subdirectory IDs without missing or duplicated separators. Non-index paths remain unchanged.\n* **Tests**\n  * Added coverage for serving index files from the root and subdirectories with absolute and relative index names.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "Fire162",
-        "id": "156442109",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/156442109?v=4",
-        "url": "https://github.com/Fire162",
+        "login": "TalhaHunter101",
+        "id": "51529912",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+        "url": "https://github.com/TalhaHunter101",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -214,48 +50,212 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1598",
-      "createdAt": "2026-10-13T23:21:47.000Z",
-      "updatedAt": "2026-10-14T03:19:45.000Z",
-      "lastActivityAt": "2026-10-14T03:19:45.000Z",
+      "url": "https://github.com/h3js/h3/pull/1585",
+      "createdAt": "2026-10-11T14:13:38.000Z",
+      "updatedAt": "2026-10-17T12:36:56.000Z",
+      "lastActivityAt": "2026-10-17T12:36:56.000Z",
       "locked": false,
       "commentCount": 3,
       "branches": {
         "head": {
-          "ref": "fix/static-id-search-paths",
-          "sha": "71b082cdaabf33f140d8c57d9a5a2216e2ea3753",
+          "ref": "fix/serve-static-index-paths",
+          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "Fire162",
+            "owner": "TalhaHunter101",
             "name": "h3",
-            "externalId": "1418122073"
+            "externalId": "1414411073"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+        },
+        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
+      },
+      "checks": {
+        "state": "success",
+        "stateRaw": "success",
+        "total": 3,
+        "failed": 0,
+        "url": "https://github.com/h3js/h3/pull/1585/checks"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1583",
+        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+      },
+      "kind": "pull_request",
+      "title": "docs: fix file paths in static assets example",
+      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "aaronanish-t",
+        "id": "217176403",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+        "url": "https://github.com/aaronanish-t",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "state": "pending",
+          "stateRaw": "requested"
+        }
+      ],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1583",
+      "createdAt": "2026-10-11T09:57:49.000Z",
+      "updatedAt": "2026-10-16T19:22:11.000Z",
+      "lastActivityAt": "2026-10-16T19:22:11.000Z",
+      "locked": false,
+      "commentCount": 2,
+      "branches": {
+        "head": {
+          "ref": "docs/fix-static-assets-example",
+          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "aaronanish-t",
+            "name": "h3",
+            "externalId": "1414188488"
           }
         },
         "base": {
           "ref": "main",
           "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
         },
-        "mergeCommitSha": "05aceabdb2218801a4355760c3addaba9448a7b8"
+        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
+      },
+      "checks": {
+        "state": "success",
+        "stateRaw": "success",
+        "total": 3,
+        "failed": 0,
+        "url": "https://github.com/h3js/h3/pull/1583/checks"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1579",
+        "externalId": "PR_kwDOErHI988AAAABHvErmg"
+      },
+      "kind": "pull_request",
+      "title": "docs(static): mount serveStatic example at the root",
+      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "harshit-d3v",
+        "id": "106448130",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
+        "url": "https://github.com/harshit-d3v",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "contributor",
+      "authorAssociationRaw": "CONTRIBUTOR",
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "state": "pending",
+          "stateRaw": "requested"
+        }
+      ],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1579",
+      "createdAt": "2026-10-10T20:06:27.000Z",
+      "updatedAt": "2026-10-17T12:00:47.000Z",
+      "lastActivityAt": "2026-10-17T12:00:47.000Z",
+      "locked": false,
+      "commentCount": 4,
+      "branches": {
+        "head": {
+          "ref": "docs/serve-static-root",
+          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "harshit-d3v",
+            "name": "h3",
+            "externalId": "1413617363"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
+        },
+        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
         "total": 8,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1598/checks"
+        "url": "https://github.com/h3js/h3/pull/1579/checks"
       }
     }
   ],
-  "total": 39,
+  "total": 21,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"081df92ff2b34c61d7a41d92958324601fed03968a06229a876ecf2528737c5f\""
+    "etag": "W/\"bee4d67d2dfb7b9542d370dfa30eda00825054e76baba64e5ff72bb2b969a598\""
   },
-  "etag": "W/\"081df92ff2b34c61d7a41d92958324601fed03968a06229a876ecf2528737c5f\"",
+  "etag": "W/\"bee4d67d2dfb7b9542d370dfa30eda00825054e76baba64e5ff72bb2b969a598\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4993,
+    "remaining": 4997,
     "resetAt": "<now>",
     "resource": "core"
   }

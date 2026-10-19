@@ -9,7 +9,7 @@
     {
       "path": ".github",
       "type": "directory",
-      "sha": "44886992d96d71a3b1da894ee41802769bd13247",
+      "sha": "e2dbde214d79aa0b914461fa7657b9aa9686fd81",
       "mode": "040000"
     },
     {
@@ -43,8 +43,8 @@
     {
       "path": "CHANGELOG.md",
       "type": "file",
-      "sha": "e9382241dd61e0b6065b861cb80231e8a986217a",
-      "size": 128510,
+      "sha": "d8f3af79ade7b9421b2779e93ab6a2b346fb1327",
+      "size": 130841,
       "mode": "100644"
     },
     {
@@ -78,20 +78,20 @@
     {
       "path": "bin",
       "type": "directory",
-      "sha": "d9bfe1f2027ded134c11586b2d4fe8db180d2181",
+      "sha": "e0a8fd030887a8f1882a4fff9db7cfb6abbfe594",
       "mode": "040000"
     },
     {
       "path": "build.config.ts",
       "type": "file",
-      "sha": "de2cc11c91678a1c9bd0065c7ee8a238d9ef2170",
-      "size": 1761,
+      "sha": "fff8ea999e555b9498a58dd5103eb6fa919211bb",
+      "size": 1525,
       "mode": "100644"
     },
     {
       "path": "docs",
       "type": "directory",
-      "sha": "882c1818902ea4c4c66c5c32bae51a491920d110",
+      "sha": "277e948990af04359f79e53744f347d929e52f3d",
       "mode": "040000"
     },
     {
@@ -103,21 +103,21 @@
     {
       "path": "package.json",
       "type": "file",
-      "sha": "66df2963ae61e37eca135c5019ea5d88df781fee",
-      "size": 3689,
+      "sha": "cb0c3afaa1eb71c91ea80a66918a8a7c92e5e477",
+      "size": 3662,
       "mode": "100644"
     },
     {
       "path": "playground",
       "type": "directory",
-      "sha": "7c8cdc6fbe3a1155f761484a55f1f4ba5578c859",
+      "sha": "0880e6a64b53ea62e2db4a643dd5caaaf7223de6",
       "mode": "040000"
     },
     {
       "path": "pnpm-lock.yaml",
       "type": "file",
-      "sha": "5b9e1876cca0de5540a42393434dab6f2674f365",
-      "size": 135539,
+      "sha": "09be2e59c50da202cc7a0441a59387225da804c7",
+      "size": 131087,
       "mode": "100644"
     },
     {
@@ -137,13 +137,13 @@
     {
       "path": "src",
       "type": "directory",
-      "sha": "95542adc82f05b32d23fbc2c524afabe86e1378f",
+      "sha": "df175ca33afe5fc6c1105554563da49b0f526d50",
       "mode": "040000"
     },
     {
       "path": "test",
       "type": "directory",
-      "sha": "0938c3b88c4a11bbcc5246b4cabb6854dc9ed27e",
+      "sha": "97d954491b9a8859c47a9309cbf7a842d7229175",
       "mode": "040000"
     },
     {
@@ -170,7 +170,8 @@
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4959,
-    "resetAt": "2026-10-11T17:05:29.000Z"
+    "remaining": 4954,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

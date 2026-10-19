@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"b0fa44a8051a0253ab3b4633f4e91bcaab44410d80be37f122833b806ee12c19\"",
+      "etag": "W/\"b56eac67ce05514972b5cb1afd74be0eb8fc9490256b7bb3045ba9c6b51fab4f\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4992",
-      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-remaining": "4980",
+      "x-ratelimit-reset": "1792388358",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -24,6 +24,12 @@
           },
           {
             "w": 1791676800,
+            "a": 0,
+            "d": 0,
+            "c": 0
+          },
+          {
+            "w": 1792281600,
             "a": 0,
             "d": 0,
             "c": 0
@@ -52,7 +58,7 @@
         }
       },
       {
-        "total": 39,
+        "total": 43,
         "weeks": [
           {
             "w": 1791072000,
@@ -62,9 +68,15 @@
           },
           {
             "w": 1791676800,
-            "a": 17,
+            "a": 21,
             "d": 0,
-            "c": 17
+            "c": 21
+          },
+          {
+            "w": 1792281600,
+            "a": 0,
+            "d": 0,
+            "c": 0
           }
         ],
         "author": {

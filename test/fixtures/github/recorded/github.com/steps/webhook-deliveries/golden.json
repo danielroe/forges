@@ -15,13 +15,13 @@
           },
           "id": "694647722"
         },
-        "id": "3847871939886530560",
-        "guid": "30f89290-c631-11f1-995b-9564b6db6f07"
+        "id": "3849016159439429632",
+        "guid": "c1b45080-cb09-11f1-9304-533816b4e9ae"
       },
       "event": "issues.closed",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-18T15:36:59.719Z",
       "duration": 0
     },
     {
@@ -39,13 +39,13 @@
           },
           "id": "694647722"
         },
-        "id": "3847871938097717248",
-        "guid": "3067c440-c631-11f1-8d60-cf9b7dcb1ef4"
+        "id": "3849016156847349760",
+        "guid": "c0ec93b0-cb09-11f1-861c-f7df0e87dafa"
       },
-      "event": "issues.closed",
+      "event": "issues.untyped",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-18T15:36:58.498Z",
       "duration": 0
     },
     {
@@ -63,24 +63,25 @@
           },
           "id": "694647722"
         },
-        "id": "3847871926932373504",
-        "guid": "2d5728e0-c631-11f1-869e-79e6a318813e"
+        "id": "3849016154949566464",
+        "guid": "c0569540-cb09-11f1-8b62-586d93143a38"
       },
-      "event": "issue_comment.created",
+      "event": "issues.typed",
       "status": 502,
       "ok": false,
-      "deliveredAt": "<now>",
+      "deliveredAt": "2026-10-18T15:36:57.530Z",
       "duration": 0
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847871823278546944",
-    "etag": "W/\"9ddd1b3768b78f028429cf415677763d9689f757110ac29ca95b1466957cb5d6\""
+    "nextUrl": "https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3849016154303496192",
+    "etag": "W/\"2647b9f28de329dbbff8163b7b0c1f115d5ff3dea19f662126f76468b2f67a3b\""
   },
-  "etag": "W/\"9ddd1b3768b78f028429cf415677763d9689f757110ac29ca95b1466957cb5d6\"",
+  "etag": "W/\"2647b9f28de329dbbff8163b7b0c1f115d5ff3dea19f662126f76468b2f67a3b\"",
   "rateLimit": {
     "limit": 500,
     "remaining": 498,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "webhook_deliveries"
   }
 }

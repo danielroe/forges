@@ -6,13 +6,13 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1601,
+      "k0": 1585,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1599,
+      "k1": 1583,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1598
+      "k2": 1579
     }
   },
   "response": {
@@ -20,7 +20,7 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1792217941",
+      "x-ratelimit-reset": "1792388363",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -28,393 +28,25 @@
         "t0": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABI1lRPA",
-            "number": 1601,
-            "title": "fix(body): match form content type case-insensitively in `readBody`",
-            "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABH0aNdg",
+            "number": 1585,
+            "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+            "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-16T11:57:58Z",
-            "updatedAt": "2026-10-16T12:00:10Z",
+            "createdAt": "2026-10-11T14:13:38Z",
+            "updatedAt": "2026-10-17T12:36:56Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1601",
+            "url": "https://github.com/h3js/h3/pull/1585",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "giaBaoJS",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?u=77972354c2c5b76ccab7fb2341ffc50efb842cdf&v=4",
-              "url": "https://github.com/giaBaoJS",
-              "databaseId": 39545125,
-              "name": "Paul Nguyen"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": null,
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 3
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "giaBaoJS",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?u=77972354c2c5b76ccab7fb2341ffc50efb842cdf&v=4",
-                  "url": "https://github.com/giaBaoJS",
-                  "databaseId": 39545125,
-                  "name": "Paul Nguyen"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/readbody-media-type-case",
-            "headRefOid": "04ba6e021cde76fa6fc0084866f231c575647beb",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1403836583,
-              "name": "h3",
-              "owner": {
-                "login": "giaBaoJS"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 17,
-            "deletions": 1,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 8,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 7
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            },
-            "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-16T11:57:59Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t1": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABIivD8Q",
-            "number": 1599,
-            "title": "fix(static): normalize indexNames path join with single boundary slash",
-            "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-15T04:37:40Z",
-            "updatedAt": "2026-10-15T04:39:44Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1599",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "lx3133584",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?u=1b62527df2c644fef07cb2baf5f29bcecbc8f5e4&v=4",
-              "url": "https://github.com/lx3133584",
-              "databaseId": 24490353,
-              "name": "Liang Xu"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": null,
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 3
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "lx3133584",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?u=1b62527df2c644fef07cb2baf5f29bcecbc8f5e4&v=4",
-                  "url": "https://github.com/lx3133584",
-                  "databaseId": 24490353,
-                  "name": "Liang Xu"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/static-index-names-join-path",
-            "headRefOid": "21c2b0a09feebd8b495297a2c06eab742b130ebe",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1346891621,
-              "name": "h3",
-              "owner": {
-                "login": "lx3133584"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 77,
-            "deletions": 1,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 8,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 7
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            },
-            "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-15T04:37:41Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABISBMpA",
-            "number": 1598,
-            "title": "fix(static): normalize directory-index path join in idSearchPaths (#1584)",
-            "body": "### Summary\n\nFixes #1584.\n\nIn `src/utils/static.ts`, `idSearchPaths` previously concatenated candidate asset IDs directly with `${id}${suffix}`.\nBecause root requests normalize to `id = \"/\"`:\n1. When using the default `indexNames: [\"/index.html\"]`, requesting root `GET /` produced candidate asset ID `\"//index.html\"`. For backends keyed by canonical asset paths, looking up `\"//index.html\"` fails with 404.\n2. When configuring relative index names such as `indexNames: [\"index.html\"]`, subdirectory requests like `GET /docs` produced `\"/docsindex.html\"` due to a missing boundary slash.\n\nThis change normalizes `assetId` join boundaries in `idSearchPaths` so that:\n- Root `GET /` with `\"/index.html\"` or `\"index.html\"` maps to `\"/index.html\"`.\n- Subdirectory `GET /docs` with `\"/index.html\"` or `\"index.html\"` maps to `\"/docs/index.html\"`.\n\nUnit tests covering root and subdirectory lookups with both absolute and relative index names have been added in `test/static.test.ts`.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file lookup paths to handle root and subdirectory IDs without missing or duplicated separators. Non-index paths remain unchanged.\n* **Tests**\n  * Added coverage for serving index files from the root and subdirectories with absolute and relative index names.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-13T23:21:47Z",
-            "updatedAt": "2026-10-14T03:19:45Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1598",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "Fire162",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/156442109?u=f3a6c8080d2a421fdb2feb18cedaa06a73e70558&v=4",
-              "url": "https://github.com/Fire162",
-              "databaseId": 156442109,
-              "name": "Abhinav Maurya"
+              "login": "TalhaHunter101",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
+              "url": "https://github.com/TalhaHunter101",
+              "databaseId": 51529912,
+              "name": "Talha Shafeeq"
             },
             "authorAssociation": "NONE",
             "mergedBy": null,
@@ -431,31 +63,423 @@
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "Fire162",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/156442109?u=f3a6c8080d2a421fdb2feb18cedaa06a73e70558&v=4",
-                  "url": "https://github.com/Fire162",
-                  "databaseId": 156442109,
-                  "name": "Abhinav Maurya"
+                  "login": "TalhaHunter101",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
+                  "url": "https://github.com/TalhaHunter101",
+                  "databaseId": 51529912,
+                  "name": "Talha Shafeeq"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/static-id-search-paths",
-            "headRefOid": "71b082cdaabf33f140d8c57d9a5a2216e2ea3753",
+            "headRefName": "fix/serve-static-index-paths",
+            "headRefOid": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
             "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "baseRefOid": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
             "headRepository": {
-              "databaseId": 1418122073,
+              "databaseId": 1414411073,
               "name": "h3",
               "owner": {
-                "login": "Fire162"
+                "login": "TalhaHunter101"
               }
             },
             "mergeCommit": null,
-            "additions": 49,
+            "additions": 46,
             "deletions": 1,
             "changedFiles": 2,
+            "commits": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-11T14:13:39Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABHzAV3Q",
+            "number": 1583,
+            "title": "docs: fix file paths in static assets example",
+            "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-11T09:57:49Z",
+            "updatedAt": "2026-10-16T19:22:11Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1583",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "aaronanish-t",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+              "url": "https://github.com/aaronanish-t",
+              "databaseId": 217176403,
+              "name": "Aaron Anish Thadathil"
+            },
+            "authorAssociation": "NONE",
+            "mergedBy": null,
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 2
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "aaronanish-t",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+                  "url": "https://github.com/aaronanish-t",
+                  "databaseId": 217176403,
+                  "name": "Aaron Anish Thadathil"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "docs/fix-static-assets-example",
+            "headRefOid": "36270b8a285744ad4dc5af707112523676ebb9f6",
+            "baseRefName": "main",
+            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRepository": {
+              "databaseId": 1414188488,
+              "name": "h3",
+              "owner": {
+                "login": "aaronanish-t"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 8,
+            "deletions": 3,
+            "changedFiles": 1,
+            "commits": {
+              "totalCount": 2,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 2
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-11T09:57:50Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t2": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABHvErmg",
+            "number": 1579,
+            "title": "docs(static): mount serveStatic example at the root",
+            "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-10T20:06:27Z",
+            "updatedAt": "2026-10-17T12:00:47Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1579",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "harshit-d3v",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
+              "url": "https://github.com/harshit-d3v",
+              "databaseId": 106448130,
+              "name": "Harshit Prakash"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": null,
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 4
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "harshit-d3v",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
+                  "url": "https://github.com/harshit-d3v",
+                  "databaseId": 106448130,
+                  "name": "Harshit Prakash"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "docs/serve-static-root",
+            "headRefOid": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+            "baseRefName": "main",
+            "baseRefOid": "927fe98fc477720e91cdb7f96b239956d55b10c6",
+            "headRepository": {
+              "databaseId": 1413617363,
+              "name": "h3",
+              "owner": {
+                "login": "harshit-d3v"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 9,
+            "deletions": 2,
+            "changedFiles": 1,
             "commits": {
               "totalCount": 1,
               "nodes": [
@@ -565,15 +589,7 @@
               ]
             },
             "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-13T23:21:48Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
+              "nodes": []
             }
           }
         }

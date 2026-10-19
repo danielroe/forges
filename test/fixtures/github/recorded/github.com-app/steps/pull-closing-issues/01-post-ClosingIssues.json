@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ClosingIssues",
+    "variables": {
+      "owner": "h3js",
+      "name": "h3",
+      "number": 1000,
+      "first": 3,
+      "after": null
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1792388363",
+      "x-ratelimit-resource": "graphql"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "thread": {
+            "references": {
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": null
+              },
+              "nodes": []
+            }
+          }
+        }
+      }
+    }
+  }
+}

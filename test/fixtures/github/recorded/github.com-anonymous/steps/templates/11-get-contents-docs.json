@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"7fdddeb4d070bfef143c879c7ec0ebcfa964a031\"",
+      "etag": "\"f60a2a47abeb5c7bf7b5e46049cc312f2239f930\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "52",
-      "x-ratelimit-reset": "1792170137",
+      "x-ratelimit-remaining": "51",
+      "x-ratelimit-reset": "1792387146",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -80,32 +80,32 @@
       {
         "name": "1.guide",
         "path": "docs/1.guide",
-        "sha": "413ea4c09adcc35f1db68d8953f8f209f8da28c3",
+        "sha": "f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
         "size": 0,
         "url": "https://api.github.com/repos/h3js/h3/contents/docs/1.guide?ref=main",
         "html_url": "https://github.com/h3js/h3/tree/main/docs/1.guide",
-        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/413ea4c09adcc35f1db68d8953f8f209f8da28c3",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
         "download_url": null,
         "type": "dir",
         "_links": {
           "self": "https://api.github.com/repos/h3js/h3/contents/docs/1.guide?ref=main",
-          "git": "https://api.github.com/repos/h3js/h3/git/trees/413ea4c09adcc35f1db68d8953f8f209f8da28c3",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
           "html": "https://github.com/h3js/h3/tree/main/docs/1.guide"
         }
       },
       {
         "name": "2.utils",
         "path": "docs/2.utils",
-        "sha": "66fb79d4810d96596b9b5849470de5146b52da54",
+        "sha": "b4e7fe716a08063cfebefc87a093a769b897961e",
         "size": 0,
         "url": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
         "html_url": "https://github.com/h3js/h3/tree/main/docs/2.utils",
-        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/66fb79d4810d96596b9b5849470de5146b52da54",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
         "download_url": null,
         "type": "dir",
         "_links": {
           "self": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
-          "git": "https://api.github.com/repos/h3js/h3/git/trees/66fb79d4810d96596b9b5849470de5146b52da54",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
           "html": "https://github.com/h3js/h3/tree/main/docs/2.utils"
         }
       },

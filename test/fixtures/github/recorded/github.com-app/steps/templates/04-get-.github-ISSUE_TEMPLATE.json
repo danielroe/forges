@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"4f70d804aed22bcef2cb565ab3228dfe81eea42c\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": "1-bug-report.yml",
+        "path": ".github/ISSUE_TEMPLATE/1-bug-report.yml",
+        "sha": "78576aaaed9f790ef951bcd458d4f189db4abcc3",
+        "size": 1705,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/1-bug-report.yml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/1-bug-report.yml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/78576aaaed9f790ef951bcd458d4f189db4abcc3",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/1-bug-report.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/1-bug-report.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/78576aaaed9f790ef951bcd458d4f189db4abcc3",
+          "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/1-bug-report.yml"
+        }
+      },
+      {
+        "name": "2-feature-request.yml",
+        "path": ".github/ISSUE_TEMPLATE/2-feature-request.yml",
+        "sha": "80374ed837ec559c57f375ce5c22be2b6838d6f9",
+        "size": 927,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/2-feature-request.yml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/2-feature-request.yml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/80374ed837ec559c57f375ce5c22be2b6838d6f9",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/2-feature-request.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/2-feature-request.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/80374ed837ec559c57f375ce5c22be2b6838d6f9",
+          "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/2-feature-request.yml"
+        }
+      },
+      {
+        "name": "3-documentation.yml",
+        "path": ".github/ISSUE_TEMPLATE/3-documentation.yml",
+        "sha": "450d28af70e4e98e2a792f3108663173adc75e00",
+        "size": 1078,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/3-documentation.yml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/3-documentation.yml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/450d28af70e4e98e2a792f3108663173adc75e00",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/3-documentation.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/3-documentation.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/450d28af70e4e98e2a792f3108663173adc75e00",
+          "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/3-documentation.yml"
+        }
+      },
+      {
+        "name": "config.yml",
+        "path": ".github/ISSUE_TEMPLATE/config.yml",
+        "sha": "fdc8e6c564cb2c3457de251b99a49252249c0d3d",
+        "size": 351,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/config.yml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/config.yml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/fdc8e6c564cb2c3457de251b99a49252249c0d3d",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/config.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/config.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/fdc8e6c564cb2c3457de251b99a49252249c0d3d",
+          "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/config.yml"
+        }
+      }
+    ]
+  }
+}
