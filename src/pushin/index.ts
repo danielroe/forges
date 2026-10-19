@@ -119,7 +119,6 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       'notifications.unsubscribe',
       'notifications.markAllRead',
       'notifications.markAllDone',
-      'threads.createComment',
       'threads.close',
       'threads.reopen',
       'threads.update',
@@ -192,6 +191,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
+      createComment: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (thread, body, options) => {
+        const ref = requireIssueOrPull(thread, context, 'comment on')
+        const { data } = await fetcher.json<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        return toComment(ref, data)
+      }),
       create: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (repo, input, options) => {
         if (input.assignees?.length) {
           throw new UnsupportedOperationError('Pushin.eu does not set assignees on new threads', context)

@@ -112,7 +112,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.events` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
 | `threads.comments` | issue, PR | issue, PR |
 | `threads.getComment` | issue (emulated), PR (emulated) | issue (emulated), PR (emulated) |
-| `threads.createComment` | ∅ | ∅ |
+| `threads.createComment` | issue (unverified), PR (unverified) | ❌ |
 | `threads.updateComment` | ∅ | ∅ |
 | `threads.deleteComment` | ∅ | ∅ |
 | `threads.hideComment` | ∅ | ∅ |
