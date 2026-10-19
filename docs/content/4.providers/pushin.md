@@ -118,7 +118,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.hideComment` | ∅ | ∅ |
 | `threads.reactions` | ❌ | ❌ |
 | `threads.react` | ∅ | ∅ |
-| `threads.create` | ∅ | ∅ |
+| `threads.create` | issue (unverified), PR (unverified) | ❌ |
 | `threads.update` | ∅ | ∅ |
 | `threads.close` | ∅ | ∅ |
 | `threads.reopen` | ∅ | ∅ |

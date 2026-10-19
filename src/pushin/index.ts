@@ -5,7 +5,7 @@ import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
 import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinTeam, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { NotFoundError } from '../errors.ts'
+import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { eventTime } from '../events.ts'
 import { actorLogin, createListing, getManyConcurrently, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
 import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toPermissionRole, toRelease, toRepo, toTeam, toThread } from './normalise.ts'
@@ -122,7 +122,6 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       'threads.createComment',
       'threads.close',
       'threads.reopen',
-      'threads.create',
       'threads.update',
       'threads.setLabels',
       'threads.addLabels',
@@ -193,6 +192,28 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       eventsPage: verb('emulated', eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, commentsPage),
+      create: perKind({ issue: 'unverified', pull_request: 'unverified' }, async (repo, input, options) => {
+        if (input.assignees?.length) {
+          throw new UnsupportedOperationError('Pushin.eu does not set assignees on new threads', context)
+        }
+        if (input.kind === 'issue') {
+          const { data } = await fetcher.json<PushinThread>(`${repoPath(repo)}/issues`, {
+            method: 'POST',
+            json: { title: input.title, body: input.body, labels: input.labels },
+            signal: options?.signal,
+          })
+          return toThread({ forge: FORGE, instance, repo, kind: 'issue', number: String(data.number) }, data)
+        }
+        if (input.kind !== 'pull_request' || !input.head || !input.base) {
+          throw new UnsupportedOperationError('Creating a pull request needs head and base branches', context)
+        }
+        const { data } = await fetcher.json<PushinThread>(`${repoPath(repo)}/pulls`, {
+          method: 'POST',
+          json: { title: input.title, body: input.body, head: input.head, base: input.base, draft: input.draft, labels: input.labels },
+          signal: options?.signal,
+        })
+        return toThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.number) }, data)
+      }),
     },
     notifications: {
       listPage: verb(true, (listOptions = {}) => list('/notifications', listOptions, (raw: PushinNotification) => toNotification({ forge: FORGE, instance }, raw), {
