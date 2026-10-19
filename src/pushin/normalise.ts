@@ -1,5 +1,5 @@
-import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Release, ReleaseRef, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Thread } from '../model.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinThread, PushinUser } from './types.ts'
+import type { Actor, Collaborator, Comment, ForgeOrigin, Label, Notification, NotificationReason, Release, ReleaseRef, Repo, RepoPermissions, RepoRef, RepoRole, ResolvedThreadRef, Team, Thread } from '../model.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinTeam, PushinThread, PushinUser } from './types.ts'
 import { toDate } from '../utils.ts'
 
 export const FORGE = 'pushin'
@@ -202,6 +202,14 @@ export function toRelease(repo: RepoRef, raw: PushinRelease): Release {
           size: asset.size,
         }]
       : []),
+    raw,
+  }
+}
+
+export function toTeam(org: RepoRef, raw: PushinTeam): Team {
+  return {
+    ref: { forge: FORGE, instance: org.instance, org, id: String(raw.id), slug: raw.slug },
+    name: raw.name,
     raw,
   }
 }

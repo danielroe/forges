@@ -101,8 +101,8 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
 | `repos.events` | ❌ | ❌ |
-| `orgs.teams` | ❌ | ❌ |
-| `orgs.teamMembers` | ❌ | ❌ |
+| `orgs.teams` | ✅ | ❌ |
+| `orgs.teamMembers` | ✅ | ❌ |
 | `orgs.block` | ∅ | ∅ |
 | `threads.get` | issue, PR | issue, PR |
 | `threads.list` | issue, PR | issue, PR |

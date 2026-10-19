@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "org": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "forges-fixtures",
+          "name": "",
+          "kind": "namespace"
+        },
+        "id": "5",
+        "slug": "stewards"
+      },
+      "name": "stewards"
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4989,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

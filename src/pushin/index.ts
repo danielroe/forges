@@ -3,12 +3,12 @@ import type { BaseOptions, Comment, ForgeEventInput, ListOptions, Page, PageOpti
 import type { AnonymousAuth, ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinThread, PushinUser } from './types.ts'
+import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification, PushinRelease, PushinRepository, PushinTeam, PushinThread, PushinUser } from './types.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { NotFoundError } from '../errors.ts'
 import { eventTime } from '../events.ts'
-import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, toPage } from '../utils.ts'
-import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRelease, toRepo, toThread } from './normalise.ts'
+import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
+import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRelease, toRepo, toTeam, toThread } from './normalise.ts'
 import { PUSHIN_WEB } from './web.ts'
 
 /** A personal access token created in Settings (`pun_pat_…`), sent as `Authorization: Bearer`. */
@@ -161,6 +161,14 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
+    },
+    orgs: {
+      teamsPage: verb(!anonymous, (org, listOptions = {}) => list(`/orgs/${encodeURIComponent(org.owner)}/teams`, listOptions, (raw: PushinTeam) => toTeam(teamOrg(org), raw))),
+      teamMembersPage: verb(!anonymous, (team, listOptions = {}) => list(
+        `/orgs/${encodeURIComponent(team.org.owner)}/teams/${encodeURIComponent(team.slug)}/members`,
+        listOptions,
+        (raw: PushinUser) => toActor({ forge: FORGE, instance }, raw)!,
+      )),
     },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),

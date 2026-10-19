@@ -125,3 +125,11 @@ export interface PushinRelease {
   node_id: string
   assets: PushinReleaseAsset[]
 }
+
+export interface PushinTeam {
+  id: number
+  name: string
+  slug: string
+  node_id: string
+  organization: PushinUser | null
+}

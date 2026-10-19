@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "danielroe",
+      "id": "277",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+      "url": "https://pushin.eu/danielroe",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    {
+      "forge": "pushin",
+      "instance": "pushin.eu",
+      "login": "roebot",
+      "id": "692",
+      "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
+      "url": "https://pushin.eu/roebot",
+      "typeRaw": "User",
+      "isBotHint": false
+    }
+  ],
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4988,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}
