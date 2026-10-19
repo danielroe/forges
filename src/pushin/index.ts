@@ -160,6 +160,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       get: verb(true, async (repo, options) => toRepo({ forge: FORGE, instance }, (await fetcher.json<PushinRepository>(repoPath(repo), { signal: options?.signal })).data)),
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
+      createLabel: verb('unverified', async (repo, label, options) => toLabel((await fetcher.json<PushinLabel>(`${repoPath(repo)}/labels`, {
+        method: 'POST',
+        json: { name: label.name, color: label.colour, description: label.description },
+        signal: options?.signal,
+      })).data)),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ role_name: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })

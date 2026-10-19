@@ -89,7 +89,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `repos.list` | ✅ | ❌ |
 | `repos.byOwner` | ❌ | ❌ |
 | `repos.labels` | ✅ | ✅ |
-| `repos.createLabel` | ❌ | ❌ |
+| `repos.createLabel` | unverified | ❌ |
 | `repos.milestones` | ❌ | ❌ |
 | `repos.issueTypes` | ∅ | ∅ |
 | `repos.collaborators` | ✅ | ❌ |
