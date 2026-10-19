@@ -10,6 +10,12 @@ export function useHeaderLinks() {
         }]
       : []),
     {
+      'icon': 'i-simple-icons-discord',
+      'to': 'https://discord.gg/XCfTcxDsUE',
+      'target': '_blank',
+      'aria-label': 'forges on Discord',
+    },
+    {
       'icon': 'i-custom-npmx',
       'to': 'https://npmx.dev/package/forges',
       'target': '_blank',

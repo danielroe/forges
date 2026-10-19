@@ -95,6 +95,12 @@ const links = [
             source
           </ULink>
           <ULink
+            to="https://discord.gg/XCfTcxDsUE"
+            class="inline-flex min-h-11 items-center px-2 text-xs text-muted hover:text-highlighted transition-colors"
+          >
+            discord
+          </ULink>
+          <ULink
             to="https://npmx.dev/package/forges"
             class="inline-flex min-h-11 items-center px-2 text-xs text-muted hover:text-highlighted transition-colors"
           >
