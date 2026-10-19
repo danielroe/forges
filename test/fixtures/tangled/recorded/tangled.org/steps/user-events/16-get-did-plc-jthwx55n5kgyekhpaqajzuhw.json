@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:jthwx55n5kgyekhpaqajzuhw"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21a-g4ncW5V+/DxfkJnw0bMzswlym80\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:jthwx55n5kgyekhpaqajzuhw",
+      "alsoKnownAs": [
+        "at://wojtekmaj.pl"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:jthwx55n5kgyekhpaqajzuhw#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:jthwx55n5kgyekhpaqajzuhw",
+          "publicKeyMultibase": "zQ3shWAf7gCtspVDjNMNqFFHf1DXzDD7Mvi18uLw5hy3C3hgh"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://eurosky.social"
+        }
+      ]
+    }
+  }
+}

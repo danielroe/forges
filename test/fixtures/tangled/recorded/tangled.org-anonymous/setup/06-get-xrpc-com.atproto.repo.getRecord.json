@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3my76irye6u22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"8b7-AIGJ2KV7iGYcl4e3yDUSuIp0PHM\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2984",
+      "ratelimit-reset": "1792385033",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22",
+      "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
+      "value": {
+        "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
+        "$type": "sh.tangled.repo.pull",
+        "title": "product: use system wrapper for detached CI observation",
+        "rounds": [
+          {
+            "createdAt": "2026-10-19T03:29:04Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
+              },
+              "size": 2135,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-19T06:30:55+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreicst2ak7b7oom5kh6ihdmfykikdyaudu5laiacicnrg3esj5hnlz4"
+              },
+              "size": 2315,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "unit/dashboard-ci-watcher-launch"
+        },
+        "target": {
+          "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+          "branch": "main",
+          "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+        },
+        "createdAt": "2026-10-19T03:29:04Z"
+      }
+    }
+  }
+}

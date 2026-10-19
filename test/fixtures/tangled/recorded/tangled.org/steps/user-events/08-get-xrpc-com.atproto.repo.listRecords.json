@@ -1,0 +1,205 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.feed.comment&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"19ce-Uq4pk8DArh8LPyHmItEtxALtXJI\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2991",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzxt4w6sa22",
+          "cid": "bafyreiendqlx3zirtkx5e63b7pn7ba7an26ohlfj2zj7wopxnu3iwas7im",
+          "value": {
+            "body": {
+              "text": "thank you ❤️",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "thank you ❤️"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreigunhimb7vibhbfdklsdrswhwtf3phbybxmcot2wuwv6lnjieacjy",
+              "uri": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+            },
+            "createdAt": "2026-08-01T20:15:04+03:00",
+            "pullRoundIdx": 0
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzwpeomxg22",
+          "cid": "bafyreifiewjmyza5w7koesisu3d7h2rf6fb7fqwwj2x7mtopvesk3gmziu",
+          "value": {
+            "body": {
+              "text": "oops, still getting to grips with tangled. I \"merged\" this in https://tangled.org/danielroe.dev/synchub.to/commit/02bf99e2224c7cc0a2f1f2363b199ec2795f9a39.",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "oops, still getting to grips with tangled. I \"merged\" this in https://tangled.org/danielroe.dev/synchub.to/commit/02bf99e2224c7cc0a2f1f2363b199ec2795f9a39."
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreifdhvww7d7k5ks6l2nxht7flu3rys4domgodykiklidemubrtif2i",
+              "uri": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+            },
+            "createdAt": "2026-08-01T19:55:04+03:00",
+            "pullRoundIdx": 0
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mqwo2z5l7z22",
+          "cid": "bafyreigh5o3tzygi4wx7ofwkacwblxtohiksepe6hvuqtfrxfklmza6uei",
+          "value": {
+            "body": {
+              "text": "go for it! ❤️",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "go for it! ❤️"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreiasajqyk6cdxpkeke7csehgromcc5gyyqrkf5xdxiqn2jgzie5piu",
+              "uri": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.issue/3mqvsjo346y22"
+            },
+            "createdAt": "2026-07-18T19:17:20+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mqn7ypcj5j22",
+          "cid": "bafyreibjrcr7vbnw2qyzm7bltq6idkye45c3fnyl2x326jra23oipqavom",
+          "value": {
+            "body": {
+              "text": "let me know if it comes back or you encounter any issues ",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "let me know if it comes back or you encounter any issues "
+            },
+            "$type": "sh.tangled.feed.comment",
+            "replyTo": {
+              "cid": "bafyreifc7osyyhn5iw5cbyhgam3kctiqclj43cjfjwdxijee7pn5wcqdie",
+              "uri": "at://did:plc:bpyevhddfoledxzsxracdlkg/sh.tangled.feed.comment/3mqdjapyevu22"
+            },
+            "subject": {
+              "cid": "bafyreie4w3v2yvlxvni4qeuekd5f7sv4nw546gppd7qhgazmev27gazuiy",
+              "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22"
+            },
+            "createdAt": "2026-07-15T01:11:32+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mqbzyj4vtx22",
+          "cid": "bafyreickogwcknridmm6pzmsvhl5fxfojhsqz6f64wpt64ue3o2rgslebe",
+          "value": {
+            "body": {
+              "text": "fixed in https://tangled.org/danielroe.dev/synchub.to/commit/d4c4b2e400666b04f7adcd254acd0e1a9cb8fa6a",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "fixed in https://tangled.org/danielroe.dev/synchub.to/commit/d4c4b2e400666b04f7adcd254acd0e1a9cb8fa6a"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreiccq5rn7rcaq6k3zwotxhsx6vqy6syefclsp7ygtmcjwhvlrnpkiy",
+              "uri": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22"
+            },
+            "createdAt": "2026-07-10T14:24:46+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mqbz7ldv5q22",
+          "cid": "bafyreiccnjlw3oss2j2h36yojpmn6dqgtkdaqif4qx46fkhe7apqniozeq",
+          "value": {
+            "body": {
+              "text": "I think this should now be resolved 🙏\n\nlet me know if you encounter any other issues.",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "I think this should now be resolved 🙏\n\nlet me know if you encounter any other issues."
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreibubwaoddecx5bku5xzrz6s4vlmcvd5plqdq3dh2g3y4pxtd53b3i",
+              "uri": "at://did:plc:rkagcldecxf64optplrqkhwl/sh.tangled.repo.issue/3mpxpjr6ftw22"
+            },
+            "createdAt": "2026-07-10T14:10:50+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mqbylzud6x22",
+          "cid": "bafyreifnrnwfza2a76tcr7lyzl2y45l5mssppwzy7wcuua5qnnrbjynmdy",
+          "value": {
+            "body": {
+              "text": "fixed an issue - I think this should start to sync as synchub iterates over old failed jobs 🙏",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "fixed an issue - I think this should start to sync as synchub iterates over old failed jobs 🙏"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "replyTo": {
+              "cid": "bafyreig3ue3cjq3nlvhos6gn5g6t363ikwms777amv2cnhsfe4rjakveyq",
+              "uri": "at://did:plc:cwdkf4xxjpznceembuuspt3d/sh.tangled.feed.comment/3mq34226keg22"
+            },
+            "subject": {
+              "cid": "bafyreiccq5rn7rcaq6k3zwotxhsx6vqy6syefclsp7ygtmcjwhvlrnpkiy",
+              "uri": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22"
+            },
+            "createdAt": "2026-07-10T13:59:54+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mq2ymohksz22",
+          "cid": "bafyreiaddzhqx7fx7ulmhvqr2dkmd3pfhlpanpfdj54gmmbtcprrlgwt64",
+          "value": {
+            "body": {
+              "text": "you shouldn't need any other steps than installing the app. is it not working for you?",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "you shouldn't need any other steps than installing the app. is it not working for you?"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "replyTo": {
+              "cid": "bafyreig33uf6vpacbulypdiptl5uipovx4cahhditr2dxjkeo7ia7vl52u",
+              "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mq2d72cfu422"
+            },
+            "subject": {
+              "cid": "bafyreiccq5rn7rcaq6k3zwotxhsx6vqy6syefclsp7ygtmcjwhvlrnpkiy",
+              "uri": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22"
+            },
+            "createdAt": "2026-07-07T19:11:37+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mq2dab62yc22",
+          "cid": "bafyreiatz26zubt2kpeyqkjzn2tlrpy5c6ipkd3v6dq3g4wizrjlv73rpu",
+          "value": {
+            "body": {
+              "text": "cool idea!",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "cool idea!"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreief46wczxwfqn6aq62qzn4xmutllys6rim6rnjuyi6xbsddnfc6ry",
+              "uri": "at://did:plc:6ayddqghxhciedbaofoxkcbs/sh.tangled.repo.issue/3mpyp6gmrsp22"
+            },
+            "createdAt": "2026-07-07T12:48:52+03:00"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mq2d72cfu422",
+          "cid": "bafyreig33uf6vpacbulypdiptl5uipovx4cahhditr2dxjkeo7ia7vl52u",
+          "value": {
+            "body": {
+              "text": "no! you're right, this is super confusing ",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "no! you're right, this is super confusing "
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreiccq5rn7rcaq6k3zwotxhsx6vqy6syefclsp7ygtmcjwhvlrnpkiy",
+              "uri": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22"
+            },
+            "createdAt": "2026-07-07T12:48:11+03:00"
+          }
+        }
+      ],
+      "cursor": "3mq2d72cfu422"
+    }
+  }
+}

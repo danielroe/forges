@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3my77ft32lw22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"94c-HDEb31lA3nizFvdj+U5TX1gmCJw\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2991",
+      "ratelimit-reset": "1792385033",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77ft32lw22",
+      "cid": "bafyreiajcyn6grob6vozgjfakjzy3vh46eypqj3supcol5235wbf3j24fq",
+      "value": {
+        "body": "description:\nVerify the explicit Docker deferral across gate, standard and full, including an explicit request. Assert all 71 named SKIPPED lines and the counted reason, refuse invalid inventories before any group runs, and keep non-Docker failures blocking while later groups execute.\n\n---\n\ninfo:\nParent: s/542-docker-deferral-product at a2015c0d02b0cfe61352820f0fef168802af0042.\nTests: bfcc460af0b7c8b602f0d05f97f0cae7273f536d.\nProduct PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1490\nThree new owning methods cover the operator-directed deferral. Round2 migrates the retained selector-accounting case in test_docker_companion.py to the named skip behavior, preserving blocking non-Docker failure and later-group continuation; companion implementation remains untouched. Corrected notify-41d7517be7e145bd87e39eda1251a53e PASS: actual old selector case RED2vs1, restored owning file44 plus migrated case1 =45GREEN17.769s, exact restoration/diff clean; artifact docker-deferral-r2-WoOa4M.\nCI notify-4a107cc953934eb381974aa4971b2249 PASS: actual parent runner RED (Docker command attempted and malformed inventories accepted), restored owning file 44/44 GREEN in 18.133s, exact restoration and clean diff. Artifact docker-deferral-SmdVkS. Earlier notify-9f39e44a24f547fbbee0fa06f5c2e69f failed because a test supplied unsupported options to full; corrected in a new commit, with the failed receipt retained.\n",
+        "$type": "sh.tangled.repo.pull",
+        "title": "tests: verify named Docker skips and non-Docker failure propagation",
+        "rounds": [
+          {
+            "createdAt": "2026-10-19T03:45:17Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiasa7bcodu2wptp2ndnpivebia4x3ujtng5m3pcbopojqpis64c7m"
+              },
+              "size": 1702,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-19T04:05:26Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreifm25hmmflpq3jtrhd7t2fa6uk36mnzy4gqpzsxykwvq7f7jdpypy"
+              },
+              "size": 2575,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/543-docker-deferral-tests"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/542-docker-deferral-product"
+        },
+        "createdAt": "2026-10-19T03:45:17Z",
+        "references": [
+          "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77f3kh5222"
+        ]
+      }
+    }
+  }
+}

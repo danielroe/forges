@@ -1,8 +1,36 @@
 {
-  "base": "61d1c3dcdd91f258c8f1167e2838288271c5918b",
+  "base": "47894e682901c62f0b643e91bca548a265ba3f7b",
   "head": "main",
   "aheadBy": 4,
   "commits": [
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "sha": "82bad643380a543c8fcb1413dde8ecec9916d974"
+      },
+      "sha": "82bad643380a543c8fcb1413dde8ecec9916d974",
+      "message": "Add forges-fixtures/20261014202526-1.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-14T20:25:39.000Z"
+      },
+      "parents": [],
+      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/82bad643380a543c8fcb1413dde8ecec9916d974",
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
+      }
+    },
     {
       "ref": {
         "forge": "tangled",
@@ -30,36 +58,8 @@
         "deletions": 0,
         "total": 1
       }
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
-        },
-        "sha": "c0bb543486e6c8a1853dade35c3ac475ad062af3"
-      },
-      "sha": "c0bb543486e6c8a1853dade35c3ac475ad062af3",
-      "message": "Add forges-fixtures/20261012114229-1.md",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-12T11:42:34.000Z"
-      },
-      "parents": [],
-      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/c0bb543486e6c8a1853dade35c3ac475ad062af3",
-      "stats": {
-        "additions": 1,
-        "deletions": 0,
-        "total": 1
-      }
     }
   ],
   "files": [],
-  "mergeBaseSha": "61d1c3dcdd91f258c8f1167e2838288271c5918b"
+  "mergeBaseSha": "47894e682901c62f0b643e91bca548a265ba3f7b"
 }

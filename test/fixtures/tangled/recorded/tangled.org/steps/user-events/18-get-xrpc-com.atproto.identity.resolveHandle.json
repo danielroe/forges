@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=danielroe.dev"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "did": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+    }
+  }
+}

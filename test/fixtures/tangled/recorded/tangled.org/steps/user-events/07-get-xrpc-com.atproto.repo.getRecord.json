@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Apbjvqaziagcyv2vqodldn5op&collection=sh.tangled.repo.pull&rkey=3mrfzlqgnwf22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"61f-FuM07n97dAZegC1W1DrX4mckm28\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2987",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22",
+      "cid": "bafyreigjmuc4ahzjciytawlwevnofvuf6dlwsto25nsp7cxdujadpanmf4",
+      "value": {
+        "body": "### Description\n\nWhile setting up the project locally, I had a few confusing steps, which I would like to ease for new contributors in the future:\n\n- GitHub app webhook needs to be setup before configuring the event subscriptions\n- the app needs to be public in order to see the selection screen of where to install the app (otherwise only possible in your own account)\n- more intuitive order of operations: start with neon and smee to get webhook URL and db connection string, then all GitHub app configs are already known and only then, start with .env file creation. Last but not least, you can run the migration command.\n- add clear instructions to have 3 terminals open\n\nI know that it adds way more docs than technically necessary, but I believe that new contributors would really benefit from this.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "docs: improve setup documentation for clarification",
+        "rounds": [
+          {
+            "createdAt": "2026-07-24T21:53:28+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreidjoen535w6ghmnk2hervpbxttjxbkrbhjtxstgmfe3oz4cagr2b4"
+              },
+              "size": 3324,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "repo": "did:plc:iuqhxeurj5ypkwmhrbhkglq6",
+          "branch": "docs/setup-clarification",
+          "repoDid": "did:plc:iuqhxeurj5ypkwmhrbhkglq6"
+        },
+        "target": {
+          "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "branch": "main",
+          "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "createdAt": "2026-07-24T21:53:28+03:00"
+      }
+    }
+  }
+}

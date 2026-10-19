@@ -11,6 +11,66 @@
           "name": "forges-fixtures",
           "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
         },
+        "sha": "82bad643380a543c8fcb1413dde8ecec9916d974"
+      },
+      "sha": "82bad643380a543c8fcb1413dde8ecec9916d974",
+      "message": "Add forges-fixtures/20261014202526-1.md\n",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-14T20:25:39.000Z"
+      },
+      "committer": {
+        "name": "Tangled",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-14T20:26:46.000Z"
+      },
+      "parents": [
+        "529a0d09b8e207fe3ca5b299bd6c1b7135133703"
+      ],
+      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/82bad643380a543c8fcb1413dde8ecec9916d974"
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
+        "sha": "529a0d09b8e207fe3ca5b299bd6c1b7135133703"
+      },
+      "sha": "529a0d09b8e207fe3ca5b299bd6c1b7135133703",
+      "message": "Add forges-fixtures/20261012220452-1.md\n",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T22:04:57.000Z"
+      },
+      "committer": {
+        "name": "Tangled",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-12T22:05:25.000Z"
+      },
+      "parents": [
+        "c0bb543486e6c8a1853dade35c3ac475ad062af3"
+      ],
+      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/529a0d09b8e207fe3ca5b299bd6c1b7135133703"
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        },
         "sha": "c0bb543486e6c8a1853dade35c3ac475ad062af3"
       },
       "sha": "c0bb543486e6c8a1853dade35c3ac475ad062af3",
@@ -18,77 +78,17 @@
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "<now>"
+        "date": "2026-10-12T11:42:34.000Z"
       },
       "committer": {
         "name": "Tangled",
         "email": "redacted@example.invalid",
-        "date": "<now>"
+        "date": "2026-10-12T11:42:49.000Z"
       },
       "parents": [
         "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
       ],
       "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/c0bb543486e6c8a1853dade35c3ac475ad062af3"
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
-        },
-        "sha": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
-      },
-      "sha": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a",
-      "message": "Add forges-fixtures/20261011220545-1.md\n",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T22:05:50.000Z"
-      },
-      "committer": {
-        "name": "Tangled",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T22:06:05.000Z"
-      },
-      "parents": [
-        "47894e682901c62f0b643e91bca548a265ba3f7b"
-      ],
-      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
-        },
-        "sha": "47894e682901c62f0b643e91bca548a265ba3f7b"
-      },
-      "sha": "47894e682901c62f0b643e91bca548a265ba3f7b",
-      "message": "Add forges-fixtures/20261011215242-1.md\n",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T21:52:47.000Z"
-      },
-      "committer": {
-        "name": "Tangled",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-11T21:53:10.000Z"
-      },
-      "parents": [
-        "61d1c3dcdd91f258c8f1167e2838288271c5918b"
-      ],
-      "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures/commit/47894e682901c62f0b643e91bca548a265ba3f7b"
     }
   ],
   "cursor": {

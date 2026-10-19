@@ -6,14 +6,15 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"5b-/bnR+nAAY+VUSVgLiAJVoP/h6J0\"",
+      "etag": "W/\"5b-Jo5ILzHfccsKDnuDjGWiNUo9ymE\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2997",
-      "ratelimit-reset": "1791915188"
+      "ratelimit-remaining": "2982",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "cid": "bafyreidbjb6gzkdubmmrhnbxwi65n7hhkrpwxsrdnb7usl2l27txqqkyfa",
-      "rev": "3mxrkpfanhy2s"
+      "cid": "bafyreiegtlstfc5dzbsh3bbzblpswpca33q6fhdg2yjsh6t7cygvhu22sa",
+      "rev": "3my6njfwr5e2s"
     }
   }
 }

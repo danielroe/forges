@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3my77f3kh5222"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"740-bTG83CEsItDZaWvn8nxQeqCRUGg\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2990",
+      "ratelimit-reset": "1792385033",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77f3kh5222",
+      "cid": "bafyreibrnitey4hlubyogffn36ddx7ypfli3vq2rth2tlgkdlx33fbetj4",
+      "value": {
+        "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1491\nTests child: s/543-docker-deferral-tests at bfcc460af0b7c8b602f0d05f97f0cae7273f536d.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.\n",
+        "$type": "sh.tangled.repo.pull",
+        "title": "product: defer the named Docker checks until job support lands",
+        "rounds": [
+          {
+            "createdAt": "2026-10-19T03:44:52Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
+              },
+              "size": 3521,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/542-docker-deferral-product"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/541-closing-sandbox-census-tests"
+        },
+        "createdAt": "2026-10-19T03:44:52Z",
+        "references": [
+          "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77ft32lw22"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Amefcltb4brt5b7nqvnntbyie&collection=sh.tangled.repo.issue&rkey=3my5e7w3wr422"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1fe-Hy79AAxGfeprUiTNWUxv/xE+t2w\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2878",
+      "ratelimit-reset": "1792385011",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:mefcltb4brt5b7nqvnntbyie/sh.tangled.repo.issue/3my5e7w3wr422",
+      "cid": "bafyreiaaeabiw7liusi67urvebnarhyeouih6px4m5kqucafqo7vkh3dje",
+      "value": {
+        "body": "Hello!\n\nIt's awesome to see all your work on tinysub! I have a pretty big feature request; can we have an X button on the search field to reset the search?\n\nThanks!",
+        "repo": "did:plc:364qcomt6pypba3wramcl25o",
+        "$type": "sh.tangled.repo.issue",
+        "title": "Life-changing feature request: search X button",
+        "createdAt": "2026-10-18T13:06:07+03:00"
+      }
+    }
+  }
+}

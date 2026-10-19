@@ -1,0 +1,97 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tranquil.bwc9876.dev/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ax7tlupbnqot7nu6udnffnv4h&collection=sh.tangled.repo.pull&rkey=3mx64pa4jci22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4jci22",
+      "cid": "bafyreid2rcunb4b275wyh6qabnwhlqfgwhl2iwv42zdeknqlfnxdcva36a",
+      "value": {
+        "$type": "sh.tangled.repo.pull",
+        "body": "",
+        "createdAt": "2026-10-15T18:26:46+03:00",
+        "dependentOn": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322",
+        "rounds": [
+          {
+            "createdAt": "2026-10-05T23:58:59Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreicxmekh4oqx6yz2v6l2b77wfsfkj2qjz5ofq65vmjnhqlwpipbajm"
+              },
+              "size": 1382
+            }
+          },
+          {
+            "createdAt": "2026-10-06T00:16:20Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreibcurhe37krcnqhe43kij7shfnbmo55u766if6nftcaba7w34ajvm"
+              },
+              "size": 1383
+            }
+          },
+          {
+            "createdAt": "2026-10-06T01:59:15Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreihy5klyblfwf4kfjmle6qihgfs5wwillwwqmpdo5rjprhstvngpje"
+              },
+              "size": 1383
+            }
+          },
+          {
+            "createdAt": "2026-10-06T15:15:38Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreibbu2lrx3nlsqxdumv2pauvowi6xbeswwd3wgtv3kx62tlxufcgp4"
+              },
+              "size": 1383
+            }
+          },
+          {
+            "createdAt": "2026-10-07T19:46:34Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreid5aaufz7rurl7lrbl3cdedbey2oddqq3a62257woavmutrb7jrmi"
+              },
+              "size": 1384
+            }
+          },
+          {
+            "createdAt": "2026-10-15T18:26:47+03:00",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreiaxwzyxn7jxvxojl6xvnbhro2wruqk2t5noqtuhhr7s75sumghj6q"
+              },
+              "size": 1384
+            }
+          }
+        ],
+        "source": {
+          "branch": "ben/init-basic-apps"
+        },
+        "target": {
+          "branch": "main",
+          "repo": "did:plc:6z743ym5lwe7k6m6dqd6yjha",
+          "repoDid": "did:plc:6z743ym5lwe7k6m6dqd6yjha"
+        },
+        "title": "templates: create _layout.jinja for actual pages, _base.jinja now for misc."
+      }
+    }
+  }
+}

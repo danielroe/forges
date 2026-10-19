@@ -1,0 +1,47 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3my76x34upj22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"6c1-yxGNCbAyuEfkde4gBopPoGfcnWU\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2993",
+      "ratelimit-reset": "1792385033",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76x34upj22",
+      "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y",
+      "value": {
+        "body": "description:\nRefresh the exact sandbox-reader census for the existing eight fsops readers. Keep the full file/count equality assertion so an additional or relocated reader still fails.\n\n---\ninfo:\nDASHBOARD-REACT closing standard non-Docker repair; tests-only bookkeeping, no product change or deleted assertion.\nParent s/539-docker-consumer-tests: 162e862a928a922b21eea018b63383ca182cbd58\nTarget: 099c82f429f7fa8267273b70c8270b05077b8f43\nActual standard3my6xr5jaga22 found expected7/actual8 at workspace_structure.rs692. Targeted notifyfa2aa8c7a3664f57bae16a374dc982e5 proves old7expectationRED, an actual added fsops readerRED, restored full9structuretestsGREEN0.19s/exactrestore/diffempty with server-qualified canonical features. Independent quick once remains reviewer work. No crate move or confinement-limit change. This is separate from the operator-stopped Docker companion; no Docker invocation. Use reviewed precompanion CI helper revision35b18ad101d6a66b0368f98cdb9be80aecc792b3 while later Docker work is deferred.\n",
+        "$type": "sh.tangled.repo.pull",
+        "title": "tests: refresh the exact sandbox reader census",
+        "rounds": [
+          {
+            "createdAt": "2026-10-19T06:37:02+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreid547of33vacrqfiawu35wpvgfqjf7dehusopql73verl6gj47kjy"
+              },
+              "size": 566,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "branch": "s/541-closing-sandbox-census-tests"
+        },
+        "target": {
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/539-docker-consumer-tests",
+          "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+        },
+        "createdAt": "2026-10-19T06:37:02+03:00"
+      }
+    }
+  }
+}
