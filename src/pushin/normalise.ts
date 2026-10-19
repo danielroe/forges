@@ -92,6 +92,10 @@ export function toRole(raw: PushinCollaborator): RepoRole {
   return permissions.pull ? 'read' : 'none'
 }
 
+export function toPermissionRole(raw: string): RepoRole {
+  return raw === 'admin' || raw === 'write' || raw === 'read' ? raw : 'none'
+}
+
 export function toCollaborator(origin: ForgeOrigin, raw: PushinCollaborator): Collaborator {
   return {
     actor: toActor(origin, raw)!,

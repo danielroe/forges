@@ -7,8 +7,8 @@ import type { PushinCollaborator, PushinComment, PushinLabel, PushinNotification
 import { defineForgeProvider, perKind, verb } from '../define.ts'
 import { NotFoundError } from '../errors.ts'
 import { eventTime } from '../events.ts'
-import { createListing, getManyConcurrently, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
-import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toRelease, toRepo, toTeam, toThread } from './normalise.ts'
+import { actorLogin, createListing, getManyConcurrently, requireIssueOrPull, resolveToken, teamOrg, toPage } from '../utils.ts'
+import { FORGE, toActor, toCollaborator, toComment, toLabel, toNotification, toPermissionRole, toRelease, toRepo, toTeam, toThread } from './normalise.ts'
 import { PUSHIN_WEB } from './web.ts'
 
 /** A personal access token created in Settings (`pun_pat_…`), sent as `Authorization: Bearer`. */
@@ -161,6 +161,10 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       listPage: verb(true, (listOptions = {}) => list('/user/repos', listOptions, (raw: PushinRepository) => toRepo({ forge: FORGE, instance }, raw))),
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, (raw: PushinLabel) => toLabel(raw))),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: PushinCollaborator) => toCollaborator({ forge: FORGE, instance }, raw))),
+      permissionFor: verb(!anonymous, async (repo, actor, options) => {
+        const { data } = await fetcher.json<{ role_name: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
+        return toPermissionRole(data.role_name)
+      }),
     },
     orgs: {
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(`/orgs/${encodeURIComponent(org.owner)}/teams`, listOptions, (raw: PushinTeam) => toTeam(teamOrg(org), raw))),

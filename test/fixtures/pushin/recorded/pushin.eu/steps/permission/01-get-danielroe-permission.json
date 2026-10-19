@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/collaborators/danielroe/permission"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4944",
+      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "user": {
+        "id": 277,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+        "html_url": "https://pushin.eu/danielroe",
+        "login": "danielroe",
+        "node_id": "REDACTED"
+      },
+      "permission": "read",
+      "role_name": "read"
+    }
+  }
+}
