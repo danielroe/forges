@@ -1,16 +1,17 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&cid=bafkreidjpvy4ysl7rumkvpgl736rla4g2iadkv5esrl3zgawnpzraxhwla"
+    "url": "https://tngl.sh/xrpc/com.atproto.sync.getBlob?did=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&cid=bafkreiejtt325sprdolexza6nkdal444qdnt2ohex2izbu4esjggyyjoca"
   },
   "response": {
     "status": 200,
     "headers": {
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2856",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2863",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
-    "body": "H4sIAAAAAAAAA42SQYvUQBCF7/0r3lHJ9Ex1JdM9CSJZlMWLKKzgQTx00pWxNeksmZ51BH+8zC6C7MUUdXq8enw86naZJ5S2s35w1g51qD33XRiEa3Mg9gfjrR/6rne1dXg/J9zJPYwDUfO4YCKjbpd5ajDMy1FOGOIlnxc54dWToP8KrVz8dD/KNqYHP8bwWr31WZpr7AaG8aHPYGIL5oaqZu9QEBGpu3P3Xfrc4MvHm09v3n3FTQh4lr27HhoyzEzVnrXZTkEprbVa48RvGBQKBkMcBf03n44SNjCI6SRLjnN6UbxU6BfxWTDNQWCIbFWt4whxGKD1MWb43Rqebo1LJfn5BPwPkIopyAW0crbb0rm69z7wnqSsuLZhX1fWupKFDhJ8zZUrLR+uZWIX5GGXzuOoiqJYSdm20LQhFAZtq4rPS8xZErpf8M9eBss5YU7/71RpDfUjzVkp9Qeq5JkYwwIAAA==",
+    "body": "H4sIAAAAAAAAA42SQYvUQBCF7/0r3lHJ9ExVNklngkgWZfEiCrvgQTx0p6vH1qSzZDrrCP54WRdB9mKKOj1eFR+Pd7PME5wRpsq4WoIPbVOVXHFrXRtaMqG2ruFQSagt3s8Jt3IPNiDq/ixKIlY3yzx1CPNykjNCvOR1kTNePQn6r9DLxU73o+xjerBj9K/VW5ulw90qO5SED0NGSWUDpo7a7sqgICJSt6v7JkPu8Pnj9d2bd19w7T2e/T48HjKVxETtFWveT14prbXa4sQvMAoFRoijYPhq00n8DoyYzrLkOKcXxUuFYRGbBdPsBUzUVNU2Dh9DgNanmGEPW3jcFpdK8uMJ+B8gFZOXC2jj7PdBrGk9N07qKkhjvXFNzc2xskfTDp5c6U04Wv8YJg5eHg5pHUdVFMVGyr6Hph2hYPS9Kj4tMWdJcD9hn1UGy5owp/9nqrSG+p7mrJT6DYHXyjXDAgAA",
     "encoding": "base64"
   }
 }

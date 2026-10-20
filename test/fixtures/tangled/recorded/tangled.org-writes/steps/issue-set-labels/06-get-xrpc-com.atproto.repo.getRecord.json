@@ -8,8 +8,9 @@
     "headers": {
       "etag": "W/\"174-GJfoEsGbR0V+Tg9bTcWBQLOPdHQ\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2997",
-      "ratelimit-reset": "1791843004"
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1792491231",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/duplicate",

@@ -8,8 +8,9 @@
     "headers": {
       "etag": "W/\"311-RAGyiP9bLM+uM1OjYDCGCTsVHGM\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2969",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2976",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo/forges-fixtures",

@@ -7,10 +7,10 @@
       "collection": "sh.tangled.label.op",
       "record": {
         "$type": "sh.tangled.label.op",
-        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y",
         "add": [
           {
-            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxpjluaztz2y",
+            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mycfcesovr2y",
             "value": "null"
           },
           {
@@ -19,24 +19,25 @@
           }
         ],
         "delete": [],
-        "performedAt": "2026-10-12T22:05:05.583Z"
+        "performedAt": "2026-10-20T10:08:56.380Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"117-8/2vGgz2PA9OaoOB/FYh7WpbK8c\"",
+      "etag": "W/\"117-2P6WZ0lqJL52OFZ7yXeZfvoNF4g\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2931",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2938",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxpjlzg43b2y",
-      "cid": "bafyreihmv6eqjfwzmbwbaki6sfopiexo5dvhq7xl454a7wpv75tn5wvh54",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mycfct5tbz2y",
+      "cid": "bafyreih23rfddsf2xeorkpmjp3dokfskeiwhbx4derunje3wy4ubndebsi",
       "commit": {
-        "cid": "bafyreibt4ps4nacafvk3hvpjtgprt2sfdes7wl4cicj5txae7w672zsjrm",
-        "rev": "3mxpjlzgbwr2y"
+        "cid": "bafyreihs7llnedbfs2udhycxvo7diupq7uvh5awyblltfaleyboyw5q6ma",
+        "rev": "3mycfct5z5j2y"
       },
       "validationStatus": "unknown"
     }

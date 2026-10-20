@@ -6,14 +6,15 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"363-u6L5Z+mPH2NednjOPo01ndULTCw\"",
+      "etag": "W/\"363-KvWNzVzCngPNCDNcWh6mE7DJ658\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2948",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2955",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo/forges-fixtures",
-      "cid": "bafyreiaabgseacalai2yitvmkw3vhvghm3ucu6qghhvjxdza6zev3rarzi",
+      "cid": "bafyreig6fmbtysy2lnjryib42rbef4g2xrbo5on4ybdguamvlfejvj4dge",
       "value": {
         "knot": "knot1.tangled.sh",
         "$type": "sh.tangled.repo",
@@ -24,7 +25,7 @@
           "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/documentation",
           "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
           "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmwnkuvum2y",
-          "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxpjluaztz2y"
+          "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mycfcesovr2y"
         ],
         "repoDid": "did:plc:t73o44q7fppgagkrevtztyok",
         "createdAt": "2026-10-09T20:02:20+03:00"

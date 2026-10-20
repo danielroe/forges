@@ -1,44 +1,35 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxpjm4ubhr2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mycfdm3kmz2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"281-fk5o5NzZulXZYN6pNdWElDAXloM\"",
+      "etag": "W/\"238-hCRtSO+6Yr5qSGLyW3vYL/seXt4\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2868",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2870",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4ubhr2y",
-      "cid": "bafyreigytaw66kzeqf6p2qhdm2lqull6mm4545fhp7lsp7ea52snxfls7a",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mycfdm3kmz2y",
+      "cid": "bafyreiebrn7mr2bvgk5ks4wmfzpiegsgoqent2gy3oz5ndgmcwlax4ceke",
       "value": {
-        "body": "Opened by run 20261012220452.",
-        "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261012220452: pull 3",
-        "rounds": [
+        "add": [
           {
-            "createdAt": "2026-10-12T22:05:09.121Z",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreifcqiayukbw65l6danfchmxdjxuei76ho6muvlu2szbtk7ezyauje"
-              },
-              "size": 357,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
+            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mycfcesovr2y",
+            "value": "null"
+          },
+          {
+            "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
+            "value": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         ],
-        "source": {
-          "branch": "forges-fixtures/20261012220452-3"
-        },
-        "target": {
-          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
-          "branch": "main"
-        },
-        "createdAt": "2026-10-12T22:05:09.121Z"
+        "$type": "sh.tangled.label.op",
+        "delete": [],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfdaneub2y",
+        "performedAt": "2026-10-20T10:09:22.536Z"
       }
     }
   }

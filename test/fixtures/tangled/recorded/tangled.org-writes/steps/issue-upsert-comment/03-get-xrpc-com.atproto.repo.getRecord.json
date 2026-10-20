@@ -1,31 +1,32 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mxpjluvxrj2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.comment&rkey=3mycfcimv2r2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"228-3dl111cq24kfRT4rvSeNyJNf9+8\"",
+      "etag": "W/\"228-mBAZYrmnv9Il+NFstvTahiUJvI8\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2959",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2966",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjluvxrj2y",
-      "cid": "bafyreiboih7qo5gfnf7avauwtmbxs3wbvm3nbjs5lid64n4zjatyunoccu",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mycfcimv2r2y",
+      "cid": "bafyreib53yngk4nnlzejov5xejiffftfp3gopakglijwxilrizieq4oube",
       "value": {
         "body": {
-          "text": "An edited comment from run 20261012220452.",
+          "text": "An edited comment from run 20261020100831.",
           "$type": "sh.tangled.markup.markdown",
-          "original": "An edited comment from run 20261012220452."
+          "original": "An edited comment from run 20261020100831."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreibryywxubhkn7mdoixironjlz7vloiqp463cpy2jgbzzmpgbmpo2e",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y"
+          "cid": "bafyreicvju4tf23o3p7fparuniyqdkwan6muybi3q4y3f73e2xhesjpnyu",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y"
         },
-        "createdAt": "2026-10-12T22:05:00.860Z"
+        "createdAt": "2026-10-20T10:08:45.305Z"
       }
     }
   }

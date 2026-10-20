@@ -5,21 +5,22 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxpjm4ym5b2y"
+      "rkey": "3mycfdblugz2y"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"66-+Qq50eIfcR57peYwtG/iZtiZ2Qc\"",
+      "etag": "W/\"66-FbB3gVxC2/FJ173upS++ROqVJx8\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2889",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2896",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "commit": {
-        "cid": "bafyreihv4jvtoypnn7heusnhstq6oqwoakpcu2pdcyjciwyobrgtnt7tkq",
-        "rev": "3mxpjmihxyr2y"
+        "cid": "bafyreidg4qprg4evpw7v6gb5vinupca43e7y6vlpmo7w36qpf6rdfosczi",
+        "rev": "3mycfdehjzz2y"
       }
     }
   }

@@ -9,26 +9,27 @@
         "$type": "sh.tangled.feed.subscription",
         "subject": {
           "$type": "sh.tangled.feed.subscription#uri",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y"
         },
-        "createdAt": "2026-10-12T22:05:05.181Z"
+        "createdAt": "2026-10-20T10:08:54.779Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"120-+JsLY+CmJtCH5nwfMtWUEJtGEp0\"",
+      "etag": "W/\"120-flJIhVqR8jGXc8HyrOmz1DLCO+0\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2935",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2942",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxpjlz24bz2y",
-      "cid": "bafyreieoosr6yjlxk6swg3r5lpajugutpcxjke63fiejmi5p7rtpg2ebkq",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mycfcrat5b2y",
+      "cid": "bafyreihpsjk6xltrxhnuedqxhu77265l6ammgovu6cj27fxb6v5knknmhe",
       "commit": {
-        "cid": "bafyreiguzhdsbutsu6u3r7rbnphogcolymmgkn3bk7otnhqgeyfu54xzgm",
-        "rev": "3mxpjlz2d4r2y"
+        "cid": "bafyreie2omzmvhbmyiupypadqqphbj32tgdez35jxu4tazj45r5jmbkf5u",
+        "rev": "3mycfcrazxz2y"
       },
       "validationStatus": "unknown"
     }

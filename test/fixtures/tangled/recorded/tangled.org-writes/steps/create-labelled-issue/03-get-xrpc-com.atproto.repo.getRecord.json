@@ -1,25 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxpjm2z5uj2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mycfcvzdyr2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"171-8cl86zd5F9Y8RyO9McElUt34/KQ\"",
+      "etag": "W/\"171-cYSUr15LKdl695EtQ125UYV+yiA\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2912",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2929",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjm2z5uj2y",
-      "cid": "bafyreibtbkyofyw73fflf2bqeozrxax6c6wopdupnm4u5bg7pyr3d34yxm",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfcvzdyr2y",
+      "cid": "bafyreiffxvac2ml6zbzgv2g7ur7nynie24ajq5tcbbhkl6nxc2it5yw4wy",
       "value": {
-        "body": "Opened by run 20261012220452.",
+        "body": "Opened by run 20261020100831.",
         "repo": "did:plc:t73o44q7fppgagkrevtztyok",
         "$type": "sh.tangled.repo.issue",
-        "title": "forges fixture 20261012220452: labelled issue",
-        "createdAt": "2026-10-12T22:05:07.249Z"
+        "title": "forges fixture 20261020100831: labelled issue",
+        "createdAt": "2026-10-20T10:08:59.405Z"
       }
     }
   }

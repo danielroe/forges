@@ -7,46 +7,47 @@
       "collection": "sh.tangled.repo.pull",
       "record": {
         "$type": "sh.tangled.repo.pull",
-        "title": "forges fixture 20261012220452: pull 1",
-        "body": "Opened by run 20261012220452.",
+        "title": "forges fixture 20261020100831: pull 1",
+        "body": "Opened by run 20261020100831.",
         "target": {
           "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main"
         },
         "source": {
-          "branch": "forges-fixtures/20261012220452-1"
+          "branch": "forges-fixtures/20261020100831-1"
         },
         "rounds": [
           {
-            "createdAt": "2026-10-12T22:05:08.560Z",
+            "createdAt": "2026-10-20T10:09:06.180Z",
             "patchBlob": {
               "$type": "blob",
               "ref": {
-                "$link": "bafkreidjpvy4ysl7rumkvpgl736rla4g2iadkv5esrl3zgawnpzraxhwla"
+                "$link": "bafkreiejtt325sprdolexza6nkdal444qdnt2ohex2izbu4esjggyyjoca"
               },
               "mimeType": "application/gzip",
-              "size": 358
+              "size": 357
             }
           }
         ],
-        "createdAt": "2026-10-12T22:05:08.560Z"
+        "createdAt": "2026-10-20T10:09:06.180Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"118-QW9eUzUCmYzGk8/U34CqW85p8oA\"",
+      "etag": "W/\"118-medL3s+FJrTkNrsdTnMXi3HNWiI\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2902",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2909",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
-      "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y",
+      "cid": "bafyreihlyu4mtxzyghelq5gt5sh6dd3u6e47yfj3kfuico4yiipeeea5d4",
       "commit": {
-        "cid": "bafyreid6jnwidc7qs6bifsmh5rmua2buth3lpkhbmv7ghop6rrthyrsp7i",
-        "rev": "3mxpjm4e4uj2y"
+        "cid": "bafyreigzz6obazpc2bi3t2q4fldmorz45ftebth3twp3ied6vxscdgeh5i",
+        "rev": "3mycfd4thij2y"
       },
       "validationStatus": "unknown"
     }

@@ -6,19 +6,20 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"90-YJISLM7fqcDGYa3Ca13S5BoOVow\"",
+      "etag": "W/\"90-WO55zfqV5u3ZGTFO1MZv4GjmBtU\"",
       "ratelimit-limit": "1000",
       "ratelimit-remaining": "998",
-      "ratelimit-reset": "1791929108"
+      "ratelimit-reset": "1792577346",
+      "ratelimit-policy": "1000;w=86400"
     },
     "body": {
       "blob": {
         "$type": "blob",
         "ref": {
-          "$link": "bafkreiazzw7jziqencffr27bx2326chdmevk4mxtejwdi2gbe4ttynrvtu"
+          "$link": "bafkreihqfmrajj6nnicncothramvz5sgoivm3rikawq72dwr7tdfp4nbgq"
         },
         "mimeType": "application/gzip",
-        "size": 359
+        "size": 357
       }
     }
   }

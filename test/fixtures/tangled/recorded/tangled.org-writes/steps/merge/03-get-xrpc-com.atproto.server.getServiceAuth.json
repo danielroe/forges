@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"17a-hAZWK0MUsA608OdbPujjs4ux/q0\"",
+      "etag": "W/\"17a-R3Zu49paB7QF023vnCrW3JCKzhw\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2855",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2862",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "token": "REDACTED"

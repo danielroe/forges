@@ -5,37 +5,38 @@
     "body": {
       "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "collection": "sh.tangled.feed.comment",
-      "rkey": "3mxpjm4ym5b2y",
+      "rkey": "3mycfdblugz2y",
       "record": {
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An edited comment from run 20261012220452.",
-          "original": "An edited comment from run 20261012220452."
+          "text": "An edited comment from run 20261020100831.",
+          "original": "An edited comment from run 20261020100831."
         },
         "$type": "sh.tangled.feed.comment",
         "subject": {
-          "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu",
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y"
+          "cid": "bafyreihlyu4mtxzyghelq5gt5sh6dd3u6e47yfj3kfuico4yiipeeea5d4",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y"
         },
-        "createdAt": "2026-10-12T22:05:09.334Z"
+        "createdAt": "2026-10-20T10:09:11.523Z"
       },
-      "swapRecord": "bafyreidixlb555dszfecp3iph6wg52ooexuqmcsjc5v5npuikphnepuqwm"
+      "swapRecord": "bafyreihyw7worxagado7j2wqs3trunueuvdrmfxrhgzedvr7hxncxkxofu"
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-lNfZr5dVxAUonaVNgEM8CQjcFZY\"",
+      "etag": "W/\"11b-/TGLazvxE01QMmfzYEeKf/WZAlg\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2894",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2901",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjm4ym5b2y",
-      "cid": "bafyreickwxxxneuucjzdstnkp4mgmdp3xnurxerd7oa75sxan5d4j2e3ly",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mycfdblugz2y",
+      "cid": "bafyreigsyzfljrtlws4tzah4bu4fd77p3hv6qzccleyi75dv4qsfzwr65a",
       "commit": {
-        "cid": "bafyreicl6vm3mpmkz5te5jgishkct7hi3i33sl4c54vqmsgja5l7t7r2mq",
-        "rev": "3mxpjm55q7b2y"
+        "cid": "bafyreigenvflsn4hzey3ljdp6dhah4giu4r3erz7um2uieheakxwdyvkpy",
+        "rev": "3mycfdckorj2y"
       },
       "validationStatus": "unknown"
     }

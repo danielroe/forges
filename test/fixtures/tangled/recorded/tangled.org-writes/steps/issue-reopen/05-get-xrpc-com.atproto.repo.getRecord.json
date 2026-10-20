@@ -1,30 +1,31 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mxpjly3rlj2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mycfcof7ir2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1b9-pbgDF6XumewslinIysb4HW2Vn6g\"",
+      "etag": "W/\"1b9-PZGsat5tMEKMvvJPBftVIm16xpM\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2894",
-      "ratelimit-reset": "1792009828"
+      "ratelimit-remaining": "2911",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mxpjly3rlj2y",
-      "cid": "bafyreiefpjl6n4oz4urozx3u7fnkg5txixssvxsse73yqhqfhx733elscy",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mycfcof7ir2y",
+      "cid": "bafyreicgqluci66zzamckejhgi6xxm667auo736zo3qthvedp3ftbo7xni",
       "value": {
         "add": [
           {
-            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxpjluaztz2y",
+            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mycfcesovr2y",
             "value": "null"
           }
         ],
         "$type": "sh.tangled.label.op",
         "delete": [],
-        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
-        "performedAt": "2026-10-14T20:26:09.427Z"
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y",
+        "performedAt": "2026-10-20T10:08:51.839Z"
       }
     }
   }

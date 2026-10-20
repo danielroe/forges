@@ -6,13 +6,62 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"211f-LTFKSYtgUu4zV2Ki5GifMwQTkwI\"",
+      "etag": "W/\"271d-5X1snd4NMB4v41vBwzNN7V1eWjc\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2937",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2944",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxuezuepbb2y",
+          "cid": "bafyreifdmwa7smjkgmzf73bphlreaj3to4k3lfci4bj4qkenzasreqlybi",
+          "value": {
+            "$type": "sh.tangled.feed.subscription",
+            "subject": {
+              "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxuezgq5jz2y",
+              "$type": "sh.tangled.feed.subscription#uri"
+            },
+            "createdAt": "2026-10-14T20:26:39.344Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxuez25bwr2y",
+          "cid": "bafyreid37pqgkbvb3k6dzvtjk5aubggvrwtvhfx7xswlhe5yjtexkc5bci",
+          "value": {
+            "$type": "sh.tangled.feed.subscription",
+            "subject": {
+              "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxueynr74z2y",
+              "$type": "sh.tangled.feed.subscription#uri"
+            },
+            "createdAt": "2026-10-14T20:26:11.837Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxpjmkbisz2y",
+          "cid": "bafyreigmkdkcxgumlusha75a6yrr7jacbwfqxx3nk2mxirr6nn23zhlrmu",
+          "value": {
+            "$type": "sh.tangled.feed.subscription",
+            "subject": {
+              "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
+              "$type": "sh.tangled.feed.subscription#uri"
+            },
+            "createdAt": "2026-10-12T22:05:23.256Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxpjlz24bz2y",
+          "cid": "bafyreieoosr6yjlxk6swg3r5lpajugutpcxjke63fiejmi5p7rtpg2ebkq",
+          "value": {
+            "$type": "sh.tangled.feed.subscription",
+            "subject": {
+              "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+              "$type": "sh.tangled.feed.subscription#uri"
+            },
+            "createdAt": "2026-10-12T22:05:05.181Z"
+          }
+        },
         {
           "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.subscription/3mxogtcjwr52y",
           "cid": "bafyreibzlblxsejoptqacvfwwvbj5422lgoe5tpuy3fdnlbucdoavwyzxu",

@@ -9,31 +9,32 @@
         "$type": "sh.tangled.feed.comment",
         "body": {
           "$type": "sh.tangled.markup.markdown",
-          "text": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->",
-          "original": "An upserted comment from run 20261012220452.\n\n<!-- forges:key=forges-fixture -->"
+          "text": "An upserted comment from run 20261020100831.\n\n<!-- forges:key=forges-fixture -->",
+          "original": "An upserted comment from run 20261020100831.\n\n<!-- forges:key=forges-fixture -->"
         },
         "subject": {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxpjm4dv2j2y",
-          "cid": "bafyreifx3mus7iccgox53ob4hzc7qlladzbdq3ie3tbt5ykknwzhfhs6cu"
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y",
+          "cid": "bafyreihlyu4mtxzyghelq5gt5sh6dd3u6e47yfj3kfuico4yiipeeea5d4"
         },
-        "createdAt": "2026-10-12T22:05:21.235Z"
+        "createdAt": "2026-10-20T10:09:13.933Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"11b-BElWl/RQvYiFoN92IZ2CTMZjgxE\"",
+      "etag": "W/\"11b-QxM/BM8JNtiCynl/Z+pIw/O/JhY\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2890",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2897",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mxpjmie2yr2y",
-      "cid": "bafyreieua3rxpapvopzhmtiia3hprdngsmeesky2rc4aqnpdwwpaluhw4i",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mycfddixjj2y",
+      "cid": "bafyreid44hcgsic35ic7gtfi2z72tius5gxrbe6wchhr26bxja2svyfr3a",
       "commit": {
-        "cid": "bafyreiazx5t3kayajyjr2ligiizukou4bh7m56v4up7cdffmmmdyq5z7iu",
-        "rev": "3mxpjmiedrz2y"
+        "cid": "bafyreibqzmatoqqea527wpyrcnwu6c4exjfk5fc3jrdnmh73ybcqqb5doe",
+        "rev": "3mycfddjcbb2y"
       },
       "validationStatus": "unknown"
     }

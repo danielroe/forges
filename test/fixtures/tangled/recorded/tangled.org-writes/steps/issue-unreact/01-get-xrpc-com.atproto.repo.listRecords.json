@@ -6,21 +6,22 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"586-P+kFeZhnh6cdKKOZLC7cFo0Ox98\"",
+      "etag": "W/\"586-M4LIiA2xeSIvoiHR9SYmwwXaXRE\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2952",
-      "ratelimit-reset": "1791842994"
+      "ratelimit-remaining": "2959",
+      "ratelimit-reset": "1792491212",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
         {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.reaction/3mxpjlwnutj2y",
-          "cid": "bafyreihhaicbzt2x535ke3pnto7apdqoaehii4lyj72m7fv7slxiffgfim",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.reaction/3mycfcmi7dz2y",
+          "cid": "bafyreie6cytprqbaol3c6vrippd7tz3fghcpxlchavqbu3dcowg327j43e",
           "value": {
             "$type": "sh.tangled.feed.reaction",
-            "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxpjlurceb2y",
+            "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y",
             "reaction": "👍",
-            "createdAt": "2026-10-12T22:05:02.689Z"
+            "createdAt": "2026-10-20T10:08:49.805Z"
           }
         },
         {
