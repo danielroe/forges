@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=12&state=open&type=issues>; rel=\"last\"",
-      "x-total-count": "35"
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=35&state=open&type=issues>; rel=\"last\"",
+      "x-total-count": "104"
     },
     "body": [
       {
@@ -39,7 +39,26 @@
         "body": "我怎么列出所有 assignee 为空的 issues",
         "ref": "",
         "assets": [],
-        "labels": [],
+        "labels": [
+          {
+            "id": 2823,
+            "name": "upstream/gitea",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "089c5c",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/2823"
+          },
+          {
+            "id": 2822,
+            "name": "upstream/sdk",
+            "exclusive": false,
+            "is_archived": false,
+            "color": "0db56c",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/2822"
+          }
+        ],
         "milestone": null,
         "projects": null,
         "assignee": null,
@@ -48,7 +67,7 @@
         "is_locked": false,
         "comments": 2,
         "created_at": "2026-10-10T02:27:48Z",
-        "updated_at": "2026-10-12T04:39:44Z",
+        "updated_at": "2026-10-18T18:12:16Z",
         "closed_at": null,
         "due_date": null,
         "time_estimate": 0,
@@ -63,35 +82,45 @@
         "content_version": 0
       },
       {
-        "id": 459354,
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1066",
-        "html_url": "https://gitea.com/gitea/tea/issues/1066",
-        "number": 1066,
+        "id": 503293,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1118",
+        "html_url": "https://gitea.com/gitea/tea/issues/1118",
+        "number": 1118,
         "user": {
-          "id": 63659,
-          "login": "rossigee",
+          "id": 245812,
+          "login": "Arimil",
           "type": "User",
           "source_id": 0,
-          "full_name": "Ross Golder",
+          "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-          "html_url": "https://gitea.com/rossigee",
+          "avatar_url": "https://gitea.com/avatars/21e85980295faf60b14723fb86c8f479d8900df69c72dfece118f6f4ddf7e01f",
+          "html_url": "https://gitea.com/Arimil",
           "active": false,
           "location": "",
           "website": "",
           "description": "",
-          "followers_count": 1,
-          "following_count": 1,
+          "followers_count": 0,
+          "following_count": 0,
           "starred_repos_count": 0,
-          "username": "rossigee"
+          "username": "Arimil"
         },
         "original_author": "",
         "original_author_id": 0,
-        "title": "Proposal: Add 'tea deploy-keys' command for repository deploy key management",
-        "body": "# Proposal: Manage repository deploy keys via `tea deploy-keys`\r\n\r\n**Filed at:** https://gitea.com/gitea/tea/issues/new\r\n**Issue title:** `Proposal: Add 'tea deploy-keys' command for repository deploy key management`\r\n**Labels:** `kind/feature`, `kind/proposal`\r\n\r\n---\r\n\r\n## Motivation\r\n\r\n`tea` currently exposes commands for most repository resources (issues, pulls, labels, milestones, releases, webhooks, branches, secrets), but **repository deploy keys have no CLI support**. Operators managing CI runners and deploy bots currently have to use the web UI or hand-craft curl calls to the Gitea API to rotate deploy keys, which is friction-prone and unauditable.\r\n\r\nThis proposal adds a top-level `tea deploy-keys` command, mirroring the shape and conventions of the existing `tea webhooks` command.\r\n\r\n## Proposed commands\r\n\r\nFollowing the `tea <noun> <verb> [<noun>] [<flags>]` convention from `CONTRIBUTING.md`. The default action of `tea deploy-keys` (no subcommand) is `list`; passing a key ID prints that key's details (analogous to `tea webhooks <id>`).\r\n\r\n```\r\ntea deploy-keys list [--fingerprint <fp>] [--page N] [--limit N]\r\ntea deploy-keys create <title> [--key <inline> | --key-file <path>] [--read-only | --read-write]\r\ntea deploy-keys delete <key-id> [--confirm|-y]\r\ntea deploy-keys <key-id>                  # default action: show details of one key\r\n```\r\n\r\nAliases: `tea deploy-keys` → `dk`, `deploy-key`. Subcommand aliases: `list` → `ls`; `create` → `add`, `c`; `delete` → `rm`.\r\n\r\n### Flag conventions (per `CONTRIBUTING.md`)\r\n\r\n- All subcommands inherit `--repo`, `--remote`, `--login`, `--output` from `flags.AllDefaultFlags`.\r\n- `list` adds `--page`, `--limit` (pagination) and `--fingerprint` (filter).\r\n- `create` accepts the key material via exactly one of `--key` (inline string) or `--key-file` (path). The two flags are mutually exclusive. `--read-only` defaults to true (matches Gitea safe-default and matches \"restricting to read-only\" wording in flag help).\r\n- `delete` requires `--confirm`/`-y` to skip the \"are you sure? [y/N]\" prompt, identical to `tea webhooks delete`.\r\n\r\n## Gitea API mapping\r\n\r\nAll endpoints are already exposed by the existing SDK (`code.gitea.io/sdk/gitea v0.23.2`), so **no SDK or dependency changes** are required:\r\n\r\n| tea subcommand | HTTP                                                | SDK method                                    |\r\n|----------------|-----------------------------------------------------|-----------------------------------------------|\r\n| `list`         | `GET /repos/{owner}/{repo}/keys`                    | `client.ListDeployKeys`                       |\r\n| `create`       | `POST /repos/{owner}/{repo}/keys`                   | `client.CreateDeployKey`                      |\r\n| `delete`       | `DELETE /repos/{owner}/{repo}/keys/{id}`            | `client.DeleteDeployKey`                      |\r\n| default `<id>` | `GET /repos/{owner}/{repo}/keys/{id}`               | `client.GetDeployKey`                         |\r\n\r\n> The Gitea API has **no `PUT`/`PATCH` endpoint** for deploy keys, so \"change a key\" must be `delete` + `create`. This is documented in the `create` description and CHANGELOG; no `update` subcommand is added.\r\n\r\n## Example usage\r\n\r\n```\r\ntea deploy-keys list\r\ntea deploy-keys list --fingerprint SHA256:abc...\r\ntea deploy-keys create CI --key-file ~/.ssh/id_ed25519.pub --read-write\r\ntea deploy-keys create backup-bot --key \"ssh-ed25519 AAAA...\"\r\ntea deploy-keys 7\r\ntea deploy-keys delete 7 --confirm\r\n```\r\n\r\n## Output\r\n\r\n`tea deploy-keys list` prints a table with columns: `ID`, `Title`, `Fingerprint`, `Read-Only`, `Created` — consistent with `tea webhooks list`. Supports `--output table|csv|tsv|yaml|json|simple`.\r\n\r\n`tea deploy-keys <id>` prints markdown-style details (ID, Title, KeyID, Fingerprint, ReadOnly, Created, URL). The key material itself is **not** echoed back to stdout.\r\n\r\n## Scope / out of scope\r\n\r\nIn scope:\r\n- Per-repo deploy keys via the four operations above.\r\n- Pagination and fingerprint filtering on list.\r\n\r\nOut of scope:\r\n- Org- or global-scope deploy keys (the Gitea API does not expose them).\r\n- An `update`/`edit` subcommand (no API endpoint).\r\n- User-account SSH public keys (those live under `tea admin user keys`, which is a different resource).\r\n\r\n## Implementation sketch\r\n\r\n- New `cmd/deploykeys/{list,create,delete}.go` (package `deploykeys`) following the `tea webhooks` layout.\r\n- New `cmd/deploy_keys.go` at `cmd/` root registering `CmdDeployKeys` under `catEntities`, with a default action that routes to `runDeployKeyDetail` for one-key lookup.\r\n- New `modules/print/deploy_key.go` exporting `DeployKeysList(keys, output)` and `DeployKeyDetails(key)`.\r\n- Unit tests mirroring `cmd/webhooks/*_test.go`: command metadata, flag wiring, parsing/confirmation logic, options construction. No live API calls.\r\n- `cmd/cmd.go`: add `&CmdDeployKeys` to the command list.\r\n- Regenerate `docs/CLI.md` via `make docs`.\r\n\r\n## Verification checklist\r\n\r\n- [x] `make fmt` clean\r\n- [x] `make test` passes (new package `code.gitea.io/tea/cmd/deploykeys` plus `modules/print` additions)\r\n- [x] `make lint` reports 0 issues\r\n- [x] `make docs` regenerates `docs/CLI.md`; `make docs-check` passes\r\n- [x] `make build` produces a `tea` binary; `tea deploy-keys --help` and all subcommand helps render\r\n- [x] Manual smoke test against a live Gitea instance (requires operator with a test repo)\r\n\r\n## References\r\n\r\n- CONTRIBUTING.md → \"Discuss your design\" — proposal-before-PR workflow.\r\n- CONTRIBUTING.md → styleguide (`tea <noun> <verb>` shape, default = list, `delete` must prompt without `-y`).\r\n- Gitea REST API: `repoCreateKey`, `repoDeleteKey`, `repoGetKey`, `repoListKeys` under `/repos/{owner}/{repo}/keys`.\r\n- Existing analogue in tea: `cmd/webhooks/{create,delete,list,update}.go` + `cmd/webhooks.go`.",
-        "ref": "refs/heads/main",
+        "title": "Bug: SSH login fails when REQUIRE_SIGNIN_VIEW is true",
+        "body": "### describe your environment\r\n- tea version used (`tea -v`): 0.16.0\r\n    - [ ] I also reproduced the issue [with the latest main build](https://dl.gitea.com/tea/main/)\r\n- Gitea version used: 1.27.3\r\n    - [ ] the issue only occurred after updating gitea recently\r\n- operating system: Linux\r\n- I make use of...\r\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\r\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\r\n    - [x] ssh_agent or similar\r\n    - [ ] non-standard ports for gitea and/or ssh\r\n    - [ ] something else that's likely to interact badly with tea: ...\r\n\r\n\r\nPlease provide the output of `git remote -v` (if the issue is related to tea not finding resources on Gitea):\r\n```\r\n\r\n```\r\n\r\n### describe the issue (observed vs expected behaviour)\r\n\r\nWhen `REQUIRE_SIGNIN_VIEW` is set to `true` the `/api/v1/version` endpoint is inaccessible unless logged in. Tea will attempt to check the servers version number before singing the request with the chosen ssh key. This causes the version request to return a 403 causing the tea login process to fail.",
+        "ref": "",
         "assets": [],
-        "labels": [],
+        "labels": [
+          {
+            "id": 432,
+            "name": "kind/bug",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "fc2929",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/432"
+          }
+        ],
         "milestone": null,
         "projects": null,
         "assignee": null,
@@ -99,8 +128,8 @@
         "state": "open",
         "is_locked": false,
         "comments": 0,
-        "created_at": "2026-07-29T08:44:18Z",
-        "updated_at": "2026-09-05T06:57:08Z",
+        "created_at": "2026-09-19T02:26:17Z",
+        "updated_at": "2026-10-18T20:57:41Z",
         "closed_at": null,
         "due_date": null,
         "time_estimate": 0,
@@ -112,38 +141,48 @@
           "full_name": "gitea/tea"
         },
         "pin_order": 0,
-        "content_version": 1
+        "content_version": 0
       },
       {
-        "id": 445427,
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/990",
-        "html_url": "https://gitea.com/gitea/tea/issues/990",
-        "number": 990,
+        "id": 500910,
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/issues/1116",
+        "html_url": "https://gitea.com/gitea/tea/issues/1116",
+        "number": 1116,
         "user": {
-          "id": 199681,
-          "login": "tom.tom",
+          "id": 71724,
+          "login": "mcepl",
           "type": "User",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Matěj Cepl",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/97baf56380c11385a6108ec3d6db046c6096871c3a333a00c0530ba42caffad0",
-          "html_url": "https://gitea.com/tom.tom",
+          "avatar_url": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+          "html_url": "https://gitea.com/mcepl",
           "active": false,
           "location": "",
           "website": "",
           "description": "",
-          "followers_count": 0,
+          "followers_count": 1,
           "following_count": 0,
           "starred_repos_count": 0,
-          "username": "tom.tom"
+          "username": "mcepl"
         },
         "original_author": "",
         "original_author_id": 0,
-        "title": "tea with extra headers for Cloudflare Zero Trust Access possible?",
-        "body": "Hello everyone, \r\n\r\nin git you can add two extra headers for Service Authentication against their Zero Trust Access policies. This allows enhanced security for gitea behind Cloudflare Zero Trust and block unauthorized access requests. \r\n\r\nGit has the option to add the two headers like this:\r\n```\r\ngit config --global --add http.https://yourgitdomain/.extraHeader \"CF-Access-Client-Id: CF_Service_Auth_Access\"\r\ngit config --global --add http.https://yourgitdomain/.extraHeader \"CF-Access-Client-Secret: CF_Service_Auth_Access_Secret\"\r\n```\r\n\r\nSo far I havent found a way to achieve this. Anyone any idea?\r\n\r\nThanks!\r\nTom\r\n\r\nhttps://developers.cloudflare.com/cloudflare-one/access-controls/service-credentials/service-tokens/",
+        "title": "`tea pr list` should have `--global` option",
+        "body": "It should be an equivalent of the gitea-wide list as what we have in the web UI as https://gitea.com/pulls (the same for `tea pr review`).",
         "ref": "",
         "assets": [],
-        "labels": [],
+        "labels": [
+          {
+            "id": 438,
+            "name": "kind/proposal",
+            "exclusive": true,
+            "is_archived": false,
+            "color": "5319e7",
+            "description": "",
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/labels/438"
+          }
+        ],
         "milestone": null,
         "projects": null,
         "assignee": null,
@@ -151,8 +190,8 @@
         "state": "open",
         "is_locked": false,
         "comments": 0,
-        "created_at": "2026-05-11T07:05:36Z",
-        "updated_at": "2026-10-10T23:03:38Z",
+        "created_at": "2026-09-11T17:17:25Z",
+        "updated_at": "2026-10-18T20:57:40Z",
         "closed_at": null,
         "due_date": null,
         "time_estimate": 0,

@@ -1,0 +1,339 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/compare/faea86cd948384deee5e192b7c3441c2d7861ef7...main?files=false"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total_commits": 4,
+      "commits": [
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+          "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+          "created": "2026-10-18T20:56:33Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+            "author": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-18T20:56:33Z"
+            },
+            "committer": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-18T20:56:33Z"
+            },
+            "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+              "sha": "b5c0f374e04c0aa817a85c8b41c71b2bbe5a4d37",
+              "created": "2026-10-18T20:56:33Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "committer": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
+              "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 69256,
+            "additions": 33711,
+            "deletions": 35545
+          }
+        },
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
+          "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+          "created": "2026-10-12T00:56:34Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/33bb12729e6de375813fb94fbcfbfa110d45c107",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/33bb12729e6de375813fb94fbcfbfa110d45c107",
+            "author": {
+              "name": "Renovate Bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-12T00:56:34Z"
+            },
+            "committer": {
+              "name": "Lunny Xiao",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-12T00:56:34Z"
+            },
+            "message": "fix(deps): update go toolchain directive to v1.27.2 [security] (#1131)\n\nThis PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [go](https://go.dev/) ([source](https://github.com/golang/go)) | toolchain | patch | `1.27.1` → `1.27.2` |\n\n---\n\n### Reset context tracking on consecutive template expressions in html/template\n[CVE-2026-94448](https://nvd.nist.gov/vuln/detail/CVE-2026-94448) / [GO-2026-6599](https://pkg.go.dev/vuln/GO-2026-6599)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen a JavaScript template literal contains consecutive expressions, the context tracking state was not properly reset upon entering a new expression.\n\nWe now ensure that template-literal expression entries correctly reset context variables so all subsequent regular expression literals are accurately recognized and escaped.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/839866](https://go.dev/cl/839866)\n- [https://go.dev/issue/81821](https://go.dev/issue/81821)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6599) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Recognize yield as regexp preceder keyword in html/template\n[CVE-2026-97030](https://nvd.nist.gov/vuln/detail/CVE-2026-97030) / [GO-2026-6600](https://pkg.go.dev/vuln/GO-2026-6600)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nA trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped.\n\nWe now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/840925](https://go.dev/cl/840925)\n- [https://go.dev/issue/81823](https://go.dev/issue/81823)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6600) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 server memory exhaustion due to Trailer headers in net/http\n[CVE-2026-78659](https://nvd.nist.gov/vuln/detail/CVE-2026-78659) / [GO-2026-6603](https://pkg.go.dev/vuln/GO-2026-6603)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen \"Trailer\" headers are sent by a client, the HTTP server internally uses the header values to populate the Request.Trailer map passed to the server handler. Because Request.Trailer is a map, each entry incurs memory overhead. For HTTP/2 servers, a malicious client can exploit this by sending a \"Trailer\" header that declares a large number of fields, causing the server to allocate a disproportionate amount of memory while bypassing Server.MaxHeaderValueCount and Server.MaxHeaderBytes limits. This exploit is not applicable for HTTP/1 servers, which do not support multiplexing a large number of requests over one TCP connection, and whose Server.MaxHeaderBytes are calculated differently.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847185](https://go.dev/cl/847185)\n- [https://go.dev/cl/847314](https://go.dev/cl/847314)\n- [https://go.dev/issue/81857](https://go.dev/issue/81857)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6603) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Root.Mkdir(All) can follow junctions out of the root on Windows in os\n[CVE-2026-56857](https://nvd.nist.gov/vuln/detail/CVE-2026-56857) / [GO-2026-6604](https://pkg.go.dev/vuln/GO-2026-6604)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nOn Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847305](https://go.dev/cl/847305)\n- [https://go.dev/issue/81739](https://go.dev/issue/81739)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6604) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/1 client connection desynchronization after CONNECT rejection in net/http\n[CVE-2026-56866](https://nvd.nist.gov/vuln/detail/CVE-2026-56866) / [GO-2026-6605](https://pkg.go.dev/vuln/GO-2026-6605)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen http.Transport sends an HTTP/1 CONNECT request with a non-empty Request.Body, it writes the body directly to the connection without framing after the request headers. If the server rejects the CONNECT request with a non-2xx keep-alive response, Transport returns the connection to the idle pool. Because CONNECT requests do not have a request body, the server may interpret the trailing body bytes as a subsequent pipelined HTTP/1.1 request on the connection, leaving the pooled connection desynchronized and causing the next caller that reuses it to read the response to the injected request. In reverse proxies (including httputil.ReverseProxy) that forward CONNECT requests through a shared Transport, this can lead to cross-user response poisoning.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847306](https://go.dev/cl/847306)\n- [https://go.dev/issue/81740](https://go.dev/issue/81740)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6605) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Reject malformed ECH outer extension references in crypto/tls\n[CVE-2026-97031](https://nvd.nist.gov/vuln/detail/CVE-2026-97031) / [GO-2026-6607](https://pkg.go.dev/vuln/GO-2026-6607)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nMultiple ECH outer extension references are not permitted under RFC 9849; previously, a client could send a well-crafted packet that could trigger memory exhaustion in the server process by specifying multiple references.\n\nWe now reject these as malformed and curb the memory amplification vector as a result.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847312](https://go.dev/cl/847312)\n- [https://go.dev/issue/81855](https://go.dev/issue/81855)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6607) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Memory limit bypass when parsing MIME headers in net/textproto, mime/multipart\n[CVE-2026-94440](https://nvd.nist.gov/vuln/detail/CVE-2026-94440) / [GO-2026-6608](https://pkg.go.dev/vuln/GO-2026-6608)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nParsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847307](https://go.dev/cl/847307)\n- [https://go.dev/issue/81741](https://go.dev/issue/81741)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6608) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Lack of limit on size of parsed Range headers in net/http\n[CVE-2026-78667](https://nvd.nist.gov/vuln/detail/CVE-2026-78667) / [GO-2026-6609](https://pkg.go.dev/vuln/GO-2026-6609)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen parsing a Range header containing a large number of small ranges, FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive amount of CPU.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847309](https://go.dev/cl/847309)\n- [https://go.dev/issue/81858](https://go.dev/issue/81858)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6609) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 transport accepts malformed framing-related headers in net/http\n[CVE-2026-78660](https://nvd.nist.gov/vuln/detail/CVE-2026-78660) / [GO-2026-6610](https://pkg.go.dev/vuln/GO-2026-6610)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nHistorically, we have been rather lax about malformed framing-related headers in our HTTP/2 implementation, as they cannot interfere with HTTP/2 framing. However, this makes it possible for our HTTP/2 implementation to forward responses containing such headers to an HTTP/1 client when acting as a reverse proxy. If the HTTP/1 client also does not behave strictly enough, this can result in response smuggling.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/835145](https://go.dev/cl/835145)\n- [https://go.dev/cl/836385](https://go.dev/cl/836385)\n- [https://go.dev/issue/81115](https://go.dev/issue/81115)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6610) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Excessive CPU consumption from repeated initial window changes in net/http\n[CVE-2026-78669](https://nvd.nist.gov/vuln/detail/CVE-2026-78669) / [GO-2026-6611](https://pkg.go.dev/vuln/GO-2026-6611)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nA malicious HTTP/2 peer can cause excessive CPU consumption in the client or server by opening a large number of streams and then sending many small SETTINGS frames containing SETTINGS_INITIAL_WINDOW_SIZE values.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847186](https://go.dev/cl/847186)\n- [https://go.dev/cl/847308](https://go.dev/cl/847308)\n- [https://go.dev/issue/81742](https://go.dev/issue/81742)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6611) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Double flow control refund on HTTP/2 server streams in net/http\n[CVE-2026-78663](https://nvd.nist.gov/vuln/detail/CVE-2026-78663) / [GO-2026-6612](https://pkg.go.dev/vuln/GO-2026-6612)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nThe HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847187](https://go.dev/cl/847187)\n- [https://go.dev/cl/847310](https://go.dev/cl/847310)\n- [https://go.dev/issue/81743](https://go.dev/issue/81743)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6612) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/1 server connection desynchronization after 2xx CONNECT response in net/http\n[CVE-2026-94439](https://nvd.nist.gov/vuln/detail/CVE-2026-94439) / [GO-2026-6613](https://pkg.go.dev/vuln/GO-2026-6613)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nWhen an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request and returns without hijacking the connection, the server improperly continues to read and serve requests from the connection. Since a 2xx response to an HTTP/1 CONNECT converts the connection into a tunnel, the server should not treat the connection as continuing to contain HTTP.\n\nThe impact of this misbehavior is mostly limited to potential request smuggling, where an intermediate proxy considers the data on the connection to be tunneled and the server considers it to be HTTP.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847311](https://go.dev/cl/847311)\n- [https://go.dev/issue/81744](https://go.dev/issue/81744)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6613) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### HTTP/2 server crash due to HPACK encoder race in net/http\n[CVE-2026-97032](https://nvd.nist.gov/vuln/detail/CVE-2026-97032) / [GO-2026-6617](https://pkg.go.dev/vuln/GO-2026-6617)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nHTTP/2 servers could end up crashing due to inadvertently modifying its HPACK encoder concurrently. This happens because the server modifies the HPACK encoder from two goroutines without synchronization: one uses the encoder to encode a HEADERS frame as part of a response sent to a client and the other modifies the encoder's table size when handling a SETTINGS frame containing SETTINGS_HEADER_TABLE_SIZE that a client sends. A malicious client can repeatedly send a request while changing the header table size to crash the server.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/847188](https://go.dev/cl/847188)\n- [https://go.dev/cl/847313](https://go.dev/cl/847313)\n- [https://go.dev/issue/81867](https://go.dev/issue/81867)\n- [https://groups.google.com/g/golang-announce/c/U2fTuyDJznI](https://groups.google.com/g/golang-announce/c/U2fTuyDJznI)\n- [https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs](https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6617) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - \"\"\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0My4xOTEuMiIsInVwZGF0ZWRJblZlciI6IjQzLjE5MS4yIiwidGFyZ2V0QnJhbmNoIjoibWFpbiIsImxhYmVscyI6W119-->\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1131\nReviewed-by: Lunny Xiao <redacted@example.invalid>\nCo-authored-by: Renovate Bot <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/372af7eb19c4f398b67f21c121f7949f03b41675",
+              "sha": "372af7eb19c4f398b67f21c121f7949f03b41675",
+              "created": "2026-10-12T00:56:34Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 44044,
+            "login": "renovate-bot",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+            "html_url": "https://gitea.com/renovate-bot",
+            "active": false,
+            "location": "",
+            "website": "https://renovatebot.com/",
+            "description": "",
+            "followers_count": 1,
+            "following_count": 0,
+            "starred_repos_count": 0,
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "id": 1,
+            "login": "lunny",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+            "html_url": "https://gitea.com/lunny",
+            "active": false,
+            "location": "Silicon Valley",
+            "website": "https://gitea.com",
+            "description": "",
+            "followers_count": 115,
+            "following_count": 95,
+            "starred_repos_count": 367,
+            "username": "lunny"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/f02245449bb87749279d528535afbcf08c620a32",
+              "sha": "f02245449bb87749279d528535afbcf08c620a32",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 2,
+            "additions": 1,
+            "deletions": 1
+          }
+        },
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/f02245449bb87749279d528535afbcf08c620a32",
+          "sha": "f02245449bb87749279d528535afbcf08c620a32",
+          "created": "2026-10-11T17:23:06Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/f02245449bb87749279d528535afbcf08c620a32",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/f02245449bb87749279d528535afbcf08c620a32",
+            "author": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-11T17:23:06Z"
+            },
+            "committer": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-11T17:23:06Z"
+            },
+            "message": "feat!: rebuild tea on Cobra with explicit noun/verb commands (#1126)\n\n- **switch tea to the Cobra command tree:** `internal/app` wires the packages from parts 1–4 into explicit noun/verb commands with `--repo`, `--json` / `--jq`, `--sudo` and `--debug`; `main.go` points at it. Build, release and docs tooling (`tools/cli-docs`, Makefile, goreleaser, snap, CI) and README / CONTRIBUTING are updated.\n- **remove the urfave/cli command tree:** deletes `cmd/`, `modules/`, the old integration tests, contrib completion scripts and the generated `docs/CLI.md`, and drops their dependencies. This commit only deletes.\n\n## Breaking changes\n\nThis is a breaking release. It requires Gitea 28 or newer; configuration moves to separate `config.yml` and `hosts.yml` files and requires fresh authentication, and command names, aliases, flags and output formats change. `docs/migration-1.0.md` maps every old command, flag and environment variable to its replacement.\n\n## Issues\n\nfixes #1118\nfixes #1116\nfixes #1115\nfixes #1094\nfixes #1091\nfixes #1073\nfixes #1052\nfixes #1032\nfixes #1023\nfixes #966\nfixes #908\nfixes #833\nfixes #831\nfixes #817\nfixes #804\nfixes #779\nfixes #770\nfixes #737\nfixes #697\nfixes #726\nfixes #677\nfixes #672\nfixes #633\nfixes #632\nfixes #560\nfixes #556\nfixes #523\nfixes #516\nfixes #510\nfixes #504\nfixes #500\nfixes #482\nfixes #406\nfixes #403\nfixes #373\nfixes #351\nfixes #344\nfixes #326\nfixes #325\nfixes #323\nfixes #246\nfixes #240\nfixes #232\nfixes #197\nfixes #172\nfixes #141\nfixes #69\nfixes #1110\nfixes #569\nfixes #480\nfixes #666\nfixes #670\nfixes #457\nfixes #643\nfixes #498\nfixes #490\nfixes #1069\nfixes #834\nfixes #602\nfixes #328\nfixes #417\nfixes #571\nfixes #1029\nfixes #489\nfixes #1050\nfixes #162\nfixes #430\nfixes #1087\nfixes #683\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1126\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/949a7cef99cde4f9676a400350a821054affaec1",
+              "sha": "949a7cef99cde4f9676a400350a821054affaec1",
+              "created": "2026-10-11T17:23:06Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "committer": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
+              "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 52907,
+            "additions": 18892,
+            "deletions": 34015
+          }
+        },
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
+          "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
+          "created": "2026-10-11T17:15:41Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
+            "author": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-11T17:15:41Z"
+            },
+            "committer": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-11T17:15:41Z"
+            },
+            "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
+              "sha": "1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
+              "created": "2026-10-11T17:15:41Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "committer": {
+            "id": 173651,
+            "login": "bircni",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "bircni",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "html_url": "https://gitea.com/bircni",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 2,
+            "starred_repos_count": 2,
+            "username": "bircni"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
+              "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 9512,
+            "additions": 9512,
+            "deletions": 0
+          }
+        }
+      ]
+    }
+  }
+}

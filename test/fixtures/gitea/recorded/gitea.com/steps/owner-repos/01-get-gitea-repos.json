@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=24>; rel=\"last\"",
-      "x-total-count": "72"
+      "link": "<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/users/gitea/repos?limit=3&page=25>; rel=\"last\"",
+      "x-total-count": "73"
     },
     "body": [
       {
@@ -25,7 +25,7 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 136,
+          "followers_count": 137,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"
@@ -117,7 +117,7 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 136,
+          "followers_count": 137,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"

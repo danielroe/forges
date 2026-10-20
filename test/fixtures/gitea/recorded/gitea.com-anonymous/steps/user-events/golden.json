@@ -3,7 +3,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910159",
+      "id": "7989826",
       "kindRaw": "comment_issue",
       "kind": "comment",
       "action": "created",
@@ -18,7 +18,7 @@
           "externalId": "146918"
         },
         "kind": "issue",
-        "number": "55"
+        "number": "73"
       },
       "detail": {
         "type": "comment",
@@ -36,14 +36,14 @@
               "externalId": "146918"
             },
             "kind": "issue",
-            "number": "55"
+            "number": "73"
           },
-          "id": "1759888"
+          "id": "1776658"
         },
-        "body": "@roebot a mention from run 20261012220452."
+        "body": "@roebot a mention from run 20261017151708."
       },
-      "summary": "danielroe commented on issue 55",
-      "occurredAt": "2026-10-12T22:05:27.000Z",
+      "summary": "danielroe commented on issue 73",
+      "occurredAt": "2026-10-17T15:18:36.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -67,80 +67,31 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910144",
-      "kindRaw": "merge_pull_request",
-      "kind": "state_change",
-      "action": "merged",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "forges-fixtures",
-          "name": "forges-fixtures",
-          "externalId": "146918"
-        },
-        "kind": "pull_request",
-        "number": "59"
-      },
-      "threadSnapshot": {
-        "title": "forges fixture 20261012220452: pull 2"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "merged"
-      },
-      "summary": "danielroe merged pull request 59",
-      "occurredAt": "2026-10-12T22:05:23.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "danielroe",
-        "id": "250665",
-        "name": "Daniel Roe",
-        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
-        "url": "https://gitea.com/danielroe",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "forges-fixtures",
-        "name": "forges-fixtures",
-        "externalId": "146918"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7910141",
+      "id": "7989801",
       "kindRaw": "commit_repo",
       "kind": "push",
       "detail": {
         "type": "push",
         "ref": "refs/heads/main",
-        "before": "7c8cbca05dbd6ff5458d5456024fae84cbfba784",
-        "after": "2438db9db31a3a73fd8aa63bea21a4528c4b358b",
+        "before": "fc8b239a366b82a82f4e6e1e659307b9e09cc442",
+        "after": "d5ac486edd1fa8a2e778ed3cb0a598a10e06e9d2",
         "commitCount": 2,
         "forced": false,
         "commits": [
           {
-            "sha": "2438db9db31a3a73fd8aa63bea21a4528c4b358b",
-            "message": "Merge run 20261012220452\n\nMerged by run 20261012220452\n",
+            "sha": "d5ac486edd1fa8a2e778ed3cb0a598a10e06e9d2",
+            "message": "Merge run 20261017151708\n\nMerged by run 20261017151708\n",
             "author": "Daniel Roe"
           },
           {
-            "sha": "04a587e7651364be789f1b5604f6c85e381d99e2",
-            "message": "test: add forges-fixtures/20261012220452-2.md\n",
+            "sha": "68d588019133fa1c287e1ef9425c72508cab033a",
+            "message": "test: add forges-fixtures/20261017151708-2.md\n",
             "author": "roebot"
           }
         ]
       },
       "summary": "danielroe pushed 2 commit(s) to main",
-      "occurredAt": "2026-10-12T22:05:23.000Z",
+      "occurredAt": "2026-10-17T15:18:21.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -165,7 +116,56 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910138",
+      "id": "7989804",
+      "kindRaw": "merge_pull_request",
+      "kind": "state_change",
+      "action": "merged",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "146918"
+        },
+        "kind": "pull_request",
+        "number": "77"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261017151708: pull 2"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe merged pull request 77",
+      "occurredAt": "2026-10-17T15:18:21.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "danielroe",
+        "id": "250665",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://gitea.com/avatars/bd278c1af0d9b9480234a82515bf67abe7651f846069ebcee84e76317b2614ab",
+        "url": "https://gitea.com/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "146918"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "7989798",
       "kindRaw": "approve_pull_request",
       "kind": "review",
       "action": "submitted",
@@ -180,15 +180,15 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "59"
+        "number": "77"
       },
       "detail": {
         "type": "review",
         "state": "approved",
         "stateRaw": "approve_pull_request"
       },
-      "summary": "danielroe reviewed pull request 59 (approved)",
-      "occurredAt": "2026-10-12T22:05:22.000Z",
+      "summary": "danielroe reviewed pull request 77 (approved)",
+      "occurredAt": "2026-10-17T15:18:20.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -212,7 +212,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910123",
+      "id": "7989780",
       "kindRaw": "approve_pull_request",
       "kind": "review",
       "action": "submitted",
@@ -227,15 +227,15 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "58"
+        "number": "76"
       },
       "detail": {
         "type": "review",
         "state": "approved",
         "stateRaw": "approve_pull_request"
       },
-      "summary": "danielroe reviewed pull request 58 (approved)",
-      "occurredAt": "2026-10-12T22:05:20.000Z",
+      "summary": "danielroe reviewed pull request 76 (approved)",
+      "occurredAt": "2026-10-17T15:18:15.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -259,7 +259,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910117",
+      "id": "7989771",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -274,7 +274,7 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "58"
+        "number": "76"
       },
       "detail": {
         "type": "comment",
@@ -292,14 +292,14 @@
               "externalId": "146918"
             },
             "kind": "pull_request",
-            "number": "58"
+            "number": "76"
           },
-          "id": "1759880"
+          "id": "1776633"
         },
-        "body": "A submitted review from run 20261012220452."
+        "body": "A line comment from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 58",
-      "occurredAt": "2026-10-12T22:05:18.000Z",
+      "summary": "danielroe commented on pull request 76",
+      "occurredAt": "2026-10-17T15:18:11.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -323,7 +323,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910114",
+      "id": "7989774",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -338,7 +338,7 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "58"
+        "number": "76"
       },
       "detail": {
         "type": "comment",
@@ -356,14 +356,14 @@
               "externalId": "146918"
             },
             "kind": "pull_request",
-            "number": "58"
+            "number": "76"
           },
-          "id": "1759878"
+          "id": "1776635"
         },
-        "body": "A line comment from run 20261012220452."
+        "body": "A submitted review from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 58",
-      "occurredAt": "2026-10-12T22:05:18.000Z",
+      "summary": "danielroe commented on pull request 76",
+      "occurredAt": "2026-10-17T15:18:11.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -387,7 +387,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910111",
+      "id": "7989765",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -402,7 +402,7 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "58"
+        "number": "76"
       },
       "detail": {
         "type": "comment",
@@ -420,14 +420,14 @@
               "externalId": "146918"
             },
             "kind": "pull_request",
-            "number": "58"
+            "number": "76"
           },
-          "id": "1759879"
+          "id": "1776633"
         },
-        "body": "A review from run 20261012220452."
+        "body": "A line comment from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 58",
-      "occurredAt": "2026-10-12T22:05:17.000Z",
+      "summary": "danielroe commented on pull request 76",
+      "occurredAt": "2026-10-17T15:18:10.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -451,7 +451,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7910108",
+      "id": "7989768",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -466,7 +466,7 @@
           "externalId": "146918"
         },
         "kind": "pull_request",
-        "number": "58"
+        "number": "76"
       },
       "detail": {
         "type": "comment",
@@ -484,14 +484,14 @@
               "externalId": "146918"
             },
             "kind": "pull_request",
-            "number": "58"
+            "number": "76"
           },
-          "id": "1759878"
+          "id": "1776634"
         },
-        "body": "A line comment from run 20261012220452."
+        "body": "A review from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 58",
-      "occurredAt": "2026-10-12T22:05:17.000Z",
+      "summary": "danielroe commented on pull request 76",
+      "occurredAt": "2026-10-17T15:18:10.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -515,7 +515,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7909725",
+      "id": "7989052",
       "kindRaw": "comment_issue",
       "kind": "comment",
       "action": "created",
@@ -530,7 +530,7 @@
           "externalId": "146918"
         },
         "kind": "issue",
-        "number": "49"
+        "number": "67"
       },
       "detail": {
         "type": "comment",
@@ -548,14 +548,14 @@
               "externalId": "146918"
             },
             "kind": "issue",
-            "number": "49"
+            "number": "67"
           },
-          "id": "1759702"
+          "id": "1776465"
         },
-        "body": "@roebot a mention from run 20261012213330."
+        "body": "@roebot a mention from run 20261017144043."
       },
-      "summary": "danielroe commented on issue 49",
-      "occurredAt": "2026-10-12T21:34:12.000Z",
+      "summary": "danielroe commented on issue 67",
+      "occurredAt": "2026-10-17T14:42:08.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -577,7 +577,7 @@
       "source": "poll"
     }
   ],
-  "total": 81,
+  "total": 104,
   "cursor": {
     "nextUrl": "https://gitea.com/api/v1/users/danielroe/activities/feeds?only-performed-by=true&limit=10&page=2"
   }

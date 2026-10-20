@@ -2,21 +2,21 @@
   "items": [
     {
       "name": "main",
-      "sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+      "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
       "isProtected": true
     },
     {
-      "name": "renovate/dependencies",
-      "sha": "07701ced4bb7d3387b06d1372d040e3257d533ae",
+      "name": "finish-rewrite",
+      "sha": "ee5a08c5b3263c1d10193f715124961aaff4f9cb",
       "isProtected": false
     },
     {
-      "name": "codet/tea-pull-stacks",
-      "sha": "b06d902687d40fbf15c20a202775927af3c0c7c8",
+      "name": "renovate/dependencies",
+      "sha": "609afec71a073227dc0f98bbf4db83005980c290",
       "isProtected": false
     }
   ],
-  "total": 9,
+  "total": 10,
   "cursor": {
     "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=2"
   }

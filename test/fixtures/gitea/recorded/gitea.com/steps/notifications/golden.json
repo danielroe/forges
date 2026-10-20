@@ -4,7 +4,7 @@
       "ref": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "id": "564370"
+        "id": "569874"
       },
       "subject": {
         "type": "thread",
@@ -20,49 +20,17 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "44"
+          "number": "73"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261012113905: labelled issue",
+      "title": "forges fixture 20261017151708: issue, edited",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/44"
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "id": "564369"
-      },
-      "subject": {
-        "type": "thread",
-        "thread": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "repo": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "146918"
-          },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "43"
-        }
-      },
-      "subjectTypeRaw": "Issue",
-      "reason": "unknown",
-      "unread": true,
-      "title": "forges fixture 20261012113905: issue, edited",
-      "subjectState": "closed",
-      "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/43",
+      "updatedAt": "2026-10-17T15:18:43.000Z",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/73",
       "latestComment": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -78,16 +46,16 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "43"
+          "number": "73"
         },
-        "id": "1757987"
+        "id": "1776658"
       }
     },
     {
       "ref": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "id": "564371"
+        "id": "569875"
       },
       "subject": {
         "type": "thread",
@@ -103,17 +71,49 @@
           },
           "kind": "issue",
           "typeRaw": "Issue",
-          "number": "45"
+          "number": "74"
         }
       },
       "subjectTypeRaw": "Issue",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261012113905: duplicate",
+      "title": "forges fixture 20261017151708: labelled issue",
       "subjectState": "closed",
       "subjectStateRaw": "closed",
-      "updatedAt": "<now>",
-      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/45"
+      "updatedAt": "2026-10-17T15:18:42.000Z",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/74"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "id": "569876"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "repo": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "146918"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "75"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "unknown",
+      "unread": true,
+      "title": "forges fixture 20261017151708: duplicate",
+      "subjectState": "closed",
+      "subjectStateRaw": "closed",
+      "updatedAt": "2026-10-17T15:18:42.000Z",
+      "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/issues/75"
     }
   ],
   "cursor": {

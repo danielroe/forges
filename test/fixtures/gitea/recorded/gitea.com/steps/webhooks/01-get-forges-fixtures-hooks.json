@@ -15,19 +15,19 @@
         "type": "gitea",
         "branch_filter": "",
         "config": {
-          "url": "https://example.com/hook",
-          "content_type": "json"
+          "content_type": "json",
+          "url": "https://example.com/hook"
         },
         "events": [
-          "issue_milestone",
-          "issues",
           "issue_label",
+          "issues",
+          "issue_milestone",
           "issue_assign",
           "issue_comment"
         ],
         "authorization_header": "",
         "active": true,
-        "updated_at": "2026-10-12T11:39:52Z",
+        "updated_at": "2026-10-17T15:18:43Z",
         "created_at": "2026-10-09T11:48:36Z"
       }
     ]

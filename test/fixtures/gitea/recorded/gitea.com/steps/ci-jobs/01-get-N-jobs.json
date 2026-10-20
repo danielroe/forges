@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546/jobs?page=1&limit=3"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1094474/jobs?page=1&limit=3"
   },
   "response": {
     "status": 200,
@@ -11,17 +11,96 @@
     "body": {
       "jobs": [
         {
-          "id": 1434630,
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1434630",
-          "html_url": "https://gitea.com/gitea/tea/actions/runs/1057546/jobs/1434630",
-          "run_id": 1057546,
-          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546",
+          "id": 1483750,
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1483750",
+          "html_url": "https://gitea.com/gitea/tea/actions/runs/1094474/jobs/1483750",
+          "run_id": 1094474,
+          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1094474",
           "name": "goreleaser",
           "labels": [
             "ubuntu-latest"
           ],
           "run_attempt": 1,
-          "head_sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
+          "head_sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+          "head_branch": "main",
+          "status": "completed",
+          "conclusion": "success",
+          "runner_id": 4352,
+          "runner_name": "gitea-com-gitea-0003",
+          "steps": [
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "number": 0,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:38Z",
+              "completed_at": "2026-10-18T20:56:41Z"
+            },
+            {
+              "name": "Run git fetch --force --tags",
+              "number": 1,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:41Z",
+              "completed_at": "2026-10-18T20:56:42Z"
+            },
+            {
+              "name": "check R2 configuration",
+              "number": 2,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:42Z",
+              "completed_at": "2026-10-18T20:56:42Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "number": 3,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:42Z",
+              "completed_at": "2026-10-18T20:56:57Z"
+            },
+            {
+              "name": "import gpg",
+              "number": 4,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:57Z",
+              "completed_at": "2026-10-18T20:56:57Z"
+            },
+            {
+              "name": "get SDK version",
+              "number": 5,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:57Z",
+              "completed_at": "2026-10-18T20:56:57Z"
+            },
+            {
+              "name": "goreleaser",
+              "number": 6,
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-10-18T20:56:57Z",
+              "completed_at": "2026-10-18T20:58:06Z"
+            }
+          ],
+          "created_at": "2026-10-18T20:56:36Z",
+          "started_at": "2026-10-18T20:56:37Z",
+          "completed_at": "2026-10-18T20:58:22Z"
+        },
+        {
+          "id": 1483751,
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1483751",
+          "html_url": "https://gitea.com/gitea/tea/actions/runs/1094474/jobs/1483751",
+          "run_id": 1094474,
+          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1094474",
+          "name": "release-image",
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "run_attempt": 1,
+          "head_sha": "c5f674111ab7a61418829c66b240573400d46ae4",
           "head_branch": "main",
           "status": "completed",
           "conclusion": "success",
@@ -29,120 +108,49 @@
           "runner_name": "gitea-com-gitea-0001",
           "steps": [
             {
-              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-              "number": 0,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:56:48Z",
-              "completed_at": "2026-10-12T00:56:51Z"
-            },
-            {
-              "name": "Run git fetch --force --tags",
-              "number": 1,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:56:51Z",
-              "completed_at": "2026-10-12T00:56:52Z"
-            },
-            {
-              "name": "check R2 configuration",
-              "number": 2,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:56:52Z",
-              "completed_at": "2026-10-12T00:56:52Z"
-            },
-            {
-              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
-              "number": 3,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:56:52Z",
-              "completed_at": "2026-10-12T00:57:03Z"
-            },
-            {
-              "name": "import gpg",
-              "number": 4,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:57:03Z",
-              "completed_at": "2026-10-12T00:57:03Z"
-            },
-            {
-              "name": "goreleaser",
-              "number": 5,
-              "status": "completed",
-              "conclusion": "success",
-              "started_at": "2026-10-12T00:57:03Z",
-              "completed_at": "2026-10-12T00:57:48Z"
-            }
-          ],
-          "created_at": "2026-10-12T00:56:36Z",
-          "started_at": "2026-10-12T00:56:42Z",
-          "completed_at": "2026-10-12T00:58:15Z"
-        },
-        {
-          "id": 1434631,
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/actions/jobs/1434631",
-          "html_url": "https://gitea.com/gitea/tea/actions/runs/1057546/jobs/1434631",
-          "run_id": 1057546,
-          "run_url": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs/1057546",
-          "name": "release-image",
-          "labels": [
-            "ubuntu-latest"
-          ],
-          "run_attempt": 1,
-          "head_sha": "33bb12729e6de375813fb94fbcfbfa110d45c107",
-          "head_branch": "main",
-          "status": "completed",
-          "conclusion": "success",
-          "runner_id": 4369,
-          "runner_name": "gitea-com-gitea-0002",
-          "steps": [
-            {
               "name": "Checkout",
               "number": 0,
               "status": "completed",
               "conclusion": "success",
-              "started_at": "2026-10-12T00:57:00Z",
-              "completed_at": "2026-10-12T00:57:04Z"
+              "started_at": "2026-10-18T20:56:43Z",
+              "completed_at": "2026-10-18T20:56:46Z"
             },
             {
               "name": "Set up QEMU",
               "number": 1,
               "status": "completed",
               "conclusion": "success",
-              "started_at": "2026-10-12T00:57:04Z",
-              "completed_at": "2026-10-12T00:57:12Z"
+              "started_at": "2026-10-18T20:56:46Z",
+              "completed_at": "2026-10-18T20:56:52Z"
             },
             {
               "name": "Set up Docker BuildX",
               "number": 2,
               "status": "completed",
               "conclusion": "success",
-              "started_at": "2026-10-12T00:57:12Z",
-              "completed_at": "2026-10-12T00:57:17Z"
+              "started_at": "2026-10-18T20:56:52Z",
+              "completed_at": "2026-10-18T20:56:57Z"
             },
             {
               "name": "Login to DockerHub",
               "number": 3,
               "status": "completed",
               "conclusion": "success",
-              "started_at": "2026-10-12T00:57:17Z",
-              "completed_at": "2026-10-12T00:57:20Z"
+              "started_at": "2026-10-18T20:56:57Z",
+              "completed_at": "2026-10-18T20:56:59Z"
             },
             {
               "name": "Build and push",
               "number": 4,
               "status": "completed",
               "conclusion": "success",
-              "started_at": "2026-10-12T00:57:20Z",
-              "completed_at": "2026-10-12T01:00:38Z"
+              "started_at": "2026-10-18T20:56:59Z",
+              "completed_at": "2026-10-18T21:01:04Z"
             }
           ],
-          "created_at": "2026-10-12T00:56:36Z",
-          "started_at": "2026-10-12T00:56:49Z",
-          "completed_at": "2026-10-12T01:00:43Z"
+          "created_at": "2026-10-18T20:56:36Z",
+          "started_at": "2026-10-18T20:56:38Z",
+          "completed_at": "2026-10-18T21:01:09Z"
         }
       ],
       "total_count": 2
