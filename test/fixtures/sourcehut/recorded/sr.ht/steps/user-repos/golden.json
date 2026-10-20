@@ -5,6 +5,32 @@
         "forge": "sourcehut",
         "instance": "sr.ht",
         "owner": "~bitfehler",
+        "name": "bitfehler-ns"
+      },
+      "description": "Anemos definitions for the bitfehler.net nameservers",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~bitfehler/bitfehler-ns",
+      "createdAt": "2023-04-17T14:20:51.102Z",
+      "updatedAt": "2026-10-19T18:23:34.182Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~bitfehler",
+        "id": "23515",
+        "url": "https://meta.sr.ht/~bitfehler",
+        "isBotHint": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~bitfehler",
         "name": "anemos.io"
       },
       "description": "anemos.io website",
@@ -51,35 +77,9 @@
         "url": "https://meta.sr.ht/~bitfehler",
         "isBotHint": false
       }
-    },
-    {
-      "ref": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "owner": "~bitfehler",
-        "name": "bitfehler-mx"
-      },
-      "description": "Anemos definition for the mx.bitfehler.net mail server",
-      "defaultBranch": "master",
-      "visibility": "public",
-      "visibilityRaw": "PUBLIC",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://git.sr.ht/~bitfehler/bitfehler-mx",
-      "createdAt": "2023-10-26T09:36:57.937Z",
-      "updatedAt": "2026-08-20T19:27:35.321Z",
-      "owner": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "login": "~bitfehler",
-        "id": "23515",
-        "url": "https://meta.sr.ht/~bitfehler",
-        "isBotHint": false
-      }
     }
   ],
   "cursor": {
-    "token": "gAAAAABq0tE4vnnP4aanJpm9VA9DdyqS-jhoMY9dVDCpfvfr5zSpxWlJGUp15_lyFEux3rBDtBpNheeeIzT68z9SON6fKglm3MXICcVNlVBDfHKhEZmWyoFA2IHCzGkqsOa8Omr2Rbq7ntH_Qitd_v0DZB9pwzFx2A=="
+    "token": "gAAAAABq1z2gw2UjyjK42WR0_UxL0Tpo54YokceZPVGW0iMEpTnBdDgOPr_XmZTZhvsI7h4RrxQFNfMibQtXlzoZnFOqbUIRSuY6ALysAxjMWizRl9e5t-3EZCWPHLwPHT-2OkTgxiuiZdESu_SoCvbpFq8mbad4sw=="
   }
 }

@@ -17,13 +17,13 @@
       "data": {
         "user": {
           "repositories": {
-            "cursor": "gAAAAABq0tE4Farup7jQI1s619bu-tpI2YPm6wt5H6hENh2hJcQgYWHkxZswRCjl63IJKQ3o6lzAepMyL9pac05hAVNa8JfGlnJgEF0H9-I4rNgmn_gyFNEW8Go_WYQzhsKD0_1mJn398SlpHq7gTBMiF2jaHxs6fA==",
+            "cursor": "gAAAAABq1z2gJdzbzg97_LLAWZq-8eFUwIy6bSUJ2zhW6bzDhE1uJzz0wSGOnFvCuAf6lkFpG-qp8X07sKUnAfY4CTCVXEbRxsRVTstnCQTTa99Wta8xijqM0bL-xXdnGOVW0GL2oTqM_wVT8bN0MDKpBD28-8ni6g==",
             "results": [
               {
                 "id": 557862,
                 "rid": "06g54tddzns453p8npt38j9570",
                 "created": "2026-08-30T11:24:12.665697Z",
-                "updated": "2026-10-16T09:55:57.921948Z",
+                "updated": "2026-10-20T09:35:29.527698Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -39,15 +39,15 @@
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/main",
-                  "target": "4661ece725655be1abaa777ce47595b966cad3e7"
+                  "target": "f1ecbf2626639b9c24f78ece219b0b714d3c31d3"
                 },
                 "access": "RO"
               },
               {
-                "id": 9367,
-                "rid": "06dy9xv7znx31057qp9zrn8nzc",
-                "created": "2019-08-07T01:12:47.414354Z",
-                "updated": "2026-10-16T08:57:08.74148Z",
+                "id": 126,
+                "rid": "06dy9xv8w5s9n3hty5w9sjcxfm",
+                "created": "2018-06-09T01:16:11.199595Z",
+                "updated": "2026-10-20T09:13:38.460315Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -58,20 +58,20 @@
                   "location": "Netherlands",
                   "bio": "I write code."
                 },
-                "name": "sr.ht-docs",
-                "description": "SourceHut documentation",
+                "name": "lists.sr.ht",
+                "description": "sr.ht mailing list service",
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/master",
-                  "target": "98c1b5581450fb0e045b1ea44b84808352314b73"
+                  "target": "89340e184e593712c17ca810ca8c1f2ebf841ece"
                 },
                 "access": "RO"
               },
               {
-                "id": 104109,
-                "rid": "06dy9xvc3sr4q3c94x0wdx5tjg",
-                "created": "2022-04-17T08:24:33.111781Z",
-                "updated": "2026-10-15T16:11:43.750187Z",
+                "id": 56,
+                "rid": "06dy9xvcznw5x01ay15622y1zm",
+                "created": "2017-11-14T01:06:57.488813Z",
+                "updated": "2026-10-20T09:09:16.066676Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -82,12 +82,12 @@
                   "location": "Netherlands",
                   "bio": "I write code."
                 },
-                "name": "himitsu-totp",
-                "description": "TOTP support for Himitsu",
+                "name": "sr.ht-apkbuilds",
+                "description": "Alpine packages for sr.ht",
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/master",
-                  "target": "65cdaa4d9ba785335f2e2d0255e6ec28fc750937"
+                  "target": "545789b49e0a5930f536f087963907472cb0e7c3"
                 },
                 "access": "RO"
               }

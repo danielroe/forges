@@ -17,8 +17,32 @@
       "data": {
         "user": {
           "repositories": {
-            "cursor": "gAAAAABq0tE4vnnP4aanJpm9VA9DdyqS-jhoMY9dVDCpfvfr5zSpxWlJGUp15_lyFEux3rBDtBpNheeeIzT68z9SON6fKglm3MXICcVNlVBDfHKhEZmWyoFA2IHCzGkqsOa8Omr2Rbq7ntH_Qitd_v0DZB9pwzFx2A==",
+            "cursor": "gAAAAABq1z2gw2UjyjK42WR0_UxL0Tpo54YokceZPVGW0iMEpTnBdDgOPr_XmZTZhvsI7h4RrxQFNfMibQtXlzoZnFOqbUIRSuY6ALysAxjMWizRl9e5t-3EZCWPHLwPHT-2OkTgxiuiZdESu_SoCvbpFq8mbad4sw==",
             "results": [
+              {
+                "id": 306162,
+                "rid": "06dy9xv7wxzmz2f3z66f20bhn8",
+                "created": "2023-04-17T14:20:51.102493Z",
+                "updated": "2026-10-19T18:23:34.182795Z",
+                "owner": {
+                  "canonicalName": "~bitfehler",
+                  "id": 23515,
+                  "updated": "2026-03-16T09:23:49.545673Z",
+                  "username": "bitfehler",
+                  "email": "redacted@example.invalid",
+                  "url": "https://bitfehler.net",
+                  "location": "Orion arm.",
+                  "bio": "I turn computers on and off. Sometimes also this one."
+                },
+                "name": "bitfehler-ns",
+                "description": "Anemos definitions for the bitfehler.net nameservers",
+                "visibility": "PUBLIC",
+                "HEAD": {
+                  "name": "refs/heads/master",
+                  "target": "b0fe4be5ab2cc39daf4bc6dd113ff63c3d179b7f"
+                },
+                "access": "RO"
+              },
               {
                 "id": 289908,
                 "rid": "06dy9xv7yssy31p2xm13caqa28",
@@ -64,30 +88,6 @@
                 "HEAD": {
                   "name": "refs/heads/master",
                   "target": "0e9be211d3c46d2aaa455c7477abd1fd6d0c6d3a"
-                },
-                "access": "RO"
-              },
-              {
-                "id": 420329,
-                "rid": "06dy9xv8t5vmn2xz7nwjd5d7fr",
-                "created": "2023-10-26T09:36:57.937197Z",
-                "updated": "2026-08-20T19:27:35.321576Z",
-                "owner": {
-                  "canonicalName": "~bitfehler",
-                  "id": 23515,
-                  "updated": "2026-03-16T09:23:49.545673Z",
-                  "username": "bitfehler",
-                  "email": "redacted@example.invalid",
-                  "url": "https://bitfehler.net",
-                  "location": "Orion arm.",
-                  "bio": "I turn computers on and off. Sometimes also this one."
-                },
-                "name": "bitfehler-mx",
-                "description": "Anemos definition for the mx.bitfehler.net mail server",
-                "visibility": "PUBLIC",
-                "HEAD": {
-                  "name": "refs/heads/master",
-                  "target": "17d807da830bdfb77eb8c2671c3203febe948bf8"
                 },
                 "access": "RO"
               }
