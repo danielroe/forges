@@ -1,0 +1,52 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ReviewThreadPage",
+    "variables": { "owner": "acme", "name": "widgets", "number": 42, "first": 2, "after": "Y3Vyc29yOnYyOpK0MjAyNi0wMS0wNFQwOTowMDowMFrOAAAAAg==" }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "repository": {
+          "pullRequest": {
+            "reviewThreads": {
+              "pageInfo": { "hasNextPage": false, "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wMS0wNFQxMTowMDowMFrOAAAAAw==" },
+              "nodes": [
+                {
+                  "id": "PRRT_kwDOAAB5ac5klmno",
+                  "isResolved": false,
+                  "isOutdated": false,
+                  "path": "README.md",
+                  "line": 3,
+                  "startLine": 1,
+                  "originalLine": 3,
+                  "originalStartLine": 1,
+                  "diffSide": "RIGHT",
+                  "comments": {
+                    "nodes": [
+                      {
+                        "databaseId": 55004,
+                        "body": "The intro reads better as one sentence.",
+                        "path": "README.md",
+                        "line": 3,
+                        "originalLine": 3,
+                        "createdAt": "2026-01-04T11:00:00Z",
+                        "url": "https://github.com/acme/widgets/pull/42#discussion_r55004",
+                        "replyTo": null,
+                        "author": { "__typename": "User", "login": "octocat", "avatarUrl": "https://avatars.githubusercontent.com/u/1?v=4", "url": "https://github.com/octocat", "databaseId": 1, "name": "The Octocat" }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

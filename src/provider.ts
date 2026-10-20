@@ -78,6 +78,8 @@ import type {
   ReviewEvent,
   ReviewInput,
   ReviewRef,
+  ReviewThread,
+  ReviewThreadListOptions,
   SecurityAlert,
   SecurityAlertKind,
   SecurityAlertListOptions,
@@ -359,6 +361,8 @@ export interface ForgeCapabilities {
     approve: Support
     /** Support for `threads.replyToReviewComment()`. */
     replyToReviewComment: Support
+    /** Support for `threads.reviewThreads()`. `'emulated'` where conversations are grouped from review comments. */
+    reviewThreads: Support
     /** Support for `threads.resolveReviewThread()`. */
     resolveReviewThread: Support
     /** Support for `threads.unresolveReviewThread()`. */
@@ -829,6 +833,8 @@ export interface ThreadsApi {
    * second reply.
    */
   replyToReviewComment: (ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string, options?: BaseOptions) => Promise<ReviewComment>
+  /** Review conversations on a pull request with their comments; `state` keeps only the resolved or the unresolved ones. */
+  reviewThreads: (ref: ThreadRef, options?: ReviewThreadListOptions) => ForgeListing<ReviewThread>
   /** Resolves a review conversation, by the id on {@link ReviewComment.thread} or {@link Comment.thread}. */
   resolveReviewThread: (ref: ThreadRef, id: string, options?: BaseOptions) => Promise<void>
   /** Reopens a resolved review conversation, by the id on `ReviewComment.thread` or `Comment.thread`. */

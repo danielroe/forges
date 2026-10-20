@@ -137,6 +137,10 @@ Two options aren't available, and they reject with `UnsupportedOperationError`. 
 
 `closingIssues()` and `closingPullRequests()` read through GraphQL, so they need a credential. They list the issues that a closing keyword such as `Fixes #1` names, and the ones linked to the pull request by hand. `closingPullRequests()` lists closed and merged pull requests too.
 
+## Review threads
+
+`reviewThreads()` reads the conversations through GraphQL, up to 100 a page, each with its first 100 comments. When the code under a conversation changes, GitHub marks it outdated and can leave it without a line on the current diff, so `outdated` is `true` and `line` and `startLine` fall back to the lines the comments were written on. `reviews()` and `getReview()` take the `thread` of each comment from the same GraphQL read, page after page, so a pull request with more than 100 conversations still gets all of them. GraphQL needs a token, so an anonymous provider can't list conversations.
+
 ## Review replies
 
 GitHub doesn't support replies to replies, so when you pass a reply to `replyToReviewComment()`, it posts to the comment in its `inReplyTo` instead. The new comment carries the `thread` of the comment you pass, so you can call `resolveReviewThread()` with it.
@@ -387,6 +391,7 @@ An organisation defines its issue types, and its repositories inherit them. `rep
 | `threads.submitReview` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.approve` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.replyToReviewComment` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `threads.reviewThreads` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `threads.resolveReviewThread` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `notifications.list` | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `notifications.markRead` | ✅ | ❌ | ❌ | ❌ | ❌ |

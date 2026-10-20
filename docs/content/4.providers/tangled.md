@@ -252,6 +252,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `threads.submitReview` | ∅ | ∅ |
 | `threads.approve` | ∅ | ∅ |
 | `threads.replyToReviewComment` | ∅ | ∅ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ∅ | ∅ |
 | `notifications.list` | experimental | ❌ |
 | `notifications.markRead` | experimental | ❌ |

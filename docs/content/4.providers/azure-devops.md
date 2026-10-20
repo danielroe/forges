@@ -196,6 +196,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | emulated | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |

@@ -145,6 +145,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ❌ | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |

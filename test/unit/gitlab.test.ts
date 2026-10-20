@@ -834,6 +834,31 @@ describe('gitlab path safety', () => {
   })
 })
 
+describe('gitlab review threads', () => {
+  it('lists the resolvable discussions of a merge request as review threads', async () => {
+    const { instance, calls } = provider()
+
+    const threads = await Array.fromAsync(instance.threads.reviewThreads({ ...mr, number: '24' }))
+
+    expect(threads).toMatchObject([
+      { id: '87805b7c09016a7058e91bdbe7b29d1f284a39e6', resolved: false, path: 'package.json', line: 27, startLine: 25, side: 'right' },
+      { id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: true },
+    ])
+    expect(threads.every(thread => thread.outdated === undefined)).toBe(true)
+    expect(threads[0]!.comments.map(comment => [comment.ref?.id, comment.author?.login, comment.line])).toEqual([['1128', 'root', 27], ['1129', 'ada', 27]])
+    expect(threads[1]!.path).toBeUndefined()
+    expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/24/discussions'])
+  })
+
+  it('lists only the resolved ones when asked', async () => {
+    const { instance } = provider()
+
+    const threads = await Array.fromAsync(instance.threads.reviewThreads({ ...mr, number: '24' }, { state: 'resolved' }))
+
+    expect(threads.map(thread => thread.id)).toEqual(['6a9c1750b37d513a43987b574953fceb50b03ce7'])
+  })
+})
+
 describe('gitlab single-item reads', () => {
   const note = { id: 5, body: 'Looks good', system: false, created_at: '2026-01-01T00:00:00Z' }
 

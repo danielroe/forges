@@ -98,7 +98,7 @@ import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeEr
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, mapConcurrent, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toBranchRules, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toBranchRules, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toReviewThreads, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_WEB } from './web.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
@@ -975,6 +975,17 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           return toReview(ref, raw, comments.map(comment => toReviewComment(ref, comment)))
         }))
         return { items: reviews, cursor: result.cursor, ...rateLimitPart(result.response) }
+      }),
+      /** A conversation takes replies from several reviews, so every review is read and the conversations come in one page. */
+      reviewThreadsPage: verb(anonymous ? 'unverified' : 'emulated', async (thread, listOptions: PageOptions = {}) => {
+        const ref = requirePull(thread, 'read for review threads')
+        const comments: ForgejoReviewComment[] = []
+        for await (const review of fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, { query: { limit: 50 }, signal: listOptions.signal })) {
+          if (review.comments_count !== 0) {
+            comments.push(...(await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(review.id)}/comments`, { signal: listOptions.signal })).data ?? [])
+          }
+        }
+        return { items: toReviewThreads(ref, comments) }
       }),
       getReview: verb(true, async (ref, options) => {
         const pull = requirePull(ref.thread, 'reviewed')

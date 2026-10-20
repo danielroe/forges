@@ -26,6 +26,7 @@ import type {
   ResolvedThreadRef,
   Review,
   ReviewComment,
+  ReviewThread,
   SourceKind,
   Tag,
   Team,
@@ -597,12 +598,28 @@ export function toReviewComment(thread: ResolvedThreadRef, raw: ForgejoReviewCom
     body: raw.body ?? '',
     author: toActor(thread, raw.user),
     path: raw.path,
-    line: raw.position ?? raw.original_position,
+    line: raw.position || raw.original_position || undefined,
     side: raw.position ? 'right' : raw.original_position ? 'left' : undefined,
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
     raw,
   }
+}
+
+/** One conversation per file, side and line, as the web UI groups them; its first comment holds the id and the resolver. */
+export function toReviewThreads(thread: ResolvedThreadRef, raws: ForgejoReviewComment[]): ReviewThread[] {
+  const conversations = new Map<string, ForgejoReviewComment[]>()
+  for (const raw of raws.toSorted((left, right) => left.id - right.id)) {
+    const key = JSON.stringify([raw.path, raw.position ? 'right' : 'left', raw.position || raw.original_position])
+    conversations.set(key, [...conversations.get(key) ?? [], raw])
+  }
+  return [...conversations.values()].map((comments) => {
+    const first = comments[0]!
+    const id = String(first.id)
+    const resolved = Boolean(first.resolver)
+    const { path, line, side } = toReviewComment(thread, first)
+    return { id, resolved, path, line, side, comments: comments.map(raw => ({ ...toReviewComment(thread, raw), thread: { id, resolved } })), raw: comments }
+  })
 }
 
 export function toReview(thread: ResolvedThreadRef, raw: ForgejoReview, comments: ReviewComment[] | false): Review {

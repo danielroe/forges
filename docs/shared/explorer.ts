@@ -411,6 +411,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('threads.subscription', { returns: 'SubscriptionState', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread', run: (p, _, { thread }) => p.threads.subscription(thread) }),
   operation('threads.checks', { returns: 'Page<Check>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread', run: (p, _, { thread }) => p.threads.checks(thread) }),
   threadRead('threads.reviews', 'Page<Review>', (p, _, { thread }) => p.threads.reviews(thread, perPage).page()),
+  threadRead('threads.reviewThreads', 'Page<ReviewThread>', (p, _, { thread }) => p.threads.reviewThreads(thread, perPage).page()),
   threadRead('threads.files', 'Page<ChangedFile>', (p, _, { thread }) => p.threads.files(thread, perPage).page()),
   threadRead('threads.commits', 'Page<Commit>', (p, _, { thread }) => p.threads.commits(thread, perPage).page()),
   operation('threads.create', {

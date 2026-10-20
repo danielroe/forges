@@ -55,6 +55,7 @@ import type {
   ReviewEvent,
   ReviewInput,
   ReviewRef,
+  ReviewThread,
   SecurityAlert,
   SecurityAlertListOptions,
   SubscriptionState,
@@ -92,6 +93,7 @@ import type {
   GraphQLDiscussion,
   NodeReactionsResult,
   RecentDiscussionsResult,
+  ReviewThreadPageResult,
   ReviewThreadsResult,
   SponsorableResult,
   ThreadsBatchResult,
@@ -958,23 +960,29 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     if (anonymous) {
       return byComment
     }
-    let data: ReviewThreadsResult
-    try {
-      data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number) }, options)
-    }
-    catch (error) {
-      if (error instanceof ForgeError) {
-        return byComment
+    let after: string | null = null
+    do {
+      let data: ReviewThreadsResult
+      try {
+        data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number), ...after ? { after } : {} }, options)
       }
-      throw error
-    }
-    for (const node of data.repository?.pullRequest?.reviewThreads.nodes ?? []) {
-      for (const comment of node.comments.nodes) {
-        if (comment.databaseId !== null) {
-          byComment.set(String(comment.databaseId), { id: node.id, resolved: node.isResolved })
+      catch (error) {
+        if (error instanceof ForgeError) {
+          return byComment
+        }
+        throw error
+      }
+      const threads = data.repository?.pullRequest?.reviewThreads
+      for (const node of threads?.nodes ?? []) {
+        for (const comment of node.comments.nodes) {
+          if (comment.databaseId !== null) {
+            byComment.set(String(comment.databaseId), { id: node.id, resolved: node.isResolved })
+          }
         }
       }
-    }
+      const next = threads?.pageInfo?.hasNextPage ? threads.pageInfo.endCursor : null
+      after = next !== after ? next : null
+    } while (after)
     return byComment
   }
 
@@ -1014,6 +1022,29 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       comments.filter(comment => String(comment.pull_request_review_id ?? '') === String(raw.id))
         .map(comment => toReviewComment(ref, comment, byComment.get(String(comment.id)))),
     ))
+  }
+
+  async function reviewThreadsPage(thread: ThreadRef, listOptions: PageOptions = {}): Promise<Page<ReviewThread>> {
+    const ref = requirePull(thread, 'read for review threads')
+    const [data, { toReviewThread }] = await Promise.all([
+      graphql<ReviewThreadPageResult>('REVIEW_THREAD_PAGE', {
+        owner: ref.repo.owner,
+        name: ref.repo.name,
+        number: Number(ref.number),
+        first: Math.min(listOptions.perPage ?? 50, 100),
+        after: listOptions.cursor?.token ?? null,
+      }, listOptions),
+      import('./graphql.ts'),
+    ])
+    const pull = data.repository?.pullRequest
+    if (!pull) {
+      throw new NotFoundError(`Pull request ${ref.number} not found`, 404, '', context)
+    }
+    const { nodes, pageInfo } = pull.reviewThreads
+    return {
+      items: nodes.map(node => toReviewThread(ref, node)),
+      cursor: pageInfo.hasNextPage && pageInfo.endCursor ? { token: pageInfo.endCursor } : undefined,
+    }
   }
 
   async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
@@ -2157,6 +2188,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         })
         return toReviewComment(pull, data, comment.thread)
       }),
+      reviewThreadsPage: verb(!anonymous, reviewThreadsPage),
       reviewThreads: verb(true, {
         resolveReviewThread: async (_ref, id, options) => {
           await graphql('RESOLVE_REVIEW_THREAD', { id }, options)

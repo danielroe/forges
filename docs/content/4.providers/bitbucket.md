@@ -175,6 +175,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | emulated | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ∅ | ∅ |
 | `notifications.markRead` | ∅ | ∅ |

@@ -1,0 +1,16 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/acme/widgets/pulls/8/reviews?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      { "id": 4501, "user": { "login": "ada", "id": 11 }, "body": "", "state": "REQUEST_CHANGES", "html_url": "https://codeberg.org/acme/widgets/pulls/8#issuecomment-4501", "submitted_at": "2026-01-03T09:00:00Z", "comments_count": 2 },
+      { "id": 4502, "user": { "login": "grace", "id": 12 }, "body": "Fixed.", "state": "COMMENT", "html_url": "https://codeberg.org/acme/widgets/pulls/8#issuecomment-4502", "submitted_at": "2026-01-03T10:00:00Z", "comments_count": 1 },
+      { "id": 4503, "user": { "login": "ada", "id": 11 }, "body": "", "state": "APPROVED", "html_url": "https://codeberg.org/acme/widgets/pulls/8#issuecomment-4503", "submitted_at": "2026-01-03T11:00:00Z", "comments_count": 0 }
+    ]
+  }
+}

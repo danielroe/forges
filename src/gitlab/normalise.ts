@@ -30,6 +30,7 @@ import type {
   RepoRole,
   ResolvedThreadRef,
   Reviewer,
+  ReviewThread,
   SecurityAlert,
   SecuritySeverity,
   Tag,
@@ -450,6 +451,42 @@ export function toNoteComment(thread: ResolvedThreadRef, note: GitLabNoteDetail,
     updatedAt: toDate(note.updated_at),
     ...discussion && note.resolvable && { thread: { id: discussion.id, resolved: Boolean(note.resolved) } },
     raw: note,
+  }
+}
+
+/** A line of a diff note: the new side where it has one, else the old side. */
+function notedLine(position: { old_line?: number | null, new_line?: number | null } | null | undefined): { line?: number, side?: 'left' | 'right' } {
+  if (typeof position?.new_line === 'number') {
+    return { line: position.new_line, side: 'right' }
+  }
+  return typeof position?.old_line === 'number' ? { line: position.old_line, side: 'left' } : {}
+}
+
+/** A resolvable discussion, read as a review conversation. GitLab doesn't say whether one is outdated. */
+export function toDiscussionThread(thread: ResolvedThreadRef, discussion: GitLabDiscussion): ReviewThread {
+  const notes = discussion.notes.filter(note => !note.system)
+  const position = notes.find(note => note.position)?.position ?? undefined
+  const path = position?.new_path ?? position?.old_path ?? undefined
+  const { line, side } = notedLine(position)
+  const start = notedLine(position?.line_range?.start).line
+  const resolved = notes.every(note => !note.resolvable || Boolean(note.resolved))
+  return {
+    id: discussion.id,
+    resolved,
+    path,
+    line,
+    startLine: start !== undefined && start !== line ? start : undefined,
+    side,
+    comments: notes.map(note => ({
+      ref: { forge: FORGE, instance: thread.instance, thread, id: String(note.id) },
+      body: note.body,
+      author: toActor(thread.instance, note.author),
+      ...note.position && { path: note.position.new_path ?? note.position.old_path ?? undefined, ...notedLine(note.position) },
+      thread: { id: discussion.id, resolved },
+      createdAt: toDate(note.created_at),
+      raw: note,
+    })),
+    raw: discussion,
   }
 }
 

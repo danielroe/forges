@@ -1,4 +1,4 @@
-import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, IssueType, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, SubscriptionState, Thread } from '../model.ts'
+import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, IssueType, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, ReviewThread, SubscriptionState, Thread } from '../model.ts'
 import { eventTime } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { toAuthorAssociation } from './association.ts'
@@ -589,10 +589,11 @@ export const GRAPHQL_REACTIONS: Record<string, string> = Object.fromEntries(
   Object.entries(REACTION_CONTENT).map(([content, graphql]) => [graphql, content]),
 )
 
-export const REVIEW_THREADS = `query ReviewThreads($owner: String!, $name: String!, $number: Int!) {
+export const REVIEW_THREADS = `query ReviewThreads($owner: String!, $name: String!, $number: Int!, $after: String) {
   repository(owner: $owner, name: $name) {
     pullRequest(number: $number) {
-      reviewThreads(first: 100) {
+      reviewThreads(first: 100, after: $after) {
+        pageInfo { hasNextPage endCursor }
         nodes { id isResolved comments(first: 100) { nodes { databaseId } } }
       }
     }
@@ -602,9 +603,90 @@ export const REVIEW_THREADS = `query ReviewThreads($owner: String!, $name: Strin
 export interface ReviewThreadsResult {
   repository: {
     pullRequest: {
-      reviewThreads: { nodes: Array<{ id: string, isResolved: boolean, comments: { nodes: Array<{ databaseId: number | null }> } }> }
+      reviewThreads: {
+        pageInfo?: { hasNextPage: boolean, endCursor: string | null }
+        nodes: Array<{ id: string, isResolved: boolean, comments: { nodes: Array<{ databaseId: number | null }> } }>
+      }
     } | null
   } | null
+}
+
+export const REVIEW_THREAD_PAGE = `query ReviewThreadPage($owner: String!, $name: String!, $number: Int!, $first: Int!, $after: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      reviewThreads(first: $first, after: $after) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          id isResolved isOutdated path line startLine originalLine originalStartLine diffSide
+          comments(first: 100) {
+            nodes { databaseId body path line originalLine createdAt url replyTo { databaseId } author { ${ACTOR_FIELDS} } }
+          }
+        }
+      }
+    }
+  }
+}`
+
+export interface GraphQLReviewComment {
+  databaseId: number | null
+  body?: string
+  path?: string | null
+  line?: number | null
+  originalLine?: number | null
+  createdAt?: string
+  url?: string
+  replyTo?: { databaseId: number | null } | null
+  author?: GraphQLActor | null
+}
+
+export interface GraphQLReviewThread {
+  id: string
+  isResolved: boolean
+  isOutdated: boolean
+  path?: string | null
+  line?: number | null
+  startLine?: number | null
+  originalLine?: number | null
+  originalStartLine?: number | null
+  diffSide?: 'LEFT' | 'RIGHT' | null
+  comments: { nodes: GraphQLReviewComment[] }
+}
+
+export interface ReviewThreadPageResult {
+  repository: {
+    pullRequest: {
+      reviewThreads: { pageInfo: { hasNextPage: boolean, endCursor: string | null }, nodes: GraphQLReviewThread[] }
+    } | null
+  } | null
+}
+
+/** An outdated conversation can lose its `line` on the current diff, so it falls back to the line its comments were written on. */
+export function toReviewThread(ref: ResolvedThreadRef, raw: GraphQLReviewThread): ReviewThread {
+  const side = raw.diffSide === 'LEFT' ? 'left' : raw.diffSide === 'RIGHT' ? 'right' : undefined
+  const thread = { id: raw.id, resolved: raw.isResolved }
+  return {
+    id: raw.id,
+    resolved: raw.isResolved,
+    outdated: raw.isOutdated,
+    path: raw.path ?? undefined,
+    line: raw.line ?? raw.originalLine ?? undefined,
+    startLine: raw.startLine ?? raw.originalStartLine ?? undefined,
+    side,
+    comments: raw.comments.nodes.map(comment => ({
+      ...comment.databaseId === null ? {} : { ref: { forge: FORGE, instance: ref.instance, thread: ref, id: String(comment.databaseId) } },
+      body: comment.body ?? '',
+      author: toGraphQLActor(ref.instance, comment.author),
+      path: comment.path ?? undefined,
+      line: comment.line ?? comment.originalLine ?? undefined,
+      side,
+      inReplyTo: typeof comment.replyTo?.databaseId === 'number' ? String(comment.replyTo.databaseId) : undefined,
+      thread,
+      createdAt: toDate(comment.createdAt),
+      url: comment.url,
+      raw: comment,
+    })),
+    raw,
+  }
 }
 
 export const RESOLVE_REVIEW_THREAD = `mutation ResolveReviewThread($id: ID!) {

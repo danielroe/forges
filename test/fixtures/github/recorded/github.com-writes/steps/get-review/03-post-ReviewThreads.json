@@ -9,7 +9,7 @@
       "number": 136
     },
     "body": {
-      "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100) {\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
+      "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!, $after: String) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100, after: $after) {\n        pageInfo { hasNextPage endCursor }\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
       "variables": {
         "owner": "forges-fixtures",
         "name": "forges-fixtures",

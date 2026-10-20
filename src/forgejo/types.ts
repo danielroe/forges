@@ -276,6 +276,8 @@ export interface ForgejoReviewComment {
   created_at?: string
   html_url?: string
   pull_request_review_id?: number
+  /** Who resolved the conversation, on the first comment of a resolved one. */
+  resolver?: ForgejoUser | null
 }
 
 export interface ForgejoIssueTemplate {

@@ -146,6 +146,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ❌ | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ❌ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |

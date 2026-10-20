@@ -295,6 +295,25 @@ describe('fake forge', () => {
     expect(forge.store.events.at(-1)!.detail).toMatchObject({ type: 'review_comment', comment: second.ref, body: 'and the tests', path: 'src/index.ts' })
     expect((read!.comments as Exclude<typeof review.comments, false>).map(item => item.thread?.resolved)).toEqual([true, true, true])
   })
+  it('lists review conversations with their replies, and filters them by state', async () => {
+    const forge = fake({ seed })
+    const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+    const [pull] = (await forge.threads.list(repo, { kind: 'pull_request' }).page()).items
+
+    const review = await forge.threads.createReview(pull!.ref, { event: 'comment', comments: [{ path: 'src/index.ts', line: 3, body: 'rename' }, { path: 'README.md', line: 1, body: 'typo' }] })
+    const [first, second] = review.comments as Exclude<typeof review.comments, false>
+    await forge.threads.replyToReviewComment(pull!.ref, first!, 'renamed')
+    await forge.threads.resolveReviewThread(pull!.ref, first!.thread!.id)
+
+    const threads = await Array.fromAsync(forge.threads.reviewThreads(pull!.ref))
+    const open = await Array.fromAsync(forge.threads.reviewThreads(pull!.ref, { state: 'unresolved' }))
+
+    expect(threads.map(thread => [thread.path, thread.resolved, thread.comments.map(comment => comment.body)])).toEqual([
+      ['src/index.ts', true, ['rename', 'renamed']],
+      ['README.md', false, ['typo']],
+    ])
+    expect(open.map(thread => thread.id)).toEqual([second!.thread!.id])
+  })
   it('reports a commit status, lists it back and reads a job log', async () => {
     const forge = fake({ seed: { ...seed, runs: [{ repo: 'acme/widgets', name: 'ci', state: 'failure' as const, branch: 'main', jobs: [{ name: 'lint', state: 'failure' as const, log: 'lint failed\n' }] }] } })
     const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }

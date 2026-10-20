@@ -180,6 +180,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.submitReview` | ✅ | ❌ |
 | `threads.approve` | ✅ | ❌ |
 | `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.reviewThreads` | emulated | unverified |
 | `threads.resolveReviewThread` | ∅ | ∅ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |

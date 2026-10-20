@@ -1,0 +1,116 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/24/discussions"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": "87805b7c09016a7058e91bdbe7b29d1f284a39e6",
+        "individual_note": false,
+        "notes": [
+          {
+            "id": 1128,
+            "type": "DiffNote",
+            "body": "diff comment",
+            "author": { "id": 1, "name": "root", "username": "root", "state": "active", "avatar_url": "https://www.gravatar.com/avatar/00afb8fb6ab07c3ee3e9c1f38777e2f4?s=80&d=identicon", "web_url": "https://gitlab.com/root" },
+            "created_at": "2018-03-04T09:17:22.520Z",
+            "updated_at": "2018-03-04T09:17:22.520Z",
+            "system": false,
+            "noteable_id": 3,
+            "noteable_type": "MergeRequest",
+            "project_id": 5,
+            "commit_id": "4803c71e6b1833ca72b8b26ef2ecd5adc8a38031",
+            "position": {
+              "base_sha": "b5d6e7b1613fca24d250fa8e5bc7bcc3dd6002ef",
+              "start_sha": "7c9c2ead8a320fb7ba0b4e234bd9529a2614e306",
+              "head_sha": "4803c71e6b1833ca72b8b26ef2ecd5adc8a38031",
+              "old_path": "package.json",
+              "new_path": "package.json",
+              "position_type": "text",
+              "old_line": 27,
+              "new_line": 27,
+              "line_range": {
+                "start": { "line_code": "588440f66559714280628a4f9799f0c4eb880a4a_25_25", "type": "new", "old_line": null, "new_line": 25 },
+                "end": { "line_code": "588440f66559714280628a4f9799f0c4eb880a4a_27_27", "type": "new", "old_line": 27, "new_line": 27 }
+              }
+            },
+            "resolved": false,
+            "resolvable": true,
+            "resolved_by": null
+          },
+          {
+            "id": 1129,
+            "type": "DiffNote",
+            "body": "reply to the diff comment",
+            "author": { "id": 2, "name": "Ada", "username": "ada", "state": "active", "avatar_url": "https://www.gravatar.com/avatar/1?s=80&d=identicon", "web_url": "https://gitlab.com/ada" },
+            "created_at": "2018-03-04T09:20:00.000Z",
+            "updated_at": "2018-03-04T09:20:00.000Z",
+            "system": false,
+            "noteable_id": 3,
+            "noteable_type": "MergeRequest",
+            "project_id": 5,
+            "commit_id": "4803c71e6b1833ca72b8b26ef2ecd5adc8a38031",
+            "position": {
+              "base_sha": "b5d6e7b1613fca24d250fa8e5bc7bcc3dd6002ef",
+              "start_sha": "7c9c2ead8a320fb7ba0b4e234bd9529a2614e306",
+              "head_sha": "4803c71e6b1833ca72b8b26ef2ecd5adc8a38031",
+              "old_path": "package.json",
+              "new_path": "package.json",
+              "position_type": "text",
+              "old_line": 27,
+              "new_line": 27
+            },
+            "resolved": false,
+            "resolvable": true,
+            "resolved_by": null
+          }
+        ]
+      },
+      {
+        "id": "6a9c1750b37d513a43987b574953fceb50b03ce7",
+        "individual_note": false,
+        "notes": [
+          {
+            "id": 1130,
+            "type": "DiscussionNote",
+            "body": "Should this ship behind a flag?",
+            "author": { "id": 2, "name": "Ada", "username": "ada", "state": "active", "avatar_url": "https://www.gravatar.com/avatar/1?s=80&d=identicon", "web_url": "https://gitlab.com/ada" },
+            "created_at": "2018-03-04T10:00:00.000Z",
+            "updated_at": "2018-03-04T11:00:00.000Z",
+            "system": false,
+            "noteable_id": 3,
+            "noteable_type": "MergeRequest",
+            "project_id": 5,
+            "resolved": true,
+            "resolvable": true,
+            "resolved_by": { "id": 1, "name": "root", "username": "root", "state": "active", "avatar_url": "https://www.gravatar.com/avatar/00afb8fb6ab07c3ee3e9c1f38777e2f4?s=80&d=identicon", "web_url": "https://gitlab.com/root" },
+            "resolved_at": "2018-03-04T11:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "3eb1e7b2d1a0bb96e0bd0b4b3b4d0cf8a7f6a1d2",
+        "individual_note": true,
+        "notes": [
+          {
+            "id": 1131,
+            "type": null,
+            "body": "Thanks for this!",
+            "author": { "id": 2, "name": "Ada", "username": "ada", "state": "active", "avatar_url": "https://www.gravatar.com/avatar/1?s=80&d=identicon", "web_url": "https://gitlab.com/ada" },
+            "created_at": "2018-03-04T12:00:00.000Z",
+            "updated_at": "2018-03-04T12:00:00.000Z",
+            "system": false,
+            "noteable_id": 3,
+            "noteable_type": "MergeRequest",
+            "project_id": 5,
+            "resolvable": false
+          }
+        ]
+      }
+    ]
+  }
+}

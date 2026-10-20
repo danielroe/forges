@@ -1962,6 +1962,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.replyToReviewComment()`."
           },
+          "reviewThreads": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.reviewThreads()`. `'emulated'` where conversations are grouped from review comments."
+          },
           "resolveReviewThread": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.resolveReviewThread()`."
@@ -2017,6 +2021,7 @@
           "submitReview",
           "approve",
           "replyToReviewComment",
+          "reviewThreads",
           "resolveReviewThread",
           "unresolveReviewThread"
         ]
