@@ -2,11 +2,15 @@ import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { ReferenceSyntax, RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf, rangeOf } from '../web.ts'
 
-const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'merge_requests' }
-const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
+const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'work_items', pull_request: 'merge_requests' }
+const KINDS = new Map<ThreadKind | string, ThreadKind>([
+  ...Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind] as const),
+  ['issues', 'issue' as ThreadKind],
+  ['work_items', 'issue' as ThreadKind],
+])
 const PREFIXES: Partial<Record<ThreadKind, string>> = { issue: '#', pull_request: '!' }
-const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'merge_requests', compare: 'compare', releases: 'releases', stargazers: 'starrers', forks: 'forks' }
-const GROUP_PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'merge_requests' }
+const PAGES: Partial<Record<RepoSection, string>> = { issues: 'work_items', pullRequests: 'merge_requests', compare: 'compare', releases: 'releases', stargazers: 'starrers', forks: 'forks' }
+const GROUP_PAGES: Partial<Record<RepoSection, string>> = { issues: 'work_items', pullRequests: 'merge_requests' }
 const REFERENCES: ReferenceSyntax = {
   threads: [{ prefix: '#', kind: 'issue' }, { prefix: '!', kind: 'pull_request' }],
   repo: String.raw`(?:[\w.-]+\/)+[\w.-]+`,
