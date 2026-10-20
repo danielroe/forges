@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/264f819c91c0bfd8e7ffa8be03595d535ea7c16f/comments",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/commits/bcf5125e5517f81ed19836d85297a5cb89415813/comments",
     "body": {
       "note": "A commit comment from run 20261012113957."
     }
@@ -11,8 +11,9 @@
     "headers": {
       "etag": "W/\"b642b683710022aed8263cbbbff24112\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1936",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1998",
+      "ratelimit-reset": "1792491000",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "note": "A commit comment from run 20261012113957.",
@@ -29,7 +30,7 @@
         "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
         "web_url": "https://gitlab.com/roebot"
       },
-      "created_at": "2026-10-12T11:40:31.837Z"
+      "created_at": "2026-10-20T10:09:33.467Z"
     }
   }
 }

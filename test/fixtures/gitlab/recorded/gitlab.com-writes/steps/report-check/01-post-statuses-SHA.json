@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/statuses/264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/statuses/bcf5125e5517f81ed19836d85297a5cb89415813",
     "body": {
       "state": "success",
       "name": "forges fixture",
@@ -13,20 +13,21 @@
     "headers": {
       "etag": "W/\"22c406380983d12fe27c72c99202926f\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1925",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1984",
+      "ratelimit-reset": "1792491000",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "id": 17111274000,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+      "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
       "ref": "refs/merge-requests/36/head",
       "status": "success",
       "name": "forges fixture",
       "target_url": null,
       "description": "Reported by run 20261012113957",
-      "created_at": "2026-10-12T11:40:38.268Z",
+      "created_at": "2026-10-20T10:09:40.831Z",
       "started_at": null,
-      "finished_at": "2026-10-12T11:40:38.266Z",
+      "finished_at": "2026-10-20T10:09:40.828Z",
       "allow_failure": false,
       "coverage": null,
       "pipeline_id": 2938494768,

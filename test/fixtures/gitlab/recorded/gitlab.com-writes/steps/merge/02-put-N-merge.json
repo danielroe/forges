@@ -13,8 +13,8 @@
     "headers": {
       "etag": "W/\"a5ad5c66d4e151cf115da596f00857e4\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1974",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-remaining": "1982",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
@@ -24,8 +24,8 @@
       "title": "forges fixture 20261012113957: pull, edited",
       "description": "Edited by run 20261012113957.",
       "state": "merged",
-      "created_at": "2026-10-17T15:17:56.091Z",
-      "updated_at": "2026-10-17T15:18:31.437Z",
+      "created_at": "2026-10-20T10:09:11.084Z",
+      "updated_at": "2026-10-20T10:09:44.414Z",
       "merged_by": {
         "id": 43193323,
         "username": "roebot",
@@ -46,7 +46,7 @@
         "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
         "web_url": "https://gitlab.com/roebot"
       },
-      "merged_at": "2026-10-17T15:18:31.604Z",
+      "merged_at": "2026-10-20T10:09:44.658Z",
       "closed_by": null,
       "closed_at": null,
       "target_branch": "main",
@@ -113,13 +113,13 @@
       "merge_status": "can_be_merged",
       "detailed_merge_status": "not_open",
       "merge_after": null,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-      "merge_commit_sha": "d18f3776502b8aae54697d46dec7fb47ca622c30",
+      "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
+      "merge_commit_sha": "48902bf6682aaec6f7fc073c35bee3a2d62c0322",
       "squash_commit_sha": null,
       "discussion_locked": false,
       "should_remove_source_branch": null,
       "force_remove_source_branch": true,
-      "prepared_at": "2026-10-17T15:17:56.991Z",
+      "prepared_at": "2026-10-20T10:09:12.335Z",
       "reference": "!36",
       "references": {
         "short": "!36",
@@ -145,32 +145,32 @@
       "subscribed": true,
       "changes_count": "1",
       "latest_build_started_at": null,
-      "latest_build_finished_at": "2026-10-17T15:18:27.807Z",
+      "latest_build_finished_at": "2026-10-20T10:09:40.959Z",
       "first_deployed_to_production_at": null,
       "pipeline": {
         "id": 2938494768,
         "iid": 108,
         "project_id": 87428720,
-        "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
         "ref": "refs/merge-requests/36/head",
         "status": "success",
         "source": "merge_request_event",
-        "created_at": "2026-10-17T15:17:57.098Z",
-        "updated_at": "2026-10-17T15:18:27.811Z",
+        "created_at": "2026-10-20T10:09:12.471Z",
+        "updated_at": "2026-10-20T10:09:40.962Z",
         "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2938494768"
       },
       "head_pipeline": {
         "id": 2938494768,
         "iid": 108,
         "project_id": 87428720,
-        "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
         "ref": "refs/merge-requests/36/head",
         "status": "success",
         "source": "merge_request_event",
-        "created_at": "2026-10-17T15:17:57.098Z",
-        "updated_at": "2026-10-17T15:18:27.811Z",
+        "created_at": "2026-10-20T10:09:12.471Z",
+        "updated_at": "2026-10-20T10:09:40.962Z",
         "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2938494768",
-        "before_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "before_sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
         "tag": false,
         "yaml_errors": null,
         "user": {
@@ -184,10 +184,10 @@
           "web_url": "https://gitlab.com/roebot"
         },
         "started_at": null,
-        "finished_at": "2026-10-17T15:18:27.807Z",
+        "finished_at": "2026-10-20T10:09:40.959Z",
         "committed_at": null,
         "duration": null,
-        "queued_duration": 30,
+        "queued_duration": 28,
         "coverage": null,
         "detailed_status": {
           "icon": "status_success",
@@ -203,9 +203,9 @@
         "archived": false
       },
       "diff_refs": {
-        "base_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149",
-        "head_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-        "start_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149"
+        "base_sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
+        "head_sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
+        "start_sha": "22d57f80879256b87da5b30c991f5142e340f1e4"
       },
       "merge_error": null,
       "user": {

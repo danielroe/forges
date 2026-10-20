@@ -12,7 +12,7 @@
       "etag": "W/\"6a20f0ae6ba359a517b5c3775298b33e\"",
       "ratelimit-limit": "2000",
       "ratelimit-remaining": "1917",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
@@ -22,8 +22,8 @@
       "title": "forges fixture 20261012113957: pull 1",
       "description": "Opened by run 20261012113957.",
       "state": "opened",
-      "created_at": "2026-10-17T15:17:56.091Z",
-      "updated_at": "2026-10-17T15:18:08.733Z",
+      "created_at": "2026-10-20T10:09:11.084Z",
+      "updated_at": "2026-10-20T10:09:23.097Z",
       "merged_by": null,
       "merge_user": null,
       "merged_at": null,
@@ -75,13 +75,13 @@
       "merge_status": "can_be_merged",
       "detailed_merge_status": "mergeable",
       "merge_after": null,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+      "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
       "merge_commit_sha": null,
       "squash_commit_sha": null,
       "discussion_locked": null,
       "should_remove_source_branch": null,
       "force_remove_source_branch": true,
-      "prepared_at": "2026-10-17T15:17:56.991Z",
+      "prepared_at": "2026-10-20T10:09:12.335Z",
       "reference": "!36",
       "references": {
         "short": "!36",
@@ -114,14 +114,14 @@
         "id": 2938494768,
         "iid": 108,
         "project_id": 87428720,
-        "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
         "ref": "refs/merge-requests/36/head",
         "status": "failed",
         "source": "merge_request_event",
-        "created_at": "2026-10-17T15:17:57.098Z",
-        "updated_at": "2026-10-17T15:17:57.098Z",
+        "created_at": "2026-10-20T10:09:12.471Z",
+        "updated_at": "2026-10-20T10:09:12.471Z",
         "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2938494768",
-        "before_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+        "before_sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
         "tag": false,
         "yaml_errors": null,
         "user": {
@@ -135,7 +135,7 @@
           "web_url": "https://gitlab.com/roebot"
         },
         "started_at": null,
-        "finished_at": "2026-10-17T15:17:57.097Z",
+        "finished_at": "2026-10-20T10:09:12.469Z",
         "committed_at": null,
         "duration": null,
         "queued_duration": null,
@@ -154,9 +154,9 @@
         "archived": false
       },
       "diff_refs": {
-        "base_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149",
-        "head_sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
-        "start_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149"
+        "base_sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
+        "head_sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
+        "start_sha": "22d57f80879256b87da5b30c991f5142e340f1e4"
       },
       "merge_error": null,
       "user": {

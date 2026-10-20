@@ -13,6 +13,7 @@
   "rateLimit": {
     "limit": 2000,
     "remaining": 1986,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

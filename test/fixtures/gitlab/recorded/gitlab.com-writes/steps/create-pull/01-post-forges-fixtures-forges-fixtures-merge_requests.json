@@ -14,8 +14,9 @@
     "headers": {
       "etag": "W/\"82cf8c3996ceada5a8e744b27bc3ad8f\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1957",
-      "ratelimit-reset": "1791805260"
+      "ratelimit-remaining": "1932",
+      "ratelimit-reset": "1792491000",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "id": 547090208,
@@ -24,8 +25,8 @@
       "title": "forges fixture 20261012113957: pull 1",
       "description": "Opened by run 20261012113957.",
       "state": "opened",
-      "created_at": "2026-10-12T11:40:20.759Z",
-      "updated_at": "2026-10-12T11:40:20.759Z",
+      "created_at": "2026-10-20T10:09:11.084Z",
+      "updated_at": "2026-10-20T10:09:11.084Z",
       "merged_by": null,
       "merge_user": null,
       "merged_at": null,
@@ -62,7 +63,7 @@
       "merge_status": "checking",
       "detailed_merge_status": "preparing",
       "merge_after": null,
-      "sha": "264f819c91c0bfd8e7ffa8be03595d535ea7c16f",
+      "sha": "bcf5125e5517f81ed19836d85297a5cb89415813",
       "merge_commit_sha": null,
       "squash_commit_sha": null,
       "discussion_locked": null,

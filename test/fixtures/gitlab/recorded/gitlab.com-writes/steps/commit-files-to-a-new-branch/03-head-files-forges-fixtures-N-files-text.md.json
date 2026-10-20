@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "HEAD",
-    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/files/forges-fixtures%2F20261012113957-files%2Ftext.md?ref=a366006c9d4e7f7e6697d30cecf4c61391b22149"
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/repository/files/forges-fixtures%2F20261012113957-files%2Ftext.md?ref=22d57f80879256b87da5b30c991f5142e340f1e4"
   },
   "response": {
     "status": 404,
     "headers": {
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1982",
-      "ratelimit-reset": "1792250280",
+      "ratelimit-remaining": "1983",
+      "ratelimit-reset": "1792490940",
       "ratelimit-name": "throttle_authenticated_api"
     }
   }

@@ -8,14 +8,14 @@
     "headers": {
       "etag": "W/\"159e7ec613d9a8962973f67be662ed78\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1997",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-remaining": "1998",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
-      "id": "a366006c9d4e7f7e6697d30cecf4c61391b22149",
+      "id": "22d57f80879256b87da5b30c991f5142e340f1e4",
       "short_id": "a366006c",
-      "created_at": "2026-10-17T14:40:04.000+00:00",
+      "created_at": "2026-10-17T15:18:38.000+00:00",
       "parent_ids": [
         "46adea04f571554dc2173fe6a4a862428380702b",
         "a25a870fbd2a07d899bda8a6623e9a7e9f59ae65"
@@ -24,13 +24,13 @@
       "message": "Merge run 20261017143840\n\nMerged by run 20261017143840",
       "author_name": "Daniel Roe",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-17T14:40:04.000+00:00",
+      "authored_date": "2026-10-17T15:18:38.000+00:00",
       "committer_name": "Daniel Roe",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-17T14:40:04.000+00:00",
+      "committed_date": "2026-10-17T15:18:38.000+00:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/a366006c9d4e7f7e6697d30cecf4c61391b22149",
+      "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/22d57f80879256b87da5b30c991f5142e340f1e4",
       "stats": {
         "additions": 1,
         "deletions": 0,
@@ -42,12 +42,12 @@
         "id": 2958618357,
         "iid": 174,
         "project_id": 87428720,
-        "sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149",
+        "sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
         "ref": "forges-fixture-20261017143840",
         "status": "failed",
         "source": "push",
-        "created_at": "2026-10-17T14:40:06.592Z",
-        "updated_at": "2026-10-17T14:40:06.592Z",
+        "created_at": "2026-10-17T15:18:41.357Z",
+        "updated_at": "2026-10-17T15:18:41.357Z",
         "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2958618357"
       }
     }

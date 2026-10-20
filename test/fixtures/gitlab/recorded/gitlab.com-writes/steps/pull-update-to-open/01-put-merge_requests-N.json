@@ -13,8 +13,8 @@
     "headers": {
       "etag": "W/\"24ef1761d3f1081043faca9781f71dde\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1993",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-remaining": "1910",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
@@ -24,8 +24,8 @@
       "title": "forges fixture 20261012113957: pull 3",
       "description": "Opened by run 20261012113957.",
       "state": "opened",
-      "created_at": "2026-10-17T15:17:58.089Z",
-      "updated_at": "2026-10-17T15:18:15.879Z",
+      "created_at": "2026-10-20T10:09:13.093Z",
+      "updated_at": "2026-10-20T10:09:30.131Z",
       "merged_by": null,
       "merge_user": null,
       "merged_at": null,
@@ -68,7 +68,7 @@
       "discussion_locked": null,
       "should_remove_source_branch": null,
       "force_remove_source_branch": true,
-      "prepared_at": "2026-10-17T15:17:58.871Z",
+      "prepared_at": "2026-10-20T10:09:14.010Z",
       "reference": "!38",
       "references": {
         "short": "!38",
@@ -105,8 +105,8 @@
         "ref": "refs/merge-requests/38/head",
         "status": "failed",
         "source": "merge_request_event",
-        "created_at": "2026-10-17T15:17:58.992Z",
-        "updated_at": "2026-10-17T15:17:58.992Z",
+        "created_at": "2026-10-20T10:09:14.196Z",
+        "updated_at": "2026-10-20T10:09:14.196Z",
         "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2938494847",
         "before_sha": "f86dffdef622c4130b2097ae208eb6a40a018458",
         "tag": false,
@@ -122,7 +122,7 @@
           "web_url": "https://gitlab.com/roebot"
         },
         "started_at": null,
-        "finished_at": "2026-10-17T15:17:58.991Z",
+        "finished_at": "2026-10-20T10:09:14.194Z",
         "committed_at": null,
         "duration": null,
         "queued_duration": null,
@@ -141,9 +141,9 @@
         "archived": false
       },
       "diff_refs": {
-        "base_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149",
+        "base_sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
         "head_sha": "f86dffdef622c4130b2097ae208eb6a40a018458",
-        "start_sha": "a366006c9d4e7f7e6697d30cecf4c61391b22149"
+        "start_sha": "22d57f80879256b87da5b30c991f5142e340f1e4"
       },
       "merge_error": null,
       "user": {

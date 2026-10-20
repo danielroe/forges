@@ -12,16 +12,16 @@
     "headers": {
       "etag": "W/\"39a5aa5c8dd9194d7ce256f6960efa50\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1968",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-remaining": "1976",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
       "name": "forges fixture 20261012113957: release, edited",
       "tag_name": "forges-fixture-20261012113957",
       "description": "Edited by run 20261012113957.",
-      "created_at": "2026-10-17T15:18:40.614Z",
-      "released_at": "2026-10-17T15:18:40.614Z",
+      "created_at": "2026-10-20T10:09:49.127Z",
+      "released_at": "2026-10-20T10:09:49.127Z",
       "upcoming_release": false,
       "author": {
         "id": 43193323,
@@ -34,26 +34,26 @@
         "web_url": "https://gitlab.com/roebot"
       },
       "commit": {
-        "id": "27323015bcac2e10b82b2e40a515887a8021f6d3",
+        "id": "48902bf6682aaec6f7fc073c35bee3a2d62c0322",
         "short_id": "27323015",
-        "created_at": "2026-10-17T15:18:38.000+00:00",
+        "created_at": "2026-10-20T10:09:43.000+00:00",
         "parent_ids": [
-          "d18f3776502b8aae54697d46dec7fb47ca622c30",
-          "ee598edb5ac2b738929df154de3a2bf5266eed93"
+          "22d57f80879256b87da5b30c991f5142e340f1e4",
+          "bcf5125e5517f81ed19836d85297a5cb89415813"
         ],
         "title": "Merge run 20261012113957",
         "message": "Merge run 20261012113957\n\nMerged by run 20261012113957",
         "author_name": "Daniel Roe",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-17T15:18:38.000+00:00",
+        "authored_date": "2026-10-20T10:09:43.000+00:00",
         "committer_name": "Daniel Roe",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-17T15:18:38.000+00:00",
+        "committed_date": "2026-10-20T10:09:43.000+00:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/27323015bcac2e10b82b2e40a515887a8021f6d3"
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/48902bf6682aaec6f7fc073c35bee3a2d62c0322"
       },
-      "commit_path": "/forges-fixtures/forges-fixtures/-/commit/27323015bcac2e10b82b2e40a515887a8021f6d3",
+      "commit_path": "/forges-fixtures/forges-fixtures/-/commit/48902bf6682aaec6f7fc073c35bee3a2d62c0322",
       "tag_path": "/forges-fixtures/forges-fixtures/-/tags/forges-fixture-20261012113957",
       "assets": {
         "count": 4,
@@ -77,7 +77,13 @@
         ],
         "links": []
       },
-      "evidences": [],
+      "evidences": [
+        {
+          "sha": "73b7b215a3aa2be4c683b83c3a31730237b7ecdfaa0d",
+          "filepath": "https://gitlab.com/forges-fixtures/forges-fixtures/-/releases/forges-fixture-20261012113957/evidences/25321328.json",
+          "collected_at": "2026-10-20T10:09:49.295Z"
+        }
+      ],
       "_links": {
         "closed_issues_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/issues?release_tag=forges-fixture-20261012113957&scope=all&state=closed",
         "closed_merge_requests_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/merge_requests?release_tag=forges-fixture-20261012113957&scope=all&state=closed",

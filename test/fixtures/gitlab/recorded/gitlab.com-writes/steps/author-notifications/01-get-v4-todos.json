@@ -9,10 +9,10 @@
       "link": "<https://gitlab.com/api/v4/todos?page=1&per_page=50&state=pending>; rel=\"first\", <https://gitlab.com/api/v4/todos?page=1&per_page=50&state=pending>; rel=\"last\"",
       "etag": "W/\"be83944cb820859d82e5d66efae88fc3\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1963",
-      "ratelimit-reset": "1792250340",
+      "ratelimit-remaining": "1971",
+      "ratelimit-reset": "1792491000",
       "ratelimit-name": "throttle_authenticated_api",
-      "x-total": "2",
+      "x-total": "1",
       "x-total-pages": "1",
       "x-next-page": "",
       "x-page": "1",
@@ -49,8 +49,8 @@
           "title": "forges fixture 20261012113957: issue, edited",
           "description": "Edited by run 20261012113957.",
           "state": "opened",
-          "created_at": "2026-10-17T15:17:23.539Z",
-          "updated_at": "2026-10-17T15:17:55.126Z",
+          "created_at": "2026-10-20T10:08:44.822Z",
+          "updated_at": "2026-10-20T10:09:10.079Z",
           "closed_at": null,
           "closed_by": null,
           "labels": [],
@@ -112,126 +112,8 @@
         "target_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28#note_3997723437",
         "body": "@roebot a mention from run 20261012113957.",
         "state": "pending",
-        "created_at": "2026-10-17T15:18:46.388Z",
-        "updated_at": "2026-10-17T15:18:46.388Z"
-      },
-      {
-        "id": 782906861,
-        "project": {
-          "id": 87428720,
-          "description": null,
-          "name": "forges-fixtures",
-          "name_with_namespace": "forges-fixtures / forges-fixtures",
-          "path": "forges-fixtures",
-          "path_with_namespace": "forges-fixtures/forges-fixtures",
-          "created_at": "2026-10-09T11:31:15.397Z"
-        },
-        "author": {
-          "id": 43193323,
-          "username": "roebot",
-          "public_email": "",
-          "name": "Daniel Roe",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-          "web_url": "https://gitlab.com/roebot"
-        },
-        "action_name": "assigned",
-        "target_type": "Issue",
-        "target": {
-          "id": 206267439,
-          "iid": 29,
-          "project_id": 87428720,
-          "title": "forges fixture 20261012113957: labelled issue",
-          "description": "Opened by run 20261012113957.",
-          "state": "opened",
-          "created_at": "2026-10-17T15:17:49.732Z",
-          "updated_at": "2026-10-17T15:17:49.732Z",
-          "closed_at": null,
-          "closed_by": null,
-          "labels": [
-            "forges-fixture-20261012113957"
-          ],
-          "milestone": null,
-          "assignees": [
-            {
-              "id": 43193323,
-              "username": "roebot",
-              "public_email": "",
-              "name": "Daniel Roe",
-              "state": "active",
-              "locked": false,
-              "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-              "web_url": "https://gitlab.com/roebot"
-            }
-          ],
-          "author": {
-            "id": 43193323,
-            "username": "roebot",
-            "public_email": "",
-            "name": "Daniel Roe",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-            "web_url": "https://gitlab.com/roebot"
-          },
-          "type": "ISSUE",
-          "assignee": {
-            "id": 43193323,
-            "username": "roebot",
-            "public_email": "",
-            "name": "Daniel Roe",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/14ceebcfdc10030d76768a65e9d7978b914694cebcbb6ab609b3a0e8243f0eb8?s=80&d=identicon",
-            "web_url": "https://gitlab.com/roebot"
-          },
-          "user_notes_count": 0,
-          "merge_requests_count": 0,
-          "upvotes": 0,
-          "downvotes": 0,
-          "start_date": null,
-          "due_date": null,
-          "confidential": false,
-          "discussion_locked": null,
-          "issue_type": "issue",
-          "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/29",
-          "time_stats": {
-            "time_estimate": 0,
-            "total_time_spent": 0,
-            "human_time_estimate": null,
-            "human_total_time_spent": null
-          },
-          "task_completion_status": {
-            "count": 0,
-            "completed_count": 0
-          },
-          "blocking_issues_count": 0,
-          "has_tasks": true,
-          "task_status": "0 of 0 checklist items completed",
-          "_links": {
-            "self": "https://gitlab.com/api/v4/projects/87428720/issues/29",
-            "notes": "https://gitlab.com/api/v4/projects/87428720/issues/29/notes",
-            "award_emoji": "https://gitlab.com/api/v4/projects/87428720/issues/29/award_emoji",
-            "project": "https://gitlab.com/api/v4/projects/87428720",
-            "closed_as_duplicate_of": null
-          },
-          "references": {
-            "short": "#29",
-            "relative": "#29",
-            "full": "forges-fixtures/forges-fixtures#29"
-          },
-          "severity": "UNKNOWN",
-          "moved_to_id": null,
-          "imported": false,
-          "imported_from": "none",
-          "service_desk_reply_to": null
-        },
-        "target_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/29",
-        "body": "forges fixture 20261012113957: labelled issue",
-        "state": "pending",
-        "created_at": "2026-10-17T15:17:49.977Z",
-        "updated_at": "2026-10-17T15:17:49.977Z"
+        "created_at": "2026-10-20T10:09:55.327Z",
+        "updated_at": "2026-10-20T10:09:55.327Z"
       }
     ]
   }

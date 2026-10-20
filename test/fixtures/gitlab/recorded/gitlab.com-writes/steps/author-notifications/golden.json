@@ -32,39 +32,6 @@
       "subjectStateRaw": "opened",
       "updatedAt": "<now>",
       "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/28#note_3997723437"
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "id": "782906861"
-      },
-      "subject": {
-        "type": "thread",
-        "thread": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "repo": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "87428720"
-          },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "29"
-        }
-      },
-      "subjectTypeRaw": "Issue",
-      "reason": "assigned",
-      "reasonRaw": "assigned",
-      "unread": true,
-      "title": "forges fixture 20261012113957: labelled issue",
-      "subjectState": "open",
-      "subjectStateRaw": "opened",
-      "updatedAt": "<now>",
-      "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/work_items/29"
     }
   ],
   "cursor": {
@@ -73,7 +40,7 @@
   "notModified": false,
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1963,
+    "remaining": 1971,
     "resetAt": "<now>",
     "resource": "throttle_authenticated_api"
   }
