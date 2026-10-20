@@ -1,20 +1,26 @@
 {
   "items": [
     {
-      "name": "v18.0.0-dev",
-      "sha": "7eea67def1c8d724237450665e1e4fe998d52255"
+      "name": "v17.0.0",
+      "sha": "0d791421f85ca13a63b665053d81ea765fbbc571"
     },
     {
-      "name": "v16.0.5",
-      "sha": "8d24b7d52df327118cd776cf461d34e52e0ec1ce"
+      "name": "v16.0.6",
+      "sha": "1aa13944143b3bc4312607239a68da23512d5ce3"
     },
     {
-      "name": "v15.0.9",
-      "sha": "19b9b9d216bbfb501c18514bd1a8c980246ca3f7"
+      "name": "v15.0.10",
+      "sha": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9"
     }
   ],
-  "total": 303,
+  "total": 306,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1872,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

@@ -1,0 +1,264 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases/tags/v17.0.0"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1927;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "id": 12930115,
+      "tag_name": "v17.0.0",
+      "target_commitish": "",
+      "name": "v17.0.0",
+      "body": "Attention: We currently advise against upgrading to Forgejo 17.0.0. An issue is currently being investigated that prevents pushing, merging, or other code operations in some cases.\r\n\r\nIf you haven't updated yet, please wait until the issue has been investigated more thoroughly, if possible.\r\n\r\n***\r\n\r\nSee https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/17.0.0.md",
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases/12930115",
+      "html_url": "https://codeberg.org/forgejo/forgejo/releases/tag/v17.0.0",
+      "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.tar.gz",
+      "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.zip",
+      "hide_archive_links": false,
+      "upload_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases/12930115/assets",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-10-15T18:36:34+02:00",
+      "published_at": "2026-10-15T18:36:34+02:00",
+      "author": {
+        "id": 70541,
+        "login": "release-team",
+        "source_id": 0,
+        "full_name": "Forgejo Release Team",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/83623afe083e82955f79b2dfeea58bd9f34897fae0f6fd001bc282d3a40efc8b",
+        "html_url": "https://codeberg.org/release-team",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "https://codeberg.org/forgejo/forgejo",
+        "description": "Account for publishing Forgejo releases using the Forgejo CI",
+        "followers_count": 17,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "release-team"
+      },
+      "assets": [
+        {
+          "id": 2055157,
+          "name": "forgejo-17.0.0-linux-amd64",
+          "size": 122053192,
+          "download_count": 1381,
+          "created_at": "2026-10-15T18:36:38+02:00",
+          "uuid": "e415edb3-d1fe-4e4d-a0f0-783ae7e80f7e",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64",
+          "type": "attachment"
+        },
+        {
+          "id": 2055163,
+          "name": "forgejo-17.0.0-linux-amd64.asc",
+          "size": 228,
+          "download_count": 204,
+          "created_at": "2026-10-15T18:36:38+02:00",
+          "uuid": "4e1aadda-c294-41f1-9d9f-bc68e753f39b",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055166,
+          "name": "forgejo-17.0.0-linux-amd64.sha256",
+          "size": 93,
+          "download_count": 466,
+          "created_at": "2026-10-15T18:36:39+02:00",
+          "uuid": "02af3068-fa8e-4ff3-8627-3620a5de4816",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055169,
+          "name": "forgejo-17.0.0-linux-amd64.xz",
+          "size": 36243760,
+          "download_count": 287,
+          "created_at": "2026-10-15T18:36:40+02:00",
+          "uuid": "7469192d-f8ca-442c-8872-e557846617c8",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz",
+          "type": "attachment"
+        },
+        {
+          "id": 2055172,
+          "name": "forgejo-17.0.0-linux-amd64.xz.asc",
+          "size": 228,
+          "download_count": 30,
+          "created_at": "2026-10-15T18:36:41+02:00",
+          "uuid": "0d9edefc-60fc-400a-8fe7-fbad49de8d1a",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055175,
+          "name": "forgejo-17.0.0-linux-amd64.xz.sha256",
+          "size": 96,
+          "download_count": 56,
+          "created_at": "2026-10-15T18:36:41+02:00",
+          "uuid": "f66ca82c-5bcb-4a08-9405-6791828e3889",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055199,
+          "name": "forgejo-17.0.0-linux-arm-6",
+          "size": 113161440,
+          "download_count": 16,
+          "created_at": "2026-10-15T18:36:45+02:00",
+          "uuid": "84fb4f84-16c9-4d53-9d59-d776d6014d71",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6",
+          "type": "attachment"
+        },
+        {
+          "id": 2055205,
+          "name": "forgejo-17.0.0-linux-arm-6.asc",
+          "size": 228,
+          "download_count": 5,
+          "created_at": "2026-10-15T18:36:46+02:00",
+          "uuid": "6e5ffcb0-43a1-4033-ac7d-1a34e99cd4d8",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055208,
+          "name": "forgejo-17.0.0-linux-arm-6.sha256",
+          "size": 93,
+          "download_count": 5,
+          "created_at": "2026-10-15T18:36:46+02:00",
+          "uuid": "5c340ab8-b882-4d9e-b8f9-169846b146d1",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055211,
+          "name": "forgejo-17.0.0-linux-arm-6.xz",
+          "size": 32989660,
+          "download_count": 10,
+          "created_at": "2026-10-15T18:36:50+02:00",
+          "uuid": "649e3a95-485b-48cf-8b65-a2c4709c13dd",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz",
+          "type": "attachment"
+        },
+        {
+          "id": 2055214,
+          "name": "forgejo-17.0.0-linux-arm-6.xz.asc",
+          "size": 228,
+          "download_count": 4,
+          "created_at": "2026-10-15T18:36:50+02:00",
+          "uuid": "16305072-0082-4cd0-b1cf-f20240598135",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055217,
+          "name": "forgejo-17.0.0-linux-arm-6.xz.sha256",
+          "size": 96,
+          "download_count": 4,
+          "created_at": "2026-10-15T18:36:51+02:00",
+          "uuid": "95ee1180-8235-461c-baa2-612d5962927a",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055220,
+          "name": "forgejo-17.0.0-linux-arm64",
+          "size": 113760224,
+          "download_count": 99,
+          "created_at": "2026-10-15T18:36:54+02:00",
+          "uuid": "80e83549-9cbb-45e5-beb7-bccd0f1eedfc",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64",
+          "type": "attachment"
+        },
+        {
+          "id": 2055223,
+          "name": "forgejo-17.0.0-linux-arm64.asc",
+          "size": 228,
+          "download_count": 27,
+          "created_at": "2026-10-15T18:36:55+02:00",
+          "uuid": "b6a37998-799a-43ce-b58b-d9c962a40da2",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055226,
+          "name": "forgejo-17.0.0-linux-arm64.sha256",
+          "size": 93,
+          "download_count": 48,
+          "created_at": "2026-10-15T18:36:56+02:00",
+          "uuid": "cda8455b-3016-4a99-8fe8-b73c7bbf5ebd",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055229,
+          "name": "forgejo-17.0.0-linux-arm64.xz",
+          "size": 32450084,
+          "download_count": 58,
+          "created_at": "2026-10-15T18:36:57+02:00",
+          "uuid": "d4fcd838-b2e0-4a00-acc3-592ec926f24e",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz",
+          "type": "attachment"
+        },
+        {
+          "id": 2055232,
+          "name": "forgejo-17.0.0-linux-arm64.xz.asc",
+          "size": 228,
+          "download_count": 14,
+          "created_at": "2026-10-15T18:36:58+02:00",
+          "uuid": "95218538-c61f-4538-9b30-59fba7789f47",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055235,
+          "name": "forgejo-17.0.0-linux-arm64.xz.sha256",
+          "size": 96,
+          "download_count": 20,
+          "created_at": "2026-10-15T18:36:59+02:00",
+          "uuid": "bd3a6b88-3eb0-44d3-890f-c8e278c59e9e",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz.sha256",
+          "type": "attachment"
+        },
+        {
+          "id": 2055238,
+          "name": "forgejo-src-17.0.0.tar.gz",
+          "size": 53349098,
+          "download_count": 176,
+          "created_at": "2026-10-15T18:37:01+02:00",
+          "uuid": "a20ecdf2-d361-42ce-959b-bb327d0a20c6",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz",
+          "type": "attachment"
+        },
+        {
+          "id": 2055241,
+          "name": "forgejo-src-17.0.0.tar.gz.asc",
+          "size": 228,
+          "download_count": 19,
+          "created_at": "2026-10-15T18:37:02+02:00",
+          "uuid": "768ea4b8-d711-4c6c-8c97-239917f090b8",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz.asc",
+          "type": "attachment"
+        },
+        {
+          "id": 2055244,
+          "name": "forgejo-src-17.0.0.tar.gz.sha256",
+          "size": 92,
+          "download_count": 14,
+          "created_at": "2026-10-15T18:37:02+02:00",
+          "uuid": "47aea5a8-c42b-421f-957c-4ba7a294cfec",
+          "browser_download_url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz.sha256",
+          "type": "attachment"
+        }
+      ],
+      "archive_download_count": {
+        "zip": 9,
+        "tar_gz": 101
+      }
+    }
+  }
+}

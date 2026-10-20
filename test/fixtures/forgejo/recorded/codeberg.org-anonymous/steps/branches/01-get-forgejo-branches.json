@@ -7,15 +7,17 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1873;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "33"
     },
     "body": [
       {
-        "name": "renovate/forgejo-renovate",
+        "name": "renovate/forgejo-idiomorph-0.x",
         "commit": {
-          "id": "c259690430595fc45252e50f8e9fbd17d2fd60aa",
-          "message": "Update renovate Docker tag to v44.151.2\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/c259690430595fc45252e50f8e9fbd17d2fd60aa",
+          "id": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+          "message": "Update dependency idiomorph to v0.8.0\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -29,15 +31,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCasx90wAKCRCKxL7rWQD5\ndrHNAPsFSvBczJbgu1qUfX4hFrVFZ8meV+wYL4geoaTVfgDGtQD9HHhoK03LDNTK\nTcqqA68h1XWCO4h+OTNZzV5o3Clx1g8=\n=sRjT\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVt3wAKCRCKxL7rWQD5\ndl+9APdbdeh0S4ElwD96kw/M7HlFbcXPTT5ZZ7tds3QPABDxAQCdEEYomFRQDLNM\nZTusUuQf1MsqjA52djWwdKBhubCwAA==\n=VVeq\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree a365d3c7d7803047c679db2a4149916b328e863e\nparent 5e50d27f1e39e2bf0ff5bda2046ea1a5c0db7a3d\nauthor Renovate Bot <redacted@example.invalid> 1791786451 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1791786451 +0000\n\nUpdate renovate Docker tag to v44.151.2\n"
+            "payload": "tree 660407ea8ef5fd51bd6caa95dffc5e2b586c1a85\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372191 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372191 +0000\n\nUpdate dependency idiomorph to v0.8.0\n"
           },
-          "timestamp": "2026-10-12T06:27:31Z",
+          "timestamp": "2026-10-19T01:09:51Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -51,87 +53,81 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "v16.0/forgejo",
+        "name": "renovate/forgejo-renovate",
         "commit": {
-          "id": "1aa13944143b3bc4312607239a68da23512d5ce3",
-          "message": "[v16.0/forgejo] 2026-10-12 security patches (#14813)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14813\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/1aa13944143b3bc4312607239a68da23512d5ce3",
+          "id": "29bf51bb67b183078911a446fe0baaeccdf182c0",
+          "message": "Update renovate Docker tag to v44.167.5\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/29bf51bb67b183078911a446fe0baaeccdf182c0",
           "author": {
-            "name": "Michael Kriese",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "viceice"
+            "username": "viceice-bot"
           },
           "committer": {
-            "name": "Michael Kriese",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "viceice"
+            "username": "viceice-bot"
           },
           "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVtxAAKCRCKxL7rWQD5\ndiDRAP0S7YlydUCAaqmqbA4rm1QZcz9KfX+sSX9Bb3BGq2khZwD9HzhYuiCVwjgj\nCPTEDCsQnVB9v4E/06myZ/3Cg64Wegk=\n=xwmf\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree df4bad2583f2327ef47ac502f0e5ecc11e2b98d1\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372164 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372164 +0000\n\nUpdate renovate Docker tag to v44.167.5\n"
           },
-          "timestamp": "2026-10-12T08:24:42+02:00",
+          "timestamp": "2026-10-19T01:09:24Z",
           "added": null,
           "removed": null,
           "modified": null
         },
-        "protected": true,
-        "required_approvals": 1,
-        "enable_status_check": true,
-        "status_check_contexts": [
-          "testing / frontend-checks (pull_request)",
-          "testing / backend-checks (pull_request)",
-          "testing / test-unit (pull_request)",
-          "testing / test-pgsql (pull_request)",
-          "testing / test-sqlite (pull_request)",
-          "testing / test-mysql (pull_request)"
-        ],
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""
       },
       {
-        "name": "v15.0/forgejo",
+        "name": "renovate/forgejo-globals-17.x",
         "commit": {
-          "id": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
-          "message": "[v15.0/forgejo] 2026-10-12 security patches (#14814)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14814\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
+          "id": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+          "message": "Update dependency globals to v17.13.0\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/9964cef67d28cab0ad6714a2cf726be65d45a7a9",
           "author": {
-            "name": "Michael Kriese",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "viceice"
+            "username": "viceice-bot"
           },
           "committer": {
-            "name": "Michael Kriese",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "viceice"
+            "username": "viceice-bot"
           },
           "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
+            "verified": true,
+            "reason": "viceice-bot / 8AC4BEEB5900F976",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVgQgAKCRCKxL7rWQD5\ndjUDAQDEWurD9xoq/JDd2DF6TfeNYWXsoK1tNY+glQwOCljzxAD9EPv6gAX/srNC\nuvNv1m2KyZMF1FQMc7GW6IrBST1VNQ0=\n=YGja\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "viceice-bot",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree 79e37338577044c7729704c54258725962c8a742\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792368706 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792368706 +0000\n\nUpdate dependency globals to v17.13.0\n"
           },
-          "timestamp": "2026-10-12T08:23:41+02:00",
+          "timestamp": "2026-10-19T00:11:46Z",
           "added": null,
           "removed": null,
           "modified": null
         },
-        "protected": true,
-        "required_approvals": 1,
-        "enable_status_check": true,
-        "status_check_contexts": [
-          "testing / frontend-checks (pull_request)",
-          "testing / backend-checks (pull_request)",
-          "testing / test-unit (pull_request)",
-          "testing / test-pgsql (pull_request)",
-          "testing / test-sqlite (pull_request)",
-          "testing / test-mysql (pull_request)"
-        ],
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""

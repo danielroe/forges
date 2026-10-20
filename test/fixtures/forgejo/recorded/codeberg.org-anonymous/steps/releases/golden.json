@@ -10,12 +10,12 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "12250357",
-        "tag": "v16.0.5"
+        "id": "12930115",
+        "tag": "v17.0.0"
       },
-      "name": "v16.0.5",
-      "tag": "v16.0.5",
-      "body": "See https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.5.md",
+      "name": "v17.0.0",
+      "tag": "v17.0.0",
+      "body": "Attention: We currently advise against upgrading to Forgejo 17.0.0. An issue is currently being investigated that prevents pushing, merging, or other code operations in some cases.\r\n\r\nIf you haven't updated yet, please wait until the issue has been investigated more thoroughly, if possible.\r\n\r\n***\r\n\r\nSee https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/17.0.0.md",
       "isDraft": false,
       "isPrerelease": false,
       "author": {
@@ -29,9 +29,9 @@
         "url": "https://codeberg.org/release-team",
         "isBotHint": false
       },
-      "publishedAt": "2026-09-17T15:27:32.000Z",
-      "createdAt": "2026-09-17T15:27:32.000Z",
-      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v16.0.5",
+      "publishedAt": "2026-10-15T16:36:34.000Z",
+      "createdAt": "2026-10-15T16:36:34.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v17.0.0",
       "assets": [
         {
           "ref": {
@@ -52,15 +52,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250357",
-              "tag": "v16.0.5"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919482"
+            "id": "2055157"
           },
-          "name": "forgejo-16.0.5-linux-amd64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64",
-          "size": 122204040,
-          "downloadCount": 8798
+          "name": "forgejo-17.0.0-linux-amd64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64",
+          "size": 122053192,
+          "downloadCount": 1381
         },
         {
           "ref": {
@@ -81,15 +81,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250357",
-              "tag": "v16.0.5"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919485"
+            "id": "2055163"
           },
-          "name": "forgejo-16.0.5-linux-amd64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.asc",
+          "name": "forgejo-17.0.0-linux-amd64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.asc",
           "size": 228,
-          "downloadCount": 1357
+          "downloadCount": 204
         },
         {
           "ref": {
@@ -110,15 +110,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250357",
-              "tag": "v16.0.5"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919488"
+            "id": "2055166"
           },
-          "name": "forgejo-16.0.5-linux-amd64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.sha256",
+          "name": "forgejo-17.0.0-linux-amd64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.sha256",
           "size": 93,
-          "downloadCount": 10583
+          "downloadCount": 466
         },
         {
           "ref": {
@@ -139,15 +139,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250357",
-              "tag": "v16.0.5"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919491"
+            "id": "2055169"
           },
-          "name": "forgejo-16.0.5-linux-amd64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.xz",
-          "size": 37250840,
-          "downloadCount": 1564
+          "name": "forgejo-17.0.0-linux-amd64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz",
+          "size": 36243760,
+          "downloadCount": 287
         },
         {
           "ref": {
@@ -168,1092 +168,13 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250357",
-              "tag": "v16.0.5"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919494"
+            "id": "2055172"
           },
-          "name": "forgejo-16.0.5-linux-amd64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.xz.asc",
-          "size": 228,
-          "downloadCount": 138
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919497"
-          },
-          "name": "forgejo-16.0.5-linux-amd64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-amd64.xz.sha256",
-          "size": 96,
-          "downloadCount": 392
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919500"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6",
-          "size": 113422480,
-          "downloadCount": 23
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919503"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6.asc",
-          "size": 228,
-          "downloadCount": 10
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919506"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6.sha256",
-          "size": 93,
-          "downloadCount": 9
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919509"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6.xz",
-          "size": 33991076,
-          "downloadCount": 26
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919512"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6.xz.asc",
-          "size": 228,
-          "downloadCount": 11
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919515"
-          },
-          "name": "forgejo-16.0.5-linux-arm-6.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm-6.xz.sha256",
-          "size": 96,
-          "downloadCount": 12
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919518"
-          },
-          "name": "forgejo-16.0.5-linux-arm64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64",
-          "size": 113875936,
-          "downloadCount": 1293
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919521"
-          },
-          "name": "forgejo-16.0.5-linux-arm64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.asc",
-          "size": 228,
-          "downloadCount": 379
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919524"
-          },
-          "name": "forgejo-16.0.5-linux-arm64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.sha256",
-          "size": 93,
-          "downloadCount": 509
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919527"
-          },
-          "name": "forgejo-16.0.5-linux-arm64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.xz",
-          "size": 33461928,
-          "downloadCount": 290
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919530"
-          },
-          "name": "forgejo-16.0.5-linux-arm64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.xz.asc",
-          "size": 228,
-          "downloadCount": 48
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919536"
-          },
-          "name": "forgejo-16.0.5-linux-arm64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-16.0.5-linux-arm64.xz.sha256",
-          "size": 96,
-          "downloadCount": 117
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919545"
-          },
-          "name": "forgejo-src-16.0.5.tar.gz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz",
-          "size": 55640773,
-          "downloadCount": 718
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919551"
-          },
-          "name": "forgejo-src-16.0.5.tar.gz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.asc",
-          "size": 228,
-          "downloadCount": 29
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250357",
-              "tag": "v16.0.5"
-            },
-            "id": "1919554"
-          },
-          "name": "forgejo-src-16.0.5.tar.gz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.5/forgejo-src-16.0.5.tar.gz.sha256",
-          "size": 92,
-          "downloadCount": 102
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "12250330",
-        "tag": "v15.0.9"
-      },
-      "name": "v15.0.9",
-      "tag": "v15.0.9",
-      "body": "See https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/15.0.9.md",
-      "isDraft": false,
-      "isPrerelease": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "Forgejo Release Team",
-        "login": "release-team",
-        "id": "70541",
-        "avatarUrl": "https://codeberg.org/avatars/83623afe083e82955f79b2dfeea58bd9f34897fae0f6fd001bc282d3a40efc8b",
-        "url": "https://codeberg.org/release-team",
-        "isBotHint": false
-      },
-      "publishedAt": "2026-09-17T15:24:19.000Z",
-      "createdAt": "2026-09-17T15:24:19.000Z",
-      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v15.0.9",
-      "assets": [
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919419"
-          },
-          "name": "forgejo-15.0.9-linux-amd64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64",
-          "size": 116526600,
-          "downloadCount": 3408
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919422"
-          },
-          "name": "forgejo-15.0.9-linux-amd64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.asc",
-          "size": 228,
-          "downloadCount": 1247
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919425"
-          },
-          "name": "forgejo-15.0.9-linux-amd64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.sha256",
-          "size": 93,
-          "downloadCount": 1591
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919428"
-          },
-          "name": "forgejo-15.0.9-linux-amd64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.xz",
-          "size": 35567720,
-          "downloadCount": 327
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919431"
-          },
-          "name": "forgejo-15.0.9-linux-amd64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.xz.asc",
-          "size": 228,
-          "downloadCount": 126
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919434"
-          },
-          "name": "forgejo-15.0.9-linux-amd64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-amd64.xz.sha256",
-          "size": 96,
-          "downloadCount": 157
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919437"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6",
-          "size": 107893296,
-          "downloadCount": 45
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919440"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6.asc",
-          "size": 228,
-          "downloadCount": 38
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919443"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6.sha256",
-          "size": 93,
-          "downloadCount": 8
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919446"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6.xz",
-          "size": 32480260,
-          "downloadCount": 11
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919449"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6.xz.asc",
-          "size": 228,
-          "downloadCount": 8
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919452"
-          },
-          "name": "forgejo-15.0.9-linux-arm-6.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm-6.xz.sha256",
-          "size": 96,
-          "downloadCount": 8
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919455"
-          },
-          "name": "forgejo-15.0.9-linux-arm64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64",
-          "size": 108573856,
-          "downloadCount": 337
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919458"
-          },
-          "name": "forgejo-15.0.9-linux-arm64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64.asc",
-          "size": 228,
-          "downloadCount": 224
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919461"
-          },
-          "name": "forgejo-15.0.9-linux-arm64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64.sha256",
-          "size": 93,
-          "downloadCount": 154
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919464"
-          },
-          "name": "forgejo-15.0.9-linux-arm64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64.xz",
-          "size": 31978768,
-          "downloadCount": 36
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919467"
-          },
-          "name": "forgejo-15.0.9-linux-arm64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64.xz.asc",
-          "size": 228,
-          "downloadCount": 29
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919470"
-          },
-          "name": "forgejo-15.0.9-linux-arm64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-15.0.9-linux-arm64.xz.sha256",
-          "size": 96,
-          "downloadCount": 23
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919473"
-          },
-          "name": "forgejo-src-15.0.9.tar.gz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-src-15.0.9.tar.gz",
-          "size": 53360870,
-          "downloadCount": 178
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12250330",
-              "tag": "v15.0.9"
-            },
-            "id": "1919476"
-          },
-          "name": "forgejo-src-15.0.9.tar.gz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-src-15.0.9.tar.gz.asc",
+          "name": "forgejo-17.0.0-linux-amd64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz.asc",
           "size": 228,
           "downloadCount": 30
         },
@@ -1276,79 +197,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12250330",
-              "tag": "v15.0.9"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1919479"
+            "id": "2055175"
           },
-          "name": "forgejo-src-15.0.9.tar.gz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.9/forgejo-src-15.0.9.tar.gz.sha256",
-          "size": 92,
-          "downloadCount": 42
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "12121033",
-        "tag": "v16.0.4"
-      },
-      "name": "v16.0.4",
-      "tag": "v16.0.4",
-      "body": "See https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.4.md",
-      "isDraft": false,
-      "isPrerelease": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "Forgejo Release Team",
-        "login": "release-team",
-        "id": "70541",
-        "avatarUrl": "https://codeberg.org/avatars/83623afe083e82955f79b2dfeea58bd9f34897fae0f6fd001bc282d3a40efc8b",
-        "url": "https://codeberg.org/release-team",
-        "isBotHint": false
-      },
-      "publishedAt": "2026-09-10T12:30:47.000Z",
-      "createdAt": "2026-09-10T12:30:47.000Z",
-      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v16.0.4",
-      "assets": [
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896274"
-          },
-          "name": "forgejo-16.0.4-linux-amd64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64",
-          "size": 122188392,
-          "downloadCount": 3272
+          "name": "forgejo-17.0.0-linux-amd64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-amd64.xz.sha256",
+          "size": 96,
+          "downloadCount": 56
         },
         {
           "ref": {
@@ -1369,15 +226,44 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896277"
+            "id": "2055199"
           },
-          "name": "forgejo-16.0.4-linux-amd64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64.asc",
+          "name": "forgejo-17.0.0-linux-arm-6",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6",
+          "size": 113161440,
+          "downloadCount": 16
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055205"
+          },
+          "name": "forgejo-17.0.0-linux-arm-6.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.asc",
           "size": 228,
-          "downloadCount": 515
+          "downloadCount": 5
         },
         {
           "ref": {
@@ -1398,15 +284,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896280"
+            "id": "2055208"
           },
-          "name": "forgejo-16.0.4-linux-amd64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64.sha256",
+          "name": "forgejo-17.0.0-linux-arm-6.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.sha256",
           "size": 93,
-          "downloadCount": 1825
+          "downloadCount": 5
         },
         {
           "ref": {
@@ -1427,15 +313,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896283"
+            "id": "2055211"
           },
-          "name": "forgejo-16.0.4-linux-amd64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64.xz",
-          "size": 37252044,
-          "downloadCount": 700
+          "name": "forgejo-17.0.0-linux-arm-6.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz",
+          "size": 32989660,
+          "downloadCount": 10
         },
         {
           "ref": {
@@ -1456,14 +342,159 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896286"
+            "id": "2055214"
           },
-          "name": "forgejo-16.0.4-linux-amd64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64.xz.asc",
+          "name": "forgejo-17.0.0-linux-arm-6.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz.asc",
           "size": 228,
+          "downloadCount": 4
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055217"
+          },
+          "name": "forgejo-17.0.0-linux-arm-6.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm-6.xz.sha256",
+          "size": 96,
+          "downloadCount": 4
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055220"
+          },
+          "name": "forgejo-17.0.0-linux-arm64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64",
+          "size": 113760224,
+          "downloadCount": 99
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055223"
+          },
+          "name": "forgejo-17.0.0-linux-arm64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.asc",
+          "size": 228,
+          "downloadCount": 27
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055226"
+          },
+          "name": "forgejo-17.0.0-linux-arm64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.sha256",
+          "size": 93,
+          "downloadCount": 48
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055229"
+          },
+          "name": "forgejo-17.0.0-linux-arm64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz",
+          "size": 32450084,
           "downloadCount": 58
         },
         {
@@ -1485,73 +516,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896289"
+            "id": "2055232"
           },
-          "name": "forgejo-16.0.4-linux-amd64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-amd64.xz.sha256",
-          "size": 96,
-          "downloadCount": 104
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896292"
-          },
-          "name": "forgejo-16.0.4-linux-arm-6",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6",
-          "size": 113407616,
-          "downloadCount": 21
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896295"
-          },
-          "name": "forgejo-16.0.4-linux-arm-6.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6.asc",
+          "name": "forgejo-17.0.0-linux-arm64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz.asc",
           "size": 228,
-          "downloadCount": 7
+          "downloadCount": 14
         },
         {
           "ref": {
@@ -1572,14 +545,983 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12930115",
+              "tag": "v17.0.0"
             },
-            "id": "1896298"
+            "id": "2055235"
           },
-          "name": "forgejo-16.0.4-linux-arm-6.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6.sha256",
+          "name": "forgejo-17.0.0-linux-arm64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-17.0.0-linux-arm64.xz.sha256",
+          "size": 96,
+          "downloadCount": 20
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055238"
+          },
+          "name": "forgejo-src-17.0.0.tar.gz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz",
+          "size": 53349098,
+          "downloadCount": 176
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055241"
+          },
+          "name": "forgejo-src-17.0.0.tar.gz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz.asc",
+          "size": 228,
+          "downloadCount": 19
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12930115",
+              "tag": "v17.0.0"
+            },
+            "id": "2055244"
+          },
+          "name": "forgejo-src-17.0.0.tar.gz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v17.0.0/forgejo-src-17.0.0.tar.gz.sha256",
+          "size": 92,
+          "downloadCount": 15
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "12861513",
+        "tag": "v16.0.6"
+      },
+      "name": "v16.0.6",
+      "tag": "v16.0.6",
+      "body": "See https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/16.0.6.md",
+      "isDraft": false,
+      "isPrerelease": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "Forgejo Release Team",
+        "login": "release-team",
+        "id": "70541",
+        "avatarUrl": "https://codeberg.org/avatars/83623afe083e82955f79b2dfeea58bd9f34897fae0f6fd001bc282d3a40efc8b",
+        "url": "https://codeberg.org/release-team",
+        "isBotHint": false
+      },
+      "publishedAt": "2026-10-12T13:18:55.000Z",
+      "createdAt": "2026-10-12T13:18:55.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v16.0.6",
+      "assets": [
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032890"
+          },
+          "name": "forgejo-16.0.6-linux-amd64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64",
+          "size": 122286760,
+          "downloadCount": 2069
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032893"
+          },
+          "name": "forgejo-16.0.6-linux-amd64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64.asc",
+          "size": 228,
+          "downloadCount": 469
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032896"
+          },
+          "name": "forgejo-16.0.6-linux-amd64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64.sha256",
           "size": 93,
+          "downloadCount": 1899
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032899"
+          },
+          "name": "forgejo-16.0.6-linux-amd64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64.xz",
+          "size": 37305152,
+          "downloadCount": 466
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032902"
+          },
+          "name": "forgejo-16.0.6-linux-amd64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64.xz.asc",
+          "size": 228,
+          "downloadCount": 46
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032905"
+          },
+          "name": "forgejo-16.0.6-linux-amd64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-amd64.xz.sha256",
+          "size": 96,
+          "downloadCount": 181
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032908"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6",
+          "size": 113510112,
+          "downloadCount": 10
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032911"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6.asc",
+          "size": 228,
+          "downloadCount": 3
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032914"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6.sha256",
+          "size": 93,
+          "downloadCount": 3
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032917"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6.xz",
+          "size": 34054256,
+          "downloadCount": 16
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032920"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6.xz.asc",
+          "size": 228,
+          "downloadCount": 3
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032923"
+          },
+          "name": "forgejo-16.0.6-linux-arm-6.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm-6.xz.sha256",
+          "size": 96,
+          "downloadCount": 3
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032929"
+          },
+          "name": "forgejo-16.0.6-linux-arm64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64",
+          "size": 113956896,
+          "downloadCount": 252
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032932"
+          },
+          "name": "forgejo-16.0.6-linux-arm64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64.asc",
+          "size": 228,
+          "downloadCount": 95
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032935"
+          },
+          "name": "forgejo-16.0.6-linux-arm64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64.sha256",
+          "size": 93,
+          "downloadCount": 82
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032938"
+          },
+          "name": "forgejo-16.0.6-linux-arm64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64.xz",
+          "size": 33538424,
+          "downloadCount": 77
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032941"
+          },
+          "name": "forgejo-16.0.6-linux-arm64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64.xz.asc",
+          "size": 228,
+          "downloadCount": 13
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032944"
+          },
+          "name": "forgejo-16.0.6-linux-arm64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-16.0.6-linux-arm64.xz.sha256",
+          "size": 96,
+          "downloadCount": 22
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032947"
+          },
+          "name": "forgejo-src-16.0.6.tar.gz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-src-16.0.6.tar.gz",
+          "size": 55774994,
+          "downloadCount": 305
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032950"
+          },
+          "name": "forgejo-src-16.0.6.tar.gz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-src-16.0.6.tar.gz.asc",
+          "size": 228,
+          "downloadCount": 25
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861513",
+              "tag": "v16.0.6"
+            },
+            "id": "2032953"
+          },
+          "name": "forgejo-src-16.0.6.tar.gz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.6/forgejo-src-16.0.6.tar.gz.sha256",
+          "size": 92,
+          "downloadCount": 26
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "12861477",
+        "tag": "v15.0.10"
+      },
+      "name": "v15.0.10",
+      "tag": "v15.0.10",
+      "body": "See https://codeberg.org/forgejo/forgejo/src/branch/forgejo/release-notes-published/15.0.10.md",
+      "isDraft": false,
+      "isPrerelease": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "Forgejo Release Team",
+        "login": "release-team",
+        "id": "70541",
+        "avatarUrl": "https://codeberg.org/avatars/83623afe083e82955f79b2dfeea58bd9f34897fae0f6fd001bc282d3a40efc8b",
+        "url": "https://codeberg.org/release-team",
+        "isBotHint": false
+      },
+      "publishedAt": "2026-10-12T13:16:02.000Z",
+      "createdAt": "2026-10-12T13:16:02.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/releases/tag/v15.0.10",
+      "assets": [
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032803"
+          },
+          "name": "forgejo-15.0.10-linux-amd64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64",
+          "size": 116555752,
+          "downloadCount": 1128
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032806"
+          },
+          "name": "forgejo-15.0.10-linux-amd64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64.asc",
+          "size": 228,
+          "downloadCount": 591
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032809"
+          },
+          "name": "forgejo-15.0.10-linux-amd64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64.sha256",
+          "size": 94,
+          "downloadCount": 881
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032812"
+          },
+          "name": "forgejo-15.0.10-linux-amd64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64.xz",
+          "size": 35583756,
+          "downloadCount": 267
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032815"
+          },
+          "name": "forgejo-15.0.10-linux-amd64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64.xz.asc",
+          "size": 228,
+          "downloadCount": 136
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032818"
+          },
+          "name": "forgejo-15.0.10-linux-amd64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-amd64.xz.sha256",
+          "size": 97,
+          "downloadCount": 81
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032821"
+          },
+          "name": "forgejo-15.0.10-linux-arm-6",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6",
+          "size": 107924608,
           "downloadCount": 8
         },
         {
@@ -1601,44 +1543,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12861477",
+              "tag": "v15.0.10"
             },
-            "id": "1896301"
+            "id": "2032824"
           },
-          "name": "forgejo-16.0.4-linux-arm-6.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6.xz",
-          "size": 33983688,
-          "downloadCount": 16
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896304"
-          },
-          "name": "forgejo-16.0.4-linux-arm-6.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6.xz.asc",
+          "name": "forgejo-15.0.10-linux-arm-6.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6.asc",
           "size": 228,
-          "downloadCount": 9
+          "downloadCount": 4
         },
         {
           "ref": {
@@ -1659,14 +1572,246 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12861477",
+              "tag": "v15.0.10"
             },
-            "id": "1896307"
+            "id": "2032827"
           },
-          "name": "forgejo-16.0.4-linux-arm-6.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm-6.xz.sha256",
-          "size": 96,
+          "name": "forgejo-15.0.10-linux-arm-6.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6.sha256",
+          "size": 94,
+          "downloadCount": 8
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032833"
+          },
+          "name": "forgejo-15.0.10-linux-arm-6.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6.xz",
+          "size": 32495632,
+          "downloadCount": 5
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032836"
+          },
+          "name": "forgejo-15.0.10-linux-arm-6.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6.xz.asc",
+          "size": 228,
+          "downloadCount": 3
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032839"
+          },
+          "name": "forgejo-15.0.10-linux-arm-6.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm-6.xz.sha256",
+          "size": 97,
+          "downloadCount": 4
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032842"
+          },
+          "name": "forgejo-15.0.10-linux-arm64",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64",
+          "size": 108601696,
+          "downloadCount": 268
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032845"
+          },
+          "name": "forgejo-15.0.10-linux-arm64.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64.asc",
+          "size": 228,
+          "downloadCount": 44
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032848"
+          },
+          "name": "forgejo-15.0.10-linux-arm64.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64.sha256",
+          "size": 94,
+          "downloadCount": 256
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032851"
+          },
+          "name": "forgejo-15.0.10-linux-arm64.xz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64.xz",
+          "size": 31987428,
+          "downloadCount": 20
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032854"
+          },
+          "name": "forgejo-15.0.10-linux-arm64.xz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64.xz.asc",
+          "size": 228,
           "downloadCount": 7
         },
         {
@@ -1688,15 +1833,15 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12861477",
+              "tag": "v15.0.10"
             },
-            "id": "1896310"
+            "id": "2032857"
           },
-          "name": "forgejo-16.0.4-linux-arm64",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64",
-          "size": 113862304,
-          "downloadCount": 281
+          "name": "forgejo-15.0.10-linux-arm64.xz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-15.0.10-linux-arm64.xz.sha256",
+          "size": 97,
+          "downloadCount": 10
         },
         {
           "ref": {
@@ -1717,15 +1862,44 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12861477",
+              "tag": "v15.0.10"
             },
-            "id": "1896313"
+            "id": "2032863"
           },
-          "name": "forgejo-16.0.4-linux-arm64.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64.asc",
+          "name": "forgejo-src-15.0.10.tar.gz",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-src-15.0.10.tar.gz",
+          "size": 53384735,
+          "downloadCount": 106
+        },
+        {
+          "ref": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo"
+            },
+            "release": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "repo": {
+                "forge": "forgejo",
+                "instance": "codeberg.org",
+                "owner": "forgejo",
+                "name": "forgejo"
+              },
+              "id": "12861477",
+              "tag": "v15.0.10"
+            },
+            "id": "2032866"
+          },
+          "name": "forgejo-src-15.0.10.tar.gz.asc",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-src-15.0.10.tar.gz.asc",
           "size": 228,
-          "downloadCount": 138
+          "downloadCount": 26
         },
         {
           "ref": {
@@ -1746,195 +1920,27 @@
                 "owner": "forgejo",
                 "name": "forgejo"
               },
-              "id": "12121033",
-              "tag": "v16.0.4"
+              "id": "12861477",
+              "tag": "v15.0.10"
             },
-            "id": "1896316"
+            "id": "2032869"
           },
-          "name": "forgejo-16.0.4-linux-arm64.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64.sha256",
+          "name": "forgejo-src-15.0.10.tar.gz.sha256",
+          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v15.0.10/forgejo-src-15.0.10.tar.gz.sha256",
           "size": 93,
-          "downloadCount": 162
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896319"
-          },
-          "name": "forgejo-16.0.4-linux-arm64.xz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64.xz",
-          "size": 33455364,
-          "downloadCount": 128
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896322"
-          },
-          "name": "forgejo-16.0.4-linux-arm64.xz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64.xz.asc",
-          "size": 228,
-          "downloadCount": 16
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896325"
-          },
-          "name": "forgejo-16.0.4-linux-arm64.xz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-16.0.4-linux-arm64.xz.sha256",
-          "size": 96,
-          "downloadCount": 42
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896328"
-          },
-          "name": "forgejo-src-16.0.4.tar.gz",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-src-16.0.4.tar.gz",
-          "size": 55635327,
-          "downloadCount": 385
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896331"
-          },
-          "name": "forgejo-src-16.0.4.tar.gz.asc",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-src-16.0.4.tar.gz.asc",
-          "size": 228,
-          "downloadCount": 22
-        },
-        {
-          "ref": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forgejo",
-              "name": "forgejo"
-            },
-            "release": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "repo": {
-                "forge": "forgejo",
-                "instance": "codeberg.org",
-                "owner": "forgejo",
-                "name": "forgejo"
-              },
-              "id": "12121033",
-              "tag": "v16.0.4"
-            },
-            "id": "1896334"
-          },
-          "name": "forgejo-src-16.0.4.tar.gz.sha256",
-          "url": "https://codeberg.org/forgejo/forgejo/releases/download/v16.0.4/forgejo-src-16.0.4.tar.gz.sha256",
-          "size": 92,
-          "downloadCount": 22
+          "downloadCount": 28
         }
       ]
     }
   ],
-  "total": 119,
+  "total": 122,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases?limit=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1865,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

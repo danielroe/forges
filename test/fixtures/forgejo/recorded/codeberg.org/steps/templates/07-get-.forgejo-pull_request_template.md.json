@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/pull_request_template.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1987;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "name": "pull_request_template.md",
+      "path": ".forgejo/pull_request_template.md",
+      "sha": "98d36a461c899ef1190d943be7495dd9348ff3ca",
+      "last_commit_sha": "50e5ad143bcb409afee1f0f0a5454f35d4f44e5a",
+      "last_commit_when": "2026-08-09T16:34:28+02:00",
+      "type": "file",
+      "size": 2512,
+      "encoding": "base64",
+      "content": "LS0tCgpuYW1lOiAiUHVsbCBSZXF1ZXN0IFRlbXBsYXRlIgphYm91dDogIlRlbXBsYXRlIGZvciBhbGwgUHVsbCBSZXF1ZXN0cyIKbGFiZWxzOgoKLSB0ZXN0L25lZWRlZAoKLS0tCgojIyBDaGVja2xpc3QKClRoZSBbY29udHJpYnV0b3IgZ3VpZGVdKGh0dHBzOi8vZm9yZ2Vqby5vcmcvZG9jcy9uZXh0L2NvbnRyaWJ1dG9yLykgY29udGFpbnMgaW5mb3JtYXRpb24gdGhhdCB3aWxsIGJlIGhlbHBmdWwgdG8gZmlyc3QgdGltZSBjb250cmlidXRvcnMuIEFsbCB3b3JrIGFuZCBjb21tdW5pY2F0aW9uIG11c3QgY29uZm9ybSB0byBGb3JnZWpvJ3MgW0FJIEFncmVlbWVudF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9nb3Zlcm5hbmNlL3NyYy9icmFuY2gvbWFpbi9BSUFncmVlbWVudC5tZCkuIFRoZXJlIGFsc28gYXJlIGEgZmV3IFtjb25kaXRpb25zIGZvciBtZXJnaW5nIFB1bGwgUmVxdWVzdHMgaW4gRm9yZ2VqbyByZXBvc2l0b3JpZXNdKGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZ292ZXJuYW5jZS9zcmMvYnJhbmNoL21haW4vUHVsbFJlcXVlc3RzQWdyZWVtZW50Lm1kKS4gWW91IGFyZSBhbHNvIHdlbGNvbWUgdG8gam9pbiB0aGUgW0Zvcmdlam8gZGV2ZWxvcG1lbnQgY2hhdHJvb21dKGh0dHBzOi8vbWF0cml4LnRvLyMvI2Zvcmdlam8tZGV2ZWxvcG1lbnQ6bWF0cml4Lm9yZykuCgojIyMgQ29tcGxpYW5jZQoKLSBbIF0gSSBjb25maXJtIHRoYXQgSSBtYWtlIHRoaXMgY29udHJpYnV0aW9uIGluIGFjY29yZGFuY2Ugd2l0aCBbRm9yZ2VqbydzIEFJIEFncmVlbWVudF0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9nb3Zlcm5hbmNlL3NyYy9jb21taXQvOTA4NDcyMGRjNmE3ZmJmMWQzZjM1ODkxOWQ0NmJkNmFkZmI1NTI4Ny9BSUFncmVlbWVudC5tZCkuCgojIyMgVGVzdHMgZm9yIEdvIGNoYW5nZXMKCihjYW4gYmUgcmVtb3ZlZCBmb3IgSmF2YVNjcmlwdCBjaGFuZ2VzKQoKLSBJIGFkZGVkIHRlc3QgY292ZXJhZ2UgZm9yIEdvIGNoYW5nZXMuLi4KICAtIFsgXSBpbiB0aGVpciByZXNwZWN0aXZlIGAqX3Rlc3QuZ29gIGZvciB1bml0IHRlc3RzLgogIC0gWyBdIGluIHRoZSBgdGVzdHMvaW50ZWdyYXRpb25gIGRpcmVjdG9yeSBpZiBpdCBpbnZvbHZlcyBpbnRlcmFjdGlvbnMgd2l0aCBhIGxpdmUgRm9yZ2VqbyBzZXJ2ZXIuCi0gSSByYW4uLi4KICAtIFsgXSBgbWFrZSBwci1nb2AgYmVmb3JlIHB1c2hpbmcKCiMjIyBUZXN0cyBmb3IgSmF2YVNjcmlwdCBjaGFuZ2VzCgooY2FuIGJlIHJlbW92ZWQgZm9yIEdvIGNoYW5nZXMpCgotIEkgYWRkZWQgdGVzdCBjb3ZlcmFnZSBmb3IgSmF2YVNjcmlwdCBjaGFuZ2VzLi4uCiAgLSBbIF0gaW4gYHdlYl9zcmMvanMvKi50ZXN0LmpzYCBpZiBpdCBjYW4gYmUgdW5pdCB0ZXN0ZWQuCiAgLSBbIF0gaW4gYHRlc3RzL2UyZS8qLnRlc3QuZTJlLmpzYCBpZiBpdCByZXF1aXJlcyBpbnRlcmFjdGlvbnMgd2l0aCBhIGxpdmUgRm9yZ2VqbyBzZXJ2ZXIgKHNlZSBhbHNvIHRoZSBbZGV2ZWxvcGVyIGd1aWRlIGZvciBKYXZhU2NyaXB0IHRlc3RpbmddKGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZm9yZ2Vqby9zcmMvYnJhbmNoL2Zvcmdlam8vdGVzdHMvZTJlL1JFQURNRS5tZCNlbmQtdG8tZW5kLXRlc3RzKSkuCgojIyMgRG9jdW1lbnRhdGlvbgoKLSBbIF0gSSBjcmVhdGVkIGEgcHVsbCByZXF1ZXN0IFt0byB0aGUgZG9jdW1lbnRhdGlvbl0oaHR0cHM6Ly9jb2RlYmVyZy5vcmcvZm9yZ2Vqby9kb2NzKSB0byBleHBsYWluIHRvIEZvcmdlam8gdXNlcnMgaG93IHRvIHVzZSB0aGlzIGNoYW5nZS4KLSBbIF0gSSBkaWQgbm90IGRvY3VtZW50IHRoZXNlIGNoYW5nZXMgYW5kIEkgZG8gbm90IGV4cGVjdCBzb21lb25lIGVsc2UgdG8gZG8gaXQuCgojIyMgUmVsZWFzZSBub3RlcwoKLSBbIF0gVGhpcyBjaGFuZ2Ugd2lsbCBiZSBub3RpY2VkIGJ5IGEgRm9yZ2VqbyB1c2VyIG9yIGFkbWluIChmZWF0dXJlLCBidWcgZml4LCBwZXJmb3JtYW5jZSwgZXRjLikuIEkgc3VnZ2VzdCB0byBpbmNsdWRlIGEgcmVsZWFzZSBub3RlIGZvciB0aGlzIGNoYW5nZS4KLSBbIF0gVGhpcyBjaGFuZ2UgaXMgbm90IHZpc2libGUgdG8gYSBGb3JnZWpvIHVzZXIgb3IgYWRtaW4gKHJlZmFjdG9yLCBkZXBlbmRlbmN5IHVwZ3JhZGUsIGV0Yy4pLiBJIHRoaW5rIHRoZXJlIGlzIG5vIG5lZWQgdG8gYWRkIGEgcmVsZWFzZSBub3RlIGZvciB0aGlzIGNoYW5nZS4KCipUaGUgZGVjaXNpb24gaWYgdGhlIHB1bGwgcmVxdWVzdCB3aWxsIGJlIHNob3duIGluIHRoZSByZWxlYXNlIG5vdGVzIGlzIHVwIHRvIHRoZSBtZXJnZXJzIC8gcmVsZWFzZSB0ZWFtLioKClRoZSBjb250ZW50IG9mIHRoZSBgcmVsZWFzZS1ub3Rlcy88cHVsbCByZXF1ZXN0IG51bWJlcj4ubWRgIGZpbGUgd2lsbCBzZXJ2ZSBhcyB0aGUgYmFzaXMgZm9yIHRoZSByZWxlYXNlIG5vdGVzLiBJZiB0aGUgZmlsZSBkb2VzIG5vdCBleGlzdCwgdGhlIHRpdGxlIG9mIHRoZSBwdWxsIHJlcXVlc3Qgd2lsbCBiZSB1c2VkIGluc3RlYWQuCg==",
+      "target": null,
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/pull_request_template.md?ref=forgejo",
+      "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/pull_request_template.md",
+      "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/98d36a461c899ef1190d943be7495dd9348ff3ca",
+      "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/pull_request_template.md",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/pull_request_template.md?ref=forgejo",
+        "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/98d36a461c899ef1190d943be7495dd9348ff3ca",
+        "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/pull_request_template.md"
+      }
+    }
+  }
+}

@@ -6,11 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "37"
+      "ratelimit": "\"baseline\";r=1947;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
+      "x-total-count": "91"
     },
     "body": [
       {
-        "id": 19648392,
+        "id": 19950688,
         "repository": {
           "id": 2702328,
           "owner": {
@@ -40,7 +42,7 @@
           "template": false,
           "parent": null,
           "mirror": false,
-          "size": 49,
+          "size": 119,
           "language": "",
           "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -59,7 +61,7 @@
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T13:40:47+02:00",
-          "updated_at": "2026-10-12T13:38:40+02:00",
+          "updated_at": "2026-10-17T17:23:57+02:00",
           "archived_at": "1970-01-01T01:00:00+01:00",
           "has_issues": true,
           "internal_tracker": {
@@ -98,21 +100,21 @@
           "topics": []
         },
         "subject": {
-          "title": "forges fixture 20261012113646: issue, edited",
-          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/31",
-          "latest_comment_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/comments/25158678",
-          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/31",
-          "latest_comment_html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/31#issuecomment-25158678",
+          "title": "forges fixture 20261017151708: issue, edited",
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/89",
+          "latest_comment_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/comments/25515535",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/89",
+          "latest_comment_html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/89#issuecomment-25515535",
           "type": "Issue",
           "state": "closed"
         },
         "unread": true,
         "pinned": false,
-        "updated_at": "2026-10-12T13:38:35+02:00",
-        "url": "https://codeberg.org/api/v1/notifications/threads/19648392"
+        "updated_at": "2026-10-17T17:23:56+02:00",
+        "url": "https://codeberg.org/api/v1/notifications/threads/19950688"
       },
       {
-        "id": 19648395,
+        "id": 19950694,
         "repository": {
           "id": 2702328,
           "owner": {
@@ -142,7 +144,7 @@
           "template": false,
           "parent": null,
           "mirror": false,
-          "size": 49,
+          "size": 119,
           "language": "",
           "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -161,7 +163,7 @@
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T13:40:47+02:00",
-          "updated_at": "2026-10-12T13:38:40+02:00",
+          "updated_at": "2026-10-17T17:23:57+02:00",
           "archived_at": "1970-01-01T01:00:00+01:00",
           "has_issues": true,
           "internal_tracker": {
@@ -200,21 +202,21 @@
           "topics": []
         },
         "subject": {
-          "title": "forges fixture 20261012113646: labelled issue s2-v8yaFqjbILt3YHl-KHr4gw-5NxHhEL0A40vn4fWik-GPXRO5Sjtgnk3I22eby",
-          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/32",
+          "title": "forges fixture 20261017151708: labelled issue ZL2yEuLoMhaOiy456SFy0pOufQnOfEBZs1O04gtkVDxycsV8jY3wp_3SBtj8H6YQ",
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/90",
           "latest_comment_url": "",
-          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/32",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/90",
           "latest_comment_html_url": "",
           "type": "Issue",
           "state": "closed"
         },
         "unread": true,
         "pinned": false,
-        "updated_at": "2026-10-12T13:38:34+02:00",
-        "url": "https://codeberg.org/api/v1/notifications/threads/19648395"
+        "updated_at": "2026-10-17T17:23:56+02:00",
+        "url": "https://codeberg.org/api/v1/notifications/threads/19950694"
       },
       {
-        "id": 19648398,
+        "id": 19950697,
         "repository": {
           "id": 2702328,
           "owner": {
@@ -244,7 +246,7 @@
           "template": false,
           "parent": null,
           "mirror": false,
-          "size": 49,
+          "size": 119,
           "language": "",
           "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
           "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -263,7 +265,7 @@
           "default_branch": "main",
           "archived": false,
           "created_at": "2026-10-09T13:40:47+02:00",
-          "updated_at": "2026-10-12T13:38:40+02:00",
+          "updated_at": "2026-10-17T17:23:57+02:00",
           "archived_at": "1970-01-01T01:00:00+01:00",
           "has_issues": true,
           "internal_tracker": {
@@ -302,18 +304,18 @@
           "topics": []
         },
         "subject": {
-          "title": "forges fixture 20261012113646: duplicate _vFHYLhcythVikYIN9m_EDVCc1HzJQKHOvb3cSgZ_EDDBxQ4t-EX6JmZYx6UV90f",
-          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/33",
+          "title": "forges fixture 20261017151708: duplicate NJ4uzJJxvDnMLAcBZOiVsWQLMzGY7O1awWvP5XOFLpaSExq9oUF6M4Yn7DNl12dK",
+          "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/91",
           "latest_comment_url": "",
-          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/33",
+          "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/issues/91",
           "latest_comment_html_url": "",
           "type": "Issue",
           "state": "closed"
         },
         "unread": true,
         "pinned": false,
-        "updated_at": "2026-10-12T13:38:34+02:00",
-        "url": "https://codeberg.org/api/v1/notifications/threads/19648398"
+        "updated_at": "2026-10-17T17:23:56+02:00",
+        "url": "https://codeberg.org/api/v1/notifications/threads/19950697"
       }
     ]
   }

@@ -689,5 +689,11 @@
       "source": "poll",
       "action": "other"
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1961,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

@@ -6,6 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
+      "ratelimit": "\"baseline\";r=1985;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "1"
     },
     "body": [
@@ -19,14 +21,14 @@
         "units": [
           "repo.packages",
           "repo.actions",
-          "repo.ext_issues",
-          "repo.releases",
-          "repo.projects",
           "repo.code",
           "repo.issues",
           "repo.pulls",
+          "repo.releases",
           "repo.wiki",
-          "repo.ext_wiki"
+          "repo.ext_issues",
+          "repo.ext_wiki",
+          "repo.projects"
         ],
         "units_map": {
           "repo.actions": "owner",

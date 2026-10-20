@@ -28,5 +28,11 @@
       "message": "forgejo truncated the tree; read it directory by directory instead",
       "subject": "HEAD"
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1940,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

@@ -691,15 +691,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "jpacknv",
-      "id": "425735",
-      "avatarUrl": "https://codeberg.org/avatars/b155ac2faff6bfacf6c2f1fc664c633f",
-      "url": "https://codeberg.org/jpacknv",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "kake26",
       "id": "28118",
       "avatarUrl": "https://codeberg.org/avatars/2ebac897c6ace12dc62e85ed41f58f2e",
@@ -1494,5 +1485,11 @@
       "url": "https://codeberg.org/ynb925",
       "isBotHint": false
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1968,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

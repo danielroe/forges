@@ -5,7 +5,10 @@
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1968;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": [
       {
         "id": 35856,
@@ -470,7 +473,7 @@
         "pronouns": "she/her",
         "website": "https://hachyderm.io/@crystal",
         "description": "[🔗 nyxal.net](https://www.nyxal.net/)\r\n<br>\r\n[:forgejo:&nbsp; code.forgejo.org/crystal](https://code.forgejo.org/crystal)",
-        "followers_count": 51,
+        "followers_count": 52,
         "following_count": 12,
         "starred_repos_count": 18,
         "username": "crystal"
@@ -506,7 +509,7 @@
         "pronouns": "",
         "website": "https://cyborus.xyz/",
         "description": "",
-        "followers_count": 18,
+        "followers_count": 19,
         "following_count": 19,
         "starred_repos_count": 25,
         "username": "Cyborus"
@@ -814,7 +817,7 @@
         "description": "Load: 5.6\r\n\r\nI am working on:\r\n\r\n- Codeberg (executive board)\r\n- [Forgejo](/forgejo)\r\n- [events](/eventbike) (promoting FLOSS)\r\n\r\nMatrix: @otto_richter:matrix.tu-berlin.de  \r\nXMPP: fnetx@anoxinon.me",
         "followers_count": 169,
         "following_count": 17,
-        "starred_repos_count": 163,
+        "starred_repos_count": 162,
         "username": "fnetX"
       },
       {
@@ -1192,7 +1195,7 @@
         "description": "",
         "followers_count": 0,
         "following_count": 13,
-        "starred_repos_count": 5,
+        "starred_repos_count": 6,
         "username": "hrushw"
       },
       {
@@ -1320,24 +1323,6 @@
         "following_count": 0,
         "starred_repos_count": 7,
         "username": "jerger"
-      },
-      {
-        "id": 425735,
-        "login": "jpacknv",
-        "source_id": 0,
-        "full_name": "",
-        "email": "redacted@example.invalid",
-        "avatar_url": "https://codeberg.org/avatars/b155ac2faff6bfacf6c2f1fc664c633f",
-        "html_url": "https://codeberg.org/jpacknv",
-        "active": false,
-        "location": "",
-        "pronouns": "",
-        "website": "",
-        "description": "",
-        "followers_count": 0,
-        "following_count": 0,
-        "starred_repos_count": 0,
-        "username": "jpacknv"
       },
       {
         "id": 28118,
@@ -1551,8 +1536,8 @@
         "website": "https://lime360.nekoweb.org/",
         "description": "",
         "followers_count": 18,
-        "following_count": 242,
-        "starred_repos_count": 479,
+        "following_count": 241,
+        "starred_repos_count": 475,
         "username": "lime360"
       },
       {
@@ -1640,7 +1625,7 @@
         "pronouns": "",
         "website": "",
         "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
-        "followers_count": 22,
+        "followers_count": 23,
         "following_count": 3,
         "starred_repos_count": 43,
         "username": "mahlzahn"
@@ -1798,13 +1783,13 @@
         "avatar_url": "https://codeberg.org/avatars/c2c5b621aa14601de099f7e3d068ad385984e1df6b1422704c64cf97c89e6740",
         "html_url": "https://codeberg.org/mysticmode",
         "active": false,
-        "location": "nowhere",
+        "location": "",
         "pronouns": "he/him",
-        "website": "https://nirm.al",
-        "description": "a real nowhere man",
+        "website": "https://nirmalkumarr.org",
+        "description": "",
         "followers_count": 0,
-        "following_count": 6,
-        "starred_repos_count": 1,
+        "following_count": 7,
+        "starred_repos_count": 2,
         "username": "mysticmode"
       },
       {
@@ -1838,7 +1823,7 @@
         "pronouns": "",
         "website": "",
         "description": "tinkerer, g(r)eek, (fl)oss dev, musician, student. likes operating systems.\r\n\r\n@codeberg core team & ex-presidium member (2025-2026) :codeberg: & @forgejo contributor :forgejo:",
-        "followers_count": 110,
+        "followers_count": 109,
         "following_count": 128,
         "starred_repos_count": 147,
         "username": "n0toose"
@@ -2018,7 +2003,7 @@
         "pronouns": "",
         "website": "https://pat-s.me",
         "description": "golang, R, DevOps. A little bit of everything.\r\n#automateeverything",
-        "followers_count": 17,
+        "followers_count": 18,
         "following_count": 1,
         "starred_repos_count": 8,
         "username": "pat-s"
@@ -2738,7 +2723,7 @@
         "pronouns": "",
         "website": "https://antonin.delpeuch.eu/",
         "description": "",
-        "followers_count": 14,
+        "followers_count": 15,
         "following_count": 3,
         "starred_repos_count": 27,
         "username": "wetneb"

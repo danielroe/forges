@@ -1,0 +1,114 @@
+{
+  "base": "caec46af7fb80474c03cc1811216b014a05ae760",
+  "head": "main",
+  "aheadBy": 4,
+  "commits": [
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7"
+      },
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "viceice-bot",
+          "id": "163",
+          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "url": "https://code.forgejo.org/viceice-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T02:59:29.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "mfenniak",
+          "id": "1324",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "url": "https://code.forgejo.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T02:59:29.000Z"
+      },
+      "parents": [
+        "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558"
+      ],
+      "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "stats": {
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558"
+      },
+      "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+      "message": "Update module github.com/moby/moby/client to v0.6.1 (#1768)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1768\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "viceice-bot",
+          "id": "163",
+          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+          "url": "https://code.forgejo.org/viceice-bot",
+          "isBotHint": false
+        },
+        "name": "Renovate Bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T00:51:16.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "mfenniak",
+          "id": "1324",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
+          "url": "https://code.forgejo.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T00:51:16.000Z"
+      },
+      "parents": [
+        "67b065da410fa56d3c803b8bc7b460ace8ebd256"
+      ],
+      "url": "https://code.forgejo.org/forgejo/runner/commit/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+      "stats": {
+        "additions": 6,
+        "deletions": 6,
+        "total": 12
+      }
+    }
+  ],
+  "files": []
+}

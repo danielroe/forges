@@ -1,0 +1,466 @@
+{
+  "items": [
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231390470",
+      "kindRaw": "create_issue",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "14922"
+      },
+      "threadSnapshot": {
+        "title": "Inconsistency: A repository admin can manage Actions secrets in the web UI but gets 403 from the API"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "jahredhope opened issue 14922",
+      "occurredAt": "2026-10-19T03:04:25.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "jahredhope",
+        "id": "1567625",
+        "avatarUrl": "https://codeberg.org/avatars/7338fa221dbcbf0c192bd0ca383cdf54",
+        "url": "https://codeberg.org/jahredhope",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231361799",
+      "kindRaw": "create_pull_request",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "14921"
+      },
+      "threadSnapshot": {
+        "title": "Update dependency idiomorph to v0.8.0 (forgejo)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "viceice-bot opened pull request 14921",
+      "occurredAt": "2026-10-19T01:10:00.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231360788",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/forgejo-idiomorph-0.x",
+        "before": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "after": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+            "message": "Update dependency idiomorph to v0.8.0",
+            "author": "Renovate Bot"
+          }
+        ]
+      },
+      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-idiomorph-0.x",
+      "occurredAt": "2026-10-19T01:09:57.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231359777",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/forgejo-idiomorph-0.x",
+        "forced": false,
+        "commits": []
+      },
+      "summary": "viceice-bot pushed to renovate/forgejo-idiomorph-0.x",
+      "occurredAt": "2026-10-19T01:09:55.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231358595",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/forgejo-renovate",
+        "before": "c6ec983f4a0a9c8c9389a0a94d5d80256236730c",
+        "after": "29bf51bb67b183078911a446fe0baaeccdf182c0",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
+            "message": "Update renovate Docker tag to v44.167.5",
+            "author": "Renovate Bot"
+          }
+        ]
+      },
+      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-renovate",
+      "occurredAt": "2026-10-19T01:09:29.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231345122",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "14905"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "14905"
+          },
+          "id": "25616207"
+        },
+        "body": "this could probably do with one of the `bug` labels too, but I figure the reporter usually shouldn't be the one to mark their report as `confirmed`, lol"
+      },
+      "summary": "AverageHelper commented on pull request 14905",
+      "occurredAt": "2026-10-19T00:18:49.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "AverageHelper",
+        "id": "135189",
+        "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+        "url": "https://codeberg.org/AverageHelper",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231341915",
+      "kindRaw": "create_pull_request",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "14920"
+      },
+      "threadSnapshot": {
+        "title": "Update dependency globals to v17.13.0 (forgejo)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "viceice-bot opened pull request 14920",
+      "occurredAt": "2026-10-19T00:12:00.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231339902",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/forgejo-globals-17.x",
+        "before": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "after": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+            "message": "Update dependency globals to v17.13.0",
+            "author": "Renovate Bot"
+          }
+        ]
+      },
+      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-globals-17.x",
+      "occurredAt": "2026-10-19T00:11:52.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231339896",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/forgejo-globals-17.x",
+        "forced": false,
+        "commits": []
+      },
+      "summary": "viceice-bot pushed to renovate/forgejo-globals-17.x",
+      "occurredAt": "2026-10-19T00:11:51.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "231339365",
+      "kindRaw": "create_pull_request",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "14919"
+      },
+      "threadSnapshot": {
+        "title": "Update dependency dropzone to v6.3.5 (forgejo)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "viceice-bot opened pull request 14919",
+      "occurredAt": "2026-10-19T00:11:38.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    }
+  ],
+  "total": 101738,
+  "cursor": {
+    "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/activities/feeds?limit=10&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1952,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
+}

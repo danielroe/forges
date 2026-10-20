@@ -11,6 +11,45 @@
           "name": "runner"
         },
         "kind": "pull_request",
+        "number": "1776",
+        "externalId": "14871"
+      },
+      "kind": "pull_request",
+      "title": "fix: use printf in the default shell probe so macOS /bin/sh works",
+      "body": "The default-shell probe for non-host backends uses echo -n bash. On macOS, /bin/sh is bash 3.2 in POSIX mode, which prints -n bash\\n\n\nprintf is POSIX and unambiguous. Probe output tested with dash (Debian, Ubuntu), bash (Fedora), BusyBox ash (Alpine, BusyBox; falls back to sh) and macOS: unchanged everywhere except macOS, where it's now correct.\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1776): <!--number 1776 --><!--line 0 --><!--description Zml4OiB1c2UgcHJpbnRmIGluIHRoZSBkZWZhdWx0IHNoZWxsIHByb2JlIHNvIG1hY09TIC9iaW4vc2ggd29ya3M=-->fix: use printf in the default shell probe so macOS /bin/sh works<!--description-->\n<!--end release-notes-assistant-->\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "eleboucher",
+        "id": "2226",
+        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
+        "url": "https://code.forgejo.org/eleboucher",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1776",
+      "createdAt": "2026-10-12T17:52:27.000Z",
+      "updatedAt": "2026-10-12T17:53:03.000Z",
+      "lastActivityAt": "2026-10-12T17:53:03.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
         "number": "1759",
         "externalId": "14648"
       },
@@ -73,52 +112,13 @@
       "labels": [],
       "url": "https://code.forgejo.org/forgejo/runner/pulls/1742",
       "createdAt": "2026-09-15T14:34:15.000Z",
-      "updatedAt": "2026-09-18T01:35:04.000Z",
-      "lastActivityAt": "2026-09-18T01:35:04.000Z",
-      "locked": false,
-      "commentCount": 1
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner"
-        },
-        "kind": "pull_request",
-        "number": "1740",
-        "externalId": "14510"
-      },
-      "kind": "pull_request",
-      "title": "fix(plugin): find requested files in CopyOut archives",
-      "body": "Single-file readers now find the requested entry in CopyOut archives, skipping directory headers and unrelated files. Adds regression tests and documents the accepted archive paths.\nFixes: #1680\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1740): <!--number 1740 --><!--line 0 --><!--description Zml4KHBsdWdpbik6IGZpbmQgcmVxdWVzdGVkIGZpbGVzIGluIENvcHlPdXQgYXJjaGl2ZXM=-->fix(plugin): find requested files in CopyOut archives<!--description-->\n<!--end release-notes-assistant-->\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "login": "eleboucher",
-        "id": "2226",
-        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
-        "url": "https://code.forgejo.org/eleboucher",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [],
-      "url": "https://code.forgejo.org/forgejo/runner/pulls/1740",
-      "createdAt": "2026-09-12T15:48:03.000Z",
-      "updatedAt": "2026-09-18T01:23:52.000Z",
-      "lastActivityAt": "2026-09-18T01:23:52.000Z",
+      "updatedAt": "2026-10-18T17:28:04.000Z",
+      "lastActivityAt": "2026-10-18T17:28:04.000Z",
       "locked": false,
       "commentCount": 1
     }
   ],
-  "total": 11,
+  "total": 12,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/issues?limit=3&page=2&state=open&type=pulls"
   }

@@ -93,9 +93,9 @@
         "ssh": "ssh://git@codeberg.org/forgejo/forgejo.git"
       },
       "createdAt": "2022-11-06T06:24:57.000Z",
-      "updatedAt": "2026-10-12T06:27:44.000Z",
-      "openIssueCount": 1556,
-      "openPullCount": 149,
+      "updatedAt": "2026-10-19T01:09:57.000Z",
+      "openIssueCount": 1572,
+      "openPullCount": 154,
       "owner": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -108,9 +108,9 @@
       },
       "language": "Go",
       "homepage": "https://forgejo.org",
-      "stars": 5631,
-      "forks": 990,
-      "watchers": 316,
+      "stars": 5673,
+      "forks": 1000,
+      "watchers": 335,
       "mergeMethods": [
         "merge",
         "squash",
@@ -156,9 +156,9 @@
         "ssh": "ssh://git@codeberg.org/forgejo/website.git"
       },
       "createdAt": "2022-11-06T09:52:25.000Z",
-      "updatedAt": "2026-10-12T06:35:57.000Z",
+      "updatedAt": "2026-10-18T22:22:30.000Z",
       "openIssueCount": 26,
-      "openPullCount": 7,
+      "openPullCount": 6,
       "owner": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -173,7 +173,7 @@
       "homepage": "https://forgejo.org",
       "stars": 44,
       "forks": 56,
-      "watchers": 26,
+      "watchers": 25,
       "mergeMethods": [
         "merge",
         "squash",
@@ -209,5 +209,11 @@
       "code": "sort_unsupported",
       "message": "forgejo lists the repositories of an owner oldest first only"
     }
-  ]
+  ],
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1949,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

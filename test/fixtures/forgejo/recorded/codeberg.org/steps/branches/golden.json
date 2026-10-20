@@ -1,23 +1,29 @@
 {
   "items": [
     {
-      "name": "renovate/forgejo-renovate",
-      "sha": "c259690430595fc45252e50f8e9fbd17d2fd60aa",
+      "name": "renovate/forgejo-idiomorph-0.x",
+      "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
       "isProtected": false
     },
     {
-      "name": "v16.0/forgejo",
-      "sha": "1aa13944143b3bc4312607239a68da23512d5ce3",
-      "isProtected": true
+      "name": "renovate/forgejo-renovate",
+      "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
+      "isProtected": false
     },
     {
-      "name": "v15.0/forgejo",
-      "sha": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
-      "isProtected": true
+      "name": "renovate/forgejo-globals-17.x",
+      "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+      "isProtected": false
     }
   ],
   "total": 33,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1938,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

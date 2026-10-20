@@ -10,7 +10,7 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "14069472",
+        "id": "14401547",
         "run": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -20,12 +20,336 @@
             "owner": "forgejo",
             "name": "forgejo"
           },
-          "id": "7667739"
+          "id": "7836749"
         }
       },
-      "name": "merge-conditions",
+      "name": "backend-checks",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401550",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "frontend-checks",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401553",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-unit",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401556",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-e2e",
       "state": "pending",
-      "stateRaw": "waiting"
+      "stateRaw": "running"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401559",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-remote-cacher (redis)",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401562",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-remote-cacher (valkey)",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401565",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-remote-cacher (garnet)",
+      "state": "success",
+      "stateRaw": "success"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401568",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-mysql",
+      "state": "pending",
+      "stateRaw": "running"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401571",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-pgsql",
+      "state": "pending",
+      "stateRaw": "running"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401574",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "test-sqlite",
+      "state": "pending",
+      "stateRaw": "running"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401577",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "coverage",
+      "state": "pending",
+      "stateRaw": "blocked"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401580",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "security-check",
+      "state": "pending",
+      "stateRaw": "blocked"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "14401583",
+        "run": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "forgejo",
+            "name": "forgejo"
+          },
+          "id": "7836749"
+        }
+      },
+      "name": "semgrep/ci",
+      "state": "success",
+      "stateRaw": "success"
     }
   ]
 }

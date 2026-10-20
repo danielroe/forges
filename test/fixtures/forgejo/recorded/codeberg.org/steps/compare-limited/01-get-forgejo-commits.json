@@ -6,34 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=5&page=2&sha=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=5&page=5194&sha=forgejo>; rel=\"last\"",
-      "x-total": "25968",
-      "x-total-count": "25968",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=5&page=2&sha=forgejo>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=5&page=5202&sha=forgejo>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1932;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
+      "x-total": "26009",
+      "x-total-count": "26009",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a90c6e8d072558d07683c6586bb922ec8253db6c",
-        "sha": "a90c6e8d072558d07683c6586bb922ec8253db6c",
-        "created": "2026-10-13T22:07:13+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/a90c6e8d072558d07683c6586bb922ec8253db6c",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "created": "2026-10-18T20:14:06+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a90c6e8d072558d07683c6586bb922ec8253db6c",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
           "author": {
-            "name": "Nils Goroll",
+            "name": "AverageHelper",
             "email": "redacted@example.invalid",
-            "date": "2026-10-13T22:07:13+02:00"
+            "date": "2026-10-18T20:14:06+02:00"
           },
           "committer": {
             "name": "Gusted",
             "email": "redacted@example.invalid",
-            "date": "2026-10-13T22:07:13+02:00"
+            "date": "2026-10-18T20:14:06+02:00"
           },
-          "message": "fix: config.ini duration default values / fix SENDMAIL_TIMEOUT default (#14828)\n\nSince f8fc5b9daff5f591a2c88011657e251ce5de9fb6 / #10273 the default value for a duration ini key was no longer written to the value for the \"empty\" case, such that after\n\n```\n  sec.Key(\"VALUE\").MustDuration(defaultValue)\n```\n\nthe value would remain empty if it was empty to begin with.\n\nBecause we have no access to the private value field from `ini.Key`, we call `MustDuration()` on it. Compare https://github.com/go-ini/ini/blob/v1.67.3/key.go#L332C3-L332C35\n\nI reviewed the mentioned commit and, luckily, `[mailer] SENDMAIL_TIMEOUT` is the only affected ini key, because in all other cases, the return value of `MustDuration()` is assigned to the configuration field directly.\n\nFixes #14635\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14828\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/a90c6e8d072558d07683c6586bb922ec8253db6c",
-            "sha": "a90c6e8d072558d07683c6586bb922ec8253db6c",
-            "created": "2026-10-13T22:07:13+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+            "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+            "created": "2026-10-18T20:14:06+02:00"
           },
           "verification": {
             "verified": false,
@@ -44,22 +46,22 @@
           }
         },
         "author": {
-          "id": 381495,
-          "login": "slink",
+          "id": 135189,
+          "login": "AverageHelper",
           "source_id": 0,
-          "full_name": "Nils Goroll",
+          "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
-          "html_url": "https://codeberg.org/slink",
+          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
+          "html_url": "https://codeberg.org/AverageHelper",
           "active": false,
-          "location": "Germany",
-          "pronouns": "he/him",
-          "website": "https://uplex.de",
-          "description": "Vinyl Cache (ex Varnish Cache) co-maintainer\r\nCurrently working towards moving our repos to Forgejo on https://code.vinyl-cache.org/",
-          "followers_count": 1,
-          "following_count": 0,
-          "starred_repos_count": 1,
-          "username": "slink"
+          "location": "on your left",
+          "pronouns": "she/her",
+          "website": "https://average.name",
+          "description": "",
+          "followers_count": 2,
+          "following_count": 2,
+          "starred_repos_count": 32,
+          "username": "AverageHelper"
         },
         "committer": {
           "id": 26734,
@@ -81,135 +83,137 @@
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
-            "sha": "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "modules/setting/config_provider.go",
+            "filename": "package-lock.json",
             "status": "modified"
           },
           {
-            "filename": "modules/setting/config_provider_test.go",
+            "filename": "package.json",
             "status": "modified"
+          },
+          {
+            "filename": "tailwind.config.ts",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoActionView.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/common-global.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-common.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-diff.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-home.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue-content.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue-list.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-issue.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-legacy.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/features/repo-suggestion.js",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/htmx.ts",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/markup/tasklist.js",
+            "status": "modified"
+          },
+          {
+            "filename": "webpack.config.ts",
+            "status": "modified"
+          },
+          {
+            "filename": "web_src/js/modules/toast.test.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/modules/toast.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/standalone/demo.ts",
+            "status": "added"
+          },
+          {
+            "filename": "web_src/js/modules/toast.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/modules/toast.test.js",
+            "status": "removed"
+          },
+          {
+            "filename": "web_src/js/standalone/demo.js",
+            "status": "removed"
           }
         ],
         "stats": {
-          "total": 14,
-          "additions": 13,
-          "deletions": 1
+          "total": 68,
+          "additions": 41,
+          "deletions": 27
         }
       },
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
-        "sha": "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
-        "created": "2026-10-12T23:41:40+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+        "created": "2026-10-18T18:39:16+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
           "author": {
-            "name": "Nils Goroll",
+            "name": "oliverpool",
             "email": "redacted@example.invalid",
-            "date": "2026-10-12T23:41:40+02:00"
-          },
-          "committer": {
-            "name": "Mathieu Fenniak",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T23:41:40+02:00"
-          },
-          "message": "testing: Exercise config file path test in temporary directory (#14805)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14805\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
-            "sha": "acce8bbc3efd2aaa6ee9097d3d3d5e72e7de401f",
-            "created": "2026-10-12T23:41:40+02:00"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 381495,
-          "login": "slink",
-          "source_id": 0,
-          "full_name": "Nils Goroll",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/b5d63dc33281a8f89f64eed46eee13a2777e9d8944872537ba94ed13495e4c6b",
-          "html_url": "https://codeberg.org/slink",
-          "active": false,
-          "location": "Germany",
-          "pronouns": "he/him",
-          "website": "https://uplex.de",
-          "description": "Vinyl Cache (ex Varnish Cache) co-maintainer\r\nCurrently working towards moving our repos to Forgejo on https://code.vinyl-cache.org/",
-          "followers_count": 1,
-          "following_count": 0,
-          "starred_repos_count": 1,
-          "username": "slink"
-        },
-        "committer": {
-          "id": 222642,
-          "login": "mfenniak",
-          "source_id": 0,
-          "full_name": "Mathieu Fenniak",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-          "html_url": "https://codeberg.org/mfenniak",
-          "active": false,
-          "location": "Calgary, Alberta, Canada",
-          "pronouns": "he/him",
-          "website": "https://mathieu.fenniak.net/",
-          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 20,
-          "following_count": 0,
-          "starred_repos_count": 4,
-          "username": "mfenniak"
-        },
-        "parents": [
-          {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/22a31532253c3b379692facc8237270ce304d967",
-            "sha": "22a31532253c3b379692facc8237270ce304d967",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "modules/setting/path_test.go",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 7,
-          "additions": 6,
-          "deletions": 1
-        }
-      },
-      {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/22a31532253c3b379692facc8237270ce304d967",
-        "sha": "22a31532253c3b379692facc8237270ce304d967",
-        "created": "2026-10-12T23:09:44+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/22a31532253c3b379692facc8237270ce304d967",
-        "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/22a31532253c3b379692facc8237270ce304d967",
-          "author": {
-            "name": "hwipl",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T23:09:44+02:00"
+            "date": "2026-10-18T18:39:16+02:00"
           },
           "committer": {
             "name": "Gusted",
             "email": "redacted@example.invalid",
-            "date": "2026-10-12T23:09:44+02:00"
+            "date": "2026-10-18T18:39:16+02:00"
           },
-          "message": "fix: make dynamic membership removal for OIDC case-insensitive (#14740)\n\nWith dynamic group mappings and dynamic membership removal enabled for\nOIDC, users currently get removed from teams in organizations that\ncontain upper-case letters, even though they should be added to those\nteams based on the group mappings. This is caused by the matching of\norganization names during the dynamic membership removal being\ncase-sensitive instead of being case-insensitive. Fix this by converting\nto case-insensitive matching.\n\nFixes #14739\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14740\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/22a31532253c3b379692facc8237270ce304d967",
-            "sha": "22a31532253c3b379692facc8237270ce304d967",
-            "created": "2026-10-12T23:09:44+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "created": "2026-10-18T18:39:16+02:00"
           },
           "verification": {
             "verified": false,
@@ -220,250 +224,340 @@
           }
         },
         "author": {
-          "id": 626274,
-          "login": "hwipl",
+          "id": 32636,
+          "login": "oliverpool",
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/c2aa56c6054f307a812107760802f22b",
-          "html_url": "https://codeberg.org/hwipl",
+          "avatar_url": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
+          "html_url": "https://codeberg.org/oliverpool",
+          "active": false,
+          "location": "Bad Tölz, Bavaria, Germany",
+          "pronouns": "he/him",
+          "website": "https://code.pfad.fr",
+          "description": "French software developer living in the German Alps.",
+          "followers_count": 12,
+          "following_count": 0,
+          "starred_repos_count": 6,
+          "username": "oliverpool"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+            "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "routers/private/hook_pre_receive.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/git_push_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/git_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 64,
+          "additions": 53,
+          "deletions": 11
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+        "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+        "created": "2026-10-18T18:32:57+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T18:32:57+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T18:32:57+02:00"
+          },
+          "message": "Update module github.com/go-ldap/ldap/v3 to v3.4.15 (forgejo) (#14894)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14894\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+            "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
+            "created": "2026-10-18T18:32:57+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
           "active": false,
           "location": "",
           "pronouns": "",
           "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+            "sha": "3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 6,
+          "additions": 3,
+          "deletions": 3
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+        "sha": "3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+        "created": "2026-10-18T16:46:49+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T16:46:49+02:00"
+          },
+          "committer": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T16:46:49+02:00"
+          },
+          "message": "Update module github.com/caddyserver/certmagic to v0.25.6 (forgejo) (#14892)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14892\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+            "sha": "3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+            "created": "2026-10-18T16:46:49+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 141082,
+          "login": "viceice-bot",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "html_url": "https://codeberg.org/viceice-bot",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "I'm a bot from @viceice",
+          "followers_count": 6,
+          "following_count": 1,
+          "starred_repos_count": 2,
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+            "sha": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "go.sum",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 40,
+          "additions": 20,
+          "deletions": 20
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+        "sha": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+        "created": "2026-10-18T15:52:14+02:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+          "author": {
+            "name": "Gusted",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T15:52:14+02:00"
+          },
+          "committer": {
+            "name": "Andreas Ahlenstorf",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-18T15:52:14+02:00"
+          },
+          "message": "fix: interpret blank lines in description of Debian packages (#14131)\n\n- Resolves forgejo/forgejo#14128\n- `white-space: pre-line` is chosen such that white-spaces are not preserved and only new lines are preserved.\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14131): <!--number 14131 --><!--line 0 --><!--description aW50ZXJwcmV0IGJsYW5rIGxpbmVzIGluIGRlc2NyaXB0aW9uIG9mIERlYmlhbiBwYWNrYWdlcw==-->interpret blank lines in description of Debian packages<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14131\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+            "sha": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+            "created": "2026-10-18T15:52:14+02:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 26734,
+          "login": "Gusted",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "html_url": "https://codeberg.org/Gusted",
+          "active": false,
+          "location": "Error 451",
+          "pronouns": "",
+          "website": "https://gusted.xyz",
+          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
+          "followers_count": 162,
+          "following_count": 30,
+          "starred_repos_count": 103,
+          "username": "Gusted"
+        },
+        "committer": {
+          "id": 468676,
+          "login": "aahlenst",
+          "source_id": 0,
+          "full_name": "Andreas Ahlenstorf",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/d15066c8d70752866771e90b9204536d",
+          "html_url": "https://codeberg.org/aahlenst",
+          "active": false,
+          "location": "Switzerland",
+          "pronouns": "he/him",
+          "website": "https://aahlenst.dev/",
           "description": "",
-          "followers_count": 0,
+          "followers_count": 5,
           "following_count": 0,
           "starred_repos_count": 0,
-          "username": "hwipl"
-        },
-        "committer": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "username": "aahlenst"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/e53b090b75b0fb476271f3b3a319ada1df55dab1",
-            "sha": "e53b090b75b0fb476271f3b3a319ada1df55dab1",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/c85bf03a5306d5762a3a1942f310dde63fcc579a",
+            "sha": "c85bf03a5306d5762a3a1942f310dde63fcc579a",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "models/organization/org_list.go",
+            "filename": "modules/packages/debian/metadata.go",
             "status": "modified"
           },
           {
-            "filename": "services/auth/source/source_group_sync.go",
+            "filename": "modules/packages/debian/metadata_test.go",
             "status": "modified"
           },
           {
-            "filename": "services/auth/source/source_group_sync_test.go",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 84,
-          "additions": 75,
-          "deletions": 9
-        }
-      },
-      {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/e53b090b75b0fb476271f3b3a319ada1df55dab1",
-        "sha": "e53b090b75b0fb476271f3b3a319ada1df55dab1",
-        "created": "2026-10-12T21:25:36+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/e53b090b75b0fb476271f3b3a319ada1df55dab1",
-        "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/e53b090b75b0fb476271f3b3a319ada1df55dab1",
-          "author": {
-            "name": "Gusted",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T21:25:36+02:00"
-          },
-          "committer": {
-            "name": "Mathieu Fenniak",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T21:25:36+02:00"
-          },
-          "message": "fix: more correct empty check for PRs using git-merge-tree (#14696)\n\nContext: https://codeberg.org/forgejo/forgejo/pulls/13974#issuecomment-21767621\nResolves forgejo/forgejo#10369\nRegression of !7727\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14696\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/e53b090b75b0fb476271f3b3a319ada1df55dab1",
-            "sha": "e53b090b75b0fb476271f3b3a319ada1df55dab1",
-            "created": "2026-10-12T21:25:36+02:00"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
-        },
-        "committer": {
-          "id": 222642,
-          "login": "mfenniak",
-          "source_id": 0,
-          "full_name": "Mathieu Fenniak",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
-          "html_url": "https://codeberg.org/mfenniak",
-          "active": false,
-          "location": "Calgary, Alberta, Canada",
-          "pronouns": "he/him",
-          "website": "https://mathieu.fenniak.net/",
-          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 20,
-          "following_count": 0,
-          "starred_repos_count": 4,
-          "username": "mfenniak"
-        },
-        "parents": [
-          {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-            "sha": "33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "modules/git/repo_tree.go",
-            "status": "modified"
-          },
-          {
-            "filename": "services/pull/patch.go",
-            "status": "modified"
-          },
-          {
-            "filename": "tests/integration/patch_status_test.go",
+            "filename": "templates/package/content/debian.tmpl",
             "status": "modified"
           }
         ],
         "stats": {
-          "total": 28,
-          "additions": 12,
-          "deletions": 16
-        }
-      },
-      {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-        "sha": "33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-        "created": "2026-10-12T16:14:50+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-        "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-          "author": {
-            "name": "Gusted",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T16:14:50+02:00"
-          },
-          "committer": {
-            "name": "Gusted",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-12T16:14:50+02:00"
-          },
-          "message": "feat: speedup `IsEmpty` check (#14809)\n\n## Background\n\n- This command executes in 50ms-300ms on https://codeberg.org/forgejo/forgejo/actions\n- Codeberg has for every repository its references stored in reftable (https://git-scm.com/docs/reftable).\n- The forgejo repository has 13019 references.\n- All git data is stored on CephFS.\n\n## Changes\n\nFrom my understanding of git's source-code, `for-each-ref` is able to\niteratively go over refs (and stop after the first reference found).\nWhile `rev-list` is more feature-rich and goes through more hoops than\njust 'iterate over refs'.\n\n- Use `git-for-each-ref(1)` to detect if there's any reference.\n- Specify a custom format to avoid loading object storage. Mostly a\nnice-to-have as it avoids a few `access` syscalls to object storage, we\ndon't need that information for this function.\n\n## Benchmarks\n\nCodeberg (CephFS):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found\n  Time (mean ± σ):      12.3 ms ±  10.5 ms    [User: 3.2 ms, System: 3.0 ms]\n  Range (min … max):     4.6 ms …  78.0 ms    142 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nBenchmark 2: git for-each-ref --count=1\n  Time (mean ± σ):      23.2 ms ±  16.5 ms    [User: 3.6 ms, System: 4.1 ms]\n  Range (min … max):     7.9 ms …  87.6 ms    186 runs\n\nBenchmark 3: git rev-list -n 1 --all\n  Time (mean ± σ):     199.4 ms ±  75.4 ms    [User: 67.5 ms, System: 25.9 ms]\n  Range (min … max):   134.4 ms … 438.2 ms    16 runs\n\n  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.\n\nSummary\n  git for-each-ref --count=1 --format=found ran\n    1.89 ± 2.10 times faster than git for-each-ref --count=1\n   16.24 ± 15.19 times faster than git rev-list -n 1 --all\n\n```\n\nLocally, same amount of refs (ext4):\n\n```\n$ hyperfine -N 'git for-each-ref --count=1 --format=found' 'git for-each-ref --count=1' 'git rev-list -n 1 --all'\nBenchmark 1: git for-each-ref --count=1 --format=found (2155 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.7 ms\n  Memory         6.6 MiB ±     0.1 MiB      6.2 MiB …     7.0 MiB\n\nBenchmark 2: git for-each-ref --count=1 (2713 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      1.1 ms  ±     0.1 ms       1.0 ms  …     1.8 ms            +4.2%\n  Memory         6.8 MiB ±     0.1 MiB      6.3 MiB …     7.1 MiB           +2.5%\n\nBenchmark 3: git rev-list -n 1 --all (591 runs)\n                mean     ±       σ          min     …     max\n  Wall Time      4.8 ms  ±     0.3 ms       4.3 ms  …     6.6 ms          +339.3%  (4.4x slower)\n  Memory         8.7 MiB ±     0.1 MiB      8.2 MiB …     8.9 MiB          +30.9%  (1.3x more)\n```\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14809\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: famfo-cb <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-            "sha": "33d24bb50dc6ddc93ed64d9f3f3f61f56fec3896",
-            "created": "2026-10-12T16:14:50+02:00"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
-        },
-        "committer": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
-        },
-        "parents": [
-          {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/c1d3437b3825ab2f8770762d94e33b697d06090f",
-            "sha": "c1d3437b3825ab2f8770762d94e33b697d06090f",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "modules/git/repo.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/git/repo_test.go",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 50,
-          "additions": 29,
-          "deletions": 21
+          "total": 25,
+          "additions": 21,
+          "deletions": 4
         }
       }
     ]

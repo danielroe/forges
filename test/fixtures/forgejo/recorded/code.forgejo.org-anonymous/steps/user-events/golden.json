@@ -1,0 +1,414 @@
+{
+  "items": [
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196311",
+      "kindRaw": "delete_branch",
+      "kind": "ref",
+      "action": "deleted",
+      "detail": {
+        "type": "ref",
+        "ref": "renovate/main-helmchart-testing-action",
+        "refType": "branch"
+      },
+      "summary": "viceice-bot deleted branch renovate/main-helmchart-testing-action",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196304",
+      "kindRaw": "close_pull_request",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo-helm",
+          "name": "forgejo-helm",
+          "externalId": "253"
+        },
+        "kind": "pull_request",
+        "number": "1844"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "viceice-bot closed pull request 1844",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196297",
+      "kindRaw": "create_pull_request",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo-helm",
+          "name": "forgejo-helm",
+          "externalId": "253"
+        },
+        "kind": "pull_request",
+        "number": "1845"
+      },
+      "threadSnapshot": {
+        "title": "ci(deps): update https://data.forgejo.org/helm/chart-testing-action action to v2.9.0 (main)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "viceice-bot opened pull request 1845",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196286",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+        "before": "704045a5145fd516d08342fea000b50281c5a305",
+        "after": "a863706ad210bb06e0768f6ddef5024996bd56d2",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "a863706ad210bb06e0768f6ddef5024996bd56d2",
+            "message": "ci(deps): update https://data.forgejo.org/helm/chart-testing-action action to v2.9.0",
+            "author": "Renovate Bot"
+          }
+        ]
+      },
+      "summary": "viceice-bot pushed 1 commit(s) to renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196275",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+        "forced": false,
+        "commits": []
+      },
+      "summary": "viceice-bot pushed to renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196264",
+      "kindRaw": "delete_branch",
+      "kind": "ref",
+      "action": "deleted",
+      "detail": {
+        "type": "ref",
+        "ref": "renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+        "refType": "branch"
+      },
+      "summary": "viceice-bot deleted branch renovate/main-https-data.forgejo.org-helm-chart-testing-action-2.x",
+      "occurredAt": "2026-10-19T03:02:20.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196257",
+      "kindRaw": "close_pull_request",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo-helm",
+          "name": "forgejo-helm",
+          "externalId": "253"
+        },
+        "kind": "pull_request",
+        "number": "1843"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "viceice-bot closed pull request 1843",
+      "occurredAt": "2026-10-19T03:02:16.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196246",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/main-helmchart-testing-action",
+        "before": "704045a5145fd516d08342fea000b50281c5a305",
+        "after": "a7a3f2c504ee963199148f43b94b0a658116299e",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "a7a3f2c504ee963199148f43b94b0a658116299e",
+            "message": "ci(deps): update https://data.forgejo.org/helm/chart-testing-action action to v2.9.0",
+            "author": "Renovate Bot"
+          }
+        ]
+      },
+      "summary": "viceice-bot pushed 1 commit(s) to renovate/main-helmchart-testing-action",
+      "occurredAt": "2026-10-19T03:02:13.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196235",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/renovate/main-helmchart-testing-action",
+        "forced": false,
+        "commits": []
+      },
+      "summary": "viceice-bot pushed to renovate/main-helmchart-testing-action",
+      "occurredAt": "2026-10-19T03:02:13.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "1196228",
+      "kindRaw": "create_pull_request",
+      "kind": "state_change",
+      "action": "opened",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo-helm",
+          "name": "forgejo-helm",
+          "externalId": "253"
+        },
+        "kind": "pull_request",
+        "number": "1844"
+      },
+      "threadSnapshot": {
+        "title": "ci(deps): update https://data.forgejo.org/helm/chart-testing-action action to v2.9.0 (main)"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "viceice-bot opened pull request 1844",
+      "occurredAt": "2026-10-19T03:02:13.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo-helm",
+        "name": "forgejo-helm",
+        "externalId": "253"
+      },
+      "isPublic": true,
+      "source": "poll"
+    }
+  ],
+  "total": 14132,
+  "cursor": {
+    "nextUrl": "https://code.forgejo.org/api/v1/users/viceice-bot/activities/feeds?only-performed-by=true&limit=10&page=2"
+  }
+}

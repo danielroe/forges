@@ -3,7 +3,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227224660",
+      "id": "230456005",
       "kindRaw": "comment_issue",
       "kind": "comment",
       "action": "created",
@@ -18,7 +18,7 @@
           "externalId": "2702328"
         },
         "kind": "issue",
-        "number": "46"
+        "number": "89"
       },
       "detail": {
         "type": "comment",
@@ -36,14 +36,14 @@
               "externalId": "2702328"
             },
             "kind": "issue",
-            "number": "46"
+            "number": "89"
           },
-          "id": "25193122"
+          "id": "25515535"
         },
-        "body": "@roebot a mention from run 20261012221035."
+        "body": "@roebot a mention from run 20261017151708."
       },
-      "summary": "danielroe commented on issue 46",
-      "occurredAt": "2026-10-12T22:11:04.000Z",
+      "summary": "danielroe commented on issue 89",
+      "occurredAt": "2026-10-17T15:23:51.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -67,10 +67,10 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222425",
-      "kindRaw": "comment_issue",
-      "kind": "comment",
-      "action": "created",
+      "id": "230455876",
+      "kindRaw": "merge_pull_request",
+      "kind": "state_change",
+      "action": "merged",
       "thread": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -81,33 +81,18 @@
           "name": "forges-fixtures",
           "externalId": "2702328"
         },
-        "kind": "issue",
-        "number": "41"
+        "kind": "pull_request",
+        "number": "93"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261017151708: pull 2 u2JnreJSwA8QBcacYtV7nlWNsPBKMstOXpgRWVepumHm8PJo47iY8yFwEjEy7U-P"
       },
       "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "thread": {
-            "forge": "forgejo",
-            "instance": "codeberg.org",
-            "repo": {
-              "forge": "forgejo",
-              "instance": "codeberg.org",
-              "owner": "forges-fixtures",
-              "name": "forges-fixtures",
-              "externalId": "2702328"
-            },
-            "kind": "issue",
-            "number": "41"
-          },
-          "id": "25192897"
-        },
-        "body": "@roebot a mention from run 20261012220452."
+        "type": "state_change",
+        "state": "merged"
       },
-      "summary": "danielroe commented on issue 41",
-      "occurredAt": "2026-10-12T22:05:56.000Z",
+      "summary": "danielroe merged pull request 93",
+      "occurredAt": "2026-10-17T15:23:38.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -131,31 +116,31 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222362",
+      "id": "230455888",
       "kindRaw": "commit_repo",
       "kind": "push",
       "detail": {
         "type": "push",
         "ref": "refs/heads/main",
-        "before": "dc1273e0411e5f039ee469096773d15a49c08f82",
-        "after": "196a797f54f2bb898565b73c6cf9ff347b8b4904",
+        "before": "f2fa549c9f71bda52a9f9b2dbb9061c6405d2288",
+        "after": "08a38dd61bd81e46adb0c3eb3a8a23dac064f100",
         "commitCount": 2,
         "forced": false,
         "commits": [
           {
-            "sha": "196a797f54f2bb898565b73c6cf9ff347b8b4904",
-            "message": "Merge run 20261012220452",
+            "sha": "08a38dd61bd81e46adb0c3eb3a8a23dac064f100",
+            "message": "Merge run 20261017151708",
             "author": "Daniel Roe"
           },
           {
-            "sha": "c67fe86f1369ac8eabf541caee58a2a76d15dac8",
-            "message": "test: add forges-fixtures/20261012220452-2.md",
+            "sha": "73c93eb655d8c601be3e59dc5aba918c93cc989a",
+            "message": "test: add forges-fixtures/20261017151708-2.md",
             "author": "roebot"
           }
         ]
       },
       "summary": "danielroe pushed 2 commit(s) to main",
-      "occurredAt": "2026-10-12T22:05:52.000Z",
+      "occurredAt": "2026-10-17T15:23:38.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -180,56 +165,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222371",
-      "kindRaw": "merge_pull_request",
-      "kind": "state_change",
-      "action": "merged",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forges-fixtures",
-          "name": "forges-fixtures",
-          "externalId": "2702328"
-        },
-        "kind": "pull_request",
-        "number": "45"
-      },
-      "threadSnapshot": {
-        "title": "forges fixture 20261012220452: pull 2 x9TLhZlb5jaEDLy04b7INT7cL6ycaill-GOisVot4ma3JA5PJYSwJBTgMkH1Z5LL"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "merged"
-      },
-      "summary": "danielroe merged pull request 45",
-      "occurredAt": "2026-10-12T22:05:52.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "danielroe",
-        "id": "86052",
-        "name": "Daniel Roe",
-        "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
-        "url": "https://codeberg.org/danielroe",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forges-fixtures",
-        "name": "forges-fixtures",
-        "externalId": "2702328"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "227222344",
+      "id": "230455849",
       "kindRaw": "approve_pull_request",
       "kind": "review",
       "action": "submitted",
@@ -244,15 +180,15 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "45"
+        "number": "93"
       },
       "detail": {
         "type": "review",
         "state": "approved",
         "stateRaw": "approve_pull_request"
       },
-      "summary": "danielroe reviewed pull request 45 (approved)",
-      "occurredAt": "2026-10-12T22:05:48.000Z",
+      "summary": "danielroe reviewed pull request 93 (approved)",
+      "occurredAt": "2026-10-17T15:23:32.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -276,7 +212,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222224",
+      "id": "230455786",
       "kindRaw": "approve_pull_request",
       "kind": "review",
       "action": "submitted",
@@ -291,15 +227,15 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "44"
+        "number": "92"
       },
       "detail": {
         "type": "review",
         "state": "approved",
         "stateRaw": "approve_pull_request"
       },
-      "summary": "danielroe reviewed pull request 44 (approved)",
-      "occurredAt": "2026-10-12T22:05:41.000Z",
+      "summary": "danielroe reviewed pull request 92 (approved)",
+      "occurredAt": "2026-10-17T15:23:25.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -323,7 +259,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222206",
+      "id": "230455741",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -338,7 +274,7 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "44"
+        "number": "92"
       },
       "detail": {
         "type": "comment",
@@ -356,14 +292,14 @@
               "externalId": "2702328"
             },
             "kind": "pull_request",
-            "number": "44"
+            "number": "92"
           },
-          "id": "25192873"
+          "id": "25515478"
         },
-        "body": "A line comment from run 20261012220452."
+        "body": "A line comment from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 44",
-      "occurredAt": "2026-10-12T22:05:39.000Z",
+      "summary": "danielroe commented on pull request 92",
+      "occurredAt": "2026-10-17T15:23:23.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -387,7 +323,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222215",
+      "id": "230455750",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -402,7 +338,7 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "44"
+        "number": "92"
       },
       "detail": {
         "type": "comment",
@@ -420,14 +356,14 @@
               "externalId": "2702328"
             },
             "kind": "pull_request",
-            "number": "44"
+            "number": "92"
           },
-          "id": "25192879"
+          "id": "25515481"
         },
-        "body": "A submitted review from run 20261012220452."
+        "body": "A review from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 44",
-      "occurredAt": "2026-10-12T22:05:39.000Z",
+      "summary": "danielroe commented on pull request 92",
+      "occurredAt": "2026-10-17T15:23:23.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -451,7 +387,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222188",
+      "id": "230455768",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -466,7 +402,7 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "44"
+        "number": "92"
       },
       "detail": {
         "type": "comment",
@@ -484,14 +420,14 @@
               "externalId": "2702328"
             },
             "kind": "pull_request",
-            "number": "44"
+            "number": "92"
           },
-          "id": "25192873"
+          "id": "25515478"
         },
-        "body": "A line comment from run 20261012220452."
+        "body": "A line comment from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 44",
-      "occurredAt": "2026-10-12T22:05:38.000Z",
+      "summary": "danielroe commented on pull request 92",
+      "occurredAt": "2026-10-17T15:23:23.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -515,7 +451,7 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "227222197",
+      "id": "230455777",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -530,7 +466,7 @@
           "externalId": "2702328"
         },
         "kind": "pull_request",
-        "number": "44"
+        "number": "92"
       },
       "detail": {
         "type": "comment",
@@ -548,14 +484,78 @@
               "externalId": "2702328"
             },
             "kind": "pull_request",
-            "number": "44"
+            "number": "92"
           },
-          "id": "25192876"
+          "id": "25515484"
         },
-        "body": "A review from run 20261012220452."
+        "body": "A submitted review from run 20261017151708."
       },
-      "summary": "danielroe commented on pull request 44",
-      "occurredAt": "2026-10-12T22:05:38.000Z",
+      "summary": "danielroe commented on pull request 92",
+      "occurredAt": "2026-10-17T15:23:23.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "danielroe",
+        "id": "86052",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+        "url": "https://codeberg.org/danielroe",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "externalId": "2702328"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "230438647",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forges-fixtures",
+          "name": "forges-fixtures",
+          "externalId": "2702328"
+        },
+        "kind": "issue",
+        "number": "83"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forges-fixtures",
+              "name": "forges-fixtures",
+              "externalId": "2702328"
+            },
+            "kind": "issue",
+            "number": "83"
+          },
+          "id": "25513267"
+        },
+        "body": "@roebot a mention from run 20261017144043."
+      },
+      "summary": "danielroe commented on issue 83",
+      "occurredAt": "2026-10-17T14:47:09.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -577,8 +577,14 @@
       "source": "poll"
     }
   ],
-  "total": 76,
+  "total": 108,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/users/danielroe/activities/feeds?only-performed-by=true&limit=10&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1884,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

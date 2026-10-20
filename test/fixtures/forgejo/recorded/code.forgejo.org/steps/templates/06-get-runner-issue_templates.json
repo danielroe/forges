@@ -1,0 +1,217 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/issue_templates"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "🐛 Bug Report",
+        "title": "bug: ",
+        "about": "Found something you weren't expecting? Report it here!",
+        "labels": [
+          "Kind/Bug"
+        ],
+        "ref": "refs/heads/",
+        "content": "",
+        "body": [
+          {
+            "type": "markdown",
+            "id": "0",
+            "attributes": {
+              "value": "**NOTE: If your issue is a security concern, please email <redacted@example.invalid> (GPG: `A4676E79`) instead of opening a public issue.**\n"
+            },
+            "validations": null,
+            "visible": [
+              "form"
+            ]
+          },
+          {
+            "type": "markdown",
+            "id": "1",
+            "attributes": {
+              "value": "- Please speak English, as this is the language all maintainers can speak and write.\n- Be as clear and concise as possible. A very verbose report is harder to interpret in a concrete way.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- Take a moment to [check that your issue hasn't been reported before](https://code.forgejo.org/forgejo/runner/issues?q=&type=all&labels=19).\n"
+            },
+            "validations": null,
+            "visible": [
+              "form"
+            ]
+          },
+          {
+            "type": "dropdown",
+            "id": "can-reproduce",
+            "attributes": {
+              "description": "Please try reproducing your issue at https://dev.next.forgejo.org.\nIt is running the latest development branch and will confirm the problem is not already fixed.\nIf you can reproduce it, provide a URL in the description.\n",
+              "label": "Can you reproduce the bug on the Forgejo test instance?",
+              "options": [
+                "Yes",
+                "No"
+              ]
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "attributes": {
+              "description": "Please provide a description of your issue here, with a URL if you were able to reproduce the issue (see above).\n",
+              "label": "Description"
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "input",
+            "id": "forgejo-ver",
+            "attributes": {
+              "description": "Forgejo version (or commit reference) of your instance",
+              "label": "Forgejo Version"
+            },
+            "validations": null,
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "input",
+            "id": "runner-ver",
+            "attributes": {
+              "description": "Runner version (or commit reference) of the runner on your instance",
+              "label": "Runner Version"
+            },
+            "validations": null,
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "forgejo-run-info",
+            "attributes": {
+              "description": "Please include information on whether you built Forgejo yourself, used one of our downloads, or are using some other package.\nPlease also tell us how you are running Forgejo, e.g. if it is being run from a container, a command-line, systemd etc.\nIf you are using a package or systemd tell us what distribution you are using.\n",
+              "label": "How are you running Forgejo?"
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "runner-run-info",
+            "attributes": {
+              "description": "Please include information on whether you built the Runner yourself, used one of our downloads, or are using some other package.\nPlease also tell us how you are running it, e.g. if it is being run from a container, a command-line, systemd etc.\nIf you are using a package or systemd tell us what distribution you are using.\n",
+              "label": "How are you running the Runner?"
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "logs",
+            "attributes": {
+              "description": "It's really important to provide pertinent logs. For Forgejo\n[use `DEBUG` level logs](https://forgejo.org/docs/next/admin/logging-documentation/)\nand for the Forgejo runner\n[set `log.level=debug` and `log.job_level=debug`](https://forgejo.org/docs/next/admin/runner-installation/#configuration).\n\nPlease copy and paste your logs here, with any sensitive information (e.g. API keys) removed/hidden.\nYou can wrap your logs in `<details>...</details>` tags so it doesn't take up too much space in the issue.\n",
+              "label": "Logs"
+            },
+            "validations": null,
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "workflow",
+            "attributes": {
+              "description": "If the bug occurs in a specific workflow, please provide an example workflow file.\nIf you have linked to a reproduction repository this won't be necessary.\n",
+              "label": "Workflow file"
+            },
+            "validations": null,
+            "visible": [
+              "form",
+              "content"
+            ]
+          }
+        ],
+        "file_name": ".forgejo/issue_template/bug-report.yaml"
+      },
+      {
+        "name": "💡 Feature Request",
+        "title": "feat: ",
+        "about": "Got an idea ready to be implemented? Suggest it here!",
+        "labels": [
+          "Kind/Enhancement"
+        ],
+        "ref": "refs/heads/",
+        "content": "",
+        "body": [
+          {
+            "type": "markdown",
+            "id": "0",
+            "attributes": {
+              "value": "- New ideas must be [proposed in an issue tracker dedicated to feature requests](https://code.forgejo.org/forgejo/forgejo-actions-feature-requests/issues/new?template=.forgejo%2fissue_template%2ffeature-request.yaml).\n- Ideas that have been prepared there and are ready to be implemented can be proposed here.\n- Be civil, and follow the [Forgejo Code of Conduct](https://codeberg.org/forgejo/code-of-conduct).\n- Please make sure you are using the latest release of the runner and take a moment to [check that your feature hasn't already been suggested](https://code.forgejo.org/forgejo/runner/issues?q=&type=all).\n"
+            },
+            "validations": null,
+            "visible": [
+              "form"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "url",
+            "attributes": {
+              "description": "The URL to the [feature request](https://code.forgejo.org/forgejo/forgejo-actions-feature-requests/issues?labels=990) in the `ready` stage",
+              "label": "Feature request URL",
+              "placeholder": "https://code.forgejo.org/forgejo/forgejo-actions-feature-requests/issues/???\n"
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          },
+          {
+            "type": "textarea",
+            "id": "Description",
+            "attributes": {
+              "label": "Copy/paste of the description of the feature request"
+            },
+            "validations": {
+              "required": true
+            },
+            "visible": [
+              "form",
+              "content"
+            ]
+          }
+        ],
+        "file_name": ".forgejo/issue_template/feature-request.yaml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "cascading-forgejo",
+        "path": ".forgejo/cascading-forgejo",
+        "sha": "778d0811b87999ed9b62d3ba1168ca8607fb632b",
+        "last_commit_sha": "8f15e4cbfe21fc2ca5e02b5a3b6796c4f578bce6",
+        "last_commit_when": "2026-03-28T21:29:56Z",
+        "type": "file",
+        "size": 1284,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/cascading-forgejo?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/cascading-forgejo",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/778d0811b87999ed9b62d3ba1168ca8607fb632b",
+        "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/cascading-forgejo",
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/cascading-forgejo?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/778d0811b87999ed9b62d3ba1168ca8607fb632b",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/cascading-forgejo"
+        }
+      },
+      {
+        "name": "cascading-setup-forgejo",
+        "path": ".forgejo/cascading-setup-forgejo",
+        "sha": "1fc70ed9e6c4e072c5f5348f30ea51ce7587d672",
+        "last_commit_sha": "4bb2daca9d8b2fbe4a57f754fcf353585ca78d99",
+        "last_commit_when": "2025-08-29T11:17:40+02:00",
+        "type": "file",
+        "size": 534,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/cascading-setup-forgejo?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/cascading-setup-forgejo",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/1fc70ed9e6c4e072c5f5348f30ea51ce7587d672",
+        "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/cascading-setup-forgejo",
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/cascading-setup-forgejo?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/1fc70ed9e6c4e072c5f5348f30ea51ce7587d672",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/cascading-setup-forgejo"
+        }
+      },
+      {
+        "name": "install-docker.sh",
+        "path": ".forgejo/install-docker.sh",
+        "sha": "911e7afc19b80ed5247f99994fc2c5170a1bb0be",
+        "last_commit_sha": "f0b91de92e01a6f473c3102360d1c535c280ce37",
+        "last_commit_when": "2025-12-06T11:57:19-07:00",
+        "type": "file",
+        "size": 1179,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/install-docker.sh?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/install-docker.sh",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/911e7afc19b80ed5247f99994fc2c5170a1bb0be",
+        "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/install-docker.sh",
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/install-docker.sh?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/911e7afc19b80ed5247f99994fc2c5170a1bb0be",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/install-docker.sh"
+        }
+      },
+      {
+        "name": "issue_template",
+        "path": ".forgejo/issue_template",
+        "sha": "7b4d39ec013bf8179d6f6359f65ef195269dbef8",
+        "last_commit_sha": "d51f20b1dbb92486f42a65f0f0af900624f8246d",
+        "last_commit_when": "2025-07-08T16:26:20+02:00",
+        "type": "dir",
+        "size": 0,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/issue_template?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/issue_template",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/7b4d39ec013bf8179d6f6359f65ef195269dbef8",
+        "download_url": null,
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/issue_template?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/7b4d39ec013bf8179d6f6359f65ef195269dbef8",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/issue_template"
+        }
+      },
+      {
+        "name": "labelscompare.py",
+        "path": ".forgejo/labelscompare.py",
+        "sha": "9580b7476621705950d6b8a55439aca05a7ffe89",
+        "last_commit_sha": "bfc5516467efa8d95a5d7edbeb11ed6e9c6c42d2",
+        "last_commit_when": "2025-09-04T09:26:12Z",
+        "type": "file",
+        "size": 973,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/labelscompare.py?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/labelscompare.py",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/9580b7476621705950d6b8a55439aca05a7ffe89",
+        "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/labelscompare.py",
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/labelscompare.py?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/9580b7476621705950d6b8a55439aca05a7ffe89",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/labelscompare.py"
+        }
+      },
+      {
+        "name": "pull_request_template.md",
+        "path": ".forgejo/pull_request_template.md",
+        "sha": "370a334803221eea9cb3591dd996d67c4b62c6a6",
+        "last_commit_sha": "5f3ef3e4099f9f8a0489eae2f9ab14370e597cde",
+        "last_commit_when": "2026-09-22T02:04:44Z",
+        "type": "file",
+        "size": 310,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/pull_request_template.md?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/pull_request_template.md",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/370a334803221eea9cb3591dd996d67c4b62c6a6",
+        "download_url": "https://code.forgejo.org/forgejo/runner/raw/branch/main/.forgejo/pull_request_template.md",
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/pull_request_template.md?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/370a334803221eea9cb3591dd996d67c4b62c6a6",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/pull_request_template.md"
+        }
+      },
+      {
+        "name": "testdata",
+        "path": ".forgejo/testdata",
+        "sha": "b2662b8c529591dc8c2070617cc13f84841e0907",
+        "last_commit_sha": "025fd29a1937e14739e8eca108310ddb001f137b",
+        "last_commit_when": "2026-09-28T13:56:08Z",
+        "type": "dir",
+        "size": 0,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/testdata?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/testdata",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/b2662b8c529591dc8c2070617cc13f84841e0907",
+        "download_url": null,
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/testdata?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/b2662b8c529591dc8c2070617cc13f84841e0907",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/testdata"
+        }
+      },
+      {
+        "name": "workflows",
+        "path": ".forgejo/workflows",
+        "sha": "f7b41d7349a6d8cc39b0cf29cb0143167603cb10",
+        "last_commit_sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "last_commit_when": "2026-10-02T02:59:29Z",
+        "type": "dir",
+        "size": 0,
+        "encoding": null,
+        "content": null,
+        "target": null,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/workflows?ref=main",
+        "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/workflows",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/f7b41d7349a6d8cc39b0cf29cb0143167603cb10",
+        "download_url": null,
+        "submodule_git_url": null,
+        "_links": {
+          "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo/workflows?ref=main",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/f7b41d7349a6d8cc39b0cf29cb0143167603cb10",
+          "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo/workflows"
+        }
+      }
+    ]
+  }
+}
