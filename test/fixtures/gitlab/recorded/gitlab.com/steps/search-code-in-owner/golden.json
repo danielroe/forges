@@ -27,7 +27,7 @@
       "url": "https://gitlab.com/gitlab-org/ai-engineering/agent-foundations/agentic-productivity/-/blob/main/angusryer/harnex/framework/verification/import_extractors.py#L47"
     }
   ],
-  "total": 3334,
+  "total": 2838,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import",
     "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\""
@@ -35,7 +35,8 @@
   "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1930,
-    "resetAt": "<now>"
+    "remaining": 1905,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

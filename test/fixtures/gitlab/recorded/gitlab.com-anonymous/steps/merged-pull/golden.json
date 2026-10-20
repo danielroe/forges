@@ -1,0 +1,277 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "kind": "pull_request",
+      "number": "4139",
+      "externalId": "550529863"
+    },
+    "kind": "pull_request",
+    "title": "perf(api): reuse connections across API clients",
+    "body": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "assignees": [
+      {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "ash2k",
+        "id": "4855585",
+        "name": "Mikhail Mazurskiy",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "url": "https://gitlab.com/ash2k",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      },
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "GitLabDuo",
+          "id": "21826781",
+          "name": "GitLab Duo",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+          "url": "https://gitlab.com/GitLabDuo",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      }
+    ],
+    "lastActivityAt": "2026-10-19T01:56:02.486Z",
+    "branches": {
+      "head": {
+        "ref": "ash2k/perf-share-http-transport",
+        "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        }
+      },
+      "base": {
+        "ref": "main"
+      },
+      "mergeCommitSha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+    },
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "ash2k",
+      "id": "4855585",
+      "name": "Mikhail Mazurskiy",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+      "url": "https://gitlab.com/ash2k",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+    "createdAt": "2026-10-17T01:02:53.292Z",
+    "updatedAt": "2026-10-19T01:56:02.486Z",
+    "mergedAt": "2026-10-19T01:56:02.696Z",
+    "mergedBy": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "jay_mccure",
+      "id": "11809982",
+      "name": "Jay McCure",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+      "url": "https://gitlab.com/jay_mccure",
+      "isBotHint": false
+    },
+    "labels": [
+      {
+        "name": "category:gitlab cli"
+      },
+      {
+        "name": "group::workflow engine"
+      },
+      {
+        "name": "maintenance::performance"
+      },
+      {
+        "name": "section::primitives"
+      },
+      {
+        "name": "type::maintenance"
+      }
+    ],
+    "commentCount": 4,
+    "milestone": {
+      "id": "7324669",
+      "title": "19.6",
+      "state": "open",
+      "description": "",
+      "dueOn": "2026-11-13T00:00:00.000Z",
+      "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+    },
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "kind": "pull_request",
+      "number": "4139",
+      "externalId": "550529863"
+    },
+    "kind": "pull_request",
+    "title": "perf(api): reuse connections across API clients",
+    "body": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "assignees": [
+      {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "ash2k",
+        "id": "4855585",
+        "name": "Mikhail Mazurskiy",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+        "url": "https://gitlab.com/ash2k",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "url": "https://gitlab.com/jay_mccure",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      },
+      {
+        "actor": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "GitLabDuo",
+          "id": "21826781",
+          "name": "GitLab Duo",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+          "url": "https://gitlab.com/GitLabDuo",
+          "isBotHint": false
+        },
+        "state": "unknown"
+      }
+    ],
+    "lastActivityAt": "2026-10-19T01:56:02.486Z",
+    "branches": {
+      "head": {
+        "ref": "ash2k/perf-share-http-transport",
+        "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "a300719a2aac26acb25eee65fe08398188c99a0e"
+      },
+      "mergeCommitSha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+    },
+    "stats": {
+      "changedFileCount": 7
+    },
+    "author": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "ash2k",
+      "id": "4855585",
+      "name": "Mikhail Mazurskiy",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+      "url": "https://gitlab.com/ash2k",
+      "typeRaw": "user",
+      "isBotHint": false
+    },
+    "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+    "createdAt": "2026-10-17T01:02:53.292Z",
+    "updatedAt": "2026-10-19T01:56:02.486Z",
+    "mergedAt": "2026-10-19T01:56:02.696Z",
+    "mergedBy": {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "login": "jay_mccure",
+      "id": "11809982",
+      "name": "Jay McCure",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+      "url": "https://gitlab.com/jay_mccure",
+      "isBotHint": false
+    },
+    "labels": [
+      {
+        "name": "category:gitlab cli"
+      },
+      {
+        "name": "group::workflow engine"
+      },
+      {
+        "name": "maintenance::performance"
+      },
+      {
+        "name": "section::primitives"
+      },
+      {
+        "name": "type::maintenance"
+      }
+    ],
+    "commentCount": 4,
+    "milestone": {
+      "id": "7324669",
+      "title": "19.6",
+      "state": "open",
+      "description": "",
+      "dueOn": "2026-11-13T00:00:00.000Z",
+      "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+    },
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    },
+    "checks": {
+      "state": "success",
+      "stateRaw": "success",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961271512"
+    }
+  }
+}

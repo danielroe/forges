@@ -7,10 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=2&per_page=3&sort=asc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=1&per_page=3&sort=asc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=3988&order_by=created_at&page=3&per_page=3&sort=asc>; rel=\"last\"",
-      "etag": "W/\"26019a101c5f66b9447f5458ade94dc2\"",
+      "etag": "W/\"32274bebdd37df0e783939cf426846b5\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1990",
-      "ratelimit-reset": "1791804600",
+      "ratelimit-remaining": "1976",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api",
       "x-total": "7",
       "x-total-pages": "3",
       "x-next-page": "2",
@@ -57,7 +58,7 @@
           "name": "🤖 GitLab Bot 🤖",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791804312",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1792381630",
           "web_url": "https://gitlab.com/gitlab-bot"
         },
         "created_at": "2026-10-01T13:13:50.970Z",
@@ -85,7 +86,7 @@
           "name": "🤖 GitLab Bot 🤖",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1791804312",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1792381630",
           "web_url": "https://gitlab.com/gitlab-bot"
         },
         "created_at": "2026-10-01T13:13:51.006Z",

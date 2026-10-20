@@ -13,33 +13,34 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "brodock",
-      "id": "2293",
-      "name": "Gabriel Mazzetto",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2293/avatar.png?v=1791783930",
-      "url": "https://gitlab.com/brodock",
+      "login": "balasankarc",
+      "id": "4849",
+      "name": "Balasankar 'Balu' C",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1792382439",
+      "url": "https://gitlab.com/balasankarc",
       "isBotHint": false
     },
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "login": "balasankarc",
-      "id": "4849",
-      "name": "Balasankar 'Balu' C",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1791802325",
-      "url": "https://gitlab.com/balasankarc",
+      "login": "bbodenmiller",
+      "id": "5332",
+      "name": "Ben Bodenmiller",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5332/avatar.png?v=1792381631",
+      "url": "https://gitlab.com/bbodenmiller",
       "isBotHint": false
     }
   ],
-  "total": 2956,
+  "total": 2948,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-    "etag": "W/\"3d33caf7714921d336d82f7f0325af24\""
+    "etag": "W/\"95147522dd82f093548ac2741ae08ddb\""
   },
-  "etag": "W/\"3d33caf7714921d336d82f7f0325af24\"",
+  "etag": "W/\"95147522dd82f093548ac2741ae08ddb\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1979,
-    "resetAt": "<now>"
+    "remaining": 1965,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

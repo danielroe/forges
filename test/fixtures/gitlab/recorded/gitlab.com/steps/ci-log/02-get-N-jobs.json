@@ -1,0 +1,150 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines/2958671905/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines/2958671905/jobs?id=forges-fixtures%2Fforges-fixtures&include_retried=false&page=1&per_page=3&pipeline_id=2958671905>; rel=\"first\", <https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/pipelines/2958671905/jobs?id=forges-fixtures%2Fforges-fixtures&include_retried=false&page=1&per_page=3&pipeline_id=2958671905>; rel=\"last\"",
+      "etag": "W/\"18493d7537379d4080bda21bcffa194b\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1927",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": 17256337044,
+        "status": "success",
+        "stage": "test",
+        "name": "check",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-17T15:18:40.183Z",
+        "started_at": "2026-10-17T15:18:40.567Z",
+        "finished_at": "2026-10-17T15:18:48.684Z",
+        "erased_at": null,
+        "duration": 8.117264,
+        "queued_duration": 0.078796,
+        "user": {
+          "id": 2179675,
+          "username": "danielroe",
+          "public_email": "",
+          "name": "Daniel Roe",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/82a8f6237bb263bac46d7cc8ec3054d715ce6a55a8626d6e977769d57d2c94e6?s=80&d=identicon",
+          "web_url": "https://gitlab.com/danielroe",
+          "created_at": "2018-04-03T19:17:02.700Z",
+          "bio": "",
+          "location": "",
+          "linkedin": "daniel-roe",
+          "twitter": "",
+          "discord": "448776407863001090",
+          "website_url": "https://roe.dev/",
+          "github": "danielroe",
+          "job_title": "",
+          "pronouns": "he/him",
+          "organization": "",
+          "bot": false,
+          "work_information": null,
+          "followers": 0,
+          "following": 0,
+          "local_time": "4:39 AM"
+        },
+        "commit": {
+          "id": "22d57f80879256b87da5b30c991f5142e340f1e4",
+          "short_id": "22d57f80",
+          "created_at": "2026-10-17T15:18:38.000+00:00",
+          "parent_ids": [
+            "e9d272585286462d954c2a6b0861d72992afb9f1",
+            "8f67cf0031b194503d5f46f5512e16086a7d06b1"
+          ],
+          "title": "Merge run 20261017151708",
+          "message": "Merge run 20261017151708\n\nMerged by run 20261017151708",
+          "author_name": "Daniel Roe",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-17T15:18:38.000+00:00",
+          "committer_name": "Daniel Roe",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-17T15:18:38.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/commit/22d57f80879256b87da5b30c991f5142e340f1e4"
+        },
+        "pipeline": {
+          "id": 2958671905,
+          "iid": 187,
+          "project_id": 87428720,
+          "sha": "22d57f80879256b87da5b30c991f5142e340f1e4",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-10-17T15:18:40.129Z",
+          "updated_at": "2026-10-17T15:18:50.060Z",
+          "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/pipelines/2958671905"
+        },
+        "web_url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/jobs/17256337044",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 6656,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 54907241,
+          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 6515150,
+            "username": "rhassanein-admin",
+            "public_email": "",
+            "name": "Rehab Hassanein",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+            "web_url": "https://gitlab.com/rhassanein-admin"
+          },
+          "created_at": "2026-08-06T11:12:30.404Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 163226738,
+          "system_id": "r_EazlvAk3from",
+          "version": "19.6.0~pre.2336.g77694893",
+          "revision": "77694893",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-16T16:33:00.568Z",
+          "contacted_at": "2026-10-19T04:39:15.340Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": []
+      }
+    ]
+  }
+}

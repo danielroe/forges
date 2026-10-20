@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues?id=gitlab-org%2Fcli&page=1&per_page=100&type=issues>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues?id=gitlab-org%2Fcli&page=1&per_page=100&type=issues>; rel=\"last\"",
+      "etag": "W/\"c3ebd9df77d89f36d81bd81c9877b969\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1993",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api",
+      "x-total": "7",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "key": "AI Agent template",
+        "name": "AI Agent template"
+      },
+      {
+        "key": "AI Flow template",
+        "name": "AI Flow template"
+      },
+      {
+        "key": "interlock_template",
+        "name": "interlock_template"
+      },
+      {
+        "key": "Bug",
+        "name": "Bug"
+      },
+      {
+        "key": "Feature Request",
+        "name": "Feature Request"
+      },
+      {
+        "key": "Maintainer Onboarding",
+        "name": "Maintainer Onboarding"
+      },
+      {
+        "key": "Vulnerability Disclosure",
+        "name": "Vulnerability Disclosure"
+      }
+    ]
+  }
+}

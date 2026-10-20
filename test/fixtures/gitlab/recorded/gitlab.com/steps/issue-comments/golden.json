@@ -25,7 +25,7 @@
         "login": "phikai",
         "id": "2935693",
         "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791763705",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
         "url": "https://gitlab.com/phikai",
         "isBotHint": false
       },
@@ -36,12 +36,13 @@
   "total": 4,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572/discussions?id=gitlab-org%2Fcli&noteable_id=8572&page=2&per_page=3",
-    "etag": "W/\"038299f61fefbc7d28268cd1bb279a22\""
+    "etag": "W/\"6261770e687f348a7ed7ea47d7bc5247\""
   },
-  "etag": "W/\"038299f61fefbc7d28268cd1bb279a22\"",
+  "etag": "W/\"6261770e687f348a7ed7ea47d7bc5247\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1974,
-    "resetAt": "<now>"
+    "remaining": 1958,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

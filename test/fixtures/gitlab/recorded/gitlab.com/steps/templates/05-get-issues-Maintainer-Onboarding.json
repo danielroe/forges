@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/templates/issues/Maintainer%20Onboarding"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"f3d7763b1c933d7cf97b831d5f7534fe\"",
+      "ratelimit-limit": "2000",
+      "ratelimit-remaining": "1984",
+      "ratelimit-reset": "1792384740",
+      "ratelimit-name": "throttle_authenticated_api"
+    },
+    "body": {
+      "name": "Maintainer Onboarding",
+      "content": "<!--\n  Update the title of this issue to: Maintainer Onboarding - [full name]\n-->\n\n## Basic setup\n\n- [ ] Create a merge request updating [your team member entry](https://gitlab.com/gitlab-com/www-gitlab-com/blob/master/doc/team_database.md) adding yourself as a [`reviewer` or `trainee_maintainer`](https://handbook.gitlab.com/handbook/engineering/workflow/code-review/#learning-to-be-a-maintainer) of the `gitlab-cli` project.\n- [ ] Join the `#f_cli` Slack channel.\n- [ ] Read and understand the [maintainer responsibilities](/docs/maintainer.md) for this project.\n  - [ ] Get the required access mentioned in the above document.\n- [ ] Browse through the [development resources](/docs/development_process.md) to get an idea of how the CLI works.\n- [ ] Open a merge request to improve the [documentation](/docs) or [Maintainer Onboarding template](/.gitlab/issue_templates/Maintainer%20Onboarding.md).\n- [ ] _Optional_: [Pair](#code-review-pairing) with a maintainer to review a merge request or implement a small change.\n- [ ] _Optional_: Read the [code review page in the handbook](https://handbook.gitlab.com/handbook/engineering/workflow/code-review/) and the [code review guidelines](https://docs.gitlab.com/development/code_review/).\n- [ ] _Optional_: Read and understand [how to become a maintainer](https://handbook.gitlab.com/handbook/engineering/workflow/code-review/#how-to-become-a-project-maintainer).\n\n### Code Review Pairing\n\nMuch like pair programming, pairing on code review is a great way to knowledge share and collaborate on merge request. This is a great activity for trainee maintainers to participate with maintainers for learning their process of code review.\n\nA **private code review session** (unrecorded) involves one primary reviewer, and a shadow. If more than one shadow wishes to observe a private session, please consider obtaining consent from the merge request author.\n\nA **public code review session** involves a primary reviewer and one or more shadows in a recorded session that is released publicly, for example to GitLab Unfiltered.\n\n- If the merge request author is a GitLab team member, please consider obtaining consent from them.\n- If the merge request author is a community contributor, you **must** obtain consent from them.\n- Do **not** release reviews of security merge requests publicly.\n\n## When you're ready to make it official\n\nWhen reviews have accumulated, you can confidently address the majority of the MR's assigned to you,\nand recent reviews consistently fulfill maintainer responsibilities, then you can propose yourself as a new maintainer\nfor the relevant application.\n\nRemember that even when you are a maintainer, you can still request help from other maintainers if you come across an MR\nthat you feel is too complex or requires a second opinion.\n\nIf you need assistance with any of the following steps, ask in either the `#f_cli` Slack channel.\n\n- [ ] Create a merge request updating [your team member entry](https://gitlab.com/gitlab-com/www-gitlab-com/blob/master/doc/team_database.md) proposing yourself as a maintainer for the `gitlab-cli` project, assigned to your manager.\n- [ ] Ask an existing maintainer to give you the Maintainer role in this GitLab project.\n- [ ] Keep reviewing, start merging :metal:\n"
+    }
+  }
+}

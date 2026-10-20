@@ -6,13 +6,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=66&per_page=3&sort=desc>; rel=\"last\"",
-      "etag": "W/\"19b15f48efe4ad02e30500a9d2d97109\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=64&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"acc99fde838521ccacbdd6b140b5f8b3\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "497",
-      "ratelimit-reset": "1791843180",
-      "x-total": "198",
-      "x-total-pages": "66",
+      "ratelimit-remaining": "495",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-total": "192",
+      "x-total-pages": "64",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
@@ -21,21 +22,21 @@
       {
         "name": "GitLab Renovate Bot",
         "email": "redacted@example.invalid",
-        "commits": 501,
+        "commits": 478,
         "additions": 0,
         "deletions": 0
       },
       {
         "name": "Kai Armstrong",
         "email": "redacted@example.invalid",
-        "commits": 234,
+        "commits": 233,
         "additions": 0,
         "deletions": 0
       },
       {
         "name": "Timo Furrer",
         "email": "redacted@example.invalid",
-        "commits": 186,
+        "commits": 185,
         "additions": 0,
         "deletions": 0
       }

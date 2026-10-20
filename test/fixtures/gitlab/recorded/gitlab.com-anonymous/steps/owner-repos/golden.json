@@ -4,142 +4,140 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/frontend",
-        "name": "renovate-fork",
-        "externalId": "25386283"
-      },
-      "description": "Fork of https://github.com/renovatebot/renovate.git in order to work with forks.",
-      "defaultBranch": "gitlab-main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/frontend/renovate-fork",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/frontend/renovate-fork.git",
-        "ssh": "git@gitlab.com:gitlab-org/frontend/renovate-fork.git"
-      },
-      "createdAt": "2021-03-24T09:41:06.049Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 1,
-      "stars": 1,
-      "forks": 2,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/frontend",
-        "name": "gitlab-mfe",
-        "externalId": "83118773"
-      },
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/frontend/gitlab-mfe",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/frontend/gitlab-mfe.git",
-        "ssh": "git@gitlab.com:gitlab-org/frontend/gitlab-mfe.git"
-      },
-      "createdAt": "2026-06-10T19:11:52.728Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 3,
-      "stars": 0,
-      "forks": 1,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
         "owner": "gitlab-org",
-        "name": "gitlab-shell",
-        "externalId": "14022"
+        "name": "gitlab-rebased",
+        "externalId": "85606680"
       },
-      "description": "SSH access for GitLab",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
-      "topics": [
-        "Canonical",
-        "golang",
-        "hacktoberfest",
-        "infra-mgmt Managed",
-        "ssh"
-      ],
-      "url": "https://gitlab.com/gitlab-org/gitlab-shell",
+      "topics": [],
+      "url": "https://gitlab.com/gitlab-org/gitlab-rebased",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/gitlab-shell.git",
-        "ssh": "git@gitlab.com:gitlab-org/gitlab-shell.git"
+        "https": "https://gitlab.com/gitlab-org/gitlab-rebased.git",
+        "ssh": "git@gitlab.com:gitlab-org/gitlab-rebased.git"
       },
-      "createdAt": "2013-10-07T16:48:29.000Z",
+      "createdAt": "2026-08-20T21:08:27.169Z",
       "updatedAt": "<now>",
-      "openIssueCount": 77,
-      "stars": 233,
-      "forks": 338,
+      "openIssueCount": 48,
+      "stars": 2,
+      "forks": 4,
       "mergeMethods": [
         "merge",
         "squash"
       ],
       "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org/developer-relations/contributor-success",
+        "name": "team-task",
+        "externalId": "39971471"
+      },
+      "description": "",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task.git",
+        "ssh": "git@gitlab.com:gitlab-org/developer-relations/contributor-success/team-task.git"
+      },
+      "createdAt": "2022-10-05T10:35:45.116Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 277,
+      "stars": 5,
+      "forks": 3,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org/technical-writing",
+        "name": "docs-gitlab-com",
+        "externalId": "51970333"
+      },
+      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
+        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
+      },
+      "createdAt": "2023-11-07T18:07:49.139Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 91,
+      "stars": 56,
+      "forks": 128,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
       "deleteBranchOnMerge": true,
       "mergeCommit": {
         "merge": {
-          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\n\n%{title}\n\n%{issues}\n\nSee merge request %{url}\n\nMerged-by: %{merged_by}\n%{approved_by}\n%{reviewed_by}\n%{co_authored_by}\n"
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+        },
+        "squash": {
+          "template": "%{first_commit}"
         }
       },
       "features": {
         "issues": true,
         "pullRequests": true,
         "discussions": false,
-        "wiki": false,
+        "wiki": true,
         "projects": false,
         "releases": true
       }
     }
   ],
-  "total": 3749,
+  "total": 3762,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"4c4937b46dd4a8e39b4f9f18104aa4ac\""
+    "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\""
   },
-  "etag": "W/\"4c4937b46dd4a8e39b4f9f18104aa4ac\"",
+  "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\"",
   "rateLimit": {
-    "limit": 500,
-    "remaining": 475,
-    "resetAt": "<now>"
+    "limit": 1,
+    "remaining": 41,
+    "resetAt": "<now>",
+    "resource": "unauthenticated_traffic_per_ip"
   }
 }

@@ -1,0 +1,1447 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?state=merged&order_by=created_at&sort=desc&per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=10&sort=desc&state=merged&with_labels_details=false&with_merge_status_recheck=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=10&sort=desc&state=merged&with_labels_details=false&with_merge_status_recheck=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=284&per_page=10&sort=desc&state=merged&with_labels_details=false&with_merge_status_recheck=false>; rel=\"last\"",
+      "etag": "W/\"e1b7e914313b3b7a02198232b593358d\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "469",
+      "ratelimit-reset": "1792384860",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-total": "2834",
+      "x-total-pages": "284",
+      "x-next-page": "2",
+      "x-page": "1",
+      "x-per-page": "10"
+    },
+    "body": [
+      {
+        "id": 550529863,
+        "iid": 4139,
+        "project_id": 34675721,
+        "title": "perf(api): reuse connections across API clients",
+        "description": "## Description\n\n* perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1.\n\n* perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n\n## Related Issues\n\n## How has this been tested?",
+        "state": "merged",
+        "created_at": "2026-10-17T01:02:53.292Z",
+        "updated_at": "2026-10-19T01:56:02.486Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-19T01:56:02.696Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "ash2k/perf-share-http-transport",
+        "user_notes_count": 4,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 4855585,
+          "username": "ash2k",
+          "public_email": "",
+          "name": "Mikhail Mazurskiy",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+          "web_url": "https://gitlab.com/ash2k",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 4855585,
+            "username": "ash2k",
+            "public_email": "",
+            "name": "Mikhail Mazurskiy",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+            "web_url": "https://gitlab.com/ash2k"
+          }
+        ],
+        "assignee": {
+          "id": 4855585,
+          "username": "ash2k",
+          "public_email": "",
+          "name": "Mikhail Mazurskiy",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4855585/avatar.png?v=1792382936",
+          "web_url": "https://gitlab.com/ash2k"
+        },
+        "reviewers": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "category:gitlab cli",
+          "group::workflow engine",
+          "maintenance::performance",
+          "section::primitives",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": {
+          "id": 7324669,
+          "iid": 144,
+          "group_id": 9970,
+          "title": "19.6",
+          "description": "",
+          "state": "active",
+          "created_at": "2026-03-03T22:58:31.265Z",
+          "updated_at": "2026-03-03T22:58:31.265Z",
+          "due_date": "2026-11-13",
+          "start_date": "2026-10-10",
+          "expired": false,
+          "web_url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+        },
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "74931758500a9c66e56ca2c443a0c2a987c5923f",
+        "merge_commit_sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-17T01:02:55.149Z",
+        "reference": "!4139",
+        "references": {
+          "short": "!4139",
+          "relative": "!4139",
+          "full": "gitlab-org/cli!4139"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4139",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": false,
+        "squash_on_merge": false,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 550294110,
+        "iid": 4135,
+        "project_id": 34675721,
+        "title": "chore(deps): update module golang.org/x/crypto to v0.58.0",
+        "description": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [golang.org/x/crypto](https://go.googlesource.com/crypto) | require | minor | `v0.57.0` → `v0.58.0` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+        "state": "merged",
+        "created_at": "2026-10-16T17:09:14.280Z",
+        "updated_at": "2026-10-19T01:13:04.629Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-19T01:13:04.878Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "renovate/golang.org-x-crypto-0.x",
+        "user_notes_count": 3,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 8420142,
+            "username": "gitlab-dependency-update-bot",
+            "public_email": "",
+            "name": "GitLab Dependency Bot",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+          }
+        ],
+        "assignee": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+        },
+        "reviewers": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "source_project_id": 57963790,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:bot-authored",
+          "automation:bot-no-updates",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::dependency",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "7fae9b8f5d2b701367d71297faf83b80e7daa69e",
+        "merge_commit_sha": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-16T17:09:16.991Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4135",
+        "references": {
+          "short": "!4135",
+          "relative": "!4135",
+          "full": "gitlab-org/cli!4135"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4135",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": false,
+        "squash_on_merge": false,
+        "task_completion_status": {
+          "count": 1,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 550216406,
+        "iid": 4133,
+        "project_id": 34675721,
+        "title": "chore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10",
+        "description": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [github.com/docker/docker-credential-helpers](https://github.com/docker/docker-credential-helpers) | require | patch | `v0.9.9` → `v0.9.10` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>docker/docker-credential-helpers (github.com/docker/docker-credential-helpers)</summary>\n\n### [`v0.9.10`](https://github.com/docker/docker-credential-helpers/releases/tag/v0.9.10)\n\n[Compare Source](https://github.com/docker/docker-credential-helpers/compare/v0.9.9...v0.9.10)\n\n#### What's Changed\n\n- update to go1.26.9\n- build(deps): bump actions/upload-artifact from 7.0.1 to 7.0.2\n- build(deps): bump codecov/codecov-action from 7.0.0 to 7.1.1\n- build(deps): bump docker/setup-qemu-action from 4.2.0 to 4.3.0\n- build(deps): bump softprops/action-gh-release from 3.0.2 to 3.0.3\n- build(deps): bump the docker-actions group\n\n**Full Changelog**: <https://github.com/docker/docker-credential-helpers/compare/v0.9.9...v0.9.10>\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+        "state": "merged",
+        "created_at": "2026-10-16T15:10:07.199Z",
+        "updated_at": "2026-10-19T01:14:46.120Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-19T01:14:46.268Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "renovate/github.com-docker-docker-credential-helpers-0.x",
+        "user_notes_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 8420142,
+            "username": "gitlab-dependency-update-bot",
+            "public_email": "",
+            "name": "GitLab Dependency Bot",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+          }
+        ],
+        "assignee": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+        },
+        "reviewers": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "source_project_id": 57963790,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:bot-authored",
+          "automation:bot-no-updates",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::dependency",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "fab36a75f5e21664548604036d395bf6d52276df",
+        "merge_commit_sha": "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-16T15:10:10.461Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4133",
+        "references": {
+          "short": "!4133",
+          "relative": "!4133",
+          "full": "gitlab-org/cli!4133"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4133",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": false,
+        "squash_on_merge": false,
+        "task_completion_status": {
+          "count": 1,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549825650,
+        "iid": 4132,
+        "project_id": 34675721,
+        "title": "ci(snap): allow edge snap release to fail pending store review",
+        "description": "## What\n\nSets `allow_failure: true` on `snapcraft_release_edge`.\n\n## Why\n\nhttps://gitlab.com/gitlab-org/cli/-/merge_requests/4031 added a `kube-config` `personal-files` plug (for https://gitlab.com/gitlab-org/cli/-/work_items/8304). The Snap Store requires a snap declaration for that interface, so every upload fails automated review and is held for manual review. Starting with revision 6944, this makes `snapcraft_release_edge` fail on every `main` pipeline.\n\nWe're requesting the declaration on forum.snapcraft.io. Revert this change once the store grants it.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+        "state": "merged",
+        "created_at": "2026-10-16T03:03:13.237Z",
+        "updated_at": "2026-10-19T00:47:30.153Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-19T00:47:30.319Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "jmc-snap-edge-allow-failure",
+        "user_notes_count": 3,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "assignee": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "reviewers": [
+          {
+            "id": 12294975,
+            "username": "jhebden",
+            "public_email": "",
+            "name": "James Hebden",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+            "web_url": "https://gitlab.com/jhebden"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:ml",
+          "bug::functional",
+          "category:code review workflow",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "section::ai",
+          "type::bug",
+          "workflow::complete"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "7319d98846707a3e6cff5e4e77cb57ee71a4e09b",
+        "merge_commit_sha": "8ef1da7226ac68f855a6a5d883d51799ed02d5e4",
+        "squash_commit_sha": "f48474a7700fea1bb5a13dd6088f236f382a085e",
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-16T03:03:17.764Z",
+        "reference": "!4132",
+        "references": {
+          "short": "!4132",
+          "relative": "!4132",
+          "full": "gitlab-org/cli!4132"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4132",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549786808,
+        "iid": 4131,
+        "project_id": 34675721,
+        "title": "docs: regenerate govern command docs after AI governance rename",
+        "description": "## Summary\n\nRan `make gen-docs` to regenerate the four files flagged by the `check_docs_update` job. The generated docs were stale after MR !4130 changed \"AI agent governance\" to \"AI governance\" in the `govern` command help text. The regenerated output now matches that wording.\n\nThe CI job was not re-run. The diff touches exactly the four files the job checks for.\n\n## Files modified (all generated, none edited by hand)\n\n- `README.md`\n- `docs/source/govern/_index.md`\n- `docs/source/govern/doctor.md`\n- `docs/source/govern/setup.md`\n\nFixes [failing pipeline](https://gitlab.com/gitlab-org/cli/-/pipelines/2953343242)<br><br>[Session 9578218](https://gitlab.com/gitlab-org/cli/-/automate/agent-sessions/9578218)\n\n_Powered by [Duo Fix Pipeline](https://docs.gitlab.com/user/duo_agent_platform/flows/foundational_flows/fix_pipeline/#give-feedback) flow_",
+        "state": "merged",
+        "created_at": "2026-10-16T01:53:46.784Z",
+        "updated_at": "2026-10-16T02:08:48.051Z",
+        "merged_by": {
+          "id": 12187344,
+          "username": "nrosandich",
+          "public_email": "redacted@example.invalid",
+          "name": "Nate Rosandich",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12187344/avatar.png?v=1792380408",
+          "web_url": "https://gitlab.com/nrosandich"
+        },
+        "merge_user": {
+          "id": 12187344,
+          "username": "nrosandich",
+          "public_email": "redacted@example.invalid",
+          "name": "Nate Rosandich",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12187344/avatar.png?v=1792380408",
+          "web_url": "https://gitlab.com/nrosandich"
+        },
+        "merged_at": "2026-10-16T02:08:48.209Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "fix-gaig-terminology",
+        "source_branch": "duo/fix/regenerate-govern-docs-9578218",
+        "user_notes_count": 3,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 12187344,
+          "username": "nrosandich",
+          "public_email": "redacted@example.invalid",
+          "name": "Nate Rosandich",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12187344/avatar.png?v=1792380408",
+          "web_url": "https://gitlab.com/nrosandich",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 12187344,
+            "username": "nrosandich",
+            "public_email": "redacted@example.invalid",
+            "name": "Nate Rosandich",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12187344/avatar.png?v=1792380408",
+            "web_url": "https://gitlab.com/nrosandich"
+          }
+        ],
+        "assignee": {
+          "id": 12187344,
+          "username": "nrosandich",
+          "public_email": "redacted@example.invalid",
+          "name": "Nate Rosandich",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12187344/avatar.png?v=1792380408",
+          "web_url": "https://gitlab.com/nrosandich"
+        },
+        "reviewers": [
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "7622f050ff9b6661c4a879c55beb0440cf9e2e4a",
+        "merge_commit_sha": "e0b06cc570410e252c6d8b4229c33d2ce42d172c",
+        "squash_commit_sha": "239213ad532f27d7f1a776e8ed14f19efe2fe46a",
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-16T01:53:50.234Z",
+        "reference": "!4131",
+        "references": {
+          "short": "!4131",
+          "relative": "!4131",
+          "full": "gitlab-org/cli!4131"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4131",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549717665,
+        "iid": 4127,
+        "project_id": 34675721,
+        "title": "chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.25.0",
+        "description": "Supersedes https://gitlab.com/gitlab-org/cli/-/merge_requests/4126, whose `golangci-lint` job fails ([job](https://gitlab.com/gitlab-renovate-forks/cli/-/jobs/17215721873)):\n\n```\ninternal/api/pipeline.go:73:10: SA1019: ListPipelineBridges is deprecated: the bridges route is deprecated in GitLab 19.2, use ListPipelineTriggerJobs instead. To be removed in client-go v4.0. (staticcheck)\n```\n\n## Changes\n\n- Bump `gitlab.com/gitlab-org/api/client-go/v3` from v3.23.0 to v3.25.0.\n- Add a `//nolint:staticcheck` with a reason on the `ListPipelineBridges` call.\n\n## Why not migrate to `ListPipelineTriggerJobs`\n\nIt calls `/pipelines/:id/trigger_jobs`, which exists only in GitLab 19.2 and later. Switching now would break `glab ci view` for bridge jobs on older self-managed instances. The deprecated route keeps working until client-go v4, and we can migrate then (or add a version-gated fallback).\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+        "state": "merged",
+        "created_at": "2026-10-15T23:44:00.642Z",
+        "updated_at": "2026-10-16T01:10:31.780Z",
+        "merged_by": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "merge_user": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "merged_at": "2026-10-16T01:10:31.974Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "jmc-client-go-v3.25.0",
+        "user_notes_count": 3,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "assignee": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "reviewers": [
+          {
+            "id": 2935693,
+            "username": "phikai",
+            "public_email": "redacted@example.invalid",
+            "name": "Kai Armstrong",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+            "web_url": "https://gitlab.com/phikai"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "devops::ai clients",
+          "maintenance::dependency",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "6c04802013c28261cf5b76403f76faac406ef5db",
+        "merge_commit_sha": "bac778d8bad88256951a5956c57a8718edb99601",
+        "squash_commit_sha": "4222bb303132ce9088b5083ba51cf1f96ceeb3eb",
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-15T23:44:03.808Z",
+        "reference": "!4127",
+        "references": {
+          "short": "!4127",
+          "relative": "!4127",
+          "full": "gitlab-org/cli!4127"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4127",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549662463,
+        "iid": 4125,
+        "project_id": 34675721,
+        "title": "chore(deps): update module github.com/docker/cli to v29.9.0+incompatible",
+        "description": "This MR contains the following updates:\n\n| Package | Type | Update | Change | Pending |\n|---|---|---|---|---|\n| [github.com/docker/cli](https://github.com/docker/cli) | require | minor | `v29.8.2+incompatible` → `v29.9.0+incompatible` | `v29.9.1+incompatible` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>docker/cli (github.com/docker/cli)</summary>\n\n### [`v29.9.0+incompatible`](https://github.com/docker/cli/compare/v29.8.2...v29.9.0)\n\n[Compare Source](https://github.com/docker/cli/compare/v29.8.2...v29.9.0)\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+        "state": "merged",
+        "created_at": "2026-10-15T21:08:59.343Z",
+        "updated_at": "2026-10-16T01:42:52.960Z",
+        "merged_by": {
+          "id": 12294975,
+          "username": "jhebden",
+          "public_email": "",
+          "name": "James Hebden",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+          "web_url": "https://gitlab.com/jhebden"
+        },
+        "merge_user": {
+          "id": 12294975,
+          "username": "jhebden",
+          "public_email": "",
+          "name": "James Hebden",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+          "web_url": "https://gitlab.com/jhebden"
+        },
+        "merged_at": "2026-10-16T01:42:53.161Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "renovate/github.com-docker-cli-29.x",
+        "user_notes_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 8420142,
+            "username": "gitlab-dependency-update-bot",
+            "public_email": "",
+            "name": "GitLab Dependency Bot",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+          }
+        ],
+        "assignee": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+        },
+        "reviewers": [
+          {
+            "id": 12294975,
+            "username": "jhebden",
+            "public_email": "",
+            "name": "James Hebden",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+            "web_url": "https://gitlab.com/jhebden"
+          }
+        ],
+        "source_project_id": 57963790,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:bot-authored",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::dependency",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "0174507544c8e3003a2fb7b3d1e14577c7edb339",
+        "merge_commit_sha": "d2d0da9b8bfcf271d150182966f9ef62061df7e7",
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-15T21:09:02.087Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4125",
+        "references": {
+          "short": "!4125",
+          "relative": "!4125",
+          "full": "gitlab-org/cli!4125"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4125",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": false,
+        "squash_on_merge": false,
+        "task_completion_status": {
+          "count": 1,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549603580,
+        "iid": 4124,
+        "project_id": 34675721,
+        "title": "chore(deps): update module charm.land/bubbletea/v2 to v2.1.0",
+        "description": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [charm.land/bubbletea/v2](https://github.com/charmbracelet/bubbletea) | require | minor | `v2.0.10` → `v2.1.0` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>charmbracelet/bubbletea (charm.land/bubbletea/v2)</summary>\n\n### [`v2.1.0`](https://github.com/charmbracelet/bubbletea/releases/tag/v2.1.0)\n\n[Compare Source](https://github.com/charmbracelet/bubbletea/compare/v2.0.10...v2.1.0)\n\n### Hello OSC 7501\n\nThe exciting news in this release is support for the brand new [Program Status Protocol](https://www.superlogical.com/rex/docs/build/program-status), otherwise known as `OSC 7501`, released just a few days ago. The protocol is designed to allow terminal applications to report what they're doing (e.g. idle, working, waiting on the user, finished, or failed) and why.\n\nThe obvious case for the design is AI agents, but are lots of other use cases for this, and we’re excited to see what you build with it.\n\nIt’s subtle, but here’s [Crush](https://github.com/charmbracelet/crush) in Superlogical’s [Rex](https://www.superlogical.com/updates/public-testing-beginning) with the feature integrated (notice the dot in the first tab).\n\n<p><img width=\"700\" src=\"https://github.com/user-attachments/assets/85680681-9397-456b-8283-4eed19635681\" /></p>\n\n#### Bugfixes\n\nAlso, this release brings some very important fixes done by [@&#8203;AdamMagued](https://github.com/AdamMagued), [@&#8203;simpleqt](https://github.com/simpleqt) and [@&#8203;GreedyC](https://github.com/GreedyC).\n\nCheers!\nCharm 🌞\n\n#### Changelog\n\n##### New!\n\n- [`41bc626`](https://github.com/charmbracelet/bubbletea/commit/41bc6265643a4709ad355581b01e6bb70b2ed8ea): feat: OSC 7501 ([#&#8203;1841](https://github.com/charmbracelet/bubbletea/issues/1841)) ([@&#8203;andrinoff](https://github.com/andrinoff))\n\n##### Fixed\n\n- [`96d69d2`](https://github.com/charmbracelet/bubbletea/commit/96d69d2f7eb182bb311be08fc56ed2c208239aff): fix(tty): fall back to default dimensions when terminal size is 0x0 ([#&#8203;1836](https://github.com/charmbracelet/bubbletea/issues/1836)) ([@&#8203;AdamMagued](https://github.com/AdamMagued))\n- [`ff51ba4`](https://github.com/charmbracelet/bubbletea/commit/ff51ba4c51f85875761b15a64f9ab9aa0eaa9fa1): fix: prevent signal goroutine deadlock on shutdown ([#&#8203;1806](https://github.com/charmbracelet/bubbletea/issues/1806)) ([@&#8203;simpleqt](https://github.com/simpleqt))\n\n##### Docs\n\n- [`33f6a40`](https://github.com/charmbracelet/bubbletea/commit/33f6a40ec035111bc11d5fd5304cac1359af44e0): docs: fix command and environment godoc examples ([#&#8203;1833](https://github.com/charmbracelet/bubbletea/issues/1833)) ([@&#8203;GreedyC](https://github.com/GreedyC))\n\n##### Other stuff\n\n- [`f9df43c`](https://github.com/charmbracelet/bubbletea/commit/f9df43c4f2c021d8740a2628d59cd810a862eb98): v2.1.0 ([@&#8203;andrinoff](https://github.com/andrinoff))\n\n***\n\n<a href=\"https://charm.land/\"><img alt=\"The Charm logo\" src=\"https://stuff.charm.sh/charm-banner-next.jpg\" width=\"400\"></a>\n\nThoughts? Questions? We love hearing from you. Feel free to reach out on [X](https://x.com/charmcli), [Discord](https://charm.land/discord), [Slack](https://charm.land/slack), [The Fediverse](https://mastodon.social/@charmcli), [Bluesky](https://bsky.app/profile/charm.land).\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+        "state": "merged",
+        "created_at": "2026-10-15T19:10:17.268Z",
+        "updated_at": "2026-10-15T21:38:35.131Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-15T21:38:35.321Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "renovate/charm.land-bubbletea-v2-2.x",
+        "user_notes_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 8420142,
+            "username": "gitlab-dependency-update-bot",
+            "public_email": "",
+            "name": "GitLab Dependency Bot",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+            "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+          }
+        ],
+        "assignee": {
+          "id": 8420142,
+          "username": "gitlab-dependency-update-bot",
+          "public_email": "",
+          "name": "GitLab Dependency Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
+          "web_url": "https://gitlab.com/gitlab-dependency-update-bot"
+        },
+        "reviewers": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "source_project_id": 57963790,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:bot-authored",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::dependency",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "95641f4f564cfe10ffd8f0effa537ac2583c6013",
+        "merge_commit_sha": "819308ebcc9ddf2db5ba0a186197e3461bd2182a",
+        "squash_commit_sha": null,
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-15T19:10:19.851Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4124",
+        "references": {
+          "short": "!4124",
+          "relative": "!4124",
+          "full": "gitlab-org/cli!4124"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4124",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": false,
+        "squash_on_merge": false,
+        "task_completion_status": {
+          "count": 1,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549234440,
+        "iid": 4122,
+        "project_id": 34675721,
+        "title": "feat: support setting work item iteration id",
+        "description": "## Description\n\nAdd an `--iteration <id>` flag to `glab work-items create` and `glab work-items update`, so you can schedule a work item in an iteration without using the UI or GraphQL.\n\n- The flag takes the numeric iteration ID, which `glab iteration list -F json` shows. It doesn't look up iterations by title, because iterations from automatic cadences have no title.\n- The value goes to `IterationID` on `gitlab.CreateWorkItemOptions` and `gitlab.UpdateWorkItemOptions`. Both already exist in the pinned `client-go` v3.23.0, so no dependency bump is needed.\n- Both commands use `Flags().Changed(\"iteration\")` to tell whether the flag was set, so leaving it out never sends an iteration.\n- `docs/source/work-items/` is regenerated with `make gen-docs`.\n\nRemoving an iteration is out of scope. `client-go` omits a nil `IterationID`, so it can't send the `null` that GraphQL needs to clear the field.\n\n## Related Issues\n\nResolves #8622\n\n## How has this been tested?\n\n- New unit tests in `create_test.go` and `update_test.go`, using the `client-go` mocks through `cmdtest.SetupCmdForTest`:\n  - `TestWorkItems{Create,Update}_Iteration`: `--iteration 123` sends `IterationID` `123`, and leaving the flag out sends no `IterationID`.\n  - `TestWorkItems{Create,Update}_FlagValidation`: a non-numeric `--iteration` value is rejected.\n- `go test ./internal/commands/workitems/...` passes.\n- `golangci-lint run --new-from-rev=origin/main ./internal/commands/workitems/...` (2.14.0, Go 1.27.2) reports 0 issues.\n- `make check-args check-embed` passes.\n\n## Screenshots (if appropriate):",
+        "state": "merged",
+        "created_at": "2026-10-15T10:26:34.396Z",
+        "updated_at": "2026-10-15T17:51:08.825Z",
+        "merged_by": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "merge_user": {
+          "id": 2935693,
+          "username": "phikai",
+          "public_email": "redacted@example.invalid",
+          "name": "Kai Armstrong",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+          "web_url": "https://gitlab.com/phikai"
+        },
+        "merged_at": "2026-10-15T17:51:09.079Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "feat/8622-work-items-iteration",
+        "user_notes_count": 10,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 25983954,
+          "username": "BoxBoxJason",
+          "public_email": "",
+          "name": "BoxBoxJason",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792060003",
+          "web_url": "https://gitlab.com/BoxBoxJason",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 25983954,
+            "username": "BoxBoxJason",
+            "public_email": "",
+            "name": "BoxBoxJason",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792060003",
+            "web_url": "https://gitlab.com/BoxBoxJason"
+          }
+        ],
+        "assignee": {
+          "id": 25983954,
+          "username": "BoxBoxJason",
+          "public_email": "",
+          "name": "BoxBoxJason",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792060003",
+          "web_url": "https://gitlab.com/BoxBoxJason"
+        },
+        "reviewers": [
+          {
+            "id": 2935693,
+            "username": "phikai",
+            "public_email": "redacted@example.invalid",
+            "name": "Kai Armstrong",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+            "web_url": "https://gitlab.com/phikai"
+          },
+          {
+            "id": 3714742,
+            "username": "ck3g",
+            "public_email": "",
+            "name": "Vitali Tatarintev",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/3714742/avatar.png?v=1792384804",
+            "web_url": "https://gitlab.com/ck3g"
+          },
+          {
+            "id": 4303289,
+            "username": "gweaver",
+            "public_email": "redacted@example.invalid",
+            "name": "Gabe Weaver",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4303289/avatar.png?v=1792378509",
+            "web_url": "https://gitlab.com/gweaver"
+          },
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 45049979,
+        "target_project_id": 34675721,
+        "labels": [
+          "1st contribution",
+          "Category:Team Planning",
+          "Community contribution",
+          "backend",
+          "devops::plan",
+          "documentation",
+          "feature::addition",
+          "group::work items",
+          "linked-issue",
+          "section::dev",
+          "tw::triaged",
+          "type::feature",
+          "workflow::ready for review"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "2a8d16ecab5a5103a6c4a9dd82a1115aff549cd9",
+        "merge_commit_sha": "5243baadb17712a1de86a408cf773d4e4ae6383b",
+        "squash_commit_sha": "2f19867b6a72cde27c7a03da23c5374e746ad3b1",
+        "discussion_locked": null,
+        "should_remove_source_branch": null,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-15T10:26:38.008Z",
+        "allow_collaboration": true,
+        "allow_maintainer_to_push": true,
+        "reference": "!4122",
+        "references": {
+          "short": "!4122",
+          "relative": "!4122",
+          "full": "gitlab-org/cli!4122"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4122",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      },
+      {
+        "id": 549052940,
+        "iid": 4120,
+        "project_id": 34675721,
+        "title": "fix(mcp): link the deprecation feedback issue in the warning",
+        "description": "## Description\n\nAdds a link to the `glab mcp` deprecation feedback issue (#8618) to the deprecation warning, so users who still rely on `glab mcp serve` can tell us what they'd miss. A separate feedback issue keeps this apart from general GitLab MCP Server feedback, as suggested in https://gitlab.com/gitlab-org/cli/-/work_items/8583#note_4013602044.\n\nRunning `glab mcp serve` now prints:\n\n```plaintext\nCommand \"serve\" is deprecated, use the GitLab MCP Server (https://docs.gitlab.com/user/model_context_protocol/mcp_server/) instead. Share feedback in https://gitlab.com/gitlab-org/cli/-/work_items/8618.\n```\n\n`glab mcp` prints the same message with `\"mcp\"`.\n\n## Related Issues\n\nRelated to #8583\n\n## How has this been tested?\n\n- Built `glab` and ran `glab mcp serve` and `glab mcp`: both print the message above on stderr.\n- `make gen-docs` produces no changes, because deprecated commands have no generated pages.\n- Pre-commit and pre-push hooks pass.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
+        "state": "merged",
+        "created_at": "2026-10-15T04:22:05.254Z",
+        "updated_at": "2026-10-16T05:28:13.778Z",
+        "merged_by": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merge_user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "merged_at": "2026-10-16T05:28:13.933Z",
+        "closed_by": null,
+        "closed_at": null,
+        "target_branch": "main",
+        "source_branch": "jmc-mcp-deprecation-feedback-link",
+        "user_notes_count": 4,
+        "upvotes": 0,
+        "downvotes": 0,
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "bot": false
+        },
+        "assignees": [
+          {
+            "id": 11809982,
+            "username": "jay_mccure",
+            "public_email": "",
+            "name": "Jay McCure",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "web_url": "https://gitlab.com/jay_mccure"
+          }
+        ],
+        "assignee": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "reviewers": [
+          {
+            "id": 12294975,
+            "username": "jhebden",
+            "public_email": "",
+            "name": "James Hebden",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
+            "web_url": "https://gitlab.com/jhebden"
+          },
+          {
+            "id": 21826781,
+            "username": "GitLabDuo",
+            "public_email": null,
+            "name": "GitLab Duo",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+            "web_url": "https://gitlab.com/GitLabDuo"
+          }
+        ],
+        "source_project_id": 34675721,
+        "target_project_id": 34675721,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::removal",
+          "section::ai",
+          "type::maintenance"
+        ],
+        "draft": false,
+        "imported": false,
+        "imported_from": "none",
+        "work_in_progress": false,
+        "milestone": null,
+        "merge_when_pipeline_succeeds": true,
+        "merge_status": "can_be_merged",
+        "detailed_merge_status": "not_open",
+        "merge_after": null,
+        "sha": "4bc442c622a0a375adb8bc105966b14cec797378",
+        "merge_commit_sha": "ce99c24356c3599f5b5a8c1265e88facc966732a",
+        "squash_commit_sha": "cb9a3c85e2c1a72eba1f6dcab67d54d62cba090c",
+        "discussion_locked": null,
+        "should_remove_source_branch": true,
+        "force_remove_source_branch": true,
+        "prepared_at": "2026-10-15T04:22:08.620Z",
+        "reference": "!4120",
+        "references": {
+          "short": "!4120",
+          "relative": "!4120",
+          "full": "gitlab-org/cli!4120"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4120",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "squash": true,
+        "squash_on_merge": true,
+        "task_completion_status": {
+          "count": 0,
+          "completed_count": 0
+        },
+        "has_conflicts": false,
+        "blocking_discussions_resolved": true,
+        "approvals_before_merge": null
+      }
+    ]
+  }
+}

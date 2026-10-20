@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8622/closed_by?id=gitlab-org%2Fcli&issue_iid=8622&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8622/closed_by?id=gitlab-org%2Fcli&issue_iid=8622&page=1&per_page=3>; rel=\"last\"",
-      "etag": "W/\"3fa75a057e9a66bac283d87765ff97a0\"",
+      "etag": "W/\"634e2e38e07c674ad59631fc03a18c30\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1951",
-      "ratelimit-reset": "1792247700",
+      "ratelimit-remaining": "1953",
+      "ratelimit-reset": "1792384800",
       "ratelimit-name": "throttle_authenticated_api",
       "x-total": "1",
       "x-total-pages": "1",
@@ -35,7 +35,7 @@
           "name": "Kai Armstrong",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792239409",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
           "web_url": "https://gitlab.com/phikai"
         },
         "merge_user": {
@@ -45,7 +45,7 @@
           "name": "Kai Armstrong",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792239409",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
           "web_url": "https://gitlab.com/phikai"
         },
         "merged_at": "2026-10-15T17:51:09.079Z",
@@ -97,7 +97,7 @@
             "name": "Kai Armstrong",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792239409",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
             "web_url": "https://gitlab.com/phikai"
           },
           {
@@ -107,7 +107,7 @@
             "name": "Vitali Tatarintev",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/3714742/avatar.png?v=1792246311",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/3714742/avatar.png?v=1792379932",
             "web_url": "https://gitlab.com/ck3g"
           },
           {
@@ -117,7 +117,7 @@
             "name": "Gabe Weaver",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4303289/avatar.png?v=1792247430",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/4303289/avatar.png?v=1792378509",
             "web_url": "https://gitlab.com/gweaver"
           },
           {
@@ -127,7 +127,7 @@
             "name": "Jay McCure",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792199637",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
             "web_url": "https://gitlab.com/jay_mccure"
           },
           {
@@ -137,7 +137,7 @@
             "name": "GitLab Duo",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1781708173",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
             "web_url": "https://gitlab.com/GitLabDuo"
           }
         ],

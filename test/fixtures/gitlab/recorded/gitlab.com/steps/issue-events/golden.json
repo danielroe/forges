@@ -14,7 +14,7 @@
         "login": "gforcada",
         "id": "163582",
         "name": "Gil Forcada Codinachs",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1791776826",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1792226922",
         "url": "https://gitlab.com/gforcada",
         "isBotHint": false
       },
@@ -53,7 +53,7 @@
         "login": "phikai",
         "id": "2935693",
         "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791763705",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
         "url": "https://gitlab.com/phikai",
         "isBotHint": false
       },
@@ -113,7 +113,7 @@
         "login": "phikai",
         "id": "2935693",
         "name": "Kai Armstrong",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1791763705",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
         "url": "https://gitlab.com/phikai",
         "isBotHint": false
       },
@@ -142,12 +142,13 @@
   "total": 4,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues/8572/notes?activity_filter=all_notes&id=gitlab-org%2Fcli&noteable_id=8572&order_by=created_at&page=2&per_page=3&sort=asc",
-    "etag": "W/\"340721c013f02ced783e04802d6ec092\""
+    "etag": "W/\"76edbd7589184d4b9358d426b9f5eea7\""
   },
-  "etag": "W/\"340721c013f02ced783e04802d6ec092\"",
+  "etag": "W/\"76edbd7589184d4b9358d426b9f5eea7\"",
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1975,
-    "resetAt": "<now>"
+    "remaining": 1959,
+    "resetAt": "<now>",
+    "resource": "throttle_authenticated_api"
   }
 }

@@ -1,104 +1,105 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/jobs/17110223356"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/jobs/17272413278"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"4b4950b91f84990e86162b28830bde76\"",
+      "etag": "W/\"8e5ec695262c775c0fc53ba47bdb034e\"",
       "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1951",
-      "ratelimit-reset": "1791805800"
+      "ratelimit-remaining": "1932",
+      "ratelimit-reset": "1792384800",
+      "ratelimit-name": "throttle_authenticated_api"
     },
     "body": {
-      "id": 17110223356,
+      "id": 17272413278,
       "status": "success",
-      "stage": "release",
-      "name": "snapcraft_release_edge",
-      "ref": "main",
+      "stage": "build",
+      "name": "workload",
+      "ref": "refs/workloads/86279be7d1a",
       "tag": false,
       "coverage": null,
       "allow_failure": false,
-      "created_at": "2026-10-12T10:58:38.056Z",
-      "started_at": "2026-10-12T11:10:03.864Z",
-      "finished_at": "2026-10-12T11:11:13.143Z",
+      "created_at": "2026-10-19T03:47:24.028Z",
+      "started_at": "2026-10-19T03:47:24.425Z",
+      "finished_at": "2026-10-19T03:48:30.898Z",
       "erased_at": null,
-      "duration": 69.279111,
-      "queued_duration": 0.166076,
+      "duration": 66.473253,
+      "queued_duration": 0.127501,
       "user": {
-        "id": 11334402,
-        "username": "ahmed.hemdan",
-        "public_email": "",
-        "name": "Ahmed Hemdan",
+        "id": 32742181,
+        "username": "duo-code-review-gitlab-org",
+        "public_email": null,
+        "name": "Duo Code Review",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11334402/avatar.png?v=1791801783",
-        "web_url": "https://gitlab.com/ahmed.hemdan",
-        "created_at": "2022-04-11T11:39:02.258Z",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
+        "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
+        "created_at": "2026-01-07T09:48:25.291Z",
         "bio": "",
-        "location": "Berlin, Germany",
-        "linkedin": "https://linkedin.com/in/ahazem",
+        "location": "",
+        "linkedin": "",
         "twitter": "",
         "discord": "",
         "website_url": "",
         "github": "",
-        "job_title": "Staff Backend Engineer – Tech Lead, Security Factory:Secret Detection",
-        "pronouns": "he/him",
-        "organization": "GitLab",
-        "bot": false,
-        "work_information": "Staff Backend Engineer – Tech Lead, Security Factory:Secret Detection at GitLab",
-        "followers": 9,
+        "job_title": "",
+        "pronouns": null,
+        "organization": "",
+        "bot": true,
+        "work_information": null,
+        "followers": 0,
         "following": 0,
-        "local_time": "1:49 PM"
+        "local_time": null
       },
       "commit": {
-        "id": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
-        "short_id": "b67f19b0",
-        "created_at": "2026-10-12T12:58:35.000+02:00",
+        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "short_id": "e74ebf81",
+        "created_at": "2026-10-19T12:02:22.000+10:00",
         "parent_ids": [
-          "6ff113fb6793eb4963464a2923de28890f1127f9",
-          "c3151df7594b6208664ed7c51dd97ffd671067d6"
+          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
+          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
         ],
-        "title": "Merge branch '8577-ssh-key-add-replace' into 'main'",
-        "message": "Merge branch '8577-ssh-key-add-replace' into 'main'\n\nfeat(ssh-key): add --replace flag to ssh-key add\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4034\n\nMerged-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: Ahmed Hemdan <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Ahmed Hemdan <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
-        "author_name": "Ahmed Hemdan",
+        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
+        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-12T12:58:35.000+02:00",
+        "authored_date": "2026-10-19T12:02:22.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-12T12:58:35.000+02:00",
+        "committed_date": "2026-10-19T12:02:22.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b67f19b0f87455fc09d18e3b0314a14d022f3af6"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
       },
       "pipeline": {
-        "id": 2938354390,
-        "iid": 15128,
+        "id": 2961499559,
+        "iid": 15548,
         "project_id": 34675721,
-        "sha": "b67f19b0f87455fc09d18e3b0314a14d022f3af6",
-        "ref": "main",
+        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "ref": "refs/workloads/86279be7d1a",
         "status": "success",
-        "source": "push",
-        "created_at": "2026-10-12T10:58:37.988Z",
-        "updated_at": "2026-10-12T11:11:55.378Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2938354390"
+        "source": "duo_workflow",
+        "created_at": "2026-10-19T03:47:23.987Z",
+        "updated_at": "2026-10-19T03:48:32.298Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559"
       },
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17110223356",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
       "project": {
         "ci_job_token_scope_enabled": false
       },
       "artifacts": [
         {
           "file_type": "trace",
-          "size": 10386,
+          "size": 116390,
           "filename": "job.log",
           "file_format": null
         }
       ],
       "runner": {
-        "id": 55314121,
-        "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+        "id": 54907241,
+        "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
         "ip_address": null,
         "active": true,
         "paused": false,
@@ -107,28 +108,28 @@
         "name": null,
         "online": true,
         "created_by": {
-          "id": 5372863,
-          "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+          "id": 6515150,
+          "username": "rhassanein-admin",
           "public_email": "",
-          "name": "Igor Wiedler",
+          "name": "Rehab Hassanein",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
-          "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+          "web_url": "https://gitlab.com/rhassanein-admin"
         },
-        "created_at": "2026-08-19T15:31:33.905Z",
+        "created_at": "2026-08-06T11:12:30.404Z",
         "status": "online",
         "job_execution_status": "active"
       },
       "runner_manager": {
-        "id": 162178864,
-        "system_id": "r_xANM7HpYAXB2",
-        "version": "19.5.0~pre.2302.g6414598a",
-        "revision": "6414598a",
+        "id": 163225755,
+        "system_id": "r_0pGmWpFnG2XF",
+        "version": "19.6.0~pre.2336.g77694893",
+        "revision": "77694893",
         "platform": "linux",
         "architecture": "amd64",
-        "created_at": "2026-10-12T10:54:38.196Z",
-        "contacted_at": "2026-10-12T11:49:31.318Z",
+        "created_at": "2026-10-16T16:25:32.520Z",
+        "contacted_at": "2026-10-19T04:39:18.672Z",
         "ip_address": "10.218.11.3",
         "status": "online",
         "job_execution_status": "active"
@@ -136,7 +137,7 @@
       "artifacts_expire_at": null,
       "archived": false,
       "tag_list": [
-        "saas-linux-medium-amd64"
+        "gitlab--duo"
       ]
     }
   }
