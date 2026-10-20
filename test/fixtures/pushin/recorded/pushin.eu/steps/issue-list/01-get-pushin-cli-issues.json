@@ -7,61 +7,10 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4958",
-      "x-ratelimit-reset": "1791723600"
+      "x-ratelimit-remaining": "4985",
+      "x-ratelimit-reset": "1792386000",
+      "x-ratelimit-resource": "core"
     },
-    "body": [
-      {
-        "id": 6166,
-        "state": "open",
-        "user": {
-          "id": 18,
-          "type": "User",
-          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
-          "html_url": "https://pushin.eu/ellyse",
-          "login": "ellyse",
-          "node_id": "REDACTED"
-        },
-        "number": 12,
-        "title": "add aarch64-darwin package to nix flake",
-        "body": "closes issue #11",
-        "labels": [],
-        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/12",
-        "updated_at": "2026-10-10T18:16:31.043258Z",
-        "created_at": "2026-10-10T18:16:31.043258Z",
-        "pull_request": {
-          "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/12",
-          "merged_at": null,
-          "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12"
-        },
-        "closed_at": null,
-        "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
-        "node_id": "iss_034dd7ODMKhicicj6iPzoi",
-        "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli"
-      },
-      {
-        "id": 6164,
-        "state": "open",
-        "user": {
-          "id": 18,
-          "type": "User",
-          "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
-          "html_url": "https://pushin.eu/ellyse",
-          "login": "ellyse",
-          "node_id": "REDACTED"
-        },
-        "number": 11,
-        "title": "﻿nix flake doesnt have an aarch64-darwin package so doesnt work on my mac",
-        "body": "the repo actually has a mac binary but the flake doesnt include it. \n\nproposed fix:\n```diff\ndiff --git a/.github/workflows/nix.yml b/.github/workflows/nix.yml\n--- a/.github/workflows/nix.yml\n+++ b/.github/workflows/nix.yml\n@@ -21,4 +21,5 @@ jobs:\n         run: |\n           nix eval --raw .#packages.x86_64-linux.pun.drvPath\n           nix eval --raw .#packages.aarch64-linux.pun.drvPath\n+          nix eval --raw .#packages.aarch64-darwin.pun.drvPath\n           nix flake check --no-build --all-systems\ndiff --git a/README.md b/README.md\n--- a/README.md\n+++ b/README.md\n@@ -50,7 +50,8 @@ yay -S pushin-cli-bin\n #### Nix / NixOS\n\n The flake packages the checked-in, static Linux binary for `x86_64-linux` or\n-`aarch64-linux` (no Rust compilation). To run it once without installing:\n+`aarch64-linux`, and macOS binary for `aarch64-darwin` (no Rust\n+compilation). To run it once without installing:\n\n ```sh\n nix run 'git+https://git.pushin.eu/pjullrich/pushin-cli.git#pun' -- --version\ndiff --git a/flake.nix b/flake.nix\n--- a/flake.nix\n+++ b/flake.nix\n@@ -24,6 +24,7 @@\n       systems = [\n         \"x86_64-linux\"\n         \"aarch64-linux\"\n+        \"aarch64-darwin\"\n       ];\n       lib = nixpkgs.lib;\n       toolVersions = builtins.listToAttrs (\ndiff --git a/nix/package.nix b/nix/package.nix\n--- a/nix/package.nix\n+++ b/nix/package.nix\n@@ -9,6 +9,7 @@ let\n     {\n       x86_64-linux = \"linux-x86_64\";\n       aarch64-linux = \"linux-arm64\";\n+      aarch64-darwin = \"macos-universal\";\n     }\n     .${stdenvNoCC.hostPlatform.system}\n       or (throw \"pun: unsupported platform ${stdenvNoCC.hostPlatform.system}\");\n@@ -46,6 +47,7 @@ stdenvNoCC.mkDerivation {\n     platforms = [\n       \"x86_64-linux\"\n       \"aarch64-linux\"\n+      \"aarch64-darwin\"\n     ];\n     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];\n   };\n```\n\njust fyi, cant do intel mac support because nixpkgs dropped support for that. just in case you were wondering.\n\ncant open PR for this because of issue #10 i filed. happy to submit once i can fork.",
-        "labels": [],
-        "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/11",
-        "updated_at": "2026-10-10T15:49:48.341768Z",
-        "created_at": "2026-10-10T15:49:48.341768Z",
-        "closed_at": null,
-        "html_url": "https://pushin.eu/pjullrich/pushin-cli/issues/11",
-        "node_id": "iss_034dZWA51E0Js5gQaeOWt8",
-        "repository_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli"
-      }
-    ]
+    "body": []
   }
 }

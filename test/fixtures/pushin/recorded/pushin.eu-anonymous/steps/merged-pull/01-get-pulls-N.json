@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/12"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "90",
+      "x-ratelimit-remaining": "79",
+      "x-ratelimit-reset": "1792386000",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 6166,
+      "state": "closed",
+      "user": {
+        "id": 18,
+        "type": "User",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033wC4SN6kvz561iIRQhvV",
+        "html_url": "https://pushin.eu/ellyse",
+        "login": "ellyse",
+        "node_id": "REDACTED"
+      },
+      "number": 12,
+      "title": "add aarch64-darwin package to nix flake",
+      "head": {
+        "sha": "aae2ece23e9cfe17c124f7f4968b811cae3f1a4d",
+        "ref": "aarch64-darwin"
+      },
+      "base": {
+        "ref": "main"
+      },
+      "body": "closes issue #11",
+      "labels": [],
+      "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/pulls/12",
+      "updated_at": "2026-10-12T13:49:59.740333Z",
+      "merged": true,
+      "created_at": "2026-10-10T18:16:31.043258Z",
+      "draft": false,
+      "merge_commit_sha": "72f577fadb08afb6e551a5b9a1611bcc2670edc0",
+      "closed_at": null,
+      "merged_at": "2026-10-12T13:49:59.722166Z",
+      "html_url": "https://pushin.eu/pjullrich/pushin-cli/pulls/12",
+      "node_id": "iss_034dd7ODMKhicicj6iPzoi",
+      "issue_url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/issues/12"
+    }
+  }
+}
