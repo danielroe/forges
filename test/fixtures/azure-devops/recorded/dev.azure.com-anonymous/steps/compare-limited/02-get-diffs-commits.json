@@ -1,0 +1,65 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/dnceng-public/public/_apis/git/repositories/dotnet-public-wiki/diffs/commits?baseVersion=d73c80f118a1e16e262ca6686e8cfeb58bcdff12&baseVersionType=commit&targetVersion=main&targetVersionType=branch&%24top=1000&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "allChangesIncluded": true,
+      "changeCounts": {
+        "Add": 3,
+        "Edit": 1
+      },
+      "changes": [
+        {
+          "item": {
+            "objectId": "3c98174af07e1b99ad682cb7f8d46911f1529701",
+            "gitObjectType": "blob",
+            "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+            "path": "/.order",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items/.order?versionType=Commit&version=af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+          },
+          "changeType": "add"
+        },
+        {
+          "item": {
+            "objectId": "b866280442ba9a002f541b9e075770fd797998a6",
+            "gitObjectType": "blob",
+            "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+            "path": "/Artifacts-Feeds.md",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items/Artifacts-Feeds.md?versionType=Commit&version=af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+          },
+          "changeType": "add"
+        },
+        {
+          "item": {
+            "objectId": "b79eb7d4eef6d2d9dd1350f708f81604f8219a8d",
+            "originalObjectId": "7949b9073e37b0c95a21402f5c75c62afa8f6d5c",
+            "gitObjectType": "blob",
+            "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+            "path": "/Home.md",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items/Home.md?versionType=Commit&version=af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+          },
+          "changeType": "edit"
+        },
+        {
+          "item": {
+            "objectId": "2e53db551b5289fde97df23188a309d10347d869",
+            "gitObjectType": "blob",
+            "commitId": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+            "path": "/es-metadata.yml",
+            "url": "https://dev.azure.com/dnceng-public/cbb18261-c48f-4abb-8651-8cdcb5474649/_apis/git/repositories/2459d599-fdb2-4d28-9810-daeec061cf90/items/es-metadata.yml?versionType=Commit&version=af56d96fdbd7c26e9fc94336b6f50dcc6ceff484"
+          },
+          "changeType": "add"
+        }
+      ],
+      "commonCommit": "d73c80f118a1e16e262ca6686e8cfeb58bcdff12",
+      "baseCommit": "d73c80f118a1e16e262ca6686e8cfeb58bcdff12",
+      "targetCommit": "af56d96fdbd7c26e9fc94336b6f50dcc6ceff484",
+      "aheadCount": 4,
+      "behindCount": 0
+    }
+  }
+}
