@@ -1,0 +1,487 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/events?per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/repositories/313641207/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/events?per_page=10&page=30>; rel=\"last\"",
+      "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4913",
+      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-resource": "core",
+      "x-poll-interval": "60"
+    },
+    "body": [
+      {
+        "id": "24493068302",
+        "type": "PushEvent",
+        "actor": {
+          "id": 5158436,
+          "login": "pi0",
+          "display_login": "pi0",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0",
+          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46815135342,
+          "ref": "refs/heads/main",
+          "head": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+          "before": "badc762899af14ec024ee18dd2cc930bfb97e160"
+        },
+        "public": true,
+        "created_at": "2026-10-17T12:13:11Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24463597672",
+        "type": "PushEvent",
+        "actor": {
+          "id": 5158436,
+          "login": "pi0",
+          "display_login": "pi0",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0",
+          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46868702575,
+          "ref": "refs/heads/main",
+          "head": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "before": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
+        },
+        "public": true,
+        "created_at": "2026-10-18T02:39:52Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24460174861",
+        "type": "PushEvent",
+        "actor": {
+          "id": 5158436,
+          "login": "pi0",
+          "display_login": "pi0",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0",
+          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46867513914,
+          "ref": "refs/heads/main",
+          "head": "b48b480030becd6507485429dada6d6612fb1084",
+          "before": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+        },
+        "public": true,
+        "created_at": "2026-10-18T02:16:19Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24460092963",
+        "type": "CreateEvent",
+        "actor": {
+          "id": 286783767,
+          "login": "pi0x",
+          "display_login": "pi0x",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0x",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "ref": "build/no-docs",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/build/no-docs",
+          "master_branch": "main",
+          "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-18T02:14:45Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24454128873",
+        "type": "PushEvent",
+        "actor": {
+          "id": 286783767,
+          "login": "pi0x",
+          "display_login": "pi0x",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0x",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46907242110,
+          "ref": "refs/heads/main",
+          "head": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "before": "b64166ae78a68dd15c41e5bdf21af4d235804876"
+        },
+        "public": true,
+        "created_at": "2026-10-18T14:00:07Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24440951808",
+        "type": "PushEvent",
+        "actor": {
+          "id": 5158436,
+          "login": "pi0",
+          "display_login": "pi0",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0",
+          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46867609543,
+          "ref": "refs/heads/main",
+          "head": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+          "before": "b48b480030becd6507485429dada6d6612fb1084"
+        },
+        "public": true,
+        "created_at": "2026-10-18T02:18:11Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "17538452289",
+        "type": "WatchEvent",
+        "actor": {
+          "id": 13837582,
+          "login": "auxcoder",
+          "display_login": "auxcoder",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/auxcoder",
+          "avatar_url": "https://avatars.githubusercontent.com/u/13837582?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "started"
+        },
+        "public": true,
+        "created_at": "2026-10-18T15:38:13Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "24437338319",
+        "type": "PushEvent",
+        "actor": {
+          "id": 286783767,
+          "login": "pi0x",
+          "display_login": "pi0x",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0x",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "repository_id": 313641207,
+          "push_id": 46868654675,
+          "ref": "refs/heads/main",
+          "head": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+          "before": "2084ecaa855273b2971a10d1a858ecd2188b3df0"
+        },
+        "public": true,
+        "created_at": "2026-10-18T02:38:52Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "17534179457",
+        "type": "IssuesEvent",
+        "actor": {
+          "id": 286783767,
+          "login": "pi0x",
+          "display_login": "pi0x",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0x",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "closed",
+          "issue": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/1603",
+            "repository_url": "https://api.github.com/repos/h3js/h3",
+            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1603/labels{/name}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1603/comments",
+            "events_url": "https://api.github.com/repos/h3js/h3/issues/1603/events",
+            "html_url": "https://github.com/h3js/h3/issues/1603",
+            "id": 5910138351,
+            "node_id": "I_kwDOErHI988AAAABYEWN7w",
+            "number": 1603,
+            "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+            "user": {
+              "login": "pi0x",
+              "id": 286783767,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/pi0x",
+              "html_url": "https://github.com/pi0x",
+              "followers_url": "https://api.github.com/users/pi0x/followers",
+              "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+              "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+              "organizations_url": "https://api.github.com/users/pi0x/orgs",
+              "repos_url": "https://api.github.com/users/pi0x/repos",
+              "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/pi0x/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [],
+            "state": "closed",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 0,
+            "created_at": "2026-10-18T13:43:03Z",
+            "updated_at": "2026-10-18T14:00:08Z",
+            "closed_at": "2026-10-18T14:00:08Z",
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/1603/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1603/timeline",
+            "performed_via_github_app": null,
+            "state_reason": "completed",
+            "pinned_comment": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-18T14:00:08Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "17533452039",
+        "type": "IssuesEvent",
+        "actor": {
+          "id": 286783767,
+          "login": "pi0x",
+          "display_login": "pi0x",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/pi0x",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "opened",
+          "issue": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/1603",
+            "repository_url": "https://api.github.com/repos/h3js/h3",
+            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1603/labels{/name}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1603/comments",
+            "events_url": "https://api.github.com/repos/h3js/h3/issues/1603/events",
+            "html_url": "https://github.com/h3js/h3/issues/1603",
+            "id": 5910138351,
+            "node_id": "I_kwDOErHI988AAAABYEWN7w",
+            "number": 1603,
+            "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+            "user": {
+              "login": "pi0x",
+              "id": 286783767,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/pi0x",
+              "html_url": "https://github.com/pi0x",
+              "followers_url": "https://api.github.com/users/pi0x/followers",
+              "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+              "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+              "organizations_url": "https://api.github.com/users/pi0x/orgs",
+              "repos_url": "https://api.github.com/users/pi0x/repos",
+              "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/pi0x/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [],
+            "state": "closed",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 0,
+            "created_at": "2026-10-18T13:43:03Z",
+            "updated_at": "2026-10-18T14:00:08Z",
+            "closed_at": "2026-10-18T14:00:08Z",
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/1603/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1603/timeline",
+            "performed_via_github_app": null,
+            "state_reason": "completed",
+            "pinned_comment": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-18T13:43:04Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      }
+    ]
+  }
+}

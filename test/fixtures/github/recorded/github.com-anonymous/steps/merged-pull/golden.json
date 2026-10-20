@@ -1,0 +1,149 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "pull_request",
+      "number": "1602",
+      "externalId": "PR_kwDOErHI988AAAABJGbs6g"
+    },
+    "kind": "pull_request",
+    "title": "build: remove bundled docs and open h3.dev from `h3 docs`",
+    "body": "Stops shipping the docs inside the npm package to make it smaller.\n\n- `build.config.ts`: removed the `end()` hook that exported `./docs` into `dist/docs` with mdzilla.\n- `package.json` / lockfile: removed the `mdzilla` dev dependency.\n- `bin/h3.mjs`: `h3 docs [page]` now opens `https://h3.dev/<page>` with the system's open command (`open` / `xdg-open` / `cmd /c start`). If no browser can be launched, it prints the URL instead.\n- `test/unit/cli.test.ts`: replaced the old tests for the bundled docs folder with a test that checks the CLI points at h3.dev.\n\nNote: mdzilla's `--page <path>` flag is gone; use a plain page argument instead (`h3 docs /guide`).\n\nVerified: `pnpm build` produces no `dist/docs`; the CLI test, lint and typecheck pass.\n\n🤖 Generated with AI assistant",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0x",
+      "id": "286783767",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "authorAssociation": "contributor",
+    "authorAssociationRaw": "CONTRIBUTOR",
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/pull/1602",
+    "createdAt": "2026-10-18T02:14:52.000Z",
+    "updatedAt": "2026-10-18T02:16:20.000Z",
+    "closedAt": "2026-10-18T02:16:18.000Z",
+    "mergedAt": "2026-10-18T02:16:18.000Z",
+    "lastActivityAt": "2026-10-18T02:16:20.000Z",
+    "locked": false,
+    "commentCount": 3,
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "github",
+      "instance": "github.com",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3"
+      },
+      "kind": "pull_request",
+      "number": "1602",
+      "externalId": "PR_kwDOErHI988AAAABJGbs6g"
+    },
+    "kind": "pull_request",
+    "title": "build: remove bundled docs and open h3.dev from `h3 docs`",
+    "body": "Stops shipping the docs inside the npm package to make it smaller.\n\n- `build.config.ts`: removed the `end()` hook that exported `./docs` into `dist/docs` with mdzilla.\n- `package.json` / lockfile: removed the `mdzilla` dev dependency.\n- `bin/h3.mjs`: `h3 docs [page]` now opens `https://h3.dev/<page>` with the system's open command (`open` / `xdg-open` / `cmd /c start`). If no browser can be launched, it prints the URL instead.\n- `test/unit/cli.test.ts`: replaced the old tests for the bundled docs folder with a test that checks the CLI points at h3.dev.\n\nNote: mdzilla's `--page <path>` flag is gone; use a plain page argument instead (`h3 docs /guide`).\n\nVerified: `pnpm build` produces no `dist/docs`; the CLI test, lint and typecheck pass.\n\n🤖 Generated with AI assistant",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0x",
+      "id": "286783767",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+      "url": "https://github.com/pi0x",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "authorAssociation": "contributor",
+    "authorAssociationRaw": "CONTRIBUTOR",
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "requested"
+      }
+    ],
+    "labels": [],
+    "url": "https://github.com/h3js/h3/pull/1602",
+    "createdAt": "2026-10-18T02:14:52.000Z",
+    "updatedAt": "2026-10-18T02:16:20.000Z",
+    "closedAt": "2026-10-18T02:16:18.000Z",
+    "mergedAt": "2026-10-18T02:16:18.000Z",
+    "mergedBy": {
+      "forge": "github",
+      "instance": "github.com",
+      "login": "pi0",
+      "id": "5158436",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+      "url": "https://github.com/pi0",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "2026-10-18T02:16:20.000Z",
+    "locked": false,
+    "commentCount": 3,
+    "branches": {
+      "head": {
+        "ref": "build/no-docs",
+        "sha": "52a3c190a54c0bf7ea153012ffb86dde734cf084",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+      },
+      "mergeCommitSha": "b48b480030becd6507485429dada6d6612fb1084"
+    },
+    "stats": {
+      "additions": 27,
+      "deletions": 87,
+      "changedFileCount": 5,
+      "commitCount": 1
+    },
+    "checks": {
+      "state": "pending",
+      "total": 8,
+      "failed": 0,
+      "url": "https://github.com/h3js/h3/pull/1602/checks"
+    }
+  }
+}

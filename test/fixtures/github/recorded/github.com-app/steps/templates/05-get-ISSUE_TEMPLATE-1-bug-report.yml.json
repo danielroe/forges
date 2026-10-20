@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/1-bug-report.yml"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"78576aaaed9f790ef951bcd458d4f189db4abcc3\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4983",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "name": "1-bug-report.yml",
+      "path": ".github/ISSUE_TEMPLATE/1-bug-report.yml",
+      "sha": "78576aaaed9f790ef951bcd458d4f189db4abcc3",
+      "size": 1705,
+      "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/1-bug-report.yml?ref=main",
+      "html_url": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/1-bug-report.yml",
+      "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/78576aaaed9f790ef951bcd458d4f189db4abcc3",
+      "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/ISSUE_TEMPLATE/1-bug-report.yml",
+      "type": "file",
+      "content": "bmFtZTogIvCfkJsgQnVnIHJlcG9ydCIKZGVzY3JpcHRpb246IFJlcG9ydCBh\nbiBpc3N1ZSBvciBhIGJ1ZwpsYWJlbHM6IFsiYnVnIiwgInBlbmRpbmcgdHJp\nYWdlIl0KYm9keToKICAtIHR5cGU6IG1hcmtkb3duCiAgICBhdHRyaWJ1dGVz\nOgogICAgICB2YWx1ZTogVGhhbmsgeW91IGZvciB0YWtpbmcgdGhlIHRpbWUg\ndG8gZmlsbCBvdXQgdGhpcyBidWcgcmVwb3J0IQogIC0gdHlwZTogdGV4dGFy\nZWEKICAgIGlkOiBidWctZW52CiAgICBhdHRyaWJ1dGVzOgogICAgICBsYWJl\nbDogRW52aXJvbm1lbnQKICAgICAgZGVzY3JpcHRpb246IFBhY2thZ2UgYW5k\nIE5vZGUuanMgdmVyc2lvbiBjYW4gYmUgaGVscGZ1bCB0byBpbnZlc3RpZ2F0\nZSBpc3N1ZXMKICAgICAgcGxhY2Vob2xkZXI6IEVudmlyb25tZW50CiAgICB2\nYWxpZGF0aW9uczoKICAgICAgcmVxdWlyZWQ6IHRydWUKICAtIHR5cGU6IHRl\neHRhcmVhCiAgICBpZDogcmVwcm9kdWN0aW9uCiAgICBhdHRyaWJ1dGVzOgog\nICAgICBsYWJlbDogUmVwcm9kdWN0aW9uCiAgICAgIGRlc2NyaXB0aW9uOiBQ\nbGVhc2UgcHJvdmlkZSBhIGxpbmsgdG8gYSByZXBvIHRoYXQgY2FuIHJlcHJv\nZHVjZSB0aGUgcHJvYmxlbSB5b3UgcmFuIGludG8uIEEgKiptaW5pbWFsIHJl\ncHJvZHVjdGlvbioqIGlzIHJlcXVpcmVkIHVubGVzcyB5b3UgYXJlIGFic29s\ndXRlbHkgc3VyZSB0aGF0IHRoZSBpc3N1ZSBpcyBvYnZpb3VzIGFuZCB0aGUg\ncHJvdmlkZWQgaW5mb3JtYXRpb24gaXMgZW5vdWdoIHRvIHVuZGVyc3RhbmQg\ndGhlIHByb2JsZW0uIElmIGEgcmVwb3J0IGlzIHZhZ3VlIChlLmcuIGp1c3Qg\nYSBnZW5lcmljIGVycm9yIG1lc3NhZ2UpIGFuZCBoYXMgbm8gcmVwcm9kdWN0\naW9uLCBpdCB3aWxsIHJlY2VpdmUgYSAibmVlZCByZXByb2R1Y3Rpb24iIGxh\nYmVsLiBJZiBubyByZXByb2R1Y3Rpb24gaXMgcHJvdmlkZWQgd2UgbWlnaHQg\nY2xvc2UgaXQuCiAgICAgIHBsYWNlaG9sZGVyOiBSZXByb2R1Y3Rpb24KICAg\nIHZhbGlkYXRpb25zOgogICAgICByZXF1aXJlZDogdHJ1ZQogIC0gdHlwZTog\ndGV4dGFyZWEKICAgIGlkOiBidWctZGVzY3JpcHRpb24KICAgIGF0dHJpYnV0\nZXM6CiAgICAgIGxhYmVsOiBEZXNjcmliZSB0aGUgYnVnCiAgICAgIGRlc2Ny\naXB0aW9uOiBBIGNsZWFyIGFuZCBjb25jaXNlIGRlc2NyaXB0aW9uIG9mIHdo\nYXQgdGhlIGJ1ZyBpcy4gSWYgeW91IGludGVuZCB0byBzdWJtaXQgYSBQUiBm\nb3IgdGhpcyBpc3N1ZSwgdGVsbCB1cyBpbiB0aGUgZGVzY3JpcHRpb24uIFRo\nYW5rcyEKICAgICAgcGxhY2Vob2xkZXI6IEJ1ZyBkZXNjcmlwdGlvbgogICAg\ndmFsaWRhdGlvbnM6CiAgICAgIHJlcXVpcmVkOiB0cnVlCiAgLSB0eXBlOiB0\nZXh0YXJlYQogICAgaWQ6IGFkZGl0aW9uYWwKICAgIGF0dHJpYnV0ZXM6CiAg\nICAgIGxhYmVsOiBBZGRpdGlvbmFsIGNvbnRleHQKICAgICAgZGVzY3JpcHRp\nb246IElmIGFwcGxpY2FibGUsIGFkZCBhbnkgb3RoZXIgY29udGV4dCBhYm91\ndCB0aGUgcHJvYmxlbSBoZXJlLgogIC0gdHlwZTogdGV4dGFyZWEKICAgIGlk\nOiBsb2dzCiAgICBhdHRyaWJ1dGVzOgogICAgICBsYWJlbDogTG9ncwogICAg\nICBkZXNjcmlwdGlvbjogT3B0aW9uYWwgaWYgcHJvdmlkZWQgcmVwcm9kdWN0\naW9uLiBQbGVhc2UgdHJ5IG5vdCB0byBpbnNlcnQgYW4gaW1hZ2UgYnV0IGNv\ncHkgcGFzdGUgdGhlIGxvZyB0ZXh0LgogICAgICByZW5kZXI6IHNoCg==\n",
+      "encoding": "base64",
+      "_links": {
+        "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE/1-bug-report.yml?ref=main",
+        "git": "https://api.github.com/repos/h3js/.github/git/blobs/78576aaaed9f790ef951bcd458d4f189db4abcc3",
+        "html": "https://github.com/h3js/.github/blob/main/.github/ISSUE_TEMPLATE/1-bug-report.yml"
+      }
+    }
+  }
+}

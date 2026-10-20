@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/releases/tags/v2.0.5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"dae4890e3e0f47cd8ad594f0d138efa1a9396fe2d99336dbb0f4bb5c109d4a3a\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4885",
+      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "url": "https://api.github.com/repos/h3js/h3/releases/416194782",
+      "assets_url": "https://api.github.com/repos/h3js/h3/releases/416194782/assets",
+      "upload_url": "https://uploads.github.com/repos/h3js/h3/releases/416194782/assets{?name,label}",
+      "html_url": "https://github.com/h3js/h3/releases/tag/v2.0.5",
+      "id": 416194782,
+      "author": {
+        "login": "pi0",
+        "id": 5158436,
+        "node_id": "REDACTED",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/pi0",
+        "html_url": "https://github.com/pi0",
+        "followers_url": "https://api.github.com/users/pi0/followers",
+        "following_url": "https://api.github.com/users/pi0/following{/other_user}",
+        "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
+        "organizations_url": "https://api.github.com/users/pi0/orgs",
+        "repos_url": "https://api.github.com/users/pi0/repos",
+        "events_url": "https://api.github.com/users/pi0/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/pi0/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDOErHI984YzqDe",
+      "tag_name": "v2.0.5",
+      "target_commitish": "main",
+      "name": "",
+      "draft": false,
+      "immutable": false,
+      "prerelease": false,
+      "created_at": "2026-10-18T02:39:39Z",
+      "updated_at": "2026-10-18T02:40:10Z",
+      "published_at": "2026-10-18T02:40:10Z",
+      "assets": [],
+      "tarball_url": "https://api.github.com/repos/h3js/h3/tarball/v2.0.5",
+      "zipball_url": "https://api.github.com/repos/h3js/h3/zipball/v2.0.5",
+      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.4...v2.0.5)\r\n\r\n### 🩹 Fixes\r\n\r\n- **cli:** Harden `h3 docs` page handling ([7150b0e](https://github.com/h3js/h3/commit/7150b0e))"
+    }
+  }
+}

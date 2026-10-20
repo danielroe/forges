@@ -1,34 +1,47 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/commits/dd84e37fca0559506ad97022b5ac9438b427e6e2/status?per_page=100"
+    "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/status?per_page=100"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"db1ae69f2ee5ed21629114e8930cb2d78a2575643e9f1b44bec2dd2a7ed32e44\"",
+      "etag": "W/\"46cf2fca0b1d7b60897c74f9c87e4fdeff27a9a54542a03552237abc7d2de32c\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "16",
-      "x-ratelimit-reset": "1791807414"
+      "x-ratelimit-remaining": "3",
+      "x-ratelimit-reset": "1792387146",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "state": "success",
       "statuses": [
         {
-          "url": "https://api.github.com/repos/h3js/h3/statuses/dd84e37fca0559506ad97022b5ac9438b427e6e2",
-          "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
-          "id": 56129584604,
-          "node_id": "SC_kwDOErHI988AAAANEZV93A",
+          "url": "https://api.github.com/repos/h3js/h3/statuses/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "avatar_url": "https://avatars.githubusercontent.com/in/8329?v=4",
+          "id": 56632154589,
+          "node_id": "SC_kwDOErHI988AAAANL4oZ3Q",
           "state": "success",
-          "description": "Review completed",
-          "target_url": null,
-          "context": "CodeRabbit",
-          "created_at": "2026-10-12T09:55:06Z",
-          "updated_at": "2026-10-12T09:55:06Z"
+          "description": "Deployment has completed",
+          "target_url": "https://vercel.com/unjs/h3/9iFniTyXXoW7E9z8uQaV1e4ipKDX",
+          "context": "Vercel",
+          "created_at": "2026-10-18T14:00:33Z",
+          "updated_at": "2026-10-18T14:00:33Z"
+        },
+        {
+          "url": "https://api.github.com/repos/h3js/h3/statuses/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "avatar_url": "https://avatars.githubusercontent.com/in/254?v=4",
+          "id": 56632193540,
+          "node_id": "SC_kwDOErHI988AAAANL4qyBA",
+          "state": "success",
+          "description": "100.00% of diff hit (target 96.35%)",
+          "target_url": "https://app.codecov.io/gh/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "context": "codecov/patch",
+          "created_at": "2026-10-18T14:01:51Z",
+          "updated_at": "2026-10-18T14:01:51Z"
         }
       ],
-      "sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
-      "total_count": 1,
+      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+      "total_count": 2,
       "repository": {
         "id": 313641207,
         "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -97,8 +110,8 @@
         "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
         "deployments_url": "https://api.github.com/repos/h3js/h3/deployments"
       },
-      "commit_url": "https://api.github.com/repos/h3js/h3/commits/dd84e37fca0559506ad97022b5ac9438b427e6e2",
-      "url": "https://api.github.com/repos/h3js/h3/commits/dd84e37fca0559506ad97022b5ac9438b427e6e2/status"
+      "commit_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+      "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/status"
     }
   }
 }

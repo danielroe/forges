@@ -13,8 +13,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4995",
-      "x-ratelimit-reset": "1792217942",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1792388363",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -64,6 +64,7 @@
               ]
             },
             "milestone": null,
+            "issueType": null,
             "viewerSubscription": "UNSUBSCRIBED"
           }
         }

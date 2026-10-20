@@ -28,8 +28,9 @@
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4955,
-    "resetAt": "<now>"
+    "remaining": 4984,
+    "resetAt": "<now>",
+    "resource": "core"
   },
-  "etag": "W/\"2b1748b6c4849c5a5ac6a96925ceccb96b9f94c77033af5a71bd65ca2024b160\""
+  "etag": "W/\"2cd0ad3be88947d50fa69c5fe48de3dc5e9d2c13771232c312d2d82b975e3acc\""
 }

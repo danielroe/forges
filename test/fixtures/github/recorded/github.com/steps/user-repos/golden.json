@@ -159,15 +159,16 @@
       }
     }
   ],
-  "total": 96,
+  "total": 99,
   "cursor": {
     "nextUrl": "https://api.github.com/user/47961062/repos?type=owner&per_page=3&page=2",
-    "etag": "W/\"9ae2612bba2d79399ee0a4843e6f6c0bfb0176eb3ee5f50c995b64d2884eca15\""
+    "etag": "W/\"4c371346596e38c5e34ff68ab53c8aa1f6ec0644f8c6b344dfc37b1e8b23ecad\""
   },
-  "etag": "W/\"9ae2612bba2d79399ee0a4843e6f6c0bfb0176eb3ee5f50c995b64d2884eca15\"",
+  "etag": "W/\"4c371346596e38c5e34ff68ab53c8aa1f6ec0644f8c6b344dfc37b1e8b23ecad\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4956,
-    "resetAt": "2026-10-11T13:08:21.000Z"
+    "remaining": 4907,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"4f70d804aed22bcef2cb565ab3228dfe81eea42c\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4986",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": "ISSUE_TEMPLATE",
+        "path": ".github/ISSUE_TEMPLATE",
+        "sha": "d520c4c8d6817685380844768ac57b1070ed2b44",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE?ref=main",
+        "html_url": "https://github.com/h3js/.github/tree/main/.github/ISSUE_TEMPLATE",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/trees/d520c4c8d6817685380844768ac57b1070ed2b44",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/ISSUE_TEMPLATE?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/trees/d520c4c8d6817685380844768ac57b1070ed2b44",
+          "html": "https://github.com/h3js/.github/tree/main/.github/ISSUE_TEMPLATE"
+        }
+      },
+      {
+        "name": "PULL_REQUEST_TEMPLATE.md",
+        "path": ".github/PULL_REQUEST_TEMPLATE.md",
+        "sha": "0cc8bc4541838077e2d00e868159346d05d50e7b",
+        "size": 414,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/0cc8bc4541838077e2d00e868159346d05d50e7b",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/PULL_REQUEST_TEMPLATE.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/0cc8bc4541838077e2d00e868159346d05d50e7b",
+          "html": "https://github.com/h3js/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md"
+        }
+      }
+    ]
+  }
+}

@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=63>; rel=\"last\"",
-      "etag": "W/\"2ce919d57597166a79b46f165c836ee9690768dfdf6f6c44ca94dc72e914632f\"",
+      "link": "<https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=65>; rel=\"last\"",
+      "etag": "W/\"7cecf0f8989d935d93cf03371fc3e64a0fec56f41ee6763ccdc32ddbaf0be376\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4993",
-      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-remaining": "4992",
+      "x-ratelimit-reset": "1792388358",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -34,7 +34,7 @@
         "type": "User",
         "user_view_type": "public",
         "site_admin": false,
-        "contributions": 978
+        "contributions": 985
       },
       {
         "login": "renovate[bot]",
@@ -78,7 +78,7 @@
         "type": "User",
         "user_view_type": "public",
         "site_admin": false,
-        "contributions": 52
+        "contributions": 53
       }
     ]
   }

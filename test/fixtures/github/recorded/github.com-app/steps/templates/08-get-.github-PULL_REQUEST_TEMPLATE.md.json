@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents/.github/PULL_REQUEST_TEMPLATE.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"0cc8bc4541838077e2d00e868159346d05d50e7b\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4981",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "name": "PULL_REQUEST_TEMPLATE.md",
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha": "0cc8bc4541838077e2d00e868159346d05d50e7b",
+      "size": 414,
+      "url": "https://api.github.com/repos/h3js/.github/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=main",
+      "html_url": "https://github.com/h3js/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md",
+      "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/0cc8bc4541838077e2d00e868159346d05d50e7b",
+      "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.github/PULL_REQUEST_TEMPLATE.md",
+      "type": "file",
+      "content": "PCEtLQpQTEVBU0UgRE8gVEhJUyBCRUZPUkUgU1VCTUlUVElORyBBIFBSCgox\nKSBNYWtlIHN1cmUgdGhlcmUgaXMgYW4gaXNzdWUgY292ZXJpbmcgdGhlIHBy\nb2JsZW0gb3IgaWRlYSBmaXJzdC4gSWYgbm90LCBwbGVhc2UgY3JlYXRlIG9u\nZS4gUmVmZXJlbmNlIGl0IGluIHRoZSBQUiB2aWEgInJlc29sdmVzICMxMjMx\nMjMxMiIgCjIpIFBsZWFzZSBrZWVwIHlvdXIgY2hhbmdlcyBtaW5pbWFsIGFu\nZCBzcGxpdCB0aGVtIGlmIHlvdSBuZWVkIHRvLgozKSBFbnN1cmUgdGhlcmUg\naXMgYSBtaW5pbWFsIHJlcHJvZHVjdGlvbiBhdHRhY2hlZCBmb3IgYnVnIGZp\neGVzLgoKVGhpcyB3aWxsIGdyZWF0bHkgaGVscCBzcGVlZCB1cCB0aGUgcmV2\naWV3IHByb2Nlc3MuCgpUaGFua3MgZm9yIHlvdXIgY29udHJpYnV0aW9uIOKd\npO+4jwotLT4K\n",
+      "encoding": "base64",
+      "_links": {
+        "self": "https://api.github.com/repos/h3js/.github/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=main",
+        "git": "https://api.github.com/repos/h3js/.github/git/blobs/0cc8bc4541838077e2d00e868159346d05d50e7b",
+        "html": "https://github.com/h3js/.github/blob/main/.github/PULL_REQUEST_TEMPLATE.md"
+      }
+    }
+  }
+}

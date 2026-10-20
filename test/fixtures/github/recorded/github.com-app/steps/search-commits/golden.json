@@ -10,24 +10,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+        "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
       },
-      "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
-      "message": "fix(middleware): pass through handled responses in `onError` (#1574)",
+      "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
+      "message": "docs: fix code example (#1587)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0x",
-          "id": "286783767",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-          "url": "https://github.com/pi0x",
+          "login": "otowa1",
+          "id": "90172742",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
+          "url": "https://github.com/otowa1",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "pi0x",
+        "name": "otowa1",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:58:34.000Z"
+        "date": "2026-10-17T11:49:51.000Z"
       },
       "committer": {
         "actor": {
@@ -42,12 +42,12 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:58:34.000Z"
+        "date": "2026-10-17T11:49:51.000Z"
       },
       "parents": [
-        "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+        "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
       ],
-      "url": "https://github.com/h3js/h3/commit/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+      "url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
     },
     {
       "ref": {
@@ -59,44 +59,44 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
       },
-      "sha": "403bd029e5ee9ecd10c59682ea08f5b0ce90e05b",
-      "message": "fix(response): use matching reason phrases in redirect and noContent (#1570)",
+      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "giaBaoJS",
-          "id": "39545125",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
-          "url": "https://github.com/giaBaoJS",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Bao Nguyen",
+        "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:56:48.000Z"
+        "date": "2026-10-18T13:53:32.000Z"
       },
       "committer": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "web-flow",
-          "id": "19864447",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
-          "url": "https://github.com/web-flow",
+          "login": "pi0",
+          "id": "5158436",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "url": "https://github.com/pi0",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "GitHub",
+        "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:56:48.000Z"
+        "date": "2026-10-18T13:59:46.000Z"
       },
       "parents": [
-        "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+        "b64166ae78a68dd15c41e5bdf21af4d235804876"
       ],
-      "url": "https://github.com/h3js/h3/commit/403bd029e5ee9ecd10c59682ea08f5b0ce90e05b"
+      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
     },
     {
       "ref": {
@@ -108,24 +108,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948"
+        "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d"
       },
-      "sha": "bca3a8e8d5ab556c874c771aa5a9fade06194948",
-      "message": "fix(node): call `onError` for stream errors in Node.js handlers (#1571)",
+      "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d",
+      "message": "docs: fix broken section anchors (#1577)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "kaanisthatyou",
-          "id": "121812333",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/121812333?v=4",
-          "url": "https://github.com/kaanisthatyou",
+          "login": "SatvikMishra08",
+          "id": "89024979",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/89024979?v=4",
+          "url": "https://github.com/SatvikMishra08",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Kaan Çelebi",
+        "name": "Satvik Mishra",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:53:46.000Z"
+        "date": "2026-10-17T11:50:19.000Z"
       },
       "committer": {
         "actor": {
@@ -140,21 +140,22 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-07T11:53:46.000Z"
+        "date": "2026-10-17T11:50:19.000Z"
       },
       "parents": [
-        "fb34b0f5144c9e2e5658fd30038a95582accd9d3"
+        "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
       ],
-      "url": "https://github.com/h3js/h3/commit/bca3a8e8d5ab556c874c771aa5a9fade06194948"
+      "url": "https://github.com/h3js/h3/commit/ef38da99d4e3b9f837725e2b398ce73a173d007d"
     }
   ],
-  "total": 436,
+  "total": 448,
   "cursor": {
     "nextUrl": "https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2"
   },
   "rateLimit": {
     "limit": 30,
-    "remaining": 27,
-    "resetAt": "<now>"
+    "remaining": 26,
+    "resetAt": "<now>",
+    "resource": "search"
   }
 }

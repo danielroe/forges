@@ -8,27 +8,27 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "38232588486"
+    "id": "39134083187"
   },
-  "name": "ci",
-  "state": "success",
+  "name": "publish",
+  "state": "failure",
   "stateRaw": "completed",
-  "number": "4762",
-  "eventRaw": "pull_request",
-  "branch": "docs/static-assets-example-path",
-  "sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
-  "url": "https://github.com/h3js/h3/actions/runs/38232588486",
+  "number": "95",
+  "eventRaw": "workflow_run",
+  "branch": "main",
+  "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+  "url": "https://github.com/h3js/h3/actions/runs/39134083187",
   "actor": {
     "forge": "github",
     "instance": "github.com",
-    "login": "lx3133584",
-    "id": "24490353",
-    "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-    "url": "https://github.com/lx3133584",
+    "login": "pi0x",
+    "id": "286783767",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+    "url": "https://github.com/pi0x",
     "typeRaw": "User",
     "isBotHint": false
   },
-  "createdAt": "2026-10-12T09:51:31.000Z",
-  "startedAt": "2026-10-12T09:51:31.000Z",
-  "completedAt": "2026-10-12T09:52:43.000Z"
+  "createdAt": "2026-10-18T14:00:56.000Z",
+  "startedAt": "2026-10-18T14:00:56.000Z",
+  "completedAt": "2026-10-18T14:01:18.000Z"
 }

@@ -4,90 +4,13 @@
     "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/stats/contributors"
   },
   "response": {
-    "status": 200,
+    "status": 202,
     "headers": {
-      "etag": "W/\"710eab82a32ac91c6da511562a40e4c29279706e85a3f52cfd00fb28bd9259aa\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4992",
-      "x-ratelimit-reset": "1791856967"
+      "x-ratelimit-remaining": "4951",
+      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-resource": "core"
     },
-    "body": [
-      {
-        "total": 2,
-        "weeks": [
-          {
-            "w": 1791072000,
-            "a": 66,
-            "d": 0,
-            "c": 2
-          },
-          {
-            "w": 1791676800,
-            "a": 0,
-            "d": 0,
-            "c": 0
-          }
-        ],
-        "author": {
-          "login": "danielroe",
-          "id": 28706372,
-          "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "html_url": "https://github.com/danielroe",
-          "followers_url": "https://api.github.com/users/danielroe/followers",
-          "following_url": "https://api.github.com/users/danielroe/following{/other_user}",
-          "gists_url": "https://api.github.com/users/danielroe/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/danielroe/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/danielroe/subscriptions",
-          "organizations_url": "https://api.github.com/users/danielroe/orgs",
-          "repos_url": "https://api.github.com/users/danielroe/repos",
-          "events_url": "https://api.github.com/users/danielroe/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/danielroe/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      },
-      {
-        "total": 39,
-        "weeks": [
-          {
-            "w": 1791072000,
-            "a": 22,
-            "d": 0,
-            "c": 22
-          },
-          {
-            "w": 1791676800,
-            "a": 17,
-            "d": 0,
-            "c": 17
-          }
-        ],
-        "author": {
-          "login": "danielroe-bot",
-          "id": 57801166,
-          "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe-bot",
-          "html_url": "https://github.com/danielroe-bot",
-          "followers_url": "https://api.github.com/users/danielroe-bot/followers",
-          "following_url": "https://api.github.com/users/danielroe-bot/following{/other_user}",
-          "gists_url": "https://api.github.com/users/danielroe-bot/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/danielroe-bot/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/danielroe-bot/subscriptions",
-          "organizations_url": "https://api.github.com/users/danielroe-bot/orgs",
-          "repos_url": "https://api.github.com/users/danielroe-bot/repos",
-          "events_url": "https://api.github.com/users/danielroe-bot/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/danielroe-bot/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      }
-    ]
+    "body": {}
   }
 }

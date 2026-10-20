@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"8f273d0dad33bba948575bcf958323fd63f46336222dd3b8070d3b6fd2fecba8\"",
+      "etag": "W/\"f65f1628f04cf73afe9a398c69008e7087b244124fb7282c9ee4b11ca01ee6ac\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4945",
-      "x-ratelimit-reset": "1791808136"
+      "x-ratelimit-remaining": "4999",
+      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "state": "pending",

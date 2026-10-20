@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/security-advisories?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"0b6f8a0487da3ca2c0936364407403356cadb887c35cc545cfc0b7b5848432fd\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4939",
+      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-resource": "core"
+    },
+    "body": []
+  }
+}

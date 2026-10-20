@@ -1,0 +1,178 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/.github/contents"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"4f70d804aed22bcef2cb565ab3228dfe81eea42c\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4987",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": ".github",
+        "path": ".github",
+        "sha": "7f3a866e9c182653cbd033dca0c606dcbb731bdb",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.github?ref=main",
+        "html_url": "https://github.com/h3js/.github/tree/main/.github",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/trees/7f3a866e9c182653cbd033dca0c606dcbb731bdb",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.github?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/trees/7f3a866e9c182653cbd033dca0c606dcbb731bdb",
+          "html": "https://github.com/h3js/.github/tree/main/.github"
+        }
+      },
+      {
+        "name": ".gitignore",
+        "path": ".gitignore",
+        "sha": "3c3629e647f5ddf82548912e337bea9826b434af",
+        "size": 13,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.gitignore?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.gitignore",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/3c3629e647f5ddf82548912e337bea9826b434af",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.gitignore",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.gitignore?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/3c3629e647f5ddf82548912e337bea9826b434af",
+          "html": "https://github.com/h3js/.github/blob/main/.gitignore"
+        }
+      },
+      {
+        "name": ".oxfmtrc.json",
+        "path": ".oxfmtrc.json",
+        "sha": "450fa02fb914dcb6de10b3e611e972e6b69be2f6",
+        "size": 93,
+        "url": "https://api.github.com/repos/h3js/.github/contents/.oxfmtrc.json?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/.oxfmtrc.json",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/450fa02fb914dcb6de10b3e611e972e6b69be2f6",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/.oxfmtrc.json",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/.oxfmtrc.json?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/450fa02fb914dcb6de10b3e611e972e6b69be2f6",
+          "html": "https://github.com/h3js/.github/blob/main/.oxfmtrc.json"
+        }
+      },
+      {
+        "name": "CODE_OF_CONDUCT.md",
+        "path": "CODE_OF_CONDUCT.md",
+        "sha": "d6d79fbbaff8ce05e231bd562c071f330b2de4e6",
+        "size": 5220,
+        "url": "https://api.github.com/repos/h3js/.github/contents/CODE_OF_CONDUCT.md?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/CODE_OF_CONDUCT.md",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/d6d79fbbaff8ce05e231bd562c071f330b2de4e6",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/CODE_OF_CONDUCT.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/CODE_OF_CONDUCT.md?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/d6d79fbbaff8ce05e231bd562c071f330b2de4e6",
+          "html": "https://github.com/h3js/.github/blob/main/CODE_OF_CONDUCT.md"
+        }
+      },
+      {
+        "name": "FUNDING.yml",
+        "path": "FUNDING.yml",
+        "sha": "28c2d69e64ab74aa5bf7133adbab906fa9c31d64",
+        "size": 25,
+        "url": "https://api.github.com/repos/h3js/.github/contents/FUNDING.yml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/FUNDING.yml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/28c2d69e64ab74aa5bf7133adbab906fa9c31d64",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/FUNDING.yml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/FUNDING.yml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/28c2d69e64ab74aa5bf7133adbab906fa9c31d64",
+          "html": "https://github.com/h3js/.github/blob/main/FUNDING.yml"
+        }
+      },
+      {
+        "name": "README.md",
+        "path": "README.md",
+        "sha": "f70d866068f41d0caca21d8b5189460f1dbb391d",
+        "size": 181,
+        "url": "https://api.github.com/repos/h3js/.github/contents/README.md?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/README.md",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/f70d866068f41d0caca21d8b5189460f1dbb391d",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/README.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/README.md?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/f70d866068f41d0caca21d8b5189460f1dbb391d",
+          "html": "https://github.com/h3js/.github/blob/main/README.md"
+        }
+      },
+      {
+        "name": "SECURITY.md",
+        "path": "SECURITY.md",
+        "sha": "bdc9ad5987a319265d515dd5d3ceb3d5b2ca5e37",
+        "size": 261,
+        "url": "https://api.github.com/repos/h3js/.github/contents/SECURITY.md?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/SECURITY.md",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/bdc9ad5987a319265d515dd5d3ceb3d5b2ca5e37",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/SECURITY.md",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/SECURITY.md?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/bdc9ad5987a319265d515dd5d3ceb3d5b2ca5e37",
+          "html": "https://github.com/h3js/.github/blob/main/SECURITY.md"
+        }
+      },
+      {
+        "name": "package.json",
+        "path": "package.json",
+        "sha": "99e8dbb166c47e21d4244208d927ae638a14a6c1",
+        "size": 40,
+        "url": "https://api.github.com/repos/h3js/.github/contents/package.json?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/package.json",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/99e8dbb166c47e21d4244208d927ae638a14a6c1",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/package.json",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/package.json?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/99e8dbb166c47e21d4244208d927ae638a14a6c1",
+          "html": "https://github.com/h3js/.github/blob/main/package.json"
+        }
+      },
+      {
+        "name": "pnpm-lock.yaml",
+        "path": "pnpm-lock.yaml",
+        "sha": "c23265f55823bb042e3a0ff73e40a2dcd3257016",
+        "size": 3019,
+        "url": "https://api.github.com/repos/h3js/.github/contents/pnpm-lock.yaml?ref=main",
+        "html_url": "https://github.com/h3js/.github/blob/main/pnpm-lock.yaml",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/blobs/c23265f55823bb042e3a0ff73e40a2dcd3257016",
+        "download_url": "https://raw.githubusercontent.com/h3js/.github/main/pnpm-lock.yaml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/pnpm-lock.yaml?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/blobs/c23265f55823bb042e3a0ff73e40a2dcd3257016",
+          "html": "https://github.com/h3js/.github/blob/main/pnpm-lock.yaml"
+        }
+      },
+      {
+        "name": "profile",
+        "path": "profile",
+        "sha": "e0fb9a89fccaf82645031ddbf966a0056d9438b8",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/.github/contents/profile?ref=main",
+        "html_url": "https://github.com/h3js/.github/tree/main/profile",
+        "git_url": "https://api.github.com/repos/h3js/.github/git/trees/e0fb9a89fccaf82645031ddbf966a0056d9438b8",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/.github/contents/profile?ref=main",
+          "git": "https://api.github.com/repos/h3js/.github/git/trees/e0fb9a89fccaf82645031ddbf966a0056d9438b8",
+          "html": "https://github.com/h3js/.github/tree/main/profile"
+        }
+      }
+    ]
+  }
+}

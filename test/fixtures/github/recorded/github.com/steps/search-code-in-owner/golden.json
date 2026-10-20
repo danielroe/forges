@@ -9,13 +9,13 @@
         "externalId": "313641207"
       },
       "path": "src/h3.ts",
-      "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "ref": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
       "fragments": [
         {
           "text": "import { createRouter, addRoute, findRoute } from \"rou3\";\nimport { H3Event, kMalformedURL } from \"./event.ts\";\nimport { HTTPError } from \"./error.ts\";\nimport { toResponse, kNotFound } from \"./response.ts\";\nimport {\n  callMiddleware,\n  composeHandler,"
         }
       ],
-      "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/src/h3.ts"
+      "url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src/h3.ts"
     },
     {
       "repo": {
@@ -26,7 +26,7 @@
         "externalId": "313641207"
       },
       "path": "docs/99.blog/3.v2.md",
-      "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "ref": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
       "fragments": [
         {
           "text": "```js\nimport { H3, serve } from \"h3\";\n"
@@ -35,7 +35,7 @@
           "text": "```js\nimport { defineHandler } from \"h3\";\n"
         }
       ],
-      "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/docs/99.blog/3.v2.md"
+      "url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs/99.blog/3.v2.md"
     },
     {
       "repo": {
@@ -46,22 +46,23 @@
         "externalId": "313641207"
       },
       "path": "bin/h3.mjs",
-      "ref": "66cfb8a357b6285451bad498c2c40002601fae98",
+      "ref": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
       "fragments": [
         {
-          "text": "#!/usr/bin/env node\nimport { execFileSync, execSync } from \"node:child_process\";\nimport { fileURLToPath } from \"node:url\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs"
+          "text": "#!/usr/bin/env node\nimport { spawn } from \"node:child_process\";\nimport { main } from \"srvx/cli\";\nimport meta from \"../package.json\" with { type: \"json\" };\n\n// Docs\nif (process.argv[2] === \"docs\") {"
         }
       ],
-      "url": "https://github.com/h3js/h3/blob/66cfb8a357b6285451bad498c2c40002601fae98/bin/h3.mjs"
+      "url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/bin/h3.mjs"
     }
   ],
-  "total": 540,
+  "total": 565,
   "cursor": {
     "nextUrl": "https://api.github.com/search/code?q=import%20user%3Ah3js&page=2&per_page=3"
   },
   "rateLimit": {
     "limit": 10,
     "remaining": 8,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "code_search"
   }
 }

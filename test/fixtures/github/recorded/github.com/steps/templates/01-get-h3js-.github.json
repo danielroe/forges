@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1a13c21310a29a04813262d57feafa62159d4fdd5d3558d295d4a51b596fac76\"",
+      "etag": "W/\"960cbc5bd94312ba356a94246ebe8324a888afc56ed354b8d4af23ddf7503c7c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4749",
-      "x-ratelimit-reset": "1792167520",
+      "x-ratelimit-remaining": "4959",
+      "x-ratelimit-reset": "1792385183",
       "x-ratelimit-resource": "core"
     },
     "body": {
@@ -121,6 +121,7 @@
         "triage": false,
         "pull": true
       },
+      "temp_clone_token": "",
       "custom_properties": {},
       "organization": {
         "login": "h3js",

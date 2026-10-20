@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D>; rel=\"next\"",
-      "etag": "W/\"bdf864c0d9af093da0f962ac29092c99cea73ab3d73f8d815f2953e1b8d592a9\"",
+      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAFyLQ5WBBnPAAAAAc59BOc%3D>; rel=\"next\"",
+      "etag": "W/\"b67a57bf4bb377c184829b3db33acebabd5ecf44d49c167e555a988318a882ef\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4981",
-      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-remaining": "4966",
+      "x-ratelimit-reset": "1792388358",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -23,6 +23,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -170,6 +171,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -311,6 +313,7 @@
             "name": "lodash"
           },
           "manifest_path": "package-lock.json",
+          "version_requirement": "4.17.15",
           "scope": "runtime",
           "relationship": "direct"
         },
@@ -405,8 +408,8 @@
             }
           },
           "epss": {
-            "percentage": 0.0185,
-            "percentile": 0.78503
+            "percentage": 0.01823,
+            "percentile": 0.78429
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",

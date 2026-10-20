@@ -95,14 +95,15 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAGAAAAAAADPAAAAAc59BOc%3D",
-    "etag": "W/\"836b8dbe38516d3178e803d2d0ca74fe8faa6f8fd8d2b5a25342a4c8ae1c7fa0\"",
+    "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAFyLQ5WBBnPAAAAAc59BOc%3D",
+    "etag": "W/\"94ebb120420afd40713b6ce13f5ce2a6eeaa3bf08fcbc9c14787ea110150eb3a\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4988,
-    "resetAt": "<now>"
+    "remaining": 4985,
+    "resetAt": "<now>",
+    "resource": "core"
   },
-  "etag": "W/\"836b8dbe38516d3178e803d2d0ca74fe8faa6f8fd8d2b5a25342a4c8ae1c7fa0\""
+  "etag": "W/\"94ebb120420afd40713b6ce13f5ce2a6eeaa3bf08fcbc9c14787ea110150eb3a\""
 }

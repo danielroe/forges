@@ -6,12 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3847871823278546944>; rel=\"next\"",
-      "etag": "W/\"9ddd1b3768b78f028429cf415677763d9689f757110ac29ca95b1466957cb5d6\"",
+      "link": "<https://api.github.com/repositories/1411702196/hooks/694647722/deliveries?per_page=3&cursor=v1_3849016154303496192>; rel=\"next\"",
+      "etag": "W/\"2647b9f28de329dbbff8163b7b0c1f115d5ff3dea19f662126f76468b2f67a3b\"",
       "x-ratelimit-limit": "500",
       "x-ratelimit-remaining": "498",
-      "x-ratelimit-reset": "1791805772"
+      "x-ratelimit-reset": "1792384806",
+      "x-ratelimit-resource": "webhook_deliveries"
     },
-    "body": "[{\"id\":3847871939886530560,\"guid\":\"30f89290-c631-11f1-995b-9564b6db6f07\",\"delivered_at\":\"2026-10-12T11:36:40.976Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issues\",\"action\":\"closed\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null},{\"id\":3847871938097717248,\"guid\":\"3067c440-c631-11f1-8d60-cf9b7dcb1ef4\",\"delivered_at\":\"2026-10-12T11:36:40.068Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issues\",\"action\":\"closed\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null},{\"id\":3847871926932373504,\"guid\":\"2d5728e0-c631-11f1-869e-79e6a318813e\",\"delivered_at\":\"2026-10-12T11:36:34.95Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issue_comment\",\"action\":\"created\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null}]"
+    "body": "[{\"id\":3849016159439429632,\"guid\":\"c1b45080-cb09-11f1-9304-533816b4e9ae\",\"delivered_at\":\"2026-10-18T15:36:59.719Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issues\",\"action\":\"closed\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null},{\"id\":3849016156847349760,\"guid\":\"c0ec93b0-cb09-11f1-861c-f7df0e87dafa\",\"delivered_at\":\"2026-10-18T15:36:58.498Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issues\",\"action\":\"untyped\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null},{\"id\":3849016154949566464,\"guid\":\"c0569540-cb09-11f1-8b62-586d93143a38\",\"delivered_at\":\"2026-10-18T15:36:57.53Z\",\"redelivery\":false,\"duration\":0,\"status\":\"failed to connect to host\",\"status_code\":502,\"event\":\"issues\",\"action\":\"typed\",\"installation_id\":null,\"repository_id\":1411702196,\"url\":\"\",\"throttled_at\":null}]"
   }
 }

@@ -11,7 +11,7 @@
         "typeRaw": "User",
         "isBotHint": false
       },
-      "contributions": 978
+      "contributions": 985
     },
     {
       "actor": {
@@ -40,18 +40,19 @@
         "typeRaw": "User",
         "isBotHint": false
       },
-      "contributions": 52
+      "contributions": 53
     }
   ],
-  "total": 189,
+  "total": 195,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/contributors?anon=1&per_page=3&page=2",
-    "etag": "W/\"0ff4e7c3f068c138fcfa2b68e3debd8b1be6f659179abed5f554baa59475e70f\""
+    "etag": "W/\"889632aa7b0bfa5b8a910e82bff509d539b38270e74ca077b0142c65755e3a91\""
   },
-  "etag": "W/\"0ff4e7c3f068c138fcfa2b68e3debd8b1be6f659179abed5f554baa59475e70f\"",
+  "etag": "W/\"889632aa7b0bfa5b8a910e82bff509d539b38270e74ca077b0142c65755e3a91\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 55,
-    "resetAt": "<now>"
+    "remaining": 54,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

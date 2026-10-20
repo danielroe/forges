@@ -1,0 +1,186 @@
+{
+  "items": [
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17571094293",
+      "kind": "label",
+      "kindRaw": "IssuesEvent.labeled",
+      "action": "labelled",
+      "actionRaw": "labeled",
+      "detail": {
+        "type": "label",
+        "label": "bug"
+      },
+      "summary": "danielroe labeled issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "beasties",
+        "externalId": "878458624"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "danielroe",
+          "name": "beasties",
+          "externalId": "878458624"
+        },
+        "kind": "issue",
+        "number": "460",
+        "externalId": "I_kwDONFw3AM8AAAABW7iO-A"
+      },
+      "threadSnapshot": {
+        "title": "inlineFonts drops @font-face when font-family is set through a custom property",
+        "body": "With `inlineFonts: true` (and `preloadFonts: true`), beasties keeps only the `@font-face` rules whose family appears in a critical `font-family` / `font` declaration. A family written through a custom property is never resolved, so its `@font-face` rules are dropped from the inlined CSS. Tailwind v4 always sets the base font this way (`font-family: var(--default-font-family, ...)` in its preflight), so a Tailwind v4 site loses all its `@font-face` rules.\n\nThis is a regression from #422, released in 0.5.4: 0.4.3 to 0.5.3 inline the rule in the reproduction below, 0.5.4 and 0.5.5 drop it, with the classic and the compiled paths alike. `main` still collects the families with `parseFontFamilies(decl.prop, decl.value)`.\n\nReproduction:\n\n```css\n@font-face { font-family: Gotham; src: url(/fonts/g.woff2) format(\"woff2\") }\n:root { --font-secondary: Gotham, sans-serif }\nbody { font-family: var(--font-secondary) }\n```\n\n```html\n<html><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><p>text</p></body></html>\n```\n\nExpected: the `@font-face` rule is inlined, as it is with `body { font-family: Gotham, sans-serif }`. Actual: it is dropped, because `parseFontFamilies('font-family', 'var(--font-secondary)')` returns `[\"var(--font-secondary)\"]`.\n\n#452 fixed the same case for `@keyframes` named through a custom property. Following `var()` the same way for `font-family` and `font` would cover this one.\n\nSeen through Angular 22.2 (`@angular/build` and `@angular/ssr` 22.2.x depend on beasties 0.5.4): in a headless Chrome holding only the inlined critical CSS, our server-rendered page loads Gotham with beasties 0.4.3 and no font at all with 0.5.4, so its text renders in the system fallback until the full stylesheet loads.\n",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "gildas-refacto",
+          "id": "88440299",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/88440299?v=4",
+          "url": "https://github.com/gildas-refacto",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "bug",
+            "colour": "d73a4a",
+            "description": "Something isn't working"
+          }
+        ],
+        "url": "https://github.com/danielroe/beasties/issues/460"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24489799401",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch feat/event-detail",
+      "occurredAt": "2026-10-17T08:30:33.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "forges",
+        "externalId": "1403631860"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "feat/event-detail",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24489465703",
+      "kind": "ref",
+      "action": "created",
+      "kindRaw": "CreateEvent",
+      "summary": "danielroe created branch fix/read-state",
+      "occurredAt": "2026-10-17T07:02:53.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "forges",
+        "externalId": "1403631860"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "fix/read-state",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24488903749",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to feat/simplify-names",
+      "occurredAt": "2026-10-18T17:31:19.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "danielroe",
+        "name": "forges",
+        "externalId": "1403631860"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/feat/simplify-names",
+        "before": "18f6fac8dd018a11537c22d19a33539be7cfe252",
+        "after": "726b5447453b248e8e4a2e1a6921aae59f5c7f4b",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    }
+  ],
+  "total": 300,
+  "cursor": {
+    "nextUrl": "https://api.github.com/user/28706372/events?per_page=10&page=2",
+    "etag": "W/\"43e0f64da2e659fc5a130f9de322ae881839317b6404d49cfd1c29aea886e67b\""
+  },
+  "etag": "W/\"43e0f64da2e659fc5a130f9de322ae881839317b6404d49cfd1c29aea886e67b\"",
+  "rateLimit": {
+    "limit": 5000,
+    "remaining": 4914,
+    "resetAt": "<now>",
+    "resource": "core"
+  },
+  "nextPollAt": "<now>"
+}

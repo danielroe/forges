@@ -1,44 +1,44 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main?per_page=2&page=2"
+    "url": "https://api.github.com/repos/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=2"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main?per_page=2&page=2>; rel=\"last\", <https://api.github.com/repositories/313641207/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main?per_page=2&page=1>; rel=\"first\", <https://api.github.com/repositories/313641207/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main?per_page=2&page=1>; rel=\"prev\"",
-      "etag": "W/\"909fcf8af8cad90d05fa6dbdc334bbb3d8f31bcfa1c03d381453cec0d925eec8\"",
+      "link": "<https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=2>; rel=\"last\", <https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=1>; rel=\"first\", <https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=1>; rel=\"prev\"",
+      "etag": "W/\"689d980e88be89b682fbccee542534c0bb23d6b92c473c7bc1266925bc91e6b5\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4938",
-      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-remaining": "4944",
+      "x-ratelimit-reset": "1792388362",
       "x-ratelimit-resource": "core"
     },
     "body": {
-      "url": "https://api.github.com/repos/h3js/h3/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main",
-      "html_url": "https://github.com/h3js/h3/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main",
-      "permalink_url": "https://github.com/h3js/h3/compare/h3js:ec527f0...h3js:66cfb8a",
-      "diff_url": "https://github.com/h3js/h3/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main.diff",
-      "patch_url": "https://github.com/h3js/h3/compare/ec527f010f7a92b038528d4cfe5a8fd5ed598f05...main.patch",
+      "url": "https://api.github.com/repos/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main",
+      "html_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main",
+      "permalink_url": "https://github.com/h3js/h3/compare/h3js:1a1f488...h3js:48d650b",
+      "diff_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main.diff",
+      "patch_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main.patch",
       "base_commit": {
-        "sha": "ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "node_id": "C_kwDOErHI99oAKGVjNTI3ZjAxMGY3YTkyYjAzODUyOGQ0Y2ZlNWE4ZmQ1ZWQ1OThmMDU",
+        "sha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "node_id": "C_kwDOErHI99oAKDFhMWY0ODgxZGVmNjJiM2E1OGU5NDBiM2RiOWQyMTg1NDk5NmJkMDY",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-07T12:08:07Z"
+            "date": "2026-10-18T02:17:27Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-07T12:08:07Z"
+            "date": "2026-10-18T02:17:27Z"
           },
-          "message": "types(route): infer `defineRoute` handler input from validation schemas\n\nAdd body/headers/query schema generics (with defaults) to `RouteDefinition`\nand `defineRoute`, mirroring `defineValidatedHandler`. A bare\n`RouteDefinition` keeps `handler: EventHandler`. Also type the\nalready-supported `validate.onError`.",
+          "message": "chore: update srvx",
           "tree": {
-            "sha": "1ae4ffcfeab608cb333809e625358ad554f1c070",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/1ae4ffcfeab608cb333809e625358ad554f1c070"
+            "sha": "eeda91b274efb642d92a6a80a20860fe2be9e591",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/eeda91b274efb642d92a6a80a20860fe2be9e591"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -48,9 +48,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "html_url": "https://github.com/h3js/h3/commit/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "html_url": "https://github.com/h3js/h3/commit/1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -95,32 +95,32 @@
         },
         "parents": [
           {
-            "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
-            "url": "https://api.github.com/repos/h3js/h3/commits/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
-            "html_url": "https://github.com/h3js/h3/commit/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+            "sha": "b48b480030becd6507485429dada6d6612fb1084",
+            "url": "https://api.github.com/repos/h3js/h3/commits/b48b480030becd6507485429dada6d6612fb1084",
+            "html_url": "https://github.com/h3js/h3/commit/b48b480030becd6507485429dada6d6612fb1084"
           }
         ]
       },
       "merge_base_commit": {
-        "sha": "ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "node_id": "C_kwDOErHI99oAKGVjNTI3ZjAxMGY3YTkyYjAzODUyOGQ0Y2ZlNWE4ZmQ1ZWQ1OThmMDU",
+        "sha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "node_id": "C_kwDOErHI99oAKDFhMWY0ODgxZGVmNjJiM2E1OGU5NDBiM2RiOWQyMTg1NDk5NmJkMDY",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-07T12:08:07Z"
+            "date": "2026-10-18T02:17:27Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-07T12:08:07Z"
+            "date": "2026-10-18T02:17:27Z"
           },
-          "message": "types(route): infer `defineRoute` handler input from validation schemas\n\nAdd body/headers/query schema generics (with defaults) to `RouteDefinition`\nand `defineRoute`, mirroring `defineValidatedHandler`. A bare\n`RouteDefinition` keeps `handler: EventHandler`. Also type the\nalready-supported `validate.onError`.",
+          "message": "chore: update srvx",
           "tree": {
-            "sha": "1ae4ffcfeab608cb333809e625358ad554f1c070",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/1ae4ffcfeab608cb333809e625358ad554f1c070"
+            "sha": "eeda91b274efb642d92a6a80a20860fe2be9e591",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/eeda91b274efb642d92a6a80a20860fe2be9e591"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -130,9 +130,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "html_url": "https://github.com/h3js/h3/commit/ec527f010f7a92b038528d4cfe5a8fd5ed598f05",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/ec527f010f7a92b038528d4cfe5a8fd5ed598f05/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "html_url": "https://github.com/h3js/h3/commit/1a1f4881def62b3a58e940b3db9d21854996bd06",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -177,9 +177,9 @@
         },
         "parents": [
           {
-            "sha": "b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
-            "url": "https://api.github.com/repos/h3js/h3/commits/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976",
-            "html_url": "https://github.com/h3js/h3/commit/b52a9e7417bab5bbcdbf737d62c8fa0a61e84976"
+            "sha": "b48b480030becd6507485429dada6d6612fb1084",
+            "url": "https://api.github.com/repos/h3js/h3/commits/b48b480030becd6507485429dada6d6612fb1084",
+            "html_url": "https://github.com/h3js/h3/commit/b48b480030becd6507485429dada6d6612fb1084"
           }
         ]
       },
@@ -189,25 +189,25 @@
       "total_commits": 4,
       "commits": [
         {
-          "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-          "node_id": "C_kwDOErHI99oAKDA3ZDdkMmMwZGFjOGZiYmNkMjhiNWM4YzEyNzg2OTkzNzI0NTZkYzU",
+          "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "node_id": "C_kwDOErHI99oAKGI2NDE2NmFlNzhhNjhkZDE1YzQxZTViZGYyMWFmNGQyMzU4MDQ4NzY",
           "commit": {
             "author": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-07T12:36:38Z"
+              "date": "2026-10-18T02:39:39Z"
             },
             "committer": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-07T12:36:38Z"
+              "date": "2026-10-18T02:39:39Z"
             },
-            "message": "chore: update release script",
+            "message": "chore(release): v2.0.5",
             "tree": {
-              "sha": "4759dc36806b366ec77c013a80aac3a1fa10c531",
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/4759dc36806b366ec77c013a80aac3a1fa10c531"
+              "sha": "bad8b18bb91e5ad05ab79d6c4fb94b3b1dfd6f8e",
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/bad8b18bb91e5ad05ab79d6c4fb94b3b1dfd6f8e"
             },
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
             "comment_count": 0,
             "verification": {
               "verified": false,
@@ -217,9 +217,9 @@
               "verified_at": null
             }
           },
-          "url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-          "html_url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876/comments",
           "author": {
             "login": "pi0",
             "id": 5158436,
@@ -264,32 +264,32 @@
           },
           "parents": [
             {
-              "sha": "ac79e5fcb148e8aa5702f71535fedb84070d0fca",
-              "url": "https://api.github.com/repos/h3js/h3/commits/ac79e5fcb148e8aa5702f71535fedb84070d0fca",
-              "html_url": "https://github.com/h3js/h3/commit/ac79e5fcb148e8aa5702f71535fedb84070d0fca"
+              "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+              "url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+              "html_url": "https://github.com/h3js/h3/commit/7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
             }
           ]
         },
         {
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98",
-          "node_id": "C_kwDOErHI99oAKDY2Y2ZiOGEzNTdiNjI4NTQ1MWJhZDQ5OGMyYzQwMDAyNjAxZmFlOTg",
+          "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "node_id": "C_kwDOErHI99oAKDQ4ZDY1MGJlODk0MjJjZDVkMDZmNGNkN2EwMmZjYmY0MzAwZDk2ZGY",
           "commit": {
             "author": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-07T12:37:06Z"
+              "date": "2026-10-18T13:53:32Z"
             },
             "committer": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-07T12:37:06Z"
+              "date": "2026-10-18T13:59:46Z"
             },
-            "message": "chore(release): v2.0.2",
+            "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
             "tree": {
-              "sha": "7fdddeb4d070bfef143c879c7ec0ebcfa964a031",
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/7fdddeb4d070bfef143c879c7ec0ebcfa964a031"
+              "sha": "f60a2a47abeb5c7bf7b5e46049cc312f2239f930",
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/f60a2a47abeb5c7bf7b5e46049cc312f2239f930"
             },
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/66cfb8a357b6285451bad498c2c40002601fae98",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
             "comment_count": 0,
             "verification": {
               "verified": false,
@@ -299,9 +299,9 @@
               "verified_at": null
             }
           },
-          "url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98",
-          "html_url": "https://github.com/h3js/h3/commit/66cfb8a357b6285451bad498c2c40002601fae98",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/66cfb8a357b6285451bad498c2c40002601fae98/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/comments",
           "author": {
             "login": "pi0",
             "id": 5158436,
@@ -346,9 +346,9 @@
           },
           "parents": [
             {
-              "sha": "07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-              "url": "https://api.github.com/repos/h3js/h3/commits/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5",
-              "html_url": "https://github.com/h3js/h3/commit/07d7d2c0dac8fbbcd28b5c8c1278699372456dc5"
+              "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+              "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
+              "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
             }
           ]
         }

@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c2ef98e474ab631b3824732196ad928d4d8c5eec002c0e2624001cd53c2bbb06\"",
+      "etag": "W/\"74e265db459b86eb60a46dc1642bfbc597ee76aa59b5b29c1fd8d6c6ea5644c2\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4980",
-      "x-ratelimit-reset": "1792217935",
+      "x-ratelimit-remaining": "4965",
+      "x-ratelimit-reset": "1792388358",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -52,7 +52,7 @@
           "environment": "{\"build-mode\":\"none\",\"category\":\"/language:javascript-typescript\",\"language\":\"javascript-typescript\",\"runner\":\"[\\\"ubuntu-latest\\\"]\"}",
           "category": "/language:javascript-typescript",
           "state": "open",
-          "commit_sha": "01a27db0455f964f5035ca452074eec5a33addb3",
+          "commit_sha": "0e35d481ac7b24f00c97f21250676bd88e0c44a0",
           "message": {
             "text": "This replaces only the first occurrence of '\\''."
           },

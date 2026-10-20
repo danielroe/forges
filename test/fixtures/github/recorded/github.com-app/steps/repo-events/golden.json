@@ -3,126 +3,18 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17448519505",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1601",
-            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-          },
-          "id": "6215006084"
-        },
-        "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/4ba1bb79-61c3-484b-92dd-a189443c0221)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1601\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/116961038194\"><code>04ba6e0</code></a>_\n"
-      },
-      "summary": "pkg-pr-new[bot] created a comment",
-      "occurredAt": "2026-10-16T11:59:04.000Z",
+      "id": "24493068302",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-17T12:13:11.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pkg-pr-new[bot]",
-        "id": "167837488",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/167837488?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1601",
-        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-      },
-      "threadSnapshot": {
-        "title": "fix(body): match form content type case-insensitively in `readBody`",
-        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "giaBaoJS",
-          "id": "39545125",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
-          "url": "https://github.com/giaBaoJS",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1601"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17436950167",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1583",
-            "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
-          },
-          "id": "6223002251"
-        },
-        "body": "hey @pi0, friendly ping on this one whenever you have a moment. it's a small docs fix for #1578 (the static assets example 404s as written). happy to change anything.\n"
-      },
-      "summary": "aaronanish-t created a comment",
-      "occurredAt": "2026-10-16T19:22:10.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
         "isBotHint": false
       },
       "repo": {
@@ -132,38 +24,13 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
-      },
-      "threadSnapshot": {
-        "title": "docs: fix file paths in static assets example",
-        "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "aaronanish-t",
-          "id": "217176403",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-          "url": "https://github.com/aaronanish-t",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1583"
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "badc762899af14ec024ee18dd2cc930bfb97e160",
+        "after": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "forced": false,
+        "commits": []
       },
       "source": "poll",
       "isPublic": true
@@ -171,191 +38,18 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17422333860",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1601",
-            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-          },
-          "id": "6214993303"
-        },
-        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1601?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `0bb9002f-e3e7-41c7-a60b-90516e823878`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and 04ba6e021cde76fa6fc0084866f231c575647beb.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing: 2</strong></summary>\n<dl>\n<dd>\n\n* `src/utils/body.ts`\n* `test/body.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\n`readBody` now lowercases the request’s `Content-Type` header before checking the media type. A new test checks parsing of URL-encoded bodies with mixed-case and uppercase media types, including repeated fields.\n\n**Changes: Request body parsing**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Normalize Content-Type before parsing** <br> `src/utils/body.ts`, `test/body.test.ts`|`readBody` lowercases `Content-Type` before media-type checks. The test checks parsed fields and confirms that repeated `number` fields remain an array.|\n\n<!-- change_assessment_start -->\n**Priority:** ➖ Normal\n\n**Estimated code review effort:** 2 (Simple) | ~5 minutes\n\n<!-- change_assessment_commit:\"04ba6e021cde76fa6fc0084866f231c575647beb\" -->\n**Change:** Bug fix\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong>⚪ Minimal</strong> · up to <code>04ba6</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `04ba6`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"04ba6e021cde76fa6fc0084866f231c575647beb\",\"coveredCommitId\":\"04ba6e021cde76fa6fc0084866f231c575647beb\",\"kind\":\"reviewed\"} -->\n\nThe change supports case-insensitive form media types, and the added test covers mixed-case inputs. No merge-blocking risk is established.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks: <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 5</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: case-insensitive form content-type matching in `readBody`.                                                                     |\n|     Docstring Coverage     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Docstring coverage is 100.00% which is sufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 2 files. |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1601)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>I’m a rabbit with a case-insensitive nose  <br>I sniff each header, wherever its letters go  <br>Forms come through, parsed just right  <br>Repeated numbers stay in a list  <br>I twitch my ears and hop away  <br>With body bytes in neat array!</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
-      },
-      "summary": "coderabbitai[bot] created a comment",
-      "occurredAt": "2026-10-16T11:58:14.000Z",
+      "id": "24463597672",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:39:52.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "coderabbitai[bot]",
-        "id": "136622811",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1601",
-        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-      },
-      "threadSnapshot": {
-        "title": "fix(body): match form content type case-insensitively in `readBody`",
-        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "giaBaoJS",
-          "id": "39545125",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
-          "url": "https://github.com/giaBaoJS",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1601"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17386926131",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1601",
-            "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-          },
-          "id": "6215018841"
-        },
-        "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1601?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)"
-      },
-      "summary": "codecov[bot] created a comment",
-      "occurredAt": "2026-10-16T11:59:56.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "codecov[bot]",
-        "id": "22429695",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/22429695?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1601",
-        "externalId": "PR_kwDOErHI988AAAABI1lRPA"
-      },
-      "threadSnapshot": {
-        "title": "fix(body): match form content type case-insensitively in `readBody`",
-        "body": "`readBody()` decides whether to parse the body as url-encoded with a case-sensitive `startsWith(\"application/x-www-form-urlencoded\")`. Media types are case-insensitive (RFC 9110, section 8.3.1: \"The type and subtype tokens are case-insensitive.\"), so a request with a differently cased type falls through to `JSON.parse` and gets a 400:\n\n```js\napp.post(\"/\", (event) => readBody(event));\n```\n\n```\n$ curl -s localhost:3000 -H 'content-type: application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"a\":\"1\",\"b\":\"2\"}\n$ curl -s localhost:3000 -H 'content-type: Application/x-www-form-urlencoded' -d 'a=1&b=2'\n{\"status\":400,\"statusText\":\"Bad Request\",\"message\":\"Invalid JSON body\"}\n```\n\n`readBody(event, { type: \"formData\" })` already accepts the same request, since `Request.formData()` parses the header case-insensitively, so the default path was the odd one out.\n\nThe fix lowercases the header before the check. The new test sends two differently cased form content types (one with a `charset` parameter) through the web and node matrix; without the source change both fail with `expected { status: 400, ... } to deeply equal { field: 'value', ... }`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * URL-encoded form bodies are now parsed correctly when the `Content-Type` header uses uppercase or mixed-case letters, including with a charset parameter.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "giaBaoJS",
-          "id": "39545125",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?v=4",
-          "url": "https://github.com/giaBaoJS",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1601"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17386817552",
-      "kind": "state_change",
-      "kindRaw": "PullRequestEvent.opened",
-      "action": "opened",
-      "actionRaw": "opened",
-      "detail": {
-        "type": "state_change",
-        "state": "open"
-      },
-      "summary": "giaBaoJS opened pull_request",
-      "occurredAt": "2026-10-16T11:57:58.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "giaBaoJS",
-        "id": "39545125",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/39545125?",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
         "isBotHint": false
       },
       "repo": {
@@ -365,37 +59,13 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1601"
-      },
-      "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/readbody-media-type-case",
-            "sha": "04ba6e021cde76fa6fc0084866f231c575647beb",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "giaBaoJS",
-              "name": "h3",
-              "externalId": "1403836583"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "after": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "forced": false,
+        "commits": []
       },
       "source": "poll",
       "isPublic": true
@@ -403,19 +73,156 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17374484372",
+      "id": "24460174861",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:16:19.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "after": "b48b480030becd6507485429dada6d6612fb1084",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24460092963",
+      "kind": "ref",
+      "action": "created",
+      "kindRaw": "CreateEvent",
+      "summary": "pi0x created branch build/no-docs",
+      "occurredAt": "2026-10-18T02:14:45.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "build/no-docs",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24454128873",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T14:00:07.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "after": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24440951808",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:18:11.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b48b480030becd6507485429dada6d6612fb1084",
+        "after": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17538452289",
       "kind": "star",
       "action": "created",
       "kindRaw": "WatchEvent.started",
       "actionRaw": "started",
-      "summary": "Wangyaqi starred the repository",
-      "occurredAt": "2026-10-16T08:00:45.000Z",
+      "summary": "auxcoder starred the repository",
+      "occurredAt": "2026-10-18T15:38:13.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "Wangyaqi",
-        "id": "12015319",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/12015319?",
+        "login": "auxcoder",
+        "id": "13837582",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/13837582?",
         "isBotHint": false
       },
       "repo": {
@@ -431,43 +238,19 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17301057126",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1599",
-            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-          },
-          "id": "6184532213"
-        },
-        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1599?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `d49179a2-6d5b-494f-a314-c8365f558a31`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and 21c2b0a09feebd8b495297a2c06eab742b130ebe.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing: 2</strong></summary>\n<dl>\n<dd>\n\n* `src/utils/static.ts`\n* `test/static.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\n`idSearchPaths` now joins index suffixes on a normalized slash boundary. Tests cover root and subdirectory requests with leading-slash and relative index names.\n\n**Changes: Static index lookup**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Normalize index paths** <br> `src/utils/static.ts`, `test/static.test.ts`|`idSearchPaths` trims trailing slashes from asset IDs and leading slashes from index suffixes before joining. Tests check root and subdirectory lookups for both `\"/index.html\"` and `\"index.html\"`.|\n\n<!-- change_assessment_start -->\n**Priority:** ➖ Normal\n\n**Estimated code review effort:** 2 (Simple) | ~10 minutes\n\n<!-- change_assessment_commit:\"21c2b0a09feebd8b495297a2c06eab742b130ebe\" -->\n**Change:** Bug fix · **Severity of issue fixed:** Medium\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong>⚪ Minimal</strong> · up to <code>21c2b</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `21c2b`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"21c2b0a09feebd8b495297a2c06eab742b130ebe\",\"coveredCommitId\":\"21c2b0a09feebd8b495297a2c06eab742b130ebe\",\"kind\":\"reviewed\"} -->\n\nNo actionable merge-blocking risk is identified for the static index-path change; it is mergeable after normal checks.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks: <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 4 · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> 1</strong></summary>\n<dl>\n<dd>\n\n<strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> Failed checks: 1 warning</strong>\n\n|     Check name     |                                              Status                                              | Explanation                                                                                                                                                                               | Resolution                                                                         |\n| :---------------- | :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |\n| Docstring Coverage | ![Warning](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-warning.svg) | Docstring coverage is 0.00% which is insufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 2 files. | Write docstrings for the functions missing them to satisfy the coverage threshold. |\n\n<details>\n<summary><strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> Passed checks: 4 passed</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: normalizing the path join between the asset ID and index name with one boundary slash.                                                         |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Issue `#1584` requires one slash boundary between the directory ID and each index name. `src/utils/static.ts` now removes trailing slashes from `id`, removes leading slashes from `suffix`, and inserts o… |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The reviewed changes are limited to the `idSearchPaths` join logic and tests for static index resolution. These changes directly support issue `#1584`. No unrelated implementation change is identified.   |\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n\n- [ ] <!-- {\"checkboxId\":\"585bb3f6-faf5-4dbf-96d2-74e382adf19a\"} --> Fix all pre-merge checks with AI\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1599)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>A rabbit checks the paths at night  <br>One slash keeps each join just right  <br>Root and folders find their page  <br>Tests record each lookup stage  <br>The rabbit hops away in light</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
-      },
-      "summary": "coderabbitai[bot] created a comment",
-      "occurredAt": "2026-10-15T04:37:56.000Z",
+      "id": "24437338319",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T02:38:52.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "coderabbitai[bot]",
-        "id": "136622811",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
-        "isBotHint": true
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
       },
       "repo": {
         "forge": "github",
@@ -476,122 +259,13 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1599",
-        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-      },
-      "threadSnapshot": {
-        "title": "fix(static): normalize indexNames path join with single boundary slash",
-        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1599"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17296038562",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
       "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1599",
-            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-          },
-          "id": "6184540746"
-        },
-        "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/e25f0c66-4ba1-4f8c-ac06-8d59ea14a39b)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1599\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/116250079670\"><code>21c2b0a</code></a>_\n"
-      },
-      "summary": "pkg-pr-new[bot] created a comment",
-      "occurredAt": "2026-10-15T04:38:41.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "pkg-pr-new[bot]",
-        "id": "167837488",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/167837488?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1599",
-        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-      },
-      "threadSnapshot": {
-        "title": "fix(static): normalize indexNames path join with single boundary slash",
-        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1599"
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "after": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "forced": false,
+        "commits": []
       },
       "source": "poll",
       "isPublic": true
@@ -599,107 +273,89 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17270801221",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1599",
-            "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-          },
-          "id": "6184546089"
-        },
-        "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1599?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)"
-      },
-      "summary": "codecov[bot] created a comment",
-      "occurredAt": "2026-10-15T04:39:08.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "codecov[bot]",
-        "id": "22429695",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/22429695?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1599",
-        "externalId": "PR_kwDOErHI988AAAABIivD8Q"
-      },
-      "threadSnapshot": {
-        "title": "fix(static): normalize indexNames path join with single boundary slash",
-        "body": "<!--\nThank you for reporting an issue.\n\nThe issue tracker is for reporting bugs and discussing features.\n-->\n\n### 🔗 Linked issue\n\nCloses #1584\n\n### ❓ Type of change\n\n- [x] 📖 Documentation (updates to the documentation, readme or JSdoc annotations)\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] 🧹 Chore (updates to the build process or auxiliary tools and libraries)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen serving static index files, `idSearchPaths` previously constructed candidate asset IDs by simple string concatenation: `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` retains a leading slash (`withoutTrailingSlash(\"/\") === \"/\"`):\n1. **Root double slash with default `indexNames: [\"/index.html\"]`**:\n   Concatenating `\"/\"` and `\"/index.html\"` resulted in `\"//index.html\"`. This non-canonical path fails canonical path lookup and asset table lookup in storage backends, returning a `404` for root index requests.\n2. **Missing directory separator with relative `indexNames: [\"index.html\"]`**:\n   When configuring relative index names without a leading slash, requesting a subdirectory like `GET /docs` concatenated `\"/docs\"` and `\"index.html\"`, producing `\"/docsindex.html\"`.\n\nThis fix normalizes index name boundary joining:\n```ts\nconst assetId = suffix ? `${id.replace(/\\/+$/, \"\")}/${suffix.replace(/^\\/+/, \"\")}` : id;\n```\nEnsuring a single slash boundary regardless of whether `id` is `\"/\"` or a subdirectory, and whether `suffix` contains a leading slash.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests to cover my changes.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static asset lookup paths so root and directory index requests resolve correctly when paths contain leading or trailing slashes.\n* **Tests**\n  * Added coverage for index resolution at the root and in subdirectories.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1599"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17270732271",
+      "id": "17534179457",
       "kind": "state_change",
-      "kindRaw": "PullRequestEvent.opened",
+      "kindRaw": "IssuesEvent.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed",
+        "reason": "completed"
+      },
+      "summary": "pi0x closed issues",
+      "occurredAt": "2026-10-18T14:00:08.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3",
+          "externalId": "313641207"
+        },
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
+      },
+      "threadSnapshot": {
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1603"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17533452039",
+      "kind": "state_change",
+      "kindRaw": "IssuesEvent.opened",
       "action": "opened",
       "actionRaw": "opened",
       "detail": {
         "type": "state_change",
         "state": "open"
       },
-      "summary": "lx3133584 opened pull_request",
-      "occurredAt": "2026-10-15T04:37:40.000Z",
+      "summary": "pi0x opened issues",
+      "occurredAt": "2026-10-18T13:43:04.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
         "isBotHint": false
       },
       "repo": {
@@ -719,27 +375,28 @@
           "name": "h3",
           "externalId": "313641207"
         },
-        "kind": "pull_request",
-        "number": "1599"
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
       },
       "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/static-index-names-join-path",
-            "sha": "21c2b0a09feebd8b495297a2c06eab742b130ebe",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "lx3133584",
-              "name": "h3",
-              "externalId": "1346891621"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1603"
       },
       "source": "poll",
       "isPublic": true
@@ -748,12 +405,12 @@
   "total": 300,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/events?per_page=10&page=2",
-    "etag": "W/\"a084aa182852cd5de407266025c4931f0761fc90a9c9c6f0401b3c6f46d912df\""
+    "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\""
   },
-  "etag": "W/\"a084aa182852cd5de407266025c4931f0761fc90a9c9c6f0401b3c6f46d912df\"",
+  "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4962,
+    "remaining": 4969,
     "resetAt": "<now>",
     "resource": "core"
   },

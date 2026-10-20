@@ -3,275 +3,18 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17089961711",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1596",
-            "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-          },
-          "id": "6142931801"
-        },
-        "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/c1a1864a-bcea-4665-820d-98a11339d904)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1596\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/115235790383\"><code>863dc48</code></a>_\n"
-      },
-      "summary": "pkg-pr-new[bot] created a comment",
-      "occurredAt": "2026-10-13T09:52:21.000Z",
+      "id": "24493068302",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-17T12:13:11.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pkg-pr-new[bot]",
-        "id": "167837488",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/167837488?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1596",
-        "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-      },
-      "threadSnapshot": {
-        "title": "fix(response): strip error response body for HEAD requests without onError",
-        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1596"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17089952086",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1596",
-            "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-          },
-          "id": "6142925618"
-        },
-        "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1596?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)"
-      },
-      "summary": "codecov[bot] created a comment",
-      "occurredAt": "2026-10-13T09:51:59.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "codecov[bot]",
-        "id": "22429695",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/22429695?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1596",
-        "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-      },
-      "threadSnapshot": {
-        "title": "fix(response): strip error response body for HEAD requests without onError",
-        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1596"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17083434995",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1596",
-            "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-          },
-          "id": "6142914047"
-        },
-        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1596?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `04923a21-94f8-48f5-af9f-d50580cb771e`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and 863dc486cda4fdd19af67c2d3e7771fa836eb600.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing (3)</strong></summary>\n<dl>\n<dd>\n\n* `src/response.ts`\n* `test/bench/bundle.test.ts`\n* `test/errors.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\nError responses for `HEAD` requests now have an empty body while retaining their status, status text, and headers. Tests cover unmatched routes and synchronous and asynchronous `HTTPError` cases. Bundle-size limits for `defineHandler` have increased.\n\n**Changes: HEAD Error Responses**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Prepare and verify HEAD error responses** <br> `src/response.ts`, `test/errors.test.ts`, `test/bench/bundle.test.ts`|Error responses for `HEAD` requests now use a null body and retain their metadata. Tests cover unmatched routes and synchronous and asynchronous `HTTPError` cases. The `defineHandler` bundle-size limits are updated.|\n\n<!-- change_assessment_start -->\n**Priority:** ⬇️ Low\n\n**Estimated code review effort:** 2 (Simple) | ~10 minutes\n\n<!-- change_assessment_commit:\"863dc486cda4fdd19af67c2d3e7771fa836eb600\" -->\n**Change:** Bug fix · **Severity of issue fixed:** Low\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong>⚪ Minimal</strong> · up to <code>863dc</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `863dc`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"863dc486cda4fdd19af67c2d3e7771fa836eb600\",\"coveredCommitId\":\"863dc486cda4fdd19af67c2d3e7771fa836eb600\",\"kind\":\"reviewed\"} -->\n\nNo actionable merge risk remains; the HEAD error-response behavior is covered and preserves the required metadata.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 4 · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> 1</strong></summary>\n<dl>\n<dd>\n\n<strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> Failed checks (1 warning)</strong>\n\n|     Check name     |                                              Status                                              | Explanation                                                                                                                                                                               | Resolution                                                                         |\n| :---------------- | :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |\n| Docstring Coverage | ![Warning](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-warning.svg) | Docstring coverage is 0.00% which is insufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 3 files. | Write docstrings for the functions missing them to satisfy the coverage threshold. |\n\n<details>\n<summary><strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> Passed checks (4 passed)</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: removing error response bodies for HEAD requests when onError is not configured.                                                               |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Issue `#1594` requires an empty body for `HEAD` requests through `app.request()` when route matching fails or a synchronous or asynchronous `HTTPError` is thrown. The `prepareResponse` error path now re… |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The changes stay within issue `#1594`. The three regression tests verify the required behavior. The `defineHandler` bundle-size limit increase supports the added response logic and its measured bundle i… |\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n\n- [ ] <!-- {\"checkboxId\":\"585bb3f6-faf5-4dbf-96d2-74e382adf19a\"} --> Fix all pre-merge checks with AI\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1596)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>A rabbit checks the HEAD reply,<br>No error words come hopping by.<br>The status stays, the headers too,<br>While empty bytes pass safely through.<br>I nibble greens and thump with glee!</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
-      },
-      "summary": "coderabbitai[bot] created a comment",
-      "occurredAt": "2026-10-13T09:51:17.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "coderabbitai[bot]",
-        "id": "136622811",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1596",
-        "externalId": "PR_kwDOErHI988AAAABIJJy6A"
-      },
-      "threadSnapshot": {
-        "title": "fix(response): strip error response body for HEAD requests without onError",
-        "body": "### 🔗 Linked issue\n\nFixes #1594\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n- [ ] 👌 Enhancement (improving an existing functionality like performance)\n- [ ] ✨ New feature (a non-breaking change that adds functionality)\n- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)\n\n### 📚 Description\n\nWhen a route matching failure occurs (404) or a handler throws `HTTPError` without an `onError` hook configured, `prepareResponse` returned `errorResponse(error, config.debug, errHeaders)` directly. Unlike successful responses and error responses processed through `onError`, this early return branch omitted checking for `HEAD` requests. Consequently, consumers of `app.request()` received a response with a JSON error payload for `HEAD` requests, violating RFC 9110 Section 9.3.2.\n\nThis PR checks `event.req.method === \"HEAD\"` and returns a `FastResponse` with a `null` body while preserving the status, status text, and error headers.\n\n### 📝 Checklist\n\n- [x] I have linked an issue or discussion.\n- [x] I have updated the documentation accordingly.\n- [x] I have added tests that prove my fix is effective or that my feature works.\n- [x] I have verified that all existing and new tests pass locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses to `HEAD` requests now preserve their status and headers while returning an empty body.\n  * Added coverage for unmatched routes and synchronous or asynchronous HTTP errors.\n\n* **Tests**\n  * Updated bundle-size thresholds.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
-        "author": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "lx3133584",
-          "id": "24490353",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-          "url": "https://github.com/lx3133584",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1596"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17082376526",
-      "kind": "state_change",
-      "kindRaw": "PullRequestEvent.opened",
-      "action": "opened",
-      "actionRaw": "opened",
-      "detail": {
-        "type": "state_change",
-        "state": "open"
-      },
-      "summary": "lx3133584 opened pull_request",
-      "occurredAt": "2026-10-13T09:50:58.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
         "isBotHint": false
       },
       "repo": {
@@ -281,37 +24,13 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1596"
-      },
-      "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/head-error-response-body",
-            "sha": "863dc486cda4fdd19af67c2d3e7771fa836eb600",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "lx3133584",
-              "name": "h3",
-              "externalId": "1346891621"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "badc762899af14ec024ee18dd2cc930bfb97e160",
+        "after": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "forced": false,
+        "commits": []
       },
       "source": "poll",
       "isPublic": true
@@ -319,19 +38,191 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17075345596",
+      "id": "24463597672",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:39:52.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "after": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24460174861",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:16:19.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "after": "b48b480030becd6507485429dada6d6612fb1084",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24460092963",
+      "kind": "ref",
+      "action": "created",
+      "kindRaw": "CreateEvent",
+      "summary": "pi0x created branch build/no-docs",
+      "occurredAt": "2026-10-18T02:14:45.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "build/no-docs",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24454128873",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T14:00:07.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b64166ae78a68dd15c41e5bdf21af4d235804876",
+        "after": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "24440951808",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0 pushed to main",
+      "occurredAt": "2026-10-18T02:18:11.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "pi0",
+        "id": "5158436",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "h3js",
+        "name": "h3",
+        "externalId": "313641207"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "b48b480030becd6507485429dada6d6612fb1084",
+        "after": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "17538452289",
       "kind": "star",
       "action": "created",
       "kindRaw": "WatchEvent.started",
       "actionRaw": "started",
-      "summary": "tsevdos starred the repository",
-      "occurredAt": "2026-10-13T07:24:00.000Z",
+      "summary": "auxcoder starred the repository",
+      "occurredAt": "2026-10-18T15:38:13.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "tsevdos",
-        "id": "175707",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/175707?",
+        "login": "auxcoder",
+        "id": "13837582",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/13837582?",
         "isBotHint": false
       },
       "repo": {
@@ -347,43 +238,18 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17058488738",
-      "kind": "review",
-      "kindRaw": "PullRequestReviewEvent.created",
-      "action": "submitted",
-      "actionRaw": "created",
-      "detail": {
-        "type": "review",
-        "state": "commented",
-        "stateRaw": "commented",
-        "body": "<!-- ccr-overview-v2 -->\n\n### 🟢 Approval recommended\n\nThe one-line change is behavior-preserving except for the intended HEAD body stripping, verified across all control-flow paths and backed by a comprehensive regression matrix.\n\n**0 open findings**\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nThis PR fixes a bug where HEAD requests to missing routes (or handlers throwing `HTTPError`) returned a JSON error body when no `onError` hook was configured, as reported in #1594. The root cause was that `prepareResponse` returned the generated default error `Response` via an early `return`, bypassing the downstream Response normalization — including the HEAD body-stripping logic. By assigning the generated error response to `val` instead of returning early, the default error response now flows through the same normalization path, so HEAD bodies are stripped consistently across web/service-worker consumers (Node's HTTP transport already stripped them).\n\nI traced all control-flow paths (no-`onError`, `onError`, and nested recursion) and confirmed the change is behavior-preserving except for the intended HEAD fix: `errHeaders`/`set-cookie` are not double-merged (since `kEventRes` is cleared before `errorResponse`), GET error responses return the identical object as before, and only the HEAD branch now strips the body.\n\n**Changes:**\n- `src/response.ts`: Let the default error response continue through Response normalization instead of returning early, so HEAD bodies are stripped.\n- `test/errors.test.ts`: Add a regression matrix covering missing HEAD routes and sync/async `HTTPError` handlers, with/without `onError`, asserting status, statusText, error headers/cookies, body presence, and hook invocation counts.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `src/​response.ts` | Replaces the early `return errorResponse(...)` with `val = errorResponse(...)` so default error responses pass through HEAD body-stripping normalization. |\r\n| `test/​errors.test.ts` | Adds a parameterized regression suite for HEAD/GET error bodies, header/cookie preservation, and hook counts across `onError` configurations. |\n</details>\n\n🧠 **Review effort:** Balanced\n\n---\n\n💡 <a href=\"/h3js/h3/new/main?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
-        "review": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1595"
-          },
-          "id": "5497800509"
-        }
-      },
-      "summary": "Copilot submitted a review (commented)",
-      "occurredAt": "2026-10-13T01:29:45.000Z",
+      "id": "24437338319",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "pi0x pushed to main",
+      "occurredAt": "2026-10-18T02:38:52.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "Copilot",
-        "id": "175728472",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/175728472?",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
         "isBotHint": false
       },
       "repo": {
@@ -393,37 +259,13 @@
         "name": "h3",
         "externalId": "313641207"
       },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1595"
-      },
-      "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/head-error-response",
-            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "maxazure",
-              "name": "h3",
-              "externalId": "1416304836"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
+        "after": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+        "forced": false,
+        "commits": []
       },
       "source": "poll",
       "isPublic": true
@@ -431,43 +273,24 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17058488696",
-      "kind": "review",
-      "kindRaw": "PullRequestReviewEvent.updated",
-      "action": "edited",
-      "actionRaw": "updated",
+      "id": "17534179457",
+      "kind": "state_change",
+      "kindRaw": "IssuesEvent.closed",
+      "action": "closed",
+      "actionRaw": "closed",
       "detail": {
-        "type": "review",
-        "state": "commented",
-        "stateRaw": "commented",
-        "body": "<!-- ccr-overview-v2 -->\n\n### 🟢 Approval recommended\n\nThe one-line change is behavior-preserving except for the intended HEAD body stripping, verified across all control-flow paths and backed by a comprehensive regression matrix.\n\n**0 open findings**\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nThis PR fixes a bug where HEAD requests to missing routes (or handlers throwing `HTTPError`) returned a JSON error body when no `onError` hook was configured, as reported in #1594. The root cause was that `prepareResponse` returned the generated default error `Response` via an early `return`, bypassing the downstream Response normalization — including the HEAD body-stripping logic. By assigning the generated error response to `val` instead of returning early, the default error response now flows through the same normalization path, so HEAD bodies are stripped consistently across web/service-worker consumers (Node's HTTP transport already stripped them).\n\nI traced all control-flow paths (no-`onError`, `onError`, and nested recursion) and confirmed the change is behavior-preserving except for the intended HEAD fix: `errHeaders`/`set-cookie` are not double-merged (since `kEventRes` is cleared before `errorResponse`), GET error responses return the identical object as before, and only the HEAD branch now strips the body.\n\n**Changes:**\n- `src/response.ts`: Let the default error response continue through Response normalization instead of returning early, so HEAD bodies are stripped.\n- `test/errors.test.ts`: Add a regression matrix covering missing HEAD routes and sync/async `HTTPError` handlers, with/without `onError`, asserting status, statusText, error headers/cookies, body presence, and hook invocation counts.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `src/​response.ts` | Replaces the early `return errorResponse(...)` with `val = errorResponse(...)` so default error responses pass through HEAD body-stripping normalization. |\r\n| `test/​errors.test.ts` | Adds a parameterized regression suite for HEAD/GET error bodies, header/cookie preservation, and hook counts across `onError` configurations. |\n</details>\n\n🧠 **Review effort:** Balanced\n\n---\n\n💡 <a href=\"/h3js/h3/new/main?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
-        "review": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1595"
-          },
-          "id": "5497800509"
-        }
+        "type": "state_change",
+        "state": "closed",
+        "reason": "completed"
       },
-      "summary": "Copilot updated a review (commented)",
-      "occurredAt": "2026-10-13T01:29:45.000Z",
+      "summary": "pi0x closed issues",
+      "occurredAt": "2026-10-18T14:00:08.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "Copilot",
-        "id": "175728472",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/175728472?",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
         "isBotHint": false
       },
       "repo": {
@@ -487,111 +310,28 @@
           "name": "h3",
           "externalId": "313641207"
         },
-        "kind": "pull_request",
-        "number": "1595"
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
       },
       "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/head-error-response",
-            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "maxazure",
-              "name": "h3",
-              "externalId": "1416304836"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17058332155",
-      "kind": "comment",
-      "kindRaw": "IssueCommentEvent.created",
-      "action": "created",
-      "actionRaw": "created",
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "github",
-          "instance": "github.com",
-          "thread": {
-            "forge": "github",
-            "instance": "github.com",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "h3js",
-              "name": "h3",
-              "externalId": "313641207"
-            },
-            "kind": "pull_request",
-            "number": "1595",
-            "externalId": "PR_kwDOErHI988AAAABIE9A2g"
-          },
-          "id": "6136059613"
-        },
-        "body": "<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1595?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review. 🎉\n\n<details>\n<summary><strong>ℹ️ Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong>⚙️ Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Configuration used**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `2c7fe4ea-117a-42ad-b694-9d777c233765`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📥 Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between 66cfb8a357b6285451bad498c2c40002601fae98 and c3eacd57b1b1a9924eb9c85517369a9b43451abf.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong>📒 Files selected for processing (2)</strong></summary>\n<dl>\n<dd>\n\n* `src/response.ts`\n* `test/errors.test.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>📝 Walkthrough</strong></summary>\n<dl>\n<dd>\n\n## Walkthrough\n\n`prepareResponse` now sends generated error responses through the existing response-processing path. Regression tests cover missing routes and thrown `HTTPError`s for GET and HEAD requests, with `onError` hooks enabled and disabled.\n\n### Changes\n\n**Error response handling**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Prepare error responses and verify HEAD behavior** <br> `src/response.ts`, `test/errors.test.ts`|Generated error responses continue through response preparation. Tests check status, body, headers, cookies, and hook call counts for missing routes and thrown `HTTPError`s.|\n\n<!-- change_assessment_start -->\n**Priority:** ➖ Normal\n\n**Estimated code review effort:** 2 (Simple) | ~10 minutes\n\n<!-- change_assessment_commit:\"c3eacd57b1b1a9924eb9c85517369a9b43451abf\" -->\n**Change:** Bug fix · **Severity of issue fixed:** Medium\n<!-- change_assessment_end -->\n\n**Suggested reviewers:** `pi0`\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<!-- final_review_risk_start -->\n**Merge Risk:** **⚪ Minimal** · up to `c3eac`\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"c3eacd57b1b1a9924eb9c85517369a9b43451abf\",\"coveredCommitId\":\"c3eacd57b1b1a9924eb9c85517369a9b43451abf\",\"kind\":\"reviewed\"} -->\n\nHEAD error responses have empty bodies without a demonstrated change to their status or headers. The change is mergeable after normal checks.\n<!-- final_review_risk_end -->\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 4 · <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> 1</strong></summary>\n<dl>\n<dd>\n\n<strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-failed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Failed\" title=\"Failed\"></picture></sup> Failed checks (1 warning)</strong>\n\n|     Check name     |                                              Status                                              | Explanation                                                                                                                                                                               | Resolution                                                                         |\n| :---------------- | :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- |\n| Docstring Coverage | ![Warning](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-warning.svg) | Docstring coverage is 0.00% which is insufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 2 files. | Write docstrings for the functions missing them to satisfy the coverage threshold. |\n\n<details>\n<summary><strong><sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> Passed checks (4 passed)</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the primary change: omitting response bodies for default errors on HEAD requests.                                                                               |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The PR meets the coding requirements in [`#1594`]. `src/response.ts` assigns the generated `errorResponse(...)` to `val`, so it continues through the existing HEAD body normalization path. The added tes… |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The changes stay within [`#1594`]. The source change only changes default error response processing. The test changes exercise the required HEAD error behavior and protect related status, header, cookie… |\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n\n- [ ] <!-- {\"checkboxId\":\"585bb3f6-faf5-4dbf-96d2-74e382adf19a\"} --> Fix all pre-merge checks with AI\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>✨ Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1595)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>A rabbit checks a HEAD reply,<br>No JSON hops where none should lie.<br>GET keeps its error, clear and bright,<br>Headers stay in their proper right.<br>The test burrow rests tonight.</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->"
-      },
-      "summary": "coderabbitai[bot] created a comment",
-      "occurredAt": "2026-10-13T01:26:17.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "coderabbitai[bot]",
-        "id": "136622811",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/136622811?",
-        "isBotHint": true
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "thread": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3",
-          "externalId": "313641207"
-        },
-        "kind": "pull_request",
-        "number": "1595",
-        "externalId": "PR_kwDOErHI988AAAABIE9A2g"
-      },
-      "threadSnapshot": {
-        "title": "fix(response): omit HEAD body for default errors",
-        "body": "Resolves #1594.\n\nWithout an `onError` hook, a missing HEAD route or a handler throwing `HTTPError` returns a JSON body through the web Response API. Node's HTTP transport strips it, and a no-op `onError` hook already makes the web response body empty.\n\nLet the generated default error response continue through the existing Response normalization path so HEAD bodies are removed consistently. The implementation changes one line; error serialization, status/statusText, error headers, cookies, and public APIs remain unchanged.\n\nThe regression matrix covers missing HEAD routes, synchronous/asynchronous HTTPError handlers, GET JSON responses, both hook configurations, preserved error headers, and hook invocation counts. Before the fix, three web HEAD cases fail and the other 17 matrix cases pass. The minimal reproduction is in #1594.\n\nValidation on Node.js 24.21.0 / pnpm 12.3.4:\n\n- Error handling and bundle-budget tests: 75 passed.\n- Lint, typecheck, build, and `git diff --check`: passed.\n- Full `pnpm test`: 3055 passed, 51 skipped, one Node body-limit test timed out after 5000ms. The unmodified main at `66cfb8a` also times out in the Node body-limit suite; a lower-worker retry did not eliminate it. The full suite is therefore not green locally.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Error responses now follow consistent response processing. Missing routes and thrown HTTP errors return the expected status and error details for `GET` requests, while `HEAD` responses remain bodyless.\n  * Error headers and cookies are preserved, and success-only headers are excluded from error responses.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-        "state": "open",
-        "stateRaw": "open",
-        "isDraft": false,
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "maxazure",
-          "id": "405711",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/405711?v=4",
-          "url": "https://github.com/maxazure",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
         "labels": [],
-        "url": "https://github.com/h3js/h3/pull/1595"
+        "url": "https://github.com/h3js/h3/issues/1603"
       },
       "source": "poll",
       "isPublic": true
@@ -599,23 +339,23 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17058320202",
+      "id": "17533452039",
       "kind": "state_change",
-      "kindRaw": "PullRequestEvent.opened",
+      "kindRaw": "IssuesEvent.opened",
       "action": "opened",
       "actionRaw": "opened",
       "detail": {
         "type": "state_change",
         "state": "open"
       },
-      "summary": "maxazure opened pull_request",
-      "occurredAt": "2026-10-13T01:26:02.000Z",
+      "summary": "pi0x opened issues",
+      "occurredAt": "2026-10-18T13:43:04.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "maxazure",
-        "id": "405711",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/405711?",
+        "login": "pi0x",
+        "id": "286783767",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?",
         "isBotHint": false
       },
       "repo": {
@@ -635,65 +375,28 @@
           "name": "h3",
           "externalId": "313641207"
         },
-        "kind": "pull_request",
-        "number": "1595"
+        "kind": "issue",
+        "number": "1603",
+        "externalId": "I_kwDOErHI988AAAABYEWN7w"
       },
       "threadSnapshot": {
-        "branches": {
-          "head": {
-            "ref": "fix/head-error-response",
-            "sha": "c3eacd57b1b1a9924eb9c85517369a9b43451abf",
-            "repo": {
-              "forge": "github",
-              "instance": "github.com",
-              "owner": "maxazure",
-              "name": "h3",
-              "externalId": "1416304836"
-            }
-          },
-          "base": {
-            "ref": "main",
-            "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-          }
-        }
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "17058279960",
-      "kind": "fork",
-      "action": "created",
-      "kindRaw": "ForkEvent.forked",
-      "actionRaw": "forked",
-      "summary": "maxazure forked the repository to maxazure/h3",
-      "occurredAt": "2026-10-13T01:25:07.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "maxazure",
-        "id": "405711",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/405711?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "h3js",
-        "name": "h3",
-        "externalId": "313641207"
-      },
-      "detail": {
-        "type": "fork",
-        "fork": {
+        "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+        "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
           "forge": "github",
           "instance": "github.com",
-          "owner": "maxazure",
-          "name": "h3",
-          "externalId": "1416304836"
-        }
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://github.com/h3js/h3/issues/1603"
       },
       "source": "poll",
       "isPublic": true
@@ -702,12 +405,14 @@
   "total": 300,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/events?per_page=10&page=2",
-    "etag": "W/\"99846cff9da6f23ceac7d1a1c3ae5bb0d8a27076a4538eb702c7054a93b3aa52\""
+    "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\""
   },
-  "etag": "W/\"99846cff9da6f23ceac7d1a1c3ae5bb0d8a27076a4538eb702c7054a93b3aa52\"",
+  "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 25,
-    "resetAt": "<now>"
-  }
+    "remaining": 13,
+    "resetAt": "<now>",
+    "resource": "core"
+  },
+  "nextPollAt": "<now>"
 }

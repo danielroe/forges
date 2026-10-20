@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/issue-types"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"f131e9aa4252aa845e1ba348868abfb9d78969fcb7979d5f19eb86d90b3997e9\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 26507498,
+        "node_id": "IT_kwDODGx6VM4BlHjq",
+        "name": "Task",
+        "description": "A specific piece of work",
+        "color": "yellow",
+        "created_at": "2025-04-21T06:09:38Z",
+        "updated_at": "2025-04-21T06:09:38Z",
+        "is_enabled": true
+      },
+      {
+        "id": 26507499,
+        "node_id": "IT_kwDODGx6VM4BlHjr",
+        "name": "Bug",
+        "description": "An unexpected problem or behavior",
+        "color": "red",
+        "created_at": "2025-04-21T06:09:38Z",
+        "updated_at": "2025-04-21T06:09:38Z",
+        "is_enabled": true
+      },
+      {
+        "id": 26507500,
+        "node_id": "IT_kwDODGx6VM4BlHjs",
+        "name": "Feature",
+        "description": "A request, idea, or new functionality",
+        "color": "blue",
+        "created_at": "2025-04-21T06:09:38Z",
+        "updated_at": "2025-04-21T06:09:38Z",
+        "is_enabled": true
+      }
+    ]
+  }
+}

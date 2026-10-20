@@ -1,0 +1,228 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/users/danielroe/events?per_page=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.github.com/user/28706372/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/user/28706372/events?per_page=10&page=30>; rel=\"last\"",
+      "etag": "W/\"43e0f64da2e659fc5a130f9de322ae881839317b6404d49cfd1c29aea886e67b\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4914",
+      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-resource": "core",
+      "x-poll-interval": "60"
+    },
+    "body": [
+      {
+        "id": "17571094293",
+        "type": "IssuesEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 878458624,
+          "name": "danielroe/beasties",
+          "url": "https://api.github.com/repos/danielroe/beasties"
+        },
+        "payload": {
+          "action": "labeled",
+          "issue": {
+            "url": "https://api.github.com/repos/danielroe/beasties/issues/460",
+            "repository_url": "https://api.github.com/repos/danielroe/beasties",
+            "labels_url": "https://api.github.com/repos/danielroe/beasties/issues/460/labels{/name}",
+            "comments_url": "https://api.github.com/repos/danielroe/beasties/issues/460/comments",
+            "events_url": "https://api.github.com/repos/danielroe/beasties/issues/460/events",
+            "html_url": "https://github.com/danielroe/beasties/issues/460",
+            "id": 5833789176,
+            "node_id": "I_kwDONFw3AM8AAAABW7iO-A",
+            "number": 460,
+            "title": "inlineFonts drops @font-face when font-family is set through a custom property",
+            "user": {
+              "login": "gildas-refacto",
+              "id": 88440299,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/88440299?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/gildas-refacto",
+              "html_url": "https://github.com/gildas-refacto",
+              "followers_url": "https://api.github.com/users/gildas-refacto/followers",
+              "following_url": "https://api.github.com/users/gildas-refacto/following{/other_user}",
+              "gists_url": "https://api.github.com/users/gildas-refacto/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/gildas-refacto/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/gildas-refacto/subscriptions",
+              "organizations_url": "https://api.github.com/users/gildas-refacto/orgs",
+              "repos_url": "https://api.github.com/users/gildas-refacto/repos",
+              "events_url": "https://api.github.com/users/gildas-refacto/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/gildas-refacto/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 7656286124,
+                "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
+                "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
+                "name": "bug",
+                "color": "d73a4a",
+                "default": true,
+                "description": "Something isn't working",
+                "archived_at": null,
+                "archived_by": null
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 0,
+            "created_at": "2026-10-13T16:16:27Z",
+            "updated_at": "2026-10-19T04:24:18Z",
+            "closed_at": null,
+            "assignee": null,
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "issue_dependencies_summary": {
+              "blocked_by": 0,
+              "total_blocked_by": 0,
+              "blocking": 0,
+              "total_blocking": 0
+            },
+            "body": "With `inlineFonts: true` (and `preloadFonts: true`), beasties keeps only the `@font-face` rules whose family appears in a critical `font-family` / `font` declaration. A family written through a custom property is never resolved, so its `@font-face` rules are dropped from the inlined CSS. Tailwind v4 always sets the base font this way (`font-family: var(--default-font-family, ...)` in its preflight), so a Tailwind v4 site loses all its `@font-face` rules.\n\nThis is a regression from #422, released in 0.5.4: 0.4.3 to 0.5.3 inline the rule in the reproduction below, 0.5.4 and 0.5.5 drop it, with the classic and the compiled paths alike. `main` still collects the families with `parseFontFamilies(decl.prop, decl.value)`.\n\nReproduction:\n\n```css\n@font-face { font-family: Gotham; src: url(/fonts/g.woff2) format(\"woff2\") }\n:root { --font-secondary: Gotham, sans-serif }\nbody { font-family: var(--font-secondary) }\n```\n\n```html\n<html><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><p>text</p></body></html>\n```\n\nExpected: the `@font-face` rule is inlined, as it is with `body { font-family: Gotham, sans-serif }`. Actual: it is dropped, because `parseFontFamilies('font-family', 'var(--font-secondary)')` returns `[\"var(--font-secondary)\"]`.\n\n#452 fixed the same case for `@keyframes` named through a custom property. Following `var()` the same way for `font-family` and `font` would cover this one.\n\nSeen through Angular 22.2 (`@angular/build` and `@angular/ssr` 22.2.x depend on beasties 0.5.4): in a headless Chrome holding only the inlined critical CSS, our server-rendered page loads Gotham with beasties 0.4.3 and no font at all with 0.5.4, so its text renders in the system fallback until the full stylesheet loads.\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/danielroe/beasties/issues/460/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/danielroe/beasties/issues/460/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null,
+            "pinned_comment": null
+          },
+          "label": {
+            "id": 7656286124,
+            "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
+            "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
+            "name": "bug",
+            "color": "d73a4a",
+            "default": true,
+            "description": "Something isn't working",
+            "archived_at": null,
+            "archived_by": null
+          },
+          "labels": [
+            {
+              "id": 7656286124,
+              "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
+              "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
+              "name": "bug",
+              "color": "d73a4a",
+              "default": true,
+              "description": "Something isn't working",
+              "archived_at": null,
+              "archived_by": null
+            }
+          ]
+        },
+        "public": true,
+        "created_at": "2026-10-19T04:24:19Z"
+      },
+      {
+        "id": "24489799401",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "ref": "feat/event-detail",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/feat/event-detail",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-17T08:30:33Z"
+      },
+      {
+        "id": "24489465703",
+        "type": "CreateEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "ref": "fix/read-state",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/fix/read-state",
+          "master_branch": "main",
+          "description": "One API for every code forge.",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-10-17T07:02:53Z"
+      },
+      {
+        "id": "24488903749",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 1403631860,
+          "name": "danielroe/forges",
+          "url": "https://api.github.com/repos/danielroe/forges"
+        },
+        "payload": {
+          "repository_id": 1403631860,
+          "push_id": 46922192492,
+          "ref": "refs/heads/feat/simplify-names",
+          "head": "726b5447453b248e8e4a2e1a6921aae59f5c7f4b",
+          "before": "18f6fac8dd018a11537c22d19a33539be7cfe252"
+        },
+        "public": true,
+        "created_at": "2026-10-18T17:31:19Z"
+      }
+    ]
+  }
+}

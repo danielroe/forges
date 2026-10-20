@@ -1,27 +1,28 @@
 {
   "items": [
     {
-      "name": "v2.0.2",
-      "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+      "name": "v2.0.5",
+      "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
     },
     {
-      "name": "v2.0.1",
-      "sha": "26d3d3d4fc60ebece9975eee5415b114cb8dbcd5"
+      "name": "v2.0.4",
+      "sha": "2084ecaa855273b2971a10d1a858ecd2188b3df0"
     },
     {
-      "name": "v2.0.1-rc.33",
-      "sha": "3cbc7535a61bfb7d3fcce949f30de471a90d572b"
+      "name": "v2.0.3",
+      "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
     }
   ],
-  "total": 168,
+  "total": 171,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/tags?per_page=3&page=2",
-    "etag": "W/\"2826c0778b007ae2b602bfa6fdb905f1e7ece17c2f2f54a248f825428d49ac4f\""
+    "etag": "W/\"e609c00d7f2363b9db0d5bcb832288167ab6978bd2da244f246dda8a2df05722\""
   },
-  "etag": "W/\"2826c0778b007ae2b602bfa6fdb905f1e7ece17c2f2f54a248f825428d49ac4f\"",
+  "etag": "W/\"e609c00d7f2363b9db0d5bcb832288167ab6978bd2da244f246dda8a2df05722\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4957,
-    "resetAt": "2026-10-11T17:05:29.000Z"
+    "remaining": 4951,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

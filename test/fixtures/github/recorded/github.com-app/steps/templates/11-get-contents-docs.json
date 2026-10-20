@@ -1,0 +1,210 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/contents/docs"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"f60a2a47abeb5c7bf7b5e46049cc312f2239f930\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4989",
+      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": ".config",
+        "path": "docs/.config",
+        "sha": "894eaf4ed93774aa86935b51a465a134a75987db",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/.config?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/.config",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/894eaf4ed93774aa86935b51a465a134a75987db",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/.config?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/894eaf4ed93774aa86935b51a465a134a75987db",
+          "html": "https://github.com/h3js/h3/tree/main/docs/.config"
+        }
+      },
+      {
+        "name": ".docs",
+        "path": "docs/.docs",
+        "sha": "bbd5a745f3562e8ad352d0abd8d722424d1d6823",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/.docs?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/.docs",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/bbd5a745f3562e8ad352d0abd8d722424d1d6823",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/.docs?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/bbd5a745f3562e8ad352d0abd8d722424d1d6823",
+          "html": "https://github.com/h3js/h3/tree/main/docs/.docs"
+        }
+      },
+      {
+        "name": ".gitignore",
+        "path": "docs/.gitignore",
+        "sha": "835831e553be1775244aff5ac3c50581fd14a286",
+        "size": 38,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/.gitignore?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/docs/.gitignore",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/835831e553be1775244aff5ac3c50581fd14a286",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/docs/.gitignore",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/.gitignore?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/835831e553be1775244aff5ac3c50581fd14a286",
+          "html": "https://github.com/h3js/h3/blob/main/docs/.gitignore"
+        }
+      },
+      {
+        "name": ".partials",
+        "path": "docs/.partials",
+        "sha": "a1176d84c004028f703752138aba1d62e7d2e759",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/.partials?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/.partials",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/a1176d84c004028f703752138aba1d62e7d2e759",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/.partials?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/a1176d84c004028f703752138aba1d62e7d2e759",
+          "html": "https://github.com/h3js/h3/tree/main/docs/.partials"
+        }
+      },
+      {
+        "name": "1.guide",
+        "path": "docs/1.guide",
+        "sha": "f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/1.guide?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/1.guide",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/1.guide?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/f8d0bdad815c7cbcbbe4cde49603121f86e0f197",
+          "html": "https://github.com/h3js/h3/tree/main/docs/1.guide"
+        }
+      },
+      {
+        "name": "2.utils",
+        "path": "docs/2.utils",
+        "sha": "b4e7fe716a08063cfebefc87a093a769b897961e",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/2.utils",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
+          "html": "https://github.com/h3js/h3/tree/main/docs/2.utils"
+        }
+      },
+      {
+        "name": "4.examples",
+        "path": "docs/4.examples",
+        "sha": "46d12a85db2791389881382384e6a88cd9f1e19b",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/4.examples?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/4.examples",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/46d12a85db2791389881382384e6a88cd9f1e19b",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/4.examples?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/46d12a85db2791389881382384e6a88cd9f1e19b",
+          "html": "https://github.com/h3js/h3/tree/main/docs/4.examples"
+        }
+      },
+      {
+        "name": "5.migration",
+        "path": "docs/5.migration",
+        "sha": "039e0b29db9ad4c5ab661f29ae1f32cba921bf9d",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/5.migration?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/5.migration",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/039e0b29db9ad4c5ab661f29ae1f32cba921bf9d",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/5.migration?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/039e0b29db9ad4c5ab661f29ae1f32cba921bf9d",
+          "html": "https://github.com/h3js/h3/tree/main/docs/5.migration"
+        }
+      },
+      {
+        "name": "99.blog",
+        "path": "docs/99.blog",
+        "sha": "aa6923336c1f3d9ece99ae9b4ee9b13afe28b8ac",
+        "size": 0,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/99.blog?ref=main",
+        "html_url": "https://github.com/h3js/h3/tree/main/docs/99.blog",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/aa6923336c1f3d9ece99ae9b4ee9b13afe28b8ac",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/99.blog?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/aa6923336c1f3d9ece99ae9b4ee9b13afe28b8ac",
+          "html": "https://github.com/h3js/h3/tree/main/docs/99.blog"
+        }
+      },
+      {
+        "name": "package.json",
+        "path": "docs/package.json",
+        "sha": "3982e12a9e0609933d944f9c5bb52556a1eac857",
+        "size": 245,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/package.json?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/docs/package.json",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/3982e12a9e0609933d944f9c5bb52556a1eac857",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/docs/package.json",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/package.json?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/3982e12a9e0609933d944f9c5bb52556a1eac857",
+          "html": "https://github.com/h3js/h3/blob/main/docs/package.json"
+        }
+      },
+      {
+        "name": "pnpm-lock.yaml",
+        "path": "docs/pnpm-lock.yaml",
+        "sha": "e648c7cfd63140672f3f7c38846de3b8ac4185ba",
+        "size": 73502,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/pnpm-lock.yaml?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/docs/pnpm-lock.yaml",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/e648c7cfd63140672f3f7c38846de3b8ac4185ba",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/docs/pnpm-lock.yaml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/pnpm-lock.yaml?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/e648c7cfd63140672f3f7c38846de3b8ac4185ba",
+          "html": "https://github.com/h3js/h3/blob/main/docs/pnpm-lock.yaml"
+        }
+      },
+      {
+        "name": "pnpm-workspace.yaml",
+        "path": "docs/pnpm-workspace.yaml",
+        "sha": "92bfab76894d7ac803e0f94ce3bb83a69422e7be",
+        "size": 171,
+        "url": "https://api.github.com/repos/h3js/h3/contents/docs/pnpm-workspace.yaml?ref=main",
+        "html_url": "https://github.com/h3js/h3/blob/main/docs/pnpm-workspace.yaml",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/blobs/92bfab76894d7ac803e0f94ce3bb83a69422e7be",
+        "download_url": "https://raw.githubusercontent.com/h3js/h3/main/docs/pnpm-workspace.yaml",
+        "type": "file",
+        "_links": {
+          "self": "https://api.github.com/repos/h3js/h3/contents/docs/pnpm-workspace.yaml?ref=main",
+          "git": "https://api.github.com/repos/h3js/h3/git/blobs/92bfab76894d7ac803e0f94ce3bb83a69422e7be",
+          "html": "https://github.com/h3js/h3/blob/main/docs/pnpm-workspace.yaml"
+        }
+      }
+    ]
+  }
+}

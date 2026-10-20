@@ -11,27 +11,27 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1593",
-        "externalId": "PR_kwDOErHI988AAAABH8E0Ww"
+        "number": "1585",
+        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
       },
       "kind": "pull_request",
-      "title": "docs(static): fix route path in serveStatic example to match root access",
-      "body": "Fixes #1578.\n\nIn `docs/4.examples/serve-static-assets.md`, the text explains:\n\n> Now, create a `index.html` file in the `public` directory with a simple message and open your browser to http://localhost:3000. You should see the message.\n\nMounting the handler under `app.use(\"/public/**\", ...)` causes:\n1. Requests to `http://localhost:3000` return a 404 because they do not match `/public/**`.\n2. Even when requesting `http://localhost:3000/public/index.html`, `id` is passed as `/public/index.html`, and `path.join(\"public\", id)` resolves to `public/public/index.html`.\n\nUpdating the route path in the code examples to `app.use(\"/**\", ...)` aligns the example with the documented instructions and the test patterns in `test/static.test.ts`.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated both static-asset examples to serve requests from the root path instead of only under `/public`.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
+      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-        "url": "https://github.com/lx3133584",
+        "login": "TalhaHunter101",
+        "id": "51529912",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+        "url": "https://github.com/TalhaHunter101",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
+      "authorAssociation": "first_time_contributor",
+      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
       "assignees": [],
       "reviewers": [
         {
@@ -50,36 +50,36 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1593",
-      "createdAt": "2026-10-12T09:51:27.000Z",
-      "updatedAt": "2026-10-12T09:55:03.000Z",
-      "lastActivityAt": "2026-10-12T09:55:03.000Z",
+      "url": "https://github.com/h3js/h3/pull/1585",
+      "createdAt": "2026-10-11T14:13:38.000Z",
+      "updatedAt": "2026-10-17T12:36:56.000Z",
+      "lastActivityAt": "2026-10-17T12:36:56.000Z",
       "locked": false,
       "commentCount": 3,
       "branches": {
         "head": {
-          "ref": "docs/static-assets-example-path",
-          "sha": "dd84e37fca0559506ad97022b5ac9438b427e6e2",
+          "ref": "fix/serve-static-index-paths",
+          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "lx3133584",
+            "owner": "TalhaHunter101",
             "name": "h3",
-            "externalId": "1346891621"
+            "externalId": "1414411073"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
         },
-        "mergeCommitSha": "bf305e050d7fa04a42dec9a6a04807ec7ef2390d"
+        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
-        "total": 8,
+        "total": 3,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1593/checks"
+        "url": "https://github.com/h3js/h3/pull/1585/checks"
       }
     },
     {
@@ -93,27 +93,27 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1592",
-        "externalId": "PR_kwDOErHI988AAAABH6qsoQ"
+        "number": "1583",
+        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
       },
       "kind": "pull_request",
-      "title": "docs(utils): fix syntax error in withBase example",
-      "body": "Remove the redundant semicolon after `new H3()` in the `withBase` JSDoc and documentation example so the subsequent `.use()` call remains valid chained syntax.\n\nFixes #1586\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Corrected the `withBase` examples to show valid method chaining.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "docs: fix file paths in static assets example",
+      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-        "url": "https://github.com/lx3133584",
+        "login": "aaronanish-t",
+        "id": "217176403",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
+        "url": "https://github.com/aaronanish-t",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
+      "authorAssociation": "first_time_contributor",
+      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
       "assignees": [],
       "reviewers": [
         {
@@ -132,36 +132,36 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1592",
-      "createdAt": "2026-10-12T07:26:50.000Z",
-      "updatedAt": "2026-10-12T07:29:32.000Z",
-      "lastActivityAt": "2026-10-12T07:29:32.000Z",
+      "url": "https://github.com/h3js/h3/pull/1583",
+      "createdAt": "2026-10-11T09:57:49.000Z",
+      "updatedAt": "2026-10-16T19:22:11.000Z",
+      "lastActivityAt": "2026-10-16T19:22:11.000Z",
       "locked": false,
-      "commentCount": 3,
+      "commentCount": 2,
       "branches": {
         "head": {
-          "ref": "docs/fix-withbase-example-syntax",
-          "sha": "e5116f2978dc4ba83b8c556588552cfd648b8a0c",
+          "ref": "docs/fix-static-assets-example",
+          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "lx3133584",
+            "owner": "aaronanish-t",
             "name": "h3",
-            "externalId": "1346891621"
+            "externalId": "1414188488"
           }
         },
         "base": {
           "ref": "main",
           "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
         },
-        "mergeCommitSha": "fd01a2058022313c32d3d68f1da64103974969c0"
+        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
-        "total": 8,
+        "total": 3,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1592/checks"
+        "url": "https://github.com/h3js/h3/pull/1583/checks"
       }
     },
     {
@@ -175,22 +175,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1591",
-        "externalId": "PR_kwDOErHI988AAAABH4G_jQ"
+        "number": "1579",
+        "externalId": "PR_kwDOErHI988AAAABHvErmg"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize index path join in idSearchPaths",
-      "body": "### Summary\n\nFixes #1584.\n\nIn `serveStatic`, `idSearchPaths` previously concatenated `${id}${suffix}` directly.\n- For root requests (`GET /`, where `withoutTrailingSlash` normalizes `id` to `\"/\"`), the default `indexNames: [\"/index.html\"]`, produced `\"//index.html\"`. Looking up `\"//index.html\"` in backends keyed by canonical paths fails and returns 404.\n- For applications configuring relative index names (e.g. `indexNames: [\"index.html\"]`), subfolder lookups like `GET /docs` produced `\"/docsindex.html\"` due to the missing slash.\n\n### Solution\n\nNormalize the join between `id` and `suffix` in `idSearchPaths`: strip leading slashes from `suffix` when non-empty, and join with a single slash boundary (`/${cleanSuffix}` when `id === \"/\"`, or `${id}/${cleanSuffix}` otherwise).\n\n### Tests\n\n- Added tests in `test/static.test.ts` verifying root lookup with default index names returns `/index.html` without double slashes, and relative index names on subfolders resolve correctly to `/sub-static/docs/index.html`.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static file index path resolution so leading slashes in index names do not create malformed paths. Relative index names now resolve correctly at the root and in nested folders.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "docs(static): mount serveStatic example at the root",
+      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "lx3133584",
-        "id": "24490353",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/24490353?v=4",
-        "url": "https://github.com/lx3133584",
+        "login": "harshit-d3v",
+        "id": "106448130",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
+        "url": "https://github.com/harshit-d3v",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -214,48 +214,49 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1591",
-      "createdAt": "2026-10-12T00:37:26.000Z",
-      "updatedAt": "2026-10-12T00:40:40.000Z",
-      "lastActivityAt": "2026-10-12T00:40:40.000Z",
+      "url": "https://github.com/h3js/h3/pull/1579",
+      "createdAt": "2026-10-10T20:06:27.000Z",
+      "updatedAt": "2026-10-17T12:00:47.000Z",
+      "lastActivityAt": "2026-10-17T12:00:47.000Z",
       "locked": false,
-      "commentCount": 3,
+      "commentCount": 4,
       "branches": {
         "head": {
-          "ref": "fix/serve-static-index-path-join",
-          "sha": "4df11c060f2f36053a881521b5fc2af7b3e24462",
+          "ref": "docs/serve-static-root",
+          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "lx3133584",
+            "owner": "harshit-d3v",
             "name": "h3",
-            "externalId": "1346891621"
+            "externalId": "1413617363"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
         },
-        "mergeCommitSha": "0c80f55a8f1013a18c0acacf7861beabdd1a3877"
+        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
         "total": 8,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1591/checks"
+        "url": "https://github.com/h3js/h3/pull/1579/checks"
       }
     }
   ],
-  "total": 33,
+  "total": 21,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"b85c77e67a023c5b6d7d0417292c0a23066e6da981a6bc5e86909198277079bd\""
+    "etag": "W/\"b8fdd95c7ece7e81e87ca5344478eddced1845ea2e40f27b347d1e58248a5c2f\""
   },
-  "etag": "W/\"b85c77e67a023c5b6d7d0417292c0a23066e6da981a6bc5e86909198277079bd\"",
+  "etag": "W/\"b8fdd95c7ece7e81e87ca5344478eddced1845ea2e40f27b347d1e58248a5c2f\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4929,
-    "resetAt": "<now>"
+    "remaining": 4943,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }
