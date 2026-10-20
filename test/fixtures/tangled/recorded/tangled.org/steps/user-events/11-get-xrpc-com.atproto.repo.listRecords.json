@@ -1,0 +1,61 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.issue.state&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"5fe-CRRVYhREUWIVCrqKQyHztKVCPko\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2992",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mrfztjodmf22",
+          "cid": "bafyreiebkvec3ox4h6mrfnpphqr5thwxctaydwtmso7ruhwb7tbhopfwoi",
+          "value": {
+            "$type": "sh.tangled.repo.issue.state",
+            "issue": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
+            "state": "sh.tangled.repo.issue.state.closed",
+            "createdAt": "2026-07-24T18:57:50.253Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mqbzyizsx422",
+          "cid": "bafyreidbhkbvnjllrrc74hsxcbnioqp36vtx23sybfruo45x7dlvefx6wy",
+          "value": {
+            "$type": "sh.tangled.repo.issue.state",
+            "issue": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22",
+            "state": "sh.tangled.repo.issue.state.closed",
+            "createdAt": "2026-07-10T11:24:46.772Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mqbz7lbriv22",
+          "cid": "bafyreigvpemthbjmaltbb777rckqkepuyiep4gbrygusdszhkg544amh7u",
+          "value": {
+            "$type": "sh.tangled.repo.issue.state",
+            "issue": "at://did:plc:rkagcldecxf64optplrqkhwl/sh.tangled.repo.issue/3mpxpjr6ftw22",
+            "state": "sh.tangled.repo.issue.state.closed",
+            "createdAt": "2026-07-10T11:10:50.269Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mpvilar4ur22",
+          "cid": "bafyreid44dek4oixxn7ozl4abufjd5segewz4u5aloms5qojvc4nl4uocy",
+          "value": {
+            "$type": "sh.tangled.repo.issue.state",
+            "issue": "at://did:plc:55ndw4o72gcziq2lxosm3ynr/sh.tangled.repo.issue/3mpdvhvw5en22",
+            "state": "sh.tangled.repo.issue.state.closed",
+            "createdAt": "2026-07-05T11:41:11.419Z"
+          }
+        }
+      ],
+      "cursor": "3mpvilar4ur22"
+    }
+  }
+}

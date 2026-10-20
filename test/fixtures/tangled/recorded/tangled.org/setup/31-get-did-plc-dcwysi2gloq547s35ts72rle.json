@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:dcwysi2gloq547s35ts72rle"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"21e-cvNQnHdweMCJslTrocYD0b9Jpj0\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:dcwysi2gloq547s35ts72rle",
+      "alsoKnownAs": [
+        "at://demsem.dev"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:dcwysi2gloq547s35ts72rle#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:dcwysi2gloq547s35ts72rle",
+          "publicKeyMultibase": "zQ3shho6jhxQHHDwkroZtsrHJ6FfpohEfJPzDKSzdVaCoaEM5"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://tranquil.bwc9876.dev"
+        }
+      ]
+    }
+  }
+}

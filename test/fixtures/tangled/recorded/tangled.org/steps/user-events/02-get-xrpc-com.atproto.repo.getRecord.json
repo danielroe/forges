@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eurosky.social/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7r5c5jhtphcpkg3y55xu2y64&collection=sh.tangled.repo.pull&rkey=3mrufxgcrdv22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"62f-HgetQFHuWxdg9gLDNr7oeWBV12A\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2999",
+      "ratelimit-reset": "1792385025",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+      "cid": "bafyreigunhimb7vibhbfdklsdrswhwtf3phbybxmcot2wuwv6lnjieacjy",
+      "value": {
+        "body": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly.",
+        "$type": "sh.tangled.repo.pull",
+        "title": "fix: count tangled.create-repo jobs in the dashboard aggregation",
+        "rounds": [
+          {
+            "createdAt": "2026-07-30T15:12:02+03:00",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreidv72yiwenwkqcwyxbdq7b6hgndbqgwhxms6ek4eedseykk7xgrxa"
+              },
+              "size": 1262,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          }
+        ],
+        "source": {
+          "repo": "did:plc:gyb6pgqhiain3q3lkmqffadr",
+          "branch": "fix/dashboard-create-repo-jobs",
+          "repoDid": "did:plc:gyb6pgqhiain3q3lkmqffadr"
+        },
+        "target": {
+          "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "branch": "main",
+          "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "createdAt": "2026-07-30T15:12:02+03:00"
+      }
+    }
+  }
+}

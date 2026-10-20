@@ -1,0 +1,91 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.pull.status&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a57-srl0E3LRgcBJfjrt6kNuNwPuiwk\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2990",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzzpkdbzo22",
+          "cid": "bafyreig7fkajbclluz5xrnc2ygywdrav5gubllspeuqy6gjya6nhjz34rq",
+          "value": {
+            "pull": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.merged",
+            "createdAt": "2026-08-01T17:48:51.489Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxswg6hs22",
+          "cid": "bafyreibqsvr7jx7jybqdw6afkult4n4smq6b7awjr6mzjhhyrn2u7ub4dm",
+          "value": {
+            "pull": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.merged",
+            "createdAt": "2026-08-01T17:14:57.346Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxju262g22",
+          "cid": "bafyreib7p3s3ra2zejubamc65licznz3uwphyxkfu4qiorxvnvjhcaupdu",
+          "value": {
+            "pull": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.merged",
+            "createdAt": "2026-08-01T17:09:52.866Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzwphyaua22",
+          "cid": "bafyreiekaq42c6gtji5bqrmr7eqvkvp4ja3rwrvflvsxxvxuc57uexa5wi",
+          "value": {
+            "pull": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.closed",
+            "createdAt": "2026-08-01T16:55:07.805Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvrj6uqo322",
+          "cid": "bafyreiazwia2ifuhhhzlhy5f4dyrf3cduxcs6fnssczbk2lvxks6kekjnm",
+          "value": {
+            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.merged",
+            "createdAt": "2026-07-05T14:21:06.008Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvriiblv322",
+          "cid": "bafyreiexqe2kd24c5tfkyj452hsgiqc5mvvhq2hnxl2afima3b23szxi5i",
+          "value": {
+            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.open",
+            "createdAt": "2026-07-05T14:20:42.312Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvriaotpj22",
+          "cid": "bafyreibfd5an7wku4qewga6qsgmc7baefaj5ys4m626gvha6ysc5ywe2aa",
+          "value": {
+            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
+            "$type": "sh.tangled.repo.pull.status",
+            "status": "sh.tangled.repo.pull.status.closed",
+            "createdAt": "2026-07-05T14:20:34.357Z"
+          }
+        }
+      ],
+      "cursor": "3mpvriaotpj22"
+    }
+  }
+}

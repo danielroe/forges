@@ -1,0 +1,97 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tranquil.bwc9876.dev/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ax7tlupbnqot7nu6udnffnv4h&collection=sh.tangled.repo.pull&rkey=3mx64pa4j7322"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322",
+      "cid": "bafyreibfzxcpnrew5g73dljlcpofu2znjgq64jeu5ddubfihk6ykfip6ie",
+      "value": {
+        "$type": "sh.tangled.repo.pull",
+        "body": "",
+        "createdAt": "2026-10-15T18:26:46+03:00",
+        "dependentOn": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22",
+        "rounds": [
+          {
+            "createdAt": "2026-10-05T23:58:59Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreiclxk7ls63x7o4qh4bbibp6okeumb3qshgffb2yr753hcfawg7vcy"
+              },
+              "size": 2243
+            }
+          },
+          {
+            "createdAt": "2026-10-06T00:16:20Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreibupbumja55l6yygoydkrvoj3ykznrw2aqazeginsfpg2nktzky6y"
+              },
+              "size": 2243
+            }
+          },
+          {
+            "createdAt": "2026-10-06T01:59:14Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreia64d3zxshbdfphbcwo5dcpbw6egttje4hsuasnembon4jh7pf5a4"
+              },
+              "size": 2242
+            }
+          },
+          {
+            "createdAt": "2026-10-06T15:15:38Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreidwjmgfxspwuuskcoiduanwx24trtbjp5gomvtmbrxw5rblakfodm"
+              },
+              "size": 2436
+            }
+          },
+          {
+            "createdAt": "2026-10-07T19:46:34Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreialb3hn2v6j7izptdbbyb4acd4pa2ra77ikadkkiasb6us2ajg54y"
+              },
+              "size": 2436
+            }
+          },
+          {
+            "createdAt": "2026-10-15T18:26:47+03:00",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreidy64nprizssddu2e2k2grpzd7szmmqfqxxnmdf5ywo6ul3otdxf4"
+              },
+              "size": 2436
+            }
+          }
+        ],
+        "source": {
+          "branch": "ben/init-basic-apps"
+        },
+        "target": {
+          "branch": "main",
+          "repo": "did:plc:6z743ym5lwe7k6m6dqd6yjha",
+          "repoDid": "did:plc:6z743ym5lwe7k6m6dqd6yjha"
+        },
+        "title": "moodle-vm: init"
+      }
+    }
+  }
+}

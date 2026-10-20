@@ -8,8 +8,9 @@
     "headers": {
       "etag": "W/\"62f-HgetQFHuWxdg9gLDNr7oeWBV12A\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2999",
-      "ratelimit-reset": "1791915215"
+      "ratelimit-remaining": "2997",
+      "ratelimit-reset": "1792385025",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "uri": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",

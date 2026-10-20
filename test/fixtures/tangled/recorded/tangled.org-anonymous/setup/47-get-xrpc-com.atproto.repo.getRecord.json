@@ -1,0 +1,97 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tranquil.bwc9876.dev/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ax7tlupbnqot7nu6udnffnv4h&collection=sh.tangled.repo.pull&rkey=3mx64pa4j3q22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22",
+      "cid": "bafyreifrtq7ci4futqqfgpvlyphvwtuk2hlvzgmd2tt4vtcheovkmqdmcy",
+      "value": {
+        "$type": "sh.tangled.repo.pull",
+        "body": "",
+        "createdAt": "2026-10-15T18:26:46+03:00",
+        "dependentOn": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4iy722",
+        "rounds": [
+          {
+            "createdAt": "2026-10-05T23:58:59Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreif7zq3chd6sv3wirljofryocx2kpeumb3hyey2n3xn6biwahs3feu"
+              },
+              "size": 27149
+            }
+          },
+          {
+            "createdAt": "2026-10-06T00:16:19Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreif3io5mrheva4pav2jyxugxu2aci3t4hsux2ntkwzewej32jp3zui"
+              },
+              "size": 27150
+            }
+          },
+          {
+            "createdAt": "2026-10-06T01:59:14Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreigctthsl76yg42pd75fx4vxrwzpsqdvm65pvjq3akpekt6fvp4bsm"
+              },
+              "size": 13217
+            }
+          },
+          {
+            "createdAt": "2026-10-06T15:15:38Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreichmx6kkaqqjpvs24l5jmcj2i5fyamqvwszhefai2hmnqhcoduohu"
+              },
+              "size": 10827
+            }
+          },
+          {
+            "createdAt": "2026-10-07T19:46:33Z",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreiekw3urczmq2zt4o522kgnezhugwxm7k4bumikmeqojatgxyjnyf4"
+              },
+              "size": 10828
+            }
+          },
+          {
+            "createdAt": "2026-10-15T18:26:46+03:00",
+            "patchBlob": {
+              "$type": "blob",
+              "mimeType": "application/gzip",
+              "ref": {
+                "$link": "bafkreiai65z2xfcnlhbftt5fn4swlfssfufglf3rmb5dnkhb3uxhhiqkmu"
+              },
+              "size": 10835
+            }
+          }
+        ],
+        "source": {
+          "branch": "ben/init-basic-apps"
+        },
+        "target": {
+          "branch": "main",
+          "repo": "did:plc:6z743ym5lwe7k6m6dqd6yjha",
+          "repoDid": "did:plc:6z743ym5lwe7k6m6dqd6yjha"
+        },
+        "title": "rs-lti: init"
+      }
+    }
+  }
+}

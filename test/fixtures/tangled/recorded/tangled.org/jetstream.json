@@ -1,202 +1,603 @@
 {
-  "cursor": "1791745596795000",
+  "cursor": "1792373929138000",
   "messages": [
     {
-      "did": "did:plc:seflxtwevwt7awme4kngjrzj",
-      "time_us": 1791745598990168,
+      "did": "did:plc:t7tu45yijmohyol47snq4lri",
+      "time_us": 1792373929973346,
+      "cursor": 26183155039,
       "kind": "identity",
       "identity": {
-        "did": "did:plc:seflxtwevwt7awme4kngjrzj",
-        "seq": 34394481673,
-        "time": "2026-10-11T18:08:13.126Z"
+        "did": "did:plc:t7tu45yijmohyol47snq4lri",
+        "seq": 34622867927,
+        "time": "2026-10-19T01:38:49.738Z"
       }
     },
     {
-      "did": "did:plc:seflxtwevwt7awme4kngjrzj",
-      "time_us": 1791745599268011,
+      "did": "did:plc:t7tu45yijmohyol47snq4lri",
+      "time_us": 1792373929988434,
+      "cursor": 26183155042,
       "kind": "account",
       "account": {
         "active": true,
-        "did": "did:plc:seflxtwevwt7awme4kngjrzj",
-        "seq": 34394481674,
-        "time": "2026-10-11T18:08:13.126Z"
+        "did": "did:plc:t7tu45yijmohyol47snq4lri",
+        "seq": 34622867928,
+        "time": "2026-10-19T01:38:49.738Z"
       }
     },
     {
-      "did": "did:plc:quhuotrz6aazvicqdi46o2uz",
-      "time_us": 1791745601272896,
+      "did": "did:plc:o5siskbtgnbc55ytwwkegjvi",
+      "time_us": 1792373930087074,
+      "cursor": 26183155088,
       "kind": "account",
       "account": {
-        "active": false,
-        "did": "did:plc:quhuotrz6aazvicqdi46o2uz",
-        "seq": 34394482555,
-        "status": "takendown",
-        "time": "2026-10-11T18:08:14.922Z"
+        "active": true,
+        "did": "did:plc:o5siskbtgnbc55ytwwkegjvi",
+        "seq": 34622867967,
+        "time": "2026-10-19T01:38:49.965Z"
       }
     },
     {
-      "did": "did:plc:3fwecdnvtcscjnrx2p4n7alz",
-      "time_us": 1791745769069628,
+      "did": "did:plc:dcwysi2gloq547s35ts72rle",
+      "time_us": 1792373989373057,
+      "cursor": 26183177513,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmm2e5xmr22",
-        "operation": "create",
-        "collection": "sh.tangled.feed.reaction",
-        "rkey": "3mxmm2dfdu622",
-        "record": {
-          "$type": "sh.tangled.feed.reaction",
-          "createdAt": "2026-10-11T21:10:54+03:00",
-          "reaction": "❤️",
-          "subject": "at://did:plc:htuxe72j7mxbotleidqgbup4/sh.tangled.feed.comment/3mxmhe62nhn22"
-        },
-        "cid": "bafyreibqzrcuicz454x62zg3gkubupjvhzf6ghkmap2vy4ou56dnbsprqe"
-      }
-    },
-    {
-      "did": "did:plc:3fwecdnvtcscjnrx2p4n7alz",
-      "time_us": 1791745805352685,
-      "kind": "commit",
-      "commit": {
-        "rev": "3mxmm3f6dvg22",
+        "rev": "3my6yfiyl4s22",
         "operation": "create",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3mxmm3f3stg22",
+        "rkey": "3my6yfidrkn22",
         "record": {
           "$type": "sh.tangled.feed.comment",
           "body": {
             "$type": "sh.tangled.markup.markdown",
-            "original": "no prob!!!\n\n(don't say it don't say it don't say it)\n(i have to say it)\n\nhappy knotting!!!!",
-            "text": "no prob!!!\n\n(don't say it don't say it don't say it)\n(i have to say it)\n\nhappy knotting!!!!"
+            "original": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too",
+            "text": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too"
           },
-          "createdAt": "2026-10-11T21:11:29+03:00",
-          "replyTo": {
-            "cid": "bafyreiav6cnnzvqjdmuneleq4wbh2upha2dpcjj2mhdhxrsgdmczribhw4",
-            "uri": "at://did:plc:3fwecdnvtcscjnrx2p4n7alz/sh.tangled.feed.comment/3mxjiudftvu22"
-          },
+          "createdAt": "2026-10-19T04:39:48+03:00",
+          "pullRoundIdx": 5,
           "subject": {
-            "cid": "bafyreifbt33eoh6p6ucv76tezujg4dlmbfzr5kkhz4hpn36iwhbwgkapri",
-            "uri": "at://did:plc:htuxe72j7mxbotleidqgbup4/sh.tangled.repo.issue/3mxjhfryhij22"
+            "cid": "bafyreifrtq7ci4futqqfgpvlyphvwtuk2hlvzgmd2tt4vtcheovkmqdmcy",
+            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22"
           }
         },
-        "cid": "bafyreie4246aikuj44sfvej6cipluxpaqmnx6kyxdm3ubbq3jjttqldczu"
+        "cid": "bafyreiephebqjs65ygr7mvhodpa2tyn7ud64lyi6bm7unr7u25borwtb2e"
       }
     },
     {
-      "did": "did:plc:woheeqjgxgrab33jlluffosg",
-      "time_us": 1791746524646762,
+      "did": "did:plc:dcwysi2gloq547s35ts72rle",
+      "time_us": 1792374302572640,
+      "cursor": 26183349477,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmowstee2y",
+        "rev": "3my6yotpdco22",
         "operation": "create",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3mxmmowdo7r22",
+        "rkey": "3my6yot2pev22",
         "record": {
           "$type": "sh.tangled.feed.comment",
           "body": {
             "$type": "sh.tangled.markup.markdown",
-            "original": "Resolved by three commits on `main`:\n\n- `7435c290` — `scripts/okf.kuki` gained a `--refresh` mode (bump `generated.at`/`stale_after` on the given paths, preserving `by` and a blank `verified`; handles both the inline flow-map and block-map `generated:` forms). `scripts/pre-commit` runs it over every staged `.md` **before** the empty-`$DIFF` early exit — skipping files with unstaged edits so it cannot sweep unrelated work — so a doc-only commit is refreshed too. The doc-sync prompt now also instructs the LLM to refresh OKF metadata, and AGENTS.md rule `pre-commit-hook` names the deterministic step.\n- `27790ffc` — `make okf-refresh-check`, a red-first pin (proves the fixture is actually stale, runs `--refresh`, then asserts the bump, the preserved `by`/`verified`, and the untouched body), wired into `release-check`.\n- `382e3860` — frontmatter-only refresh of the nine pre-existing stale docs (`cmd/SKILL.md`, `kukicha/SKILL.md`, `release/SKILL.md`, `WIRE-CONTRACTS.md`, `SHARP-EDGES.md`, `DIAGNOSTIC-PARITY.md`, `SQLITE-VECTOR-SIMD-PLAN.md`, two tutorials).\n\nRoot cause 1 (the agent never refreshed the header) is now deterministic, and root cause 2 (doc-only commits skipped doc-sync entirely) is closed. For root cause 3 (nothing caught it) I deliberately did **not** add a repo-wide \"`generated.at` predates the last commit\" gate: a tolerance is required because an edit always precedes its commit, and even a 1-hour tolerance flagged docs only minutes-to-hours out — too noisy to gate. The deterministic hook plus `okf-refresh-check` is the enforcement instead; `make okf-lint` remains a shape/expiry lint.\n\nVerified: `bash -n scripts/pre-commit`, `make okf-lint` (40 docs checked, 0 issues), `make okf-refresh-check`, `make check-kuki` (25 targets), `make fmt-check`, and `go test -run TestNoDanglingDocReferences .` — all green. Self-hosting confirmed: committing the hook change ran the new step and bumped AGENTS.md's own `generated.at`.\n",
-            "text": "Resolved by three commits on `main`:\n\n- `7435c290` — `scripts/okf.kuki` gained a `--refresh` mode (bump `generated.at`/`stale_after` on the given paths, preserving `by` and a blank `verified`; handles both the inline flow-map and block-map `generated:` forms). `scripts/pre-commit` runs it over every staged `.md` **before** the empty-`$DIFF` early exit — skipping files with unstaged edits so it cannot sweep unrelated work — so a doc-only commit is refreshed too. The doc-sync prompt now also instructs the LLM to refresh OKF metadata, and AGENTS.md rule `pre-commit-hook` names the deterministic step.\n- `27790ffc` — `make okf-refresh-check`, a red-first pin (proves the fixture is actually stale, runs `--refresh`, then asserts the bump, the preserved `by`/`verified`, and the untouched body), wired into `release-check`.\n- `382e3860` — frontmatter-only refresh of the nine pre-existing stale docs (`cmd/SKILL.md`, `kukicha/SKILL.md`, `release/SKILL.md`, `WIRE-CONTRACTS.md`, `SHARP-EDGES.md`, `DIAGNOSTIC-PARITY.md`, `SQLITE-VECTOR-SIMD-PLAN.md`, two tutorials).\n\nRoot cause 1 (the agent never refreshed the header) is now deterministic, and root cause 2 (doc-only commits skipped doc-sync entirely) is closed. For root cause 3 (nothing caught it) I deliberately did **not** add a repo-wide \"`generated.at` predates the last commit\" gate: a tolerance is required because an edit always precedes its commit, and even a 1-hour tolerance flagged docs only minutes-to-hours out — too noisy to gate. The deterministic hook plus `okf-refresh-check` is the enforcement instead; `make okf-lint` remains a shape/expiry lint.\n\nVerified: `bash -n scripts/pre-commit`, `make okf-lint` (40 docs checked, 0 issues), `make okf-refresh-check`, `make check-kuki` (25 targets), `make fmt-check`, and `go test -run TestNoDanglingDocReferences .` — all green. Self-hosting confirmed: committing the hook change ran the new step and bumped AGENTS.md's own `generated.at`.\n"
+            "original": "LGTM",
+            "text": "LGTM"
           },
-          "createdAt": "2026-10-11T18:22:25Z",
+          "createdAt": "2026-10-19T04:45:01+03:00",
+          "pullRoundIdx": 5,
           "subject": {
-            "cid": "bafyreibv4sw2lmbphw3qxglootacjbbcte7ltc7euehjhw4votfgn3rape",
-            "uri": "at://did:plc:woheeqjgxgrab33jlluffosg/sh.tangled.repo.issue/3mxmlsq362k22"
+            "cid": "bafyreibfzxcpnrew5g73dljlcpofu2znjgq64jeu5ddubfihk6ykfip6ie",
+            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322"
           }
         },
-        "cid": "bafyreiblgimxiywtnrnzvj257a2rol75jmgwkbr4lv4xz2i2f2imqkkrky"
+        "cid": "bafyreigm2ydtlchoo6lioaeowf2u4zbqjjxxg44cglwliwy63i3xi3ogl4"
       }
     },
     {
-      "did": "did:plc:woheeqjgxgrab33jlluffosg",
-      "time_us": 1791746527748246,
+      "did": "did:plc:mefcltb4brt5b7nqvnntbyie",
+      "time_us": 1792375053606557,
+      "cursor": 26183636368,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmoyvn2m2y",
+        "rev": "3my6zf72f4c2y",
         "operation": "create",
-        "collection": "sh.tangled.repo.issue.state",
-        "rkey": "3mxmlsq362k22",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3my6zf6pwhc22",
         "record": {
-          "$type": "sh.tangled.repo.issue.state",
-          "createdAt": "2026-10-11T18:22:27Z",
-          "issue": "at://did:plc:woheeqjgxgrab33jlluffosg/sh.tangled.repo.issue/3mxmlsq362k22",
-          "state": "sh.tangled.repo.issue.state.closed"
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird.",
+            "text": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird."
+          },
+          "createdAt": "2026-10-19T04:57:32+03:00",
+          "subject": {
+            "cid": "bafyreiaaeabiw7liusi67urvebnarhyeouih6px4m5kqucafqo7vkh3dje",
+            "uri": "at://did:plc:mefcltb4brt5b7nqvnntbyie/sh.tangled.repo.issue/3my5e7w3wr422"
+          }
         },
-        "cid": "bafyreiffgzgycwaoislqsrr744vre7b4ktlmaossrzueob3npotdpoa23y"
+        "cid": "bafyreifl5qecth3fkznybuov66ukggaj4q7ngrnfqc7c34tl4qdqs2c2q4"
       }
     },
     {
-      "did": "did:plc:woheeqjgxgrab33jlluffosg",
-      "time_us": 1791746579995704,
+      "did": "did:plc:dcwysi2gloq547s35ts72rle",
+      "time_us": 1792375454273711,
+      "cursor": 26183791172,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmqhno442y",
+        "rev": "3my6zr63dof22",
         "operation": "create",
-        "collection": "sh.tangled.repo.issue",
-        "rkey": "3mxmmqheikk22",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3my6zr5eiel22",
         "record": {
-          "$type": "sh.tangled.repo.issue",
-          "body": "# semantic: local variant-typed values lose `unknown-method`/`unknown-field` (check-green, `go build`-red)\n\n## Summary\n`8724e1fd` made `typeAnnotationToTypeInfo` resolve a local variant annotation to `TypeKindVariant`. `resolveFieldType`/`resolveMethodType` return `(nil, false)` for any kind other than `TypeKindNamed`/`TypeKindStruct`, so a member miss on a locally variant-typed value is no longer diagnosed — `kukicha check` passes and `go build` fails. Introduced by that commit (the parent diagnosed it).\n\n## Reproducer\n```kukicha\npetiole main\n\nenum Shape\n    Circle\n        Radius: int\n    Square\n        Side: int\n\nfunc mk() Shape\n    return Circle{Radius: 3}\n\nfunc run(s: Shape) string\n    return s.nope()\n```\n\n- **`8724e1fd^` (and the v0.85.10 tag):** `[semantic/unknown-method] type Shape has no method nope` (exit 1).\n- **`8724e1fd` and later (incl. HEAD):** `✓ main.kuki type checks successfully` (exit 0).\n- **`kukicha build --skip-build` then `go build`:** `s.nope undefined (type Shape has no field or method nope)` (exit 1).\n\nThe same happens for a missing field (`return s.nope`), and for a variant-typed value arriving as a return or field, not only a parameter. Cross-package (qualified `lib.Shape`) still errors, so the regression is exactly the local spelling this commit newly routes to `TypeKindVariant`.\n\n## Root cause\n`internal/semantic/semantic_types.go:505-507` now returns `TypeInfo{Kind: TypeKindVariant, …}` for a local variant annotation. But `internal/semantic/semantic_calls_methods.go:1774-1776` (`resolveMethodType`) and `:1500-1502` (`resolveFieldType`) short-circuit with `return nil, false` for non-`Named`/`Struct` kinds, so the caller's gate (`methodResolved && !methodExistsOnType`, `:774-776`) never fires. Before the change the annotation was `TypeKindNamed`, the resolver consulted the symbol table, and a miss was final.\n\n## Fix direction\nTeach `resolveMethodType`/`resolveFieldType` (or a small helper) that `TypeKindVariant` is a loaded type: resolve its member tables via the symbol table and return `(nil, true)` for a verified miss. More generally, audit every `(type, resolved)` resolver for the newly-produced kind (see the `compiler-internals` skill's \"Changing a type kind or a resolution path\" section).\n\n## Verification\nAdd a red-first test (fails on the parent, passes after): a local `enum Shape` with `func run(s: Shape): return s.nope()` must emit `semantic/unknown-method`. Confirm the parent commit diagnoses it.\n",
-          "createdAt": "2026-10-11T18:23:16Z",
-          "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
-          "title": "semantic: local variant-typed values lose unknown-method/unknown-field (check-green, go-build-red)"
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM",
+            "text": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM"
+          },
+          "createdAt": "2026-10-19T05:04:13+03:00",
+          "pullRoundIdx": 5,
+          "subject": {
+            "cid": "bafyreid2rcunb4b275wyh6qabnwhlqfgwhl2iwv42zdeknqlfnxdcva36a",
+            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4jci22"
+          }
         },
-        "cid": "bafyreidzxmpqgkjpiqgywd6qldmyznygciwtl54h3ih7e25kqwvaaradki"
+        "cid": "bafyreies3xp36qz4zvz7cb3jagosbmmsfg4wuvtmwptlj53ywsc26qwphi"
       }
     },
     {
-      "did": "did:plc:woheeqjgxgrab33jlluffosg",
-      "time_us": 1791746581099985,
+      "did": "did:plc:hzwlp26go2vwwgu3zsgcciuc",
+      "time_us": 1792375713173758,
+      "cursor": 26183902218,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmqik3bu2y",
+        "rev": "3my6zyuzl6b2d",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my6z4scb5g22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "Phase A of plan 004 (workout-data platform): the data foundation only — no ingest yet.\n\n## What landed\n- **Lexicons** (`lexicons/`, instance-local `internal.btlt.*`): `internal.btlt.workouts.space` — a `space` declaration, one per user at the conventional skey `workouts`, created owner-only (memberListPolicy on both policies) — plus the record collections `internal.btlt.workout` (source/sourceRef dedup join, sport kept in touch with treeline's knownValues, summary, set-level strength on the FIT Set model, ~50 MiB rawBlob), `internal.btlt.workout.stream` (strongRef-anchored sample chunks), and `internal.btlt.source.connection` (per-source snapshot at a literal rkey).\n- **Provisioner**: uploads/updates every lexicon into the HappyView admin API (canonicalize-based idempotency) and enables `feature.spaces_enabled = true` (spaces are opt-in per instance on the pinned 2.16.0 — verified in source, answering the plan's open probe).\n- **Scope chain**: bare `atproto` → `atproto repo:*` + the two wildcard space grants (scr@ps vocabulary), moved as ONE change across the four synced locations; smoke sweep extended, plus a vitest scope-chain test pinning the two metadata emitters against client.js's exported SCOPES.\n- **HappyView patch series adoption** (flips the 2026-10-17 APP.md decision — recorded as a dated entry): 0001 (instance declares wildcard space scopes — stock 2.16.0 rejects them at authorize otherwise), 0002 (app-session migration hook; no-op until the PDS-migration knob exists), 0004 (skips the `space:` scope gate for polyfill-hosted repos — without it space reads/writes fail even after re-login). Verbatim scr@ps series at the same pin (cmp-verified), applied to the IN-TREE submodule checkout by `scripts/patch-happyview.sh` from `scripts/setup.sh` and the deploy pipeline's \"Apply happyview patches\" step. 0005 intentionally not carried (native-mode only). Drop trigger documented in `patches/README.md`.\n- **SPA**: `web/src/lib/spaces.js` space bootstrap (ensure-workouts-space via listSpaces; never a constructed authority URI; 409-conflict verifies, never suffixed-slug retries), a `RequireAuth` gate on `/workouts` `/upload` `/sync` with home `/` staying public; `/workouts` is a real space-backed listing (sport filter, newest first); `/upload` + `/sync` are honest gated stubs for the queued increments.\n- **`lexicon-lint`** in both CI lists (`mise run ci`, tangled ci.yml) + smoke assertions so the stage can't be silently dropped.\n\n## Validation\n- AC.1: `mise run ci` green (lint --max-warnings 0, fmt, tsc, vitest 44 tests, shellcheck, hadolint ×2, lexicon-lint 4 files).\n- `mise run smoke` 89 pass / 0 fail / 2 skip against the live dev stack (HappyView :3202, web :5302) — includes the dev-stack provisioning round trip (lexicons created, API client created with the expanded grant set, `feature.spaces_enabled=true`).\n- Docker image build + serve verified (hadolint-clean; the container serves client-metadata.json with the expanded grant set).\n- Scope-chain sync verified 4/4 (smoke fixed-string sweep + vitest).\n\n## Operator-assisted (flagged, not automated)\n- AC.7: the browser space round trip (consent → createSpace → record I/O) needs a real signed-in session on the dev stack (https://btlt-data-front-door.dev.shypan.st) — recorded as the human item in TASKS.md; no browser OAuth harness exists in either project (same gap as the sign-in increment).\n\n## Docs\nAPP.md (purpose, components, Phase A capability, dated decisions), AGENTS.md (architecture, scope invariant, file structure), README (provisioning steps + patch-series section), TASKS.md (Phase A section + the full workout-data roadmap so Phases B/C/D are claimable one at a time).\n",
+          "createdAt": "2026-10-19T01:52:50Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T01:52:50Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreibjr3aqi3ar5uzgtrl42qy7hfznqzcwt2nfi7z4xbt7vzxzyh5jxu"
+                },
+                "size": 47703
+              }
+            },
+            {
+              "createdAt": "2026-10-19T02:08:25Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
+                },
+                "size": 48133
+              }
+            },
+            {
+              "createdAt": "2026-10-19T02:08:33Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
+                },
+                "size": 48133
+              }
+            }
+          ],
+          "source": {
+            "branch": "feature/data-front-door",
+            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
+          },
+          "title": "feat: workout-data platform foundations (Phase A)"
+        },
+        "cid": "bafyreibbh7obbd2htf6o6423uqymbieaz5kcetkl3vnfhrt7sa7c6hl5uu"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380544704089,
+      "cursor": 26187316698,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my76iu3jl72p",
         "operation": "create",
-        "collection": "sh.tangled.repo.issue",
-        "rkey": "3mxmmqian4p22",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my76irye6u22",
         "record": {
-          "$type": "sh.tangled.repo.issue",
-          "body": "# semantic: alias to a non-`Named` stdlib alias loses `unknown-field` (check-green, `go build`-red)\n\n## Summary\n`e8f04fc3` (cross-package type-alias resolution) changed `resolveTypeSymbol` so the `(type, resolved)` flag is set from the **terminal** symbol of an alias chain instead of the start. When the chain ends at a stdlib alias whose kind is not `TypeKindNamed` (a map/list/function alias such as `mcp.JSONObject`), `resolveTypeSymbol` returns the alias with `resolved=false`, so `resolveFieldType`/`resolveMethodType` stay silent and `kukicha check` passes while `go build` fails. Introduced by that commit (the pre-fix compiler diagnosed it).\n\n## Reproducer\n```kukicha\npetiole main\n\nimport \"stdlib/mcp\"\n\ntype Meta = mcp.JSONObject\n\nfunc Use(m: Meta) any\n    return m.Missing\n```\n\n- **v0.85.10 (pre-fix):** `[semantic/unknown-field] type Meta has no field Missing` (exit 1).\n- **`e8f04fc3` and later (incl. HEAD):** `✓ main.kuki type checks successfully` (exit 0).\n- **`go build` on the emitted Go:** `m.Missing undefined` (exit 1).\n\n## Root cause\n`internal/semantic/semantic_helpers.go:669-728` (`resolveTypeSymbol`): the stdlib-alias branch requires `gt.Kind == TypeKindNamed` (`:701`). For `mcp.JSONObject` (`generatedStdlibTypeAliases[\"mcp.JSONObject\"] = {Kind: TypeKindMap, …}`) the chain breaks, `underSym` remains the alias, and `resolved` stays false. Consumers at `semantic_calls_methods.go:1515` (`resolveFieldType`) / `:1801` (`resolveMethodType`) then suppress the diagnostic. Later tiers (`GetStdlibStructField`, the live loader) all miss a non-struct alias.\n\n## Fix direction\nAfter the alias loop, when the target is a known stdlib alias whose underlying kind is not `Named`/`Struct`, return a value that lets the resolver set `resolved=true` for a genuinely memberless type (a sentinel \"inspected, memberless\"), or have `resolveFieldType`/`resolveMethodType` consult `stdlibAliasUnderlying(underlyingName)` (as `aliasUnderlying` does) and mark resolved when the underlying kind is not `Named`/`Struct`.\n\n## Verification\nAdd a red-first row: `TestCrossPackage_FieldAccessOnStdlibMapAlias` asserting `semantic/unknown-field` on a missing member of a `type X = mcp.JSONObject` value; confirm v0.85.10 is red.\n",
-          "createdAt": "2026-10-11T18:23:17Z",
-          "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
-          "title": "semantic: alias to a non-Named stdlib alias loses unknown-field (check-green, go-build-red)"
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nLaunch the detached observer with the system sudo wrapper even under a restricted service PATH. Preserve the trusted helper snapshot, reservation checks and terminal failure propagation. Update the top-level factual position to the latest failed closing standard and its remaining repair gates.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nParent main: 163b0527dadf606d403dc0b0ea92df5a2ef85010\nTarget: 7b5d791419e79b50d213af581e44b20d62c02012\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: old PATH-sudo control owning RED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Final tip adds only factual PLAN.md position; code/tests byte-identical to measured snapshot.\nReal0128 publication/push succeeded, but watcher launch picked non-setuid Nix sudo. Operational recovery used the preserved exact snapshot with /run/wrappers/bin/sudo; watcher bound pipeline3my6xr5jaga22, observed failed terminal, ran fresh clear preflight and released reservation03:22:14Z, serviceexit1. No host config/credential/limit change. Other Rust fixture/census and reaping repairs plus a fresh combined standard remain; no phase FINAL. Tests use isolated dispatcher/service fixtures and real source records, no duplicate live standard.\n",
+          "createdAt": "2026-10-19T06:29:03+03:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T06:29:03+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
+                },
+                "size": 2135
+              }
+            }
+          ],
+          "source": {
+            "branch": "unit/dashboard-ci-watcher-launch"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          },
+          "title": "product: use system wrapper for detached CI observation"
         },
-        "cid": "bafyreicdjfxccsg2giagmpfxrwjfnw4yjdkykwlblaoiyqace6nc6crlpy"
+        "cid": "bafyreifflmvcn2nxaklq4ki5j2fgkhkrwpc5w33t3huolmxtxgptdjj6c4"
       }
     },
     {
-      "did": "did:plc:woheeqjgxgrab33jlluffosg",
-      "time_us": 1791746582411089,
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380653874098,
+      "cursor": 26187357661,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmqjohdu2y",
+        "rev": "3my76m4rqk52m",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my76irye6u22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
+          "createdAt": "2026-10-19T03:29:04Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T03:29:04Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
+                },
+                "size": 2135
+              }
+            }
+          ],
+          "source": {
+            "branch": "unit/dashboard-ci-watcher-launch"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          },
+          "title": "product: use system wrapper for detached CI observation"
+        },
+        "cid": "bafyreidgroorfwzjnbi3r7dik5nf6ubthbhlxs5a4g4ucb32mimzrkhdmi"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380656673286,
+      "cursor": 26187358729,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my76m6txcs2g",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my76irye6u22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
+          "createdAt": "2026-10-19T03:29:04Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T03:29:04Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
+                },
+                "size": 2135
+              }
+            },
+            {
+              "createdAt": "2026-10-19T06:30:55+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreicst2ak7b7oom5kh6ihdmfykikdyaudu5laiacicnrg3esj5hnlz4"
+                },
+                "size": 2315
+              }
+            }
+          ],
+          "source": {
+            "branch": "unit/dashboard-ci-watcher-launch"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          },
+          "title": "product: use system wrapper for detached CI observation"
+        },
+        "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380884073733,
+      "cursor": 26187438670,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my76sy3rn72r",
         "operation": "create",
-        "collection": "sh.tangled.repo.issue",
-        "rkey": "3mxmmqj7gjp22",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3my76sxlgnn22",
         "record": {
-          "$type": "sh.tangled.repo.issue",
-          "body": "# codegen: producer alias dropped when the consumer imports the same dir under another alias -> unbound qualifier (`go build`-red)\n\n## Summary\n`7472ee94` (issue #217) resolves a dependency-spelled type qualifier through `AnalysisResult.QualifierImportPaths`, but that provenance map is keyed by the alias the **consumer's** cross-package loader happened to use (`LoadCrossPackageEnvs` is first-write-wins keyed by `q.alias` and dedups by absolute directory). When the consumer also imports the producing directory directly under a different alias, the producer's alias never becomes a key, and codegen emits the producer's spelling with no import bound to it — `kukicha check` passes, `go build` fails with `undefined: <qualifier>`.\n\n## Reproducer (three-package module)\n- `internal/types`: exports `type TokenID string`.\n- `internal/models`: `import \".../internal/types\" as tk` and exports `type MoveAction` with a field `TokenID: tk.TokenID`.\n- consumer `main.kuki`: imports `models` **and** `import \".../internal/types\" as tokpkg`, then uses `models.MoveAction`.\n\nObserved (HEAD): `kukicha check` is clean, but the emitted Go contains `func() tk.TokenID { … }` with the import block carrying `tokpkg \".../internal/types\"` — no `tk` binding — so `go build` fails `undefined: tk`. Removing the consumer's direct `tokpkg` import makes the same producer-alias case work (via `addImportAliased`).\n\nA second, related shape: when the consumer holds a **bare** import of `path` while the producer aliased the package (`pkgPart != extractPkgName(path)`), `qualifyProvenanceRef`'s `alias == \"\"` arm (`internal/codegen/codegen_types.go:287`) returns `pkgPart + typePart` unbound.\n\n## Root cause\n`internal/project/crosspackage.go:104-132` (BFS dedup) + `internal/semantic/semantic_pass.go:342-354` (provenance keyed by alias) + `internal/codegen/codegen_types.go:236-302`. The provenance map cannot represent \"the producer spelled this path as `tk`\" when the consumer's own alias for that directory won the key.\n\n## Fix direction\nCarry producer-side alias provenance across the BFS dedup — key provenance by `(alias, path)` pairs collected from each dependency's own import table, or additionally record `extractPkgName(path)->path` so the codegen local-binding lookup can match by path. In the bare-import arm, route through `addImportAliased(path, pkgPart)` instead of returning an unbound qualifier.\n\n## Verification\nAdd an end-to-end fixture through `compile()` (`cmd/kukicha/compile_crosspackage_test.go`) with a consumer that imports the producing directory under a second alias, asserting the emitted import block binds the spelling used. The existing `codegen_issue217_test.go` tests inject `QualifierImportPaths` by hand, which the real loader cannot produce for this shape.\n\n## Note\nThe review classified the underlying BFS mechanism as pre-existing (the failing scenario failed before `7472ee94` too), so this does not block that PR; it is filed because the check-green/build-red seam is live at HEAD.\n",
-          "createdAt": "2026-10-11T18:23:18Z",
-          "repo": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
-          "title": "codegen: producer alias dropped when the consumer imports the same dir under another alias -> unbound qualifier"
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9.",
+            "text": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9."
+          },
+          "createdAt": "2026-10-19T06:34:43+03:00",
+          "pullRoundIdx": 0,
+          "subject": {
+            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
+            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
+          }
         },
-        "cid": "bafyreicsswcnq47fyj5qnwkslt3a5uxqfkeonn6slixcqplc6aiqnq7u34"
+        "cid": "bafyreih66w7lodp6s4hy3bn3r6vnznjjyidooedb7xiwndumfv6nrlf5cy"
       }
     },
     {
-      "did": "did:plc:gijpvbkdbr56kazbdjhfvb3d",
-      "time_us": 1791746585779777,
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380890475839,
+      "cursor": 26187440758,
       "kind": "commit",
       "commit": {
-        "rev": "3mxmmqmavdz2f",
+        "rev": "3my76t6g3bh2r",
+        "operation": "create",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3my76t6cwpj22",
+        "record": {
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n",
+            "text": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n"
+          },
+          "createdAt": "2026-10-19T06:34:50+03:00",
+          "pullRoundIdx": 0,
+          "subject": {
+            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
+            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
+          }
+        },
+        "cid": "bafyreiek35ux4zwre5b2l5dplemhropshlwoldrc45vs6dkdhhbjbwdrqq"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792380890974182,
+      "cursor": 26187440917,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my76t6rncv2m",
         "operation": "create",
         "collection": "sh.tangled.repo.pull.status",
-        "rkey": "3mxmmqmaaob22",
+        "rkey": "3my76t6octy22",
         "record": {
           "$type": "sh.tangled.repo.pull.status",
-          "createdAt": "2026-10-11T18:23:21.565Z",
-          "pull": "at://did:plc:gijpvbkdbr56kazbdjhfvb3d/sh.tangled.repo.pull/3mxmiywqewp22",
-          "status": "sh.tangled.repo.pull.status.merged"
+          "createdAt": "2026-10-19T03:34:50.653Z",
+          "pull": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22",
+          "status": "sh.tangled.repo.pull.status.closed"
         },
-        "cid": "bafyreihx6kxvsafcqsf4xe2dpn5jffgxmjpshors724ikohoe3agoxhimu"
+        "cid": "bafyreiglrwkvixb5s5ioephb4lqn7hmimw65dxp244yw2vg22igt2zse5i"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792381024080998,
+      "cursor": 26187485683,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my76x4chhz2r",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my76x34upj22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nRefresh the exact sandbox-reader census for the existing eight fsops readers. Keep the full file/count equality assertion so an additional or relocated reader still fails.\n\n---\ninfo:\nDASHBOARD-REACT closing standard non-Docker repair; tests-only bookkeeping, no product change or deleted assertion.\nParent s/539-docker-consumer-tests: 162e862a928a922b21eea018b63383ca182cbd58\nTarget: 099c82f429f7fa8267273b70c8270b05077b8f43\nActual standard3my6xr5jaga22 found expected7/actual8 at workspace_structure.rs692. Targeted notifyfa2aa8c7a3664f57bae16a374dc982e5 proves old7expectationRED, an actual added fsops readerRED, restored full9structuretestsGREEN0.19s/exactrestore/diffempty with server-qualified canonical features. Independent quick once remains reviewer work. No crate move or confinement-limit change. This is separate from the operator-stopped Docker companion; no Docker invocation. Use reviewed precompanion CI helper revision35b18ad101d6a66b0368f98cdb9be80aecc792b3 while later Docker work is deferred.\n",
+          "createdAt": "2026-10-19T06:37:02+03:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T06:37:02+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreid547of33vacrqfiawu35wpvgfqjf7dehusopql73verl6gj47kjy"
+                },
+                "size": 566
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/541-closing-sandbox-census-tests"
+          },
+          "target": {
+            "branch": "s/539-docker-consumer-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "tests: refresh the exact sandbox reader census"
+        },
+        "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792381492873790,
+      "cursor": 26187644194,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my77f4inhk2x",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my77f3kh5222",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.",
+          "createdAt": "2026-10-19T06:44:52+03:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T06:44:52+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
+                },
+                "size": 3521
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/542-docker-deferral-product"
+          },
+          "target": {
+            "branch": "s/541-closing-sandbox-census-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "product: defer the named Docker checks until job support lands"
+        },
+        "cid": "bafyreicqno2a2ecn2lr542azgxfprdazrjxpqzkritevt5xzpuxkfqffta"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792381517474297,
+      "cursor": 26187653427,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my77ftso4j2s",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my77ft32lw22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nVerify the explicit Docker deferral across gate, standard and full, including an explicit request. Assert all 71 named SKIPPED lines and the counted reason, refuse invalid inventories before any group runs, and keep non-Docker failures blocking while later groups execute.\n\n---\n\ninfo:\nParent: s/542-docker-deferral-product at a2015c0d02b0cfe61352820f0fef168802af0042.\nTests: e9d09d6330426b8a2417412dc236af179cdc3fdd.\nProduct PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1490\nExisting selection and accounting tests are unchanged. Three new owning methods cover the operator-directed deferral.\nCI notify-4a107cc953934eb381974aa4971b2249 PASS: actual parent runner RED (Docker command attempted and malformed inventories accepted), restored owning file 44/44 GREEN in 18.133s, exact restoration and clean diff. Artifact docker-deferral-SmdVkS. Earlier notify-9f39e44a24f547fbbee0fa06f5c2e69f failed because a test supplied unsupported options to full; corrected in a new commit, with the failed receipt retained.",
+          "createdAt": "2026-10-19T06:45:16+03:00",
+          "references": [
+            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77f3kh5222"
+          ],
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T06:45:16+03:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiasa7bcodu2wptp2ndnpivebia4x3ujtng5m3pcbopojqpis64c7m"
+                },
+                "size": 1702
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/543-docker-deferral-tests"
+          },
+          "target": {
+            "branch": "s/542-docker-deferral-product",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "tests: verify named Docker skips and non-Docker failure propagation"
+        },
+        "cid": "bafyreig2e47txfucp24f6zj5qrupwyki5eh2dsjre3ajpguzpvhi74kj5a"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792381524773767,
+      "cursor": 26187655940,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my77g2vcwh2d",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3my77f3kh5222",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1491\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.\n",
+          "createdAt": "2026-10-19T03:44:52Z",
+          "references": [
+            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77ft32lw22"
+          ],
+          "rounds": [
+            {
+              "createdAt": "2026-10-19T03:44:52Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
+                },
+                "size": 3521
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/542-docker-deferral-product"
+          },
+          "target": {
+            "branch": "s/541-closing-sandbox-census-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "product: defer the named Docker checks until job support lands"
+        },
+        "cid": "bafyreib72f64336oourfiezf4h35zlleinz6rxdafdu5cyegq3tw5nd5r4"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792381688073640,
+      "cursor": 26187711849,
+      "kind": "commit",
+      "commit": {
+        "rev": "3my77kwyge32m",
+        "operation": "create",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3my77kwhn2222",
+        "record": {
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n",
+            "text": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n"
+          },
+          "createdAt": "2026-10-19T06:48:07+03:00",
+          "pullRoundIdx": 0,
+          "subject": {
+            "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y",
+            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76x34upj22"
+          }
+        },
+        "cid": "bafyreignymkp4pdqbbkvqen7u4wb5zgpxdslpsdvlbdktp75r257rwlqu4"
       }
     }
   ]

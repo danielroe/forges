@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1066-Fb3G9Ryheo35y+lKHRPgyzHOQIs\"",
+      "etag": "W/\"10e1-H4Lxg/tm0LJkqcQ+mqYqBR+kahg\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2996",
-      "ratelimit-reset": "1791915188"
+      "ratelimit-remaining": "2981",
+      "ratelimit-reset": "1792385016",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "handle": "danielroe.dev",
@@ -126,12 +127,16 @@
         "id.sifa.endorsement.confirmation",
         "id.sifa.graph.follow",
         "id.sifa.profile.education",
+        "id.sifa.profile.externalAccount",
+        "id.sifa.profile.honor",
         "id.sifa.profile.language",
         "id.sifa.profile.location",
         "id.sifa.profile.position",
+        "id.sifa.profile.presentation",
+        "id.sifa.profile.presentationDelivery",
+        "id.sifa.profile.project",
         "id.sifa.profile.self",
         "id.sifa.profile.skill",
-        "id.sifa.profile.volunteering",
         "me.picheta.scorecard.rating",
         "net.anisota.beta.game.log",
         "net.anisota.beta.game.session",

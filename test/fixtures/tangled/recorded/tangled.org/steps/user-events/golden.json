@@ -1,0 +1,488 @@
+{
+  "items": [
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzzpkdbzo22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.pull.status",
+      "action": "merged",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe.dev marked it merged",
+      "occurredAt": "2026-08-01T17:48:51.489Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+        "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22"
+      },
+      "threadSnapshot": {
+        "title": "ci: add test workflows",
+        "body": ""
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.pull",
+      "action": "opened",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "danielroe.dev opened a pull request",
+      "occurredAt": "2026-08-01T17:48:36.000Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+        "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22"
+      },
+      "threadSnapshot": {
+        "title": "ci: add test workflows",
+        "body": ""
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzxt4w6sa22",
+      "kind": "comment",
+      "kindRaw": "sh.tangled.feed.comment",
+      "action": "created",
+      "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+              "name": "synchub.to",
+              "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+            "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+          },
+          "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzxt4w6sa22"
+        },
+        "body": "thank you ❤️"
+      },
+      "summary": "danielroe.dev commented",
+      "occurredAt": "2026-08-01T17:15:04.000Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+        "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+      },
+      "threadSnapshot": {
+        "title": "fix: count tangled.create-repo jobs in the dashboard aggregation",
+        "body": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly."
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxswg6hs22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.pull.status",
+      "action": "merged",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe.dev marked it merged",
+      "occurredAt": "2026-08-01T17:14:57.346Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
+        "externalId": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22"
+      },
+      "threadSnapshot": {
+        "title": "fix: count tangled.create-repo jobs in the dashboard aggregation",
+        "body": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly."
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxju262g22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.pull.status",
+      "action": "merged",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe.dev marked it merged",
+      "occurredAt": "2026-08-01T17:09:52.866Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22",
+        "externalId": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22"
+      },
+      "threadSnapshot": {
+        "title": "docs: improve setup documentation for clarification",
+        "body": "### Description\n\nWhile setting up the project locally, I had a few confusing steps, which I would like to ease for new contributors in the future:\n\n- GitHub app webhook needs to be setup before configuring the event subscriptions\n- the app needs to be public in order to see the selection screen of where to install the app (otherwise only possible in your own account)\n- more intuitive order of operations: start with neon and smee to get webhook URL and db connection string, then all GitHub app configs are already known and only then, start with .env file creation. Last but not least, you can run the migration command.\n- add clear instructions to have 3 terminals open\n\nI know that it adds way more docs than technically necessary, but I believe that new contributors would really benefit from this."
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzwphyaua22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.pull.status",
+      "action": "closed",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "danielroe.dev marked it closed",
+      "occurredAt": "2026-08-01T16:55:07.805Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+        "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+      },
+      "threadSnapshot": {
+        "title": "feat: filter dashboard repositories by enabled state",
+        "body": ""
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzwpeomxg22",
+      "kind": "comment",
+      "kindRaw": "sh.tangled.feed.comment",
+      "action": "created",
+      "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+              "name": "synchub.to",
+              "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "kind": "pull_request",
+            "typeRaw": "sh.tangled.repo.pull",
+            "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+            "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+          },
+          "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzwpeomxg22"
+        },
+        "body": "oops, still getting to grips with tangled. I \"merged\" this in https://tangled.org/danielroe.dev/synchub.to/commit/02bf99e2224c7cc0a2f1f2363b199ec2795f9a39."
+      },
+      "summary": "danielroe.dev commented",
+      "occurredAt": "2026-08-01T16:55:04.000Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "pull_request",
+        "typeRaw": "sh.tangled.repo.pull",
+        "number": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
+        "externalId": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22"
+      },
+      "threadSnapshot": {
+        "title": "feat: filter dashboard repositories by enabled state",
+        "body": ""
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mru72v6ahb22",
+      "kind": "reaction",
+      "kindRaw": "sh.tangled.feed.reaction",
+      "action": "created",
+      "actionRaw": "create",
+      "summary": "danielroe.dev reacted ❤️",
+      "occurredAt": "2026-07-30T10:08:42.000Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mrfztjodmf22",
+      "kind": "state_change",
+      "kindRaw": "sh.tangled.repo.issue.state",
+      "action": "closed",
+      "actionRaw": "create",
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "danielroe.dev marked it closed",
+      "occurredAt": "2026-07-24T18:57:50.253Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
+        "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22"
+      },
+      "threadSnapshot": {
+        "title": "handle duplicate names ",
+        "body": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard "
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mqzo2l4cas22",
+      "kind": "reaction",
+      "kindRaw": "sh.tangled.feed.reaction",
+      "action": "created",
+      "actionRaw": "create",
+      "summary": "danielroe.dev reacted ❤️",
+      "occurredAt": "2026-07-19T20:55:04.000Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "source": "poll"
+    }
+  ],
+  "cursor": {
+    "token": "{\"sh.tangled.repo.issue\":\"\",\"sh.tangled.repo.pull\":\"3mrzzp3744f22\",\"sh.tangled.feed.comment\":\"3mrzwpeomxg22\",\"sh.tangled.repo.issue.state\":\"3mrfztjodmf22\",\"sh.tangled.repo.pull.status\":\"3mrzwphyaua22\",\"sh.tangled.feed.reaction\":\"3mqzo2l4cas22\"}"
+  },
+  "etag": "3my6njfwr5e2s:ecbf70f4691224df"
+}

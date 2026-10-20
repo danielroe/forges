@@ -1,45 +1,68 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxhm5yldov22"
+    "url": "https://morel.us-east.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ahzwlp26go2vwwgu3zsgcciuc&collection=sh.tangled.repo.pull&rkey=3my6z4scb5g22"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"27e-qToxJvEaWTreYLAlWR/UYd9/Zyg\"",
+      "etag": "W/\"129d-YT4v+gQ+44t9qODsO5zSJI+EZgI\"",
       "ratelimit-limit": "3000",
       "ratelimit-remaining": "2999",
-      "ratelimit-reset": "1791806333"
+      "ratelimit-reset": "1792385030",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-      "cid": "bafyreieko4shqsunw47uvcxa7ycrhwkkcczldd4j3ylmhp62lps5kzu4oi",
+      "uri": "at://did:plc:hzwlp26go2vwwgu3zsgcciuc/sh.tangled.repo.pull/3my6z4scb5g22",
+      "cid": "bafyreibbh7obbd2htf6o6423uqymbieaz5kcetkl3vnfhrt7sa7c6hl5uu",
       "value": {
-        "body": "Edited by run 20261011212149.",
+        "body": "Phase A of plan 004 (workout-data platform): the data foundation only — no ingest yet.\n\n## What landed\n- **Lexicons** (`lexicons/`, instance-local `internal.btlt.*`): `internal.btlt.workouts.space` — a `space` declaration, one per user at the conventional skey `workouts`, created owner-only (memberListPolicy on both policies) — plus the record collections `internal.btlt.workout` (source/sourceRef dedup join, sport kept in touch with treeline's knownValues, summary, set-level strength on the FIT Set model, ~50 MiB rawBlob), `internal.btlt.workout.stream` (strongRef-anchored sample chunks), and `internal.btlt.source.connection` (per-source snapshot at a literal rkey).\n- **Provisioner**: uploads/updates every lexicon into the HappyView admin API (canonicalize-based idempotency) and enables `feature.spaces_enabled = true` (spaces are opt-in per instance on the pinned 2.16.0 — verified in source, answering the plan's open probe).\n- **Scope chain**: bare `atproto` → `atproto repo:*` + the two wildcard space grants (scr@ps vocabulary), moved as ONE change across the four synced locations; smoke sweep extended, plus a vitest scope-chain test pinning the two metadata emitters against client.js's exported SCOPES.\n- **HappyView patch series adoption** (flips the 2026-10-17 APP.md decision — recorded as a dated entry): 0001 (instance declares wildcard space scopes — stock 2.16.0 rejects them at authorize otherwise), 0002 (app-session migration hook; no-op until the PDS-migration knob exists), 0004 (skips the `space:` scope gate for polyfill-hosted repos — without it space reads/writes fail even after re-login). Verbatim scr@ps series at the same pin (cmp-verified), applied to the IN-TREE submodule checkout by `scripts/patch-happyview.sh` from `scripts/setup.sh` and the deploy pipeline's \"Apply happyview patches\" step. 0005 intentionally not carried (native-mode only). Drop trigger documented in `patches/README.md`.\n- **SPA**: `web/src/lib/spaces.js` space bootstrap (ensure-workouts-space via listSpaces; never a constructed authority URI; 409-conflict verifies, never suffixed-slug retries), a `RequireAuth` gate on `/workouts` `/upload` `/sync` with home `/` staying public; `/workouts` is a real space-backed listing (sport filter, newest first); `/upload` + `/sync` are honest gated stubs for the queued increments.\n- **`lexicon-lint`** in both CI lists (`mise run ci`, tangled ci.yml) + smoke assertions so the stage can't be silently dropped.\n\n## Validation\n- AC.1: `mise run ci` green (lint --max-warnings 0, fmt, tsc, vitest 44 tests, shellcheck, hadolint ×2, lexicon-lint 4 files).\n- `mise run smoke` 89 pass / 0 fail / 2 skip against the live dev stack (HappyView :3202, web :5302) — includes the dev-stack provisioning round trip (lexicons created, API client created with the expanded grant set, `feature.spaces_enabled=true`).\n- Docker image build + serve verified (hadolint-clean; the container serves client-metadata.json with the expanded grant set).\n- Scope-chain sync verified 4/4 (smoke fixed-string sweep + vitest).\n\n## Operator-assisted (flagged, not automated)\n- AC.7: the browser space round trip (consent → createSpace → record I/O) needs a real signed-in session on the dev stack (https://btlt-data-front-door.dev.shypan.st) — recorded as the human item in TASKS.md; no browser OAuth harness exists in either project (same gap as the sign-in increment).\n\n## Docs\nAPP.md (purpose, components, Phase A capability, dated decisions), AGENTS.md (architecture, scope invariant, file structure), README (provisioning steps + patch-series section), TASKS.md (Phase A section + the full workout-data roadmap so Phases B/C/D are claimable one at a time).\n",
         "$type": "sh.tangled.repo.pull",
-        "title": "forges seed: pull",
+        "title": "feat: workout-data platform foundations (Phase A)",
         "rounds": [
           {
-            "createdAt": "2026-10-09T21:29:38+03:00",
+            "createdAt": "2026-10-19T01:52:50Z",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreicqsnafmjdy22szssmis2jf56igucmyxsrc6demlbs6nmi2bgd6ci"
+                "$link": "bafkreibjr3aqi3ar5uzgtrl42qy7hfznqzcwt2nfi7z4xbt7vzxzyh5jxu"
               },
-              "size": 422,
+              "size": 47703,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-19T02:08:25Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
+              },
+              "size": 48133,
+              "$type": "blob",
+              "mimeType": "application/gzip"
+            }
+          },
+          {
+            "createdAt": "2026-10-19T02:08:33Z",
+            "patchBlob": {
+              "ref": {
+                "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
+              },
+              "size": 48133,
               "$type": "blob",
               "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "branch": "bo"
+          "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx",
+          "branch": "feature/data-front-door"
         },
         "target": {
-          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
-          "branch": "main",
-          "repoDid": "did:plc:t73o44q7fppgagkrevtztyok"
+          "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx",
+          "branch": "main"
         },
-        "createdAt": "2026-10-09T21:29:38+03:00"
+        "createdAt": "2026-10-19T01:52:50Z"
       }
     }
   }

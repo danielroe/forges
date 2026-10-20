@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=did%3Aplc%3Awj53zt2oo653zr3wgnvn4llg&collection=sh.tangled.repo&path=.repoDid&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+          "collection": "sh.tangled.repo",
+          "rkey": "lichen.page.review"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

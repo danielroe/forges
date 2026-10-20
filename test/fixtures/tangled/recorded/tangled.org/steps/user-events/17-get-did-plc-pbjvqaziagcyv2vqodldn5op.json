@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:pbjvqaziagcyv2vqodldn5op"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"215-OcyXmrWCooPLSBeLApUXKQg0T+M\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:pbjvqaziagcyv2vqodldn5op",
+      "alsoKnownAs": [
+        "at://felixs.dev"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:pbjvqaziagcyv2vqodldn5op#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:pbjvqaziagcyv2vqodldn5op",
+          "publicKeyMultibase": "zQ3shd7QGKC5FcaPKLQxbgy5cxLKuGWov3c4c6TGJ6hGGYF8v"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://npmx.social"
+        }
+      ]
+    }
+  }
+}
