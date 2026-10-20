@@ -1,0 +1,307 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "kind": "pull_request",
+      "number": "557",
+      "externalId": "14462052"
+    },
+    "kind": "pull_request",
+    "title": "delete Kconfig menu of semidrive",
+    "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "pc-courage",
+      "id": "8078236",
+      "name": "chao",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/pc-courage",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "anandacoo",
+          "id": "5641649",
+          "name": "ZD",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/anandacoo",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "yeslulin",
+          "id": "7762062",
+          "name": "yuanwai",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yeslulin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "zhanghongwei_cmiot",
+          "id": "8157480",
+          "name": "zhanghongwei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/zhanghongwei_cmiot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmiot_jixiaowei",
+          "id": "8337774",
+          "name": "jixiaowei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/cmiot_jixiaowei",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      }
+    ],
+    "labels": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/557",
+    "createdAt": "2025-06-12T03:29:56.000Z",
+    "updatedAt": "2025-06-12T06:22:38.000Z",
+    "closedAt": "2025-06-12T06:22:38.000Z",
+    "mergedAt": "2025-06-12T06:22:38.000Z",
+    "lastActivityAt": "2025-06-12T06:22:38.000Z",
+    "locked": false,
+    "branches": {
+      "head": {
+        "ref": "master",
+        "sha": "731d373033101fc7e692d874130ef0aa952b51b1",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "pc-courage",
+          "name": "OneOS",
+          "externalId": "34019295"
+        }
+      },
+      "base": {
+        "ref": "master",
+        "sha": "380571eea71dda6b07309640ab07e103bed6e26b"
+      }
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS"
+      },
+      "kind": "pull_request",
+      "number": "557",
+      "externalId": "14462052"
+    },
+    "kind": "pull_request",
+    "title": "delete Kconfig menu of semidrive",
+    "body": "1. delete Kconfig menu of semidrive\r\n---\r\n### 提交PR原因\r\n\r\n\r\n\r\n### 描述说明（配置修改、注意事项等说明）\r\n\r\n\r\n\r\n\r\n\r\n",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "gitee",
+      "instance": "gitee.com",
+      "login": "pc-courage",
+      "id": "8078236",
+      "name": "chao",
+      "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+      "url": "https://gitee.com/pc-courage",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "anandacoo",
+          "id": "5641649",
+          "name": "ZD",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/anandacoo",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "yeslulin",
+          "id": "7762062",
+          "name": "yuanwai",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/yeslulin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmcc-oneos-admin",
+          "id": "7894055",
+          "name": "CMCC-OneOS",
+          "avatarUrl": "https://foruda.gitee.com/avatar/1670466967165594212/7894055_cmcc-oneos-admin_1670466966.png",
+          "url": "https://gitee.com/cmcc-oneos-admin",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "pc-courage",
+          "id": "8078236",
+          "name": "chao",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/pc-courage",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "zhanghongwei_cmiot",
+          "id": "8157480",
+          "name": "zhanghongwei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/zhanghongwei_cmiot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      },
+      {
+        "actor": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "login": "cmiot_jixiaowei",
+          "id": "8337774",
+          "name": "jixiaowei",
+          "avatarUrl": "https://gitee.com/assets/no_portrait.png",
+          "url": "https://gitee.com/cmiot_jixiaowei",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "state": "approved",
+        "stateRaw": "accepted"
+      }
+    ],
+    "labels": [],
+    "url": "https://gitee.com/cmcc-oneos/OneOS/pulls/557",
+    "createdAt": "2025-06-12T03:29:56.000Z",
+    "updatedAt": "2025-06-12T06:22:38.000Z",
+    "closedAt": "2025-06-12T06:22:38.000Z",
+    "mergedAt": "2025-06-12T06:22:38.000Z",
+    "lastActivityAt": "2025-06-12T06:22:38.000Z",
+    "locked": false,
+    "branches": {
+      "head": {
+        "ref": "master",
+        "sha": "731d373033101fc7e692d874130ef0aa952b51b1",
+        "repo": {
+          "forge": "gitee",
+          "instance": "gitee.com",
+          "owner": "pc-courage",
+          "name": "OneOS",
+          "externalId": "34019295"
+        }
+      },
+      "base": {
+        "ref": "master",
+        "sha": "380571eea71dda6b07309640ab07e103bed6e26b"
+      }
+    },
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0
+    }
+  }
+}
