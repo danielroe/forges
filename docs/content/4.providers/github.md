@@ -155,7 +155,7 @@ With `kind: 'advisory'`, `securityAlerts.list()` lists the security advisories o
 
 Files over 1 MB are read through the Git blobs API, so the result of `contents.getFile()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
 
-On github.com, `contents.getFile()` with `metadata: false` reads the file from `raw.githubusercontent.com`, whose requests don't count towards the REST API rate limit. The result has no `sha` or `url`. That host caches a file for up to five minutes, so a read of a branch can lag behind a push to it. A commit sha as `ref` avoids that. It responds with 404 to a revoked or expired token too, so the read rejects with a `NotFoundError` rather than a `TokenRevokedError`. On GitHub Enterprise Server, `metadata: false` has no effect.
+On github.com, `contents.getFile()` with `metadata: false` reads the file from `raw.githubusercontent.com`, whose requests don't count towards the REST API rate limit. The result has no `sha` or `url`. That host caches a file for up to five minutes, so a read of a branch can lag behind a push to it. A commit sha as `ref` avoids that. It responds with 404 to a revoked or expired token too, so the read rejects with a `NotFoundError` rather than a `TokenRevokedError`. On GitHub Enterprise Server and `ghe.com`, `metadata: false` has no effect.
 
 ## Comparisons
 

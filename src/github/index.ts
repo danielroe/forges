@@ -1451,7 +1451,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
-  /** github.com serves file bytes from a CDN whose requests do not count towards the REST API rate limit. */
+  /** github.com serves file bytes from a CDN outside the REST API rate limit. */
   const rawFetcher = host === 'api.github.com' ? createFetcher({ baseUrl: 'https://raw.githubusercontent.com', authHeaders: createAuthHeaders(options.auth, credentials) }) : undefined
 
   async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {

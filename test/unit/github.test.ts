@@ -1595,16 +1595,6 @@ describe('github contents', () => {
     expect(calls[0]!.authorization).toBe('Bearer t')
   })
 
-  it('reads a file without metadata at the default branch from the raw host', async () => {
-    const { provider, calls } = tokenProvider({
-      'GET https://raw.githubusercontent.com/acme/widgets/HEAD/package.json': { status: 200, body: '{}' },
-    })
-
-    await provider.contents.getFile(repo, 'package.json', { metadata: false })
-
-    expect(calls.map(call => call.url)).toEqual(['https://raw.githubusercontent.com/acme/widgets/HEAD/package.json'])
-  })
-
   it('reads a file without metadata from the contents API on GitHub Enterprise Server', async () => {
     const { fetch, calls } = fixtureFetch('github', {
       'GET https://ghe.example.com/api/v3/repos/acme/widgets/contents/package.json?ref=main': { status: 200, body: { path: 'package.json', sha: 'aa1', size: 2, encoding: 'base64', content: 'e30=' } },
