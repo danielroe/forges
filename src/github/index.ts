@@ -1451,8 +1451,17 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
   }
 
+  /** github.com serves file bytes from a CDN whose requests do not count towards the REST API rate limit. */
+  const rawFetcher = host === 'api.github.com' ? createFetcher({ baseUrl: 'https://raw.githubusercontent.com', authHeaders: createAuthHeaders(options.auth, credentials) }) : undefined
+
   async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {
-    const { data } = await fetcher.json<GitHubContentFile>(`${repoPath(repo)}/contents/${path.split('/').map(encodeURIComponent).join('/')}`, {
+    const encoded = path.split('/').map(encodeURIComponent).join('/')
+    if (fileOptions.metadata === false && rawFetcher) {
+      const response = await rawFetcher.raw(`/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/${encodeURIComponent(fileOptions.ref ?? 'HEAD')}/${encoded}`, { signal: fileOptions.signal })
+      const bytes = new Uint8Array(await response.arrayBuffer())
+      return toFileContent(bytes, { path, size: bytes.byteLength }, fileOptions, context)
+    }
+    const { data } = await fetcher.json<GitHubContentFile>(`${repoPath(repo)}/contents/${encoded}`, {
       query: { ref: fileOptions.ref },
       signal: fileOptions.signal,
     })

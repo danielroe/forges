@@ -829,6 +829,11 @@ export interface FileOptions extends BaseOptions {
    * @default 'binary'
    */
   as?: 'text' | 'binary'
+  /**
+   * `false` reads the content alone, through a cheaper endpoint where the forge has one, so the result may lack `sha` and `url`.
+   * @default true
+   */
+  metadata?: boolean
 }
 
 /** A file that `contents.commitFiles()` writes or deletes. */

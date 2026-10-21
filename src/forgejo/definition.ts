@@ -749,6 +749,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   /** Large files come back with a null `content`, so they come from the raw endpoint, which has no size limit. */
   async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {
     const encoded = path.split('/').map(encodeURIComponent).join('/')
+    if (fileOptions.metadata === false) {
+      const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
+      const bytes = new Uint8Array(await response.arrayBuffer())
+      return toFileContent(bytes, { path, size: bytes.byteLength }, fileOptions, context)
+    }
     const { data } = await fetcher.json<ForgejoContentFile>(`${repoPath(repo)}/contents/${encoded}`, {
       query: { ref: fileOptions.ref },
       signal: fileOptions.signal,

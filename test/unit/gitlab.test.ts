@@ -371,6 +371,17 @@ describe('gitlab provider', () => {
     await expect(instance.repos.byOwner({ ...repo, name: '', kind: 'namespace' }).page()).rejects.toThrow(NotFoundError)
     expect(urls).toEqual(['https://gitlab.com/api/v4/groups/acme%2Fplatform/projects?with_shared=false'])
   })
+
+  it('reads a file without metadata from the raw endpoint, without looking up the default branch', async () => {
+    const { instance, calls } = provider({
+      [`GET ${P}/repository/files/docs%2FREADME.md/raw`]: { status: 200, body: '# widgets\n' },
+    })
+
+    const file = await instance.contents.getFile(repo, 'docs/README.md', { as: 'text', metadata: false })
+
+    expect(file).toEqual({ path: 'docs/README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
+    expect(calls).toHaveLength(1)
+  })
 })
 
 describe('gitlab repository licence', () => {

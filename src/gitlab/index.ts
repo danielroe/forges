@@ -917,8 +917,14 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
       },
       contents: {
         getFile: verb(true, async (repo, path, fileOptions = {}) => {
+          const target = `${projectPath(repo)}/repository/files/${encodeURIComponent(path.replace(/^\//, ''))}`
+          if (fileOptions.metadata === false) {
+            const response = await fetcher.raw(`${target}/raw`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
+            const bytes = new Uint8Array(await response.arrayBuffer())
+            return toFileContent(bytes, { path: path.replace(/^\//, ''), size: bytes.byteLength }, fileOptions, context)
+          }
           const ref = fileOptions.ref ?? await defaultBranch(repo, fileOptions)
-          const { data } = await fetcher.json<GitLabFile>(`${projectPath(repo)}/repository/files/${encodeURIComponent(path.replace(/^\//, ''))}`, {
+          const { data } = await fetcher.json<GitLabFile>(target, {
             query: { ref },
             signal: fileOptions.signal,
           })

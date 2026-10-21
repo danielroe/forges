@@ -618,11 +618,14 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
           const ref = fileOptions.ref ?? await mainBranch(repo, fileOptions)
           const target = `${repoPathOf(repo)}/src/${encodeURIComponent(ref)}/${path.split('/').map(encodeURIComponent).join('/')}`
           const [meta, raw] = await Promise.all([
-            fetcher.json<BitbucketSrcEntry>(target, { query: { format: 'meta' }, signal: fileOptions.signal }),
+            fileOptions.metadata === false ? undefined : fetcher.json<BitbucketSrcEntry>(target, { query: { format: 'meta' }, signal: fileOptions.signal }),
             fetcher.raw(target, { signal: fileOptions.signal }),
           ])
-          const file = { path: meta.data.path, sha: meta.data.commit?.hash, size: meta.data.size, url: meta.data.links?.html?.href }
-          return toFileContent(new Uint8Array(await raw.arrayBuffer()), file, fileOptions, context)
+          const bytes = new Uint8Array(await raw.arrayBuffer())
+          const file = meta
+            ? { path: meta.data.path, sha: meta.data.commit?.hash, size: meta.data.size, url: meta.data.links?.html?.href }
+            : { path, size: bytes.byteLength }
+          return toFileContent(bytes, file, fileOptions, context)
         }),
         treePage: verb(true, async (repo, treeOptions = {}) => {
           const ref = treeOptions.ref ?? await mainBranch(repo, treeOptions)

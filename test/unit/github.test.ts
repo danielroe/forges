@@ -1583,6 +1583,40 @@ describe('github contents', () => {
     expect(calls.at(-1)!.url).toContain('/git/blobs/bb2')
   })
 
+  it('reads a file without metadata from the raw host with the credential', async () => {
+    const { provider, calls } = tokenProvider({
+      'GET https://raw.githubusercontent.com/acme/widgets/feat%2Fdocs/docs/getting%20started.md': { status: 200, body: '# Getting started\n' },
+    })
+
+    const file = await provider.contents.getFile(repo, 'docs/getting started.md', { ref: 'feat/docs', as: 'text', metadata: false })
+
+    expect(file).toEqual({ path: 'docs/getting started.md', size: 18, encoding: 'utf-8', content: '# Getting started\n' })
+    expect(calls).toHaveLength(1)
+    expect(calls[0]!.authorization).toBe('Bearer t')
+  })
+
+  it('reads a file without metadata at the default branch from the raw host', async () => {
+    const { provider, calls } = tokenProvider({
+      'GET https://raw.githubusercontent.com/acme/widgets/HEAD/package.json': { status: 200, body: '{}' },
+    })
+
+    await provider.contents.getFile(repo, 'package.json', { metadata: false })
+
+    expect(calls.map(call => call.url)).toEqual(['https://raw.githubusercontent.com/acme/widgets/HEAD/package.json'])
+  })
+
+  it('reads a file without metadata from the contents API on GitHub Enterprise Server', async () => {
+    const { fetch, calls } = fixtureFetch('github', {
+      'GET https://ghe.example.com/api/v3/repos/acme/widgets/contents/package.json?ref=main': { status: 200, body: { path: 'package.json', sha: 'aa1', size: 2, encoding: 'base64', content: 'e30=' } },
+    })
+    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch })
+
+    const file = await provider.contents.getFile({ ...repo, instance: 'ghe.example.com' }, 'package.json', { ref: 'main', as: 'text', metadata: false })
+
+    expect(file).toMatchObject({ sha: 'aa1', content: '{}' })
+    expect(calls).toHaveLength(1)
+  })
+
   it('rejects a binary file read as text', async () => {
     const { provider } = tokenProvider()
 

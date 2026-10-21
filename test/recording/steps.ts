@@ -406,6 +406,7 @@ export const STEPS: Step[] = [
     return { length: log.length, head: log.slice(0, 2_000).split('\n').slice(0, 20) }
   } },
   { name: 'readme', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { as: 'text' }) },
+  { name: 'readme without metadata', verb: 'contents.getFile', run: (provider, manifest) => provider.contents.getFile(manifest.repo, 'README.md', { as: 'text', metadata: false }) },
   { name: 'tree', verb: 'contents.tree', run: async (provider, manifest, context) => {
     const result = await provider.contents.tree(manifest.repo, page).page()
     context.tree = result.items

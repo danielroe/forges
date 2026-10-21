@@ -136,6 +136,17 @@ describe('bitbucket provider', () => {
     expect(page.items).toEqual([])
     expect(page.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
   })
+
+  it('reads a file without metadata in one request', async () => {
+    const { instance, calls } = provider(undefined, {
+      'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/src/main/README.md': { status: 200, body: '# widgets\n' },
+    })
+
+    const file = await instance.contents.getFile(repo, 'README.md', { ref: 'main', as: 'text', metadata: false })
+
+    expect(file).toEqual({ path: 'README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
+    expect(calls).toHaveLength(1)
+  })
 })
 
 describe('bitbucket webhooks', () => {

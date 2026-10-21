@@ -147,6 +147,17 @@ describe('forgejo provider', () => {
 
     expect(page.items.map(repo => repo.ref.name)).toEqual(['vault'])
   })
+
+  it('reads a file without metadata from the raw endpoint', async () => {
+    const { instance, calls } = provider({
+      'GET https://codeberg.org/api/v1/repos/acme/widgets/raw/docs/README.md?ref=main': { status: 200, body: '# widgets\n' },
+    })
+
+    const file = await instance.contents.getFile({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, 'docs/README.md', { ref: 'main', as: 'text', metadata: false })
+
+    expect(file).toEqual({ path: 'docs/README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
+    expect(calls).toHaveLength(1)
+  })
 })
 
 describe('forgejo release webhooks', () => {

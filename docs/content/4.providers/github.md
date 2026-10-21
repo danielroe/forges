@@ -155,6 +155,8 @@ With `kind: 'advisory'`, `securityAlerts.list()` lists the security advisories o
 
 Files over 1 MB are read through the Git blobs API, so the result of `contents.getFile()` has `encoding: 'none'` for them. When GitHub truncates a large tree, `contents.tree()` adds a `tree_truncated` warning to the result.
 
+On github.com, `contents.getFile()` with `metadata: false` reads the file from `raw.githubusercontent.com`, whose requests don't count towards the REST API rate limit. The result has no `sha` or `url`. That host caches a file for up to five minutes, so a read of a branch can lag behind a push to it. A commit sha as `ref` avoids that. It responds with 404 to a revoked or expired token too, so the read rejects with a `NotFoundError` rather than a `TokenRevokedError`. On GitHub Enterprise Server, `metadata: false` has no effect.
+
 ## Comparisons
 
 Without `commitLimit`, `contents.compare()` returns the newest 250 commits of the comparison. GitHub pages a comparison from its oldest commit, so with `commitLimit`, the provider reads the first page, and then the last pages, which hold the newest commits. Each page holds `commitLimit` commits, up to 100. A comparison that fits on the first page takes one request. GitHub always sends the changed files with the first page, up to 300 of them, so `files: false` leaves them out of the result but not out of the response.
