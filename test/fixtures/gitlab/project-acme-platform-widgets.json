@@ -11,6 +11,7 @@
       "id": 278964,
       "path_with_namespace": "acme/platform/widgets",
       "merge_method": "merge",
+      "only_allow_merge_if_pipeline_succeeds": true,
       "squash_option": "never",
       "name": "widgets",
       "description": "Widgets, normalised.",

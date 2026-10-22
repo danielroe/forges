@@ -98,7 +98,7 @@ import { BranchMovedError, ForgeError, NotFoundError, soleMergeMethod, toMergeEr
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { actorLogin, createListing, getManyConcurrently, hasEveryLabel, hexColour, hostOf, isFirstPage, mapConcurrent, memo, memoBy, milestoneId, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
+import { ACTION_STATES, actionBranch, GITEA_ACTION_STATES, numberFromUrl, toActionJob, toActionRun, toActor, toBranch, toBranchRules, toChangedFile, toComment, toCommit, toEvent, toFileCommit, toGiteaActionJob, toGiteaActionRun, toLabel, toMilestone, toNotification, toRelease, toRepo, toReview, toReviewComment, toRole, toStatusCheck, toStatusChecks, toTag, toTeam, toThread, toThreadKind, toTreeEntry, toWebhook } from './normalise.ts'
 import { countedNextUrl, countedPages } from './pages.ts'
 import { FORGEJO_WEB } from './web.ts'
 import { FORGEJO_HEADERS, FORGEJO_NATIVE_EVENTS } from './webhook-events.ts'
@@ -808,6 +808,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
         return toRole(data.role_name ?? data.permission)
       }),
+      branchRules: verb(true, async (repo, name, options) => toBranchRules((await fetcher.json<ForgejoBranch>(
+        `${repoPath(repo)}/branches/${name.split('/').map(encodeURIComponent).join('/')}`,
+        { signal: options?.signal },
+      )).data)),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
           method: 'PUT',

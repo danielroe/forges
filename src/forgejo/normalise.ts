@@ -1,6 +1,7 @@
 import type {
   Actor,
   Branch,
+  BranchRules,
   ChangedFile,
   Check,
   CheckState,
@@ -670,6 +671,16 @@ export function toCommit(repo: RepoRef, raw: ForgejoCommit): Commit {
 
 export function toBranch(raw: ForgejoBranch): Branch {
   return { name: raw.name, sha: raw.commit?.id ?? '', isProtected: raw.protected, raw }
+}
+
+/** The branch reports the protection rule that matches it, so one read covers both checks and approvals. */
+export function toBranchRules(raw: ForgejoBranch): BranchRules {
+  return {
+    branch: raw.name,
+    requiredChecks: raw.enable_status_check ? (raw.status_check_contexts ?? []).map(name => ({ name })) : [],
+    requiredApprovals: raw.required_approvals ?? 0,
+    raw,
+  }
 }
 
 export function toTag(raw: ForgejoTag): Tag {

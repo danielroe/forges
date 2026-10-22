@@ -159,6 +159,44 @@
     "description": "A branch of a repository.",
     "x-forges-type": "Branch"
   },
+  "BranchRules": {
+    "type": "object",
+    "properties": {
+      "branch": {
+        "type": "string"
+      },
+      "requiredChecks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RequiredCheck"
+        },
+        "description": "The checks that have to pass, empty when the branch names none."
+      },
+      "requiresAllChecks": {
+        "type": "boolean",
+        "description": "True when the whole pipeline has to pass, as GitLab's \"Pipelines must succeed\" asks, whatever `requiredChecks` names."
+      },
+      "requiredApprovals": {
+        "type": "number",
+        "description": "The approvals a pull request needs, absent when the credential can't read any rule that sets them."
+      },
+      "warnings": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ForgeWarning"
+        },
+        "description": "The rules the credential couldn't read. With one here, the result can ask for less than the forge does."
+      },
+      "raw": {}
+    },
+    "required": [
+      "branch",
+      "requiredChecks",
+      "raw"
+    ],
+    "description": "What a branch asks of a pull request before it can merge, as `repos.branchRules()` reads it.",
+    "x-forges-type": "BranchRules"
+  },
   "ChangedFile": {
     "type": "object",
     "properties": {
@@ -1635,6 +1673,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.permissionFor()`."
           },
+          "branchRules": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `repos.branchRules()`."
+          },
           "addCollaborator": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `repos.addCollaborator()`."
@@ -1665,6 +1707,7 @@
           "contributorStats",
           "templates",
           "permissionFor",
+          "branchRules",
           "addCollaborator",
           "assignableUsers",
           "reviewerCandidates",
@@ -3831,6 +3874,24 @@
     ],
     "description": "Who can see a repository.",
     "x-forges-type": "RepoVisibility"
+  },
+  "RequiredCheck": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the check run or the context of the commit status. On Forgejo and Gitea it can be a glob, such as `ci / **`."
+      },
+      "appId": {
+        "type": "string",
+        "description": "The id of the app that has to report the check, where the rule names one, such as `15368` for GitHub Actions."
+      }
+    },
+    "required": [
+      "name"
+    ],
+    "description": "A check that has to pass before a pull request can merge into a branch.",
+    "x-forges-type": "RequiredCheck"
   },
   "ResolvedCommentRef": {
     "type": "object",

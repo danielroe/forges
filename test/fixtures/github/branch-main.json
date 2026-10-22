@@ -1,0 +1,40 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/acme/widgets/branches/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "main",
+      "commit": {
+        "sha": "6dcb09b5b57875f334f61aebed695e2e4193db5e",
+        "url": "https://api.github.com/repos/acme/widgets/commits/6dcb09b5b57875f334f61aebed695e2e4193db5e"
+      },
+      "protected": true,
+      "protection": {
+        "enabled": true,
+        "required_status_checks": {
+          "enforcement_level": "everyone",
+          "contexts": [
+            "lint",
+            "CLA Signing"
+          ],
+          "checks": [
+            {
+              "context": "lint",
+              "app_id": 15368
+            },
+            {
+              "context": "CLA Signing",
+              "app_id": null
+            }
+          ]
+        }
+      },
+      "protection_url": "https://api.github.com/repos/acme/widgets/branches/main/protection"
+    }
+  }
+}

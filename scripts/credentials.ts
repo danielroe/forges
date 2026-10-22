@@ -217,7 +217,7 @@ export interface CredentialTask {
 }
 
 const TASKS: CredentialTask[] = [
-  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.issueTypes', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
+  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.issueTypes', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.branchRules', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable'] },
   { id: 'orgs', group: 'Read', label: 'Organisation teams', capabilities: ['orgs.teams', 'orgs.teamMembers'] },
   { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.closingIssues', 'threads.closingPullRequests', 'threads.events', 'threads.comments', 'threads.getComment', 'threads.reactions', 'threads.reviews', 'threads.getReview', 'threads.files', 'threads.commits'] },
   { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.getFile', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'commits.list', 'commits.get', 'contents.compare', 'commits.comments', 'commits.getComment'] },

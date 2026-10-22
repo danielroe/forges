@@ -4,6 +4,7 @@ import type {
   AddCollaboratorResult,
   BaseOptions,
   Branch,
+  BranchRules,
   ChangedFile,
   Check,
   CheckRef,
@@ -231,6 +232,8 @@ export interface ForgeCapabilities {
     templates: Support
     /** Support for `repos.permissionFor()`. */
     permissionFor: Support
+    /** Support for `repos.branchRules()`. */
+    branchRules: Support
     /** Support for `repos.addCollaborator()`. */
     addCollaborator: Support
     /** Support for `repos.assignableUsers()`. */
@@ -1070,6 +1073,18 @@ export interface ReposApi {
   templates: (repo: RepoRef, options?: RepoTemplateOptions) => Promise<RepoTemplate[]>
   /** One account's role on the repository; `'none'` when it has no access. */
   permissionFor: (repo: RepoRef, actor: string | Actor, options?: BaseOptions) => Promise<RepoRole>
+  /**
+   * The checks and approvals a pull request needs before it can merge into a branch. On GitHub it reads both
+   * rulesets and classic branch protection, and only an admin can read the approvals that classic protection asks for.
+   * @param repo The repository that holds the branch.
+   * @param branch The name of the branch, which has to exist.
+   * @example
+   * ```ts
+   * const rules = await provider.repos.branchRules(repo, 'main')
+   * const names = rules.requiredChecks.map(check => check.name)
+   * ```
+   */
+  branchRules: (repo: RepoRef, branch: string, options?: BaseOptions) => Promise<BranchRules>
   /**
    * Gives an account a role on a repository, or invites it where the forge asks the account to accept first. A repeat
    * can reject where the forge refuses to add an existing member (GitLab).

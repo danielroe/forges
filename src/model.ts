@@ -897,6 +897,28 @@ export interface Branch {
   raw: unknown
 }
 
+/** A check that has to pass before a pull request can merge into a branch. */
+export interface RequiredCheck {
+  /** The name of the check run or the context of the commit status. On Forgejo and Gitea it can be a glob, such as `ci / **`. */
+  name: string
+  /** The id of the app that has to report the check, where the rule names one, such as `15368` for GitHub Actions. */
+  appId?: string
+}
+
+/** What a branch asks of a pull request before it can merge, as `repos.branchRules()` reads it. */
+export interface BranchRules {
+  branch: string
+  /** The checks that have to pass, empty when the branch names none. */
+  requiredChecks: RequiredCheck[]
+  /** True when the whole pipeline has to pass, as GitLab's "Pipelines must succeed" asks, whatever `requiredChecks` names. */
+  requiresAllChecks?: boolean
+  /** The approvals a pull request needs, absent when the credential can't read any rule that sets them. */
+  requiredApprovals?: number
+  /** The rules the credential couldn't read. With one here, the result can ask for less than the forge does. */
+  warnings?: ForgeWarning[]
+  raw: unknown
+}
+
 /** A tag of a repository. */
 export interface Tag {
   name: string

@@ -1,0 +1,27 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/repository/branches/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "main",
+      "merged": false,
+      "protected": true,
+      "developers_can_push": false,
+      "developers_can_merge": false,
+      "can_push": false,
+      "default": true,
+      "commit": {
+        "id": "6dcb09b5b57875f334f61aebed695e2e4193db5e",
+        "short_id": "6dcb09b5",
+        "title": "feat: widgets",
+        "web_url": "https://gitlab.com/acme/platform/widgets/-/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e"
+      },
+      "web_url": "https://gitlab.com/acme/platform/widgets/-/tree/main"
+    }
+  }
+}

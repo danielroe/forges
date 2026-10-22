@@ -49,6 +49,32 @@ describe('anonymous providers', () => {
     expect(calls).toEqual([])
   })
 
+  it('reads the rulesets of a branch without credentials', async () => {
+    const { fetch, calls } = fixtureFetch('github')
+    const rules = await github({ fetch }).repos.branchRules(repo, 'next')
+
+    expect(rules).toMatchObject({ branch: 'next', requiredChecks: [{ name: 'test' }], requiredApprovals: 1 })
+    expect(rules.warnings).toBeUndefined()
+    expect(calls).toHaveLength(2)
+  })
+
+  it('reads the rules of a branch without credentials, and warns about the classic protection only an admin sees', async () => {
+    const { fetch } = fixtureFetch('github', { 'GET https://api.github.com/repos/acme/widgets/branches/main/protection': { status: 401, body: { message: 'Requires authentication' } } })
+    const rules = await github({ fetch }).repos.branchRules(repo, 'main')
+
+    expect(rules.requiredChecks.map(check => check.name)).toEqual(['test', 'lint', 'CLA Signing'])
+    expect(rules.requiredApprovals).toBe(1)
+    expect(rules.warnings?.map(warning => warning.code)).toEqual(['insufficient_scope'])
+  })
+
+  it('reads the rules of a Forgejo branch without credentials', async () => {
+    const { fetch, calls } = fixtureFetch('forgejo')
+    const rules = await forgejo({ fetch }).repos.branchRules({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, 'main')
+
+    expect(calls[0]!.authorization).toBeUndefined()
+    expect(rules.requiredApprovals).toBe(1)
+  })
+
   it('rejects the account repository list without a request', async () => {
     const { fetch, calls } = fixtureFetch('github')
     const forge = github({ fetch })

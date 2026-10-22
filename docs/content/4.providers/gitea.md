@@ -48,6 +48,7 @@ Because Gitea and Forgejo share an implementation, the following sections of the
 - [Marking notifications done](/providers/forgejo#marking-notifications-done)
 - [Merging](/providers/forgejo#merging)
 - [Reviews](/providers/forgejo#reviews)
+- [Branch rules](/providers/forgejo#branch-rules)
 - [Changed files](/providers/forgejo#changed-files)
 - [Committing files](/providers/forgejo#committing-files)
 - [Templates](/providers/forgejo#templates)
@@ -130,6 +131,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
+| `repos.branchRules` | ✅ | ✅ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
 | `repos.reviewerCandidates` | ✅ | ❌ |

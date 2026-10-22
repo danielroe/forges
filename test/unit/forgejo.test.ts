@@ -62,6 +62,26 @@ describe('forgejo provider', () => {
     ])
   })
 
+  it('reads the checks and approvals of a branch from the branch itself', async () => {
+    const { instance, calls } = provider()
+    const rules = await instance.repos.branchRules({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, 'main')
+
+    expect(rules).toMatchObject({
+      branch: 'main',
+      requiredChecks: [{ name: 'testing / lint (pull_request)' }, { name: 'check-and-test / **' }],
+      requiredApprovals: 1,
+    })
+    expect(calls).toHaveLength(1)
+  })
+
+  it('ignores the check names of a protection rule that leaves status checks off', async () => {
+    const { instance } = provider({
+      'GET https://codeberg.org/api/v1/repos/acme/widgets/branches/docs': { status: 200, body: { name: 'docs', protected: true, required_approvals: 0, enable_status_check: false, status_check_contexts: ['lint'] } },
+    })
+
+    expect((await instance.repos.branchRules({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, 'docs')).requiredChecks).toEqual([])
+  })
+
   it('updates a branch by the style it is given, and compares the head sha with a read first', async () => {
     const { instance, calls } = provider()
     const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '7' } as const

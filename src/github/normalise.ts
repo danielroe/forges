@@ -1,6 +1,7 @@
 import type {
   Actor,
   Branch,
+  BranchRules,
   ChangedFile,
   Check,
   CheckState,
@@ -17,6 +18,7 @@ import type {
   EventDetail,
   EventKind,
   ForgeEventInput,
+  ForgeWarning,
   IssueType,
   Label,
   MergeCommitDefaults,
@@ -29,6 +31,7 @@ import type {
   Repo,
   RepoRef,
   RepoRole,
+  RequiredCheck,
   ResolvedThreadRef,
   Review,
   ReviewComment,
@@ -52,6 +55,9 @@ import type {
 } from '../model.ts'
 import type {
   GitHubBranch,
+  GitHubBranchDetail,
+  GitHubBranchProtection,
+  GitHubBranchRule,
   GitHubCheckRun,
   GitHubCodeScanningAlert,
   GitHubCollaborator,
@@ -940,6 +946,43 @@ export function toBranch(raw: GitHubBranch, defaultBranch?: string): Branch {
     isDefault: defaultBranch === undefined ? undefined : raw.name === defaultBranch,
     isProtected: raw.protected,
     raw,
+  }
+}
+
+/** Merges rulesets with classic protection; `protection` is undefined when it's off or only an admin could read it. */
+export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRule[], protection: GitHubBranchProtection | undefined, warnings: ForgeWarning[]): BranchRules {
+  const checks = new Map<string, RequiredCheck>()
+  const add = (name: string, appId?: number | null) => {
+    const check: RequiredCheck = appId == null ? { name } : { name, appId: String(appId) }
+    checks.set(`${check.appId ?? ''}\0${name}`, check)
+  }
+  const approvals: number[] = []
+  for (const rule of rules) {
+    if (rule.type === 'required_status_checks') {
+      for (const check of rule.parameters?.required_status_checks ?? []) {
+        add(check.context, check.integration_id)
+      }
+    }
+    if (rule.type === 'pull_request') {
+      approvals.push(rule.parameters?.required_approving_review_count ?? 0)
+    }
+  }
+  const classic = branch.protection?.enabled ? branch.protection.required_status_checks : undefined
+  if (classic && classic.enforcement_level !== 'off') {
+    for (const check of classic.checks ?? classic.contexts?.map(context => ({ context, app_id: undefined })) ?? []) {
+      add(check.context, check.app_id)
+    }
+  }
+  if (protection) {
+    approvals.push(protection.required_pull_request_reviews?.required_approving_review_count ?? 0)
+  }
+  const known = protection || !branch.protection?.enabled
+  return {
+    branch: branch.name,
+    requiredChecks: [...checks.values()],
+    requiredApprovals: known ? Math.max(0, ...approvals) : approvals.length ? Math.max(...approvals) : undefined,
+    ...warnings.length ? { warnings } : {},
+    raw: { branch, rules, protection },
   }
 }
 

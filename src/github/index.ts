@@ -100,6 +100,9 @@ import type {
   GitHubAsyncMerge,
   GitHubBlob,
   GitHubBranch,
+  GitHubBranchDetail,
+  GitHubBranchProtection,
+  GitHubBranchRule,
   GitHubCheckRun,
   GitHubCodeSearchItem,
   GitHubCollaborator,
@@ -138,7 +141,7 @@ import type {
 import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBase64, existingFiles, fromBase64, inDirectories, isSha, splitMessage, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
-import { BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, MergeConflictError, NotFoundError, RateLimitedError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { AuthenticationRequiredError, BranchMovedError, ForbiddenError, ForgeApiError, ForgeError, ForgeTimeoutError, InsufficientScopeError, MergeBlockedError, MergeConflictError, NotFoundError, RateLimitedError, ReadOnlyError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { anySignal, sleep } from '../fetch.ts'
 import { isNamespaceRef, isResolvedThread, reactionContent } from '../model.ts'
 import { actorLogin, createListing, degradesToWarning, forgeIterable, getManyConcurrently, hostOf, isFirstPage, iteratePages, memo, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, teamOrg, toDate, toPage, toWarning, versionAtLeast } from '../utils.ts'
@@ -150,6 +153,7 @@ import {
   repoRefFromApiUrl,
   toActor,
   toBranch,
+  toBranchRules,
   toChangedFile,
   toCheckRun,
   toCodeScanningAlert,
@@ -2030,6 +2034,28 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         )
         return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
       }),
+      branchRules: verb(enterprise ? 'unverified' : true, async (repo, name, options) => {
+        const branchPath = `branches/${name.split('/').map(encodeURIComponent).join('/')}`
+        const path = `${repoPath(repo)}/${branchPath}`
+        const [{ data: branch }, rules] = await Promise.all([
+          fetcher.json<GitHubBranchDetail>(path, { signal: options?.signal }),
+          Array.fromAsync(fetcher.items<GitHubBranchRule>(`${repoPath(repo)}/rules/${branchPath}`, { query: { per_page: 100 }, signal: options?.signal })),
+        ])
+        const warnings: ForgeWarning[] = []
+        let protection: GitHubBranchProtection | undefined
+        if (branch.protection?.enabled) {
+          try {
+            protection = (await fetcher.json<GitHubBranchProtection>(`${path}/protection`, { signal: options?.signal })).data
+          }
+          catch (error) {
+            if (!(error instanceof NotFoundError || error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof AuthenticationRequiredError)) {
+              throw error
+            }
+            warnings.push(toWarning('insufficient_scope', error, 'protection'))
+          }
+        }
+        return toBranchRules(branch, rules, protection, warnings)
+      }),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
         const response = await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
         return { status: response.status === 201 ? 'invited' : 'added' }
@@ -2427,6 +2453,13 @@ function githubScopesFor(verb: ForgeVerb): VerbScopes {
   }
   if (verb === 'repos.issueTypes') {
     return { token: ['repo'], permissions: { metadata: 'read' } }
+  }
+  if (verb === 'repos.branchRules') {
+    return {
+      token: ['repo', 'public_repo'],
+      permissions: { contents: 'read', metadata: 'read', administration: 'read' },
+      note: 'Classic branch protection shows its approvals only to an admin of the repository, or with `administration: read`',
+    }
   }
   if (verb === 'threads.setIssueType') {
     return { token: ['repo', 'public_repo'], permissions: { issues: 'write' }, note: 'Needs push access: without it, GitHub leaves the type unchanged' }

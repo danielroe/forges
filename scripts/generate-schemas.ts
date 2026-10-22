@@ -13,6 +13,7 @@ import { createGenerator } from 'ts-json-schema-generator'
 export const ROOT_TYPES = [
   'AddCollaboratorResult',
   'Branch',
+  'BranchRules',
   'ChangedFile',
   'Check',
   'CiJob',

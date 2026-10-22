@@ -382,6 +382,30 @@ describe('gitlab provider', () => {
     expect(file).toEqual({ path: 'docs/README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
     expect(calls).toHaveLength(1)
   })
+
+  it('reads the approval rules that apply to a branch, and the pipeline it has to pass', async () => {
+    const { instance } = provider()
+    const rules = await instance.repos.branchRules(repo, 'main')
+
+    expect(rules).toMatchObject({ branch: 'main', requiredChecks: [], requiresAllChecks: true, requiredApprovals: 2 })
+    expect(rules.warnings).toBeUndefined()
+  })
+
+  it('matches wildcard branches, and keeps the rules for protected branches off an unprotected one', async () => {
+    const { instance } = provider({
+      [`GET ${P}/repository/branches/16-4-stable`]: { status: 200, body: { name: '16-4-stable', protected: false, commit: { id: 'a'.repeat(40) } } },
+    })
+
+    expect((await instance.repos.branchRules(repo, '16-4-stable')).requiredApprovals).toBe(3)
+  })
+
+  it('warns when the approval rules are out of reach rather than reading them as none', async () => {
+    const { instance } = provider({ [`GET ${P}/approval_rules?per_page=100`]: { status: 403, body: { message: '403 Forbidden' } } })
+    const rules = await instance.repos.branchRules(repo, 'main')
+
+    expect(rules.requiredApprovals).toBeUndefined()
+    expect(rules.warnings?.map(warning => warning.code)).toEqual(['insufficient_scope'])
+  })
 })
 
 describe('gitlab repository licence', () => {

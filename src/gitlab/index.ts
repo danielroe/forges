@@ -57,6 +57,7 @@ import type {
 } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type {
+  GitLabApprovalRule,
   GitLabApprovals,
   GitLabAwardEmoji,
   GitLabBlob,
@@ -94,7 +95,7 @@ import type {
 import { WRITE_VERBS } from '../capabilities.ts'
 import { changeBase64, existingFiles, fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { AuthenticationRequiredError, BranchMovedError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
+import { AuthenticationRequiredError, BranchMovedError, ForbiddenError, ForgeApiError, InsufficientScopeError, NotFoundError, soleMergeMethod, TokenRevokedError, toMergeError, UnresolvedThreadError, UnsupportedOperationError } from '../errors.ts'
 import { isNamespaceRef, reactionContent } from '../model.ts'
 import { createListing, degradesToWarning, firstPageEtag, getManyConcurrently, hexColour, isFirstPage, iteratePages, mapConcurrent, memo, memoBy, mergeCommitMessage, milestoneId, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, syntheticReview, teamOrg, toDate, toPage, toWarning, versionAtLeast, withEtag } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
@@ -108,6 +109,7 @@ import {
   REPORT_TYPES,
   toActor,
   toBranch,
+  toBranchRules,
   toChangedFile,
   toCiJob,
   toCommit,
@@ -874,6 +876,21 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             }
             throw error
           }
+        }),
+        branchRules: verb(!anonymous, async (repo, name, options) => {
+          const warnings: ForgeWarning[] = []
+          const [{ data: branch }, { data: project }, rules] = await Promise.all([
+            fetcher.json<GitLabBranch>(`${projectPath(repo)}/repository/branches/${encodeURIComponent(name)}`, { signal: options?.signal }),
+            fetcher.json<GitLabProjectDetail>(projectPath(repo), { signal: options?.signal }),
+            Array.fromAsync(fetcher.items<GitLabApprovalRule>(`${projectPath(repo)}/approval_rules`, { query: { per_page: 100 }, signal: options?.signal })).catch((error: unknown) => {
+              if (!(error instanceof ForbiddenError || error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
+                throw error
+              }
+              warnings.push(toWarning('insufficient_scope', error, 'approval_rules'))
+              return undefined
+            }),
+          ])
+          return toBranchRules(branch, project, rules, warnings)
         }),
         addCollaborator: verb(true, async (repo, actor, role, options) => {
           await fetcher.raw(`${projectPath(repo)}/members`, { method: 'POST', json: { user_id: await userId(actor), access_level: ACCESS_LEVELS[role] }, signal: options?.signal })

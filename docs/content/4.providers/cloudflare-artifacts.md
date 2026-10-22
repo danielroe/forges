@@ -96,6 +96,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
+| `repos.branchRules` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |

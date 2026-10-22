@@ -1,0 +1,80 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/approval_rules?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 1,
+        "name": "All Members",
+        "rule_type": "any_approver",
+        "approvals_required": 1,
+        "eligible_approvers": [],
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "protected_branches": [],
+        "applies_to_all_protected_branches": false
+      },
+      {
+        "id": 2,
+        "name": "Maintainers",
+        "rule_type": "regular",
+        "approvals_required": 2,
+        "eligible_approvers": [],
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "protected_branches": [],
+        "applies_to_all_protected_branches": true
+      },
+      {
+        "id": 3,
+        "name": "Stable branches",
+        "rule_type": "regular",
+        "approvals_required": 3,
+        "eligible_approvers": [],
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "protected_branches": [
+          {
+            "id": 61351134,
+            "name": "*-stable"
+          }
+        ],
+        "applies_to_all_protected_branches": false
+      },
+      {
+        "id": 4,
+        "name": "Coverage-Check",
+        "rule_type": "report_approver",
+        "report_type": "code_coverage",
+        "approvals_required": 4,
+        "eligible_approvers": [],
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "protected_branches": [],
+        "applies_to_all_protected_branches": false
+      },
+      {
+        "id": 5,
+        "name": "Code owners",
+        "rule_type": "code_owner",
+        "approvals_required": 5,
+        "eligible_approvers": [],
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "protected_branches": [],
+        "applies_to_all_protected_branches": false,
+        "section": "codeowners"
+      }
+    ]
+  }
+}

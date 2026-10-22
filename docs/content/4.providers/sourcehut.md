@@ -97,6 +97,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ❌ | ❌ |
 | `repos.permissionFor` | emulated | ❌ |
+| `repos.branchRules` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |

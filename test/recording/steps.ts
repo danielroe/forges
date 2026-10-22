@@ -308,6 +308,7 @@ export const STEPS: Step[] = [
   // GitHub is the only forge that distinguishes contributors with an account from those without.
   { name: 'unlinked contributors', verb: 'repos.contributors', when: provider => provider.forge === 'github', run: (provider, manifest) => provider.repos.contributors(manifest.repo, { ...unlinkedPage, includeUnlinked: true }).page() },
   { name: 'templates', verb: 'repos.templates', run: (provider, manifest) => provider.repos.templates(manifest.repo) },
+  { name: 'branch rules', verb: 'repos.branchRules', run: (provider, manifest, context) => provider.repos.branchRules(manifest.repo, need(context.repo?.defaultBranch, 'the default branch')) },
   { name: 'contributor stats', verb: 'repos.contributorStats', run: (provider, manifest) => provider.repos.contributorStats(manifest.scratch ?? manifest.repo) },
   { name: 'assignable users', verb: 'repos.assignableUsers', run: (provider, manifest) => provider.repos.assignableUsers(manifest.repo, page).page() },
   { name: 'org teams', verb: 'orgs.teams', run: async (provider, manifest, context) => {

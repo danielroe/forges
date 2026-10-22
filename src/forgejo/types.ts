@@ -326,6 +326,10 @@ export interface ForgejoBranch {
   name: string
   commit?: { id?: string, url?: string }
   protected?: boolean
+  required_approvals?: number
+  enable_status_check?: boolean
+  /** Glob patterns, such as `ci / **`, that the statuses must match. */
+  status_check_contexts?: string[]
 }
 
 /** The commit that a change to files made, which matches no accounts. */

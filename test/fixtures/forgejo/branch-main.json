@@ -1,0 +1,29 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/acme/widgets/branches/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "main",
+      "commit": {
+        "id": "6dcb09b5b57875f334f61aebed695e2e4193db5e",
+        "message": "feat: widgets\n",
+        "url": "https://codeberg.org/acme/widgets/commit/6dcb09b5b57875f334f61aebed695e2e4193db5e"
+      },
+      "protected": true,
+      "required_approvals": 1,
+      "enable_status_check": true,
+      "status_check_contexts": [
+        "testing / lint (pull_request)",
+        "check-and-test / **"
+      ],
+      "user_can_push": false,
+      "user_can_merge": false,
+      "effective_branch_protection_name": "main"
+    }
+  }
+}

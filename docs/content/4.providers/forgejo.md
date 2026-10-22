@@ -67,6 +67,10 @@ The `ci` methods read Forgejo Actions. Runs need Forgejo 12 or later, and jobs a
 
 Forgejo before 15 ignores the branch filter, so `ci.runs()` drops the runs of other branches itself, and a page can come back shorter than `perPage`. Forgejo doesn't page the jobs of a run, so `ci.jobs()` returns all of them in one page. Forgejo has no API to re-run the jobs of a run, so `ci.rerunFailed()` isn't available.
 
+## Branch rules
+
+`repos.branchRules()` gets away with one request, because Forgejo puts the protection rule that matches a branch right on the branch. The names in `requiredChecks` can be glob patterns, so `ci / **` stands for every status whose context matches it. When the rule leaves status checks off, `requiredChecks` is empty, whatever names the rule still lists.
+
 ## Changed files
 
 `threads.files()` and `contents.compare()` return line counts for each file, but they don't return a `patch`. Forgejo serves diffs only for a whole pull request.
@@ -162,6 +166,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
+| `repos.branchRules` | ✅ | ✅ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ❌ |
 | `repos.reviewerCandidates` | ✅ | ❌ |

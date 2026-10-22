@@ -58,7 +58,7 @@ const DATA_MODEL_SECTIONS: SectionConfig[] = [
   { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
   { title: 'Reviews', names: [/^Review/, 'ResolvedReviewRef', 'PullBranches', 'PullStats', 'ThreadStack'] },
   { title: 'Checks and CI', names: [/^(?:Check|Ci)/] },
-  { title: 'Files and commits', names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Compar)/] },
+  { title: 'Files and commits', names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Compar)/, 'RequiredCheck'] },
   { title: 'Releases', names: [/^Release/, 'DownloadAssetOptions'] },
   { title: 'Security alerts', names: [/^Security/] },
   { title: 'Webhooks', names: [/^Webhook/] },

@@ -732,6 +732,7 @@ describe.each(contracts)('contract: $name', (contract) => {
       ['repos.contributorStats', (forge: ForgeProvider) => forge.repos.contributorStats(repoRef())],
       ['repos.templates', (forge: ForgeProvider) => forge.repos.templates(repoRef())],
       ['repos.permissionFor', (forge: ForgeProvider) => forge.repos.permissionFor(repoRef(), 'octocat')],
+      ['repos.branchRules', (forge: ForgeProvider) => forge.repos.branchRules(repoRef(), 'main')],
       ['repos.addCollaborator', (forge: ForgeProvider) => forge.repos.addCollaborator(repoRef(), 'octocat', 'write')],
       ['repos.assignableUsers', (forge: ForgeProvider) => forge.repos.assignableUsers(repoRef()).page()],
       ['repos.reviewerCandidates', (forge: ForgeProvider) => forge.repos.reviewerCandidates(threadRef()).page()],

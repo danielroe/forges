@@ -1,0 +1,40 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/acme/widgets/branches/main/protection"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "url": "https://api.github.com/repos/acme/widgets/branches/main/protection",
+      "required_status_checks": {
+        "strict": false,
+        "contexts": [
+          "lint",
+          "CLA Signing"
+        ],
+        "checks": [
+          {
+            "context": "lint",
+            "app_id": 15368
+          },
+          {
+            "context": "CLA Signing",
+            "app_id": null
+          }
+        ]
+      },
+      "required_pull_request_reviews": {
+        "dismiss_stale_reviews": false,
+        "require_code_owner_reviews": false,
+        "require_last_push_approval": false,
+        "required_approving_review_count": 2
+      },
+      "enforce_admins": {
+        "enabled": false
+      }
+    }
+  }
+}

@@ -386,6 +386,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   repoRead('repos.contributorStats', 'ContributorStats[]', (p, _, { repo }) => p.repos.contributorStats(repo)),
   repoRead('repos.templates', 'RepoTemplate[]', (p, _, { repo }) => p.repos.templates(repo)),
   operation('repos.permissionFor', { returns: 'RepoRole', auth: true, fields: fields('login'), args: ({ value }) => `repo, ${value('login')}`, run: (p, input, { repo }) => p.repos.permissionFor(repo, input.login) }),
+  operation('repos.branchRules', { returns: 'BranchRules', fields: fields('head'), args: ({ value }) => `repo, ${value('head')}`, run: (p, input, { repo }) => p.repos.branchRules(repo, input.head) }),
   repoRead('repos.assignableUsers', 'Page<Actor>', (p, _, { repo }) => p.repos.assignableUsers(repo, perPage).page()),
   repoRead('repos.events', 'Page<ForgeEvent>', (p, _, { repo }) => p.repos.events(repo, perPage).page()),
   operation('repos.reviewerCandidates', { returns: 'Page<Actor>', uses: 'thread', fields: fields('kind', 'number'), kind: threadKind, args: () => 'thread, { perPage: 5 }', run: (p, _, { thread }) => p.repos.reviewerCandidates(thread, perPage).page() }),

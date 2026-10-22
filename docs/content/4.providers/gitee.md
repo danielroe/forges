@@ -129,6 +129,7 @@ You can manage webhooks on repositories only. Gitee doesn't keep a delivery log,
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
+| `repos.branchRules` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |

@@ -1,6 +1,7 @@
 import type {
   Actor,
   Branch,
+  BranchRules,
   ChangedFile,
   Check,
   ChecksSummary,
@@ -15,6 +16,7 @@ import type {
   EventDetail,
   EventKind,
   ForgeEventInput,
+  ForgeWarning,
   Label,
   MergeMethod,
   Milestone,
@@ -40,7 +42,7 @@ import type {
   WebhookDeliveryRecord,
   WebhookRef,
 } from '../model.ts'
-import type { GitLabBranch, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
+import type { GitLabApprovalRule, GitLabBranch, GitLabCommitComment, GitLabCommitDetail, GitLabCommitStatus, GitLabDiff, GitLabDiscussion, GitLabGroup, GitLabHook, GitLabHookEvent, GitLabIssue, GitLabJob, GitLabLabel, GitLabMilestone, GitLabNote, GitLabNoteDetail, GitLabPipeline, GitLabProjectDetail, GitLabRelease, GitLabTag, GitLabTodo, GitLabTreeEntry, GitLabUser, GitLabVulnerability } from './types.ts'
 import { eventTime } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf } from '../webhooks.ts'
@@ -650,6 +652,29 @@ export function toBranch(raw: GitLabBranch): Branch {
     isProtected: raw.protected,
     url: raw.web_url,
     raw,
+  }
+}
+
+/** Whether a branch name matches a protected branch name, where `*` stands for any run of characters. */
+function matchesBranch(pattern: string, name: string): boolean {
+  return new RegExp(`^${pattern.split('*').map(part => part.replace(/[\\^$.|?+()[\]{}]/g, '\\$&')).join('.*')}$`).test(name)
+}
+
+/** Code owner and report rules apply only to some changes, so just `any_approver` and `regular` set the floor. */
+export function toBranchRules(branch: GitLabBranch, project: GitLabProjectDetail, rules: GitLabApprovalRule[] | undefined, warnings: ForgeWarning[]): BranchRules {
+  const applies = (rule: GitLabApprovalRule) => rule.protected_branches?.length
+    ? rule.protected_branches.some(protectedBranch => matchesBranch(protectedBranch.name, branch.name))
+    : !rule.applies_to_all_protected_branches || branch.protected === true
+  const approvals = rules
+    ?.filter(rule => (rule.rule_type === 'any_approver' || rule.rule_type === 'regular') && applies(rule))
+    .map(rule => rule.approvals_required)
+  return {
+    branch: branch.name,
+    requiredChecks: [],
+    requiresAllChecks: project.only_allow_merge_if_pipeline_succeeds ?? undefined,
+    requiredApprovals: approvals && Math.max(0, ...approvals),
+    ...warnings.length ? { warnings } : {},
+    raw: { branch, project, rules },
   }
 }
 

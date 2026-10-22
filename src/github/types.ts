@@ -457,6 +457,34 @@ export interface GitHubBranch {
   protected?: boolean
 }
 
+/** A branch with the summary of its classic protection, which anyone who can read the repository sees. */
+export interface GitHubBranchDetail extends GitHubBranch {
+  protection?: {
+    enabled?: boolean
+    required_status_checks?: {
+      /** `off` when classic protection requires no checks. */
+      enforcement_level?: string
+      contexts?: string[]
+      /** `app_id` is null when any app can report the check. */
+      checks?: Array<{ context: string, app_id?: number | null }>
+    }
+  }
+}
+
+/** Classic branch protection in full, which only an admin can read. */
+export interface GitHubBranchProtection {
+  required_pull_request_reviews?: { required_approving_review_count?: number }
+}
+
+/** A rule from an active ruleset that applies to a branch. */
+export interface GitHubBranchRule {
+  type: string
+  parameters?: {
+    required_status_checks?: Array<{ context: string, integration_id?: number }>
+    required_approving_review_count?: number
+  }
+}
+
 export interface GitHubTag {
   name: string
   commit: { sha: string, url?: string }

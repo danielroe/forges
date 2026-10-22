@@ -64,6 +64,8 @@ export interface GitLabProjectDetail extends GitLabProject {
   merge_method?: 'merge' | 'rebase_merge' | 'ff'
   squash_option?: 'never' | 'always' | 'default_on' | 'default_off'
   remove_source_branch_after_merge?: boolean | null
+  /** "Pipelines must succeed". GitLab leaves it out of an anonymous read. */
+  only_allow_merge_if_pipeline_succeeds?: boolean | null
   merge_commit_template?: string | null
   squash_commit_template?: string | null
   issues_enabled?: boolean
@@ -366,6 +368,18 @@ export interface GitLabBranch {
   default?: boolean
   protected?: boolean
   web_url?: string
+}
+
+/** A merge request approval rule of a project. */
+export interface GitLabApprovalRule {
+  id: number
+  name?: string
+  /** `any_approver` and `regular` always apply; `code_owner` and `report_approver` only when certain files or reports change. */
+  rule_type?: string
+  approvals_required: number
+  applies_to_all_protected_branches?: boolean
+  /** The branches the rule is limited to, whose names can hold `*` wildcards. Empty when it applies to every branch. */
+  protected_branches?: Array<{ name: string }>
 }
 
 export interface GitLabTag {

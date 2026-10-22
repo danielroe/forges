@@ -1,0 +1,28 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/acme/widgets/branches/next"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "next",
+      "commit": {
+        "sha": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+        "url": "https://api.github.com/repos/acme/widgets/commits/7fd1a60b01f91b314f59955a4e4d4e80d8edf11d"
+      },
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      },
+      "protection_url": "https://api.github.com/repos/acme/widgets/branches/next/protection"
+    }
+  }
+}

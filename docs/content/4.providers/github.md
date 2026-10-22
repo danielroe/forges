@@ -147,6 +147,12 @@ What `checks.report()` writes depends on your credential. With the credential of
 
 `threads.get()`, `threads.getMany()`, `threads.list()` and `threads.closingPullRequests()` read the check runs and commit statuses of each pull request into `checks`, so on a GitHub App they need the `checks: read` and `statuses: read` permissions.
 
+## Branch rules
+
+GitHub keeps two kinds of rules for a branch: rulesets and classic branch protection. `repos.branchRules()` reads both and merges them, so you don't have to care which one the maintainer clicked. A check that both ask for is listed once, and when both ask for approvals, the higher count wins.
+
+The catch is classic protection. Anyone who can read the repository sees its required checks, but GitHub shows its approval count only to an admin and answers everyone else with `404`. Without admin access, or `administration: read` on a GitHub App, `requiredApprovals` holds only what the rulesets ask for, or is absent when no ruleset asks, and the result carries an `insufficient_scope` warning. Treat that number as the floor, not the whole answer.
+
 ## Security advisories
 
 With `kind: 'advisory'`, `securityAlerts.list()` lists the security advisories of the repository, including the drafts and private vulnerability reports that the credential can see. Those need a security manager, an administrator, or a collaborator on the advisory. A report in triage or a draft is `open`, a published advisory is `fixed`, and a closed or withdrawn one is `dismissed`. For `open` and `closed`, the provider reads every advisory and keeps those in that state, so a page can hold fewer than `perPage`. GitHub Enterprise Server doesn't list advisories.
@@ -332,6 +338,7 @@ An organisation defines its issue types, and its repositories inherit them. `rep
 | `repos.contributorStats` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.templates` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.permissionFor` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `repos.branchRules` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.addCollaborator` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated | emulated | ❌ | ❌ |

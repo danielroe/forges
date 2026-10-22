@@ -147,6 +147,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ∅ | ∅ |
 | `repos.permissionFor` | ❌ | ❌ |
+| `repos.branchRules` | ❌ | ❌ |
 | `repos.addCollaborator` | ❌ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |

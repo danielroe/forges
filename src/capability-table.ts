@@ -49,6 +49,7 @@ const TABLE = [
   { capability: 'repos.contributorStats' },
   { capability: 'repos.templates' },
   { capability: 'repos.permissionFor' },
+  { capability: 'repos.branchRules' },
   { capability: 'repos.addCollaborator', write: true },
   { capability: 'repos.assignableUsers', listing: true },
   { capability: 'repos.reviewerCandidates', listing: true },

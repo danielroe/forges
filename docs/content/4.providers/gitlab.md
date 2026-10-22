@@ -99,6 +99,14 @@ GitLab reports the number of changed files on a single merge request, but not th
 
 `ci.rerunFailed()` retries the pipeline, so GitLab re-runs its canceled jobs as well as its failed ones. The jobs that `threads.checks()` returns have the pipeline in `run`. When the pipeline ran in a fork, their refs name the fork.
 
+## Branch rules
+
+GitLab doesn't name the jobs a merge request needs. Its "Pipelines must succeed" setting asks for the whole pipeline, so `repos.branchRules()` leaves `requiredChecks` empty and sets `requiresAllChecks` instead. External status checks aren't read.
+
+Approvals come from the approval rules of the project, the ones that apply to the branch, wildcards such as `*-stable` included. Only `any_approver` and `regular` rules count, because code owner and report rules kick in only when certain files or reports change. A merge request has to meet every rule, so `requiredApprovals` is the highest count among them. That's a floor: two rules with different approvers can need more people.
+
+GitLab hides both the setting and the rules from a request without a token, so the method needs one. When the token can't read the rules, `requiredApprovals` is absent and the result carries an `insufficient_scope` warning.
+
 ## Releases
 
 GitLab releases have no draft or prerelease state, so every release is published as soon as you create it. `releases.create()` and `releases.update()` reject `draft: true` and `prerelease: true` with `UnsupportedOperationError` before they send a request. If the tag doesn't exist yet, `releases.create()` needs `target`, the branch or commit to tag.
@@ -180,6 +188,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.contributorStats` | ❌ | ❌ |
 | `repos.templates` | ✅ | ✅ |
 | `repos.permissionFor` | ✅ | ❌ |
+| `repos.branchRules` | ✅ | ❌ |
 | `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ✅ | ✅ |
 | `repos.reviewerCandidates` | emulated | emulated |
