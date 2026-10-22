@@ -1,0 +1,9 @@
+{
+  "branch": "main",
+  "requiredChecks": [
+    {
+      "name": "check-and-test / **"
+    }
+  ],
+  "requiredApprovals": 1
+}
