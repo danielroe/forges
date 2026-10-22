@@ -713,6 +713,14 @@ describe('github repository and thread metadata', () => {
     expect(rules.warnings?.map(warning => warning.code)).toEqual(['insufficient_scope'])
   })
 
+  it('falls back to the contexts of classic protection when it lists no checks', async () => {
+    const { provider } = tokenProvider({
+      'GET https://api.github.com/repos/acme/widgets/branches/main': { status: 200, body: { name: 'main', commit: { sha: 'a'.repeat(40) }, protected: true, protection: { enabled: true, required_status_checks: { enforcement_level: 'everyone', contexts: ['ci/jenkins'], checks: [] } } } },
+    })
+
+    expect((await provider.repos.branchRules(repo, 'main')).requiredChecks).toContainEqual({ name: 'ci/jenkins' })
+  })
+
   it('reads no protection for a branch that classic protection leaves alone', async () => {
     const { provider, calls } = tokenProvider({
       'GET https://api.github.com/repos/acme/widgets/branches/release/v1': { status: 200, body: { name: 'release/v1', commit: { sha: 'a'.repeat(40) }, protected: false, protection: { enabled: false, required_status_checks: { enforcement_level: 'off', contexts: [], checks: [] } } } },

@@ -969,7 +969,7 @@ export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRul
   }
   const classic = branch.protection?.enabled ? branch.protection.required_status_checks : undefined
   if (classic && classic.enforcement_level !== 'off') {
-    for (const check of classic.checks ?? classic.contexts?.map(context => ({ context, app_id: undefined })) ?? []) {
+    for (const check of classic.checks?.length ? classic.checks : classic.contexts?.map(context => ({ context, app_id: undefined })) ?? []) {
       add(check.context, check.app_id)
     }
   }
