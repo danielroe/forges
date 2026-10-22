@@ -979,13 +979,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       /** A conversation takes replies from several reviews, so every review is read and the conversations come in one page. */
       reviewThreadsPage: verb(anonymous ? 'unverified' : 'emulated', async (thread, listOptions: PageOptions = {}) => {
         const ref = requirePull(thread, 'read for review threads')
-        const comments: ForgejoReviewComment[] = []
-        for await (const review of fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, { query: { limit: 50 }, signal: listOptions.signal })) {
-          if (review.comments_count !== 0) {
-            comments.push(...(await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(review.id)}/comments`, { signal: listOptions.signal })).data ?? [])
-          }
-        }
-        return { items: toReviewThreads(ref, comments) }
+        const reviews = await Array.fromAsync(fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, { query: { limit: 50 }, signal: listOptions.signal }))
+        const comments = await mapConcurrent(reviews.filter(review => review.comments_count !== 0), 4, async review =>
+          (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(review.id)}/comments`, { signal: listOptions.signal })).data ?? [])
+        return { items: toReviewThreads(ref, comments.flat()) }
       }),
       getReview: verb(true, async (ref, options) => {
         const pull = requirePull(ref.thread, 'reviewed')

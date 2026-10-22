@@ -139,7 +139,7 @@ Two options aren't available, and they reject with `UnsupportedOperationError`. 
 
 ## Review threads
 
-`reviewThreads()` reads the conversations through GraphQL, up to 100 a page, each with its first 100 comments. When the code under a conversation changes, GitHub marks it outdated and can leave it without a line on the current diff, so `outdated` is `true` and `line` and `startLine` fall back to the lines the comments were written on. `reviews()` and `getReview()` take the `thread` of each comment from the same GraphQL read, page after page, so a pull request with more than 100 conversations still gets all of them. GraphQL needs a token, so an anonymous provider can't list conversations.
+`reviewThreads()` reads the conversations through GraphQL, up to 100 a page, each with its first 100 comments. When the code under a conversation changes, GitHub marks it outdated and can leave it without a line on the current diff, so `outdated` is `true` and `line` and `startLine` fall back to the lines the comments were written on. `reviews()` and `getReview()` also read every page of conversations through GraphQL, to find the `thread` of each comment. GraphQL needs a token, so an anonymous provider can't list conversations.
 
 ## Review replies
 

@@ -543,6 +543,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         'threads.createReview',
         'threads.submitReview',
         'threads.replyToReviewComment',
+        'threads.reviewThreads',
         'threads.resolveReviewThread',
         'threads.requestReview',
         'threads.checks',
