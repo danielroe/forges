@@ -1,0 +1,25 @@
+{
+  "branch": "protected",
+  "requiredChecks": [
+    {
+      "name": "test",
+      "appId": "15368"
+    },
+    {
+      "name": "lint"
+    }
+  ],
+  "requiredApprovals": 1,
+  "warnings": [
+    {
+      "code": "insufficient_scope",
+      "message": "Credentials are required for this request",
+      "subject": "protection",
+      "cause": {
+        "name": "AuthenticationRequiredError",
+        "message": "Credentials are required for this request",
+        "status": 401
+      }
+    }
+  ]
+}

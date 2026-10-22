@@ -1,0 +1,25 @@
+{
+  "branch": "protected",
+  "requiredChecks": [
+    {
+      "name": "test",
+      "appId": "15368"
+    },
+    {
+      "name": "lint"
+    }
+  ],
+  "requiredApprovals": 1,
+  "warnings": [
+    {
+      "code": "insufficient_scope",
+      "message": "Credentials lack the scope or permission for this request",
+      "subject": "protection",
+      "cause": {
+        "name": "InsufficientScopeError",
+        "message": "Credentials lack the scope or permission for this request",
+        "status": 403
+      }
+    }
+  ]
+}

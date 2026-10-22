@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/branches/protected/protection"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4966",
+      "x-ratelimit-reset": "1792700020",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "message": "Resource not accessible by integration",
+      "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+      "status": "403"
+    }
+  }
+}

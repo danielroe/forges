@@ -1,0 +1,13 @@
+{
+  "branch": "protected",
+  "requiredChecks": [
+    {
+      "name": "test",
+      "appId": "15368"
+    },
+    {
+      "name": "lint"
+    }
+  ],
+  "requiredApprovals": 2
+}

@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/rules/branches/protected?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"33f349d1d6547e24b0a3cd9c49abb8132eee2b109f28cbc66d8e22a902f06767\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4616",
+      "x-ratelimit-reset": "1792698463",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "type": "required_status_checks",
+        "parameters": {
+          "strict_required_status_checks_policy": false,
+          "do_not_enforce_on_create": false,
+          "required_status_checks": [
+            {
+              "context": "test",
+              "integration_id": 15368
+            }
+          ]
+        },
+        "ruleset_source_type": "Repository",
+        "ruleset_source": "forges-fixtures/forges-fixtures",
+        "ruleset_id": 25669147
+      },
+      {
+        "type": "pull_request",
+        "parameters": {
+          "required_approving_review_count": 1,
+          "dismiss_stale_reviews_on_push": false,
+          "required_reviewers": [],
+          "require_code_owner_review": false,
+          "dismissal_restriction": {
+            "enabled": false,
+            "allowed_actors": []
+          },
+          "require_last_push_approval": false,
+          "required_review_thread_resolution": false,
+          "require_extra_approval_for_unattributed_changes": true,
+          "allowed_merge_methods": [
+            "merge",
+            "squash",
+            "rebase"
+          ]
+        },
+        "ruleset_source_type": "Repository",
+        "ruleset_source": "forges-fixtures/forges-fixtures",
+        "ruleset_id": 25669147
+      }
+    ]
+  }
+}

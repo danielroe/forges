@@ -87,6 +87,9 @@ const headOf = (context: StepContext) => need(context.headSha ?? context.branche
 export const LOG_LIMIT = 16_384
 const ASSET_LIMIT = 65_536
 
+/** A branch of the GitHub scratch repository that both a ruleset and classic branch protection apply to. */
+const PROTECTED_BRANCH = 'protected'
+
 /** Reads from the recorded repository, or from the scratch repository when only a collaborator may read it. */
 async function orScratch<T>(manifest: RecordingManifest, read: (repo: RepoRef) => Promise<T>): Promise<T> {
   try {
@@ -309,6 +312,7 @@ export const STEPS: Step[] = [
   { name: 'unlinked contributors', verb: 'repos.contributors', when: provider => provider.forge === 'github', run: (provider, manifest) => provider.repos.contributors(manifest.repo, { ...unlinkedPage, includeUnlinked: true }).page() },
   { name: 'templates', verb: 'repos.templates', run: (provider, manifest) => provider.repos.templates(manifest.repo) },
   { name: 'branch rules', verb: 'repos.branchRules', run: (provider, manifest, context) => provider.repos.branchRules(manifest.repo, need(context.repo?.defaultBranch, 'the default branch')) },
+  { name: 'protected branch rules', verb: 'repos.branchRules', when: (provider, manifest) => provider.forge === 'github' && Boolean(manifest.scratch), run: (provider, manifest) => provider.repos.branchRules(need(manifest.scratch, 'manifest.scratch'), PROTECTED_BRANCH) },
   { name: 'contributor stats', verb: 'repos.contributorStats', run: (provider, manifest) => provider.repos.contributorStats(manifest.scratch ?? manifest.repo) },
   { name: 'assignable users', verb: 'repos.assignableUsers', run: (provider, manifest) => provider.repos.assignableUsers(manifest.repo, page).page() },
   { name: 'org teams', verb: 'orgs.teams', run: async (provider, manifest, context) => {
