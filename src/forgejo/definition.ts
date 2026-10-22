@@ -977,7 +977,7 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         return { items: reviews, cursor: result.cursor, ...rateLimitPart(result.response) }
       }),
       /** A conversation takes replies from several reviews, so every review is read and the conversations come in one page. */
-      reviewThreadsPage: verb(anonymous ? 'unverified' : 'emulated', async (thread, listOptions: PageOptions = {}) => {
+      reviewThreadsPage: verb('emulated', async (thread, listOptions: PageOptions = {}) => {
         const ref = requirePull(thread, 'read for review threads')
         const reviews = await Array.fromAsync(fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, { query: { limit: 50 }, signal: listOptions.signal }))
         const comments = await mapConcurrent(reviews.filter(review => review.comments_count !== 0), 4, async review =>

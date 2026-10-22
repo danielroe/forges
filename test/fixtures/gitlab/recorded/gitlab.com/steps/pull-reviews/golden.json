@@ -24,7 +24,7 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1791788916",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
@@ -34,8 +34,9 @@
     }
   ],
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1985,
-    "resetAt": "<now>"
+    "limit": 100,
+    "remaining": 67,
+    "resetAt": "<now>",
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

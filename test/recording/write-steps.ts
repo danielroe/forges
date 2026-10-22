@@ -459,7 +459,7 @@ export const WRITE_STEPS: WriteStep[] = [
     await provider.threads.resolveReviewThread(pull, context.reviewThread)
     return { reviews, comments, id }
   } },
-  { name: 'resolved review threads', verb: 'threads.reviewThreads', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.reviewThreads(reviewedOf(context), { state: 'resolved' }).page() },
+  { name: 'review threads', verb: 'threads.reviewThreads', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.reviewThreads(reviewedOf(context)).page() },
   { name: 'unresolve review thread', verb: 'threads.unresolveReviewThread', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.unresolveReviewThread(reviewedOf(context), need(context.reviewThread, 'a resolved review thread')) },
   { name: 'report check', verb: 'checks.report', run: (provider, manifest, context) => provider.checks.report(manifest.scratch, need(context.pulls[0]?.branches?.head.sha, 'the pull head sha'), { name: 'forges fixture', state: 'success', description: `Reported by run ${manifest.run.id}` }) },
   { name: 'rerun check', verb: 'checks.rerun', as: 'reviewer', run: async (provider, manifest) => {
