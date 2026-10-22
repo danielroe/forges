@@ -2045,6 +2045,9 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         let protection: GitHubBranchProtection | undefined
         if (branch.protection?.enabled) {
           try {
+            if (anonymous) {
+              throw new AuthenticationRequiredError('Credentials are required for this request', 401, '', context)
+            }
             protection = (await fetcher.json<GitHubBranchProtection>(`${path}/protection`, { signal: options?.signal })).data
           }
           catch (error) {

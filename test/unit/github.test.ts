@@ -713,6 +713,14 @@ describe('github repository and thread metadata', () => {
     expect(rules.warnings?.map(warning => warning.code)).toEqual(['insufficient_scope'])
   })
 
+  it('lists a check once when a ruleset names its app and classic protection accepts any app', async () => {
+    const { provider } = tokenProvider({
+      'GET https://api.github.com/repos/acme/widgets/branches/main': { status: 200, body: { name: 'main', commit: { sha: 'a'.repeat(40) }, protected: true, protection: { enabled: true, required_status_checks: { enforcement_level: 'everyone', contexts: ['test'], checks: [{ context: 'test', app_id: null }] } } } },
+    })
+
+    expect((await provider.repos.branchRules(repo, 'main')).requiredChecks.filter(check => check.name === 'test')).toEqual([{ name: 'test', appId: '15368' }])
+  })
+
   it('falls back to the contexts of classic protection when it lists no checks', async () => {
     const { provider } = tokenProvider({
       'GET https://api.github.com/repos/acme/widgets/branches/main': { status: 200, body: { name: 'main', commit: { sha: 'a'.repeat(40) }, protected: true, protection: { enabled: true, required_status_checks: { enforcement_level: 'everyone', contexts: ['ci/jenkins'], checks: [] } } } },

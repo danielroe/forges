@@ -59,12 +59,13 @@ describe('anonymous providers', () => {
   })
 
   it('reads the rules of a branch without credentials, and warns about the classic protection only an admin sees', async () => {
-    const { fetch } = fixtureFetch('github', { 'GET https://api.github.com/repos/acme/widgets/branches/main/protection': { status: 401, body: { message: 'Requires authentication' } } })
+    const { fetch, calls } = fixtureFetch('github')
     const rules = await github({ fetch }).repos.branchRules(repo, 'main')
 
     expect(rules.requiredChecks.map(check => check.name)).toEqual(['test', 'lint', 'CLA Signing'])
     expect(rules.requiredApprovals).toBe(1)
     expect(rules.warnings?.map(warning => warning.code)).toEqual(['insufficient_scope'])
+    expect(calls.map(call => call.url)).not.toContain('https://api.github.com/repos/acme/widgets/branches/main/protection')
   })
 
   it('reads the rules of a Forgejo branch without credentials', async () => {

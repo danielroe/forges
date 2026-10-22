@@ -977,9 +977,10 @@ export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRul
     approvals.push(protection.required_pull_request_reviews?.required_approving_review_count ?? 0)
   }
   const known = protection || !branch.protection?.enabled
+  const pinned = new Set([...checks.values()].filter(check => check.appId).map(check => check.name))
   return {
     branch: branch.name,
-    requiredChecks: [...checks.values()],
+    requiredChecks: [...checks.values()].filter(check => check.appId || !pinned.has(check.name)),
     requiredApprovals: known ? Math.max(0, ...approvals) : approvals.length ? Math.max(...approvals) : undefined,
     ...warnings.length ? { warnings } : {},
     raw: { branch, rules, protection },

@@ -149,9 +149,9 @@ What `checks.report()` writes depends on your credential. With the credential of
 
 ## Branch rules
 
-GitHub keeps two kinds of rules for a branch: rulesets and classic branch protection. `repos.branchRules()` reads both and merges them, so you don't have to care which one the maintainer clicked. A check that both ask for is listed once, and when both ask for approvals, the higher count wins.
+GitHub keeps two kinds of rules for a branch: rulesets and classic branch protection. `repos.branchRules()` reads both and merges them, so you don't have to care which one the maintainer clicked. A check that both ask for is listed once, with the app that either of them names, and when both ask for approvals, the higher count wins.
 
-The catch is classic protection. Anyone who can read the repository sees its required checks, but GitHub shows its approval count only to an admin and answers everyone else with `404`. Without admin access, or `administration: read` on a GitHub App, `requiredApprovals` holds only what the rulesets ask for, or is absent when no ruleset asks, and the result carries an `insufficient_scope` warning. Treat that number as the floor, not the whole answer.
+The catch is classic protection. Anyone who can read the repository sees its required checks, but GitHub shows its approval count only to an admin. It responds to other accounts with `404`, and to a GitHub App without `administration: read` with `403`. Without credentials, the provider doesn't ask. Without admin access, or `administration: read` on a GitHub App, `requiredApprovals` holds only what the rulesets ask for, or is absent when no ruleset asks, and the result carries an `insufficient_scope` warning. Treat that number as the floor, not the whole answer.
 
 ## Security advisories
 
