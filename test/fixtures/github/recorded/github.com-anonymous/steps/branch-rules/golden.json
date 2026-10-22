@@ -1,0 +1,16 @@
+{
+  "branch": "main",
+  "requiredChecks": [],
+  "warnings": [
+    {
+      "code": "insufficient_scope",
+      "message": "Credentials are required for this request",
+      "subject": "protection",
+      "cause": {
+        "name": "AuthenticationRequiredError",
+        "message": "Credentials are required for this request",
+        "status": 401
+      }
+    }
+  ]
+}

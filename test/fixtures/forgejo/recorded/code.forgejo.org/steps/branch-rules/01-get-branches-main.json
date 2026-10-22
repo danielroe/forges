@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/branches/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "main",
+      "commit": {
+        "id": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+        "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "author": {
+          "name": "Renovate Bot",
+          "email": "redacted@example.invalid",
+          "username": "viceice-bot"
+        },
+        "committer": {
+          "name": "Mathieu Fenniak",
+          "email": "redacted@example.invalid",
+          "username": "mfenniak"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-02T02:59:29Z",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": true,
+      "required_approvals": 1,
+      "enable_status_check": true,
+      "status_check_contexts": [
+        "checks / Build Forgejo Runner *",
+        "checks / Run exec tests *",
+        "checks / Run integration tests with *",
+        "cascade / *"
+      ],
+      "user_can_push": false,
+      "user_can_merge": false,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

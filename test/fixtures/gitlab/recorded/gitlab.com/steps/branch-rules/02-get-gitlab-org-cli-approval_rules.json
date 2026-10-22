@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/approval_rules?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/approval_rules?id=gitlab-org%2Fcli&page=1&per_page=100>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/approval_rules?id=gitlab-org%2Fcli&page=1&per_page=100>; rel=\"last\"",
+      "etag": "W/\"786a040d0c880ab970fcaf23f04c7b48\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "80",
+      "ratelimit-reset": "1792696500",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
+      "x-total": "1",
+      "x-total-pages": "1",
+      "x-next-page": "",
+      "x-page": "1",
+      "x-per-page": "100"
+    },
+    "body": [
+      {
+        "id": 4649243,
+        "name": "All Members",
+        "rule_type": "any_approver",
+        "eligible_approvers": [],
+        "approvals_required": 0,
+        "users": [],
+        "groups": [],
+        "contains_hidden_groups": false,
+        "report_type": null,
+        "protected_branches": [],
+        "applies_to_all_protected_branches": false
+      }
+    ]
+  }
+}

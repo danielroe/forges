@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"c22b54bfcae1843500746f3647689709\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1999",
-      "ratelimit-reset": "1792384740",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"cb112392fb8065591bd4bdc089acc4c4\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "98",
+      "ratelimit-reset": "1792696500",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
       "id": 34675721,
@@ -27,10 +27,10 @@
       "http_url_to_repo": "https://gitlab.com/gitlab-org/cli.git",
       "web_url": "https://gitlab.com/gitlab-org/cli",
       "readme_url": "https://gitlab.com/gitlab-org/cli/-/blob/main/README.md",
-      "forks_count": 492,
-      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1792383234",
-      "star_count": 1106,
-      "last_activity_at": "2026-10-19T04:13:54.338Z",
+      "forks_count": 500,
+      "avatar_url": "https://gitlab.com/uploads/-/system/project/avatar/34675721/cli-logo.png?v=1792693740",
+      "star_count": 1109,
+      "last_activity_at": "2026-10-22T18:29:00.350Z",
       "visibility": "public",
       "namespace": {
         "id": 9970,
@@ -103,9 +103,9 @@
       "lfs_enabled": false,
       "creator_id": 40375,
       "import_status": "finished",
-      "open_issues_count": 252,
+      "open_issues_count": 263,
       "description_html": "<p data-sourcepos=\"1:1-1:54\" dir=\"auto\">A GitLab CLI tool bringing GitLab to your command line</p>",
-      "updated_at": "2026-10-19T04:13:54.338Z",
+      "updated_at": "2026-10-22T18:29:00.350Z",
       "ci_config_path": "",
       "public_jobs": true,
       "shared_with_groups": [

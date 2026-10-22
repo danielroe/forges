@@ -1,0 +1,18 @@
+{
+  "branch": "main",
+  "requiredChecks": [
+    {
+      "name": "checks / Build Forgejo Runner *"
+    },
+    {
+      "name": "checks / Run exec tests *"
+    },
+    {
+      "name": "checks / Run integration tests with *"
+    },
+    {
+      "name": "cascade / *"
+    }
+  ],
+  "requiredApprovals": 1
+}

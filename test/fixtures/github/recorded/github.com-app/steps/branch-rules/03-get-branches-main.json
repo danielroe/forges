@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/rules/branches/main?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"e1c7e1ea810b295d9adc58d8985aa9bb7dd4e554f618f5282e9746bb84c0a9bb\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4986",
+      "x-ratelimit-reset": "1792700020",
+      "x-ratelimit-resource": "core"
+    },
+    "body": []
+  }
+}

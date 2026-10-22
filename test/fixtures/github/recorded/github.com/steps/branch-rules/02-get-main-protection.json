@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/branches/main/protection"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4771",
+      "x-ratelimit-reset": "1792698463",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "message": "Not Found",
+      "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+      "status": "404"
+    }
+  }
+}

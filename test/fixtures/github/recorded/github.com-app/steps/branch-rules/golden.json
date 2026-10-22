@@ -1,0 +1,16 @@
+{
+  "branch": "main",
+  "requiredChecks": [],
+  "warnings": [
+    {
+      "code": "insufficient_scope",
+      "message": "Credentials lack the scope or permission for this request",
+      "subject": "protection",
+      "cause": {
+        "name": "InsufficientScopeError",
+        "message": "Credentials lack the scope or permission for this request",
+        "status": 403
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/branches/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"307b3f77f0c21801c4a209e836899366\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "79",
+      "ratelimit-reset": "1792696500",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
+    },
+    "body": {
+      "name": "main",
+      "commit": {
+        "id": "503d977285cf4cbf48f5d0f5f9b192b2225d9d9c",
+        "short_id": "503d9772",
+        "created_at": "2026-10-22T13:58:28.000+01:00",
+        "parent_ids": [
+          "d7aa4d626add598c235a8bd88a168bbd9aee14f5",
+          "d6eb0bd2dc01a4fe4fba1b518543cbda82092d8b"
+        ],
+        "title": "Merge branch 'df-go-1-coordinates' into 'main'",
+        "message": "Merge branch 'df-go-1-coordinates' into 'main'\n\nfeat(df): check golang PURLs in glab df package\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4167\n\nMerged-by: Hannah Baker <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Hannah Baker <redacted@example.invalid>\nCo-authored-by: Arpit Gogia <redacted@example.invalid>",
+        "author_name": "Hannah Baker",
+        "author_email": "redacted@example.invalid",
+        "authored_date": "2026-10-22T13:58:28.000+01:00",
+        "committer_name": "GitLab",
+        "committer_email": "redacted@example.invalid",
+        "committed_date": "2026-10-22T13:58:28.000+01:00",
+        "trailers": {},
+        "extended_trailers": {},
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/503d977285cf4cbf48f5d0f5f9b192b2225d9d9c"
+      },
+      "merged": false,
+      "protected": true,
+      "developers_can_push": false,
+      "developers_can_merge": false,
+      "can_push": false,
+      "default": true,
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/tree/main"
+    }
+  }
+}

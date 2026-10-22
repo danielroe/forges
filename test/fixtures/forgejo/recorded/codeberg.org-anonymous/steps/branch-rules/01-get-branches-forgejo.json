@@ -1,0 +1,56 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches/forgejo"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"baseline\";r=1972;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
+    "body": {
+      "name": "forgejo",
+      "commit": {
+        "id": "b021976fb1a87ec18543c3a5586ecfabcc1c06e7",
+        "message": "chore: bump Node version (#14969)\n\nv20 is eol since March 24 2026.\n\nSince forgejo/forgejo!14564 (3ec8ba228a5b0fae7483254c414a5185e86a47d5) a Node version is required that can run Typescript. This was implemented in Node v22.18.0. https://nodejs.org/learn/typescript/run-natively\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14969\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+        "url": "https://codeberg.org/forgejo/forgejo/commit/b021976fb1a87ec18543c3a5586ecfabcc1c06e7",
+        "author": {
+          "name": "Gusted",
+          "email": "redacted@example.invalid",
+          "username": "Gusted"
+        },
+        "committer": {
+          "name": "Gusted",
+          "email": "redacted@example.invalid",
+          "username": "Gusted"
+        },
+        "verification": {
+          "verified": false,
+          "reason": "gpg.error.not_signed_commit",
+          "signature": "",
+          "signer": null,
+          "payload": ""
+        },
+        "timestamp": "2026-10-22T19:26:24+02:00",
+        "added": null,
+        "removed": null,
+        "modified": null
+      },
+      "protected": true,
+      "required_approvals": 1,
+      "enable_status_check": true,
+      "status_check_contexts": [
+        "testing / frontend-checks (pull_request)",
+        "testing / backend-checks (pull_request)",
+        "testing / test-unit (pull_request)",
+        "testing / test-pgsql (pull_request)",
+        "testing / test-sqlite (pull_request)",
+        "testing / test-mysql (pull_request)"
+      ],
+      "user_can_push": false,
+      "user_can_merge": false,
+      "effective_branch_protection_name": ""
+    }
+  }
+}

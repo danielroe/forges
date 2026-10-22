@@ -1,0 +1,24 @@
+{
+  "branch": "forgejo",
+  "requiredChecks": [
+    {
+      "name": "testing / frontend-checks (pull_request)"
+    },
+    {
+      "name": "testing / backend-checks (pull_request)"
+    },
+    {
+      "name": "testing / test-unit (pull_request)"
+    },
+    {
+      "name": "testing / test-pgsql (pull_request)"
+    },
+    {
+      "name": "testing / test-sqlite (pull_request)"
+    },
+    {
+      "name": "testing / test-mysql (pull_request)"
+    }
+  ],
+  "requiredApprovals": 1
+}

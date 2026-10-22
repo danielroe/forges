@@ -1,0 +1,16 @@
+{
+  "branch": "main",
+  "requiredChecks": [],
+  "warnings": [
+    {
+      "code": "insufficient_scope",
+      "message": "Nothing found at GET https://api.github.com/repos/h3js/h3/branches/main/protection, or the credential cannot see it",
+      "subject": "protection",
+      "cause": {
+        "name": "NotFoundError",
+        "message": "Nothing found at GET https://api.github.com/repos/h3js/h3/branches/main/protection, or the credential cannot see it",
+        "status": 404
+      }
+    }
+  ]
+}
