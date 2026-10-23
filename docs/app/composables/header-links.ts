@@ -11,7 +11,7 @@ export function useHeaderLinks() {
       : []),
     {
       'icon': 'i-simple-icons-discord',
-      'to': 'https://discord.gg/XCfTcxDsUE',
+      'to': 'https://chat.forges.link',
       'target': '_blank',
       'aria-label': 'forges on Discord',
       'class': 'max-sm:hidden',

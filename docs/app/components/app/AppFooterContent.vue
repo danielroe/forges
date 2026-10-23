@@ -95,7 +95,7 @@ const links = [
             source
           </ULink>
           <ULink
-            to="https://discord.gg/XCfTcxDsUE"
+            to="https://chat.forges.link"
             class="inline-flex min-h-11 items-center px-2 text-xs text-muted hover:text-highlighted transition-colors"
           >
             discord
