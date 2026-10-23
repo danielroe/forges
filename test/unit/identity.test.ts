@@ -148,6 +148,16 @@ describe('web links', () => {
     expect(tg.urlFor({ repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' } })).toBe('https://tangled.org/did:plc:abc/core')
   })
 
+  it('links a Tangled thread from its display number, and writes the same URL back as a mention', () => {
+    const target = { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' } as const
+    const parsed = { forge: 'tangled', instance: 'tangled.org', repo: target, kind: 'issue', displayNumber: '12' } as const
+
+    expect(tg.urlFor({ thread: parsed })).toBe('https://tangled.org/acme.dev/widgets/issues/12')
+    expect(tg.referenceFor(parsed, { from: target })).toBe('https://tangled.org/acme.dev/widgets/issues/12')
+    // A number with no display number is not linkable, because Tangled pages address threads by display number.
+    expect(tg.urlFor({ thread: { ...parsed, displayNumber: undefined, number: '12' } })).toBeUndefined()
+  })
+
   it.each([
     ['gitlab', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' }],
     ['azure-devops', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }],
@@ -163,7 +173,7 @@ describe('web links', () => {
     ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, ['https://gitlab.com/acme/platform/widgets/-/work_items', 'https://gitlab.com/acme/platform/widgets/-/merge_requests', 'https://gitlab.com/acme/platform/widgets/-/compare', 'https://gitlab.com/acme/platform/widgets/-/releases']],
     ['gitlab group', gl, { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: '', kind: 'namespace' }, ['https://gitlab.com/groups/acme/platform/-/work_items', 'https://gitlab.com/groups/acme/platform/-/merge_requests', undefined, undefined]],
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, ['https://codeberg.org/acme/widgets/issues', 'https://codeberg.org/acme/widgets/pulls', 'https://codeberg.org/acme/widgets/compare', 'https://codeberg.org/acme/widgets/releases']],
-    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, ['https://bitbucket.org/acme/widgets/issues', 'https://bitbucket.org/acme/widgets/pull-requests', 'https://bitbucket.org/acme/widgets/branches/compare', undefined]],
+    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, [undefined, 'https://bitbucket.org/acme/widgets/pull-requests', 'https://bitbucket.org/acme/widgets/branches/compare', undefined]],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, ['https://dev.azure.com/contoso/Widgets/_workitems', 'https://dev.azure.com/contoso/Widgets/_git/widgets/pullrequests', 'https://dev.azure.com/contoso/Widgets/_git/widgets/branchCompare', undefined]],
     ['azure-devops project', az, { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }, ['https://dev.azure.com/contoso/Widgets/_workitems', undefined, undefined, undefined]],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, ['https://tangled.org/acme.dev/widgets/issues', 'https://tangled.org/acme.dev/widgets/pulls', 'https://tangled.org/acme.dev/widgets/compare', undefined]],
@@ -381,11 +391,13 @@ describe('web links', () => {
 
   it('writes each forge\'s cross-reference syntax', () => {
     const glPull = { ...pull, forge: 'gitlab', instance: 'gitlab.com', repo: { ...repo, forge: 'gitlab', instance: 'gitlab.com' } }
+    const bbPull = { ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } }
 
     expect(gh.referenceFor(pull, { from: repo })).toBe('#42')
     expect(gh.referenceFor(pull)).toBe('acme/widgets#42')
     expect(gl.referenceFor(glPull, { from: glPull.repo, expand: true })).toBe('!42+')
-    expect(bb.referenceFor({ ...pull, forge: 'bitbucket', instance: 'bitbucket.org', repo: { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' } })).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
+    expect(bb.referenceFor(bbPull, { from: bbPull.repo })).toBe('#42')
+    expect(bb.referenceFor(bbPull)).toBe('https://bitbucket.org/acme/widgets/pull-requests/42')
   })
 
   it('writes each forge\'s reference to a commit', () => {

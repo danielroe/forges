@@ -1,4 +1,4 @@
-import type { CommentRef, CommitRef, ForgeInstance, ForgeKind, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from './model.ts'
+import type { CommentRef, CommitRef, ForgeInstance, ForgeKind, ForgeOrigin, ReleaseRef, RepoRef, ResolvedCommentRef, ThreadKind, ThreadRef } from './model.ts'
 import { isResolvedThread, namespaceRef, normaliseRepoName } from './model.ts'
 
 /** A repository's section, for linking to the section itself rather than one entry in it. */
@@ -67,10 +67,12 @@ export interface ParsedReference {
 export interface ReferenceSyntax {
   /**
    * The prefixes before a thread number, such as `#` or `!`, and the kind of thread each refers to.
-   * `number` is the source of a regular expression for the number, digits by default. `sameRepo`
-   * marks a prefix that takes no repository, and `namespace` one that refers to the namespace of `from`.
+   * `number` is the source of a regular expression for the number, digits by default. `displayNumber`
+   * marks a prefix whose number is the human-facing one rather than the forge's own identifier, such
+   * as Tangled's, so the parsed ref carries `displayNumber`. `sameRepo` marks a prefix that takes no
+   * repository, and `namespace` one that refers to the namespace of `from`.
    */
-  threads: ReadonlyArray<{ prefix: string, kind: ThreadKind, number?: string, sameRepo?: boolean, namespace?: boolean }>
+  threads: ReadonlyArray<{ prefix: string, kind: ThreadKind, number?: string, displayNumber?: boolean, sameRepo?: boolean, namespace?: boolean }>
   /** The source of a regular expression for the `owner/name` before a reference to another repository; unset when the forge has none. */
   repo?: string
   /** The source of a regular expression for what may follow a thread number, such as GitLab's `+`. */
@@ -93,7 +95,7 @@ export interface WebLinks {
   /** The page of one of a repository's sections, such as its issues, pull requests, stargazers or forks. */
   section?: (repo: RepoRef, section: RepoSection) => string | undefined
   /** The page of an issue or pull request. */
-  thread: (ref: ResolvedThreadRef) => string | undefined
+  thread: (ref: ThreadRef) => string | undefined
   /** The page of a comment, anchored on its thread. */
   comment?: (ref: ResolvedCommentRef) => string | undefined
   /** The page of a commit. */
@@ -109,7 +111,7 @@ export interface WebLinks {
   /** Reads a URL already known to be under `baseUrl`, split into the path segments after it. */
   parse: (segments: string[], url: URL, origin: ForgeOrigin) => ParsedForgeUrl | undefined
   /** The forge's cross-reference syntax; `undefined` falls back to the page URL. */
-  reference?: (ref: ResolvedThreadRef | CommitRef, sameRepo: boolean, expand: boolean) => string | undefined
+  reference?: (ref: ThreadRef | CommitRef, sameRepo: boolean, expand: boolean) => string | undefined
   /** The references that `parseReferences()` reads; unset when the forge has none. */
   references?: ReferenceSyntax
 }
@@ -149,7 +151,7 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
     path = 'section' in target && target.section ? web.section?.(target.repo, target.section) : web.repo(target.repo)
   }
   else if ('thread' in target) {
-    path = isResolvedThread(target.thread) ? web.thread(target.thread) : undefined
+    path = isResolvedThread(target.thread) || target.thread.displayNumber ? web.thread(target.thread) : undefined
   }
   else if ('comment' in target) {
     const { comment } = target
@@ -212,7 +214,7 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
 }
 
 export function referenceFor(web: WebLinks | undefined, ref: ThreadRef | CommitRef, options: ReferenceOptions = {}): string | undefined {
-  if (!web || !('sha' in ref || isResolvedThread(ref))) {
+  if (!web || !('sha' in ref || isResolvedThread(ref) || ref.displayNumber)) {
     return undefined
   }
   return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, 'sha' in ref ? { commit: ref } : { thread: ref })
@@ -279,11 +281,11 @@ function rulesFor(syntax: ReferenceSyntax): ReferenceRule[] {
   const compiled: ReferenceRule[] = []
   const rule = (source: string, read: ReferenceRule['read']) => compiled.push({ pattern: new RegExp(`${BEFORE}${source}${AFTER}`, 'g'), read })
   const suffix = syntax.suffix ? `(?:${syntax.suffix})?` : ''
-  for (const { prefix, kind, number = String.raw`[1-9]\d*`, sameRepo: local, namespace } of syntax.threads) {
+  for (const { prefix, kind, number = String.raw`[1-9]\d*`, displayNumber, sameRepo: local, namespace } of syntax.threads) {
     const thread = `${prefix.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&')}(?<id>${number})${suffix}`
-    rule(thread, ({ id }, from, origin) => ({ ...origin, repo: namespace ? namespaceRef(origin, from.owner) : from, kind, number: id! }))
+    rule(thread, ({ id }, from, origin) => ({ ...origin, repo: namespace ? namespaceRef(origin, from.owner) : from, kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
     if (syntax.repo && !local) {
-      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), kind, number: id! }))
+      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
     }
   }
   if (syntax.commits) {
@@ -381,7 +383,7 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       }
       return `${repoPath(repo)}/${path ?? (section === 'pullRequests' ? 'pulls' : section)}`
     },
-    thread: ref => kindPath[ref.kind] && `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}`,
+    thread: ref => kindPath[ref.kind] && ref.number ? `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}` : undefined,
     comment: ref => kindPath[ref.thread.kind] && `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
     commit: (repo, sha) => `${repoPath(repo)}/${commitPath}/${encodeURIComponent(sha)}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}` : undefined,
@@ -425,6 +427,9 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
     reference: (ref, same) => {
       if ('sha' in ref) {
         return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
+      }
+      if (!ref.number) {
+        return undefined
       }
       const prefix = ref.kind === 'pull_request' && shape.pullPrefix ? shape.pullPrefix : '#'
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}`
