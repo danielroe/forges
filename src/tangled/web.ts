@@ -1,6 +1,6 @@
 import type { RepoRef, ThreadKind } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf } from '../web.ts'
+import { lineOf, OWNER_NAME } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare', stargazers: 'stars', forks: 'forks' }
@@ -41,7 +41,14 @@ function tangledWeb(baseUrl: string): WebLinks {
       const kind = section === 'issues' ? 'issue' : section === 'pulls' ? 'pull_request' : undefined
       return kind && id ? { repo, thread: { ...from, repo, kind, displayNumber: id } } : { repo }
     },
+    reference: (ref, same) => {
+      if ('sha' in ref) {
+        return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
+      }
+      const number = ref.displayNumber ?? ref.number
+      return number ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}` : undefined
+    },
     // A `#<n>` written in text is the display number: the record's AT-URI is not known from text alone.
-    references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], commits: true },
+    references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], repo: OWNER_NAME, commits: true },
   }
 }

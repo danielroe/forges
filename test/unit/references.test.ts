@@ -53,6 +53,25 @@ describe('parseReferences', () => {
     }
   })
 
+  it('reads Tangled references back from their display number, short and cross-repo', () => {
+    const tg = tangled()
+    const from = repoOn(tg, 'acme.dev', 'widgets')
+    const other = repoOn(tg, 'vueuse', 'vueuse')
+    const refs = [
+      { forge: 'tangled', instance: 'tangled.org', repo: from, kind: 'issue', displayNumber: '4195' },
+      { forge: 'tangled', instance: 'tangled.org', repo: other, kind: 'issue', displayNumber: '4195' },
+    ] as const
+
+    expect(tg.referenceFor(refs[0], { from })).toBe('#4195')
+    expect(tg.referenceFor(refs[1], { from })).toBe('vueuse/vueuse#4195')
+    for (const ref of refs) {
+      const text = tg.referenceFor(ref, { from })!
+      const [parsed] = tg.parseReferences(`See ${text}.`, { from })
+
+      expect(parsed?.ref).toMatchObject({ repo: ref.repo, kind: 'issue', displayNumber: ref.displayNumber })
+    }
+  })
+
   it.each([
     ['a word', 'issue#42'],
     ['a path', 'docs/guide/intro.md#42'],
