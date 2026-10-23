@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/pulls/92/reviews?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"git_op\";r=241;t=600, \"baseline\";r=1938;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600",
+      "x-total-count": "2"
+    },
+    "body": [
+      {
+        "id": 2115463,
+        "user": {
+          "id": 86052,
+          "login": "danielroe",
+          "source_id": 0,
+          "full_name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+          "html_url": "https://codeberg.org/danielroe",
+          "active": false,
+          "location": "",
+          "pronouns": "he/him",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 2,
+          "starred_repos_count": 3,
+          "username": "danielroe"
+        },
+        "team": null,
+        "state": "REQUEST_REVIEW",
+        "body": "",
+        "commit_id": "",
+        "stale": false,
+        "official": true,
+        "dismissed": false,
+        "comments_count": 0,
+        "submitted_at": "2026-10-22T23:22:27+02:00",
+        "updated_at": "2026-10-22T23:22:27+02:00",
+        "html_url": "",
+        "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/92"
+      },
+      {
+        "id": 2115466,
+        "user": {
+          "id": 86052,
+          "login": "danielroe",
+          "source_id": 0,
+          "full_name": "Daniel Roe",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/a0f09b705dcd4afd1d54b6e7c8f08e323a97921b70569acc891a2617d2d04125",
+          "html_url": "https://codeberg.org/danielroe",
+          "active": false,
+          "location": "",
+          "pronouns": "he/him",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 2,
+          "starred_repos_count": 3,
+          "username": "danielroe"
+        },
+        "team": null,
+        "state": "COMMENT",
+        "body": "A submitted review from run 20261017151708.",
+        "commit_id": "6c3e336b464c3a1756ed1a32af424c4ea3b6ea6a",
+        "stale": false,
+        "official": false,
+        "dismissed": false,
+        "comments_count": 1,
+        "submitted_at": "2026-10-22T23:22:28+02:00",
+        "updated_at": "2026-10-22T23:22:29+02:00",
+        "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/92#issuecomment-25515481",
+        "pull_request_url": "https://codeberg.org/forges-fixtures/forges-fixtures/pulls/92"
+      }
+    ]
+  }
+}

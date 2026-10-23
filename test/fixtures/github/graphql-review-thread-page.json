@@ -1,0 +1,89 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ReviewThreadPage",
+    "variables": { "owner": "acme", "name": "widgets", "number": 42, "first": 2, "after": null }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "data": {
+        "repository": {
+          "pullRequest": {
+            "reviewThreads": {
+              "pageInfo": { "hasNextPage": true, "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0wMS0wNFQwOTowMDowMFrOAAAAAg==" },
+              "nodes": [
+                {
+                  "id": "PRRT_kwDOAAB5ac5abcde",
+                  "isResolved": false,
+                  "isOutdated": false,
+                  "path": "src/index.ts",
+                  "line": 12,
+                  "startLine": null,
+                  "originalLine": 12,
+                  "originalStartLine": null,
+                  "diffSide": "RIGHT",
+                  "comments": {
+                    "nodes": [
+                      {
+                        "databaseId": 55001,
+                        "body": "Prefer `const` here.",
+                        "path": "src/index.ts",
+                        "line": 12,
+                        "originalLine": 12,
+                        "createdAt": "2026-01-04T09:00:00Z",
+                        "url": "https://github.com/acme/widgets/pull/42#discussion_r55001",
+                        "replyTo": null,
+                        "author": { "__typename": "User", "login": "octocat", "avatarUrl": "https://avatars.githubusercontent.com/u/1?v=4", "url": "https://github.com/octocat", "databaseId": 1, "name": "The Octocat" }
+                      },
+                      {
+                        "databaseId": 55002,
+                        "body": "Done.",
+                        "path": "src/index.ts",
+                        "line": 12,
+                        "originalLine": 12,
+                        "createdAt": "2026-01-04T10:00:00Z",
+                        "url": "https://github.com/acme/widgets/pull/42#discussion_r55002",
+                        "replyTo": { "databaseId": 55001 },
+                        "author": { "__typename": "Bot", "login": "renovate", "avatarUrl": "https://avatars.githubusercontent.com/in/2740?v=4", "url": "https://github.com/apps/renovate", "databaseId": 29139614 }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "PRRT_kwDOAAB5ac5fghij",
+                  "isResolved": true,
+                  "isOutdated": true,
+                  "path": "src/util.ts",
+                  "line": null,
+                  "startLine": null,
+                  "originalLine": 8,
+                  "originalStartLine": 5,
+                  "diffSide": "LEFT",
+                  "comments": {
+                    "nodes": [
+                      {
+                        "databaseId": 55003,
+                        "body": "This block can go.",
+                        "path": "src/util.ts",
+                        "line": null,
+                        "originalLine": 8,
+                        "createdAt": "2026-01-04T09:05:00Z",
+                        "url": "https://github.com/acme/widgets/pull/42#discussion_r55003",
+                        "replyTo": null,
+                        "author": { "__typename": "User", "login": "octocat", "avatarUrl": "https://avatars.githubusercontent.com/u/1?v=4", "url": "https://github.com/octocat", "databaseId": 1, "name": "The Octocat" }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

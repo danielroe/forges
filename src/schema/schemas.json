@@ -1962,6 +1962,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.replyToReviewComment()`."
           },
+          "reviewThreads": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `threads.reviewThreads()`. `'emulated'` where conversations are grouped from review comments."
+          },
           "resolveReviewThread": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `threads.resolveReviewThread()`."
@@ -2017,6 +2021,7 @@
           "submitReview",
           "approve",
           "replyToReviewComment",
+          "reviewThreads",
           "resolveReviewThread",
           "unresolveReviewThread"
         ]
@@ -4175,6 +4180,57 @@
     ],
     "description": "What a review or a reviewer says about a pull request. `unknown` is a state that the model does not name.",
     "x-forges-type": "ReviewState"
+  },
+  "ReviewThread": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Forge-native id; `resolveReviewThread()` takes it where the forge can resolve a conversation."
+      },
+      "resolved": {
+        "type": "boolean"
+      },
+      "outdated": {
+        "type": "boolean",
+        "description": "Whether the code under the conversation has changed since. Absent where the forge doesn't say."
+      },
+      "path": {
+        "type": "string"
+      },
+      "line": {
+        "type": "number",
+        "description": "Line the conversation is anchored to, in `side`; the last line of a multi-line conversation."
+      },
+      "startLine": {
+        "type": "number",
+        "description": "First line of a multi-line conversation."
+      },
+      "side": {
+        "type": "string",
+        "enum": [
+          "left",
+          "right"
+        ],
+        "description": "`'left'` is the base of the diff, `'right'` the head."
+      },
+      "comments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ReviewComment"
+        },
+        "description": "The comments in the conversation, oldest first."
+      },
+      "raw": {}
+    },
+    "required": [
+      "id",
+      "resolved",
+      "comments",
+      "raw"
+    ],
+    "description": "A review conversation on a pull request: comments that are resolved together, usually on one line of the diff.",
+    "x-forges-type": "ReviewThread"
   },
   "Reviewer": {
     "type": "object",

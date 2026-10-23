@@ -13,14 +13,19 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4943",
-      "x-ratelimit-reset": "1791737440"
+      "x-ratelimit-remaining": "4981",
+      "x-ratelimit-reset": "1792704046",
+      "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
         "repository": {
           "pullRequest": {
             "reviewThreads": {
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": null
+              },
               "nodes": []
             }
           }

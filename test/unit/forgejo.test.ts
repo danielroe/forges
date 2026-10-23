@@ -575,6 +575,33 @@ describe('gitea review replies', () => {
   })
 })
 
+describe('forgejo review threads', () => {
+  const pull = { forge: 'forgejo', instance: 'codeberg.org', repo: { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '8' } as const
+
+  it('groups review comments into conversations per line, across reviews', async () => {
+    const { instance, calls } = provider()
+
+    const threads = await Array.fromAsync(instance.threads.reviewThreads(pull))
+
+    expect(threads.map(thread => [thread.id, thread.resolved, thread.path, thread.line, thread.side])).toEqual([
+      ['7801', true, 'src/index.ts', 4, 'right'],
+      ['7802', false, 'src/index.ts', 4, 'left'],
+    ])
+    expect(threads[0]!.comments.map(comment => [comment.ref?.id, comment.thread])).toEqual([['7801', { id: '7801', resolved: true }], ['7803', { id: '7801', resolved: true }]])
+    expect(threads.every(thread => thread.outdated === undefined)).toBe(true)
+    expect(calls.map(call => new URL(call.url).pathname)).toEqual([
+      '/api/v1/repos/acme/widgets/pulls/8/reviews',
+      '/api/v1/repos/acme/widgets/pulls/8/reviews/4501/comments',
+      '/api/v1/repos/acme/widgets/pulls/8/reviews/4502/comments',
+    ])
+  })
+
+  it('declares the listing emulated on both forges', () => {
+    expect(forgejo({ auth: { type: 'token', token: 't' } }).capabilities.threads.reviewThreads).toBe('emulated')
+    expect(gitea({ auth: { type: 'token', token: 't' } }).capabilities.threads.reviewThreads).toBe('emulated')
+  })
+})
+
 describe('forgejo thread updates', () => {
   const repo = { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' } as const
   const labels = { 'GET https://codeberg.org/api/v1/repos/acme/widgets/labels?limit=50': { status: 200, body: [{ id: 3, name: 'bug' }, { id: 5, name: 'ui' }] } }

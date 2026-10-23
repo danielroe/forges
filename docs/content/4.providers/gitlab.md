@@ -77,6 +77,8 @@ GitLab has approvals instead of reviews, so the provider presents them as review
 
 Comments on a merge request are read by discussion, so a comment in a resolvable discussion has a `thread` whose ID `resolveReviewThread()` takes. `replyToReviewComment()` posts a note to that discussion, so pass it a comment that has a `thread`, such as one from `comments()`. A page holds whole discussions, so it can hold more comments than `perPage`.
 
+`reviewThreads()` lists the resolvable discussions: those on a line of the diff, and those started on the merge request itself, which have no `path`. A page skips the discussions that can't be resolved, so it can hold fewer than `perPage`. GitLab doesn't say whether a discussion is outdated, so `outdated` is absent.
+
 When the user isn't allowed to approve, GitLab responds with `401`. The provider raises this response as `InsufficientScopeError`.
 
 ## Updating a branch
@@ -237,6 +239,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ✅ | ❌ |
 | `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.reviewThreads` | ✅ | ❌ |
 | `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |

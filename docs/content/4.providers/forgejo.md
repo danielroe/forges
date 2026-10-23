@@ -57,7 +57,9 @@ The head branch stays after `merge()`, even when `deleteBranchOnMerge` is `true`
 
 ## Reviews
 
-Forgejo supports reviews natively. `createReview()` without an `event` creates a pending review, and `submitReview()` submits it. The API doesn't expose whether a review conversation is resolved, so `resolveReviewThread()` isn't available. The API has no endpoint to reply to a review comment either, so `replyToReviewComment()` isn't available.
+Forgejo supports reviews natively. `createReview()` without an `event` creates a pending review, and `submitReview()` submits it. The API shows who resolved a conversation, on its first comment, but it can't resolve one, so `resolveReviewThread()` isn't available. The API has no endpoint to reply to a review comment either, so `replyToReviewComment()` isn't available.
+
+There's no endpoint that lists conversations, so `reviewThreads()` builds them the way the web UI does: it reads every review and its comments, then groups the comments by file, side and line. That costs a request per review with comments, and all the conversations come back in one page. A conversation's ID is the ID of its first comment. Neither Forgejo nor Gitea says whether a comment is outdated, so `outdated` is absent.
 
 ## Checks and CI
 
@@ -215,6 +217,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `threads.submitReview` | ✅ | ❌ |
 | `threads.approve` | ✅ | ❌ |
 | `threads.replyToReviewComment` | ∅ | ∅ |
+| `threads.reviewThreads` | emulated | emulated |
 | `threads.resolveReviewThread` | ∅ | ∅ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ✅ | ❌ |

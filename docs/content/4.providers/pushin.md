@@ -156,6 +156,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `threads.submitReview` | ❌ | ❌ |
 | `threads.approve` | ❌ | ❌ |
 | `threads.replyToReviewComment` | ✅ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ |
 | `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ✅ | ❌ |
 | `notifications.markRead` | ∅ | ∅ |

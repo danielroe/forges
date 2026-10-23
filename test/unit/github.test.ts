@@ -1,3 +1,4 @@
+import type { FetchLike } from '../../src/fetch.ts'
 import type { GitHubAuth } from '../../src/github/auth.ts'
 import type { TypedGraphQLDocument } from '../../src/github/index.ts'
 import type { GitHubNotification } from '../../src/github/types.ts'
@@ -1331,6 +1332,56 @@ describe('github reviews', () => {
 
     expect(JSON.parse(calls[0]!.body!)).toMatchObject({ event: 'APPROVE', body: 'LGTM' })
     expect(calls[1]!.operationName).toBe('ResolveReviewThread')
+  })
+
+  it('lists review threads page by page, with the outdated ones on the lines they were written on', async () => {
+    const { provider, calls } = tokenProvider()
+
+    const threads = await Array.fromAsync(provider.threads.reviewThreads(pull, { perPage: 2 }))
+
+    expect(threads.map(thread => [thread.id, thread.resolved, thread.outdated])).toEqual([
+      ['PRRT_kwDOAAB5ac5abcde', false, false],
+      ['PRRT_kwDOAAB5ac5fghij', true, true],
+      ['PRRT_kwDOAAB5ac5klmno', false, false],
+    ])
+    expect(threads[0]).toMatchObject({ path: 'src/index.ts', line: 12, side: 'right' })
+    expect(threads[0]!.startLine).toBeUndefined()
+    expect(threads[0]!.comments).toMatchObject([
+      { ref: { id: '55001' }, author: { login: 'octocat' }, thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false } },
+      { ref: { id: '55002' }, author: { login: 'renovate[bot]' }, inReplyTo: '55001' },
+    ])
+    expect(threads[1]).toMatchObject({ path: 'src/util.ts', line: 8, startLine: 5, side: 'left' })
+    expect(threads[2]).toMatchObject({ path: 'README.md', line: 3, startLine: 1 })
+    expect(calls.map(call => call.variables?.after ?? null)).toEqual([null, 'Y3Vyc29yOnYyOpK0MjAyNi0wMS0wNFQwOTowMDowMFrOAAAAAg=='])
+  })
+
+  it('keeps only the unresolved review threads when asked', async () => {
+    const { provider } = tokenProvider()
+
+    const threads = await Array.fromAsync(provider.threads.reviewThreads(pull, { perPage: 2, state: 'unresolved' }))
+
+    expect(threads.map(thread => thread.id)).toEqual(['PRRT_kwDOAAB5ac5abcde', 'PRRT_kwDOAAB5ac5klmno'])
+  })
+
+  it('finds the thread of a review comment past the first hundred threads', async () => {
+    const threads = (after: string | null, nodes: unknown[]) => ({ data: { repository: { pullRequest: { reviewThreads: { pageInfo: { hasNextPage: after !== null, endCursor: after }, nodes } } } } })
+    const cursors: unknown[] = []
+    const fetch: FetchLike = async (input, init) => {
+      const url = String(input)
+      if (url.endsWith('/graphql')) {
+        const { after = null } = JSON.parse(String(init!.body)).variables
+        cursors.push(after)
+        const first = Array.from({ length: 100 }, (_, index) => ({ id: `PRRT_${index}`, isResolved: false, comments: { nodes: [{ databaseId: 1000 + index }] } }))
+        return Response.json(after ? threads(null, [{ id: 'PRRT_late', isResolved: true, comments: { nodes: [{ databaseId: 1 }] } }]) : threads('Y3Vyc29yOjEwMA==', first))
+      }
+      return Response.json(url.includes('/reviews') ? [{ id: 9, state: 'COMMENTED', user: { login: 'a' } }] : [{ id: 1, pull_request_review_id: 9, path: 'a.ts', line: 1, body: 'late' }])
+    }
+    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+
+    const [review] = (await provider.threads.reviews(pull).page()).items
+
+    expect(review!.comments).toMatchObject([{ thread: { id: 'PRRT_late', resolved: true } }])
+    expect(cursors).toEqual([null, 'Y3Vyc29yOjEwMA=='])
   })
 
   it('replies to a reply through the comment it answers', async () => {

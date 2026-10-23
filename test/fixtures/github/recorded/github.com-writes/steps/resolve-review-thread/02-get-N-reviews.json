@@ -8,8 +8,8 @@
     "headers": {
       "etag": "W/\"6ee11fd10224a3ac0c2f554ba1f8fa71716a273e298e17ee61fb4a25c967e1a7\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4744",
-      "x-ratelimit-reset": "1792251335",
+      "x-ratelimit-remaining": "4822",
+      "x-ratelimit-reset": "1792704556",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -50,7 +50,7 @@
             "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/136"
           }
         },
-        "submitted_at": "2026-10-17T15:15:45Z",
+        "submitted_at": "2026-10-22T20:38:45Z",
         "commit_id": "7e423f725601d2184b772243d32c0b65c4f5e322"
       },
       {
@@ -90,7 +90,7 @@
             "href": "https://api.github.com/repos/forges-fixtures/forges-fixtures/pulls/136"
           }
         },
-        "submitted_at": "2026-10-17T15:15:49Z",
+        "submitted_at": "2026-10-22T20:38:49Z",
         "commit_id": "7e423f725601d2184b772243d32c0b65c4f5e322"
       }
     ]

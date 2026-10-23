@@ -45,6 +45,7 @@ export const ROOT_TYPES = [
   'RepoRole',
   'Review',
   'ReviewCommentInput',
+  'ReviewThread',
   'SecurityAlert',
   'SubscriptionState',
   'Tag',

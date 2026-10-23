@@ -283,6 +283,20 @@ export interface GitLabNoteDetail extends GitLabNote {
   noteable_type?: string
   resolvable?: boolean
   resolved?: boolean
+  /** Where a diff note sits; absent on a note outside the diff. */
+  position?: GitLabNotePosition | null
+}
+
+interface GitLabLinePosition {
+  old_line?: number | null
+  new_line?: number | null
+}
+
+export interface GitLabNotePosition extends GitLabLinePosition {
+  old_path?: string | null
+  new_path?: string | null
+  position_type?: string
+  line_range?: { start?: GitLabLinePosition, end?: GitLabLinePosition } | null
 }
 
 /** A thread of notes; on a merge request, one that is not an individual note can be resolved. */

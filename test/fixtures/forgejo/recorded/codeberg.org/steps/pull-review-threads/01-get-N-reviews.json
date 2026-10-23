@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/pulls/5000/reviews?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit": "\"git_op\";r=242;t=600, \"baseline\";r=1947;t=600",
+      "ratelimit-policy": "\"git_op\";q=250;w=600, \"baseline\";q=2000;w=600",
+      "x-total-count": "0"
+    },
+    "body": []
+  }
+}

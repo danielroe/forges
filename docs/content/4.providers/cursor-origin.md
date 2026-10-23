@@ -167,6 +167,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.submitReview` | ❌ | ❌ | ❌ | ❌ |
 | `threads.approve` | unverified | unverified | ❌ | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ | ❌ | ❌ |
+| `threads.reviewThreads` | ❌ | ❌ | ❌ | ❌ |
 | `threads.resolveReviewThread` | unverified | unverified | ❌ | ❌ |
 | `notifications.list` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.markRead` | ∅ | ∅ | ∅ | ∅ |

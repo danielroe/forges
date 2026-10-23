@@ -1,0 +1,103 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.github.com/graphql",
+    "operationName": "ReviewThreadPage",
+    "variables": {
+      "owner": "forges-fixtures",
+      "name": "forges-fixtures",
+      "number": 136,
+      "first": 50,
+      "after": null
+    },
+    "body": {
+      "query": "query ReviewThreadPage($owner: String!, $name: String!, $number: Int!, $first: Int!, $after: String) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: $first, after: $after) {\n        pageInfo { hasNextPage endCursor }\n        nodes {\n          id isResolved isOutdated path line startLine originalLine originalStartLine diffSide\n          comments(first: 100) {\n            nodes { databaseId body path line originalLine createdAt url replyTo { databaseId } author { __typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId } } }\n          }\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "owner": "forges-fixtures",
+        "name": "forges-fixtures",
+        "number": 136,
+        "first": 50,
+        "after": null
+      },
+      "operationName": "ReviewThreadPage"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4909",
+      "x-ratelimit-reset": "1792704567",
+      "x-ratelimit-resource": "graphql"
+    },
+    "body": {
+      "data": {
+        "repository": {
+          "pullRequest": {
+            "reviewThreads": {
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0yMlQyMDozODo0NFrOr16mcg=="
+              },
+              "nodes": [
+                {
+                  "id": "PRRT_kwDOVCTdtM6thYOE",
+                  "isResolved": true,
+                  "isOutdated": false,
+                  "path": "forges-fixtures/20261017151345-1.md",
+                  "line": 1,
+                  "startLine": 1,
+                  "originalLine": 1,
+                  "originalStartLine": null,
+                  "diffSide": "RIGHT",
+                  "comments": {
+                    "nodes": [
+                      {
+                        "databaseId": 4303196077,
+                        "body": "A line comment from run 20261017151345.",
+                        "path": "forges-fixtures/20261017151345-1.md",
+                        "line": 1,
+                        "originalLine": 1,
+                        "createdAt": "2026-10-22T20:38:44Z",
+                        "url": "https://github.com/forges-fixtures/forges-fixtures/pull/136#discussion_r4303196077",
+                        "replyTo": null,
+                        "author": {
+                          "__typename": "User",
+                          "login": "danielroe",
+                          "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?u=c4a5aa5232c09c3248533366d5c93a138d7e8987&v=4",
+                          "url": "https://github.com/danielroe",
+                          "databaseId": 28706372,
+                          "name": "Daniel Roe"
+                        }
+                      },
+                      {
+                        "databaseId": 4303196436,
+                        "body": "A reply from run 20261017151345.",
+                        "path": "forges-fixtures/20261017151345-1.md",
+                        "line": 1,
+                        "originalLine": 1,
+                        "createdAt": "2026-10-22T20:38:49Z",
+                        "url": "https://github.com/forges-fixtures/forges-fixtures/pull/136#discussion_r4303196436",
+                        "replyTo": {
+                          "databaseId": 4303196077
+                        },
+                        "author": {
+                          "__typename": "User",
+                          "login": "danielroe-bot",
+                          "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+                          "url": "https://github.com/danielroe-bot",
+                          "databaseId": 57801166,
+                          "name": null
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

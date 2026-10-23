@@ -114,6 +114,7 @@ import {
   toCiJob,
   toCommit,
   toCommitComment,
+  toDiscussionThread,
   toJobCheck,
   toLabel,
   toMilestone,
@@ -1113,6 +1114,11 @@ const GITLAB: ProviderDefinition<GitLabOptions, undefined, true> = {
             signal: options?.signal,
           })
           return { ...toNoteComment(ref, data), thread: { id: comment.thread.id, resolved: Boolean(data.resolved) } }
+        }),
+        reviewThreadsPage: verb(!anonymous, async (thread, listOptions = {}) => {
+          const ref = requireMerge(thread, 'read for review threads')
+          const page = await list(`${threadPath(ref)}/discussions`, listOptions, (discussion: GitLabDiscussion) => discussion)
+          return { ...page, items: page.items.filter(discussion => discussion.notes.some(note => note.resolvable)).map(discussion => toDiscussionThread(ref, discussion)) }
         }),
         reviewThreads: verb(true, {
           resolveReviewThread: (thread, id, options) => setDiscussionResolved(thread, id, true, options),

@@ -230,6 +230,7 @@ function threadSteps(kind: 'issue' | 'pull_request' | 'discussion', key: 'issue'
         return result
       } },
       { name: 'pull getReview', verb: 'threads.getReview', kind, run: (provider, _manifest, context) => provider.threads.getReview(need(context.review, 'a review').ref) },
+      { name: 'pull review threads', verb: 'threads.reviewThreads', kind, run: (provider, manifest) => provider.threads.reviewThreads(ref(manifest), page).page() },
       { name: 'pull checks', verb: 'threads.checks', kind, run: (provider, manifest) => provider.threads.checks(ref(manifest)) },
       { name: 'pull files', verb: 'threads.files', kind, run: (provider, manifest) => provider.threads.files(ref(manifest), page).page() },
       { name: 'pull commits', verb: 'threads.commits', kind, run: (provider, manifest) => provider.threads.commits(ref(manifest), page).page() },

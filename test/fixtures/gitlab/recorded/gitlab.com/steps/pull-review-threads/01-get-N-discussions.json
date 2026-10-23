@@ -1,0 +1,129 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=2&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=1&per_page=3>; rel=\"prev\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=3&per_page=3>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=3&per_page=3>; rel=\"last\"",
+      "etag": "W/\"33f5325ca18d42171bebb7094eaab1e3\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "64",
+      "ratelimit-reset": "1792700940",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
+      "x-total": "7",
+      "x-total-pages": "3",
+      "x-next-page": "3",
+      "x-page": "2",
+      "x-per-page": "3"
+    },
+    "body": [
+      {
+        "id": "1c220caab7910feb8803a5952711eb7eb997bb06",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3941768693,
+            "type": null,
+            "body": "approved this merge request",
+            "author": {
+              "id": 11809982,
+              "username": "jay_mccure",
+              "public_email": "",
+              "name": "Jay McCure",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
+              "web_url": "https://gitlab.com/jay_mccure"
+            },
+            "created_at": "2026-10-01T23:42:05.103Z",
+            "updated_at": "2026-10-01T23:42:05.112Z",
+            "system": true,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "7f2e6c55c100acad06147d2730620ccd9575b1a2",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3941769170,
+            "type": null,
+            "body": "started a [merge train](https://gitlab.com/gitlab-org/cli/-/merge_trains)",
+            "author": {
+              "id": 11809982,
+              "username": "jay_mccure",
+              "public_email": "",
+              "name": "Jay McCure",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
+              "web_url": "https://gitlab.com/jay_mccure"
+            },
+            "created_at": "2026-10-01T23:42:09.238Z",
+            "updated_at": "2026-10-01T23:42:09.239Z",
+            "system": true,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      },
+      {
+        "id": "d0ec9b217d97f92c89535e568041a51a4d691c63",
+        "individual_note": true,
+        "resolvable": false,
+        "notes": [
+          {
+            "id": 3941802407,
+            "type": null,
+            "body": "mentioned in commit 59ae78caddfe91cef7808d7fb7c41d04d5b80c77",
+            "author": {
+              "id": 11809982,
+              "username": "jay_mccure",
+              "public_email": "",
+              "name": "Jay McCure",
+              "state": "active",
+              "locked": false,
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
+              "web_url": "https://gitlab.com/jay_mccure"
+            },
+            "created_at": "2026-10-01T23:49:47.573Z",
+            "updated_at": "2026-10-01T23:49:47.575Z",
+            "system": true,
+            "noteable_id": 541465719,
+            "noteable_type": "MergeRequest",
+            "project_id": 34675721,
+            "resolvable": false,
+            "confidential": false,
+            "internal": false,
+            "imported": false,
+            "imported_from": "none",
+            "noteable_iid": 3988,
+            "commands_changes": {}
+          }
+        ]
+      }
+    ]
+  }
+}

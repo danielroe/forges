@@ -43,6 +43,7 @@ import type {
   ReviewEvent,
   ReviewInput,
   ReviewState,
+  ReviewThread,
   SecurityAlert,
   SecurityAlertKind,
   SecurityAlertListOptions,
@@ -1204,6 +1205,22 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     }
   }
 
+  function reviewThreads(ref: ThreadRef): ReviewThread[] {
+    const threads = new Map<string, ReviewThread>()
+    for (const comment of threadState(ref).reviews.flatMap(review => review.comments === false ? [] : review.comments)) {
+      if (!comment.thread) {
+        continue
+      }
+      const thread = threads.get(comment.thread.id)
+      if (thread) {
+        thread.comments.push(comment)
+        continue
+      }
+      threads.set(comment.thread.id, { id: comment.thread.id, resolved: comment.thread.resolved, path: comment.path, line: comment.line, side: comment.side, comments: [comment], raw: comment })
+    }
+    return [...threads.values()]
+  }
+
   function replyToReviewComment(by: string, ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string): ReviewComment {
     const state = threadState(ref)
     for (const review of state.reviews) {
@@ -1638,6 +1655,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           return pageOf(state.commits.filter(commit => shas.has(commit.sha)), listOptions)
         }),
         replyToReviewComment: verb(support('threads.replyToReviewComment', true), async (ref, comment, body) => replyToReviewComment(by, ref, comment, body)),
+        reviewThreadsPage: verb(support('threads.reviewThreads', true), async (ref, listOptions = {}) => pageOf(reviewThreads(ref), listOptions)),
         reviewThreads: verb(support('threads.resolveReviewThread', true), {
           resolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, true),
           unresolveReviewThread: async (ref, id) => setReviewThreadResolved(ref, id, false),

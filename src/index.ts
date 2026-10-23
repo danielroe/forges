@@ -158,6 +158,8 @@ export type {
   ReviewInput,
   ReviewRef,
   ReviewState,
+  ReviewThread,
+  ReviewThreadListOptions,
   SecurityAlert,
   SecurityAlertKind,
   SecurityAlertListOptions,

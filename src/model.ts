@@ -602,6 +602,25 @@ export interface ReviewComment {
   raw: unknown
 }
 
+/** A review conversation on a pull request: comments that are resolved together, usually on one line of the diff. */
+export interface ReviewThread {
+  /** Forge-native id; `resolveReviewThread()` takes it where the forge can resolve a conversation. */
+  id: string
+  resolved: boolean
+  /** Whether the code under the conversation has changed since. Absent where the forge doesn't say. */
+  outdated?: boolean
+  path?: string
+  /** Line the conversation is anchored to, in `side`; the last line of a multi-line conversation. */
+  line?: number
+  /** First line of a multi-line conversation. */
+  startLine?: number
+  /** `'left'` is the base of the diff, `'right'` the head. */
+  side?: 'left' | 'right'
+  /** The comments in the conversation, oldest first. */
+  comments: ReviewComment[]
+  raw: unknown
+}
+
 /** A review of a pull request. */
 export interface Review {
   ref: ResolvedReviewRef
@@ -1601,6 +1620,12 @@ export interface Page<T> {
 export interface ListOptions extends PageOptions {
   /** Only items updated at or after this time. */
   since?: Date
+}
+
+/** Options for `threads.reviewThreads()`. */
+export interface ReviewThreadListOptions extends PageOptions {
+  /** Only resolved or only unresolved conversations; `'all'` by default. */
+  state?: 'resolved' | 'unresolved' | 'all'
 }
 
 /** Options for `repos.events()` and `users.events()`. */

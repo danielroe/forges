@@ -1,6 +1,6 @@
 import type { CapabilityPath } from './capability-table.ts'
 import type { Fetcher, FetcherOptions } from './fetch.ts'
-import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitCommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
+import type { BaseOptions, Check, CiJobRef, Comment, CommentRef, CommitCommentRef, CommitFilesInput, CompareOptions, Comparison, Cursor, DownloadAssetOptions, EventFeedOptions, ForgeEventInput, ForgeInstance, ForgeKind, Installation, ListOptions, Notification, NotificationListOptions, OwnerRepoQuery, Page, RateLimit, ReleaseAssetRef, Repo, RepoRef, ReviewRef, ReviewThread, ReviewThreadListOptions, SecurityAlertKind, SecurityAlertListOptions, Support, TextLimits, ThreadKind, ThreadQuery, ThreadRef, WebhookEventType } from './model.ts'
 import type {
   AuthKind,
   ChecksApi,
@@ -224,6 +224,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     commitsPage?: Verb<PageOf<ThreadsApi['commits']>>
     /** One capability covers resolving and unresolving. */
     reviewThreads?: Verb<Pick<ThreadsApi, 'resolveReviewThread' | 'unresolveReviewThread'>>
+    /** Every conversation; core applies the `state` filter. */
+    reviewThreadsPage?: Verb<PageOf<ThreadsApi['reviewThreads']>>
   }
   /**
    * Support for the single-item reads core emulates from their listings where the spec declares no endpoint.
@@ -612,6 +614,7 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 
   const listThreads = kindGate('threads.list', spec.threads.listPage.kinds, spec.threads.listPage.run)
   const listOwnerRepos = gate('repos.byOwner', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
+  const listReviewThreads = gate('threads.reviewThreads', spec.threads.reviewThreadsPage?.support, spec.threads.reviewThreadsPage?.run)
   const listComments = kindGate('threads.comments', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
   const listEvents = kindGate('threads.events', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
@@ -672,6 +675,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         return { ...page, items: page.items.filter(comment => (comment.updatedAt ?? comment.createdAt ?? since) >= since) }
       }, listOptions.cursor)
     },
+    'threads.reviewThreadsPage': (ref: ThreadRef, { state, ...listOptions }: ReviewThreadListOptions = {}) => nonEmptyPage(async (cursor) => {
+      const page: Page<ReviewThread> = await listReviewThreads(ref, { ...listOptions, cursor })
+      return !state || state === 'all' ? page : { ...page, items: page.items.filter(thread => thread.resolved === (state === 'resolved')) }
+    }, listOptions.cursor),
     'threads.getComment': kindGate(
       'threads.getComment',
       Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),

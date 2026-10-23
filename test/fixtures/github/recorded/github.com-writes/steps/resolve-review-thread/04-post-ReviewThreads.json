@@ -9,7 +9,7 @@
       "number": 136
     },
     "body": {
-      "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100) {\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
+      "query": "query ReviewThreads($owner: String!, $name: String!, $number: Int!, $after: String) {\n  repository(owner: $owner, name: $name) {\n    pullRequest(number: $number) {\n      reviewThreads(first: 100, after: $after) {\n        pageInfo { hasNextPage endCursor }\n        nodes { id isResolved comments(first: 100) { nodes { databaseId } } }\n      }\n    }\n  }\n}",
       "variables": {
         "owner": "forges-fixtures",
         "name": "forges-fixtures",
@@ -22,8 +22,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4871",
-      "x-ratelimit-reset": "1792251345",
+      "x-ratelimit-remaining": "4911",
+      "x-ratelimit-reset": "1792704567",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -31,6 +31,10 @@
         "repository": {
           "pullRequest": {
             "reviewThreads": {
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0yMlQyMDozODo0NFrOr16mcg=="
+              },
               "nodes": [
                 {
                   "id": "PRRT_kwDOVCTdtM6thYOE",
