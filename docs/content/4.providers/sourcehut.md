@@ -51,11 +51,15 @@ Sourcehut usernames are written with a leading tilde, so a repository ref's `own
 
 Issues live in a `todo.sr.ht` tracker whose name matches the repository, so `~sircmpwn/scdoc` reads the tracker `~sircmpwn/scdoc`. `threads.get()`, `threads.list()`, `threads.comments()`, `threads.events()` and `threads.getMany()` all work on them, and `threads.subscription()` reports whether the account is subscribed.
 
+A ticket's page is `https://todo.sr.ht/<owner>/<tracker>/<id>`. `urlFor()` builds it, and `parseUrl()` reads that host back as an issue whose `displayNumber` is the ticket id. In text, an issue is referenced as `#<id>`, or `~owner/tracker#<id>` for another tracker.
+
 Comments are the comment entries of a ticket's events, which is the endpoint the API exposes. Sourcehut has no reactions and no comment editing over the API.
 
 ## Patchsets
 
 Sourcehut's equivalent of a pull request is a patchset on a mailing list. There is no way to tell which list belongs to a repository, so a patch ref's `repo` names the **mailing list**, not the git repository. `threads.get()` reads a patchset by id, `threads.list()` lists a list's patchsets, and `threads.comments()` and `threads.events()` read the replies to its thread. Patchsets carry no reviews, files, commits or checks.
+
+A patchset's page is `https://lists.sr.ht/<owner>/<list>/patches/<id>`, which `urlFor()` builds and `parseUrl()` reads back as a pull request whose `displayNumber` is the patchset id. Sourcehut has no text syntax for a patchset, so `referenceFor()` returns the page URL.
 
 ## Builds
 

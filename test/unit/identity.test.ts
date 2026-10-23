@@ -222,6 +222,26 @@ describe('web links', () => {
     expect(tangled({ baseUrl: 'https://knot.example.com' }).parseUrl('https://tangled.sh/@acme.dev/core')).toBeUndefined()
   })
 
+  it('reads Sourcehut issue and patchset URLs on the todo and lists hosts', () => {
+    const sh = sourcehut({ auth })
+    const issue = sh.parseUrl('https://todo.sr.ht/~oys/astro-resume/4195')
+
+    expect(issue).toMatchObject({ repo: { owner: '~oys', name: 'astro-resume' }, thread: { kind: 'issue', displayNumber: '4195' } })
+    expect(sh.urlFor({ thread: issue!.thread! })).toBe('https://todo.sr.ht/~oys/astro-resume/4195')
+    expect(sh.referenceFor(issue!.thread!, { from: issue!.repo })).toBe('#4195')
+
+    const patch = sh.parseUrl('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
+
+    expect(patch).toMatchObject({ repo: { owner: '~sircmpwn', name: 'sr.ht-dev' }, thread: { kind: 'pull_request', displayNumber: '71657' } })
+    expect(sh.urlFor({ thread: patch!.thread! })).toBe('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
+    // Sourcehut has no text syntax for a patchset, so its reference is its page URL.
+    expect(sh.referenceFor(patch!.thread!, { from: patch!.repo })).toBe('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
+
+    // The git host still reads as a repository, and only known hosts are read.
+    expect(sh.parseUrl('https://git.sr.ht/~sircmpwn/scdoc')).toMatchObject({ repo: { owner: '~sircmpwn', name: 'scdoc' } })
+    expect(sh.parseUrl('https://builds.sr.ht/~sircmpwn/job/1')).toBeUndefined()
+  })
+
   it('reads a GitLab tag page as the tag, and a release page as the release', () => {
     expect(gl.parseUrl('https://gitlab.com/acme/platform/widgets/-/tags/v1.0.0')).toEqual({ repo: { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' }, tag: 'v1.0.0' })
     expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/tags/release/1.0')?.tag).toBe('release/1.0')
