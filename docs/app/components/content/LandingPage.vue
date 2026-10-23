@@ -21,7 +21,7 @@ const features = [
   {
     icon: 'i-lucide-package',
     title: 'small bundles',
-    description: 'Bundles keep only the forges you import, and the code that translates webhook deliveries loads only when you ingest one. The GitHub provider is about 38 kB gzipped.',
+    description: 'Bundles keep only the forges you import, and the code that translates webhook deliveries loads only when you ingest one. The GitHub provider is about 42 kB gzipped.',
     to: '/guides/bundling',
   },
   {
