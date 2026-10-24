@@ -25,12 +25,14 @@
           "instance": "tangled.org",
           "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
           "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
         },
         "kind": "pull_request",
         "typeRaw": "sh.tangled.repo.pull",
         "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
-        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22"
+        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "displayNumber": "1"
       },
       "kind": "pull_request",
       "title": "forges seed: pull",
@@ -53,6 +55,7 @@
       "lastActivityAt": "2026-10-09T18:29:38.000Z",
       "labels": [],
       "commentCount": 0,
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/1",
       "branches": {
         "head": {
           "ref": "bo"

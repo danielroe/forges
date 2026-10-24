@@ -23,6 +23,7 @@ import type {
   ThreadRef,
 } from '../model.ts'
 import type { ForgeIterable } from '../provider.ts'
+import type { AppviewThread, ListedThread } from './appview.ts'
 import type { AtprotoClient, AtUri } from './atproto.ts'
 import type { TangledOptions } from './index.ts'
 import type { ActivityRecord, ThreadRead } from './normalise.ts'
@@ -31,6 +32,7 @@ import type { FeedCommentRecord, IssueRecord, JetstreamCommitEvent, LabelDefinit
 import { ForgeApiError, ForgeError, NotFoundError, RateLimitedError, UnresolvedThreadError } from '../errors.ts'
 import { abortable } from '../fetch.ts'
 import { degradesToWarning, forgeIterable, isFirstPage, mapConcurrent, phased, requireThread, toDate, toWarning } from '../utils.ts'
+import { appviewNumber, listAppviewThreads, listedThread } from './appview.ts'
 import { atUri, parseAtUri } from './atproto.ts'
 import {
   COLLECTIONS,
@@ -47,6 +49,7 @@ import {
   toThread,
   toThreadRef,
 } from './normalise.ts'
+import { threadUrl } from './web.ts'
 
 const TANGLED_DID = 'did:plc:wshs7t2adsemcrrd4snkeqli'
 
@@ -127,6 +130,18 @@ function ACTIVITY_SOURCES(kind: 'issue' | 'pull_request') {
   ]
 }
 
+/** The appview's list of a repository's threads, as it has been read. */
+interface AppviewListing {
+  /** The threads the appview has listed so far. */
+  threads: AppviewThread[]
+  /** The offset of the next page; unset once the list has been read to the end. */
+  offset?: number
+  /** The numbers of every thread listed so far, so that a page that repeats them ends the listing. */
+  seen: Set<string>
+  /** The reads in flight, so that a page is read once. */
+  queue: Promise<unknown>
+}
+
 interface RecordDeps extends Pick<TangledSession, 'ownRecords'> {
   options: TangledOptions
   instance: string
@@ -135,11 +150,65 @@ interface RecordDeps extends Pick<TangledSession, 'ownRecords'> {
   atproto: AtprotoClient
   api: Fetcher
   fetcher: Fetcher
+  /** Reads the appview's pages, which carry the numbers it shows threads as. */
+  web: Fetcher
 }
 
-export function createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords }: RecordDeps) {
+export function createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, web, ownRecords }: RecordDeps) {
   const repos = new Map<string, Promise<RepoRef>>()
   const collaborators = new Map<string, Promise<{ dids: Set<string>, warning?: ForgeWarning }>>()
+  const appviewListings = new Map<string, AppviewListing>()
+
+  /** The appview's list of a repository's threads, by the account that opened them. */
+  function appviewListing(repo: RepoRef, kind: 'issue' | 'pull_request', author?: string): AppviewListing {
+    const key = `${repo.owner}/${repo.name}/${kind}/${author ?? ''}`
+    let listing = appviewListings.get(key)
+    if (!listing) {
+      listing = { threads: [], offset: 0, seen: new Set(), queue: Promise.resolve() }
+      appviewListings.set(key, listing)
+    }
+    return listing
+  }
+
+  /**
+   * The number the appview shows a thread as, which only the appview's list of
+   * a repository's threads carries. The list of the threads its author opened
+   * is read first, then the whole list.
+   */
+  async function displayNumberOf(repo: RepoRef, kind: 'issue' | 'pull_request', thread: ListedThread, signal?: AbortSignal): Promise<string | undefined> {
+    const all = appviewListing(repo, kind)
+    if (all.offset === undefined) {
+      return appviewNumber(all.threads, thread)
+    }
+    const own = appviewListing(repo, kind, thread.author)
+    const found = appviewNumber(await readAppviewPages(own, repo, kind, thread.author, signal), thread)
+    return found ?? appviewNumber(await readAppviewPages(all, repo, kind, undefined, signal), thread)
+  }
+
+  /** Reads the appview's list of a repository's threads, a page at a time. */
+  async function readAppviewPages(listing: AppviewListing, repo: RepoRef, kind: 'issue' | 'pull_request', author: string | undefined, signal?: AbortSignal): Promise<AppviewThread[]> {
+    listing.queue = listing.queue.then(async () => {
+      while (listing.offset !== undefined) {
+        const page = await listAppviewThreads(web, webUrl, repo, kind, author, listing.offset, signal)
+        if (!page.listed.some(number => !listing.seen.has(number))) {
+          listing.offset = undefined
+          break
+        }
+        listing.threads.push(...page.threads.filter(thread => !listing.seen.has(thread.number)))
+        for (const number of page.listed) {
+          listing.seen.add(number)
+        }
+        listing.offset += page.listed.length
+      }
+    }).catch(() => undefined)
+    await listing.queue
+    return listing.threads
+  }
+
+  /** Reads the appview's whole list of a repository's threads. */
+  async function loadAppviewListing(repo: RepoRef, kind: 'issue' | 'pull_request', signal?: AbortSignal): Promise<void> {
+    await readAppviewPages(appviewListing(repo, kind), repo, kind, undefined, signal)
+  }
 
   /**
    * Repo collaborators, from the knot that hosts the repo DID. Knots older
@@ -270,6 +339,16 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return toActor(instance, identity, webUrl)
   }
 
+  /**
+   * The handle an account's DID document claims, which is how Tangled names
+   * the account in its web URLs. A DID that claims no handle is addressed by
+   * its DID.
+   */
+  async function handleOf(did: string, signal?: AbortSignal): Promise<{ ownerHandle?: string }> {
+    const identity = await atproto.resolveDid(did, signal).catch(() => undefined)
+    return identity?.handle ? { ownerHandle: identity.handle } : {}
+  }
+
   /** Resolves a record's `repo` field, a repo DID or, in older records, an `sh.tangled.repo` AT-URI. */
   function resolveRepo(field: string, signal?: AbortSignal): Promise<RepoRef> {
     let repo = repos.get(field)
@@ -277,13 +356,13 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       repo = (async () => {
         const legacy = parseAtUri(field)
         if (legacy) {
-          return { forge: FORGE, instance, owner: legacy.did, name: legacy.rkey }
+          return { forge: FORGE, instance, owner: legacy.did, name: legacy.rkey, ...await handleOf(legacy.did, signal) }
         }
         const { value: link } = await atproto.backlinks(field, COLLECTIONS.repo, '.repoDid').next()
         if (!link) {
           throw new UnresolvedThreadError(`No sh.tangled.repo record declares ${field}`, context)
         }
-        return { forge: FORGE, instance, owner: link.did, name: link.rkey, externalId: field }
+        return { forge: FORGE, instance, owner: link.did, name: link.rkey, externalId: field, ...await handleOf(link.did, signal) }
       })()
       repo.catch(() => repos.delete(field))
       repos.set(field, repo)
@@ -298,7 +377,10 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     }
     const { value, cid } = await atproto.getRecord<IssueRecord | PullRecord>(subject, signal)
     const repoField = 'target' in value ? value.target.repo : value.repo
-    return { ref: toThreadRef(instance, await resolveRepo(repoField, signal), uri), record: value, cid }
+    const repo = await resolveRepo(repoField, signal)
+    const ref = toThreadRef(instance, repo, uri)
+    const number = await displayNumberOf(repo, uri.collection === COLLECTIONS.pull ? 'pull_request' : 'issue', listedThread(uri, value), signal)
+    return { ref: number === undefined ? ref : { ...ref, displayNumber: number }, record: value, cid }
   }
 
   function subjectUri(thread: ThreadRef): { ref: ResolvedThreadRef, uri: AtUri, kind: 'issue' | 'pull_request' } {
@@ -500,11 +582,11 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
           throw error
         })
         if (record) {
-          return { ref: { ...repo, owner: did }, record }
+          return { ref: { ...repo, owner: did, ...await handleOf(did, signal) }, record }
         }
         for await (const candidate of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo)) {
           if (candidate.value.name === repo.name) {
-            return { ref: { ...repo, owner: did, name: parseAtUri(candidate.uri)!.rkey }, record: candidate }
+            return { ref: { ...repo, owner: did, name: parseAtUri(candidate.uri)!.rkey, ...await handleOf(did, signal) }, record: candidate }
           }
         }
         throw new NotFoundError(`No Tangled repo named ${repo.name} for ${repo.owner}`, 404, '', context)
@@ -535,11 +617,12 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return options.sshHosts?.[knot] ?? DEFAULT_SSH_HOSTS[knot] ?? knot
   }
 
-  function toRepo(ref: RepoRef, record: RepoRecord, raw: unknown, counts: Pick<Repo, 'stars' | 'forks'> = {}): Repo {
+  async function toRepo(ref: RepoRef, record: RepoRecord, raw: unknown, counts: Pick<Repo, 'stars' | 'forks'> = {}): Promise<Repo> {
     const parent = record.source ? parseAtUri(record.source) : undefined
-    const path = `${ref.owner}/${ref.name}`
+    const owner = await actorFor(ref.owner)
+    const path = `${owner.login}/${ref.name}`
     return {
-      ref: record.repoDid ? { ...ref, externalId: record.repoDid } : ref,
+      ref: { ...ref, ...owner.login === owner.id ? {} : { ownerHandle: owner.login }, ...record.repoDid ? { externalId: record.repoDid } : {} },
       displayName: record.name && record.name !== ref.name ? record.name : undefined,
       description: record.description,
       visibility: 'public',
@@ -547,6 +630,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       isArchived: false,
       parent: parent ? { forge: FORGE, instance, owner: parent.did, name: parent.rkey } : undefined,
       topics: record.topics ?? [],
+      owner,
       url: `${webUrl}/${path}`,
       cloneUrls: { https: `${webUrl}/${path}`, ssh: `ssh://git@${sshHost(record.knot)}/${path}` },
       createdAt: toDate(record.createdAt),
@@ -562,16 +646,18 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     const { uri, kind } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
     const { ref, record } = await threadFor(target, options?.signal)
+    // A number the caller passes, such as one from a webhook, wins over the one matched here.
+    const numbered = thread.displayNumber ? { ...ref, displayNumber: thread.displayNumber } : ref
     const warnings: ForgeWarning[] = []
     const warn = (warning: ForgeWarning) => warnings.push(warning)
     const [author, state, comments, { labels, assignees }] = await Promise.all([
       actorFor(uri.did, options?.signal),
-      stateAuthors(uri.did, ref.repo, warn, options?.signal).then(allowed => stateOf(target, kind, allowed, warn, options?.signal)),
+      stateAuthors(uri.did, numbered.repo, warn, options?.signal).then(allowed => stateOf(target, kind, allowed, warn, options?.signal)),
       countComments(target, kind, options?.signal),
-      labelsOf(target, ref.repo, warn, options?.signal),
+      labelsOf(target, numbered.repo, warn, options?.signal),
     ])
     return {
-      ...toThread(ref, record, author, state, comments, warnings),
+      ...toThread(numbered, record, author, state, comments, warnings, threadUrl(webUrl, numbered)),
       labels,
       assignees: await Promise.all(assignees.map(did => actorFor(did, options?.signal))),
     }
@@ -588,9 +674,15 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         warnings.push({ code: 'filter_unsupported', message: 'The index has no labels or assignees; those filters were ignored' })
       }
     }
-    const repoDid = await repoDidOf(repo, query.signal)
+    const address = await canonicalRef(repo, query.signal)
+    const repoDid = address.externalId ?? await repoDidOf(address, query.signal)
     const state = query.state ?? 'open'
     const kinds = query.kind ? [query.kind] : ['issue', 'pull_request'] as const
+    for (const kind of kinds) {
+      if (kind !== 'discussion') {
+        await loadAppviewListing(address, kind, query.signal)
+      }
+    }
     const page = await phased(kinds.map(kind => async (cursor?: Cursor): Promise<Page<Thread>> => {
       const pulls = kind === 'pull_request'
       const { data }: { data: { items: Array<{ uri: string, value: IssueRecord | PullRecord, state: string, stateUpdatedAt?: string, commentCount: number }>, cursor?: string } } = await api.json(
@@ -617,7 +709,11 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         if (query.author && author.login !== query.author && author.id !== query.author) {
           continue
         }
-        const thread = toThread(toThreadRef(instance, { ...repo, externalId: repoDid }, uri), item.value, author, { token: item.state, at: item.stateUpdatedAt }, item.commentCount)
+        const numbered = { ...address, externalId: repoDid }
+        const number = await displayNumberOf(numbered, pulls ? 'pull_request' : 'issue', listedThread(uri, item.value), query.signal)
+        const ref = toThreadRef(instance, numbered, uri)
+        const resolved = number === undefined ? ref : { ...ref, displayNumber: number }
+        const thread = toThread(resolved, item.value, author, { token: item.state, at: item.stateUpdatedAt }, item.commentCount, undefined, threadUrl(webUrl, resolved))
         if ((query.since && (thread.lastActivityAt?.getTime() ?? 0) < query.since.getTime()) || (query.createdAfter && (thread.createdAt?.getTime() ?? 0) < query.createdAfter.getTime())) {
           continue
         }
@@ -651,6 +747,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       const targets = [repoDid, atUri(address.owner, COLLECTIONS.repo, address.name)]
       const uris: string[] = []
       for (const kind of query.kind ? [query.kind] : ['issue', 'pull_request'] as const) {
+        await loadAppviewListing(address, kind, query.signal)
         const collection = kind === 'issue' ? COLLECTIONS.issue : COLLECTIONS.pull
         for (const target of targets) {
           for await (const link of atproto.backlinks(target, collection, kind === 'issue' ? '.repo' : '.target.repo', query.signal)) {
@@ -694,9 +791,11 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     const { ref, uri, kind } = subjectUri(thread)
     const target = atUri(uri.did, uri.collection, uri.rkey)
     return forgeIterable(async function* (warn) {
+      // The comment URL needs the thread's number, which matching needs the thread's record for.
+      const { ref: numbered } = await threadFor(target, options.signal).catch(() => ({ ref }))
       const comments: Comment[] = []
       for await (const item of activity(target, kind, new Set(), warn, { sources: COMMENT_SOURCES[kind], signal: options.signal })) {
-        comments.push(toRecordComment(ref, item.uri, item.record as FeedCommentRecord, await actorFor(parseAtUri(item.uri)!.did, options.signal)))
+        comments.push(toRecordComment(numbered, item.uri, item.record as FeedCommentRecord, await actorFor(parseAtUri(item.uri)!.did, options.signal), webUrl))
       }
       yield* comments.sort((a, b) => (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0))
     })
@@ -723,5 +822,5 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     collaborators.clear()
   }
 
-  return { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription }
+  return { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription, displayNumberOf }
 }

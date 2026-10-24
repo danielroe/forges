@@ -3749,6 +3749,10 @@
       "externalId": {
         "type": "string",
         "description": "Stable forge-native identifier that survives renames and transfers: a GitHub, Forgejo or Gitea numeric id, a GitLab project or group id, a Bitbucket UUID or a Tangled repo DID. {@link repoKey} prefers it over `owner` and `name`."
+      },
+      "ownerHandle": {
+        "type": "string",
+        "description": "The owner's handle, where the forge identifies accounts by DID but addresses them by handle in its web URLs (Tangled). The `owner` stays the DID, so that a repository is found the same way whichever is known."
       }
     },
     "required": [

@@ -14,6 +14,7 @@ import type {
 import { eventTime, threadSnapshot } from '../events.ts'
 import { toDate } from '../utils.ts'
 import { atUri } from './atproto.ts'
+import { commentUrl } from './web.ts'
 
 export const FORGE = 'tangled' as const
 
@@ -276,6 +277,7 @@ export function toThread(
   state: { token?: string, at?: string },
   commentCount: number,
   warnings: ForgeWarning[] = [],
+  url?: string,
 ): Thread {
   const value = toThreadState(state.token)
   const pull = 'target' in record ? record : undefined
@@ -298,6 +300,7 @@ export function toThread(
     lastActivityAt: updatedAt,
     labels: [],
     commentCount,
+    ...url ? { url } : {},
     branches: pull ? { head: { ref: pull.source?.branch ?? '' }, base: { ref: pull.target.branch } } : undefined,
     ...warnings.length ? { warnings } : {},
     raw: record,
@@ -308,12 +311,15 @@ function commentBody(record: FeedCommentRecord | LegacyCommentRecord): string {
   return typeof record.body === 'string' ? record.body : record.body.original ?? record.body.text ?? ''
 }
 
-export function toRecordComment(thread: ResolvedThreadRef, uri: string, record: FeedCommentRecord | LegacyCommentRecord, author: Actor): Comment {
+export function toRecordComment(thread: ResolvedThreadRef, uri: string, record: FeedCommentRecord | LegacyCommentRecord, author: Actor, webUrl: string): Comment {
+  const ref = { forge: FORGE, instance: thread.instance, thread, id: uri }
+  const url = commentUrl(webUrl, ref)
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: uri },
+    ref,
     body: commentBody(record),
     author,
     createdAt: toDate(record.createdAt),
+    ...url ? { url } : {},
     raw: { uri, ...record },
   }
 }

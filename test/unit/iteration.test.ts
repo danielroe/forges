@@ -269,12 +269,12 @@ describe('tangled iteration', () => {
     const repo = await tangled({ fetch }).repos.get(pull.repo)
 
     expect(repo.cloneUrls).toEqual({
-      https: `https://tangled.org/${OWNER}/widgets`,
-      ssh: `ssh://git@tangled.org/${OWNER}/widgets`,
+      https: 'https://tangled.org/acme.example.com/widgets',
+      ssh: 'ssh://git@tangled.org/acme.example.com/widgets',
     })
     expect(repo.ref.externalId).toBe('did:plc:widgetsrepo2222222222222')
     const custom = await tangled({ fetch, sshHosts: { 'knot1.tangled.sh': 'git.example.org' } }).repos.get(pull.repo)
-    expect(custom.cloneUrls?.ssh).toBe(`ssh://git@git.example.org/${OWNER}/widgets`)
+    expect(custom.cloneUrls?.ssh).toBe('ssh://git@git.example.org/acme.example.com/widgets')
   })
 
   it('places a star on the repo subject and keeps a thread subject a thread', async () => {

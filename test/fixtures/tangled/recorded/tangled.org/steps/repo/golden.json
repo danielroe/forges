@@ -4,16 +4,25 @@
     "instance": "tangled.org",
     "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
     "name": "forges-fixtures",
-    "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+    "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+    "ownerHandle": "roebot.tngl.sh"
   },
   "visibility": "public",
   "isFork": false,
   "isArchived": false,
   "topics": [],
-  "url": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures",
+  "owner": {
+    "forge": "tangled",
+    "instance": "tangled.org",
+    "login": "roebot.tngl.sh",
+    "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+    "url": "https://tangled.org/roebot.tngl.sh",
+    "isBotHint": false
+  },
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures",
   "cloneUrls": {
-    "https": "https://tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures",
-    "ssh": "ssh://git@tangled.org/did:plc:7qksav5io2s4qfg67pe7iqqk/forges-fixtures"
+    "https": "https://tangled.org/roebot.tngl.sh/forges-fixtures",
+    "ssh": "ssh://git@tangled.org/roebot.tngl.sh/forges-fixtures"
   },
   "createdAt": "2026-10-09T17:02:20.000Z",
   "mergeMethods": [

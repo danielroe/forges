@@ -319,7 +319,7 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         }
         const parsed = create(replay.fetch, manifest!).parseUrl(readme.url)
 
-        expect(parsed?.repo).toMatchObject({ owner: manifest!.repo.owner, name: manifest!.repo.name })
+        expect(parsed?.repo).toMatchObject({ owner: manifest!.repo.ownerHandle ?? manifest!.repo.owner, name: manifest!.repo.name })
         expect(parsed?.file).toMatchObject({ path: readme.path })
         expect(parsed?.file?.at).toBeTruthy()
       })

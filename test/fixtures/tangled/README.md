@@ -6,6 +6,8 @@ responses and Jetstream messages observed live, with every value replaced.
 
 - `plc-*.json`: DID documents from `plc.directory`.
 - `record-*.json`: `com.atproto.repo.getRecord` from the author's PDS.
+- `appview-list-pulls.json`: a page of the appview's list of a repository's
+  pull requests, which carries the numbers it shows them as.
 - `links-*.json`: Constellation backlinks (which records point at a target).
 - `knot-collaborators.json`: `sh.tangled.repo.listCollaborators` from the knot
   named in the repo DID document.

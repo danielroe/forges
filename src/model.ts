@@ -63,6 +63,12 @@ export interface RepoRef extends ForgeOrigin {
    * `owner` and `name`.
    */
   externalId?: string
+  /**
+   * The owner's handle, where the forge identifies accounts by DID but
+   * addresses them by handle in its web URLs (Tangled). The `owner` stays the
+   * DID, so that a repository is found the same way whichever is known.
+   */
+  ownerHandle?: string
 }
 
 /** Who can see a repository. */
