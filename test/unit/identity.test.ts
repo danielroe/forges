@@ -148,14 +148,17 @@ describe('web links', () => {
     expect(tg.urlFor({ repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' } })).toBe('https://tangled.org/did:plc:abc/core')
   })
 
-  it('links a Tangled thread from its display number, and writes the same URL back as a mention', () => {
+  it('links a Tangled thread from its display number and writes it back as a reference', () => {
     const target = { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' } as const
     const parsed = { forge: 'tangled', instance: 'tangled.org', repo: target, kind: 'issue', displayNumber: '12' } as const
 
     expect(tg.urlFor({ thread: parsed })).toBe('https://tangled.org/acme.dev/widgets/issues/12')
-    expect(tg.referenceFor(parsed, { from: target })).toBe('https://tangled.org/acme.dev/widgets/issues/12')
+    expect(tg.referenceFor(parsed, { from: target })).toBe('#12')
+    expect(tg.referenceFor(parsed, { from: { ...target, name: 'other' } })).toBe('acme.dev/widgets#12')
     // A number with no display number is not linkable, because Tangled pages address threads by display number.
     expect(tg.urlFor({ thread: { ...parsed, displayNumber: undefined, number: '12' } })).toBeUndefined()
+    // An API ref carries the AT-URI as `number`; without a display number it has no short form either.
+    expect(tg.referenceFor({ ...parsed, displayNumber: undefined, number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }, { from: target })).toBeUndefined()
   })
 
   it.each([
