@@ -86,6 +86,8 @@ In the refs that the provider returns, the `name` of a repo is the key of its re
 
 The numbers that you see in the Tangled UI and in webhooks come from the appview, because the records themselves don't store them. The provider reports them as `displayNumber`.
 
+In text, a thread is mentioned as `#<number>`, which is the display number: the record's AT-URI is not known from the text alone, so `parseReferences()` returns a ref that carries `displayNumber`, and `urlFor()` links it.
+
 A ref from a webhook has no `number` until it is matched to a record. To fill in `number` during `webhooks.ingest()`, pass a `resolveDisplayNumber(repo, kind, displayNumber)` function that returns the AT-URI.
 
 ## Thread state

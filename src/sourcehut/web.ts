@@ -36,6 +36,9 @@ function sourcehutWeb(instance: string): WebLinks {
       return undefined
     },
     thread: (ref) => {
+      if (!ref.number) {
+        return undefined
+      }
       if (ref.kind === 'issue') {
         return `${todo}${repoPath(ref.repo)}/${encodeURIComponent(ref.number)}`
       }
@@ -69,7 +72,7 @@ function sourcehutWeb(instance: string): WebLinks {
         return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
       const number = ref.number
-      return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}`
+      return number ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}` : undefined
     },
     references: { threads: [{ prefix: '#', kind: 'issue' }], repo: String.raw`~[\w.-]+\/[\w.-]+`, commits: true },
   }

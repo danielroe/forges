@@ -28,6 +28,9 @@ function azureWeb(baseUrl: string): WebLinks {
       return repo.kind === 'namespace' || !REPO_PAGES[section] ? undefined : `${gitPath(repo)}/${REPO_PAGES[section]}`
     },
     thread: (ref) => {
+      if (!ref.number) {
+        return undefined
+      }
       if (ref.kind === 'issue') {
         return `/${encode(ref.repo.owner)}/_workitems/edit/${encodeURIComponent(ref.number)}`
       }
@@ -73,7 +76,7 @@ function azureWeb(baseUrl: string): WebLinks {
       const thread: ThreadRef = { ...from, repo, kind: 'pull_request', number: rest[2] }
       return { repo, thread }
     },
-    reference: ref => 'sha' in ref ? undefined : ref.kind === 'issue' ? `#${ref.number}` : `!${ref.number}`,
+    reference: ref => 'sha' in ref || !ref.number ? undefined : ref.kind === 'issue' ? `#${ref.number}` : `!${ref.number}`,
     references: { threads: [{ prefix: '#', kind: 'issue', namespace: true }, { prefix: '!', kind: 'pull_request' }] },
   }
 }

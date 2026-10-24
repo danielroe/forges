@@ -2,9 +2,10 @@ import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
 
-const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pull-requests' }
+// Bitbucket Cloud has no issue tracker (its issues live in Jira), so `#` refers to a pull request.
+const SECTIONS: Partial<Record<ThreadKind, string>> = { pull_request: 'pull-requests' }
 const KINDS = new Map(Object.entries(SECTIONS).map(([kind, section]) => [section, kind as ThreadKind]))
-const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pull-requests', compare: 'branches/compare', forks: 'forks' }
+const PAGES: Partial<Record<RepoSection, string>> = { pullRequests: 'pull-requests', compare: 'branches/compare', forks: 'forks' }
 
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
@@ -13,7 +14,7 @@ function bitbucketWeb(baseUrl: string): WebLinks {
     baseUrl,
     repo: repoPath,
     section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
-    thread: ref => SECTIONS[ref.kind] && `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
+    thread: ref => SECTIONS[ref.kind] && ref.number ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}` : undefined,
     comment: ref => !SECTIONS[ref.thread.kind] ? undefined : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
     commit: (repo, sha) => `${repoPath(repo)}/commits/${encodeURIComponent(sha)}`,
     file: (repo, path, at, line) => `${repoPath(repo)}/src/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}${line ? `#lines-${line}` : ''}`,
@@ -50,9 +51,9 @@ function bitbucketWeb(baseUrl: string): WebLinks {
       if ('sha' in ref) {
         return ref.sha.slice(0, 12)
       }
-      return ref.kind === 'issue' ? `#${ref.number}` : ref.kind === 'pull_request' ? `pull request #${ref.number}` : undefined
+      return ref.kind === 'pull_request' && ref.number ? `#${ref.number}` : undefined
     },
-    references: { threads: [{ prefix: '#', kind: 'issue' }, { prefix: 'pull request #', kind: 'pull_request' }], commits: true },
+    references: { threads: [{ prefix: '#', kind: 'pull_request' }], commits: true },
   }
 }
 

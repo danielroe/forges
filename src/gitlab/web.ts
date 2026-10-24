@@ -28,7 +28,7 @@ function gitlabWeb(baseUrl: string): WebLinks {
     section: (repo, section) => repo.kind === 'namespace'
       ? GROUP_PAGES[section] && `/groups/${encode(repo.owner)}/-/${GROUP_PAGES[section]}`
       : PAGES[section] && `${projectPath(repo)}/-/${PAGES[section]}`,
-    thread: ref => ref.repo.kind === 'namespace' || !SECTIONS[ref.kind] ? undefined : `${projectPath(ref.repo)}/-/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
+    thread: ref => ref.repo.kind === 'namespace' || !SECTIONS[ref.kind] || !ref.number ? undefined : `${projectPath(ref.repo)}/-/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`,
     comment: ref => ref.thread.repo.kind === 'namespace' || !SECTIONS[ref.thread.kind] ? undefined : `${projectPath(ref.thread.repo)}/-/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#note_${ref.id}`,
     commit: (repo, sha) => repo.kind === 'namespace' ? undefined : `${projectPath(repo)}/-/commit/${encodeURIComponent(sha)}`,
     release: ref => ref.tag ? `${projectPath(ref.repo)}/-/releases/${encodeURIComponent(ref.tag)}` : undefined,
@@ -75,7 +75,7 @@ function gitlabWeb(baseUrl: string): WebLinks {
         return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}@`}${ref.sha.slice(0, 8)}`
       }
       const prefix = PREFIXES[ref.kind]
-      if (!prefix || ref.repo.kind === 'namespace') {
+      if (!prefix || ref.repo.kind === 'namespace' || !ref.number) {
         return undefined
       }
       return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}${expand ? '+' : ''}`

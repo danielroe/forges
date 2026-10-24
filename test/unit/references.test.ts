@@ -96,13 +96,13 @@ describe('parseReferences', () => {
     expect(read(ge, '#I6XZ2N, !7 and #42', from).map(({ text, ref }) => [text, 'kind' in ref && ref.kind])).toEqual([['#I6XZ2N', 'issue'], ['!7', 'pull_request']])
   })
 
-  it('reads Bitbucket references within the repository only', () => {
+  it('reads Bitbucket pull request references within the repository only', () => {
     const bb = bitbucket()
     const from = repoOn(bb, 'acme', 'widgets')
 
-    expect(read(bb, '#1, pull request #2, acme/tools#3 and 0123456789ab', from)).toEqual([
-      { text: '#1', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'issue', number: '1' } },
-      { text: 'pull request #2', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'pull_request', number: '2' } },
+    expect(read(bb, '#1, #2, acme/tools#3 and 0123456789ab', from)).toEqual([
+      { text: '#1', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'pull_request', number: '1' } },
+      { text: '#2', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'pull_request', number: '2' } },
       { text: '0123456789ab', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, sha: '0123456789ab' } },
     ])
   })
@@ -128,9 +128,14 @@ describe('parseReferences', () => {
     ])
   })
 
-  it('reads nothing on a forge without a reference syntax', () => {
+  it('reads Tangled issues by their display number, and commits', () => {
     const tg = tangled()
-    expect(tg.parseReferences('#1', { from: repoOn(tg, 'acme.dev', 'widgets') })).toEqual([])
+    const from = repoOn(tg, 'acme.dev', 'widgets')
+
+    expect(read(tg, '#1 and abc1234', from)).toEqual([
+      { text: '#1', ref: { forge: 'tangled', instance: 'tangled.org', repo: from, kind: 'issue', displayNumber: '1' } },
+      { text: 'abc1234', ref: { forge: 'tangled', instance: 'tangled.org', repo: from, sha: 'abc1234' } },
+    ])
   })
 
   it('reads references through the aggregate with the provider of the repository', () => {

@@ -41,5 +41,7 @@ function tangledWeb(baseUrl: string): WebLinks {
       const kind = section === 'issues' ? 'issue' : section === 'pulls' ? 'pull_request' : undefined
       return kind && id ? { repo, thread: { ...from, repo, kind, displayNumber: id } } : { repo }
     },
+    // A `#<n>` written in text is the display number: the record's AT-URI is not known from text alone.
+    references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], commits: true },
   }
 }
