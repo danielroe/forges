@@ -226,13 +226,13 @@ describe('web links', () => {
     const sh = sourcehut({ auth })
     const issue = sh.parseUrl('https://todo.sr.ht/~oys/astro-resume/4195')
 
-    expect(issue).toMatchObject({ repo: { owner: '~oys', name: 'astro-resume' }, thread: { kind: 'issue', displayNumber: '4195' } })
+    expect(issue).toMatchObject({ repo: { owner: '~oys', name: 'astro-resume' }, thread: { kind: 'issue', number: '4195', displayNumber: '4195' } })
     expect(sh.urlFor({ thread: issue!.thread! })).toBe('https://todo.sr.ht/~oys/astro-resume/4195')
     expect(sh.referenceFor(issue!.thread!, { from: issue!.repo })).toBe('#4195')
 
     const patch = sh.parseUrl('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
 
-    expect(patch).toMatchObject({ repo: { owner: '~sircmpwn', name: 'sr.ht-dev' }, thread: { kind: 'pull_request', displayNumber: '71657' } })
+    expect(patch).toMatchObject({ repo: { owner: '~sircmpwn', name: 'sr.ht-dev' }, thread: { kind: 'pull_request', number: '71657', displayNumber: '71657' } })
     expect(sh.urlFor({ thread: patch!.thread! })).toBe('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
     // Sourcehut has no text syntax for a patchset, so its reference is its page URL.
     expect(sh.referenceFor(patch!.thread!, { from: patch!.repo })).toBe('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')

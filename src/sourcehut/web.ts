@@ -59,15 +59,15 @@ function sourcehutWeb(instance: string): WebLinks {
     raw: (repo, path, at) => `${repoPath(repo)}/blob/${encodeURIComponent(at)}/${encodePath(path)}`,
     release: ref => ref.tag ? `${repoPath(ref.repo)}/tree/${encodeURIComponent(ref.tag)}` : undefined,
     parse: (segments, url, from) => {
-      // Issues live on todo.sr.ht and patchsets on lists.sr.ht; a ticket or
-      // patchset id is the display number, since the API number is the same.
+      // Tickets and patchsets are identified by an integer id, which is both the
+      // API number and the display number, so a parsed ref is already resolved.
       if (url.host === todoHost) {
         const [owner, name, id] = segments
         if (!owner?.startsWith('~') || !name) {
           return undefined
         }
         const repo: RepoRef = { ...from, owner, name }
-        return id ? { repo, thread: { ...from, repo, kind: 'issue', displayNumber: id } } : { repo }
+        return id ? { repo, thread: { ...from, repo, kind: 'issue', number: id, displayNumber: id } } : { repo }
       }
       if (url.host === listsHost) {
         const [owner, name, marker, id] = segments
@@ -75,7 +75,7 @@ function sourcehutWeb(instance: string): WebLinks {
           return undefined
         }
         const repo: RepoRef = { ...from, owner, name }
-        return marker === 'patches' && id ? { repo, thread: { ...from, repo, kind: 'pull_request', displayNumber: id } } : { repo }
+        return marker === 'patches' && id ? { repo, thread: { ...from, repo, kind: 'pull_request', number: id, displayNumber: id } } : { repo }
       }
       const [owner, name, section, at, marker] = segments
       if (!owner?.startsWith('~') || !name) {
