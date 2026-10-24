@@ -80,7 +80,7 @@ Issues and pulls are atproto records, and they are identified by their AT-URI. I
 
 In the refs that the provider returns, the `name` of a repo is the key of its repo record. For newer repos, that key differs from the name that people see, which `Repo.displayName` holds. You can also pass a ref that has a handle as `owner` and the visible name as `name`, which is what `parseUrl()` returns for a URL such as `https://tangled.org/@acme.example.com/widgets`. The provider resolves the handle and finds the record by its name, so the ref that it returns can differ from the one you passed.
 
-Tangled names a repository by the handle of its owner, so the provider reads the handle from the owner's DID document and reports it as `RepoRef.ownerHandle` and as `Actor.handle` on `Repo.owner`. The `owner` stays the DID, so that a repository is found the same way whichever is known. An owner whose DID document claims no handle is named by its DID, which Tangled redirects to the handle.
+Tangled names a repository by the handle of its owner, so the provider reads the handle from the owner's DID document and reports it as `RepoRef.ownerHandle` and as the `login` of `Repo.owner`. The `owner` stays the DID, so that a repository is found the same way whichever is known. An owner whose DID document claims no handle is named by its DID, which Tangled redirects to the handle.
 
 `repos.byOwner()` reads the repo records of an account, which you name by its handle or DID. Every Tangled repo is public, and the records come back in their own order, so if you pass `sort`, you get a `sort_unsupported` warning.
 

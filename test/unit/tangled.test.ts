@@ -154,7 +154,8 @@ describe('tangled web addresses', () => {
 
     expect(found.url).toBe('https://tangled.org/acme.example.com/widgets')
     expect(found.cloneUrls).toEqual({ https: 'https://tangled.org/acme.example.com/widgets', ssh: 'ssh://git@tangled.org/acme.example.com/widgets' })
-    expect(found.owner).toMatchObject({ login: 'acme.example.com', id: OWNER, handle: 'acme.example.com' })
+    expect(found.ref.ownerHandle).toBe('acme.example.com')
+    expect(found.owner).toMatchObject({ login: 'acme.example.com', id: OWNER })
   })
 
   it('falls back to the DID of an owner whose DID document claims no handle', async () => {
@@ -164,7 +165,7 @@ describe('tangled web addresses', () => {
     const found = await instance.repos.get(repo)
 
     expect(found.ref.ownerHandle).toBeUndefined()
-    expect(found.owner).toMatchObject({ login: OWNER, id: OWNER, handle: undefined })
+    expect(found.owner).toMatchObject({ login: OWNER, id: OWNER })
     expect(found.url).toBe(`https://tangled.org/${OWNER}/widgets`)
   })
 

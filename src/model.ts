@@ -457,11 +457,6 @@ export interface Actor extends ForgeOrigin {
    * Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled.
    */
   id: string
-  /**
-   * The account's handle, where the forge identifies accounts by DID and
-   * addresses them by handle (Tangled).
-   */
-  handle?: string
   name?: string
   avatarUrl?: string
   url?: string

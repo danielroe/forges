@@ -620,9 +620,9 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   async function toRepo(ref: RepoRef, record: RepoRecord, raw: unknown, counts: Pick<Repo, 'stars' | 'forks'> = {}): Promise<Repo> {
     const parent = record.source ? parseAtUri(record.source) : undefined
     const owner = await actorFor(ref.owner)
-    const path = `${owner.handle ?? ref.owner}/${ref.name}`
+    const path = `${owner.login}/${ref.name}`
     return {
-      ref: { ...ref, ...owner.handle ? { ownerHandle: owner.handle } : {}, ...record.repoDid ? { externalId: record.repoDid } : {} },
+      ref: { ...ref, ...owner.login === owner.id ? {} : { ownerHandle: owner.login }, ...record.repoDid ? { externalId: record.repoDid } : {} },
       displayName: record.name && record.name !== ref.name ? record.name : undefined,
       description: record.description,
       visibility: 'public',

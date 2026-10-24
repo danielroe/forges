@@ -16,10 +16,6 @@
         "type": "string",
         "description": "Forge-native account id: the numeric id on GitHub (`databaseId` in its GraphQL API, not the node id), GitLab, Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled."
       },
-      "handle": {
-        "type": "string",
-        "description": "The account's handle, where the forge identifies accounts by DID and addresses them by handle (Tangled)."
-      },
       "name": {
         "type": "string"
       },
@@ -4857,10 +4853,6 @@
       "id": {
         "type": "string",
         "description": "Forge-native account id: the numeric id on GitHub (`databaseId` in its GraphQL API, not the node id), GitLab, Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled."
-      },
-      "handle": {
-        "type": "string",
-        "description": "The account's handle, where the forge identifies accounts by DID and addresses them by handle (Tangled)."
       },
       "name": {
         "type": "string"

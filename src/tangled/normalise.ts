@@ -61,7 +61,6 @@ export function toActor(instance: string, identity: Identity, webUrl: string): A
     instance,
     login,
     id: identity.did,
-    handle: identity.handle,
     url: `${webUrl}/${login}`,
     isBotHint: false,
   }
