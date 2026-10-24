@@ -162,12 +162,9 @@ function waitResult({ items, warnings }: Page<Check>, timedOut: boolean): WaitFo
 }
 
 /**
- * Polls `checks.list()` until every check on the commit has finished, or `timeout` runs out. A commit with no checks yet
- * counts as pending, since CI takes a moment to register them after a push. A check that is `neutral` or `unknown` counts
- * as finished. A failure does not end the wait early.
- *
- * It sees only the checks that a read returns, so it can resolve before a check that registers later has started, and a
- * read with `warnings` can leave out checks that are still running.
+ * Polls `checks.list()` until every check on the commit has finished, or `timeout` runs out. No checks yet counts as
+ * pending, and `neutral` or `unknown` as finished; a failure does not end the wait. It sees only the checks a read
+ * returns, so a check that registers late, or one that a read with `warnings` leaves out, can still be running.
  * @param provider The provider to read the checks with.
  * @param repo The repository of the commit.
  * @param sha The commit to wait for.

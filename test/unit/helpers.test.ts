@@ -152,9 +152,19 @@ describe('waitForChecks', () => {
     await expect(wait).resolves.toMatchObject({ timedOut: false, state: 'success', checks: [{ name: 'build' }] })
   })
 
+  it('times out with an unknown state when the commit gets no checks', async () => {
+    const forge = fake({ seed })
+
+    const wait = waitForChecks(forge, repo, sha, { timeout: 2000, interval: 1000 })
+    await vi.advanceTimersByTimeAsync(2000)
+
+    await expect(wait).resolves.toEqual({ timedOut: true, state: 'unknown', checks: [], pending: [] })
+  })
+
   it('resolves with the pending checks when the timeout runs out', async () => {
     const forge = fake({ seed })
     await forge.checks.report(repo, sha, { name: 'deploy', state: 'pending' })
+    await forge.checks.report(repo, sha, { name: 'lint', state: 'failure' })
     const list = vi.spyOn(forge.checks, 'list')
 
     const wait = waitForChecks(forge, repo, sha, { timeout: 2500, interval: 1000 })
@@ -162,7 +172,7 @@ describe('waitForChecks', () => {
     const result = await wait
 
     expect(list).toHaveBeenCalledTimes(4)
-    expect(result).toMatchObject({ timedOut: true, state: 'pending', pending: [{ name: 'deploy' }] })
+    expect(result).toMatchObject({ timedOut: true, state: 'failure', pending: [{ name: 'deploy' }] })
   })
 
   it('passes on the warnings of the last read', async () => {
