@@ -45,8 +45,8 @@ function tangledWeb(baseUrl: string): WebLinks {
       if ('sha' in ref) {
         return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
-      const number = ref.displayNumber ?? ref.number
-      return number ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}` : undefined
+      // Only the display number gives a short form; `number` is the record's AT-URI.
+      return ref.displayNumber ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${ref.displayNumber}` : undefined
     },
     // A `#<n>` written in text is the display number: the record's AT-URI is not known from text alone.
     references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], repo: OWNER_NAME, commits: true },
