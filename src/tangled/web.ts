@@ -1,12 +1,14 @@
 import type { RepoRef, ThreadKind } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf, OWNER_NAME } from '../web.ts'
+import { lineOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare', stargazers: 'stars', forks: 'forks' }
 
 const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`
+/** A Tangled owner is a handle or a DID, so a cross-repo reference can carry `:`. */
+const REFERENCE_REPO = String.raw`[\w:.-]+\/[\w.-]+`
 
 export const TANGLED_WEB: WebDefinition<'tangled'> = {
   forge: 'tangled',
@@ -49,6 +51,6 @@ function tangledWeb(baseUrl: string): WebLinks {
       return ref.displayNumber ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${ref.displayNumber}` : undefined
     },
     // A `#<n>` written in text is the display number: the record's AT-URI is not known from text alone.
-    references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], repo: OWNER_NAME, commits: true },
+    references: { threads: [{ prefix: '#', kind: 'issue', displayNumber: true }], repo: REFERENCE_REPO, commits: true },
   }
 }
