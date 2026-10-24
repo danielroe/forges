@@ -16,6 +16,10 @@
         "type": "string",
         "description": "Forge-native account id: the numeric id on GitHub (`databaseId` in its GraphQL API, not the node id), GitLab, Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled."
       },
+      "handle": {
+        "type": "string",
+        "description": "The account's handle, where the forge identifies accounts by DID and addresses them by handle (Tangled)."
+      },
       "name": {
         "type": "string"
       },
@@ -3749,6 +3753,10 @@
       "externalId": {
         "type": "string",
         "description": "Stable forge-native identifier that survives renames and transfers: a GitHub, Forgejo or Gitea numeric id, a GitLab project or group id, a Bitbucket UUID or a Tangled repo DID. {@link repoKey} prefers it over `owner` and `name`."
+      },
+      "ownerHandle": {
+        "type": "string",
+        "description": "The owner's handle, where the forge identifies accounts by DID but addresses them by handle in its web URLs (Tangled). The `owner` stays the DID, so that a repository is found the same way whichever is known."
       }
     },
     "required": [
@@ -4849,6 +4857,10 @@
       "id": {
         "type": "string",
         "description": "Forge-native account id: the numeric id on GitHub (`databaseId` in its GraphQL API, not the node id), GitLab, Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled."
+      },
+      "handle": {
+        "type": "string",
+        "description": "The account's handle, where the forge identifies accounts by DID and addresses them by handle (Tangled)."
       },
       "name": {
         "type": "string"

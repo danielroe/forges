@@ -18,6 +18,38 @@ export function atUri(did: string, collection: string, rkey: string): string {
   return `at://${did}/${collection}/${rkey}`
 }
 
+/** The alphabet a record key sorts and encodes by. */
+const TID_ALPHABET = '234567abcdefghijklmnopqrstuvwxyz'
+
+/**
+ * The moment a record was created. The timestamp its key carries is the one
+ * the server that wrote it stamped, so it is preferred over the moment the
+ * record claims, which its author chose.
+ */
+export function createdAtOf(rkey: string, createdAt: Date | undefined): Date | undefined {
+  const stamped = tidTime(rkey)
+  if (!stamped || !createdAt) {
+    return createdAt ?? stamped
+  }
+  return Math.abs(stamped.getTime() - createdAt.getTime()) <= 24 * 60 * 60 * 1000 ? stamped : createdAt
+}
+/** The moment a record was created, from the timestamp its key carries. */
+function tidTime(rkey: string): Date | undefined {
+  if (rkey.length !== 13) {
+    return undefined
+  }
+  let value = 0n
+  for (const character of rkey) {
+    const digit = TID_ALPHABET.indexOf(character)
+    if (digit < 0) {
+      return undefined
+    }
+    value = (value << 5n) | BigInt(digit)
+  }
+  const time = new Date(Number((value >> 10n) / 1000n))
+  return Number.isNaN(time.getTime()) ? undefined : time
+}
+
 export interface Identity {
   did: string
   pds?: string

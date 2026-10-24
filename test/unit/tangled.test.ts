@@ -4,6 +4,7 @@ import { gzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { InsufficientScopeError, StreamClosedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { notificationThread, repoKey, threadKey } from '../../src/model.ts'
+import { parseAppviewThreads } from '../../src/tangled/appview.ts'
 import { parseAtUri } from '../../src/tangled/atproto.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { jetstreamUrl } from '../../src/tangled/subscribe.ts'
@@ -49,7 +50,7 @@ describe('tangled identity', () => {
     const { instance } = provider()
     const thread = await instance.threads.get({ ...pull, repo: { ...repo, owner: 'unknown', name: 'unknown' } })
 
-    expect(thread.ref.repo).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222' })
+    expect(thread.ref.repo).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222', ownerHandle: 'acme.example.com' })
     expect(thread.author).toMatchObject({ login: 'ada.example.com', id: ADA })
   })
 
@@ -60,7 +61,7 @@ describe('tangled identity', () => {
     const parsed = instance.parseUrl('https://tangled.org/@acme.example.com/widgets')!
     const found = await instance.repos.get(parsed.repo)
 
-    expect(found.ref).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222' })
+    expect(found.ref).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222', ownerHandle: 'acme.example.com' })
     expect(found.displayName).toBeUndefined()
   })
 
@@ -88,6 +89,136 @@ describe('tangled identity', () => {
     const { instance } = provider()
     await expect(instance.threads.get({ ...pull, number: '4' })).rejects.toThrow(UnresolvedThreadError)
     await expect(instance.threads.get({ ...pull, kind: 'issue' })).rejects.toThrow(UnresolvedThreadError)
+  })
+})
+
+describe('tangled web addresses', () => {
+  it('numbers a thread as the appview shows it', async () => {
+    const { instance } = provider()
+    const thread = await instance.threads.get(pull)
+
+    expect(thread.ref.displayNumber).toBe('7')
+    expect(thread.url).toBe('https://tangled.org/acme.example.com/widgets/pulls/7')
+    expect(instance.urlFor({ thread: thread.ref })).toBe('https://tangled.org/acme.example.com/widgets/pulls/7')
+  })
+
+  it('leaves a thread the appview does not list unlinked', async () => {
+    const { instance, calls } = provider({
+      'GET https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0': { status: 404, body: { error: 'NotFound' } },
+    })
+    const thread = await instance.threads.get(pull)
+
+    expect(calls.some(call => call.url.includes('tangled.org/acme.example.com/widgets/pulls'))).toBe(true)
+    expect(thread.ref.displayNumber).toBeUndefined()
+    expect(thread.url).toBeUndefined()
+  })
+
+  it('tells two threads with the same title apart by the moment the appview saw them', async () => {
+    const { instance } = provider({
+      'GET https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0': {
+        status: 200,
+        body: '<a href="/acme.example.com/widgets/pulls/3">Cache compiled templates <span>#3</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny"><a href="/acme.example.com/widgets/pulls/9">Cache compiled templates <span>#9</span></a><time datetime="2020-01-01T00:00:00+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">',
+      },
+    })
+    const thread = await instance.threads.get(pull)
+
+    expect(thread.ref.displayNumber).toBe('3')
+  })
+
+  it('writes a reference from another repository by the owner\'s handle', async () => {
+    const { instance } = provider()
+    const thread = await instance.threads.get(pull)
+
+    expect(instance.referenceFor(thread.ref, { from: thread.ref.repo })).toBe('#7')
+    expect(instance.referenceFor(thread.ref, { from: { ...repo, name: 'gadgets' } })).toBe('acme.example.com/widgets#7')
+  })
+
+  it('believes a number the caller knows over the one the appview shows', async () => {
+    const { instance } = provider()
+    const thread = await instance.threads.get({ ...pull, displayNumber: '17' })
+
+    expect(thread.ref.displayNumber).toBe('17')
+    expect(thread.url).toBe('https://tangled.org/acme.example.com/widgets/pulls/17')
+  })
+
+  it('anchors the URL of a comment on the page of its thread', async () => {
+    const { instance } = provider()
+    const comments = await instance.threads.comments(pull).page()
+
+    expect(comments.items[0]?.url).toMatch(/^https:\/\/tangled\.org\/acme\.example\.com\/widgets\/pulls\/7#comment-/)
+  })
+
+  it('names the owner by the handle its DID document claims', async () => {
+    const { instance } = provider()
+    const found = await instance.repos.get(repo)
+
+    expect(found.url).toBe('https://tangled.org/acme.example.com/widgets')
+    expect(found.cloneUrls).toEqual({ https: 'https://tangled.org/acme.example.com/widgets', ssh: 'ssh://git@tangled.org/acme.example.com/widgets' })
+    expect(found.owner).toMatchObject({ login: 'acme.example.com', id: OWNER, handle: 'acme.example.com' })
+  })
+
+  it('falls back to the DID of an owner whose DID document claims no handle', async () => {
+    const { instance } = provider({
+      'GET https://plc.directory/did:plc:acmeowner222222222222222': { status: 200, body: { id: OWNER, service: [{ id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS }] } },
+    })
+    const found = await instance.repos.get(repo)
+
+    expect(found.ref.ownerHandle).toBeUndefined()
+    expect(found.owner).toMatchObject({ login: OWNER, id: OWNER, handle: undefined })
+    expect(found.url).toBe(`https://tangled.org/${OWNER}/widgets`)
+  })
+
+  it('numbers a thread of a repository whose owner has no handle', async () => {
+    const { instance, calls } = provider({
+      'GET https://plc.directory/did:plc:acmeowner222222222222222': { status: 200, body: { id: OWNER, service: [{ id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS }] } },
+      [`GET https://tangled.org/${OWNER}/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0`]: {
+        status: 200,
+        body: '<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">',
+      },
+    })
+    const thread = await instance.threads.get(pull)
+
+    expect(calls.some(call => call.url.includes(`tangled.org/${OWNER}/widgets/pulls`))).toBe(true)
+    expect(thread.ref.displayNumber).toBe('7')
+    expect(thread.url).toBe(`https://tangled.org/${OWNER}/widgets/pulls/7`)
+  })
+})
+
+describe('tangled appview listings', () => {
+  it('names a thread by the link to its page and the title beside it', () => {
+    const page = parseAppviewThreads('<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">', 'pull_request')
+
+    expect(page.threads).toEqual([{
+      number: '7',
+      title: 'Cache compiled templates',
+      author: 'did:plc:adaauthor222222222222222',
+      at: new Date('2025-09-15T08:00:03Z'),
+    }])
+  })
+
+  it('lists every thread a page links to, whether or not its title reads', () => {
+    const page = parseAppviewThreads([
+      '<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a>',
+      '<a href="/acme.example.com/widgets/pulls/8">A title the appview renders without a number</a>',
+    ].join(''), 'pull_request')
+
+    expect(page.threads.map(thread => thread.number)).toEqual(['7'])
+    expect(page.listed).toEqual(['7', '8'])
+  })
+
+  it('reads on past a page of threads whose titles do not read', async () => {
+    const list = `https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100`
+    const { instance } = provider({
+      [`GET ${list}&offset=0`]: { status: 200, body: Array.from({ length: 100 }, (_, index) => `<a href="/acme.example.com/widgets/pulls/${index + 100}">untitled</a>`).join('') },
+      [`GET ${list}&offset=100`]: {
+        status: 200,
+        body: '<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">',
+      },
+      [`GET ${list}&offset=101`]: { status: 200, body: '' },
+    })
+    const thread = await instance.threads.get(pull)
+
+    expect(thread.ref.displayNumber).toBe('7')
   })
 })
 
@@ -241,7 +372,7 @@ describe('tangled index listing', () => {
     }
 
     expect(threads.map(thread => [thread.ref.number, thread.state, thread.commentCount])).toEqual([[PULL, 'open', 1]])
-    expect(calls.filter(call => call.url.startsWith('https://api.tangled.org'))).toHaveLength(1)
+    expect(calls.filter(call => call.url.includes('order=desc'))).toHaveLength(1)
     expect(calls.some(call => call.url.includes('constellation'))).toBe(false)
     expect(listing.warnings.map(warning => warning.code)).toEqual(['index_possibly_stale'])
   })

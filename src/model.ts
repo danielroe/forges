@@ -63,6 +63,12 @@ export interface RepoRef extends ForgeOrigin {
    * `owner` and `name`.
    */
   externalId?: string
+  /**
+   * The owner's handle, where the forge identifies accounts by DID but
+   * addresses them by handle in its web URLs (Tangled). The `owner` stays the
+   * DID, so that a repository is found the same way whichever is known.
+   */
+  ownerHandle?: string
 }
 
 /** Who can see a repository. */
@@ -451,6 +457,11 @@ export interface Actor extends ForgeOrigin {
    * Forgejo, Gitea and Gitee, the UUID on Bitbucket, the identity id on Azure DevOps and the DID on Tangled.
    */
   id: string
+  /**
+   * The account's handle, where the forge identifies accounts by DID and
+   * addresses them by handle (Tangled).
+   */
+  handle?: string
   name?: string
   avatarUrl?: string
   url?: string

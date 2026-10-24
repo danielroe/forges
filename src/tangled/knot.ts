@@ -34,6 +34,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { NotFoundError, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { toDate } from '../utils.ts'
 import { FORGE } from './normalise.ts'
+import { repoPath } from './web.ts'
 
 interface KnotDeps {
   fetcher: Fetcher
@@ -130,7 +131,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
   }
 
   const pageUrl = (repo: RepoRef, section: string, ref: string | undefined, path: string) =>
-    `${webUrl}/${repo.owner}/${repo.name}/${section}/${encodeURIComponent(ref ?? 'HEAD')}/${path.split('/').map(encodeURIComponent).join('/')}`
+    `${webUrl}${repoPath(repo)}/${section}/${encodeURIComponent(ref ?? 'HEAD')}/${path.split('/').map(encodeURIComponent).join('/')}`
 
   function toCommit(repo: RepoRef, raw: KnotCommit, files?: ChangedFile[]): Commit {
     const sha = raw.this ?? hex(raw.hash)
@@ -141,7 +142,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       author: raw.author && signature(raw.author),
       committer: raw.committer && signature(raw.committer),
       parents: (raw.parent_hashes ?? []).map(hex),
-      url: `${webUrl}/${repo.owner}/${repo.name}/commit/${sha}`,
+      url: `${webUrl}${repoPath(repo)}/commit/${sha}`,
       ...files ? { files, stats: stats(files) } : {},
       raw,
     }
@@ -158,7 +159,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       author: author || undefined,
       committer: committer || undefined,
       parents: [],
-      url: `${webUrl}/${repo.owner}/${repo.name}/commit/${header.SHA}`,
+      url: `${webUrl}${repoPath(repo)}/commit/${header.SHA}`,
       files,
       stats: stats(files),
       raw: { ...header, Files: undefined },
@@ -206,7 +207,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
         name: branch.reference.name,
         sha: branch.reference.hash,
         isDefault: branch.is_default ?? false,
-        url: `${webUrl}/${knot.ref.owner}/${knot.ref.name}/tree/${encodeURIComponent(branch.reference.name)}`,
+        url: `${webUrl}${repoPath(knot.ref)}/tree/${encodeURIComponent(branch.reference.name)}`,
         raw: { ...branch, commit: undefined },
       })), offset, limit)
     },
@@ -218,7 +219,7 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       return offsetPage((data.tags ?? []).map(tag => ({
         name: tag.name,
         sha: tag.tag ? hex(tag.tag.Target) : tag.hash,
-        url: `${webUrl}/${knot.ref.owner}/${knot.ref.name}/tree/${encodeURIComponent(tag.name)}`,
+        url: `${webUrl}${repoPath(knot.ref)}/tree/${encodeURIComponent(tag.name)}`,
         raw: tag,
       })), offset, limit)
     },

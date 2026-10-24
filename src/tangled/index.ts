@@ -33,6 +33,7 @@ import {
 } from '../errors.ts'
 import { isResolvedThread } from '../model.ts'
 import { degradesToWarning, forgeIterable, getManyConcurrently, requireThread } from '../utils.ts'
+import { listedThread } from './appview.ts'
 import { atUri, createAtprotoClient, parseAtUri } from './atproto.ts'
 import { accountFeedPage } from './feed.ts'
 import {
@@ -51,7 +52,7 @@ import { createTangledNotifications } from './notifications.ts'
 import { applyLabelOp, createTangledRecords, labelsIn, STATE_COLLECTION } from './records.ts'
 import { createTangledSession } from './session.ts'
 import { subscribeJetstream } from './subscribe.ts'
-import { TANGLED_WEB } from './web.ts'
+import { TANGLED_WEB, threadUrl } from './web.ts'
 import { tangledWebhooks } from './webhooks.ts'
 
 export type { WebSocketFactory, WebSocketLike } from './subscribe.ts'
@@ -146,10 +147,12 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       context,
     })
     const api = fetcherFor({ baseUrl: (options.apiUrl ?? 'https://api.tangled.org').replace(/\/$/, '') })
+    // The appview's HTML pages, which take no credentials.
+    const web = fetcherFor({ baseUrl: webUrl })
     const { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob } = createTangledSession({ options, fetcher, atproto, context })
 
     /** The repo DID a thread record must reference, from the ref or the repo record. */
-    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, ownRecords })
+    const { forgetRepos, forgetCollaborators, labelsOf, repoLabels, threadUri, reactionsPage, collaboratorsPage, permissionFor, stateAuthors, actorFor, resolveRepo, threadFor, subjectUri, activity, recordEvent, toStreamEvent, canonicalRepo, canonicalRef, repoDidOf, toRepo, repoCounts, readThread, wholePage, listPage, listComments, findSubscription, displayNumberOf } = createTangledRecords({ options, instance, webUrl, context, atproto, api, fetcher, web, ownRecords })
 
     let loaded: Promise<TangledContents> | undefined
     const knot = () => loaded ??= import('./knot.ts').then(({ createTangledContents }) => createTangledContents({ fetcher, instance, webUrl, context, canonicalRepo, serviceAuth }))
@@ -202,14 +205,16 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
     const createComment: ThreadsApi['createComment'] = async (thread, body, options) => {
       const { ref, uri } = subjectUri(thread)
       const target = atUri(uri.did, uri.collection, uri.rkey)
-      const { cid } = await atproto.getRecord(target, options?.signal)
+      const { cid, value } = await atproto.getRecord<IssueRecord | PullRecord>(target, options?.signal)
       const record: FeedCommentRecord = {
         body: { $type: 'sh.tangled.markup.markdown', text: body, original: body },
         subject: { uri: target, cid: cid ?? '' },
         createdAt: new Date().toISOString(),
       }
       const created = await createRecord(COLLECTIONS.comment, { ...record }, options?.signal)
-      return toRecordComment(ref, created.uri, record, await actorFor(await viewerDid(), options?.signal))
+      const number = await displayNumberOf(ref.repo, uri.collection === COLLECTIONS.pull ? 'pull_request' : 'issue', listedThread(uri, value), options?.signal)
+      const numbered = number === undefined ? ref : { ...ref, displayNumber: number }
+      return toRecordComment(numbered, created.uri, record, await actorFor(await viewerDid(), options?.signal), webUrl)
     }
     const commentSubject = (repo: RepoRef, record: FeedCommentRecord & LegacyCommentRecord): ResolvedThreadRef | undefined => {
       const uri = parseAtUri(record.subject?.uri ?? record.issue ?? record.pull ?? '')
@@ -224,7 +229,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           body: typeof (current as FeedCommentRecord).body === 'string' ? body : { $type: 'sh.tangled.markup.markdown', text: body, original: body },
         }
       }, options?.signal)
-      return toRecordComment(thread!, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal))
+      return toRecordComment(thread!, ref.id, record as FeedCommentRecord, await actorFor(await viewerDid(), options?.signal), webUrl)
     }
     const deleteComment: ThreadsApi['deleteComment'] = (ref, options) => deleteOwnRecord(ref.id, options?.signal)
     const didOf = async (actor: string | Actor, signal?: AbortSignal) => {
@@ -271,8 +276,10 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
         ...current,
         ...input.title === undefined ? {} : { title: input.title },
         ...input.body === undefined ? {} : { body: input.body },
-      }), signal)
-      return toThread(ref, record as IssueRecord | PullRecord, await actorFor(uri.did, signal), {}, 0)
+      }), signal) as IssueRecord | PullRecord
+      const number = await displayNumberOf(ref.repo, uri.collection === COLLECTIONS.pull ? 'pull_request' : 'issue', listedThread(uri, record), signal)
+      const numbered = number === undefined ? ref : { ...ref, displayNumber: number }
+      return toThread(numbered, record, await actorFor(uri.did, signal), {}, 0, undefined, threadUrl(webUrl, numbered))
     }
     const subscription: ThreadsApi['subscription'] = async (thread, options) => await findSubscription(thread, options?.signal) ? 'subscribed' : 'none'
     const subscribe: ThreadsApi['subscribe'] = async (thread, options) => {
@@ -589,7 +596,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
             }),
             repoCounts(record, options?.signal),
           ])
-          return { ...toRepo(found, record.value, record, counts), defaultBranch }
+          return { ...await toRepo(found, record.value, record, counts), defaultBranch }
         }),
         collaboratorsPage: verb(true, collaboratorsPage),
         addCollaborator: verb(writable, addCollaborator),
@@ -610,7 +617,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
             const owner = await viewerDid()
             for await (const record of ownRecords<RepoRecord>(COLLECTIONS.repo, listOptions.signal)) {
               const rkey = parseAtUri(record.uri)!.rkey
-              yield toRepo({ forge: FORGE, instance, owner, name: rkey }, record.value, record)
+              yield await toRepo({ forge: FORGE, instance, owner, name: rkey }, record.value, record)
             }
           }))
         }),
@@ -620,7 +627,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           }
           const did = owner.owner.startsWith('did:') ? owner.owner : await atproto.resolveHandle(owner.owner.replace(/^@/, ''), query.signal)
           for await (const record of atproto.listRecords<RepoRecord>(did, COLLECTIONS.repo, query.signal)) {
-            yield toRepo({ forge: FORGE, instance, owner: did, name: parseAtUri(record.uri)!.rkey }, record.value, record)
+            yield await toRepo({ forge: FORGE, instance, owner: did, name: parseAtUri(record.uri)!.rkey }, record.value, record)
           }
         }))),
       },

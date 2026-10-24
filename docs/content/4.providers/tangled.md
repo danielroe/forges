@@ -80,13 +80,25 @@ Issues and pulls are atproto records, and they are identified by their AT-URI. I
 
 In the refs that the provider returns, the `name` of a repo is the key of its repo record. For newer repos, that key differs from the name that people see, which `Repo.displayName` holds. You can also pass a ref that has a handle as `owner` and the visible name as `name`, which is what `parseUrl()` returns for a URL such as `https://tangled.org/@acme.example.com/widgets`. The provider resolves the handle and finds the record by its name, so the ref that it returns can differ from the one you passed.
 
+Tangled names a repository by the handle of its owner, so the provider reads the handle from the owner's DID document and reports it as `RepoRef.ownerHandle` and as `Actor.handle` on `Repo.owner`. The `owner` stays the DID, so that a repository is found the same way whichever is known. An owner whose DID document claims no handle is named by its DID, which Tangled redirects to the handle.
+
 `repos.byOwner()` reads the repo records of an account, which you name by its handle or DID. Every Tangled repo is public, and the records come back in their own order, so if you pass `sort`, you get a `sort_unsupported` warning.
 
 `repos.get()` also reports `stars` and `forks`, from `sh.tangled.feed.countStars` and `sh.tangled.repo.countForks` on the index at `apiUrl`. The index can lag behind the appview, so these counts can be lower than the ones in the Tangled UI. Each count is absent when the index can't return it. Listings of repositories don't include them.
 
+## Thread numbers
+
 The numbers that you see in the Tangled UI and in webhooks come from the appview, because the records themselves don't store them. The provider reports them as `displayNumber`.
 
-In text, a thread is mentioned as `#<number>`, which is the display number: the record's AT-URI is not known from the text alone, so `parseReferences()` returns a ref that carries `displayNumber`. `urlFor()` links that ref, and `referenceFor()` writes it back as `#<number>`, or `owner/name#<number>` for another repository.
+The appview numbers a repository's issues and pulls separately. The provider reads the number from the appview's list of the repository's threads, at `/{owner}/{repo}/issues` and `/{owner}/{repo}/pulls`, and finds a thread in it by the account that opened it and by its title, and, where several threads share those, by the moment the appview saw them. A thread that the list does not name, or names ambiguously, has no `displayNumber` and no `url`.
+
+The list costs a request per hundred threads, plus one to reach its end, and is cached for the repository. To read one thread, the provider reads the list of the threads that its author opened first, and the whole list only when that one does not name it.
+
+Pass a `displayNumber` in the ref you give to `threads.get()` to use the number you know, such as the one a webhook carried.
+
+The web page of a thread carries that number, so `Thread.url` and the URLs of comments point at the page that the appview serves.
+
+In text, a thread is mentioned as `#<number>`, which is the display number: the record's AT-URI is not known from the text alone, so `parseReferences()` returns a ref that carries `displayNumber`. `urlFor()` links that ref, and `referenceFor()` writes it back as `#<number>`, or `owner/name#<number>` for another repository, with the owner's handle where the ref carries one.
 
 A ref from a webhook has no `number` until it is matched to a record. To fill in `number` during `webhooks.ingest()`, pass a `resolveDisplayNumber(repo, kind, displayNumber)` function that returns the AT-URI.
 

@@ -1,0 +1,12 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "<!DOCTYPE html>\n<html lang=\"en\">\n  <body>\n    <div class=\"rounded bg-white dark:bg-gray-800\">\n      <div class=\"px-6 py-4 z-5\">\n        <div class=\"pb-2\">\n          <a href=\"/acme.example.com/widgets/pulls/7\" class=\"dark:text-white\">\n            Cache compiled templates\n\n            <span class=\"text-gray-500 dark:text-gray-400\">#7</span>\n          </a>\n        </div>\n        <div class=\"text-sm text-gray-500 dark:text-gray-400 flex flex-wrap items-center gap-1\">\n          <span class=\"inline-flex items-center rounded px-2 py-[5px] bg-purple-600 dark:bg-purple-700 text-sm\">\n            <span class=\"text-white\">Merged</span>\n          </span>\n          <span class=\"ml-1 flex items-center gap-1\">\n  <div class=\"relative inline-block\">\n    <a href=\"/ada.example.com\" title=\"ada.example.com\">\n      <img\n          src=\"https://avatar.tangled.sh/3c80aea5f47b713b1b7bec77f809d2ec57ab2fb2a14ae62f8ad5383f8c095b82/did:plc:adaauthor222222222222222?size=tiny\"\n          alt=\"\"\n          class=\"rounded-full border border-gray-300 dark:border-gray-700 size-6\"\n      />\n    </a>\n  </div>\n            <a href=\"/ada.example.com\">ada.example.com</a>\n          </span>\n          <span class=\"before:content-['·']\">\n<time datetime=\"2025-09-15T08&#43;00:03\" title=\"Sep 15, 2025, 8:00 AM UTC\">a year ago</time>\n          </span>\n        </div>\n      </div>\n    </div>\n  </body>\n</html>\n"
+  }
+}
