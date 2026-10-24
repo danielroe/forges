@@ -9,8 +9,8 @@ import { repoPath } from './web.ts'
 export interface AppviewThread {
   /** The number the appview shows the thread as. */
   number: string
-  /** The title, as the appview renders it. */
-  title: string
+  /** The title the appview renders, as {@link titleKey} compares it. */
+  key: string
   /** The DID of the account that opened the thread. */
   author?: string
   /** When the appview saw the thread. */
@@ -38,8 +38,6 @@ const SEEN_WITHIN = 24 * 60 * 60 * 1000
 /** How much closer the appview's timestamp of a thread must be than another's, to tell two apart. */
 const CLOSER_BY = 60 * 1000
 
-const ENTITIES: Record<string, string> = { 'amp': '&', 'apos': '\'', 'gt': '>', 'lt': '<', 'nbsp': ' ', 'quot': '"', '#39': '\'', '#43': '+' }
-
 /** One page of the appview's list of a repository's threads. */
 export interface AppviewPage {
   /** The threads whose number and title the page names. */
@@ -66,7 +64,7 @@ export function parseAppviewThreads(html: string, kind: 'issue' | 'pull_request'
     const rest = html.slice(match.index! + match[0].length, matches[index + 1]?.index ?? html.length)
     return {
       number: match[1]!,
-      title: text(match[2]!),
+      key: titleKey(match[2]!.replace(/<[^>]*>|&(?:#\d+|[a-z]+);/gi, '')),
       author: /avatar\.tangled\.sh\/[^"?]*\/([^"?/]+)\?/.exec(rest)?.[1],
       at: date(/<time datetime="([^"]+)"/.exec(rest)?.[1]),
     }
@@ -85,7 +83,7 @@ export function appviewNumber(threads: AppviewThread[], thread: ListedThread): s
   if (!key) {
     return undefined
   }
-  const same = threads.filter(candidate => candidate.author === thread.author && titleKey(candidate.title) === key)
+  const same = threads.filter(candidate => candidate.author === thread.author && candidate.key === key)
   const seen = same.filter(candidate => !thread.createdAt || !candidate.at || Math.abs(candidate.at.getTime() - thread.createdAt.getTime()) <= SEEN_WITHIN)
   if (seen.length === 1) {
     return seen[0]!.number
@@ -104,10 +102,7 @@ export function listedThread(uri: AtUri, record: { title: string, createdAt?: st
   return { title: record.title, author: uri.did, createdAt: createdAtOf(uri.rkey, toDate(record.createdAt)) }
 }
 
-/**
- * A title as the appview renders it and as the record stores it, compared
- * without the markup and punctuation that rendering changes.
- */
+/** A title reduced to its letters and digits, so that markup and punctuation do not tell the rendered and stored titles apart. */
 function titleKey(title: string): string {
   return title.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[`*_~]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '')
 }
@@ -117,23 +112,7 @@ function distance(thread: AppviewThread, createdAt: Date): number {
   return thread.at ? Math.abs(thread.at.getTime() - createdAt.getTime()) : Number.POSITIVE_INFINITY
 }
 
-/** The text of a fragment of HTML, without its markup. */
-function text(html: string): string {
-  return decode(html.replace(/<[^>]*>/g, '')).replace(/\s+/g, ' ').trim()
-}
-
-function decode(value: string): string {
-  return value.replace(/&(#\d+|[a-z]+);/gi, (match, entity: string) => {
-    const known = ENTITIES[entity.toLowerCase()]
-    if (known !== undefined) {
-      return known
-    }
-    const code = entity.startsWith('#') ? Number(entity.slice(1)) : Number.NaN
-    return Number.isFinite(code) ? String.fromCodePoint(code) : match
-  })
-}
-
 function date(value: string | undefined): Date | undefined {
-  const parsed = value ? new Date(decode(value)) : undefined
+  const parsed = value ? new Date(value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)))) : undefined
   return parsed && !Number.isNaN(parsed.getTime()) ? parsed : undefined
 }

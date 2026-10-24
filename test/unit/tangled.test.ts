@@ -4,7 +4,7 @@ import { gzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { InsufficientScopeError, StreamClosedError, TokenRevokedError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { notificationThread, repoKey, threadKey } from '../../src/model.ts'
-import { parseAppviewThreads } from '../../src/tangled/appview.ts'
+import { appviewNumber, parseAppviewThreads } from '../../src/tangled/appview.ts'
 import { parseAtUri } from '../../src/tangled/atproto.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { jetstreamUrl } from '../../src/tangled/subscribe.ts'
@@ -191,10 +191,17 @@ describe('tangled appview listings', () => {
 
     expect(page.threads).toEqual([{
       number: '7',
-      title: 'Cache compiled templates',
+      key: 'cachecompiledtemplates',
       author: 'did:plc:adaauthor222222222222222',
       at: new Date('2025-09-15T08:00:03Z'),
     }])
+  })
+
+  it('matches a rendered title to the title its record stores', () => {
+    const page = parseAppviewThreads('<a href="/acme.example.com/widgets/issues/13">Don&#39;t use <code>.name</code> &amp; &lt;b&gt; <span>#13</span></a><time datetime="2025-09-15T08:00:03&#43;00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">', 'issue')
+
+    expect(page.threads[0]?.at).toEqual(new Date('2025-09-15T08:00:03Z'))
+    expect(appviewNumber(page.threads, { title: 'Don\'t use `.name` & <b>', author: ADA, createdAt: new Date('2025-09-15T08:00:00Z') })).toBe('13')
   })
 
   it('lists every thread a page links to, whether or not its title reads', () => {
