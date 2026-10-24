@@ -20,3 +20,6 @@ exclude = [
   # Shell commands in the docs build URLs from variables, such as `$CLOUDFLARE_ARTIFACTS_ACCOUNT_ID`.
   "\\$\\{?[A-Z_]+",
 ]
+# The `llms.txt` files are generated from the Markdown and repeat every link as plain text, so a
+# URL written in backticks is checked there even though `include-verbatim` skips it elsewhere.
+exclude_path = [ "llms.*\\.txt$", ]
