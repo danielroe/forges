@@ -136,7 +136,7 @@ export const PAGES: PageConfig[] = [
     intro: `Issues, pull requests and the other discussion kinds are threads. ${OPERATIONS}`,
     sections: [
       { namespaces: ['threads'] },
-      { title: 'Comment helpers', intro: 'Import from `forges/helpers`. They call the methods of `provider.threads`, so they work with any provider.', entry: 'forges/helpers', names: [/./] },
+      { title: 'Comment helpers', intro: 'Import from `forges/helpers`. They call the methods of `provider.threads`, so they work with any provider.', entry: 'forges/helpers', names: [/comment/i] },
     ],
   },
   {
@@ -155,7 +155,10 @@ export const PAGES: PageConfig[] = [
     description: 'Notifications, webhooks, checks, CI runs and security alerts.',
     overview: 'The `notifications`, `sources`, `webhooks`, `checks`, `ci` and `securityAlerts` namespaces.',
     intro: OPERATIONS,
-    sections: [{ namespaces: ['notifications', 'sources', 'webhooks', 'checks', 'ci', 'securityAlerts'] }],
+    sections: [
+      { namespaces: ['notifications', 'sources', 'webhooks', 'checks', 'ci', 'securityAlerts'] },
+      { title: 'Checks helpers', intro: 'Import from `forges/helpers`. It only needs `checks.list()`, so it works on any forge that has it.', entry: 'forges/helpers', names: [/Checks/] },
+    ],
   },
   {
     slug: 'data-model',
