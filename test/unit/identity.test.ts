@@ -108,7 +108,7 @@ describe('web links', () => {
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://codeberg.org/acme/widgets/commit/${sha}`],
     ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitea.com/acme/widgets/commit/${sha}`],
     ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://gitee.com/acme/widgets/commit/${sha}`],
-    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, undefined, `https://pushin.eu/acme/widgets/commits/${sha}`],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, 'https://raw.pushin.eu/acme/widgets/v1.0.0/src/a%20b.ts', `https://pushin.eu/acme/widgets/commits/${sha}`],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/raw/v1.0.0/src/a%20b.ts', `https://bitbucket.org/acme/widgets/commits/${sha}`],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, 'https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2Fsrc%2Fa%20b.ts&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=branch&$format=octetStream', `https://dev.azure.com/contoso/Widgets/_git/widgets/commit/${sha}`],
     ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/raw/v1.0.0/src/a%20b.ts', `https://tangled.org/acme.dev/widgets/commit/${sha}`],
@@ -142,6 +142,11 @@ describe('web links', () => {
   it('builds raw file URLs at a branch with a slash or a commit', () => {
     expect(gh.urlFor({ raw: { repo, path: 'README.md', at: 'feat/a' } })).toBe('https://raw.githubusercontent.com/acme/widgets/feat%2Fa/README.md')
     expect(az.urlFor({ raw: { repo: { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }, path: 'README.md', at: sha } })).toContain(`versionDescriptor.version=${sha}&versionDescriptor.versionType=commit`)
+  })
+
+  it('builds no raw file URL on a Pushin.eu instance other than pushin.eu', () => {
+    const target = { ...repo, forge: 'pushin', instance: 'pushin.example.com' }
+    expect(pushin({ auth, baseUrl: 'https://pushin.example.com' }).urlFor({ raw: { repo: target, path: 'README.md', at: 'main' } })).toBeUndefined()
   })
 
   it('builds Tangled URLs with an unescaped DID owner', () => {
