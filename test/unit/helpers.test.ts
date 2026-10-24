@@ -130,7 +130,7 @@ describe('waitForChecks', () => {
     await forge.checks.report(repo, sha, { name: 'lint', state: 'success' })
     const list = vi.spyOn(forge.checks, 'list')
 
-    const wait = waitForChecks(forge, { repo, sha, interval: 1000 })
+    const wait = waitForChecks(forge, repo, sha, { interval: 1000 })
     await vi.advanceTimersByTimeAsync(1000)
     await forge.checks.report(repo, sha, { name: 'test', state: 'failure' })
     await vi.advanceTimersByTimeAsync(1000)
@@ -144,7 +144,7 @@ describe('waitForChecks', () => {
   it('keeps waiting while the commit has no checks yet', async () => {
     const forge = fake({ seed })
 
-    const wait = waitForChecks(forge, { repo, sha, interval: 1000 })
+    const wait = waitForChecks(forge, repo, sha, { interval: 1000 })
     await vi.advanceTimersByTimeAsync(1000)
     await forge.checks.report(repo, sha, { name: 'build', state: 'success' })
     await vi.advanceTimersByTimeAsync(1000)
@@ -157,7 +157,7 @@ describe('waitForChecks', () => {
     await forge.checks.report(repo, sha, { name: 'deploy', state: 'pending' })
     const list = vi.spyOn(forge.checks, 'list')
 
-    const wait = waitForChecks(forge, { repo, sha, timeout: 2500, interval: 1000 })
+    const wait = waitForChecks(forge, repo, sha, { timeout: 2500, interval: 1000 })
     await vi.advanceTimersByTimeAsync(2500)
     const result = await wait
 
@@ -165,12 +165,22 @@ describe('waitForChecks', () => {
     expect(result).toMatchObject({ timedOut: true, state: 'pending', pending: [{ name: 'deploy' }] })
   })
 
+  it('passes on the warnings of the last read', async () => {
+    const forge = fake({ seed })
+    await forge.checks.report(repo, sha, { name: 'dco', state: 'success' })
+    const warning = { code: 'checks_unreadable' as const, message: 'Resource not accessible by integration', subject: 'check-runs' }
+    const list = forge.checks.list
+    vi.spyOn(forge.checks, 'list').mockImplementation(async (...args) => ({ ...await list(...args), warnings: [warning] }))
+
+    await expect(waitForChecks(forge, repo, sha)).resolves.toMatchObject({ timedOut: false, state: 'success', warnings: [warning] })
+  })
+
   it('waits past the default timeout when the timeout is infinite', async () => {
     const forge = fake({ seed })
     await forge.checks.report(repo, sha, { name: 'release', state: 'pending' })
     const list = vi.spyOn(forge.checks, 'list')
 
-    const wait = waitForChecks(forge, { repo, sha, timeout: Infinity })
+    const wait = waitForChecks(forge, repo, sha, { timeout: Infinity })
     await vi.advanceTimersByTimeAsync(1_800_000)
     await forge.checks.report(repo, sha, { name: 'release', state: 'success' })
     await vi.advanceTimersByTimeAsync(15_000)
@@ -184,10 +194,10 @@ describe('waitForChecks', () => {
     const list = vi.spyOn(forge.checks, 'list')
 
     for (const timeout of [Number.NaN, -1]) {
-      await expect(waitForChecks(forge, { repo, sha, timeout })).rejects.toThrow('`timeout` must be zero or more milliseconds')
+      await expect(waitForChecks(forge, repo, sha, { timeout })).rejects.toThrow('`timeout` must be zero or more milliseconds')
     }
     for (const interval of [Number.NaN, 0, -1, 3e9, Infinity]) {
-      await expect(waitForChecks(forge, { repo, sha, interval })).rejects.toThrow('`interval` must be a positive number of milliseconds')
+      await expect(waitForChecks(forge, repo, sha, { interval })).rejects.toThrow('`interval` must be a positive number of milliseconds')
     }
     expect(list).not.toHaveBeenCalled()
   })
@@ -198,7 +208,7 @@ describe('waitForChecks', () => {
     const controller = new AbortController()
     const reason = new Error('Cancelled')
 
-    const wait = waitForChecks(forge, { repo, sha, signal: controller.signal })
+    const wait = waitForChecks(forge, repo, sha, { signal: controller.signal })
     const settled = expect(wait).rejects.toBe(reason)
     await vi.advanceTimersByTimeAsync(5000)
     controller.abort(reason)

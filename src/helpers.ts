@@ -116,8 +116,6 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef | Co
 
 /** Options for {@link waitForChecks}. */
 export interface WaitForChecksOptions extends BaseOptions {
-  repo: RepoRef
-  sha: string
   /** Milliseconds before it gives up. `Infinity` waits for good. @default 600000 */
   timeout?: number
   /** Milliseconds between reads. Each read is a `checks.list()`, so mind the rate limit. @default 15000 */
@@ -128,10 +126,16 @@ export interface WaitForChecksOptions extends BaseOptions {
 export interface WaitForChecksResult {
   /** Time ran out with checks still running, or with none at all. */
   timedOut: boolean
-  /** Summed up like `Thread.checks`, so a failure shows before the rest finish. */
+  /**
+   * Summed up like `Thread.checks`: `failure` when any check failed, even if others are still pending at the timeout,
+   * and `unknown` when the commit has no checks.
+   */
   state: ChecksSummary['state']
+  /** Every check from the last read. */
   checks: Check[]
+  /** The checks from the last read that were still running. */
   pending: Check[]
+  /** Sources the last read could not reach, whose checks are missing from `checks` and `state`. */
   warnings?: ForgeWarning[]
 }
 
@@ -158,14 +162,25 @@ function waitResult({ items, warnings }: Page<Check>, timedOut: boolean): WaitFo
 }
 
 /**
- * Polls `checks.list()` until every check on the commit is done. No checks yet counts as pending, CI needs a moment.
+ * Polls `checks.list()` until every check on the commit has finished, or `timeout` runs out. A commit with no checks yet
+ * counts as pending, since CI takes a moment to register them after a push. A check that is `neutral` or `unknown` counts
+ * as finished. A failure does not end the wait early.
+ *
+ * It sees only the checks that a read returns, so it can resolve before a check that registers later has started, and a
+ * read with `warnings` can leave out checks that are still running.
+ * @param provider The provider to read the checks with.
+ * @param repo The repository of the commit.
+ * @param sha The commit to wait for.
+ * @param options The `timeout`, the `interval` between reads, and a `signal` to stop waiting.
  * @example
  * ```ts
- * const { state, timedOut } = await waitForChecks(provider, { repo, sha })
+ * import { waitForChecks } from 'forges/helpers'
+ *
+ * const { state, timedOut, warnings } = await waitForChecks(provider, repo, sha)
  * ```
  */
-export async function waitForChecks(provider: ForgeProvider, options: WaitForChecksOptions): Promise<WaitForChecksResult> {
-  const { repo, sha, timeout = 600_000, interval = 15_000, signal } = options
+export async function waitForChecks(provider: ForgeProvider, repo: RepoRef, sha: string, options: WaitForChecksOptions = {}): Promise<WaitForChecksResult> {
+  const { timeout = 600_000, interval = 15_000, signal } = options
   assertTimings(timeout, interval)
   const deadline = Date.now() + timeout
   while (true) {
