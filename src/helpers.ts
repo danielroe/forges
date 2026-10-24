@@ -1,5 +1,7 @@
-import type { BaseOptions, Comment, CommitComment, CommitRef, ThreadRef } from './model.ts'
+import type { BaseOptions, Check, ChecksSummary, Comment, CommitComment, CommitRef, ForgeWarning, Page, RepoRef, ThreadRef } from './model.ts'
 import type { ForgeProvider } from './provider.ts'
+import { sleep } from './fetch.ts'
+import { summariseChecks } from './utils.ts'
 
 /** What {@link upsertComment} needs. */
 export interface UpsertCommentInput {
@@ -109,5 +111,70 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef | Co
   return {
     comment: sameBody(existing.body, body) ? existing : await provider.threads.updateComment(existing.ref, body, options),
     created: false,
+  }
+}
+
+/** Options for {@link waitForChecks}. */
+export interface WaitForChecksOptions extends BaseOptions {
+  repo: RepoRef
+  sha: string
+  /** Milliseconds before it gives up. `Infinity` waits for good. @default 600000 */
+  timeout?: number
+  /** Milliseconds between reads. Each read is a `checks.list()`, so mind the rate limit. @default 15000 */
+  interval?: number
+}
+
+/** What {@link waitForChecks} found on its last read. */
+export interface WaitForChecksResult {
+  /** Time ran out with checks still running, or with none at all. */
+  timedOut: boolean
+  /** Summed up like `Thread.checks`, so a failure shows before the rest finish. */
+  state: ChecksSummary['state']
+  checks: Check[]
+  pending: Check[]
+  warnings?: ForgeWarning[]
+}
+
+/** Anything longer and `setTimeout()` fires right away. */
+const MAX_TIMER = 2 ** 31 - 1
+
+function assertTimings(timeout: number, interval: number): void {
+  if (Number.isNaN(timeout) || timeout < 0) {
+    throw new TypeError('`timeout` must be zero or more milliseconds')
+  }
+  if (Number.isNaN(interval) || interval <= 0 || interval > MAX_TIMER) {
+    throw new TypeError(`\`interval\` must be a positive number of milliseconds, at most ${MAX_TIMER}`)
+  }
+}
+
+function waitResult({ items, warnings }: Page<Check>, timedOut: boolean): WaitForChecksResult {
+  return {
+    timedOut,
+    state: summariseChecks(items.map(check => check.state)).state,
+    checks: items,
+    pending: items.filter(check => check.state === 'pending'),
+    ...warnings?.length ? { warnings } : {},
+  }
+}
+
+/**
+ * Polls `checks.list()` until every check on the commit is done. No checks yet counts as pending, CI needs a moment.
+ * @example
+ * ```ts
+ * const { state, timedOut } = await waitForChecks(provider, { repo, sha })
+ * ```
+ */
+export async function waitForChecks(provider: ForgeProvider, options: WaitForChecksOptions): Promise<WaitForChecksResult> {
+  const { repo, sha, timeout = 600_000, interval = 15_000, signal } = options
+  assertTimings(timeout, interval)
+  const deadline = Date.now() + timeout
+  while (true) {
+    const page = await provider.checks.list(repo, sha, { signal })
+    const done = page.items.length > 0 && page.items.every(check => check.state !== 'pending')
+    const left = deadline - Date.now()
+    if (done || left <= 0) {
+      return waitResult(page, !done)
+    }
+    await sleep(Math.min(interval, left), signal)
   }
 }
