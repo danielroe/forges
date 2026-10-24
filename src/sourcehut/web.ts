@@ -67,7 +67,8 @@ function sourcehutWeb(instance: string): WebLinks {
           return undefined
         }
         const repo: RepoRef = { ...from, owner, name }
-        return id ? { repo, thread: { ...from, repo, kind: 'issue', number: id, displayNumber: id } } : { repo }
+        // Other trailing segments, such as `settings`, are tracker pages, not tickets.
+        return id && /^\d+$/.test(id) ? { repo, thread: { ...from, repo, kind: 'issue', number: id, displayNumber: id } } : { repo }
       }
       if (url.host === listsHost) {
         const [owner, name, marker, id] = segments
@@ -75,7 +76,7 @@ function sourcehutWeb(instance: string): WebLinks {
           return undefined
         }
         const repo: RepoRef = { ...from, owner, name }
-        return marker === 'patches' && id ? { repo, thread: { ...from, repo, kind: 'pull_request', number: id, displayNumber: id } } : { repo }
+        return marker === 'patches' && id && /^\d+$/.test(id) ? { repo, thread: { ...from, repo, kind: 'pull_request', number: id, displayNumber: id } } : { repo }
       }
       const [owner, name, section, at, marker] = segments
       if (!owner?.startsWith('~') || !name) {

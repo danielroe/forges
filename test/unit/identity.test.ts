@@ -237,6 +237,10 @@ describe('web links', () => {
     // Sourcehut has no text syntax for a patchset, so its reference is its page URL.
     expect(sh.referenceFor(patch!.thread!, { from: patch!.repo })).toBe('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/71657')
 
+    // A non-numeric trailing segment is a tracker page, not a ticket or patchset.
+    expect(sh.parseUrl('https://todo.sr.ht/~sircmpwn/scdoc/settings')?.thread).toBeUndefined()
+    expect(sh.parseUrl('https://lists.sr.ht/~sircmpwn/sr.ht-dev/patches/latest')?.thread).toBeUndefined()
+
     // The git host still reads as a repository, and only known hosts are read.
     expect(sh.parseUrl('https://git.sr.ht/~sircmpwn/scdoc')).toMatchObject({ repo: { owner: '~sircmpwn', name: 'scdoc' } })
     expect(sh.parseUrl('https://builds.sr.ht/~sircmpwn/job/1')).toBeUndefined()
