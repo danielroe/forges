@@ -1369,6 +1369,7 @@ export interface ForgeProvider<HasWeb extends boolean = boolean> {
   support: (verb: ForgeVerb, kind?: ThreadKind | SecurityAlertKind) => Support
   /**
    * The web page for `target`, built without a request; `undefined` when the forge has no such page.
+   * A file target's `at` defaults to the repository's default branch.
    * @param target What to link to: a repository or one of its sections (`issues`, `pullRequests`, `compare`, `releases`, `stargazers`, `forks` or `watchers`), thread, comment, release, file, raw file, commit or comparison.
    */
   urlFor: {

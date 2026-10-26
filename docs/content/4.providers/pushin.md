@@ -39,6 +39,10 @@ If you leave out `auth`, the provider reads public repositories anonymously.
 
 The `baseUrl` defaults to `https://pushin.eu`, and the provider appends `/api/v1` itself.
 
+## Web URLs
+
+The public instance serves raw files from `raw.pushin.eu`: `urlFor({ raw: ... })` builds `https://raw.pushin.eu/OWNER/REPO/REF/PATH`, where `HEAD` reaches the default branch. Only the public instance documents a raw host, so on a self-hosted instance `urlFor({ raw: ... })` returns `undefined`; link the file page with `urlFor({ file: ... })` instead. Pass a full ref such as `refs/tags/v1.0.0` to pin a tag or a branch whose name could be either.
+
 ## Issues and pull requests
 
 `threads.get()` reads both issues and pull requests, and `threads.comments()` reads the comments on both. `threads.list()` lists both kinds by default. To select only one, set `kind: 'issue'` or `kind: 'pull_request'`.

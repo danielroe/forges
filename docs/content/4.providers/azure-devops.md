@@ -65,6 +65,12 @@ Work items belong to a project and not to a repository, so their refs use a name
 
 `search.threads()` runs WIQL, which only ever looks inside one project. Name the project with `repo`, or with an `owner` such as `'acme/Widgets'`. Without either, it rejects with `UnsupportedOperationError`.
 
+## Revisions
+
+Azure DevOps addresses a revision as a branch, a tag or a commit, and the provider reads a 40-character hex string as a commit and any other name as a branch. To use a tag, pass its full ref, such as `refs/tags/v1.0.0`. To use a branch whose name looks like a commit sha or a ref, pass `refs/heads/<name>`. This applies to `urlFor()`, `contents.getFile()`, `contents.tree()`, `contents.compare()`, `contents.resolveRef()` and `commits.list()`, and `parseUrl()` returns tags and such branches in the same form.
+
+Azure DevOps has no `HEAD` revision, so `urlFor()` leaves the version off a file or raw URL whose `at` is omitted or `HEAD`, and the page shows the default branch.
+
 ## Work items as issues
 
 `threads.create({ kind: 'issue' })` creates a work item of the type `Issue`. If your process template uses a different type, such as `Product Backlog Item`, set the `issueType` option. Every work item carries its type as `thread.issueType`, whose `id` and `name` are both the type's name. The tags of a work item are its labels, and `System.AssignedTo` is its single assignee.
