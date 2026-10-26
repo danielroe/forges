@@ -5,12 +5,12 @@
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "24.22.0",
+      "version": "24.22.1",
       "onFail": "download"
     },
     "packageManager": {
       "name": "pnpm",
-      "version": "12.14.0",
+      "version": "12.15.0",
       "onFail": "download"
     }
   },
@@ -131,12 +131,12 @@
     "eslint": "10.13.0",
     "knip": "6.42.0",
     "nano-staged": "1.0.2",
-    "pkg-pr-new": "0.0.91",
+    "pkg-pr-new": "0.0.92",
     "publint": "0.3.25",
-    "rolldown": "1.2.14",
+    "rolldown": "1.2.15",
     "simple-git-hooks": "2.14.0",
     "ts-json-schema-generator": "2.9.0",
-    "tsdown": "0.23.1",
+    "tsdown": "0.23.2",
     "typescript": "6.0.3",
     "vitest": "5.0.5"
   },
