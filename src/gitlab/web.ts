@@ -1,6 +1,6 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { ReferenceSyntax, RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf, rangeOf } from '../web.ts'
+import { bareSha, lineOf, rangeOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'work_items', pull_request: 'merge_requests' }
 const KINDS = new Map<ThreadKind | string, ThreadKind>([
@@ -72,7 +72,7 @@ function gitlabWeb(baseUrl: string): WebLinks {
     },
     reference: (ref, same, expand) => {
       if ('sha' in ref) {
-        return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}@`}${ref.sha.slice(0, 8)}`
+        return (same ? bareSha(ref.sha, 8) : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 8)}`
       }
       const prefix = PREFIXES[ref.kind]
       if (!prefix || ref.repo.kind === 'namespace' || !ref.number) {

@@ -483,7 +483,7 @@ describe('web links', () => {
     const glRepo = { ...repo, forge: 'gitlab', instance: 'gitlab.com' }
     const bbRepo = { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }
 
-    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha }, { from: repo })).toBe('0123456')
+    expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha }, { from: repo })).toBe('0123456789a')
     expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo, sha })).toBe('acme/widgets@0123456')
     expect(gl.referenceFor({ forge: 'gitlab', instance: 'gitlab.com', repo: glRepo, sha })).toBe('acme/widgets@01234567')
     expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbRepo, sha }, { from: bbRepo })).toBe('0123456789ab')
