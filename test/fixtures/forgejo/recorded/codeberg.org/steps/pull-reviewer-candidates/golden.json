@@ -82,7 +82,7 @@
       "login": "amadaluzia",
       "id": "199341",
       "name": "Artur Manuel",
-      "avatarUrl": "https://codeberg.org/avatars/a8eac2f88ca6baf54188a3c0621c8df9",
+      "avatarUrl": "https://codeberg.org/avatars/7f39c2c78f86a4f9b663cb85d10755c84233f419823a4fe0965d2a5b7ebce657",
       "url": "https://codeberg.org/amadaluzia",
       "isBotHint": false
     },
@@ -595,16 +595,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "henrycatalinismith",
-      "id": "274419",
-      "name": "Henry Catalini Smith",
-      "avatarUrl": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-      "url": "https://codeberg.org/henrycatalinismith",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "herfai",
       "id": "176915",
       "name": "Omid golkari",
@@ -648,6 +638,15 @@
       "id": "186484",
       "avatarUrl": "https://codeberg.org/avatars/01e2dfa3231070c2474f9ab359eedbca71d706be589ec3bd2a0a1a2e63f5e580",
       "url": "https://codeberg.org/iaxat",
+      "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "iliandj",
+      "id": "1592717",
+      "avatarUrl": "https://codeberg.org/avatars/96cb9c28405011fcb8b5a73ffb5802cb",
+      "url": "https://codeberg.org/iliandj",
       "isBotHint": false
     },
     {
@@ -919,6 +918,15 @@
       "name": "Matej Kovac",
       "avatarUrl": "https://codeberg.org/avatars/af84301db3f06605f1e7a13f12fd6892",
       "url": "https://codeberg.org/multicast",
+      "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "mverkleij-dlx",
+      "id": "1567940",
+      "avatarUrl": "https://codeberg.org/avatars/3e26323281e20242edb0800196f35d04",
+      "url": "https://codeberg.org/mverkleij-dlx",
       "isBotHint": false
     },
     {
@@ -1225,10 +1233,11 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "sgbvmr",
+      "login": "sgbv",
       "id": "787845",
+      "name": "Osaigbovo O.",
       "avatarUrl": "https://codeberg.org/avatars/4a14708c394e324320c3cbc13eed08c3f4198b1dcbf1cb8b00d64a7893855cff",
-      "url": "https://codeberg.org/sgbvmr",
+      "url": "https://codeberg.org/sgbv",
       "isBotHint": false
     },
     {
@@ -1488,7 +1497,7 @@
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1968,
+    "remaining": 1966,
     "resetAt": "<now>",
     "resource": "baseline"
   }

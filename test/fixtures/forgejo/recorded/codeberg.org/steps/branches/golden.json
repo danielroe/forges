@@ -1,28 +1,28 @@
 {
   "items": [
     {
-      "name": "renovate/forgejo-idiomorph-0.x",
-      "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+      "name": "v15-sec-2026-10-25",
+      "sha": "4ff23f1ffb5950abafb6c20c9dfac4be8a67fbdb",
       "isProtected": false
     },
     {
-      "name": "renovate/forgejo-renovate",
-      "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
+      "name": "renovate/forgejo-github.com-redis-go-redis-v9-9.x",
+      "sha": "a8d634ce619fdee375493708de7feaf0b3157bc3",
       "isProtected": false
     },
     {
-      "name": "renovate/forgejo-globals-17.x",
-      "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+      "name": "renovate/forgejo-github.com-protonmail-go-crypto-1.x",
+      "sha": "b26d190898fa5b86af6c33b83388e44749c0cccd",
       "isProtected": false
     }
   ],
-  "total": 33,
+  "total": 32,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1938,
+    "remaining": 1935,
     "resetAt": "<now>",
     "resource": "baseline"
   }

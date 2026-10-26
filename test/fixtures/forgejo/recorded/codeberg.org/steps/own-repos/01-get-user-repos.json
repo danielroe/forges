@@ -6,8 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/user/repos?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/user/repos?limit=3&page=2>; rel=\"last\"",
-      "x-total-count": "6"
+      "link": "<https://codeberg.org/api/v1/user/repos?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/user/repos?limit=3&page=3>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1948;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
+      "x-total-count": "7"
     },
     "body": [
       {
@@ -39,7 +41,7 @@
         "template": false,
         "parent": null,
         "mirror": false,
-        "size": 42,
+        "size": 151,
         "language": "",
         "languages_url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/languages",
         "html_url": "https://codeberg.org/forges-fixtures/forges-fixtures",
@@ -58,7 +60,7 @@
         "default_branch": "main",
         "archived": false,
         "created_at": "2026-10-09T13:40:47+02:00",
-        "updated_at": "2026-10-11T13:36:23+02:00",
+        "updated_at": "2026-10-22T23:22:35+02:00",
         "archived_at": "1970-01-01T01:00:00+01:00",
         "permissions": {
           "admin": true,

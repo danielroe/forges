@@ -21,7 +21,7 @@
         "ssh": "ssh://git@codeberg.org/forges-fixtures/forges-fixtures.git"
       },
       "createdAt": "2026-10-09T11:40:47.000Z",
-      "updatedAt": "2026-10-11T11:36:23.000Z",
+      "updatedAt": "2026-10-22T21:22:35.000Z",
       "openIssueCount": 0,
       "openPullCount": 0,
       "owner": {
@@ -62,8 +62,14 @@
       }
     }
   ],
-  "total": 6,
+  "total": 7,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/user/repos?limit=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1948,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

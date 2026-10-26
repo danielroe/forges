@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1986;t=600",
+      "ratelimit": "\"baseline\";r=1985;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": [
@@ -41,7 +41,7 @@
         "pronouns": "",
         "website": "https://weathered-steel.dev",
         "description": "",
-        "followers_count": 3,
+        "followers_count": 4,
         "following_count": 0,
         "starred_repos_count": 3,
         "username": "0xllx0"
@@ -221,9 +221,9 @@
         "pronouns": "she/her",
         "website": "https://hachyderm.io/@crystal",
         "description": "[🔗 nyxal.net](https://www.nyxal.net/)\r\n<br>\r\n[:forgejo:&nbsp; code.forgejo.org/crystal](https://code.forgejo.org/crystal)",
-        "followers_count": 52,
-        "following_count": 12,
-        "starred_repos_count": 18,
+        "followers_count": 53,
+        "following_count": 13,
+        "starred_repos_count": 19,
         "username": "crystal"
       },
       {
@@ -239,7 +239,7 @@
         "pronouns": "",
         "website": "https://cyborus.xyz/",
         "description": "",
-        "followers_count": 19,
+        "followers_count": 20,
         "following_count": 19,
         "starred_repos_count": 25,
         "username": "Cyborus"
@@ -344,12 +344,12 @@
         "html_url": "https://codeberg.org/fogti",
         "active": false,
         "location": "",
-        "pronouns": "she/they",
+        "pronouns": "she/her",
         "website": "",
         "description": "mostly Rust programmer; using mostly Gentoo Linux and a few others; formerly math student at RWTH Aachen and TUC (mostly researching discrete mathematics); make more infra.",
         "followers_count": 9,
         "following_count": 13,
-        "starred_repos_count": 34,
+        "starred_repos_count": 35,
         "username": "fogti"
       },
       {
@@ -491,28 +491,10 @@
         "pronouns": "",
         "website": "https://gusted.xyz",
         "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-        "followers_count": 162,
+        "followers_count": 163,
         "following_count": 30,
         "starred_repos_count": 103,
         "username": "Gusted"
-      },
-      {
-        "id": 274419,
-        "login": "henrycatalinismith",
-        "source_id": 0,
-        "full_name": "Henry Catalini Smith",
-        "email": "redacted@example.invalid",
-        "avatar_url": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-        "html_url": "https://codeberg.org/henrycatalinismith",
-        "active": false,
-        "location": "Malmö",
-        "pronouns": "",
-        "website": "https://henry.catalinismith.se",
-        "description": "",
-        "followers_count": 5,
-        "following_count": 8,
-        "starred_repos_count": 8,
-        "username": "henrycatalinismith"
       },
       {
         "id": 258926,
@@ -691,7 +673,7 @@
         "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
         "followers_count": 23,
         "following_count": 3,
-        "starred_repos_count": 43,
+        "starred_repos_count": 44,
         "username": "mahlzahn"
       },
       {
@@ -743,7 +725,7 @@
         "pronouns": "he/him",
         "website": "https://mathieu.fenniak.net/",
         "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-        "followers_count": 20,
+        "followers_count": 21,
         "following_count": 0,
         "starred_repos_count": 4,
         "username": "mfenniak"
@@ -780,7 +762,7 @@
         "website": "https://nirmalkumarr.org",
         "description": "",
         "followers_count": 0,
-        "following_count": 7,
+        "following_count": 8,
         "starred_repos_count": 2,
         "username": "mysticmode"
       },

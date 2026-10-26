@@ -7,39 +7,39 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1938;t=600",
+      "ratelimit": "\"baseline\";r=1935;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total-count": "33"
+      "x-total-count": "32"
     },
     "body": [
       {
-        "name": "renovate/forgejo-idiomorph-0.x",
+        "name": "v15-sec-2026-10-25",
         "commit": {
-          "id": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-          "message": "Update dependency idiomorph to v0.8.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+          "id": "4ff23f1ffb5950abafb6c20c9dfac4be8a67fbdb",
+          "message": "fix: nuget-based access token authentication does not respect token scopes\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/4ff23f1ffb5950abafb6c20c9dfac4be8a67fbdb",
           "author": {
-            "name": "Renovate Bot",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "mfenniak"
           },
           "committer": {
-            "name": "Renovate Bot",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "mfenniak"
           },
           "verification": {
             "verified": true,
-            "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVt3wAKCRCKxL7rWQD5\ndl+9APdbdeh0S4ElwD96kw/M7HlFbcXPTT5ZZ7tds3QPABDxAQCdEEYomFRQDLNM\nZTusUuQf1MsqjA52djWwdKBhubCwAA==\n=VVeq\n-----END PGP SIGNATURE-----\n",
+            "reason": "mfenniak / SHA256:8t/0nQnAFgcb0RIAedHgxhpnFz7zzlVXLALecgCpNqM",
+            "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgOITBG2F+eYPz6hZ95gk1fbuokN\nEFqFM/iyHOYSANYzEAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQD+4Z4oIHwzl5l+1LegTZBiKw1GuLXBpcKOrIitQV/kG2YV1gJS0T2rec5y+yctOWQ\nbT5C0Wems4q7K2Q+c9NwI=\n-----END SSH SIGNATURE-----\n",
             "signer": {
-              "name": "viceice-bot",
+              "name": "mfenniak",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 660407ea8ef5fd51bd6caa95dffc5e2b586c1a85\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372191 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372191 +0000\n\nUpdate dependency idiomorph to v0.8.0\n"
+            "payload": "tree 37b9732116a6cfa9b9d969864c6bc8fc1b6f5190\nparent e0bfad0d6c02c0d0df487a8c1bce3f63bfe7a39e\nauthor Mathieu Fenniak <redacted@example.invalid> 1792613114 -0600\ncommitter Mathieu Fenniak <redacted@example.invalid> 1792975004 -0600\nchange-id vqxqlwxxxyupprwmpytnqwvsmkvrrupv\n\nfix: nuget-based access token authentication does not respect token scopes\n"
           },
-          "timestamp": "2026-10-19T01:09:51Z",
+          "timestamp": "2026-10-21T14:05:14-06:00",
           "added": null,
           "removed": null,
           "modified": null
@@ -53,11 +53,11 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-renovate",
+        "name": "renovate/forgejo-github.com-redis-go-redis-v9-9.x",
         "commit": {
-          "id": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-          "message": "Update renovate Docker tag to v44.167.5\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/29bf51bb67b183078911a446fe0baaeccdf182c0",
+          "id": "a8d634ce619fdee375493708de7feaf0b3157bc3",
+          "message": "Update module github.com/redis/go-redis/v9 to v9.23.0\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/a8d634ce619fdee375493708de7feaf0b3157bc3",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -71,15 +71,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVtxAAKCRCKxL7rWQD5\ndiDRAP0S7YlydUCAaqmqbA4rm1QZcz9KfX+sSX9Bb3BGq2khZwD9HzhYuiCVwjgj\nCPTEDCsQnVB9v4E/06myZ/3Cg64Wegk=\n=xwmf\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCat6cAgAKCRCKxL7rWQD5\ndpyeAP0bHVoJDW5ZnWfoUD4TbgQ7SzGdCH77iVwOOVYbxy07kAEA2GbHf8EC0QQh\n+8+FxWMCbTOmdO+pzCGLWgq9sL2VfQ0=\n=lZhj\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree df4bad2583f2327ef47ac502f0e5ecc11e2b98d1\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372164 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372164 +0000\n\nUpdate renovate Docker tag to v44.167.5\n"
+            "payload": "tree a4a0696e9e6eafb283b933f370008c6ec355732c\nparent 202d2bc5654b7194a38c009fb4bb1f7512b2ca70\nauthor Renovate Bot <redacted@example.invalid> 1792973826 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792973826 +0000\n\nUpdate module github.com/redis/go-redis/v9 to v9.23.0\n"
           },
-          "timestamp": "2026-10-19T01:09:24Z",
+          "timestamp": "2026-10-26T00:17:06Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -93,11 +93,11 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-globals-17.x",
+        "name": "renovate/forgejo-github.com-protonmail-go-crypto-1.x",
         "commit": {
-          "id": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-          "message": "Update dependency globals to v17.13.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+          "id": "b26d190898fa5b86af6c33b83388e44749c0cccd",
+          "message": "Update module github.com/ProtonMail/go-crypto to v1.5.2\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/b26d190898fa5b86af6c33b83388e44749c0cccd",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -111,15 +111,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVgQgAKCRCKxL7rWQD5\ndjUDAQDEWurD9xoq/JDd2DF6TfeNYWXsoK1tNY+glQwOCljzxAD9EPv6gAX/srNC\nuvNv1m2KyZMF1FQMc7GW6IrBST1VNQ0=\n=YGja\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCat6b6QAKCRCKxL7rWQD5\ndjoIAP9xr7+dZ+WEcUv219NuU30So1/djzqqwKj4IC2yKThH6wD9E1gYjtaGrO71\nNRuG2TIlzSJwWg366usqKVXNy4D1sQg=\n=Sw9Q\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 79e37338577044c7729704c54258725962c8a742\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792368706 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792368706 +0000\n\nUpdate dependency globals to v17.13.0\n"
+            "payload": "tree 73aa3809773abce31b65e60a1abc6ffa056d79d8\nparent 202d2bc5654b7194a38c009fb4bb1f7512b2ca70\nauthor Renovate Bot <redacted@example.invalid> 1792973801 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792973801 +0000\n\nUpdate module github.com/ProtonMail/go-crypto to v1.5.2\n"
           },
-          "timestamp": "2026-10-19T00:11:46Z",
+          "timestamp": "2026-10-26T00:16:41Z",
           "added": null,
           "removed": null,
           "modified": null

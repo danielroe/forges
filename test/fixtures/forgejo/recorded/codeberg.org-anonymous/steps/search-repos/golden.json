@@ -65,7 +65,7 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "owner": "aleksandre-c",
+        "owner": "ascochran",
         "name": ".forgejo",
         "externalId": "1169547"
       },
@@ -76,10 +76,10 @@
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://codeberg.org/aleksandre-c/.forgejo",
+      "url": "https://codeberg.org/ascochran/.forgejo",
       "cloneUrls": {
-        "https": "https://codeberg.org/aleksandre-c/.forgejo.git",
-        "ssh": "ssh://git@codeberg.org/aleksandre-c/.forgejo.git"
+        "https": "https://codeberg.org/ascochran/.forgejo.git",
+        "ssh": "ssh://git@codeberg.org/ascochran/.forgejo.git"
       },
       "createdAt": "2026-01-19T00:06:40.000Z",
       "updatedAt": "2026-02-07T17:39:17.000Z",
@@ -88,11 +88,11 @@
       "owner": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "aleksandre-c",
+        "login": "ascochran",
         "id": "494749",
-        "name": "Aleksandre (Alex) Cochran",
+        "name": "Aleksandre Cochran",
         "avatarUrl": "https://codeberg.org/avatars/09da5265d6d8265d4d5a9a64f589441462b8336e24af1ebaa06e52507331ce01",
-        "url": "https://codeberg.org/aleksandre-c",
+        "url": "https://codeberg.org/ascochran",
         "isBotHint": false
       },
       "language": "Python",
@@ -186,13 +186,13 @@
       }
     }
   ],
-  "total": 2122,
+  "total": 2143,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/search?limit=3&page=2&q=forgejo"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1858,
+    "remaining": 1852,
     "resetAt": "<now>",
     "resource": "baseline"
   }

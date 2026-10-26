@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1968;t=600",
+      "ratelimit": "\"baseline\";r=1966;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": [
@@ -41,7 +41,7 @@
         "pronouns": "",
         "website": "https://weathered-steel.dev",
         "description": "",
-        "followers_count": 3,
+        "followers_count": 4,
         "following_count": 0,
         "starred_repos_count": 3,
         "username": "0xllx0"
@@ -160,7 +160,7 @@
         "source_id": 0,
         "full_name": "Artur Manuel",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://codeberg.org/avatars/a8eac2f88ca6baf54188a3c0621c8df9",
+        "avatar_url": "https://codeberg.org/avatars/7f39c2c78f86a4f9b663cb85d10755c84233f419823a4fe0965d2a5b7ebce657",
         "html_url": "https://codeberg.org/amadaluzia",
         "active": false,
         "location": "United Kingdom",
@@ -168,8 +168,8 @@
         "website": "https://amadaluzia.is-a.dev",
         "description": "",
         "followers_count": 14,
-        "following_count": 70,
-        "starred_repos_count": 41,
+        "following_count": 71,
+        "starred_repos_count": 43,
         "username": "amadaluzia"
       },
       {
@@ -473,9 +473,9 @@
         "pronouns": "she/her",
         "website": "https://hachyderm.io/@crystal",
         "description": "[🔗 nyxal.net](https://www.nyxal.net/)\r\n<br>\r\n[:forgejo:&nbsp; code.forgejo.org/crystal](https://code.forgejo.org/crystal)",
-        "followers_count": 52,
-        "following_count": 12,
-        "starred_repos_count": 18,
+        "followers_count": 53,
+        "following_count": 13,
+        "starred_repos_count": 19,
         "username": "crystal"
       },
       {
@@ -509,7 +509,7 @@
         "pronouns": "",
         "website": "https://cyborus.xyz/",
         "description": "",
-        "followers_count": 19,
+        "followers_count": 20,
         "following_count": 19,
         "starred_repos_count": 25,
         "username": "Cyborus"
@@ -830,12 +830,12 @@
         "html_url": "https://codeberg.org/fogti",
         "active": false,
         "location": "",
-        "pronouns": "she/they",
+        "pronouns": "she/her",
         "website": "",
         "description": "mostly Rust programmer; using mostly Gentoo Linux and a few others; formerly math student at RWTH Aachen and TUC (mostly researching discrete mathematics); make more infra.",
         "followers_count": 9,
         "following_count": 13,
-        "starred_repos_count": 34,
+        "starred_repos_count": 35,
         "username": "fogti"
       },
       {
@@ -1015,7 +1015,7 @@
         "description": "",
         "followers_count": 0,
         "following_count": 1,
-        "starred_repos_count": 2,
+        "starred_repos_count": 3,
         "username": "fvd"
       },
       {
@@ -1121,7 +1121,7 @@
         "pronouns": "",
         "website": "https://gusted.xyz",
         "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-        "followers_count": 162,
+        "followers_count": 163,
         "following_count": 30,
         "starred_repos_count": 103,
         "username": "Gusted"
@@ -1143,24 +1143,6 @@
         "following_count": 16,
         "starred_repos_count": 0,
         "username": "h759bkyo4"
-      },
-      {
-        "id": 274419,
-        "login": "henrycatalinismith",
-        "source_id": 0,
-        "full_name": "Henry Catalini Smith",
-        "email": "redacted@example.invalid",
-        "avatar_url": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-        "html_url": "https://codeberg.org/henrycatalinismith",
-        "active": false,
-        "location": "Malmö",
-        "pronouns": "",
-        "website": "https://henry.catalinismith.se",
-        "description": "",
-        "followers_count": 5,
-        "following_count": 8,
-        "starred_repos_count": 8,
-        "username": "henrycatalinismith"
       },
       {
         "id": 176915,
@@ -1195,7 +1177,7 @@
         "description": "",
         "followers_count": 0,
         "following_count": 13,
-        "starred_repos_count": 6,
+        "starred_repos_count": 7,
         "username": "hrushw"
       },
       {
@@ -1251,6 +1233,24 @@
         "following_count": 31,
         "starred_repos_count": 8,
         "username": "iaxat"
+      },
+      {
+        "id": 1592717,
+        "login": "iliandj",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/96cb9c28405011fcb8b5a73ffb5802cb",
+        "html_url": "https://codeberg.org/iliandj",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "iliandj"
       },
       {
         "id": 74953,
@@ -1464,7 +1464,7 @@
         "website": "",
         "description": "",
         "followers_count": 1,
-        "following_count": 23,
+        "following_count": 22,
         "starred_repos_count": 12,
         "username": "kRxZy"
       },
@@ -1536,8 +1536,8 @@
         "website": "https://lime360.nekoweb.org/",
         "description": "",
         "followers_count": 18,
-        "following_count": 241,
-        "starred_repos_count": 475,
+        "following_count": 242,
+        "starred_repos_count": 485,
         "username": "lime360"
       },
       {
@@ -1627,7 +1627,7 @@
         "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
         "followers_count": 23,
         "following_count": 3,
-        "starred_repos_count": 43,
+        "starred_repos_count": 44,
         "username": "mahlzahn"
       },
       {
@@ -1697,7 +1697,7 @@
         "pronouns": "he/him",
         "website": "https://mathieu.fenniak.net/",
         "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-        "followers_count": 20,
+        "followers_count": 21,
         "following_count": 0,
         "starred_repos_count": 4,
         "username": "mfenniak"
@@ -1775,6 +1775,24 @@
         "username": "multicast"
       },
       {
+        "id": 1567940,
+        "login": "mverkleij-dlx",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/3e26323281e20242edb0800196f35d04",
+        "html_url": "https://codeberg.org/mverkleij-dlx",
+        "active": false,
+        "location": "",
+        "pronouns": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "mverkleij-dlx"
+      },
+      {
         "id": 31982,
         "login": "mysticmode",
         "source_id": 0,
@@ -1788,7 +1806,7 @@
         "website": "https://nirmalkumarr.org",
         "description": "",
         "followers_count": 0,
-        "following_count": 7,
+        "following_count": 8,
         "starred_repos_count": 2,
         "username": "mysticmode"
       },
@@ -2352,21 +2370,21 @@
       },
       {
         "id": 787845,
-        "login": "sgbvmr",
+        "login": "sgbv",
         "source_id": 0,
-        "full_name": "",
+        "full_name": "Osaigbovo O.",
         "email": "redacted@example.invalid",
         "avatar_url": "https://codeberg.org/avatars/4a14708c394e324320c3cbc13eed08c3f4198b1dcbf1cb8b00d64a7893855cff",
-        "html_url": "https://codeberg.org/sgbvmr",
+        "html_url": "https://codeberg.org/sgbv",
         "active": false,
         "location": "Somewhere, Anywhere",
         "pronouns": "he/him",
         "website": "https://sgbvmr.xyz/",
-        "description": "**[WWW](https://sgbvmr.xyz)** \\\\ **[Blog](https://blog.sgbvmr.xyz)** \\\\ **<a rel=\"me\" href=\"https://infosec.exchange/@sgbv\">Mastodon</a>**",
+        "description": "**[WWW](https://sgbvmr.xyz)** \\\\ **[Blog](https://blog.sgbvmr.xyz)** \\\\ **<a rel=\"me\" href=\"https://mastodon.social/@sgbv\">Mastodon</a>**",
         "followers_count": 0,
         "following_count": 2,
         "starred_repos_count": 5,
-        "username": "sgbvmr"
+        "username": "sgbv"
       },
       {
         "id": 1279007,
