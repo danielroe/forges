@@ -19,7 +19,7 @@ const cases: Array<[keyof typeof web & keyof typeof providers, WebOptions, strin
   ['bitbucket', {}, ['https://bitbucket.org/acme/widgets/pull-requests/42']],
   ['azureDevOps', {}, ['https://dev.azure.com/contoso/Widgets/_git/widgets/pullrequest/42']],
   ['sourcehut', {}, [`https://git.sr.ht/~acme/widgets/commit/${sha}`]],
-  ['tangled', {}, ['https://tangled.sh/@acme.dev/core/issues/4']],
+  ['tangled', {}, ['https://tangled.sh/@acme.dev/core/issues/4', 'https://tangled.sh/@acme.dev/core/compare/main...feat']],
 ]
 
 describe('forges/web', () => {
