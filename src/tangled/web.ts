@@ -1,6 +1,6 @@
 import type { RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf, rangeOf } from '../web.ts'
+import { bareSha, lineOf, rangeOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare', stargazers: 'stars', forks: 'forks' }
@@ -80,7 +80,7 @@ function tangledWeb(baseUrl: string): WebLinks {
     },
     reference: (ref, same) => {
       if ('sha' in ref) {
-        return same ? ref.sha.slice(0, 7) : `${repoSlug(ref.repo)}@${ref.sha.slice(0, 7)}`
+        return (same ? bareSha(ref.sha, 7) : undefined) ?? `${repoSlug(ref.repo)}@${ref.sha.slice(0, 7)}`
       }
       // Only the display number gives a short form; `number` is the record's AT-URI.
       return ref.displayNumber ? `${same ? '' : repoSlug(ref.repo)}#${ref.displayNumber}` : undefined

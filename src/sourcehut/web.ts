@@ -1,6 +1,6 @@
 import type { RepoRef } from '../model.ts'
 import type { WebDefinition, WebLinks } from '../web.ts'
-import { lineOf } from '../web.ts'
+import { bareSha, lineOf } from '../web.ts'
 import { serviceHost, serviceUrl } from './services.ts'
 
 const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/')
@@ -93,7 +93,7 @@ function sourcehutWeb(instance: string): WebLinks {
     },
     reference: (ref, same) => {
       if ('sha' in ref) {
-        return same ? ref.sha.slice(0, 7) : `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
+        return (same ? bareSha(ref.sha, 7) : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
       // Only issues have a text syntax; a patchset falls back to its lists.sr.ht URL.
       if (ref.kind !== 'issue') {
