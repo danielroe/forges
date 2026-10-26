@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://woodear.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Axasnlahkri4ewmbuzly2rlc5&collection=sh.tangled.repo.issue&rkey=3mtyvuaddbl22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"266-PJRpRrCc1bNoASeWyY/PM+QyRLY\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1792989914",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.issue/3mtyvuaddbl22",
+      "cid": "bafyreidhcgj2x3ymoaj732mnd5cmllhogjfe7cgwqfzok5y6bfx3ll4eji",
+      "value": {
+        "body": "`.name` field in `sh.tangled.repo` will be deprecated soon. rkey is preferred for repository slug.\n\nexample: [(pdsls) `boltless.me/sense.nvim` repository declaration record](https://pdsls.dev/at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo/sense.nvim)",
+        "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+        "$type": "sh.tangled.repo.issue",
+        "title": "Use record-key for repository name instead of `.name` field",
+        "createdAt": "2026-08-26T20:57:37+03:00"
+      }
+    }
+  }
+}

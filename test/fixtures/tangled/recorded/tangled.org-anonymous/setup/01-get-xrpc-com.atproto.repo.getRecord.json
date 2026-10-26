@@ -1,57 +1,45 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3my76irye6u22"
+    "url": "https://auriporia.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Aqfngkejlw4ghji2myc73hbdh&collection=sh.tangled.repo.pull&rkey=3myqhszkow222"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"8b7-AIGJ2KV7iGYcl4e3yDUSuIp0PHM\"",
+      "etag": "W/\"f87-FoBW6OBZ8OkZ68xvVhVPLCNsH5c\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2989",
-      "ratelimit-reset": "1792385033",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1792989920",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22",
-      "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
+      "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3myqhszkow222",
+      "cid": "bafyreidg3rovxziuhgk22ifxnmlxtgehladcsturkbxirg23r3gfxl6lpq",
       "value": {
-        "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
+        "body": "Tests for SECURITY-FOLDER-AND-PRINCIPALS fix-up 4b, for #1609.\n\n- **`a_terminal_hangs_up_its_jobs_and_a_nohup_lives_until_the_site_stops`**, which failed in 7 of 21 runs with \"the nohup'd job died with the terminal\": a test race.\n  - **The race:** with the site's idle at 2 s, the idle stop could land inside the 5.5 s of checks after the terminal's close, and kill the nohup'd job with the site's tree. That is the product's rule (decision 6), not a hang-up.\n  - **The idle is now 10 s.** The final wait for the idle stop (30 s) still covers it.\n  - **The terminal closes only once the nohup'd job ignores SIGHUP** (bit 0 of its `SigIgn`), so the hang-up cannot land before nohup's.\n  - **The same site process is checked first**, so an early stop names itself.\n- **`a_body_over_a_routes_limit_is_always_413`** (new): 200 bodies of 3 MiB to `POST /cms/api/render/…`, each one a 413. It holds the 413 as `an_over_the_limit_save_of_a_large_body_is_always_507` holds the 507.\n- **`migrations_held_before_they_start_do_not_run_into_a_removed_area`** (round 1, new):\n  - it holds an open's migrations before they take the area's opening, removes the partial area there, and lets them go;\n  - it asserts that they did not run (\"nothing migrated\") and that the area is still gone.\n  - **Red arm:** with the mark check planted out, it fails at its `expect_err` (\"migrations ran into a removed area\", notify-903ea082).\n- **The boundary grants** (`7247cf06`; round 1 `6b650b2a`: `open_dir` again): `admin_area::open_dir` and `site_process::serve::build` changed bodies. Their capabilities (`calls:workspace-io`, not protected) and reasons are unchanged; 2 changes in 1080 grants, measured at `f3840800` (notify-be02dde8).\n\n**For the end list** (from the terminal diagnosis, not fixed here): when bash misses the nest's 250 ms grace after SIGHUP (`HANG_UP_FOR`, `lichen-sandbox/src/sandbox.rs:410-425`), it is SIGKILLed before it hangs up its jobs. Bash saves its history before it does that. Its ordinary background jobs then live until the site stops. A longer grace, or a bash with no history file, would harden it.\n\n---\n\ninfo:\n- Product: #1609. Parent: `s/663-sf-u4b-product`.\n- Runs (lichen-ci, `CI_TEST_MEM_MAX=5G`, `CI_TEST_JOBS=3`):\n  - notify-fa10c697 at `9cca1cb5`: CLIPPY_OK. `just custom` over the five: 16 of 17, the guard alone (the two bodies). Repeats with no failures: the import test 20 of 20, `api_error_shape` 20 of 20, the terminal test 8 of 8. FMT_FAILED: two lines, now `206d86ad`.\n  - notify-be02dde8 at `f3840800`: FMT_OK; the grants inventory.\n  - notify-903ea082 at `a9fb831b` (round 1):\n    - CLIPPY_OK; `admin_area::` 105 and `state::tests` 40 passed, the gap test among them.\n    - Repeats with no failures: the import test 20 of 20, the gap test 20 of 20.\n    - The red arm CAUGHT.\n    - FMT_FAILED on one static, now `12562a2b`.\n  - notify-55607eb4 at `6b650b2a`: FMT_OK. `just custom` PASSED 17 of 17: the guard 9, the gap test, the import test, `api_error_shape` 4, the 413 test, the terminal test.\n  - notify-968e96ad at `7247cf06`: FMT_OK. `just custom` PASSED 17 of 17: the guard 9 (no changed, ungranted or obsolete owner), `api_error_shape` 4, the import test 1, the terminal test 1, the new 413 test 1, the 507 test 1.\n",
         "$type": "sh.tangled.repo.pull",
-        "title": "product: use system wrapper for detached CI observation",
+        "title": "SECURITY-FOLDER-AND-PRINCIPALS fix-up 4b tests: the terminal test held to its checks; every over-the-limit body is 413",
         "rounds": [
           {
-            "createdAt": "2026-10-19T03:29:04Z",
+            "createdAt": "2026-10-26T00:31:05Z",
             "patchBlob": {
               "ref": {
-                "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
+                "$link": "bafkreidpjxkoyp3gyeonflkgptuxxxmv5m64a6ku4yexzd4aze2ysi7bs4"
               },
-              "size": 2135,
-              "$type": "blob",
-              "mimeType": "application/gzip"
-            }
-          },
-          {
-            "createdAt": "2026-10-19T06:30:55+03:00",
-            "patchBlob": {
-              "ref": {
-                "$link": "bafkreicst2ak7b7oom5kh6ihdmfykikdyaudu5laiacicnrg3esj5hnlz4"
-              },
-              "size": 2315,
+              "size": 3033,
               "$type": "blob",
               "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "branch": "unit/dashboard-ci-watcher-launch"
+          "branch": "s/664-sf-u4b-tests"
         },
         "target": {
-          "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
-          "branch": "main",
-          "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+          "branch": "s/663-sf-u4b-product"
         },
-        "createdAt": "2026-10-19T03:29:04Z"
+        "createdAt": "2026-10-26T00:31:05Z"
       }
     }
   }

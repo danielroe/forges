@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://magic.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Azlpfp5xn43tpzre5icmeuhcu&collection=sh.tangled.repo.issue&rkey=3mydtuifadp22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"305-Bd/h1VVYNK9Op7bQbq9QeaBAREk\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2998",
+      "ratelimit-reset": "1792989914",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22",
+      "cid": "bafyreierssni4ddmdyv7giuu452glfwc2na2g6wsku6gtp2lwlcrv3vgyu",
+      "value": {
+        "body": "I would like to mirror a forked repository into Tangled, where I've been hosting discussion. Tangled lets me avoid confusion with the upstream, and also probe where the barrier to AtProto signup is at in gamedev communities.\n\nI would love to take advantage of this tool, and I don't see any likelihood of namespace collision, since repositories are prefixed by their owner. Solutions based on GitHub Actions seem like my next fallback.",
+        "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+        "$type": "sh.tangled.repo.issue",
+        "title": "Allow syncing a forked GitHub repository",
+        "createdAt": "2026-10-21T03:02:01+03:00"
+      }
+    }
+  }
+}

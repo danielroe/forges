@@ -1,96 +1,31 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tranquil.bwc9876.dev/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ax7tlupbnqot7nu6udnffnv4h&collection=sh.tangled.repo.pull&rkey=3mx64pa4j7322"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.label.op&rkey=3mycfecxlgr2y"
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "etag": "W/\"1b8-Lw3ZE+70QEe8VfpVKwfL6ykFNUo\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2995",
+      "ratelimit-reset": "1792989897",
+      "ratelimit-policy": "3000;w=300"
+    },
     "body": {
-      "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322",
-      "cid": "bafyreibfzxcpnrew5g73dljlcpofu2znjgq64jeu5ddubfihk6ykfip6ie",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.op/3mycfecxlgr2y",
+      "cid": "bafyreih6eoxtv42bvz457g7gsemmkiqqg7johffcrcxvacuf63nqvgcnha",
       "value": {
-        "$type": "sh.tangled.repo.pull",
-        "body": "",
-        "createdAt": "2026-10-15T18:26:46+03:00",
-        "dependentOn": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22",
-        "rounds": [
+        "add": [
           {
-            "createdAt": "2026-10-05T23:58:59Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreiclxk7ls63x7o4qh4bbibp6okeumb3qshgffb2yr753hcfawg7vcy"
-              },
-              "size": 2243
-            }
-          },
-          {
-            "createdAt": "2026-10-06T00:16:20Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreibupbumja55l6yygoydkrvoj3ykznrw2aqazeginsfpg2nktzky6y"
-              },
-              "size": 2243
-            }
-          },
-          {
-            "createdAt": "2026-10-06T01:59:14Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreia64d3zxshbdfphbcwo5dcpbw6egttje4hsuasnembon4jh7pf5a4"
-              },
-              "size": 2242
-            }
-          },
-          {
-            "createdAt": "2026-10-06T15:15:38Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreidwjmgfxspwuuskcoiduanwx24trtbjp5gomvtmbrxw5rblakfodm"
-              },
-              "size": 2436
-            }
-          },
-          {
-            "createdAt": "2026-10-07T19:46:34Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreialb3hn2v6j7izptdbbyb4acd4pa2ra77ikadkkiasb6us2ajg54y"
-              },
-              "size": 2436
-            }
-          },
-          {
-            "createdAt": "2026-10-15T18:26:47+03:00",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreidy64nprizssddu2e2k2grpzd7szmmqfqxxnmdf5ywo6ul3otdxf4"
-              },
-              "size": 2436
-            }
+            "key": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.label.definition/3mxmwnkuvum2y",
+            "value": "null"
           }
         ],
-        "source": {
-          "branch": "ben/init-basic-apps"
-        },
-        "target": {
-          "branch": "main",
-          "repo": "did:plc:6z743ym5lwe7k6m6dqd6yjha",
-          "repoDid": "did:plc:6z743ym5lwe7k6m6dqd6yjha"
-        },
-        "title": "moodle-vm: init"
+        "$type": "sh.tangled.label.op",
+        "delete": [],
+        "subject": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+        "performedAt": "2026-10-20T10:09:46.542Z"
       }
     }
   }

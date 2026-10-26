@@ -3,6 +3,127 @@
     {
       "forge": "tangled",
       "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3myhjjdtqmf25",
+      "kind": "comment",
+      "kindRaw": "sh.tangled.feed.comment",
+      "action": "created",
+      "actionRaw": "create",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "thread": {
+            "forge": "tangled",
+            "instance": "tangled.org",
+            "repo": {
+              "forge": "tangled",
+              "instance": "tangled.org",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+              "name": "synchub.to",
+              "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+              "ownerHandle": "danielroe.dev"
+            },
+            "kind": "issue",
+            "typeRaw": "sh.tangled.repo.issue",
+            "number": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22",
+            "externalId": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22"
+          },
+          "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3myhjjdtqmf25"
+        },
+        "body": "this sounds good to me - maybe allow explicitly opting in to mirroring a fork ...?\n\n<!-- forges:key=fd1ac399-5a2b-496b-b327-b3da0b1d19bc -->"
+      },
+      "summary": "danielroe.dev commented",
+      "occurredAt": "2026-10-22T11:07:29.519Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+        "ownerHandle": "danielroe.dev"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "ownerHandle": "danielroe.dev"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22",
+        "externalId": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22"
+      },
+      "threadSnapshot": {
+        "title": "Allow syncing a forked GitHub repository",
+        "body": "I would like to mirror a forked repository into Tangled, where I've been hosting discussion. Tangled lets me avoid confusion with the upstream, and also probe where the barrier to AtProto signup is at in gamedev communities.\n\nI would love to take advantage of this tool, and I don't see any likelihood of namespace collision, since repositories are prefixed by their owner. Solutions based on GitHub Actions seem like my next fallback."
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
+      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.label.op/3myh6sttftf25",
+      "kind": "label",
+      "kindRaw": "sh.tangled.label.op",
+      "action": "created",
+      "actionRaw": "create",
+      "summary": "danielroe.dev changed labels",
+      "occurredAt": "2026-10-22T07:55:57.123Z",
+      "actor": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "synchub.to",
+        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+        "ownerHandle": "danielroe.dev"
+      },
+      "thread": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "name": "synchub.to",
+          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+          "ownerHandle": "danielroe.dev"
+        },
+        "kind": "issue",
+        "typeRaw": "sh.tangled.repo.issue",
+        "number": "at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.issue/3mtyvuaddbl22",
+        "externalId": "at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.issue/3mtyvuaddbl22"
+      },
+      "threadSnapshot": {
+        "title": "Use record-key for repository name instead of `.name` field",
+        "body": "`.name` field in `sh.tangled.repo` will be deprecated soon. rkey is preferred for repository slug.\n\nexample: [(pdsls) `boltless.me/sense.nvim` repository declaration record](https://pdsls.dev/at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo/sense.nvim)"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "tangled",
+      "instance": "tangled.org",
       "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzzpkdbzo22",
       "kind": "state_change",
       "kindRaw": "sh.tangled.repo.pull.status",
@@ -425,82 +546,10 @@
         "isBotHint": false
       },
       "source": "poll"
-    },
-    {
-      "forge": "tangled",
-      "instance": "tangled.org",
-      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue.state/3mrfztjodmf22",
-      "kind": "state_change",
-      "kindRaw": "sh.tangled.repo.issue.state",
-      "action": "closed",
-      "actionRaw": "create",
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "danielroe.dev marked it closed",
-      "occurredAt": "2026-07-24T18:57:50.253Z",
-      "actor": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "login": "danielroe.dev",
-        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
-        "url": "https://tangled.org/danielroe.dev",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
-        "name": "synchub.to",
-        "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
-        "ownerHandle": "danielroe.dev"
-      },
-      "thread": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
-          "name": "synchub.to",
-          "externalId": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
-          "ownerHandle": "danielroe.dev"
-        },
-        "kind": "issue",
-        "typeRaw": "sh.tangled.repo.issue",
-        "number": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
-        "externalId": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22"
-      },
-      "threadSnapshot": {
-        "title": "handle duplicate names ",
-        "body": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard "
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "tangled",
-      "instance": "tangled.org",
-      "id": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.reaction/3mqzo2l4cas22",
-      "kind": "reaction",
-      "kindRaw": "sh.tangled.feed.reaction",
-      "action": "created",
-      "actionRaw": "create",
-      "summary": "danielroe.dev reacted ❤️",
-      "occurredAt": "2026-07-19T20:55:04.000Z",
-      "actor": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "login": "danielroe.dev",
-        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
-        "url": "https://tangled.org/danielroe.dev",
-        "isBotHint": false
-      },
-      "source": "poll"
     }
   ],
   "cursor": {
-    "token": "{\"sh.tangled.repo.issue\":\"\",\"sh.tangled.repo.pull\":\"3mrzzp3744f22\",\"sh.tangled.feed.comment\":\"3mrzwpeomxg22\",\"sh.tangled.repo.issue.state\":\"3mrfztjodmf22\",\"sh.tangled.repo.pull.status\":\"3mrzwphyaua22\",\"sh.tangled.feed.reaction\":\"3mqzo2l4cas22\"}"
+    "token": "{\"sh.tangled.repo.issue\":\"\",\"sh.tangled.repo.pull\":\"3mrzzp3744f22\",\"sh.tangled.feed.comment\":\"3mrzwpeomxg22\",\"sh.tangled.repo.issue.state\":\"\",\"sh.tangled.repo.pull.status\":\"3mrzwphyaua22\",\"sh.tangled.feed.reaction\":\"3mru72v6ahb22\"}"
   },
-  "etag": "3my6njfwr5e2s:ecbf70f4691224df"
+  "etag": "3mypuuiolwc2p:3130b048e605497c"
 }

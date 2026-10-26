@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tranquil.madoka.systems/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7exy3k53z33dvghn6edyayxt&collection=sh.tangled.repo.issue&rkey=3myqb4uc4d522"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:7exy3k53z33dvghn6edyayxt/sh.tangled.repo.issue/3myqb4uc4d522",
+      "cid": "bafyreidvaqvqbnbmobpg4zzm5jq4ynuqzpopqv7ybmilt5ztbutfot3jsq",
+      "value": {
+        "$type": "sh.tangled.repo.issue",
+        "body": "For providers like codex and openrouter, there's the service tiers with normal, priority/fast, and flex modes, which i tend to use for codex because it's very slow otherwise lol",
+        "createdAt": "2026-10-26T00:31:18+02:00",
+        "repo": "did:plc:l7hhzcbqqvpcquau5waryzdu",
+        "title": "[feature request] Priority/fast mode selector for models"
+      }
+    }
+  }
+}

@@ -1,91 +1,90 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.pull.status&limit=10"
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.pull&limit=10"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"a57-srl0E3LRgcBJfjrt6kNuNwPuiwk\"",
+      "etag": "W/\"5c6-YpEpACy2Hwv2Mof0DUkGXS+1l2Q\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2976",
-      "ratelimit-reset": "1792385016",
+      "ratelimit-remaining": "2979",
+      "ratelimit-reset": "1792989905",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
         {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzzpkdbzo22",
-          "cid": "bafyreig7fkajbclluz5xrnc2ygywdrav5gubllspeuqy6gjya6nhjz34rq",
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
+          "cid": "bafyreiewbtnbjgmoi2t3n2jdmmjnc4so5ixrhm3kyckp5rbyg55x5mxdxa",
           "value": {
-            "pull": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mrzzp3744f22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.merged",
-            "createdAt": "2026-08-01T17:48:51.489Z"
+            "body": "",
+            "$type": "sh.tangled.repo.pull",
+            "title": "ci: add test workflows",
+            "rounds": [
+              {
+                "createdAt": "2026-08-01T20:48:36+03:00",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreiefgh3s37tz3e77rmoxuolz64oxql6ew5u4l566ie5tfquselvobu"
+                  },
+                  "size": 1223,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              }
+            ],
+            "source": {
+              "branch": "ci/test-workflows"
+            },
+            "target": {
+              "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
+              "branch": "main",
+              "repoDid": "did:plc:g4lh56ouiwlcyhukzkjvy75g"
+            },
+            "createdAt": "2026-08-01T20:48:36+03:00"
           }
         },
         {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxswg6hs22",
-          "cid": "bafyreibqsvr7jx7jybqdw6afkult4n4smq6b7awjr6mzjhhyrn2u7ub4dm",
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull/3mlbi7vfket22",
+          "cid": "bafyreidq5mk5ixzvd36kwwuzig6onslgrbxzg4duwdlrgjglv5ewgtr7b4",
           "value": {
-            "pull": "at://did:plc:7r5c5jhtphcpkg3y55xu2y64/sh.tangled.repo.pull/3mrufxgcrdv22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.merged",
-            "createdAt": "2026-08-01T17:14:57.346Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzxju262g22",
-          "cid": "bafyreib7p3s3ra2zejubamc65licznz3uwphyxkfu4qiorxvnvjhcaupdu",
-          "value": {
-            "pull": "at://did:plc:pbjvqaziagcyv2vqodldn5op/sh.tangled.repo.pull/3mrfzlqgnwf22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.merged",
-            "createdAt": "2026-08-01T17:09:52.866Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mrzwphyaua22",
-          "cid": "bafyreiekaq42c6gtji5bqrmr7eqvkvp4ja3rwrvflvsxxvxuc57uexa5wi",
-          "value": {
-            "pull": "at://did:plc:jthwx55n5kgyekhpaqajzuhw/sh.tangled.repo.pull/3mr5t7sut7r22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.closed",
-            "createdAt": "2026-08-01T16:55:07.805Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvrj6uqo322",
-          "cid": "bafyreiazwia2ifuhhhzlhy5f4dyrf3cduxcs6fnssczbk2lvxks6kekjnm",
-          "value": {
-            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.merged",
-            "createdAt": "2026-07-05T14:21:06.008Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvriiblv322",
-          "cid": "bafyreiexqe2kd24c5tfkyj452hsgiqc5mvvhq2hnxl2afima3b23szxi5i",
-          "value": {
-            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.open",
-            "createdAt": "2026-07-05T14:20:42.312Z"
-          }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.pull.status/3mpvriaotpj22",
-          "cid": "bafyreibfd5an7wku4qewga6qsgmc7baefaj5ys4m626gvha6ysc5ywe2aa",
-          "value": {
-            "pull": "at://did:plc:fhfpmpvg7sso2jw5vk52ccfk/sh.tangled.repo.pull/3mpvqozbsfz22",
-            "$type": "sh.tangled.repo.pull.status",
-            "status": "sh.tangled.repo.pull.status.closed",
-            "createdAt": "2026-07-05T14:20:34.357Z"
+            "body": "this adds the https://npmx.dev logomark\n\nfeel free to close if you don't want this 🙏",
+            "$type": "sh.tangled.repo.pull",
+            "title": "add npmx logomark",
+            "rounds": [
+              {
+                "createdAt": "2026-05-07T15:00:49Z",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreicq6bhjh6eayqx6nxa77msvjw4swr557oyib6darbxz2vdllamk6a"
+                  },
+                  "size": 458,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              },
+              {
+                "createdAt": "2026-05-07T18:03:39+03:00",
+                "patchBlob": {
+                  "ref": {
+                    "$link": "bafkreicui4o3mvpvbj2eguztp55nev7j4shot4xcvfuvovtnglwsmqdgbe"
+                  },
+                  "size": 455,
+                  "$type": "blob",
+                  "mimeType": "application/gzip"
+                }
+              }
+            ],
+            "target": {
+              "repo": "did:plc:yr5tuei4ai5ccujxevyydmuh",
+              "branch": "main"
+            },
+            "createdAt": "2026-05-07T15:00:49Z"
           }
         }
       ],
-      "cursor": "3mpvriaotpj22"
+      "cursor": "3mlbi7vfket22"
     }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pds.ovy.cloud/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ajrrhosrfzgjf6v4oydav6ftb&collection=sh.tangled.repo.issue&rkey=3myqlbbrajq22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:jrrhosrfzgjf6v4oydav6ftb/sh.tangled.repo.issue/3myqlbbrajq22",
+      "cid": "bafyreigj2grxs6jsomsaxlr2rmu3x3yjbcjepf75r6imfhnxxnn3a2sk5u",
+      "value": {
+        "$type": "sh.tangled.repo.issue",
+        "blobs": [
+          {
+            "$type": "blob",
+            "mimeType": "image/png",
+            "ref": {
+              "$link": "bafkreifihkyruwu3z7effaawooltuljzwglja7hqm2yw5fbguuqkmp3gh4"
+            },
+            "size": 333641
+          }
+        ],
+        "body": "I have 6 chats currently. In 2 of them (one being the first chat created) typing `/` correctly brings up the slash commands popup menu and I get autocomplete/slash commands work properly. In the rest, I don't get the popup and they don't seem to work.\n\n![5 albedo chats, 3 above, 2 below. The 2 bottom chats have `/` entered in their textboxes and show a list of various slash commands. The top 3 chats have `/` entered in their textboxes and do not show the slash commands list. One of the top chats is currently focused.](blob+at://did:plc:jrrhosrfzgjf6v4oydav6ftb/bafkreifihkyruwu3z7effaawooltuljzwglja7hqm2yw5fbguuqkmp3gh4)",
+        "createdAt": "2026-10-26T01:32:45Z",
+        "repo": "did:plc:l7hhzcbqqvpcquau5waryzdu",
+        "title": "Slash commands don't consistently work/show up in chats"
+      }
+    }
+  }
+}

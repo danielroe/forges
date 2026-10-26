@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:jrrhosrfzgjf6v4oydav6ftb"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"218-W6dLlaJOzRvZc6MYUBmJ9c00Tsk\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:jrrhosrfzgjf6v4oydav6ftb",
+      "alsoKnownAs": [
+        "at://ovyerus.com"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:jrrhosrfzgjf6v4oydav6ftb#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:jrrhosrfzgjf6v4oydav6ftb",
+          "publicKeyMultibase": "zQ3shPkHQthm2Lz84hP2KY2ekvYBC25n5EggnWWR6QVvMC63v"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.ovy.cloud"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:7exy3k53z33dvghn6edyayxt"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"225-6v7mQwdoVcyItAn75KftePP7LRc\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:7exy3k53z33dvghn6edyayxt",
+      "alsoKnownAs": [
+        "at://madoka.systems"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:7exy3k53z33dvghn6edyayxt#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:7exy3k53z33dvghn6edyayxt",
+          "publicKeyMultibase": "zQ3shwSQ2nGcQ1jRjRef8a7AiHHrFQMDxTUkE1zsAaeYRog8g"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://tranquil.madoka.systems"
+        }
+      ]
+    }
+  }
+}

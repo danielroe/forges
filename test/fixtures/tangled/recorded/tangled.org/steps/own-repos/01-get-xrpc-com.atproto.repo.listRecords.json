@@ -6,10 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"b7a5-BFllwY+K8335qIWoxFonuCpCQxQ\"",
+      "etag": "W/\"b85b-uJmOkX8tHUg48KiB7nA7kTjutt0\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2994",
-      "ratelimit-reset": "1791805677"
+      "ratelimit-remaining": "2985",
+      "ratelimit-reset": "1792989905",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
@@ -38,6 +39,28 @@
             "website": "https://synchub.to",
             "createdAt": "2026-06-25T17:27:03Z",
             "description": "mirror your GitHub repos to tangled.org automatically"
+          }
+        },
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3myhjineg2kcw",
+          "cid": "bafyreidbkyrw2lp22bh6lkcpyfbxjjhvbcqbs3u4n5hqvw27we75lsbvai",
+          "value": {
+            "knot": "knot1.tangled.sh",
+            "name": "beasties",
+            "$type": "sh.tangled.repo",
+            "topics": [
+              "critical-css",
+              "css",
+              "inlining-critical-fonts",
+              "vite",
+              "vite-plugin",
+              "webpack",
+              "webpack-plugin"
+            ],
+            "repoDid": "did:plc:utwfbvfzfwhluy73kprj777q",
+            "website": "https://npmx.dev/beasties",
+            "createdAt": "2026-10-22T11:07:10.130Z",
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest."
           }
         },
         {
@@ -1491,22 +1514,9 @@
             "createdAt": "2026-06-15T13:49:12.925Z",
             "description": "[READ-ONLY] Mirror of https://github.com/danielroe/partytown-example."
           }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo/3modgfo6wosox",
-          "cid": "bafyreiaeyea7phchlg2zswrum5ekrbywe7fkfkisiy2odw2aw6uzqzvybe",
-          "value": {
-            "knot": "knot1.tangled.sh",
-            "name": "rollup-hash-repro",
-            "$type": "sh.tangled.repo",
-            "topics": [],
-            "repoDid": "did:plc:z7lwtpprerqf5grg6sfqhf5f",
-            "createdAt": "2026-06-15T13:49:10.888Z",
-            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/rollup-hash-repro."
-          }
         }
       ],
-      "cursor": "3modgfo6wosox"
+      "cursor": "3modgfqgiq27m"
     }
   }
 }
