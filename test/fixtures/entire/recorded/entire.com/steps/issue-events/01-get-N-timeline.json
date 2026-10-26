@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/et/forges/trails/1/timeline?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ProjectTrailTimelineResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ProjectTrailTimelineResponse.json",
+      "items": [
+        {
+          "id": "trail-message-01M5WVPAKKTQ8B5ZX1HK69FDM0",
+          "kind": "comment",
+          "actor": {
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "occurred_at": "2026-10-26T19:41:11.643Z",
+          "comment_id": "01M5WVPAKKTQ8B5ZX1HK69FDM0",
+          "discussion_id": "01M5WVPAJVPM8Y1B7N1EVF8ZPV",
+          "is_reply": false
+        },
+        {
+          "id": "trail-created-1",
+          "kind": "trail_created",
+          "actor": {
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "occurred_at": "2026-10-26T19:40:26.099Z"
+        }
+      ]
+    }
+  }
+}

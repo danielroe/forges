@@ -1,0 +1,90 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/repos/01M5WS0P331VQ3AARB26Z9DGV7/trails/1/timeline?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailTimelineResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailTimelineResponse.json",
+      "items": [
+        {
+          "id": "trail-message-01M5WVR6SAXG323XBRAH7G0Q3V",
+          "kind": "comment",
+          "actor": {
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "occurredAt": "2026-10-26T19:42:13.290Z",
+          "commentId": "01M5WVR6SAXG323XBRAH7G0Q3V",
+          "discussionId": "01M5WVQW2ZPDDH5X0C5SWM3KVM",
+          "isReply": false
+        },
+        {
+          "id": "trail-review-01M5WVQNQSS4DQNQB5Z00WA4V7",
+          "kind": "review_posted",
+          "actor": {
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "occurredAt": "2026-10-26T19:42:02.333Z",
+          "findingCount": 2,
+          "commentId": "01M5WVQW2ZTEEA9V72FF81J46Q"
+        },
+        {
+          "id": "trail-approval-01M5WVPQ2KX1QCY97NEWDQWTB8",
+          "kind": "approval",
+          "actor": {
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "occurredAt": "2026-10-26T19:41:24.435Z",
+          "approvalStatus": "changes_requested",
+          "body": "Please add a test for shouting."
+        }
+      ],
+      "nextPageToken": "eyJvY2N1cnJlZEF0IjoiMjAyNi0xMC0yNlQxOTo0MToyNC40MzU0MTQwNDdaIiwiaWQiOiJ0cmFpbC1hcHByb3ZhbC0wMU01V1ZQUTJLWDFRQ1k5N05FV0RRV1RCOCJ9",
+      "commitCount": 2,
+      "incomplete": false
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/compare/status?base=fc6d8c9fb93b340e7d064fee866d49d70073ff34&head=main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/CompareStatusResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/CompareStatusResponse.json",
+      "commitsAhead": 4,
+      "commitsBehind": 0,
+      "mergeBaseSHA": "fc6d8c9fb93b340e7d064fee866d49d70073ff34",
+      "resolvedBaseSHA": "fc6d8c9fb93b340e7d064fee866d49d70073ff34",
+      "resolvedHeadSHA": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+      "truncated": false
+    }
+  }
+}

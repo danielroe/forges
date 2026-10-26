@@ -11,8 +11,8 @@
  * except with `--only`. `--defer-splice` passes on to write recordings, to
  * leave their splicing to `scripts/splice-partial.ts`.
  * `--summary` writes the outcome of each recording as Markdown. The exit code
- * is 1 when any recording failed. `--list` prints the forges that record
- * that kind, as a JSON array.
+ * is 1 when any recording failed. `--list` prints the forges that the
+ * `fixtures` workflow records of that kind, as a JSON array.
  */
 import type { Buffer } from 'node:buffer'
 import { spawn } from 'node:child_process'
@@ -29,8 +29,11 @@ interface Recording {
 
 const CODE_FORGEJO = { CODEBERG_BASE_URL: 'https://code.forgejo.org' }
 
-/** The recordings of each forge, by kind. */
-export const PLANS: Record<string, { reads: Recording[], writes: Recording[] }> = {
+/**
+ * The recordings of each forge, by kind. A `local` forge records only on a
+ * maintainer's machine, as its credentials expire before the next scheduled run.
+ */
+export const PLANS: Record<string, { reads: Recording[], writes: Recording[], local?: true }> = {
   'github': {
     reads: [{ label: 'github.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }, { label: 'app', args: ['--app'] }],
     writes: [{ label: 'writes', args: ['--writes'] }],
@@ -52,6 +55,7 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[] }> 
   'pushin': { reads: [{ label: 'pushin.eu', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
   'cloudflare-artifacts': { reads: [{ label: 'artifacts.cloudflare.net', args: [] }], writes: [] },
   'sourcehut': { reads: [{ label: 'sr.ht', args: [] }], writes: [] },
+  'entire': { reads: [{ label: 'entire.com', args: [] }], writes: [{ label: 'writes', args: ['--writes'] }], local: true },
   'tangled': {
     reads: [{ label: 'tangled.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }],
     writes: [{ label: 'writes', args: ['--writes'] }, { label: 'seed', args: ['--seed'] }],
@@ -82,7 +86,7 @@ function record(forge: string, recording: Recording, options: { envFile?: string
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const { positionals: [forge], values } = parseArgs({ allowPositionals: true, options: { 'kind': { type: 'string' }, 'list': { type: 'string' }, 'env-file': { type: 'string' }, 'only': { type: 'string', multiple: true, default: [] }, 'defer-splice': { type: 'boolean', default: false }, 'summary': { type: 'string' } } })
   if (values.list === 'reads' || values.list === 'writes') {
-    console.info(JSON.stringify(Object.keys(PLANS).filter(name => PLANS[name]![values.list as 'reads' | 'writes'].length)))
+    console.info(JSON.stringify(Object.keys(PLANS).filter(name => !PLANS[name]!.local && PLANS[name]![values.list as 'reads' | 'writes'].length)))
     process.exit(0)
   }
   const kind = values.kind

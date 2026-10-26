@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://us.console.entire.io/api/v1/repos/resolve"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ResolveReposResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ResolveReposResponse.json",
+      "resolutions": [
+        {
+          "provider": "entire",
+          "requestedFullName": "forges/forges-fixtures",
+          "fullName": "forges/forges-fixtures",
+          "status": "ready",
+          "repoId": "01M5WS0P331VQ3AARB26Z9DGV7",
+          "repoGroupId": "01M5WS0P33VDWTEFK1HZ5QDEPA",
+          "placements": [
+            {
+              "id": "01M5WS0P331VQ3AARB26Z9DGV7",
+              "jurisdiction": "uk",
+              "cell": "aws-eu-west-2",
+              "apiBaseUrl": "https://aws-eu-west-2.api.entire.io",
+              "clusterSlug": "aws-eu-west-2",
+              "mirror": false,
+              "status": "ready"
+            }
+          ],
+          "primaries": {
+            "git_data": "entire:01M5WS0P331VQ3AARB26Z9DGV7",
+            "processing": "01M5WS0P331VQ3AARB26Z9DGV7",
+            "data_primary": {
+              "forge": "entire",
+              "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7"
+            },
+            "processing_primary": {
+              "forge": "entire",
+              "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

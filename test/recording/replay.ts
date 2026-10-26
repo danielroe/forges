@@ -5,6 +5,7 @@ import { generateKeyPairSync } from 'node:crypto'
 import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
+import { entire } from '../../src/entire/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
@@ -32,6 +33,7 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
   { name: 'cloudflare-artifacts', create: (fetch, manifest) => cloudflareArtifacts({ auth: token, accountId: manifest.repo.instance.split('.')[0]!, baseUrl: manifest.baseUrl, fetch }) },
   { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }) },
   { name: 'sourcehut', create: (fetch, manifest) => sourcehut({ auth: authFor(manifest) ?? token, baseUrl: manifest.baseUrl, fetch }) },
+  { name: 'entire', create: (fetch, manifest) => entire({ auth: token, baseUrl: manifest.baseUrl, fetch }) },
   { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }) },
   { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }) },
   {

@@ -1,0 +1,139 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "thread": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "repo": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "01M5WVPQ2KX1QCY97NEWDQWTB8"
+      },
+      "author": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "danielroe",
+        "isBotHint": false
+      },
+      "state": "changes_requested",
+      "stateRaw": "changes_requested",
+      "body": "Please add a test for shouting.",
+      "submittedAt": "2026-10-26T19:41:24.435Z",
+      "comments": false
+    },
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "thread": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "repo": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "01M5WVQNQSS4DQNQB5Z00WA4V7"
+      },
+      "author": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "state": "commented",
+      "stateRaw": "review",
+      "submittedAt": "2026-10-26T19:42:02.333Z",
+      "comments": [
+        {
+          "ref": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "thread": {
+              "forge": "entire",
+              "instance": "entire.com",
+              "repo": {
+                "forge": "entire",
+                "instance": "entire.com",
+                "owner": "forges",
+                "name": "forges-fixtures"
+              },
+              "kind": "pull_request",
+              "number": "1"
+            },
+            "id": "01M5WVQW2ZTEEA9V72FF81J46Q"
+          },
+          "body": "`toUpperCase()` ignores the locale, so Turkish names shout incorrectly. Consider `toLocaleUpperCase()`.",
+          "author": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "login": "danielroe",
+            "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "name": "Daniel Roe",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "isBotHint": false
+          },
+          "path": "src/greet.ts",
+          "line": 3,
+          "side": "right",
+          "thread": {
+            "id": "01M5WVQW2ZPDDH5X0C5SWM3KVM",
+            "resolved": false
+          },
+          "createdAt": "2026-10-26T19:42:02.333Z"
+        },
+        {
+          "ref": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "thread": {
+              "forge": "entire",
+              "instance": "entire.com",
+              "repo": {
+                "forge": "entire",
+                "instance": "entire.com",
+                "owner": "forges",
+                "name": "forges-fixtures"
+              },
+              "kind": "pull_request",
+              "number": "1"
+            },
+            "id": "01M5WVQW423TPZGYYS4025JBCT"
+          },
+          "body": "No tests cover the `shout` option.",
+          "author": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "login": "danielroe",
+            "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "name": "Daniel Roe",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "isBotHint": false
+          },
+          "thread": {
+            "id": "01M5WVQW42CZ9N82B1QV6B6GTP",
+            "resolved": false
+          },
+          "createdAt": "2026-10-26T19:42:02.368Z"
+        }
+      ]
+    }
+  ]
+}

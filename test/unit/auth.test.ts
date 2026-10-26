@@ -5,6 +5,7 @@ import { azureDevOps } from '../../src/azure-devops/index.ts'
 import { bitbucket } from '../../src/bitbucket/index.ts'
 import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
 import { cursorOrigin } from '../../src/cursor-origin/index.ts'
+import { entire } from '../../src/entire/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
@@ -27,6 +28,7 @@ const FACTORIES: Record<string, TokenFactory> = {
   'pushin': (token, fetch) => pushin({ auth: { type: 'token', token }, fetch }),
   'cloudflare-artifacts': (token, fetch) => cloudflareArtifacts({ auth: { type: 'token', token }, accountId: 'acme', fetch }),
   'sourcehut': (token, fetch) => sourcehut({ auth: { type: 'token', token }, fetch }),
+  'entire': (token, fetch) => entire({ auth: { type: 'token', token }, fetch }),
 }
 
 describe('token auth', () => {

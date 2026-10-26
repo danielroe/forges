@@ -12,7 +12,7 @@ import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -27,10 +27,10 @@ import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
 const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false }, 'defer-splice': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN' }
+const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN', 'entire': 'ENTIRE_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -519,6 +519,18 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         ...setupRepos('SOURCEHUT', value => repoRef('sourcehut', provider.instance, value)),
       } }
     }
+    case 'entire': {
+      const provider = entire({ baseUrl: env.ENTIRE_BASE_URL, auth: tokenAuth!, fetch, timeout })
+      const [project = '', name = ''] = (env.FIXTURE_ENTIRE_REPO ?? 'forges/forges-fixtures').split('/')
+      const repo = { forge: 'entire', instance: provider.instance, owner: project, name }
+      return { provider, manifest: {
+        repo,
+        // Project trails stand in for issues, so the issue ref names the project rather than a repository.
+        issue: { forge: 'entire', instance: provider.instance, repo: { ...repo, name: '', kind: 'namespace' }, kind: 'issue', number: env.FIXTURE_ENTIRE_ISSUE ?? '1' },
+        pull: { forge: 'entire', instance: provider.instance, repo, kind: 'pull_request', number: env.FIXTURE_ENTIRE_PULL ?? '1' },
+        ...setupRepos('ENTIRE', slug => repoRef('entire', provider.instance, slug)),
+      } }
+    }
     default: {
       const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_FORGEJO_REPO ?? (codeForgejo ? 'forgejo/runner' : 'forgejo/forgejo')
@@ -548,6 +560,7 @@ function authorizationFor(token: string): string {
     case 'gitlab':
     case 'bitbucket':
     case 'sourcehut':
+    case 'entire':
       return `Bearer ${token}`
     case 'azure-devops':
       return `Basic ${btoa(`:${token}`)}`

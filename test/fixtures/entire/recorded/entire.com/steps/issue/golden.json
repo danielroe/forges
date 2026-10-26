@@ -1,0 +1,52 @@
+{
+  "ref": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "repo": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "owner": "forges",
+      "name": "",
+      "kind": "namespace"
+    },
+    "kind": "issue",
+    "number": "1",
+    "externalId": "01M5WVMY3H5EDDRN67H0AXA3H0"
+  },
+  "kind": "issue",
+  "title": "Greet in other languages",
+  "body": "It would be nice to greet people in their own language.\n\n- [ ] French\n- [ ] German",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "login": "danielroe",
+    "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "entire",
+      "instance": "entire.com",
+      "login": "danielroe",
+      "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [],
+  "labels": [],
+  "url": "https://entire.com/et/forges/-/trails/1",
+  "createdAt": "2026-10-26T19:40:26.099Z",
+  "updatedAt": "2026-10-26T19:40:26.099Z",
+  "lastActivityAt": "2026-10-26T19:41:11.643Z",
+  "issueType": {
+    "id": "feature",
+    "name": "feature"
+  }
+}

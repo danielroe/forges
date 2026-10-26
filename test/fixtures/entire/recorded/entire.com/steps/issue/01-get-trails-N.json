@@ -1,0 +1,157 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/et/forges/trails/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T19:40:26.099783Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "project": {
+        "primaryProcessingCell": "aws-eu-west-2",
+        "id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "name": "forges",
+        "provider": "entire",
+        "reference": {
+          "forge": "et",
+          "project": "forges"
+        },
+        "jurisdiction": "uk",
+        "capabilities": {
+          "canManageTrails": true
+        }
+      },
+      "author": {
+        "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "login": "danielroe",
+        "displayName": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "assigneeProfiles": [
+        {
+          "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "login": "danielroe",
+          "displayName": "Daniel Roe",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          }
+        }
+      ],
+      "id": "01M5WVMY3H5EDDRN67H0AXA3H0",
+      "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+      "number": 1,
+      "url": "https://entire.com/et/forges/-/trails/1",
+      "title": "Greet in other languages",
+      "body": "It would be nice to greet people in their own language.\n\n- [ ] French\n- [ ] German",
+      "bodyDocument": {
+        "id": "",
+        "document_key": "project-trail:01M5WVMY3H5EDDRN67H0AXA3H0:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "It would be nice to greet people in their own language."
+                }
+              ]
+            },
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[ ] French"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "[ ] German"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "text_snapshot": "It would be nice to greet people in their own language.\n[ ] French\n[ ] German",
+        "updated_at": "2026-10-26T19:40:26.099Z",
+        "etag": ""
+      },
+      "status": "open",
+      "phase": "planning",
+      "metadata": {},
+      "type": "feature",
+      "priority": "low",
+      "assignees": [
+        "ulid:01M5WRP9RJ4GVR2PA5PCNYP1FC"
+      ],
+      "assigneeAccountIds": [
+        "01M5WRP9RJ4GVR2PA5PCNYP1FC"
+      ],
+      "repoIds": [
+        "01M5WS0P331VQ3AARB26Z9DGV7"
+      ],
+      "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "createdAt": "2026-10-26T19:40:26.099Z",
+      "metadataUpdatedAt": "2026-10-26T19:40:26.099Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T19:41:11.643Z",
+      "changes": [],
+      "isPossiblyPartial": true
+    }
+  }
+}

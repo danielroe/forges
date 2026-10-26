@@ -1,7 +1,7 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { VERB_RUN } from '../test/setup/verbs-directory.ts'
 import { withDeclared } from './capabilities.ts'
 
@@ -56,6 +56,7 @@ const checked: Array<[string, ForgeProvider]> = [
   ['pushin', pushin({ auth })],
   ['cloudflare-artifacts', cloudflareArtifacts({ auth, accountId: 'acme' })],
   ['sourcehut', sourcehut({ auth })],
+  ['entire', entire({ auth })],
   ['github:anonymous', github({})],
   ['gitlab:anonymous', gitlab({})],
   ['bitbucket:anonymous', bitbucket({})],

@@ -1,0 +1,80 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/reviews/comments?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ReviewCommentsPage.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/ReviewCommentsPage.json",
+      "comments": [
+        {
+          "discussion_id": "01M5X0AHS4JAQ93WBG0CC9JN8M",
+          "discussion_message_count": 1,
+          "id": "01M5X0AHS47CKYTKRY42WT1YYD",
+          "trail_id": "01M5X0A49M70NAMJX878FD2QD1",
+          "repo_id": "01M5WYSQC41P69DTXEMZ0TE5YK",
+          "review_id": "01M5X0AGW04E508JH4BY5VE4V7",
+          "code_version_id": "01M5X0AGVPHGGQD3ZADR9BX2KV",
+          "actor_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "actor_display_name": "danielroe",
+          "actor_identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          },
+          "body": "A review comment from run 20261026210133.",
+          "severity": null,
+          "confidence": null,
+          "status": "open",
+          "status_reason": null,
+          "status_actor_id": null,
+          "status_actor_display_name": null,
+          "status_actor_identity": {
+            "kind": "unknown",
+            "account_id": null,
+            "display_name": null,
+            "avatar_url": null,
+            "handles": []
+          },
+          "status_changed_at": null,
+          "status_source": null,
+          "status_actor_kind": null,
+          "stale_outcome": "current",
+          "stale_checked_at": null,
+          "stale_checked_code_version_id": null,
+          "client_id": "1",
+          "client_id_hash": "876dd2d2f894bbd709b9c4adf233e9cbe880d2c74674e9987f97a2d6c6e31faa",
+          "created_at": "2026-10-26T21:02:08.674Z",
+          "updated_at": "2026-10-26T21:02:08.674Z",
+          "location": {
+            "id": "01M5X0AHS4172XDD0412MR744W",
+            "review_comment_id": "01M5X0AHS47CKYTKRY42WT1YYD",
+            "code_version_id": "01M5X0AGVPHGGQD3ZADR9BX2KV",
+            "granularity": "whole_change",
+            "file_path": null,
+            "start_line": null,
+            "start_column": null,
+            "end_line": null,
+            "end_column": null,
+            "selected_text": null,
+            "nearby_text": null,
+            "language": null
+          }
+        }
+      ],
+      "event_cursor": "6"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/1/reviews/01M5WVQNQSS4DQNQB5Z00WA4V7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ReviewSnapshotResponseBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ReviewSnapshotResponseBody.json",
+      "review": {
+        "id": "01M5WVQNQSS4DQNQB5Z00WA4V7",
+        "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+        "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+        "actor_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "summary": null,
+        "started_at": "2026-10-26T19:41:55.833Z",
+        "source_execution_id": null
+      },
+      "code_version": {
+        "id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+        "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+        "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7",
+        "base_ref": null,
+        "head_ref": null,
+        "base_sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+        "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+        "captured_at": "2026-10-26T19:41:55.824Z"
+      },
+      "counts": {
+        "open": 2,
+        "resolved": 0,
+        "dismissed": 0,
+        "stale": 0,
+        "total": 2
+      },
+      "comments": [
+        {
+          "discussion_id": "01M5WVQW42CZ9N82B1QV6B6GTP",
+          "discussion_message_count": 0,
+          "id": "01M5WVQW423TPZGYYS4025JBCT",
+          "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+          "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7",
+          "review_id": "01M5WVQNQSS4DQNQB5Z00WA4V7",
+          "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+          "actor_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "actor_display_name": "danielroe",
+          "actor_identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          },
+          "body": "No tests cover the `shout` option.",
+          "severity": "medium",
+          "confidence": null,
+          "status": "open",
+          "status_reason": null,
+          "status_actor_id": null,
+          "status_actor_display_name": null,
+          "status_actor_identity": {
+            "kind": "unknown",
+            "account_id": null,
+            "display_name": null,
+            "avatar_url": null,
+            "handles": []
+          },
+          "status_changed_at": null,
+          "status_source": null,
+          "status_actor_kind": null,
+          "stale_outcome": "current",
+          "stale_checked_at": null,
+          "stale_checked_code_version_id": null,
+          "client_id": "whole",
+          "client_id_hash": "a00f6d308f3eb66bbf8828200158393d01575a3bfc9f750bacf1b11ed8d9430a",
+          "created_at": "2026-10-26T19:42:02.368Z",
+          "updated_at": "2026-10-26T19:42:02.368Z",
+          "location": {
+            "id": "01M5WVQW42ER5GPTS4JM719TDV",
+            "review_comment_id": "01M5WVQW423TPZGYYS4025JBCT",
+            "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+            "granularity": "whole_change",
+            "file_path": null,
+            "start_line": null,
+            "start_column": null,
+            "end_line": null,
+            "end_column": null,
+            "selected_text": null,
+            "nearby_text": null,
+            "language": null
+          },
+          "suggested_changes": [],
+          "outgoing_links": []
+        },
+        {
+          "discussion_id": "01M5WVQW2ZPDDH5X0C5SWM3KVM",
+          "discussion_message_count": 1,
+          "id": "01M5WVQW2ZTEEA9V72FF81J46Q",
+          "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+          "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7",
+          "review_id": "01M5WVQNQSS4DQNQB5Z00WA4V7",
+          "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+          "actor_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "actor_display_name": "danielroe",
+          "actor_identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          },
+          "body": "`toUpperCase()` ignores the locale, so Turkish names shout incorrectly. Consider `toLocaleUpperCase()`.",
+          "severity": "low",
+          "confidence": null,
+          "status": "open",
+          "status_reason": null,
+          "status_actor_id": null,
+          "status_actor_display_name": null,
+          "status_actor_identity": {
+            "kind": "unknown",
+            "account_id": null,
+            "display_name": null,
+            "avatar_url": null,
+            "handles": []
+          },
+          "status_changed_at": null,
+          "status_source": null,
+          "status_actor_kind": null,
+          "stale_outcome": "current",
+          "stale_checked_at": null,
+          "stale_checked_code_version_id": null,
+          "client_id": "shout-case",
+          "client_id_hash": "ea05e251d04f3b2e1dbf616445b14d9faba65c96f60b955c61a748fb186cd26d",
+          "created_at": "2026-10-26T19:42:02.333Z",
+          "updated_at": "2026-10-26T19:42:02.333Z",
+          "location": {
+            "id": "01M5WVQW2Z3NCP4Y284CQ5DE3Y",
+            "review_comment_id": "01M5WVQW2ZTEEA9V72FF81J46Q",
+            "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+            "granularity": "line",
+            "file_path": "src/greet.ts",
+            "start_line": 3,
+            "start_column": null,
+            "end_line": 3,
+            "end_column": null,
+            "selected_text": "  return options.shout ? greeting.toUpperCase() : greeting",
+            "nearby_text": null,
+            "language": null
+          },
+          "suggested_changes": [],
+          "outgoing_links": []
+        }
+      ],
+      "event_cursor": "11"
+    }
+  }
+}

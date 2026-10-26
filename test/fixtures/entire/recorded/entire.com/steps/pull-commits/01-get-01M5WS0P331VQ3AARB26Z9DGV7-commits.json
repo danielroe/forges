@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/commits?ref=9ec20061f17f35212247320f525ec51d3e00c41a&notRef=8127b4c88662985c819a6b3cabecde203907c3e2&pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListCommitsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListCommitsResponse.json",
+      "commits": [
+        {
+          "sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+          "parents": [
+            "c83b64d5032ae0ee89ecbaeea7273b2291b4d2e5"
+          ],
+          "message": "docs: mention shouting\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T10:01:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T10:01:00Z"
+          }
+        },
+        {
+          "sha": "c83b64d5032ae0ee89ecbaeea7273b2291b4d2e5",
+          "parents": [
+            "8127b4c88662985c819a6b3cabecde203907c3e2"
+          ],
+          "message": "feat: shout greetings\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T10:00:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T10:00:00Z"
+          }
+        }
+      ]
+    }
+  }
+}
