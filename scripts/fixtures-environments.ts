@@ -10,6 +10,7 @@
  * `--reviewer` (you, by default) to approve each run. Both deploy from
  * `main` only. The variables of each forge are stored as one `FIXTURES_ENV`
  * secret, in `.env` format.
+ * Forges that record only locally get no environment.
  * `--forge`, which repeats, limits the run to the environments of those forges.
  * `--dry-run` prints the environments and the names of their variables.
  */
@@ -57,7 +58,7 @@ const unknown = values.forge?.filter(forge => !(forge in PLANS)) ?? []
 if (unknown.length) {
   throw new Error(`Unknown forge: ${unknown.join(', ')}. Choose from ${Object.keys(PLANS).join(', ')}`)
 }
-const forges = Object.entries(PLANS).filter(([forge]) => !values.forge || values.forge.includes(forge))
+const forges = Object.entries(PLANS).filter(([forge, plan]) => !plan.local && (!values.forge || values.forge.includes(forge)))
 const env = parseEnv(readFileSync(values['env-file'], 'utf8')) as Record<string, string>
 const dry = values['dry-run']
 const reviewer = dry ? 0 : Number(gh(['api', values.reviewer ? `users/${values.reviewer}` : 'user', '--jq', '.id']).trim())
