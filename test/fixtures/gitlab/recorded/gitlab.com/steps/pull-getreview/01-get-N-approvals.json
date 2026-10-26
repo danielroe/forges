@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"8fb28baa5c125f5511145e73f982e4b4\"",
+      "etag": "W/\"7734f6369dfe3b3f0fae3110d2d31ba6\"",
       "ratelimit-limit": "100",
       "ratelimit-remaining": "66",
-      "ratelimit-reset": "1792700940",
+      "ratelimit-reset": "1792989660",
       "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
@@ -35,7 +35,7 @@
             "name": "Jay McCure",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
             "web_url": "https://gitlab.com/jay_mccure"
           },
           "approved_at": "2026-10-01T23:42:04.629Z"

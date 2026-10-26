@@ -16,11 +16,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2b82d29f738f5401d761e06e2fa26623\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1995",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"06ff895adc974b74638d56149fd09261\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "94",
+      "ratelimit-reset": "1792989720",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
       "data": {
@@ -28,7 +28,7 @@
           "vulnerabilities": {
             "pageInfo": {
               "hasNextPage": true,
-              "endCursor": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MDMzNjQzNDYifQ"
+              "endCursor": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MTc4NTU4NDQifQ"
             },
             "nodes": []
           }

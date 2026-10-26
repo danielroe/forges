@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"79fc747f1c88f56686a1ab4edb6db3d4\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1957",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"c40db739a9a9a3e9e58b7c41993f76bb\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "48",
+      "ratelimit-reset": "1792989660",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
       "id": 3936124937,
@@ -23,7 +23,7 @@
         "name": "Kai Armstrong",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792973201",
         "web_url": "https://gitlab.com/phikai"
       },
       "created_at": "2026-10-01T09:05:14.170Z",

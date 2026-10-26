@@ -11,8 +11,9 @@
   "total": 1,
   "etag": "W/\"0867f21e8e218193617cae02fc66f954\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1996,
-    "resetAt": "<now>"
+    "limit": 100,
+    "remaining": 95,
+    "resetAt": "<now>",
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

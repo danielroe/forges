@@ -16,7 +16,7 @@
       "login": "balasankarc",
       "id": "4849",
       "name": "Balasankar 'Balu' C",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1792382439",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/4849/avatar.png?v=1792987856",
       "url": "https://gitlab.com/balasankarc",
       "isBotHint": false
     },
@@ -26,21 +26,21 @@
       "login": "bbodenmiller",
       "id": "5332",
       "name": "Ben Bodenmiller",
-      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5332/avatar.png?v=1792381631",
+      "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/5332/avatar.png?v=1792773784",
       "url": "https://gitlab.com/bbodenmiller",
       "isBotHint": false
     }
   ],
-  "total": 2948,
+  "total": 2966,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/users?id=gitlab-org%2Fcli&page=2&per_page=3",
-    "etag": "W/\"95147522dd82f093548ac2741ae08ddb\""
+    "etag": "W/\"014747b778a246cdc3379c5698e52890\""
   },
-  "etag": "W/\"95147522dd82f093548ac2741ae08ddb\"",
+  "etag": "W/\"014747b778a246cdc3379c5698e52890\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1965,
+    "limit": 100,
+    "remaining": 56,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

@@ -3,199 +3,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153890198",
-      "kindRaw": "DiscussionNote.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039460255"
-        },
-        "body": "Thanks @sjestonsingh, I've left a couple of suggestions"
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153889180",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039458973"
-        },
-        "body": "Suggestion: `last_update_check_timestamp` could also be managed globally."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153887994",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039457611"
-        },
-        "body": "Hi @phikai, just a sanity check as you are familiar with the external binaries (orbit, duo cli). Is there a use case for being able to configure the binaries locally? With this MR we would only be able to configure `duo_cli_binary_path` and `orbit_cli_binary_path` (and related configs) globally. I think this makes sense but just wanted a sanity check."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153868535",
+      "id": "6199666743",
       "kindRaw": "DiffNote.commented on",
       "actionRaw": "commented on",
       "kind": "review_comment",
@@ -210,7 +18,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4004"
+        "number": "4213"
       },
       "detail": {
         "type": "review_comment",
@@ -227,79 +35,15 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4004"
+            "number": "4213"
           },
-          "id": "4039432960"
+          "id": "4087542617"
         },
-        "body": "Re the \"one decision\" in the description: I'd keep the routing, but say so on stderr rather than doing it silently.\n\nNobody reaches these keys through `glab config set` by accident: glab itself updates them via `cfg.Set`, not this command. So whoever runs `glab config set duo_cli_binary_version ...` typed it deliberately (usually debugging or forcing a re-download) and asked for the local file. Silently writing global instead changes every repository without telling them. A one-line notice keeps the convenience and removes the surprise:\n\n```suggestion:-3+0\n\t// A key glab maintains for itself is read from the global file only, so a\n\t// local write would land where nothing reads it and the old local value\n\t// would keep winning. Route those to the global file instead.\n\trouted := !o.isGlobal && o.hostname == \"\" && config.IsGlobalOnlyKey(o.key)\n\twriteGlobal := o.isGlobal || o.hostname != \"\" || routed\n\tif routed {\n\t\to.io.LogErrorf(\"%s %s is managed by glab and is always stored in the global configuration: %s\\n\",\n\t\t\to.io.Color().DotWarnIcon(), o.key, config.ConfigFile())\n\t}\n```\n\n`TestConfigSet_GlobalOnlyKeyWritesGloballyWithoutTheFlag` would then need to assert the notice instead of `assert.Empty(t, out.Stderr())`, e.g. `assert.Contains(t, out.Stderr(), \"always stored in the global configuration\")`."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153797912",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039357682"
-        },
-        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Reconciled my earlier thread: the fake `NotFoundError` is gone and `GetWithSource` now guards the local read with `skipLocal`, so that point is fixed.\n- Checked the new read path. For glab-managed keys it goes straight to the global lookup. Other keys keep their local-over-global behavior.\n- Checked `IsGlobalOnlyKey`. It resolves aliases through `ConfigKeyEquivalence`, and the set is built from `KeySchema` at init, so aliases and names are both covered.\n- Checked `config set`. A glab-managed key routes both the set and the write to the global config, with and without `--global`, and the hostname path is unchanged.\n- Checked the tests. They cover both halves of the fix, the schema drift guard and local precedence for ordinary keys. I found no problems."
+        "body": "This adds `rumdl` to the CI documentation-lint job, but `lefthook.yml`'s pre-push hook (which runs `markdownlint-cli2`, `vale`, and `lychee` on changed docs) and the `CONTRIBUTING.md` description of that hook are not updated to also run `rumdl`. Contributors following the documented local workflow won't catch `rumdl` violations before pushing, and will only discover them when CI fails. Should the pre-push hook and its description also include `rumdl check`, the way the other three docs linters are wired in?"
       },
       "summary": "GitLabDuo commented",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
+        "title": "chore: implement many rumdl rules in project"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -323,7 +67,135 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153797909",
+      "id": "6199666733",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4213"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4213"
+          },
+          "id": "4087542566"
+        },
+        "body": "This is a small, low-risk chore MR that adds the `rumdl` Markdown linter alongside the existing `markdownlint-cli2`/`vale`/`lychee` toolchain, with a new `docs/.rumdl.toml` config, a CI step, a `.tool-versions` pin, CODEOWNERS entry, `.gitignore` cache entry, and one link-path fixup in `docs/installation_options.md`. I verified the `rumdl` version in `.tool-versions` (0.2.69) matches the version baked into the `check_docs_markdown` job's pinned image tag, and that the new tool was added to `.tool-versions` rather than only the Makefile, per this repo's tool-pinning convention. I raised a few lower-confidence points worth the author's attention: a possible conflict between `rumdl`'s `MD029` and the project's intentional disabling of markdownlint's equivalent `ol-prefix` rule for all-`1.` numbered lists, the fact that the local `lefthook` pre-push hook and `CONTRIBUTING.md` weren't updated to run `rumdl` alongside the other three docs linters, and `MD044` being enabled without the curated proper-names list that markdownlint uses. None of these are confirmed defects, but they're worth a quick check since I couldn't fully verify them against the live doc corpus.\n\n2 findings (1 major, 1 minor) across 2 files:\n\n**Major**\n- tooling-conflict: `docs/.rumdl.toml:7`\n\n**Minor**\n- tooling-gap: `.gitlab-ci.yml:188`"
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "chore: implement many rumdl rules in project"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6199666717",
+      "kindRaw": "DiffNote.commented on",
+      "actionRaw": "commented on",
+      "kind": "review_comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4213"
+      },
+      "detail": {
+        "type": "review_comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "pull_request",
+            "number": "4213"
+          },
+          "id": "4087542584"
+        },
+        "body": "Enabling `MD029` (ol-prefix) here may conflict with this project's deliberate choice to disable the equivalent markdownlint rule. `.markdownlint-cli2.yaml` turns off `ol-prefix` with the comment \"Disable this rule in the CLI project, because 1. 1. 1. 1. numbering is rendered verbatim in CLI output\", meaning some docs intentionally use all-`1.` ordered lists that markdownlint's default `ol-prefix` style would otherwise flag. `rumdl`'s `MD029` is enabled here with no style override, so if its default disagrees with markdownlint's relaxed handling, CI could start failing on the very lists markdownlint was configured to allow. Did you confirm `rumdl`'s default `MD029` style tolerates the all-`1.` numbering used elsewhere in the docs, or should this rule carry a style override (or be left disabled) to match the markdownlint exception?"
+      },
+      "summary": "GitLabDuo commented",
+      "threadSnapshot": {
+        "title": "chore: implement many rumdl rules in project"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6199649403",
       "kindRaw": "MergeRequest.approved",
       "actionRaw": "approved",
       "kind": "review",
@@ -338,7 +210,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4004"
+        "number": "4212"
       },
       "detail": {
         "type": "review",
@@ -357,78 +229,14 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4004"
+            "number": "4212"
           },
-          "id": "approval:GitLabDuo"
+          "id": "approval:jay_mccure"
         }
       },
-      "summary": "GitLabDuo approved merge request",
+      "summary": "jay_mccure approved merge request",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
-        "url": "https://gitlab.com/GitLabDuo",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153790642",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4062"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4062"
-          },
-          "id": "4039351320"
-        },
-        "body": "Thanks @HamzaHassanain , just one suggestion. :bow: Apologies, but you will have to fix conflicts before we can get this merged."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): use host key only as a fallback"
+        "title": "chore(deps): update dependency @commitlint/lint to ^21.2.4"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -437,7 +245,7 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
@@ -452,11 +260,11 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153781763",
-      "kindRaw": "DiffNote.commented on",
-      "actionRaw": "commented on",
-      "kind": "review_comment",
-      "action": "created",
+      "id": "6199648218",
+      "kindRaw": "Issue.opened",
+      "actionRaw": "opened",
+      "kind": "state_change",
+      "action": "opened",
       "thread": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -466,33 +274,16 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "kind": "pull_request",
-        "number": "4062"
+        "kind": "issue",
+        "number": "8685"
       },
       "detail": {
-        "type": "review_comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4062"
-          },
-          "id": "4039344382"
-        },
-        "body": "**suggestion (non-blocking):** When a config-file `host` matches no remote, glab now switches to the remote's host without saying so. That's the intended behavior, but a user who expected the configured instance (for example, someone not signed in to gitlab.com, in a repository whose only remote is on gitlab.com) gets a 401/404 with no hint that the configured `host` was set aside. A debug line here would make that easy to spot with `GLAB_DEBUG=true`:\n\n```go\ndbg.Debug(\"config host \" + hostOverride + \" matches no git remote; resolving from remotes instead\")\n```\n\n`dbg` is already used in `factory.go`."
+        "type": "state_change",
+        "state": "open"
       },
-      "summary": "jay_mccure commented",
+      "summary": "jay_mccure opened issue",
       "threadSnapshot": {
-        "title": "fix(config): use host key only as a fallback"
+        "title": "Refresh AGENTS.md and keep it in sync with the codebase"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -501,7 +292,7 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
@@ -516,11 +307,11 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153778201",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
+      "id": "6199643048",
+      "kindRaw": "MergeRequest.opened",
+      "actionRaw": "opened",
+      "kind": "state_change",
+      "action": "opened",
       "thread": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -531,42 +322,25 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4148"
+        "number": "4213"
       },
       "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4148"
-          },
-          "id": "4039340929"
-        },
-        "body": "@jay_mccure Are you able to review this MR please?"
+        "type": "state_change",
+        "state": "open"
       },
-      "summary": "jeanvdw commented",
+      "summary": "eread opened merge request",
       "threadSnapshot": {
-        "title": "fix(govern): keep audit event batches within GitLab's limits"
+        "title": "chore: implement many rumdl rules in project"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jeanvdw",
-        "id": "27487407",
-        "name": "Jean van der Walt",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-        "url": "https://gitlab.com/jeanvdw",
+        "login": "eread",
+        "id": "2683848",
+        "name": "Evan Read",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2683848/avatar.png?v=1792989078",
+        "url": "https://gitlab.com/eread",
         "isBotHint": false
       },
       "repo": {
@@ -580,7 +354,54 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153736615",
+      "id": "6199640995",
+      "kindRaw": "MergeRequest.closed",
+      "actionRaw": "closed",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4192"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "jay_mccure closed merge request",
+      "threadSnapshot": {
+        "title": "docs: fix mr note argument order in AGENTS.md"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6199640940",
       "kindRaw": "Note.commented on",
       "actionRaw": "commented on",
       "kind": "comment",
@@ -595,7 +416,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4148"
+        "number": "4192"
       },
       "detail": {
         "type": "comment",
@@ -612,25 +433,122 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4148"
+            "number": "4192"
           },
-          "id": "4039301590"
+          "id": "4087508973"
         },
-        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- The wait seam was the only change since my last review. It is now a `waitFor` field on `options` with an `options.wait` method, and no package-level var is left. That addresses my earlier thread.\n- `options.wait` returns `ctx.Err()` on cancellation and otherwise waits on `time.After(d)`. The new cancellation test covers this and is correct.\n- `recordWaits(opts)` is called before each use in the rate-limit tests. Each subtest has its own `tt` and `opts`, so the per-test recording is safe.\n- The hook case in `TestSyncSession_ByCaller` still fails fast and posts nothing. The manual case waits through the stubbed seam and posts 1 event. Both match the intended behavior.\n- I found no new correctness problems in the lines added since my last review."
+        "body": "Closing. We'll wait for the upstream fix in https://github.com/charmbracelet/fang/pull/103, tracked in https://gitlab.com/gitlab-org/cli/-/work_items/8404."
       },
-      "summary": "GitLabDuo commented",
+      "summary": "jay_mccure commented",
       "threadSnapshot": {
-        "title": "fix(govern): keep audit event batches within GitLab's limits"
+        "title": "docs: fix mr note argument order in AGENTS.md"
       },
-      "occurredAt": "2026-10-19T03:22:54.732Z",
+      "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
-        "url": "https://gitlab.com/GitLabDuo",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6199639363",
+      "kindRaw": "Project.pushed new",
+      "actionRaw": "pushed new",
+      "kind": "ref",
+      "action": "created",
+      "detail": {
+        "type": "ref",
+        "ref": "refs/heads/eread/implement-rumdl-rules-md046-md057-md066-md070-md075-in-project-docs",
+        "refType": "branch"
+      },
+      "summary": "eread created eread/implement-rumdl-rules-md046-md057-md066-md070-md075-in-project-docs",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "eread",
+        "id": "2683848",
+        "name": "Evan Read",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2683848/avatar.png?v=1792989078",
+        "url": "https://gitlab.com/eread",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6199638951",
+      "kindRaw": "Note.commented on",
+      "actionRaw": "commented on",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8677"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "thread": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "repo": {
+              "forge": "gitlab",
+              "instance": "gitlab.com",
+              "owner": "gitlab-org",
+              "name": "cli"
+            },
+            "kind": "issue",
+            "number": "8677"
+          },
+          "id": "4087506122"
+        },
+        "body": "Duplicate of https://gitlab.com/gitlab-org/cli/-/work_items/8404. The upstream fix is https://github.com/charmbracelet/fang/pull/103."
+      },
+      "summary": "jay_mccure commented",
+      "threadSnapshot": {
+        "title": "Help shows the wrong argument order for mr note resolve, reopen, update, delete, and draft commands"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "repo": {
@@ -644,13 +562,13 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/events?id=gitlab-org%2Fcli&page=2&per_page=10&sort=desc",
-    "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\""
+    "etag": "W/\"c572dd93644bd2df4f9f67ceaa8b3463\""
   },
-  "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\"",
+  "etag": "W/\"c572dd93644bd2df4f9f67ceaa8b3463\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1945,
+    "limit": 100,
+    "remaining": 36,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

@@ -3,25 +3,25 @@
     {
       "name": "GitLab Renovate Bot",
       "email": "redacted@example.invalid",
-      "contributions": 478
+      "contributions": 470
     },
     {
       "name": "Kai Armstrong",
       "email": "redacted@example.invalid",
-      "contributions": 233
+      "contributions": 230
     },
     {
       "name": "Timo Furrer",
       "email": "redacted@example.invalid",
-      "contributions": 185
+      "contributions": 174
     }
   ],
-  "total": 192,
+  "total": 194,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc",
-    "etag": "W/\"acc99fde838521ccacbdd6b140b5f8b3\""
+    "etag": "W/\"9f5ede4ee405f9bb0bb2ad0ffe946f41\""
   },
-  "etag": "W/\"acc99fde838521ccacbdd6b140b5f8b3\"",
+  "etag": "W/\"9f5ede4ee405f9bb0bb2ad0ffe946f41\"",
   "rateLimit": {
     "limit": 500,
     "remaining": 495,

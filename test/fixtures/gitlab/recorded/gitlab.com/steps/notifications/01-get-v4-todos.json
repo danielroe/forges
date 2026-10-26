@@ -7,11 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/todos?page=2&per_page=3&state=pending>; rel=\"next\", <https://gitlab.com/api/v4/todos?page=1&per_page=3&state=pending>; rel=\"first\", <https://gitlab.com/api/v4/todos?page=4&per_page=3&state=pending>; rel=\"last\"",
-      "etag": "W/\"1c0c134e58a6bc92f390e50b1bfba759\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1939",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
+      "etag": "W/\"2f48e82a68b4de43b68fd2f14b385768\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "30",
+      "ratelimit-reset": "1792989660",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
       "x-total": "11",
       "x-total-pages": "4",
       "x-next-page": "2",
@@ -60,7 +60,7 @@
           "forks_count": 1,
           "avatar_url": null,
           "star_count": 0,
-          "last_activity_at": "2026-10-17T14:36:52.817Z",
+          "last_activity_at": "2026-10-22T20:29:20.097Z",
           "visibility": "public",
           "namespace": {
             "id": 144355097,
@@ -135,7 +135,7 @@
           "import_status": "none",
           "open_issues_count": 1,
           "description_html": "",
-          "updated_at": "2026-10-17T15:18:55.031Z",
+          "updated_at": "2026-10-22T20:29:20.097Z",
           "ci_config_path": "",
           "public_jobs": true,
           "shared_with_groups": [],
@@ -187,7 +187,7 @@
           "name": "24-bot",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792368229",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792973003",
           "web_url": "https://gitlab.com/dsi11"
         },
         "action_name": "mentioned",
@@ -211,7 +211,7 @@
             "name": "Titouan-Joseph CICORELLA",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1792383557",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1792972999",
             "web_url": "https://gitlab.com/titouan-joseph"
           },
           "closed_at": "2023-07-11T10:20:04.483Z",
@@ -227,7 +227,7 @@
             "name": "24-bot",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792368229",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792973003",
             "web_url": "https://gitlab.com/dsi11",
             "bot": false
           },
@@ -314,7 +314,7 @@
           "name": "24-bot",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792368229",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792973003",
           "web_url": "https://gitlab.com/dsi11"
         },
         "action_name": "mentioned",
@@ -338,7 +338,7 @@
             "name": "Titouan-Joseph CICORELLA",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1792383557",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/8184503/avatar.png?v=1792972999",
             "web_url": "https://gitlab.com/titouan-joseph"
           },
           "closed_at": "2023-07-11T10:20:30.131Z",
@@ -354,7 +354,7 @@
             "name": "24-bot",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792368229",
+            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/9575078/avatar.png?v=1792973003",
             "web_url": "https://gitlab.com/dsi11",
             "bot": false
           },

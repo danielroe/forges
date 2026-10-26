@@ -53,14 +53,14 @@
             "login": "jay_mccure",
             "id": "11809982",
             "name": "Jay McCure",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
             "url": "https://gitlab.com/jay_mccure",
             "isBotHint": false
           },
           "state": "unknown"
         }
       ],
-      "lastActivityAt": "2026-10-01T23:49:46.779Z",
+      "lastActivityAt": "2026-10-20T06:36:58.966Z",
       "branches": {
         "head": {
           "ref": "renovate/golangci-lint-version",
@@ -88,7 +88,7 @@
       },
       "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/3988",
       "createdAt": "2026-10-01T13:13:41.749Z",
-      "updatedAt": "2026-10-01T23:49:46.779Z",
+      "updatedAt": "2026-10-20T06:36:58.966Z",
       "mergedAt": "2026-10-01T23:49:46.956Z",
       "mergedBy": {
         "forge": "gitlab",
@@ -96,16 +96,16 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "labels": [
         {
-          "name": "Category:GitLab CLI"
+          "name": "automation:bot-authored"
         },
         {
-          "name": "automation:bot-authored"
+          "name": "category:gitlab cli"
         },
         {
           "name": "devops::ai coding"

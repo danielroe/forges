@@ -28,26 +28,26 @@
           "login": "BoxBoxJason",
           "id": "25983954",
           "name": "BoxBoxJason",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792060003",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792944586",
           "url": "https://gitlab.com/BoxBoxJason",
           "isBotHint": false
         }
       ],
       "reviewers": [],
-      "lastActivityAt": "2026-10-15T17:51:13.575Z",
+      "lastActivityAt": "2026-10-20T12:18:24.164Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
         "login": "BoxBoxJason",
         "id": "25983954",
         "name": "BoxBoxJason",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792060003",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/25983954/avatar.png?v=1792944586",
         "url": "https://gitlab.com/BoxBoxJason",
         "isBotHint": false
       },
       "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8622",
       "createdAt": "2026-10-15T10:15:34.537Z",
-      "updatedAt": "2026-10-15T17:51:13.575Z",
+      "updatedAt": "2026-10-20T12:18:24.164Z",
       "closedAt": "2026-10-15T17:51:11.996Z",
       "labels": [
         {
@@ -78,7 +78,7 @@
           "name": "workflow::complete"
         }
       ],
-      "commentCount": 3,
+      "commentCount": 4,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -86,11 +86,11 @@
     }
   ],
   "total": 1,
-  "etag": "W/\"343feeea229a8cc6ca2c4627efbcabbc\"",
+  "etag": "W/\"c678f8fedd43cfcd1be0eef2993dfdb1\"",
   "rateLimit": {
-    "limit": 1,
-    "remaining": 48,
+    "limit": 500,
+    "remaining": 470,
     "resetAt": "<now>",
-    "resource": "unauthenticated_traffic_per_ip"
+    "resource": "throttle_unauthenticated_api"
   }
 }

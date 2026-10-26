@@ -1,12 +1,12 @@
 {
   "items": [],
   "cursor": {
-    "token": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MDMzNjQzNDYifQ"
+    "token": "eyJzZXZlcml0eSI6ImxvdyIsInZ1bG5lcmFiaWxpdHlfaWQiOiI0MTc4NTU4NDQifQ"
   },
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1995,
+    "limit": 100,
+    "remaining": 94,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

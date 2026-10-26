@@ -6,14 +6,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=946&per_page=3&scope=blobs&search=import>; rel=\"last\"",
+      "link": "<https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=2&per_page=3&scope=blobs&search=import>; rel=\"next\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1&per_page=3&scope=blobs&search=import>; rel=\"first\", <https://gitlab.com/api/v4/groups/gitlab-org/search?id=gitlab-org&include_archived=false&page=1384&per_page=3&scope=blobs&search=import>; rel=\"last\"",
       "etag": "W/\"3296e800e124f86e31673ce9a12cc61b\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1905",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
-      "x-total": "2838",
-      "x-total-pages": "946",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "99",
+      "ratelimit-reset": "1792989720",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
+      "x-total": "4151",
+      "x-total-pages": "1384",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"

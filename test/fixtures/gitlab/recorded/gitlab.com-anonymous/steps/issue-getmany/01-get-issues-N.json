@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"50a3291ca4c2eb570d9b6a0fef4e050a\"",
+      "etag": "W/\"b312ae5f3936bdd9e21da732441f7753\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "465",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "464",
+      "ratelimit-reset": "1792989720",
       "ratelimit-name": "throttle_unauthenticated_api"
     },
     "body": {
@@ -29,7 +29,7 @@
         "name": "Kai Armstrong",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792378462",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/2935693/avatar.png?v=1792973201",
         "web_url": "https://gitlab.com/phikai"
       },
       "labels": [
@@ -45,7 +45,7 @@
         "name": "Gil Forcada Codinachs",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1792226922",
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/163582/avatar.png?v=1792877068",
         "web_url": "https://gitlab.com/gforcada"
       },
       "type": "ISSUE",

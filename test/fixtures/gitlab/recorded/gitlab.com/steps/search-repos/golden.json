@@ -4,135 +4,11 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "dabotesko",
-        "name": "clichat",
-        "externalId": "87797884"
+        "owner": "rachel.green.r",
+        "name": "ecoscan-29159716-deletion_scheduled-88089402",
+        "externalId": "88089402"
       },
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/dabotesko/clichat",
-      "cloneUrls": {
-        "https": "https://gitlab.com/dabotesko/clichat.git",
-        "ssh": "git@gitlab.com:dabotesko/clichat.git"
-      },
-      "createdAt": "2026-10-19T03:22:13.304Z",
-      "updatedAt": "2026-10-19T03:22:13.183Z",
-      "openIssueCount": 0,
-      "owner": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "dabotesko",
-        "id": "6681990",
-        "name": "Oscar Gutierrez Gonzalez",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/6681990/avatar.png?v=1792381570",
-        "url": "https://gitlab.com/dabotesko",
-        "isBotHint": false
-      },
-      "stars": 0,
-      "forks": 0,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      },
-      "permissions": {
-        "admin": false,
-        "maintain": false,
-        "push": false,
-        "triage": false,
-        "pull": false
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "josedavidanca",
-        "name": "sistemaclinica-sistema_de_turnos_para_clinica",
-        "externalId": "87797630"
-      },
-      "description": "Proyecto sistema clinica \r\n\r\nDesarrolladores:\r\n\r\nCristian Daniel Perez Triana\r\nJose David Angarita Castro\r\n\r\n",
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": true,
-      "isArchived": false,
-      "parent": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "cristiandanielpt",
-        "name": "sistemaclinica-sistema_de_turnos_para_clinica",
-        "externalId": "87794577"
-      },
-      "topics": [
-        "csv",
-        "gitlab",
-        "java"
-      ],
-      "url": "https://gitlab.com/josedavidanca/sistemaclinica-sistema_de_turnos_para_clinica",
-      "cloneUrls": {
-        "https": "https://gitlab.com/josedavidanca/sistemaclinica-sistema_de_turnos_para_clinica.git",
-        "ssh": "git@gitlab.com:josedavidanca/sistemaclinica-sistema_de_turnos_para_clinica.git"
-      },
-      "createdAt": "2026-10-19T03:07:22.941Z",
-      "updatedAt": "2026-10-19T03:10:49.253Z",
-      "openIssueCount": 0,
-      "owner": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "josedavidanca",
-        "id": "42418202",
-        "name": "Jose David Angarita Castro",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/42418202/avatar.png?v=1792380919",
-        "url": "https://gitlab.com/josedavidanca",
-        "isBotHint": false
-      },
-      "stars": 1,
-      "forks": 0,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      },
-      "permissions": {
-        "admin": false,
-        "maintain": false,
-        "push": false,
-        "triage": false,
-        "pull": false
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "cyber-kekecewaan-ungkapanmembagongkan",
-        "name": "clinic-ai",
-        "externalId": "87797398"
-      },
-      "description": "klinik proses data memfilterisasi data herbalisasi dengan obar resep dokter , \r\nmenyentrilkan obat kiamiawi mengandung metamaventif , \r\n\r\n\"https://github.com/cyber-vivo-w1ry4/CyberSecurity/forks \" .\"https://github.com/cyber-vivo-w1ry4/w1ry4-ngamukID/forks\"https://github.com/cyber-vivo-w1ry4/cyberw1ry4-Payment-ecommerce-moneychanger/forks",
+      "description": "An unofficial client for IzzyOnDroid F-Droid Repository!",
       "defaultBranch": "master",
       "visibility": "public",
       "visibilityRaw": "public",
@@ -141,72 +17,29 @@
       "parent": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "cyberwrylabfadliwiryawirawan",
-        "name": "clinic-ai",
-        "externalId": "82530105"
+        "owner": "sunilpaulmathew",
+        "name": "izzyondroid",
+        "externalId": "29159716"
       },
-      "topics": [
-        "AI",
-        "C",
-        "C#",
-        "C++",
-        "Qt",
-        "android",
-        "ansible",
-        "api",
-        "app",
-        "aws",
-        "bash",
-        "css",
-        "csv",
-        "devops",
-        "django",
-        "docker",
-        "flutter",
-        "game",
-        "git",
-        "gitlab",
-        "go",
-        "html",
-        "java",
-        "javascript",
-        "json",
-        "kotlin",
-        "kubernetes",
-        "linux",
-        "lua",
-        "markdown",
-        "mongodb",
-        "mysql",
-        "node.js",
-        "nodejs",
-        "parquet",
-        "php",
-        "plugin",
-        "postgresql",
-        "python",
-        "python3",
-        "react",
-        "rust",
-        "server",
-        "spring",
-        "terraform",
-        "theme",
-        "typescript",
-        "vue.js",
-        "web",
-        "website",
-        "windows",
-        "wordpress"
-      ],
-      "url": "https://gitlab.com/cyber-kekecewaan-ungkapanmembagongkan/clinic-ai",
+      "topics": [],
+      "url": "https://gitlab.com/rachel.green.r/ecoscan-29159716-deletion_scheduled-88089402",
       "cloneUrls": {
-        "https": "https://gitlab.com/cyber-kekecewaan-ungkapanmembagongkan/clinic-ai.git",
-        "ssh": "git@gitlab.com:cyber-kekecewaan-ungkapanmembagongkan/clinic-ai.git"
+        "https": "https://gitlab.com/rachel.green.r/ecoscan-29159716-deletion_scheduled-88089402.git",
+        "ssh": "git@gitlab.com:rachel.green.r/ecoscan-29159716-deletion_scheduled-88089402.git"
       },
-      "createdAt": "2026-10-19T02:53:55.064Z",
+      "createdAt": "<now>",
       "updatedAt": "<now>",
       "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "rachel.green.r",
+        "id": "39704708",
+        "name": "Rachel Green",
+        "avatarUrl": "https://secure.gravatar.com/avatar/a5d120e5d9444ff172adcba1fca512bd91f6074be4b790d65403619422965b01?s=80&d=identicon",
+        "url": "https://gitlab.com/rachel.green.r",
+        "isBotHint": false
+      },
       "stars": 0,
       "forks": 0,
       "mergeMethods": [
@@ -220,6 +53,138 @@
         "pullRequests": true,
         "discussions": false,
         "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "chandler.bing",
+        "name": "ecoscan-77806276-deletion_scheduled-88089254",
+        "externalId": "88089254"
+      },
+      "description": "Plumber CLI component for checking CI/CD pipeline and repo compliance",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "getplumber",
+        "name": "plumber",
+        "externalId": "77806276"
+      },
+      "topics": [],
+      "url": "https://gitlab.com/chandler.bing/ecoscan-77806276-deletion_scheduled-88089254",
+      "cloneUrls": {
+        "https": "https://gitlab.com/chandler.bing/ecoscan-77806276-deletion_scheduled-88089254.git",
+        "ssh": "git@gitlab.com:chandler.bing/ecoscan-77806276-deletion_scheduled-88089254.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "chandler.bing",
+        "id": "39704578",
+        "name": "Chandler Bing",
+        "avatarUrl": "https://secure.gravatar.com/avatar/d9294d8e9cb4604e1cc36f51f5074652710c2c5633eeebd5d81fe035b9bb12a8?s=80&d=identicon",
+        "url": "https://gitlab.com/chandler.bing",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": false,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": true,
+        "projects": false,
+        "releases": true
+      },
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": false,
+        "triage": false,
+        "pull": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "rachel.green.r",
+        "name": "ecoscan-83190248-deletion_scheduled-88089120",
+        "externalId": "88089120"
+      },
+      "description": "CLI for managing stateless dependency update runs powered by [dependabot-gitlab](https://gitlab.com/dependabot-gitlab/dependabot)",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": true,
+      "isArchived": false,
+      "parent": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "dependabot-gitlab",
+        "name": "dbot-cli",
+        "externalId": "83190248"
+      },
+      "topics": [],
+      "url": "https://gitlab.com/rachel.green.r/ecoscan-83190248-deletion_scheduled-88089120",
+      "cloneUrls": {
+        "https": "https://gitlab.com/rachel.green.r/ecoscan-83190248-deletion_scheduled-88089120.git",
+        "ssh": "git@gitlab.com:rachel.green.r/ecoscan-83190248-deletion_scheduled-88089120.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "openIssueCount": 0,
+      "owner": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "rachel.green.r",
+        "id": "39704708",
+        "name": "Rachel Green",
+        "avatarUrl": "https://secure.gravatar.com/avatar/a5d120e5d9444ff172adcba1fca512bd91f6074be4b790d65403619422965b01?s=80&d=identicon",
+        "url": "https://gitlab.com/rachel.green.r",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "squash": {
+          "template": "%{first_multiline_commit}"
+        }
+      },
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
         "projects": false,
         "releases": true
       },
@@ -234,13 +199,13 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=false&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&search=cli&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-    "etag": "W/\"33f69e56d94c6ac2e7e0597e09bfa097\""
+    "etag": "W/\"1074d9c4a9c91d512f8419b4bf1b1a1a\""
   },
-  "etag": "W/\"33f69e56d94c6ac2e7e0597e09bfa097\"",
+  "etag": "W/\"1074d9c4a9c91d512f8419b4bf1b1a1a\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1908,
+    "limit": 100,
+    "remaining": 2,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

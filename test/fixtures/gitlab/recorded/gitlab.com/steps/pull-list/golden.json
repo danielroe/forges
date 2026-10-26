@@ -11,12 +11,12 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4148",
-        "externalId": "551173292"
+        "number": "4213",
+        "externalId": "555309286"
       },
       "kind": "pull_request",
-      "title": "fix(govern): keep audit event batches within GitLab's limits",
-      "body": "## Description\n\n`glab govern audit sync` sent audit events in batches of 500, but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. Sessions with more than about 200 events to upload failed with `400 Too many total parameters` on every sync, because the cursor doesn't move on failure.\n\nThis MR:\n\n- Batches events by JSON element count as well as by number. It counts the way GitLab's `Gitlab::Json::StreamValidator` does, and keeps each request under 4,500 elements. That stays under 5,000 on older self-managed versions too, while https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119 raises the GitLab.com limit.\n- If GitLab still answers with one of its JSON limit errors, posts each half of the batch separately. An event over a limit on its own can never be accepted, so it's skipped. `glab govern doctor` shows how many were skipped. Any other error keeps the cursor where it is, same as before.\n- Removes the repeated \"could not post audit events\" prefix.\n- Waits out GitLab's rate limit on this endpoint (10 requests a minute per user and project). The API client ignores `Retry-After` and gives up after a few seconds, so a session needing more than 10 requests got stuck the same way. The fallback job and manual syncs now wait as GitLab asks, up to 90 seconds at a time, 5 times per request and 20 minutes per run. Hooks still fail fast.\n\nThe fake GitLab in the tests now enforces the element limit. The old one only checked the event count, which is why the tests didn't catch this. A unit test pins the element count of a nested event to the 41 that GitLab's validator gives for it.\n\n## Related Issues\n\nCloses https://gitlab.com/gitlab-org/cli/-/work_items/8629\n\nRelated to https://gitlab.com/gitlab-org/gitlab/-/work_items/634442\n\n## How has this been tested?\n\n- `go test ./internal/commands/govern/...`\n- Each new sync test fails without the change it covers.\n- Compared the element count with `Gitlab::Json::StreamValidator` in GDK.",
+      "title": "chore: implement many rumdl rules in project",
+      "body": "## Description\n\nLet's implement `rumdl` rules MD046, MD057, MD066, MD070, and MD075 in project docs for these work items:\n\n* https://gitlab.com/gitlab-org/technical-writing/team-tasks/-/work_items/1745\n* https://gitlab.com/gitlab-org/technical-writing/team-tasks/-/work_items/1742\n* https://gitlab.com/gitlab-org/technical-writing/team-tasks/-/work_items/1675\n* https://gitlab.com/gitlab-org/technical-writing/team-tasks/-/work_items/1676\n* https://gitlab.com/gitlab-org/technical-writing/team-tasks/-/work_items/1677\n\n## Documentation\n\nIf this MR adds or updates CLI command documentation, follow the conventions in the\n[GitLab CLI (glab) documentation style guide](https://docs.gitlab.com/development/documentation/cli_styleguide/),\nrun `make gen-docs`, and commit the updated files in `docs/source/`.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -24,28 +24,15 @@
         {
           "forge": "gitlab",
           "instance": "gitlab.com",
-          "login": "jeanvdw",
-          "id": "27487407",
-          "name": "Jean van der Walt",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-          "url": "https://gitlab.com/jeanvdw",
+          "login": "eread",
+          "id": "2683848",
+          "name": "Evan Read",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2683848/avatar.png?v=1792989078",
+          "url": "https://gitlab.com/eread",
           "isBotHint": false
         }
       ],
       "reviewers": [
-        {
-          "actor": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "jay_mccure",
-            "id": "11809982",
-            "name": "Jay McCure",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-            "url": "https://gitlab.com/jay_mccure",
-            "isBotHint": false
-          },
-          "state": "unknown"
-        },
         {
           "actor": {
             "forge": "gitlab",
@@ -63,8 +50,8 @@
       "lastActivityAt": "<now>",
       "branches": {
         "head": {
-          "ref": "634442-govern-audit-batch-size",
-          "sha": "88ee9a03e40e09a6d3aec5058968d02b76109703",
+          "ref": "eread/implement-rumdl-rules-md046-md057-md066-md070-md075-in-project-docs",
+          "sha": "d054ea83e44bde26354fa0898403638d9578d4c5",
           "repo": {
             "forge": "gitlab",
             "instance": "gitlab.com",
@@ -79,115 +66,18 @@
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jeanvdw",
-        "id": "27487407",
-        "name": "Jean van der Walt",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-        "url": "https://gitlab.com/jeanvdw",
+        "login": "eread",
+        "id": "2683848",
+        "name": "Evan Read",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/2683848/avatar.png?v=1792989078",
+        "url": "https://gitlab.com/eread",
         "typeRaw": "user",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4148",
-      "createdAt": "2026-10-19T02:51:14.097Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4213",
+      "createdAt": "<now>",
       "updatedAt": "<now>",
       "labels": [
-        {
-          "name": "Category:AI Governance"
-        },
-        {
-          "name": "devops::security governance"
-        },
-        {
-          "name": "group::ai governance"
-        },
-        {
-          "name": "section::sec"
-        },
-        {
-          "name": "type::bug"
-        }
-      ],
-      "commentCount": 6,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4147",
-        "externalId": "551149261"
-      },
-      "kind": "pull_request",
-      "title": "chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.29.0",
-      "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [gitlab.com/gitlab-org/api/client-go/v3](https://gitlab.com/gitlab-org/api/client-go) | require | minor | `v3.25.0` → `v3.29.0` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>gitlab-org/api/client-go (gitlab.com/gitlab-org/api/client-go/v3)</summary>\n\n### [`v3.29.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.29.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.28.0...v3.29.0)\n\n#### 3.29.0\n\n##### 🚀 Features\n\n- feat(issues): add milestone, severity and start_date to create and update issue options ([!3131](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3131)) by [Zubeen](https://gitlab.com/syedzubeen)\n- feat(merge_requests): add milestone and merge_after to create and update options ([!3128](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3128)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n### [3.29.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.28.0...v3.29.0) (2026-10-18)\n##### Features\n\n* **issues:** add milestone, severity and start_date to create and update issue options ([52fe1bf](https://gitlab.com/gitlab-org/api/client-go/commit/52fe1bfb3ee63517504daa06100f12a60015fb85))\n* **merge_requests:** add milestone and merge_after to create and update options ([85e2b01](https://gitlab.com/gitlab-org/api/client-go/commit/85e2b0106350dda78c795bfde738c94cf8d0779c))\n\n### [`v3.28.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.28.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.27.0...v3.28.0)\n\n#### 3.28.0\n\n##### 🚀 Features\n\n- feat(packages): add package_version filter to ListGroupPackagesOptions ([!3132](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3132)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n##### 🔄 Other Changes\n\n- docs(members): point member doc links at the group and project members pages ([!3086](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3086)) by [Anish Kumar](https://gitlab.com/anishisbusy)\n\n### [3.28.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.27.0...v3.28.0) (2026-10-18)\n##### Features\n\n* **packages:** add package_version filter to ListGroupPackagesOptions ([b4794f9](https://gitlab.com/gitlab-org/api/client-go/commit/b4794f9f4e4442f600cb83202336bd30c47d0de9))\n\n### [`v3.27.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.27.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.26.0...v3.27.0)\n\n#### 3.27.0\n\n##### 🚀 Features\n\n- feat(projects): add merge_train_enforcement to project structs ([!3141](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3141)) by [Jeremy T](https://gitlab.com/jeremad)\n\n##### 🔄 Other Changes\n\n- test: assert request params and bodies for group boards, project access tokens and pipelines ([!3137](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3137)) by [Zubeen](https://gitlab.com/syedzubeen)\n- chore(deps): update module golang.org/x/time to v0.16.0 ([!3070](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3070)) by [GitLab Dependency Bot](https://gitlab.com/gitlab-dependency-update-bot)\n\n### [3.27.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.26.0...v3.27.0) (2026-10-17)\n##### Features\n\n* **projects:** add merge_train_enforcement to project structs ([222dd41](https://gitlab.com/gitlab-org/api/client-go/commit/222dd41abc49b4b38eeca075043c751815a0fb14))\n\n### [`v3.26.0`](https://gitlab.com/gitlab-org/api/client-go/tags/v3.26.0)\n\n[Compare Source](https://gitlab.com/gitlab-org/api/client-go/compare/v3.25.0...v3.26.0)\n\n#### 3.26.0\n\n##### 🚀 Features\n\n- feat(group_milestones): add web_url field to GroupMilestone ([!3126](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3126)) by [Zubeen](https://gitlab.com/syedzubeen)\n\n##### 🔄 Other Changes\n\n- docs(repository_storage_moves): fix broken API doc anchors ([!3119](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3119)) by [Anish Kumar](https://gitlab.com/anishisbusy)\n\n### [3.26.0](https://gitlab.com/gitlab-org/api/client-go/compare/v3.25.0...v3.26.0) (2026-10-17)\n##### Features\n\n* **group_milestones:** add web_url field to GroupMilestone ([a0065fe](https://gitlab.com/gitlab-org/api/client-go/commit/a0065fe76efd97c6b2a7fa0c003f62d61efb4a00))\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "gitlab-dependency-update-bot",
-          "id": "8420142",
-          "name": "GitLab Dependency Bot",
-          "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
-          "url": "https://gitlab.com/gitlab-dependency-update-bot",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "login": "jhebden",
-            "id": "12294975",
-            "name": "James Hebden",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
-            "url": "https://gitlab.com/jhebden",
-            "isBotHint": false
-          },
-          "state": "unknown"
-        }
-      ],
-      "lastActivityAt": "2026-10-19T03:09:05.334Z",
-      "branches": {
-        "head": {
-          "ref": "renovate/gitlab.com-gitlab-org-api-client-go-v3-3.x",
-          "sha": "473947660414d597cd3d23ac5d125635c415799f"
-        },
-        "base": {
-          "ref": "main"
-        }
-      },
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "gitlab-dependency-update-bot",
-        "id": "8420142",
-        "name": "GitLab Dependency Bot",
-        "avatarUrl": "https://secure.gravatar.com/avatar/3d0463f813f54718127bf38acba616ef6bc5160fea8111c47dd4088fcacdb91a?s=80&d=identicon",
-        "url": "https://gitlab.com/gitlab-dependency-update-bot",
-        "typeRaw": "user",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4147",
-      "createdAt": "2026-10-19T01:09:47.399Z",
-      "updatedAt": "2026-10-19T03:09:05.334Z",
-      "labels": [
-        {
-          "name": "automation:bot-authored"
-        },
         {
           "name": "category:gitlab cli"
         },
@@ -195,19 +85,36 @@
           "name": "devops::ai clients"
         },
         {
+          "name": "docs::improvement"
+        },
+        {
+          "name": "documentation"
+        },
+        {
           "name": "group::developer clients"
         },
         {
-          "name": "maintenance::dependency"
+          "name": "maintenance::refactor"
         },
         {
           "name": "section::ai"
         },
         {
+          "name": "tw-docops"
+        },
+        {
           "name": "type::maintenance"
         }
       ],
-      "commentCount": 2,
+      "commentCount": 3,
+      "milestone": {
+        "id": "7324669",
+        "title": "19.6",
+        "state": "open",
+        "description": "",
+        "dueOn": "2026-11-13T00:00:00.000Z",
+        "url": "https://gitlab.com/groups/gitlab-org/-/milestones/144"
+      },
       "reactions": {
         "total": 0,
         "counts": {}
@@ -224,12 +131,12 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4146",
-        "externalId": "551149168"
+        "number": "4212",
+        "externalId": "555301336"
       },
       "kind": "pull_request",
-      "title": "chore(deps): update module software.sslmate.com/src/go-pkcs12 to v0.7.4",
-      "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [software.sslmate.com/src/go-pkcs12](https://software.sslmate.com/src/go-pkcs12) | require | patch | `v0.7.3` → `v0.7.4` |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
+      "title": "chore(deps): update dependency @commitlint/lint to ^21.2.4",
+      "body": "This MR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [@commitlint/lint](https://commitlint.js.org/) ([source](https://github.com/conventional-changelog/commitlint/tree/HEAD/@commitlint/lint)) | dependencies | patch | [`^21.2.3` → `^21.2.4`](https://renovatebot.com/diffs/npm/@commitlint%2flint/21.2.3/21.2.4) |\n\nMR created with the help of [gitlab-org/frontend/renovate-gitlab-bot](https://gitlab.com/gitlab-org/frontend/renovate-gitlab-bot)\n\n---\n\n### Release Notes\n\n<details>\n<summary>conventional-changelog/commitlint (@&#8203;commitlint/lint)</summary>\n\n### [`v21.2.4`](https://github.com/conventional-changelog/commitlint/blob/HEAD/@commitlint/lint/CHANGELOG.md#2124-2026-10-18)\n\n[Compare Source](https://github.com/conventional-changelog/commitlint/compare/v21.2.3...v21.2.4)\n\n**Note:** Version bump only for package [@&#8203;commitlint/lint](https://github.com/commitlint/lint)\n\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - At any time (no schedule defined)\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever MR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this MR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this MR, check this box\n\n---\n\nThis MR has been generated by [Mend Renovate CLI](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ1cGRhdGVkSW5WZXIiOiI0NC4xMDEuMC1naXRsYWIiLCJ0YXJnZXRCcmFuY2giOiJtYWluIiwibGFiZWxzIjpbImF1dG9tYXRpb246Ym90LWF1dGhvcmVkIiwiY2F0ZWdvcnk6Z2l0bGFiIGNsaSIsImRldm9wczo6YWkgY2xpZW50cyIsImdyb3VwOjpkZXZlbG9wZXIgY2xpZW50cyIsIm1haW50ZW5hbmNlOjpkZXBlbmRlbmN5Iiwic2VjdGlvbjo6YWkiLCJ0eXBlOjptYWludGVuYW5jZSJdfQ==-->",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
@@ -250,21 +157,21 @@
           "actor": {
             "forge": "gitlab",
             "instance": "gitlab.com",
-            "login": "jhebden",
-            "id": "12294975",
-            "name": "James Hebden",
-            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
-            "url": "https://gitlab.com/jhebden",
+            "login": "jay_mccure",
+            "id": "11809982",
+            "name": "Jay McCure",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+            "url": "https://gitlab.com/jay_mccure",
             "isBotHint": false
           },
           "state": "unknown"
         }
       ],
-      "lastActivityAt": "2026-10-19T01:10:01.157Z",
+      "lastActivityAt": "<now>",
       "branches": {
         "head": {
-          "ref": "renovate/software.sslmate.com-src-go-pkcs12-0.x",
-          "sha": "3fa4ec7b9bc93d3e517e929d235b324a6c8089f2"
+          "ref": "renovate/commitlint-lint-21.x",
+          "sha": "be74cecccf7ca05739e882c34df42f180f021a8b"
         },
         "base": {
           "ref": "main"
@@ -281,9 +188,19 @@
         "typeRaw": "user",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4146",
-      "createdAt": "2026-10-19T01:09:33.247Z",
-      "updatedAt": "2026-10-19T01:10:01.157Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4212",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "mergedBy": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
       "labels": [
         {
           "name": "automation:bot-authored"
@@ -312,19 +229,122 @@
         "total": 0,
         "counts": {}
       }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4211",
+        "externalId": "555282418"
+      },
+      "kind": "pull_request",
+      "title": "fix(release): refuse a null entry in --assets-links",
+      "body": "## Description\n\nWhen the JSON array given to `--assets-links` contained `null`, `glab release create` and `glab release upload` decoded it to a nil `*upload.ReleaseAsset` and later dereferenced it, so glab panicked with a nil pointer dereference and exit status 2. By then it could already have changed the release: `upload` added the links that came before the `null` one, and `create` updated an existing release and added them too. v1.124.0 also creates a new release and its first links before it panics; on `main`, since !4040, a new release panics before the release is created.\n\nThis MR moves the decoding of `--assets-links` into one helper, `releaseutils.AssetLinksFromJSON`, next to `releaseutils.AssetsFromArgs`, and calls it from both commands where they decoded the flag before. It refuses a `null` element with `failed to parse JSON string: the asset link at index <n> is null`, counting from 0, and keeps the error for malformed JSON as it was. Both commands parse the flag before their first request (create in `complete`, upload in `validate`), so the command now fails without touching the release.\n\nI chose to refuse a `null` element rather than skip it, since it can only be a mistake in the input and malformed input is refused already. Tell me if you would rather skip it.\n\n## Related Issues\n\nCloses https://gitlab.com/gitlab-org/cli/-/issues/8684\n\n## How has this been tested?\n\nI added `TestReleaseCreate_InvalidAssetsLinksJSON` and `TestReleaseUpload_InvalidAssetsLinksJSON`, one in each command, each with three cases: `[null]`, a valid link followed by `null`, and malformed JSON. They set no mock expectations, so a request of any kind fails them. On `main` at a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef the two `null` cases fail in both tests, because the commands go on to call `GetTag` and `GetRelease`, and the malformed JSON case passes. With the change all six cases pass, and so do the existing `--assets-links` tests of both commands.\n\nWith Go 1.27.3 and golangci-lint 2.14.0 on this branch: `make test-race` passes (6726 tests, 18 skipped), `make lint` reports 0 issues, `golangci-lint fmt --diff` is empty, `go run ./scripts/comment-overlap -threshold 1.0 -max-findings 0 ./cmd/... ./internal/...` reports 0 findings, `make check-embed check-args` is clean, and `make gen-docs` and `make generate` change no file. The commit message and the title pass commitlint with `scripts/commit-lint/.commitlintrc.js`.\n\nEach of these changes to the code makes at least one of the new cases fail: removing the `null` check, inverting it, skipping `null` elements instead of refusing them, reporting the index plus one, and going back to `json.Unmarshal` in either command alone.\n\nEnd to end, I built glab from v1.124.0, from `main` and from this branch, and ran the three commands of the issue against a small local HTTP server that answers the tag and release endpoints the way GitLab does and logs each request:\n\n| Command | v1.124.0 | `main` | This branch |\n| --- | --- | --- | --- |\n| `release create`, new release | panic, exit status 2, after creating the release and link `a` | panic, exit status 2, after GET tag and GET release | error, exit status 1, no request |\n| `release create`, existing release | panic, exit status 2, after updating the release and adding link `b` | as v1.124.0 | error, exit status 1, no request |\n| `release upload` | panic, exit status 2, after adding link `c` | as v1.124.0 | error, exit status 1, no request |\n\nOn this branch each of the three prints `failed to parse JSON string: the asset link at index 1 is null.` and exits with status 1.\n\nThis comes from maintaining [gitlab-mcp-server](https://github.com/jmrplens/gitlab-mcp-server); its [upstream-bugs.md](https://github.com/jmrplens/gitlab-mcp-server/blob/main/docs/development/upstream-bugs.md) records everything done on its dependencies and sibling projects.\n\n<details><summary>Test output on main (without the change to the three production files)</summary>\n\n```plaintext\n    create.go:357: Unexpected call to *testing.MockTagsServiceInterface.GetTag([OWNER/REPO 0.0.1]) at /tmp/w/internal/commands/release/create/create.go:357 because: there are no expected calls of the method \"GetTag\" for that receiver\n    create.go:357: Unexpected call to *testing.MockTagsServiceInterface.GetTag([OWNER/REPO 0.0.1]) at /tmp/w/internal/commands/release/create/create.go:357 because: there are no expected calls of the method \"GetTag\" for that receiver\n--- FAIL: TestReleaseCreate_InvalidAssetsLinksJSON (0.00s)\n    --- FAIL: TestReleaseCreate_InvalidAssetsLinksJSON/only_a_null_link (0.00s)\n    --- PASS: TestReleaseCreate_InvalidAssetsLinksJSON/malformed_JSON (0.00s)\n    --- FAIL: TestReleaseCreate_InvalidAssetsLinksJSON/a_null_link_after_a_valid_one (0.00s)\nFAIL\tgitlab.com/gitlab-org/cli/internal/commands/release/create\t0.019s\n    upload.go:168: Unexpected call to *testing.MockReleasesServiceInterface.GetRelease([OWNER/REPO 0.0.1 0x8a3a20]) at /tmp/w/internal/commands/release/upload/upload.go:168 because: there are no expected calls of the method \"GetRelease\" for that receiver\n    upload.go:168: Unexpected call to *testing.MockReleasesServiceInterface.GetRelease([OWNER/REPO 0.0.1 0x8a3a20]) at /tmp/w/internal/commands/release/upload/upload.go:168 because: there are no expected calls of the method \"GetRelease\" for that receiver\n--- FAIL: TestReleaseUpload_InvalidAssetsLinksJSON (0.00s)\n    --- PASS: TestReleaseUpload_InvalidAssetsLinksJSON/malformed_JSON (0.00s)\n    --- FAIL: TestReleaseUpload_InvalidAssetsLinksJSON/only_a_null_link (0.00s)\n    --- FAIL: TestReleaseUpload_InvalidAssetsLinksJSON/a_null_link_after_a_valid_one (0.00s)\nFAIL\tgitlab.com/gitlab-org/cli/internal/commands/release/upload\t0.020s\n```\n\nThe output is cut down to the result lines and the `Unexpected call` lines, one per `null` case; everything else is left out. Command: `go test -count=1 -run 'TestReleaseCreate_InvalidAssetsLinksJSON|TestReleaseUpload_InvalidAssetsLinksJSON' -v ./internal/commands/release/create/ ./internal/commands/release/upload/`\n\n</details>\n\n<details><summary>Test output with the change</summary>\n\n```plaintext\n--- PASS: TestReleaseCreate_InvalidAssetsLinksJSON (0.00s)\n    --- PASS: TestReleaseCreate_InvalidAssetsLinksJSON/only_a_null_link (0.00s)\n    --- PASS: TestReleaseCreate_InvalidAssetsLinksJSON/malformed_JSON (0.00s)\n    --- PASS: TestReleaseCreate_InvalidAssetsLinksJSON/a_null_link_after_a_valid_one (0.00s)\nok  \tgitlab.com/gitlab-org/cli/internal/commands/release/create\t0.016s\n--- PASS: TestReleaseUpload_InvalidAssetsLinksJSON (0.00s)\n    --- PASS: TestReleaseUpload_InvalidAssetsLinksJSON/only_a_null_link (0.00s)\n    --- PASS: TestReleaseUpload_InvalidAssetsLinksJSON/malformed_JSON (0.00s)\n    --- PASS: TestReleaseUpload_InvalidAssetsLinksJSON/a_null_link_after_a_valid_one (0.00s)\nok  \tgitlab.com/gitlab-org/cli/internal/commands/release/upload\t0.021s\n```\n\nThe same command, with the output cut down to the result lines.\n\n</details>\n\n## Screenshots (if appropriate):\n\nNot applicable: a command-line change, with its output above.",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [
+        {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jmrp",
+          "id": "15767218",
+          "name": "José M. Requena Plens",
+          "avatarUrl": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+          "url": "https://gitlab.com/jmrp",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "login": "jay_mccure",
+            "id": "11809982",
+            "name": "Jay McCure",
+            "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+            "url": "https://gitlab.com/jay_mccure",
+            "isBotHint": false
+          },
+          "state": "unknown"
+        }
+      ],
+      "lastActivityAt": "<now>",
+      "branches": {
+        "head": {
+          "ref": "jmrp-release-null-asset-link",
+          "sha": "60241b80043ce964ccd0838b9e481353986ea9aa"
+        },
+        "base": {
+          "ref": "main"
+        }
+      },
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jmrp",
+        "id": "15767218",
+        "name": "José M. Requena Plens",
+        "avatarUrl": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+        "url": "https://gitlab.com/jmrp",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/merge_requests/4211",
+      "createdAt": "2026-10-26T03:22:53.085Z",
+      "updatedAt": "<now>",
+      "labels": [
+        {
+          "name": "Community contribution"
+        },
+        {
+          "name": "bug::functional"
+        },
+        {
+          "name": "devops::ai clients"
+        },
+        {
+          "name": "group::developer clients"
+        },
+        {
+          "name": "linked-issue"
+        },
+        {
+          "name": "section::ai"
+        },
+        {
+          "name": "type::bug"
+        },
+        {
+          "name": "workflow::ready for review"
+        }
+      ],
+      "commentCount": 3,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
     }
   ],
-  "total": 74,
+  "total": 93,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false",
-    "etag": "W/\"478afae8c455fa51866e775e652d5664\"",
+    "etag": "W/\"cf2957acda838ac08a17526f597ec79b\"",
     "token": "0:"
   },
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1978,
+    "limit": 100,
+    "remaining": 74,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   },
-  "etag": "W/\"478afae8c455fa51866e775e652d5664\""
+  "etag": "W/\"cf2957acda838ac08a17526f597ec79b\""
 }

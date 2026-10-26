@@ -6,28 +6,28 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=220&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"dd426729a025ea3118b6a47f80d55fcf\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1909",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
-      "x-total": "660",
-      "x-total-pages": "220",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=225&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"3f5c9a5fa94886c22050a437333bb014\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "3",
+      "ratelimit-reset": "1792989660",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
+      "x-total": "674",
+      "x-total-pages": "225",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": 207091602,
-        "iid": 8626,
+        "id": 207953068,
+        "iid": 8685,
         "project_id": 34675721,
-        "title": "Telemetry send blocks every command's exit for up to 2s",
-        "description": "## Summary\n\nglab sends its usage event (`POST /usage_data/track_event`) synchronously at exit on every command (`cmd/glab/telemetry.go`, `cobra.OnFinalize`, capped by `telemetrySendTimeout = 2s`). The user waits for this round trip after the command's own work is done. It is sent even when no token is configured, in which case it falls back to `gitlab.Unauthenticated{}` and gitlab.com returns 401.\n\nCommit 1ce119cae (`fix(telemetry): deliver the usage event reliably and cheaply`) made the send synchronous so events are actually delivered. Any fix must keep delivery reliable.\n\n## Measurements\n\nAt 50ms RTT against a mock GitLab (from the discussion on https://gitlab.com/gitlab-org/cli/-/merge_requests/4139):\n\n| Command     | Telemetry off | Telemetry on |\n|-------------|---------------|--------------|\n| `version`   | 14ms          | 153ms        |\n| `mr list`   | 158ms         | 284ms        |\n| `api user`  | 156ms         | 294ms        |\n| `mr view 1` | 290ms         | 413ms        |\n\nAgainst gitlab.com (about 10ms TCP / 33ms TLS connect), median of 20 runs, built from the https://gitlab.com/gitlab-org/cli/-/merge_requests/4139 branch:\n\n| Command        | Telemetry on | Telemetry off | Cost            |\n|----------------|--------------|---------------|-----------------|\n| `mr view 4139` | 1491ms       | 1146ms        | +346ms (23%)    |\n| `mr list`      | 1035ms       | 731ms         | +304ms (29%)    |\n\nThe on/off runs were not interleaved, so treat these as approximate. On slow networks, every command can wait the full 2s.\n\nhttps://gitlab.com/gitlab-org/cli/-/merge_requests/4139 lets telemetry reuse the command's warm connection. Commands that make no API request of their own (`version`, `config`, and similar) still open a dedicated TLS connection just for telemetry.\n\n## Proposal\n\nIn order of cost:\n\n1. **Skip the event when there is no token.** Unauthenticated events are rejected with 401, so sending them only adds latency.\n2. **Start the POST in a goroutine when the command starts**, and at exit wait only for what remains (still capped). With shared transports, it overlaps the command's own requests on the same connection, so the wait at exit is usually close to zero. Limitation: the event is sent before the command's outcome is known, which the current event doesn't report anyway.\n3. **Optional: spool events to a file.** Network-free commands only append to it (sub-millisecond). Commands that already use the API flush the spool concurrently with their own requests, batch events into one request, and never block at exit (unsent events stay spooled for the next run). Needs: file locking for concurrent glab processes, grouping events by host, timestamps taken from the spool, a cap on file size, and respect for opt-out on events already spooled.\n\nSteps 1 and 2 should recover most of the cost. Consider step 3 only if network-free commands or high-latency users still need it.\n\n## Acceptance criteria\n\n- No usage request when no credentials are configured.\n- Telemetry adds no measurable exit latency to commands that make API requests (compare `GLAB_SEND_TELEMETRY=false` vs `true`).\n- Events are still delivered (no regression of 1ce119cae).",
+        "title": "Refresh AGENTS.md and keep it in sync with the codebase",
+        "description": "## Summary\n\n`AGENTS.md` is the main guide agents read before working in this repository, but nothing keeps it accurate. It drifts as commands, flags, helpers, and `make` targets change, and agents follow it word for word.\n\nExample: it tells agents to pass **only** the discussion ID to `glab mr note resolve`. That fails as soon as `--repo` is set, because the merge request is then required and comes first (see https://gitlab.com/gitlab-org/cli/-/merge_requests/4192 and https://gitlab.com/gitlab-org/cli/-/work_items/8404).\n\n## Proposal\n\n### 1. Refresh `AGENTS.md`\n\nCheck every instruction against the current tree and fix or remove what is out of date:\n\n- `glab` invocations: commands, argument order, flags.\n- Helper and example paths (`internal/cmdutils/`, `internal/testing/cmdtest/`, the canonical example files).\n- `make` targets, `lefthook` jobs, scripts, environment variables.\n\n### 2. Keep it up to date continuously\n\nOptions, which can be combined:\n\n- **CI check**: parse `AGENTS.md` and fail when it references something that no longer exists:\n  - every `glab <noun> <verb>` resolves in the cobra command tree, and every `--flag` is defined on it;\n  - every repository path exists;\n  - every `make` target and `lefthook` job exists.\n- **Review rule**: add a block to `.gitlab/duo/mr-review-instructions.yaml` that asks Duo Code Review to flag MRs that rename or remove something `AGENTS.md` mentions without updating it.\n- **Scheduled refresh**: a scheduled pipeline or agent flow that compares `AGENTS.md` with the tree and opens an MR when they differ.\n\n## Acceptance criteria\n\n- [ ] `AGENTS.md` is accurate against `main`.\n- [ ] At least one automated mechanism catches drift before or soon after merge.\n\n---\n_Drafted with an AI agent (Claude Code)._",
         "state": "opened",
-        "created_at": "2026-10-19T02:23:45.411Z",
-        "updated_at": "2026-10-19T02:57:13.144Z",
+        "created_at": "2026-10-26T04:30:09.147Z",
+        "updated_at": "2026-10-26T04:30:14.633Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
@@ -35,23 +35,12 @@
           "category:gitlab cli",
           "devops::ai clients",
           "group::developer clients",
-          "maintenance::performance",
+          "maintenance::workflow",
           "section::ai",
           "type::maintenance"
         ],
         "milestone": null,
-        "assignees": [
-          {
-            "id": 11809982,
-            "username": "jay_mccure",
-            "public_email": "",
-            "name": "Jay McCure",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-            "web_url": "https://gitlab.com/jay_mccure"
-          }
-        ],
+        "assignees": [],
         "author": {
           "id": 11809982,
           "username": "jay_mccure",
@@ -59,20 +48,105 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
           "web_url": "https://gitlab.com/jay_mccure"
         },
         "type": "ISSUE",
-        "assignee": {
+        "assignee": null,
+        "user_notes_count": 0,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8685",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 2,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8685",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8685/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8685/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8685",
+          "relative": "#8685",
+          "full": "gitlab-org/cli#8685"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": 24117,
+        "epic": {
+          "id": 5360810,
+          "iid": 24117,
+          "title": "glab agent experience: optimising the CLI for AI agents",
+          "url": "/groups/gitlab-org/-/epics/24117",
+          "group_id": 9970
+        },
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 207635384,
+        "iid": 8677,
+        "project_id": 34675721,
+        "title": "Help shows the wrong argument order for mr note resolve, reopen, update, delete, and draft commands",
+        "description": "## Summary\n\n`--help` shows the merge request and the note or discussion ID in the wrong order for several `glab mr note` commands. Following the help fails.\n\n```shell\n$ glab mr note resolve --help\n  USAGE\n    glab mr note resolve <discussion-id> [<id> | <branch>] [--flags]\n\n$ glab mr note resolve 2c922708e4b90c6159624570e22ec89bf3286261 4191 -R gitlab-org/cli\n  No open merge request available for \"2c922708e4b90c6159624570e22ec89bf3286261\".\n\n$ glab mr note delete 4073931641 4191 -R gitlab-org/cli\n  Failed to get merge request 4073931641: 404 Not Found.\n```\n\nThe commands actually take the merge request first, which is what the `Use` strings, the `Long` text (\"The merge request comes first, then the discussion\") and the generated pages under `docs/source/` say. Only the rendered `--help` usage line is wrong.\n\nAffected commands (`Use` strings with an optional argument before a required one):\n\n- `mr note resolve` and `mr note reopen`: `[<id> | <branch>] <discussion-id>`\n- `mr note update` and `mr note delete`: `[<id> | <branch>] <note-id>`\n- `mr note draft update` and `mr note draft delete`: `[<id> | <branch>] <draft-note-id>`\n\nThe parent's command list (`glab mr note --help`) shows the same wrong order.\n\n## Cause\n\nHelp is rendered by `charm.land/fang/v2` (v2.0.1). `styleUsage` removes every match of `otherArgsRe = regexp.MustCompile(`(\\[.*\\])`)` from the usage line and appends the matches after the remaining arguments, so any optional `[...]` argument is moved to the end. The regex is also greedy, so a `Use` with two bracket groups is collapsed into one.\n\nThis is unchanged on fang's `main` branch.\n\n## Who this affects\n\nAnyone reading `--help`, and especially agents, which tend to copy the usage line. `AGENTS.md` also gives the wrong guidance for `resolve`; that is being fixed separately.\n\n## Possible fixes\n\n- Fix upstream in fang: keep arguments in their original order, or only pull out bracket groups at the end of the line.\n- Workaround in glab: post-process or override the usage line for commands where an optional argument comes first.\n- Add a test that renders `--help` for these commands and checks the order of arguments.\n\nFound while working on https://gitlab.com/gitlab-org/cli/-/merge_requests/4191.\n\n---\n_Drafted with an AI agent (Claude Code)._",
+        "state": "closed",
+        "created_at": "2026-10-23T07:06:52.128Z",
+        "updated_at": "2026-10-26T04:27:36.132Z",
+        "closed_at": "2026-10-26T04:27:36.130Z",
+        "closed_by": {
           "id": 11809982,
           "username": "jay_mccure",
           "public_email": "",
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
           "web_url": "https://gitlab.com/jay_mccure"
         },
+        "labels": [
+          "automation:quick-win-judged",
+          "bug::functional",
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "section::ai",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+          "web_url": "https://gitlab.com/jay_mccure"
+        },
+        "type": "ISSUE",
+        "assignee": null,
         "user_notes_count": 1,
         "merge_requests_count": 0,
         "upvotes": 0,
@@ -82,7 +156,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8626",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8677",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -98,16 +172,16 @@
         "has_tasks": true,
         "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8626",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8626/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8626/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8677",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8677/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8677/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
+          "closed_as_duplicate_of": "https://gitlab.com/api/v4/projects/34675721/issues/8404"
         },
         "references": {
-          "short": "#8626",
-          "relative": "#8626",
-          "full": "gitlab-org/cli#8626"
+          "short": "#8677",
+          "relative": "#8677",
+          "full": "gitlab-org/cli#8677"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -120,114 +194,33 @@
         "health_status": null
       },
       {
-        "id": 203186756,
-        "iid": 8553,
+        "id": 198078977,
+        "iid": 8508,
         "project_id": 34675721,
-        "title": "macOS: OAuth token exchange and API calls time out resolving gitlab.com while curl/browser access succeeds",
-        "description": "### Checklist\n\n- [ ] Tested the latest release. Reproduced on glab 1.117.0 (44790937b), installed via Homebrew. v1.118.0 is now available but has not yet been tested.\n- [x] Operating system: macOS 15.7.7 (24G720), Apple Silicon / arm64.\n- [x] Instance: GitLab.com.\n- [x] Ran `glab auth status`.\n- [x] Collected resolver diagnostics using `GODEBUG=netdns=cgo+2` and `GODEBUG=netdns=go+2` (relevant output below; full GLAB_DEBUG HTTP logging was not collected).\n\n### Summary\n\nI cannot reliably authenticate glab or make API calls from macOS while connected to our required GlobalProtect VPN. Browsers and curl can reach gitlab.com on the same connection.\n\nWith web/OAuth login, the browser opens and authorization succeeds, but the local callback page reports a DNS timeout when the CLI attempts to exchange the authorization code at https://gitlab.com/oauth/token. A colleague independently reports the same callback failure and timeouts with token authentication. They report that it worked a few weeks ago; their current and last-working versions have not yet been established.\n\nThe root cause is unconfirmed. I am reporting this to help determine whether it is a glab/Go resolver issue, an interaction with the VPN, or another network/resolver problem. I have not established a regression between CLI versions.\n\n### Environment\n\n- OS: macOS 15.7.7 (24G720), arm64\n- SHELL: zsh\n- GLAB: 1.117.0 (44790937b), Homebrew installation\n- Go version reported in the installed binary: go1.27.1\n- GlobalProtect network extension: 6.0.12-1256\n- GlobalProtect remains connected because it is required for our GitLab access. No VPN-disconnected comparison was performed.\n\n### Steps to reproduce\n\nOn the affected machine with GlobalProtect connected:\n\n1. Run `glab auth login --hostname gitlab.com --web`.\n2. Authorize the CLI in the browser.\n3. The browser redirects to the local OAuth callback. The page displays the token-exchange error below.\n4. `glab auth status --hostname gitlab.com` and diagnostic API requests also encounter DNS timeouts.\n5. Compare with `curl -I --max-time 10 https://gitlab.com`, which succeeds on the same connection.\n\n### Current behavior\n\n```text\nToken exchange failed: Post \"https://gitlab.com/oauth/token\": dial tcp: lookup gitlab.com: i/o timeout\n```\n\nThe browser reaching the callback does not result in a successful CLI login. API requests can fail with the same hostname-lookup timeout or with a context deadline exceeded error.\n\n### Expected behavior\n\nOAuth token exchange and subsequent API requests complete successfully on a connection where GitLab is reachable, or diagnostics identify the resolver failure more precisely.\n\n### Relevant diagnostics\n\nA credential-free reproduction using an intentionally invalid token (to test connectivity without disclosing credentials):\n\n```sh\nGITLAB_TOKEN=diagnostic-invalid-token GODEBUG=netdns=cgo+2 glab api user --hostname gitlab.com\n```\n\n```text\ngo package net: confVal.netCgo = true  netGo = false\ngo package net: GODEBUG setting forcing use of the cgo resolver\ngo package net: hostLookupOrder(gitlab.com) = cgo\nGet \"https://gitlab.com/api/v4/user\": dial tcp: lookup gitlab.com: i/o timeout.\n```\n\nForcing `GODEBUG=netdns=go+2` also timed out (lookup order: files,dns).\n\nAdditional observations during troubleshooting:\n\n- macOS registers the VPN DNS server through GlobalProtect's DNS configuration.\n- Direct queries to the VPN DNS server returned A records over UDP, but AAAA queries for gitlab.com and example.com timed out with a 2-second timeout and one attempt.\n- Both A and AAAA queries succeeded over TCP, in roughly 30–35 ms.\n- Queries addressed to the local router showed the same UDP AAAA timeout while the VPN was connected. We have not determined whether the VPN intercepted these requests or where they were dropped.\n- Ordinary native Python lookups returned promptly. A lookup with `AI_CANONNAME | AI_V4MAPPED | AI_ALL` eventually returned an IPv4 result after approximately 5 seconds.\n- Adding process-local `RES_OPTIONS=usevc` did not resolve the glab timeout.\n- A temporary per-domain TCP DNS configuration did not reliably help. A temporary hosts-file entry also did not resolve the reported OAuth failure; we did not establish whether the failing OAuth process consumed the new entry or retained prior resolver state. Both workarounds have been removed.\n\nOne API attempt reached GitLab and returned a revoked-token 401 (the old credential had deliberately been revoked). That is a separate credential issue; fresh OAuth attempts and requests using the diagnostic invalid token fail during DNS resolution before authentication completes.\n\n### Possible fixes / investigation\n\nNo confirmed fix. Guidance on capturing useful resolver diagnostics, or comparing resolver behavior across glab/Go versions, would be appreciated. The UDP/TCP AAAA difference is an observation, not a confirmed explanation for all failures. No packet capture or controlled older/newer-version comparison has been performed yet.",
-        "state": "opened",
-        "created_at": "2026-09-15T17:59:15.878Z",
-        "updated_at": "2026-10-19T02:37:11.037Z",
-        "closed_at": null,
-        "closed_by": null,
-        "labels": [
-          "automation:ml",
-          "backend",
-          "bug::functional",
-          "category:gitlab cli",
-          "devops::ai clients",
-          "group::developer clients",
-          "section::ai",
-          "type::bug"
-        ],
-        "milestone": null,
-        "assignees": [],
-        "author": {
-          "id": 28251233,
-          "username": "yashb4",
-          "public_email": "",
-          "name": "Yash Baleri",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/28251233/avatar.png?v=1792096462",
-          "web_url": "https://gitlab.com/yashb4"
-        },
-        "type": "ISSUE",
-        "assignee": null,
-        "user_notes_count": 5,
-        "merge_requests_count": 0,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8553",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 5,
-          "completed_count": 4
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": false,
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8553",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8553/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8553/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8553",
-          "relative": "#8553",
-          "full": "gitlab-org/cli#8553"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 189982774,
-        "iid": 8304,
-        "project_id": 34675721,
-        "title": "snap version of `cluster agent update-kubeconfig` can't write to kubeconfig",
-        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.95.0\n- [x] Operating system and version: Ubuntu 24.04.3\n- [x] Gitlab.com or self-managed instance? both\n- [x] GitLab version (if self-managed) 18.8.9-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe snap confinement, lacking the [personal-files write permission](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/), doesn't allow `glab cluster agent update-kubeconfig` to write to the default kubeconfig location (`~/.kube/config`), resulting in silent failure to update anything.\n\n### Environment\n\n- OS: Linux 6.8.0-111-generic x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.95.0 (6a2f207)\n\nOther:\n\n### Steps to reproduce\n\ne.g.\n`glab cluster agent update-kubeconfig --agent 6 -u` in a repo with a valid glab agent config.\n\n### What is the current _bug_ behavior?\n\n```\n[git remote -v]\n[git config --get-regexp ^remote\\..*\\.glab-resolved(-base|-head)?$]\nUpdated context gitlab_some_host-my_group_k8s_cluster-dev.\nUsing context gitlab_some_host-my_group_k8s_cluster-dev.\n```\nbut `cat ~/.kube/config` is still blank.\n\n### What is the expected _correct_ behavior?\n\nFill in `~/.kube/config` with the relevant context.\n\n### Possible fixes\n\nCan workaround by setting `$KUBECONFIG` to a non-hidden location e.g. \n```\nexport KUBECONFIG=~/kubeconfig\nglab cluster agent update-kubeconfig --agent 6 -u\n```\nsince this is included in the [home interface](https://snapcraft.io/docs/reference/interfaces/home-interface/) that the snap does have.\n\nActual fix is IMO to add the [personal-files interface](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/) with a write permssions for `~/.kube/config` to the snap.",
+        "title": "Let glab artifact-registry login write Maven's and sbt's config where the tool actually reads it",
+        "description": "Follow-up from !3710 ([thread](https://gitlab.com/gitlab-org/cli/-/merge_requests/3710#note_3709462370)), agreed with @timofurrer.\n\n`glab artifact-registry login --sbt` writes `~/.sbt/1.0/credentials.sbt`, and `--maven` writes `~/.m2/settings.xml`. Neither location is fixed, and neither tool exposes an environment variable this command can read, so a user whose tool looks elsewhere gets a green check and a build that still authenticates with nothing.\n\n- **sbt**: the global base is `defaultGlobalBase/<binary version>`, overridable with the JVM property `-Dsbt.global.base` from the sbt command line, `SBT_OPTS`, `JAVA_OPTS` or an `.sbtopts` file ([`BuildPaths.scala` at v1.10.7](https://github.com/sbt/sbt/blob/v1.10.7/main/src/main/scala/sbt/BuildPaths.scala)). The `1.0` segment is the binary version, so it is right for sbt 1.x only. On `develop` the default has moved off `~/.sbt` entirely and is env-driven (`SBT_CONFIG_HOME`, then `XDG_CONFIG_HOME/sbt`, then `LOCALAPPDATA/sbt`, else `user.home/.config/sbt`, see [`SysProp.scala`](https://github.com/sbt/sbt/blob/develop/main/src/main/scala/sbt/internal/SysProp.scala)).\n- **maven**: `settings.xml` can be pointed elsewhere with `-s`, so the same shape applies.\n\n`--gradle` and `--npm` need nothing here: !3710 honours `GRADLE_USER_HOME` and `npm_config_userconfig`, which are the variables those tools actually read.\n\n## Proposal\n\nOne explicit override for the file this command writes, serving both `--maven` and `--sbt`, rather than an sbt-specific knob. It covers sbt 1.x, sbt 2.x and `-Dsbt.global.base` without modelling any of them.\n\nParsing `SBT_OPTS` was considered and rejected: it covers one of the several places the property can come from and quietly misses the rest, so whether the login worked would depend on how the user happens to launch sbt. That is the same silent failure the writers are built to avoid, only harder to reason about.\n\n## Current state\n\n!3710 documents the assumption instead: `sbtCredentialsPathFor`'s doc comment says it assumes a stock sbt 1.x, and the `--sbt` bullet in the command's help says an sbt that moved its global base does not read that file.\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nAdd one `--config-file` flag that overrides the file `--maven` and `--sbt` write. `--docker`, `--gradle` and `--npm` are out of scope: the last two already honour `GRADLE_USER_HOME` and `npm_config_userconfig` (`internal/commands/artifactregistry/login/gradle.go:105`, `npm.go:19`).\n\n1. **Add the flag.** In `NewCmd` (`internal/commands/artifactregistry/login/login.go`), add a `configFile string` field to `options` and register `cmd.Flags().StringVar(&opts.configFile, \"config-file\", \"\", \"Path to the file to write (Maven/sbt only). Defaults to ~/.m2/settings.xml for --maven and ~/.sbt/1.0/credentials.sbt for --sbt.\")`. `--config-file` already exists elsewhere in the tree (`internal/commands/changelog/generate/changelog_generate.go:128`), so the spelling is not new.\n\n2. **Reject the values that cannot work.** In `options.validate`, return a `*cmdutils.FlagError` when `--config-file` is set and the path is a directory, or when it is a relative path you cannot resolve. Follow the existing message shape: start with `invalid --config-file: ...`, never with the flag name capitalized (see the comment above `validate`).\n\n3. **Warn when it does not apply.** In `options.run`, mirror the `--registry-alias` precedent at `login.go:311`: if `o.configFile != \"\" && !o.maven && !o.sbt`, emit `o.io.LogErrorf(\"%s --config-file is ignored outside --maven/--sbt logins.\\n\", o.io.Color().WarnIcon())`. Silently writing the default path while the user named another one is the same \"green check, no credential\" failure this package is built to avoid.\n\n4. **Thread the resolved path into the writers.** Change `loginMaven(alias, token)` to take the target path and `loginSbt(registry, token)` likewise, resolving it in `run` as `o.configFile` when set and `mavenSettingsPathFor(home)` / `sbtCredentialsPathFor(home)` otherwise. `loginSbt` already calls `upsertLines(sbtCredentialsPathFor(home), ...)` (`sbt.go:136`), and `upsertLines` creates the parent directory itself, so only the path source changes. In `loginMaven` (`maven.go:148`) replace the `filepath.Join(home, \".m2\")` pair with `filepath.Dir(path)` and `path`.\n\n5. **Tests.** Extend `internal/commands/artifactregistry/login/maven_test.go` and `sbt_test.go` with a case each that passes an explicit path under `t.TempDir()` and asserts nothing is written under the home set by `setHome` (the shape `TestLoginGradle` already uses for `GRADLE_USER_HOME` at `gradle_test.go:283`). Add to `login_test.go`: the ignored-flag warning, and the validation error. Updating the existing `loginMaven`/`loginSbt` call sites for the new parameter is mechanical, about 50 lines across the two test files.\n\n6. **Docs.** Update the `--maven` and `--sbt` bullets in `Long`, including the sentence at `login.go:151` that today says an sbt which moved its global base does not read the file, then run `make gen-docs` and commit `docs/source/artifact-registry/login.md` in the same commit.",
         "state": "closed",
-        "created_at": "2026-05-11T10:35:31.045Z",
-        "updated_at": "2026-10-18T21:15:17.529Z",
-        "closed_at": "2026-10-16T02:02:12.404Z",
+        "created_at": "2026-08-20T14:16:41.379Z",
+        "updated_at": "2026-10-26T03:45:14.294Z",
+        "closed_at": "2026-10-26T03:45:14.284Z",
         "closed_by": {
-          "id": 12294975,
-          "username": "jhebden",
+          "id": 11809982,
+          "username": "jay_mccure",
           "public_email": "",
-          "name": "James Hebden",
+          "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
-          "web_url": "https://gitlab.com/jhebden"
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+          "web_url": "https://gitlab.com/jay_mccure"
         },
         "labels": [
-          "automation:ml",
-          "bug::functional",
-          "category:code review workflow",
-          "category:gitlab cli",
-          "devops::ai clients",
-          "group::developer clients",
-          "section::ai",
-          "type::bug",
+          "Category:Artifact Registry",
+          "artifact-registry::authn",
+          "automation:quick-win-judged",
+          "devops::package",
+          "group::container registry",
+          "section::ci",
+          "type::feature",
           "workflow::complete"
         ],
         "milestone": null,
@@ -244,14 +237,14 @@
           }
         ],
         "author": {
-          "id": 2046022,
-          "username": "PointyShinyBurning",
+          "id": 27667902,
+          "username": "sylviashen",
           "public_email": "",
-          "name": "Daniel Key",
+          "name": "Sylvia Shen",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/55b09e638496440f571ce3a83db934420e018af607cf3c3dbc2138e3c8b86811?s=80&d=identicon",
-          "web_url": "https://gitlab.com/PointyShinyBurning"
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27667902/avatar.png?v=1792977547",
+          "web_url": "https://gitlab.com/sylviashen"
         },
         "type": "ISSUE",
         "assignee": {
@@ -264,7 +257,7 @@
           "avatar_url": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
           "web_url": "https://gitlab.com/rantoniuk"
         },
-        "user_notes_count": 3,
+        "user_notes_count": 2,
         "merge_requests_count": 1,
         "upvotes": 0,
         "downvotes": 0,
@@ -273,7 +266,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8304",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8508",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -281,23 +274,24 @@
           "human_total_time_spent": null
         },
         "task_completion_status": {
-          "count": 6,
-          "completed_count": 6
+          "count": 0,
+          "completed_count": 0
         },
         "weight": null,
         "blocking_issues_count": 0,
-        "has_tasks": false,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8304",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8304/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8304/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8508",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8508/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8508/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8304",
-          "relative": "#8304",
-          "full": "gitlab-org/cli#8304"
+          "short": "#8508",
+          "relative": "#8508",
+          "full": "gitlab-org/cli#8508"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,

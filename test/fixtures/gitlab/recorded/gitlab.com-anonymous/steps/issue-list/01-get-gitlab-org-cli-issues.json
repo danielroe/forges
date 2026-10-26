@@ -6,135 +6,38 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=84&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\"",
-      "ratelimit-limit": "1",
-      "ratelimit-remaining": "46",
-      "ratelimit-reset": "1792386000",
-      "ratelimit-name": "unauthenticated_traffic_per_ip",
-      "x-total": "252",
-      "x-total-pages": "84",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=1&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=87&per_page=3&sort=desc&state=opened&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"9fb165525423c13ba8a15421859bbe83\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "465",
+      "ratelimit-reset": "1792989720",
+      "ratelimit-name": "throttle_unauthenticated_api",
+      "x-total": "259",
+      "x-total-pages": "87",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": 207093591,
-        "iid": 8629,
+        "id": 207953068,
+        "iid": 8685,
         "project_id": 34675721,
-        "title": "govern audit sync fails with \"Too many total parameters\" for long sessions",
-        "description": "`glab govern audit sync` batches audit events by count only (500 per request), but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. So a session with more than about 200 events to upload fails with:\n\n```plaintext\ncould not post audit events: could not post audit events: POST https://gitlab.com/api/v4/projects/<id>/ai_agent/audit_events: 400 {error: Too many total parameters}\n```\n\nThe cursor doesn't move on failure, so every later sync sends the same batch and the session never finishes syncing. The error prefix is also repeated.\n\nGitLab is raising the limit in https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119, but older self-managed versions keep 5,000, so glab needs to batch by size too.\n\nDetails and the customer report: https://gitlab.com/gitlab-org/gitlab/-/work_items/634442",
+        "title": "Refresh AGENTS.md and keep it in sync with the codebase",
+        "description": "## Summary\n\n`AGENTS.md` is the main guide agents read before working in this repository, but nothing keeps it accurate. It drifts as commands, flags, helpers, and `make` targets change, and agents follow it word for word.\n\nExample: it tells agents to pass **only** the discussion ID to `glab mr note resolve`. That fails as soon as `--repo` is set, because the merge request is then required and comes first (see https://gitlab.com/gitlab-org/cli/-/merge_requests/4192 and https://gitlab.com/gitlab-org/cli/-/work_items/8404).\n\n## Proposal\n\n### 1. Refresh `AGENTS.md`\n\nCheck every instruction against the current tree and fix or remove what is out of date:\n\n- `glab` invocations: commands, argument order, flags.\n- Helper and example paths (`internal/cmdutils/`, `internal/testing/cmdtest/`, the canonical example files).\n- `make` targets, `lefthook` jobs, scripts, environment variables.\n\n### 2. Keep it up to date continuously\n\nOptions, which can be combined:\n\n- **CI check**: parse `AGENTS.md` and fail when it references something that no longer exists:\n  - every `glab <noun> <verb>` resolves in the cobra command tree, and every `--flag` is defined on it;\n  - every repository path exists;\n  - every `make` target and `lefthook` job exists.\n- **Review rule**: add a block to `.gitlab/duo/mr-review-instructions.yaml` that asks Duo Code Review to flag MRs that rename or remove something `AGENTS.md` mentions without updating it.\n- **Scheduled refresh**: a scheduled pipeline or agent flow that compares `AGENTS.md` with the tree and opens an MR when they differ.\n\n## Acceptance criteria\n\n- [ ] `AGENTS.md` is accurate against `main`.\n- [ ] At least one automated mechanism catches drift before or soon after merge.\n\n---\n_Drafted with an AI agent (Claude Code)._",
         "state": "opened",
-        "created_at": "2026-10-19T02:48:20.600Z",
-        "updated_at": "2026-10-19T02:48:22.205Z",
+        "created_at": "2026-10-26T04:30:09.147Z",
+        "updated_at": "2026-10-26T04:30:14.633Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
-          "Category:AI Governance",
-          "devops::security governance",
-          "group::ai governance",
-          "section::sec",
-          "type::bug"
-        ],
-        "milestone": null,
-        "assignees": [
-          {
-            "id": 27487407,
-            "username": "jeanvdw",
-            "public_email": "redacted@example.invalid",
-            "name": "Jean van der Walt",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-            "web_url": "https://gitlab.com/jeanvdw"
-          }
-        ],
-        "author": {
-          "id": 27487407,
-          "username": "jeanvdw",
-          "public_email": "redacted@example.invalid",
-          "name": "Jean van der Walt",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-          "web_url": "https://gitlab.com/jeanvdw"
-        },
-        "type": "ISSUE",
-        "assignee": {
-          "id": 27487407,
-          "username": "jeanvdw",
-          "public_email": "redacted@example.invalid",
-          "name": "Jean van der Walt",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-          "web_url": "https://gitlab.com/jeanvdw"
-        },
-        "user_notes_count": 0,
-        "merge_requests_count": 1,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8629",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 0,
-          "completed_count": 0
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": true,
-        "task_status": "0 of 0 checklist items completed",
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8629",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8629/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8629/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8629",
-          "relative": "#8629",
-          "full": "gitlab-org/cli#8629"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 207092717,
-        "iid": 8628,
-        "project_id": 34675721,
-        "title": "feat: report pipeline status via OSC 7501 in `ci status --live`",
-        "description": "### Problem to solve\n\nAs a developer running `glab ci status --live` or `glab ci status --wait`, I want my terminal tab to show whether the pipeline is still running, has passed, or has failed, so I can switch to other work without repeatedly checking the tab.\n\n### Proposal\n\nReport pipeline state from `glab ci status --live` / `--wait` using the [Program Status Protocol (OSC 7501)](https://github.com/charmbracelet/bubbletea/releases), which recent Bubble Tea releases support:\n\n| Pipeline state | Program status | Reason |\n|---|---|---|\n| `created`, `pending`, `running` | working | e.g. `pipeline #123 running (4/12 jobs)` |\n| `success` | finished | `pipeline #123 passed` |\n| `failed` | failed | e.g. `job rspec 3/8 failed` |\n| `canceled`, `skipped` | finished/failed | pipeline status |\n| `manual` (blocked) | waiting on user | `pipeline #123 waiting on manual job` |\n\nImplementation notes:\n\n- `ci status` renders through `uilive`, not a `tea.Program`, so add a small helper in `internal/iostreams` (for example `SetProgramStatus(state, reason)`) that writes the sequence directly.\n- Emit only when output is a TTY. Never emit for `--output json`, piped output, or `GITLAB_CI`.\n- Reset the status on exit, including Ctrl+C, so a stale \"working\" indicator isn't left behind.\n- Consider an opt-out (config key in `KeySchema` or env var) while terminal support is new.\n\n### Further details\n\nOnce the helper exists, other long-running or interactive commands can reuse it in follow-ups: `ci trace`, `mr merge` waiting on pipelines, `auth login`, `stack sync` conflicts, `duo ask`, and the shared `Confirm`/`Input`/`Select` prompts and spinner.\n\n### Links / references\n\n- Bubble Tea release announcing OSC 7501 support\n- `internal/commands/ci/status/status.go`",
-        "state": "opened",
-        "created_at": "2026-10-19T02:35:53.439Z",
-        "updated_at": "2026-10-19T03:09:40.451Z",
-        "closed_at": null,
-        "closed_by": null,
-        "labels": [
-          "automation:quick-win-judged",
+          "agent-experience",
           "category:gitlab cli",
           "devops::ai clients",
           "group::developer clients",
+          "maintenance::workflow",
           "section::ai",
-          "type::feature"
+          "type::maintenance"
         ],
         "milestone": null,
         "assignees": [],
@@ -145,7 +48,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
           "web_url": "https://gitlab.com/jay_mccure"
         },
         "type": "ISSUE",
@@ -159,7 +62,90 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8628",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8685",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 2,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8685",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8685/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8685/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#8685",
+          "relative": "#8685",
+          "full": "gitlab-org/cli#8685"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": 24117,
+        "epic": {
+          "id": 5360810,
+          "iid": 24117,
+          "title": "glab agent experience: optimising the CLI for AI agents",
+          "url": "/groups/gitlab-org/-/epics/24117",
+          "group_id": 9970
+        },
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 207946709,
+        "iid": 8684,
+        "project_id": 34675721,
+        "title": "glab release create and upload panic on a null entry in --assets-links",
+        "description": "### Summary\n\nWhen the JSON array given to `--assets-links` contains `null`, `glab release create` and `glab release upload` crash with `panic: runtime error: invalid memory address or nil pointer dereference` and exit status 2. Both commands decode the flag into `[]*upload.ReleaseAsset` ([create.go#L244-249](https://gitlab.com/gitlab-org/cli/-/blob/a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef/internal/commands/release/create/create.go#L244-249), [upload.go#L138-143](https://gitlab.com/gitlab-org/cli/-/blob/a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef/internal/commands/release/upload/upload.go#L138-143)), so a `null` element becomes a nil pointer, and the commands dereference every link later on, first in `aliasFilePathToDirectAssetPath` ([releaseutils/upload/upload.go#L270-271](https://gitlab.com/gitlab-org/cli/-/blob/a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef/internal/commands/release/releaseutils/upload/upload.go#L270-271)).\n\nBy the time glab crashes, it may already have changed the release:\n\n- `glab release upload` adds the links that come before the `null` one.\n- `glab release create` on an existing release updates the release and adds the links that come before the `null` one.\n- `glab release create` for a new release creates it and adds the links that come before the `null` one in v1.124.0. On `main`, which sends the links in the create request since !4040, it crashes before the release is created.\n\nSo a `null` in the array can leave the release partly updated, and what the user sees is a Go stack trace rather than an error about the flag.\n\n### Environment\n\n- OS: Linux x86_64 (a `golang:1.27.3` container)\n- SHELL: /bin/bash\n- TERM: none (the commands ran without a terminal)\n- GLAB: v1.124.0, built from the tag, and `main` at a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef\n\nOther: I did not run this against a GitLab instance. glab talked to a small local HTTP server that answers the tag and release endpoints the way GitLab does and logs every request it receives, which is where the request lists below come from.\n\n### Steps to reproduce\n\nIn a project where you can create releases and that has the tag `v1.0.0` (from a clone of it, or with `-R <group>/<project>`):\n\n```shell\n# A release that does not exist yet\nglab release create v1.0.0 --notes x --assets-links='[{\"name\":\"a\",\"url\":\"https://example.com/a\"}, null]'\n\n# A release that exists. On main the command above does not create it,\n# so create it first with: glab release create v1.0.0 --notes x\nglab release create v1.0.0 --notes x --assets-links='[{\"name\":\"b\",\"url\":\"https://example.com/b\"}, null]'\nglab release upload v1.0.0 --assets-links='[{\"name\":\"c\",\"url\":\"https://example.com/c\"}, null]'\n```\n\n### What is the current _bug_ behavior?\n\nEach command panics and exits with status 2. The first one with v1.124.0, with the progress symbols removed and the stack trace shortened:\n\n```plaintext\nValidating tag v1.0.0\nCreating or updating release repo=group/proj tag=v1.0.0\nRelease created:\turl=http://127.0.0.1:18081/group/proj/-/releases/v1.0.0\nUploading release assets repo=group/proj tag=v1.0.0\nAdded release asset\tname=a url=https://example.com/a\npanic: runtime error: invalid memory address or nil pointer dereference\n[signal SIGSEGV: segmentation violation code=0x1 addr=0x10 pc=0x15de74f]\n\ngoroutine 1 [running]:\ngitlab.com/gitlab-org/cli/internal/commands/release/releaseutils/upload.aliasFilePathToDirectAssetPath(...)\n\tinternal/commands/release/releaseutils/upload/upload.go:220\ngitlab.com/gitlab-org/cli/internal/commands/release/releaseutils/upload.CreateLink(...)\n\tinternal/commands/release/releaseutils/upload/upload.go:54 +0x4f\ngitlab.com/gitlab-org/cli/internal/commands/release/releaseutils/upload.(*Context).CreateReleaseAssetLinks(...)\n\tinternal/commands/release/releaseutils/upload/upload.go:196 +0x152\ngitlab.com/gitlab-org/cli/internal/commands/release/releaseutils.CreateReleaseAssets(...)\n\tinternal/commands/release/releaseutils/releaseutils.go:132 +0x450\ngitlab.com/gitlab-org/cli/internal/commands/release/create.createRun(...)\n\tinternal/commands/release/create/create.go:563 +0x1d48\n[...]\n```\n\nThe requests each command sent before the panic:\n\n| Command | v1.124.0 | `main` at a6fd50ce |\n| --- | --- | --- |\n| `release create`, new release | GET tag, GET release, POST release, POST link `a` | GET tag, GET release |\n| `release create`, existing release | GET tag, GET release, PUT release, POST link `b` | GET tag, GET release, PUT release, POST link `b` |\n| `release upload` | GET release, POST link `c` | GET release, POST link `c` |\n\nOn `main` the first command panics in `upload.AliasFilePaths` ([create.go#L528](https://gitlab.com/gitlab-org/cli/-/blob/a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef/internal/commands/release/create/create.go#L528)) and the other two in `upload.CreateLink`, all at the same line of `aliasFilePathToDirectAssetPath`.\n\n### What is the expected _correct_ behavior?\n\nThe command refuses the flag before it sends any request, the way it already refuses malformed JSON (`failed to parse JSON string: ...`), and names the element that is `null`.\n\n### Relevant logs and/or screenshots\n\nThe output and request lists above.\n\n### Possible fixes\n\nDecode `--assets-links` in one helper that both commands call, next to `releaseutils.AssetsFromArgs`, and return an error there for a `null` element, with its index. Both commands parse the flag before their first request (`complete` in create, `validate` in upload), so the command then fails before it changes anything. I have a merge request ready with this change and a test in each command.",
+        "state": "opened",
+        "created_at": "2026-10-26T03:01:02.726Z",
+        "updated_at": "2026-10-26T03:27:12.619Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "automation:ml",
+          "backend",
+          "bug::functional",
+          "group::developer clients",
+          "type::bug"
+        ],
+        "milestone": null,
+        "assignees": [],
+        "author": {
+          "id": 15767218,
+          "username": "jmrp",
+          "public_email": "",
+          "name": "José M. Requena Plens",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/c5d10bf280469d6655142b8b82c29bf87dde9ccf0184ac928f0e9738b229ef49?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jmrp"
+        },
+        "type": "ISSUE",
+        "assignee": null,
+        "user_notes_count": 2,
+        "merge_requests_count": 1,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8684",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -175,16 +161,16 @@
         "has_tasks": true,
         "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8628",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8628/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8628/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8684",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8684/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8684/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8628",
-          "relative": "#8628",
-          "full": "gitlab-org/cli#8628"
+          "short": "#8684",
+          "relative": "#8684",
+          "full": "gitlab-org/cli#8684"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -197,38 +183,27 @@
         "health_status": null
       },
       {
-        "id": 207091807,
-        "iid": 8627,
+        "id": 207943604,
+        "iid": 8683,
         "project_id": 34675721,
-        "title": "Terminal background-colour query blocks every TTY command, up to 5s per query",
-        "description": "## Summary\n\nWhen stdout is a terminal, every glab command blocks on a terminal background-colour query (an OSC 11 request that waits for the terminal's reply).\n\n- `NewCmdRoot` (`internal/commands/root.go:64`) calls `f.IO().Color()` eagerly, only to colour one help string.\n- `Color()` runs `termenv.HasDarkBackground()` (`internal/iostreams/color.go:55`), which waits for the terminal to answer. Nothing caches the result, so the query runs again on every `Color()` call.\n- `termenv.HasDarkBackground()` is also called directly in `internal/iostreams/iostreams.go:373` and `internal/commands/help/help.go:31`.\n- fang runs its own query on help and error output.\n\nResult: 1 query for `glab version`, and 2 for `mr list`, `issue list` and `--help`.\n\n## Impact\n\n- Local terminal: about zero.\n- Over SSH at 50ms RTT: adds 50–100ms per command.\n- A terminal that never answers waits out `termenv.OSCTimeout` (5s) on each query: about 5s for `version` and 9s for `--help`.\n- Setting `glamour_style` or `GLAB_GLAMOUR_STYLE=dark` does not skip the query. Only `NO_COLOR` does.\n\n## Proposal\n\n1. Drop the eager `Color()` call in `NewCmdRoot`, and colour the help string lazily.\n2. Detect the background once per process and reuse the result in all call sites (`color.go`, `iostreams.go`, `help/help.go`).\n3. Honour an explicit style (`glamour_style` / `GLAB_GLAMOUR_STYLE` set to `dark` or `light`) before probing the terminal.\n4. Lower `termenv.OSCTimeout` from its 5s default.\n5. Upstream: ask fang for an option to accept a known dark/light value, so it doesn't run its own query.\n\n## Acceptance criteria\n\n- At most one background query per process, and none when the style is set explicitly or `NO_COLOR` is set.\n- A terminal that never answers does not delay commands by seconds.\n\nFound during review of https://gitlab.com/gitlab-org/cli/-/merge_requests/4139. Related: https://gitlab.com/gitlab-org/cli/-/work_items/8626 (telemetry blocks exit).",
+        "title": "Share the context-aware wait and its test hook through cmdutils",
+        "description": "## Summary\n\nTwo commands have the same context-aware wait with a test hook:\n\n- `internal/commands/govern/audit/sync/sync.go`: `options.waitFor` and `options.wait`\n- `internal/commands/project/fork/fork.go`: the same pair, added in https://gitlab.com/gitlab-org/cli/-/merge_requests/4187 for the fork import poll\n\nEach command keeps the hook on its own `options` struct. Tests have to build `options` and call `run` directly, so the fork poll tests can't use `cmdtest.SetupCmdForTest` like the other tests in `fork_test.go`.\n\n## Proposal\n\nMove the wait into `cmdutils` and expose it through the `Factory`, with a `cmdtest` `FactoryOption` that records the requested waits and returns at once. Then:\n\n- Switch `govern audit sync` and `repo fork` to the shared wait.\n- Move the fork import poll tests onto `cmdtest.SetupCmdForTest`.\n\nOther polling loops that sleep without checking the context, such as the 3 s ticker in `ci status`, could adopt it later.\n\nRaised in review: https://gitlab.com/gitlab-org/cli/-/merge_requests/4187#note_4078613689\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)",
         "state": "opened",
-        "created_at": "2026-10-19T02:28:20.359Z",
-        "updated_at": "2026-10-19T02:33:16.145Z",
+        "created_at": "2026-10-26T02:00:40.629Z",
+        "updated_at": "2026-10-26T02:09:27.538Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
-          "agent-experience",
+          "automation:quick-win-judged",
           "category:gitlab cli",
           "devops::ai clients",
           "group::developer clients",
-          "maintenance::performance",
+          "maintenance::refactor",
           "section::ai",
           "type::maintenance"
         ],
         "milestone": null,
-        "assignees": [
-          {
-            "id": 11809982,
-            "username": "jay_mccure",
-            "public_email": "",
-            "name": "Jay McCure",
-            "state": "active",
-            "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-            "web_url": "https://gitlab.com/jay_mccure"
-          }
-        ],
+        "assignees": [],
         "author": {
           "id": 11809982,
           "username": "jay_mccure",
@@ -236,20 +211,11 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
           "web_url": "https://gitlab.com/jay_mccure"
         },
         "type": "ISSUE",
-        "assignee": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-          "web_url": "https://gitlab.com/jay_mccure"
-        },
+        "assignee": null,
         "user_notes_count": 0,
         "merge_requests_count": 0,
         "upvotes": 0,
@@ -259,7 +225,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8627",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8683",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -275,16 +241,16 @@
         "has_tasks": true,
         "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8627",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8627/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8627/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8683",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8683/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8683/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8627",
-          "relative": "#8627",
-          "full": "gitlab-org/cli#8627"
+          "short": "#8683",
+          "relative": "#8683",
+          "full": "gitlab-org/cli#8683"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
