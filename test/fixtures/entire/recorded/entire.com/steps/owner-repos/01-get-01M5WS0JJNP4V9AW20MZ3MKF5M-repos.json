@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/projects/01M5WS0JJNP4V9AW20MZ3MKF5M/repos?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListProjectReposOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ListProjectReposOutputBody.json",
+      "repos": []
+    }
+  }
+}

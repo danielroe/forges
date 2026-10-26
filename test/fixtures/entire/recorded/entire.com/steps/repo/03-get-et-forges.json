@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/projects/resolve/et/forges"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ResolveProjectOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ResolveProjectOutputBody.json",
+      "project": {
+        "id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "name": "forges",
+        "ownerType": "account",
+        "ownerId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "ownerName": "github:danielroe",
+        "region": "uk",
+        "createdAt": "2026-10-26T18:54:22.183414Z",
+        "capabilities": {
+          "canDelete": true,
+          "canManageAccess": true,
+          "canCreateRepository": true,
+          "canManageTrails": true,
+          "canManagePlugins": true,
+          "canManageAgents": true
+        },
+        "primaryProcessingCell": "aws-eu-west-2",
+        "apiUrl": "https://aws-eu-west-2.api.entire.io"
+      },
+      "reference": {
+        "host": "et",
+        "project": "forges"
+      }
+    }
+  }
+}

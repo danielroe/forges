@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/tree?ref=HEAD"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/GetTreeResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/GetTreeResponse.json",
+      "sha": "f6bd8f24e749f053439a5c5adc275b42762e04e1",
+      "entries": [
+        {
+          "path": "LICENCE",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "5ce04d65bd2730e802c0ecd64a3d375bd0e24181",
+          "size": 1072
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "5e0c7c77ed6919d484c7bf5956816ad63dd2e5ed",
+          "size": 108
+        },
+        {
+          "path": "cli.ts",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "d5da9c7b1a41ace3ab5cedf0176e9c3ad0dbe592",
+          "size": 82
+        },
+        {
+          "path": "package.json",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "674b2088dda09d12850a9c65ac84ff90b9730b6b",
+          "size": 71
+        },
+        {
+          "path": "src",
+          "mode": "040000",
+          "type": "tree",
+          "sha": "88b193b2013af32600d786477091f6b73d83482a",
+          "size": 0
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

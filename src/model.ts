@@ -12,7 +12,7 @@
 export type ForgeKind = KnownForgeKind | (string & {})
 
 /** The forges this package ships providers for. */
-export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gitea' | 'tangled' | 'gitee' | 'azure-devops' | 'cursor-origin' | 'pushin' | 'cloudflare-artifacts' | 'sourcehut'
+export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gitea' | 'tangled' | 'gitee' | 'azure-devops' | 'cursor-origin' | 'pushin' | 'cloudflare-artifacts' | 'sourcehut' | 'entire'
 
 /**
  * Capability flag. Every value other than `false` and `'not_applicable'` means the

@@ -1,0 +1,31 @@
+{
+  "ref": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "thread": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "repo": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "1"
+    },
+    "id": "01M5WVPQ2KX1QCY97NEWDQWTB8"
+  },
+  "author": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "login": "danielroe",
+    "id": "danielroe",
+    "isBotHint": false
+  },
+  "state": "changes_requested",
+  "stateRaw": "changes_requested",
+  "body": "Please add a test for shouting.",
+  "submittedAt": "<now>",
+  "comments": false
+}

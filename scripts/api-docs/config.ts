@@ -105,6 +105,7 @@ export const PAGES: PageConfig[] = [
       forge('Tangled', 'tangled'),
       forge('Cloudflare Artifacts', 'cloudflare-artifacts'),
       forge('Sourcehut', 'sourcehut'),
+      forge('Entire', 'entire'),
       { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ProviderFactoryFunction'] },
       { title: 'Registry methods', members: { of: 'Forges' } },
       { title: 'Create from the environment', intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).', entry: 'forges/env', names: [/./] },

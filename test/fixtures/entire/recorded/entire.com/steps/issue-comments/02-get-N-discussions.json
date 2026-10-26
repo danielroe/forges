@@ -1,0 +1,76 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/et/forges/trails/1/discussions?pageSize=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/DiscussionsListResponseBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/DiscussionsListResponseBody.json",
+      "items": [
+        {
+          "etag": "\"discussion:01M5WVPAJVPM8Y1B7N1EVF8ZPV:1\"",
+          "id": "01M5WVPAJVPM8Y1B7N1EVF8ZPV",
+          "trail_id": "01M5WVMY3H5EDDRN67H0AXA3H0",
+          "title": "French first, then German.",
+          "kind": "discussion",
+          "resolved": false,
+          "resolved_by": null,
+          "resolved_by_identity": {
+            "kind": "unknown",
+            "account_id": null,
+            "display_name": null,
+            "avatar_url": null,
+            "handles": []
+          },
+          "resolved_at": null,
+          "created_by": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "created_by_identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          },
+          "created_at": "2026-10-26T19:41:11.643Z",
+          "updated_at": "2026-10-26T19:41:11.643Z",
+          "last_message_at": "2026-10-26T19:41:11.643Z",
+          "last_message_author": "danielroe",
+          "message_count": 1,
+          "participants": [
+            {
+              "login": "danielroe",
+              "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "identity": {
+                "kind": "account",
+                "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "display_name": "Daniel Roe",
+                "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+                "handles": [
+                  {
+                    "provider": "github",
+                    "handle": "danielroe",
+                    "is_primary": true
+                  }
+                ]
+              }
+            }
+          ],
+          "review_comment_id": null,
+          "review_comment": null
+        }
+      ],
+      "nextPageToken": null,
+      "eventCursor": "1"
+    }
+  }
+}

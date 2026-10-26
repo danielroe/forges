@@ -230,6 +230,15 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'entire': {
+    TOKEN: [
+      {
+        text: 'Sign in with the [Entire CLI](https://docs.entire.com/) and run `entire auth token` to print a token. It expires after a few hours, so a long-running program should pass `token` as a function that reads a fresh one.',
+        sources: ['https://docs.entire.com/', 'docs/content/4.providers/entire.md'],
+        verified: '2026-10-26',
+      },
+    ],
+  },
   'tangled': {
     'IDENTIFIER+PASSWORD': [
       {

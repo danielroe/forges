@@ -241,6 +241,8 @@ export type {
   WebhookDelivery,
   WebhooksApi,
 } from './provider.ts'
+export { entire } from './entire/index.ts'
+export type { EntireAuth, EntireOptions } from './entire/index.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
 export { sourcehut } from './sourcehut/index.ts'

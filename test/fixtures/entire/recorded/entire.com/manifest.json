@@ -1,0 +1,34 @@
+{
+  "baseUrl": "https://us.console.entire.io/api/v1",
+  "repo": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "owner": "forges",
+    "name": "forges-fixtures"
+  },
+  "issue": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "repo": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "owner": "forges",
+      "name": "",
+      "kind": "namespace"
+    },
+    "kind": "issue",
+    "number": "1"
+  },
+  "pull": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "repo": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "1"
+  }
+}

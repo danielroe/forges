@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/repos?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListReposOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ListReposOutputBody.json",
+      "repos": [],
+      "truncated": false,
+      "candidatesIncomplete": false
+    }
+  }
+}

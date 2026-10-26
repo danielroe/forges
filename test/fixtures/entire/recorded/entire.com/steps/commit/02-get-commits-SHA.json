@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/repos/01M5WS0P331VQ3AARB26Z9DGV7/commits/9ec20061f17f35212247320f525ec51d3e00c41a"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/CommitDetailOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/CommitDetailOutputBody.json",
+      "commit_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+      "branches": [],
+      "default_branch": "main",
+      "suggested_branch": null,
+      "commit": {
+        "commitSha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+        "commitMessage": "docs: mention shouting",
+        "commitSubject": "docs: mention shouting",
+        "commitBody": null,
+        "commitAuthor": "forges fixtures",
+        "commitAuthorUsername": null,
+        "commitDate": "2026-10-02T10:01:00.000Z",
+        "additions": 2,
+        "deletions": 0,
+        "filesChanged": 1,
+        "filesTouched": [
+          "README.md"
+        ],
+        "fileStats": [
+          {
+            "filename": "README.md",
+            "status": "modified",
+            "additions": 2,
+            "deletions": 0,
+            "patch": "diff --git a/README.md b/README.md\nindex a38a42678a31fbc0dd0be8e507f33c82c9fd12e0..3a191c52c3aba859eed62de00fe26038570e0c92 100644\n--- a/README.md\n+++ b/README.md\n@@ -1,3 +1,5 @@\n # forges-fixtures\n \n A repository for the Entire recordings of [forges](https://forges.link).\n+\n+Pass `--shout` to greet loudly.\n"
+          }
+        ],
+        "url": null,
+        "checkpoints": [],
+        "trailNumber": 1,
+        "trailNumbers": [
+          1
+        ]
+      },
+      "repo_full_name": "forges/forges-fixtures"
+    }
+  }
+}
