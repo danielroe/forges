@@ -5,8 +5,17 @@ import { isResolvedThread, namespaceRef, normaliseRepoName } from './model.ts'
 export type RepoSection = 'issues' | 'pullRequests' | 'compare' | 'releases' | 'stargazers' | 'forks' | 'watchers'
 
 /**
+ * The revision that stands for a repository's default branch, and the value `urlFor()` uses
+ * for a file target whose `at` is omitted. Most forges resolve `HEAD` themselves; those that
+ * do not translate it, so the built URL still lands on the default branch.
+ */
+export const DEFAULT_REVISION = 'HEAD'
+
+/**
  * Something with a web page. A revision (`at`, `base` or `head`) is a branch,
- * tag or commit sha; Azure DevOps reads anything but a full commit sha as a branch.
+ * tag or commit sha, or a full ref such as `refs/tags/v1.2.0` where a forge
+ * cannot tell a tag from a branch by name.
+ * A file's `at` is optional and defaults to the repository's default branch.
  */
 export type UrlTarget
   = | { repo: RepoRef }
@@ -14,8 +23,8 @@ export type UrlTarget
     | { thread: ThreadRef }
     | { comment: CommentRef }
     | { release: ReleaseRef }
-    | { file: { repo: RepoRef, path: string, at: string, line?: number } }
-    | { raw: { repo: RepoRef, path: string, at: string } }
+    | { file: { repo: RepoRef, path: string, at?: string, line?: number } }
+    | { raw: { repo: RepoRef, path: string, at?: string } }
     | { commit: { repo: RepoRef, sha: string } }
     | { compare: { repo: RepoRef, base: string, head: string } }
 
@@ -102,9 +111,9 @@ export interface WebLinks {
   commit?: (repo: RepoRef, sha: string) => string | undefined
   /** The page of a release. */
   release?: (ref: ReleaseRef) => string | undefined
-  /** The page of a file at a revision, optionally at a line. */
+  /** The page of a file at a revision, optionally at a line. `HEAD` means the default branch, and a full ref pins a tag or branch by name. */
   file?: (repo: RepoRef, path: string, at: string, line?: number) => string | undefined
-  /** The raw bytes of a file at a revision. */
+  /** The raw bytes of a file at a revision. `HEAD` means the default branch, and a full ref pins a tag or branch by name. */
   raw?: (repo: RepoRef, path: string, at: string) => string | undefined
   /** The page that compares two revisions. */
   compare?: (repo: RepoRef, base: string, head: string) => string | undefined
@@ -161,10 +170,10 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
     path = web.release?.(target.release)
   }
   else if ('file' in target) {
-    path = web.file?.(target.file.repo, target.file.path, target.file.at, target.file.line)
+    path = web.file?.(target.file.repo, target.file.path, target.file.at ?? DEFAULT_REVISION, target.file.line)
   }
   else if ('raw' in target) {
-    path = web.raw?.(target.raw.repo, target.raw.path, target.raw.at)
+    path = web.raw?.(target.raw.repo, target.raw.path, target.raw.at ?? DEFAULT_REVISION)
   }
   else if ('commit' in target) {
     path = target.commit.sha ? web.commit?.(target.commit.repo, target.commit.sha) : undefined

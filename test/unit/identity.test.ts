@@ -149,6 +149,46 @@ describe('web links', () => {
     expect(pushin({ auth, baseUrl: 'https://pushin.example.com' }).urlFor({ raw: { repo: target, path: 'README.md', at: 'main' } })).toBeUndefined()
   })
 
+  it.each([
+    ['github', gh, repo, 'https://github.com/acme/widgets/blob/HEAD/README.md', 'https://raw.githubusercontent.com/acme/widgets/HEAD/README.md'],
+    ['gitlab', gl, { ...repo, forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform' }, 'https://gitlab.com/acme/platform/widgets/-/blob/HEAD/README.md', 'https://gitlab.com/acme/platform/widgets/-/raw/HEAD/README.md'],
+    ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }, 'https://codeberg.org/acme/widgets/src/HEAD/README.md', 'https://codeberg.org/acme/widgets/raw/HEAD/README.md'],
+    ['gitea', gitea({ auth }), { ...repo, forge: 'gitea', instance: 'gitea.com' }, 'https://gitea.com/acme/widgets/src/HEAD/README.md', 'https://gitea.com/acme/widgets/raw/HEAD/README.md'],
+    ['gitee', gitee({ auth }), { ...repo, forge: 'gitee', instance: 'gitee.com' }, 'https://gitee.com/acme/widgets/blob/HEAD/README.md', 'https://gitee.com/acme/widgets/raw/HEAD/README.md'],
+    ['pushin', pushin({ auth }), { ...repo, forge: 'pushin', instance: 'pushin.eu' }, 'https://pushin.eu/acme/widgets/blob/HEAD/README.md', 'https://raw.pushin.eu/acme/widgets/HEAD/README.md'],
+    ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }, 'https://bitbucket.org/acme/widgets/src/HEAD/README.md', 'https://bitbucket.org/acme/widgets/raw/HEAD/README.md'],
+    ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }, 'https://tangled.org/acme.dev/widgets/blob/HEAD/README.md', 'https://tangled.org/acme.dev/widgets/raw/HEAD/README.md'],
+    ['sourcehut', sourcehut({ auth }), { ...repo, forge: 'sourcehut', instance: 'sr.ht', owner: '~acme' }, 'https://git.sr.ht/~acme/widgets/tree/HEAD/item/README.md', 'https://git.sr.ht/~acme/widgets/blob/HEAD/README.md'],
+  ] as const)('links a %s file to the default branch without a revision', (_, provider, target, blob, raw) => {
+    expect(provider.urlFor({ file: { repo: target, path: 'README.md' } })).toBe(blob)
+    expect(provider.urlFor({ file: { repo: target, path: 'README.md', at: 'HEAD' } })).toBe(blob)
+    expect(provider.urlFor({ raw: { repo: target, path: 'README.md' } })).toBe(raw)
+  })
+
+  it('leaves the version off an Azure DevOps default-branch file URL', () => {
+    const target = { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }
+    // Azure DevOps rejects a version of `HEAD`, so the sentinel is omitted rather than passed through.
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', line: 3 } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&line=3')
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: 'HEAD' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md')
+    expect(az.urlFor({ raw: { repo: target, path: 'README.md' } })).toBe('https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&$format=octetStream')
+    expect(az.parseUrl(az.urlFor({ file: { repo: target, path: 'README.md' } })!)?.file).toEqual({ path: 'README.md' })
+  })
+
+  it('addresses an Azure DevOps tag or branch by its full ref', () => {
+    const target = { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }
+    const tag = 'refs/tags/v1.0.0'
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: tag } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GTv1.0.0')
+    expect(az.urlFor({ raw: { repo: target, path: 'README.md', at: tag } })).toBe('https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=tag&$format=octetStream')
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: 'refs/heads/main' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GBmain')
+    // A branch named as 40 hex characters reads back with its prefix, so it stays a branch.
+    const hexBranch = `refs/heads/${sha}`
+    expect(az.urlFor({ file: { repo: target, path: 'README.md', at: hexBranch } })).toBe(`https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GB${sha}`)
+    expect(az.urlFor({ raw: { repo: target, path: 'README.md', at: hexBranch } })).toBe(`https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&versionDescriptor.version=${sha}&versionDescriptor.versionType=branch&$format=octetStream`)
+    expect(az.parseUrl(az.urlFor({ file: { repo: target, path: 'README.md', at: hexBranch } })!)?.file).toEqual({ path: 'README.md', at: hexBranch })
+    expect(az.urlFor({ compare: { repo: target, base: tag, head: 'main' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets/branchCompare?baseVersion=GTv1.0.0&targetVersion=GBmain')
+    expect(az.parseUrl(az.urlFor({ file: { repo: target, path: 'README.md', at: tag } })!)?.file).toEqual({ path: 'README.md', at: tag })
+  })
+
   it('builds Tangled URLs with an unescaped DID owner', () => {
     expect(tg.urlFor({ repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'core' } })).toBe('https://tangled.org/did:plc:abc/core')
   })
@@ -322,7 +362,9 @@ describe('web links', () => {
     ['bitbucket at a line range', bb, 'https://bitbucket.org/acme/widgets/src/main/README.md#lines-3:5', { owner: 'acme', name: 'widgets' }, { at: 'main', path: 'README.md', line: 3 }],
     ['tangled', tg, 'https://tangled.org/acme.dev/widgets/blob/feat%2Fa/src/a%20b.ts#L3', { owner: 'acme.dev', name: 'widgets' }, { at: 'feat/a', path: 'src/a b.ts', line: 3 }],
     ['azure-devops at a branch', az, 'https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GBmain', { owner: 'contoso/Widgets', name: 'widgets' }, { at: 'main', path: 'README.md' }],
-    ['azure-devops at a tag', az, 'https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GTv1.0.0', { owner: 'contoso/Widgets', name: 'widgets' }, { at: 'v1.0.0', path: 'README.md' }],
+    ['azure-devops at a branch named like a sha', az, `https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GB${sha}`, { owner: 'contoso/Widgets', name: 'widgets' }, { at: `refs/heads/${sha}`, path: 'README.md' }],
+    ['azure-devops at a branch named like a ref', az, 'https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GBrefs%2Ftags%2Frelease', { owner: 'contoso/Widgets', name: 'widgets' }, { at: 'refs/heads/refs/tags/release', path: 'README.md' }],
+    ['azure-devops at a tag', az, 'https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GTv1.0.0', { owner: 'contoso/Widgets', name: 'widgets' }, { at: 'refs/tags/v1.0.0', path: 'README.md' }],
     ['azure-devops at a commit', az, `https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GC${sha}&line=3`, { owner: 'contoso/Widgets', name: 'widgets' }, { at: sha, path: 'README.md', line: 3 }],
     ['azure-devops on the default branch', az, 'https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md', { owner: 'contoso/Widgets', name: 'widgets' }, { path: 'README.md' }],
   ] as const)('reads the file path from a %s URL', (_, provider, url, repo, file) => {
