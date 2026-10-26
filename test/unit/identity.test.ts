@@ -167,7 +167,6 @@ describe('web links', () => {
 
   it('leaves the version off an Azure DevOps default-branch file URL', () => {
     const target = { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }
-    // Azure DevOps rejects a version of `HEAD`, so the sentinel is omitted rather than passed through.
     expect(az.urlFor({ file: { repo: target, path: 'README.md', line: 3 } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&line=3')
     expect(az.urlFor({ file: { repo: target, path: 'README.md', at: 'HEAD' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md')
     expect(az.urlFor({ raw: { repo: target, path: 'README.md' } })).toBe('https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&$format=octetStream')
@@ -180,7 +179,6 @@ describe('web links', () => {
     expect(az.urlFor({ file: { repo: target, path: 'README.md', at: tag } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GTv1.0.0')
     expect(az.urlFor({ raw: { repo: target, path: 'README.md', at: tag } })).toBe('https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&versionDescriptor.version=v1.0.0&versionDescriptor.versionType=tag&$format=octetStream')
     expect(az.urlFor({ file: { repo: target, path: 'README.md', at: 'refs/heads/main' } })).toBe('https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GBmain')
-    // A branch named as 40 hex characters reads back with its prefix, so it stays a branch.
     const hexBranch = `refs/heads/${sha}`
     expect(az.urlFor({ file: { repo: target, path: 'README.md', at: hexBranch } })).toBe(`https://dev.azure.com/contoso/Widgets/_git/widgets?path=%2FREADME.md&version=GB${sha}`)
     expect(az.urlFor({ raw: { repo: target, path: 'README.md', at: hexBranch } })).toBe(`https://dev.azure.com/contoso/Widgets/_apis/git/repositories/widgets/items?path=%2FREADME.md&versionDescriptor.version=${sha}&versionDescriptor.versionType=branch&$format=octetStream`)

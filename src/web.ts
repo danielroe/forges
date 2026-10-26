@@ -13,8 +13,7 @@ export const DEFAULT_REVISION = 'HEAD'
 
 /**
  * Something with a web page. A revision (`at`, `base` or `head`) is a branch,
- * tag or commit sha, or a full ref such as `refs/tags/v1.2.0` where a forge
- * cannot tell a tag from a branch by name.
+ * tag or commit sha; Azure DevOps takes a tag as its full ref, `refs/tags/NAME`.
  * A file's `at` is optional and defaults to the repository's default branch.
  */
 export type UrlTarget

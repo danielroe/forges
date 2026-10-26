@@ -41,7 +41,7 @@ The `baseUrl` defaults to `https://pushin.eu`, and the provider appends `/api/v1
 
 ## Web URLs
 
-The public instance serves raw files from `raw.pushin.eu`: `urlFor({ raw: ... })` builds `https://raw.pushin.eu/OWNER/REPO/REF/PATH`, where `HEAD` reaches the default branch. Only the public instance documents a raw host, so a self-hosted instance's raw URL is `undefined` and the blob URL is the fallback. Pass a full ref such as `refs/tags/v1.0.0` to pin a tag or a branch whose name could be either.
+The public instance serves raw files from `raw.pushin.eu`: `urlFor({ raw: ... })` builds `https://raw.pushin.eu/OWNER/REPO/REF/PATH`, where `HEAD` reaches the default branch. Only the public instance documents a raw host, so on a self-hosted instance `urlFor({ raw: ... })` returns `undefined`; link the file page with `urlFor({ file: ... })` instead. Pass a full ref such as `refs/tags/v1.0.0` to pin a tag or a branch whose name could be either.
 
 ## Issues and pull requests
 
