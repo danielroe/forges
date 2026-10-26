@@ -212,8 +212,7 @@ function reviewerState(raw: string | undefined): ReviewState {
   }
 }
 
-/** A change, the branch of one repository on a trail, read as a pull request. */
-/** A change, read as a pull request. Its description is its parent trail's body, `parentBody`, unless it has its own. */
+/** A change, the branch of one repository on a trail, read as a pull request. Its description is its parent trail's body, `parentBody`, unless it has its own. */
 export function toPull(repo: RepoRef, raw: EntireChange, parentBody?: string): Thread {
   const origin = { forge: repo.forge, instance: repo.instance }
   const state = raw.status === 'merged' ? 'merged' : raw.status === 'closed' ? 'closed' : raw.status === 'open' ? 'open' : 'unknown'
