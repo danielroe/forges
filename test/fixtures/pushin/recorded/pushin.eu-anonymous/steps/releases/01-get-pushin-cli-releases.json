@@ -8,8 +8,8 @@
     "headers": {
       "link": "<https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases?page=2&per_page=3>; rel=\"next\"",
       "x-ratelimit-limit": "90",
-      "x-ratelimit-remaining": "28",
-      "x-ratelimit-reset": "1792224000",
+      "x-ratelimit-remaining": "68",
+      "x-ratelimit-reset": "1792990800",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -32,29 +32,6 @@
         "draft": false,
         "assets": [
           {
-            "id": 16,
-            "label": null,
-            "name": "pun-v0.3.2-linux-arm64.tar.gz",
-            "size": 1754353,
-            "state": "uploaded",
-            "digest": "sha256:3ad3679761555c25e553f2af30c641ede361521ef6933f4dcf02c7f3a706a354",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/16",
-            "updated_at": "2026-10-13T18:21:58.275854Z",
-            "content_type": "application/gzip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T18:21:57.517266Z",
-            "download_count": 0,
-            "node_id": "rast_034fLGjFyzxIsXVvJBniXt",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-linux-arm64.tar.gz"
-          },
-          {
             "id": 17,
             "label": null,
             "name": "pun-v0.3.2-linux-x86_64.tar.gz",
@@ -62,7 +39,7 @@
             "state": "uploaded",
             "digest": "sha256:992dd24c48abb82f861a44db7afebd89385b7be06aa2c0bd7dcce901be92d501",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/17",
-            "updated_at": "2026-10-13T18:21:59.103877Z",
+            "updated_at": "2026-10-22T10:05:40.161866Z",
             "content_type": "application/gzip",
             "uploader": {
               "id": 2,
@@ -73,32 +50,9 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T18:21:58.655521Z",
-            "download_count": 0,
+            "download_count": 2,
             "node_id": "rast_034fLGl2ucQOWplRTl7cCP",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-linux-x86_64.tar.gz"
-          },
-          {
-            "id": 18,
-            "label": null,
-            "name": "pun-v0.3.2-macos-universal.tar.gz",
-            "size": 3461559,
-            "state": "uploaded",
-            "digest": "sha256:8f1e2cd89a14f471f2e7c8913c21cc01defebf56f5669bf9c8fa190efe3113de",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/18",
-            "updated_at": "2026-10-13T18:22:00.420768Z",
-            "content_type": "application/gzip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T18:21:59.615622Z",
-            "download_count": 0,
-            "node_id": "rast_034fLGmYUfVIQYf5nDztcf",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-macos-universal.tar.gz"
           },
           {
             "id": 19,
@@ -108,7 +62,7 @@
             "state": "uploaded",
             "digest": "sha256:592d2b0a4374931e78cd7a0db423e9d4a17d4dee4b758feca73da8d14e330c38",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/19",
-            "updated_at": "2026-10-13T18:22:01.461608Z",
+            "updated_at": "2026-10-23T01:58:24.390176Z",
             "content_type": "application/zip",
             "uploader": {
               "id": 2,
@@ -119,7 +73,7 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T18:22:00.825725Z",
-            "download_count": 0,
+            "download_count": 3,
             "node_id": "rast_034fLGoSRkGcGuNC8UYq7p",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-windows-x86_64.zip"
           },
@@ -131,7 +85,7 @@
             "state": "uploaded",
             "digest": "sha256:c094ac3ed56bc38e48be8f51833c8a3fe0adffdbe8b73cc59bf78f1f62fdc55e",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/20",
-            "updated_at": "2026-10-17T07:54:55.457882Z",
+            "updated_at": "2026-10-26T04:39:32.433233Z",
             "content_type": "text/plain",
             "uploader": {
               "id": 2,
@@ -142,9 +96,55 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T18:22:01.725841Z",
-            "download_count": 20,
+            "download_count": 46,
             "node_id": "rast_034fLGpsBAIf4ZMGOYFM2S",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/checksums.txt"
+          },
+          {
+            "id": 16,
+            "label": null,
+            "name": "pun-v0.3.2-linux-arm64.tar.gz",
+            "size": 1754353,
+            "state": "uploaded",
+            "digest": "sha256:3ad3679761555c25e553f2af30c641ede361521ef6933f4dcf02c7f3a706a354",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/16",
+            "updated_at": "2026-10-22T10:05:40.165205Z",
+            "content_type": "application/gzip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T18:21:57.517266Z",
+            "download_count": 2,
+            "node_id": "rast_034fLGjFyzxIsXVvJBniXt",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-linux-arm64.tar.gz"
+          },
+          {
+            "id": 18,
+            "label": null,
+            "name": "pun-v0.3.2-macos-universal.tar.gz",
+            "size": 3461559,
+            "state": "uploaded",
+            "digest": "sha256:8f1e2cd89a14f471f2e7c8913c21cc01defebf56f5669bf9c8fa190efe3113de",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/18",
+            "updated_at": "2026-10-22T10:05:40.164817Z",
+            "content_type": "application/gzip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T18:21:59.615622Z",
+            "download_count": 2,
+            "node_id": "rast_034fLGmYUfVIQYf5nDztcf",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-macos-universal.tar.gz"
           }
         ],
         "immutable": false,
@@ -184,7 +184,7 @@
             "state": "uploaded",
             "digest": "sha256:f55b0a7cc9955d9eb87bf1b02f9234435785f472cfd7a11f50c453a668140d11",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/15",
-            "updated_at": "2026-10-13T22:32:47.646260Z",
+            "updated_at": "2026-10-23T02:01:32.881797Z",
             "content_type": "text/plain",
             "uploader": {
               "id": 2,
@@ -195,78 +195,9 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T15:27:14.854006Z",
-            "download_count": 3,
+            "download_count": 9,
             "node_id": "rast_034fGytmlavXjpYk7gAvAn",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/checksums.txt"
-          },
-          {
-            "id": 11,
-            "label": null,
-            "name": "pun-v0.3.1-macos-universal.tar.gz",
-            "size": 3363351,
-            "state": "uploaded",
-            "digest": "sha256:9a79a8518cff5cfff05b2a66441710de0b52ccd69495638e23accba8600622e3",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/11",
-            "updated_at": "2026-10-13T15:27:15.487684Z",
-            "content_type": "application/gzip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T15:27:11.770312Z",
-            "download_count": 1,
-            "node_id": "rast_034fGyowEl9PZVLyvZjMbR",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-macos-universal.tar.gz"
-          },
-          {
-            "id": 13,
-            "label": null,
-            "name": "pun-v0.3.1-linux-arm64.tar.gz",
-            "size": 1710210,
-            "state": "uploaded",
-            "digest": "sha256:93104738131ab84aa41957bb3347494dbb2fcc1a28dba0f0cad4ee63cb7aa64e",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/13",
-            "updated_at": "2026-10-13T15:27:16.417320Z",
-            "content_type": "application/gzip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T15:27:13.432406Z",
-            "download_count": 1,
-            "node_id": "rast_034fGyrYFW661yuQKmyOhZ",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-linux-arm64.tar.gz"
-          },
-          {
-            "id": 14,
-            "label": null,
-            "name": "pun-v0.3.1-windows-x86_64.zip",
-            "size": 1763522,
-            "state": "uploaded",
-            "digest": "sha256:8fb601a0cff21e0d2a2bfbb061550354a1db4254b0b871b3b0d523ce1fdfb379",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/14",
-            "updated_at": "2026-10-13T15:27:16.629966Z",
-            "content_type": "application/zip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T15:27:14.064951Z",
-            "download_count": 1,
-            "node_id": "rast_034fGysXr2DnkeKSd1bp0w",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-windows-x86_64.zip"
           },
           {
             "id": 12,
@@ -290,6 +221,75 @@
             "download_count": 2,
             "node_id": "rast_034fGyqIAHQNKQ9Zn8rAvE",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-linux-x86_64.tar.gz"
+          },
+          {
+            "id": 14,
+            "label": null,
+            "name": "pun-v0.3.1-windows-x86_64.zip",
+            "size": 1763522,
+            "state": "uploaded",
+            "digest": "sha256:8fb601a0cff21e0d2a2bfbb061550354a1db4254b0b871b3b0d523ce1fdfb379",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/14",
+            "updated_at": "2026-10-23T01:36:30.537873Z",
+            "content_type": "application/zip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T15:27:14.064951Z",
+            "download_count": 3,
+            "node_id": "rast_034fGysXr2DnkeKSd1bp0w",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-windows-x86_64.zip"
+          },
+          {
+            "id": 13,
+            "label": null,
+            "name": "pun-v0.3.1-linux-arm64.tar.gz",
+            "size": 1710210,
+            "state": "uploaded",
+            "digest": "sha256:93104738131ab84aa41957bb3347494dbb2fcc1a28dba0f0cad4ee63cb7aa64e",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/13",
+            "updated_at": "2026-10-20T09:55:06.326898Z",
+            "content_type": "application/gzip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T15:27:13.432406Z",
+            "download_count": 2,
+            "node_id": "rast_034fGyrYFW661yuQKmyOhZ",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-linux-arm64.tar.gz"
+          },
+          {
+            "id": 11,
+            "label": null,
+            "name": "pun-v0.3.1-macos-universal.tar.gz",
+            "size": 3363351,
+            "state": "uploaded",
+            "digest": "sha256:9a79a8518cff5cfff05b2a66441710de0b52ccd69495638e23accba8600622e3",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/11",
+            "updated_at": "2026-10-20T14:29:46.327470Z",
+            "content_type": "application/gzip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T15:27:11.770312Z",
+            "download_count": 2,
+            "node_id": "rast_034fGyowEl9PZVLyvZjMbR",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.1/pun-v0.3.1-macos-universal.tar.gz"
           }
         ],
         "immutable": false,
@@ -329,7 +329,7 @@
             "state": "uploaded",
             "digest": "sha256:553bc6df522bfb0676bfeb5421291e0ae9a0e5c4b24f1ca58dbba47eb241406b",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/10",
-            "updated_at": "2026-10-13T21:54:18.693948Z",
+            "updated_at": "2026-10-23T01:42:45.714112Z",
             "content_type": "text/plain",
             "uploader": {
               "id": 2,
@@ -340,9 +340,32 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T15:27:07.644013Z",
-            "download_count": 2,
+            "download_count": 7,
             "node_id": "rast_034fGyiRwDbfN0LTu7sivS",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/checksums.txt"
+          },
+          {
+            "id": 9,
+            "label": null,
+            "name": "pun-v0.3.0-windows-x86_64.zip",
+            "size": 1767526,
+            "state": "uploaded",
+            "digest": "sha256:ef31804f7ab3669e4cc254e61125e796ddcdd109597d98c7317ecd3bac5ef639",
+            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/9",
+            "updated_at": "2026-10-23T02:07:43.870617Z",
+            "content_type": "application/zip",
+            "uploader": {
+              "id": 2,
+              "type": "User",
+              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
+              "html_url": "https://pushin.eu/pjullrich",
+              "login": "pjullrich",
+              "node_id": "REDACTED"
+            },
+            "created_at": "2026-10-13T15:27:06.451150Z",
+            "download_count": 3,
+            "node_id": "rast_034fGygZjoM9yh3yjRQyDu",
+            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/pun-v0.3.0-windows-x86_64.zip"
           },
           {
             "id": 6,
@@ -352,7 +375,7 @@
             "state": "uploaded",
             "digest": "sha256:436071f4480e34ed89340f41ada82acf10b75fef82d348387bfd212a4277f392",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/6",
-            "updated_at": "2026-10-13T15:27:08.697046Z",
+            "updated_at": "2026-10-20T04:18:34.369399Z",
             "content_type": "application/gzip",
             "uploader": {
               "id": 2,
@@ -363,7 +386,7 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T15:27:03.365413Z",
-            "download_count": 1,
+            "download_count": 2,
             "node_id": "rast_034fGybiuh0q4k4gWBmBdo",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/pun-v0.3.0-macos-universal.tar.gz"
           },
@@ -375,7 +398,7 @@
             "state": "uploaded",
             "digest": "sha256:c082d6d6ecd3057e0ac79ca3ccdb944055d50d6f4965fe33f1d23dd4dfebcd99",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/7",
-            "updated_at": "2026-10-13T15:27:09.581537Z",
+            "updated_at": "2026-10-20T15:19:10.444882Z",
             "content_type": "application/gzip",
             "uploader": {
               "id": 2,
@@ -386,7 +409,7 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T15:27:04.451683Z",
-            "download_count": 1,
+            "download_count": 2,
             "node_id": "rast_034fGydQmXyjHnRYFo8M5V",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/pun-v0.3.0-linux-x86_64.tar.gz"
           },
@@ -398,7 +421,7 @@
             "state": "uploaded",
             "digest": "sha256:a31d5b910eee5586912a071daedd8ae0fc16df0011c06f04a4e9e510da8fcdb5",
             "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/8",
-            "updated_at": "2026-10-13T15:27:09.913347Z",
+            "updated_at": "2026-10-20T11:34:26.372725Z",
             "content_type": "application/gzip",
             "uploader": {
               "id": 2,
@@ -409,32 +432,9 @@
               "node_id": "REDACTED"
             },
             "created_at": "2026-10-13T15:27:05.280810Z",
-            "download_count": 1,
+            "download_count": 2,
             "node_id": "rast_034fGyejagqZy4LBPvdz8k",
             "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/pun-v0.3.0-linux-arm64.tar.gz"
-          },
-          {
-            "id": 9,
-            "label": null,
-            "name": "pun-v0.3.0-windows-x86_64.zip",
-            "size": 1767526,
-            "state": "uploaded",
-            "digest": "sha256:ef31804f7ab3669e4cc254e61125e796ddcdd109597d98c7317ecd3bac5ef639",
-            "url": "https://pushin.eu/api/v1/repos/pjullrich/pushin-cli/releases/assets/9",
-            "updated_at": "2026-10-13T15:27:10.380753Z",
-            "content_type": "application/zip",
-            "uploader": {
-              "id": 2,
-              "type": "User",
-              "avatar_url": "https://cdn.pushin.eu/-/avatars/u_033jgKZKCNGC2kCrD0IBBG/72d51f75",
-              "html_url": "https://pushin.eu/pjullrich",
-              "login": "pjullrich",
-              "node_id": "REDACTED"
-            },
-            "created_at": "2026-10-13T15:27:06.451150Z",
-            "download_count": 1,
-            "node_id": "rast_034fGygZjoM9yh3yjRQyDu",
-            "browser_download_url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.0/pun-v0.3.0-windows-x86_64.zip"
           }
         ],
         "immutable": false,

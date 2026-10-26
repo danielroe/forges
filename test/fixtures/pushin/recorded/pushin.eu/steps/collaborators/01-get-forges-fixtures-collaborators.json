@@ -7,8 +7,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4985",
-      "x-ratelimit-reset": "1792440000",
+      "x-ratelimit-remaining": "4995",
+      "x-ratelimit-reset": "1792990800",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -26,6 +26,22 @@
         "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034inMuKwDAz5JvXDUTQ2D",
         "html_url": "https://pushin.eu/roebot",
         "login": "roebot",
+        "node_id": "REDACTED"
+      },
+      {
+        "id": 277,
+        "type": "User",
+        "permissions": {
+          "push": true,
+          "pull": true,
+          "admin": false,
+          "maintain": false,
+          "triage": true
+        },
+        "role_name": "write",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+        "html_url": "https://pushin.eu/danielroe",
+        "login": "danielroe",
         "node_id": "REDACTED"
       }
     ]
