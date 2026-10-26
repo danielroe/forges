@@ -271,6 +271,8 @@ describe('web links', () => {
     ['gitlab two-dot', gl, 'https://gitlab.com/acme/platform/widgets/-/compare/main..feat', { base: 'main', head: 'feat' }],
     ['bitbucket', bb, 'https://bitbucket.org/acme/widgets/branches/compare/feat%0Dmain', { base: 'main', head: 'feat' }],
     ['azure-devops', az, `https://dev.azure.com/contoso/Widgets/_git/widgets/branchCompare?baseVersion=GBmain&targetVersion=GC${sha}`, { base: 'main', head: sha }],
+    ['tangled', tg, 'https://tangled.org/acme.dev/widgets/compare/main...feat/a', { base: 'main', head: 'feat/a' }],
+    ['tangled two-dot', tg, 'https://tangled.org/acme.dev/widgets/compare/v1.0.0..v1.1.0', { base: 'v1.0.0', head: 'v1.1.0' }],
   ] as const)('reads the revisions of a %s comparison', (_, provider, url, compare) => {
     expect(provider.parseUrl(url)?.compare).toEqual(compare)
   })
@@ -281,6 +283,7 @@ describe('web links', () => {
     ['forgejo', cb, { ...repo, forge: 'forgejo', instance: 'codeberg.org' }],
     ['bitbucket', bb, { ...repo, forge: 'bitbucket', instance: 'bitbucket.org' }],
     ['azure-devops', az, { ...repo, forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets' }],
+    ['tangled', tg, { ...repo, forge: 'tangled', instance: 'tangled.org', owner: 'acme.dev' }],
   ] as const)('reads back the %s comparison URL it builds', (_, provider, target) => {
     const compare = { base: 'main', head: 'feat/a' }
     expect(provider.parseUrl(provider.urlFor({ compare: { repo: target, ...compare } })!)?.compare).toEqual(compare)
@@ -290,6 +293,9 @@ describe('web links', () => {
     expect(gh.parseUrl('https://github.com/acme/widgets/compare')?.compare).toBeUndefined()
     expect(gh.parseUrl('https://github.com/acme/widgets/compare/feat')?.compare).toBeUndefined()
     expect(gl.parseUrl('https://gitlab.com/acme/widgets/-/compare')?.compare).toBeUndefined()
+    expect(tg.parseUrl('https://tangled.org/acme.dev/widgets/compare')?.compare).toBeUndefined()
+    expect(tg.parseUrl('https://tangled.org/acme.dev/widgets/compare/feat')?.compare).toBeUndefined()
+    expect(tg.parseUrl('https://tangled.org/acme.dev/widgets/compare/feat...')?.compare).toBeUndefined()
   })
 
   it.each([

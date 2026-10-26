@@ -1,6 +1,6 @@
 import type { RepoRef, ResolvedCommentRef, ResolvedThreadRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf } from '../web.ts'
+import { lineOf, rangeOf } from '../web.ts'
 
 const SECTIONS: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: 'pulls' }
 const PAGES: Partial<Record<RepoSection, string>> = { issues: 'issues', pullRequests: 'pulls', compare: 'compare', stargazers: 'stars', forks: 'forks' }
@@ -56,6 +56,7 @@ function tangledWeb(baseUrl: string): WebLinks {
     thread: threadPath,
     comment: commentPath,
     commit: (repo, sha) => `${repoPath(repo)}/commit/${encodeURIComponent(sha)}`,
+    compare: (repo, base, head) => `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`,
     file: (repo, path, at, line) => `${repoPath(repo)}/blob/${encodeURIComponent(at)}/${encode(path)}${line ? `#L${line}` : ''}`,
     raw: (repo, path, at) => `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${encode(path)}`,
     parse: (segments, url, from) => {
@@ -70,6 +71,9 @@ function tangledWeb(baseUrl: string): WebLinks {
       }
       if (section === 'commit' && id) {
         return { repo, commit: { ...from, repo, sha: id } }
+      }
+      if (section === 'compare' && id) {
+        return { repo, ...rangeOf(segments.slice(3).join('/')) }
       }
       const kind = section === 'issues' ? 'issue' : section === 'pulls' ? 'pull_request' : undefined
       return kind && id ? { repo, thread: { ...from, repo, kind, displayNumber: id } } : { repo }
