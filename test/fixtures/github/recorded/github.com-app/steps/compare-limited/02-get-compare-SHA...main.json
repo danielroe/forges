@@ -1,44 +1,44 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2"
+    "url": "https://api.github.com/repos/h3js/h3/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main?per_page=2"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=2>; rel=\"last\", <https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main?per_page=2&page=1>; rel=\"first\"",
-      "etag": "W/\"664f454ce5eb527a7f9006781ee368467c2c8dd9493e34d227f82a6e7b6c6bea\"",
+      "link": "<https://api.github.com/repositories/313641207/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main?per_page=2&page=2>; rel=\"last\", <https://api.github.com/repositories/313641207/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main?per_page=2&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main?per_page=2&page=1>; rel=\"first\"",
+      "etag": "W/\"3756dd1f058e4ec7d447b79a716102c02153d8126e8a4dfa1dc604471b5be2dc\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4945",
-      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-remaining": "4927",
+      "x-ratelimit-reset": "1792993261",
       "x-ratelimit-resource": "core"
     },
     "body": {
-      "url": "https://api.github.com/repos/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main",
-      "html_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main",
-      "permalink_url": "https://github.com/h3js/h3/compare/h3js:1a1f488...h3js:48d650b",
-      "diff_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main.diff",
-      "patch_url": "https://github.com/h3js/h3/compare/1a1f4881def62b3a58e940b3db9d21854996bd06...main.patch",
+      "url": "https://api.github.com/repos/h3js/h3/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main",
+      "html_url": "https://github.com/h3js/h3/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main",
+      "permalink_url": "https://github.com/h3js/h3/compare/h3js:31062a0...h3js:f0e1780",
+      "diff_url": "https://github.com/h3js/h3/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main.diff",
+      "patch_url": "https://github.com/h3js/h3/compare/31062a07254e61a2826bd87b0a7ed63fe89ff283...main.patch",
       "base_commit": {
-        "sha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "node_id": "C_kwDOErHI99oAKDFhMWY0ODgxZGVmNjJiM2E1OGU5NDBiM2RiOWQyMTg1NDk5NmJkMDY",
+        "sha": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "node_id": "C_kwDOErHI99oAKDMxMDYyYTA3MjU0ZTYxYTI4MjZiZDg3YjBhN2VkNjNmZTg5ZmYyODM",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:17:27Z"
+            "date": "2026-10-20T13:58:22Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:17:27Z"
+            "date": "2026-10-20T13:58:22Z"
           },
-          "message": "chore: update srvx",
+          "message": "chore(release): v2.0.6",
           "tree": {
-            "sha": "eeda91b274efb642d92a6a80a20860fe2be9e591",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/eeda91b274efb642d92a6a80a20860fe2be9e591"
+            "sha": "456f0128ecd1fbf96940a534b34aa6a049fb9102",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/456f0128ecd1fbf96940a534b34aa6a049fb9102"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -48,9 +48,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "html_url": "https://github.com/h3js/h3/commit/1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "html_url": "https://github.com/h3js/h3/commit/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -95,32 +95,32 @@
         },
         "parents": [
           {
-            "sha": "b48b480030becd6507485429dada6d6612fb1084",
-            "url": "https://api.github.com/repos/h3js/h3/commits/b48b480030becd6507485429dada6d6612fb1084",
-            "html_url": "https://github.com/h3js/h3/commit/b48b480030becd6507485429dada6d6612fb1084"
+            "sha": "d658815890cce9dc10927564b9b2231c34af513b",
+            "url": "https://api.github.com/repos/h3js/h3/commits/d658815890cce9dc10927564b9b2231c34af513b",
+            "html_url": "https://github.com/h3js/h3/commit/d658815890cce9dc10927564b9b2231c34af513b"
           }
         ]
       },
       "merge_base_commit": {
-        "sha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "node_id": "C_kwDOErHI99oAKDFhMWY0ODgxZGVmNjJiM2E1OGU5NDBiM2RiOWQyMTg1NDk5NmJkMDY",
+        "sha": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "node_id": "C_kwDOErHI99oAKDMxMDYyYTA3MjU0ZTYxYTI4MjZiZDg3YjBhN2VkNjNmZTg5ZmYyODM",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:17:27Z"
+            "date": "2026-10-20T13:58:22Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:17:27Z"
+            "date": "2026-10-20T13:58:22Z"
           },
-          "message": "chore: update srvx",
+          "message": "chore(release): v2.0.6",
           "tree": {
-            "sha": "eeda91b274efb642d92a6a80a20860fe2be9e591",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/eeda91b274efb642d92a6a80a20860fe2be9e591"
+            "sha": "456f0128ecd1fbf96940a534b34aa6a049fb9102",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/456f0128ecd1fbf96940a534b34aa6a049fb9102"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -130,9 +130,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "html_url": "https://github.com/h3js/h3/commit/1a1f4881def62b3a58e940b3db9d21854996bd06",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "html_url": "https://github.com/h3js/h3/commit/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -177,9 +177,9 @@
         },
         "parents": [
           {
-            "sha": "b48b480030becd6507485429dada6d6612fb1084",
-            "url": "https://api.github.com/repos/h3js/h3/commits/b48b480030becd6507485429dada6d6612fb1084",
-            "html_url": "https://github.com/h3js/h3/commit/b48b480030becd6507485429dada6d6612fb1084"
+            "sha": "d658815890cce9dc10927564b9b2231c34af513b",
+            "url": "https://api.github.com/repos/h3js/h3/commits/d658815890cce9dc10927564b9b2231c34af513b",
+            "html_url": "https://github.com/h3js/h3/commit/d658815890cce9dc10927564b9b2231c34af513b"
           }
         ]
       },
@@ -189,107 +189,107 @@
       "total_commits": 4,
       "commits": [
         {
-          "sha": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
-          "node_id": "C_kwDOErHI99oAKDIwODRlY2FhODU1MjczYjI5NzFhMTBkMWE4NThlY2QyMTg4YjNkZjA",
+          "sha": "1326e74d55696758b87274d84d133b4944495afc",
+          "node_id": "C_kwDOErHI99oAKDEzMjZlNzRkNTU2OTY3NThiODcyNzRkODRkMTMzYjQ5NDQ0OTVhZmM",
           "commit": {
             "author": {
-              "name": "Pooya Parsa",
+              "name": "pi0x",
               "email": "redacted@example.invalid",
-              "date": "2026-10-18T02:17:58Z"
+              "date": "2026-10-20T15:40:08Z"
             },
             "committer": {
-              "name": "Pooya Parsa",
+              "name": "GitHub",
               "email": "redacted@example.invalid",
-              "date": "2026-10-18T02:17:58Z"
+              "date": "2026-10-20T15:40:08Z"
             },
-            "message": "chore(release): v2.0.4",
+            "message": "fix: keep middleware-staged headers out of handler-level caches (#1608)",
             "tree": {
-              "sha": "b4f9f2d51a0ccbf5f0da4a545f47f4b98126b10c",
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/b4f9f2d51a0ccbf5f0da4a545f47f4b98126b10c"
+              "sha": "1a1f9db2f3bf16dd5ccf505873f3d9541dc73d64",
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/1a1f9db2f3bf16dd5ccf505873f3d9541dc73d64"
             },
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/1326e74d55696758b87274d84d133b4944495afc",
             "comment_count": 0,
             "verification": {
-              "verified": false,
-              "reason": "unsigned",
-              "signature": null,
-              "payload": null,
-              "verified_at": null
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq14tYCRC1aQ7uu5UhlAAAwWkQAAtp0jAfGMvHspIgvz5u+08D\n1IQ+558om66sQXFuPfqyaO05GzC8fddqVrxzgW1s7aYGgfhIkVmODHgUDVPXM4s4\n/d31ObBI84H1ZcG8ZJc2hrt/px1IPetNWyCXXfDeUfyYUDAnawIbaRcpJgVYTX44\nLWxQEeSdDCXYlel7CQeBJl4WpBUlp58I5In/S4HcAF/8wXsqNaBWJwAsus1nWbIO\nN6HzAv5wAGjNXVdKblfJf2OOokrfkOrtvFheJx5pRleaB4jOCGGT5fQ5w3p91UMS\n89EZst0P1ogXEq1Gr6PqLfOh+pVpk37EA079R5zCNQcyFt03JuWZZePsNQwY+f13\nbzhN8lcgHO0jEt10uPywvjL4+pS+0yUAIKXOUrV47z4yDX4v3XJlFe2BEpLmM+od\n7R6+2w10KHRldRddFiu6nN3XYg8X8T+MVN2saHlaAeNKhieYcaVO9ARtpa28hT/j\ngfwtDkRv6c26C3fzxSnuhJ54alxVxEZcTR/lbHKGL2IL4cj45TuOSo7FwW658Hbt\nHJ7lNawr6ka6iq4VSGrl+kq9xBcicJGyf3vP/y8jb+ZrMY/xL3CCcw4cqjPYIMKR\n/jvL4dWtK4N+8ScRUHcKNU3WlOQVPQiOAvEKOjyVyGSwuXMDjwMsJbVwdTaBbajo\npifqSUkyhJ9ibmFmIjCB\n=BE8p\n-----END PGP SIGNATURE-----\n",
+              "payload": "tree 1a1f9db2f3bf16dd5ccf505873f3d9541dc73d64\nparent 31062a07254e61a2826bd87b0a7ed63fe89ff283\nauthor pi0x <redacted@example.invalid> 1792510808 +0900\ncommitter GitHub <redacted@example.invalid> 1792510808 +0900\n\nfix: keep middleware-staged headers out of handler-level caches (#1608)",
+              "verified_at": "2026-10-20T15:40:13Z"
             }
           },
-          "url": "https://api.github.com/repos/h3js/h3/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0",
-          "html_url": "https://github.com/h3js/h3/commit/2084ecaa855273b2971a10d1a858ecd2188b3df0",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc",
+          "html_url": "https://github.com/h3js/h3/commit/1326e74d55696758b87274d84d133b4944495afc",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc/comments",
           "author": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "pi0x",
+            "id": 286783767,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/pi0x",
+            "html_url": "https://github.com/pi0x",
+            "followers_url": "https://api.github.com/users/pi0x/followers",
+            "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+            "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+            "organizations_url": "https://api.github.com/users/pi0x/orgs",
+            "repos_url": "https://api.github.com/users/pi0x/repos",
+            "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/pi0x/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "committer": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "web-flow",
+            "id": 19864447,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/web-flow",
+            "html_url": "https://github.com/web-flow",
+            "followers_url": "https://api.github.com/users/web-flow/followers",
+            "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+            "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+            "organizations_url": "https://api.github.com/users/web-flow/orgs",
+            "repos_url": "https://api.github.com/users/web-flow/repos",
+            "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/web-flow/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "parents": [
             {
-              "sha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
-              "url": "https://api.github.com/repos/h3js/h3/commits/1a1f4881def62b3a58e940b3db9d21854996bd06",
-              "html_url": "https://github.com/h3js/h3/commit/1a1f4881def62b3a58e940b3db9d21854996bd06"
+              "sha": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
+              "url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+              "html_url": "https://github.com/h3js/h3/commit/31062a07254e61a2826bd87b0a7ed63fe89ff283"
             }
           ]
         },
         {
-          "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-          "node_id": "C_kwDOErHI99oAKDcxNTBiMGUxNDc2YTYzZGFlYWUyYWJkZmYwMDQwYTM0Y2M1ZmY0YWU",
+          "sha": "9d70cf30099281668929e097d1fd0a18778af5d3",
+          "node_id": "C_kwDOErHI99oAKDlkNzBjZjMwMDk5MjgxNjY4OTI5ZTA5N2QxZmQwYTE4Nzc4YWY1ZDM",
           "commit": {
             "author": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-18T02:32:22Z"
+              "date": "2026-10-20T15:40:57Z"
             },
             "committer": {
               "name": "Pooya Parsa",
               "email": "redacted@example.invalid",
-              "date": "2026-10-18T02:32:22Z"
+              "date": "2026-10-20T15:40:57Z"
             },
-            "message": "fix(cli): harden `h3 docs` page handling\n\n- Only open URLs whose origin is `https://h3.dev` (rejects absolute URLs,\n  `file:`/`javascript:`, `//host`, `\\\\host`, whitespace-prefixed hosts).\n- On Windows, open via `rundll32 url.dll,FileProtocolHandler` (absolute\n  System32 path) instead of `cmd /c start`, so cmd.exe metacharacters in\n  the page (`&`, `|`, `%VAR%`) can no longer inject commands.\n- Strip userinfo and collapse repeated slashes in the path.",
+            "message": "chore(release): v2.0.7",
             "tree": {
-              "sha": "8868dc53766c37c5b5a1dac1d5325281691715f6",
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/8868dc53766c37c5b5a1dac1d5325281691715f6"
+              "sha": "760654dc856d86b29f39bfece1208ebc23e38b8a",
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/760654dc856d86b29f39bfece1208ebc23e38b8a"
             },
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
             "comment_count": 0,
             "verification": {
               "verified": false,
@@ -299,9 +299,9 @@
               "verified_at": null
             }
           },
-          "url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-          "html_url": "https://github.com/h3js/h3/commit/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
+          "html_url": "https://github.com/h3js/h3/commit/9d70cf30099281668929e097d1fd0a18778af5d3",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3/comments",
           "author": {
             "login": "pi0",
             "id": 5158436,
@@ -346,109 +346,169 @@
           },
           "parents": [
             {
-              "sha": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
-              "url": "https://api.github.com/repos/h3js/h3/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0",
-              "html_url": "https://github.com/h3js/h3/commit/2084ecaa855273b2971a10d1a858ecd2188b3df0"
+              "sha": "1326e74d55696758b87274d84d133b4944495afc",
+              "url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc",
+              "html_url": "https://github.com/h3js/h3/commit/1326e74d55696758b87274d84d133b4944495afc"
             }
           ]
         }
       ],
       "files": [
         {
-          "sha": "d8f3af79ade7b9421b2779e93ab6a2b346fb1327",
-          "filename": "CHANGELOG.md",
-          "status": "modified",
-          "additions": 29,
-          "deletions": 0,
-          "changes": 29,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/CHANGELOG.md",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/CHANGELOG.md",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/CHANGELOG.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -2,6 +2,35 @@\n \n All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n \n+## v2.0.5\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.4...v2.0.5)\n+\n+### 🩹 Fixes\n+\n+- **cli:** Harden `h3 docs` page handling ([7150b0e](https://github.com/h3js/h3/commit/7150b0e))\n+\n+### ❤️ Contributors\n+\n+- Pooya Parsa <redacted@example.invalid>\n+\n+## v2.0.4\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.3...v2.0.4)\n+\n+### 📦 Build\n+\n+- Remove bundled docs and open h3.dev from `h3 docs` ([#1602](https://github.com/h3js/h3/pull/1602))\n+\n+### 🏡 Chore\n+\n+- Update srvx ([1a1f488](https://github.com/h3js/h3/commit/1a1f488))\n+\n+### ❤️ Contributors\n+\n+- Pooya Parsa ([@pi0](https://github.com/pi0))\n+- Pi0x <redacted@example.invalid>\n+\n ## v2.0.3\n \n [compare changes](https://github.com/h3js/h3/compare/v2.0.2...v2.0.3)"
-        },
-        {
-          "sha": "04bb7764331351c99dd68de79804332684045a74",
-          "filename": "bin/h3.mjs",
-          "status": "modified",
-          "additions": 16,
-          "deletions": 3,
-          "changes": 19,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/bin%2Fh3.mjs",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/bin%2Fh3.mjs",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/bin%2Fh3.mjs?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -6,11 +6,24 @@ import meta from \"../package.json\" with { type: \"json\" };\n // Docs\n if (process.argv[2] === \"docs\") {\n   const page = (process.argv[3] || \"\").replace(/^\\/+/, \"\");\n-  const url = new URL(page, \"https://h3.dev/\").href;\n+  const url = new URL(page, \"https://h3.dev/\");\n+  // Only open h3.dev pages (blocks absolute, file:, javascript:, //host, \\\\host, ...)\n+  if (url.origin !== \"https://h3.dev\") {\n+    console.error(`Invalid docs page: ${JSON.stringify(page)}`);\n+    process.exit(1);\n+  }\n+  url.username = url.password = \"\";\n+  url.pathname = url.pathname.replace(/\\/{2,}/g, \"/\");\n+  // rundll32 instead of `cmd /c start` so cmd.exe never parses the URL (& | % ...)\n+  // Absolute path so a rundll32.exe in cwd is never picked up\n   const [cmd, ...args] =\n     process.platform === \"win32\"\n-      ? [\"cmd\", \"/c\", \"start\", \"\", url]\n-      : [process.platform === \"darwin\" ? \"open\" : \"xdg-open\", url];\n+      ? [\n+          `${process.env.SystemRoot || \"C:\\\\Windows\"}\\\\System32\\\\rundll32.exe`,\n+          \"url.dll,FileProtocolHandler\",\n+          url.href,\n+        ]\n+      : [process.platform === \"darwin\" ? \"open\" : \"xdg-open\", url.href];\n   console.log(`Opening ${url}`);\n   spawn(cmd, args, { stdio: \"ignore\", detached: true })\n     .on(\"error\", () => console.log(`Open ${url} in your browser.`))"
-        },
-        {
-          "sha": "13444e0cded9159d5845035c97d4e69ec577e7b1",
-          "filename": "docs/1.guide/2.rules.md",
+          "sha": "776ee4dacc9dc96f240aa42cf48543016098df01",
+          "filename": "AGENTS.md",
           "status": "modified",
           "additions": 1,
           "deletions": 1,
           "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs%2F1.guide%2F2.rules.md",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs%2F1.guide%2F2.rules.md",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/docs%2F1.guide%2F2.rules.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -98,7 +98,7 @@ routeRules({\n \n Redirects and [proxies](#proxying) share two useful behaviors:\n \n-- **Wildcard tails:** When the pattern ends in `/**`, a `**` in the target is replaced with the matched part of the path. A trailing `to: \"/new/**\"` appends it; a `**` anywhere else in the target's path, query, or fragment interpolates it in place (`/new/**/edit`, `/new?from=**`). An empty tail — a request to exactly the pattern's base — substitutes an empty string. In a query or fragment value the tail is percent-encoded so it cannot add parameters; in a path position it is forwarded byte for byte. The tail can never change the target's origin: a `**` that could name the destination host (`\"**\"`, `\"**.cdn.example/x\"`, `\"https://**.example.com\"`) is rejected at startup, and a request whose tail would still move the origin gets a `400`. A target `**` is left literal when no `/**` pattern applies to the route.\n+- **Wildcard tails:** When the pattern ends in `/**` (or a named `/**:name`), a `**` in the target is replaced with the matched part of the path. A trailing `to: \"/new/**\"` appends it; a `**` anywhere else in the target's path, query, or fragment interpolates it in place (`/new/**/edit`, `/new?from=**`). An empty tail — a request to exactly the pattern's base — substitutes an empty string. In a query or fragment value the tail is percent-encoded so it cannot add parameters; in a path position it is forwarded byte for byte. The tail can never change the target's origin: a `**` that could name the destination host (`\"**\"`, `\"**.cdn.example/x\"`, `\"https://**.example.com\"`) is rejected at startup, and a request whose tail would still move the origin gets a `400`. A target `**` is left literal when no `/**` pattern applies to the route.\n - **Query forwarding:** h3 preserves the request query string, including duplicate keys and encoding. If the target already has a query, the request query is appended to it.\n \n A `redirect` never fires when the request is already at a URL it could have sent it to, so a target inside its own pattern does not loop and needs no `false` reset:"
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/AGENTS.md",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/AGENTS.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/AGENTS.md?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -82,7 +82,7 @@ src/\n │   ├── json-rpc.ts       # defineJsonRpcHandler, defineJsonRpcWebSocketHandler\n │   ├── event-stream.ts   # createEventStream (SSE)\n │   ├── static.ts         # serveStatic\n-│   ├── cache.ts          # handleCacheHeaders\n+│   ├── cache.ts          # handleCacheHeaders, withCacheIsolation\n │   ├── middleware.ts      # onRequest, onResponse, onError, bodyLimit\n │   ├── route.ts          # defineRoute\n │   ├── base.ts           # withBase"
         },
         {
-          "sha": "cb0c3afaa1eb71c91ea80a66918a8a7c92e5e477",
+          "sha": "cb5fe718c160c3e38a90a62fbcdc674e2c889342",
+          "filename": "CHANGELOG.md",
+          "status": "modified",
+          "additions": 24,
+          "deletions": 0,
+          "changes": 24,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/CHANGELOG.md",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/CHANGELOG.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/CHANGELOG.md?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -2,6 +2,30 @@\n \n All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n \n+## v2.0.8\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.7...v2.0.8)\n+\n+### 🩹 Fixes\n+\n+- **rules:** Let `HTTPError.headers` opt out of `headers` rule on errors ([#1613](https://github.com/h3js/h3/pull/1613))\n+\n+### ❤️ Contributors\n+\n+- Pi0x <redacted@example.invalid>\n+\n+## v2.0.7\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.6...v2.0.7)\n+\n+### 🩹 Fixes\n+\n+- Keep middleware-staged headers out of handler-level caches ([#1608](https://github.com/h3js/h3/pull/1608))\n+\n+### ❤️ Contributors\n+\n+- Pi0x <redacted@example.invalid>\n+\n ## v2.0.6\n \n [compare changes](https://github.com/h3js/h3/compare/v2.0.5...v2.0.6)"
+        },
+        {
+          "sha": "3d47c6bed55cde5476d43310469f143983d7eb10",
+          "filename": "docs/2.utils/1.request.md",
+          "status": "modified",
+          "additions": 27,
+          "deletions": 0,
+          "changes": 27,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/docs%2F2.utils%2F1.request.md",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/docs%2F2.utils%2F1.request.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/docs%2F2.utils%2F1.request.md?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -162,6 +162,33 @@ Check request caching headers (`If-None-Match`, `If-Modified-Since`) and add cac\n \n Note: `public` is added by default, but never alongside a caller-supplied `private`/`no-store` directive, so passing `cacheControls: [\"private\"]` no longer produces a contradictory `public, private`.\n \n+### `withCacheIsolation(handler)`\n+\n+Wrap a cached handler so headers staged on `event.res` before it runs (for example by global middleware) never enter its cache entry.\n+\n+A cache miss usually renders the handler result with `toResponse(value, event)`, which merges staged headers into the stored response, so later hits would replay one user's headers to everyone. The wrapper takes them off the event for the cached dispatch and merges them onto each successful response, hit or miss; error responses (4xx/5xx) don't receive them, as in h3. When the handler returns something other than a `Response`, they are put back on the event instead.\n+\n+A staged header wins over the same header set by the handler, so a miss looks the same as a hit.\n+\n+Headers that decide whether a response may be stored stay visible to the cache: a staged `Cache-Control` and every staged `Vary` name except `origin`. A response that middleware marked `private`/`no-store`, or that varies on a request header the cache isn't keyed on, is therefore not stored. A staged `private`/`no-store` `Cache-Control` is also sent to the client in place of the one the cached handler sets, so a CDN in front of the app doesn't store it either. A `Vary: Origin` is isolated, because the CORS headers it declares are staged per request as well.\n+\n+Properties of the wrapped handler (such as ocache's `invalidate`, `expire` and `resolveKeys`) are copied to the returned handler.\n+\n+**Example:**\n+\n+```ts\n+import { handleCacheHeaders, toResponse, withCacheIsolation } from \"h3\";\n+import { defineCachedHandler } from \"ocache\";\n+const cached = withCacheIsolation(\n+  defineCachedHandler(() => \"hello\", {\n+    maxAge: 60,\n+    toResponse: (value, event) => toResponse(value, event),\n+    handleCacheHeaders: (event, conditions) => handleCacheHeaders(event, conditions),\n+  }),\n+);\n+app.get(\"/cached\", cached);\n+```\n+\n <!-- /automd -->\n \n ## More Request Utils"
+        },
+        {
+          "sha": "9290373e5ecf6bd416ac67a5d4915daca044447b",
           "filename": "package.json",
           "status": "modified",
           "additions": 1,
           "deletions": 1,
           "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/package.json",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/package.json",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -1,6 +1,6 @@\n {\n   \"name\": \"h3\",\n-  \"version\": \"2.0.3\",\n+  \"version\": \"2.0.5\",\n   \"description\": \"Minimal H(TTP) framework built for high performance and portability.\",\n   \"homepage\": \"https://h3.dev\",\n   \"license\": \"MIT\","
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/package.json",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/package.json",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,6 +1,6 @@\n {\n   \"name\": \"h3\",\n-  \"version\": \"2.0.6\",\n+  \"version\": \"2.0.8\",\n   \"description\": \"Minimal H(TTP) framework built for high performance and portability.\",\n   \"homepage\": \"https://h3.dev\",\n   \"license\": \"MIT\","
         },
         {
-          "sha": "5cf15086460da0205e8c493a69f6b2efabe70030",
-          "filename": "src/rules/normalize.ts",
+          "sha": "cb26f39f677ccaace9adb37b2aea508401464954",
+          "filename": "src/index.ts",
           "status": "modified",
-          "additions": 19,
-          "deletions": 4,
-          "changes": 23,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src%2Frules%2Fnormalize.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src%2Frules%2Fnormalize.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fnormalize.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -50,8 +50,9 @@ export function normalizeRouteRules(\n       const authored: { to?: string; status?: number } =\n         typeof redirect === \"string\" ? { to: redirect } : redirect;\n       const redirectOptions: RedirectRuleOptions = { to: \"/\", status: 307, ...authored };\n-      if (path.endsWith(\"/**\")) {\n-        redirectOptions.base = path.slice(0, -3);\n+      const base = catchAllBase(path);\n+      if (base !== undefined) {\n+        redirectOptions.base = base;\n       }\n       assertNoHostSplat(redirectOptions.to, \"redirect\", canonicalKey);\n       routeRules.redirect = redirectOptions;\n@@ -60,8 +61,9 @@ export function normalizeRouteRules(\n     if (proxy) {\n       const proxyOptions: ProxyRuleOptions =\n         typeof proxy === \"string\" ? { to: proxy } : { ...proxy };\n-      if (path.endsWith(\"/**\")) {\n-        proxyOptions.base = path.slice(0, -3);\n+      const base = catchAllBase(path);\n+      if (base !== undefined) {\n+        proxyOptions.base = base;\n       }\n       assertNoHostSplat(proxyOptions.to, \"proxy\", canonicalKey);\n       routeRules.proxy = proxyOptions;\n@@ -137,6 +139,19 @@ export function normalizeRouteRules(\n   return normalizedRules;\n }\n \n+// A trailing catch-all segment, plain (`/**`) or named (`/**:path`).\n+const TRAILING_CATCH_ALL_RE = /\\/\\*\\*(?::[^/]+)?$/;\n+\n+/**\n+ * The scope base of a rule key ending in a catch-all (`/old/**` and\n+ * `/old/**:path` → `/old`), or `undefined` when it has no trailing catch-all\n+ * and so no tail for a target `**` to take.\n+ */\n+function catchAllBase(path: string): string | undefined {\n+  const match = TRAILING_CATCH_ALL_RE.exec(path);\n+  return match ? path.slice(0, match.index) : undefined;\n+}\n+\n /**\n  * Reject a `**` that sits where it could choose the destination host.\n  *"
-        },
-        {
-          "sha": "ce3d1d8372232bd98eaf8ec933c96b6e40c7c1b0",
-          "filename": "test/rules/normalize.test.ts",
-          "status": "modified",
-          "additions": 8,
-          "deletions": 0,
-          "changes": 8,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fnormalize.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fnormalize.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fnormalize.test.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -88,6 +88,14 @@ describe(\"normalizeRouteRules - redirect\", () => {\n     expect(rules[\"/exact\"]!.redirect).toEqual({ to: \"/new\", status: 307 });\n     expect(rules[\"/exact\"]!.redirect).not.toHaveProperty(\"base\");\n   });\n+\n+  it(\"sets `base` for named catch-all (/**:name) keys\", () => {\n+    const rules = normalizeRouteRules({\n+      \"/old/**:path\": { redirect: \"/new/**\", proxy: \"https://example.com/**\" },\n+    });\n+    expect(rules[\"/old/**:path\"]!.redirect).toEqual({ to: \"/new/**\", status: 307, base: \"/old\" });\n+    expect(rules[\"/old/**:path\"]!.proxy).toEqual({ to: \"https://example.com/**\", base: \"/old\" });\n+  });\n });\n \n describe(\"normalizeRouteRules - proxy\", () => {"
-        },
-        {
-          "sha": "232a321fac71911f24664d87640e293ff0704cf0",
-          "filename": "test/rules/scope.test.ts",
-          "status": "modified",
-          "additions": 5,
-          "deletions": 0,
-          "changes": 5,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fscope.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fscope.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fscope.test.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -444,6 +444,11 @@ describe(\"rule target scope (prepareRuleTarget)\", () => {\n       expect(resolve(\"/old/a/b?x=1\", options)).toBe(\"/new/a/b/edit?x=1\");\n     });\n \n+    it(\"treats a named catch-all key (`/**:name`) like `/**`\", () => {\n+      expect(resolve(\"/old/a/b\", rule(\"/old/**:path\", \"/new/**\"))).toBe(\"/new/a/b\");\n+      expect(resolve(\"/old/a/b\", rule(\"/old/**:path\", \"/new?from=**\"))).toBe(\"/new?from=a/b\");\n+    });\n+\n     it(\"fills every placeholder in the target\", () => {\n       const options = rule(\"/old/**\", \"/new/**?from=**\");\n       expect(resolve(\"/old/a%20b\", options)).toBe(\"/new/a%20b?from=a%20b\");"
-        },
-        {
-          "sha": "a6916f53fd6fc4d25df1c18cf720fffe35b623ea",
-          "filename": "test/unit/cli.test.ts",
-          "status": "modified",
-          "additions": 54,
+          "additions": 1,
           "deletions": 1,
-          "changes": 55,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Funit%2Fcli.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Funit%2Fcli.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Funit%2Fcli.test.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -1,11 +1,64 @@\n import { describe, expect, it } from \"vitest\";\n+import { spawnSync } from \"node:child_process\";\n import { readFileSync } from \"node:fs\";\n+import { tmpdir } from \"node:os\";\n+import { join } from \"node:path\";\n+import { fileURLToPath } from \"node:url\";\n+\n+const binPath = fileURLToPath(new URL(\"../../bin/h3.mjs\", import.meta.url));\n+\n+// Non-existent PATH/SystemRoot so no real browser opener (xdg-open/open/rundll32) can be spawned\n+const emptyPath = join(tmpdir(), \"h3-cli-test-no-such-dir\");\n+\n+function runDocs(page: string) {\n+  return spawnSync(process.execPath, [binPath, \"docs\", page], {\n+    encoding: \"utf8\",\n+    timeout: 10_000,\n+    env: { ...process.env, PATH: emptyPath, Path: emptyPath, SystemRoot: emptyPath },\n+  });\n+}\n \n describe(\"h3 CLI docs\", () => {\n   it(\"opens https://h3.dev instead of bundled docs\", () => {\n-    const binContent = readFileSync(new URL(\"../../bin/h3.mjs\", import.meta.url), \"utf8\");\n+    const binContent = readFileSync(binPath, \"utf8\");\n     expect(binContent).toMatch(/[\"']https:\\/\\/h3\\.dev\\/[\"']/);\n     expect(binContent).not.toMatch(/dist\\/docs/);\n     expect(binContent).not.toMatch(/mdzilla/);\n   });\n+\n+  it.each([\n+    [\"\", \"https://h3.dev/\"],\n+    [\"guide\", \"https://h3.dev/guide\"],\n+    [\"/guide/basics/routing\", \"https://h3.dev/guide/basics/routing\"],\n+    [\"utils/request#getquery\", \"https://h3.dev/utils/request#getquery\"],\n+    [\"https://h3.dev/guide/websocket\", \"https://h3.dev/guide/websocket\"],\n+    [\"..//evil.example\", \"https://h3.dev/evil.example\"],\n+    [\"/\\\\evil.example\", \"https://h3.dev/evil.example\"],\n+    [\"https://evil.example:pw@h3.dev/x\", \"https://h3.dev/x\"],\n+    // cmd.exe metacharacters are harmless path chars (rundll32 does not parse them)\n+    [\"x&calc.exe\", \"https://h3.dev/x&calc.exe\"],\n+    [\"%USERNAME%\", \"https://h3.dev/%USERNAME%\"],\n+  ])(\"opens h3.dev page %j\", (page, expected) => {\n+    const res = runDocs(page);\n+    expect(res.status).toBe(0);\n+    expect(res.stdout).toContain(`Opening ${expected}\\n`);\n+  });\n+\n+  it.each([\n+    \"https://evil.example/x\",\n+    \"https://h3.dev@evil.example/\",\n+    \"https://h3.dev.evil.example/\",\n+    \"http://h3.dev/\",\n+    \" //evil.example\",\n+    \"\\t//evil.example\",\n+    \"\\\\\\\\evil.example\",\n+    \"file:///etc/passwd\",\n+    \"javascript:alert(1)\",\n+    String.raw`C:\\Windows\\System32\\calc.exe`,\n+  ])(\"rejects unsafe page %j\", (page) => {\n+    const res = runDocs(page);\n+    expect(res.status).toBe(1);\n+    expect(res.stdout).not.toContain(\"Opening\");\n+    expect(res.stderr).toContain(\"Invalid docs page\");\n+  });\n });"
+          "changes": 2,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Findex.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Findex.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Findex.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -177,7 +177,7 @@ export { sanitizeStatusCode, sanitizeStatusMessage } from \"./utils/sanitize.ts\";\n \n // Cache\n \n-export { type CacheConditions, handleCacheHeaders } from \"./utils/cache.ts\";\n+export { type CacheConditions, handleCacheHeaders, withCacheIsolation } from \"./utils/cache.ts\";\n \n // Path\n "
+        },
+        {
+          "sha": "ebaa8e13ed84bb3098279c5302c81c8b532432d3",
+          "filename": "src/rules/cache.ts",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 118,
+          "changes": 122,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Frules%2Fcache.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Frules%2Fcache.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fcache.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,8 +1,7 @@\n import { defineHandler } from \"../handler.ts\";\n import { HTTPError } from \"../error.ts\";\n import { HTTPResponse, toResponse } from \"../response.ts\";\n-import { handleCacheHeaders } from \"../utils/cache.ts\";\n-import { kEventRes, kEventResHeaders } from \"../event.ts\";\n+import { handleCacheHeaders, withCacheIsolation } from \"../utils/cache.ts\";\n import type { H3Event } from \"../event.ts\";\n import type { EventHandler } from \"../types/handler.ts\";\n import type { ServerRequest } from \"srvx\";\n@@ -77,7 +76,7 @@ function withoutVaryOrigin(vary: string): string | undefined {\n  * an undeclared `Vary` name is not cacheable, and keying by origin instead\n  * would give every origin its own copy of the same body.\n  *\n- * With `routeRules()` as global middleware {@link detachStagedHeaders} already\n+ * With `routeRules()` as global middleware {@link withCacheIsolation} already\n  * keeps the rule's headers out; as route middleware the `cors` rule runs again\n  * inside the cached dispatch and stages them where `toResponse` sees them.\n  */\n@@ -137,104 +136,6 @@ function moveVolatileHeaders(res: Response, event: H3Event): Response {\n   return res;\n }\n \n-// Matches a `*` entry of a comma-separated `Vary` list.\n-const RE_VARY_WILDCARD = /(?:^|,)\\s*\\*\\s*(?:,|$)/;\n-\n-/**\n- * Take the headers earlier middleware staged on `event.res` out of the event,\n- * so the `toResponse` of a cache miss cannot merge them into the shared entry\n- * (h3js/h3#1605). They are per-request and go back onto every response, hit\n- * or miss, through {@link withStagedHeaders}.\n- *\n- * `Cache-Control` and a wildcard `Vary` stay staged: they decide whether the\n- * response may be stored at all, and ocache only sees them in the entry. A\n- * middleware staging `private` for an authenticated request must keep that\n- * response out of the shared cache, not just off the wire.\n- *\n- * They stay out of the event rather than being restored onto it: an `swr`\n- * revalidation keeps running the handler on this event after the stale\n- * response is returned. Error headers are left alone, since an error status\n- * is never stored.\n- */\n-function detachStagedHeaders(event: H3Event): Headers | undefined {\n-  const res = (event as any)[kEventRes];\n-  const staged: Headers | undefined = res?.[kEventResHeaders];\n-  if (!staged) {\n-    return;\n-  }\n-  const kept = new Headers();\n-  const cacheControl = staged.get(\"cache-control\");\n-  if (cacheControl !== null) {\n-    kept.set(\"cache-control\", cacheControl);\n-    staged.delete(\"cache-control\");\n-  }\n-  const vary = staged.get(\"vary\");\n-  if (vary !== null && RE_VARY_WILDCARD.test(vary)) {\n-    kept.set(\"vary\", vary);\n-    staged.delete(\"vary\");\n-  }\n-  res[kEventResHeaders] = kept.keys().next().done ? undefined : kept;\n-  return staged.keys().next().done ? undefined : staged;\n-}\n-\n-/**\n- * Merge `source` into `target` the way h3 merges staged headers into a\n- * response, except that `Vary` lists are joined: the entry's own `Vary`\n- * declares its cache key and must not be replaced by a staged one.\n- */\n-function mergeStagedHeaders(target: Headers, source: Headers): void {\n-  for (const [name, value] of source) {\n-    if (name === \"set-cookie\") {\n-      target.append(name, value);\n-    } else if (name === \"vary\" && target.has(\"vary\")) {\n-      appendVary(target, value);\n-    } else {\n-      target.set(name, value);\n-    }\n-  }\n-}\n-\n-function appendVary(headers: Headers, value: string): void {\n-  const names = headers\n-    .get(\"vary\")!\n-    .split(\",\")\n-    .map((name) => name.trim());\n-  const known = new Set(names.map((name) => name.toLowerCase()));\n-  for (const name of value.split(\",\")) {\n-    const trimmed = name.trim();\n-    if (trimmed && !known.has(trimmed.toLowerCase())) {\n-      known.add(trimmed.toLowerCase());\n-      names.push(trimmed);\n-    }\n-  }\n-  headers.set(\"vary\", names.filter(Boolean).join(\", \"));\n-}\n-\n-/**\n- * Apply detached staged headers to the response the cache returned. Headers\n- * staged during the dispatch (`handleCacheHeaders`, moved volatile headers)\n- * are still on `event.res` and are merged over these by h3 as usual. Like h3,\n- * success headers never reach an error response.\n- */\n-function withStagedHeaders(res: Response, staged: Headers): Response {\n-  if (res.status >= 400) {\n-    return res;\n-  }\n-  const headers = new Headers(res.headers);\n-  mergeStagedHeaders(headers, staged);\n-  return new Response(res.body, { status: res.status, statusText: res.statusText, headers });\n-}\n-\n-/** Put detached headers back under whatever was staged since, for h3 to render. */\n-function reattachStagedHeaders(event: H3Event, staged: Headers): void {\n-  const res = event.res as any;\n-  const after: Headers | undefined = res[kEventResHeaders];\n-  if (after) {\n-    mergeStagedHeaders(staged, after);\n-  }\n-  res[kEventResHeaders] = staged;\n-}\n-\n /**\n  * Requests ocache never reads or writes an entry for (`isBypassedMethod`): it\n  * runs the handler live and returns, so the rule has nothing to contribute and\n@@ -432,30 +333,15 @@ export function createOcacheRuleHandler(opts?: OcacheRuleHandlerOptions): RuleHa\n           }),\n         },\n       );\n+      const isolatedHandler = withCacheIsolation(ocacheHandler);\n       return defineHandler(async (event) => {\n         if (restore.length > 0) {\n           savedHeaders.set(\n             event,\n             restore.map((name) => event.req.headers.get(name)),\n           );\n         }\n-        const staged = detachStagedHeaders(event);\n-        let res: unknown;\n-        if (staged) {\n-          try {\n-            res = await ocacheHandler(event);\n-          } catch (error) {\n-            reattachStagedHeaders(event, staged);\n-            throw error;\n-          }\n-          if (res instanceof Response) {\n-            res = withStagedHeaders(res, staged);\n-          } else {\n-            reattachStagedHeaders(event, staged);\n-          }\n-        } else {\n-          res = await ocacheHandler(event);\n-        }\n+        const res = await isolatedHandler(event);\n         // Rebuild through h3 so final response headers reach 304s (RFC 9110 §15.4.5).\n         if (res instanceof Response && res.status === 304) {\n           return new HTTPResponse(null, { status: 304, headers: res.headers });"
+        },
+        {
+          "sha": "f53e57c996ed746c1d3fbc15b720dfdf50d100f9",
+          "filename": "src/rules/handlers/headers.ts",
+          "status": "modified",
+          "additions": 31,
+          "deletions": 8,
+          "changes": 39,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Frules%2Fhandlers%2Fheaders.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Frules%2Fhandlers%2Fheaders.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fhandlers%2Fheaders.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,27 +1,50 @@\n+import type { HTTPError } from \"../../error.ts\";\n+import type { H3Event } from \"../../event.ts\";\n import type { RuleHandler } from \"../types.ts\";\n \n // order: -1. Sets headers after `next()` so they win even when an inner rule\n // (e.g. `cache`) short-circuits and overwrites headers like `cache-control` (h3js/h3-rules#5).\n //\n-// `finally`, not a plain post-`next()` loop: a downstream throw unwinds past the\n-// `await`, and the rule's headers must still apply to the resulting error\n+// Applied on both the return and the throw path: a downstream throw unwinds past\n+// the `await`, and the rule's headers must still apply to the resulting error\n // response. Both header bags are set for the same reason — `prepareResponse`\n // serves `event.res.errHeaders` (not `event.res.headers`) for status >= 400, so\n // a `headers`-only bag vanishes on every 4xx/5xx (mirrors h3's own\n // `setCorsHeaders`, `src/utils/cors.ts`).\n+//\n+// An `HTTPError` (thrown or returned) that carries one of the rule's keys in its\n+// own `headers` keeps it: that is the handler explicitly opting its error response\n+// out (e.g. `cache-control: no-store` on a 404 under an immutable asset rule,\n+// h3js/h3#1612). `errHeaders` would otherwise win over `error.headers`.\n export const headers: RuleHandler<\"headers\"> = {\n   order: -1,\n   handler: (m) => {\n     const entries = Object.entries(m.options || {});\n     return async function headersRouteRule(event, next) {\n+      let result: unknown;\n       try {\n-        return await next();\n-      } finally {\n-        for (const [key, value] of entries) {\n-          event.res.headers.set(key, value);\n-          event.res.errHeaders.set(key, value);\n-        }\n+        result = await next();\n+      } catch (error) {\n+        setRuleHeaders(event, entries, error);\n+        throw error;\n       }\n+      setRuleHeaders(event, entries, result);\n+      return result;\n     };\n   },\n };\n+\n+function setRuleHeaders(event: H3Event, entries: [string, string][], outcome: unknown): void {\n+  // Inlined `HTTPError.isError`: importing `HTTPError` would pull `error.ts` into\n+  // every `headers`-only bundle (test/rules/treeshake.test.ts budget).\n+  const own =\n+    outcome instanceof Error && outcome.name === \"HTTPError\" && (outcome as HTTPError).status > 99\n+      ? (outcome as HTTPError).headers\n+      : undefined;\n+  for (const [key, value] of entries) {\n+    event.res.headers.set(key, value);\n+    if (!own?.has(key)) {\n+      event.res.errHeaders.set(key, value);\n+    }\n+  }\n+}"
+        },
+        {
+          "sha": "a8bfd0a0963bfb1ea68a3e478f9eb15a058c032e",
+          "filename": "src/utils/cache.ts",
+          "status": "modified",
+          "additions": 64,
+          "deletions": 0,
+          "changes": 64,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Futils%2Fcache.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Futils%2Fcache.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Futils%2Fcache.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,5 +1,11 @@\n import type { H3Event } from \"../event.ts\";\n import { isCacheMatch } from \"./internal/cache.ts\";\n+import {\n+  detachStagedHeaders,\n+  getStagedHeader,\n+  reattachStagedHeaders,\n+  withStagedHeaders,\n+} from \"./internal/staged-headers.ts\";\n \n export interface CacheConditions {\n   modifiedTime?: string | Date;\n@@ -79,3 +85,61 @@ export function handleCacheHeaders(event: H3Event, opts: CacheConditions): boole\n \n   return false;\n }\n+\n+/**\n+ * Wrap a cached handler so headers staged on `event.res` before it runs (for example by global middleware) never enter its cache entry.\n+ *\n+ * A cache miss usually renders the handler result with `toResponse(value, event)`, which merges staged headers into the stored response, so later hits would replay one user's headers to everyone. The wrapper takes them off the event for the cached dispatch and merges them onto each successful response, hit or miss; error responses (4xx/5xx) don't receive them, as in h3. When the handler returns something other than a `Response`, they are put back on the event instead.\n+ *\n+ * A staged header wins over the same header set by the handler, so a miss looks the same as a hit.\n+ *\n+ * Headers that decide whether a response may be stored stay visible to the cache: a staged `Cache-Control` and every staged `Vary` name except `origin`. A response that middleware marked `private`/`no-store`, or that varies on a request header the cache isn't keyed on, is therefore not stored. A staged `private`/`no-store` `Cache-Control` is also sent to the client in place of the one the cached handler sets, so a CDN in front of the app doesn't store it either. A `Vary: Origin` is isolated, because the CORS headers it declares are staged per request as well.\n+ *\n+ * Properties of the wrapped handler (such as ocache's `invalidate`, `expire` and `resolveKeys`) are copied to the returned handler.\n+ *\n+ * @example\n+ * import { handleCacheHeaders, toResponse, withCacheIsolation } from \"h3\";\n+ * import { defineCachedHandler } from \"ocache\";\n+ *\n+ * const cached = withCacheIsolation(\n+ *   defineCachedHandler(() => \"hello\", {\n+ *     maxAge: 60,\n+ *     toResponse: (value, event) => toResponse(value, event),\n+ *     handleCacheHeaders: (event, conditions) => handleCacheHeaders(event, conditions),\n+ *   }),\n+ * );\n+ * app.get(\"/cached\", cached);\n+ *\n+ * @param handler The cached event handler to wrap.\n+ */\n+export function withCacheIsolation<T extends (event: H3Event) => unknown>(handler: T): T {\n+  async function _handlerWithCacheIsolation(event: H3Event) {\n+    const cacheControl = getStagedHeader(event, \"cache-control\");\n+    const privateCacheControl =\n+      cacheControl !== null && RE_PRIVATE.test(cacheControl) ? cacheControl : undefined;\n+    const staged = detachStagedHeaders(event);\n+    let res: unknown;\n+    try {\n+      res = await handler(event);\n+    } catch (error) {\n+      if (staged) {\n+        reattachStagedHeaders(event, staged);\n+      }\n+      throw error;\n+    }\n+    if (privateCacheControl) {\n+      // The cached dispatch's `handleCacheHeaders` replaces it with `public`;\n+      // a shared cache in front of the app must still see it as private.\n+      event.res.headers.set(\"cache-control\", privateCacheControl);\n+    }\n+    if (!staged) {\n+      return res;\n+    }\n+    if (res instanceof Response) {\n+      return withStagedHeaders(res, staged);\n+    }\n+    reattachStagedHeaders(event, staged);\n+    return res;\n+  }\n+  return Object.assign(_handlerWithCacheIsolation, handler) as unknown as T;\n+}"
+        },
+        {
+          "sha": "a1ebf7d34c735f35b6193a4f1638320006217b16",
+          "filename": "src/utils/internal/staged-headers.ts",
+          "status": "added",
+          "additions": 118,
+          "deletions": 0,
+          "changes": 118,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Futils%2Finternal%2Fstaged-headers.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/src%2Futils%2Finternal%2Fstaged-headers.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Futils%2Finternal%2Fstaged-headers.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -0,0 +1,118 @@\n+import { kEventRes, kEventResHeaders } from \"../../event.ts\";\n+import type { H3Event } from \"../../event.ts\";\n+\n+/** Read a header staged on `event.res` without creating the response. */\n+export function getStagedHeader(event: H3Event, name: string): string | null {\n+  return (event as any)[kEventRes]?.[kEventResHeaders]?.get(name) ?? null;\n+}\n+\n+/**\n+ * Take the headers earlier middleware staged on `event.res` out of the event,\n+ * so the `toResponse` of a cache miss cannot merge them into the shared entry\n+ * (h3js/h3#1605). They are per-request and go back onto every response, hit\n+ * or miss, through {@link withStagedHeaders}.\n+ *\n+ * `Cache-Control` and `Vary` names other than `origin` stay staged: they\n+ * decide whether the response may be stored at all, and the cache only sees\n+ * them in the entry. A middleware staging `private` for an authenticated\n+ * request must keep that response out of the shared cache, not just off the\n+ * wire.\n+ *\n+ * They stay out of the event rather than being restored onto it: an `swr`\n+ * revalidation keeps running the handler on this event after the stale\n+ * response is returned. Error headers are left alone, since an error status\n+ * is never stored.\n+ */\n+export function detachStagedHeaders(event: H3Event): Headers | undefined {\n+  const res = (event as any)[kEventRes];\n+  const staged: Headers | undefined = res?.[kEventResHeaders];\n+  if (!staged) {\n+    return;\n+  }\n+  const kept = new Headers();\n+  const cacheControl = staged.get(\"cache-control\");\n+  if (cacheControl !== null) {\n+    kept.set(\"cache-control\", cacheControl);\n+    staged.delete(\"cache-control\");\n+  }\n+  const vary = staged.get(\"vary\");\n+  if (vary !== null) {\n+    // Only `origin` is detached: it declares the per-request CORS headers that\n+    // are detached with it. Any other name may select what the handler renders\n+    // (e.g. middleware reading `accept-language` into the context), so the\n+    // cache must see it and refuse to store an entry it isn't keyed on.\n+    const names = vary\n+      .split(\",\")\n+      .map((name) => name.trim())\n+      .filter(Boolean);\n+    const rest = names.filter((name) => name.toLowerCase() !== \"origin\");\n+    if (rest.length > 0) {\n+      kept.set(\"vary\", rest.join(\", \"));\n+    }\n+    if (rest.length === names.length) {\n+      staged.delete(\"vary\");\n+    } else {\n+      staged.set(\"vary\", \"origin\");\n+    }\n+  }\n+  res[kEventResHeaders] = kept.keys().next().done ? undefined : kept;\n+  return staged.keys().next().done ? undefined : staged;\n+}\n+\n+/**\n+ * Apply detached staged headers to the response the cache returned. Headers\n+ * staged during the dispatch (`handleCacheHeaders`, ...) are still on\n+ * `event.res` and are merged over these by h3 as usual. Like h3, success\n+ * headers never reach an error response.\n+ */\n+export function withStagedHeaders(res: Response, staged: Headers): Response {\n+  if (res.status >= 400) {\n+    return res;\n+  }\n+  const headers = new Headers(res.headers);\n+  mergeStagedHeaders(headers, staged);\n+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers });\n+}\n+\n+/** Put detached headers back under whatever was staged since, for h3 to render. */\n+export function reattachStagedHeaders(event: H3Event, staged: Headers): void {\n+  const res = event.res as any;\n+  const after: Headers | undefined = res[kEventResHeaders];\n+  if (after) {\n+    mergeStagedHeaders(staged, after);\n+  }\n+  res[kEventResHeaders] = staged;\n+}\n+\n+/**\n+ * Merge `source` into `target` the way h3 merges staged headers into a\n+ * response, except that `Vary` lists are joined: the entry's own `Vary`\n+ * declares its cache key and must not be replaced by a staged one.\n+ */\n+function mergeStagedHeaders(target: Headers, source: Headers): void {\n+  for (const [name, value] of source) {\n+    if (name === \"set-cookie\") {\n+      target.append(name, value);\n+    } else if (name === \"vary\" && target.has(\"vary\")) {\n+      appendVary(target, value);\n+    } else {\n+      target.set(name, value);\n+    }\n+  }\n+}\n+\n+function appendVary(headers: Headers, value: string): void {\n+  const names = headers\n+    .get(\"vary\")!\n+    .split(\",\")\n+    .map((name) => name.trim());\n+  const known = new Set(names.map((name) => name.toLowerCase()));\n+  for (const name of value.split(\",\")) {\n+    const trimmed = name.trim();\n+    if (trimmed && !known.has(trimmed.toLowerCase())) {\n+      known.add(trimmed.toLowerCase());\n+      names.push(trimmed);\n+    }\n+  }\n+  headers.set(\"vary\", names.filter(Boolean).join(\", \"));\n+}"
+        },
+        {
+          "sha": "9b6ddb1515fe79ccbddc69dc3f51bd9fb0123015",
+          "filename": "test/cache.test.ts",
+          "status": "added",
+          "additions": 226,
+          "deletions": 0,
+          "changes": 226,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Fcache.test.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Fcache.test.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Fcache.test.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -0,0 +1,226 @@\n+import { createMemoryStorage, defineCachedHandler } from \"ocache\";\n+import {\n+  HTTPError,\n+  defineHandler,\n+  handleCacheHeaders,\n+  toResponse,\n+  withCacheIsolation,\n+} from \"../src/index.ts\";\n+import { H3Event } from \"../src/index.ts\";\n+import { describeMatrix } from \"./_setup.ts\";\n+\n+describeMatrix(\"withCacheIsolation\", (t, { it, expect }) => {\n+  // A handler-level cache the way frameworks such as Nitro build one (h3js/h3#1607).\n+  const createCached = (handler: (event: H3Event) => unknown, opts?: { varies?: string[] }) =>\n+    withCacheIsolation(\n+      defineCachedHandler(handler, {\n+        storage: createMemoryStorage(),\n+        maxAge: 60,\n+        ...opts,\n+        toResponse: (value, event) => toResponse(value, event as H3Event),\n+        handleCacheHeaders: (event, conditions) => handleCacheHeaders(event as H3Event, conditions),\n+      }),\n+    );\n+\n+  it(\"keeps middleware-staged headers out of the cache entry\", async () => {\n+    const cached = createCached(() => \"hello\");\n+    t.app.use((event) => {\n+      const echo = event.req.headers.get(\"x-echo\");\n+      if (echo) event.res.headers.set(\"x-echo\", echo);\n+    });\n+    t.app.get(\n+      \"/cached\",\n+      defineHandler((event) => cached(event)),\n+    );\n+\n+    const miss = await t.fetch(\"/cached\", { headers: { \"x-echo\": \"a\" } });\n+    expect(miss.headers.get(\"x-echo\")).toBe(\"a\");\n+    expect(await miss.text()).toBe(\"hello\");\n+\n+    const hit = await t.fetch(\"/cached\");\n+    expect(hit.headers.get(\"x-echo\")).toBeNull();\n+    expect(await hit.text()).toBe(\"hello\");\n+\n+    const other = await t.fetch(\"/cached\", { headers: { \"x-echo\": \"b\" } });\n+    expect(other.headers.get(\"x-echo\")).toBe(\"b\");\n+  });\n+\n+  it(\"keeps middleware-staged cookies out of the cache entry\", async () => {\n+    const cached = createCached(() => \"hello\");\n+    t.app.use((event) => {\n+      const user = event.req.headers.get(\"x-user\");\n+      if (user) event.res.headers.append(\"set-cookie\", `user=${user}`);\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    const miss = await t.fetch(\"/cached\", { headers: { \"x-user\": \"alice\" } });\n+    expect(miss.headers.get(\"set-cookie\")).toBe(\"user=alice\");\n+    const hit = await t.fetch(\"/cached\");\n+    expect(hit.headers.get(\"set-cookie\")).toBeNull();\n+  });\n+\n+  it(\"still caches a route behind middleware that stages `vary: origin`\", async () => {\n+    let calls = 0;\n+    const cached = createCached(() => `hello ${++calls}`);\n+    t.app.use((event) => {\n+      event.res.headers.set(\"vary\", \"origin\");\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    const first = await t.fetch(\"/cached\");\n+    expect(await first.text()).toBe(\"hello 1\");\n+    expect(first.headers.get(\"vary\")).toBe(\"origin\");\n+    const second = await t.fetch(\"/cached\");\n+    expect(await second.text()).toBe(\"hello 1\");\n+    expect(second.headers.get(\"vary\")).toBe(\"origin\");\n+  });\n+\n+  it(\"does not store a response that varies on a header the cache isn't keyed on\", async () => {\n+    const cached = createCached((event) => `hello in ${event.context.lang}`);\n+    t.app.use((event) => {\n+      event.context.lang = event.req.headers.get(\"accept-language\") ?? \"en\";\n+      event.res.headers.set(\"vary\", \"origin, accept-language\");\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    const en = await t.fetch(\"/cached\", { headers: { \"accept-language\": \"en\" } });\n+    expect(await en.text()).toBe(\"hello in en\");\n+    const fr = await t.fetch(\"/cached\", { headers: { \"accept-language\": \"fr\" } });\n+    expect(await fr.text()).toBe(\"hello in fr\");\n+    expect(fr.headers.get(\"vary\")).toBe(\"accept-language, origin\");\n+  });\n+\n+  it(\"caches per value of a staged `Vary` the cache is keyed on\", async () => {\n+    let calls = 0;\n+    const cached = createCached((event) => `hello in ${event.context.lang} (${++calls})`, {\n+      varies: [\"accept-language\"],\n+    });\n+    t.app.use((event) => {\n+      event.context.lang = event.req.headers.get(\"accept-language\") ?? \"en\";\n+      event.res.headers.set(\"vary\", \"accept-language\");\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    const fetchLang = async (lang: string) =>\n+      (await t.fetch(\"/cached\", { headers: { \"accept-language\": lang } })).text();\n+    expect(await fetchLang(\"en\")).toBe(\"hello in en (1)\");\n+    expect(await fetchLang(\"fr\")).toBe(\"hello in fr (2)\");\n+    expect(await fetchLang(\"en\")).toBe(\"hello in en (1)\");\n+  });\n+\n+  it(\"keeps the cached handler's own methods\", async () => {\n+    let calls = 0;\n+    let url = \"\";\n+    const cached = createCached((event) => {\n+      url = event.req.url;\n+      return `hello ${++calls}`;\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 1\");\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 1\");\n+    expect(typeof cached.expire).toBe(\"function\");\n+    expect(typeof cached.resolveKeys).toBe(\"function\");\n+    await cached.invalidate(new H3Event(new Request(url)));\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 2\");\n+  });\n+\n+  it(\"does not store a response that middleware staged as `private`\", async () => {\n+    let calls = 0;\n+    const cached = createCached(() => `hello ${++calls}`);\n+    t.app.use((event) => {\n+      event.res.headers.set(\"cache-control\", \"private, no-store\");\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 1\");\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 2\");\n+  });\n+\n+  it(\"sends a middleware-staged `private` to the client\", async () => {\n+    // `handleCacheHeaders` would otherwise replace it with `public`, and a CDN\n+    // in front of the app could store the page middleware kept private.\n+    const cached = createCached(() => \"hello\");\n+    t.app.use((event) => {\n+      if (event.req.headers.has(\"x-user\")) {\n+        event.res.headers.set(\"cache-control\", \"private, no-store\");\n+      }\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    const user = await t.fetch(\"/cached\", { headers: { \"x-user\": \"alice\" } });\n+    expect(user.headers.get(\"cache-control\")).toBe(\"private, no-store\");\n+    const anonymous = await t.fetch(\"/cached\");\n+    expect(anonymous.headers.get(\"cache-control\")).toMatch(/^public/);\n+    const userHit = await t.fetch(\"/cached\", { headers: { \"x-user\": \"alice\" } });\n+    expect(userHit.headers.get(\"cache-control\")).toBe(\"private, no-store\");\n+  });\n+\n+  it(\"does not store a response that middleware staged with `vary: *`\", async () => {\n+    let calls = 0;\n+    const cached = createCached(() => `hello ${++calls}`);\n+    t.app.use((event) => {\n+      event.res.headers.set(\"vary\", \"*\");\n+    });\n+    t.app.get(\"/cached\", cached);\n+\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 1\");\n+    expect(await (await t.fetch(\"/cached\")).text()).toBe(\"hello 2\");\n+  });\n+\n+  it(\"keeps staged success headers off an error response\", async () => {\n+    t.app.use((event) => {\n+      event.res.headers.set(\"x-echo\", \"a\");\n+    });\n+    t.app.get(\n+      \"/missing\",\n+      withCacheIsolation(() => new Response(\"missing\", { status: 404 })),\n+    );\n+\n+    const res = await t.fetch(\"/missing\");\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"x-echo\")).toBeNull();\n+  });\n+\n+  it(\"restores staged headers for a handler that does not return a `Response`\", async () => {\n+    t.app.use((event) => {\n+      event.res.headers.set(\"x-echo\", \"a\");\n+    });\n+    t.app.get(\n+      \"/plain\",\n+      withCacheIsolation((event) => {\n+        expect(event.res.headers.get(\"x-echo\")).toBeNull();\n+        event.res.headers.set(\"x-handler\", \"1\");\n+        return \"plain\";\n+      }),\n+    );\n+\n+    const res = await t.fetch(\"/plain\");\n+    expect(await res.text()).toBe(\"plain\");\n+    expect(res.headers.get(\"x-echo\")).toBe(\"a\");\n+    expect(res.headers.get(\"x-handler\")).toBe(\"1\");\n+  });\n+\n+  it(\"restores staged headers when the handler throws\", async () => {\n+    t.app.use((event) => {\n+      event.res.errHeaders.set(\"x-err\", \"1\");\n+      event.res.headers.set(\"x-echo\", \"a\");\n+    });\n+    t.app.get(\n+      \"/throws\",\n+      withCacheIsolation(() => {\n+        throw new HTTPError({ status: 418 });\n+      }),\n+    );\n+    let staged: string | null = null;\n+    t.hooks.onError.mockImplementationOnce((_error, event: H3Event) => {\n+      staged = event.res.headers.get(\"x-echo\");\n+    });\n+\n+    const res = await t.fetch(\"/throws\");\n+    expect(staged).toBe(\"a\");\n+    expect(res.status).toBe(418);\n+    expect(res.headers.get(\"x-err\")).toBe(\"1\");\n+    expect(res.headers.get(\"x-echo\")).toBeNull();\n+  });\n+});"
+        },
+        {
+          "sha": "d82596e65194736aab3d66849ae3b1f13aed229a",
+          "filename": "test/rules/cache.test.ts",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 0,
+          "changes": 22,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Frules%2Fcache.test.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Frules%2Fcache.test.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fcache.test.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -753,6 +753,28 @@ describe(\"cache rule (ocache-backed, h3/rules/cache)\", () => {\n     }\n   });\n \n+  it(\"never stores a response behind middleware staging a non-`origin` `Vary`\", async () => {\n+    // Middleware that picks the rendered language from a request header the\n+    // rule isn't keyed on must keep the cache from storing one language for all.\n+    const app = new H3();\n+    app.use((event) => {\n+      event.context.lang = event.req.headers.get(\"accept-language\") ?? \"en\";\n+      event.res.headers.set(\"vary\", \"accept-language\");\n+    });\n+    app.use(routeRules({ \"/cached-lang\": { cache: { maxAge: 60 } } }, { handlers: { cache } }));\n+    app.get(\"/cached-lang\", (event) => `hello in ${event.context.lang}`);\n+\n+    const en = await app.fetch(\n+      new Request(\"http://localhost/cached-lang\", { headers: { \"accept-language\": \"en\" } }),\n+    );\n+    expect(await en.text()).toBe(\"hello in en\");\n+    const fr = await app.fetch(\n+      new Request(\"http://localhost/cached-lang\", { headers: { \"accept-language\": \"fr\" } }),\n+    );\n+    expect(await fr.text()).toBe(\"hello in fr\");\n+    expect(fr.headers.get(\"vary\")).toMatch(/accept-language/i);\n+  });\n+\n   it(\"never stores a response middleware staged as `private`\", async () => {\n     // An auth middleware marks a personalized response private. Detaching that\n     // `cache-control` with the other staged headers would store Alice's body"
+        },
+        {
+          "sha": "cc92511aa855732824f62419f02736af8ec72ddb",
+          "filename": "test/rules/rules.test.ts",
+          "status": "modified",
+          "additions": 135,
+          "deletions": 1,
+          "changes": 136,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Frules%2Frules.test.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Frules%2Frules.test.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Frules.test.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,4 +1,4 @@\n-import { H3 } from \"../../src/index.ts\";\n+import { H3, HTTPError, appendCorsHeaders } from \"../../src/index.ts\";\n import { describe, expect, it } from \"vitest\";\n import { routeRules } from \"../../src/rules/middleware.ts\";\n import { canonicalPath, isPathInScope } from \"../../src/rules/internal/scope.ts\";\n@@ -75,6 +75,140 @@ describe(\"headers rule on error responses\", () => {\n     expect(res.status).toBe(500);\n     expect(res.headers.get(\"x-rule\")).toBe(\"1\");\n   });\n+\n+  // h3js/h3#1612: an error carrying the header in its own `headers` opts its\n+  // response out of that rule header (e.g. keep an immutable `cache-control` off a 404).\n+  const CACHE_RULES: Record<string, RouteRuleConfig> = {\n+    \"/build/**\": {\n+      headers: { \"cache-control\": \"public, max-age=31536000, immutable\", \"x-rule\": \"1\" },\n+    },\n+  };\n+  const IMMUTABLE = \"public, max-age=31536000, immutable\";\n+\n+  it(\"yields to a thrown HTTPError's own header\", async () => {\n+    const app = createApp(CACHE_RULES);\n+    app.get(\"/build/**\", () => {\n+      throw new HTTPError({ status: 404, headers: { \"Cache-Control\": \"no-store\" } });\n+    });\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"cache-control\")).toBe(\"no-store\");\n+    expect(res.headers.get(\"x-rule\")).toBe(\"1\");\n+  });\n+\n+  it(\"yields to a returned HTTPError's own header\", async () => {\n+    const app = createApp(CACHE_RULES);\n+    app.get(\n+      \"/build/**\",\n+      () => new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } }),\n+    );\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"cache-control\")).toBe(\"no-store\");\n+    expect(res.headers.get(\"x-rule\")).toBe(\"1\");\n+  });\n+\n+  it(\"yields to an HTTPError header from inner middleware, with onError\", async () => {\n+    const app = new H3({ onError: () => {} });\n+    app.use(routeRules(CACHE_RULES));\n+    app.use(() => {\n+      throw new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } });\n+    });\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"cache-control\")).toBe(\"no-store\");\n+  });\n+\n+  it(\"still wins over errHeaders staged inside the rule\", async () => {\n+    // CORS helpers and appends write errHeaders too, so it is not an opt-out signal.\n+    const app = createApp({\n+      \"/build/**\": {\n+        headers: { \"access-control-allow-origin\": \"https://rule.com\", vary: \"x-rule\" },\n+      },\n+    });\n+    app.use((event) => {\n+      appendCorsHeaders(event, { origin: \"*\" });\n+      event.res.errHeaders.append(\"vary\", \"accept-encoding\");\n+    });\n+    app.get(\"/build/**\", () => {\n+      throw new HTTPError({ status: 404 });\n+    });\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"access-control-allow-origin\")).toBe(\"https://rule.com\");\n+    expect(res.headers.get(\"vary\")).toBe(\"x-rule\");\n+  });\n+\n+  it(\"still wins over a returned error Response's own header\", async () => {\n+    // e.g. an upstream 404 passed through by `proxy`: not an h3-level opt-out.\n+    const app = createApp(CACHE_RULES);\n+    app.get(\n+      \"/build/**\",\n+      () => new Response(\"nope\", { status: 404, headers: { \"cache-control\": \"max-age=60\" } }),\n+    );\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"cache-control\")).toBe(IMMUTABLE);\n+  });\n+\n+  it(\"still wins over errHeaders staged outside the rule\", async () => {\n+    const app = new H3();\n+    app.use((event) => {\n+      event.res.errHeaders.set(\"cache-control\", \"outer\");\n+    });\n+    app.use(routeRules(CACHE_RULES));\n+    app.get(\"/build/**\", () => {\n+      throw new HTTPError({ status: 404 });\n+    });\n+    const res = await app.fetch(new Request(\"http://test/build/missing.js\"));\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"cache-control\")).toBe(IMMUTABLE);\n+  });\n+\n+  it(\"still wins over cors-staged errHeaders\", async () => {\n+    // `cors` (order -3) stages `vary: origin` into errHeaders before this rule runs.\n+    const app = createApp({\n+      \"/api/**\": { cors: { origin: [\"https://a.com\"] }, headers: { vary: \"x-rule\" } },\n+    });\n+    app.get(\"/api/x\", () => {\n+      throw new HTTPError({ status: 404 });\n+    });\n+    const res = await app.fetch(\n+      new Request(\"http://test/api/x\", { headers: { origin: \"https://a.com\" } }),\n+    );\n+    expect(res.status).toBe(404);\n+    expect(res.headers.get(\"access-control-allow-origin\")).toBe(\"https://a.com\");\n+    expect(res.headers.get(\"vary\")).toBe(\"x-rule\");\n+  });\n+\n+  it(\"stacked rules: outer wins, and both yield to an HTTPError header\", async () => {\n+    const app = new H3();\n+    app.use(routeRules({ \"/build/**\": { headers: { \"cache-control\": \"outer\" } } }));\n+    app.use(routeRules({ \"/build/**\": { headers: { \"cache-control\": \"inner\" } } }));\n+    app.get(\"/build/ok\", () => \"ok\");\n+    app.get(\"/build/opt-out\", () => {\n+      throw new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } });\n+    });\n+    app.get(\"/build/**\", () => {\n+      throw new HTTPError({ status: 404 });\n+    });\n+    const fetchCC = async (path: string) =>\n+      (await app.fetch(new Request(`http://test${path}`))).headers.get(\"cache-control\");\n+    expect(await fetchCC(\"/build/ok\")).toBe(\"outer\");\n+    expect(await fetchCC(\"/build/missing.js\")).toBe(\"outer\");\n+    expect(await fetchCC(\"/build/opt-out\")).toBe(\"no-store\");\n+  });\n+\n+  it(\"still wins on a 2xx response when the handler sets the same key\", async () => {\n+    const app = createApp(CACHE_RULES);\n+    app.get(\"/build/**\", (event) => {\n+      event.res.headers.set(\"cache-control\", \"no-store\");\n+      return \"ok\";\n+    });\n+    const res = await app.fetch(new Request(\"http://test/build/app.js\"));\n+    expect(res.status).toBe(200);\n+    expect(res.headers.get(\"cache-control\")).toBe(IMMUTABLE);\n+  });\n });\n \n describe(\"cors rule\", () => {"
+        },
+        {
+          "sha": "71bbd6232450ad4ddf31f8847b8257bd955587c7",
+          "filename": "test/unit/package.test.ts",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 0,
+          "changes": 1,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Funit%2Fpackage.test.ts",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/test%2Funit%2Fpackage.test.ts",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Funit%2Fpackage.test.ts?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -151,6 +151,7 @@ describe(\"h3 package\", () => {\n         \"useBase\",\n         \"useSession\",\n         \"withBase\",\n+        \"withCacheIsolation\",\n         \"withServerTiming\",\n         \"writeEarlyHints\",\n       ]"
         }
       ]
     }

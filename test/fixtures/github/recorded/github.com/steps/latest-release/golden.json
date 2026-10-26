@@ -8,12 +8,12 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "416194782",
-    "tag": "v2.0.5"
+    "id": "420352289",
+    "tag": "v2.0.8"
   },
   "name": "",
-  "tag": "v2.0.5",
-  "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.4...v2.0.5)\r\n\r\n### 🩹 Fixes\r\n\r\n- **cli:** Harden `h3 docs` page handling ([7150b0e](https://github.com/h3js/h3/commit/7150b0e))",
+  "tag": "v2.0.8",
+  "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.7...v2.0.8)\r\n\r\n### 🩹 Fixes\r\n\r\n- **rules:** Let `HTTPError.headers` opt out of `headers` rule on errors ([#1613](https://github.com/h3js/h3/pull/1613))",
   "isDraft": false,
   "isPrerelease": false,
   "immutable": false,
@@ -27,8 +27,8 @@
     "typeRaw": "User",
     "isBotHint": false
   },
-  "publishedAt": "2026-10-18T02:40:10.000Z",
-  "createdAt": "2026-10-18T02:39:39.000Z",
-  "url": "https://github.com/h3js/h3/releases/tag/v2.0.5",
+  "publishedAt": "2026-10-22T05:51:39.000Z",
+  "createdAt": "2026-10-22T05:50:58.000Z",
+  "url": "https://github.com/h3js/h3/releases/tag/v2.0.8",
   "assets": []
 }

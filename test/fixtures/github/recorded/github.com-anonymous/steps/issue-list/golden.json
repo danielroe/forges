@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "number": "1610",
+        "externalId": "I_kwDOErHI988AAAABY6w9Hg"
       },
       "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "title": "[v1] Synchronous next() calls leak response listeners in callNodeListener, causing MaxListenersExceededWarning",
+      "body": "### Environment\n\n- h3: 1.15.11\n- Nuxt: 4.6.2\n- Nitro: 2.13.5\n- Node.js: 24.19.0\n- OS: Windows\n\nThe reproduction below only requires h3 and Node.js.\n\n### Reproduction\n\nInstall h3:\n\n```sh\nnpm install h3@1.15.11\n```\n\nSave this as `repro.mjs`:\n\n```js\nimport { createServer } from 'node:http'\nimport { createApp, fromNodeMiddleware, toNodeListener } from 'h3'\n\nconst app = createApp()\n\nfor (let i = 0; i < 15; i++) {\n  app.use(\n    fromNodeMiddleware((req, res, next) => {\n      next()\n    })\n  )\n}\n\napp.use(\n  fromNodeMiddleware((req, res) => {\n    console.log('close listeners:', res.listenerCount('close'))\n    console.log('error listeners:', res.listenerCount('error'))\n    res.end('ok')\n  })\n)\n\nconst server = createServer(toNodeListener(app))\n\nawait new Promise((resolve) => {\n  server.listen(0, '127.0.0.1', resolve)\n})\n\ntry {\n  const { port } = server.address()\n  const response = await fetch(`http://127.0.0.1:${port}/`, {\n    method: 'POST'\n  })\n\n  console.log(response.status, await response.text())\n} finally {\n  server.closeAllConnections()\n  await new Promise((resolve) => server.close(resolve))\n}\n```\n\nRun:\n\n```sh\nnode --trace-warnings repro.mjs\n```\n\n### Describe the bug\n\nThe final handler sees 15 `close` listeners and 15 `error` listeners left behind by middleware that has already called `next()`.\n\nNode emits warnings for both events:\n\n```text\nMaxListenersExceededWarning: Possible EventEmitter memory leak detected.\n11 close listeners added to [ServerResponse].\n```\n\nThe warning stack points to listener registration inside `callNodeListener`.\n\nThe response still completes with `200 ok`.\n\n### Expected behavior\n\nOnce middleware calls `next()`, its response lifecycle listeners should be removed and should not be attached again.\n\nCompleted middleware layers should not accumulate listeners on the same response. Increasing the listener limit would only hide the problem.\n\n### Suspected cause\n\nIn `callNodeListener`, the handler runs before its lifecycle listeners are registered:\n\n```js\nconst returned = handler(req, res, next)\n\nif (isMiddleware && returned === undefined) {\n  res.once('close', next)\n  res.once('error', next)\n}\n```\n\nWhen the handler calls `next()` synchronously:\n\n1. `next()` attempts to remove its listeners, but they have not been registered yet.\n2. The handler returns `undefined`.\n3. `callNodeListener` then registers those listeners, even though this middleware has already completed.\n\nThis accumulates listeners across middleware layers on a single response, rather than requiring response objects to be reused across requests.\n\nWe encountered repeated warnings on POST requests to a Magento integration mounted inside Nuxt/Nitro. The standalone reproduction above demonstrates the adapter problem independently of Magento.\n\n### Related upstream report\n\nPR #1028 identified the same late listener-registration ordering, but focused on hanging responses:\n\nhttps://github.com/h3js/h3/pull/1028\n\nThat PR was closed without merging. This report provides a Node.js reproduction of a different consequence: listener accumulation after synchronous `next()` calls.\n\n### Locally tested fix\n\nRegister the lifecycle listeners before invoking three-argument middleware, allowing synchronous `next()` calls to remove them.\n\nAlso clean up those listeners when middleware returns a non-`undefined` value or a promise, preserving the existing return-value behavior.\n\nA local patch covering both ESM and CommonJS passes regression tests for:\n\n- Repeated synchronous `next()` calls on the same response.\n- Asynchronous `next()` calls.\n- Synchronous and asynchronous error propagation.\n- Thrown errors and rejected promises.\n- Promise-returning middleware.\n- Synchronous response closure.\n- Response errors.\n- Preservation of unrelated listeners and the default listener limit.\n\nWith the patch, HTTP requests passing through 25 synchronous middleware layers complete without accumulated adapter listeners or `MaxListenersExceededWarning`.",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "simonmaass",
+        "id": "32599710",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/32599710?v=4",
+        "url": "https://github.com/simonmaass",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -34,11 +34,17 @@
       "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "labels": [
+        {
+          "name": "bug",
+          "colour": "d73a4a",
+          "description": "Something isn't working"
+        }
+      ],
+      "url": "https://github.com/h3js/h3/issues/1610",
+      "createdAt": "2026-10-21T19:32:34.000Z",
+      "updatedAt": "2026-10-21T19:33:23.000Z",
+      "lastActivityAt": "2026-10-21T19:33:23.000Z",
       "locked": false,
       "commentCount": 0,
       "reactions": {
@@ -48,13 +54,12 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-    "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoStP4lDPAAAAAVnRJdg%3D&page=3",
+    "etag": "W/\"5c841f413f739a77d99e25f8db7e0ecda649d5d9e14040112c3941ec1b751505\""
   },
-  "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 21,
+    "remaining": 15,
     "resetAt": "<now>",
     "resource": "core"
   }

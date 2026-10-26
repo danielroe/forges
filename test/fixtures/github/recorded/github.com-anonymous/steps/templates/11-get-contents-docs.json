@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"f60a2a47abeb5c7bf7b5e46049cc312f2239f930\"",
+      "etag": "\"98312ca04cf112f6f2eb4e2b8534d12ddfe79150\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "51",
-      "x-ratelimit-reset": "1792387146",
+      "x-ratelimit-remaining": "50",
+      "x-ratelimit-reset": "1792993186",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -96,16 +96,16 @@
       {
         "name": "2.utils",
         "path": "docs/2.utils",
-        "sha": "b4e7fe716a08063cfebefc87a093a769b897961e",
+        "sha": "b24a16ef82cf855b26f0f7e5d51baf544e3391aa",
         "size": 0,
         "url": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
         "html_url": "https://github.com/h3js/h3/tree/main/docs/2.utils",
-        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
+        "git_url": "https://api.github.com/repos/h3js/h3/git/trees/b24a16ef82cf855b26f0f7e5d51baf544e3391aa",
         "download_url": null,
         "type": "dir",
         "_links": {
           "self": "https://api.github.com/repos/h3js/h3/contents/docs/2.utils?ref=main",
-          "git": "https://api.github.com/repos/h3js/h3/git/trees/b4e7fe716a08063cfebefc87a093a769b897961e",
+          "git": "https://api.github.com/repos/h3js/h3/git/trees/b24a16ef82cf855b26f0f7e5d51baf544e3391aa",
           "html": "https://github.com/h3js/h3/tree/main/docs/2.utils"
         }
       },

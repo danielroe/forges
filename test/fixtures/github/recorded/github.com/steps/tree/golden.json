@@ -36,15 +36,15 @@
     {
       "path": "AGENTS.md",
       "type": "file",
-      "sha": "8e747ebd00a95cb487acdf0c9815abe34cb60ed4",
-      "size": 11788,
+      "sha": "776ee4dacc9dc96f240aa42cf48543016098df01",
+      "size": 11808,
       "mode": "100644"
     },
     {
       "path": "CHANGELOG.md",
       "type": "file",
-      "sha": "d8f3af79ade7b9421b2779e93ab6a2b346fb1327",
-      "size": 130841,
+      "sha": "cb5fe718c160c3e38a90a62fbcdc674e2c889342",
+      "size": 131785,
       "mode": "100644"
     },
     {
@@ -91,7 +91,7 @@
     {
       "path": "docs",
       "type": "directory",
-      "sha": "277e948990af04359f79e53744f347d929e52f3d",
+      "sha": "5b7d3c8ccb9746918d836ae2f94dac9b6830ffb3",
       "mode": "040000"
     },
     {
@@ -103,7 +103,7 @@
     {
       "path": "package.json",
       "type": "file",
-      "sha": "cb0c3afaa1eb71c91ea80a66918a8a7c92e5e477",
+      "sha": "9290373e5ecf6bd416ac67a5d4915daca044447b",
       "size": 3662,
       "mode": "100644"
     },
@@ -137,13 +137,13 @@
     {
       "path": "src",
       "type": "directory",
-      "sha": "df175ca33afe5fc6c1105554563da49b0f526d50",
+      "sha": "afbb2234a01b805b738472211b1d21126bd1ffe2",
       "mode": "040000"
     },
     {
       "path": "test",
       "type": "directory",
-      "sha": "97d954491b9a8859c47a9309cbf7a842d7229175",
+      "sha": "463a0dd29cf936df6196c574fc478aec57be4b8b",
       "mode": "040000"
     },
     {
@@ -170,7 +170,7 @@
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4897,
+    "remaining": 4792,
     "resetAt": "<now>",
     "resource": "core"
   }

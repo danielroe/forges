@@ -30,10 +30,11 @@
       "updatedAt": "2026-10-09T11:02:01.000Z"
     }
   ],
-  "etag": "W/\"5b65cbef8c194c37d1a9dfccd5caf1e603b7b2ca29617ce4ba9d3c1c8bab207f\"",
+  "etag": "W/\"9b2c5dc2ba9bcdc36ef6983367d95d38fc711374b4f336820537654a37d68ca7\"",
   "rateLimit": {
     "limit": 500,
     "remaining": 499,
-    "resetAt": "<now>"
+    "resetAt": "<now>",
+    "resource": "webhook_deliveries"
   }
 }

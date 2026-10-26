@@ -1,34 +1,34 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/pulls/1602"
+    "url": "https://api.github.com/repos/h3js/h3/pulls/1613"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"f5df85c3a09c7c619ab8d46e0c94095eda56a7eccf289d21c42bb7b3603f21d9\"",
+      "etag": "\"69ddfca4059ab77a876ebbb4e64f6ced4086cb517dd04b8e91e496e9e8dd8c36\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "25",
-      "x-ratelimit-reset": "1792387146",
+      "x-ratelimit-remaining": "20",
+      "x-ratelimit-reset": "1792993186",
       "x-ratelimit-resource": "core"
     },
     "body": {
-      "url": "https://api.github.com/repos/h3js/h3/pulls/1602",
-      "id": 4905692394,
-      "node_id": "PR_kwDOErHI988AAAABJGbs6g",
-      "html_url": "https://github.com/h3js/h3/pull/1602",
-      "diff_url": "https://github.com/h3js/h3/pull/1602.diff",
-      "patch_url": "https://github.com/h3js/h3/pull/1602.patch",
-      "issue_url": "https://api.github.com/repos/h3js/h3/issues/1602",
-      "commits_url": "https://api.github.com/repos/h3js/h3/pulls/1602/commits",
-      "review_comments_url": "https://api.github.com/repos/h3js/h3/pulls/1602/comments",
+      "url": "https://api.github.com/repos/h3js/h3/pulls/1613",
+      "id": 4962542200,
+      "node_id": "PR_kwDOErHI988AAAABJ8pieA",
+      "html_url": "https://github.com/h3js/h3/pull/1613",
+      "diff_url": "https://github.com/h3js/h3/pull/1613.diff",
+      "patch_url": "https://github.com/h3js/h3/pull/1613.patch",
+      "issue_url": "https://api.github.com/repos/h3js/h3/issues/1613",
+      "commits_url": "https://api.github.com/repos/h3js/h3/pulls/1613/commits",
+      "review_comments_url": "https://api.github.com/repos/h3js/h3/pulls/1613/comments",
       "review_comment_url": "https://api.github.com/repos/h3js/h3/pulls/comments{/number}",
-      "comments_url": "https://api.github.com/repos/h3js/h3/issues/1602/comments",
-      "statuses_url": "https://api.github.com/repos/h3js/h3/statuses/52a3c190a54c0bf7ea153012ffb86dde734cf084",
-      "number": 1602,
+      "comments_url": "https://api.github.com/repos/h3js/h3/issues/1613/comments",
+      "statuses_url": "https://api.github.com/repos/h3js/h3/statuses/9aec84739acc02a4a7b88d6566f8cbcf83682f34",
+      "number": 1613,
       "state": "closed",
       "locked": false,
-      "title": "build: remove bundled docs and open h3.dev from `h3 docs`",
+      "title": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors",
       "user": {
         "login": "pi0x",
         "id": 286783767,
@@ -50,44 +50,22 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "body": "Stops shipping the docs inside the npm package to make it smaller.\n\n- `build.config.ts`: removed the `end()` hook that exported `./docs` into `dist/docs` with mdzilla.\n- `package.json` / lockfile: removed the `mdzilla` dev dependency.\n- `bin/h3.mjs`: `h3 docs [page]` now opens `https://h3.dev/<page>` with the system's open command (`open` / `xdg-open` / `cmd /c start`). If no browser can be launched, it prints the URL instead.\n- `test/unit/cli.test.ts`: replaced the old tests for the bundled docs folder with a test that checks the CLI points at h3.dev.\n\nNote: mdzilla's `--page <path>` flag is gone; use a plain page argument instead (`h3 docs /guide`).\n\nVerified: `pnpm build` produces no `dist/docs`; the CLI test, lint and typecheck pass.\n\n🤖 Generated with AI assistant",
+      "body": "Closes #1612\n\nThe `headers` rule applies its headers to `event.res.errHeaders` after the handler has run, and `errHeaders` takes precedence over `HTTPError.headers` (in h3's `errorResponse` and in Nitro's `createErrorHeaders`). So a handler could not change a rule header on its own error response. In Nitro (since nitrojs/nitro#4891), a 404 for a missing asset under `/build/**` got `cache-control: public, max-age=31536000, immutable`, which lets a CDN or browser cache the 404.\n\n### Change\n\nAn `HTTPError`, thrown or returned, that carries one of the rule's keys in its own `headers` keeps that value. The rule skips the `errHeaders` write for that key only:\n\n```ts\nthrow new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } });\n// → cache-control: no-store; the rule's other headers still apply\n```\n\n### Why not detect changes to `errHeaders` (the issue's suggestion)\n\nAn earlier revision of this PR did that: it skipped keys whose `errHeaders` value changed during `next()`. A review showed that a change there isn't a reliable signal:\n\n- **CORS helpers:** `appendCorsHeaders`/`handleCors` in user middleware (Nitro `server/middleware/`) write `errHeaders` inside the rule, so their values beat the rule on 4xx/5xx while the rule still won on 2xx. On main the rule wins both.\n- **Appends:** `errHeaders.append(\"vary\", …)` dropped the rule's `vary` on errors.\n- **Nested rules:** a stacked or mounted `headers` rule needed extra tracking.\n- **Opt-out mechanics:** deleting a key couldn't opt out, and returning (instead of throwing) under an inner `cache` rule didn't work.\n- **Cost:** it added per-request work on the success path.\n\n`HTTPError.headers` is an explicit statement about that error response, and the check costs nothing on successful requests.\n\n### Unchanged (pinned by tests that pass on main and on this branch)\n\n- 2xx responses always get the rule headers (h3js/h3-rules#5 ordering).\n- `errHeaders` staged anywhere (outer middleware, the `cors` rule, CORS helpers or appends inside the rule) is still overridden by the rule on errors.\n- An error `Response` the handler builds itself (e.g. an upstream 404 through `proxy`) still gets the rule header. Only `HTTPError` opts out.\n- Stacked `headers` rules: the outer one wins on 2xx and on errors.\n\n### Notes\n\n- **`return` under a `cache` rule:** on a route that also has a `cache` rule, *return* the `HTTPError` and the `cache` rule renders it to a plain `Response` first, so the opt-out is lost. *Throwing* works.\n- **Tree-shaking:** `HTTPError.isError` is inlined so that `headers`-only bundles don't pull in `error.ts` (`treeshake.test.ts` budget).\n- **Nitro follow-up:** in `static.ts`, replace `event.res.headers.delete(\"Cache-Control\")` + `throw new HTTPError({ status: 404 })` with `throw new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } })`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Configured route-rule headers are now applied consistently to successful and error responses, including errors that are thrown or returned.\n  * Configured headers override staged error headers and headers on returned error responses. For qualifying HTTP errors, an error’s own header value is preserved in the error response.\n  * Configured headers continue to override matching headers set by a handler on a successful response.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "labels": [],
       "milestone": null,
       "active_lock_reason": null,
-      "created_at": "2026-10-18T02:14:52Z",
-      "updated_at": "2026-10-18T02:16:20Z",
-      "closed_at": "2026-10-18T02:16:18Z",
-      "merged_at": "2026-10-18T02:16:18Z",
-      "merge_commit_sha": "b48b480030becd6507485429dada6d6612fb1084",
+      "created_at": "2026-10-22T05:22:32Z",
+      "updated_at": "2026-10-22T05:50:08Z",
+      "closed_at": "2026-10-22T05:50:05Z",
+      "merged_at": "2026-10-22T05:50:05Z",
+      "merge_commit_sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
       "assignee": null,
       "assignees": [],
-      "requested_reviewers": [
-        {
-          "login": "pi0",
-          "id": 5158436,
-          "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "html_url": "https://github.com/pi0",
-          "followers_url": "https://api.github.com/users/pi0/followers",
-          "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-          "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-          "organizations_url": "https://api.github.com/users/pi0/orgs",
-          "repos_url": "https://api.github.com/users/pi0/repos",
-          "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/pi0/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        }
-      ],
+      "requested_reviewers": [],
       "requested_teams": [],
       "head": {
-        "label": "h3js:build/no-docs",
-        "ref": "build/no-docs",
+        "label": "h3js:fix/headers-rule-override",
+        "ref": "fix/headers-rule-override",
         "repo": {
           "id": 313641207,
           "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -124,14 +102,14 @@
           "visibility": "public",
           "is_template": false,
           "topics": [],
-          "forks_count": 378,
-          "forks": 378,
-          "stargazers_count": 5465,
-          "watchers_count": 5465,
-          "watchers": 5465,
-          "open_issues_count": 59,
-          "open_issues": 59,
-          "size": 8217,
+          "forks_count": 386,
+          "forks": 386,
+          "stargazers_count": 5472,
+          "watchers_count": 5472,
+          "watchers": 5472,
+          "open_issues_count": 64,
+          "open_issues": 64,
+          "size": 7983,
           "default_branch": "main",
           "has_issues": true,
           "has_projects": true,
@@ -140,9 +118,9 @@
           "has_downloads": false,
           "has_discussions": true,
           "has_pull_requests": true,
-          "pushed_at": "2026-10-18T14:00:07Z",
+          "pushed_at": "2026-10-22T05:51:10Z",
           "created_at": "2020-11-17T14:15:44Z",
-          "updated_at": "2026-10-18T15:38:13Z",
+          "updated_at": "2026-10-25T19:57:04Z",
           "allow_forking": true,
           "web_commit_signoff_required": false,
           "pull_request_creation_policy": "all",
@@ -197,7 +175,7 @@
           "hooks_url": "https://api.github.com/repos/h3js/h3/hooks",
           "svn_url": "https://github.com/h3js/h3"
         },
-        "sha": "52a3c190a54c0bf7ea153012ffb86dde734cf084",
+        "sha": "9aec84739acc02a4a7b88d6566f8cbcf83682f34",
         "user": {
           "login": "h3js",
           "id": 208435796,
@@ -259,14 +237,14 @@
           "visibility": "public",
           "is_template": false,
           "topics": [],
-          "forks_count": 378,
-          "forks": 378,
-          "stargazers_count": 5465,
-          "watchers_count": 5465,
-          "watchers": 5465,
-          "open_issues_count": 59,
-          "open_issues": 59,
-          "size": 8217,
+          "forks_count": 386,
+          "forks": 386,
+          "stargazers_count": 5472,
+          "watchers_count": 5472,
+          "watchers": 5472,
+          "open_issues_count": 64,
+          "open_issues": 64,
+          "size": 7983,
           "default_branch": "main",
           "has_issues": true,
           "has_projects": true,
@@ -275,9 +253,9 @@
           "has_downloads": false,
           "has_discussions": true,
           "has_pull_requests": true,
-          "pushed_at": "2026-10-18T14:00:07Z",
+          "pushed_at": "2026-10-22T05:51:10Z",
           "created_at": "2020-11-17T14:15:44Z",
-          "updated_at": "2026-10-18T15:38:13Z",
+          "updated_at": "2026-10-25T19:57:04Z",
           "allow_forking": true,
           "web_commit_signoff_required": false,
           "pull_request_creation_policy": "all",
@@ -332,7 +310,7 @@
           "hooks_url": "https://api.github.com/repos/h3js/h3/hooks",
           "svn_url": "https://github.com/h3js/h3"
         },
-        "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+        "sha": "9d70cf30099281668929e097d1fd0a18778af5d3",
         "user": {
           "login": "h3js",
           "id": 208435796,
@@ -357,28 +335,28 @@
       },
       "_links": {
         "comments": {
-          "href": "https://api.github.com/repos/h3js/h3/issues/1602/comments"
+          "href": "https://api.github.com/repos/h3js/h3/issues/1613/comments"
         },
         "commits": {
-          "href": "https://api.github.com/repos/h3js/h3/pulls/1602/commits"
+          "href": "https://api.github.com/repos/h3js/h3/pulls/1613/commits"
         },
         "statuses": {
-          "href": "https://api.github.com/repos/h3js/h3/statuses/52a3c190a54c0bf7ea153012ffb86dde734cf084"
+          "href": "https://api.github.com/repos/h3js/h3/statuses/9aec84739acc02a4a7b88d6566f8cbcf83682f34"
         },
         "html": {
-          "href": "https://github.com/h3js/h3/pull/1602"
+          "href": "https://github.com/h3js/h3/pull/1613"
         },
         "issue": {
-          "href": "https://api.github.com/repos/h3js/h3/issues/1602"
+          "href": "https://api.github.com/repos/h3js/h3/issues/1613"
         },
         "review_comments": {
-          "href": "https://api.github.com/repos/h3js/h3/pulls/1602/comments"
+          "href": "https://api.github.com/repos/h3js/h3/pulls/1613/comments"
         },
         "review_comment": {
           "href": "https://api.github.com/repos/h3js/h3/pulls/comments{/number}"
         },
         "self": {
-          "href": "https://api.github.com/repos/h3js/h3/pulls/1602"
+          "href": "https://api.github.com/repos/h3js/h3/pulls/1613"
         }
       },
       "author_association": "CONTRIBUTOR",
@@ -410,12 +388,12 @@
         "site_admin": false
       },
       "comments": 3,
-      "review_comments": 0,
+      "review_comments": 1,
       "maintainer_can_modify": false,
-      "commits": 1,
-      "additions": 27,
-      "deletions": 87,
-      "changed_files": 5
+      "commits": 3,
+      "additions": 166,
+      "deletions": 9,
+      "changed_files": 2
     }
   }
 }

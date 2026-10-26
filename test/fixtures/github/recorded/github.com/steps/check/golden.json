@@ -8,26 +8,15 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "117694944314",
+    "id": "121143399878",
     "type": "check_run",
-    "app": "github-actions"
+    "app": "codecov"
   },
-  "name": "report-skipped",
-  "state": "neutral",
+  "name": "codecov/patch",
+  "state": "success",
   "stateRaw": "completed",
-  "conclusionRaw": "skipped",
-  "url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694944314",
-  "startedAt": "2026-10-18T14:00:57.000Z",
-  "completedAt": "2026-10-18T14:00:57.000Z",
-  "run": {
-    "forge": "github",
-    "instance": "github.com",
-    "repo": {
-      "forge": "github",
-      "instance": "github.com",
-      "owner": "h3js",
-      "name": "h3"
-    },
-    "id": "39134083187"
-  }
+  "conclusionRaw": "success",
+  "url": "https://github.com/h3js/h3/runs/121143399878",
+  "startedAt": "2026-10-25T10:27:39.000Z",
+  "completedAt": "2026-10-25T10:27:40.000Z"
 }

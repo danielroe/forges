@@ -6,47 +6,630 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1602,
+      "k0": 1613,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1601,
+      "k1": 1608,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1595,
+      "k2": 1606,
       "o3": "h3js",
       "n3": "h3",
-      "k3": 1590,
+      "k3": 1602,
       "o4": "h3js",
       "n4": "h3",
-      "k4": 1589,
+      "k4": 1601,
       "o5": "h3js",
       "n5": "h3",
-      "k5": 1588,
+      "k5": 1595,
       "o6": "h3js",
       "n6": "h3",
-      "k6": 1587,
+      "k6": 1590,
       "o7": "h3js",
       "n7": "h3",
-      "k7": 1582,
+      "k7": 1589,
       "o8": "h3js",
       "n8": "h3",
-      "k8": 1581,
+      "k8": 1588,
       "o9": "h3js",
       "n9": "h3",
-      "k9": 1580
+      "k9": 1587
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4993",
-      "x-ratelimit-reset": "1792388363",
+      "x-ratelimit-remaining": "4994",
+      "x-ratelimit-reset": "1792993265",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
       "data": {
         "t0": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABJ8pieA",
+            "number": 1613,
+            "title": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors",
+            "body": "Closes #1612\n\nThe `headers` rule applies its headers to `event.res.errHeaders` after the handler has run, and `errHeaders` takes precedence over `HTTPError.headers` (in h3's `errorResponse` and in Nitro's `createErrorHeaders`). So a handler could not change a rule header on its own error response. In Nitro (since nitrojs/nitro#4891), a 404 for a missing asset under `/build/**` got `cache-control: public, max-age=31536000, immutable`, which lets a CDN or browser cache the 404.\n\n### Change\n\nAn `HTTPError`, thrown or returned, that carries one of the rule's keys in its own `headers` keeps that value. The rule skips the `errHeaders` write for that key only:\n\n```ts\nthrow new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } });\n// → cache-control: no-store; the rule's other headers still apply\n```\n\n### Why not detect changes to `errHeaders` (the issue's suggestion)\n\nAn earlier revision of this PR did that: it skipped keys whose `errHeaders` value changed during `next()`. A review showed that a change there isn't a reliable signal:\n\n- **CORS helpers:** `appendCorsHeaders`/`handleCors` in user middleware (Nitro `server/middleware/`) write `errHeaders` inside the rule, so their values beat the rule on 4xx/5xx while the rule still won on 2xx. On main the rule wins both.\n- **Appends:** `errHeaders.append(\"vary\", …)` dropped the rule's `vary` on errors.\n- **Nested rules:** a stacked or mounted `headers` rule needed extra tracking.\n- **Opt-out mechanics:** deleting a key couldn't opt out, and returning (instead of throwing) under an inner `cache` rule didn't work.\n- **Cost:** it added per-request work on the success path.\n\n`HTTPError.headers` is an explicit statement about that error response, and the check costs nothing on successful requests.\n\n### Unchanged (pinned by tests that pass on main and on this branch)\n\n- 2xx responses always get the rule headers (h3js/h3-rules#5 ordering).\n- `errHeaders` staged anywhere (outer middleware, the `cors` rule, CORS helpers or appends inside the rule) is still overridden by the rule on errors.\n- An error `Response` the handler builds itself (e.g. an upstream 404 through `proxy`) still gets the rule header. Only `HTTPError` opts out.\n- Stacked `headers` rules: the outer one wins on 2xx and on errors.\n\n### Notes\n\n- **`return` under a `cache` rule:** on a route that also has a `cache` rule, *return* the `HTTPError` and the `cache` rule renders it to a plain `Response` first, so the opt-out is lost. *Throwing* works.\n- **Tree-shaking:** `HTTPError.isError` is inlined so that `headers`-only bundles don't pull in `error.ts` (`treeshake.test.ts` budget).\n- **Nitro follow-up:** in `static.ts`, replace `event.res.headers.delete(\"Cache-Control\")` + `throw new HTTPError({ status: 404 })` with `throw new HTTPError({ status: 404, headers: { \"cache-control\": \"no-store\" } })`.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Configured route-rule headers are now applied consistently to successful and error responses, including errors that are thrown or returned.\n  * Configured headers override staged error headers and headers on returned error responses. For qualifying HTTP errors, an error’s own header value is preserved in the error response.\n  * Configured headers continue to override matching headers set by a handler on a successful response.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-22T05:22:32Z",
+            "updatedAt": "2026-10-22T05:50:08Z",
+            "closedAt": "2026-10-22T05:50:05Z",
+            "mergedAt": "2026-10-22T05:50:05Z",
+            "url": "https://github.com/h3js/h3/pull/1613",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/headers-rule-override",
+            "headRefOid": "9aec84739acc02a4a7b88d6566f8cbcf83682f34",
+            "baseRefName": "main",
+            "baseRefOid": "9d70cf30099281668929e097d1fd0a18778af5d3",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
+            },
+            "additions": 166,
+            "deletions": 9,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-22T05:22:32Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABJkj99Q",
+            "number": 1608,
+            "title": "fix: keep middleware-staged headers out of handler-level caches",
+            "body": "Resolves #1607\n\n#1606 keeps middleware-staged headers out of the `cache` route rule's entries, but the logic lived in `h3/rules/cache` and used h3 internals. A route wrapped directly with ocache's `defineCachedHandler` (as Nitro's `defineCachedHandler` does) behind global middleware still leaked: on a miss, `toResponse(value, event)` merged the staged headers into the stored entry, and later hits served them to other users. A middleware staging `vary: origin` also stopped the route from being cached.\n\n### Changes\n\n- **New public util `withCacheIsolation(handler)`** (`src/utils/cache.ts`, exported from `h3`). It wraps a cached handler with the same isolation #1606 added:\n  - Headers staged on `event.res` before the handler runs are taken off the event for the cached dispatch, then merged onto each successful response, hit or miss.\n  - Staged `Cache-Control` and every staged `Vary` name except `origin` stay visible to the cache. A response that middleware marked `private`/`no-store`, or that varies on a request header the cache isn't keyed on, is therefore not stored.\n  - `Vary` is joined with the entry's own rather than replaced.\n  - Error responses don't get the staged success headers, matching h3.\n  - On a throw or a non-`Response` result, the staged headers are put back on the event.\n  - The cached handler's own properties (ocache's `invalidate`, `expire`, `resolveKeys`) are kept on the wrapper, and its type is preserved.\n- **`h3/rules/cache` now uses it.** The helpers moved to `src/utils/internal/staged-headers.ts` (changed only for the `Vary` fix below); the rule-only parts (credential stripping, volatile CORS/cookie headers, the 304 rebuild) stay in the rule.\n\n```js\nimport { defineCachedHandler } from \"ocache\";\nimport { withCacheIsolation, toResponse, handleCacheHeaders } from \"h3\";\n\nconst cached = withCacheIsolation(\n  defineCachedHandler(() => \"hello\", {\n    maxAge: 60,\n    toResponse: (value, event) => toResponse(value, event),\n    handleCacheHeaders: (event, conditions) => handleCacheHeaders(event, conditions),\n  }),\n);\napp.get(\"/cached\", cached);\n```\n\n### Behavior change in `h3/rules/cache` (fix to #1606)\n\n#1606 hid every staged `Vary` other than `*` from the cache. That was only safe for `Vary: Origin`, whose CORS headers are isolated along with it. If middleware picked the rendered output from another request header (e.g. it read `accept-language` into the context and staged `vary: accept-language`), the entry was stored anyway and served to every language. Now only `origin` is isolated, and such routes are no longer stored unless the rule's `varies` keys on that header.\n\n### Precedence\n\nA header staged by middleware wins over the same header set by the cached handler, so a miss looks the same as a hit (as in #1606). One header is handled specially: a `private`/`no-store` `Cache-Control` staged by middleware is sent to the client in place of the cached handler's own (plain `handleCacheHeaders` would replace it with `public`). That way a CDN or proxy in front of the app doesn't store a page that middleware kept private, either. The `cache` rule already guarded this; `withCacheIsolation` now does too, so wrappers like Nitro's get it for free.\n\n### Release note\n\nRoutes behind middleware that stages a `Vary` other than `origin` (e.g. i18n middleware staging `vary: accept-language`) are **no longer cached** by the `cache`/`swr` route rule, unless the rule's `varies` includes that header. Previously they were cached under one key and served to every value of the header. To keep caching them, add the header to `varies`, e.g. `{ swr: 60, cache: { varies: [\"accept-language\"] } }`.\n\n### Tests (`test/cache.test.ts`, web + node)\n\n- The issue's `x-echo` reproduction: not served on a later hit, and each request still gets its own value.\n- A staged `set-cookie` is not served on a later hit.\n- A route behind middleware staging `vary: origin` is cached.\n- Middleware-staged `private, no-store` and `vary: *` responses are never stored.\n- A route behind middleware that renders by `accept-language` and stages `vary: accept-language` serves each language its own body. With the rule's `varies: [\"accept-language\"]` it is cached per language. The same check is in `test/rules/cache.test.ts`; both fail against the #1606 logic.\n- `invalidate`/`expire`/`resolveKeys` still work on the wrapped handler.\n- A request that middleware marks `private, no-store` gets that `Cache-Control` on the wire (before: `public, max-age=60, s-maxage=60`); anonymous requests still get `public`.\n- Staged headers are restored for non-`Response` results and on a throw, and kept off error responses.\n\nWith the wrapper replaced by an identity function, the leak tests fail, so they reproduce the bug. The existing `test/rules` cache suite passes unchanged (plus the new test), and the full `pnpm test` passes.\n\nAn independent review pass caught the `Vary` poisoning, the dropped ocache methods and the docs gaps in the first version of this PR, and a second review flagged the `public` on the wire for middleware-staged `private`; all are addressed here.\n\n🤖 Generated with AI assistant\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n- **New Features**\n  - Added `withCacheIsolation` to protect staged response headers from being stored in cache entries.\n  - Preserves cache-control, cookies, and `Vary` behavior while applying appropriate headers to responses.\n  - Added support for restoring headers on errors and non-standard handler results.\n\n- **Bug Fixes**\n  - Prevents cached responses from incorrectly sharing request-specific metadata.\n\n- **Documentation**\n  - Added usage guidance and updated cache utility documentation.\n\n- **Tests**\n  - Added coverage for cookies, cache keys, errors, `Vary` headers, and cached-handler behavior.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-20T14:29:29Z",
+            "updatedAt": "2026-10-20T15:40:12Z",
+            "closedAt": "2026-10-20T15:40:09Z",
+            "mergedAt": "2026-10-20T15:40:09Z",
+            "url": "https://github.com/h3js/h3/pull/1608",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/cache-headers3",
+            "headRefOid": "3ac560a4578078f43a826789ef5ad4168fdae945",
+            "baseRefName": "main",
+            "baseRefOid": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "1326e74d55696758b87274d84d133b4944495afc"
+            },
+            "additions": 464,
+            "deletions": 120,
+            "changedFiles": 9,
+            "commits": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": []
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-20T14:29:30Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t2": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABJkHV9Q",
+            "number": 1606,
+            "title": "fix(rules): keep middleware-staged headers out of `cache` entries",
+            "body": "Fixes #1605\n\nWhen global middleware runs before `routeRules()`, headers it staged on `event.res` were merged into the stored response on a cache miss. Every later hit then replayed them to every user. A staged `vary: origin`, such as from a typical CORS middleware, also stopped the response from being cached at all, because `origin` is a `Vary` name the cache isn't keyed on.\n\n### Changes (`src/rules/cache.ts`)\n\n- **Detach staged headers before the cached dispatch.** Before calling ocache, the wrapper takes the bag of headers already staged on `event.res` off the event, so the miss's `toResponse` can't merge them into the entry.\n- **Merge them onto every response, hit or miss.**\n  - Headers staged during the dispatch (`handleCacheHeaders`, moved volatile headers) still take precedence, as before.\n  - On a throw or a non-`Response` result, the detached headers are put back onto the event.\n  - They are not restored onto the event after a successful dispatch, because an `swr` background revalidation keeps running the handler on the same event.\n- **Join `Vary` instead of replacing it.** A staged `Vary` is combined with the entry's own (e.g. from `varies`) rather than overwriting it.\n- **Leave storability signals in place.** A staged `cache-control` and a wildcard `vary` stay on the event. ocache can then still refuse to store a response that middleware marked `private`/`no-store` (e.g. auth middleware on a personalized route).\n- **Error headers are left untouched,** since error statuses are never stored.\n- The `cors`-gated `Vary: Origin` strip in `moveVolatileHeaders` is still needed when `routeRules()` runs as route middleware: the `cors` rule then runs again inside the cached dispatch. Its doc comment now says so.\n\n### Behavior change\n\nOn a miss, a header set by earlier middleware now wins over the same header set by the handler. That makes misses match hits, which already served the middleware's value; uncached h3 still lets the handler override it.\n\n### Tests\n\n- The issue's `x-user` reproduction: not served on a later hit, while each request still gets its own value.\n- A route behind middleware that stages `vary: origin` is cached, and the response's `Vary` keeps the entry's `accept-language`.\n- A response that middleware staged as `private, no-store` is never stored.\n- `cors` + `cache` with `routeRules()` as route middleware still caches.\n- Middleware-staged error headers survive a throwing cached handler.\n\nAn independent review pass caught the `private` storage and route-middleware `cors` regressions in an earlier version of this change; both are fixed here and covered by the tests above.\n\n🤖 Generated with AI assistant\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n- **Bug Fixes**\n  - Improved cached responses so request-specific headers are not incorrectly stored or reused.\n  - Preserved and merged `Vary` and `Set-Cookie` headers correctly across cached and uncached responses.\n  - Ensured private responses remain uncached.\n  - Fixed CORS headers when route middleware is used with caching.\n  - Preserved staged headers when cached handlers fail, while preventing successful-response headers from appearing on errors.\n\n- **Documentation**\n  - Clarified how route middleware handles CORS response headers with caching.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "MERGED",
+            "isDraft": false,
+            "createdAt": "2026-10-20T13:54:57Z",
+            "updatedAt": "2026-10-20T13:57:26Z",
+            "closedAt": "2026-10-20T13:57:23Z",
+            "mergedAt": "2026-10-20T13:57:23Z",
+            "url": "https://github.com/h3js/h3/pull/1606",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "pi0x",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+              "url": "https://github.com/pi0x",
+              "databaseId": 286783767,
+              "name": "pi0x"
+            },
+            "authorAssociation": "CONTRIBUTOR",
+            "mergedBy": {
+              "__typename": "User",
+              "login": "pi0",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+              "url": "https://github.com/pi0",
+              "databaseId": 5158436,
+              "name": "Pooya Parsa"
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 3
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "pi0x",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
+                  "url": "https://github.com/pi0x",
+                  "databaseId": 286783767,
+                  "name": "pi0x"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/cache-headers2",
+            "headRefOid": "6045dff9225860aca7d907f88b50324115ecbd01",
+            "baseRefName": "main",
+            "baseRefOid": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+            "headRepository": {
+              "databaseId": 313641207,
+              "name": "h3",
+              "owner": {
+                "login": "h3js"
+              }
+            },
+            "mergeCommit": {
+              "oid": "d658815890cce9dc10927564b9b2231c34af513b"
+            },
+            "additions": 234,
+            "deletions": 2,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "FAILURE",
+                      "contexts": {
+                        "totalCount": 9,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 1
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 6
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 1
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-20T13:54:58Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t3": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABJGbs6g",
@@ -247,7 +830,7 @@
             }
           }
         },
-        "t1": {
+        "t4": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABI1lRPA",
@@ -438,7 +1021,7 @@
             }
           }
         },
-        "t2": {
+        "t5": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABIE9A2g",
@@ -644,7 +1227,7 @@
             }
           }
         },
-        "t3": {
+        "t6": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABH3rmoA",
@@ -850,7 +1433,7 @@
             }
           }
         },
-        "t4": {
+        "t7": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABH3q01g",
@@ -1064,7 +1647,7 @@
             }
           }
         },
-        "t5": {
+        "t8": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABH3nBWQ",
@@ -1270,7 +1853,7 @@
             }
           }
         },
-        "t6": {
+        "t9": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
             "id": "PR_kwDOErHI988AAAABH0yeSg",
@@ -1468,555 +2051,6 @@
                   }
                 }
               ]
-            }
-          }
-        },
-        "t7": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvKNzg",
-            "number": 1582,
-            "title": "fix(query): decode valid escapes next to a malformed one",
-            "body": "when a query value has one malformed escape, `decodeURIComponent` throws and `parseQuery` keeps the whole value undecoded, so the valid escapes stay encoded too. a stray `%` is enough:\n\n```ts\napp.get(\"/search\", (event) => ({\n  getQuery: getQuery(event).q,\n  searchParams: event.url.searchParams.get(\"q\"),\n}));\n// GET /search?q=caf%C3%A9+50%\n// main: {\"getQuery\":\"caf%C3%A9 50%\",\"searchParams\":\"café 50%\"}\n// this: {\"getQuery\":\"café 50%\",\"searchParams\":\"café 50%\"}\n```\n\n`URLSearchParams` and `node:querystring` both decode the valid escapes and keep the malformed ones as-is. now the catch falls back to that instead of skipping, for keys and values. the happy path doesn't change.\n\nthe test compares `parseQuery` with `URLSearchParams` on a few malformed inputs, it fails on main.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Query strings with malformed percent-encoded keys or values are now decoded more consistently, including when valid and malformed escapes appear together.\n  * Malformed escapes are decoded only once, and query parsing better matches browser behavior for valid and invalid escape sequences. Malformed `__proto__` keys are also preserved as query properties without changing the parsed object’s prototype.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "MERGED",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:21:27Z",
-            "updatedAt": "2026-10-17T11:57:05Z",
-            "closedAt": "2026-10-17T11:57:04Z",
-            "mergedAt": "2026-10-17T11:57:04Z",
-            "url": "https://github.com/h3js/h3/pull/1582",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": {
-              "__typename": "User",
-              "login": "pi0",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-              "url": "https://github.com/pi0",
-              "databaseId": 5158436,
-              "name": "Pooya Parsa"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 3
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/query-malformed-escape",
-            "headRefOid": "eba8fca5efd35f03d2700a50272ad7ba198b009e",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": {
-              "oid": "f2ec1cd062916b2a06f72e6ed535aea0e2c277d7"
-            },
-            "additions": 30,
-            "deletions": 2,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 2,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 9,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 7
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": []
-            },
-            "timelineItems": {
-              "nodes": []
-            }
-          }
-        },
-        "t8": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvIO6w",
-            "number": 1581,
-            "title": "fix(static): serve .wasm as application/wasm",
-            "body": "`.wasm` isn't in `COMMON_MIME_TYPES`, so `serveStatic` sends it as `text/plain; charset=UTF-8` on node and with no content-type on web. `WebAssembly.instantiateStreaming()` requires `application/wasm` and rejects the response otherwise.\n\n`instantiateStreaming(await app.request(\"/module.wasm\"))` on node 22:\n\n```\nmain: TypeError: WebAssembly response has unsupported MIME type 'null'\nthis: ok\n```\n\nadded it to the table, with a test that fails on main for web and node.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * `.wasm` files are now served with the `application/wasm` content type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "MERGED",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:16:09Z",
-            "updatedAt": "2026-10-17T11:45:53Z",
-            "closedAt": "2026-10-17T11:45:52Z",
-            "mergedAt": "2026-10-17T11:45:52Z",
-            "url": "https://github.com/h3js/h3/pull/1581",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": {
-              "__typename": "User",
-              "login": "pi0",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-              "url": "https://github.com/pi0",
-              "databaseId": 5158436,
-              "name": "Pooya Parsa"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 3
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/mime-wasm",
-            "headRefOid": "7e183e675d9918bcccf2f7c4249db0baf23dd61e",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": {
-              "oid": "f41a324742de77d7feeee11c20231d1a41373b95"
-            },
-            "additions": 8,
-            "deletions": 0,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 8,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 7
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": []
-            },
-            "timelineItems": {
-              "nodes": []
-            }
-          }
-        },
-        "t9": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvH6Ig",
-            "number": 1580,
-            "title": "fix(static): match file extensions case-insensitively",
-            "body": "`getType` looks the extension up as-is, so `/photos/IMG_0001.JPG` or `/LOGO.PNG` gets no type from `serveStatic`. on node the response then goes out as `text/plain; charset=UTF-8`, on web with no content-type at all. uppercase extensions are pretty common for camera uploads.\n\nlowercased the extension before the lookup. the custom `getType` option still gets the extension as written.\n\nadded a test that fails on main for both web and node:\n\n```\nAssertionError: expected 'text/plain; charset=UTF-8' to be 'image/jpeg'\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Uppercase and mixed-case file extensions now resolve to the correct MIME type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "MERGED",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:15:16Z",
-            "updatedAt": "2026-10-17T11:47:33Z",
-            "closedAt": "2026-10-17T11:46:41Z",
-            "mergedAt": "2026-10-17T11:46:41Z",
-            "url": "https://github.com/h3js/h3/pull/1580",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": {
-              "__typename": "User",
-              "login": "pi0",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-              "url": "https://github.com/pi0",
-              "databaseId": 5158436,
-              "name": "Pooya Parsa"
-            },
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 2
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/mime-ext-case",
-            "headRefOid": "135b8bdc63de8be57ad7ebb756e243a7871b9e61",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": {
-              "oid": "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
-            },
-            "additions": 6,
-            "deletions": 1,
-            "changedFiles": 2,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 8,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 6
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": []
-            },
-            "timelineItems": {
-              "nodes": []
             }
           }
         }

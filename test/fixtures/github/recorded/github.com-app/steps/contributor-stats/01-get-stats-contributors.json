@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"b56eac67ce05514972b5cb1afd74be0eb8fc9490256b7bb3045ba9c6b51fab4f\"",
+      "etag": "W/\"c5d44498d3534d6324226b4fe5e4ba593d37cfa73ed975dc6b0ba661cfa4078f\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4980",
-      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-remaining": "4986",
+      "x-ratelimit-reset": "1792993261",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -58,7 +58,7 @@
         }
       },
       {
-        "total": 43,
+        "total": 46,
         "weeks": [
           {
             "w": 1791072000,
@@ -74,9 +74,9 @@
           },
           {
             "w": 1792281600,
-            "a": 0,
+            "a": 3,
             "d": 0,
-            "c": 0
+            "c": 3
           }
         ],
         "author": {

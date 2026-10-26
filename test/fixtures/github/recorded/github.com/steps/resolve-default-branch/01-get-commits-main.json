@@ -6,32 +6,32 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"099b3eb7d6108078a9e6865dbfafbdfc98d692b3e8409725b595d23caf25fdc8\"",
+      "etag": "W/\"f574d93d72a76999266e4b8bce930849816ca5506bcbfc686112a58d4f9f5cf8\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4893",
-      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-remaining": "4788",
+      "x-ratelimit-reset": "1792990363",
       "x-ratelimit-resource": "core"
     },
     "body": {
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "node_id": "C_kwDOErHI99oAKDQ4ZDY1MGJlODk0MjJjZDVkMDZmNGNkN2EwMmZjYmY0MzAwZDk2ZGY",
+      "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+      "node_id": "C_kwDOErHI99oAKGYwZTE3ODA4YWMyNDM5YjY0MzRiYjEwNjA5YTk2MTA2N2Y0ZDU1NWI",
       "commit": {
         "author": {
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-10-18T13:53:32Z"
+          "date": "2026-10-22T05:50:58Z"
         },
         "committer": {
           "name": "Pooya Parsa",
           "email": "redacted@example.invalid",
-          "date": "2026-10-18T13:59:46Z"
+          "date": "2026-10-22T05:50:58Z"
         },
-        "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+        "message": "chore(release): v2.0.8",
         "tree": {
-          "sha": "f60a2a47abeb5c7bf7b5e46049cc312f2239f930",
-          "url": "https://api.github.com/repos/h3js/h3/git/trees/f60a2a47abeb5c7bf7b5e46049cc312f2239f930"
+          "sha": "98312ca04cf112f6f2eb4e2b8534d12ddfe79150",
+          "url": "https://api.github.com/repos/h3js/h3/git/trees/98312ca04cf112f6f2eb4e2b8534d12ddfe79150"
         },
-        "url": "https://api.github.com/repos/h3js/h3/git/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+        "url": "https://api.github.com/repos/h3js/h3/git/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
         "comment_count": 0,
         "verification": {
           "verified": false,
@@ -41,9 +41,9 @@
           "verified_at": null
         }
       },
-      "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "comments_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/comments",
+      "url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
+      "html_url": "https://github.com/h3js/h3/commit/f0e17808ac2439b6434bb10609a961067f4d555b",
+      "comments_url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b/comments",
       "author": {
         "login": "pi0",
         "id": 5158436,
@@ -88,64 +88,40 @@
       },
       "parents": [
         {
-          "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-          "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
-          "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
+          "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+          "url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+          "html_url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
         }
       ],
       "stats": {
-        "total": 38,
-        "additions": 33,
-        "deletions": 5
+        "total": 14,
+        "additions": 13,
+        "deletions": 1
       },
       "files": [
         {
-          "sha": "13444e0cded9159d5845035c97d4e69ec577e7b1",
-          "filename": "docs/1.guide/2.rules.md",
+          "sha": "cb5fe718c160c3e38a90a62fbcdc674e2c889342",
+          "filename": "CHANGELOG.md",
+          "status": "modified",
+          "additions": 12,
+          "deletions": 0,
+          "changes": 12,
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/CHANGELOG.md",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/CHANGELOG.md",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/CHANGELOG.md?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -2,6 +2,18 @@\n \n All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.\n \n+## v2.0.8\n+\n+[compare changes](https://github.com/h3js/h3/compare/v2.0.7...v2.0.8)\n+\n+### 🩹 Fixes\n+\n+- **rules:** Let `HTTPError.headers` opt out of `headers` rule on errors ([#1613](https://github.com/h3js/h3/pull/1613))\n+\n+### ❤️ Contributors\n+\n+- Pi0x <redacted@example.invalid>\n+\n ## v2.0.7\n \n [compare changes](https://github.com/h3js/h3/compare/v2.0.6...v2.0.7)"
+        },
+        {
+          "sha": "9290373e5ecf6bd416ac67a5d4915daca044447b",
+          "filename": "package.json",
           "status": "modified",
           "additions": 1,
           "deletions": 1,
           "changes": 2,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs%2F1.guide%2F2.rules.md",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/docs%2F1.guide%2F2.rules.md",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/docs%2F1.guide%2F2.rules.md?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -98,7 +98,7 @@ routeRules({\n \n Redirects and [proxies](#proxying) share two useful behaviors:\n \n-- **Wildcard tails:** When the pattern ends in `/**`, a `**` in the target is replaced with the matched part of the path. A trailing `to: \"/new/**\"` appends it; a `**` anywhere else in the target's path, query, or fragment interpolates it in place (`/new/**/edit`, `/new?from=**`). An empty tail — a request to exactly the pattern's base — substitutes an empty string. In a query or fragment value the tail is percent-encoded so it cannot add parameters; in a path position it is forwarded byte for byte. The tail can never change the target's origin: a `**` that could name the destination host (`\"**\"`, `\"**.cdn.example/x\"`, `\"https://**.example.com\"`) is rejected at startup, and a request whose tail would still move the origin gets a `400`. A target `**` is left literal when no `/**` pattern applies to the route.\n+- **Wildcard tails:** When the pattern ends in `/**` (or a named `/**:name`), a `**` in the target is replaced with the matched part of the path. A trailing `to: \"/new/**\"` appends it; a `**` anywhere else in the target's path, query, or fragment interpolates it in place (`/new/**/edit`, `/new?from=**`). An empty tail — a request to exactly the pattern's base — substitutes an empty string. In a query or fragment value the tail is percent-encoded so it cannot add parameters; in a path position it is forwarded byte for byte. The tail can never change the target's origin: a `**` that could name the destination host (`\"**\"`, `\"**.cdn.example/x\"`, `\"https://**.example.com\"`) is rejected at startup, and a request whose tail would still move the origin gets a `400`. A target `**` is left literal when no `/**` pattern applies to the route.\n - **Query forwarding:** h3 preserves the request query string, including duplicate keys and encoding. If the target already has a query, the request query is appended to it.\n \n A `redirect` never fires when the request is already at a URL it could have sent it to, so a target inside its own pattern does not loop and needs no `false` reset:"
-        },
-        {
-          "sha": "5cf15086460da0205e8c493a69f6b2efabe70030",
-          "filename": "src/rules/normalize.ts",
-          "status": "modified",
-          "additions": 19,
-          "deletions": 4,
-          "changes": 23,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src%2Frules%2Fnormalize.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/src%2Frules%2Fnormalize.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/src%2Frules%2Fnormalize.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -50,8 +50,9 @@ export function normalizeRouteRules(\n       const authored: { to?: string; status?: number } =\n         typeof redirect === \"string\" ? { to: redirect } : redirect;\n       const redirectOptions: RedirectRuleOptions = { to: \"/\", status: 307, ...authored };\n-      if (path.endsWith(\"/**\")) {\n-        redirectOptions.base = path.slice(0, -3);\n+      const base = catchAllBase(path);\n+      if (base !== undefined) {\n+        redirectOptions.base = base;\n       }\n       assertNoHostSplat(redirectOptions.to, \"redirect\", canonicalKey);\n       routeRules.redirect = redirectOptions;\n@@ -60,8 +61,9 @@ export function normalizeRouteRules(\n     if (proxy) {\n       const proxyOptions: ProxyRuleOptions =\n         typeof proxy === \"string\" ? { to: proxy } : { ...proxy };\n-      if (path.endsWith(\"/**\")) {\n-        proxyOptions.base = path.slice(0, -3);\n+      const base = catchAllBase(path);\n+      if (base !== undefined) {\n+        proxyOptions.base = base;\n       }\n       assertNoHostSplat(proxyOptions.to, \"proxy\", canonicalKey);\n       routeRules.proxy = proxyOptions;\n@@ -137,6 +139,19 @@ export function normalizeRouteRules(\n   return normalizedRules;\n }\n \n+// A trailing catch-all segment, plain (`/**`) or named (`/**:path`).\n+const TRAILING_CATCH_ALL_RE = /\\/\\*\\*(?::[^/]+)?$/;\n+\n+/**\n+ * The scope base of a rule key ending in a catch-all (`/old/**` and\n+ * `/old/**:path` → `/old`), or `undefined` when it has no trailing catch-all\n+ * and so no tail for a target `**` to take.\n+ */\n+function catchAllBase(path: string): string | undefined {\n+  const match = TRAILING_CATCH_ALL_RE.exec(path);\n+  return match ? path.slice(0, match.index) : undefined;\n+}\n+\n /**\n  * Reject a `**` that sits where it could choose the destination host.\n  *"
-        },
-        {
-          "sha": "ce3d1d8372232bd98eaf8ec933c96b6e40c7c1b0",
-          "filename": "test/rules/normalize.test.ts",
-          "status": "modified",
-          "additions": 8,
-          "deletions": 0,
-          "changes": 8,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fnormalize.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fnormalize.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fnormalize.test.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -88,6 +88,14 @@ describe(\"normalizeRouteRules - redirect\", () => {\n     expect(rules[\"/exact\"]!.redirect).toEqual({ to: \"/new\", status: 307 });\n     expect(rules[\"/exact\"]!.redirect).not.toHaveProperty(\"base\");\n   });\n+\n+  it(\"sets `base` for named catch-all (/**:name) keys\", () => {\n+    const rules = normalizeRouteRules({\n+      \"/old/**:path\": { redirect: \"/new/**\", proxy: \"https://example.com/**\" },\n+    });\n+    expect(rules[\"/old/**:path\"]!.redirect).toEqual({ to: \"/new/**\", status: 307, base: \"/old\" });\n+    expect(rules[\"/old/**:path\"]!.proxy).toEqual({ to: \"https://example.com/**\", base: \"/old\" });\n+  });\n });\n \n describe(\"normalizeRouteRules - proxy\", () => {"
-        },
-        {
-          "sha": "232a321fac71911f24664d87640e293ff0704cf0",
-          "filename": "test/rules/scope.test.ts",
-          "status": "modified",
-          "additions": 5,
-          "deletions": 0,
-          "changes": 5,
-          "blob_url": "https://github.com/h3js/h3/blob/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fscope.test.ts",
-          "raw_url": "https://github.com/h3js/h3/raw/48d650be89422cd5d06f4cd7a02fcbf4300d96df/test%2Frules%2Fscope.test.ts",
-          "contents_url": "https://api.github.com/repos/h3js/h3/contents/test%2Frules%2Fscope.test.ts?ref=48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "patch": "@@ -444,6 +444,11 @@ describe(\"rule target scope (prepareRuleTarget)\", () => {\n       expect(resolve(\"/old/a/b?x=1\", options)).toBe(\"/new/a/b/edit?x=1\");\n     });\n \n+    it(\"treats a named catch-all key (`/**:name`) like `/**`\", () => {\n+      expect(resolve(\"/old/a/b\", rule(\"/old/**:path\", \"/new/**\"))).toBe(\"/new/a/b\");\n+      expect(resolve(\"/old/a/b\", rule(\"/old/**:path\", \"/new?from=**\"))).toBe(\"/new?from=a/b\");\n+    });\n+\n     it(\"fills every placeholder in the target\", () => {\n       const options = rule(\"/old/**\", \"/new/**?from=**\");\n       expect(resolve(\"/old/a%20b\", options)).toBe(\"/new/a%20b?from=a%20b\");"
+          "blob_url": "https://github.com/h3js/h3/blob/f0e17808ac2439b6434bb10609a961067f4d555b/package.json",
+          "raw_url": "https://github.com/h3js/h3/raw/f0e17808ac2439b6434bb10609a961067f4d555b/package.json",
+          "contents_url": "https://api.github.com/repos/h3js/h3/contents/package.json?ref=f0e17808ac2439b6434bb10609a961067f4d555b",
+          "patch": "@@ -1,6 +1,6 @@\n {\n   \"name\": \"h3\",\n-  \"version\": \"2.0.7\",\n+  \"version\": \"2.0.8\",\n   \"description\": \"Minimal H(TTP) framework built for high performance and portability.\",\n   \"homepage\": \"https://h3.dev\",\n   \"license\": \"MIT\","
         }
       ]
     }

@@ -10,12 +10,12 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "416194782",
-        "tag": "v2.0.5"
+        "id": "420352289",
+        "tag": "v2.0.8"
       },
       "name": "",
-      "tag": "v2.0.5",
-      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.4...v2.0.5)\r\n\r\n### 🩹 Fixes\r\n\r\n- **cli:** Harden `h3 docs` page handling ([7150b0e](https://github.com/h3js/h3/commit/7150b0e))",
+      "tag": "v2.0.8",
+      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.7...v2.0.8)\r\n\r\n### 🩹 Fixes\r\n\r\n- **rules:** Let `HTTPError.headers` opt out of `headers` rule on errors ([#1613](https://github.com/h3js/h3/pull/1613))",
       "isDraft": false,
       "isPrerelease": false,
       "immutable": false,
@@ -29,9 +29,9 @@
         "typeRaw": "User",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-18T02:40:10.000Z",
-      "createdAt": "2026-10-18T02:39:39.000Z",
-      "url": "https://github.com/h3js/h3/releases/tag/v2.0.5",
+      "publishedAt": "2026-10-22T05:51:39.000Z",
+      "createdAt": "2026-10-22T05:50:58.000Z",
+      "url": "https://github.com/h3js/h3/releases/tag/v2.0.8",
       "assets": []
     },
     {
@@ -44,12 +44,12 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "416187440",
-        "tag": "v2.0.4"
+        "id": "418574121",
+        "tag": "v2.0.7"
       },
       "name": "",
-      "tag": "v2.0.4",
-      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.3...v2.0.4)\r\n\r\n### 📦 Build\r\n\r\n- Remove bundled docs and open h3.dev from `h3 docs` ([#1602](https://github.com/h3js/h3/pull/1602))\r\n\r\n### 🏡 Chore\r\n\r\n- Update srvx ([1a1f488](https://github.com/h3js/h3/commit/1a1f488))",
+      "tag": "v2.0.7",
+      "body": "### 🩹 Fixes\r\n\r\n- Keep middleware-staged headers out of handler-level caches ([#1608](https://github.com/h3js/h3/pull/1608))",
       "isDraft": false,
       "isPrerelease": false,
       "immutable": false,
@@ -63,9 +63,9 @@
         "typeRaw": "User",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-18T02:18:34.000Z",
-      "createdAt": "2026-10-18T02:17:59.000Z",
-      "url": "https://github.com/h3js/h3/releases/tag/v2.0.4",
+      "publishedAt": "2026-10-20T15:41:41.000Z",
+      "createdAt": "2026-10-20T15:40:57.000Z",
+      "url": "https://github.com/h3js/h3/releases/tag/v2.0.7",
       "assets": []
     },
     {
@@ -78,12 +78,12 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "415784900",
-        "tag": "v2.0.3"
+        "id": "418465390",
+        "tag": "v2.0.6"
       },
       "name": "",
-      "tag": "v2.0.3",
-      "body": "[compare changes](https://github.com/h3js/h3/compare/v2.0.2...v2.0.3)\r\n\r\n### 🩹 Fixes\r\n\r\n- **body:** Match form content type case-insensitively in `readBody` ([#1601](https://github.com/h3js/h3/pull/1601))\r\n- **static:** Serve `.wasm` as `application/wasm` ([#1581](https://github.com/h3js/h3/pull/1581))\r\n- **static:** Match file extensions case-insensitively ([#1580](https://github.com/h3js/h3/pull/1580))\r\n- **sse:** Preserve empty event ids ([#1590](https://github.com/h3js/h3/pull/1590))\r\n- **query:** Decode valid escapes next to a malformed one ([#1582](https://github.com/h3js/h3/pull/1582))\r\n- **response:** Omit HEAD body for default errors ([#1595](https://github.com/h3js/h3/pull/1595))\r\n- **tracing:** Mount nested apps passed to `use()` ([#1576](https://github.com/h3js/h3/pull/1576))\r\n- **cors:** Make stateful origin regex checks repeatable ([#1589](https://github.com/h3js/h3/pull/1589))\r\n\r\n### 📖 Documentation\r\n\r\n- Fix code example ([#1587](https://github.com/h3js/h3/pull/1587))\r\n- Fix broken section anchors ([#1577](https://github.com/h3js/h3/pull/1577))\r\n\r\n### ✅ Tests\r\n\r\n- Accept exact loopback addresses in fingerprint checks ([#1588](https://github.com/h3js/h3/pull/1588))\r\n\r\n### ❤️ Contributors\r\n\r\n- Huanyi Xie (@xiehuanyi])\r\n- Pooya Parsa (@pi0)\r\n- Rabari Mihir (@Mihir-Rabari)\r\n- Liu Jie (@maxazure)\r\n- Harshit Prakash (@harshit-d3v)\r\n- Satvik Mishra\r\n- Otowa1\r\n- Paul Nguyen",
+      "tag": "v2.0.6",
+      "body": "### 🩹 Fixes\r\n\r\n- **rules:** Fill target `**` for named catch-all keys (`/**:name`) ([48d650b](https://github.com/h3js/h3/commit/48d650b))\r\n- **rules:** Keep middleware-staged headers out of `cache` entries ([#1606](https://github.com/h3js/h3/pull/1606))",
       "isDraft": false,
       "isPrerelease": false,
       "immutable": false,
@@ -97,21 +97,21 @@
         "typeRaw": "User",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-17T12:14:11.000Z",
-      "createdAt": "2026-10-17T12:12:57.000Z",
-      "url": "https://github.com/h3js/h3/releases/tag/v2.0.3",
+      "publishedAt": "2026-10-20T13:59:08.000Z",
+      "createdAt": "2026-10-20T13:58:22.000Z",
+      "url": "https://github.com/h3js/h3/releases/tag/v2.0.6",
       "assets": []
     }
   ],
-  "total": 93,
+  "total": 96,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/releases?per_page=3&page=2",
-    "etag": "W/\"0adfd26e3fd48bd06aab7fa914c816e1c3f9a42a00953b8fd91ff3f4b73a4f39\""
+    "etag": "W/\"cb5ddd78e56e18d2ab501466490963d3dc4892e44824b91a1801e5e81668571d\""
   },
-  "etag": "W/\"0adfd26e3fd48bd06aab7fa914c816e1c3f9a42a00953b8fd91ff3f4b73a4f39\"",
+  "etag": "W/\"cb5ddd78e56e18d2ab501466490963d3dc4892e44824b91a1801e5e81668571d\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4886,
+    "remaining": 4781,
     "resetAt": "<now>",
     "resource": "core"
   }

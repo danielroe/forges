@@ -7,223 +7,24 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/events?per_page=10&page=30>; rel=\"last\"",
-      "etag": "W/\"a69be1497ec312b3488911fe2326e1dd8d22668efd540fcff5f68973c2a0d8c2\"",
+      "etag": "W/\"f2c87d0f6e03a79e2003b91cb7b6a5318ddf8b73315cc053302a966268c634f9\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4969",
-      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-remaining": "4950",
+      "x-ratelimit-reset": "1792993261",
       "x-ratelimit-resource": "core",
       "x-poll-interval": "60"
     },
     "body": [
       {
-        "id": "24493068302",
-        "type": "PushEvent",
-        "actor": {
-          "id": 5158436,
-          "login": "pi0",
-          "display_login": "pi0",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "repository_id": 313641207,
-          "push_id": 46815135342,
-          "ref": "refs/heads/main",
-          "head": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
-          "before": "badc762899af14ec024ee18dd2cc930bfb97e160"
-        },
-        "public": true,
-        "created_at": "2026-10-17T12:13:11Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "24463597672",
-        "type": "PushEvent",
-        "actor": {
-          "id": 5158436,
-          "login": "pi0",
-          "display_login": "pi0",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "repository_id": 313641207,
-          "push_id": 46868702575,
-          "ref": "refs/heads/main",
-          "head": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-          "before": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
-        },
-        "public": true,
-        "created_at": "2026-10-18T02:39:52Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "24460174861",
-        "type": "PushEvent",
-        "actor": {
-          "id": 5158436,
-          "login": "pi0",
-          "display_login": "pi0",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "repository_id": 313641207,
-          "push_id": 46867513914,
-          "ref": "refs/heads/main",
-          "head": "b48b480030becd6507485429dada6d6612fb1084",
-          "before": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
-        },
-        "public": true,
-        "created_at": "2026-10-18T02:16:19Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "24460092963",
-        "type": "CreateEvent",
-        "actor": {
-          "id": 286783767,
-          "login": "pi0x",
-          "display_login": "pi0x",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0x",
-          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "ref": "build/no-docs",
-          "ref_type": "branch",
-          "full_ref": "refs/heads/build/no-docs",
-          "master_branch": "main",
-          "description": "⚡️ Minimal H(TTP) framework built for high performance and portability ",
-          "pusher_type": "user"
-        },
-        "public": true,
-        "created_at": "2026-10-18T02:14:45Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "24454128873",
-        "type": "PushEvent",
-        "actor": {
-          "id": 286783767,
-          "login": "pi0x",
-          "display_login": "pi0x",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0x",
-          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "repository_id": 313641207,
-          "push_id": 46907242110,
-          "ref": "refs/heads/main",
-          "head": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "before": "b64166ae78a68dd15c41e5bdf21af4d235804876"
-        },
-        "public": true,
-        "created_at": "2026-10-18T14:00:07Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "24440951808",
-        "type": "PushEvent",
-        "actor": {
-          "id": 5158436,
-          "login": "pi0",
-          "display_login": "pi0",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "repository_id": 313641207,
-          "push_id": 46867609543,
-          "ref": "refs/heads/main",
-          "head": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
-          "before": "b48b480030becd6507485429dada6d6612fb1084"
-        },
-        "public": true,
-        "created_at": "2026-10-18T02:18:11Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "17538452289",
+        "id": "18176143490",
         "type": "WatchEvent",
         "actor": {
-          "id": 13837582,
-          "login": "auxcoder",
-          "display_login": "auxcoder",
+          "id": 31066667,
+          "login": "nekoteoj",
+          "display_login": "nekoteoj",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/auxcoder",
-          "avatar_url": "https://avatars.githubusercontent.com/u/13837582?"
+          "url": "https://api.github.com/users/nekoteoj",
+          "avatar_url": "https://avatars.githubusercontent.com/u/31066667?"
         },
         "repo": {
           "id": 313641207,
@@ -234,7 +35,7 @@
           "action": "started"
         },
         "public": true,
-        "created_at": "2026-10-18T15:38:13Z",
+        "created_at": "2026-10-25T19:57:03Z",
         "org": {
           "id": 208435796,
           "login": "h3js",
@@ -244,15 +45,15 @@
         }
       },
       {
-        "id": "24437338319",
-        "type": "PushEvent",
+        "id": "18151689580",
+        "type": "IssueCommentEvent",
         "actor": {
-          "id": 286783767,
-          "login": "pi0x",
-          "display_login": "pi0x",
+          "id": 22429695,
+          "login": "codecov[bot]",
+          "display_login": "codecov",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0x",
-          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+          "url": "https://api.github.com/users/codecov[bot]",
+          "avatar_url": "https://avatars.githubusercontent.com/u/22429695?"
         },
         "repo": {
           "id": 313641207,
@@ -260,99 +61,63 @@
           "url": "https://api.github.com/repos/h3js/h3"
         },
         "payload": {
-          "repository_id": 313641207,
-          "push_id": 46868654675,
-          "ref": "refs/heads/main",
-          "head": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-          "before": "2084ecaa855273b2971a10d1a858ecd2188b3df0"
-        },
-        "public": true,
-        "created_at": "2026-10-18T02:38:52Z",
-        "org": {
-          "id": 208435796,
-          "login": "h3js",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/h3js",
-          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
-        }
-      },
-      {
-        "id": "17534179457",
-        "type": "IssuesEvent",
-        "actor": {
-          "id": 286783767,
-          "login": "pi0x",
-          "display_login": "pi0x",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0x",
-          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
-        },
-        "repo": {
-          "id": 313641207,
-          "name": "h3js/h3",
-          "url": "https://api.github.com/repos/h3js/h3"
-        },
-        "payload": {
-          "action": "closed",
+          "action": "created",
           "issue": {
-            "url": "https://api.github.com/repos/h3js/h3/issues/1603",
+            "url": "https://api.github.com/repos/h3js/h3/issues/1616",
             "repository_url": "https://api.github.com/repos/h3js/h3",
-            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1603/labels{/name}",
-            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1603/comments",
-            "events_url": "https://api.github.com/repos/h3js/h3/issues/1603/events",
-            "html_url": "https://github.com/h3js/h3/issues/1603",
-            "id": 5910138351,
-            "node_id": "I_kwDOErHI988AAAABYEWN7w",
-            "number": 1603,
-            "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1616/labels{/name}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1616/comments",
+            "events_url": "https://api.github.com/repos/h3js/h3/issues/1616/events",
+            "html_url": "https://github.com/h3js/h3/pull/1616",
+            "id": 6023409454,
+            "node_id": "PR_kwDOErHI988AAAABKkFXpg",
+            "number": 1616,
+            "title": "perf: mark lazy event handler factory as side-effect-free",
             "user": {
-              "login": "pi0x",
-              "id": 286783767,
+              "login": "onmax",
+              "id": 22072217,
               "node_id": "REDACTED",
-              "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
+              "avatar_url": "https://avatars.githubusercontent.com/u/22072217?v=4",
               "gravatar_id": "",
-              "url": "https://api.github.com/users/pi0x",
-              "html_url": "https://github.com/pi0x",
-              "followers_url": "https://api.github.com/users/pi0x/followers",
-              "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
-              "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
-              "organizations_url": "https://api.github.com/users/pi0x/orgs",
-              "repos_url": "https://api.github.com/users/pi0x/repos",
-              "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/pi0x/received_events",
+              "url": "https://api.github.com/users/onmax",
+              "html_url": "https://github.com/onmax",
+              "followers_url": "https://api.github.com/users/onmax/followers",
+              "following_url": "https://api.github.com/users/onmax/following{/other_user}",
+              "gists_url": "https://api.github.com/users/onmax/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/onmax/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/onmax/subscriptions",
+              "organizations_url": "https://api.github.com/users/onmax/orgs",
+              "repos_url": "https://api.github.com/users/onmax/repos",
+              "events_url": "https://api.github.com/users/onmax/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/onmax/received_events",
               "type": "User",
               "user_view_type": "public",
               "site_admin": false
             },
             "labels": [],
-            "state": "closed",
+            "state": "open",
             "locked": false,
             "assignees": [],
             "milestone": null,
-            "comments": 0,
-            "created_at": "2026-10-18T13:43:03Z",
-            "updated_at": "2026-10-18T14:00:08Z",
-            "closed_at": "2026-10-18T14:00:08Z",
+            "comments": 3,
+            "created_at": "2026-10-25T10:26:04Z",
+            "updated_at": "2026-10-25T12:12:12Z",
+            "closed_at": null,
             "assignee": null,
             "issue_field_values": [],
             "type": null,
             "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
+            "draft": false,
+            "pull_request": {
+              "url": "https://api.github.com/repos/h3js/h3/pulls/1616",
+              "html_url": "https://github.com/h3js/h3/pull/1616",
+              "diff_url": "https://github.com/h3js/h3/pull/1616.diff",
+              "patch_url": "https://github.com/h3js/h3/pull/1616.patch",
+              "merged_at": null
             },
-            "issue_dependencies_summary": {
-              "blocked_by": 0,
-              "total_blocked_by": 0,
-              "blocking": 0,
-              "total_blocking": 0
-            },
-            "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
+            "body": "Allow bundlers to remove unused `defineLazyEventHandler()` calls.\n\nRepro bundle sizes with H3 `2.0.8` and Rolldown `1.2.14`:\n\n| Fixture | Measurement | Before | After |\n| --- | --- | ---: | ---: |\n| Unused lazy handler | Minified | 14,140 B | 1,214 B |\n| Unused lazy handler | Gzip | 5,107 B | 714 B |\n\n[Reproduction](https://github.com/onmax/repros/tree/repro/h3-pure-lazy), Node `24.21.0` and pnpm `11.28.5`:\n\n```sh\ngit clone --depth 1 --branch repro/h3-pure-lazy https://github.com/onmax/repros.git h3-repro\ncd h3-repro\nnode verify.mjs\n```\n",
             "reactions": {
-              "url": "https://api.github.com/repos/h3js/h3/issues/1603/reactions",
+              "url": "https://api.github.com/repos/h3js/h3/issues/1616/reactions",
               "total_count": 0,
               "+1": 0,
               "-1": 0,
@@ -363,14 +128,115 @@
               "rocket": 0,
               "eyes": 0
             },
-            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1603/timeline",
+            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1616/timeline",
             "performed_via_github_app": null,
-            "state_reason": "completed",
-            "pinned_comment": null
+            "state_reason": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396500258",
+            "html_url": "https://github.com/h3js/h3/pull/1616#issuecomment-6396500258",
+            "issue_url": "https://api.github.com/repos/h3js/h3/issues/1616",
+            "id": 6396500258,
+            "node_id": "IC_kwDOErHI988AAAABfULZIg",
+            "user": {
+              "login": "codecov[bot]",
+              "id": 22429695,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/in/254?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/codecov%5Bbot%5D",
+              "html_url": "https://github.com/apps/codecov",
+              "followers_url": "https://api.github.com/users/codecov%5Bbot%5D/followers",
+              "following_url": "https://api.github.com/users/codecov%5Bbot%5D/following{/other_user}",
+              "gists_url": "https://api.github.com/users/codecov%5Bbot%5D/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/codecov%5Bbot%5D/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/codecov%5Bbot%5D/subscriptions",
+              "organizations_url": "https://api.github.com/users/codecov%5Bbot%5D/orgs",
+              "repos_url": "https://api.github.com/users/codecov%5Bbot%5D/repos",
+              "events_url": "https://api.github.com/users/codecov%5Bbot%5D/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/codecov%5Bbot%5D/received_events",
+              "type": "Bot",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-25T10:27:41Z",
+            "updated_at": "2026-10-25T10:27:41Z",
+            "body": "## [Codecov](https://app.codecov.io/gh/h3js/h3/pull/1616?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=h3js) Report\n:white_check_mark: All modified and coverable lines are covered by tests.\n\n:loudspeaker: Thoughts on this report? [Let us know!](https://github.com/codecov/feedback/issues/255)",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396500258/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": {
+              "id": 254,
+              "client_id": "Iv1.9d88ef6ecc903626",
+              "slug": "codecov",
+              "node_id": "MDM6QXBwMjU0",
+              "owner": {
+                "login": "codecov",
+                "id": 8226205,
+                "node_id": "REDACTED",
+                "avatar_url": "https://avatars.githubusercontent.com/u/8226205?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/codecov",
+                "html_url": "https://github.com/codecov",
+                "followers_url": "https://api.github.com/users/codecov/followers",
+                "following_url": "https://api.github.com/users/codecov/following{/other_user}",
+                "gists_url": "https://api.github.com/users/codecov/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/codecov/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/codecov/subscriptions",
+                "organizations_url": "https://api.github.com/users/codecov/orgs",
+                "repos_url": "https://api.github.com/users/codecov/repos",
+                "events_url": "https://api.github.com/users/codecov/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/codecov/received_events",
+                "type": "Organization",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "name": "Codecov",
+              "description": "Codecov provides highly integrated tools to group, merge, archive and compare coverage reports. Whether your team is comparing changes in a pull request or reviewing a single commit, Codecov will improve the code review workflow and quality.\r\n\r\n## Code coverage done right.®\r\n\r\n1. Upload coverage reports from your CI builds.\r\n2. Codecov merges all builds and languages into one beautiful coherent report.\r\n3. Get commit statuses, pull request comments and coverage overlay via our browser extension.\r\n\r\nWhen Codecov merges your uploads it keeps track of the CI provider (inc. build details) and user specified context, e.g. `#unittest` ~ `#smoketest` or `#oldcode` ~ `#newcode`. You can track the `#unittest` coverage independently of other groups. [Learn more here](\r\nhttp://docs.codecov.io/docs/flags)\r\n\r\nThrough **Codecov's Browser Extension** reports overlay directly in GitHub UI to assist in code review in [Chrome](https://chrome.google.com/webstore/detail/codecov/gedikamndpbemklijjkncpnolildpbgo) or Firefox (https://addons.mozilla.org/en-US/firefox/addon/codecov/)\r\n\r\n*Highly detailed* **pull request comments** and *customizable* **commit statuses** will improve your team's workflow and code coverage incrementally.\r\n\r\n**File backed configuration** all through the `codecov.yml`. \r\n\r\n## FAQ\r\n- Do you **merge multiple uploads** to the same commit? **Yes**\r\n- Do you **support multiple languages** in the same project? **Yes**\r\n- Can you **group coverage reports** by project and/or test type? **Yes**\r\n- How does **pricing** work? Only paid users can view reports and post statuses/comments. ",
+              "external_url": "https://codecov.io",
+              "html_url": "https://github.com/apps/codecov",
+              "created_at": "2016-09-25T14:18:27Z",
+              "updated_at": "2025-03-20T19:12:59Z",
+              "permissions": {
+                "administration": "read",
+                "checks": "write",
+                "contents": "read",
+                "emails": "redacted@example.invalid",
+                "issues": "read",
+                "members": "read",
+                "metadata": "read",
+                "pull_requests": "write",
+                "statuses": "write"
+              },
+              "events": [
+                "delete",
+                "fork",
+                "member",
+                "membership",
+                "organization",
+                "public",
+                "pull_request",
+                "push",
+                "release",
+                "repository",
+                "status",
+                "team_add"
+              ]
+            },
+            "minimized": null
           }
         },
         "public": true,
-        "created_at": "2026-10-18T14:00:08Z",
+        "created_at": "2026-10-25T10:27:41Z",
         "org": {
           "id": 208435796,
           "login": "h3js",
@@ -380,15 +246,416 @@
         }
       },
       {
-        "id": "17533452039",
-        "type": "IssuesEvent",
+        "id": "18151672612",
+        "type": "IssueCommentEvent",
         "actor": {
-          "id": 286783767,
-          "login": "pi0x",
-          "display_login": "pi0x",
+          "id": 167837488,
+          "login": "pkg-pr-new[bot]",
+          "display_login": "pkg-pr-new",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0x",
-          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?"
+          "url": "https://api.github.com/users/pkg-pr-new[bot]",
+          "avatar_url": "https://avatars.githubusercontent.com/u/167837488?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/1616",
+            "repository_url": "https://api.github.com/repos/h3js/h3",
+            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1616/labels{/name}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1616/comments",
+            "events_url": "https://api.github.com/repos/h3js/h3/issues/1616/events",
+            "html_url": "https://github.com/h3js/h3/pull/1616",
+            "id": 6023409454,
+            "node_id": "PR_kwDOErHI988AAAABKkFXpg",
+            "number": 1616,
+            "title": "perf: mark lazy event handler factory as side-effect-free",
+            "user": {
+              "login": "onmax",
+              "id": 22072217,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/22072217?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/onmax",
+              "html_url": "https://github.com/onmax",
+              "followers_url": "https://api.github.com/users/onmax/followers",
+              "following_url": "https://api.github.com/users/onmax/following{/other_user}",
+              "gists_url": "https://api.github.com/users/onmax/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/onmax/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/onmax/subscriptions",
+              "organizations_url": "https://api.github.com/users/onmax/orgs",
+              "repos_url": "https://api.github.com/users/onmax/repos",
+              "events_url": "https://api.github.com/users/onmax/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/onmax/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 3,
+            "created_at": "2026-10-25T10:26:04Z",
+            "updated_at": "2026-10-25T12:12:12Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "draft": false,
+            "pull_request": {
+              "url": "https://api.github.com/repos/h3js/h3/pulls/1616",
+              "html_url": "https://github.com/h3js/h3/pull/1616",
+              "diff_url": "https://github.com/h3js/h3/pull/1616.diff",
+              "patch_url": "https://github.com/h3js/h3/pull/1616.patch",
+              "merged_at": null
+            },
+            "body": "Allow bundlers to remove unused `defineLazyEventHandler()` calls.\n\nRepro bundle sizes with H3 `2.0.8` and Rolldown `1.2.14`:\n\n| Fixture | Measurement | Before | After |\n| --- | --- | ---: | ---: |\n| Unused lazy handler | Minified | 14,140 B | 1,214 B |\n| Unused lazy handler | Gzip | 5,107 B | 714 B |\n\n[Reproduction](https://github.com/onmax/repros/tree/repro/h3-pure-lazy), Node `24.21.0` and pnpm `11.28.5`:\n\n```sh\ngit clone --depth 1 --branch repro/h3-pure-lazy https://github.com/onmax/repros.git h3-repro\ncd h3-repro\nnode verify.mjs\n```\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/1616/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1616/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396495961",
+            "html_url": "https://github.com/h3js/h3/pull/1616#issuecomment-6396495961",
+            "issue_url": "https://api.github.com/repos/h3js/h3/issues/1616",
+            "id": 6396495961,
+            "node_id": "IC_kwDOErHI988AAAABfULIWQ",
+            "user": {
+              "login": "pkg-pr-new[bot]",
+              "id": 167837488,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/in/882742?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D",
+              "html_url": "https://github.com/apps/pkg-pr-new",
+              "followers_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/followers",
+              "following_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/following{/other_user}",
+              "gists_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/subscriptions",
+              "organizations_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/orgs",
+              "repos_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/repos",
+              "events_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/pkg-pr-new%5Bbot%5D/received_events",
+              "type": "Bot",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-25T10:27:14Z",
+            "updated_at": "2026-10-25T10:27:14Z",
+            "body": "\n[Open in StackBlitz](https://pkg.pr.new/template/d6d56a69-f372-4fdf-9b7c-3f9e6c4ec4e8)\n\n\n  ```\n  npm i https://pkg.pr.new/h3@1616\n  ```\n  \n\n_commit: <a href=\"https://github.com/h3js/h3/runs/121143300153\"><code>7396a81</code></a>_\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396495961/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": {
+              "id": 882742,
+              "client_id": "Iv1.0d610d3ddbffbe93",
+              "slug": "pkg-pr-new",
+              "node_id": "A_kwHOCcd_SM4ADXg2",
+              "owner": {
+                "login": "stackblitz-labs",
+                "id": 164069192,
+                "node_id": "REDACTED",
+                "avatar_url": "https://avatars.githubusercontent.com/u/164069192?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/stackblitz-labs",
+                "html_url": "https://github.com/stackblitz-labs",
+                "followers_url": "https://api.github.com/users/stackblitz-labs/followers",
+                "following_url": "https://api.github.com/users/stackblitz-labs/following{/other_user}",
+                "gists_url": "https://api.github.com/users/stackblitz-labs/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/stackblitz-labs/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/stackblitz-labs/subscriptions",
+                "organizations_url": "https://api.github.com/users/stackblitz-labs/orgs",
+                "repos_url": "https://api.github.com/users/stackblitz-labs/repos",
+                "events_url": "https://api.github.com/users/stackblitz-labs/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/stackblitz-labs/received_events",
+                "type": "Organization",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "name": "pkg.pr.new",
+              "description": "",
+              "external_url": "https://pkg.pr.new",
+              "html_url": "https://github.com/apps/pkg-pr-new",
+              "created_at": "2024-04-23T03:04:12Z",
+              "updated_at": "2024-12-14T07:34:22Z",
+              "permissions": {
+                "actions": "read",
+                "checks": "write",
+                "contents": "read",
+                "metadata": "read",
+                "pull_requests": "write",
+                "statuses": "write"
+              },
+              "events": [
+                "check_run",
+                "check_suite",
+                "commit_comment",
+                "public",
+                "pull_request",
+                "pull_request_review",
+                "pull_request_review_comment",
+                "pull_request_review_thread",
+                "status",
+                "workflow_job",
+                "workflow_run"
+              ]
+            },
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-25T10:27:14Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18151643796",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 136622811,
+          "login": "coderabbitai[bot]",
+          "display_login": "coderabbitai",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/coderabbitai[bot]",
+          "avatar_url": "https://avatars.githubusercontent.com/u/136622811?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/1616",
+            "repository_url": "https://api.github.com/repos/h3js/h3",
+            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1616/labels{/name}",
+            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1616/comments",
+            "events_url": "https://api.github.com/repos/h3js/h3/issues/1616/events",
+            "html_url": "https://github.com/h3js/h3/pull/1616",
+            "id": 6023409454,
+            "node_id": "PR_kwDOErHI988AAAABKkFXpg",
+            "number": 1616,
+            "title": "perf: mark lazy event handler factory as side-effect-free",
+            "user": {
+              "login": "onmax",
+              "id": 22072217,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/22072217?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/onmax",
+              "html_url": "https://github.com/onmax",
+              "followers_url": "https://api.github.com/users/onmax/followers",
+              "following_url": "https://api.github.com/users/onmax/following{/other_user}",
+              "gists_url": "https://api.github.com/users/onmax/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/onmax/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/onmax/subscriptions",
+              "organizations_url": "https://api.github.com/users/onmax/orgs",
+              "repos_url": "https://api.github.com/users/onmax/repos",
+              "events_url": "https://api.github.com/users/onmax/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/onmax/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [],
+            "state": "open",
+            "locked": false,
+            "assignees": [],
+            "milestone": null,
+            "comments": 3,
+            "created_at": "2026-10-25T10:26:04Z",
+            "updated_at": "2026-10-25T12:12:12Z",
+            "closed_at": null,
+            "assignee": null,
+            "issue_field_values": [],
+            "type": null,
+            "active_lock_reason": null,
+            "draft": false,
+            "pull_request": {
+              "url": "https://api.github.com/repos/h3js/h3/pulls/1616",
+              "html_url": "https://github.com/h3js/h3/pull/1616",
+              "diff_url": "https://github.com/h3js/h3/pull/1616.diff",
+              "patch_url": "https://github.com/h3js/h3/pull/1616.patch",
+              "merged_at": null
+            },
+            "body": "Allow bundlers to remove unused `defineLazyEventHandler()` calls.\n\nRepro bundle sizes with H3 `2.0.8` and Rolldown `1.2.14`:\n\n| Fixture | Measurement | Before | After |\n| --- | --- | ---: | ---: |\n| Unused lazy handler | Minified | 14,140 B | 1,214 B |\n| Unused lazy handler | Gzip | 5,107 B | 714 B |\n\n[Reproduction](https://github.com/onmax/repros/tree/repro/h3-pure-lazy), Node `24.21.0` and pnpm `11.28.5`:\n\n```sh\ngit clone --depth 1 --branch repro/h3-pure-lazy https://github.com/onmax/repros.git h3-repro\ncd h3-repro\nnode verify.mjs\n```\n",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/1616/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1616/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396488923",
+            "html_url": "https://github.com/h3js/h3/pull/1616#issuecomment-6396488923",
+            "issue_url": "https://api.github.com/repos/h3js/h3/issues/1616",
+            "id": 6396488923,
+            "node_id": "IC_kwDOErHI988AAAABfUKs2w",
+            "user": {
+              "login": "coderabbitai[bot]",
+              "id": 136622811,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+              "html_url": "https://github.com/apps/coderabbitai",
+              "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+              "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+              "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+              "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+              "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+              "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+              "type": "Bot",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2026-10-25T10:26:26Z",
+            "updated_at": "2026-10-25T10:28:53Z",
+            "body": "<!-- coderabbit-ai-generated:v1 -->\n\n<!-- This is an auto-generated comment: summarize by coderabbit.ai -->\n<!-- review_stack_entry_start -->\n\n<a href=\"https://app.coderabbit.ai/change-stack/h3js/h3/pull/1616?scope=ghh_OusAJGA4HG8ljoOV0wJvVx8NmnZIjc2DdjmxOu0xZWA&amp;cs_source=review_comment\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui-dark.svg?v=3\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-stack-in-coderabbit-ui.svg?v=3\" alt=\"Review in Change Stack →\" height=\"32\"></picture></a>\n\n<!-- review_stack_entry_end -->\n<!-- recent_review_start -->\n\nNo actionable comments were generated in the recent review.\n\n<details>\n<summary><strong><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/info.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Recent review info</strong></summary>\n<dl>\n<dd>\n\n<details>\n<summary><strong><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/cog-dark.svg\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/cog.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Run configuration</strong></summary>\n<dl>\n<dd>\n\n- **Source mode**: Auto\n- **Repository**: Unavailable\n- **Branch**: Unavailable\n- **File**: No configuration file from this repository applied\n- **Commit**: Unavailable\n- **Layers**: Organization UI\n- **Review profile**: CHILL\n- **Plan**: Advanced\n- **Run ID**: `87a65893-d277-403f-9e78-0ee809d4f5b5`\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/git-commit-horizontal-dark.svg\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/git-commit-horizontal.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Commits</strong></summary>\n<dl>\n<dd>\n\nReviewing files that changed from the base of the PR and between f0e17808ac2439b6434bb10609a961067f4d555b and 7396a813c83534e87221eaee27036e67e500d2ad.\n\n</dd>\n</dl>\n</details>\n\n<details>\n<summary><strong><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/file-plus-corner-dark.svg\"><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/file-plus-corner.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Files selected for processing: 1</strong></summary>\n<dl>\n<dd>\n\n* `src/handler.ts`\n\n</dd>\n</dl>\n</details>\n\n**Included review availability:** This review used your included allowance. Your plan provides up to 8 included reviews per hour; 7 remain after this review.\n\n</dd>\n</dl>\n</details>\n\n\n\n\n\n<!-- recent_review_end -->\n<!-- walkthrough_start -->\n\n<details>\n<summary><strong>Walkthrough</strong></summary>\n<dl>\n<dd>\n\nThe change adds the `@__NO_SIDE_EFFECTS__` annotation before `defineLazyEventHandler` in `src/handler.ts`.\n\n**Changes: Handler annotation**\n\n|Layer / File(s)|Summary|\n|:---|:---|\n|**Annotate the lazy event handler** <br> `src/handler.ts`|The declaration of `defineLazyEventHandler` now has the `@__NO_SIDE_EFFECTS__` annotation.|\n\n<!-- change_assessment_start -->\n<strong>Priority: <picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/priority-low-16.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Low</strong>\n\n**Estimated code review effort:** 1 (Trivial) | ~3 minutes\n\n<!-- change_assessment_commit:\"7396a813c83534e87221eaee27036e67e500d2ad\" -->\n**Change:** Refactor\n<!-- change_assessment_end -->\n\n</dd>\n</dl>\n</details>\n\n<!-- walkthrough_end -->\n<details>\n<summary><strong>Merge Risk:</strong> <strong><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/review-comment-icons-v1/risk-unassessed-16.svg\" width=\"16\" height=\"16\" align=\"absmiddle\" alt=\"\"></picture> Minimal</strong> · up to <code>7396a</code></summary>\n<dl>\n<dd>\n\n<!-- final_review_risk_start -->\n<!-- final_review_risk_label\n**Merge Risk:** **⚪ Minimal** · up to `7396a`\n-->\n<!-- final_review_risk_coverage:{\"sourceCommitId\":\"7396a813c83534e87221eaee27036e67e500d2ad\",\"coveredCommitId\":\"7396a813c83534e87221eaee27036e67e500d2ad\",\"kind\":\"reviewed\"} -->\n\nThe annotation safely enables removal of unused lazy handler definitions without changing used-handler behavior.\n<!-- final_review_risk_end -->\n\n</dd>\n</dl>\n</details>\n<!-- pre_merge_checks_walkthrough_start -->\n\n<details>\n<summary><strong>Pre-merge checks: <sup><picture><img src=\"https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-counter-passed-14-v2.svg\" width=\"14\" height=\"14\" align=\"middle\" alt=\"Passed\" title=\"Passed\"></picture></sup> 5</strong></summary>\n<dl>\n<dd>\n\n|         Check name         |                                             Status                                             | Explanation                                                                                                                                                                               |\n| :------------------------ | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|      Description Check     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped - CodeRabbit’s high-level summary is enabled.                                                                                                                               |\n|         Title check        | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | The title clearly and concisely describes the main change: marking the lazy event handler factory as side-effect-free for performance.                                                    |\n|     Docstring Coverage     | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Docstring coverage is 100.00% which is sufficient. The required threshold is 80.00%. Docstring coverage is scoped to functions touched by this diff. Analyzed 1 functions across 1 files. |\n|     Linked Issues check    | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n| Out of Scope Changes check | ![Passed](https://storage.googleapis.com/coderabbit_public_assets/pre-merge-checks-passed.svg) | Check skipped because no linked issues were found for this pull request.                                                                                                                  |\n\n</dd>\n</dl>\n</details>\n\n<!-- pre_merge_checks_walkthrough_end -->\n<!-- finishing_touch_checkbox_start -->\n\n<details>\n<summary><strong>Finishing Touches</strong></summary>\n<dl>\n<dd>\n\n<details open>\n<summary><strong>🧪 Generate unit tests (beta)</strong></summary>\n<dl>\n<dd>\n\n- [ ] <!-- {\"checkboxId\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"radioGroupId\": \"utg-output-choice-group-unknown_comment_id\"} --> Create a new PR\n\n</dd>\n</dl>\n</details>\n\n</dd>\n</dl>\n</details>\n\n<!-- finishing_touch_checkbox_end -->\n\n<!-- autopilot:start -->\n- [ ] <!-- {\"checkboxId\":\"2708ad07-9f24-4260-9c11-7dc76a49f2e3\"} --> <strong title=\"Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\">Autofix</strong> · Keep fixing CodeRabbit findings and required CI, and resolving merge conflicts\n<!-- autopilot:end -->\n<!-- tips_start -->\n\n\n\nThanks for using [CodeRabbit](https://coderabbit.ai?utm_source=oss&utm_medium=github&utm_campaign=h3js/h3&utm_content=1616)! It's free for OSS, and your support helps us grow. If you like it, consider giving us a shout-out.\n\n<details>\n<summary><strong>❤️ Share</strong></summary>\n<dl>\n<dd>\n\n- [X](https://twitter.com/intent/tweet?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A&url=https%3A//coderabbit.ai)\n- [Mastodon](https://mastodon.social/share?text=I%20just%20used%20%40coderabbitai%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20the%20proprietary%20code.%20Check%20it%20out%3A%20https%3A%2F%2Fcoderabbit.ai)\n- [Reddit](https://www.reddit.com/submit?title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&text=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code.%20Check%20it%20out%3A%20https%3A//coderabbit.ai)\n- [LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcoderabbit.ai&mini=true&title=Great%20tool%20for%20code%20review%20-%20CodeRabbit&summary=I%20just%20used%20CodeRabbit%20for%20my%20code%20review%2C%20and%20it%27s%20fantastic%21%20It%27s%20free%20for%20OSS%20and%20offers%20a%20free%20trial%20for%20proprietary%20code)\n\n</dd>\n</dl>\n</details>\n\n\n<!-- poem_footer_start -->\n<sub>A rabbit reads the handler line,<br>And finds a marker neat and fine.<br>No side effects, the label says,<br>A small change tucked among the ways.<br>The rabbit hops, then rests in hay.</sub>\n<!-- poem_footer_end -->\n\n<sub>Comment `@coderabbitai help` to get the list of available commands.</sub>\n\n<!-- tips_end -->",
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/issues/comments/6396488923/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": {
+              "id": 347564,
+              "client_id": "Iv1.6aaafe4fe882736b",
+              "slug": "coderabbitai",
+              "node_id": "A_kwHOB96YWc4ABU2s",
+              "owner": {
+                "login": "coderabbitai",
+                "id": 132028505,
+                "node_id": "REDACTED",
+                "avatar_url": "https://avatars.githubusercontent.com/u/132028505?v=4",
+                "gravatar_id": "",
+                "url": "https://api.github.com/users/coderabbitai",
+                "html_url": "https://github.com/coderabbitai",
+                "followers_url": "https://api.github.com/users/coderabbitai/followers",
+                "following_url": "https://api.github.com/users/coderabbitai/following{/other_user}",
+                "gists_url": "https://api.github.com/users/coderabbitai/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/coderabbitai/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/coderabbitai/subscriptions",
+                "organizations_url": "https://api.github.com/users/coderabbitai/orgs",
+                "repos_url": "https://api.github.com/users/coderabbitai/repos",
+                "events_url": "https://api.github.com/users/coderabbitai/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/coderabbitai/received_events",
+                "type": "Organization",
+                "user_view_type": "public",
+                "site_admin": false
+              },
+              "name": "coderabbitai",
+              "description": "# Transforming Code Reviews with AI\r\n\r\n## Features\r\n\r\n**Automated Reviews**: Continuous reviews of the pull requests including incremental commits. \r\n\r\n**Summarization**: Generates high-level summary and a technical walkthrough of the PR changes. \r\n\r\n**Line-by-line review**: Provides line-by-line suggestions committable with one click.\r\n\r\n**Codebase verification**:  Verifies the impact on the overall codebase and identifies missing changes.\r\n\r\n**Insights into your code**:  Ask any questions on your codebase within the pull request \r\n\r\n**Chat about your code** : Chat with the bot around your code. The more you chat, the smarter it gets.\r\n\r\n**Issue Validation**:  Validates the PR against the linked issues and identifies other related issues \r\n\r\n\r\n\r\n",
+              "external_url": "https://coderabbit.ai?utm_source=cr_app&utm_medium=github",
+              "html_url": "https://github.com/apps/coderabbitai",
+              "created_at": "2023-06-14T15:47:27Z",
+              "updated_at": "2026-10-22T09:20:52Z",
+              "permissions": {
+                "actions": "read",
+                "checks": "write",
+                "contents": "write",
+                "discussions": "read",
+                "issues": "write",
+                "members": "read",
+                "merge_queues": "read",
+                "metadata": "read",
+                "pull_requests": "write",
+                "statuses": "write",
+                "workflows": "write"
+              },
+              "events": [
+                "issues",
+                "issue_comment",
+                "label",
+                "membership",
+                "merge_group",
+                "organization",
+                "pull_request",
+                "pull_request_review",
+                "pull_request_review_comment",
+                "pull_request_review_thread",
+                "release",
+                "repository",
+                "team"
+              ]
+            },
+            "minimized": null
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-25T10:26:26Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18151629083",
+        "type": "PullRequestEvent",
+        "actor": {
+          "id": 22072217,
+          "login": "onmax",
+          "display_login": "onmax",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/onmax",
+          "avatar_url": "https://avatars.githubusercontent.com/u/22072217?"
         },
         "repo": {
           "id": 313641207,
@@ -397,65 +664,136 @@
         },
         "payload": {
           "action": "opened",
-          "issue": {
-            "url": "https://api.github.com/repos/h3js/h3/issues/1603",
-            "repository_url": "https://api.github.com/repos/h3js/h3",
-            "labels_url": "https://api.github.com/repos/h3js/h3/issues/1603/labels{/name}",
-            "comments_url": "https://api.github.com/repos/h3js/h3/issues/1603/comments",
-            "events_url": "https://api.github.com/repos/h3js/h3/issues/1603/events",
-            "html_url": "https://github.com/h3js/h3/issues/1603",
-            "id": 5910138351,
-            "node_id": "I_kwDOErHI988AAAABYEWN7w",
-            "number": 1603,
-            "title": "rules: `**` in `redirect`/`proxy` targets ignores named catch-all keys (`/**:name`)",
+          "number": 1616,
+          "pull_request": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/1616",
+            "id": 5003892646,
+            "number": 1616,
+            "head": {
+              "ref": "perf/pure-lazy-event-handler",
+              "sha": "7396a813c83534e87221eaee27036e67e500d2ad",
+              "repo": {
+                "id": 972546458,
+                "url": "https://api.github.com/repos/onmax/h3",
+                "name": "h3"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+              "repo": {
+                "id": 313641207,
+                "url": "https://api.github.com/repos/h3js/h3",
+                "name": "h3"
+              }
+            }
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-25T10:26:04Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18147455153",
+        "type": "WatchEvent",
+        "actor": {
+          "id": 192348432,
+          "login": "Akshay-Katiyar",
+          "display_login": "Akshay-Katiyar",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/Akshay-Katiyar",
+          "avatar_url": "https://avatars.githubusercontent.com/u/192348432?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "started"
+        },
+        "public": true,
+        "created_at": "2026-10-25T08:34:57Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18140697209",
+        "type": "PullRequestReviewCommentEvent",
+        "actor": {
+          "id": 136622811,
+          "login": "coderabbitai[bot]",
+          "display_login": "coderabbitai",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/coderabbitai[bot]",
+          "avatar_url": "https://avatars.githubusercontent.com/u/136622811?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "created",
+          "comment": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/comments/4369727483",
+            "pull_request_review_id": 5641654521,
+            "id": 4369727483,
+            "node_id": "PRRC_kwDOErHI988AAAABBHS_-w",
+            "diff_hunk": "@@ -228,16 +228,22 @@ export async function iterable<Value = unknown, Return = unknown>(\n   return new HTTPResponse(\n     new ReadableStream({\n       async pull(controller) {\n-        const { value, done } = first ?? (await iterator.next());\n-        first = undefined;\n-        if (value !== undefined) {\n-          const chunk = serializer(value);\n+        // A pull that enqueues nothing can leave a pending read unanswered,\n+        // so keep reading past skipped values.\n+        for (;;) {\n+          const { value, done } = first ?? (await iterator.next());",
+            "path": "src/utils/response.ts",
+            "commit_id": "2dd23adbe2678739140e7e1ef465f2bbf9820652",
+            "original_commit_id": "2dd23adbe2678739140e7e1ef465f2bbf9820652",
             "user": {
-              "login": "pi0x",
-              "id": 286783767,
+              "login": "coderabbitai[bot]",
+              "id": 136622811,
               "node_id": "REDACTED",
-              "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
+              "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
               "gravatar_id": "",
-              "url": "https://api.github.com/users/pi0x",
-              "html_url": "https://github.com/pi0x",
-              "followers_url": "https://api.github.com/users/pi0x/followers",
-              "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
-              "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
-              "organizations_url": "https://api.github.com/users/pi0x/orgs",
-              "repos_url": "https://api.github.com/users/pi0x/repos",
-              "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/pi0x/received_events",
-              "type": "User",
+              "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+              "html_url": "https://github.com/apps/coderabbitai",
+              "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+              "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+              "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+              "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+              "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+              "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+              "type": "Bot",
               "user_view_type": "public",
               "site_admin": false
             },
-            "labels": [],
-            "state": "closed",
-            "locked": false,
-            "assignees": [],
-            "milestone": null,
-            "comments": 0,
-            "created_at": "2026-10-18T13:43:03Z",
-            "updated_at": "2026-10-18T14:00:08Z",
-            "closed_at": "2026-10-18T14:00:08Z",
-            "assignee": null,
-            "issue_field_values": [],
-            "type": null,
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
+            "body": "<!-- coderabbit-ai-generated:v1 -->\n\n@NgoQuocViet2001 The supplied code confirms that `cancel()` sets `cancelled`, and `while (!cancelled)` prevents further `next()` calls after an in-flight skipped value completes. This addresses the cancellation finding for iterators without `return()`.\n\nI accept leaving out the macrotask yield. The unbounded skipped-value case can still starve the event loop, but adding scheduling behavior is not required for this fix. I retract that part of my recommendation.\n\n---\n\n<!-- This is an auto-generated comment: tweet message by coderabbit.ai -->\n\nIf you found this review helpful, would you consider giving us a shout-out on [X](https://twitter.com/intent/tweet?related=CodeRabbitAI&text=%40coderabbitai%20caught%20a%20cancellation%20bug%3A%20skipped%20iterator%20values%20could%20keep%20pulling%20after%20cancel().%20A%20cancellation%20flag%20and%20tests%20now%20stop%20it%20in%20web%20and%20Node.%20Try%20CodeRabbit%20for%20sharper%20reviews%20%F0%9F%90%87&url=https%3A%2F%2Fgithub.com%2Fh3js%2Fh3%2Fpull%2F1615%23discussion_r4360035970)?\n\nThank you for using CodeRabbit!\n\n<!-- end of auto-generated comment: tweet message by coderabbit.ai -->\n\n\n\n✅ Review thread resolved.\n\n<sub><i>You are interacting with an AI system.</i></sub>\n\n<!-- This is an auto-generated reply by CodeRabbit -->",
+            "created_at": "2026-10-25T05:07:00Z",
+            "updated_at": "2026-10-25T05:07:00Z",
+            "html_url": "https://github.com/h3js/h3/pull/1615#discussion_r4369727483",
+            "pull_request_url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "_links": {
+              "self": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/comments/4369727483"
+              },
+              "html": {
+                "href": "https://github.com/h3js/h3/pull/1615#discussion_r4369727483"
+              },
+              "pull_request": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/1615"
+              }
             },
-            "issue_dependencies_summary": {
-              "blocked_by": 0,
-              "total_blocked_by": 0,
-              "blocking": 0,
-              "total_blocking": 0
-            },
-            "body": "In route rules, a `**` in a `redirect` or `proxy` target is only filled in when the rule key ends in a plain `/**`. A named catch-all (`/**:path`) gets no `base`, so `to` is resolved inconsistently: a trailing `/**` appends the whole request path, and a `**` anywhere else is left literal.\n\nRequest `/old/a/b` (h3 2.0.3, same code on main in `src/rules/normalize.ts`):\n\n| Rule key | `redirect` | Location |\n| --- | --- | --- |\n| `/old/**` | `/new/**` | `/new/a/b` |\n| `/old/**:path` | `/new/**` | `/new/old/a/b` |\n| `/old/**` | `/new?from=**` | `/new?from=a/b` |\n| `/old/**:path` | `/new?from=**` | `/new?from=**` |\n\nTreating a trailing `/**:name` like `/**` when setting `base` for `redirect` and `proxy` would fix it. The current output doesn't match the docs either way, so this reads as a bug fix rather than a breaking change. Nitro's platform presets already emit `/new/a/b` for this rule (nitrojs/nitro#4707).\n\n_Reported with AI assistance._\n",
             "reactions": {
-              "url": "https://api.github.com/repos/h3js/h3/issues/1603/reactions",
+              "url": "https://api.github.com/repos/h3js/h3/pulls/comments/4369727483/reactions",
               "total_count": 0,
               "+1": 0,
               "-1": 0,
@@ -466,14 +804,336 @@
               "rocket": 0,
               "eyes": 0
             },
-            "timeline_url": "https://api.github.com/repos/h3js/h3/issues/1603/timeline",
-            "performed_via_github_app": null,
-            "state_reason": "completed",
-            "pinned_comment": null
+            "in_reply_to_id": 4360035970,
+            "original_position": 11,
+            "position": 1,
+            "subject_type": "line"
+          },
+          "pull_request": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "id": 4983425971,
+            "number": 1615,
+            "head": {
+              "ref": "fix-iterable-skipped-values",
+              "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+              "repo": {
+                "id": 1430946265,
+                "url": "https://api.github.com/repos/NgoQuocViet2001/h3",
+                "name": "h3"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+              "repo": {
+                "id": 313641207,
+                "url": "https://api.github.com/repos/h3js/h3",
+                "name": "h3"
+              }
+            }
           }
         },
         "public": true,
-        "created_at": "2026-10-18T13:43:04Z",
+        "created_at": "2026-10-25T05:07:00Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18140697192",
+        "type": "PullRequestReviewEvent",
+        "actor": {
+          "id": 136622811,
+          "login": "coderabbitai[bot]",
+          "display_login": "coderabbitai",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/coderabbitai[bot]",
+          "avatar_url": "https://avatars.githubusercontent.com/u/136622811?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "review": {
+            "id": 5641654521,
+            "node_id": "PRR_kwDOErHI988AAAABUETQ-Q",
+            "user": {
+              "login": "coderabbitai[bot]",
+              "id": 136622811,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/coderabbitai%5Bbot%5D",
+              "html_url": "https://github.com/apps/coderabbitai",
+              "followers_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/followers",
+              "following_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/following{/other_user}",
+              "gists_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/subscriptions",
+              "organizations_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/orgs",
+              "repos_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/repos",
+              "events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/coderabbitai%5Bbot%5D/received_events",
+              "type": "Bot",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "body": null,
+            "commit_id": "af78734ddb28c6348638f6248a120bbe63e3a4bc",
+            "state": "commented",
+            "html_url": "https://github.com/h3js/h3/pull/1615#pullrequestreview-5641654521",
+            "pull_request_url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "_links": {
+              "html": {
+                "href": "https://github.com/h3js/h3/pull/1615#pullrequestreview-5641654521"
+              },
+              "pull_request": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/1615"
+              }
+            },
+            "submitted_at": "2026-10-25T05:07:00Z",
+            "updated_at": "2026-10-25T05:07:00Z"
+          },
+          "pull_request": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "id": 4983425971,
+            "number": 1615,
+            "head": {
+              "ref": "fix-iterable-skipped-values",
+              "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+              "repo": {
+                "id": 1430946265,
+                "url": "https://api.github.com/repos/NgoQuocViet2001/h3",
+                "name": "h3"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+              "repo": {
+                "id": 313641207,
+                "url": "https://api.github.com/repos/h3js/h3",
+                "name": "h3"
+              }
+            }
+          },
+          "action": "created"
+        },
+        "public": true,
+        "created_at": "2026-10-25T05:07:01Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18140685765",
+        "type": "PullRequestReviewCommentEvent",
+        "actor": {
+          "id": 123613986,
+          "login": "NgoQuocViet2001",
+          "display_login": "NgoQuocViet2001",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/NgoQuocViet2001",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123613986?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "action": "created",
+          "comment": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/comments/4369726339",
+            "pull_request_review_id": 5641653003,
+            "id": 4369726339,
+            "node_id": "PRRC_kwDOErHI988AAAABBHS7gw",
+            "diff_hunk": "@@ -228,16 +228,22 @@ export async function iterable<Value = unknown, Return = unknown>(\n   return new HTTPResponse(\n     new ReadableStream({\n       async pull(controller) {\n-        const { value, done } = first ?? (await iterator.next());\n-        first = undefined;\n-        if (value !== undefined) {\n-          const chunk = serializer(value);\n+        // A pull that enqueues nothing can leave a pending read unanswered,\n+        // so keep reading past skipped values.\n+        for (;;) {\n+          const { value, done } = first ?? (await iterator.next());",
+            "path": "src/utils/response.ts",
+            "commit_id": "2dd23adbe2678739140e7e1ef465f2bbf9820652",
+            "original_commit_id": "2dd23adbe2678739140e7e1ef465f2bbf9820652",
+            "user": {
+              "login": "NgoQuocViet2001",
+              "id": 123613986,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/123613986?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/NgoQuocViet2001",
+              "html_url": "https://github.com/NgoQuocViet2001",
+              "followers_url": "https://api.github.com/users/NgoQuocViet2001/followers",
+              "following_url": "https://api.github.com/users/NgoQuocViet2001/following{/other_user}",
+              "gists_url": "https://api.github.com/users/NgoQuocViet2001/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/NgoQuocViet2001/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/NgoQuocViet2001/subscriptions",
+              "organizations_url": "https://api.github.com/users/NgoQuocViet2001/orgs",
+              "repos_url": "https://api.github.com/users/NgoQuocViet2001/repos",
+              "events_url": "https://api.github.com/users/NgoQuocViet2001/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/NgoQuocViet2001/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "body": "The cancellation part was real: the loop kept calling `next()` after cancel as long as values were skipped and the iterator had no `return()` (generators already stop there). af78734 adds a `cancelled` flag that ends the loop, with a test that fails on the previous commit in both web and node.\n\nI left out the macrotask yield. An iterator that keeps returning skipped values without awaiting anything would spin a `for await` loop the same way, and `iterable()` doesn't schedule timers anywhere else, so I'd rather not add one for this case.",
+            "created_at": "2026-10-25T05:06:38Z",
+            "updated_at": "2026-10-25T05:06:38Z",
+            "html_url": "https://github.com/h3js/h3/pull/1615#discussion_r4369726339",
+            "pull_request_url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "_links": {
+              "self": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/comments/4369726339"
+              },
+              "html": {
+                "href": "https://github.com/h3js/h3/pull/1615#discussion_r4369726339"
+              },
+              "pull_request": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/1615"
+              }
+            },
+            "reactions": {
+              "url": "https://api.github.com/repos/h3js/h3/pulls/comments/4369726339/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "in_reply_to_id": 4360035970,
+            "original_position": 11,
+            "position": 1,
+            "subject_type": "line"
+          },
+          "pull_request": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "id": 4983425971,
+            "number": 1615,
+            "head": {
+              "ref": "fix-iterable-skipped-values",
+              "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+              "repo": {
+                "id": 1430946265,
+                "url": "https://api.github.com/repos/NgoQuocViet2001/h3",
+                "name": "h3"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+              "repo": {
+                "id": 313641207,
+                "url": "https://api.github.com/repos/h3js/h3",
+                "name": "h3"
+              }
+            }
+          }
+        },
+        "public": true,
+        "created_at": "2026-10-25T05:06:38Z",
+        "org": {
+          "id": 208435796,
+          "login": "h3js",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/h3js",
+          "avatar_url": "https://avatars.githubusercontent.com/u/208435796?"
+        }
+      },
+      {
+        "id": "18140685760",
+        "type": "PullRequestReviewEvent",
+        "actor": {
+          "id": 123613986,
+          "login": "NgoQuocViet2001",
+          "display_login": "NgoQuocViet2001",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/NgoQuocViet2001",
+          "avatar_url": "https://avatars.githubusercontent.com/u/123613986?"
+        },
+        "repo": {
+          "id": 313641207,
+          "name": "h3js/h3",
+          "url": "https://api.github.com/repos/h3js/h3"
+        },
+        "payload": {
+          "review": {
+            "id": 5641653003,
+            "node_id": "PRR_kwDOErHI988AAAABUETLCw",
+            "user": {
+              "login": "NgoQuocViet2001",
+              "id": 123613986,
+              "node_id": "REDACTED",
+              "avatar_url": "https://avatars.githubusercontent.com/u/123613986?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/NgoQuocViet2001",
+              "html_url": "https://github.com/NgoQuocViet2001",
+              "followers_url": "https://api.github.com/users/NgoQuocViet2001/followers",
+              "following_url": "https://api.github.com/users/NgoQuocViet2001/following{/other_user}",
+              "gists_url": "https://api.github.com/users/NgoQuocViet2001/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/NgoQuocViet2001/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/NgoQuocViet2001/subscriptions",
+              "organizations_url": "https://api.github.com/users/NgoQuocViet2001/orgs",
+              "repos_url": "https://api.github.com/users/NgoQuocViet2001/repos",
+              "events_url": "https://api.github.com/users/NgoQuocViet2001/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/NgoQuocViet2001/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "body": null,
+            "commit_id": "af78734ddb28c6348638f6248a120bbe63e3a4bc",
+            "state": "commented",
+            "html_url": "https://github.com/h3js/h3/pull/1615#pullrequestreview-5641653003",
+            "pull_request_url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "_links": {
+              "html": {
+                "href": "https://github.com/h3js/h3/pull/1615#pullrequestreview-5641653003"
+              },
+              "pull_request": {
+                "href": "https://api.github.com/repos/h3js/h3/pulls/1615"
+              }
+            },
+            "submitted_at": "2026-10-25T05:06:38Z",
+            "updated_at": "2026-10-25T05:06:38Z"
+          },
+          "pull_request": {
+            "url": "https://api.github.com/repos/h3js/h3/pulls/1615",
+            "id": 4983425971,
+            "number": 1615,
+            "head": {
+              "ref": "fix-iterable-skipped-values",
+              "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+              "repo": {
+                "id": 1430946265,
+                "url": "https://api.github.com/repos/NgoQuocViet2001/h3",
+                "name": "h3"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+              "repo": {
+                "id": 313641207,
+                "url": "https://api.github.com/repos/h3js/h3",
+                "name": "h3"
+              }
+            }
+          },
+          "action": "created"
+        },
+        "public": true,
+        "created_at": "2026-10-25T05:06:39Z",
         "org": {
           "id": 208435796,
           "login": "h3js",

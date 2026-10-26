@@ -4,58 +4,33 @@
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26452313666"
+        "id": "26647571847"
       },
       "subject": {
-        "type": "thread",
-        "thread": {
+        "type": "other",
+        "typeRaw": "CheckSuite",
+        "repo": {
           "forge": "github",
           "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "36637"
+          "owner": "nuxt",
+          "name": "modules",
+          "externalId": "290526597"
         }
       },
-      "subjectTypeRaw": "PullRequest",
-      "reason": "review_requested",
-      "reasonRaw": "review_requested",
+      "subjectTypeRaw": "CheckSuite",
+      "reason": "ci_activity",
+      "reasonRaw": "ci_activity",
       "unread": true,
-      "title": "chore(deps): update webpack (main)",
+      "title": "sync workflow run failed for main branch",
       "subjectState": "unknown",
-      "updatedAt": "2026-10-19T03:10:43.000Z",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36637",
-      "latestComment": {
-        "forge": "github",
-        "instance": "github.com",
-        "thread": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "nuxt",
-            "externalId": "71995937"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "36637"
-        },
-        "id": "6258807510"
-      }
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/notifications/threads/26647571847"
     },
     {
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26452270939"
+        "id": "24681573894"
       },
       "subject": {
         "type": "thread",
@@ -66,53 +41,35 @@
             "forge": "github",
             "instance": "github.com",
             "owner": "nuxt",
-            "name": "image",
-            "externalId": "292835647"
+            "name": "nuxt",
+            "externalId": "71995937"
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "2356"
+          "number": "35725"
         }
       },
       "subjectTypeRaw": "PullRequest",
       "reason": "review_requested",
       "reasonRaw": "review_requested",
       "unread": true,
-      "title": "chore(deps): update all non-major dependencies",
+      "title": "docs: document Nuxt nitro.prerender defaults",
       "subjectState": "unknown",
-      "updatedAt": "2026-10-19T03:08:43.000Z",
-      "url": "https://api.github.com/repos/nuxt/image/pulls/2356",
-      "latestComment": {
-        "forge": "github",
-        "instance": "github.com",
-        "thread": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "image",
-            "externalId": "292835647"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "2356"
-        },
-        "id": "6258785054"
-      }
+      "updatedAt": "<now>",
+      "lastReadAt": "2026-10-25T16:35:38.000Z",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/35725"
     }
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-    "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\""
+    "etag": "W/\"5d620ffd1ccdc9995883f49418d1f2ca24dd8154e3c16f083d27b455ea6a48d5\""
   },
-  "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\"",
+  "etag": "W/\"5d620ffd1ccdc9995883f49418d1f2ca24dd8154e3c16f083d27b455ea6a48d5\"",
   "notModified": false,
   "nextPollAt": "<now>",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4906,
+    "remaining": 4801,
     "resetAt": "<now>",
     "resource": "core"
   }

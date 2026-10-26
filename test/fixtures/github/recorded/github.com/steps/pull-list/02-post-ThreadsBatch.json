@@ -6,21 +6,21 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1585,
+      "k0": 1616,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1583,
+      "k1": 1615,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1579
+      "k2": 1611
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4941",
-      "x-ratelimit-reset": "1792386290",
+      "x-ratelimit-remaining": "4859",
+      "x-ratelimit-reset": "1792992171",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -28,27 +28,27 @@
         "t0": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABH0aNdg",
-            "number": 1585,
-            "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-            "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABKkFXpg",
+            "number": 1616,
+            "title": "perf: mark lazy event handler factory as side-effect-free",
+            "body": "Allow bundlers to remove unused `defineLazyEventHandler()` calls.\n\nRepro bundle sizes with H3 `2.0.8` and Rolldown `1.2.14`:\n\n| Fixture | Measurement | Before | After |\n| --- | --- | ---: | ---: |\n| Unused lazy handler | Minified | 14,140 B | 1,214 B |\n| Unused lazy handler | Gzip | 5,107 B | 714 B |\n\n[Reproduction](https://github.com/onmax/repros/tree/repro/h3-pure-lazy), Node `24.21.0` and pnpm `11.28.5`:\n\n```sh\ngit clone --depth 1 --branch repro/h3-pure-lazy https://github.com/onmax/repros.git h3-repro\ncd h3-repro\nnode verify.mjs\n```\n",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-11T14:13:38Z",
-            "updatedAt": "2026-10-17T12:36:56Z",
+            "createdAt": "2026-10-25T10:26:04Z",
+            "updatedAt": "2026-10-25T12:12:12Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1585",
+            "url": "https://github.com/h3js/h3/pull/1616",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "TalhaHunter101",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-              "url": "https://github.com/TalhaHunter101",
-              "databaseId": 51529912,
-              "name": "Talha Shafeeq"
+              "login": "onmax",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
+              "url": "https://github.com/onmax",
+              "databaseId": 22072217,
+              "name": "Max"
             },
-            "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+            "authorAssociation": "CONTRIBUTOR",
             "mergedBy": null,
             "assignees": {
               "nodes": []
@@ -63,38 +63,214 @@
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "TalhaHunter101",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-                  "url": "https://github.com/TalhaHunter101",
-                  "databaseId": 51529912,
-                  "name": "Talha Shafeeq"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
+                  "login": "onmax",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?u=5cd9a530f8cd1669cff4f085b71096f3372b6e1e&v=4",
+                  "url": "https://github.com/onmax",
+                  "databaseId": 22072217,
+                  "name": "Max"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/serve-static-index-paths",
-            "headRefOid": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+            "headRefName": "perf/pure-lazy-event-handler",
+            "headRefOid": "7396a813c83534e87221eaee27036e67e500d2ad",
             "baseRefName": "main",
-            "baseRefOid": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
             "headRepository": {
-              "databaseId": 1414411073,
+              "databaseId": 972546458,
               "name": "h3",
               "owner": {
-                "login": "TalhaHunter101"
+                "login": "onmax"
               }
             },
             "mergeCommit": null,
-            "additions": 46,
-            "deletions": 1,
+            "additions": 1,
+            "deletions": 0,
+            "changedFiles": 1,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 8,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 7
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-10-25T10:26:05Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABKQkLsw",
+            "number": 1615,
+            "title": "fix(response): keep `iterable` streaming past skipped values",
+            "body": "`iterable()` drops `undefined` values and values the serializer returns `undefined` for, but the `pull()` call that drops one resolves without enqueuing anything. `ReadableStream` only calls `pull()` again if another read arrived while it was running, so a pending read can be left unanswered and the response never finishes. Consecutive or trailing skips can trigger it on both web and node:\n\n```ts\niterable([\"a\", undefined, \"b\", undefined]); // hangs, expected \"ab\"\niterable([\"a\", \"skip\", \"skip\", \"b\"], { serializer }); // serializer returns undefined for \"skip\"; hangs, expected \"ab\"\n```\n\n`pull()` now keeps reading until it enqueues a chunk or the iterator is done. Values that serialize to a chunk are handled as before.\n\n- Ran: `pnpm vitest run test/iterable.test.ts`: both new tests time out on `main` in web and node (4 failed, 38 passed) and pass with the fix (42 passed).\n- Ran: `pnpm vitest run --coverage`: 73 files, 3134 passed, 51 skipped.\n- Checked: `pnpm typecheck`, `oxlint .` and `pnpm build` pass; `oxfmt --check` is clean on the changed files.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Response streams continue past values that produce no output, allowing later values to be delivered.\n  * Values that cannot be serialized are omitted without interrupting the remaining stream.\n  * Streams close when iteration finishes, including when the final value has no serializable output.\n  * After cancellation, streams stop reading additional values and do not serialize values that arrive afterward.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-10-23T13:23:48Z",
+            "updatedAt": "2026-10-25T05:14:32Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1615",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "NgoQuocViet2001",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/123613986?u=f6462e87df609872fd95246d79138c67a687a37b&v=4",
+              "url": "https://github.com/NgoQuocViet2001",
+              "databaseId": 123613986,
+              "name": "Ngo Quoc Viet"
+            },
+            "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
+            "mergedBy": null,
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "NgoQuocViet2001",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/123613986?u=f6462e87df609872fd95246d79138c67a687a37b&v=4",
+                  "url": "https://github.com/NgoQuocViet2001",
+                  "databaseId": 123613986,
+                  "name": "Ngo Quoc Viet"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix-iterable-skipped-values",
+            "headRefOid": "c58adefcac5db05fc3830d512a37b561629c34c1",
+            "baseRefName": "main",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
+            "headRepository": {
+              "databaseId": 1430946265,
+              "name": "h3",
+              "owner": {
+                "login": "NgoQuocViet2001"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 93,
+            "deletions": 7,
             "changedFiles": 2,
             "commits": {
               "totalCount": 3,
@@ -207,7 +383,7 @@
             "timelineItems": {
               "nodes": [
                 {
-                  "createdAt": "2026-10-11T14:13:39Z",
+                  "createdAt": "2026-10-23T13:23:49Z",
                   "requestedReviewer": {
                     "__typename": "User",
                     "login": "pi0"
@@ -217,28 +393,28 @@
             }
           }
         },
-        "t1": {
+        "t2": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHzAV3Q",
-            "number": 1583,
-            "title": "docs: fix file paths in static assets example",
-            "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABJ3wT1w",
+            "number": 1611,
+            "title": "fix(node): don't listen for close/error after a synchronous next()",
+            "body": "### 🔗 Linked issue\n\nResolves #1610\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n\n### 📚 Description\n\n`callNodeListener` runs the handler first and only then registers `res.once(\"close\", next)` and `res.once(\"error\", next)`. A Node middleware that calls `next()` synchronously has already run `next`, and its `res.off(...)` found nothing to remove. The listeners are added afterwards and never removed. Each such layer leaves one `close` and one `error` listener on the response, so with more than 10 layers Node prints `MaxListenersExceededWarning`, as in the issue.\n\n`next` now sets a `called` flag, and the listeners are registered only if the handler returned without calling it. Everything else is unchanged:\n- a middleware that calls `next()` later still has its listeners, so `close` or `error` still settles it;\n- they are still removed when `next()` runs;\n- a returned value still resolves the promise.\n\nThis is against `v1`, since the report is for 1.15.11. `main`'s rewritten Node adapter doesn't register these per-middleware listeners, so it doesn't need the change. PR #1028 touched the same ordering for hanging responses; this change only stops the late registration.\n\nTest: in `test/app.test.ts`, 15 `fromNodeMiddleware((req, res, next) => next())` layers run before a final one that records `res.listenerCount(\"close\")` and `(\"error\")`. It expects `[0, 0]`, and on `v1` it fails. `vitest --run` passes all 356 tests (1 skipped), and `eslint`, `prettier -c` and `tsgo --noEmit` are clean (Node 22, offline).\n",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-11T09:57:49Z",
-            "updatedAt": "2026-10-16T19:22:11Z",
+            "createdAt": "2026-10-21T19:46:55Z",
+            "updatedAt": "2026-10-22T05:50:31Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1583",
+            "url": "https://github.com/h3js/h3/pull/1611",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "aaronanish-t",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-              "url": "https://github.com/aaronanish-t",
-              "databaseId": 217176403,
-              "name": "Aaron Anish Thadathil"
+              "login": "bercedev",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/75228263?u=7cd039e4544cc16f8b23afe69d2e8e8c599fbd2c&v=4",
+              "url": "https://github.com/bercedev",
+              "databaseId": 75228263,
+              "name": "berce"
             },
             "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
             "mergedBy": null,
@@ -246,42 +422,56 @@
               "nodes": []
             },
             "labels": {
-              "nodes": []
+              "nodes": [
+                {
+                  "name": "v1",
+                  "color": "B42F7D",
+                  "description": ""
+                }
+              ]
             },
             "comments": {
-              "totalCount": 2
+              "totalCount": 1
             },
             "participants": {
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "aaronanish-t",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-                  "url": "https://github.com/aaronanish-t",
-                  "databaseId": 217176403,
-                  "name": "Aaron Anish Thadathil"
+                  "login": "bercedev",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/75228263?u=7cd039e4544cc16f8b23afe69d2e8e8c599fbd2c&v=4",
+                  "url": "https://github.com/bercedev",
+                  "databaseId": 75228263,
+                  "name": "berce"
+                },
+                {
+                  "__typename": "User",
+                  "login": "pi0",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                  "url": "https://github.com/pi0",
+                  "databaseId": 5158436,
+                  "name": "Pooya Parsa"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/fix-static-assets-example",
-            "headRefOid": "36270b8a285744ad4dc5af707112523676ebb9f6",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "headRefName": "fix/v1-sync-next-listeners",
+            "headRefOid": "bd871c8e8b94e9978a9e79afd6b065f7cc54d24e",
+            "baseRefName": "v1",
+            "baseRefOid": "9aa6f55f614a6c7b2a5ffb758bca0a03efc8dab6",
             "headRepository": {
-              "databaseId": 1414188488,
+              "databaseId": 1428856706,
               "name": "h3",
               "owner": {
-                "login": "aaronanish-t"
+                "login": "bercedev"
               }
             },
             "mergeCommit": null,
-            "additions": 8,
-            "deletions": 3,
-            "changedFiles": 1,
+            "additions": 24,
+            "deletions": 2,
+            "changedFiles": 2,
             "commits": {
-              "totalCount": 2,
+              "totalCount": 1,
               "nodes": [
                 {
                   "commit": {
@@ -376,217 +566,7 @@
               ]
             },
             "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            },
-            "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-11T09:57:50Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvErmg",
-            "number": 1579,
-            "title": "docs(static): mount serveStatic example at the root",
-            "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:06:27Z",
-            "updatedAt": "2026-10-17T12:00:47Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1579",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": null,
-            "assignees": {
               "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 4
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/serve-static-root",
-            "headRefOid": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
-            "baseRefName": "main",
-            "baseRefOid": "927fe98fc477720e91cdb7f96b239956d55b10c6",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 9,
-            "deletions": 2,
-            "changedFiles": 1,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 8,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 7
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
             },
             "timelineItems": {
               "nodes": []

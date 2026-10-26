@@ -6,34 +6,34 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/313641207/commits?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/commits?per_page=3&page=546>; rel=\"last\"",
-      "etag": "W/\"1dbc54ddd0368a762eef129c1960f7e484926aaf8a23da2008bdae903e3be8e5\"",
+      "link": "<https://api.github.com/repositories/313641207/commits?per_page=3&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/commits?per_page=3&page=548>; rel=\"last\"",
+      "etag": "W/\"707c59cf0d0f839d0c841e8d763ae8c90166caec7a96c8695a5682f1eb9574ab\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4892",
-      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-remaining": "4787",
+      "x-ratelimit-reset": "1792990363",
       "x-ratelimit-resource": "core"
     },
     "body": [
       {
-        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-        "node_id": "C_kwDOErHI99oAKDQ4ZDY1MGJlODk0MjJjZDVkMDZmNGNkN2EwMmZjYmY0MzAwZDk2ZGY",
+        "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+        "node_id": "C_kwDOErHI99oAKGYwZTE3ODA4YWMyNDM5YjY0MzRiYjEwNjA5YTk2MTA2N2Y0ZDU1NWI",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T13:53:32Z"
+            "date": "2026-10-22T05:50:58Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T13:59:46Z"
+            "date": "2026-10-22T05:50:58Z"
           },
-          "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+          "message": "chore(release): v2.0.8",
           "tree": {
-            "sha": "f60a2a47abeb5c7bf7b5e46049cc312f2239f930",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/f60a2a47abeb5c7bf7b5e46049cc312f2239f930"
+            "sha": "98312ca04cf112f6f2eb4e2b8534d12ddfe79150",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/98312ca04cf112f6f2eb4e2b8534d12ddfe79150"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -43,9 +43,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-        "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
+        "html_url": "https://github.com/h3js/h3/commit/f0e17808ac2439b6434bb10609a961067f4d555b",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -90,114 +90,114 @@
         },
         "parents": [
           {
-            "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-            "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
-            "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
+            "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+            "url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+            "html_url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
           }
         ]
       },
       {
-        "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-        "node_id": "C_kwDOErHI99oAKGI2NDE2NmFlNzhhNjhkZDE1YzQxZTViZGYyMWFmNGQyMzU4MDQ4NzY",
+        "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+        "node_id": "C_kwDOErHI99oAKGY5MGY0YzhlNGQ4MGVlNTRkZDI4NDVjOTMzYjQ3YTUzYzJkZTVmYTU",
         "commit": {
           "author": {
-            "name": "Pooya Parsa",
+            "name": "pi0x",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:39:39Z"
+            "date": "2026-10-22T05:50:05Z"
           },
           "committer": {
-            "name": "Pooya Parsa",
+            "name": "GitHub",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:39:39Z"
+            "date": "2026-10-22T05:50:05Z"
           },
-          "message": "chore(release): v2.0.5",
+          "message": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors (#1613)",
           "tree": {
-            "sha": "bad8b18bb91e5ad05ab79d6c4fb94b3b1dfd6f8e",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/bad8b18bb91e5ad05ab79d6c4fb94b3b1dfd6f8e"
+            "sha": "e8a3094ee9abbbdeb2d33c4d8c8e0d2c6e213241",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/e8a3094ee9abbbdeb2d33c4d8c8e0d2c6e213241"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
           "comment_count": 0,
           "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
+            "verified": true,
+            "reason": "valid",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq2aQNCRC1aQ7uu5UhlAAAO6YQADPjZNFzxH7x9JMaiBhcyBWE\nIpIwNaYt88Ov+TczkSnVo6Ntw+3uh0PEHBMvGAzzZFId2mzTFO955FbcuPDXx7eo\nrAWHZSpcaxkn2iSInuu5SK8GwA0IFl+ET1cSHLayJQAu6TIuBp0//6FYb/YVYKX1\nmE9wAz/EjPqsV+1oRUOwBYdb9DxNJllsuYahxIRvL1UUByLnFR0AGW+965gdwx8b\nal87+XqlLNx8vR2Yg0Ns6FgabJg3ssjBzznkXq6P0J5kR+zvlaC61o3v2dKDngLA\nTwB2K0+Gic4s/qVvItnYa5xf2YoVwqnP4C3RFWosF2yCPu6veVgg8wsQR33Ry3q2\npSCfSe4Z6H8ZPw+TaWe7u29QgFzJIhGMuCAtd4XYOaykbhzlBz+3T7xllqgw0Pye\n9jsSs9rYnZNS0RAfP/gbIzL/1sT3loYiFLh/3depfG9mvYWd/p+FIC8aImPjv0XU\nuvxd1ewvrRsCO/PLT0GplHu2aUSM/6QdKPqLLTHW4vsE9GQhsDyjdbLz3wVjBMYm\nUtZx8V9Gzox8z/2fb3DAlDE4PmTKBKuraoWF+BPSF65Yh/h+b5nohB3xLWBTpMzx\nczvTuRk0ZTGQmyk6VW9JbiyRFIkMrlNnJnhJWzWDgp9lYLGkiYbvqjM8OWvzje1l\nyt98d8SKL8APutgdO4Fq\n=mHqD\n-----END PGP SIGNATURE-----\n",
+            "payload": "tree e8a3094ee9abbbdeb2d33c4d8c8e0d2c6e213241\nparent 9d70cf30099281668929e097d1fd0a18778af5d3\nauthor pi0x <redacted@example.invalid> 1792648205 +0900\ncommitter GitHub <redacted@example.invalid> 1792648205 +0900\n\nfix(rules): let `HTTPError.headers` opt out of `headers` rule on errors (#1613)",
+            "verified_at": "2026-10-22T05:50:06Z"
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
-        "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+        "html_url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5/comments",
         "author": {
-          "login": "pi0",
-          "id": 5158436,
+          "login": "pi0x",
+          "id": 286783767,
           "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "html_url": "https://github.com/pi0",
-          "followers_url": "https://api.github.com/users/pi0/followers",
-          "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-          "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-          "organizations_url": "https://api.github.com/users/pi0/orgs",
-          "repos_url": "https://api.github.com/users/pi0/repos",
-          "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/pi0/received_events",
+          "url": "https://api.github.com/users/pi0x",
+          "html_url": "https://github.com/pi0x",
+          "followers_url": "https://api.github.com/users/pi0x/followers",
+          "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+          "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+          "organizations_url": "https://api.github.com/users/pi0x/orgs",
+          "repos_url": "https://api.github.com/users/pi0x/repos",
+          "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/pi0x/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
         "committer": {
-          "login": "pi0",
-          "id": 5158436,
+          "login": "web-flow",
+          "id": 19864447,
           "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "html_url": "https://github.com/pi0",
-          "followers_url": "https://api.github.com/users/pi0/followers",
-          "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-          "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-          "organizations_url": "https://api.github.com/users/pi0/orgs",
-          "repos_url": "https://api.github.com/users/pi0/repos",
-          "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/pi0/received_events",
+          "url": "https://api.github.com/users/web-flow",
+          "html_url": "https://github.com/web-flow",
+          "followers_url": "https://api.github.com/users/web-flow/followers",
+          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+          "organizations_url": "https://api.github.com/users/web-flow/orgs",
+          "repos_url": "https://api.github.com/users/web-flow/repos",
+          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/web-flow/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
         "parents": [
           {
-            "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-            "url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-            "html_url": "https://github.com/h3js/h3/commit/7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
+            "sha": "9d70cf30099281668929e097d1fd0a18778af5d3",
+            "url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
+            "html_url": "https://github.com/h3js/h3/commit/9d70cf30099281668929e097d1fd0a18778af5d3"
           }
         ]
       },
       {
-        "sha": "7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-        "node_id": "C_kwDOErHI99oAKDcxNTBiMGUxNDc2YTYzZGFlYWUyYWJkZmYwMDQwYTM0Y2M1ZmY0YWU",
+        "sha": "9d70cf30099281668929e097d1fd0a18778af5d3",
+        "node_id": "C_kwDOErHI99oAKDlkNzBjZjMwMDk5MjgxNjY4OTI5ZTA5N2QxZmQwYTE4Nzc4YWY1ZDM",
         "commit": {
           "author": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:32:22Z"
+            "date": "2026-10-20T15:40:57Z"
           },
           "committer": {
             "name": "Pooya Parsa",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T02:32:22Z"
+            "date": "2026-10-20T15:40:57Z"
           },
-          "message": "fix(cli): harden `h3 docs` page handling\n\n- Only open URLs whose origin is `https://h3.dev` (rejects absolute URLs,\n  `file:`/`javascript:`, `//host`, `\\\\host`, whitespace-prefixed hosts).\n- On Windows, open via `rundll32 url.dll,FileProtocolHandler` (absolute\n  System32 path) instead of `cmd /c start`, so cmd.exe metacharacters in\n  the page (`&`, `|`, `%VAR%`) can no longer inject commands.\n- Strip userinfo and collapse repeated slashes in the path.",
+          "message": "chore(release): v2.0.7",
           "tree": {
-            "sha": "8868dc53766c37c5b5a1dac1d5325281691715f6",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/8868dc53766c37c5b5a1dac1d5325281691715f6"
+            "sha": "760654dc856d86b29f39bfece1208ebc23e38b8a",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/760654dc856d86b29f39bfece1208ebc23e38b8a"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
           "comment_count": 0,
           "verification": {
             "verified": false,
@@ -207,9 +207,9 @@
             "verified_at": null
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-        "html_url": "https://github.com/h3js/h3/commit/7150b0e1476a63daeae2abdff0040a34cc5ff4ae",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/7150b0e1476a63daeae2abdff0040a34cc5ff4ae/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
+        "html_url": "https://github.com/h3js/h3/commit/9d70cf30099281668929e097d1fd0a18778af5d3",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3/comments",
         "author": {
           "login": "pi0",
           "id": 5158436,
@@ -254,9 +254,9 @@
         },
         "parents": [
           {
-            "sha": "2084ecaa855273b2971a10d1a858ecd2188b3df0",
-            "url": "https://api.github.com/repos/h3js/h3/commits/2084ecaa855273b2971a10d1a858ecd2188b3df0",
-            "html_url": "https://github.com/h3js/h3/commit/2084ecaa855273b2971a10d1a858ecd2188b3df0"
+            "sha": "1326e74d55696758b87274d84d133b4944495afc",
+            "url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc",
+            "html_url": "https://github.com/h3js/h3/commit/1326e74d55696758b87274d84d133b4944495afc"
           }
         ]
       }
