@@ -7,6 +7,8 @@ export type { CloudflareArtifactsAuth, CloudflareArtifactsOptions } from './clou
 export { cursorOrigin, ORIGIN_API_VERSION } from './cursor-origin/index.ts'
 export type { CursorOriginAuth, CursorOriginOptions } from './cursor-origin/index.ts'
 export type { ProviderFactoryFunction } from './define.ts'
+export { entire } from './entire/index.ts'
+export type { EntireAuth, EntireOptions } from './entire/index.ts'
 export {
   AuthenticationRequiredError,
   BranchMovedError,
@@ -241,8 +243,6 @@ export type {
   WebhookDelivery,
   WebhooksApi,
 } from './provider.ts'
-export { entire } from './entire/index.ts'
-export type { EntireAuth, EntireOptions } from './entire/index.ts'
 export { pushin } from './pushin/index.ts'
 export type { PushinAuth, PushinOptions } from './pushin/index.ts'
 export { sourcehut } from './sourcehut/index.ts'

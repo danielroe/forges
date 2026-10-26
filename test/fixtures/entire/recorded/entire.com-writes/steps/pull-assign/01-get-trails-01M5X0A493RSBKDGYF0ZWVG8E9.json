@@ -1,0 +1,127 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/01M5X0A493RSBKDGYF0ZWVG8E9"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T21:01:54.892145Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "project": {
+        "primaryProcessingCell": "aws-eu-central-1",
+        "id": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+        "name": "forges-scratch",
+        "provider": "entire",
+        "reference": {
+          "forge": "et",
+          "project": "forges-scratch"
+        },
+        "jurisdiction": "eu",
+        "capabilities": {
+          "canManageTrails": true
+        }
+      },
+      "author": {
+        "accountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "login": "danielroe-bot",
+        "displayName": "",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "id": "01M5X0A493RSBKDGYF0ZWVG8E9",
+      "projectId": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+      "number": 15,
+      "url": "https://entire.com/et/forges-scratch/-/trails/15",
+      "title": "forges fixture 20261026210133: pull 1",
+      "body": "Opened by run 20261026210133.",
+      "bodyDocument": {
+        "id": "",
+        "document_key": "project-trail:01M5X0A493RSBKDGYF0ZWVG8E9:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Opened by run 20261026210133."
+                }
+              ]
+            }
+          ]
+        },
+        "text_snapshot": "Opened by run 20261026210133.",
+        "updated_at": "2026-10-26T21:01:54.892Z",
+        "etag": ""
+      },
+      "status": "open",
+      "phase": "building",
+      "metadata": {},
+      "type": "task",
+      "priority": "none",
+      "assignees": [],
+      "assigneeAccountIds": [],
+      "repoIds": [
+        "01M5WYSQC41P69DTXEMZ0TE5YK"
+      ],
+      "authorAccountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+      "createdAt": "2026-10-26T21:01:54.849Z",
+      "metadataUpdatedAt": "2026-10-26T21:01:54.892Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T21:02:01.374Z",
+      "changes": [
+        {
+          "id": "01M5X0A49M70NAMJX878FD2QD1",
+          "repositoryId": "01M5WYSQC41P69DTXEMZ0TE5YK",
+          "repository": "forges-fixtures",
+          "branch": "forges-fixtures/20261026210133-1",
+          "originalBranch": "forges-fixtures/20261026210133-1",
+          "base": "main",
+          "number": 9,
+          "title": "forges fixture 20261026210133: pull 1",
+          "status": "open",
+          "hasCodeChanges": true,
+          "createdAt": "2026-10-26T21:01:54.849Z",
+          "updatedAt": "2026-10-26T21:02:02.357Z",
+          "lastActivityAt": "2026-10-26T21:02:01.374Z",
+          "deployments": {
+            "availability": "available",
+            "ready": 0,
+            "total": 0
+          },
+          "readiness": "in_review",
+          "mergeability": {
+            "conflict_status": "unknown",
+            "head_sha": "",
+            "refreshed_at": null,
+            "forge_merge_block": null
+          }
+        }
+      ],
+      "isPossiblyPartial": true
+    }
+  }
+}

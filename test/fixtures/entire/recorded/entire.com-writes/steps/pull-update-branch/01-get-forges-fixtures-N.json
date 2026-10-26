@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/1"
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/11"
   },
   "response": {
     "status": 200,
@@ -9,49 +9,49 @@
       "link": "</api/v1/schemas/TrailDetailResponse.json>; rel=\"describedBy\""
     },
     "body": {
-      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailDetailResponse.json",
-      "id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
-      "number": 1,
-      "url": "https://entire.com/et/forges/forges-fixtures/trails/1",
-      "title": "feat: shout greetings",
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailDetailResponse.json",
+      "id": "01M5X0A6DAPK6DZNKVR2KEJNF8",
+      "number": 11,
+      "url": "https://entire.com/et/forges-scratch/forges-fixtures/trails/11",
+      "title": "forges fixture 20261026210133: pull 3",
       "status": "open",
-      "branch": "feature/shout",
-      "original_branch": "feature/shout",
+      "branch": "forges-fixtures/20261026210133-3",
+      "original_branch": "forges-fixtures/20261026210133-3",
       "base": "main",
       "type": "task",
       "priority": "none",
       "author": {
-        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
-        "login": "danielroe",
+        "id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "login": "danielroe-bot",
         "identity": {
           "kind": "account",
-          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
-          "display_name": "Daniel Roe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
           "handles": [
             {
               "provider": "github",
-              "handle": "danielroe",
+              "handle": "danielroe-bot",
               "is_primary": true
             }
           ]
         }
       },
       "assignees": [
-        "danielroe"
+        "danielroe-bot"
       ],
       "assignee_identities": [
         {
-          "login": "danielroe",
+          "login": "danielroe-bot",
           "identity": {
             "kind": "account",
-            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
-            "display_name": "Daniel Roe",
-            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+            "display_name": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
             "handles": [
               {
                 "provider": "github",
-                "handle": "danielroe",
+                "handle": "danielroe-bot",
                 "is_primary": true
               }
             ]
@@ -61,7 +61,7 @@
       "reviewers": [
         {
           "login": "danielroe",
-          "status": "changes_requested",
+          "status": "approved",
           "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
           "identity": {
             "kind": "account",
@@ -78,32 +78,32 @@
           }
         }
       ],
-      "ready_for_review": true,
+      "ready_for_review": false,
       "has_code_changes": true,
-      "comment_count": 4,
-      "unresolved_count": 4,
-      "created_at": "2026-10-26T19:40:44.349Z",
-      "updated_at": "2026-10-26T19:42:13.290Z",
+      "comment_count": 0,
+      "unresolved_count": 0,
+      "created_at": "2026-10-26T21:01:57.028Z",
+      "updated_at": "2026-10-26T21:02:17.316Z",
       "merged_at": null,
-      "last_activity_at": "2026-10-26T19:42:13.290Z",
-      "phase": "reviewing",
+      "last_activity_at": "2026-10-26T21:02:17.318Z",
+      "phase": "building",
       "parent": {
-        "id": "01M5WVNFY1D7AHX0KJW2ANZP14",
-        "number": 2,
-        "project_id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "id": "01M5X0A6D5Q8H8VHFN7M7HTKRS",
+        "number": 17,
+        "project_id": "01M5WYSMPPYRBB13ZB20H7NK2Q",
         "host": "et",
-        "project": "forges",
-        "path": "/api/v1/et/forges/trails/01M5WVNFY1D7AHX0KJW2ANZP14",
-        "jurisdiction": "uk",
-        "primary_processing_cell": "aws-eu-west-2",
-        "url": "https://entire.com/et/forges/-/trails/2"
+        "project": "forges-scratch",
+        "path": "/api/v1/et/forges-scratch/trails/01M5X0A6D5Q8H8VHFN7M7HTKRS",
+        "jurisdiction": "eu",
+        "primary_processing_cell": "aws-eu-central-1",
+        "url": "https://entire.com/et/forges-scratch/-/trails/17"
       },
       "branch_state": "present",
       "code_changes": "present",
       "lifecycle_sync": "settled",
       "body_document": {
-        "id": "01M5WVNG4RWC7X4X51BHP5Q5M2",
-        "document_key": "trail:01M5WVNG0FK8S3JBBFYZGK1VFD:body",
+        "id": "01M5X0A6DQ168SD36K14JNJPYW",
+        "document_key": "trail:01M5X0A6DAPK6DZNKVR2KEJNF8:body",
         "schema_version": 1,
         "content_json": {
           "type": "doc",
@@ -114,32 +114,32 @@
           ]
         },
         "text_snapshot": "",
-        "updated_at": "2026-10-26T19:40:44.349Z",
-        "etag": "W/\"2026-10-26T19:40:44.349281Z\""
+        "updated_at": "2026-10-26T21:01:57.028Z",
+        "etag": "W/\"2026-10-26T21:01:57.02813Z\""
       },
       "monitors": [],
       "agents": [],
       "runners": [],
       "actions": {
         "approve": {
-          "state": "enabled",
-          "reason": null
+          "state": "unavailable",
+          "reason": "not_ready_for_review"
         },
         "create_ci_pr": {
           "state": "unavailable",
           "reason": "not_applicable"
         },
         "merge": {
-          "state": "blocked",
-          "reason": "merge_conflict"
+          "state": "enabled",
+          "reason": null
         },
         "merge_with_bypass": {
           "state": "unavailable",
-          "reason": "merge_gates_bypass_forbidden"
+          "reason": "bypass_not_required"
         },
         "update_branch": {
           "state": "unavailable",
-          "reason": "merge_conflict"
+          "reason": "branch_up_to_date"
         },
         "restore_branch": {
           "state": "unavailable",
@@ -153,37 +153,37 @@
       "mergeability": {
         "delete_branch_on_merge": false,
         "bypass_policy": "nobody",
-        "mergeable": false,
-        "behind_by": 1,
+        "mergeable": true,
+        "behind_by": 0,
         "comparison_status": "available",
-        "conflict_status": "conflicting",
-        "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+        "conflict_status": "clean",
+        "head_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
         "gates": [
           {
             "reviewers": [
               {
                 "login": "danielroe",
                 "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
-                "state": "changes_requested",
-                "reviewed_head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+                "state": "approved",
+                "reviewed_head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
                 "reason": null
               }
             ],
             "runner_ids": [],
             "id": "",
-            "gate_definition_id": "01M5WTJP4MSACMEJ1KK4FGP2B1",
+            "gate_definition_id": "01M5WZ6B2HAMXBN2SZ9TP2N3SN",
             "gate_key": "approvals",
             "gate_type": "approvals",
             "blocking": true,
-            "status": "failed",
-            "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "status": "passed",
+            "head_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "value": {
-              "approved": 0,
-              "changes_requested": true,
+              "approved": 1,
+              "changes_requested": false,
               "config": {
                 "version": 1,
                 "min_reviewers": 1,
-                "allow_self_approval": true,
+                "allow_self_approval": false,
                 "dismiss_stale_approvals_on_push": false
               },
               "required": 1,
@@ -191,25 +191,25 @@
               "stale_dismissed": 0,
               "total": 1
             },
-            "rationale": "Changes have been requested",
-            "created_at": "2026-10-26T20:01:14.745936943Z",
-            "completed_at": "2026-10-26T20:01:14.745936943Z",
+            "rationale": "1 approval(s) recorded",
+            "created_at": "2026-10-26T21:02:17.480094293Z",
+            "completed_at": "2026-10-26T21:02:17.480094293Z",
             "state": "evaluated",
-            "outcome": "failed",
+            "outcome": "passed",
             "stale_reason": null,
-            "evaluated_at_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "evaluated_at_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "finding_count": null
           },
           {
             "reviewers": [],
             "runner_ids": [],
-            "id": "01M5WVQW5BHQ3CSVZJTM3595D5",
-            "gate_definition_id": "01M5WTJP5MDYCYNF3Z6BWN7NZ0",
+            "id": "01M5X0AT98BGQN9K7BC7RM57B2",
+            "gate_definition_id": "01M5WZ6B2M8PSY34EM5YJGG6ZR",
             "gate_key": "findings",
             "gate_type": "findings",
-            "blocking": true,
+            "blocking": false,
             "status": "passed",
-            "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "head_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "value": {
               "config": {
                 "version": 1,
@@ -217,9 +217,9 @@
               },
               "reviewed_head": false,
               "agent_findings": {
-                "low": 1,
+                "low": 0,
                 "high": 0,
-                "medium": 1,
+                "medium": 0,
                 "unspecified": 0
               },
               "review_in_flight": false,
@@ -228,41 +228,40 @@
               "agent_blocking_findings": 0
             },
             "rationale": "No blocking findings",
-            "created_at": "2026-10-26T19:42:02.411692Z",
-            "completed_at": "2026-10-26T19:42:02.411692Z",
+            "created_at": "2026-10-26T21:02:17.384974Z",
+            "completed_at": "2026-10-26T21:02:17.384974Z",
             "state": "evaluated",
             "outcome": "passed",
             "stale_reason": null,
-            "evaluated_at_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "evaluated_at_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "finding_count": 0
           },
           {
             "reviewers": [],
             "runner_ids": [],
-            "id": "",
-            "gate_definition_id": "01M5WTJP5QR0FQ7TWGE7Y3QCJC",
+            "id": "01M5X0ATAH24JW8AN09P13R793",
+            "gate_definition_id": "01M5WZ6B2PC2X2BE023RX01WEY",
             "gate_key": "up_to_date",
             "gate_type": "up_to_date",
             "blocking": true,
-            "status": "failed",
-            "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "status": "passed",
+            "head_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "value": {
-              "comparison_status": "available",
-              "behind_by": 1,
-              "compare_status": "diverged",
-              "merge_status": "conflicting",
               "config": {
                 "version": 1,
                 "allow_behind_if_mergeable": false
-              }
+              },
+              "behind_by": 0,
+              "compare_status": "ahead",
+              "comparison_status": "available"
             },
-            "rationale": "Merge conflicts",
-            "created_at": "2026-10-26T19:41:42.616528Z",
-            "completed_at": null,
+            "rationale": "Up to date",
+            "created_at": "2026-10-26T21:02:17.425879Z",
+            "completed_at": "2026-10-26T21:02:17.425879Z",
             "state": "evaluated",
-            "outcome": "failed",
+            "outcome": "passed",
             "stale_reason": null,
-            "evaluated_at_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+            "evaluated_at_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab",
             "finding_count": null
           }
         ],
@@ -281,7 +280,7 @@
       "config_source": "live",
       "merge_base_sha": null,
       "base_sha": null,
-      "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a"
+      "head_sha": "553f4166982b4a17d17dfd37ec253da9440d01ab"
     }
   }
 }

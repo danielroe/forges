@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/projects/resolve/et/forges-scratch"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "link": "</api/v1/schemas/ErrorModel.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ErrorModel.json",
+      "title": "Forbidden",
+      "status": 403,
+      "detail": "project is not accessible"
+    }
+  }
+}

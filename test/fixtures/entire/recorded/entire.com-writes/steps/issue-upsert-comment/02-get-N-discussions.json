@@ -1,0 +1,76 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/13/discussions?pageSize=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/DiscussionsListResponseBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/DiscussionsListResponseBody.json",
+      "items": [
+        {
+          "etag": "\"discussion:01M5X09V1QW77SKERM3TA6VTXC:2\"",
+          "id": "01M5X09V1QW77SKERM3TA6VTXC",
+          "trail_id": "01M5X09TE6P0R8TR8WPCVX7H6Y",
+          "title": "An edited comment from run 20261026210133.",
+          "kind": "discussion",
+          "resolved": false,
+          "resolved_by": null,
+          "resolved_by_identity": {
+            "kind": "unknown",
+            "account_id": null,
+            "display_name": null,
+            "avatar_url": null,
+            "handles": []
+          },
+          "resolved_at": null,
+          "created_by": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "created_by_identity": {
+            "kind": "account",
+            "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+            "display_name": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe-bot",
+                "is_primary": true
+              }
+            ]
+          },
+          "created_at": "2026-10-26T21:01:45.399Z",
+          "updated_at": "2026-10-26T21:01:46.409Z",
+          "last_message_at": "2026-10-26T21:01:45.399Z",
+          "last_message_author": "danielroe-bot",
+          "message_count": 1,
+          "participants": [
+            {
+              "login": "danielroe-bot",
+              "actor_account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+              "identity": {
+                "kind": "account",
+                "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+                "display_name": null,
+                "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+                "handles": [
+                  {
+                    "provider": "github",
+                    "handle": "danielroe-bot",
+                    "is_primary": true
+                  }
+                ]
+              }
+            }
+          ],
+          "review_comment_id": null,
+          "review_comment": null
+        }
+      ],
+      "nextPageToken": null,
+      "eventCursor": "2"
+    }
+  }
+}

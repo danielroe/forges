@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://us.console.entire.io/api/v1/repos/01M5WYSQC41P69DTXEMZ0TE5YK/grants",
+    "body": {
+      "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "role": "writer"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "</api/v1/schemas/GrantRepoAccessOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/GrantRepoAccessOutputBody.json",
+      "status": "granted"
+    }
+  }
+}

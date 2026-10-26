@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/repos/01M5WYSQC41P69DTXEMZ0TE5YK/trails/11/update-branch"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailUpdateBranchResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailUpdateBranchResponse.json",
+      "mergeCommitSha": ""
+    }
+  }
+}

@@ -213,14 +213,16 @@ function reviewerState(raw: string | undefined): ReviewState {
 }
 
 /** A change, the branch of one repository on a trail, read as a pull request. */
-export function toPull(repo: RepoRef, raw: EntireChange): Thread {
+/** A change, read as a pull request. Its description is its parent trail's body, `parentBody`, unless it has its own. */
+export function toPull(repo: RepoRef, raw: EntireChange, parentBody?: string): Thread {
   const origin = { forge: repo.forge, instance: repo.instance }
   const state = raw.status === 'merged' ? 'merged' : raw.status === 'closed' ? 'closed' : raw.status === 'open' ? 'open' : 'unknown'
+  const body = raw.body_document?.text_snapshot || parentBody
   return {
     ref: { ...pullRef(repo, raw.number), externalId: raw.id },
     kind: 'pull_request',
     title: raw.title,
-    ...raw.body_document?.text_snapshot ? { body: raw.body_document.text_snapshot } : {},
+    ...body ? { body } : {},
     state,
     stateRaw: raw.status,
     isDraft: raw.ready_for_review === false,
@@ -228,7 +230,8 @@ export function toPull(repo: RepoRef, raw: EntireChange): Thread {
     assignees: (raw.assignee_identities ?? []).flatMap(assignee => identityActor(origin, assignee.identity, assignee.login) ?? []),
     reviewers: (raw.reviewers ?? []).flatMap((reviewer) => {
       const actor = identityActor(origin, reviewer.identity, reviewer.login)
-      return actor ? [{ actor, state: reviewerState(reviewer.state), ...reviewer.state ? { stateRaw: reviewer.state } : {} }] : []
+      const state = reviewer.state ?? reviewer.status
+      return actor ? [{ actor, state: reviewerState(state), ...state ? { stateRaw: state } : {} }] : []
     }),
     labels: [],
     ...raw.url ? { url: raw.url } : {},
@@ -250,7 +253,7 @@ export function flattenMessages(messages: EntireMessage[] = []): EntireMessage[]
   return messages.flatMap(message => [message, ...flattenMessages(message.replies)])
 }
 
-export function toComment(thread: ResolvedThreadRef, discussion: EntireDiscussion, raw: EntireMessage): Comment {
+export function toComment(thread: ResolvedThreadRef, discussion: Pick<EntireDiscussion, 'id' | 'resolved'>, raw: EntireMessage): Comment {
   return {
     ref: { forge: thread.forge, instance: thread.instance, thread, id: raw.id },
     body: raw.body,
@@ -285,6 +288,19 @@ export function toFinding(thread: ResolvedThreadRef, raw: EntireReviewComment, r
     ...anchor(raw),
     ...raw.discussion_id ? { thread: { id: raw.discussion_id, resolved } } : {},
     createdAt: toDate(raw.created_at),
+    raw,
+  }
+}
+
+/** A finding, read as a comment. */
+export function findingComment(thread: ResolvedThreadRef, raw: EntireReviewComment, resolved = raw.status !== 'open'): Comment {
+  return {
+    ref: { forge: thread.forge, instance: thread.instance, thread, id: raw.id },
+    body: raw.body ?? '',
+    author: findingAuthor(thread, raw),
+    createdAt: toDate(raw.created_at),
+    ...raw.updated_at ? { updatedAt: toDate(raw.updated_at) } : {},
+    ...raw.discussion_id ? { thread: { id: raw.discussion_id, resolved } } : {},
     raw,
   }
 }
@@ -333,13 +349,14 @@ export function toApproval(thread: ResolvedThreadRef, raw: EntireApproval): Revi
 }
 
 /** The findings of one code review, as a review that comments. */
-export function toCodeReview(thread: ResolvedThreadRef, id: string, findings: EntireReviewComment[]): Review {
+export function toCodeReview(thread: ResolvedThreadRef, id: string, findings: EntireReviewComment[], summary?: string | null): Review {
   const [first] = findings
   return {
     ref: { forge: thread.forge, instance: thread.instance, thread, id },
     author: first ? findingAuthor(thread, first) : undefined,
     state: 'commented',
     stateRaw: 'review',
+    ...summary ? { body: summary } : {},
     submittedAt: first ? toDate(first.created_at) : undefined,
     comments: findings.map(finding => toFinding(thread, finding)),
     raw: findings,

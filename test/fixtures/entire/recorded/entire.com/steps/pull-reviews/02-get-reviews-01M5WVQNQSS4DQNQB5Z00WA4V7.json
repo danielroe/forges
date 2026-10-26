@@ -1,15 +1,41 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/1/reviews/comments?per_page=100"
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/1/reviews/01M5WVQNQSS4DQNQB5Z00WA4V7"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "</api/v1/schemas/ReviewCommentsPage.json>; rel=\"describedBy\""
+      "link": "</api/v1/schemas/ReviewSnapshotResponseBody.json>; rel=\"describedBy\""
     },
     "body": {
-      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ReviewCommentsPage.json",
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ReviewSnapshotResponseBody.json",
+      "review": {
+        "id": "01M5WVQNQSS4DQNQB5Z00WA4V7",
+        "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+        "code_version_id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+        "actor_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "summary": null,
+        "started_at": "2026-10-26T19:41:55.833Z",
+        "source_execution_id": null
+      },
+      "code_version": {
+        "id": "01M5WVQNQG83V6VQT17G0M6DBJ",
+        "trail_id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+        "repo_id": "01M5WS0P331VQ3AARB26Z9DGV7",
+        "base_ref": null,
+        "head_ref": null,
+        "base_sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+        "head_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+        "captured_at": "2026-10-26T19:41:55.824Z"
+      },
+      "counts": {
+        "open": 2,
+        "resolved": 0,
+        "dismissed": 0,
+        "stale": 0,
+        "total": 2
+      },
       "comments": [
         {
           "discussion_id": "01M5WVQW42CZ9N82B1QV6B6GTP",
@@ -71,7 +97,9 @@
             "selected_text": null,
             "nearby_text": null,
             "language": null
-          }
+          },
+          "suggested_changes": [],
+          "outgoing_links": []
         },
         {
           "discussion_id": "01M5WVQW2ZPDDH5X0C5SWM3KVM",
@@ -133,7 +161,9 @@
             "selected_text": "  return options.shout ? greeting.toUpperCase() : greeting",
             "nearby_text": null,
             "language": null
-          }
+          },
+          "suggested_changes": [],
+          "outgoing_links": []
         }
       ],
       "event_cursor": "11"

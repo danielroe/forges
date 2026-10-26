@@ -17,10 +17,6 @@ The Entire provider works with the repositories that [Entire](https://entire.com
 ::
 <!-- header:end -->
 
-::note
-This provider is read-only. It declares every write, notification and subscription change unsupported, and it does not create, edit or delete anything.
-::
-
 ## Authentication
 
 Entire has no personal access tokens. Sign in with the [Entire CLI](https://docs.entire.com/) and run `entire auth token` to print a token for your account. The provider sends it as `Authorization: Bearer <token>`:
@@ -48,7 +44,7 @@ Entire has no anonymous reads, so every call needs a token.
 
 ## Instance
 
-The `baseUrl` is Entire's control plane and defaults to `https://us.console.entire.io`. The control plane knows which processing cell holds each project, such as `https://aws-eu-west-2.api.entire.io` for a project in the UK, and the provider sends every request about a project's repositories and trails to that cell. It looks up each project's cell once and keeps it for the life of the provider.
+The `baseUrl` is Entire's control plane and defaults to `https://us.console.entire.io`. The control plane knows which processing cell holds each project and repository, such as `https://aws-eu-west-2.api.entire.io` for a project in the UK, and the provider sends every request about a project's repositories and trails to that cell. It looks up each cell once and keeps it for the life of the provider. An account with access to a repository but not to its project reaches the project's trails through the repository's cell.
 
 A repository ref's `owner` is the project and its `name` is the repository, so `https://entire.com/et/forges/forges-fixtures` is `{ owner: 'forges', name: 'forges-fixtures' }`. The provider reads only repositories that Entire hosts. A GitHub repository that Entire mirrors under `gh/` is a GitHub repository, so read it with the [GitHub provider](/providers/github).
 
@@ -82,6 +78,20 @@ A change is a pull request, numbered within its repository. `threads.files()` an
 
 A project trail's page is `https://entire.com/et/<project>/-/trails/<number>`, and a change's page is `https://entire.com/et/<project>/<repository>/trails/<number>`. `urlFor()` builds both, and `parseUrl()` reads them back.
 
+## Writing trails
+
+`threads.create()` with `kind: 'issue'` opens a project trail. On a repository ref, the trail's scope is that repository, and on a namespace ref, it is the whole project. With `kind: 'pull_request'`, it opens a project trail with a change from `head` into `base`, and resolves with the change. Entire keeps a change's description on its project trail, so `body` is the trail's body. `threads.get()` reads a change's body from its trail, and `threads.update()` writes it there.
+
+`threads.update()`, `threads.close()`, `threads.reopen()` and `threads.setAssignees()` change a project trail or a change. Closing a project trail leaves its changes open. Pass assignees as actors, or as logins, which the provider sends as `@<login>`.
+
+`threads.createComment()` starts a discussion with the comment as its first message. `threads.updateComment()` and `threads.deleteComment()` edit and delete a message, and read the trail's discussions to find the one that holds it.
+
+`threads.createReview()` with `event: 'approve'` or `event: 'request_changes'` submits an approval, which has a body but no inline comments. With `event: 'comment'`, it starts a code review and publishes each inline comment as a finding, with `body` as the review's summary. A review with a body and no comments publishes the body as a finding on the whole change. Entire has no pending reviews, and a finding is always on the head side of the diff. `threads.replyToReviewComment()` replies in the finding's discussion, and `threads.resolveReviewThread()` and `threads.unresolveReviewThread()` resolve and reopen that discussion.
+
+`threads.merge()` merges a change once its gates pass, with `method: 'merge'` only. Pass `sha`, and Entire refuses the merge with `BranchMovedError` if the head branch has moved. `threads.updateBranch()` merges the base into the change's branch, or rebases the branch onto the base with `method: 'rebase'`.
+
+`repos.addCollaborator()` grants an account the `read`, `write` or `admin` role on a repository. Entire grants access by account id, so pass the account as an actor.
+
 ## Accounts
 
 `users.me()` reads the account the token belongs to. Entire has no way to read another account by login, and no sponsorship, follow feeds or repository events.
@@ -113,7 +123,7 @@ A project trail's page is `https://entire.com/et/<project>/-/trails/<number>`, a
 | `repos.templates` | ❌ | ❌ |
 | `repos.permissionFor` | ❌ | ❌ |
 | `repos.branchRules` | ❌ | ❌ |
-| `repos.addCollaborator` | ❌ | ❌ |
+| `repos.addCollaborator` | ✅ | ❌ |
 | `repos.assignableUsers` | ❌ | ❌ |
 | `repos.reviewerCandidates` | ❌ | ❌ |
 | `repos.events` | ❌ | ❌ |
@@ -127,27 +137,27 @@ A project trail's page is `https://entire.com/et/<project>/-/trails/<number>`, a
 | `threads.closingPullRequests` | ❌ | ❌ |
 | `threads.events` | issue, PR | ❌ |
 | `threads.comments` | issue, PR | ❌ |
-| `threads.getComment` | issue (emulated), PR (emulated) | ❌ |
-| `threads.createComment` | ❌ | ❌ |
-| `threads.updateComment` | ❌ | ❌ |
-| `threads.deleteComment` | ❌ | ❌ |
+| `threads.getComment` | issue, PR | ❌ |
+| `threads.createComment` | issue, PR | ❌ |
+| `threads.updateComment` | issue, PR | ❌ |
+| `threads.deleteComment` | issue, PR | ❌ |
 | `threads.hideComment` | ∅ | ∅ |
 | `threads.reactions` | ∅ | ∅ |
 | `threads.react` | ∅ | ∅ |
-| `threads.create` | ❌ | ❌ |
-| `threads.update` | ❌ | ❌ |
-| `threads.close` | ❌ | ❌ |
-| `threads.reopen` | ❌ | ❌ |
+| `threads.create` | issue, PR | ❌ |
+| `threads.update` | issue, PR | ❌ |
+| `threads.close` | issue, PR | ❌ |
+| `threads.reopen` | issue, PR | ❌ |
 | `threads.lock` | ∅ | ∅ |
 | `threads.setLabels` | ∅ | ∅ |
 | `threads.addLabels` | ∅ | ∅ |
 | `threads.removeLabels` | ∅ | ∅ |
 | `threads.setMilestone` | ∅ | ∅ |
 | `threads.setIssueType` | ∅ | ∅ |
-| `threads.setAssignees` | ❌ | ❌ |
+| `threads.setAssignees` | issue, PR | ❌ |
 | `threads.requestReview` | ❌ | ❌ |
-| `threads.merge` | ❌ | ❌ |
-| `threads.updateBranch` | ❌ | ❌ |
+| `threads.merge` | ✅ | ❌ |
+| `threads.updateBranch` | ✅ | ❌ |
 | `threads.transfer` | ∅ | ∅ |
 | `threads.markDuplicate` | ∅ | ∅ |
 | `threads.subscription` | ❌ | ❌ |
@@ -156,13 +166,13 @@ A project trail's page is `https://entire.com/et/<project>/-/trails/<number>`, a
 | `threads.files` | ✅ | ❌ |
 | `threads.commits` | ✅ | ❌ |
 | `threads.reviews` | ✅ | ❌ |
-| `threads.getReview` | emulated | ❌ |
-| `threads.createReview` | ❌ | ❌ |
+| `threads.getReview` | ✅ | ❌ |
+| `threads.createReview` | ✅ | ❌ |
 | `threads.submitReview` | ❌ | ❌ |
-| `threads.approve` | ❌ | ❌ |
-| `threads.replyToReviewComment` | ❌ | ❌ |
+| `threads.approve` | ✅ | ❌ |
+| `threads.replyToReviewComment` | ✅ | ❌ |
 | `threads.reviewThreads` | ✅ | ❌ |
-| `threads.resolveReviewThread` | ❌ | ❌ |
+| `threads.resolveReviewThread` | ✅ | ❌ |
 | `notifications.list` | ❌ | ❌ |
 | `notifications.markRead` | ❌ | ❌ |
 | `notifications.markDone` | ❌ | ❌ |

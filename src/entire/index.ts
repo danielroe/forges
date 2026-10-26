@@ -1,18 +1,18 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { Fetcher } from '../fetch.ts'
-import type { BaseOptions, Branch, ChangedFile, Comment, Commit, CommitQuery, CommitRef, CompareOptions, Comparison, Cursor, FileOptions, ForgeEventInput, ForgeWarning, ListOptions, Page, PageOptions, RepoQuery, RepoRef, ResolvedThreadRef, Review, ReviewThread, Tag, Thread, ThreadQuery, ThreadRef, TreeEntry, TreeOptions, User } from '../model.ts'
+import type { Actor, BaseOptions, Branch, ChangedFile, Comment, CommentRef, Commit, CommitQuery, CommitRef, CompareOptions, Comparison, Cursor, FileOptions, ForgeEventInput, ForgeWarning, ListOptions, MergeOptions, MergeResult, Page, PageOptions, RepoQuery, RepoRef, RepoRole, ResolvedThreadRef, Review, ReviewComment, ReviewInput, ReviewRef, ReviewThread, Tag, Thread, ThreadInput, ThreadQuery, ThreadRef, ThreadUpdate, TreeEntry, TreeOptions, UpdateBranchOptions, UpdateBranchResult, User } from '../model.ts'
 import type { ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
-import type { EntireApproval, EntireBranch, EntireChange, EntireCollaborator, EntireCommit, EntireCommitDetail, EntireCompareFile, EntireCompareStatus, EntireCoreRepo, EntireDiscussion, EntireMe, EntireProjectTrail, EntireRef, EntireRepo, EntireResolvedProject, EntireReviewComment, EntireTimelineItem, EntireTreeEntry } from './types.ts'
+import type { EntireApproval, EntireBranch, EntireChange, EntireCollaborator, EntireCommit, EntireCommitDetail, EntireCompareFile, EntireCompareStatus, EntireCoreRepo, EntireDiscussion, EntireDiscussionCreated, EntireMe, EntireMerged, EntireMessage, EntireProjectTrail, EntireRef, EntireRepo, EntireRepoResolution, EntireResolvedProject, EntireReviewComment, EntireReviewPublished, EntireReviewSnapshot, EntireTimelineItem, EntireTreeEntry } from './types.ts'
 import { isSha, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, verb } from '../define.ts'
-import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
+import { BranchMovedError, ForgeApiError, ForgeError, NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { eventTime } from '../events.ts'
 import { isNamespaceRef } from '../model.ts'
 import { getManyConcurrently, memoBy, phased, requireIssueOrPull, resolveToken, toDate, toFileStatus } from '../utils.ts'
 import { webUrlFor } from '../web.ts'
-import { approvalState, flattenMessages, FORGE, identityActor, projectRef, toApproval, toBranch, toChangedFile, toCodeReview, toCollaborator, toComment, toCommit, toCoreRepo, toIssue, toPull, toRepo, toReviewThread, toTreeEntry } from './normalise.ts'
+import { approvalState, findingComment, flattenMessages, FORGE, identityActor, projectRef, pullRef, toApproval, toBranch, toChangedFile, toCodeReview, toCollaborator, toComment, toCommit, toCoreRepo, toIssue, toPull, toRepo, toReviewThread, toTreeEntry } from './normalise.ts'
 import { ENTIRE_WEB, HOST } from './web.ts'
 
 /**
@@ -54,24 +54,49 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   const authHeaders = bearer(options.auth)
   const cellFetcher = memoBy(async (apiUrl: string) => createFetcher({ baseUrl: `${apiUrl.replace(/\/$/, '')}/api/v1`, authHeaders }))
 
-  const project = memoBy(async (name: string): Promise<Project> => {
-    const { data } = await fetcher.json<EntireResolvedProject>(`/projects/resolve/${HOST}/${encodeURIComponent(name)}`)
-    if (!data.project.apiUrl) {
-      throw new NotFoundError(`Project ${name} has no processing cell`, 404, '', origin)
+  const placed = (raw: Pick<EntireCoreRepo, 'placements'> | undefined) => raw?.placements?.find(placement => placement.apiBaseUrl && !placement.mirror)
+
+  /** A project the account reads through one of its repositories, when it has no grant on the project itself. */
+  async function projectThroughRepo(name: string): Promise<Project | undefined> {
+    const { data } = await fetcher.json<{ repos: EntireCoreRepo[] }>('/repos', { query: { org: name, pageSize: 1 } })
+    const raw = data.repos[0]
+    const placement = placed(raw)
+    if (!raw || !placement?.apiBaseUrl) {
+      return undefined
     }
-    return { id: data.project.id, cell: await cellFetcher(data.project.apiUrl) }
+    const cell = await cellFetcher(placement.apiBaseUrl)
+    const { data: repo } = await cell.json<EntireRepo>(`/repos/${encodeURIComponent(placement.id)}`)
+    return repo.owning_project_id ? { id: repo.owning_project_id, cell } : undefined
+  }
+
+  const project = memoBy(async (name: string): Promise<Project> => {
+    try {
+      const { data } = await fetcher.json<EntireResolvedProject>(`/projects/resolve/${HOST}/${encodeURIComponent(name)}`)
+      if (!data.project.apiUrl) {
+        throw new NotFoundError(`Project ${name} has no processing cell`, 404, '', origin)
+      }
+      return { id: data.project.id, cell: await cellFetcher(data.project.apiUrl) }
+    }
+    catch (error) {
+      const fallback = error instanceof ForgeApiError && error.status === 403 ? await projectThroughRepo(name) : undefined
+      if (!fallback) {
+        throw error
+      }
+      return fallback
+    }
   })
 
-  const repoIdOf = memoBy(async (path: string) => {
-    const [name] = path.split('/')
-    const { cell } = await project(name!)
-    const { data } = await cell.json<{ repoId: string }>('/git/repos/resolve', { query: { repoPath: `${HOST}/${path}` } })
-    return data.repoId
+  const placement = memoBy(async (path: string): Promise<{ cell: Fetcher, id: string }> => {
+    const { data } = await fetcher.json<{ resolutions: EntireRepoResolution[] }>('/repos/resolve', { method: 'POST', json: { repositories: [{ fullName: path, provider: 'entire' }] } })
+    const found = placed(data.resolutions[0])
+    if (!found?.apiBaseUrl) {
+      throw new NotFoundError(`No repository ${path} on Entire`, 404, '', origin)
+    }
+    return { cell: await cellFetcher(found.apiBaseUrl), id: found.id }
   })
 
   async function located(repo: RepoRef): Promise<{ cell: Fetcher, id: string, path: string }> {
-    const { cell } = await project(repo.owner)
-    const id = repo.externalId ?? await repoIdOf(`${repo.owner}/${repo.name}`)
+    const { cell, id } = await placement(`${repo.owner}/${repo.name}`)
     return { cell, id: encodeURIComponent(id), path: `/git/repos/${encodeURIComponent(id)}` }
   }
 
@@ -120,14 +145,25 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   }
 
   async function change(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireChange> {
-    const { cell } = await project(ref.repo.owner)
+    const { cell } = await located(ref.repo)
     return (await cell.json<EntireChange>(`${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}`, { signal })).data
+  }
+
+  async function parentTrail(repo: RepoRef, raw: EntireChange, signal?: AbortSignal): Promise<EntireProjectTrail | undefined> {
+    if (!raw.parent) {
+      return undefined
+    }
+    const { cell } = await located(repo)
+    return (await cell.json<EntireProjectTrail>(`${projectTrailPath(raw.parent.project)}/${encodeURIComponent(raw.parent.id)}`, { signal })).data
   }
 
   async function get(thread: ThreadRef, opts?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, origin, 'read')
     if (ref.kind === 'pull_request') {
-      return toPull(requirePull(ref, 'read').repo, await change(ref, opts?.signal))
+      const { repo } = requirePull(ref, 'read')
+      const raw = await change(ref, opts?.signal)
+      const parent = raw.body_document?.text_snapshot ? undefined : await parentTrail(repo, raw, opts?.signal)
+      return toPull(repo, raw, parent?.body)
     }
     const { cell } = await project(ref.repo.owner)
     const { data } = await cell.json<EntireProjectTrail>(`${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}`, { signal: opts?.signal })
@@ -145,7 +181,7 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   }
 
   async function pullsPage(repo: RepoRef, query: ThreadQuery, cursor?: Cursor): Promise<Page<Thread>> {
-    const { cell } = await project(repo.owner)
+    const { cell } = await located(repo)
     const status = query.state === 'all' ? undefined : query.state === 'merged' ? 'merged' : query.state === 'closed' ? 'closed,merged' : 'open'
     return tokenPage(cell, trailPath(repo), snakePage('items'), {
       ...query,
@@ -173,12 +209,18 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     ], query.cursor))
   }
 
-  async function discussions(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireDiscussion[]> {
-    const { cell } = await project(ref.repo.owner)
+  async function discussionsAt(ref: ResolvedThreadRef): Promise<{ cell: Fetcher, path: string }> {
     if (ref.kind === 'pull_request') {
-      return everything<EntireDiscussion>(cell, `${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/discussions`, snakePage('items'), { include_messages: true }, signal)
+      return { cell: (await located(ref.repo)).cell, path: `${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/discussions` }
     }
-    const path = `${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}/discussions`
+    return { cell: (await project(ref.repo.owner)).cell, path: `${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}/discussions` }
+  }
+
+  async function discussions(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireDiscussion[]> {
+    const { cell, path } = await discussionsAt(ref)
+    if (ref.kind === 'pull_request') {
+      return everything<EntireDiscussion>(cell, path, snakePage('items'), { include_messages: true }, signal)
+    }
     const list = await everything<EntireDiscussion>(cell, path, camelPage('items'), {}, signal)
     return Promise.all(list.map(async (discussion) => {
       const { data } = await cell.json<{ discussion: EntireDiscussion, messages: EntireDiscussion['messages'] }>(`${path}/${encodeURIComponent(discussion.id)}`, { signal })
@@ -193,21 +235,40 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       .sort((a, b) => (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0))
   }
 
+  /** The message `ref` names, with its discussion, or the finding it names. */
+  async function findComment(ref: CommentRef, signal?: AbortSignal): Promise<{ thread: ResolvedThreadRef, discussion: EntireDiscussion, message?: EntireMessage }> {
+    const thread = requireIssueOrPull(ref.thread, origin, 'read comments on')
+    for (const discussion of await discussions(thread, signal)) {
+      const message = flattenMessages(discussion.messages).find(item => item.id === ref.id)
+      if (message || discussion.review_comment?.id === ref.id) {
+        return { thread, discussion, message }
+      }
+    }
+    throw new NotFoundError(`No comment ${ref.id} on ${thread.kind === 'issue' ? 'trail' : 'change'} ${thread.number}`, 404, '', origin)
+  }
+
   async function findings(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireReviewComment[]> {
-    const { cell } = await project(ref.repo.owner)
+    const { cell } = await located(ref.repo)
     return everything<EntireReviewComment>(cell, `${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/reviews/comments`, snakePage('comments'), {}, signal)
   }
 
+  async function approvals(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireApproval[]> {
+    const { cell } = await located(ref.repo)
+    return (await cell.json<{ approvals: EntireApproval[] }>(`${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/approvals`, { signal })).data.approvals
+  }
+
+  async function codeReview(ref: ResolvedThreadRef, id: string, signal?: AbortSignal): Promise<EntireReviewSnapshot> {
+    const { cell } = await located(ref.repo)
+    return (await cell.json<EntireReviewSnapshot>(`${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/reviews/${encodeURIComponent(id)}`, { signal })).data
+  }
+
   async function reviews(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<Review[]> {
-    const { cell } = await project(ref.repo.owner)
-    const [{ data }, all] = await Promise.all([
-      cell.json<{ approvals: EntireApproval[] }>(`${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}/approvals`, { signal }),
-      findings(ref, signal),
-    ])
+    const [approved, all] = await Promise.all([approvals(ref, signal), findings(ref, signal)])
     const byReview = Map.groupBy(all.sort((a, b) => a.created_at.localeCompare(b.created_at)), finding => finding.review_id)
+    const summaries = await Promise.all([...byReview.keys()].map(async id => (await codeReview(ref, id, signal)).review.summary))
     return [
-      ...data.approvals.map(approval => toApproval(ref, approval)),
-      ...[...byReview].map(([id, items]) => toCodeReview(ref, id, items)),
+      ...approved.map(approval => toApproval(ref, approval)),
+      ...[...byReview].map(([id, items], index) => toCodeReview(ref, id, items, summaries[index])),
     ].sort((a, b) => (a.submittedAt?.getTime() ?? 0) - (b.submittedAt?.getTime() ?? 0))
   }
 
@@ -320,6 +381,237 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     return sha
   }
 
+  function actorReference(actor: string | Actor): string {
+    if (typeof actor !== 'string') {
+      return `ulid:${actor.id}`
+    }
+    return actor.startsWith('ulid:') || actor.startsWith('@') ? actor : `@${actor}`
+  }
+
+  function refuseLabels(labels: string[] | undefined): void {
+    if (labels?.length) {
+      throw new UnsupportedOperationError('Entire trails have no labels', origin)
+    }
+  }
+
+  async function create(repo: RepoRef, input: ThreadInput, opts?: BaseOptions): Promise<Thread> {
+    refuseLabels(input.labels)
+    const assignees = input.assignees?.map(actorReference)
+    if (input.kind === 'issue') {
+      const scoped = isNamespaceRef(repo) ? undefined : await located(repo)
+      const cell = scoped?.cell ?? (await project(repo.owner)).cell
+      const { data } = await cell.json<EntireProjectTrail>(projectTrailPath(repo.owner), {
+        method: 'POST',
+        json: { title: input.title, body: input.body, assignees, repoIds: scoped && [decodeURIComponent(scoped.id)] },
+        signal: opts?.signal,
+      })
+      return toIssue(origin, repo.owner, data)
+    }
+    if (input.kind !== 'pull_request' || isNamespaceRef(repo)) {
+      throw new UnsupportedOperationError(`Entire cannot open a ${input.kind.replace('_', ' ')} here`, origin)
+    }
+    if (!input.head || !input.base) {
+      throw new TypeError('A change needs `head` and `base`')
+    }
+    if (input.head.includes(':')) {
+      throw new UnsupportedOperationError('Entire opens changes from branches of the same repository', origin)
+    }
+    const { cell, id } = await located(repo)
+    const repositoryId = decodeURIComponent(id)
+    const { data } = await cell.json<EntireProjectTrail>(projectTrailPath(repo.owner), {
+      method: 'POST',
+      headers: { 'idempotency-key': crypto.randomUUID() },
+      json: {
+        title: input.title,
+        body: input.body,
+        repoIds: [repositoryId],
+        changes: [{ repositoryId, branchName: input.head, base: input.base, branchAction: 'link', title: input.title, assignees, readyForReview: !input.draft }],
+      },
+      signal: opts?.signal,
+    })
+    const number = data.changes?.find(item => item.repositoryId === repositoryId)?.number
+    if (number === undefined) {
+      throw new ForgeError(`Entire opened trail ${data.number} without a change in ${repo.owner}/${repo.name}`, origin)
+    }
+    return get(pullRef(repo, number), opts)
+  }
+
+  async function update(thread: ThreadRef, input: ThreadUpdate, opts?: BaseOptions): Promise<Thread> {
+    const ref = requireIssueOrPull(thread, origin, 'update')
+    refuseLabels(input.labels)
+    const assignees = input.assignees?.map(actorReference)
+    const signal = opts?.signal
+    if (ref.kind === 'issue') {
+      const { cell } = await project(ref.repo.owner)
+      const { data } = await cell.json<EntireProjectTrail>(`${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}`, {
+        method: 'PATCH',
+        json: { title: input.title, body: input.body, status: input.state, assignees },
+        signal,
+      })
+      return toIssue(origin, ref.repo.owner, data)
+    }
+    const pull = requirePull(ref, 'updated')
+    const { cell } = await located(pull.repo)
+    if (input.title !== undefined || input.state !== undefined || assignees) {
+      await cell.json(`${trailPath(pull.repo)}/${encodeURIComponent(pull.number)}`, { method: 'PATCH', json: { title: input.title, status: input.state, assignees }, signal })
+    }
+    if (input.body !== undefined) {
+      const raw = await change(pull, signal)
+      if (!raw.parent) {
+        throw new UnsupportedOperationError(`Change ${pull.number} has no trail to hold its description`, origin)
+      }
+      await cell.json(`${projectTrailPath(raw.parent.project)}/${encodeURIComponent(raw.parent.id)}`, { method: 'PATCH', json: { body: input.body }, signal })
+    }
+    return get(pull, opts)
+  }
+
+  async function createComment(thread: ThreadRef, body: string, opts?: BaseOptions): Promise<Comment> {
+    const ref = requireIssueOrPull(thread, origin, 'comment on')
+    const { cell, path } = await discussionsAt(ref)
+    const { data } = await cell.json<EntireDiscussionCreated>(path, { method: 'POST', json: { body }, signal: opts?.signal })
+    return toComment(ref, data.discussion, data.message)
+  }
+
+  async function messagePath(ref: CommentRef, signal?: AbortSignal) {
+    const found = await findComment(ref, signal)
+    if (!found.message) {
+      throw new UnsupportedOperationError('Entire edits a finding through the code review that left it', origin)
+    }
+    const { cell, path } = await discussionsAt(found.thread)
+    return { ...found, message: found.message, cell, path: `${path}/${encodeURIComponent(found.discussion.id)}/messages/${encodeURIComponent(found.message.id)}` }
+  }
+
+  async function setResolved(thread: ThreadRef, id: string, resolved: boolean, opts?: BaseOptions): Promise<void> {
+    const ref = requirePull(thread, 'reviewed')
+    const { cell, path } = await discussionsAt(ref)
+    await cell.json(`${path}/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: opts?.signal })
+  }
+
+  /** The text of lines `start` to `end` of `file` at the head of `ref`, which a line finding quotes. */
+  async function selectedText(ref: ResolvedThreadRef, file: string, start: number, end: number, signal?: AbortSignal): Promise<string> {
+    const raw = await change(ref, signal)
+    const { cell, path } = await located(ref.repo)
+    const response = await cell.raw(`${path}/raw`, { query: { ref: raw.head_sha ?? raw.branch, path: file }, signal })
+    return (await response.text()).split('\n').slice(start - 1, end).join('\n')
+  }
+
+  async function createReview(thread: ThreadRef, input: ReviewInput, opts?: BaseOptions): Promise<Review> {
+    const ref = requirePull(thread, 'reviewed')
+    const signal = opts?.signal
+    const { cell } = await located(ref.repo)
+    const path = `${trailPath(ref.repo)}/${encodeURIComponent(ref.number)}`
+    if (input.event === 'approve' || input.event === 'request_changes') {
+      if (input.comments?.length) {
+        throw new UnsupportedOperationError('Entire approvals carry no inline comments', origin)
+      }
+      const { data } = await cell.json<{ approval: EntireApproval }>(`${path}/approvals`, { method: 'POST', json: { event: input.event, body: input.body }, signal })
+      return toApproval(ref, data.approval)
+    }
+    if (input.event !== 'comment') {
+      throw new UnsupportedOperationError('Entire has no pending reviews', origin)
+    }
+    const inline = input.comments ?? []
+    if (!inline.length && !input.body) {
+      throw new TypeError('A review needs a body or comments')
+    }
+    if (inline.some(comment => comment.side === 'left')) {
+      throw new UnsupportedOperationError('Entire anchors findings to the head of a change', origin)
+    }
+    const comments = inline.length
+      ? await Promise.all(inline.map(async (comment, index) => {
+          const end = comment.line
+          const start = comment.startLine ?? end
+          return {
+            client_id: String(index + 1),
+            body: comment.body,
+            location: start === undefined || end === undefined
+              ? { granularity: 'file', file_path: comment.path }
+              : { granularity: start === end ? 'line' : 'range', file_path: comment.path, start_line: start, end_line: end, selected_text: await selectedText(ref, comment.path, start, end, signal) },
+          }
+        }))
+      : [{ client_id: '1', body: input.body, location: { granularity: 'whole_change' } }]
+    const { data: started } = await cell.json<{ review_id: string }>(`${path}/reviews`, { method: 'POST', json: {}, signal })
+    const { data } = await cell.json<EntireReviewPublished>(`${path}/reviews/${encodeURIComponent(started.review_id)}/comments`, {
+      method: 'POST',
+      json: { summary: input.body, comments },
+      signal,
+    })
+    const failed = data.results.find(result => result.error)
+    if (failed) {
+      throw new ForgeError(`Entire refused a review comment: ${failed.error!.message}`, origin)
+    }
+    return toCodeReview(ref, started.review_id, data.results.flatMap(result => result.comment ?? []), input.body)
+  }
+
+  async function getReview(reviewRef: ReviewRef, opts?: BaseOptions): Promise<Review> {
+    const ref = requirePull(reviewRef.thread, 'reviewed')
+    const approval = (await approvals(ref, opts?.signal)).find(item => item.id === reviewRef.id)
+    if (approval) {
+      return toApproval(ref, approval)
+    }
+    const { review, comments = [] } = await codeReview(ref, reviewRef.id, opts?.signal)
+    return toCodeReview(ref, review.id, comments, review.summary)
+  }
+
+  async function replyToReviewComment(thread: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string, opts?: BaseOptions): Promise<ReviewComment> {
+    const ref = requirePull(thread, 'reviewed')
+    const discussion = comment.thread?.id ?? (comment.ref && (await findComment(comment.ref, opts?.signal)).discussion.id)
+    if (!discussion) {
+      throw new UnsupportedOperationError('Entire replies to a review comment in its discussion; pass the comment with its `thread` or `ref`', origin)
+    }
+    const { cell, path } = await discussionsAt(ref)
+    const { data } = await cell.json<{ message: EntireMessage }>(`${path}/${encodeURIComponent(discussion)}/messages`, { method: 'POST', json: { body }, signal: opts?.signal })
+    const reply = toComment(ref, { id: discussion, resolved: comment.thread?.resolved ?? false }, data.message)
+    return { ...reply, ...comment.inReplyTo ?? comment.ref?.id ? { inReplyTo: comment.inReplyTo ?? comment.ref?.id } : {} }
+  }
+
+  const moved = (error: unknown) => error instanceof ForgeApiError && (error.status === 412 || (error.status === 409 && /head_mismatch/.test(error.body)))
+    ? new BranchMovedError('The head branch no longer points at the expected sha', error.status, error.body, origin, { cause: error })
+    : error
+
+  async function merge(thread: ThreadRef, options: MergeOptions = {}): Promise<MergeResult> {
+    const ref = requirePull(thread, 'merged')
+    if (options.method && options.method !== 'merge') {
+      throw new UnsupportedOperationError(`Entire has no ${options.method} merge`, origin)
+    }
+    if (options.whenChecksPass) {
+      throw new UnsupportedOperationError('Entire merges a change once its gates pass, with no queue', origin)
+    }
+    const { cell, id } = await located(ref.repo)
+    const path = `/repos/${id}/trails/${encodeURIComponent(ref.number)}`
+    const submit = () => cell.json<EntireMerged>(`${path}/merge`, { method: 'POST', json: { deleteBranch: false, expectedHeadSha: options.sha }, mapError: moved, signal: options.signal })
+    const { data } = await submit().catch(async (error: unknown) => {
+      if (!(error instanceof ForgeApiError) || error.status !== 422 || !/merge_gates_pending/.test(error.body)) {
+        throw error
+      }
+      await cell.json(`${path}/gates/recompute`, { method: 'POST', signal: options.signal })
+      return submit()
+    })
+    return { status: 'merged', ...data.mergeCommitSha ? { sha: data.mergeCommitSha } : {}, raw: data }
+  }
+
+  async function updateBranch(thread: ThreadRef, options: UpdateBranchOptions = {}): Promise<UpdateBranchResult> {
+    const ref = requirePull(thread, 'updated')
+    const { cell, id, path } = await located(ref.repo)
+    const signal = options.signal
+    const raw = await change(ref, signal)
+    if (options.method === 'rebase') {
+      const response = await cell.raw(`${path}/rebases`, { method: 'POST', json: { branch: raw.branch, onto: raw.base, expectedBranchSHA: options.sha }, mapError: moved, signal })
+      const events = (await response.text()).split('\n').filter(Boolean).map(line => JSON.parse(line) as { type: string })
+      if (events.at(-1)?.type !== 'completed') {
+        throw new ForgeError(`Entire did not finish rebasing ${raw.branch}: ${JSON.stringify(events.at(-1))}`, origin)
+      }
+      return { status: 'updated', raw: events }
+    }
+    if (options.sha && raw.head_sha && raw.head_sha !== options.sha) {
+      throw new BranchMovedError(`${raw.branch} is at ${raw.head_sha}, not ${options.sha}`, 409, '', origin)
+    }
+    const { data } = await cell.json(`/repos/${id}/trails/${encodeURIComponent(ref.number)}/update-branch`, { method: 'POST', signal })
+    return { status: 'updated', raw: data }
+  }
+
+  const GRANT_ROLES: Partial<Record<RepoRole, string>> = { read: 'reader', write: 'writer', admin: 'admin' }
+
   return {
     traits: {
       eventKinds: 'native',
@@ -354,7 +646,7 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         const { data } = await fetcher.json<EntireMe>('/me', { signal: opts?.signal })
         return {
           ...origin,
-          login: data.global.username,
+          login: data.global.username ?? data.global.handle ?? data.global.accountId,
           id: data.global.accountId,
           ...data.global.displayName ? { name: data.global.displayName } : {},
           ...data.global.avatarUrl ? { avatarUrl: data.global.avatarUrl } : {},
@@ -381,6 +673,18 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         const { id } = await located(repo)
         return tokenPage(fetcher, `/repos/${id}/collaborators`, camelPage('collaborators'), page, (raw: EntireCollaborator) => toCollaborator(origin, raw))
       }),
+      addCollaborator: verb(true, async (repo, actor, role, opts) => {
+        const grant = GRANT_ROLES[role]
+        if (!grant) {
+          throw new UnsupportedOperationError(`Entire has no ${role} repository role`, origin)
+        }
+        if (typeof actor === 'string') {
+          throw new UnsupportedOperationError('Entire grants access to an account by its id; pass an actor', origin)
+        }
+        const { id } = await located(repo)
+        await fetcher.json(`/repos/${id}/grants`, { method: 'POST', json: { accountId: actor.id, role: grant }, signal: opts?.signal })
+        return { status: 'added' }
+      }),
     },
     threads: {
       get: perKind({ issue: true, pull_request: true }, get),
@@ -388,6 +692,34 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       getMany: verb(true, (refs: ThreadRef[], opts) => getManyConcurrently(refs, get, opts)),
       eventsPage: verb(true, eventsPage),
       commentsPage: perKind({ issue: true, pull_request: true }, async (thread: ThreadRef, list: ListOptions = {}) => slice(await comments(requireIssueOrPull(thread, origin, 'read comments on'), list.signal), list)),
+      getComment: perKind({ issue: true, pull_request: true }, async (ref, opts) => {
+        const { thread, discussion, message } = await findComment(ref, opts?.signal)
+        return message ? toComment(thread, discussion, message) : findingComment(thread, discussion.review_comment!, discussion.resolved || discussion.review_comment!.status !== 'open')
+      }),
+      createComment: perKind({ issue: true, pull_request: true }, createComment),
+      updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, opts) => {
+        const { thread, discussion, cell, path } = await messagePath(ref, opts?.signal)
+        const { data } = await cell.json<{ message: EntireMessage }>(path, { method: 'PATCH', json: { body }, signal: opts?.signal })
+        return toComment(thread, discussion, data.message)
+      }),
+      deleteComment: perKind({ issue: true, pull_request: true }, async (ref, opts) => {
+        const { cell, path } = await messagePath(ref, opts?.signal)
+        await cell.raw(path, { method: 'DELETE', signal: opts?.signal })
+      }),
+      create: perKind({ issue: true, pull_request: true }, create),
+      update: perKind({ issue: true, pull_request: true }, update),
+      close: perKind({ issue: true, pull_request: true }, (ref, opts) => update(ref, { state: 'closed' }, opts)),
+      reopen: perKind({ issue: true, pull_request: true }, (ref, opts) => update(ref, { state: 'open' }, opts)),
+      setAssignees: perKind({ issue: true, pull_request: true }, async (ref, assignees, opts) => (await update(ref, { assignees }, opts)).assignees),
+      merge: verb(true, merge),
+      updateBranch: verb(true, updateBranch),
+      getReview: verb(true, getReview),
+      createReview: verb(true, createReview),
+      replyToReviewComment: verb(true, replyToReviewComment),
+      reviewThreads: verb(true, {
+        resolveReviewThread: (ref, id, opts) => setResolved(ref, id, true, opts),
+        unresolveReviewThread: (ref, id, opts) => setResolved(ref, id, false, opts),
+      }),
       reviewsPage: verb(true, async (thread: ThreadRef, page: PageOptions = {}) => slice(await reviews(requirePull(thread, 'reviewed'), page.signal), page)),
       reviewThreadsPage: verb(true, async (thread: ThreadRef, page: PageOptions = {}): Promise<Page<ReviewThread>> => {
         const ref = requirePull(thread, 'reviewed')

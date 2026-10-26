@@ -63,6 +63,14 @@ export interface EntireCoreRepo {
   capabilities?: { canManage?: boolean, canPush?: boolean, canPull?: boolean }
 }
 
+/** Where the control plane places a repository. */
+export interface EntireRepoResolution {
+  requestedFullName: string
+  status: string
+  repoId?: string
+  placements?: EntireCoreRepo['placements']
+}
+
 /** A repository as a cell reports it. */
 export interface EntireRepo {
   id: string
@@ -92,7 +100,7 @@ export interface EntireMe {
   global: {
     accountId: string
     handle?: string
-    username: string
+    username?: string
     displayName?: string
     avatarUrl?: string
     createdAt?: string
@@ -203,7 +211,7 @@ export interface EntireChange {
   author?: EntireAuthor
   assignees?: string[]
   assignee_identities?: Array<{ login: string, identity?: EntireIdentity }>
-  reviewers?: Array<{ login: string, state?: string, identity?: EntireIdentity, actor_account_id?: string }>
+  reviewers?: Array<{ login: string, state?: string, status?: string, identity?: EntireIdentity, actor_account_id?: string }>
   ready_for_review?: boolean
   comment_count?: number
   created_at?: string
@@ -216,6 +224,28 @@ export interface EntireChange {
   base_sha?: string | null
   merge_base_sha?: string | null
   body_document?: { text_snapshot?: string } | null
+}
+
+export interface EntireDiscussionCreated {
+  discussion: EntireDiscussion
+  message: EntireMessage
+}
+
+/** A code review, with its summary and findings. */
+export interface EntireReviewSnapshot {
+  review: { id: string, summary?: string | null, actor_id?: string | null, started_at?: string }
+  comments?: EntireReviewComment[]
+}
+
+export interface EntireReviewPublished {
+  review?: EntireReviewSnapshot['review']
+  results: Array<{ client_id: string, status: string, comment?: EntireReviewComment, error?: { code: string, message: string } }>
+}
+
+export interface EntireMerged {
+  ok: boolean
+  mergeCommitSha?: string
+  branchDeleted?: boolean
 }
 
 export interface EntireMessage {

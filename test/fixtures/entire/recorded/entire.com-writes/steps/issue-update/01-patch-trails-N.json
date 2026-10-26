@@ -1,0 +1,128 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/13",
+    "body": {
+      "title": "forges fixture 20261026210133: issue, edited",
+      "body": "Edited by run 20261026210133."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T21:01:50.840469Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "project": {
+        "primaryProcessingCell": "aws-eu-central-1",
+        "id": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+        "name": "forges-scratch",
+        "provider": "entire",
+        "reference": {
+          "forge": "et",
+          "project": "forges-scratch"
+        },
+        "jurisdiction": "eu",
+        "capabilities": {
+          "canManageTrails": true
+        }
+      },
+      "author": {
+        "accountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "login": "danielroe-bot",
+        "displayName": "",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "assigneeProfiles": [
+        {
+          "accountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "login": "danielroe-bot",
+          "displayName": "",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "identity": {
+            "kind": "account",
+            "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+            "display_name": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe-bot",
+                "is_primary": true
+              }
+            ]
+          }
+        }
+      ],
+      "id": "01M5X09TE6P0R8TR8WPCVX7H6Y",
+      "projectId": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+      "number": 13,
+      "url": "https://entire.com/et/forges-scratch/-/trails/13",
+      "title": "forges fixture 20261026210133: issue, edited",
+      "body": "Edited by run 20261026210133.",
+      "bodyDocument": {
+        "id": "",
+        "document_key": "project-trail:01M5X09TE6P0R8TR8WPCVX7H6Y:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Edited by run 20261026210133."
+                }
+              ]
+            }
+          ]
+        },
+        "text_snapshot": "Edited by run 20261026210133.",
+        "updated_at": "2026-10-26T21:01:50.840Z",
+        "etag": ""
+      },
+      "status": "open",
+      "phase": "planning",
+      "metadata": {},
+      "type": "task",
+      "priority": "none",
+      "assignees": [
+        "ulid:01M5WYRRVZNA1TXNET6KE4Q3WX"
+      ],
+      "assigneeAccountIds": [
+        "01M5WYRRVZNA1TXNET6KE4Q3WX"
+      ],
+      "repoIds": [
+        "01M5WYSQC41P69DTXEMZ0TE5YK"
+      ],
+      "authorAccountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+      "createdAt": "2026-10-26T21:01:44.774Z",
+      "metadataUpdatedAt": "2026-10-26T21:01:50.840Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T21:01:50.840Z",
+      "changes": [],
+      "isPossiblyPartial": true
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/git/repos/01M5WYSQC41P69DTXEMZ0TE5YK/rebases",
+    "body": {
+      "branch": "forges-fixtures/20261026210133-3",
+      "onto": "main",
+      "expectedBranchSHA": "f483a62c7214e4cead9ef1df09a663324a4825ae"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "{\"type\":\"started\",\"mergeBaseSHA\":\"80c3e7d4c9f5e16f4e11cf7737f571c513d14ac2\",\"commitsToApply\":[\"f483a62c7214e4cead9ef1df09a663324a4825ae\"],\"ontoTipSHA\":\"9f5e93477cecca4f94f1888d8680ab55c75fccba\"}\n{\"type\":\"applied\",\"originalSHA\":\"f483a62c7214e4cead9ef1df09a663324a4825ae\",\"newSHA\":\"553f4166982b4a17d17dfd37ec253da9440d01ab\"}\n{\"type\":\"completed\",\"newBranchSHA\":\"553f4166982b4a17d17dfd37ec253da9440d01ab\",\"mapping\":[{\"originalSHA\":\"f483a62c7214e4cead9ef1df09a663324a4825ae\",\"newSHA\":\"553f4166982b4a17d17dfd37ec253da9440d01ab\",\"dropped\":false}]}\n"
+  }
+}
