@@ -1,0 +1,8 @@
+{
+  "path": "README.md",
+  "sha": "4d4bf4399830bbbb9fec77769c349f07e274caa6",
+  "size": 625,
+  "url": "https://git.sr.ht/~sircmpwn/scdoc/tree/HEAD/item/README.md",
+  "content": "# scdoc\n\nscdoc is a simple man page generator for POSIX systems written in C99.\n\n## Installation\n\nscdoc is likely available from your local system distribution -- your package\nmanager is the preferred means of installation.\n\nTo install from source:\n\n    make\n    sudo make install\n\nYou can pass PREFIX or DESTDIR to make if you'd like:\n\n    make PREFIX=/usr\n    sudo make PREFIX=/usr install\n\nUninstallation is similar:\n\n    sudo make uninstall\n\n## Usage\n\nSee scdoc(1)\n\n## Contributing\n\nSend patches/bug reports to [~sircmpwn/public-inbox@lists.sr.ht][mailing-list]\n\n[mailing-list]: mailto:~sircmpwn/public-inbox@lists.sr.ht\n",
+  "encoding": "utf-8"
+}

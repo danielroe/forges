@@ -17,13 +17,13 @@
       "data": {
         "user": {
           "repositories": {
-            "cursor": "gAAAAABq1ztn8BDES-xVXhr1tM4kpcGVR7uRrypmvoMOVFwUK8q54LqT8GKc0Wfia_KWGGThRUNoZl62ZrKVYbO0MzhSkVPJBBESOr_6xFZucT0LRTLWGqck0OLzgXo03Zj64Vd_Dpl0u1COl1bUnKuzwe--wJThCw==",
+            "cursor": "gAAAAABq3tmpGezlCogiGEmRobQEG-n2EBxQ5cmCmffX4nIFZRQXj6Q7E8HsU4SS-OIIS-d0HzNEZueHW6vDsicp-NvBVTCmtJMw1aeJ9v5Sbe3FsDnG1Wp6tsH8YDK3lkoJmc3iVimRxsNrOlD1DsgZGWG_dwazdQ==",
             "results": [
               {
                 "id": 557862,
                 "rid": "06g54tddzns453p8npt38j9570",
                 "created": "2026-08-30T11:24:12.665697Z",
-                "updated": "2026-10-20T09:35:29.527698Z",
+                "updated": "2026-10-25T14:21:05.005149Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -39,15 +39,15 @@
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/main",
-                  "target": "f1ecbf2626639b9c24f78ece219b0b714d3c31d3"
+                  "target": "b7b6dea55bf1b5623f97f7a05f6431e7e3988342"
                 },
                 "access": "RO"
               },
               {
-                "id": 126,
-                "rid": "06dy9xv8w5s9n3hty5w9sjcxfm",
-                "created": "2018-06-09T01:16:11.199595Z",
-                "updated": "2026-10-20T09:13:38.460315Z",
+                "id": 40974,
+                "rid": "06dy9xv7rszwx105s6c4gnnjtr",
+                "created": "2021-01-22T16:55:07.334951Z",
+                "updated": "2026-10-25T09:45:45.952495Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -58,20 +58,20 @@
                   "location": "Netherlands",
                   "bio": "I write code."
                 },
-                "name": "lists.sr.ht",
-                "description": "sr.ht mailing list service",
+                "name": "hare",
+                "description": "The Hare programming language",
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/master",
-                  "target": "89340e184e593712c17ca810ca8c1f2ebf841ece"
+                  "target": "a1fecf3b01705975fdf1becf21c11aee2ec96c20"
                 },
                 "access": "RO"
               },
               {
-                "id": 56,
-                "rid": "06dy9xvcznw5x01ay15622y1zm",
-                "created": "2017-11-14T01:06:57.488813Z",
-                "updated": "2026-10-20T09:09:16.066676Z",
+                "id": 23907,
+                "rid": "06dy9xv8x5vcf1r817qysnd1wg",
+                "created": "2020-05-22T21:07:04.659671Z",
+                "updated": "2026-10-23T15:27:41.086772Z",
                 "owner": {
                   "canonicalName": "~sircmpwn",
                   "id": 3,
@@ -82,12 +82,12 @@
                   "location": "Netherlands",
                   "bio": "I write code."
                 },
-                "name": "sr.ht-apkbuilds",
-                "description": "Alpine packages for sr.ht",
+                "name": "harelang.org",
+                "description": "Website for the Hare programming language",
                 "visibility": "PUBLIC",
                 "HEAD": {
                   "name": "refs/heads/master",
-                  "target": "545789b49e0a5930f536f087963907472cb0e7c3"
+                  "target": "7af7ffed08296f4825bbf063b4c8fe222267d883"
                 },
                 "access": "RO"
               }
