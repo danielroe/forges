@@ -7,12 +7,34 @@ const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/
 const gitPath = (repo: RepoRef) => `/${encode(repo.owner)}/_git/${encodeURIComponent(repo.name)}`
 const REPO_PAGES: Partial<Record<RepoSection, string>> = { pullRequests: 'pullrequests', compare: 'branchCompare' }
 const isSha = (at: string) => /^[0-9a-f]{40}$/i.test(at)
-/** A bare revision could name a branch or a tag, so pinning a tag takes the full ref. */
 const TAG_REF = 'refs/tags/'
 const BRANCH_REF = 'refs/heads/'
-const isTag = (at: string) => at.startsWith(TAG_REF)
-const shortRef = (at: string) => at.startsWith(TAG_REF) ? at.slice(TAG_REF.length) : at.startsWith(BRANCH_REF) ? at.slice(BRANCH_REF.length) : at
-const version = (at: string) => `${isSha(at) ? 'GC' : isTag(at) ? 'GT' : 'GB'}${encodeURIComponent(shortRef(at))}`
+const VERSION_PREFIXES = { commit: 'GC', tag: 'GT', branch: 'GB' } as const
+
+/**
+ * The version descriptor of a revision: a full commit sha, a tag as `refs/tags/NAME`,
+ * or a branch by name or as `refs/heads/NAME`.
+ */
+export function versionOf(at: string): { version: string, type: 'commit' | 'tag' | 'branch' } {
+  if (at.startsWith(TAG_REF)) {
+    return { version: at.slice(TAG_REF.length), type: 'tag' }
+  }
+  if (at.startsWith(BRANCH_REF)) {
+    return { version: at.slice(BRANCH_REF.length), type: 'branch' }
+  }
+  return { version: at, type: isSha(at) ? 'commit' : 'branch' }
+}
+
+function version(at: string): string {
+  const { version, type } = versionOf(at)
+  return `${VERSION_PREFIXES[type]}${encodeURIComponent(version)}`
+}
+
+function rawVersion(at: string): string {
+  const { version, type } = versionOf(at)
+  return `&versionDescriptor.version=${encodeURIComponent(version)}&versionDescriptor.versionType=${type}`
+}
+
 /** Azure DevOps resolves no `HEAD`; leaving the version off reads the default branch. */
 const isDefaultRevision = (at: string) => at === DEFAULT_REVISION
 /** A revision in a query, such as the `version` of a file page: `GB` for a branch, `GC` for a commit or `GT` for a tag, then the revision. */
@@ -63,7 +85,7 @@ function azureWeb(baseUrl: string): WebLinks {
     },
     commit: (repo, sha) => repo.kind === 'namespace' ? undefined : `${gitPath(repo)}/commit/${encodeURIComponent(sha)}`,
     file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at) ? '' : `&version=${version(at)}`}${line ? `&line=${line}` : ''}`,
-    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at) ? '' : `&versionDescriptor.version=${encodeURIComponent(shortRef(at))}&versionDescriptor.versionType=${isSha(at) ? 'commit' : isTag(at) ? 'tag' : 'branch'}`}&$format=octetStream`,
+    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at) ? '' : rawVersion(at)}&$format=octetStream`,
     compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=${version(base)}&targetVersion=${version(head)}`,
     parse: (segments, url, from) => {
       const [org, project, section, ...rest] = segments

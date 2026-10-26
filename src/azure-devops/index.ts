@@ -9,7 +9,7 @@ import { BranchMovedError, ForgeApiError, ForgeError, MergeMethodRequiredError, 
 import { namespaceRef } from '../model.ts'
 import { actorLogin, getManyConcurrently, isFirstPage, memo, mergeCommitMessage, phased, rateLimitPart, requireIssueOrPull, requireThread, resolveToken, summariseChecks, syntheticReview, teamOrg, toWarning } from '../utils.ts'
 import { FORGE, isConversationThread, projectRef, toActor, toBranch, toChangedFile, toCommit, toPolicyCheck, toPullComment, toPullThread, toRepo, toRepoRef, toStatusCheck, toTag, toTeam, toThreadEvents, toTreeEntry, toWorkItemComment, toWorkItemEvents, toWorkItemThread } from './normalise.ts'
-import { AZURE_DEVOPS_WEB } from './web.ts'
+import { AZURE_DEVOPS_WEB, versionOf } from './web.ts'
 import { azureDevOpsWebhooks } from './webhooks.ts'
 
 /** The REST API version sent with every request; preview endpoints set their own. */
@@ -51,8 +51,15 @@ const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Sha
 const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 'rebase', rebase_merge: 'rebaseMerge' } as const
 const PULL_STATUSES = { open: 'active', closed: 'abandoned' } as const
 
-function versionType(ref: string): 'commit' | 'branch' {
-  return /^[0-9a-f]{40}$/i.test(ref) ? 'commit' : 'branch'
+function versionDescriptor(ref: string): Record<string, string> {
+  const { version, type } = versionOf(ref)
+  return { 'versionDescriptor.version': version, 'versionDescriptor.versionType': type }
+}
+
+/** A commit search's revision, where Azure DevOps reads a version without a type as a branch. */
+function itemVersion(ref: string): Record<string, string> {
+  const { version, type } = versionOf(ref)
+  return { 'searchCriteria.itemVersion.version': version, ...type === 'branch' ? {} : { 'searchCriteria.itemVersion.versionType': type } }
 }
 
 function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec & { web: WebLinks } {
@@ -79,7 +86,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   async function resolveSha(repo: RepoRef, ref: string, signal?: AbortSignal): Promise<string> {
     const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
-      query: { 'searchCriteria.itemVersion.version': ref, '$top': 1 },
+      query: { ...itemVersion(ref), $top: 1 },
       signal,
     })
     const sha = data.value[0]?.commitId
@@ -98,7 +105,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const name = `refs/heads/${input.branch}`
     let head = input.expectedHead
     if (input.createFrom !== undefined) {
-      head = versionType(input.createFrom) === 'commit' ? input.createFrom : await resolveSha(repo, input.createFrom, signal)
+      head = versionOf(input.createFrom).type === 'commit' ? input.createFrom : await resolveSha(repo, input.createFrom, signal)
     }
     else if (head === undefined) {
       const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: name.slice('refs/'.length) }, signal })
@@ -506,7 +513,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           path,
           download: 'true',
           $format: 'octetStream',
-          ...fileOptions.ref ? { 'versionDescriptor.version': fileOptions.ref, 'versionDescriptor.versionType': versionType(fileOptions.ref) } : {},
+          ...fileOptions.ref ? versionDescriptor(fileOptions.ref) : {},
         }
         const response = await fetcher.raw(`${repoPath(repo)}/items`, { query, signal: fileOptions.signal })
         return toFileContent(new Uint8Array(await response.arrayBuffer()), { path: path.replace(/^\//, '') }, fileOptions, context)
@@ -516,7 +523,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           query: {
             scopePath: treeOptions.path ? `/${treeOptions.path.replace(/^\//, '')}` : '/',
             recursionLevel: treeOptions.recursive ? 'full' : 'oneLevel',
-            ...treeOptions.ref ? { 'versionDescriptor.version': treeOptions.ref, 'versionDescriptor.versionType': versionType(treeOptions.ref) } : {},
+            ...treeOptions.ref ? versionDescriptor(treeOptions.ref) : {},
           },
           signal: treeOptions.signal,
         })
@@ -532,8 +539,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       resolveRef: verb(true, (repo, ref, options) => resolveSha(repo, ref, options?.signal)),
       compare: verb(true, async (repo, base, head, options) => {
+        const [from, to] = [versionOf(base), versionOf(head)]
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
-          query: { baseVersion: base, baseVersionType: versionType(base), targetVersion: head, targetVersionType: versionType(head), $top: 1000 },
+          query: { baseVersion: from.version, baseVersionType: from.type, targetVersion: to.version, targetVersionType: to.type, $top: 1000 },
           signal: options?.signal,
         })
         return {
@@ -553,7 +561,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       listPage: verb(true, async (repo, query = {}) => {
         const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: {
-            'searchCriteria.itemVersion.version': query.ref,
+            ...query.ref ? itemVersion(query.ref) : {},
             'searchCriteria.itemPath': query.path,
             'searchCriteria.author': query.author,
             'searchCriteria.fromDate': query.since?.toISOString(),

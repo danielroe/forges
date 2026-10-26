@@ -31,6 +31,24 @@ describe('azure devops', () => {
     expect((await instance.repos.list().page()).items.map(item => item.visibility)).toEqual(['public', 'private', 'private'])
   })
 
+  it('reads a tag or branch by its full ref in content requests', async () => {
+    const sha = 'a'.repeat(40)
+    const urls: URL[] = []
+    const instance = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch: async (url) => {
+      urls.push(new URL(url))
+      return new URL(url).pathname.endsWith('/commits') ? Response.json({ value: [{ commitId: sha }] }) : Response.json({ value: [], aheadCount: 0, behindCount: 0 })
+    } })
+
+    await instance.contents.getFile(repo, 'README.md', { ref: 'refs/tags/v1.0.0', as: 'text', metadata: false })
+    await instance.contents.resolveRef(repo, 'refs/tags/v1.0.0')
+    await instance.contents.compare(repo, 'refs/tags/v1.0.0', `refs/heads/${sha}`)
+
+    const [file, commits, diffs] = urls.map(url => Object.fromEntries(url.searchParams))
+    expect(file).toMatchObject({ 'versionDescriptor.version': 'v1.0.0', 'versionDescriptor.versionType': 'tag' })
+    expect(commits).toMatchObject({ 'searchCriteria.itemVersion.version': 'v1.0.0', 'searchCriteria.itemVersion.versionType': 'tag' })
+    expect(diffs).toMatchObject({ baseVersion: 'v1.0.0', baseVersionType: 'tag', targetVersion: sha, targetVersionType: 'branch' })
+  })
+
   it('lists work items through WIQL with state from the type\'s categories, scoped to the project', async () => {
     const { instance, calls } = provider()
     const page = await instance.threads.list(repo, { kind: 'issue' }).page()
