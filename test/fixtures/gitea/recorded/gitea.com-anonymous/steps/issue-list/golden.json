@@ -11,6 +11,45 @@
           "name": "tea"
         },
         "kind": "issue",
+        "number": "1149",
+        "externalId": "515999"
+      },
+      "kind": "issue",
+      "title": "Support one-shot authenticated calls without persisting a login (env-provided token)",
+      "body": "# Support one-shot authenticated calls without persisting a login (env-provided token)\n\n## Use case\n\nAgentic CI workflows that mint short-lived, narrowly-scoped tokens per\nsession/task (self-hosted Forgejo 15, `tea` 0.16.0). The agent obtains a\ncredential with exactly the scope a track needs, uses it, and it expires —\nthe human authorizes once, the agent never persists anything to disk.\n\n## Gap\n\nToday every operating command (`tea api`, `tea pulls`, …) authenticates\nexclusively via stored logins. `$GITEA_SERVER_TOKEN` only feeds\n`logins add --token`, which persists the login to config — so a token cannot\nbe *used* without writing it to disk first. There is no global `--token`\nflag and no other command honors the env var (checked `tea api -h` and the\ntop-level help on 0.16.0).\n\nConsequence: a per-session ephemeral token must either be persisted\n(`logins add` + `logins delete`, which still leaves the DB token live until\na password-authenticated DELETE) or the workflow falls back to rotating a\nstanding login — both weaker than true env-only operation.\n\n## Request\n\nHonor an env-provided (or global `--token`) credential for single\ninvocations without creating/persisting a login entry, e.g. read order:\nexplicit flag > env var > stored login. Failing that, document that\ndiskless operation is unsupported so automation authors stop trying.\n\nOut of scope here: token TTL (server-side matter, tracked separately —\nupstream tokens carry no expiry field at all).\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "aner",
+        "id": "260374",
+        "avatarUrl": "https://gitea.com/avatars/f50a7c0249a1fe71475368cee9d0cdee89ee01e25c0294a49f18030f32093cc6",
+        "url": "https://gitea.com/aner",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitea.com/gitea/tea/issues/1149",
+      "createdAt": "2026-10-25T11:23:22.000Z",
+      "updatedAt": "2026-10-25T11:23:22.000Z",
+      "lastActivityAt": "2026-10-25T11:23:22.000Z",
+      "locked": false,
+      "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea"
+        },
+        "kind": "issue",
         "number": "1129",
         "externalId": "509070"
       },
@@ -43,10 +82,10 @@
       ],
       "url": "https://gitea.com/gitea/tea/issues/1129",
       "createdAt": "2026-10-10T02:27:48.000Z",
-      "updatedAt": "2026-10-18T18:12:16.000Z",
-      "lastActivityAt": "2026-10-18T18:12:16.000Z",
+      "updatedAt": "2026-10-23T18:12:40.000Z",
+      "lastActivityAt": "2026-10-23T18:12:40.000Z",
       "locked": false,
-      "commentCount": 2
+      "commentCount": 3
     },
     {
       "ref": {
@@ -87,58 +126,13 @@
       ],
       "url": "https://gitea.com/gitea/tea/issues/1118",
       "createdAt": "2026-09-19T02:26:17.000Z",
-      "updatedAt": "2026-10-18T20:57:41.000Z",
-      "lastActivityAt": "2026-10-18T20:57:41.000Z",
+      "updatedAt": "2026-10-23T18:12:47.000Z",
+      "lastActivityAt": "2026-10-23T18:12:47.000Z",
       "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "kind": "issue",
-        "number": "1116",
-        "externalId": "500910"
-      },
-      "kind": "issue",
-      "title": "`tea pr list` should have `--global` option",
-      "body": "It should be an equivalent of the gitea-wide list as what we have in the web UI as https://gitea.com/pulls (the same for `tea pr review`).",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "mcepl",
-        "id": "71724",
-        "name": "Matěj Cepl",
-        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
-        "url": "https://gitea.com/mcepl",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "kind/proposal",
-          "colour": "5319e7"
-        }
-      ],
-      "url": "https://gitea.com/gitea/tea/issues/1116",
-      "createdAt": "2026-09-11T17:17:25.000Z",
-      "updatedAt": "2026-10-18T20:57:40.000Z",
-      "lastActivityAt": "2026-10-18T20:57:40.000Z",
-      "locked": false,
-      "commentCount": 0
+      "commentCount": 1
     }
   ],
-  "total": 104,
+  "total": 84,
   "cursor": {
     "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues"
   }

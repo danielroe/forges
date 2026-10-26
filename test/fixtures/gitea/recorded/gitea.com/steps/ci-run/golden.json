@@ -8,27 +8,26 @@
       "owner": "gitea",
       "name": "tea"
     },
-    "id": "1094474"
+    "id": "1124043"
   },
-  "name": "release-nightly.yml",
-  "state": "success",
+  "name": "test-pr.yml",
+  "state": "failure",
   "stateRaw": "completed",
-  "number": "1761",
-  "eventRaw": "push",
-  "branch": "main",
-  "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
-  "url": "https://gitea.com/gitea/tea/actions/runs/1094474",
+  "number": "1772",
+  "eventRaw": "pull_request",
+  "sha": "8b0a544cab130a0fdfd7a14c54557a94f7d354a9",
+  "url": "https://gitea.com/gitea/tea/actions/runs/1124043",
   "actor": {
     "forge": "gitea",
     "instance": "gitea.com",
-    "login": "bircni",
-    "id": "173651",
-    "name": "bircni",
-    "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-    "url": "https://gitea.com/bircni",
+    "login": "renovate-bot",
+    "id": "44044",
+    "name": "Renovate Bot",
+    "avatarUrl": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+    "url": "https://gitea.com/renovate-bot",
     "isBotHint": false
   },
-  "createdAt": "2026-10-18T20:56:36.000Z",
-  "startedAt": "2026-10-18T20:56:37.000Z",
-  "completedAt": "2026-10-18T21:01:09.000Z"
+  "createdAt": "2026-10-24T00:11:32.000Z",
+  "startedAt": "2026-10-24T00:11:32.000Z",
+  "completedAt": "2026-10-24T00:12:34.000Z"
 }

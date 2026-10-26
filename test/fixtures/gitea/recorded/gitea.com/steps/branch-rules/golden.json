@@ -3,6 +3,9 @@
   "requiredChecks": [
     {
       "name": "check-and-test / **"
+    },
+    {
+      "name": "paused"
     }
   ],
   "requiredApprovals": 1

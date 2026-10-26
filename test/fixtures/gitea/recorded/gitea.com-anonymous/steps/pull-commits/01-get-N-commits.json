@@ -230,6 +230,34 @@
         ],
         "files": [
           {
+            "filename": "cmd/flags/issue_pr.go",
+            "status": "modified"
+          },
+          {
+            "filename": "cmd/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "docs/CLI.md",
+            "status": "modified"
+          },
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/config/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/interact/login.go",
+            "status": "modified"
+          },
+          {
+            "filename": "modules/task/login_create.go",
+            "status": "modified"
+          },
+          {
             "filename": "cmd/flags/body.go",
             "status": "added"
           },
@@ -260,34 +288,6 @@
           {
             "filename": "modules/task/login_status_test.go",
             "status": "added"
-          },
-          {
-            "filename": "cmd/flags/issue_pr.go",
-            "status": "modified"
-          },
-          {
-            "filename": "cmd/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "docs/CLI.md",
-            "status": "modified"
-          },
-          {
-            "filename": "go.mod",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/config/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/interact/login.go",
-            "status": "modified"
-          },
-          {
-            "filename": "modules/task/login_create.go",
-            "status": "modified"
           }
         ],
         "stats": {

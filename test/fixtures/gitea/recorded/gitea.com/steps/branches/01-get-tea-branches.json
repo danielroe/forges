@@ -11,20 +11,20 @@
     },
     "body": [
       {
-        "name": "main",
+        "name": "renovate/dependencies",
         "commit": {
-          "id": "c5f674111ab7a61418829c66b240573400d46ae4",
-          "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-          "url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+          "id": "8b0a544cab130a0fdfd7a14c54557a94f7d354a9",
+          "message": "chore(deps): update dependencies\n",
+          "url": "https://gitea.com/gitea/tea/commit/8b0a544cab130a0fdfd7a14c54557a94f7d354a9",
           "author": {
-            "name": "bircni",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "bircni"
+            "username": "renovate-bot"
           },
           "committer": {
-            "name": "bircni",
+            "name": "Renovate Bot",
             "email": "redacted@example.invalid",
-            "username": "bircni"
+            "username": "renovate-bot"
           },
           "verification": {
             "verified": false,
@@ -33,7 +33,43 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-10-18T20:56:33Z",
+          "timestamp": "2026-10-24T00:11:29Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "main",
+        "commit": {
+          "id": "2727270931cad7b28189dd155eaad706d29705e0",
+          "message": "feat(pulls): allow disabling agit prompt (#1025)\n\nAllow users to set TEA_USE_AGIT=0 or TEA_USE_AGIT=false to skip the interactive agit flow prompt during pull request creation.\n\nThis keeps the current default behavior unchanged and only suppresses the agit confirmation when the environment variable explicitly parses to false.\n\nVerified with:\n\n- go test ./modules/interact\n- go build ./...\n\n---------\n\nCo-authored-by: silverwind <redacted@example.invalid>\nCo-authored-by: Leon Müller <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1025\nReviewed-by: silverwind <redacted@example.invalid>\nCo-authored-by: LeonM <redacted@example.invalid>\n",
+          "url": "https://gitea.com/gitea/tea/commit/2727270931cad7b28189dd155eaad706d29705e0",
+          "author": {
+            "name": "LeonM",
+            "email": "redacted@example.invalid",
+            "username": "LeonM"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-23T22:02:03Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -42,7 +78,8 @@
         "required_approvals": 1,
         "enable_status_check": true,
         "status_check_contexts": [
-          "check-and-test / **"
+          "check-and-test / **",
+          "paused"
         ],
         "user_can_push": false,
         "user_can_merge": false,
@@ -76,42 +113,6 @@
             "payload": "tree 9d094fb5dbddfda58f629ea10c3c399d37a3f9ce\nparent 757b5fa1b97bb1a880958a5ffec30fc867ba5c3e\nauthor bircni <redacted@example.invalid> 1792352209 +0200\ncommitter bircni <redacted@example.invalid> 1792352209 +0200\n\nchore(deps): fold in the dependency and action updates of #1104; import long non-ASCII descriptions\n\nSigned-off-by: bircni <redacted@example.invalid>\n"
           },
           "timestamp": "2026-10-18T21:36:49+02:00",
-          "added": null,
-          "removed": null,
-          "modified": null
-        },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
-        "user_can_push": false,
-        "user_can_merge": false,
-        "effective_branch_protection_name": ""
-      },
-      {
-        "name": "renovate/dependencies",
-        "commit": {
-          "id": "609afec71a073227dc0f98bbf4db83005980c290",
-          "message": "chore(deps): update dependencies\n",
-          "url": "https://gitea.com/gitea/tea/commit/609afec71a073227dc0f98bbf4db83005980c290",
-          "author": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "renovate-bot"
-          },
-          "committer": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "renovate-bot"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          },
-          "timestamp": "2026-10-15T00:09:55Z",
           "added": null,
           "removed": null,
           "modified": null

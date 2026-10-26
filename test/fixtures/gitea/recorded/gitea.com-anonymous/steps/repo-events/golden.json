@@ -3,332 +3,8 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7952493",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1068"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1068",
-      "occurredAt": "2026-10-15T08:24:50.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952425",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1075"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1075",
-      "occurredAt": "2026-10-15T08:24:49.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952349",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1074"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1074",
-      "occurredAt": "2026-10-15T08:24:37.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952259",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1079"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1079",
-      "occurredAt": "2026-10-15T08:20:31.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952191",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1080"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1080",
-      "occurredAt": "2026-10-15T08:20:30.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952123",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1113"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1113",
-      "occurredAt": "2026-10-15T08:20:29.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7943982",
-      "kindRaw": "create_pull_request",
-      "kind": "state_change",
-      "action": "opened",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1145"
-      },
-      "threadSnapshot": {
-        "title": "perf(pr): probe pull request template paths concurrently"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "open"
-      },
-      "summary": "LeonM opened pull request 1145",
-      "occurredAt": "2026-10-14T19:10:58.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7943894",
-      "kindRaw": "comment_pull",
+      "id": "8148250",
+      "kindRaw": "comment_issue",
       "kind": "comment",
       "action": "created",
       "thread": {
@@ -341,8 +17,8 @@
           "name": "tea",
           "externalId": "550"
         },
-        "kind": "pull_request",
-        "number": "1144"
+        "kind": "issue",
+        "number": "1110"
       },
       "detail": {
         "type": "comment",
@@ -359,22 +35,23 @@
               "name": "tea",
               "externalId": "550"
             },
-            "kind": "pull_request",
-            "number": "1144"
+            "kind": "issue",
+            "number": "1110"
           },
-          "id": "1766914"
+          "id": "1813571"
         },
-        "body": "For context, here is how the wait compares across versions. Measured against a gitea.com repository with push access and no PR template; the `main` and PR numbers are medians of 10 alternating runs.\n\n| Version | Before first prompt | Between prompts | Total wait |\n|---|---|---|---|\n| v0.15 release | ~0.15 s | ~0.9 s + ~1.2 s | ~2.2 s, split across 3 places |\n| current `main` | ~3.1 s | none | ~3.1 s |\n| `main` + this PR | ~2.2 s | none | ~2.2 s |\n| + template paths probed concurrently (experiment, not in this PR) | ~1.3 s | none | ~1.3 s |\n\nSince the Cobra rewrite, the form loads all of its data up front. That removes the pauses between prompts but makes the initial wait longer than in the release. This PR brings the total back to roughly the release level, now paid once up front.\n\nThe remaining bottleneck is the template lookup, which probes six paths sequentially. Probing them concurrently and still picking the first match in priority order gives the last row, but it always sends six requests instead of stopping at the first hit, which the existing tests assert. I kept that out of this PR and am happy to send it as a follow-up if that trade-off is acceptable.\n\n**Update:** the follow-up is now open as #1145."
+        "body": "Filed the root-cause fix against the SDK: https://gitea.com/gitea/go-sdk/pulls/870\n\n`MergePullRequest` used `getStatusCode`, which discards the refusal body, so tea received `success=false, err=nil` and could only guess the reason from the PR state. Once that merges, the server's own message surfaces directly in `tea pr merge` (and gitea-cli inherits the fix as it moves merge calls onto this SDK method).\n\nThis comment was written with AI assistance (Kimi Code).\n"
       },
-      "summary": "LeonM commented on pull request 1144",
-      "occurredAt": "2026-10-14T19:04:55.000Z",
+      "summary": "Svtter commented on issue 1110",
+      "occurredAt": "2026-10-26T02:46:01.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
+        "login": "Svtter",
+        "id": "189507",
+        "name": "修昊",
+        "avatarUrl": "https://gitea.com/avatars/768b5604ef5b47dd8d9f44d759ab143a4e061283e7e6f2e7fed1d565c82f2335",
+        "url": "https://gitea.com/Svtter",
         "isBotHint": false
       },
       "repo": {
@@ -390,8 +67,228 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7943782",
-      "kindRaw": "create_pull_request",
+      "id": "8145456",
+      "kindRaw": "close_issue",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "1032"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "GyeongHoKim closed issue 1032",
+      "occurredAt": "2026-10-25T23:52:46.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "GyeongHoKim",
+        "id": "190253",
+        "name": "김경호",
+        "avatarUrl": "https://gitea.com/avatars/9d71041337f0d0020857cfbc7fc2df9888da81299e830673f1a89e72ad1b4bb8",
+        "url": "https://gitea.com/GyeongHoKim",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8142793",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "701"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea",
+              "externalId": "550"
+            },
+            "kind": "issue",
+            "number": "701"
+          },
+          "id": "1811949"
+        },
+        "body": "It does not look like the new tools is just rename of the old tool, it seems incompatible in many ways. Still it does resolve this name conflict although the migration will likely not be trivial."
+      },
+      "summary": "hramrach commented on issue 701",
+      "occurredAt": "2026-10-25T18:30:51.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "hramrach",
+        "id": "52723",
+        "name": "Michal Suchánek",
+        "avatarUrl": "https://gitea.com/avatars/552eb3eea20c943239d71222e291cd7e",
+        "url": "https://gitea.com/hramrach",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8142208",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "1032"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea",
+              "externalId": "550"
+            },
+            "kind": "issue",
+            "number": "1032"
+          },
+          "id": "1811798"
+        },
+        "body": "The Gitea UI will follow this change once gt is ready to release version 1.0."
+      },
+      "summary": "lunny commented on issue 1032",
+      "occurredAt": "2026-10-25T17:47:23.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8141789",
+      "kindRaw": "close_pull_request",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "pull_request",
+        "number": "1130"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "chrisbecker closed pull request 1130",
+      "occurredAt": "2026-10-25T17:07:56.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "chrisbecker",
+        "id": "187077",
+        "name": "chris becker",
+        "avatarUrl": "https://gitea.com/avatars/3a3d104ce64cef4e02c9bc710ffeacb779da8248bb309c114426a19cd85f8d9b",
+        "url": "https://gitea.com/chrisbecker",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8139366",
+      "kindRaw": "create_issue",
       "kind": "state_change",
       "action": "opened",
       "thread": {
@@ -404,25 +301,25 @@
           "name": "tea",
           "externalId": "550"
         },
-        "kind": "pull_request",
-        "number": "1144"
+        "kind": "issue",
+        "number": "1149"
       },
       "threadSnapshot": {
-        "title": "perf(pr create): load interactive form data concurrently"
+        "title": "Support one-shot authenticated calls without persisting a login (env-provided token)"
       },
       "detail": {
         "type": "state_change",
         "state": "open"
       },
-      "summary": "LeonM opened pull request 1144",
-      "occurredAt": "2026-10-14T19:00:28.000Z",
+      "summary": "aner opened issue 1149",
+      "occurredAt": "2026-10-25T11:23:23.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
+        "login": "aner",
+        "id": "260374",
+        "avatarUrl": "https://gitea.com/avatars/f50a7c0249a1fe71475368cee9d0cdee89ee01e25c0294a49f18030f32093cc6",
+        "url": "https://gitea.com/aner",
         "isBotHint": false
       },
       "repo": {
@@ -438,10 +335,10 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7897438",
-      "kindRaw": "reopen_issue",
-      "kind": "state_change",
-      "action": "reopened",
+      "id": "8138791",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
       "thread": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -453,21 +350,196 @@
           "externalId": "550"
         },
         "kind": "issue",
-        "number": "1129"
+        "number": "1032"
       },
       "detail": {
-        "type": "state_change",
-        "state": "open"
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea",
+              "externalId": "550"
+            },
+            "kind": "issue",
+            "number": "1032"
+          },
+          "id": "1811077"
+        },
+        "body": "Before verifying: is tea being retired in favor of gt? If so, will the Gitea web UI follow? The Code dropdown still offers \"Tea CLI\" (`tea clone owner/repo`), even on https://gitea.com/gitea/cli, whose README points to `gt repo clone`.\r\n\r\nAs for this issue, it does not reproduce in gt built from main, tested against a disposable Gitea 1.26.4 (web on :3000, SSH on :2222):\r\n\r\n- `gt auth login --host http://localhost:3000` stores no ssh_host; the HTTP port is not copied.\r\n- A `git@localhost:owner/repo` remote resolves to the instance without any setting.\r\n- An `ssh://git@localhost:2222/...` remote fails with a hint to run `gt config set ssh_host localhost:2222 --host http://localhost:3000`, and resolves after that.\r\n- `gt repo clone` over SSH uses the API's ssh_url (`-p 2222`), not :3000."
       },
-      "summary": "mfk1 reopened issue 1129",
-      "occurredAt": "2026-10-12T04:39:45.000Z",
+      "summary": "GyeongHoKim commented on issue 1032",
+      "occurredAt": "2026-10-25T09:52:21.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "mfk1",
-        "id": "253804",
-        "avatarUrl": "https://gitea.com/avatars/065f76328357c404dd8f46dd71c4bd4605b27b9f97d22412f2c6dc0034d309bb",
-        "url": "https://gitea.com/mfk1",
+        "login": "GyeongHoKim",
+        "id": "190253",
+        "name": "김경호",
+        "avatarUrl": "https://gitea.com/avatars/9d71041337f0d0020857cfbc7fc2df9888da81299e830673f1a89e72ad1b4bb8",
+        "url": "https://gitea.com/GyeongHoKim",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8131304",
+      "kindRaw": "close_issue",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "1115"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "mcepl closed issue 1115",
+      "occurredAt": "2026-10-24T19:18:15.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8131236",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "1115"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "tea",
+              "externalId": "550"
+            },
+            "kind": "issue",
+            "number": "1115"
+          },
+          "id": "1809794"
+        },
+        "body": "Actually, it is https://build.opensuse.org/package/show/home:mcepl/gitea-cli for me ;-) .\r\n\r\nYes, works perfectly. Thank you."
+      },
+      "summary": "mcepl commented on issue 1115",
+      "occurredAt": "2026-10-24T19:18:14.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "tea",
+        "externalId": "550"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8131144",
+      "kindRaw": "close_issue",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "tea",
+          "externalId": "550"
+        },
+        "kind": "issue",
+        "number": "1116"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "mcepl closed issue 1116",
+      "occurredAt": "2026-10-24T19:13:27.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
         "isBotHint": false
       },
       "repo": {
@@ -481,7 +553,7 @@
       "source": "poll"
     }
   ],
-  "total": 4596,
+  "total": 4612,
   "cursor": {
     "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/activities/feeds?limit=10&page=2"
   }
