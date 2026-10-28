@@ -1,6 +1,6 @@
 import type { RepoRef, ThreadKind, ThreadRef } from '../model.ts'
 import type { RepoSection, WebDefinition, WebLinks } from '../web.ts'
-import { lineOf } from '../web.ts'
+import { bareSha, lineOf } from '../web.ts'
 
 // Bitbucket Cloud has no issue tracker (its issues live in Jira), so `#` refers to a pull request.
 const SECTIONS: Partial<Record<ThreadKind, string>> = { pull_request: 'pull-requests' }
@@ -49,7 +49,8 @@ function bitbucketWeb(baseUrl: string): WebLinks {
         return undefined
       }
       if ('sha' in ref) {
-        return ref.sha.slice(0, 12)
+        // Bitbucket has no repository-qualified commit syntax, so a sha with no bare prefix falls back to its URL.
+        return bareSha(ref.sha, 12)
       }
       return ref.kind === 'pull_request' && ref.number ? `#${ref.number}` : undefined
     },

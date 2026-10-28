@@ -53,6 +53,59 @@ describe('parseReferences', () => {
     }
   })
 
+  describe('commit references', () => {
+    const shas = {
+      'mixed': sha,
+      'letters before the first digit': 'deadbeef1234567890abcdef1234567890abcdef',
+      'digits before the first letter': '12345678a0b1c2d3e4f5061728394a5b6c7d8e9f',
+      'only digits': '1234567890'.repeat(4),
+      'only letters': 'abcdef'.repeat(7).slice(0, 40),
+    }
+    const providers = [github(), gitlab(), sourcehut({ auth }), tangled(), bitbucket(), forgejo(), gitee({ auth })]
+
+    it.each(providers.flatMap(provider => Object.entries(shas).map(([name, value]) => [provider.forge, name, provider, value] as const)))('reads back what %s writes for a sha with %s', (_forge, _name, provider, value) => {
+      const owner = provider.forge === 'sourcehut' ? '~acme' : 'acme'
+      const from = repoOn(provider, owner, 'widgets')
+      for (const repo of [from, repoOn(provider, owner, 'tools')]) {
+        const ref = { forge: provider.forge, instance: provider.instance, repo, sha: value }
+        const text = provider.referenceFor(ref, { from })
+        if (text === undefined) {
+          continue
+        }
+        if (text.startsWith('https://')) {
+          expect(provider.parseUrl(text)).toMatchObject({ commit: { repo: { owner: repo.owner, name: repo.name }, sha: value } })
+          continue
+        }
+        const [parsed] = provider.parseReferences(`See ${text}.`, { from })
+
+        expect(parsed?.ref).toMatchObject({ repo: { owner: repo.owner, name: repo.name } })
+        expect(value.startsWith((parsed!.ref as { sha: string }).sha)).toBe(true)
+      }
+    })
+
+    it('extends a bare sha until it has a letter and a digit', () => {
+      const gh = github()
+      const from = repoOn(gh, 'acme', 'widgets')
+      const at = (value: string) => gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: value }, { from })
+
+      expect(at(sha)).toBe('a1b2c3d')
+      expect(at(shas['letters before the first digit'])).toBe('deadbeef1')
+      expect(at(shas['digits before the first letter'])).toBe('12345678a')
+      expect(gitlab().referenceFor({ forge: 'gitlab', instance: 'gitlab.com', repo: repoOn(gitlab(), 'acme', 'widgets'), sha: shas['letters before the first digit'] }, { from: repoOn(gitlab(), 'acme', 'widgets') })).toBe('deadbeef1')
+    })
+
+    it('qualifies a sha with no bare prefix by its repository, or links it where the forge has no such syntax', () => {
+      const gh = github()
+      const from = repoOn(gh, 'acme', 'widgets')
+      const bb = bitbucket()
+      const bbFrom = repoOn(bb, 'acme', 'widgets')
+
+      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only digits'] }, { from })).toBe('acme/widgets@1234567')
+      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only letters'] }, { from })).toBe('acme/widgets@abcdefa')
+      expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbFrom, sha: shas['only digits'] }, { from: bbFrom })).toMatch(/^https:\/\/bitbucket\.org\/acme\/widgets\/commits\//)
+    })
+  })
+
   it('reads Tangled references back from their display number, short, cross-repo and by DID owner', () => {
     const tg = tangled()
     const from = repoOn(tg, 'acme.dev', 'widgets')
