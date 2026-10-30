@@ -132,6 +132,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     },
     notApplicable: [
       'users.sponsorable',
+      'users.sponsorableMany',
       'webhooks.ingest',
       'threads.updateComment',
       'threads.deleteComment',

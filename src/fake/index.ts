@@ -48,6 +48,7 @@ import type {
   SecurityAlertKind,
   SecurityAlertListOptions,
   SecuritySeverity,
+  SponsorableManyResult,
   SubscriptionState,
   Thread,
   ThreadKind,
@@ -257,6 +258,8 @@ export interface FakeSeed {
   notifications?: FakeNotificationSeed[]
   releases?: FakeReleaseSeed[]
   securityAlerts?: FakeSecurityAlertSeed[]
+  /** Logins that accept sponsorship. Every other login has an account but no listing. */
+  sponsorable?: string[]
 }
 
 /** Support for one verb: a level, or a level per thread kind for per-kind verbs. */
@@ -338,6 +341,8 @@ export interface FakeStore {
   webhooks: Webhook[]
   /** The logins each organisation blocks, keyed by its login, and those each viewer blocks, keyed by theirs. */
   blocks: Map<string, Set<string>>
+  /** Logins with a sponsorship listing. */
+  sponsorable: Set<string>
 }
 
 /** Every normalised kind the fake forge records, so a test can stream any of them. */
@@ -493,7 +498,7 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const instance = options.instance ?? 'fake.test'
   const origin = { forge, instance }
   const viewerLogin = options.viewer ?? 'fake-user'
-  const store: FakeStore = { repos: new Map(), notifications: [], events: [], webhooks: [], blocks: new Map() }
+  const store: FakeStore = { repos: new Map(), notifications: [], events: [], webhooks: [], blocks: new Map(), sponsorable: new Set() }
   const secrets = new Map<string, string | undefined>()
   const listeners = new Set<(event: ForgeEvent) => void>()
   const now = () => new Date(options.now?.() ?? Date.now())
@@ -1012,6 +1017,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     })
   }
 
+  for (const login of options.seed?.sponsorable ?? []) {
+    store.sponsorable.add(login)
+  }
+
   const givenSupport = (name: ForgeVerb): FakeSupport | undefined => options.support?.[name] ?? (options.capabilities && capabilityOf(options.capabilities, name))
   const support = (name: ForgeVerb, fallback: SupportInput): SupportInput => {
     const given = givenSupport(name)
@@ -1284,6 +1293,8 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       rateLimits,
       users: {
         me: verb(support('users.me', true), async () => ({ ...actor(by), raw: undefined })),
+        sponsorable: verb(support('users.sponsorable', true), async login => store.sponsorable.has(login)),
+        sponsorableMany: verb(support('users.sponsorableMany', true), async logins => logins.map((login): SponsorableManyResult => ({ ok: true, login, sponsorable: store.sponsorable.has(login) }))),
         eventsPage: verb(support('users.events', true), async (login, listOptions = {}) => conditional(pageOf(feed(event => event.actor?.login === login), listOptions), listOptions)),
         blocking: verb(support('users.block', true), {
           block: async login => setBlocked(by, login, true),

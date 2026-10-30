@@ -108,7 +108,8 @@ A project trail's page is `https://entire.com/et/<project>/-/trails/<number>`, a
 | `repos.get` | ✅ | ❌ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
+| `users.sponsorableMany` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |

@@ -547,6 +547,7 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       traits: { eventKinds: 'native', authKinds: ['anonymous', 'app_password', 'oauth'] },
       notApplicable: [
         'users.sponsorable',
+        'users.sponsorableMany',
         'threads.reviews',
         'threads.createReview',
         'threads.submitReview',
