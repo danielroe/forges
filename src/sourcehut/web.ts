@@ -1,7 +1,7 @@
 import type { RepoRef } from '../model.ts'
 import type { WebDefinition, WebLinks } from '../web.ts'
 import { lineOf } from '../web.ts'
-import { serviceHost, serviceUrl } from './services.ts'
+import { serviceHost, serviceUrl, sourcehutInstance } from './services.ts'
 
 const encodePath = (path: string) => path.split('/').map(encodeURIComponent).join('/')
 const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -9,6 +9,7 @@ const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.owner)}/${encode
 export const SOURCEHUT_WEB: WebDefinition<'sourcehut'> = {
   forge: 'sourcehut',
   baseUrl: 'https://sr.ht',
+  instance: sourcehutInstance,
   links: ({ instance }) => sourcehutWeb(instance),
 }
 
