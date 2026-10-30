@@ -536,6 +536,7 @@ const BITBUCKET: ProviderDefinition<BitbucketOptions, undefined, true> = {
       traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
       notApplicable: [
         'users.sponsorable',
+        'users.sponsorableMany',
         'repos.labels',
         'repos.createLabel',
         'repos.milestones',

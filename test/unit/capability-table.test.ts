@@ -194,6 +194,7 @@ describe('capability table', () => {
       sourcehut({ auth }),
     ]) {
       expect([provider.forge, provider.support('users.sponsorable')]).toEqual([provider.forge, 'not_applicable'])
+      expect([provider.forge, provider.support('users.sponsorableMany')]).toEqual([provider.forge, 'not_applicable'])
     }
   })
 

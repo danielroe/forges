@@ -487,6 +487,11 @@ export interface User extends Actor {
   raw: unknown
 }
 
+/** One `users.sponsorableMany()` entry, in input order; narrow on `ok`. */
+export type SponsorableManyResult
+  = | { ok: true, login: string, sponsorable: boolean }
+    | { ok: false, login: string, warning: ForgeWarning }
+
 /** A label that a repository defines. */
 export interface Label {
   name: string
@@ -1185,7 +1190,9 @@ export interface SecurityAlertListOptions extends PageOptions {
 
 /** The warning codes providers emit; providers may add codes in a minor release. */
 export type ForgeWarningCode
-  = | 'checks_unreadable'
+  = | 'account_not_found'
+    | 'account_unreadable'
+    | 'checks_unreadable'
     | 'collaborators_unreachable'
     | 'discussion_unresolved'
     | 'feed_throttled'

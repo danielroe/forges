@@ -363,6 +363,7 @@ function setupGitee({ options, instance, origin: context, fetcher, baseUrl }: Pr
     traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
     notApplicable: [
       'users.sponsorable',
+      'users.sponsorableMany',
       'threads.reviews',
       'webhooks.deliveries',
       'webhooks.redeliver',

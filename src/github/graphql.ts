@@ -114,6 +114,23 @@ export interface SponsorableResult {
   repositoryOwner: { hasSponsorsListing: boolean } | null
 }
 
+/** `users.sponsorableMany()`: one nullable owner per alias, `u0`, `u1`, and so on. */
+export interface SponsorableBatchResult {
+  [alias: string]: { hasSponsorsListing: boolean } | null
+}
+
+/** One aliased `repositoryOwner` field per login, so a chunk costs one GraphQL request. */
+export function sponsorableBatchQuery(logins: string[]): { query: string, variables: Record<string, unknown> } {
+  const variables: Record<string, unknown> = {}
+  const declarations: string[] = []
+  const fields = logins.map((login, index) => {
+    variables[`l${index}`] = login
+    declarations.push(`$l${index}: String!`)
+    return `u${index}: repositoryOwner(login: $l${index}) { ... on Sponsorable { hasSponsorsListing } }`
+  })
+  return { query: `query SponsorableMany(${declarations.join(', ')}) {\n  ${fields.join('\n  ')}\n}`, variables }
+}
+
 const ISSUE_FIELDS = `id number title body state stateReason createdAt updatedAt closedAt url locked
       author { ${ACTOR_FIELDS} } authorAssociation
       assignees(first: 20) { nodes { ${USER_FIELDS} } }

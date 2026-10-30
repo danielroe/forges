@@ -1729,6 +1729,10 @@
             "$ref": "#/components/schemas/Support",
             "description": "Support for `users.sponsorable()`."
           },
+          "sponsorableMany": {
+            "$ref": "#/components/schemas/Support",
+            "description": "Support for `users.sponsorableMany()`."
+          },
           "events": {
             "$ref": "#/components/schemas/Support",
             "description": "Support for `users.events()`."
@@ -1746,6 +1750,7 @@
           "get",
           "me",
           "sponsorable",
+          "sponsorableMany",
           "events",
           "block",
           "unblock"
@@ -4416,6 +4421,52 @@
     ],
     "description": "How an event reached the caller.",
     "x-forges-type": "SourceKind"
+  },
+  "SponsorableManyResult": {
+    "anyOf": [
+      {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "const": true
+          },
+          "login": {
+            "type": "string"
+          },
+          "sponsorable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "login",
+          "sponsorable"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "const": false
+          },
+          "login": {
+            "type": "string"
+          },
+          "warning": {
+            "$ref": "#/components/schemas/ForgeWarning"
+          }
+        },
+        "required": [
+          "ok",
+          "login",
+          "warning"
+        ]
+      }
+    ],
+    "description": "One `users.sponsorableMany()` entry, in input order; narrow on `ok`.",
+    "x-forges-type": "SponsorableManyResult"
   },
   "SubscriptionState": {
     "type": "string",

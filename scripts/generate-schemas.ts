@@ -47,6 +47,7 @@ export const ROOT_TYPES = [
   'ReviewCommentInput',
   'ReviewThread',
   'SecurityAlert',
+  'SponsorableManyResult',
   'SubscriptionState',
   'Tag',
   'Thread',
