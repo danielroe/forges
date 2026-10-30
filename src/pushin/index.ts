@@ -131,6 +131,7 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       authKinds: ['token', 'anonymous'],
     },
     notApplicable: [
+      'users.sponsorable',
       'webhooks.ingest',
       'threads.updateComment',
       'threads.deleteComment',
