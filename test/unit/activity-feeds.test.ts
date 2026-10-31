@@ -11,6 +11,8 @@ import { gitlab } from '../../src/gitlab/index.ts'
 import { accountFeedPage } from '../../src/tangled/feed.ts'
 import { redact } from '../recording/redact.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 const repository = { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }
 const sender = { login: 'octocat', id: 3, type: 'User' }
 
@@ -19,7 +21,7 @@ function feedItem(type: string, payload: Record<string, unknown>) {
 }
 
 function webhook(event: string, payload: Record<string, unknown>) {
-  return completeEvent(translateGitHubWebhook('github.com', { headers: { 'x-github-event': event, 'x-github-delivery': 'id' }, body: JSON.stringify({ repository, sender, ...payload }) })[0]!)
+  return completeEvent(translateGitHubWebhook(githubOrigin, { headers: { 'x-github-event': event, 'x-github-delivery': 'id' }, body: JSON.stringify({ repository, sender, ...payload }) })[0]!)
 }
 
 function shape(event: ReturnType<typeof completeEvent>) {
@@ -32,9 +34,9 @@ function json(body: unknown, headers: Record<string, string> = {}): Response {
 
 describe('github activity feeds', () => {
   it('normalises a feed event like the webhook delivery for the same change', () => {
-    const merged = completeEvent(toGitHubFeedEvent('github.com', feedItem('PullRequestEvent', { action: 'merged', number: 4, pull_request: { number: 4 } })))
-    const review = completeEvent(toGitHubFeedEvent('github.com', feedItem('PullRequestReviewEvent', { action: 'created', pull_request: { number: 4 }, review: { id: 5, state: 'approved', body: 'Ship it' } })))
-    const comment = completeEvent(toGitHubFeedEvent('github.com', feedItem('IssueCommentEvent', { action: 'created', issue: { number: 4, pull_request: {} }, comment: { id: 9, body: 'Thanks!' } })))
+    const merged = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('PullRequestEvent', { action: 'merged', number: 4, pull_request: { number: 4 } })))
+    const review = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('PullRequestReviewEvent', { action: 'created', pull_request: { number: 4 }, review: { id: 5, state: 'approved', body: 'Ship it' } })))
+    const comment = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('IssueCommentEvent', { action: 'created', issue: { number: 4, pull_request: {} }, comment: { id: 9, body: 'Thanks!' } })))
 
     expect(shape(merged)).toEqual({ ...shape(webhook('pull_request', { action: 'closed', pull_request: { number: 4, merged: true } })), detail: { type: 'state_change', state: 'merged' } })
     expect(shape(review)).toEqual(shape(webhook('pull_request_review', { action: 'submitted', pull_request: { number: 4 }, review: { id: 5, state: 'approved', body: 'Ship it' } })))
@@ -44,7 +46,7 @@ describe('github activity feeds', () => {
 
   it('puts a commit comment on its commit', () => {
     const payload = { action: 'created', comment: { id: 9, body: 'Nice', commit_id: 'abc123' } }
-    const feed = completeEvent(toGitHubFeedEvent('github.com', feedItem('CommitCommentEvent', payload)))
+    const feed = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('CommitCommentEvent', payload)))
 
     expect(shape(feed)).toEqual(shape(webhook('commit_comment', payload)))
     expect(feed).toMatchObject({ kind: 'comment', commit: { sha: 'abc123' }, detail: { type: 'comment', comment: { id: '9', commit: { sha: 'abc123' } }, body: 'Nice' } })
@@ -52,9 +54,9 @@ describe('github activity feeds', () => {
   })
 
   it('reports whether a feed event is public where the feed says', () => {
-    const visible = toGitHubFeedEvent('github.com', { ...feedItem('IssuesEvent', { action: 'closed', issue: { number: 4 } }), public: true })
-    const hidden = toGitHubFeedEvent('github.com', { ...feedItem('WatchEvent', { action: 'started' }), public: false })
-    const unknown = toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' }))
+    const visible = toGitHubFeedEvent(githubOrigin, { ...feedItem('IssuesEvent', { action: 'closed', issue: { number: 4 } }), public: true })
+    const hidden = toGitHubFeedEvent(githubOrigin, { ...feedItem('WatchEvent', { action: 'started' }), public: false })
+    const unknown = toGitHubFeedEvent(githubOrigin, feedItem('WatchEvent', { action: 'started' }))
     const forgejo = toForgejoFeedEvent({ forge: 'forgejo', instance: 'codeberg.org' }, { id: 1, op_type: 'star_repo', is_private: true, created: '2026-01-02T03:04:05Z' })
 
     expect([visible.isPublic, hidden.isPublic, forgejo.isPublic]).toEqual([true, false, false])
@@ -63,16 +65,16 @@ describe('github activity feeds', () => {
   })
 
   it('keeps feed types with no shared kind as `other`', () => {
-    const sponsorship = completeEvent(toGitHubFeedEvent('github.com', feedItem('SponsorshipEvent', { action: 'created' })))
+    const sponsorship = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('SponsorshipEvent', { action: 'created' })))
 
     expect(sponsorship).toMatchObject({ kind: 'other', kindRaw: 'SponsorshipEvent.created', summary: 'octocat changed a sponsorship' })
   })
 
   it('reads stars, forks, visibility changes and wiki edits from the feed', () => {
-    const star = completeEvent(toGitHubFeedEvent('github.com', feedItem('WatchEvent', { action: 'started' })))
-    const fork = completeEvent(toGitHubFeedEvent('github.com', feedItem('ForkEvent', { forkee: { id: 9, name: 'widgets', full_name: 'ada/widgets' } })))
-    const visibility = completeEvent(toGitHubFeedEvent('github.com', feedItem('PublicEvent', {})))
-    const wiki = toGitHubFeedEvents('github.com', feedItem('GollumEvent', { pages: [{ title: 'Home', action: 'created', html_url: 'https://github.com/acme/widgets/wiki/Home' }, { title: 'FAQ', action: 'edited' }] })).map(completeEvent)
+    const star = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('WatchEvent', { action: 'started' })))
+    const fork = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('ForkEvent', { forkee: { id: 9, name: 'widgets', full_name: 'ada/widgets' } })))
+    const visibility = completeEvent(toGitHubFeedEvent(githubOrigin, feedItem('PublicEvent', {})))
+    const wiki = toGitHubFeedEvents(githubOrigin, feedItem('GollumEvent', { pages: [{ title: 'Home', action: 'created', html_url: 'https://github.com/acme/widgets/wiki/Home' }, { title: 'FAQ', action: 'edited' }] })).map(completeEvent)
 
     expect(star).toMatchObject({ kind: 'star', action: 'created', kindRaw: 'WatchEvent.started' })
     expect(fork).toMatchObject({ kind: 'fork', action: 'created', detail: { type: 'fork', fork: { owner: 'ada', name: 'widgets' } } })
@@ -85,14 +87,14 @@ describe('github activity feeds', () => {
   })
 
   it('reports a push without a commit count as one of unknown size', () => {
-    const push = toGitHubFeedEvent('github.com', feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b' }))
+    const push = toGitHubFeedEvent(githubOrigin, feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b' }))
 
     expect(push).toMatchObject({ kind: 'push', summary: 'octocat pushed to main', detail: { type: 'push', ref: 'refs/heads/main', before: 'a', after: 'b', commits: [] } })
     expect(push.detail).toHaveProperty('commitCount', undefined)
   })
 
   it('reads the commits of a feed push that lists them', () => {
-    const push = toGitHubFeedEvent('github.com', feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b', size: 2, commits: [{ sha: 'b', message: 'Fix', author: { name: 'Ada' } }] }))
+    const push = toGitHubFeedEvent(githubOrigin, feedItem('PushEvent', { ref: 'refs/heads/main', before: 'a', head: 'b', size: 2, commits: [{ sha: 'b', message: 'Fix', author: { name: 'Ada' } }] }))
 
     expect(push).toMatchObject({ summary: 'octocat pushed 2 commit(s) to main', detail: { commitCount: 2, commits: [{ sha: 'b', message: 'Fix', author: 'Ada' }] } })
   })

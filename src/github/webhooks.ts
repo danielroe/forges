@@ -10,8 +10,8 @@ export function verifyGitHubSignature(delivery: WebhookDelivery, secret: string 
   return verifyHmacSignature(delivery, secret, { header: SIGNATURE_HEADER, prefix: 'sha256=' })
 }
 
-export const githubWebhooks: WebhookHandlers<GitHubOptions> = ({ options, instance }) => ({
+export const githubWebhooks: WebhookHandlers<GitHubOptions> = ({ options, origin }) => ({
   events: GITHUB_WEBHOOK_EVENTS,
   verify: delivery => verifyGitHubSignature(delivery, options.webhookSecret),
-  translate: async delivery => (await import('./events.ts')).translateGitHubWebhook(instance, delivery),
+  translate: async delivery => (await import('./events.ts')).translateGitHubWebhook(origin, delivery),
 })

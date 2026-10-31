@@ -1,10 +1,7 @@
-import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, IssueType, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, ReviewThread, SubscriptionState, Thread } from '../model.ts'
+import type { Actor, ChecksSummary, Comment, Commit, CommitSignature, ForgeEventInput, ForgeOrigin, IssueType, Milestone, ReactionContent, RepoRef, ResolvedThreadRef, Reviewer, ReviewThread, SubscriptionState, Thread } from '../model.ts'
 import { eventTime } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { toAuthorAssociation } from './association.ts'
-
-// Not imported from normalise.ts: when two lazy chunks of a provider import from its main chunk, rolldown keeps the provider in bundles that never use it.
-const FORGE = 'github'
 
 const ACTOR_FIELDS = `__typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId }`
 
@@ -87,17 +84,17 @@ export interface CreateCommitOnBranchResult {
   }
 }
 
-function toCommitSignature(instance: string, raw: GraphQLGitActor | null | undefined): CommitSignature {
-  return { actor: toGraphQLActor(instance, raw?.user), name: raw?.name ?? undefined, email: raw?.email ?? undefined, date: toDate(raw?.date) }
+function toCommitSignature(origin: ForgeOrigin, raw: GraphQLGitActor | null | undefined): CommitSignature {
+  return { actor: toGraphQLActor(origin, raw?.user), name: raw?.name ?? undefined, email: raw?.email ?? undefined, date: toDate(raw?.date) }
 }
 
 export function toGraphQLCommit(repo: RepoRef, raw: CreateCommitOnBranchResult['createCommitOnBranch']['commit']): Commit {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.oid },
+    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.oid },
     sha: raw.oid,
     message: raw.message,
-    author: toCommitSignature(repo.instance, raw.author),
-    committer: toCommitSignature(repo.instance, raw.committer),
+    author: toCommitSignature(repo, raw.author),
+    committer: toCommitSignature(repo, raw.committer),
     parents: raw.parents.nodes.map(parent => parent.oid),
     url: raw.url,
     raw,
@@ -283,7 +280,6 @@ export type ThreadsBatchResult = Record<string, {
 } | null>
 
 export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull): Thread {
-  const instance = ref.instance
   const isPull = raw.__typename === 'PullRequest'
   const kind = isPull ? 'pull_request' : 'issue'
   const state = raw.state === 'MERGED' ? 'merged' : raw.state === 'OPEN' ? 'open' : raw.state === 'CLOSED' ? 'closed' : 'unknown'
@@ -300,8 +296,8 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     }
     const isTeam = reviewer.__typename === 'Team'
     const actor = isTeam
-      ? { forge: FORGE, instance, login: reviewer.slug ?? '', id: String(reviewer.databaseId ?? reviewer.slug), name: reviewer.name, url: reviewer.url, typeRaw: 'Team', isBotHint: false }
-      : toGraphQLActor(instance, reviewer)!
+      ? { forge: ref.forge, instance: ref.instance, login: reviewer.slug ?? '', id: String(reviewer.databaseId ?? reviewer.slug), name: reviewer.name, url: reviewer.url, typeRaw: 'Team', isBotHint: false }
+      : toGraphQLActor(ref, reviewer)!
     const at = requestedAt.get(`${reviewer.__typename}:${isTeam ? reviewer.slug : reviewer.login}`)
     return [{ actor, state: 'pending' as const, stateRaw: 'requested', ...isTeam ? { isTeam: true } : {}, ...at ? { requestedAt: new Date(at) } : {} }]
   })
@@ -314,10 +310,10 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     stateRaw: raw.state.toLowerCase(),
     stateReason: raw.stateReason?.toLowerCase() ?? undefined,
     isDraft: raw.isDraft ?? false,
-    author: toGraphQLActor(instance, raw.author),
+    author: toGraphQLActor(ref, raw.author),
     ...toAuthorAssociation(raw.authorAssociation),
-    assignees: (raw.assignees?.nodes ?? []).flatMap(actor => toGraphQLActor(instance, actor) ?? []),
-    participants: (raw.participants?.nodes ?? []).flatMap(actor => toGraphQLActor(instance, actor) ?? []),
+    assignees: (raw.assignees?.nodes ?? []).flatMap(actor => toGraphQLActor(ref, actor) ?? []),
+    participants: (raw.participants?.nodes ?? []).flatMap(actor => toGraphQLActor(ref, actor) ?? []),
     milestone: toGraphQLMilestone(raw.milestone),
     issueType: toGraphQLIssueType(raw.issueType),
     subscription: toViewerSubscription(raw.viewerSubscription),
@@ -328,7 +324,7 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     updatedAt: toDate(raw.updatedAt),
     closedAt: toDate(raw.closedAt),
     mergedAt: toDate(raw.mergedAt),
-    mergedBy: toGraphQLActor(instance, raw.mergedBy),
+    mergedBy: toGraphQLActor(ref, raw.mergedBy),
     lastActivityAt: toDate(raw.updatedAt),
     locked: raw.locked,
     commentCount: raw.comments?.totalCount,
@@ -339,7 +335,7 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
             ref: raw.headRefName,
             sha: raw.headRefOid,
             repo: raw.headRepository
-              ? { forge: FORGE, instance, owner: raw.headRepository.owner.login, name: raw.headRepository.name, externalId: raw.headRepository.databaseId === undefined ? undefined : String(raw.headRepository.databaseId) }
+              ? { forge: ref.forge, instance: ref.instance, owner: raw.headRepository.owner.login, name: raw.headRepository.name, externalId: raw.headRepository.databaseId === undefined ? undefined : String(raw.headRepository.databaseId) }
               : undefined,
           },
           base: { ref: raw.baseRefName, sha: raw.baseRefOid },
@@ -444,15 +440,15 @@ export interface DiscussionCommentsResult {
   } | null
 }
 
-export function toGraphQLActor(instance: string, actor: GraphQLActor | null | undefined): Actor | undefined {
+export function toGraphQLActor(origin: ForgeOrigin, actor: GraphQLActor | null | undefined): Actor | undefined {
   if (!actor) {
     return undefined
   }
   const isBot = actor.__typename === 'Bot'
   const slug = isBot ? actor.login.replace(/\[bot\]$/, '') : undefined
   return {
-    forge: FORGE,
-    instance,
+    forge: origin.forge,
+    instance: origin.instance,
     login: slug ? `${slug}[bot]` : actor.login,
     id: String(actor.databaseId ?? actor.login),
     name: actor.name,
@@ -474,7 +470,7 @@ export function toDiscussionThread(ref: ResolvedThreadRef, raw: GraphQLDiscussio
     stateRaw: raw.closed ? 'closed' : 'open',
     stateReason: raw.stateReason?.toLowerCase(),
     isDraft: false,
-    author: toGraphQLActor(ref.instance, raw.author),
+    author: toGraphQLActor(ref, raw.author),
     ...toAuthorAssociation(raw.authorAssociation),
     assignees: [],
     reviewers: [],
@@ -495,9 +491,9 @@ export function toDiscussionThread(ref: ResolvedThreadRef, raw: GraphQLDiscussio
 }
 
 export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQLComment, isReply: boolean): ForgeEventInput {
-  const actor = toGraphQLActor(ref.instance, comment.author)
+  const actor = toGraphQLActor(ref, comment.author)
   return {
-    forge: FORGE,
+    forge: ref.forge,
     instance: ref.instance,
     id: comment.id,
     kind: 'comment',
@@ -507,7 +503,7 @@ export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQ
     actor,
     repo: ref.repo,
     thread: ref,
-    detail: { type: 'comment', comment: { forge: FORGE, instance: ref.instance, thread: ref, id: comment.id }, body: comment.body ?? undefined },
+    detail: { type: 'comment', comment: { forge: ref.forge, instance: ref.instance, thread: ref, id: comment.id }, body: comment.body ?? undefined },
     source: 'poll',
     payload: comment,
   }
@@ -515,9 +511,9 @@ export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQ
 
 export function toDiscussionComment(thread: ResolvedThreadRef, raw: GraphQLComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
+    ref: { forge: thread.forge, instance: thread.instance, thread, id: raw.id },
     body: raw.body ?? '',
-    author: toGraphQLActor(thread.instance, raw.author),
+    author: toGraphQLActor(thread, raw.author),
     ...toAuthorAssociation(raw.authorAssociation),
     createdAt: toDate(raw.createdAt),
     updatedAt: toDate(raw.updatedAt),
@@ -673,9 +669,9 @@ export function toReviewThread(ref: ResolvedThreadRef, raw: GraphQLReviewThread)
     startLine: raw.startLine ?? raw.originalStartLine ?? undefined,
     side,
     comments: raw.comments.nodes.map(comment => ({
-      ...comment.databaseId === null ? {} : { ref: { forge: FORGE, instance: ref.instance, thread: ref, id: String(comment.databaseId) } },
+      ...comment.databaseId === null ? {} : { ref: { forge: ref.forge, instance: ref.instance, thread: ref, id: String(comment.databaseId) } },
       body: comment.body ?? '',
-      author: toGraphQLActor(ref.instance, comment.author),
+      author: toGraphQLActor(ref, comment.author),
       path: comment.path ?? undefined,
       line: comment.line ?? comment.originalLine ?? undefined,
       side,
