@@ -101,8 +101,6 @@ import { eventKindsOf } from '../webhooks.ts'
 import { toAuthorAssociation } from './association.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
-export const FORGE = 'github' as const
-
 export function toActor(origin: ForgeOrigin, user: GitHubUser | Record<string, never> | undefined | null): Actor | undefined {
   if (!user?.login) {
     return undefined
