@@ -2,6 +2,9 @@
   "name": "playground",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=22.22.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,7 +13,7 @@
   },
   "dependencies": {
     "forges": "workspace:*",
-    "nuxt": "npm:nuxt-nightly@5x"
+    "nuxt": "npm:nuxt-nightly@5.0.0-2610292252-da55a91"
   },
   "devDependencies": {
     "typescript": "6.0.3",
