@@ -3,7 +3,6 @@ import { eventTime } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { toAuthorAssociation } from './association.ts'
 
-// Not imported from normalise.ts: when two lazy chunks of a provider import from its main chunk, rolldown keeps the provider in bundles that never use it.
 
 const ACTOR_FIELDS = `__typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId }`
 
