@@ -14,6 +14,8 @@ import { translateTangledWebhook } from '../../src/tangled/events.ts'
 import { fixtureDirectory, payloadFixture } from '../utils/fixtures.ts'
 import { markPayload } from '../utils/provenance.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 const NOW = new Date('2026-12-01T00:00:00Z')
 
 beforeEach(() => {
@@ -50,18 +52,18 @@ describe('timeline entries', () => {
   const thread = { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '4' } as const
 
   it('dates an entry from the forge without marking it undated', () => {
-    const event = toGitHubEvent('github.com', thread, { event: 'closed', created_at: '2026-09-20T10:00:00Z' })
+    const event = toGitHubEvent(githubOrigin, thread, { event: 'closed', created_at: '2026-09-20T10:00:00Z' })
 
     expect(times([event])).toEqual([{ occurredAt: '2026-09-20T10:00:00.000Z' }])
   })
 
   it('marks an entry without a time as undated at the Unix epoch', () => {
-    expect(times([toGitHubEvent('github.com', thread, { event: 'closed' })])).toEqual([{ occurredAt: '1970-01-01T00:00:00.000Z', undated: true }])
+    expect(times([toGitHubEvent(githubOrigin, thread, { event: 'closed' })])).toEqual([{ occurredAt: '1970-01-01T00:00:00.000Z', undated: true }])
   })
 })
 
 describe('github webhook times', () => {
-  const translate = (delivery: WebhookDelivery) => times(translateGitHubWebhook('github.com', delivery))
+  const translate = (delivery: WebhookDelivery) => times(translateGitHubWebhook(githubOrigin, delivery))
 
   it('dates recorded deliveries from their payloads', () => {
     const recording = 'github/recorded/github.com-webhooks'

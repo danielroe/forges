@@ -1,21 +1,26 @@
 import type { FetchLike } from '../../src/fetch.ts'
 import type { GitHubAuth } from '../../src/github/auth.ts'
 import type { TypedGraphQLDocument } from '../../src/github/index.ts'
-import type { GitHubNotification } from '../../src/github/types.ts'
+import type { GitHubNotification, GitHubTimelineEntry } from '../../src/github/types.ts'
 import type { CheckRef, ThreadRef } from '../../src/model.ts'
 import type { Fixture } from '../utils/fixtures.ts'
 import { generateKeyPairSync } from 'node:crypto'
+import { readFileSync } from 'node:fs'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { declaredCapabilities } from '../../src/capabilities.ts'
 import { BranchMovedError, ContentNotTextError, ForbiddenError, InsufficientScopeError, NotFoundError, ReadOnlyError, UnresolvedThreadError, UnsupportedOperationError } from '../../src/errors.ts'
 import { abortable } from '../../src/fetch.ts'
 import { createAppCredentials } from '../../src/github/auth.ts'
+import { translateGitHubWebhook } from '../../src/github/events.ts'
 import { graphqlOperations, graphqlUrl } from '../../src/github/graphql-client.ts'
+import { toGraphQLThread } from '../../src/github/graphql.ts'
 import { github } from '../../src/github/index.ts'
-import { toEvent, toNotification, toReason, toRepo } from '../../src/github/normalise.ts'
+import { toEvent, toNotification, toReason, toRepo, toThread } from '../../src/github/normalise.ts'
 import { commentMarker, upsertComment } from '../../src/helpers.ts'
 import { notificationThread } from '../../src/model.ts'
-import { contentsFile, contentsListing, fixtureFetch, loadFixtures } from '../utils/fixtures.ts'
+import { contentsFile, contentsListing, fixtureDirectory, fixtureFetch, loadFixtures, payloadFixture } from '../utils/fixtures.ts'
+
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
 
 const { privateKey } = generateKeyPairSync('rsa', {
   modulusLength: 2048,
@@ -135,12 +140,12 @@ describe('github provider', () => {
       url: 'https://api.github.com/notifications/threads/901234570',
       repository: { name: 'widgets', full_name: 'acme/widgets' },
     }
-    const checkSuite = toNotification('github.com', {
+    const checkSuite = toNotification(githubOrigin, {
       ...base,
       id: '901234570',
       subject: { title: 'ci failed', url: null, latest_comment_url: null, type: 'CheckSuite' },
     })
-    const release = toNotification('github.com', {
+    const release = toNotification(githubOrigin, {
       ...base,
       id: '901234571',
       subject: { title: 'v1.0.0', url: 'https://api.github.com/repos/acme/widgets/releases/400850047', latest_comment_url: null, type: 'Release' },
@@ -155,7 +160,7 @@ describe('github provider', () => {
   })
 
   it('links the latest comment only when the notification names an issue comment', () => {
-    const notification = (latest: string | null) => toNotification('github.com', {
+    const notification = (latest: string | null) => toNotification(githubOrigin, {
       id: '901234572',
       unread: true,
       reason: 'comment',
@@ -184,7 +189,7 @@ describe('github provider', () => {
   })
 
   it('dates a commit timeline entry from its author, which carries no created_at', () => {
-    const event = toEvent('github.com', pull, {
+    const event = toEvent(githubOrigin, pull, {
       event: 'committed',
       sha: 'adbc9741c0ffee00',
       author: { name: 'Ada Lovelace', date: '2025-03-31T13:49:12Z' },
@@ -1645,7 +1650,7 @@ describe('github checks and CI', () => {
 
 describe('github repositories', () => {
   it('leaves out a licence GitHub could not identify', () => {
-    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets', license: { spdx_id: 'NOASSERTION' }, homepage: '', stargazers_count: 3 })
+    const repo = toRepo(githubOrigin, { name: 'widgets', full_name: 'acme/widgets', license: { spdx_id: 'NOASSERTION' }, homepage: '', stargazers_count: 3 })
 
     expect(repo).toMatchObject({ stars: 3 })
     expect(repo.licence).toBeUndefined()
@@ -1653,13 +1658,13 @@ describe('github repositories', () => {
   })
 
   it('keeps a merge commit default it does not know as raw', () => {
-    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets', squash_merge_commit_title: 'PR_TITLE', squash_merge_commit_message: 'PR_SUMMARY' })
+    const repo = toRepo(githubOrigin, { name: 'widgets', full_name: 'acme/widgets', squash_merge_commit_title: 'PR_TITLE', squash_merge_commit_message: 'PR_SUMMARY' })
 
     expect(repo.mergeCommit).toEqual({ squash: { title: 'pull_request_title', titleRaw: 'PR_TITLE', messageRaw: 'PR_SUMMARY' } })
   })
 
   it('leaves the merge commit defaults out where GitHub withholds them', () => {
-    const repo = toRepo('github.com', { name: 'widgets', full_name: 'acme/widgets' })
+    const repo = toRepo(githubOrigin, { name: 'widgets', full_name: 'acme/widgets' })
 
     expect(repo.mergeCommit).toBeUndefined()
     expect(repo.deleteBranchOnMerge).toBeUndefined()
@@ -2184,9 +2189,9 @@ describe('github checks, releases and security alerts', () => {
       repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } } as GitHubNotification['repository'],
     })
 
-    expect(toNotification('github.com', raw('RepositoryVulnerabilityAlert', 'https://api.github.com/repos/acme/widgets/dependabot/alerts/3')).subject)
+    expect(toNotification(githubOrigin, raw('RepositoryVulnerabilityAlert', 'https://api.github.com/repos/acme/widgets/dependabot/alerts/3')).subject)
       .toMatchObject({ type: 'security_alert', alert: { id: '3', kind: 'dependency', repo: { name: 'widgets' } } })
-    expect(toNotification('github.com', raw('Release', 'https://api.github.com/repos/acme/widgets/releases/9001')).subject)
+    expect(toNotification(githubOrigin, raw('Release', 'https://api.github.com/repos/acme/widgets/releases/9001')).subject)
       .toMatchObject({ type: 'release', release: { id: '9001' } })
   })
 })
@@ -2302,6 +2307,47 @@ describe('github provider edge cases', () => {
     })
 
     await expect(forge.threads.unreact(pull, '+1')).rejects.toThrow()
+  })
+})
+
+describe('github normalisers', () => {
+  const origin = { forge: 'gitbucket', instance: 'git.example.com' } as const
+  const ref = { ...origin, repo: { ...origin, owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '42' } as const
+  const body = (name: string) => JSON.parse(readFileSync(`${fixtureDirectory('github')}${name}.json`, 'utf8')).response.body
+
+  /** Every `forge` the normalised value names, leaving the raw API payloads out. */
+  function forgesIn(value: unknown, found = new Set<unknown>()): Set<unknown> {
+    if (Array.isArray(value)) {
+      value.forEach(item => forgesIn(item, found))
+    }
+    else if (value && typeof value === 'object') {
+      for (const [key, item] of Object.entries(value)) {
+        if (key === 'forge') {
+          found.add(item)
+        }
+        else if (key !== 'raw' && key !== 'payload') {
+          forgesIn(item, found)
+        }
+      }
+    }
+    return found
+  }
+
+  it('take the forge from the origin, so a GitHub-compatible host keeps its own refs', () => {
+    const webhook = translateGitHubWebhook(origin, {
+      headers: { 'x-github-event': 'issue_comment', 'x-github-delivery': 'id' },
+      body: payloadFixture('github', 'webhooks/issue-comment-on-pull-request'),
+    })
+    const normalised = [
+      webhook,
+      toThread(ref, body('thread-pull-42')),
+      body('timeline-pull-42').map((entry: GitHubTimelineEntry) => toEvent(origin, ref, entry)),
+      body('notifications-page-1').map((raw: GitHubNotification) => toNotification(origin, raw)),
+      toRepo(origin, body('repo-acme-widgets')),
+      toGraphQLThread(ref, body('graphql-threads-batch').data.t0.issueOrPullRequest),
+    ]
+
+    expect([...forgesIn(normalised)]).toEqual(['gitbucket'])
   })
 })
 

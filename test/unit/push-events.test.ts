@@ -11,8 +11,10 @@ import { translateGitLabWebhook } from '../../src/gitlab/events.ts'
 import { translateTangledWebhook } from '../../src/tangled/events.ts'
 import { CASES } from './push-cases.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 const TRANSLATE: Record<string, (delivery: WebhookDelivery) => ForgeEventInput[]> = {
-  github: delivery => translateGitHubWebhook('github.com', delivery),
+  github: delivery => translateGitHubWebhook(githubOrigin, delivery),
   gitlab: delivery => translateGitLabWebhook('gitlab.com', delivery),
   forgejo: delivery => translateForgejoWebhook({ forge: 'forgejo', instance: 'codeberg.org' }, delivery),
   bitbucket: delivery => translateBitbucketWebhook('bitbucket.org', delivery),

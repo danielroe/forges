@@ -345,7 +345,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   const host = hostOf(baseUrl)
   /** GitHub Enterprise Server; `ghe.com` data residency hosts follow github.com. */
   const enterprise = host !== 'api.github.com' && !isGheCom(host)
-  const graphql = createGraphQLClient(fetcher, graphqlUrl(baseUrl), { instance })
+  const graphql = createGraphQLClient(fetcher, graphqlUrl(baseUrl), context)
 
   /**
    * Discussion notification subjects carry no URL. The repo's most recently
@@ -421,7 +421,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       etag: listOptions.cursor?.nextUrl ? undefined : listOptions.cursor?.etag,
       signal: listOptions.signal,
     })
-    const items = (result.data ?? []).map(raw => toNotification(instance, raw))
+    const items = (result.data ?? []).map(raw => toNotification(context, raw))
     const warnings = await resolveDiscussionNumbers(items)
     const etag = listOptions.cursor?.nextUrl ? undefined : result.cursor?.etag ?? listOptions.cursor?.etag
     return {
@@ -569,7 +569,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         json: { query, variables, operationName: 'ThreadsBatch' },
         signal: options?.signal,
       })
-      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, { instance }, response)
+      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, context, response)
       if (failure instanceof RateLimitedError) {
         throw failure
       }
@@ -584,7 +584,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         if (!discussion && !issueOrPullRequest) {
           const error = data.errors?.find(error => error.path?.[0] === `t${offset}`)
           if (error?.type === 'INSUFFICIENT_SCOPES') {
-            results[index] = { ok: false, ref, warning: toWarning('insufficient_scope', graphqlError('ThreadsBatch', [error], url, { instance }), ref.number) }
+            results[index] = { ok: false, ref, warning: toWarning('insufficient_scope', graphqlError('ThreadsBatch', [error], url, context), ref.number) }
             return
           }
           results[index] = { ok: false, ref, warning: { code: 'thread_unreadable', message: error?.message ?? 'Not found', subject: ref.number } }
@@ -626,7 +626,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const { toDiscussionThread } = await import('./graphql.ts')
       const discussions = data.repository?.discussions
       const items = (discussions?.nodes ?? [])
-        .map(node => toDiscussionThread({ forge: FORGE, instance, repo, kind: 'discussion', number: String(node.number) }, node))
+        .map(node => toDiscussionThread({ forge: context.forge, instance, repo, kind: 'discussion', number: String(node.number) }, node))
         .filter(thread => (state === 'all' || thread.state === state)
           && (!query.author || thread.author?.login === query.author)
           && (!query.labels?.length || query.labels.every(label => thread.labels.some(item => item.name === label)))
@@ -695,7 +695,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       if ((query.kind === 'issue' && isPull) || (query.kind === 'pull_request' && !isPull) || older(raw)) {
         return undefined
       }
-      return toThread({ forge: FORGE, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
+      return toThread({ forge: context.forge, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
     })
     const ordered = (query.sort ?? 'created') === 'created' && direction === 'desc'
     await withPullChecks(page, query)
@@ -1095,7 +1095,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
   async function getJob(ref: CiJobRef, options?: BaseOptions): Promise<CiJob> {
     const { data } = await fetcher.json<GitHubWorkflowJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-    const run = ref.run ?? (data.run_id === undefined ? undefined : { forge: FORGE, instance, repo: ref.repo, id: String(data.run_id) })
+    const run = ref.run ?? (data.run_id === undefined ? undefined : { forge: context.forge, instance, repo: ref.repo, id: String(data.run_id) })
     if (!run) {
       throw new UnsupportedOperationError(`GitHub returned job ${ref.id} without its run, and the ref names no run`, context)
     }
@@ -1134,8 +1134,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     }
     return {
       items: references.nodes.map((node) => {
-        const repo = { forge: FORGE, instance, owner: node.repository.owner.login, name: node.repository.name, externalId: node.repository.databaseId === undefined ? undefined : String(node.repository.databaseId) }
-        return toGraphQLThread({ forge: FORGE, instance, repo, kind: node.__typename === 'PullRequest' ? 'pull_request' : 'issue', number: String(node.number) }, node)
+        const repo = { forge: context.forge, instance, owner: node.repository.owner.login, name: node.repository.name, externalId: node.repository.databaseId === undefined ? undefined : String(node.repository.databaseId) }
+        return toGraphQLThread({ forge: context.forge, instance, repo, kind: node.__typename === 'PullRequest' ? 'pull_request' : 'issue', number: String(node.number) }, node)
       }),
       cursor: references.pageInfo.hasNextPage && references.pageInfo.endCursor ? { token: references.pageInfo.endCursor } : undefined,
     }
@@ -1154,7 +1154,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         signal: listOptions.signal,
         select: wrapped ? (body, next) => ({ items: (body as { repositories: GitHubRepositoryDetail[] }).repositories, next }) : undefined,
       }),
-      raw => toRepo(instance, raw),
+      raw => toRepo(context, raw),
     )
   }
 
@@ -1164,7 +1164,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
   /** `/users/{owner}/repos` serves organisations too, but lists only public repositories. */
   async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
     const visibility = query.visibility === 'all' ? undefined : query.visibility
-    const read = (path: string, params: Record<string, string | undefined>) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(instance, raw), {
+    const read = (path: string, params: Record<string, string | undefined>) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(context, raw), {
       query: { ...params, sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction },
     })
     const userRepos = () => read(`/users/${encodeURIComponent(owner.owner)}/repos`, { type: 'owner' })
@@ -1306,12 +1306,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
     })
     return toPage(result, (raw) => {
-      const repo = query.repo ?? repoRefFromApiUrl(instance, raw.repository_url)
+      const repo = query.repo ?? repoRefFromApiUrl(context, raw.repository_url)
       if (!repo) {
         return undefined
       }
       const isPull = Boolean(raw.pull_request)
-      return toThread({ forge: FORGE, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
+      return toThread({ forge: context.forge, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
     })
   }
 
@@ -1324,7 +1324,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     for (let attempt = 0; ; attempt++) {
       const { data, response } = await fetcher.json<GitHubContributorStats[] | undefined>(path, { signal: statsOptions.signal })
       if (response.status !== 202) {
-        return (data ?? []).map(raw => toContributorStats(instance, raw))
+        return (data ?? []).map(raw => toContributorStats(context, raw))
       }
       if (attempt >= CONTRIBUTOR_STATS_DELAYS.length) {
         throw new ForgeApiError(`GitHub is still computing the contributor statistics of ${repo.owner}/${repo.name}`, 202, '', { ...context, url: fetcher.resolve(path), method: 'GET' })
@@ -1354,7 +1354,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         return { items, next, total: total_count }
       },
     })
-    return toPage(result, raw => toRepo(instance, raw), warnings)
+    return toPage(result, raw => toRepo(context, raw), warnings)
   }
 
   const COMMIT_SEARCH_SORTS: Record<NonNullable<CommitSearchQuery['sort']>, string> = { author_date: 'author-date', committer_date: 'committer-date' }
@@ -1384,7 +1384,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       },
     })
     return toPage(result, (raw) => {
-      const repo = query.repo ?? (raw.repository && toRepoRef(instance, raw.repository))
+      const repo = query.repo ?? (raw.repository && toRepoRef(context, raw.repository))
       return repo && toCommit(repo, raw)
     })
   }
@@ -1412,7 +1412,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       ? [{ code: 'search_incomplete', message: 'GitHub stopped the search before it finished; the page may be missing matches' }]
       : []
     return toPage(result, raw => ({
-      repo: query.repo ?? toRepoRef(instance, raw.repository),
+      repo: query.repo ?? toRepoRef(context, raw.repository),
       path: raw.path,
       ref: new URL(raw.url).searchParams.get('ref') ?? undefined,
       fragments: (raw.text_matches ?? []).filter(match => match.property === 'content').map(match => ({ text: match.fragment })),
@@ -1433,7 +1433,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     })
     const poll = recordPoll(path, listOptions.cursor, result.response)
     const { toFeedEvents } = await import('./events.ts')
-    const page = toPage(result, raw => toFeedEvents(instance, raw))
+    const page = toPage(result, raw => toFeedEvents(context, raw))
     return { ...page, items: page.items.flat(), ...poll }
   }
 
@@ -1443,10 +1443,10 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
 
     function toInstallation(raw: GitHubInstallation): Installation {
       return {
-        forge: FORGE,
+        forge: context.forge,
         instance,
         id: String(raw.id),
-        account: toActor(instance, raw.account),
+        account: toActor(context, raw.account),
         targetTypeRaw: raw.target_type,
         repositorySelectionRaw: raw.repository_selection,
         raw,
@@ -1741,7 +1741,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       const reactions = data.node?.reactions
       return {
         items: (reactions?.nodes ?? []).flatMap((raw) => {
-          const actor = toGraphQLActor(instance, raw.user)
+          const actor = toGraphQLActor(context, raw.user)
           return actor ? [{ content: reactionContent(GRAPHQL_REACTIONS[raw.content] ?? raw.content), contentRaw: raw.content, actor, createdAt: toDate(raw.createdAt), raw }] : []
         }),
         cursor: reactions?.pageInfo.hasNextPage && reactions.pageInfo.endCursor ? { token: reactions.pageInfo.endCursor } : undefined,
@@ -1754,7 +1754,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       signal: listOptions.signal,
     })
     return toPage(result, (raw) => {
-      const actor = toActor(instance, raw.user)
+      const actor = toActor(context, raw.user)
       return actor && { content: reactionContent(raw.content), contentRaw: raw.content, actor, createdAt: toDate(raw.created_at), raw }
     })
   }
@@ -2016,8 +2016,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     scopes: githubScopesFor,
     users: {
-      get: verb(true, async (login, options) => toUser(instance, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
-      me: verb(auth.type === 'token' && !installation, async options => toUser(instance, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
+      get: verb(true, async (login, options) => toUser(context, (await fetcher.json<GitHubUserDetail>(`/users/${encodeURIComponent(login)}`, { signal: options?.signal })).data)),
+      me: verb(auth.type === 'token' && !installation, async options => toUser(context, (await fetcher.json<GitHubUserDetail>('/user', { signal: options?.signal })).data)),
       sponsorable: verb(!enterprise && !anonymous, async (login, options) => {
         const data = await graphql<SponsorableResult>('SPONSORABLE', { login }, options)
         if (!data.repositoryOwner) {
@@ -2037,7 +2037,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     repos: {
       get: verb(true, async (ref, options) => {
-        return toRepo(instance, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)
+        return toRepo(context, (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal: options?.signal })).data)
       }),
       listPage: verb(!anonymous, (listOptions = {}) => installation
         ? reposPage(fetcher, '/installation/repositories', true, listOptions)
@@ -2054,8 +2054,8 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const { data } = await fetcher.json<GitHubIssueType[]>(`${repoPath(repo)}/issue-types`, { signal: options?.signal })
         return data.map(raw => toIssueType(raw)!)
       }),
-      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(instance, raw))),
-      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(instance, raw), { query: listOptions.includeUnlinked ? { anon: 1 } : {} })),
+      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(context, raw))),
+      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(context, raw), { query: listOptions.includeUnlinked ? { anon: 1 } : {} })),
       contributorStats: verb(true, contributorStats),
       templates: verb(true, templates),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
@@ -2094,7 +2094,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         const response = await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
         return { status: response.status === 201 ? 'invited' : 'added' }
       }),
-      assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(instance, raw)!)),
+      assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(context, raw)!)),
       reviewerCandidatesPage: verb(!anonymous && 'emulated', async (thread, listOptions = {}) => {
         const ref = requireThread(thread, context)
         const page = await fetcher.page<GitHubCollaborator>(`${repoPath(ref.repo)}/collaborators`, {
@@ -2103,7 +2103,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           signal: listOptions.signal,
         })
         const author = page.notModified ? undefined : (await get(ref, listOptions)).author?.login
-        return toPage(page, raw => raw.login === author ? undefined : toActor(instance, raw)!)
+        return toPage(page, raw => raw.login === author ? undefined : toActor(context, raw)!)
       }),
       eventsPage: verb(true, (repo, listOptions) => feedPage(`${repoPath(repo)}/events`, listOptions)),
     },
@@ -2111,12 +2111,12 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       teamsPage: verb(!anonymous, (org, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(org.owner)}/teams`,
         listOptions,
-        (raw: GitHubTeam) => toTeam(instance, teamOrg(org), raw),
+        (raw: GitHubTeam) => toTeam(context, teamOrg(org), raw),
       )),
       teamMembersPage: verb(!anonymous, (team, listOptions = {}) => list(
         `/orgs/${encodeURIComponent(team.org.owner)}/teams/${encodeURIComponent(team.slug)}/members`,
         listOptions,
-        (raw: GitHubUserDetail) => toActor(instance, raw)!,
+        (raw: GitHubUserDetail) => toActor(context, raw)!,
       )),
       blocking: verb(enterprise ? 'unverified' : true, {
         block: async (org, login, options) => {
@@ -2157,7 +2157,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           const [page, { toDiscussionCommentEvent }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
           return { ...page, items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)) }
         }
-        return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(instance, ref, entry))
+        return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(context, ref, entry))
       }),
       commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous }, commentsPage),
       getComment: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true, discussion: !anonymous }, getComment),
@@ -2235,7 +2235,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
             json: { title: input.title, body: input.body, labels: input.labels, assignees },
             signal: options?.signal,
           })
-          return toThread({ forge: FORGE, instance, repo, kind: 'issue', number: String(data.number) }, data)
+          return toThread({ forge: context.forge, instance, repo, kind: 'issue', number: String(data.number) }, data)
         }
         if (input.kind !== 'pull_request') {
           throw new UnsupportedOperationError('GitHub discussions cannot be created through this API yet', context)
@@ -2248,7 +2248,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           json: { title: input.title, body: input.body, head: input.head, base: input.base, draft: input.draft },
           signal: options?.signal,
         })
-        const ref: ResolvedThreadRef = { forge: FORGE, instance, repo, kind: 'pull_request', number: String(pull.number) }
+        const ref: ResolvedThreadRef = { forge: context.forge, instance, repo, kind: 'pull_request', number: String(pull.number) }
         if (!input.labels?.length && !assignees?.length) {
           return toThread(ref, pull)
         }
@@ -2357,7 +2357,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           throw new NotFoundError(`Repository ${repo.owner}/${repo.name} not found`, 404, '', context)
         }
         const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref, options), repo: target.repository.id }, options)
-        return { forge: FORGE, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }
+        return { forge: context.forge, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }
       }),
       markDuplicate: verb(true, async (thread, canonical, options) => {
         await graphql('MARK_DUPLICATE', { canonical: await nodeId(canonical, options), duplicate: await nodeId(thread, options) }, options)
@@ -2368,7 +2368,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
       setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees, options) => {
         const data = await issuePatch(thread, { assignees: assignees.map(actorLogin) }, 'assign', options?.signal)
-        return (data.assignees ?? []).flatMap(user => toActor(instance, user) ?? [])
+        return (data.assignees ?? []).flatMap(user => toActor(context, user) ?? [])
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
         const ref = requireThread(thread, context)
