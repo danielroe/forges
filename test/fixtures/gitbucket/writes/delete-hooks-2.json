@@ -1,0 +1,11 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "DELETE",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/hooks/2"
+  },
+  "response": {
+    "status": 204,
+    "headers": {}
+  }
+}

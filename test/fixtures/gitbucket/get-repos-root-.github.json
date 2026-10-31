@@ -1,0 +1,14 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/.github"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "message": "Not Found"
+    }
+  }
+}

@@ -56,7 +56,7 @@ function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvide
 
 /** Providers as the matrix and provider pages show them, keyed by their `docs/content/4.providers/<slug>.md` page. */
 export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
-  const { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } = forges
+  const { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } = forges
   const auth = { type: 'token', token: 'token' } as const
   const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProvider, options: O, credentials?: CredentialOptions<O>[]): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
@@ -98,6 +98,7 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
     entry('cloudflare-artifacts', 'Cloudflare Artifacts', cloudflareArtifacts, { auth, accountId: 'acme' }),
     entry('sourcehut', 'Sourcehut', sourcehut, { auth }),
     entry('entire', 'Entire', entire, { auth }),
+    entry('gitbucket', 'GitBucket', gitbucket, { auth, baseUrl: 'https://gitbucket.example.com' }),
   ]
 }
 

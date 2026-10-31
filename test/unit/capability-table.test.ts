@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { declaredCapabilities } from '../../src/capabilities.ts'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { fake } from '../../src/fake/index.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../../src/index.ts'
 
 const specs: ProviderSpec[] = []
 
@@ -193,6 +193,7 @@ describe('capability table', () => {
       cloudflareArtifacts({ auth, accountId: 'acme' }),
       sourcehut({ auth }),
       entire({ auth }),
+      gitbucket({ baseUrl: 'https://gitbucket.example.com' }),
     ]) {
       expect([provider.forge, provider.support('users.sponsorable')]).toEqual([provider.forge, 'not_applicable'])
       expect([provider.forge, provider.support('users.sponsorableMany')]).toEqual([provider.forge, 'not_applicable'])

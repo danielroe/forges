@@ -277,6 +277,7 @@ async function signStandardWebhook(id: string, body: string, privateKeyBase64: s
 
 const SIGNERS: Partial<Record<ForgeKind, (body: string, secret: string) => Promise<Record<string, string>>>> = {
   'github': async (body, secret) => ({ 'x-hub-signature-256': `sha256=${await hmacSha256Hex(secret, body)}` }),
+  'gitbucket': async (body, secret) => ({ 'x-hub-signature-256': `sha256=${await hmacSha256Hex(secret, body)}` }),
   'gitlab': async (_body, secret) => ({ 'x-gitlab-token': secret }),
   'forgejo': async (body, secret) => ({ 'x-forgejo-signature': await hmacSha256Hex(secret, body) }),
   'gitea': async (body, secret) => ({ 'x-gitea-signature': await hmacSha256Hex(secret, body) }),

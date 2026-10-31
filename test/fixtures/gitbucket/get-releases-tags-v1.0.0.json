@@ -1,0 +1,28 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/releases/tags/v1.0.0"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "1.0.0",
+      "tag_name": "v1.0.0",
+      "body": "The first release.",
+      "author": {
+        "id": 1,
+        "login": "root",
+        "email": "root@example.com",
+        "type": "User",
+        "site_admin": true,
+        "created_at": "2026-10-31T15:47:54Z",
+        "url": "https://gitbucket.example.com/api/v3/users/root",
+        "html_url": "https://gitbucket.example.com/root",
+        "avatar_url": "https://gitbucket.example.com/root/_avatar"
+      },
+      "assets": []
+    }
+  }
+}

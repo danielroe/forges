@@ -1,0 +1,32 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/statuses/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "created_at": "2026-10-31T17:46:06Z",
+      "updated_at": "2026-10-31T17:46:06Z",
+      "state": "success",
+      "target_url": "https://ci.example.com/builds/8",
+      "description": "No problems",
+      "id": 4,
+      "context": "lint",
+      "creator": {
+        "id": 1,
+        "login": "root",
+        "email": "root@example.com",
+        "type": "User",
+        "site_admin": true,
+        "created_at": "2026-10-31T15:47:54Z",
+        "url": "https://gitbucket.example.com/api/v3/users/root",
+        "html_url": "https://gitbucket.example.com/root",
+        "avatar_url": "https://gitbucket.example.com/root/_avatar"
+      },
+      "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/statuses"
+    }
+  }
+}

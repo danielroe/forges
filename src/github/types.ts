@@ -281,7 +281,8 @@ export interface GitHubCombinedStatus {
 }
 
 export interface GitHubRelease {
-  id: number
+  /** GitBucket has no release ids. */
+  id?: number
   tag_name: string
   name?: string | null
   body?: string | null

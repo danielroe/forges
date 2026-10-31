@@ -1,0 +1,12 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/milestones?state=open"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": []
+  }
+}

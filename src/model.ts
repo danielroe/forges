@@ -12,7 +12,7 @@
 export type ForgeKind = KnownForgeKind | (string & {})
 
 /** The forges this package ships providers for. */
-export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gitea' | 'tangled' | 'gitee' | 'azure-devops' | 'cursor-origin' | 'pushin' | 'cloudflare-artifacts' | 'sourcehut' | 'entire'
+export type KnownForgeKind = 'github' | 'gitlab' | 'bitbucket' | 'forgejo' | 'gitea' | 'tangled' | 'gitee' | 'azure-devops' | 'cursor-origin' | 'pushin' | 'cloudflare-artifacts' | 'sourcehut' | 'entire' | 'gitbucket'
 
 /**
  * Capability flag. Every value other than `false` and `'not_applicable'` means the
@@ -1194,6 +1194,7 @@ export type ForgeWarningCode
     | 'account_unreadable'
     | 'checks_unreadable'
     | 'collaborators_unreachable'
+    | 'commits_truncated'
     | 'discussion_unresolved'
     | 'feed_throttled'
     | 'files_approximate'

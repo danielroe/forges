@@ -1,7 +1,7 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { VERB_RUN } from '../test/setup/verbs-directory.ts'
 import { withDeclared } from './capabilities.ts'
 
@@ -57,6 +57,7 @@ const checked: Array<[string, ForgeProvider]> = [
   ['cloudflare-artifacts', cloudflareArtifacts({ auth, accountId: 'acme' })],
   ['sourcehut', sourcehut({ auth })],
   ['entire', entire({ auth })],
+  ['gitbucket', gitbucket({ auth, baseUrl: 'https://gitbucket.example.com' })],
   ['github:anonymous', github({})],
   ['gitlab:anonymous', gitlab({})],
   ['bitbucket:anonymous', bitbucket({})],
@@ -67,6 +68,7 @@ const checked: Array<[string, ForgeProvider]> = [
   ['cursor-origin:anonymous', cursorOrigin({})],
   ['tangled:anonymous', tangled({})],
   ['pushin:anonymous', pushin({})],
+  ['gitbucket:anonymous', gitbucket({ baseUrl: 'https://gitbucket.example.com' })],
 ]
 
 /** Every provider whose declarations are checked, keyed like `readExercised()`, with each auth kind that changes them and the levels it declares as its capabilities. */

@@ -1,0 +1,16 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels"
+  },
+  "response": {
+    "status": 201,
+    "headers": {},
+    "body": {
+      "name": "needs-triage",
+      "color": "fbca04",
+      "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/needs-triage"
+    }
+  }
+}

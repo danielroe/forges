@@ -305,6 +305,19 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     signedIn: true,
     sample: sample({ owner: 'forges', name: 'forges-fixtures', number: '1', login: 'danielroe', sha: 'c83b64d5032ae0ee89ecbaeea7273b2291b4d2e5', tag: 'v0.1.0', base: 'main', head: 'feature/shout' }),
   },
+  {
+    name: 'GitBucket',
+    factory: 'gitbucket',
+    module: 'gitbucket',
+    load: () => import('forges/gitbucket'),
+    forge: 'gitbucket',
+    instance: 'gitbucket.example.com',
+    credentials: [token('GITBUCKET_TOKEN')],
+    options: () => ({ baseUrl: 'https://gitbucket.example.com' }),
+    blocked: 'GitBucket has no public instance, so the code runs against your own server.',
+    // The repository the unit tests read, on a GitBucket 4.48 server.
+    sample: sample({ owner: 'root', name: 'widgets', number: '2', login: 'root', tag: 'v1.0.0', releaseId: 'v1.0.0', sha: '4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9', base: 'main', head: 'fix-empty-config' }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

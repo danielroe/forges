@@ -1,0 +1,20 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "DELETE",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/issues/1/labels/needs-triage"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "userName": "root",
+        "repositoryName": "widgets",
+        "labelId": 21,
+        "labelName": "needs-triage",
+        "color": "fbca04"
+      }
+    ]
+  }
+}

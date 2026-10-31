@@ -1,0 +1,25 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/branches"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "fix-empty-config",
+        "commit": {
+          "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+        }
+      },
+      {
+        "name": "main",
+        "commit": {
+          "sha": "1744aba42ae9480a30218c3035204ec9d2f2905b"
+        }
+      }
+    ]
+  }
+}

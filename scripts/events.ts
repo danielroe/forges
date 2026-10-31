@@ -2,6 +2,7 @@ import type * as Forges from '../src/index.ts'
 import type { NativeEventMap } from '../src/webhooks.ts'
 import { BITBUCKET_NATIVE_EVENTS } from '../src/bitbucket/webhook-events.ts'
 import { FORGEJO_NATIVE_EVENTS } from '../src/forgejo/webhook-events.ts'
+import { GITBUCKET_NATIVE_EVENTS } from '../src/gitbucket/webhook-events.ts'
 import { GITEE_NATIVE_EVENTS } from '../src/gitee/webhook-events.ts'
 import { GITHUB_NATIVE_EVENTS } from '../src/github/webhook-events.ts'
 import { GITLAB_NATIVE_EVENTS } from '../src/gitlab/webhook-events.ts'
@@ -17,6 +18,7 @@ const SUBSCRIPTIONS: Record<string, NativeEventMap> = {
   forgejo: FORGEJO_NATIVE_EVENTS,
   gitea: FORGEJO_NATIVE_EVENTS,
   gitee: GITEE_NATIVE_EVENTS,
+  gitbucket: GITBUCKET_NATIVE_EVENTS,
 }
 
 export interface EventProvider {
