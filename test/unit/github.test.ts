@@ -2315,18 +2315,18 @@ describe('github normalisers', () => {
   const ref = { ...origin, repo: { ...origin, owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '42' } as const
   const body = (name: string) => JSON.parse(readFileSync(`${fixtureDirectory('github')}${name}.json`, 'utf8')).response.body
 
-  /** Every `forge` the normalised value names, leaving the raw API payloads out. */
-  function forgesIn(value: unknown, found = new Set<unknown>()): Set<unknown> {
+  /** Every forge and instance the normalised value names, leaving the raw API payloads out. */
+  function originsIn(value: unknown, found = new Set<string>()): Set<string> {
     if (Array.isArray(value)) {
-      value.forEach(item => forgesIn(item, found))
+      value.forEach(item => originsIn(item, found))
     }
     else if (value && typeof value === 'object') {
+      if ('forge' in value) {
+        found.add(`${value.forge} ${'instance' in value ? value.instance : ''}`)
+      }
       for (const [key, item] of Object.entries(value)) {
-        if (key === 'forge') {
-          found.add(item)
-        }
-        else if (key !== 'raw' && key !== 'payload') {
-          forgesIn(item, found)
+        if (key !== 'raw' && key !== 'payload') {
+          originsIn(item, found)
         }
       }
     }
@@ -2347,7 +2347,7 @@ describe('github normalisers', () => {
       toGraphQLThread(ref, body('graphql-threads-batch').data.t0.issueOrPullRequest),
     ]
 
-    expect([...forgesIn(normalised)]).toEqual(['gitbucket'])
+    expect([...originsIn(normalised)]).toEqual(['gitbucket git.example.com'])
   })
 })
 
