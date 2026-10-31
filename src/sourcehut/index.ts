@@ -394,6 +394,7 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     },
     notApplicable: [
       'users.sponsorable',
+      'users.sponsorableMany',
     ],
     users: {
       get: verb(true, async (login, options) => {

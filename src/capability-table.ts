@@ -36,6 +36,7 @@ const TABLE = [
   { capability: 'users.get' },
   { capability: 'users.me', account: true },
   { capability: 'users.sponsorable', account: true },
+  { capability: 'users.sponsorableMany', account: true },
   { capability: 'users.events', listing: true },
   { capability: 'users.block', write: true, account: true, spec: 'users.blocking', verbs: ['users.block', 'users.unblock'] },
   { capability: 'repos.list', account: true, listing: true },

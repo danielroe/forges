@@ -73,7 +73,17 @@ if (await forge.users.sponsorable('danielroe')) {
 }
 ```
 
-GitHub reports Sponsors listings only over GraphQL, which needs a token or an app installation, so `users.sponsorable` isn't supported without `auth`. GitHub Enterprise Server doesn't have GitHub Sponsors, so it isn't supported there either.
+For a list of accounts, `users.sponsorableMany(logins)` puts up to 50 logins in aliased fields of one GraphQL request, so a few dozen maintainers cost one request instead of one each. It returns an entry per login in input order; an unknown or renamed login becomes an `ok: false` entry with an `account_not_found` warning, rather than rejecting the call:
+
+```ts
+for (const result of await forge.users.sponsorableMany(['danielroe', 'octocat'])) {
+  if (result.ok && result.sponsorable) {
+    console.log(`https://github.com/sponsors/${result.login}`)
+  }
+}
+```
+
+GitHub reports Sponsors listings only over GraphQL, which needs a token or an app installation, so `users.sponsorable` and `users.sponsorableMany` aren't supported without `auth`. GitHub Enterprise Server doesn't have GitHub Sponsors, so they aren't supported there either.
 
 ## GitHub Enterprise Server
 
@@ -329,6 +339,7 @@ An organisation defines its issue types, and its repositories inherit them. `rep
 | `users.get` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `users.me` | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `users.sponsorable` | ✅ | ✅ | ✅ | ❌ | ❌ |
+| `users.sponsorableMany` | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `users.events` | ✅ | ✅ | ✅ | ❌ | ✅ |
 | `users.block` | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `repos.list` | ✅ | ✅ | ✅ | ❌ | ❌ |

@@ -166,6 +166,7 @@ export type {
   SecurityAlertRef,
   SecuritySeverity,
   SourceKind,
+  SponsorableManyResult,
   SubscriptionState,
   Support,
   Tag,

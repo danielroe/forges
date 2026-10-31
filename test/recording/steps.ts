@@ -347,6 +347,7 @@ export const STEPS: Step[] = [
     }
     return sponsorable
   } },
+  { name: 'sponsorable many', verb: 'users.sponsorableMany', run: (provider, manifest, context) => provider.users.sponsorableMany([need(context.login, 'a login'), manifest.repo.owner]) },
   { name: 'user events', verb: 'users.events', run: (provider, manifest, context) => provider.users.events(manifest.feedUser ?? need(context.login, 'a login'), feedPage).page() },
   { name: 'repo events', verb: 'repos.events', run: (provider, manifest) => provider.repos.events(manifest.repo, feedPage).page() },
   { name: 'me', verb: 'users.me', run: provider => provider.users.me() },

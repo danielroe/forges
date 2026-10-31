@@ -83,6 +83,7 @@ import type {
   SecurityAlert,
   SecurityAlertKind,
   SecurityAlertListOptions,
+  SponsorableManyResult,
   SubscriptionState,
   Support,
   Tag,
@@ -252,6 +253,8 @@ export interface ForgeCapabilities {
     me: Support
     /** Support for `users.sponsorable()`. */
     sponsorable: Support
+    /** Support for `users.sponsorableMany()`. */
+    sponsorableMany: Support
     /** Support for `users.events()`. */
     events: Support
     /** Support for `users.block()`. */
@@ -1264,6 +1267,23 @@ export interface UsersApi {
    * ```
    */
   sponsorable: (login: string, options?: BaseOptions) => Promise<boolean>
+  /**
+   * Whether several accounts accept sponsorship, batched where the forge allows. Returns one entry per login, in
+   * input order. GitHub reads up to 50 logins per request, so a few dozen maintainers cost one request rather than
+   * one each. An unknown or renamed login becomes an `ok: false` entry with an `account_not_found` warning, and an
+   * account that cannot be read for another reason becomes `account_unreadable`, rather than rejecting the call. A
+   * failed request, such as a rate limit or a rejected credential, rejects the whole call.
+   * @param logins The accounts to check. A repeated login gets an entry of its own.
+   * @example
+   * ```ts
+   * for (const result of await provider.users.sponsorableMany(['danielroe', 'octocat'])) {
+   *   if (result.ok && result.sponsorable) {
+   *     console.log(`https://github.com/sponsors/${result.login}`)
+   *   }
+   * }
+   * ```
+   */
+  sponsorableMany: (logins: string[], options?: BaseOptions) => Promise<SponsorableManyResult[]>
   /**
    * Lists what an account did across the repositories the credential can see, in the feed's order as for
    * {@link ReposApi.events}, with the same conditional requests and throttling. Each event has `source: 'poll'`.

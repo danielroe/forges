@@ -508,6 +508,7 @@ export const EXPLORER_OPERATIONS: ExplorerOperation[] = [
   operation('users.block', { uses: 'none', fields: fields('login'), args: ({ value }) => value('login'), run: (p, input) => p.users.block(input.login) }),
   operation('users.unblock', { uses: 'none', fields: fields('login'), args: ({ value }) => value('login'), run: (p, input) => p.users.unblock(input.login) }),
   operation('users.sponsorable', { returns: 'boolean', uses: 'none', fields: fields('login'), args: ({ value }) => value('login'), run: (p, input) => p.users.sponsorable(input.login) }),
+  operation('users.sponsorableMany', { returns: 'SponsorableManyResult[]', uses: 'none', fields: fields('login'), args: ({ value }) => `[${value('login')}]`, run: (p, input) => p.users.sponsorableMany([input.login]) }),
   operation('users.events', { returns: 'Page<ForgeEvent>', uses: 'none', fields: fields('login'), args: ({ value }) => `${value('login')}, { perPage: 5 }`, run: (p, input) => p.users.events(input.login, perPage).page() }),
   operation('search.threads', { returns: 'Page<Thread>', fields: fields('query'), args: ({ value }) => `{ repo, text: ${value('query')}, perPage: 5 }`, run: (p, input, { repo }) => p.search.threads({ repo, text: input.query, perPage: 5 }).page() }),
   operation('search.repos', { returns: 'Page<Repo>', uses: 'none', fields: fields('query'), args: ({ value }) => `{ text: ${value('query')}, perPage: 5 }`, run: (p, input) => p.search.repos({ text: input.query, perPage: 5 }).page() }),

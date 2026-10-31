@@ -58,6 +58,7 @@ import type {
   ReviewThread,
   SecurityAlert,
   SecurityAlertListOptions,
+  SponsorableManyResult,
   SubscriptionState,
   Thread,
   ThreadInput,
@@ -95,6 +96,7 @@ import type {
   RecentDiscussionsResult,
   ReviewThreadPageResult,
   ReviewThreadsResult,
+  SponsorableBatchResult,
   SponsorableResult,
   ThreadsBatchResult,
 } from './graphql.ts'
@@ -253,6 +255,8 @@ const GHES_MARK_DONE = '3.13'
 /** GitHub Enterprise Server versions with the Dependabot alerts REST API. */
 const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
+/** Each alias reads one scalar from one owner, so a chunk holds far more accounts than a thread batch. */
+const SPONSORABLE_BATCH = 50
 const LOCK_REASONS: Record<LockReason, string> = { off_topic: 'off-topic', too_heated: 'too heated', resolved: 'resolved', spam: 'spam' }
 const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
@@ -591,6 +595,48 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
           return
         }
         results[index] = { ok: true, ref, thread: discussion ? g.toDiscussionThread(ref, discussion) : g.toGraphQLThread(ref, issueOrPullRequest!) }
+      })
+    }
+    return results
+  }
+
+  async function sponsorableMany(logins: string[], options?: BaseOptions): Promise<SponsorableManyResult[]> {
+    const results: SponsorableManyResult[] = Array.from({ length: logins.length })
+    if (!logins.length) {
+      return results
+    }
+    const g = await import('./graphql.ts')
+    const url = graphqlUrl(baseUrl)
+    for (let start = 0; start < logins.length; start += SPONSORABLE_BATCH) {
+      const chunk = logins.slice(start, start + SPONSORABLE_BATCH)
+      const { query, variables } = g.sponsorableBatchQuery(chunk)
+      const { data, response } = await fetcher.json<{ data?: SponsorableBatchResult, errors?: Array<{ message: string, type?: string, path?: Array<string | number> }> }>(url, {
+        method: 'POST',
+        json: { query, variables, operationName: 'SponsorableMany' },
+        signal: options?.signal,
+      })
+      const failure = data.data ? undefined : graphqlError('SponsorableMany', data.errors, url, { instance }, response)
+      if (failure instanceof RateLimitedError) {
+        throw failure
+      }
+      chunk.forEach((login, offset) => {
+        const index = start + offset
+        if (failure) {
+          results[index] = { ok: false, login, warning: toWarning(failure instanceof InsufficientScopeError ? 'insufficient_scope' : 'account_unreadable', failure, login) }
+          return
+        }
+        const owner = data.data?.[`u${offset}`]
+        if (!owner) {
+          const error = data.errors?.find(error => error.path?.[0] === `u${offset}`)
+          if (error && error.type !== 'NOT_FOUND') {
+            const code = error.type === 'INSUFFICIENT_SCOPES' ? 'insufficient_scope' : 'account_unreadable'
+            results[index] = { ok: false, login, warning: toWarning(code, graphqlError('SponsorableMany', [error], url, { instance }), login) }
+            return
+          }
+          results[index] = { ok: false, login, warning: { code: 'account_not_found', message: error?.message ?? `Account ${login} not found`, subject: login } }
+          return
+        }
+        results[index] = { ok: true, login, sponsorable: owner.hasSponsorsListing }
       })
     }
     return results
@@ -2025,6 +2071,7 @@ function setupGitHub({ options, baseUrl, instance, origin: context, fetcher, cre
         }
         return data.repositoryOwner.hasSponsorsListing
       }),
+      sponsorableMany: verb(!enterprise && !anonymous, sponsorableMany),
       eventsPage: verb(true, (login, listOptions) => feedPage(`/users/${encodeURIComponent(login)}/events`, listOptions)),
       blocking: verb(auth.type === 'token' && !installation && (enterprise ? 'unverified' : true), {
         block: async (login, options) => {

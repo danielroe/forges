@@ -156,6 +156,8 @@ export interface ProviderSpec<TExtensions extends object = Record<never, never>>
     get?: Verb<UsersApi['get']>
     me?: Verb<UsersApi['me']>
     sponsorable?: Verb<UsersApi['sponsorable']>
+    /** The implementation of `provider.users.sponsorableMany()`. Omit where the forge has no batch read. */
+    sponsorableMany?: Verb<UsersApi['sponsorableMany']>
     /** The implementation of `provider.users.events()`, one page at a time. */
     eventsPage?: Verb<(login: string, options?: EventFeedOptions) => Promise<Page<ForgeEventInput>>>
     /** One capability covers blocking and unblocking. */
