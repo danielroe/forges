@@ -284,6 +284,37 @@ describe('sourcehut web links', () => {
   })
 })
 
+describe('sourcehut explicit baseUrl', () => {
+  const implicit = sourcehut({ auth: TOKEN })
+  const explicit = sourcehut({ auth: TOKEN, baseUrl: 'https://git.sr.ht' })
+
+  it('treats the public git host as the instance root', () => {
+    expect(explicit.parseUrl('https://git.sr.ht/~user/repo')).toEqual(implicit.parseUrl('https://git.sr.ht/~user/repo'))
+    expect(explicit.parseUrl('https://git.sr.ht/~user/repo')?.repo).toEqual({ forge: 'sourcehut', instance: 'sr.ht', owner: '~user', name: 'repo' })
+    expect(explicit.instance).toBe('sr.ht')
+    expect(explicit.webOrigin).toBe('https://git.sr.ht')
+  })
+
+  it('still reads the issue and patchset hosts', () => {
+    for (const forge of [implicit, explicit]) {
+      expect(forge.parseUrl('https://todo.sr.ht/~user/repo/42')).toMatchObject({ repo: { instance: 'sr.ht' }, thread: { kind: 'issue', number: '42' } })
+      expect(forge.parseUrl('https://lists.sr.ht/~user/repo/patches/7')).toMatchObject({ repo: { instance: 'sr.ht' }, thread: { kind: 'pull_request', number: '7' } })
+    }
+  })
+
+  it('resolves a self-hosted instance from its root or one of its service hosts', () => {
+    for (const baseUrl of ['https://sr.example.com', 'https://git.sr.example.com']) {
+      const forge = sourcehut({ auth: TOKEN, baseUrl })
+      const customRepo: RepoRef = { forge: 'sourcehut', instance: 'sr.example.com', owner: '~user', name: 'repo' }
+      expect(forge.instance).toBe('sr.example.com')
+      expect(forge.parseUrl('https://git.sr.example.com/~user/repo')).toMatchObject({ repo: customRepo })
+      expect(forge.parseUrl('https://todo.sr.example.com/~user/repo/42')).toMatchObject({ thread: { kind: 'issue', number: '42' } })
+      expect(forge.parseUrl('https://git.sr.ht/~user/repo')).toBeUndefined()
+      expect(forge.urlFor({ repo: customRepo })).toBe('https://git.sr.example.com/~user/repo')
+    }
+  })
+})
+
 describe('sourcehut webhooks', () => {
   const { privateKey, publicKey } = generateKeyPairSync('ed25519', {
     privateKeyEncoding: { type: 'pkcs8', format: 'der' },

@@ -61,7 +61,7 @@ import {
   usernameOf,
 } from './normalise.ts'
 import * as Q from './queries.ts'
-import { serviceHost, SERVICES, serviceUrl } from './services.ts'
+import { serviceHost, SERVICES, serviceUrl, sourcehutInstance } from './services.ts'
 import { SOURCEHUT_WEB } from './web.ts'
 import { sourcehutWebhooks } from './webhooks.ts'
 
@@ -670,6 +670,7 @@ const SOURCEHUT: ProviderDefinition<SourcehutOptions, undefined, true> = {
   forge: FORGE,
   hasWeb: true,
   baseUrl: 'https://sr.ht',
+  instance: sourcehutInstance,
   headers: { accept: 'application/json' },
   authHeaders: ({ options }) => async () => ({ authorization: `Bearer ${await resolveToken(options.auth)}` }),
   webhooks: sourcehutWebhooks,
