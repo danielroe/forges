@@ -122,7 +122,7 @@
     "test:size": "node scripts/bundle-size.ts"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "9.5.1",
+    "@antfu/eslint-config": "10.0.0",
     "@arethetypeswrong/core": "0.18.5",
     "@octokit/openapi-webhooks-types": "12.2.0",
     "@octokit/rest": "22.0.1",
