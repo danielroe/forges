@@ -6,14 +6,14 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=64&per_page=3&sort=desc>; rel=\"last\"",
-      "etag": "W/\"acc99fde838521ccacbdd6b140b5f8b3\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=2&per_page=3&sort=desc>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=1&per_page=3&sort=desc>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/contributors?id=gitlab-org%2Fcli&order_by=commits&page=65&per_page=3&sort=desc>; rel=\"last\"",
+      "etag": "W/\"9f5ede4ee405f9bb0bb2ad0ffe946f41\"",
       "ratelimit-limit": "500",
       "ratelimit-remaining": "495",
-      "ratelimit-reset": "1792384800",
+      "ratelimit-reset": "1792989720",
       "ratelimit-name": "throttle_unauthenticated_api",
-      "x-total": "192",
-      "x-total-pages": "64",
+      "x-total": "194",
+      "x-total-pages": "65",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
@@ -22,21 +22,21 @@
       {
         "name": "GitLab Renovate Bot",
         "email": "redacted@example.invalid",
-        "commits": 478,
+        "commits": 470,
         "additions": 0,
         "deletions": 0
       },
       {
         "name": "Kai Armstrong",
         "email": "redacted@example.invalid",
-        "commits": 233,
+        "commits": 230,
         "additions": 0,
         "deletions": 0
       },
       {
         "name": "Timo Furrer",
         "email": "redacted@example.invalid",
-        "commits": 185,
+        "commits": 174,
         "additions": 0,
         "deletions": 0
       }

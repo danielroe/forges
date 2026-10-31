@@ -10,55 +10,22 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "7836749"
-      },
-      "name": "testing.yml",
-      "state": "pending",
-      "stateRaw": "running",
-      "number": "209011",
-      "eventRaw": "pull_request",
-      "sha": "a108b78afab14192a65ec42effe6d26bd69b1fd0",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/209011",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "gvasquez",
-        "id": "394821",
-        "name": "Graham",
-        "avatarUrl": "https://codeberg.org/avatars/b7da2d4c89985e7a4f50dcc9f0bbe17a9591c5d0eeed4dcdb53c9bfe2bd1f178",
-        "url": "https://codeberg.org/gvasquez",
-        "isBotHint": false
-      },
-      "createdAt": "<now>",
-      "startedAt": "<now>"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "id": "7836746"
+        "id": "8031707"
       },
       "name": "merge-requirements.yml",
       "state": "success",
       "stateRaw": "success",
-      "number": "209010",
+      "number": "211362",
       "eventRaw": "pull_request",
-      "sha": "a108b78afab14192a65ec42effe6d26bd69b1fd0",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/209010",
+      "sha": "e70923e36ceb308e166653e5ae5acff683976dc7",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/211362",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "gvasquez",
-        "id": "394821",
-        "name": "Graham",
-        "avatarUrl": "https://codeberg.org/avatars/b7da2d4c89985e7a4f50dcc9f0bbe17a9591c5d0eeed4dcdb53c9bfe2bd1f178",
-        "url": "https://codeberg.org/gvasquez",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
         "isBotHint": false
       },
       "createdAt": "<now>",
@@ -75,36 +42,67 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "id": "7836743"
+        "id": "8031704"
       },
       "name": "release-notes-assistant.yml",
       "state": "neutral",
       "stateRaw": "skipped",
-      "number": "209009",
+      "number": "211361",
       "eventRaw": "pull_request_target",
-      "sha": "a108b78afab14192a65ec42effe6d26bd69b1fd0",
-      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/209009",
+      "sha": "e70923e36ceb308e166653e5ae5acff683976dc7",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/211361",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "gvasquez",
-        "id": "394821",
-        "name": "Graham",
-        "avatarUrl": "https://codeberg.org/avatars/b7da2d4c89985e7a4f50dcc9f0bbe17a9591c5d0eeed4dcdb53c9bfe2bd1f178",
-        "url": "https://codeberg.org/gvasquez",
+        "login": "viceice-bot",
+        "id": "141082",
+        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+        "url": "https://codeberg.org/viceice-bot",
         "isBotHint": false
       },
       "createdAt": "<now>",
       "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "id": "8030492"
+      },
+      "name": "merge-requirements.yml",
+      "state": "success",
+      "stateRaw": "success",
+      "number": "211360",
+      "eventRaw": "pull_request",
+      "sha": "4ff23f1ffb5950abafb6c20c9dfac4be8a67fbdb",
+      "url": "https://codeberg.org/forgejo/forgejo/actions/runs/211360",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-release-notes-assistant",
+        "id": "194062",
+        "avatarUrl": "https://codeberg.org/avatars/5148e0e8238d55952a9bcdb6437f879f95ab9843357a21c08ef9857bfe31e156",
+        "url": "https://codeberg.org/forgejo-release-notes-assistant",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-26T03:12:16.000Z",
+      "startedAt": "2026-10-26T03:12:58.000Z",
+      "completedAt": "2026-10-26T03:13:01.000Z"
     }
   ],
-  "total": 209004,
+  "total": 211355,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/actions/runs?page=2&limit=3"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1879,
+    "remaining": 1874,
     "resetAt": "<now>",
     "resource": "baseline"
   }

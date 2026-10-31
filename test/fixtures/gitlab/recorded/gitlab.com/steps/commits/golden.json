@@ -10,25 +10,25 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "sha": "5419ed460090e2d6cce66a7cef92ffd4c60f8585"
       },
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "sha": "5419ed460090e2d6cce66a7cef92ffd4c60f8585",
+      "message": "Merge branch 'rantoniuk/8508-artifact-registry-login-config-file' into 'main'\n\nfeat(artifact-registry): add --config-file to login for Maven and sbt\n\nCloses #8508\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4078\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Sylvia Shen <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Sylvia Shen <redacted@example.invalid>\nCo-authored-by: Radek Antoniuk <redacted@example.invalid>",
       "author": {
         "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "0e82470ae7a6a8bd49de3493e60cb99ce63d2062",
+        "1888cec557fdce4c04577ff30735e7e38d4da237"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/5419ed460090e2d6cce66a7cef92ffd4c60f8585"
     },
     {
       "ref": {
@@ -40,24 +40,24 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "sha": "1888cec557fdce4c04577ff30735e7e38d4da237"
       },
-      "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-      "message": "feat(issue): add date filters to issue list\n",
+      "sha": "1888cec557fdce4c04577ff30735e7e38d4da237",
+      "message": "feat(artifact-registry): add --config-file to login for Maven and sbt\n",
       "author": {
-        "name": "Hamza Hassanain",
+        "name": "Radek Antoniuk",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "a300719a2aac26acb25eee65fe08398188c99a0e"
+        "a6fd50cecb4bbe630dfb03a621cbe2cedfef4aef"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/1888cec557fdce4c04577ff30735e7e38d4da237"
     },
     {
       "ref": {
@@ -69,36 +69,36 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        "sha": "0e82470ae7a6a8bd49de3493e60cb99ce63d2062"
       },
-      "sha": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-      "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+      "sha": "0e82470ae7a6a8bd49de3493e60cb99ce63d2062",
+      "message": "Merge branch 'renovate/commitlint-config-conventional-21.x' into 'main'\n\nchore(deps): update dependency @commitlint/config-conventional to ^21.2.4\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4210\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
       "author": {
         "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T01:56:01.000Z"
+        "date": "2026-10-26T02:35:01.000Z"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T01:56:01.000Z"
+        "date": "2026-10-26T02:35:01.000Z"
       },
       "parents": [
-        "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-        "74931758500a9c66e56ca2c443a0c2a987c5923f"
+        "d942bc029983cc8322c90d04589fb3d7d60298df",
+        "4783a5930ab74d0badba252ac3c606e09f073268"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/0e82470ae7a6a8bd49de3493e60cb99ce63d2062"
     }
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false",
-    "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\""
+    "etag": "W/\"39e6713c8f778278d5bf06f112a3e42e\""
   },
-  "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\"",
+  "etag": "W/\"39e6713c8f778278d5bf06f112a3e42e\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1919,
+    "limit": 100,
+    "remaining": 13,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

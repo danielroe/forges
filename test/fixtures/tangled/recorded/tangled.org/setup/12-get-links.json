@@ -1,28 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://constellation.microcosm.blue/links?target=at%3A%2F%2Fdid%3Aplc%3A7qksav5io2s4qfg67pe7iqqk%2Fsh.tangled.repo.issue%2F3mxmwlijmkm2y&collection=sh.tangled.label.op&path=.subject&limit=100"
+    "url": "https://constellation.microcosm.blue/links?target=did%3Aplc%3Awj53zt2oo653zr3wgnvn4llg&collection=sh.tangled.repo&path=.repoDid&limit=100"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "total": 3,
+      "total": 1,
       "linking_records": [
         {
-          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "collection": "sh.tangled.label.op",
-          "rkey": "3mxmwnnqpem2y"
-        },
-        {
-          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "collection": "sh.tangled.label.op",
-          "rkey": "3mxmwlk6gye2y"
-        },
-        {
-          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "collection": "sh.tangled.label.op",
-          "rkey": "3mxmwljw3fu2y"
+          "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+          "collection": "sh.tangled.repo",
+          "rkey": "lichen.page.review"
         }
       ],
       "cursor": null

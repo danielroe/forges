@@ -8,7 +8,7 @@
       "owner": "forgejo",
       "name": "runner"
     },
-    "id": "412294",
+    "id": "414523",
     "run": {
       "forge": "forgejo",
       "instance": "code.forgejo.org",
@@ -18,11 +18,11 @@
         "owner": "forgejo",
         "name": "runner"
       },
-      "id": "197466"
+      "id": "198059"
     }
   },
-  "name": "Build Forgejo Runner",
-  "state": "success",
-  "stateRaw": "success",
-  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006/jobs/0/attempt/1"
+  "name": "arm64",
+  "state": "failure",
+  "stateRaw": "failure",
+  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24017/jobs/0/attempt/1"
 }

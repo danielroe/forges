@@ -1,154 +1,219 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/actions/runs/39134083187/jobs?per_page=3"
+    "url": "https://api.github.com/repos/h3js/h3/actions/runs/40184760010/jobs?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"deb422d4af9dfb7af5ea81866d07cbfb65b9720fc5a0fcc02c884d57aa40fe44\"",
+      "etag": "W/\"524f1daa076411efc24b8f0f92f8becace6b5bd0d2510bd9cf2d517cb9723160\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4899",
-      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-remaining": "4794",
+      "x-ratelimit-reset": "1792990363",
       "x-ratelimit-resource": "core"
     },
     "body": {
       "total_count": 2,
       "jobs": [
         {
-          "id": 117694943258,
-          "run_id": 39134083187,
-          "workflow_name": "publish",
-          "head_branch": "main",
-          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/39134083187",
+          "id": 121143088572,
+          "run_id": 40184760010,
+          "workflow_name": "ci",
+          "head_branch": "perf/pure-lazy-event-handler",
+          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/40184760010",
           "run_attempt": 1,
-          "node_id": "CR_kwDOErHI988AAAAbZypQGg",
-          "head_sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/117694943258",
-          "html_url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694943258",
+          "node_id": "CR_kwDOErHI988AAAAcNLDVvA",
+          "head_sha": "7396a813c83534e87221eaee27036e67e500d2ad",
+          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/121143088572",
+          "html_url": "https://github.com/h3js/h3/actions/runs/40184760010/job/121143088572",
           "status": "completed",
-          "conclusion": "failure",
-          "created_at": "2026-10-18T14:00:57Z",
-          "started_at": "2026-10-18T14:00:59Z",
-          "completed_at": "2026-10-18T14:01:17Z",
-          "name": "publish",
+          "conclusion": "success",
+          "created_at": "2026-10-25T10:26:09Z",
+          "started_at": "2026-10-25T10:26:10Z",
+          "completed_at": "2026-10-25T10:26:51Z",
+          "name": "tests",
           "steps": [
             {
               "name": "Set up job",
               "status": "completed",
               "conclusion": "success",
               "number": 1,
-              "started_at": "2026-10-18T14:01:00Z",
-              "completed_at": "2026-10-18T14:01:01Z"
+              "started_at": "2026-10-25T10:26:11Z",
+              "completed_at": "2026-10-25T10:26:13Z"
             },
             {
               "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
               "number": 2,
-              "started_at": "2026-10-18T14:01:01Z",
-              "completed_at": "2026-10-18T14:01:03Z"
+              "started_at": "2026-10-25T10:26:13Z",
+              "completed_at": "2026-10-25T10:26:14Z"
             },
             {
               "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
               "number": 3,
-              "started_at": "2026-10-18T14:01:03Z",
-              "completed_at": "2026-10-18T14:01:09Z"
+              "started_at": "2026-10-25T10:26:14Z",
+              "completed_at": "2026-10-25T10:26:24Z"
             },
             {
-              "name": "Run pnpm changelogen --bump -r 2.0.0 --canary nightly",
+              "name": "Run pnpm lint",
               "status": "completed",
               "conclusion": "success",
               "number": 4,
-              "started_at": "2026-10-18T14:01:09Z",
-              "completed_at": "2026-10-18T14:01:10Z"
+              "started_at": "2026-10-25T10:26:24Z",
+              "completed_at": "2026-10-25T10:26:24Z"
             },
             {
-              "name": "Run npm i -g npm@11.19.1",
+              "name": "Run pnpm typecheck",
               "status": "completed",
               "conclusion": "success",
               "number": 5,
-              "started_at": "2026-10-18T14:01:10Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "started_at": "2026-10-25T10:26:24Z",
+              "completed_at": "2026-10-25T10:26:25Z"
             },
             {
-              "name": "Run printf '11.5.1\\n%s\\n' \"$(npm --version)\" | sort -VC",
+              "name": "Run pnpm build",
               "status": "completed",
-              "conclusion": "failure",
+              "conclusion": "success",
               "number": 6,
-              "started_at": "2026-10-18T14:01:14Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "started_at": "2026-10-25T10:26:25Z",
+              "completed_at": "2026-10-25T10:26:26Z"
             },
             {
-              "name": "Run npm publish --tag latest",
+              "name": "Run pnpm vitest --coverage",
               "status": "completed",
-              "conclusion": "skipped",
+              "conclusion": "success",
               "number": 7,
-              "started_at": "2026-10-18T14:01:14Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "started_at": "2026-10-25T10:26:26Z",
+              "completed_at": "2026-10-25T10:26:45Z"
+            },
+            {
+              "name": "Run codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-25T10:26:45Z",
+              "completed_at": "2026-10-25T10:26:48Z"
             },
             {
               "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
               "status": "completed",
               "conclusion": "success",
-              "number": 13,
-              "started_at": "2026-10-18T14:01:14Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "number": 15,
+              "started_at": "2026-10-25T10:26:48Z",
+              "completed_at": "2026-10-25T10:26:49Z"
             },
             {
               "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
               "status": "completed",
               "conclusion": "success",
-              "number": 14,
-              "started_at": "2026-10-18T14:01:14Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "number": 16,
+              "started_at": "2026-10-25T10:26:49Z",
+              "completed_at": "2026-10-25T10:26:49Z"
             },
             {
               "name": "Complete job",
               "status": "completed",
               "conclusion": "success",
-              "number": 15,
-              "started_at": "2026-10-18T14:01:14Z",
-              "completed_at": "2026-10-18T14:01:14Z"
+              "number": 17,
+              "started_at": "2026-10-25T10:26:49Z",
+              "completed_at": "2026-10-25T10:26:49Z"
             }
           ],
-          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/117694943258",
+          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/121143088572",
           "labels": [
             "ubuntu-latest"
           ],
-          "runner_id": 1000013959,
-          "runner_name": "GitHub Actions 1000013959",
+          "runner_id": 1000014177,
+          "runner_name": "GitHub Actions 1000014177",
           "runner_group_id": 0,
           "runner_group_name": "GitHub Actions"
         },
         {
-          "id": 117694944314,
-          "run_id": 39134083187,
-          "workflow_name": "publish",
-          "head_branch": "main",
-          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/39134083187",
+          "id": 121143229127,
+          "run_id": 40184760010,
+          "workflow_name": "ci",
+          "head_branch": "perf/pure-lazy-event-handler",
+          "run_url": "https://api.github.com/repos/h3js/h3/actions/runs/40184760010",
           "run_attempt": 1,
-          "node_id": "CR_kwDOErHI988AAAAbZypUOg",
-          "head_sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/117694944314",
-          "html_url": "https://github.com/h3js/h3/actions/runs/39134083187/job/117694944314",
+          "node_id": "CR_kwDOErHI988AAAAcNLL6xw",
+          "head_sha": "7396a813c83534e87221eaee27036e67e500d2ad",
+          "url": "https://api.github.com/repos/h3js/h3/actions/jobs/121143229127",
+          "html_url": "https://github.com/h3js/h3/actions/runs/40184760010/job/121143229127",
           "status": "completed",
-          "conclusion": "skipped",
-          "created_at": "2026-10-18T14:00:57Z",
-          "started_at": "2026-10-18T14:00:57Z",
-          "completed_at": "2026-10-18T14:00:57Z",
-          "name": "report-skipped",
-          "steps": [],
-          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/117694944314",
+          "conclusion": "success",
+          "created_at": "2026-10-25T10:26:51Z",
+          "started_at": "2026-10-25T10:26:53Z",
+          "completed_at": "2026-10-25T10:27:18Z",
+          "name": "publish-pkg-pr-new",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-25T10:26:54Z",
+              "completed_at": "2026-10-25T10:26:55Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-25T10:26:55Z",
+              "completed_at": "2026-10-25T10:26:57Z"
+            },
+            {
+              "name": "Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-25T10:26:57Z",
+              "completed_at": "2026-10-25T10:27:07Z"
+            },
+            {
+              "name": "Run pnpm exec pkg-pr-new publish",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-25T10:27:07Z",
+              "completed_at": "2026-10-25T10:27:14Z"
+            },
+            {
+              "name": "Post Run unjs/setup-jup@85aa1e9e4cd2995fba3bee414cde74bf88637a2c",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-25T10:27:14Z",
+              "completed_at": "2026-10-25T10:27:15Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-25T10:27:15Z",
+              "completed_at": "2026-10-25T10:27:15Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-25T10:27:15Z",
+              "completed_at": "2026-10-25T10:27:15Z"
+            }
+          ],
+          "check_run_url": "https://api.github.com/repos/h3js/h3/check-runs/121143229127",
           "labels": [
             "ubuntu-latest"
           ],
-          "runner_id": null,
-          "runner_name": null,
-          "runner_group_id": null,
-          "runner_group_name": null
+          "runner_id": 1000014179,
+          "runner_name": "GitHub Actions 1000014179",
+          "runner_group_id": 0,
+          "runner_group_name": "GitHub Actions"
         }
       ]
     }

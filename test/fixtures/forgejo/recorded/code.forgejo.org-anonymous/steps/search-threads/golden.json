@@ -11,22 +11,22 @@
           "name": "runner"
         },
         "kind": "issue",
-        "number": "1779",
-        "externalId": "15028"
+        "number": "1782",
+        "externalId": "15120"
       },
       "kind": "issue",
-      "title": "bug: Intermittent Connection issues after 12.4.0 (feels like MTU)",
-      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo\n\n### Description\n\nI self-host forgejo and the forgejo runner. The runners live in a k3s (kubernetes) cluster of random machines I have spare.\r\n\r\nIf the runner base image is **12.5.0** or higher, I will get intermittent failures of builds, usually at the first step.\r\n\r\nIf the runner is any version below 12.5 (4.x, 6.3.1, 9.1.1, 11.3.1, 12.3.1, 12.4.0 were all tested) this does not occur.\r\n\r\nThe builds all fail with either\r\n\r\n- `unable to clone 'https://data.forgejo.org/actions/cache' to '/data/.cache/act/73/a31c22c5d197bb5dafee2ed8c480fc81dfef0646f48ecda838ba459dbaf36b': Cloning into bare repository '/data/.cache/act/73/a31c22c5d197bb5dafee2ed8c480fc81dfef0646f48ecda838ba459dbaf36b'...\\nfatal: unable to access 'https://data.forgejo.org/actions/cache/': Failed to connect to data.forgejo.org port 443 after 1136 ms: Could not connect to server: exit status 128`\r\n- `unable to clone 'https://github.com/dorny/paths-filter' to '/data/.cache/act/b9/ff0e69a5488559862b52a4e6de6b20822dae18b2aac23913524da5b287f442': Cloning into bare repository '/data/.cache/act/b9/ff0e69a5488559862b52a4e6de6b20822dae18b2aac23913524da5b287f442'...\\nfatal: unable to access 'https://github.com/dorny/paths-filter/': Could not resolve host: github.com: exit status 128`\r\n- `could not fetch remote 'origin': fatal: unable to access 'https://data.forgejo.org/actions/checkout/': Could not resolve host: data.forgejo.org: exit status 128`\r\n\r\nThe failures are not limited to the specific repo being pulled, workflow matrix, workflow, runner instance, physical host etc.\n\n### Forgejo Version\n\n16.0.5\n\n### Runner Version\n\n12.5.0\n\n### How are you running Forgejo?\n\nDebian package on debian VM.\n\n### How are you running the Runner?\n\nOnly application on a k3s cluster of random machines.\r\n\r\n````\r\napiVersion: apps/v1\r\nkind: DaemonSet\r\nspec:\r\n  revisionHistoryLimit: 10\r\n  selector:\r\n    matchLabels:\r\n      app: forgejo-runner\r\n  template:\r\n    metadata:\r\n      annotations:\r\n        kubectl.kubernetes.io/restartedAt: \"2026-10-16T18:30:43+08:00\"\r\n      creationTimestamp: null\r\n      labels:\r\n        app: forgejo-runner\r\n    spec:\r\n      containers:\r\n      - command:\r\n        - sh\r\n        - -c\r\n        - |\r\n          echo \"Waiting for Docker...\"\r\n          for i in $(seq 1 60); do\r\n            wget -q --spider http://localhost:2375/_ping 2>/dev/null && break\r\n            sleep 2\r\n          done\r\n          echo \"Docker is ready\"\r\n          if [ ! -f /data/.runner ]; then\r\n            forgejo-runner register \\\r\n              --name $(RUNNER_NAME) \\\r\n              --instance $(FORGEJO_INSTANCE_URL) \\\r\n              --token $(RUNNER_SECRET) \\\r\n              --labels docker \\\r\n              --no-interactive\r\n          fi\r\n          cp /config/config.yaml /data/config.yaml\r\n          forgejo-runner daemon --config /data/config.yaml\r\n        env:\r\n        - name: DOCKER_HOST\r\n          value: tcp://localhost:2375\r\n        - name: RUNNER_NAME\r\n          valueFrom:\r\n            fieldRef:\r\n              apiVersion: v1\r\n              fieldPath: metadata.name\r\n        - name: RUNNER_SECRET\r\n          valueFrom:\r\n            secretKeyRef:\r\n              key: token\r\n              name: forgejo-runner-secret\r\n        - name: FORGEJO_INSTANCE_URL\r\n          value: << URL TO FORGEJO INSTANCE >>\r\n        image: code.forgejo.org/forgejo/runner:12.5.0\r\n        imagePullPolicy: IfNotPresent\r\n        name: runner\r\n        resources: {}\r\n        terminationMessagePath: /dev/termination-log\r\n        terminationMessagePolicy: File\r\n        volumeMounts:\r\n        - mountPath: /data\r\n          name: runner-data\r\n        - mountPath: /config\r\n          name: runner-config\r\n      - args:\r\n        - --insecure-registry=<< FQDN OF FORGEJO INSTANCE >>:80\r\n        env:\r\n        - name: DOCKER_TLS_CERTDIR\r\n        image: docker:27-dind\r\n        imagePullPolicy: IfNotPresent\r\n        name: docker\r\n        resources: {}\r\n        securityContext:\r\n          privileged: true\r\n        terminationMessagePath: /dev/termination-log\r\n        terminationMessagePolicy: File\r\n        volumeMounts:\r\n        - mountPath: /var/lib/docker\r\n          name: docker-data\r\n      dnsPolicy: ClusterFirst\r\n      restartPolicy: Always\r\n      schedulerName: default-scheduler\r\n      securityContext: {}\r\n      terminationGracePeriodSeconds: 30\r\n      volumes:\r\n      - emptyDir: {}\r\n        name: runner-data\r\n      - emptyDir: {}\r\n        name: docker-data\r\n      - configMap:\r\n          defaultMode: 420\r\n          name: runner-config\r\n        name: runner-config\r\n  updateStrategy:\r\n    rollingUpdate:\r\n      maxSurge: 0\r\n      maxUnavailable: 5\r\n    type: RollingUpdate\r\n---\r\napiVersion: v1\r\ndata:\r\n  config.yaml: |\r\n    runner:\r\n      capacity: 1\r\n      timeout: 3600s\r\n    container:\r\n      network: host\r\n      privileged: true\r\n      docker_host: tcp://localhost:2375\r\n      valid_volumes: []\r\n      options: \"\"\r\nkind: ConfigMap\r\n````\n\n### Logs\n\nI couldn't find where to configure the runner logging verbosity in the linked documentation, I am happy to do so.\n\n### Workflow file\n\nDoes not seem to correlate with any specific workflow.\r\n\r\nI do specify my own container images to use in the workflow, but they are just built-from-scratch debian using debootstrap.\n\n",
+      "title": "bug: The default value of a `case` expression is not properly serialized",
+      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo\n\n### Description\n\nIf a case expression `${{ case(cond, then, default) }}` is evaluated with a falsy condition `cond`, then the value of `default` is not properly serialized if it's not a string: in my case `default` was a number (namely the context value `forge.event.pull_request.number`), which got serialized as `\"<float64-value>\"`.\r\n\r\nAs a workaround one can use `format('{0}', default)`.\r\n\r\nI believe the fix is replacing `defaultValue.String()` with `impl.coerceToString(defaultValue).String()`, but I haven't tried to get the runner working locally\r\n https://code.forgejo.org/forgejo/runner/src/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7/act/exprparser/functions.go#L331\n\n### Forgejo Version\n\n_No response_\n\n### Runner Version\n\nv13.2.0\n\n### How are you running Forgejo?\n\nI'm using the Codeberg instance.\n\n### How are you running the Runner?\n\nSystemd service through NixOS@[`c59305bab2065cfecc4944690d9eedbb56f3a9fa`](https://github.com/NixOS/nixpkgs/tree/c59305bab2065cfecc4944690d9eedbb56f3a9fa)\n\n### Logs\n\n_No response_\n\n### Workflow file\n\n```yaml\r\non:\r\n  pull_request:\r\n  workflow_dispatch:\r\n    inputs:\r\n      pr_number:\r\n        type: number\r\n\r\njobs:\r\n  debug:\r\n    runs-on: 'nix'\r\n    container:\r\n      image: 'ghcr.io/catthehacker/ubuntu:act-24.04'\r\n    steps:\r\n      - if: >-\r\n          ${{ forge.event_name == 'pull_request' ||\r\n              forge.event_name == 'pull_request_target' ||\r\n              forge.event_name == 'workflow_dispatch' }}\r\n        run: |\r\n          echo \"p/${{ case(forge.event_name == 'workflow_dispatch', inputs.pr_number, forge.event.pull_request.number) }}\"\r\n```\n\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
-        "login": "NRoach44",
-        "id": "3158",
-        "avatarUrl": "https://code.forgejo.org/avatars/17faa55a8249ccdd9524180a0b09a52e",
-        "url": "https://code.forgejo.org/NRoach44",
+        "login": "VojtechStep",
+        "id": "3191",
+        "avatarUrl": "https://code.forgejo.org/avatars/f6ea59f3950d9033adde565bd2dfd350",
+        "url": "https://code.forgejo.org/VojtechStep",
         "isBotHint": false
       },
       "assignees": [],
@@ -38,12 +38,12 @@
           "description": "Something is not working"
         }
       ],
-      "url": "https://code.forgejo.org/forgejo/runner/issues/1779",
-      "createdAt": "2026-10-18T10:34:44.000Z",
-      "updatedAt": "2026-10-18T11:37:25.000Z",
-      "lastActivityAt": "2026-10-18T11:37:25.000Z",
+      "url": "https://code.forgejo.org/forgejo/runner/issues/1782",
+      "createdAt": "2026-10-22T13:59:50.000Z",
+      "updatedAt": "2026-10-22T13:59:50.000Z",
+      "lastActivityAt": "2026-10-22T13:59:50.000Z",
       "locked": false,
-      "commentCount": 1
+      "commentCount": 0
     },
     {
       "ref": {
@@ -55,37 +55,37 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "kind": "issue",
-        "number": "1778",
-        "externalId": "15014"
+        "kind": "pull_request",
+        "number": "1780",
+        "externalId": "15055"
       },
-      "kind": "issue",
-      "title": "A composite action's job summary is shown twice (runner 13.2.0)",
-      "body": "### What happens\r\n\r\nA line that a `run:` step inside a **composite action** appends to `$FORGEJO_STEP_SUMMARY` (or\r\n`$GITHUB_STEP_SUMMARY`) appears **twice** in the job summary that Forgejo 17 shows above the job's log. The same\r\nline written by a plain `run:` step at the top level of the job appears once.\r\n\r\n### Versions\r\n\r\n- forgejo-runner v13.2.0 (Linux, Docker back end; the code below is identical on `main` today)\r\n- Forgejo v17.0.0\r\n\r\n### Reproduce\r\n\r\n`.forgejo/actions/summary-once/action.yml`:\r\n\r\n```yaml\r\nname: summary-once\r\ndescription: Writes one line to the job summary\r\nruns:\r\n  using: composite\r\n  steps:\r\n    - shell: bash\r\n      run: echo \"- written once by the composite action\" >>\"$FORGEJO_STEP_SUMMARY\"\r\n```\r\n\r\n`.forgejo/workflows/summary.yml`:\r\n\r\n```yaml\r\non: workflow_dispatch\r\njobs:\r\n  summary:\r\n    runs-on: docker\r\n    steps:\r\n      - uses: actions/checkout@v4\r\n      - uses: ./.forgejo/actions/summary-once\r\n      - run: echo \"- written once by a plain step\" >>\"$FORGEJO_STEP_SUMMARY\"\r\n```\r\n\r\n**Expected:** each line once. **Actual:** \"written once by the composite action\" twice, \"written once by a plain step\"\r\nonce.\r\n\r\n### Why (from reading v13.2.0)\r\n\r\n- `act/runner/step.go`, `runStepExecutor`: before every step that runs it points `FORGEJO_STEP_SUMMARY` and\r\n  `GITHUB_STEP_SUMMARY` at `<actPath>/workflow/SUMMARY.md` and empties that file; after the step,\r\n  `processRunnerSummaryCommand` reads the file and logs it as a `command: summary` entry. It does not empty the file\r\n  afterwards.\r\n- The composite action's run context shares the parent's job container (`action_composite.go`), so the inner `run:`\r\n  step and the outer `uses:` step read **the same** `SUMMARY.md`.\r\n- The outer `uses:` step also goes through `runStepExecutor` (`step_action_local.go` / `step_action_remote.go`), so\r\n  after the whole action it reads the file again, which still holds the inner step's line.\r\n- The inner step's logger keeps the outer step's number (`WithCompositeStepLogger` in `job_executor.go`), and\r\n  `Reporter.Fire` (`internal/pkg/report/reporter.go`) and the step-summary collector append every `command: summary`\r\n  entry under that number without de-duplication.\r\n\r\nSo the inner step's line is reported once by the inner step and once more by the outer step.\r\n\r\n### Workaround\r\n\r\nEnd the composite action with an empty step that runs on every path, for example:\r\n\r\n```yaml\r\n    - if: always()\r\n      shell: bash\r\n      run: ':'\r\n```\r\n\r\nBecause every step that runs starts with `SUMMARY.md` emptied, the outer step's second read then finds nothing and the\r\nline shows once. (On Windows, a `shell: powershell` step with `run: '$null'` does the same.)\r\n\r\n### A possible fix\r\n\r\nEither empty `SUMMARY.md` after `processRunnerSummaryCommand` has read it, or skip the summary read for a step whose\r\naction is composite (its inner steps already report their own).",
+      "kind": "pull_request",
+      "title": "fix(plugin): remove custom dialer for unix sockets",
+      "body": "Fixes #1775 by removing the custom dialer for unix domain sockets\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1780): <!--number 1780 --><!--line 0 --><!--description Zml4KHBsdWdpbik6IHJlbW92ZSBjdXN0b20gZGlhbGVyIGZvciB1bml4IHNvY2tldHM=-->fix(plugin): remove custom dialer for unix sockets<!--description-->\n<!--end release-notes-assistant-->\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
-        "login": "MatejGomboc",
-        "id": "3162",
-        "avatarUrl": "https://code.forgejo.org/avatars/ac8b9d924857d4177e30edef9b718252a290412e596c11c9dfd8decfb5627d00",
-        "url": "https://code.forgejo.org/MatejGomboc",
+        "login": "mfrw",
+        "id": "3122",
+        "avatarUrl": "https://code.forgejo.org/avatars/13c91943b132598561dfadccd4e3b336a6030be7269a01d03f629a9abc5b8827",
+        "url": "https://code.forgejo.org/mfrw",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://code.forgejo.org/forgejo/runner/issues/1778",
-      "createdAt": "2026-10-17T14:38:46.000Z",
-      "updatedAt": "2026-10-18T06:17:46.000Z",
-      "lastActivityAt": "2026-10-18T06:17:46.000Z",
+      "url": "https://code.forgejo.org/forgejo/runner/pulls/1780",
+      "createdAt": "2026-10-19T13:35:13.000Z",
+      "updatedAt": "2026-10-19T13:35:19.000Z",
+      "lastActivityAt": "2026-10-19T13:35:19.000Z",
       "locked": false,
       "commentCount": 0
     }
   ],
-  "total": 1186,
+  "total": 1190,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/issues/search?limit=3&owner=forgejo&page=2&q=fix&state=all"
   }

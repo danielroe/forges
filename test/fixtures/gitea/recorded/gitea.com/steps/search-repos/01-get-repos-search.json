@@ -6,8 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/repos/search?limit=3&page=2&q=tea>; rel=\"next\",<https://gitea.com/api/v1/repos/search?limit=3&page=394&q=tea>; rel=\"last\"",
-      "x-total-count": "1181"
+      "link": "<https://gitea.com/api/v1/repos/search?limit=3&page=2&q=tea>; rel=\"next\",<https://gitea.com/api/v1/repos/search?limit=3&page=399&q=tea>; rel=\"last\"",
+      "x-total-count": "1195"
     },
     "body": {
       "ok": true,

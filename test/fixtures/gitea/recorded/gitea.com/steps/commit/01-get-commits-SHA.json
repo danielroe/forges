@@ -87,6 +87,22 @@
       ],
       "files": [
         {
+          "filename": "cmd/issues/create_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "cmd/pulls/create_app_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "cmd/pulls/create_test.go",
+          "status": "added"
+        },
+        {
+          "filename": "modules/task/pull_merge_test.go",
+          "status": "added"
+        },
+        {
           "filename": "cmd/issues/create.go",
           "status": "modified"
         },
@@ -121,22 +137,6 @@
         {
           "filename": "modules/task/pull_merge.go",
           "status": "modified"
-        },
-        {
-          "filename": "cmd/issues/create_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "cmd/pulls/create_app_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "cmd/pulls/create_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "modules/task/pull_merge_test.go",
-          "status": "added"
         }
       ],
       "stats": {

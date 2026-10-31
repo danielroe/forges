@@ -5,105 +5,24 @@
         "forge": "gitlab",
         "instance": "gitlab.com",
         "owner": "gitlab-org",
-        "name": "gitlab-rebased",
-        "externalId": "85606680"
-      },
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/gitlab-rebased",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/gitlab-rebased.git",
-        "ssh": "git@gitlab.com:gitlab-org/gitlab-rebased.git"
-      },
-      "createdAt": "2026-08-20T21:08:27.169Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 48,
-      "stars": 2,
-      "forks": 4,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/developer-relations/contributor-success",
-        "name": "team-task",
-        "externalId": "39971471"
+        "name": "customers-gitlab-com",
+        "externalId": "2670515"
       },
       "description": "",
-      "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task",
+      "url": "https://gitlab.com/gitlab-org/customers-gitlab-com",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task.git",
-        "ssh": "git@gitlab.com:gitlab-org/developer-relations/contributor-success/team-task.git"
+        "https": "https://gitlab.com/gitlab-org/customers-gitlab-com.git",
+        "ssh": "git@gitlab.com:gitlab-org/customers-gitlab-com.git"
       },
-      "createdAt": "2022-10-05T10:35:45.116Z",
+      "createdAt": "2017-02-09T18:59:13.690Z",
       "updatedAt": "<now>",
-      "openIssueCount": 277,
-      "stars": 5,
-      "forks": 3,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/technical-writing",
-        "name": "docs-gitlab-com",
-        "externalId": "51970333"
-      },
-      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
-        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
-      },
-      "createdAt": "2023-11-07T18:07:49.139Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 91,
-      "stars": 56,
-      "forks": 128,
+      "openIssueCount": 1020,
+      "stars": 67,
       "mergeMethods": [
         "merge",
         "squash"
@@ -115,6 +34,103 @@
           "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
         },
         "squash": {
+          "template": "%{title}\r\n\r\nSee merge request %{url}"
+        }
+      },
+      "features": {
+        "issues": true,
+        "pullRequests": false,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org/orbit",
+        "name": "knowledge-graph",
+        "externalId": "77960826"
+      },
+      "description": "Software lifecycle context graph for AI agents in GitLab",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "Canonical",
+        "Release Platform Enabled",
+        "infra-mgmt Managed"
+      ],
+      "url": "https://gitlab.com/gitlab-org/orbit/knowledge-graph",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/orbit/knowledge-graph.git",
+        "ssh": "git@gitlab.com:gitlab-org/orbit/knowledge-graph.git"
+      },
+      "createdAt": "2026-01-24T18:02:39.675Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 157,
+      "stars": 58,
+      "forks": 106,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "gitlab",
+        "externalId": "278964"
+      },
+      "description": "GitLab is the open-source DevSecOps platform that provides a complete software development lifecycle toolchain including source control, CI/CD, security scanning, and project management in a single application.",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "hacktoberfest",
+        "javascript",
+        "ruby",
+        "vue.js"
+      ],
+      "url": "https://gitlab.com/gitlab-org/gitlab",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/gitlab.git",
+        "ssh": "git@gitlab.com:gitlab-org/gitlab.git"
+      },
+      "createdAt": "2015-05-20T10:47:11.949Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 48659,
+      "stars": 6184,
+      "forks": 12535,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "merge": {
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}' \r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+        },
+        "squash": {
           "template": "%{first_commit}"
         }
       },
@@ -122,22 +138,22 @@
         "issues": true,
         "pullRequests": true,
         "discussions": false,
-        "wiki": true,
+        "wiki": false,
         "projects": false,
-        "releases": true
+        "releases": false
       }
     }
   ],
-  "total": 3762,
+  "total": 3776,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\""
+    "etag": "W/\"c45d0504c7f60694316cec50bc52449d\""
   },
-  "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\"",
+  "etag": "W/\"c45d0504c7f60694316cec50bc52449d\"",
   "rateLimit": {
-    "limit": 1,
-    "remaining": 41,
+    "limit": 500,
+    "remaining": 454,
     "resetAt": "<now>",
-    "resource": "unauthenticated_traffic_per_ip"
+    "resource": "throttle_unauthenticated_api"
   }
 }

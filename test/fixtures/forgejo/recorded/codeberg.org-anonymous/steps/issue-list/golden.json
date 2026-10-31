@@ -11,72 +11,22 @@
           "name": "forgejo"
         },
         "kind": "issue",
-        "number": "14922",
-        "externalId": "7780340"
+        "number": "15023",
+        "externalId": "7943633"
       },
       "kind": "issue",
-      "title": "Inconsistency: A repository admin can manage Actions secrets in the web UI but gets 403 from the API",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nYes. I've validated this on version 16.0.6, and the relevant files (`req_owner.go` and `req_admin.go`) haven't changed, so presumably affecting all current versions.\n\n### About your usage of Forgejo\n\nI use Forgejo on a local server for personal use only, mostly to coordinate changes within a home network. As repository storage, CI actions and package registry.\n\n### Problem description\n\nI think the REST API and the web UI disagree on who can manage a repository's Actions secrets.\n\n- The API requires the repository owner or a site admin.\n- The web UI page requires only repository admin.\n\nSelfishly, I'd like to be able to modify the secrets using the API token, but the key issue here is the inconsistency.\n\n#### Scenario\n\n`PUT` and `DELETE /repos/{owner}/{repo}/actions/secrets/{name}`, and the list endpoint, are mounted with `reqOwner(unit.TypeActions)`, whose predicate is `ctx.Permission().IsOwner() || IsUserSiteAdmin`.\nA collaborator with admin on the repository is not the owner, so the API answers `403 {\"message\":\"user should be the owner of the repo\"}`.\n\nThe web UI repo settings group is mounted with `reqRepoAdmin`, which is `ctx.Repo.IsAdmin()`.\nThat admits a collaborator with admin.\nSo the same person, with the same permissions, can create the secret at `/-/settings/actions/secrets` and cannot create it through the API.\n\n#### Steps to reproduce\n\n1. Have user `bob` as a collaborator with admin on `owner/repo`.\n2. As `bob`, `PUT /api/v1/repos/owner/repo/actions/secrets/FOO` with body `{\"data\":\"x\"}`.\n3. Compare with the web UI at `/owner/repo/settings/actions/secrets` as `bob`.\n4. Compare with `POST /api/v1/repos/owner/repo/keys` as `bob`.\n\n#### Expected\n\nThe API and the web UI apply the same rule for the same principal.\n\n#### Actual\n\n- API secrets: `403 user should be the owner of the repo`.\n- Web UI secrets: allowed.\n- API deploy keys: allowed.\n\n#### Source\n\n- `routers/api/v1/api.go`: the repo actions routes are mounted with `reqOwner(unit.TypeActions)`.\n- `routers/api/v1/permissions/req_owner.go`: `if !ctx.Permission().IsOwner() && !IsUserSiteAdmin(ctx)`.\n- `routers/api/v1/permissions/req_admin.go`: `if !IsUserRepoAdmin(ctx) && !IsUserSiteAdmin(ctx)`, used for deploy keys.\n- `services/context/permission.go`: `RequireRepoAdmin` checks `ctx.Repo.IsAdmin()`.\n- `models/perm/access/repo_permission.go`: `IsOwner()` is `AccessMode >= Owner`, `IsAdmin()` is `AccessMode >= Admin`.\n\n### Potential workarounds\n\nThe practical effect is that automation holding a repository-admin token, or a bot account that is an admin collaborator, cannot manage repository secrets through the API, while a person can do it in the UI.\n\nThe workarounds are a token for the owner, a site admin, or moving the secret to the organization level, where `reqOrgOwnership` applies (org owner or site admin).\n\n### Forgejo Version\n\n16.0.6\n\n### Other details about your environment (software names and versions)\n\nForgejo: 16.0.6\nPostgres: 17.5\n\nI'm not sure what else is relevant sorry. Happy to share more info if it's needed.\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "title": "bug: Issues with comment history menu for code comments",
+      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nYes, I've linked the repository below\n\n### Description\n\n1. Having a review with multiple code comments (`CommentTypeCode`) and also a general review feedback​/comment (`CommentTypeReview`), if you edit the general review comment the '• edited' comment history menu is wrongly also added to all of the child code comments.\r\n\r\nFor this I've already proposed a fix in !15019 (where you can find more details and a screenshot).\r\n\r\n---\r\n\r\n2. The right margin of avatars shown in the comment history menu from code comments is missing (there is no space between the avatar and the user name):\r\n\r\n![2026-10-25 missing right margin](/attachments/de15109d-a524-48a3-b22c-00e7ebd7899f)\r\n\r\nThis seems to be a regression of !8138 caused by [this CSS rule](https://codeberg.org/forgejo/forgejo/src/commit/cd08265406cc9e38b384b256aecdc463d4269664/web_src/css/repo.css#L1013-L1015). @0ko already [suggested a fix](https://matrix.to/#/!cPyfRdDQ8A_9Nrr3E_Hk_aOXlFoC_L7nE1XE62gH4gI/$nJtXRWNi9vqokNx9JFTqNu1Gby9a-652Vok6L2WUi9U) in the _Forgejo UI_ room.\r\n\r\n---\r\n\r\n3. After the user who posted and edited a code comment is deleted, the username (i.e. Ghost) is missing from the comment history menu items:\r\n\r\n![2026-10-25 missing username ('Ghost') on the right of avatar](/attachments/c55348a9-d182-4cb8-bff7-de684092aee8)\r\n\r\nWithout checking this assumption, I think it might happen for all types of comments, because `FetchIssueContentHistoryList()` [returns null for `user_name` and `user_full_name`](https://codeberg.org/forgejo/forgejo/src/commit/a387636b9a9e1c92388d567508f67b2d56a3ba4e/models/issues/content_history.go#L152) in case of deleted users.\r\n\r\nInstead of changing the SQL query from `FetchIssueContentHistoryList()` we could [check for empty strings](https://codeberg.org/forgejo/forgejo/src/commit/a387636b9a9e1c92388d567508f67b2d56a3ba4e/routers/web/repo/issue_content_history.go#L74-L77) in `GetContentHistoryList()` and use the `GhostUserName` constant when username is missing.\r\n\r\n---\r\n\r\n4. When a new comment is posted in a review conversation (as a reply to a code comment), if one of the previous comments in the thread was edited and the '• edited' comment history menu is visible, when the new comment is saved the history menu will be removed (from the edited comment). Screenshots are from local development environment, but reproduced also while playing on [v18.next.forgejo.org](https://v18.next.forgejo.org/floss4good/projx/pulls/1).\r\n\r\n| before reply - edited menu visible | reply posted - edited menu removed |\r\n| :---:|:---:|\r\n| ![2026-10-25 reply pending - edited menu visible](/attachments/502d6298-28c2-4db3-ac46-0a9f7043ccf6) | ![2026-10-25 reply posted - edited menu removed](/attachments/259975ed-94b5-430a-85aa-d28e8f610ce3) |\n\n### Screenshots\n\n_Included in Description._\n\n### Forgejo Version\n\n55849de717c317b217ae10f0c61e96db1d47e184 / Codeberg / v18.next.forgejo.org\n\n### Browser Version\n\nFirefox 158.0 (64-bit)\n\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "jahredhope",
-        "id": "1567625",
-        "avatarUrl": "https://codeberg.org/avatars/7338fa221dbcbf0c192bd0ca383cdf54",
-        "url": "https://codeberg.org/jahredhope",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "impact/unknown",
-          "colour": "545454",
-          "description": "Report was not yet triaged to assess impact."
-        },
-        {
-          "name": "problem",
-          "colour": "fbca04",
-          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
-        }
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14922",
-      "createdAt": "2026-10-19T03:04:24.000Z",
-      "updatedAt": "2026-10-19T03:07:02.000Z",
-      "lastActivityAt": "2026-10-19T03:07:02.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "kind": "issue",
-        "number": "14918",
-        "externalId": "7775864"
-      },
-      "kind": "issue",
-      "title": "bug: imperfect image alignment and scaling",
-      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nWas seeing [LocalSend's](https://codeberg.org/localsend/localsend) repo. Found two screenshot there. One is aligned to left and another is scaled longer in vertical direction.\n\nI was hoping them to be center aligned and not improperly scaled.\n\n### Screenshots\n\nAttached is a screenshot having those two images\n\n\n\n### Forgejo Version\n\n_No response_\n\n### Browser Version\n\nChrome mobile\n\n",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "mkmake",
-        "id": "1340230",
-        "avatarUrl": "https://codeberg.org/avatars/ac78c7737f52aedf1e259d969bb3656d",
-        "url": "https://codeberg.org/mkmake",
+        "login": "floss4good",
+        "id": "95437",
+        "avatarUrl": "https://codeberg.org/avatars/c003dac226150014bd596dc127a00287",
+        "url": "https://codeberg.org/floss4good",
         "isBotHint": false
       },
       "assignees": [],
@@ -93,10 +43,10 @@
           "description": "User interface"
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14918",
-      "createdAt": "2026-10-18T23:20:07.000Z",
-      "updatedAt": "2026-10-18T23:25:45.000Z",
-      "lastActivityAt": "2026-10-18T23:25:45.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15023",
+      "createdAt": "2026-10-25T19:22:36.000Z",
+      "updatedAt": "2026-10-25T19:22:36.000Z",
+      "lastActivityAt": "2026-10-25T19:22:36.000Z",
       "locked": false,
       "commentCount": 0
     },
@@ -111,53 +61,94 @@
           "name": "forgejo"
         },
         "kind": "issue",
-        "number": "14915",
-        "externalId": "7775636"
+        "number": "15020",
+        "externalId": "7939568"
       },
       "kind": "issue",
-      "title": "problem: OIDC single logout does not terminate Forgejo sessions",
-      "body": "### Does your problem still exist on the latest Forgejo version?\n\nUnknown, I can't try it for some reason (please explain)\n\n### About your usage of Forgejo\n\nI operate a self-hosted Forgejo instance as part of a small infrastructure environment using Keycloak for centralized authentication. Multiple applications use the same Keycloak realm, and administrators need consistent single sign-on and single logout across these services.\n\n### Problem description\n\nWhen Forgejo is configured to authenticate users through Keycloak using OpenID Connect, signing out does not provide complete OIDC single-logout behavior.\r\n\r\nIn particular:\r\n\r\n- Logging out of Forgejo does not necessarily terminate the corresponding Keycloak SSO session.\r\n- Logging out through Keycloak does not reliably invalidate an existing authenticated Forgejo session.\r\n- Consequently, users may remain authenticated to Forgejo after terminating their central SSO session.\r\n\r\nFor environments using centralized identity management, this creates inconsistent logout behavior and can leave application sessions active longer than intended.\r\n\r\nThe desired behavior is coordinated OIDC logout, including RP-initiated logout and Keycloak-initiated backchannel logout, with invalidation of the affected application session while preserving independent local administrator recovery.\r\n\r\nI reproduced the missing functionality on an unmodified Forgejo 15-based installation. I haven't tested the latest upstream development version because my current installation includes a locally developed OIDC logout extension.\n\n### Potential workarounds\n\nAn OIDC-aware reverse proxy may restrict access, but it does not necessarily revoke Forgejo's existing authenticated application sessions.\r\n\r\nWe have developed and tested a local implementation of coordinated OIDC logout in our self-hosted environment, with AI assistance. We are not submitting that implementation as a contribution under Forgejo's current contribution policy.\r\n\r\nWe would welcome guidance on whether this functionality is already planned or whether maintainers would be interested in discussing an independently developed implementation.\n\n### Forgejo Version\n\nForgejo 15.0.9 (locally customized)\n\n### Other details about your environment (software names and versions)\n\nSelf-hosted Forgejo on Ubuntu Linux, using SQLite and Keycloak as the OpenID Connect identity provider. Forgejo is accessed through an Nginx HTTPS reverse proxy.\r\n\r\nThe behavior was investigated against a Forgejo 15-based deployment. A locally customized build was subsequently tested, so the feature request concerns the original upstream behavior rather than a current failure of our modified installation.\n\n### Solutions\n\n*Accepted solutions to address this problem will go here*\n\n\n",
+      "title": "bug: 500/nil deref on duplicate reaction post",
+      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\n`POST /api/v1/repos/$ORG/$REPO/issues/comments/$ID/reactions` to add a reaction that's already there 500s with `panic in 7.3ms @ repo/issue_reaction.go:83(repo.PostIssueCommentReaction), err=runtime error: invalid memory address or nil pointer dereference` + `PANIC: runtime error: invalid memory address or nil pointer dereference` with stacktrace\r\n```\r\n...\r\nforgejo/routers/api/v1/repo/issue_reaction.go:186 (0x2e31e14)\r\nforgejo/routers/api/v1/repo/issue_reaction.go:124 (0x2e31bde)\r\n...\r\n```\r\n\r\nClaude says\r\n\r\nmodels/issues.CreateReaction returns the existing reaction together with\r\nErrReactionAlreadyExist. Since a48683f064 (“feat: add internal APIs for\r\nreactions notifications”, #13017) services/issue.CreateIssueReaction and\r\nCreateCommentReaction do if err != nil { return nil, err }, discarding that\r\nreaction. The API handler’s already-exists branch in\r\nrouters/api/v1/repo/issue_reaction.go (lines 185 and 396) still reads\r\nreaction.Type and reaction.CreatedUnix and dereferences nil.\n\n### Forgejo Version\n\nv17\n\n### How are you running Forgejo?\n\nself-hosted\n\n### Logs\n\n_No response_\n\n### Database\n\nPostgreSQL\n\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "purple888",
-        "id": "1567394",
-        "avatarUrl": "https://codeberg.org/avatars/1deb145c59245a6f6ab702631b65aa00",
-        "url": "https://codeberg.org/purple888",
+        "login": "MattCorallo",
+        "id": "1258646",
+        "avatarUrl": "https://codeberg.org/avatars/2d7f1f78c70f04274ac9b18e43360b00",
+        "url": "https://codeberg.org/MattCorallo",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "impact/unknown",
-          "colour": "545454",
-          "description": "Report was not yet triaged to assess impact."
-        },
-        {
-          "name": "problem",
-          "colour": "fbca04",
-          "description": "A user report about a problem. Needs to be triaged to find potential solutions."
+          "name": "bug/new-report",
+          "colour": "e11d21",
+          "description": "bug has just been reported and need triage (default label on issue creation)"
         }
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/issues/14915",
-      "createdAt": "2026-10-18T22:35:19.000Z",
-      "updatedAt": "2026-10-18T22:35:19.000Z",
-      "lastActivityAt": "2026-10-18T22:35:19.000Z",
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15020",
+      "createdAt": "2026-10-25T12:54:40.000Z",
+      "updatedAt": "2026-10-25T12:54:40.000Z",
+      "lastActivityAt": "2026-10-25T12:54:40.000Z",
       "locked": false,
       "commentCount": 0
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "kind": "issue",
+        "number": "15009",
+        "externalId": "7933847"
+      },
+      "kind": "issue",
+      "title": "bug: Manual merges not deleting related branches",
+      "body": "### Can you reproduce the bug on the Forgejo test instance?\n\nNo, I can't try it on the test instance for some reason\n\n### Description\n\nhttps://codeberg.org/MelodyChat/Harmony/pulls/243\r\nManual merges are not deleting the related branches with the setting being enabled for some reason\n\n### Forgejo Version\n\n_No response_\n\n### How are you running Forgejo?\n\nCodeberg\r\nhttps://codeberg.org/MelodyChat/Harmony/pulls/243\n\n### Logs\n\n_No response_\n\n### Database\n\n_No response_\n\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "Mathium05",
+        "id": "813195",
+        "name": "Mathium05",
+        "avatarUrl": "https://codeberg.org/avatars/26a486498da6dc6430a26e30d21ef975f1ca457f2bf5cfff8936eb9d20701cfc",
+        "url": "https://codeberg.org/Mathium05",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "bug/confirmed",
+          "colour": "e11d21",
+          "description": "it can be reproduced"
+        }
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/issues/15009",
+      "createdAt": "2026-10-24T20:53:54.000Z",
+      "updatedAt": "2026-10-25T06:05:16.000Z",
+      "lastActivityAt": "2026-10-25T06:05:16.000Z",
+      "locked": false,
+      "commentCount": 1
     }
   ],
-  "total": 1572,
+  "total": 1577,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/issues?limit=3&page=2&state=open&type=issues"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1891,
+    "remaining": 1886,
     "resetAt": "<now>",
     "resource": "baseline"
   }

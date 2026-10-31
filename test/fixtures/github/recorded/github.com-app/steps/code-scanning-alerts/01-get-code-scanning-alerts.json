@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"74e265db459b86eb60a46dc1642bfbc597ee76aa59b5b29c1fd8d6c6ea5644c2\"",
+      "etag": "W/\"5fb6aae61e65f3f4ac03b56a8a26739c6950d7ef2686c555a72553af2a9fc907\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4965",
-      "x-ratelimit-reset": "1792388358",
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1792993257",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -44,7 +44,7 @@
         "tool": {
           "name": "CodeQL",
           "guid": null,
-          "version": "2.27.2"
+          "version": "2.27.3"
         },
         "most_recent_instance": {
           "ref": "refs/heads/main",
@@ -52,7 +52,7 @@
           "environment": "{\"build-mode\":\"none\",\"category\":\"/language:javascript-typescript\",\"language\":\"javascript-typescript\",\"runner\":\"[\\\"ubuntu-latest\\\"]\"}",
           "category": "/language:javascript-typescript",
           "state": "open",
-          "commit_sha": "0e35d481ac7b24f00c97f21250676bd88e0c44a0",
+          "commit_sha": "4cedba90fa606f2a7578b64b0a79b0a9f8409028",
           "message": {
             "text": "This replaces only the first occurrence of '\\''."
           },
@@ -68,7 +68,8 @@
         "instances_url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/code-scanning/alerts/1/instances",
         "dismissal_approved_by": null,
         "assignees": [],
-        "linked_pull_requests": []
+        "linked_pull_requests": [],
+        "linked_issues": []
       }
     ]
   }

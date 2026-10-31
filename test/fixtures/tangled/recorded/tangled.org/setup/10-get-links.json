@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://constellation.microcosm.blue/links?target=did%3Aplc%3Al7hhzcbqqvpcquau5waryzdu&collection=sh.tangled.repo&path=.repoDid&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "total": 1,
+      "linking_records": [
+        {
+          "did": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+          "collection": "sh.tangled.repo",
+          "rkey": "albedo"
+        }
+      ],
+      "cursor": null
+    }
+  }
+}

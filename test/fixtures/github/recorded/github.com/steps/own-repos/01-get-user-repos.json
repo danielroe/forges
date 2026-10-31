@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/user/repos?per_page=3&page=2>; rel=\"next\", <https://api.github.com/user/repos?per_page=3&page=654>; rel=\"last\"",
-      "etag": "W/\"bedc8962896f80965667dc855a40eb581787489a34cc130daac79dc446db2622\"",
+      "link": "<https://api.github.com/user/repos?per_page=3&page=2>; rel=\"next\", <https://api.github.com/user/repos?per_page=3&page=657>; rel=\"last\"",
+      "etag": "W/\"643823ad3b6bea99f67b5135668f77443450b0290e006c72014bb7ded7d3480c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4911",
-      "x-ratelimit-reset": "1792385183",
+      "x-ratelimit-remaining": "4806",
+      "x-ratelimit-reset": "1792990363",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -82,7 +82,7 @@
         "releases_url": "https://api.github.com/repos/43081j/ai-policy/releases{/id}",
         "deployments_url": "https://api.github.com/repos/43081j/ai-policy/deployments",
         "created_at": "2026-09-16T13:01:04Z",
-        "updated_at": "2026-10-16T07:47:59Z",
+        "updated_at": "2026-10-19T11:22:16Z",
         "pushed_at": "2026-10-09T08:44:35Z",
         "git_url": "git://github.com/43081j/ai-policy.git",
         "ssh_url": "git@github.com:43081j/ai-policy.git",
@@ -90,8 +90,8 @@
         "svn_url": "https://github.com/43081j/ai-policy",
         "homepage": "https://ai-policy.dev",
         "size": 359,
-        "stargazers_count": 60,
-        "watchers_count": 60,
+        "stargazers_count": 61,
+        "watchers_count": 61,
         "language": "Vue",
         "has_issues": true,
         "has_projects": false,
@@ -120,7 +120,7 @@
         "visibility": "public",
         "forks": 2,
         "open_issues": 6,
-        "watchers": 60,
+        "watchers": 61,
         "default_branch": "main",
         "permissions": {
           "admin": false,

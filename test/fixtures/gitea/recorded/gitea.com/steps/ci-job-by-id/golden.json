@@ -8,7 +8,7 @@
       "owner": "gitea",
       "name": "tea"
     },
-    "id": "1483750",
+    "id": "1523474",
     "run": {
       "forge": "gitea",
       "instance": "gitea.com",
@@ -18,13 +18,13 @@
         "owner": "gitea",
         "name": "tea"
       },
-      "id": "1094474"
+      "id": "1124043"
     }
   },
-  "name": "goreleaser",
-  "state": "success",
+  "name": "Lint Build And Unit Coverage",
+  "state": "failure",
   "stateRaw": "completed",
-  "url": "https://gitea.com/gitea/tea/actions/runs/1094474/jobs/1483750",
-  "startedAt": "2026-10-18T20:56:37.000Z",
-  "completedAt": "2026-10-18T20:58:22.000Z"
+  "url": "https://gitea.com/gitea/tea/actions/runs/1124043/jobs/1523474",
+  "startedAt": "2026-10-24T00:11:32.000Z",
+  "completedAt": "2026-10-24T00:12:34.000Z"
 }

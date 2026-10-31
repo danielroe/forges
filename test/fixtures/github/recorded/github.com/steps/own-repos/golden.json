@@ -21,7 +21,7 @@
         "ssh": "git@github.com:43081j/ai-policy.git"
       },
       "createdAt": "2026-09-16T13:01:04.000Z",
-      "updatedAt": "2026-10-16T07:47:59.000Z",
+      "updatedAt": "2026-10-19T11:22:16.000Z",
       "pushedAt": "2026-10-09T08:44:35.000Z",
       "owner": {
         "forge": "github",
@@ -36,7 +36,7 @@
       "language": "Vue",
       "homepage": "https://ai-policy.dev",
       "licence": "MIT",
-      "stars": 60,
+      "stars": 61,
       "forks": 2,
       "features": {
         "issues": true,
@@ -55,15 +55,15 @@
       }
     }
   ],
-  "total": 1962,
+  "total": 1971,
   "cursor": {
     "nextUrl": "https://api.github.com/user/repos?per_page=3&page=2",
-    "etag": "W/\"bedc8962896f80965667dc855a40eb581787489a34cc130daac79dc446db2622\""
+    "etag": "W/\"643823ad3b6bea99f67b5135668f77443450b0290e006c72014bb7ded7d3480c\""
   },
-  "etag": "W/\"bedc8962896f80965667dc855a40eb581787489a34cc130daac79dc446db2622\"",
+  "etag": "W/\"643823ad3b6bea99f67b5135668f77443450b0290e006c72014bb7ded7d3480c\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4911,
+    "remaining": 4806,
     "resetAt": "<now>",
     "resource": "core"
   }

@@ -6,14 +6,31 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"19ce-Uq4pk8DArh8LPyHmItEtxALtXJI\"",
+      "etag": "W/\"1a95-Ds5IXiHoZ9dwjVZdPsaalgBzqGM\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2978",
-      "ratelimit-reset": "1792385016",
+      "ratelimit-remaining": "2977",
+      "ratelimit-reset": "1792989905",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
+        {
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3myhjjdtqmf25",
+          "cid": "bafyreihms5xn3q5rr2dkzockdimta7rbmsilzssdxuoy33oft7ylbd3lqi",
+          "value": {
+            "body": {
+              "text": "this sounds good to me - maybe allow explicitly opting in to mirroring a fork ...?\n\n<!-- forges:key=fd1ac399-5a2b-496b-b327-b3da0b1d19bc -->",
+              "$type": "sh.tangled.markup.markdown",
+              "original": "this sounds good to me - maybe allow explicitly opting in to mirroring a fork ...?\n\n<!-- forges:key=fd1ac399-5a2b-496b-b327-b3da0b1d19bc -->"
+            },
+            "$type": "sh.tangled.feed.comment",
+            "subject": {
+              "cid": "bafyreierssni4ddmdyv7giuu452glfwc2na2g6wsku6gtp2lwlcrv3vgyu",
+              "uri": "at://did:plc:zlpfp5xn43tpzre5icmeuhcu/sh.tangled.repo.issue/3mydtuifadp22"
+            },
+            "createdAt": "2026-10-22T11:07:29.519Z"
+          }
+        },
         {
           "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mrzxt4w6sa22",
           "cid": "bafyreiendqlx3zirtkx5e63b7pn7ba7an26ohlfj2zj7wopxnu3iwas7im",
@@ -180,26 +197,9 @@
             },
             "createdAt": "2026-07-07T12:48:52+03:00"
           }
-        },
-        {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.feed.comment/3mq2d72cfu422",
-          "cid": "bafyreig33uf6vpacbulypdiptl5uipovx4cahhditr2dxjkeo7ia7vl52u",
-          "value": {
-            "body": {
-              "text": "no! you're right, this is super confusing ",
-              "$type": "sh.tangled.markup.markdown",
-              "original": "no! you're right, this is super confusing "
-            },
-            "$type": "sh.tangled.feed.comment",
-            "subject": {
-              "cid": "bafyreiccq5rn7rcaq6k3zwotxhsx6vqy6syefclsp7ygtmcjwhvlrnpkiy",
-              "uri": "at://did:plc:wbtsi5vt3gt2xr4siqnzaigq/sh.tangled.repo.issue/3mpzfqajuiw22"
-            },
-            "createdAt": "2026-07-07T12:48:11+03:00"
-          }
         }
       ],
-      "cursor": "3mq2d72cfu422"
+      "cursor": "3mq2dab62yc22"
     }
   }
 }

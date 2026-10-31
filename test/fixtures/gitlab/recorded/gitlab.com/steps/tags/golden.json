@@ -1,28 +1,28 @@
 {
   "items": [
     {
+      "name": "v1.124.0",
+      "sha": "d43ccacecb043b0c060dd13224cf993140db6c2b"
+    },
+    {
       "name": "v1.123.0",
       "sha": "5686d7484e65cb08b6e3b92f86d2ccffb415bdc0"
     },
     {
       "name": "v1.122.0",
       "sha": "89d0008af1df78a62f5b446fb9b1bfc479771279"
-    },
-    {
-      "name": "v1.121.0",
-      "sha": "4d447cc6c19858928884626d802c8f7b7c5f799e"
     }
   ],
-  "total": 167,
+  "total": 168,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=2&per_page=3&sort=desc",
-    "etag": "W/\"60dc712b4e700bf3b12baf2988b8a25a\""
+    "etag": "W/\"2b588d2f4d8275b14f167ef2371fef50\""
   },
-  "etag": "W/\"60dc712b4e700bf3b12baf2988b8a25a\"",
+  "etag": "W/\"2b588d2f4d8275b14f167ef2371fef50\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1921,
+    "limit": 100,
+    "remaining": 15,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

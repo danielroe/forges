@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/compare/faea86cd948384deee5e192b7c3441c2d7861ef7...main?files=false"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/compare/f02245449bb87749279d528535afbcf08c620a32...main?files=false"
   },
   "response": {
     "status": 200,
@@ -9,6 +9,168 @@
     "body": {
       "total_commits": 4,
       "commits": [
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/2727270931cad7b28189dd155eaad706d29705e0",
+          "sha": "2727270931cad7b28189dd155eaad706d29705e0",
+          "created": "2026-10-23T22:02:03Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/2727270931cad7b28189dd155eaad706d29705e0",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/2727270931cad7b28189dd155eaad706d29705e0",
+            "author": {
+              "name": "LeonM",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-23T22:02:03Z"
+            },
+            "committer": {
+              "name": "Lunny Xiao",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-23T22:02:03Z"
+            },
+            "message": "feat(pulls): allow disabling agit prompt (#1025)\n\nAllow users to set TEA_USE_AGIT=0 or TEA_USE_AGIT=false to skip the interactive agit flow prompt during pull request creation.\n\nThis keeps the current default behavior unchanged and only suppresses the agit confirmation when the environment variable explicitly parses to false.\n\nVerified with:\n\n- go test ./modules/interact\n- go build ./...\n\n---------\n\nCo-authored-by: silverwind <redacted@example.invalid>\nCo-authored-by: Leon Müller <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1025\nReviewed-by: silverwind <redacted@example.invalid>\nCo-authored-by: LeonM <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b211f3ab962cf4b65ecccd364f7730d050ffa9f2",
+              "sha": "b211f3ab962cf4b65ecccd364f7730d050ffa9f2",
+              "created": "2026-10-23T22:02:03Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 206012,
+            "login": "LeonM",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
+            "html_url": "https://gitea.com/LeonM",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 0,
+            "following_count": 0,
+            "starred_repos_count": 0,
+            "username": "LeonM"
+          },
+          "committer": {
+            "id": 1,
+            "login": "lunny",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+            "html_url": "https://gitea.com/lunny",
+            "active": false,
+            "location": "Silicon Valley",
+            "website": "https://gitea.com",
+            "description": "",
+            "followers_count": 115,
+            "following_count": 95,
+            "starred_repos_count": 367,
+            "username": "lunny"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+              "sha": "9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 76,
+            "additions": 70,
+            "deletions": 6
+          }
+        },
+        {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+          "sha": "9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+          "created": "2026-10-22T02:33:20Z",
+          "html_url": "https://gitea.com/gitea/tea/commit/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+          "commit": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+            "author": {
+              "name": "Renovate Bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-22T02:33:20Z"
+            },
+            "committer": {
+              "name": "silverwind",
+              "email": "redacted@example.invalid",
+              "date": "2026-10-22T02:33:20Z"
+            },
+            "message": "fix(deps): update go toolchain directive to v1.26.10 [security] (#1148)\n\nThis PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [go](https://go.dev/) ([source](https://github.com/golang/go)) | toolchain | patch | `1.26.9` → `1.26.10` |\n\n---\n\n### Distrust compromised intermediate certificates in crypto/x509\n[CVE-2026-111943](https://nvd.nist.gov/vuln/detail/CVE-2026-111943) / [GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) / [RUSTSEC-2026-0381](https://rustsec.org/advisories/RUSTSEC-2026-0381.html) / [RUSTSEC-2026-0382](https://rustsec.org/advisories/RUSTSEC-2026-0382.html) / [RUSTSEC-2026-0383](https://rustsec.org/advisories/RUSTSEC-2026-0383.html)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nOn most platforms, Go uses the given system root certificates. However, in some narrower cases, the system trust stores may not be updated without further action.\n\nTo defend against the narrower set of cases that may remain affected, a denylist was added in crypto/x509 to return an error when calling Verify with any of the known intermediate certificates that are no longer considered to be trustworthy.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/851047](https://go.dev/cl/851047)\n- [https://go.dev/issue/82345](https://go.dev/issue/82345)\n- [https://groups.google.com/g/golang-announce/c/66pojueaQek](https://groups.google.com/g/golang-announce/c/66pojueaQek)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6809) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - \"\"\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0My4xOTEuMiIsInVwZGF0ZWRJblZlciI6IjQzLjE5MS4yIiwidGFyZ2V0QnJhbmNoIjoibWFpbiIsImxhYmVscyI6W119-->\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1148\nReviewed-by: silverwind <redacted@example.invalid>\nCo-authored-by: Renovate Bot <redacted@example.invalid>\n",
+            "tree": {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/3f85e7bdf265531a5db32534c73cad9395bdafea",
+              "sha": "3f85e7bdf265531a5db32534c73cad9395bdafea",
+              "created": "2026-10-22T02:33:20Z"
+            },
+            "verification": {
+              "verified": false,
+              "reason": "gpg.error.not_signed_commit",
+              "signature": "",
+              "signer": null,
+              "payload": ""
+            }
+          },
+          "author": {
+            "id": 44044,
+            "login": "renovate-bot",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+            "html_url": "https://gitea.com/renovate-bot",
+            "active": false,
+            "location": "",
+            "website": "https://renovatebot.com/",
+            "description": "",
+            "followers_count": 1,
+            "following_count": 0,
+            "starred_repos_count": 0,
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "id": 2021,
+            "login": "silverwind",
+            "type": "User",
+            "source_id": 0,
+            "full_name": "",
+            "email": "redacted@example.invalid",
+            "avatar_url": "https://gitea.com/avatars/a21c1db8b4934f6c674229dc96ad7897",
+            "html_url": "https://gitea.com/silverwind",
+            "active": false,
+            "location": "",
+            "website": "",
+            "description": "",
+            "followers_count": 1,
+            "following_count": 1,
+            "starred_repos_count": 27,
+            "username": "silverwind"
+          },
+          "parents": [
+            {
+              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+              "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+              "created": "0001-01-01T00:00:00Z"
+            }
+          ],
+          "files": null,
+          "stats": {
+            "total": 2,
+            "additions": 1,
+            "deletions": 1
+          }
+        },
         {
           "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
           "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
@@ -47,7 +209,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -65,7 +227,7 @@
             "source_id": 0,
             "full_name": "bircni",
             "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+            "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
             "html_url": "https://gitea.com/bircni",
             "active": false,
             "location": "",
@@ -169,168 +331,6 @@
             "total": 2,
             "additions": 1,
             "deletions": 1
-          }
-        },
-        {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/f02245449bb87749279d528535afbcf08c620a32",
-          "sha": "f02245449bb87749279d528535afbcf08c620a32",
-          "created": "2026-10-11T17:23:06Z",
-          "html_url": "https://gitea.com/gitea/tea/commit/f02245449bb87749279d528535afbcf08c620a32",
-          "commit": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/f02245449bb87749279d528535afbcf08c620a32",
-            "author": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:23:06Z"
-            },
-            "committer": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:23:06Z"
-            },
-            "message": "feat!: rebuild tea on Cobra with explicit noun/verb commands (#1126)\n\n- **switch tea to the Cobra command tree:** `internal/app` wires the packages from parts 1–4 into explicit noun/verb commands with `--repo`, `--json` / `--jq`, `--sudo` and `--debug`; `main.go` points at it. Build, release and docs tooling (`tools/cli-docs`, Makefile, goreleaser, snap, CI) and README / CONTRIBUTING are updated.\n- **remove the urfave/cli command tree:** deletes `cmd/`, `modules/`, the old integration tests, contrib completion scripts and the generated `docs/CLI.md`, and drops their dependencies. This commit only deletes.\n\n## Breaking changes\n\nThis is a breaking release. It requires Gitea 28 or newer; configuration moves to separate `config.yml` and `hosts.yml` files and requires fresh authentication, and command names, aliases, flags and output formats change. `docs/migration-1.0.md` maps every old command, flag and environment variable to its replacement.\n\n## Issues\n\nfixes #1118\nfixes #1116\nfixes #1115\nfixes #1094\nfixes #1091\nfixes #1073\nfixes #1052\nfixes #1032\nfixes #1023\nfixes #966\nfixes #908\nfixes #833\nfixes #831\nfixes #817\nfixes #804\nfixes #779\nfixes #770\nfixes #737\nfixes #697\nfixes #726\nfixes #677\nfixes #672\nfixes #633\nfixes #632\nfixes #560\nfixes #556\nfixes #523\nfixes #516\nfixes #510\nfixes #504\nfixes #500\nfixes #482\nfixes #406\nfixes #403\nfixes #373\nfixes #351\nfixes #344\nfixes #326\nfixes #325\nfixes #323\nfixes #246\nfixes #240\nfixes #232\nfixes #197\nfixes #172\nfixes #141\nfixes #69\nfixes #1110\nfixes #569\nfixes #480\nfixes #666\nfixes #670\nfixes #457\nfixes #643\nfixes #498\nfixes #490\nfixes #1069\nfixes #834\nfixes #602\nfixes #328\nfixes #417\nfixes #571\nfixes #1029\nfixes #489\nfixes #1050\nfixes #162\nfixes #430\nfixes #1087\nfixes #683\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1126\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-            "tree": {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/949a7cef99cde4f9676a400350a821054affaec1",
-              "sha": "949a7cef99cde4f9676a400350a821054affaec1",
-              "created": "2026-10-11T17:23:06Z"
-            },
-            "verification": {
-              "verified": false,
-              "reason": "gpg.error.not_signed_commit",
-              "signature": "",
-              "signer": null,
-              "payload": ""
-            }
-          },
-          "author": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "committer": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "parents": [
-            {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-              "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
-              "created": "0001-01-01T00:00:00Z"
-            }
-          ],
-          "files": null,
-          "stats": {
-            "total": 52907,
-            "additions": 18892,
-            "deletions": 34015
-          }
-        },
-        {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-          "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
-          "created": "2026-10-11T17:15:41Z",
-          "html_url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-          "commit": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-            "author": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:15:41Z"
-            },
-            "committer": {
-              "name": "bircni",
-              "email": "redacted@example.invalid",
-              "date": "2026-10-11T17:15:41Z"
-            },
-            "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-            "tree": {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-              "sha": "1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-              "created": "2026-10-11T17:15:41Z"
-            },
-            "verification": {
-              "verified": false,
-              "reason": "gpg.error.not_signed_commit",
-              "signature": "",
-              "signer": null,
-              "payload": ""
-            }
-          },
-          "author": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "committer": {
-            "id": 173651,
-            "login": "bircni",
-            "type": "User",
-            "source_id": 0,
-            "full_name": "bircni",
-            "email": "redacted@example.invalid",
-            "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-            "html_url": "https://gitea.com/bircni",
-            "active": false,
-            "location": "",
-            "website": "",
-            "description": "",
-            "followers_count": 0,
-            "following_count": 2,
-            "starred_repos_count": 2,
-            "username": "bircni"
-          },
-          "parents": [
-            {
-              "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-              "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
-              "created": "0001-01-01T00:00:00Z"
-            }
-          ],
-          "files": null,
-          "stats": {
-            "total": 9512,
-            "additions": 9512,
-            "deletions": 0
           }
         }
       ]

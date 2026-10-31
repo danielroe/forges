@@ -6,10 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"16d47cdd183eaa37c89360056b5243a3\"",
-      "x-ratelimit-limit": "60, 60;w=3600",
-      "x-ratelimit-remaining": "51",
-      "x-ratelimit-reset": "3476"
+      "etag": "\"16d47cdd183eaa37c89360056b5243a3\""
     },
     "body": {
       "path": "README.md",

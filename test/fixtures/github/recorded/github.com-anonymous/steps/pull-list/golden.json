@@ -11,170 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1616",
+        "externalId": "PR_kwDOErHI988AAAABKkFXpg"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "perf: mark lazy event handler factory as side-effect-free",
+      "body": "Allow bundlers to remove unused `defineLazyEventHandler()` calls.\n\nRepro bundle sizes with H3 `2.0.8` and Rolldown `1.2.14`:\n\n| Fixture | Measurement | Before | After |\n| --- | --- | ---: | ---: |\n| Unused lazy handler | Minified | 14,140 B | 1,214 B |\n| Unused lazy handler | Gzip | 5,107 B | 714 B |\n\n[Reproduction](https://github.com/onmax/repros/tree/repro/h3-pure-lazy), Node `24.21.0` and pnpm `11.28.5`:\n\n```sh\ngit clone --depth 1 --branch repro/h3-pure-lazy https://github.com/onmax/repros.git h3-repro\ncd h3-repro\nnode verify.mjs\n```\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "none",
-      "authorAssociationRaw": "NONE",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
-      "locked": false,
-      "branches": {
-        "head": {
-          "ref": "fix/serve-static-index-paths",
-          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "TalhaHunter101",
-            "name": "h3",
-            "externalId": "1414411073"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
-        },
-        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
-      },
-      "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "none",
-      "authorAssociationRaw": "NONE",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
-      "locked": false,
-      "branches": {
-        "head": {
-          "ref": "docs/fix-static-assets-example",
-          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "aaronanish-t",
-            "name": "h3",
-            "externalId": "1414188488"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-        },
-        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1579",
-        "externalId": "PR_kwDOErHI988AAAABHvErmg"
-      },
-      "kind": "pull_request",
-      "title": "docs(static): mount serveStatic example at the root",
-      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "harshit-d3v",
-        "id": "106448130",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-        "url": "https://github.com/harshit-d3v",
+        "login": "onmax",
+        "id": "22072217",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?v=4",
+        "url": "https://github.com/onmax",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -198,40 +50,179 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1579",
-      "createdAt": "2026-10-10T20:06:27.000Z",
-      "updatedAt": "2026-10-17T12:00:47.000Z",
-      "lastActivityAt": "2026-10-17T12:00:47.000Z",
+      "url": "https://github.com/h3js/h3/pull/1616",
+      "createdAt": "2026-10-25T10:26:04.000Z",
+      "updatedAt": "2026-10-25T12:12:12.000Z",
+      "lastActivityAt": "2026-10-25T12:12:12.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "docs/serve-static-root",
-          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+          "ref": "perf/pure-lazy-event-handler",
+          "sha": "7396a813c83534e87221eaee27036e67e500d2ad",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "harshit-d3v",
+            "owner": "onmax",
             "name": "h3",
-            "externalId": "1413617363"
+            "externalId": "972546458"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
         },
-        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
+        "mergeCommitSha": "a0cda2f5f5857859c3fa0653a32a30a2507a92cc"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1615",
+        "externalId": "PR_kwDOErHI988AAAABKQkLsw"
+      },
+      "kind": "pull_request",
+      "title": "fix(response): keep `iterable` streaming past skipped values",
+      "body": "`iterable()` drops `undefined` values and values the serializer returns `undefined` for, but the `pull()` call that drops one resolves without enqueuing anything. `ReadableStream` only calls `pull()` again if another read arrived while it was running, so a pending read can be left unanswered and the response never finishes. Consecutive or trailing skips can trigger it on both web and node:\n\n```ts\niterable([\"a\", undefined, \"b\", undefined]); // hangs, expected \"ab\"\niterable([\"a\", \"skip\", \"skip\", \"b\"], { serializer }); // serializer returns undefined for \"skip\"; hangs, expected \"ab\"\n```\n\n`pull()` now keeps reading until it enqueues a chunk or the iterator is done. Values that serialize to a chunk are handled as before.\n\n- Ran: `pnpm vitest run test/iterable.test.ts`: both new tests time out on `main` in web and node (4 failed, 38 passed) and pass with the fix (42 passed).\n- Ran: `pnpm vitest run --coverage`: 73 files, 3134 passed, 51 skipped.\n- Checked: `pnpm typecheck`, `oxlint .` and `pnpm build` pass; `oxfmt --check` is clean on the changed files.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Response streams continue past values that produce no output, allowing later values to be delivered.\n  * Values that cannot be serialized are omitted without interrupting the remaining stream.\n  * Streams close when iteration finishes, including when the final value has no serializable output.\n  * After cancellation, streams stop reading additional values and do not serialize values that arrive afterward.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "NgoQuocViet2001",
+        "id": "123613986",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/123613986?v=4",
+        "url": "https://github.com/NgoQuocViet2001",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "state": "pending",
+          "stateRaw": "requested"
+        }
+      ],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1615",
+      "createdAt": "2026-10-23T13:23:48.000Z",
+      "updatedAt": "2026-10-25T05:14:32.000Z",
+      "lastActivityAt": "2026-10-25T05:14:32.000Z",
+      "locked": false,
+      "branches": {
+        "head": {
+          "ref": "fix-iterable-skipped-values",
+          "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "NgoQuocViet2001",
+            "name": "h3",
+            "externalId": "1430946265"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
+        },
+        "mergeCommitSha": "1151fd4dacb3f4f712447fcf760bc2f05ed71420"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1611",
+        "externalId": "PR_kwDOErHI988AAAABJ3wT1w"
+      },
+      "kind": "pull_request",
+      "title": "fix(node): don't listen for close/error after a synchronous next()",
+      "body": "### 🔗 Linked issue\n\nResolves #1610\n\n### ❓ Type of change\n\n- [x] 🐞 Bug fix (a non-breaking change that fixes an issue)\n\n### 📚 Description\n\n`callNodeListener` runs the handler first and only then registers `res.once(\"close\", next)` and `res.once(\"error\", next)`. A Node middleware that calls `next()` synchronously has already run `next`, and its `res.off(...)` found nothing to remove. The listeners are added afterwards and never removed. Each such layer leaves one `close` and one `error` listener on the response, so with more than 10 layers Node prints `MaxListenersExceededWarning`, as in the issue.\n\n`next` now sets a `called` flag, and the listeners are registered only if the handler returned without calling it. Everything else is unchanged:\n- a middleware that calls `next()` later still has its listeners, so `close` or `error` still settles it;\n- they are still removed when `next()` runs;\n- a returned value still resolves the promise.\n\nThis is against `v1`, since the report is for 1.15.11. `main`'s rewritten Node adapter doesn't register these per-middleware listeners, so it doesn't need the change. PR #1028 touched the same ordering for hanging responses; this change only stops the late registration.\n\nTest: in `test/app.test.ts`, 15 `fromNodeMiddleware((req, res, next) => next())` layers run before a final one that records `res.listenerCount(\"close\")` and `(\"error\")`. It expects `[0, 0]`, and on `v1` it fails. `vitest --run` passes all 356 tests (1 skipped), and `eslint`, `prettier -c` and `tsgo --noEmit` are clean (Node 22, offline).\n",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "bercedev",
+        "id": "75228263",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/75228263?v=4",
+        "url": "https://github.com/bercedev",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "v1",
+          "colour": "B42F7D",
+          "description": ""
+        }
+      ],
+      "url": "https://github.com/h3js/h3/pull/1611",
+      "createdAt": "2026-10-21T19:46:55.000Z",
+      "updatedAt": "2026-10-22T05:50:31.000Z",
+      "lastActivityAt": "2026-10-22T05:50:31.000Z",
+      "locked": false,
+      "branches": {
+        "head": {
+          "ref": "fix/v1-sync-next-listeners",
+          "sha": "bd871c8e8b94e9978a9e79afd6b065f7cc54d24e",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "bercedev",
+            "name": "h3",
+            "externalId": "1428856706"
+          }
+        },
+        "base": {
+          "ref": "v1",
+          "sha": "9aa6f55f614a6c7b2a5ffb758bca0a03efc8dab6"
+        },
+        "mergeCommitSha": "e6144fdc290785b002b80e4aac6d039f74df21ca"
       }
     }
   ],
-  "total": 21,
+  "total": 27,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\""
+    "etag": "W/\"6552af1743b7fb7e21971c474700b4bf5a955950cca029f393560819a5c61f92\""
   },
-  "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\"",
+  "etag": "W/\"6552af1743b7fb7e21971c474700b4bf5a955950cca029f393560819a5c61f92\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 37,
+    "remaining": 32,
     "resetAt": "<now>",
     "resource": "core"
   }

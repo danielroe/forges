@@ -88,16 +88,16 @@
       "url": "https://gitlab.com/gitlab-org/cli/-/commit/0c561350727787beaa40e9a6fb2b9479370bb856"
     }
   ],
-  "total": 1613,
+  "total": 1665,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/search?id=gitlab-org%2Fcli&page=2&per_page=3&scope=commits&search=fix",
     "etag": "W/\"add6133a1fff51998b1e33cd0afadf80\""
   },
   "etag": "W/\"add6133a1fff51998b1e33cd0afadf80\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1907,
+    "limit": 100,
+    "remaining": 1,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

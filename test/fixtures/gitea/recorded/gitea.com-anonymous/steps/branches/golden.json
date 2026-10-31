@@ -1,18 +1,18 @@
 {
   "items": [
     {
+      "name": "renovate/dependencies",
+      "sha": "8b0a544cab130a0fdfd7a14c54557a94f7d354a9",
+      "isProtected": false
+    },
+    {
       "name": "main",
-      "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+      "sha": "2727270931cad7b28189dd155eaad706d29705e0",
       "isProtected": true
     },
     {
       "name": "finish-rewrite",
       "sha": "ee5a08c5b3263c1d10193f715124961aaff4f9cb",
-      "isProtected": false
-    },
-    {
-      "name": "renovate/dependencies",
-      "sha": "609afec71a073227dc0f98bbf4db83005980c290",
       "isProtected": false
     }
   ],

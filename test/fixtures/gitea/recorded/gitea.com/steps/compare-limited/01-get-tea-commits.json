@@ -6,12 +6,188 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=5&page=2&sha=main>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=5&page=127&sha=main>; rel=\"last\"",
-      "x-total": "635",
-      "x-total-count": "635",
+      "link": "<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=5&page=2&sha=main>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/tea/commits?limit=5&page=128&sha=main>; rel=\"last\"",
+      "x-total": "637",
+      "x-total-count": "637",
       "x-page": "1"
     },
     "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/2727270931cad7b28189dd155eaad706d29705e0",
+        "sha": "2727270931cad7b28189dd155eaad706d29705e0",
+        "created": "2026-10-23T22:02:03Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/2727270931cad7b28189dd155eaad706d29705e0",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/2727270931cad7b28189dd155eaad706d29705e0",
+          "author": {
+            "name": "LeonM",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-23T22:02:03Z"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-23T22:02:03Z"
+          },
+          "message": "feat(pulls): allow disabling agit prompt (#1025)\n\nAllow users to set TEA_USE_AGIT=0 or TEA_USE_AGIT=false to skip the interactive agit flow prompt during pull request creation.\n\nThis keeps the current default behavior unchanged and only suppresses the agit confirmation when the environment variable explicitly parses to false.\n\nVerified with:\n\n- go test ./modules/interact\n- go build ./...\n\n---------\n\nCo-authored-by: silverwind <redacted@example.invalid>\nCo-authored-by: Leon Müller <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/tea/pulls/1025\nReviewed-by: silverwind <redacted@example.invalid>\nCo-authored-by: LeonM <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/b211f3ab962cf4b65ecccd364f7730d050ffa9f2",
+            "sha": "b211f3ab962cf4b65ecccd364f7730d050ffa9f2",
+            "created": "2026-10-23T22:02:03Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 206012,
+          "login": "LeonM",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
+          "html_url": "https://gitea.com/LeonM",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "LeonM"
+        },
+        "committer": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 115,
+          "following_count": 95,
+          "starred_repos_count": 367,
+          "username": "lunny"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+            "sha": "9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "modules/interact/pull_create_test.go",
+            "status": "added"
+          },
+          {
+            "filename": "modules/interact/pull_create.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 76,
+          "additions": 70,
+          "deletions": 6
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+        "sha": "9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+        "created": "2026-10-22T02:33:20Z",
+        "html_url": "https://gitea.com/gitea/tea/commit/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9ee8cd6923f4b7f1fb10d40b22196ca47d883add",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-22T02:33:20Z"
+          },
+          "committer": {
+            "name": "silverwind",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-22T02:33:20Z"
+          },
+          "message": "fix(deps): update go toolchain directive to v1.26.10 [security] (#1148)\n\nThis PR contains the following updates:\n\n| Package | Type | Update | Change |\n|---|---|---|---|\n| [go](https://go.dev/) ([source](https://github.com/golang/go)) | toolchain | patch | `1.26.9` → `1.26.10` |\n\n---\n\n### Distrust compromised intermediate certificates in crypto/x509\n[CVE-2026-111943](https://nvd.nist.gov/vuln/detail/CVE-2026-111943) / [GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) / [RUSTSEC-2026-0381](https://rustsec.org/advisories/RUSTSEC-2026-0381.html) / [RUSTSEC-2026-0382](https://rustsec.org/advisories/RUSTSEC-2026-0382.html) / [RUSTSEC-2026-0383](https://rustsec.org/advisories/RUSTSEC-2026-0383.html)\n\n<details>\n<summary>More information</summary>\n\n#### Details\nOn most platforms, Go uses the given system root certificates. However, in some narrower cases, the system trust stores may not be updated without further action.\n\nTo defend against the narrower set of cases that may remain affected, a denylist was added in crypto/x509 to return an error when calling Verify with any of the known intermediate certificates that are no longer considered to be trustworthy.\n\n#### Severity\nUnknown\n\n#### References\n- [https://go.dev/cl/851047](https://go.dev/cl/851047)\n- [https://go.dev/issue/82345](https://go.dev/issue/82345)\n- [https://groups.google.com/g/golang-announce/c/66pojueaQek](https://groups.google.com/g/golang-announce/c/66pojueaQek)\n\nThis data is provided by [OSV](https://osv.dev/vulnerability/GO-2026-6809) and the [Go Vulnerability Database](https://github.com/golang/vulndb) ([CC-BY 4.0](https://github.com/golang/vulndb#license)).\n</details>\n\n---\n\n### Configuration\n\n📅 **Schedule**: (UTC)\n\n- Branch creation\n  - \"\"\n- Automerge\n  - At any time (no schedule defined)\n\n🚦 **Automerge**: Disabled by config. Please merge this manually once you are satisfied.\n\n♻ **Rebasing**: Whenever PR becomes conflicted, or you tick the rebase/retry checkbox.\n\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n - [ ] <!-- rebase-check -->If you want to rebase/retry this PR, check this box\n\n---\n\nThis PR has been generated by [Mend Renovate](https://github.com/renovatebot/renovate).\n<!--renovate-debug:eyJjcmVhdGVkSW5WZXIiOiI0My4xOTEuMiIsInVwZGF0ZWRJblZlciI6IjQzLjE5MS4yIiwidGFyZ2V0QnJhbmNoIjoibWFpbiIsImxhYmVscyI6W119-->\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1148\nReviewed-by: silverwind <redacted@example.invalid>\nCo-authored-by: Renovate Bot <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/3f85e7bdf265531a5db32534c73cad9395bdafea",
+            "sha": "3f85e7bdf265531a5db32534c73cad9395bdafea",
+            "created": "2026-10-22T02:33:20Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 44044,
+          "login": "renovate-bot",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Renovate Bot",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/a7012524a51bf2c579579dca81161ad6d64bc1cc3ea8e16098d9cbec42a84216",
+          "html_url": "https://gitea.com/renovate-bot",
+          "active": false,
+          "location": "",
+          "website": "https://renovatebot.com/",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "renovate-bot"
+        },
+        "committer": {
+          "id": 2021,
+          "login": "silverwind",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/a21c1db8b4934f6c674229dc96ad7897",
+          "html_url": "https://gitea.com/silverwind",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 1,
+          "starred_repos_count": 27,
+          "username": "silverwind"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
+            "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "go.mod",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 2,
+          "additions": 1,
+          "deletions": 1
+        }
+      },
       {
         "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/c5f674111ab7a61418829c66b240573400d46ae4",
         "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
@@ -50,7 +226,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -68,7 +244,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -2662,7 +2838,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -2680,7 +2856,7 @@
           "source_id": 0,
           "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
           "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
@@ -4528,598 +4704,6 @@
           "total": 52907,
           "additions": 18892,
           "deletions": 34015
-        }
-      },
-      {
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "sha": "12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "created": "2026-10-11T17:15:41Z",
-        "html_url": "https://gitea.com/gitea/tea/commit/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-        "commit": {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/12e415a7a7fcadc22745eae2b9fba98f00307a83",
-          "author": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:15:41Z"
-          },
-          "committer": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:15:41Z"
-          },
-          "message": "refactor: add services layer on the Gitea Go SDK (#1125)\n\n- `internal/services`: typed Gitea workflows built on `gitea.dev/sdk`, independent of CLI flags and terminal I/O: issues, pull requests, reviews, comments, labels, milestones, releases and assets, repositories, branches, wiki, Actions (workflows, runs, jobs, logs, artifacts, secrets, variables), organizations, teams, webhooks, notifications, SSH keys, tracked time, admin users, search and status.\n- SDK types are mapped to tea's own output types, so `--json` stays a stable contract. Requests the SDK cannot express yet (e.g. pull list filters, multi-status run lists, org label archiving) go through small raw helpers, each marked `TODO(sdk)` with the missing SDK piece.\n- Targets Gitea 28 or newer: no version or API-schema probing. List helpers fill pages capped by `MAX_RESPONSE_ITEMS`.\n\nNothing imports this package yet.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1125\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-            "sha": "1566cda32c85fb4f7e51f3bd1f98ea47bf75b8fb",
-            "created": "2026-10-11T17:15:41Z"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "committer": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "parents": [
-          {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-            "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "internal/services/action_logs.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_logs_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_values.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/action_values_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/actions.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/actions_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/admin_users.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/admin_users_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/api.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/api_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/artifacts.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/artifacts_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/attachments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/branches.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/branches_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/checks.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/checks_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/comments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/comments_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/convert.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/convert_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/draft.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/draft_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/errors.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/helpers.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/helpers_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/identity.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/identity_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_attachments.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_create_selectables.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_create_selectables_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_dependencies.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issue_labels_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issues.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/issues_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/label_selection.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/label_selection_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/metadata.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/metadata_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_deadline_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_selection.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/milestone_selection_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/notifications.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/notifications_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/organizations.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/organizations_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pagination_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pull_create_selectables.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pulls.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/pulls_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/raw.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/raw_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/releases.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/releases_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repositories.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repositories_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_search.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_search_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_setup.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/repository_setup_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/review_requests.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/review_requests_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/reviews.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/reviews_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/sdk.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/sdk_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/search.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/search_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/ssh_keys.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/ssh_keys_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/status.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/status_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/teams.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/teams_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/time.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/time_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/webhooks.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/webhooks_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/wiki.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/services/wiki_test.go",
-            "status": "added"
-          }
-        ],
-        "stats": {
-          "total": 9512,
-          "additions": 9512,
-          "deletions": 0
-        }
-      },
-      {
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-        "sha": "faea86cd948384deee5e192b7c3441c2d7861ef7",
-        "created": "2026-10-11T17:12:23Z",
-        "html_url": "https://gitea.com/gitea/tea/commit/faea86cd948384deee5e192b7c3441c2d7861ef7",
-        "commit": {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/faea86cd948384deee5e192b7c3441c2d7861ef7",
-          "author": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:12:23Z"
-          },
-          "committer": {
-            "name": "bircni",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-11T17:12:23Z"
-          },
-          "message": "refactor: add terminal output and forms package (#1124)\n\n- `internal/terminal`: streams and the prompting policy, interactive forms (issue, PR, review, merge, milestone), editor / pager / browser launching, JSON and `--jq` output.\n- An aligned table renderer and a record renderer for human output; both strip control and escape characters from server-supplied text so titles and bodies cannot inject terminal sequences.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1124\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/e57e7a2e9009062cced5eb316c008d985bb1c25f",
-            "sha": "e57e7a2e9009062cced5eb316c008d985bb1c25f",
-            "created": "2026-10-11T17:12:23Z"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "committer": {
-          "id": 173651,
-          "login": "bircni",
-          "type": "User",
-          "source_id": 0,
-          "full_name": "bircni",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-          "html_url": "https://gitea.com/bircni",
-          "active": false,
-          "location": "",
-          "website": "",
-          "description": "",
-          "followers_count": 0,
-          "following_count": 2,
-          "starred_repos_count": 2,
-          "username": "bircni"
-        },
-        "parents": [
-          {
-            "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/88b91faa546b69f651ea8eec5f935bc74ddf9097",
-            "sha": "88b91faa546b69f651ea8eec5f935bc74ddf9097",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "internal/terminal/browser.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/browser_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/color.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/color_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/editor.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/editor_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/issue_edit_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/issue_edit_form_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/issue_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/issue_form_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/merge_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/milestone_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/milestone_form_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/output.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/output_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/pager.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/pager_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/pull_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/pull_form_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/review_form.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/review_form_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/streams.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/streams_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/table.go",
-            "status": "added"
-          },
-          {
-            "filename": "internal/terminal/table_test.go",
-            "status": "added"
-          },
-          {
-            "filename": "go.mod",
-            "status": "modified"
-          },
-          {
-            "filename": "go.sum",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 1942,
-          "additions": 1941,
-          "deletions": 1
         }
       }
     ]

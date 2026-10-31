@@ -1,5 +1,5 @@
 {
-  "base": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+  "base": "c288b212f7e075776f2abbb069c022b227d3e858",
   "head": "forgejo",
   "aheadBy": 4,
   "commits": [
@@ -13,46 +13,46 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10"
+        "sha": "202d2bc5654b7194a38c009fb4bb1f7512b2ca70"
       },
-      "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "202d2bc5654b7194a38c009fb4bb1f7512b2ca70",
+      "message": "chore: improve formatting consistency in E2E documentation (#15021)\n\nFormatting here was inconsistent, so I made a few improvements.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15021\nReviewed-by: Gusted <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "AverageHelper",
-          "id": "135189",
-          "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "url": "https://codeberg.org/AverageHelper",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
           "isBotHint": false
         },
-        "name": "AverageHelper",
+        "name": "0ko",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "2026-10-25T15:19:28.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "0ko",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "2026-10-25T15:19:28.000Z"
       },
       "parents": [
-        "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
+        "55849de717c317b217ae10f0c61e96db1d47e184"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/202d2bc5654b7194a38c009fb4bb1f7512b2ca70",
       "stats": {
-        "additions": 41,
-        "deletions": 27,
-        "total": 68
+        "additions": 30,
+        "deletions": 31,
+        "total": 61
       }
     },
     {
@@ -65,46 +65,46 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
+        "sha": "55849de717c317b217ae10f0c61e96db1d47e184"
       },
-      "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-      "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "55849de717c317b217ae10f0c61e96db1d47e184",
+      "message": "Update module github.com/golangci/golangci-lint/v2/cmd/golangci-lint to v2.15.0 (forgejo) (#15012)\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "oliverpool",
-          "id": "32636",
-          "avatarUrl": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
-          "url": "https://codeberg.org/oliverpool",
+          "login": "viceice-bot",
+          "id": "141082",
+          "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "url": "https://codeberg.org/viceice-bot",
           "isBotHint": false
         },
-        "name": "oliverpool",
+        "name": "Renovate Bot",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-10-25T09:32:21.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "viceice-bot",
+          "id": "141082",
+          "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
+          "url": "https://codeberg.org/viceice-bot",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "viceice-bot",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-10-25T09:32:21.000Z"
       },
       "parents": [
-        "27ae2d7b675d2a4b3589cc7f2489b105b628275e"
+        "ab39b634917665587a59f78ef06e0763edbca226"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/55849de717c317b217ae10f0c61e96db1d47e184",
       "stats": {
-        "additions": 53,
-        "deletions": 11,
-        "total": 64
+        "additions": 1,
+        "deletions": 1,
+        "total": 2
       }
     }
   ],

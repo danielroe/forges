@@ -1,35 +1,37 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.repo.issue&limit=10"
+    "url": "https://npmx.social/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&collection=sh.tangled.label.op&limit=10"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"271-3DzGVDnndzw+7GsKLj65FJNUzas\"",
+      "etag": "W/\"1e3-KnITSZExl9maLvWzQZ5bGS69vaI\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2994",
-      "ratelimit-reset": "1792385016",
+      "ratelimit-remaining": "2988",
+      "ratelimit-reset": "1792989905",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
         {
-          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.repo.issue/3mpy7r7dvzc22",
-          "cid": "bafyreie4w3v2yvlxvni4qeuekd5f7sv4nw546gppd7qhgazmev27gazuiy",
+          "uri": "at://did:plc:jbeaa5kdaladzwq3r7f5xgwe/sh.tangled.label.op/3myh6sttftf25",
+          "cid": "bafyreiamdcqmtslb5v2dozlhvu5gwbhnkomngghgrl4hzwge6hf2hyoz3u",
           "value": {
-            "body": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard ",
-            "repo": "did:plc:g4lh56ouiwlcyhukzkjvy75g",
-            "$type": "sh.tangled.repo.issue",
-            "title": "handle duplicate names ",
-            "mentions": [
-              "did:plc:wcx4c3osbuzrwmxkqdfqygwv"
+            "add": [
+              {
+                "key": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/good-first-issue",
+                "value": "null"
+              }
             ],
-            "createdAt": "2026-07-06T13:41:27Z"
+            "$type": "sh.tangled.label.op",
+            "delete": [],
+            "subject": "at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.issue/3mtyvuaddbl22",
+            "performedAt": "2026-10-22T07:55:57.123Z"
           }
         }
       ],
-      "cursor": "3mpy7r7dvzc22"
+      "cursor": "3myh6sttftf25"
     }
   }
 }

@@ -1,8 +1,37 @@
 {
-  "base": "47894e682901c62f0b643e91bca548a265ba3f7b",
+  "base": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a",
   "head": "main",
   "aheadBy": 4,
   "commits": [
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
+        "sha": "f06ebf47976e1e285bb6cda294d9f160a509fb01"
+      },
+      "sha": "f06ebf47976e1e285bb6cda294d9f160a509fb01",
+      "message": "Add forges-fixtures/20261020100831-1.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-20T10:08:37.000Z"
+      },
+      "parents": [],
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/commit/f06ebf47976e1e285bb6cda294d9f160a509fb01",
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
+      }
+    },
     {
       "ref": {
         "forge": "tangled",
@@ -31,37 +60,8 @@
         "deletions": 0,
         "total": 1
       }
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
-          "ownerHandle": "roebot.tngl.sh"
-        },
-        "sha": "529a0d09b8e207fe3ca5b299bd6c1b7135133703"
-      },
-      "sha": "529a0d09b8e207fe3ca5b299bd6c1b7135133703",
-      "message": "Add forges-fixtures/20261012220452-1.md",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-12T22:04:57.000Z"
-      },
-      "parents": [],
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/commit/529a0d09b8e207fe3ca5b299bd6c1b7135133703",
-      "stats": {
-        "additions": 1,
-        "deletions": 0,
-        "total": 1
-      }
     }
   ],
   "files": [],
-  "mergeBaseSha": "47894e682901c62f0b643e91bca548a265ba3f7b"
+  "mergeBaseSha": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
 }

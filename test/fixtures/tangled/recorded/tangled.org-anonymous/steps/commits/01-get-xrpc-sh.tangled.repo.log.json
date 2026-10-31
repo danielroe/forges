@@ -10,6 +10,68 @@
       "commits": [
         {
           "hash": [
+            240,
+            110,
+            191,
+            71,
+            151,
+            110,
+            30,
+            40,
+            91,
+            182,
+            205,
+            162,
+            148,
+            217,
+            241,
+            96,
+            165,
+            9,
+            251,
+            1
+          ],
+          "author": {
+            "Name": "forges fixtures",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-20T10:08:37Z"
+          },
+          "committer": {
+            "Name": "Tangled",
+            "Email": "redacted@example.invalid",
+            "When": "2026-10-20T10:09:26Z"
+          },
+          "message": "Add forges-fixtures/20261020100831-1.md\n",
+          "tree": "3b7c48619cc9b1a79806eca050a84c530ef78c74",
+          "parent_hashes": [
+            [
+              130,
+              186,
+              214,
+              67,
+              56,
+              10,
+              84,
+              60,
+              143,
+              203,
+              20,
+              19,
+              221,
+              232,
+              236,
+              236,
+              153,
+              22,
+              217,
+              116
+            ]
+          ],
+          "this": "f06ebf47976e1e285bb6cda294d9f160a509fb01",
+          "parent": "82bad643380a543c8fcb1413dde8ecec9916d974"
+        },
+        {
+          "hash": [
             130,
             186,
             214,
@@ -131,72 +193,10 @@
           ],
           "this": "529a0d09b8e207fe3ca5b299bd6c1b7135133703",
           "parent": "c0bb543486e6c8a1853dade35c3ac475ad062af3"
-        },
-        {
-          "hash": [
-            192,
-            187,
-            84,
-            52,
-            134,
-            230,
-            200,
-            161,
-            133,
-            61,
-            173,
-            227,
-            92,
-            58,
-            196,
-            117,
-            173,
-            6,
-            42,
-            243
-          ],
-          "author": {
-            "Name": "forges fixtures",
-            "Email": "redacted@example.invalid",
-            "When": "2026-10-12T11:42:34Z"
-          },
-          "committer": {
-            "Name": "Tangled",
-            "Email": "redacted@example.invalid",
-            "When": "2026-10-12T11:42:49Z"
-          },
-          "message": "Add forges-fixtures/20261012114229-1.md\n",
-          "tree": "7a5f6600d78797deaf6eeded0703fb437ea2095f",
-          "parent_hashes": [
-            [
-              127,
-              229,
-              178,
-              159,
-              228,
-              242,
-              45,
-              96,
-              234,
-              9,
-              197,
-              236,
-              32,
-              163,
-              216,
-              92,
-              61,
-              86,
-              228,
-              10
-            ]
-          ],
-          "this": "c0bb543486e6c8a1853dade35c3ac475ad062af3",
-          "parent": "7fe5b29fe4f22d60ea09c5ec20a3d85c3d56e40a"
         }
       ],
       "log": true,
-      "total": 9,
+      "total": 10,
       "page": 1,
       "per_page": 3
     }

@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/contributors?anon=1&per_page=30&page=2>; rel=\"next\", <https://api.github.com/repositories/313641207/contributors?anon=1&per_page=30&page=7>; rel=\"last\"",
-      "etag": "W/\"07e0e010245d59475a15ec911771fcca9abfbf054e39196aa7acb10a2437744e\"",
+      "etag": "W/\"4cdfa939a9c6abb4e4cf31d7f56343968ba165864d73a35f12706a845f12e342\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "54",
-      "x-ratelimit-reset": "1792377104",
+      "x-ratelimit-remaining": "53",
+      "x-ratelimit-reset": "1792993186",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -34,7 +34,7 @@
         "type": "User",
         "user_view_type": "public",
         "site_admin": false,
-        "contributions": 985
+        "contributions": 988
       },
       {
         "login": "renovate[bot]",
@@ -78,7 +78,7 @@
         "type": "User",
         "user_view_type": "public",
         "site_admin": false,
-        "contributions": 53
+        "contributions": 56
       },
       {
         "login": "danielroe",

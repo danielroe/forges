@@ -6,58 +6,58 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2>; rel=\"next\", <https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=150>; rel=\"last\"",
+      "link": "<https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2>; rel=\"next\", <https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=151>; rel=\"last\"",
       "x-ratelimit-limit": "30",
       "x-ratelimit-remaining": "26",
-      "x-ratelimit-reset": "1792384828",
+      "x-ratelimit-reset": "1792989732",
       "x-ratelimit-resource": "search"
     },
     "body": {
-      "total_count": 448,
+      "total_count": 451,
       "incomplete_results": false,
       "items": [
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmY0ZWJkNGU5YWI0ZGUxZDA2OTQyNjU4OTZlNDFlN2QyYTJkZDQyZDg=",
-          "html_url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+          "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmY5MGY0YzhlNGQ4MGVlNTRkZDI4NDVjOTMzYjQ3YTUzYzJkZTVmYTU=",
+          "html_url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
             "author": {
-              "date": "2026-10-17T20:49:51.000+09:00",
-              "name": "otowa1",
+              "date": "2026-10-22T14:50:05.000+09:00",
+              "name": "pi0x",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-17T20:49:51.000+09:00",
+              "date": "2026-10-22T14:50:05.000+09:00",
               "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "docs: fix code example (#1587)",
+            "message": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors (#1613)",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/f631228e7e99bffcb275eb3b2fde7eda0c83a0a4",
-              "sha": "f631228e7e99bffcb275eb3b2fde7eda0c83a0a4"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/e8a3094ee9abbbdeb2d33c4d8c8e0d2c6e213241",
+              "sha": "e8a3094ee9abbbdeb2d33c4d8c8e0d2c6e213241"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "otowa1",
-            "id": 90172742,
+            "login": "pi0x",
+            "id": 286783767,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/90172742?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/otowa1",
-            "html_url": "https://github.com/otowa1",
-            "followers_url": "https://api.github.com/users/otowa1/followers",
-            "following_url": "https://api.github.com/users/otowa1/following{/other_user}",
-            "gists_url": "https://api.github.com/users/otowa1/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/otowa1/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/otowa1/subscriptions",
-            "organizations_url": "https://api.github.com/users/otowa1/orgs",
-            "repos_url": "https://api.github.com/users/otowa1/repos",
-            "events_url": "https://api.github.com/users/otowa1/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/otowa1/received_events",
+            "url": "https://api.github.com/users/pi0x",
+            "html_url": "https://github.com/pi0x",
+            "followers_url": "https://api.github.com/users/pi0x/followers",
+            "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+            "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+            "organizations_url": "https://api.github.com/users/pi0x/orgs",
+            "repos_url": "https://api.github.com/users/pi0x/repos",
+            "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/pi0x/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
@@ -85,9 +85,9 @@
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/0835b7da1348ce02c736dc0c1d6f195ecba4d32c",
-              "html_url": "https://github.com/h3js/h3/commit/0835b7da1348ce02c736dc0c1d6f195ecba4d32c",
-              "sha": "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
+              "url": "https://api.github.com/repos/h3js/h3/commits/9d70cf30099281668929e097d1fd0a18778af5d3",
+              "html_url": "https://github.com/h3js/h3/commit/9d70cf30099281668929e097d1fd0a18778af5d3",
+              "sha": "9d70cf30099281668929e097d1fd0a18778af5d3"
             }
           ],
           "repository": {
@@ -161,77 +161,77 @@
           "score": 1
         },
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OjQ4ZDY1MGJlODk0MjJjZDVkMDZmNGNkN2EwMmZjYmY0MzAwZDk2ZGY=",
-          "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc",
+          "sha": "1326e74d55696758b87274d84d133b4944495afc",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OjEzMjZlNzRkNTU2OTY3NThiODcyNzRkODRkMTMzYjQ5NDQ0OTVhZmM=",
+          "html_url": "https://github.com/h3js/h3/commit/1326e74d55696758b87274d84d133b4944495afc",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/1326e74d55696758b87274d84d133b4944495afc/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/1326e74d55696758b87274d84d133b4944495afc",
             "author": {
-              "date": "2026-10-18T13:53:32.000Z",
-              "name": "Pooya Parsa",
+              "date": "2026-10-21T00:40:08.000+09:00",
+              "name": "pi0x",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-18T13:59:46.000Z",
-              "name": "Pooya Parsa",
+              "date": "2026-10-21T00:40:08.000+09:00",
+              "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+            "message": "fix: keep middleware-staged headers out of handler-level caches (#1608)",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/f60a2a47abeb5c7bf7b5e46049cc312f2239f930",
-              "sha": "f60a2a47abeb5c7bf7b5e46049cc312f2239f930"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/1a1f9db2f3bf16dd5ccf505873f3d9541dc73d64",
+              "sha": "1a1f9db2f3bf16dd5ccf505873f3d9541dc73d64"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "pi0x",
+            "id": 286783767,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/pi0x",
+            "html_url": "https://github.com/pi0x",
+            "followers_url": "https://api.github.com/users/pi0x/followers",
+            "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+            "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+            "organizations_url": "https://api.github.com/users/pi0x/orgs",
+            "repos_url": "https://api.github.com/users/pi0x/repos",
+            "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/pi0x/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "committer": {
-            "login": "pi0",
-            "id": 5158436,
+            "login": "web-flow",
+            "id": 19864447,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/pi0",
-            "html_url": "https://github.com/pi0",
-            "followers_url": "https://api.github.com/users/pi0/followers",
-            "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-            "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-            "organizations_url": "https://api.github.com/users/pi0/orgs",
-            "repos_url": "https://api.github.com/users/pi0/repos",
-            "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/pi0/received_events",
+            "url": "https://api.github.com/users/web-flow",
+            "html_url": "https://github.com/web-flow",
+            "followers_url": "https://api.github.com/users/web-flow/followers",
+            "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+            "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+            "organizations_url": "https://api.github.com/users/web-flow/orgs",
+            "repos_url": "https://api.github.com/users/web-flow/repos",
+            "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/web-flow/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/b64166ae78a68dd15c41e5bdf21af4d235804876",
-              "html_url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876",
-              "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
+              "url": "https://api.github.com/repos/h3js/h3/commits/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+              "html_url": "https://github.com/h3js/h3/commit/31062a07254e61a2826bd87b0a7ed63fe89ff283",
+              "sha": "31062a07254e61a2826bd87b0a7ed63fe89ff283"
             }
           ],
           "repository": {
@@ -305,47 +305,47 @@
           "score": 1
         },
         {
-          "url": "https://api.github.com/repos/h3js/h3/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmVmMzhkYTk5ZDRlM2I5ZjgzNzcyNWUyYjM5OGNlNzNhMTczZDAwN2Q=",
-          "html_url": "https://github.com/h3js/h3/commit/ef38da99d4e3b9f837725e2b398ce73a173d007d",
-          "comments_url": "https://api.github.com/repos/h3js/h3/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d/comments",
+          "url": "https://api.github.com/repos/h3js/h3/commits/d658815890cce9dc10927564b9b2231c34af513b",
+          "sha": "d658815890cce9dc10927564b9b2231c34af513b",
+          "node_id": "MDY6Q29tbWl0MzEzNjQxMjA3OmQ2NTg4MTU4OTBjY2U5ZGMxMDkyNzU2NGI5YjIyMzFjMzRhZjUxM2I=",
+          "html_url": "https://github.com/h3js/h3/commit/d658815890cce9dc10927564b9b2231c34af513b",
+          "comments_url": "https://api.github.com/repos/h3js/h3/commits/d658815890cce9dc10927564b9b2231c34af513b/comments",
           "commit": {
-            "url": "https://api.github.com/repos/h3js/h3/git/commits/ef38da99d4e3b9f837725e2b398ce73a173d007d",
+            "url": "https://api.github.com/repos/h3js/h3/git/commits/d658815890cce9dc10927564b9b2231c34af513b",
             "author": {
-              "date": "2026-10-17T17:20:19.000+05:30",
-              "name": "Satvik Mishra",
+              "date": "2026-10-20T22:57:23.000+09:00",
+              "name": "pi0x",
               "email": "redacted@example.invalid"
             },
             "committer": {
-              "date": "2026-10-17T20:50:19.000+09:00",
+              "date": "2026-10-20T22:57:23.000+09:00",
               "name": "GitHub",
               "email": "redacted@example.invalid"
             },
-            "message": "docs: fix broken section anchors (#1577)",
+            "message": "fix(rules): keep middleware-staged headers out of `cache` entries (#1606)",
             "tree": {
-              "url": "https://api.github.com/repos/h3js/h3/git/trees/9feb88f7010d519fd06ac5fce2804881ded28356",
-              "sha": "9feb88f7010d519fd06ac5fce2804881ded28356"
+              "url": "https://api.github.com/repos/h3js/h3/git/trees/a4aa8807578eb826ee49247a3c83487757596a59",
+              "sha": "a4aa8807578eb826ee49247a3c83487757596a59"
             },
             "comment_count": 0
           },
           "author": {
-            "login": "SatvikMishra08",
-            "id": 89024979,
+            "login": "pi0x",
+            "id": 286783767,
             "node_id": "REDACTED",
-            "avatar_url": "https://avatars.githubusercontent.com/u/89024979?v=4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/286783767?v=4",
             "gravatar_id": "",
-            "url": "https://api.github.com/users/SatvikMishra08",
-            "html_url": "https://github.com/SatvikMishra08",
-            "followers_url": "https://api.github.com/users/SatvikMishra08/followers",
-            "following_url": "https://api.github.com/users/SatvikMishra08/following{/other_user}",
-            "gists_url": "https://api.github.com/users/SatvikMishra08/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/SatvikMishra08/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/SatvikMishra08/subscriptions",
-            "organizations_url": "https://api.github.com/users/SatvikMishra08/orgs",
-            "repos_url": "https://api.github.com/users/SatvikMishra08/repos",
-            "events_url": "https://api.github.com/users/SatvikMishra08/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/SatvikMishra08/received_events",
+            "url": "https://api.github.com/users/pi0x",
+            "html_url": "https://github.com/pi0x",
+            "followers_url": "https://api.github.com/users/pi0x/followers",
+            "following_url": "https://api.github.com/users/pi0x/following{/other_user}",
+            "gists_url": "https://api.github.com/users/pi0x/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/pi0x/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/pi0x/subscriptions",
+            "organizations_url": "https://api.github.com/users/pi0x/orgs",
+            "repos_url": "https://api.github.com/users/pi0x/repos",
+            "events_url": "https://api.github.com/users/pi0x/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/pi0x/received_events",
             "type": "User",
             "user_view_type": "public",
             "site_admin": false
@@ -373,9 +373,9 @@
           },
           "parents": [
             {
-              "url": "https://api.github.com/repos/h3js/h3/commits/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-              "html_url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-              "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+              "url": "https://api.github.com/repos/h3js/h3/commits/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+              "html_url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df",
+              "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
             }
           ],
           "repository": {

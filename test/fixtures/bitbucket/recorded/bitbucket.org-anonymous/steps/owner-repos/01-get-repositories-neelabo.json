@@ -6,10 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"f40ac238b441202dea7b030a15e3c29a\"",
-      "x-ratelimit-limit": "60, 60;w=3600",
-      "x-ratelimit-remaining": "59",
-      "x-ratelimit-reset": "1000"
+      "etag": "W/\"baa4489fd9aa009cff2f6f33cd4d8ef1\""
     },
     "body": {
       "values": [
@@ -57,7 +54,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/neeview.git"
+                "href": "git@ssh.bitbucket.org:neelabo/neeview.git"
               }
             ],
             "issues": {
@@ -187,7 +184,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/iconmaker.git"
+                "href": "git@ssh.bitbucket.org:neelabo/iconmaker.git"
               }
             ],
             "issues": {
@@ -317,7 +314,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/resxxlsxconv.git"
+                "href": "git@ssh.bitbucket.org:neelabo/resxxlsxconv.git"
               }
             ],
             "hooks": {

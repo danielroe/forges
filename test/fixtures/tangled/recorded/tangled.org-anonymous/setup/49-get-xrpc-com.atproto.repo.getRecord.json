@@ -1,96 +1,46 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tranquil.bwc9876.dev/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ax7tlupbnqot7nu6udnffnv4h&collection=sh.tangled.repo.pull&rkey=3mx64pa4jci22"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.pull&rkey=3mxhm5yldov22"
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "etag": "W/\"27e-qToxJvEaWTreYLAlWR/UYd9/Zyg\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2913",
+      "ratelimit-reset": "1792989897",
+      "ratelimit-policy": "3000;w=300"
+    },
     "body": {
-      "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4jci22",
-      "cid": "bafyreid2rcunb4b275wyh6qabnwhlqfgwhl2iwv42zdeknqlfnxdcva36a",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22",
+      "cid": "bafyreieko4shqsunw47uvcxa7ycrhwkkcczldd4j3ylmhp62lps5kzu4oi",
       "value": {
+        "body": "Edited by run 20261011212149.",
         "$type": "sh.tangled.repo.pull",
-        "body": "",
-        "createdAt": "2026-10-15T18:26:46+03:00",
-        "dependentOn": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322",
+        "title": "forges seed: pull",
         "rounds": [
           {
-            "createdAt": "2026-10-05T23:58:59Z",
+            "createdAt": "2026-10-09T21:29:38+03:00",
             "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
               "ref": {
-                "$link": "bafkreicxmekh4oqx6yz2v6l2b77wfsfkj2qjz5ofq65vmjnhqlwpipbajm"
+                "$link": "bafkreicqsnafmjdy22szssmis2jf56igucmyxsrc6demlbs6nmi2bgd6ci"
               },
-              "size": 1382
-            }
-          },
-          {
-            "createdAt": "2026-10-06T00:16:20Z",
-            "patchBlob": {
+              "size": 422,
               "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreibcurhe37krcnqhe43kij7shfnbmo55u766if6nftcaba7w34ajvm"
-              },
-              "size": 1383
-            }
-          },
-          {
-            "createdAt": "2026-10-06T01:59:15Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreihy5klyblfwf4kfjmle6qihgfs5wwillwwqmpdo5rjprhstvngpje"
-              },
-              "size": 1383
-            }
-          },
-          {
-            "createdAt": "2026-10-06T15:15:38Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreibbu2lrx3nlsqxdumv2pauvowi6xbeswwd3wgtv3kx62tlxufcgp4"
-              },
-              "size": 1383
-            }
-          },
-          {
-            "createdAt": "2026-10-07T19:46:34Z",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreid5aaufz7rurl7lrbl3cdedbey2oddqq3a62257woavmutrb7jrmi"
-              },
-              "size": 1384
-            }
-          },
-          {
-            "createdAt": "2026-10-15T18:26:47+03:00",
-            "patchBlob": {
-              "$type": "blob",
-              "mimeType": "application/gzip",
-              "ref": {
-                "$link": "bafkreiaxwzyxn7jxvxojl6xvnbhro2wruqk2t5noqtuhhr7s75sumghj6q"
-              },
-              "size": 1384
+              "mimeType": "application/gzip"
             }
           }
         ],
         "source": {
-          "branch": "ben/init-basic-apps"
+          "branch": "bo"
         },
         "target": {
+          "repo": "did:plc:t73o44q7fppgagkrevtztyok",
           "branch": "main",
-          "repo": "did:plc:6z743ym5lwe7k6m6dqd6yjha",
-          "repoDid": "did:plc:6z743ym5lwe7k6m6dqd6yjha"
+          "repoDid": "did:plc:t73o44q7fppgagkrevtztyok"
         },
-        "title": "templates: create _layout.jinja for actual pages, _base.jinja now for misc."
+        "createdAt": "2026-10-09T21:29:38+03:00"
       }
     }
   }

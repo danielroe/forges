@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:xasnlahkri4ewmbuzly2rlc5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"22c-Wrrsd49Yn4JqCXwThyyGaFEl8aY\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:xasnlahkri4ewmbuzly2rlc5",
+      "alsoKnownAs": [
+        "at://boltless.me"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:xasnlahkri4ewmbuzly2rlc5#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:xasnlahkri4ewmbuzly2rlc5",
+          "publicKeyMultibase": "zQ3shcYf96RREJxP5gGRjtPDbz4PMJNkm1JTYDBaEPHHvqjYj"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://woodear.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

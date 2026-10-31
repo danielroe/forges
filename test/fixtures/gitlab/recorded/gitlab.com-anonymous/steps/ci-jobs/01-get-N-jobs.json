@@ -1,112 +1,105 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?per_page=3"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2987974320/jobs?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2961499559>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2961499559>; rel=\"last\"",
-      "etag": "W/\"365699f5227458944a772de9dfbb56b1\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2987974320/jobs?id=gitlab-org%2Fcli&include_retried=false&page=2&per_page=3&pipeline_id=2987974320>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2987974320/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2987974320>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2987974320/jobs?id=gitlab-org%2Fcli&include_retried=false&page=8&per_page=3&pipeline_id=2987974320>; rel=\"last\"",
+      "etag": "W/\"c4f0ed4037179d99a3eee41fa6c9a556\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "449",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "448",
+      "ratelimit-reset": "1792989720",
       "ratelimit-name": "throttle_unauthenticated_api",
-      "x-total": "1",
-      "x-total-pages": "1",
-      "x-next-page": "",
+      "x-total": "22",
+      "x-total-pages": "8",
+      "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": 17272413278,
-        "status": "success",
+        "id": 17456755964,
+        "status": "running",
         "stage": "build",
-        "name": "workload",
-        "ref": "refs/workloads/86279be7d1a",
+        "name": "snapcraft_build_edge",
+        "ref": "refs/merge-requests/4212/train",
         "tag": false,
         "coverage": null,
         "allow_failure": false,
-        "created_at": "2026-10-19T03:47:24.028Z",
-        "started_at": "2026-10-19T03:47:24.425Z",
-        "finished_at": "2026-10-19T03:48:30.898Z",
+        "created_at": "2026-10-26T04:30:34.844Z",
+        "started_at": "2026-10-26T04:41:05.315Z",
+        "finished_at": null,
         "erased_at": null,
-        "duration": 66.473253,
-        "queued_duration": 0.127501,
+        "duration": 13.624202708,
+        "queued_duration": 0.289807,
         "user": {
-          "id": 32742181,
-          "username": "duo-code-review-gitlab-org",
-          "public_email": null,
-          "name": "Duo Code Review",
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
-          "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
-          "created_at": "2026-01-07T09:48:25.291Z",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
-          "location": "",
-          "linkedin": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
           "twitter": "",
           "discord": "",
           "website_url": "",
           "github": "",
-          "job_title": "",
-          "pronouns": null,
-          "organization": "",
-          "bot": true,
-          "work_information": null,
-          "followers": 0,
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
           "following": 0,
-          "local_time": null
+          "local_time": "2:41 PM"
         },
         "commit": {
-          "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "short_id": "e74ebf81",
-          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "id": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "short_id": "6d05740e",
+          "created_at": "2026-10-26T14:30:33.000+10:00",
           "parent_ids": [
-            "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-            "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+            "5419ed460090e2d6cce66a7cef92ffd4c60f8585",
+            "be74cecccf7ca05739e882c34df42f180f021a8b"
           ],
-          "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-          "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+          "title": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'",
+          "message": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'\n\nchore(deps): update dependency @commitlint/lint to ^21.2.4\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4212\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T12:02:22.000+10:00",
+          "authored_date": "2026-10-26T14:30:33.000+10:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T12:02:22.000+10:00",
+          "committed_date": "2026-10-26T14:30:33.000+10:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7"
         },
         "pipeline": {
-          "id": 2961499559,
-          "iid": 15548,
+          "id": 2987974320,
+          "iid": 15979,
           "project_id": 34675721,
-          "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "ref": "refs/workloads/86279be7d1a",
-          "status": "success",
-          "source": "duo_workflow",
-          "created_at": "2026-10-19T03:47:23.987Z",
-          "updated_at": "2026-10-19T03:48:32.298Z",
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559"
+          "sha": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "ref": "refs/merge-requests/4212/train",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-26T04:30:34.592Z",
+          "updated_at": "2026-10-26T04:30:37.866Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2987974320"
         },
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17456755964",
         "project": {
           "ci_job_token_scope_enabled": false
         },
-        "artifacts": [
-          {
-            "file_type": "trace",
-            "size": 116390,
-            "filename": "job.log",
-            "file_format": null
-          }
-        ],
+        "artifacts": [],
         "runner": {
-          "id": 54907241,
-          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
           "ip_address": null,
           "active": true,
           "paused": false,
@@ -115,28 +108,28 @@
           "name": null,
           "online": true,
           "created_by": {
-            "id": 6515150,
-            "username": "rhassanein-admin",
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
             "public_email": "",
-            "name": "Rehab Hassanein",
+            "name": "Igor Wiedler",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
-            "web_url": "https://gitlab.com/rhassanein-admin"
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
           },
-          "created_at": "2026-08-06T11:12:30.404Z",
+          "created_at": "2026-08-19T15:31:33.905Z",
           "status": "online",
           "job_execution_status": "active"
         },
         "runner_manager": {
-          "id": 163225755,
-          "system_id": "r_0pGmWpFnG2XF",
-          "version": "19.6.0~pre.2336.g77694893",
-          "revision": "77694893",
+          "id": 164739007,
+          "system_id": "r_0P4yCGfmexK5",
+          "version": "19.6.0~pre.2364.gcc7d9535",
+          "revision": "cc7d9535",
           "platform": "linux",
           "architecture": "amd64",
-          "created_at": "2026-10-16T16:25:32.520Z",
-          "contacted_at": "2026-10-19T04:40:15.153Z",
+          "created_at": "2026-10-23T16:57:53.720Z",
+          "contacted_at": "2026-10-26T04:41:17.799Z",
           "ip_address": "10.218.11.3",
           "status": "online",
           "job_execution_status": "active"
@@ -144,7 +137,295 @@
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
-          "gitlab--duo"
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17456755963,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [arm64]",
+        "ref": "refs/merge-requests/4212/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-26T04:30:34.844Z",
+        "started_at": "2026-10-26T04:30:37.686Z",
+        "finished_at": "2026-10-26T04:33:00.658Z",
+        "erased_at": null,
+        "duration": 142.972523,
+        "queued_duration": 0.173211,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:41 PM"
+        },
+        "commit": {
+          "id": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "short_id": "6d05740e",
+          "created_at": "2026-10-26T14:30:33.000+10:00",
+          "parent_ids": [
+            "5419ed460090e2d6cce66a7cef92ffd4c60f8585",
+            "be74cecccf7ca05739e882c34df42f180f021a8b"
+          ],
+          "title": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'",
+          "message": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'\n\nchore(deps): update dependency @commitlint/lint to ^21.2.4\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4212\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-26T14:30:33.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-26T14:30:33.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7"
+        },
+        "pipeline": {
+          "id": 2987974320,
+          "iid": 15979,
+          "project_id": 34675721,
+          "sha": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "ref": "refs/merge-requests/4212/train",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-26T04:30:34.592Z",
+          "updated_at": "2026-10-26T04:30:37.866Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2987974320"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17456755963",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 17154406
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 17154406,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 189,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10530,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 164739008,
+          "system_id": "r_PZm2EYvVzLd9",
+          "version": "19.6.0~pre.2364.gcc7d9535",
+          "revision": "cc7d9535",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-23T16:57:53.742Z",
+          "contacted_at": "2026-10-26T04:41:15.273Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-02T04:32:58.977Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17456755962,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [amd64]",
+        "ref": "refs/merge-requests/4212/train",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-10-26T04:30:34.844Z",
+        "started_at": "2026-10-26T04:30:37.585Z",
+        "finished_at": "2026-10-26T04:32:44.755Z",
+        "erased_at": null,
+        "duration": 127.169942,
+        "queued_duration": 0.158074,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792989040",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:41 PM"
+        },
+        "commit": {
+          "id": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "short_id": "6d05740e",
+          "created_at": "2026-10-26T14:30:33.000+10:00",
+          "parent_ids": [
+            "5419ed460090e2d6cce66a7cef92ffd4c60f8585",
+            "be74cecccf7ca05739e882c34df42f180f021a8b"
+          ],
+          "title": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'",
+          "message": "Merge branch 'renovate/commitlint-lint-21.x' into 'main'\n\nchore(deps): update dependency @commitlint/lint to ^21.2.4\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4212\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-10-26T14:30:33.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-10-26T14:30:33.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7"
+        },
+        "pipeline": {
+          "id": 2987974320,
+          "iid": 15979,
+          "project_id": 34675721,
+          "sha": "6d05740e3f68a3dfa7c1d7b3868dd2a448f14ce7",
+          "ref": "refs/merge-requests/4212/train",
+          "status": "running",
+          "source": "merge_request_event",
+          "created_at": "2026-10-26T04:30:34.592Z",
+          "updated_at": "2026-10-26T04:30:37.866Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2987974320"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17456755962",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 18979287
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 18979287,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 189,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10530,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 164739006,
+          "system_id": "r_XFTKzxm4it7v",
+          "version": "19.6.0~pre.2364.gcc7d9535",
+          "revision": "cc7d9535",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-10-23T16:57:53.641Z",
+          "contacted_at": "2026-10-26T04:41:17.978Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-02T04:32:43.500Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
         ]
       }
     ]

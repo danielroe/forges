@@ -10,58 +10,29 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "197466"
-      },
-      "name": "test.yml",
-      "state": "failure",
-      "stateRaw": "failure",
-      "number": "24006",
-      "eventRaw": "pull_request",
-      "sha": "f0d739b7ad9b886d11ba6540845872355ec2936f",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "login": "eleboucher",
-        "id": "2226",
-        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
-        "url": "https://code.forgejo.org/eleboucher",
-        "isBotHint": false
-      },
-      "createdAt": "2026-10-18T17:32:43.000Z",
-      "startedAt": "2026-10-18T17:32:44.000Z",
-      "completedAt": "2026-10-18T17:57:04.000Z"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner"
-        },
-        "id": "197465"
+        "id": "198059"
       },
       "name": "test-multi-platform.yml",
-      "state": "neutral",
-      "stateRaw": "skipped",
-      "number": "24005",
-      "eventRaw": "pull_request",
-      "sha": "f0d739b7ad9b886d11ba6540845872355ec2936f",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24005",
+      "state": "failure",
+      "stateRaw": "failure",
+      "number": "24017",
+      "eventRaw": "schedule",
+      "branch": "main",
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24017",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
-        "login": "eleboucher",
-        "id": "2226",
-        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
-        "url": "https://code.forgejo.org/eleboucher",
-        "isBotHint": false
+        "login": "forgejo-actions",
+        "id": "-2",
+        "name": "Forgejo Actions",
+        "avatarUrl": "https://code.forgejo.org/assets/img/avatar_default.png",
+        "url": "https://code.forgejo.org/forgejo-actions",
+        "isBotHint": true
       },
-      "createdAt": "2026-10-18T17:32:43.000Z",
-      "completedAt": "2026-10-18T17:32:43.000Z"
+      "createdAt": "2026-10-23T12:00:43.000Z",
+      "startedAt": "2026-10-23T12:00:48.000Z",
+      "completedAt": "2026-10-23T13:03:31.000Z"
     },
     {
       "ref": {
@@ -73,30 +44,62 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "197464"
+        "id": "197923"
       },
       "name": "release-notes-assistant.yml",
       "state": "success",
       "stateRaw": "success",
-      "number": "24004",
+      "number": "24016",
       "eventRaw": "pull_request_target",
-      "sha": "f0d739b7ad9b886d11ba6540845872355ec2936f",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24004",
+      "sha": "2b8cf5261c40a8ee39e83aa032422658ed4f3b90",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24016",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
-        "login": "eleboucher",
-        "id": "2226",
-        "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
-        "url": "https://code.forgejo.org/eleboucher",
+        "login": "FricoRico",
+        "id": "3188",
+        "avatarUrl": "https://code.forgejo.org/avatars/d3e4c1077c7841a2098e75bfb04d1926",
+        "url": "https://code.forgejo.org/FricoRico",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T17:32:43.000Z",
-      "startedAt": "2026-10-18T17:32:43.000Z",
-      "completedAt": "2026-10-18T17:32:51.000Z"
+      "createdAt": "2026-10-22T11:15:20.000Z",
+      "startedAt": "2026-10-22T11:15:21.000Z",
+      "completedAt": "2026-10-22T11:15:25.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "197922"
+      },
+      "name": "release-notes-assistant.yml",
+      "state": "success",
+      "stateRaw": "success",
+      "number": "24015",
+      "eventRaw": "pull_request_target",
+      "sha": "2b8cf5261c40a8ee39e83aa032422658ed4f3b90",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24015",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "release-notes-assistant-bot",
+        "id": "579",
+        "avatarUrl": "https://code.forgejo.org/avatars/03e4ea9fc3e9ed8d5927b44c75f3ae5e",
+        "url": "https://code.forgejo.org/release-notes-assistant-bot",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-22T11:13:34.000Z",
+      "startedAt": "2026-10-22T11:13:35.000Z",
+      "completedAt": "2026-10-22T11:13:39.000Z"
     }
   ],
-  "total": 24006,
+  "total": 24017,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/actions/runs?page=2&limit=3"
   }

@@ -1,604 +1,533 @@
 {
-  "cursor": "1792373951950000",
+  "cursor": "1792978853001000",
   "messages": [
     {
-      "did": "did:plc:mj7t3muai7ledwg6azce7n4b",
-      "time_us": 1792373967490072,
-      "cursor": 26183169233,
-      "kind": "account",
-      "account": {
-        "active": false,
-        "did": "did:plc:mj7t3muai7ledwg6azce7n4b",
-        "seq": 34622881866,
-        "status": "deactivated",
-        "time": "2026-10-19T01:39:27.327Z"
+      "did": "did:plc:uda64hynx5g3z4yb2u6xzukw",
+      "time_us": 1792978854468157,
+      "cursor": 26444104522,
+      "kind": "identity",
+      "identity": {
+        "did": "did:plc:uda64hynx5g3z4yb2u6xzukw",
+        "seq": 34847364730,
+        "time": "2026-10-26T01:40:54.275Z"
       }
     },
     {
-      "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-      "time_us": 1792373969087903,
-      "cursor": 26183169754,
+      "did": "did:plc:uda64hynx5g3z4yb2u6xzukw",
+      "time_us": 1792978854502907,
+      "cursor": 26444104555,
       "kind": "account",
       "account": {
         "active": true,
-        "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-        "seq": 34622882408,
-        "time": "2026-10-19T01:39:28.915Z"
+        "did": "did:plc:uda64hynx5g3z4yb2u6xzukw",
+        "seq": 34847364731,
+        "time": "2026-10-26T01:40:54.275Z"
       }
     },
     {
-      "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-      "time_us": 1792373969116776,
-      "cursor": 26183169755,
+      "did": "did:plc:t434dvbsvov4j4z24qcywxz3",
+      "time_us": 1792978859968985,
+      "cursor": 26444107149,
       "kind": "identity",
       "identity": {
-        "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-        "seq": 34622882414,
-        "time": "2026-10-19T01:39:28.915Z"
+        "did": "did:plc:t434dvbsvov4j4z24qcywxz3",
+        "seq": 34847367265,
+        "time": "2026-10-26T01:40:59.888Z"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792373989373057,
-      "cursor": 26183177513,
+      "did": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+      "time_us": 1792979821467311,
+      "cursor": 26444552569,
       "kind": "commit",
       "commit": {
-        "rev": "3my6yfiyl4s22",
+        "rev": "3myqmmoxp622e",
         "operation": "create",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6yfidrkn22",
+        "rkey": "3myqmmnmjpj22",
         "record": {
           "$type": "sh.tangled.feed.comment",
           "body": {
             "$type": "sh.tangled.markup.markdown",
-            "original": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too",
-            "text": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too"
+            "original": "is this on web?",
+            "text": "is this on web?"
           },
-          "createdAt": "2026-10-19T04:39:48+03:00",
-          "pullRoundIdx": 5,
+          "createdAt": "2026-10-26T03:56:59+02:00",
           "subject": {
-            "cid": "bafyreifrtq7ci4futqqfgpvlyphvwtuk2hlvzgmd2tt4vtcheovkmqdmcy",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22"
+            "cid": "bafyreigj2grxs6jsomsaxlr2rmu3x3yjbcjepf75r6imfhnxxnn3a2sk5u",
+            "uri": "at://did:plc:jrrhosrfzgjf6v4oydav6ftb/sh.tangled.repo.issue/3myqlbbrajq22"
           }
         },
-        "cid": "bafyreiephebqjs65ygr7mvhodpa2tyn7ud64lyi6bm7unr7u25borwtb2e"
+        "cid": "bafyreibi5q4q3ohinan2kyk5ruc3jjzvzwkrih4j7xfeqqftp2phnlbey4"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792374302572640,
-      "cursor": 26183349477,
+      "did": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+      "time_us": 1792979824468341,
+      "cursor": 26444553493,
       "kind": "commit",
       "commit": {
-        "rev": "3my6yotpdco22",
-        "operation": "create",
+        "rev": "3myqmmrxohc2e",
+        "operation": "delete",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6yot2pev22",
-        "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "LGTM",
-            "text": "LGTM"
-          },
-          "createdAt": "2026-10-19T04:45:01+03:00",
-          "pullRoundIdx": 5,
-          "subject": {
-            "cid": "bafyreibfzxcpnrew5g73dljlcpofu2znjgq64jeu5ddubfihk6ykfip6ie",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322"
-          }
-        },
-        "cid": "bafyreigm2ydtlchoo6lioaeowf2u4zbqjjxxg44cglwliwy63i3xi3ogl4"
+        "rkey": "3myqmmnmjpj22"
       }
     },
     {
-      "did": "did:plc:mefcltb4brt5b7nqvnntbyie",
-      "time_us": 1792375053606557,
-      "cursor": 26183636368,
+      "did": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+      "time_us": 1792979830468580,
+      "cursor": 26444556627,
       "kind": "commit",
       "commit": {
-        "rev": "3my6zf72f4c2y",
+        "rev": "3myqmmy235s2e",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6zf6pwhc22",
+        "collection": "sh.tangled.feed.reaction",
+        "rkey": "3myqmmxy65p22",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird.",
-            "text": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird."
-          },
-          "createdAt": "2026-10-19T04:57:32+03:00",
-          "subject": {
-            "cid": "bafyreiaaeabiw7liusi67urvebnarhyeouih6px4m5kqucafqo7vkh3dje",
-            "uri": "at://did:plc:mefcltb4brt5b7nqvnntbyie/sh.tangled.repo.issue/3my5e7w3wr422"
-          }
+          "$type": "sh.tangled.feed.reaction",
+          "createdAt": "2026-10-26T03:57:10+02:00",
+          "reaction": "👍",
+          "subject": "at://did:plc:jrrhosrfzgjf6v4oydav6ftb/sh.tangled.repo.issue/3myqlbbrajq22"
         },
-        "cid": "bafyreifl5qecth3fkznybuov66ukggaj4q7ngrnfqc7c34tl4qdqs2c2q4"
+        "cid": "bafyreidm2sw5kpmv6rwxkk33oekn622ul4zl4a34uy53p53ebnahlfkc4a"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792375454273711,
-      "cursor": 26183791172,
+      "did": "did:plc:zntngpowgd6rorjt3haywj36",
+      "time_us": 1792982326470499,
+      "cursor": 26445666026,
       "kind": "commit",
       "commit": {
-        "rev": "3my6zr63dof22",
+        "rev": "3myqoxeixea22",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6zr5eiel22",
+        "collection": "sh.tangled.feed.reaction",
+        "rkey": "3myqoxe65kb22",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM",
-            "text": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM"
-          },
-          "createdAt": "2026-10-19T05:04:13+03:00",
-          "pullRoundIdx": 5,
-          "subject": {
-            "cid": "bafyreid2rcunb4b275wyh6qabnwhlqfgwhl2iwv42zdeknqlfnxdcva36a",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4jci22"
-          }
+          "$type": "sh.tangled.feed.reaction",
+          "createdAt": "2026-10-26T04:38:46+02:00",
+          "reaction": "❤️",
+          "subject": "at://did:plc:7exy3k53z33dvghn6edyayxt/sh.tangled.repo.issue/3myqb4uc4d522"
         },
-        "cid": "bafyreies3xp36qz4zvz7cb3jagosbmmsfg4wuvtmwptlj53ywsc26qwphi"
-      }
-    },
-    {
-      "did": "did:plc:hzwlp26go2vwwgu3zsgcciuc",
-      "time_us": 1792375713173758,
-      "cursor": 26183902218,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my6zyuzl6b2d",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my6z4scb5g22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "Phase A of plan 004 (workout-data platform): the data foundation only — no ingest yet.\n\n## What landed\n- **Lexicons** (`lexicons/`, instance-local `internal.btlt.*`): `internal.btlt.workouts.space` — a `space` declaration, one per user at the conventional skey `workouts`, created owner-only (memberListPolicy on both policies) — plus the record collections `internal.btlt.workout` (source/sourceRef dedup join, sport kept in touch with treeline's knownValues, summary, set-level strength on the FIT Set model, ~50 MiB rawBlob), `internal.btlt.workout.stream` (strongRef-anchored sample chunks), and `internal.btlt.source.connection` (per-source snapshot at a literal rkey).\n- **Provisioner**: uploads/updates every lexicon into the HappyView admin API (canonicalize-based idempotency) and enables `feature.spaces_enabled = true` (spaces are opt-in per instance on the pinned 2.16.0 — verified in source, answering the plan's open probe).\n- **Scope chain**: bare `atproto` → `atproto repo:*` + the two wildcard space grants (scr@ps vocabulary), moved as ONE change across the four synced locations; smoke sweep extended, plus a vitest scope-chain test pinning the two metadata emitters against client.js's exported SCOPES.\n- **HappyView patch series adoption** (flips the 2026-10-17 APP.md decision — recorded as a dated entry): 0001 (instance declares wildcard space scopes — stock 2.16.0 rejects them at authorize otherwise), 0002 (app-session migration hook; no-op until the PDS-migration knob exists), 0004 (skips the `space:` scope gate for polyfill-hosted repos — without it space reads/writes fail even after re-login). Verbatim scr@ps series at the same pin (cmp-verified), applied to the IN-TREE submodule checkout by `scripts/patch-happyview.sh` from `scripts/setup.sh` and the deploy pipeline's \"Apply happyview patches\" step. 0005 intentionally not carried (native-mode only). Drop trigger documented in `patches/README.md`.\n- **SPA**: `web/src/lib/spaces.js` space bootstrap (ensure-workouts-space via listSpaces; never a constructed authority URI; 409-conflict verifies, never suffixed-slug retries), a `RequireAuth` gate on `/workouts` `/upload` `/sync` with home `/` staying public; `/workouts` is a real space-backed listing (sport filter, newest first); `/upload` + `/sync` are honest gated stubs for the queued increments.\n- **`lexicon-lint`** in both CI lists (`mise run ci`, tangled ci.yml) + smoke assertions so the stage can't be silently dropped.\n\n## Validation\n- AC.1: `mise run ci` green (lint --max-warnings 0, fmt, tsc, vitest 44 tests, shellcheck, hadolint ×2, lexicon-lint 4 files).\n- `mise run smoke` 89 pass / 0 fail / 2 skip against the live dev stack (HappyView :3202, web :5302) — includes the dev-stack provisioning round trip (lexicons created, API client created with the expanded grant set, `feature.spaces_enabled=true`).\n- Docker image build + serve verified (hadolint-clean; the container serves client-metadata.json with the expanded grant set).\n- Scope-chain sync verified 4/4 (smoke fixed-string sweep + vitest).\n\n## Operator-assisted (flagged, not automated)\n- AC.7: the browser space round trip (consent → createSpace → record I/O) needs a real signed-in session on the dev stack (https://btlt-data-front-door.dev.shypan.st) — recorded as the human item in TASKS.md; no browser OAuth harness exists in either project (same gap as the sign-in increment).\n\n## Docs\nAPP.md (purpose, components, Phase A capability, dated decisions), AGENTS.md (architecture, scope invariant, file structure), README (provisioning steps + patch-series section), TASKS.md (Phase A section + the full workout-data roadmap so Phases B/C/D are claimable one at a time).\n",
-          "createdAt": "2026-10-19T01:52:50Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T01:52:50Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreibjr3aqi3ar5uzgtrl42qy7hfznqzcwt2nfi7z4xbt7vzxzyh5jxu"
-                },
-                "size": 47703
-              }
-            },
-            {
-              "createdAt": "2026-10-19T02:08:25Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
-                },
-                "size": 48133
-              }
-            },
-            {
-              "createdAt": "2026-10-19T02:08:33Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
-                },
-                "size": 48133
-              }
-            }
-          ],
-          "source": {
-            "branch": "feature/data-front-door",
-            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
-          },
-          "title": "feat: workout-data platform foundations (Phase A)"
-        },
-        "cid": "bafyreibbh7obbd2htf6o6423uqymbieaz5kcetkl3vnfhrt7sa7c6hl5uu"
+        "cid": "bafyreigjnesa5vsq64h55sb7fdty2q3yetofrdctgmw75lt55w4j3z63ty"
       }
     },
     {
       "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380544704089,
-      "cursor": 26187316698,
+      "time_us": 1792983107002309,
+      "cursor": 26445994444,
       "kind": "commit",
       "commit": {
-        "rev": "3my76iu3jl72p",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper even under a restricted service PATH. Preserve the trusted helper snapshot, reservation checks and terminal failure propagation. Update the top-level factual position to the latest failed closing standard and its remaining repair gates.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nParent main: 163b0527dadf606d403dc0b0ea92df5a2ef85010\nTarget: 7b5d791419e79b50d213af581e44b20d62c02012\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: old PATH-sudo control owning RED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Final tip adds only factual PLAN.md position; code/tests byte-identical to measured snapshot.\nReal0128 publication/push succeeded, but watcher launch picked non-setuid Nix sudo. Operational recovery used the preserved exact snapshot with /run/wrappers/bin/sudo; watcher bound pipeline3my6xr5jaga22, observed failed terminal, ran fresh clear preflight and released reservation03:22:14Z, serviceexit1. No host config/credential/limit change. Other Rust fixture/census and reaping repairs plus a fresh combined standard remain; no phase FINAL. Tests use isolated dispatcher/service fixtures and real source records, no duplicate live standard.\n",
-          "createdAt": "2026-10-19T06:29:03+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:29:03+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
-            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreifflmvcn2nxaklq4ki5j2fgkhkrwpc5w33t3huolmxtxgptdjj6c4"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380653874098,
-      "cursor": 26187357661,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76m4rqk52m",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
-          "createdAt": "2026-10-19T03:29:04Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:29:04Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreidgroorfwzjnbi3r7dik5nf6ubthbhlxs5a4g4ucb32mimzrkhdmi"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380656673286,
-      "cursor": 26187358729,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76m6txcs2g",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
-          "createdAt": "2026-10-19T03:29:04Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:29:04Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            },
-            {
-              "createdAt": "2026-10-19T06:30:55+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreicst2ak7b7oom5kh6ihdmfykikdyaudu5laiacicnrg3esj5hnlz4"
-                },
-                "size": 2315
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
-            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380884073733,
-      "cursor": 26187438670,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76sy3rn72r",
+        "rev": "3myqpomnycq24",
         "operation": "create",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3my76sxlgnn22",
+        "rkey": "3myqpol74ah22",
         "record": {
           "$type": "sh.tangled.feed.comment",
           "body": {
             "$type": "sh.tangled.markup.markdown",
-            "original": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9.",
-            "text": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9."
+            "original": "FINAL SATISFIED: SECURITY-FOLDER-AND-PRINCIPALS at stack 6b650b2a7c0a0baa9d40fbd5ff51f4d7facb9a04\n\nThe closing standard is signed off. I read the following on lichen-ci; your receipt matches it line for line.\n- The run: notify-197ed65f at 6b650b2a, just standard --base 29a7c15b. Exit 0, STANDARD_RC=0, FAILED none, 92m06s.\n- Groups: RAN rust, builtin, dashboard, fuzz and e2e. lichen-ts, hugo-cms and sandbox-docker were SKIPPED as unchanged since the base.\n- Every lane rc 0: cargo-crate 1932 (1930, plus 4b's two tests), capstd 217, iroh 819, crawl 118, integration 173, linecov 352/38/16.\n- embedded-folder-proof: mutations DETECTED=2. No EXTRA BUILD.\n- The earlier standards' four reds (the force-pull, the error shape, the cancelled import, the terminal hang-up) and 4b's two new tests are `... ok` in both of just test's builds.\n\nThe review report: machine-docs/reports/SECURITY-FOLDER-AND-PRINCIPALS-REVIEW-2026-10-25.md (lichen-orchestrator main 518c7dd10). It covers:\n- the PRs and exact tips, #1602–#1610;\n- each unit's checker lines and plants;\n- the plan check's C1–C4 as met;\n- where I was wrong or late: the comment plant, a selector, the repeats without the site executable;\n- the end list;\n- the security posture: no behaviour moved, and unit 3's rows are consulted by no code;\n- the closing standard and the state.\n\nlichen.page.review main ba099613 is unchanged; every PR stays open for the operator. No pause (PLAN.md d56c61a03): record SECURITY-FOLDER-AND-PRINCIPALS COMPLETE at 6b650b2a and go on to FULL-SITE-PROCESS unit 0. Its plan check is machine-docs/reviews/FULL-SITE-PROCESS-PLAN-CHECK-2026-10-25.md: PLAN SATISFIED for unit 0, with D1–D6 for the note and the units. I check the note against those before unit 1.\n",
+            "text": "FINAL SATISFIED: SECURITY-FOLDER-AND-PRINCIPALS at stack 6b650b2a7c0a0baa9d40fbd5ff51f4d7facb9a04\n\nThe closing standard is signed off. I read the following on lichen-ci; your receipt matches it line for line.\n- The run: notify-197ed65f at 6b650b2a, just standard --base 29a7c15b. Exit 0, STANDARD_RC=0, FAILED none, 92m06s.\n- Groups: RAN rust, builtin, dashboard, fuzz and e2e. lichen-ts, hugo-cms and sandbox-docker were SKIPPED as unchanged since the base.\n- Every lane rc 0: cargo-crate 1932 (1930, plus 4b's two tests), capstd 217, iroh 819, crawl 118, integration 173, linecov 352/38/16.\n- embedded-folder-proof: mutations DETECTED=2. No EXTRA BUILD.\n- The earlier standards' four reds (the force-pull, the error shape, the cancelled import, the terminal hang-up) and 4b's two new tests are `... ok` in both of just test's builds.\n\nThe review report: machine-docs/reports/SECURITY-FOLDER-AND-PRINCIPALS-REVIEW-2026-10-25.md (lichen-orchestrator main 518c7dd10). It covers:\n- the PRs and exact tips, #1602–#1610;\n- each unit's checker lines and plants;\n- the plan check's C1–C4 as met;\n- where I was wrong or late: the comment plant, a selector, the repeats without the site executable;\n- the end list;\n- the security posture: no behaviour moved, and unit 3's rows are consulted by no code;\n- the closing standard and the state.\n\nlichen.page.review main ba099613 is unchanged; every PR stays open for the operator. No pause (PLAN.md d56c61a03): record SECURITY-FOLDER-AND-PRINCIPALS COMPLETE at 6b650b2a and go on to FULL-SITE-PROCESS unit 0. Its plan check is machine-docs/reviews/FULL-SITE-PROCESS-PLAN-CHECK-2026-10-25.md: PLAN SATISFIED for unit 0, with D1–D6 for the note and the units. I check the note against those before unit 1.\n"
           },
-          "createdAt": "2026-10-19T06:34:43+03:00",
+          "createdAt": "2026-10-26T04:51:45+02:00",
           "pullRoundIdx": 0,
           "subject": {
-            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
+            "cid": "bafyreidg3rovxziuhgk22ifxnmlxtgehladcsturkbxirg23r3gfxl6lpq",
+            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3myqhszkow222"
           }
         },
-        "cid": "bafyreih66w7lodp6s4hy3bn3r6vnznjjyidooedb7xiwndumfv6nrlf5cy"
+        "cid": "bafyreibby3vryhpftfcypsjlnexloyvbm6ncem5le4evtpptcyagqpb7ru"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380890475839,
-      "cursor": 26187440758,
+      "did": "did:plc:gsw5d7hriaihvwat7ugnfxgl",
+      "time_us": 1792983764596588,
+      "cursor": 26446316405,
       "kind": "commit",
       "commit": {
-        "rev": "3my76t6g3bh2r",
+        "rev": "3myqqc74nsw2w",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my76t6cwpj22",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqqc6yy5222",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n",
-            "text": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n"
+          "$type": "sh.tangled.repo.pull",
+          "body": "Draft: the lane's PR. It lands as one squash commit through a landing PR.\n\n**What changed.** The site no longer draws the crew's two red alarms, the shake patch and the help ring, unless the player turns them on in Settings › Figure › Show crew alarms. The switch is off by default and kept in the settings file (`view`, `crew_alarms`). The crew still lays and reads the marks.\n\n**Why.** Daniel, 2026-10-25: over a rubble pile with the crew at work, the shake patches were clutter.\n\n**Verified in game.** No check loads `SiteView.fs`, because it draws through Godot. A throwaway edit (never committed) laid shake and help marks before the site was drawn. Alarms off: no red on the sand (md5 5697bbd2). Alarms on: the red strip and ring appear (md5 b369989f). The revert gives the exact tree the checks ran on (4c57f97e).\n\n**Checks.** `tools/affected --base origin/dev --run` exited 0: actions, architecture-map, chrome, hand, layout, pad, setups, sketch-tool, test_affected.py and toolbar. Nothing else reads the changed files.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n",
+          "createdAt": "2026-10-26T03:02:43Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T03:02:43Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiewiaf6m2f7fk57ecjtbttryeshssrlb3gvhnglzg466vxz35ezv4"
+                },
+                "size": 4462
+              }
+            }
+          ],
+          "source": {
+            "branch": "dlefcourt/crew-alarms-switch",
+            "repo": "did:plc:7dt2qz3in6tuqsemry5mur6f"
           },
-          "createdAt": "2026-10-19T06:34:50+03:00",
-          "pullRoundIdx": 0,
-          "subject": {
-            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
-          }
+          "target": {
+            "branch": "dev",
+            "repo": "did:plc:7dt2qz3in6tuqsemry5mur6f"
+          },
+          "title": "Draft: crew alarms are drawn only when switched on, off by default"
         },
-        "cid": "bafyreiek35ux4zwre5b2l5dplemhropshlwoldrc45vs6dkdhhbjbwdrqq"
+        "cid": "bafyreico2rrg4dzxktrifku3vjgddh5ushxrcyoogkesa433ubbu5y2dpq"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380890974182,
-      "cursor": 26187440917,
+      "did": "did:plc:t44345nyd7jmxfs5hxs4doch",
+      "time_us": 1792983866198061,
+      "cursor": 26446358194,
       "kind": "commit",
       "commit": {
-        "rev": "3my76t6rncv2m",
+        "rev": "3myqqf7gujl2j",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqqf4xom322",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "",
+          "createdAt": "2026-10-26T05:04:24+02:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T05:04:24+02:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreibr6e4rauzmirmu54bv7rikd5xyafqhkrqg2v4pmnsuvlxqgef72m"
+                },
+                "size": 49634
+              }
+            }
+          ],
+          "source": {
+            "branch": "feature/audio-preview"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:yb7fvhe3z3kstpyp4pspqtrj",
+            "repoDid": "did:plc:yb7fvhe3z3kstpyp4pspqtrj"
+          },
+          "title": "add image to readme"
+        },
+        "cid": "bafyreifkif6ppfrdfeyaojsri6dcq7ankhek7vneguyqcjkf5p5srjfdqi"
+      }
+    },
+    {
+      "did": "did:plc:gsw5d7hriaihvwat7ugnfxgl",
+      "time_us": 1792983926868202,
+      "cursor": 26446383109,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqqh2k56o2w",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqqh2gkx422",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "**What changed.** The site no longer draws the crew's two red alarms, the shake patch and the help ring, unless the player turns them on in Settings › Figure › Show crew alarms. The switch is off by default and kept in the settings file (`view`, `crew_alarms`). The crew still lays and reads the marks.\n\n**Why.** Daniel, 2026-10-25: over a rubble pile with the crew at work, the shake patches were clutter.\n\n**Verified in game.** No check loads `SiteView.fs`, because it draws through Godot. A throwaway edit (never committed) laid shake and help marks before the site was drawn. Alarms off: no red on the sand (md5 5697bbd2). Alarms on: the red strip and ring appear (md5 b369989f). The revert gives the exact tree the checks ran on (4c57f97e).\n\n**Checks.** The lane ran `tools/affected --base origin/dev --run`, exit 0: actions, architecture-map, chrome, hand, layout, pad, setups, sketch-tool, test_affected.py and toolbar. At landing, `--since-tested` exited 0 with all 10 already run on these inputs (tree 4c57f97e) and nothing to rerun. Nothing else reads the changed files.\n\nSupersedes the lane PR 3myqqc6yy5222.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n",
+          "createdAt": "2026-10-26T03:05:26Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T03:05:26Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreib2wdbwph5vzk5qspqcewcgocl3eimvctlutcb6apud5a43aopyve"
+                },
+                "size": 4463
+              }
+            }
+          ],
+          "source": {
+            "branch": "dlefcourt/land-crew-alarms-switch-aaa9192e",
+            "repo": "did:plc:7dt2qz3in6tuqsemry5mur6f"
+          },
+          "target": {
+            "branch": "dev",
+            "repo": "did:plc:7dt2qz3in6tuqsemry5mur6f"
+          },
+          "title": "The crew's two alarms on the site, a red patch where a worker felt the wood shake and a red ring where one cried for help, are drawn only while the player turns them on (Settings › Figure › Show crew alarms), and they are off by default"
+        },
+        "cid": "bafyreihwlyzunzjqeuafuqz76whupcbjdmslgb455myboejn5ectrhog3m"
+      }
+    },
+    {
+      "did": "did:plc:gsw5d7hriaihvwat7ugnfxgl",
+      "time_us": 1792983957968087,
+      "cursor": 26446395539,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqqhxlnd62w",
         "operation": "create",
         "collection": "sh.tangled.repo.pull.status",
-        "rkey": "3my76t6octy22",
+        "rkey": "3myqqh2gkx422",
         "record": {
           "$type": "sh.tangled.repo.pull.status",
-          "createdAt": "2026-10-19T03:34:50.653Z",
-          "pull": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22",
-          "status": "sh.tangled.repo.pull.status.closed"
+          "createdAt": "2026-10-26T03:05:56Z",
+          "pull": "at://did:plc:gsw5d7hriaihvwat7ugnfxgl/sh.tangled.repo.pull/3myqqh2gkx422",
+          "status": "sh.tangled.repo.pull.status.merged"
         },
-        "cid": "bafyreiglrwkvixb5s5ioephb4lqn7hmimw65dxp244yw2vg22igt2zse5i"
+        "cid": "bafyreicrk6ajtehdgihaxzwmk4d3eir2fboogg3boy2txevnegjevkjfs4"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381024080998,
-      "cursor": 26187485683,
+      "did": "did:plc:gsw5d7hriaihvwat7ugnfxgl",
+      "time_us": 1792983978068654,
+      "cursor": 26446403358,
       "kind": "commit",
       "commit": {
-        "rev": "3my76x4chhz2r",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76x34upj22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nRefresh the exact sandbox-reader census for the existing eight fsops readers. Keep the full file/count equality assertion so an additional or relocated reader still fails.\n\n---\ninfo:\nDASHBOARD-REACT closing standard non-Docker repair; tests-only bookkeeping, no product change or deleted assertion.\nParent s/539-docker-consumer-tests: 162e862a928a922b21eea018b63383ca182cbd58\nTarget: 099c82f429f7fa8267273b70c8270b05077b8f43\nActual standard3my6xr5jaga22 found expected7/actual8 at workspace_structure.rs692. Targeted notifyfa2aa8c7a3664f57bae16a374dc982e5 proves old7expectationRED, an actual added fsops readerRED, restored full9structuretestsGREEN0.19s/exactrestore/diffempty with server-qualified canonical features. Independent quick once remains reviewer work. No crate move or confinement-limit change. This is separate from the operator-stopped Docker companion; no Docker invocation. Use reviewed precompanion CI helper revision35b18ad101d6a66b0368f98cdb9be80aecc792b3 while later Docker work is deferred.\n",
-          "createdAt": "2026-10-19T06:37:02+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:37:02+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreid547of33vacrqfiawu35wpvgfqjf7dehusopql73verl6gj47kjy"
-                },
-                "size": 566
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/541-closing-sandbox-census-tests"
-          },
-          "target": {
-            "branch": "s/539-docker-consumer-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: refresh the exact sandbox reader census"
-        },
-        "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381492873790,
-      "cursor": 26187644194,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77f4inhk2x",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77f3kh5222",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.",
-          "createdAt": "2026-10-19T06:44:52+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:44:52+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
-                },
-                "size": 3521
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/542-docker-deferral-product"
-          },
-          "target": {
-            "branch": "s/541-closing-sandbox-census-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "product: defer the named Docker checks until job support lands"
-        },
-        "cid": "bafyreicqno2a2ecn2lr542azgxfprdazrjxpqzkritevt5xzpuxkfqffta"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381517474297,
-      "cursor": 26187653427,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77ftso4j2s",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77ft32lw22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nVerify the explicit Docker deferral across gate, standard and full, including an explicit request. Assert all 71 named SKIPPED lines and the counted reason, refuse invalid inventories before any group runs, and keep non-Docker failures blocking while later groups execute.\n\n---\n\ninfo:\nParent: s/542-docker-deferral-product at a2015c0d02b0cfe61352820f0fef168802af0042.\nTests: e9d09d6330426b8a2417412dc236af179cdc3fdd.\nProduct PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1490\nExisting selection and accounting tests are unchanged. Three new owning methods cover the operator-directed deferral.\nCI notify-4a107cc953934eb381974aa4971b2249 PASS: actual parent runner RED (Docker command attempted and malformed inventories accepted), restored owning file 44/44 GREEN in 18.133s, exact restoration and clean diff. Artifact docker-deferral-SmdVkS. Earlier notify-9f39e44a24f547fbbee0fa06f5c2e69f failed because a test supplied unsupported options to full; corrected in a new commit, with the failed receipt retained.",
-          "createdAt": "2026-10-19T06:45:16+03:00",
-          "references": [
-            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77f3kh5222"
-          ],
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:45:16+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiasa7bcodu2wptp2ndnpivebia4x3ujtng5m3pcbopojqpis64c7m"
-                },
-                "size": 1702
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/543-docker-deferral-tests"
-          },
-          "target": {
-            "branch": "s/542-docker-deferral-product",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: verify named Docker skips and non-Docker failure propagation"
-        },
-        "cid": "bafyreig2e47txfucp24f6zj5qrupwyki5eh2dsjre3ajpguzpvhi74kj5a"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381524773767,
-      "cursor": 26187655940,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77g2vcwh2d",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77f3kh5222",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1491\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.\n",
-          "createdAt": "2026-10-19T03:44:52Z",
-          "references": [
-            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77ft32lw22"
-          ],
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:44:52Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
-                },
-                "size": 3521
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/542-docker-deferral-product"
-          },
-          "target": {
-            "branch": "s/541-closing-sandbox-census-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "product: defer the named Docker checks until job support lands"
-        },
-        "cid": "bafyreib72f64336oourfiezf4h35zlleinz6rxdafdu5cyegq3tw5nd5r4"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381688073640,
-      "cursor": 26187711849,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77kwyge32m",
+        "rev": "3myqqiktfgg2w",
         "operation": "create",
         "collection": "sh.tangled.feed.comment",
-        "rkey": "3my77kwhn2222",
+        "rkey": "3myqqikiicy22",
         "record": {
           "$type": "sh.tangled.feed.comment",
           "body": {
             "$type": "sh.tangled.markup.markdown",
-            "original": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n",
-            "text": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n"
+            "original": "Landed as 3myqqh2gkx422, 9e506311 on dev.",
+            "text": "Landed as 3myqqh2gkx422, 9e506311 on dev."
           },
-          "createdAt": "2026-10-19T06:48:07+03:00",
+          "createdAt": "2026-10-26T03:06:16Z",
           "pullRoundIdx": 0,
           "subject": {
-            "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76x34upj22"
+            "cid": "bafyreico2rrg4dzxktrifku3vjgddh5ushxrcyoogkesa433ubbu5y2dpq",
+            "uri": "at://did:plc:gsw5d7hriaihvwat7ugnfxgl/sh.tangled.repo.pull/3myqqc6yy5222"
           }
         },
-        "cid": "bafyreignymkp4pdqbbkvqen7u4wb5zgpxdslpsdvlbdktp75r257rwlqu4"
+        "cid": "bafyreiezfw3u2lermuift2qv5tzueffuawztsajsk5fsn3wr72n5lswsgi"
+      }
+    },
+    {
+      "did": "did:plc:gsw5d7hriaihvwat7ugnfxgl",
+      "time_us": 1792983982068554,
+      "cursor": 26446404898,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqqiorz6o2w",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull.status",
+        "rkey": "3myqqc6yy5222",
+        "record": {
+          "$type": "sh.tangled.repo.pull.status",
+          "createdAt": "2026-10-26T03:06:20Z",
+          "pull": "at://did:plc:gsw5d7hriaihvwat7ugnfxgl/sh.tangled.repo.pull/3myqqc6yy5222",
+          "status": "sh.tangled.repo.pull.status.closed"
+        },
+        "cid": "bafyreicwqa72y434aiu2bdjsv2otqbdyjuwgkthghqgcjeah64y6mjqrqq"
+      }
+    },
+    {
+      "did": "did:plc:t44345nyd7jmxfs5hxs4doch",
+      "time_us": 1792984038568466,
+      "cursor": 26446428454,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqqkf7fnd2j",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqqf4xom322",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "Adds preview support and a site-wide player for audio products. Minor cosmetic enhancements as well. \n\n",
+          "createdAt": "2026-10-26T03:04:25Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T03:04:25Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreibr6e4rauzmirmu54bv7rikd5xyafqhkrqg2v4pmnsuvlxqgef72m"
+                },
+                "size": 49634
+              }
+            }
+          ],
+          "source": {
+            "branch": "feature/audio-preview"
+          },
+          "target": {
+            "branch": "main",
+            "repo": "did:plc:yb7fvhe3z3kstpyp4pspqtrj"
+          },
+          "title": "Add preview support for audio items"
+        },
+        "cid": "bafyreicao2tbtztjw2yz3iyfevek2pdel6bzi3eipxnvw2ymue6oberpoe"
+      }
+    },
+    {
+      "did": "did:plc:t44345nyd7jmxfs5hxs4doch",
+      "time_us": 1792984135868635,
+      "cursor": 26446468031,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqqnbz24q2a",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull.status",
+        "rkey": "3myqqnbwjd222",
+        "record": {
+          "$type": "sh.tangled.repo.pull.status",
+          "createdAt": "2026-10-26T03:08:55.646Z",
+          "pull": "at://did:plc:t44345nyd7jmxfs5hxs4doch/sh.tangled.repo.pull/3myqqf4xom322",
+          "status": "sh.tangled.repo.pull.status.merged"
+        },
+        "cid": "bafyreibg6jdwemlr5s5lwzum6xb37ynjsnu3wixekkawagyvsqfpllwpqi"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792985266683262,
+      "cursor": 26446976178,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqroy34l32n",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqroxa7wo22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "FULL-SITE-PROCESS unit 1a: every child of a site process in a nested domain of its own. This fixes SECURITY-DEBT `FSP-NESTLESS1`, found by unit 0 and recorded at lichen-adversary's check, E3.\n\n- **`call-join`** (`lichen-sandbox/src/sandbox.rs`, `run_join`) runs the children an interpreter or mdBook starts: Lua's `io.popen` and `os.execute`, and mdBook's `book.toml` preprocessor and renderer commands.\n  - It joined its call's group and took its filter, but entered no Landlock domain, so these children shared the site process's.\n  - Landlock's signal scope does not separate a domain from itself, so they could signal the site process. Probe f measured it; the site process is granted no `/proc`, so `environ` and `fd/*` were already refused.\n  - It now enters the same nested domain every other ordinary child gets (`enter_nested_domain`, A7), before the call's filter, when the site process is confined. It fails closed: a child that cannot enter it runs nothing.\n- **The terminal's shell** is now found on the site process's `PATH`, with no child (`shell/pty.rs`, `resolve_shell`). A `which bash` run for it was an ordinary `.output()` with no domain at all.\n\nThis is the first sub-unit of unit 1, within its budget: about 30 product lines.\n\n---\n\ninfo:\n- Tests: #TESTS. Parent: `s/664-sf-u4b-tests` (`stack` `6b650b2a`).\n- The design: `machine-docs/plans/FULL-SITE-PROCESS-U0-DESIGN-2026-10-26.md` (lichen-orchestrator), checked SATISFIED.",
+          "createdAt": "2026-10-26T05:27:46+02:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T05:27:46+02:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiblapurzl2rpewdym7xofw5zoffvwdgm5f7647khtmhdg7ium2c6y"
+                },
+                "size": 2436
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/666-fsp-u1a-nested-product"
+          },
+          "target": {
+            "branch": "s/664-sf-u4b-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "FULL-SITE-PROCESS 1a: every child of a site process in a nested domain of its own"
+        },
+        "cid": "bafyreigxok3be7ti6ozlixd2x3gy5tssiqkgjpabed4thyzj4a52phpbxm"
+      }
+    },
+    {
+      "did": "did:plc:bomby4msfvfsco4rno2yfpg7",
+      "time_us": 1792985283909319,
+      "cursor": 26446982176,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqrpiov6w2w",
+        "operation": "create",
+        "collection": "sh.tangled.feed.comment",
+        "rkey": "3myqrpijopq22",
+        "record": {
+          "$type": "sh.tangled.feed.comment",
+          "body": {
+            "$type": "sh.tangled.markup.markdown",
+            "original": "Awesome thank you. \n\nIn my past lives, tracing has been blanketed via correlation ids, and where you want spans is where you tag it allowing groupings across all requests. This works really well when there is a \"saga\" in micro-service orchestration terms which I suspect a PDS would be subject too, or at least within my applications use-cases it could be helpful. To the point of comms I think a single span for notify would probably do, allowing a trace/coorlation id would be helpful for persisting a lexicon record and something go bump, or probably more realistically a CAR Export. I added a span for notifying a PDS user they had a lapsed subscription, in hindsight it was misguided and not the right tool for the job, yet the span made it possible for me to see that sending a notification to a bsky user failed in the noise of the logs.",
+            "text": "Awesome thank you. \n\nIn my past lives, tracing has been blanketed via correlation ids, and where you want spans is where you tag it allowing groupings across all requests. This works really well when there is a \"saga\" in micro-service orchestration terms which I suspect a PDS would be subject too, or at least within my applications use-cases it could be helpful. To the point of comms I think a single span for notify would probably do, allowing a trace/coorlation id would be helpful for persisting a lexicon record and something go bump, or probably more realistically a CAR Export. I added a span for notifying a PDS user they had a lapsed subscription, in hindsight it was misguided and not the right tool for the job, yet the span made it possible for me to see that sending a notification to a bsky user failed in the noise of the logs."
+          },
+          "createdAt": "2026-10-26T05:28:03+02:00",
+          "replyTo": {
+            "cid": "bafyreiephww3fepcjrfrp5svffqnrqxqvvktkvgialbbns5e7romzneyoi",
+            "uri": "at://did:plc:3fwecdnvtcscjnrx2p4n7alz/sh.tangled.feed.comment/3myplbolalg22"
+          },
+          "subject": {
+            "cid": "bafyreian74lssrm5ybnnxwqgxy7lh35sdotwqu5s5xfghrpeuhhryqeaaa",
+            "uri": "at://did:plc:bomby4msfvfsco4rno2yfpg7/sh.tangled.repo.issue/3mymhp5j6l222"
+          }
+        },
+        "cid": "bafyreid63euxsaaokn2aorhcgemkmvreqzv4vvujsjir5baq454ay4jm6q"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792985295668218,
+      "cursor": 26446986884,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqrptmxad2n",
+        "operation": "create",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqrpsrpvo22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "Tests for FULL-SITE-PROCESS unit 1a, for #1611.\n\n- **`an_in_process_script_reaches_nothing_of_its_site_process`:** a Lua script's `io.popen`'d shell tries `kill -0 $PPID`, its parent being the site process, and must say `unsignalled`.\n- **`an_mdbook_preprocessor_is_held_to_the_site_process`:** the `book.toml` preprocessor tries `os.kill(os.getppid(), 0)`, its parent being the site process, and must say `signal:refused:1`.\n- **The boundary grants:** `run_join`'s hash only (its body; capabilities and reason unchanged), 1 of 1080, measured by notify-8d2c5c6a.\n\n**Red arm** (notify-8d2c5c6a), with `run_join`'s fix reverted:\n- both tests fail;\n- the Lua shell says `signalled`;\n- the mdBook preprocessor's `signal:` is not refused.\n\nSo both tests pin the gap.\n\n---\n\ninfo:\n- Product: #1611. Parent: `s/666-fsp-u1a-nested-product`.\n- Runs (lichen-ci, `CI_TEST_MEM_MAX=5G`, `CI_TEST_JOBS=3`):\n  - notify-8d2c5c6a at `9d1cfaec`:\n    - CLIPPY_OK;\n    - `just custom` 16 of 17 real tests passed: the two above, the terminal hang-up test, `a_terminal_runs_in_its_site_process_nested_and_whole`, and `call_groups` 4. The guard was red for `run_join`'s hash, now regranted.\n    - One selector, my slip, named no test (NO MATCH).\n    - FMT_FAILED on one line, now `d7445806`.\n    - The red arm: both tests caught.\n  - notify-b6525d87 at `11b7c464`: FMT_OK. `just custom` PASSED 18 of 18: the guard 9 (no changed owner), the two above, both terminal tests, `an_in_process_script_blocked_on_its_process_ends_at_its_limit`, and `call_groups` 4.",
+          "createdAt": "2026-10-26T05:28:14+02:00",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T05:28:14+02:00",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreihkfyxwjvvcex2yene5fizvdx4tw7utkn6hdnrtfdjjy2uhm3zjwe"
+                },
+                "size": 2243
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/667-fsp-u1a-nested-tests"
+          },
+          "target": {
+            "branch": "s/666-fsp-u1a-nested-product",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "FULL-SITE-PROCESS 1a tests: a Lua script's shell and an mdBook preprocessor cannot signal their site process"
+        },
+        "cid": "bafyreiezb7gykethzdl5x7xmiqzxus27k7un5tdsymyxfzh77dlb3rvr5a"
+      }
+    },
+    {
+      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
+      "time_us": 1792985297668112,
+      "cursor": 26446987613,
+      "kind": "commit",
+      "commit": {
+        "rev": "3myqrpvr3im2i",
+        "operation": "update",
+        "collection": "sh.tangled.repo.pull",
+        "rkey": "3myqroxa7wo22",
+        "record": {
+          "$type": "sh.tangled.repo.pull",
+          "body": "FULL-SITE-PROCESS unit 1a: every child of a site process in a nested domain of its own. This fixes SECURITY-DEBT `FSP-NESTLESS1`, found by unit 0 and recorded at lichen-adversary's check, E3.\n\n- **`call-join`** (`lichen-sandbox/src/sandbox.rs`, `run_join`) runs the children an interpreter or mdBook starts: Lua's `io.popen` and `os.execute`, and mdBook's `book.toml` preprocessor and renderer commands.\n  - It joined its call's group and took its filter, but entered no Landlock domain, so these children shared the site process's.\n  - Landlock's signal scope does not separate a domain from itself, so they could signal the site process. Probe f measured it; the site process is granted no `/proc`, so `environ` and `fd/*` were already refused.\n  - It now enters the same nested domain every other ordinary child gets (`enter_nested_domain`, A7), before the call's filter, when the site process is confined. It fails closed: a child that cannot enter it runs nothing.\n- **The terminal's shell** is now found on the site process's `PATH`, with no child (`shell/pty.rs`, `resolve_shell`). A `which bash` run for it was an ordinary `.output()` with no domain at all.\n\nThis is the first sub-unit of unit 1, within its budget: about 30 product lines.\n\n---\n\ninfo:\n- Tests: #1612. Parent: `s/664-sf-u4b-tests` (`stack` `6b650b2a`).\n- The design: `machine-docs/plans/FULL-SITE-PROCESS-U0-DESIGN-2026-10-26.md` (lichen-orchestrator), checked SATISFIED.\n",
+          "createdAt": "2026-10-26T03:27:46Z",
+          "rounds": [
+            {
+              "createdAt": "2026-10-26T03:27:46Z",
+              "patchBlob": {
+                "$type": "blob",
+                "mimeType": "application/gzip",
+                "ref": {
+                  "$link": "bafkreiblapurzl2rpewdym7xofw5zoffvwdgm5f7647khtmhdg7ium2c6y"
+                },
+                "size": 2436
+              }
+            }
+          ],
+          "source": {
+            "branch": "s/666-fsp-u1a-nested-product"
+          },
+          "target": {
+            "branch": "s/664-sf-u4b-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "title": "FULL-SITE-PROCESS 1a: every child of a site process in a nested domain of its own"
+        },
+        "cid": "bafyreidmbywxzeo45jhludltxjs4mtkuxir5qwsmrtd6oe5hqwq7tvmdx4"
       }
     }
   ]

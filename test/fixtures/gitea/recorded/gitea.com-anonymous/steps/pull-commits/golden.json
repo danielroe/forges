@@ -178,6 +178,41 @@
       },
       "files": [
         {
+          "path": "cmd/flags/issue_pr.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "docs/CLI.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "go.mod",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/config/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/interact/login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "modules/task/login_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
           "path": "cmd/flags/body.go",
           "status": "added",
           "statusRaw": "added"
@@ -216,41 +251,6 @@
           "path": "modules/task/login_status_test.go",
           "status": "added",
           "statusRaw": "added"
-        },
-        {
-          "path": "cmd/flags/issue_pr.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "cmd/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "docs/CLI.md",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "go.mod",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/config/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/interact/login.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "modules/task/login_create.go",
-          "status": "modified",
-          "statusRaw": "modified"
         }
       ]
     },

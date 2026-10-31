@@ -5,6 +5,58 @@
         "forge": "sourcehut",
         "instance": "sr.ht",
         "owner": "~bitfehler",
+        "name": "dmos"
+      },
+      "description": "Djot HTML renderer with advanced features",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~bitfehler/dmos",
+      "createdAt": "2024-04-04T20:34:13.199Z",
+      "updatedAt": "2026-10-23T12:03:13.875Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~bitfehler",
+        "id": "23515",
+        "url": "https://meta.sr.ht/~bitfehler",
+        "isBotHint": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~bitfehler",
+        "name": "m2dir"
+      },
+      "description": "The m2dir specification",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "PUBLIC",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://git.sr.ht/~bitfehler/m2dir",
+      "createdAt": "2024-03-19T22:03:07.119Z",
+      "updatedAt": "2026-10-22T10:12:19.436Z",
+      "owner": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "login": "~bitfehler",
+        "id": "23515",
+        "url": "https://meta.sr.ht/~bitfehler",
+        "isBotHint": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "sourcehut",
+        "instance": "sr.ht",
+        "owner": "~bitfehler",
         "name": "bitfehler-ns"
       },
       "description": "Anemos definitions for the bitfehler.net nameservers",
@@ -25,61 +77,9 @@
         "url": "https://meta.sr.ht/~bitfehler",
         "isBotHint": false
       }
-    },
-    {
-      "ref": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "owner": "~bitfehler",
-        "name": "anemos.io"
-      },
-      "description": "anemos.io website",
-      "defaultBranch": "master",
-      "visibility": "public",
-      "visibilityRaw": "PUBLIC",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://git.sr.ht/~bitfehler/anemos.io",
-      "createdAt": "2023-03-20T15:28:19.389Z",
-      "updatedAt": "2026-09-07T10:25:36.245Z",
-      "owner": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "login": "~bitfehler",
-        "id": "23515",
-        "url": "https://meta.sr.ht/~bitfehler",
-        "isBotHint": false
-      }
-    },
-    {
-      "ref": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "owner": "~bitfehler",
-        "name": "bitfehler-www"
-      },
-      "description": "Anemos definition for the main bitfehler.net server",
-      "defaultBranch": "master",
-      "visibility": "public",
-      "visibilityRaw": "PUBLIC",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://git.sr.ht/~bitfehler/bitfehler-www",
-      "createdAt": "2023-10-25T14:28:15.977Z",
-      "updatedAt": "2026-08-20T20:03:33.689Z",
-      "owner": {
-        "forge": "sourcehut",
-        "instance": "sr.ht",
-        "login": "~bitfehler",
-        "id": "23515",
-        "url": "https://meta.sr.ht/~bitfehler",
-        "isBotHint": false
-      }
     }
   ],
   "cursor": {
-    "token": "gAAAAABq1ztnMmiR9Rw7UEEmW_Suhwula0L-1g3qLjOcEK2jIl1kC_sKH2F6WWbJx_MNXo7qSuT-iu_MHbr462VYWyYyIYQuchxnz-588a41arDqItZFsuNsKRlv_50LnAUb0GRw4UW9anjTclj5szXFzO-ZUpXHjg=="
+    "token": "gAAAAABq3tmp42FsujPFssUSB4JoXw9fdeyeanBq2lxB5irhYFFcklyLv3quo6teMEp3CEs85mRVEfCCnOEC2fHBmDj8eSK6i1jWC4AcCidFjS95DjCqUCOfCv2Sz4JxnAQSMA5_OawosyjUnTlctgUndgAr1Pr_aA=="
   }
 }

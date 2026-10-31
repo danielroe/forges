@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=102>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1937;t=600",
+      "ratelimit": "\"baseline\";r=1934;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "306"
     },
@@ -24,8 +24,8 @@
         "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.zip",
         "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.tar.gz",
         "archive_download_count": {
-          "zip": 9,
-          "tar_gz": 101
+          "zip": 20,
+          "tar_gz": 308
         }
       },
       {
@@ -40,8 +40,8 @@
         "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.6.zip",
         "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.6.tar.gz",
         "archive_download_count": {
-          "zip": 50,
-          "tar_gz": 156
+          "zip": 53,
+          "tar_gz": 230
         }
       },
       {
@@ -56,8 +56,8 @@
         "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.10.zip",
         "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.10.tar.gz",
         "archive_download_count": {
-          "zip": 7,
-          "tar_gz": 99
+          "zip": 23,
+          "tar_gz": 221
         }
       }
     ]

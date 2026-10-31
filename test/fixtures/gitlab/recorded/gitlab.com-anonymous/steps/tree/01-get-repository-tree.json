@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=2&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=1&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=10&pagination=legacy&per_page=3&recursive=false&with_last_commit=false>; rel=\"last\"",
-      "etag": "W/\"8cd4fedf9a2aba5f701ff6c81a054efd\"",
+      "etag": "W/\"26673f6e89ad072691f105f734004631\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "445",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "443",
+      "ratelimit-reset": "1792989720",
       "ratelimit-name": "throttle_unauthenticated_api",
       "x-total": "30",
       "x-total-pages": "10",
@@ -27,7 +27,7 @@
         "mode": "040000"
       },
       {
-        "id": "90c7b799cd4ef2ada1ae9bc8427f2c80adad31ed",
+        "id": "ea1bdda26579689a37598db0b74e0cf2e2149f7e",
         "name": ".gitlab",
         "type": "tree",
         "path": ".gitlab",

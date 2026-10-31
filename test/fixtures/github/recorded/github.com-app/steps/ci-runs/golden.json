@@ -10,63 +10,29 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "39134083187"
-      },
-      "name": "publish",
-      "state": "failure",
-      "stateRaw": "completed",
-      "number": "95",
-      "eventRaw": "workflow_run",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134083187",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "createdAt": "2026-10-18T14:00:56.000Z",
-      "startedAt": "2026-10-18T14:00:56.000Z",
-      "completedAt": "2026-10-18T14:01:18.000Z"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "id": "39134017969"
+        "id": "40184760010"
       },
       "name": "ci",
       "state": "success",
       "stateRaw": "completed",
-      "number": "4797",
-      "eventRaw": "push",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134017969",
+      "number": "4821",
+      "eventRaw": "pull_request",
+      "branch": "perf/pure-lazy-event-handler",
+      "sha": "7396a813c83534e87221eaee27036e67e500d2ad",
+      "url": "https://github.com/h3js/h3/actions/runs/40184760010",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
+        "login": "onmax",
+        "id": "22072217",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?v=4",
+        "url": "https://github.com/onmax",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T14:00:09.000Z",
-      "startedAt": "2026-10-18T14:00:09.000Z",
-      "completedAt": "2026-10-18T14:00:54.000Z"
+      "createdAt": "2026-10-25T10:26:08.000Z",
+      "startedAt": "2026-10-25T10:26:08.000Z",
+      "completedAt": "2026-10-25T10:27:18.000Z"
     },
     {
       "ref": {
@@ -78,40 +44,74 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "39134017655"
+        "id": "40184759984"
       },
       "name": "autofix.ci",
       "state": "success",
       "stateRaw": "completed",
-      "number": "4304",
-      "eventRaw": "push",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134017655",
+      "number": "4328",
+      "eventRaw": "pull_request",
+      "branch": "perf/pure-lazy-event-handler",
+      "sha": "7396a813c83534e87221eaee27036e67e500d2ad",
+      "url": "https://github.com/h3js/h3/actions/runs/40184759984",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
+        "login": "onmax",
+        "id": "22072217",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/22072217?v=4",
+        "url": "https://github.com/onmax",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T14:00:09.000Z",
-      "startedAt": "2026-10-18T14:00:09.000Z",
-      "completedAt": "2026-10-18T14:00:26.000Z"
+      "createdAt": "2026-10-25T10:26:08.000Z",
+      "startedAt": "2026-10-25T10:26:08.000Z",
+      "completedAt": "2026-10-25T10:26:30.000Z"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "id": "40164656546"
+      },
+      "name": "autofix.ci",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "4327",
+      "eventRaw": "pull_request",
+      "branch": "fix-iterable-skipped-values",
+      "sha": "c58adefcac5db05fc3830d512a37b561629c34c1",
+      "url": "https://github.com/h3js/h3/actions/runs/40164656546",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "NgoQuocViet2001",
+        "id": "123613986",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/123613986?v=4",
+        "url": "https://github.com/NgoQuocViet2001",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "2026-10-25T05:12:03.000Z",
+      "startedAt": "2026-10-25T05:12:03.000Z",
+      "completedAt": "2026-10-25T05:12:03.000Z"
     }
   ],
-  "total": 3106,
+  "total": 3156,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-    "etag": "W/\"96d048d28bd43f87ba2646db36b0d1fa13ab6022f6e735aecd758f66a9c9872b\""
+    "etag": "W/\"ccce3edc193b7eca9e74c2ee9f1b0e9edb7572eeeb2a3ad6dfad1339018d4486\""
   },
-  "etag": "W/\"96d048d28bd43f87ba2646db36b0d1fa13ab6022f6e735aecd758f66a9c9872b\"",
+  "etag": "W/\"ccce3edc193b7eca9e74c2ee9f1b0e9edb7572eeeb2a3ad6dfad1339018d4486\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4961,
+    "remaining": 4942,
     "resetAt": "<now>",
     "resource": "core"
   }
