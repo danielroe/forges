@@ -1,0 +1,20 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/contents/README.md?ref=main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "type": "file",
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "77cd793623ac6d8b445fb7db34db61e2d49d7c25",
+      "content": "d2lkZ2V0cwo9PT09PT09PT09PT09PT0KCldpZGdldHMgZm9yIHRoZSBmb3JnZXMgdGVzdHM=",
+      "encoding": "base64",
+      "download_url": "https://gitbucket.example.com/api/v3/repos/root/widgets/raw/77cd793623ac6d8b445fb7db34db61e2d49d7c25/README.md"
+    }
+  }
+}

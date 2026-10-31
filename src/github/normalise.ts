@@ -101,8 +101,6 @@ import { eventKindsOf } from '../webhooks.ts'
 import { toAuthorAssociation } from './association.ts'
 import { GITHUB_NATIVE_EVENTS } from './webhook-events.ts'
 
-export const FORGE = 'github' as const
-
 export function toActor(origin: ForgeOrigin, user: GitHubUser | Record<string, never> | undefined | null): Actor | undefined {
   if (!user?.login) {
     return undefined
@@ -678,7 +676,7 @@ export function toStatusCheck(repo: RepoRef, raw: GitHubCommitStatus): Check {
 }
 
 export function toRelease(repo: RepoRef, raw: GitHubRelease): Release {
-  const ref = { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id), tag: raw.tag_name }
+  const ref = { forge: repo.forge, instance: repo.instance, repo, id: raw.id === undefined ? raw.tag_name : String(raw.id), tag: raw.tag_name }
   return {
     ref,
     name: raw.name ?? undefined,

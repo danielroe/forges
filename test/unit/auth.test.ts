@@ -6,6 +6,7 @@ import { bitbucket } from '../../src/bitbucket/index.ts'
 import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
 import { cursorOrigin } from '../../src/cursor-origin/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
+import { gitbucket } from '../../src/gitbucket/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
@@ -27,6 +28,7 @@ const FACTORIES: Record<string, TokenFactory> = {
   'pushin': (token, fetch) => pushin({ auth: { type: 'token', token }, fetch }),
   'cloudflare-artifacts': (token, fetch) => cloudflareArtifacts({ auth: { type: 'token', token }, accountId: 'acme', fetch }),
   'sourcehut': (token, fetch) => sourcehut({ auth: { type: 'token', token }, fetch }),
+  'gitbucket': (token, fetch) => gitbucket({ baseUrl: 'https://gitbucket.example.com', auth: { type: 'token', token }, fetch }),
 }
 
 describe('token auth', () => {

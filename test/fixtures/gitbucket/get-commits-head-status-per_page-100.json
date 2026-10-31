@@ -1,0 +1,89 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/status?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "state": "success",
+      "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+      "total_count": 2,
+      "statuses": [
+        {
+          "created_at": "2026-10-31T17:46:06Z",
+          "updated_at": "2026-10-31T17:46:06Z",
+          "state": "success",
+          "target_url": "https://ci.example.com/builds/8",
+          "description": "No problems",
+          "id": 4,
+          "context": "lint",
+          "creator": {
+            "id": 1,
+            "login": "root",
+            "email": "root@example.com",
+            "type": "User",
+            "site_admin": true,
+            "created_at": "2026-10-31T15:47:54Z",
+            "url": "https://gitbucket.example.com/api/v3/users/root",
+            "html_url": "https://gitbucket.example.com/root",
+            "avatar_url": "https://gitbucket.example.com/root/_avatar"
+          },
+          "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/statuses"
+        },
+        {
+          "created_at": "2026-10-31T17:45:28Z",
+          "updated_at": "2026-10-31T17:45:28Z",
+          "state": "success",
+          "target_url": "https://ci.example.com/builds/7",
+          "description": "Build passed",
+          "id": 3,
+          "context": "ci/build",
+          "creator": {
+            "id": 1,
+            "login": "root",
+            "email": "root@example.com",
+            "type": "User",
+            "site_admin": true,
+            "created_at": "2026-10-31T15:47:54Z",
+            "url": "https://gitbucket.example.com/api/v3/users/root",
+            "html_url": "https://gitbucket.example.com/root",
+            "avatar_url": "https://gitbucket.example.com/root/_avatar"
+          },
+          "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/statuses"
+        }
+      ],
+      "repository": {
+        "id": 3,
+        "name": "widgets",
+        "full_name": "root/widgets",
+        "description": "Widgets for the forges tests",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 1,
+          "login": "root",
+          "email": "root@example.com",
+          "type": "User",
+          "site_admin": true,
+          "created_at": "2026-10-31T15:47:54Z",
+          "url": "https://gitbucket.example.com/api/v3/users/root",
+          "html_url": "https://gitbucket.example.com/root",
+          "avatar_url": "https://gitbucket.example.com/root/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets",
+        "clone_url": "https://gitbucket.example.com/git/root/widgets.git",
+        "html_url": "https://gitbucket.example.com/root/widgets"
+      },
+      "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/status"
+    }
+  }
+}

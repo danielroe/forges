@@ -1,0 +1,22 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/tags"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "v1.0.0",
+        "commit": {
+          "sha": "f7f2baeb1832be5a4aabd80c86f62f3f34b92bba",
+          "url": "https://gitbucket.example.com/root/widgets/commits/f7f2baeb1832be5a4aabd80c86f62f3f34b92bba"
+        },
+        "zipball_url": "https://gitbucket.example.com/root/widgets/archive/v1.0.0.zip",
+        "tarball_url": "https://gitbucket.example.com/root/widgets/archive/v1.0.0.tar.gz"
+      }
+    ]
+  }
+}

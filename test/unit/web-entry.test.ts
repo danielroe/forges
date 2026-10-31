@@ -19,6 +19,7 @@ const cases: Array<[keyof typeof web & keyof typeof providers, WebOptions, strin
   ['bitbucket', {}, ['https://bitbucket.org/acme/widgets/pull-requests/42']],
   ['azureDevOps', {}, ['https://dev.azure.com/contoso/Widgets/_git/widgets/pullrequest/42']],
   ['sourcehut', {}, [`https://git.sr.ht/~acme/widgets/commit/${sha}`]],
+  ['gitbucket', { baseUrl: 'https://example.com/gitbucket' }, ['https://example.com/gitbucket/acme/widgets/pull/2', 'https://example.com/gitbucket/acme/widgets/releases/v1.0.0', 'https://example.com/gitbucket/git/acme/widgets.git']],
   ['tangled', {}, ['https://tangled.sh/@acme.dev/core/issues/4', 'https://tangled.sh/@acme.dev/core/compare/main...feat']],
 ]
 

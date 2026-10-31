@@ -1,0 +1,27 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/contents"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "type": "file",
+        "name": "README.md",
+        "path": "README.md",
+        "sha": "f7f2baeb1832be5a4aabd80c86f62f3f34b92bba",
+        "download_url": "https://gitbucket.example.com/api/v3/repos/root/widgets/raw/f7f2baeb1832be5a4aabd80c86f62f3f34b92bba/README.md"
+      },
+      {
+        "type": "file",
+        "name": "config.ts",
+        "path": "config.ts",
+        "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+        "download_url": "https://gitbucket.example.com/api/v3/repos/root/widgets/raw/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/config.ts"
+      }
+    ]
+  }
+}

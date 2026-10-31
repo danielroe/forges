@@ -2749,7 +2749,8 @@
       "cursor-origin",
       "pushin",
       "cloudflare-artifacts",
-      "sourcehut"
+      "sourcehut",
+      "gitbucket"
     ],
     "description": "The forges this package ships providers for.",
     "x-forges-type": "KnownForgeKind"

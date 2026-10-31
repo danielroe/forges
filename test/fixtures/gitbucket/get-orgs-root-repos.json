@@ -1,0 +1,125 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/orgs/root/repos"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "id": 4,
+        "name": "many",
+        "full_name": "root/many",
+        "description": "",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 1,
+          "login": "root",
+          "email": "root@example.com",
+          "type": "User",
+          "site_admin": true,
+          "created_at": "2026-10-31T15:47:54Z",
+          "url": "https://gitbucket.example.com/api/v3/users/root",
+          "html_url": "https://gitbucket.example.com/root",
+          "avatar_url": "https://gitbucket.example.com/root/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "https://gitbucket.example.com/api/v3/repos/root/many",
+        "clone_url": "https://gitbucket.example.com/git/root/many.git",
+        "html_url": "https://gitbucket.example.com/root/many"
+      },
+      {
+        "id": 3,
+        "name": "widgets",
+        "full_name": "root/widgets",
+        "description": "Widgets for the forges tests",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 1,
+          "login": "root",
+          "email": "root@example.com",
+          "type": "User",
+          "site_admin": true,
+          "created_at": "2026-10-31T15:47:54Z",
+          "url": "https://gitbucket.example.com/api/v3/users/root",
+          "html_url": "https://gitbucket.example.com/root",
+          "avatar_url": "https://gitbucket.example.com/root/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets",
+        "clone_url": "https://gitbucket.example.com/git/root/widgets.git",
+        "html_url": "https://gitbucket.example.com/root/widgets"
+      },
+      {
+        "id": 1,
+        "name": "demo",
+        "full_name": "root/demo",
+        "description": "probe",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 1,
+          "login": "root",
+          "email": "root@example.com",
+          "type": "User",
+          "site_admin": true,
+          "created_at": "2026-10-31T15:47:54Z",
+          "url": "https://gitbucket.example.com/api/v3/users/root",
+          "html_url": "https://gitbucket.example.com/root",
+          "avatar_url": "https://gitbucket.example.com/root/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "https://gitbucket.example.com/api/v3/repos/root/demo",
+        "clone_url": "https://gitbucket.example.com/git/root/demo.git",
+        "html_url": "https://gitbucket.example.com/root/demo"
+      },
+      {
+        "id": 2,
+        "name": "other",
+        "full_name": "root/other",
+        "description": "",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 1,
+          "login": "root",
+          "email": "root@example.com",
+          "type": "User",
+          "site_admin": true,
+          "created_at": "2026-10-31T15:47:54Z",
+          "url": "https://gitbucket.example.com/api/v3/users/root",
+          "html_url": "https://gitbucket.example.com/root",
+          "avatar_url": "https://gitbucket.example.com/root/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "https://gitbucket.example.com/api/v3/repos/root/other",
+        "clone_url": "https://gitbucket.example.com/git/root/other.git",
+        "html_url": "https://gitbucket.example.com/root/other"
+      }
+    ]
+  }
+}

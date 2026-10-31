@@ -1,0 +1,37 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/pulls/2/commits"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+        "commit": {
+          "message": "Handle an empty config",
+          "author": {
+            "name": "root",
+            "email": "root@example.com",
+            "date": "2026-10-31T17:45:27Z"
+          },
+          "committer": {
+            "name": "root",
+            "email": "root@example.com",
+            "date": "2026-10-31T17:45:27Z"
+          },
+          "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/git/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+        },
+        "parents": [
+          {
+            "sha": "f7f2baeb1832be5a4aabd80c86f62f3f34b92bba",
+            "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/f7f2baeb1832be5a4aabd80c86f62f3f34b92bba"
+          }
+        ],
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+      }
+    ]
+  }
+}

@@ -26,6 +26,15 @@ describe('providersFromEnv', () => {
     expect(entries.map(entry => [entry.forge, entry.skipped])).toEqual([['tangled', 'ENABLED is off'], ['github', 'ENABLED is off']])
   })
 
+  it('needs the server of a GitBucket set, since GitBucket has no public instance', () => {
+    const entries = providersFromEnv({ FORGES_GITBUCKET_TOKEN: 'a', FORGES_GITBUCKET_TOKEN_WORK: 'b', FORGES_GITBUCKET_BASE_URL_WORK: 'https://git.example.com/gitbucket' })
+
+    expect(entries.map(({ suffix, provider, skipped }) => ({ suffix, baseUrl: provider?.baseUrl, skipped }))).toEqual([
+      { suffix: '', baseUrl: undefined, skipped: 'needs BASE_URL' },
+      { suffix: 'WORK', baseUrl: 'https://git.example.com/gitbucket/api/v3', skipped: undefined },
+    ])
+  })
+
   it('builds anonymous providers from ENABLED or DEMO_REPO', () => {
     const forges = forgesFromEnv({ FORGES_FORGEJO_ENABLED: '1', FORGES_FORGEJO_BASE_URL: 'https://codeberg.org', FORGES_GITLAB_DEMO_REPO: 'acme/platform/widgets' })
 

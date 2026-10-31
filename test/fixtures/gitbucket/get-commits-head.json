@@ -1,0 +1,81 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+      "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+      "html_url": "https://gitbucket.example.com/root/widgets/commit/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+      "comment_url": "https://gitbucket.example.com",
+      "commit": {
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/commits/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+        "author": {
+          "name": "root",
+          "email": "root@example.com",
+          "date": "2026-10-31T17:45:27Z"
+        },
+        "committer": {
+          "name": "root",
+          "email": "root@example.com",
+          "date": "2026-10-31T17:45:27Z"
+        },
+        "message": "Handle an empty config",
+        "comment_count": 0,
+        "tree": {
+          "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/tree/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9",
+          "sha": "4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9"
+        }
+      },
+      "author": {
+        "id": 1,
+        "login": "root",
+        "email": "root@example.com",
+        "type": "User",
+        "site_admin": true,
+        "created_at": "2026-10-31T15:47:54Z",
+        "url": "https://gitbucket.example.com/api/v3/users/root",
+        "html_url": "https://gitbucket.example.com/root",
+        "avatar_url": "https://gitbucket.example.com/root/_avatar"
+      },
+      "committer": {
+        "id": 1,
+        "login": "root",
+        "email": "root@example.com",
+        "type": "User",
+        "site_admin": true,
+        "created_at": "2026-10-31T15:47:54Z",
+        "url": "https://gitbucket.example.com/api/v3/users/root",
+        "html_url": "https://gitbucket.example.com/root",
+        "avatar_url": "https://gitbucket.example.com/root/_avatar"
+      },
+      "parents": [
+        {
+          "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/tree/f7f2baeb1832be5a4aabd80c86f62f3f34b92bba",
+          "sha": "f7f2baeb1832be5a4aabd80c86f62f3f34b92bba"
+        }
+      ],
+      "stats": {
+        "additions": 2,
+        "deletions": 0,
+        "total": 2
+      },
+      "files": [
+        {
+          "filename": "config.ts",
+          "additions": 2,
+          "deletions": 0,
+          "changes": 2,
+          "status": "added",
+          "raw_url": "https://gitbucket.example.com/root/widgets/raw/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/config.ts",
+          "blob_url": "https://gitbucket.example.com/root/widgets/blob/4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9/config.ts",
+          "patch": "+++ b/config.ts\n@@ -0,0 +1 @@\n+export const config = {}"
+        }
+      ]
+    }
+  }
+}

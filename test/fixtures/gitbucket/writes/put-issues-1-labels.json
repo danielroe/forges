@@ -1,0 +1,18 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "PUT",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/issues/1/labels"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "bug",
+        "color": "fc2929",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/bug"
+      }
+    ]
+  }
+}
