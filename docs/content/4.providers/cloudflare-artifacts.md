@@ -82,7 +82,7 @@ Artifacts sends no webhooks. It publishes [events](https://developers.cloudflare
 | `repos.get` | ✅ | ❌ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |

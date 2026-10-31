@@ -392,6 +392,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
       eventKinds: 'native',
       authKinds: ['token'],
     },
+    notApplicable: [
+      'users.sponsorable',
+    ],
     users: {
       get: verb(true, async (login, options) => {
         const { userByName } = await meta.query<{ userByName: ShUser | null }>(Q.UserByName, { username: usernameOf(login) }, options)

@@ -281,6 +281,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     },
     traits: { eventKinds: 'native', authKinds: ['token', 'app', 'anonymous'] },
     notApplicable: [
+      'users.sponsorable',
       'notifications.list',
       'notifications.markRead',
       'notifications.markDone',

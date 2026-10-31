@@ -87,7 +87,7 @@ Because a Sourcehut webhook sends the result of a GraphQL query that you registe
 | `repos.get` | ✅ | ❌ |
 | `users.get` | ✅ | ❌ |
 | `users.me` | ✅ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |
