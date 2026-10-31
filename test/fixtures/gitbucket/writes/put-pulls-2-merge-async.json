@@ -1,0 +1,14 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "PUT",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/pulls/2/merge-async"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "message": "Not Found"
+    }
+  }
+}

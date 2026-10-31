@@ -5,6 +5,7 @@ import { bitbucket } from './bitbucket/index.ts'
 import { cloudflareArtifacts } from './cloudflare-artifacts/index.ts'
 import { cursorOrigin } from './cursor-origin/index.ts'
 import { forgejo } from './forgejo/index.ts'
+import { gitbucket } from './gitbucket/index.ts'
 import { gitea } from './gitea/index.ts'
 import { gitee } from './gitee/index.ts'
 import { github } from './github/index.ts'
@@ -14,7 +15,7 @@ import { pushin } from './pushin/index.ts'
 import { sourcehut } from './sourcehut/index.ts'
 import { tangled } from './tangled/index.ts'
 
-const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS', 'SOURCEHUT'] as const
+const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS', 'SOURCEHUT', 'GITBUCKET'] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
 const FIELDS = [
@@ -168,6 +169,13 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       return isOn(fields.ENABLED)
         ? { ...entry, provider: cursorOrigin(base) }
         : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for webhooks only' }
+    case 'GITBUCKET':
+      if (!fields.BASE_URL) {
+        return { ...entry, skipped: 'needs BASE_URL' }
+      }
+      return fields.TOKEN || anonymous
+        ? { ...entry, provider: gitbucket({ ...base, baseUrl: fields.BASE_URL, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        : { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
     case 'SOURCEHUT':
       return fields.TOKEN
         ? { ...entry, provider: sourcehut({ ...base, ...fields.WEBHOOK_PUBLIC_KEY ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY } : {}, auth: { type: 'token', token: fields.TOKEN } }) }

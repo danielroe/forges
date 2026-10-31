@@ -216,6 +216,18 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'gitbucket': {
+    TOKEN: [
+      {
+        text: 'Create a personal access token under **Account settings > Applications** on your GitBucket server. GitBucket tokens have no scopes, so the token can do what its account can.',
+        sources: [
+          'https://github.com/gitbucket/gitbucket/blob/4.48.0/src/main/scala/gitbucket/core/controller/AccountController.scala',
+          'https://github.com/gitbucket/gitbucket/blob/4.48.0/src/main/scala/gitbucket/core/servlet/ApiAuthenticationFilter.scala',
+        ],
+        verified: '2026-10-31',
+      },
+    ],
+  },
   'sourcehut': {
     TOKEN: [
       {
@@ -285,6 +297,11 @@ export const forgeSteps: Record<string, CredentialStep> = {
     text: 'Set `ACCOUNT_ID` to the account that holds the namespaces. In the dashboard, search for **Copy account ID**.',
     sources: ['https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/', 'src/env.ts'],
     verified: '2026-10-13',
+  },
+  'gitbucket': {
+    text: 'Set `BASE_URL` to the root of your GitBucket server, such as `https://gitbucket.example.com`.',
+    sources: ['docs/content/4.providers/gitbucket.md', 'src/env.ts'],
+    verified: '2026-10-31',
   },
   'sourcehut': {
     text: 'On a self-hosted instance, create the token there and set `BASE_URL` to the instance root, such as `https://example.org`.',

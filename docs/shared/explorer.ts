@@ -293,6 +293,19 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     // number is the scdoc issue and a patch call reads the `scdoc` list, which has none.
     sample: sample({ owner: '~sircmpwn', name: 'scdoc', number: '6', login: '~sircmpwn', sha: '24be30ef17d5ca0162f11b35258c8fa2413d556a', tag: '1.10.1', releaseId: '1.10.1', base: 'master', head: 'master', runId: '1' }),
   },
+  {
+    name: 'GitBucket',
+    factory: 'gitbucket',
+    module: 'gitbucket',
+    load: () => import('forges/gitbucket'),
+    forge: 'gitbucket',
+    instance: 'gitbucket.example.com',
+    credentials: [token('GITBUCKET_TOKEN')],
+    options: () => ({ baseUrl: 'https://gitbucket.example.com' }),
+    blocked: 'GitBucket has no public instance, so the code runs against your own server.',
+    // The repository the unit tests read, on a GitBucket 4.48 server.
+    sample: sample({ owner: 'root', name: 'widgets', number: '2', login: 'root', tag: 'v1.0.0', releaseId: 'v1.0.0', sha: '4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9', base: 'main', head: 'fix-empty-config' }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

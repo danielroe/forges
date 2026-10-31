@@ -7,6 +7,7 @@ import type { ForgeWeb, WebForges, WebOptions } from '../web.ts'
 import { AZURE_DEVOPS_WEB } from '../azure-devops/web.ts'
 import { BITBUCKET_WEB } from '../bitbucket/web.ts'
 import { FORGEJO_WEB, GITEA_WEB } from '../forgejo/web.ts'
+import { GITBUCKET_WEB } from '../gitbucket/web.ts'
 import { GITEE_WEB } from '../gitee/web.ts'
 import { GITHUB_WEB } from '../github/web.ts'
 import { GITLAB_WEB } from '../gitlab/web.ts'
@@ -24,6 +25,8 @@ export const azureDevOps: (options?: WebOptions) => ForgeWeb<'azure-devops'> = /
 export const bitbucket: (options?: WebOptions) => ForgeWeb<'bitbucket'> = /* @__PURE__ */ defineForgeWeb(BITBUCKET_WEB)
 /** The web links of Codeberg or another Forgejo instance. */
 export const forgejo: (options?: WebOptions) => ForgeWeb<'forgejo'> = /* @__PURE__ */ defineForgeWeb(FORGEJO_WEB)
+/** The web links of a GitBucket server, which has no public instance, so pass its `baseUrl`. */
+export const gitbucket: (options: WebOptions & { baseUrl: string }) => ForgeWeb<'gitbucket'> = /* @__PURE__ */ defineForgeWeb(GITBUCKET_WEB)
 /** The web links of gitea.com or another Gitea instance. */
 export const gitea: (options?: WebOptions) => ForgeWeb<'gitea'> = /* @__PURE__ */ defineForgeWeb(GITEA_WEB)
 /** The web links of Gitee. */

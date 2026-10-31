@@ -1,0 +1,27 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "POST",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/hooks"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "type": "Repository",
+      "id": 2,
+      "name": "web",
+      "active": true,
+      "events": [
+        "issue_comment",
+        "issues",
+        "pull_request"
+      ],
+      "config": {
+        "content_type": "json",
+        "url": "https://hooks.example.com/gitbucket"
+      },
+      "url": "https://gitbucket.example.com/api/v3/root/widgets/hooks/2"
+    }
+  }
+}

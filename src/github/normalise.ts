@@ -676,7 +676,7 @@ export function toStatusCheck(repo: RepoRef, raw: GitHubCommitStatus): Check {
 }
 
 export function toRelease(repo: RepoRef, raw: GitHubRelease): Release {
-  const ref = { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id), tag: raw.tag_name }
+  const ref = { forge: repo.forge, instance: repo.instance, repo, id: raw.id === undefined ? raw.tag_name : String(raw.id), tag: raw.tag_name }
   return {
     ref,
     name: raw.name ?? undefined,

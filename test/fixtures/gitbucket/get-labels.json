@@ -1,0 +1,48 @@
+{
+  "handAuthored": true,
+  "request": {
+    "method": "GET",
+    "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "bug",
+        "color": "fc2929",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/bug"
+      },
+      {
+        "name": "duplicate",
+        "color": "cccccc",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/duplicate"
+      },
+      {
+        "name": "enhancement",
+        "color": "84b6eb",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/enhancement"
+      },
+      {
+        "name": "invalid",
+        "color": "e6e6e6",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/invalid"
+      },
+      {
+        "name": "needs-triage",
+        "color": "fbca04",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/needs-triage"
+      },
+      {
+        "name": "question",
+        "color": "cc317c",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/question"
+      },
+      {
+        "name": "wontfix",
+        "color": "ffffff",
+        "url": "https://gitbucket.example.com/api/v3/repos/root/widgets/labels/wontfix"
+      }
+    ]
+  }
+}
