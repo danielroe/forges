@@ -3,7 +3,6 @@ import { eventTime } from '../events.ts'
 import { toDate, toPullStats } from '../utils.ts'
 import { toAuthorAssociation } from './association.ts'
 
-
 const ACTOR_FIELDS = `__typename login avatarUrl url ... on User { databaseId name } ... on Bot { databaseId }`
 
 const USER_FIELDS = `__typename login avatarUrl url databaseId name`
