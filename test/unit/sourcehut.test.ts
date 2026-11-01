@@ -282,6 +282,16 @@ describe('sourcehut web links', () => {
     expect(forge.urlFor({ raw: { repo, path: 'README.md', at: 'master' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/master/README.md')
     expect(forge.urlFor({ raw: { repo, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/v1.0.0/src/a%20b.ts')
   })
+
+  it('reads a repository page on the instance root', () => {
+    expect(forge.parseUrl('https://sr.ht/~sircmpwn/scdoc')).toEqual({ repo })
+    // Building a repo URL still lands on the git host, not the root.
+    expect(forge.urlFor({ repo })).toBe('https://git.sr.ht/~sircmpwn/scdoc')
+  })
+
+  it('leaves a profile on the instance root unparsed', () => {
+    expect(forge.parseUrl('https://sr.ht/~sircmpwn')).toBeUndefined()
+  })
 })
 
 describe('sourcehut explicit baseUrl', () => {
