@@ -207,11 +207,11 @@ describe('affectedKeys', () => {
   })
 
   it('keys a comment alike whether it was polled or delivered by webhook', () => {
-    const [delivered] = translateGitHubWebhook('github.com', {
+    const [delivered] = translateGitHubWebhook(origin, {
       headers: { 'x-github-event': 'issue_comment', 'x-github-delivery': 'delivery-1' },
       body: JSON.stringify({ action: 'created', repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }, issue: { number: 42, pull_request: {} }, comment: { id: 900, body: 'Thanks' } }),
     })
-    const polled = completeEvent(toGitHubEvent('github.com', pull, { event: 'commented', id: 900, node_id: 'IC_900', body: 'Thanks' }))
+    const polled = completeEvent(toGitHubEvent(origin, pull, { event: 'commented', id: 900, node_id: 'IC_900', body: 'Thanks' }))
 
     expect(delivered!.id).not.toBe(polled.id)
     expect(affectedKeys(completeEvent(delivered!)).comments).toEqual([commentKey(comment)])
@@ -273,7 +273,7 @@ describe('delivered comment keys', () => {
 
   it('keys a GitHub discussion comment as the comment listing does', () => {
     const comment = { id: 7001, node_id: 'DC_kwDOAAABCDE', body: 'Same here', created_at: '2026-09-20T09:00:00Z' }
-    const [event] = translateGitHubWebhook('github.com', { headers: { 'x-github-event': 'discussion_comment', 'x-github-delivery': 'id' }, body: JSON.stringify({ action: 'created', repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }, discussion: { number: 6 }, comment }) })
+    const [event] = translateGitHubWebhook(origin, { headers: { 'x-github-event': 'discussion_comment', 'x-github-delivery': 'id' }, body: JSON.stringify({ action: 'created', repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }, discussion: { number: 6 }, comment }) })
 
     expect(delivered(event)).toEqual(listed(toDiscussionComment(threadOf(event), { id: comment.node_id }).ref))
   })

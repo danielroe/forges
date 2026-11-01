@@ -176,7 +176,7 @@ GitLab has no teams, so a subgroup stands in for one. `orgs.teams()` reads `GET 
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
 | `users.events` | ✅ | ✅ |
 | `users.block` | ❌ | ❌ |
 | `repos.list` | ✅ | ❌ |

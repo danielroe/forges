@@ -6,8 +6,10 @@ import { toFeedEvent as toForgejoFeedEvent } from '../../src/forgejo/feed.ts'
 import { translateGitHubWebhook } from '../../src/github/events.ts'
 import { translateGitLabWebhook } from '../../src/gitlab/events.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 function github(event: string, payload: Record<string, unknown>) {
-  return translateGitHubWebhook('github.com', {
+  return translateGitHubWebhook(githubOrigin, {
     headers: { 'x-github-event': event, 'x-github-delivery': 'd' },
     body: JSON.stringify({ repository: { id: 1, name: 'widgets', full_name: 'acme/widgets' }, sender: { login: 'ada', id: 2 }, ...payload }),
   }).map(completeEvent)

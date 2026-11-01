@@ -61,7 +61,7 @@ import {
   usernameOf,
 } from './normalise.ts'
 import * as Q from './queries.ts'
-import { serviceHost, SERVICES, serviceUrl } from './services.ts'
+import { serviceHost, SERVICES, serviceUrl, sourcehutInstance } from './services.ts'
 import { SOURCEHUT_WEB } from './web.ts'
 import { sourcehutWebhooks } from './webhooks.ts'
 
@@ -392,6 +392,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
       eventKinds: 'native',
       authKinds: ['token'],
     },
+    notApplicable: [
+      'users.sponsorable',
+    ],
     users: {
       get: verb(true, async (login, options) => {
         const { userByName } = await meta.query<{ userByName: ShUser | null }>(Q.UserByName, { username: usernameOf(login) }, options)
@@ -667,6 +670,7 @@ const SOURCEHUT: ProviderDefinition<SourcehutOptions, undefined, true> = {
   forge: FORGE,
   hasWeb: true,
   baseUrl: 'https://sr.ht',
+  instance: sourcehutInstance,
   headers: { accept: 'application/json' },
   authHeaders: ({ options }) => async () => ({ authorization: `Bearer ${await resolveToken(options.auth)}` }),
   webhooks: sourcehutWebhooks,

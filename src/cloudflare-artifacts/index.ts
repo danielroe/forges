@@ -262,6 +262,9 @@ function setupArtifacts({ options, origin, fetcher }: ProviderContext<Cloudflare
       eventKinds: 'native',
       authKinds: ['token'],
     },
+    notApplicable: [
+      'users.sponsorable',
+    ],
     repos: {
       get: verb(true, async (repo, getOptions) => toRepo(origin, repo.owner, (await result<ArtifactsRepository>(repoPath(repo), undefined, getOptions?.signal)).result)),
       listPage: verb(true, listRepos),

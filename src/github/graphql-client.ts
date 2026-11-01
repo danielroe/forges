@@ -1,8 +1,7 @@
 import type { Fetcher } from '../fetch.ts'
-import type { BaseOptions } from '../model.ts'
+import type { BaseOptions, ForgeOrigin } from '../model.ts'
 import { ForgeApiError, InsufficientScopeError, isSecondaryRateLimit, RateLimitedError } from '../errors.ts'
 import { rateLimitOf, rateLimitReset } from '../fetch.ts'
-import { FORGE } from './normalise.ts'
 
 type Documents = typeof import('./graphql.ts')
 
@@ -28,10 +27,10 @@ type GraphQLErrors = Array<{ message: string, type?: string }>
  * A failed GraphQL response as an error: `InsufficientScopeError` when the token lacks a scope a field needs, and
  * `RateLimitedError` for a rate limit, which GitHub reports with a `200`.
  */
-export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: { instance: string }, response?: Response): ForgeApiError {
+export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: ForgeOrigin, response?: Response): ForgeApiError {
   const message = `GraphQL ${operationName ?? 'request'} failed: ${errors?.map(error => error.message).join('; ') || 'Empty GraphQL response'}`
   const body = JSON.stringify(errors ?? null).slice(0, 512)
-  const errorContext = { forge: FORGE, instance: context.instance, url, method: 'POST' }
+  const errorContext = { forge: context.forge, instance: context.instance, url, method: 'POST' }
   const secondary = errors?.some(error => isSecondaryRateLimit(error.message)) ?? false
   if (secondary || errors?.some(error => error.type === 'RATE_LIMITED')) {
     const budget = response && rateLimitOf(response)
@@ -99,7 +98,7 @@ export function graphqlOperations(document: string): GraphQLOperation[] {
 /** Runs a named document from `./graphql`, or a query built at the call site. The module loads on first use. */
 export type GraphQLClient = <T>(query: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions) => Promise<T>
 
-export function createGraphQLClient(fetcher: Fetcher, url: string, context: { instance: string }): GraphQLClient {
+export function createGraphQLClient(fetcher: Fetcher, url: string, context: ForgeOrigin): GraphQLClient {
   return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions): Promise<T> => {
     const query = typeof document === 'string' ? (await import('./graphql.ts'))[document] : document.query
     const operationName = graphqlOperations(query)[0]?.name

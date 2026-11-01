@@ -104,7 +104,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.get` | experimental | experimental | ❌ | ❌ |
 | `users.get` | ❌ | ❌ | ❌ | ❌ |
 | `users.me` | ❌ | ❌ | ❌ | ❌ |
-| `users.sponsorable` | ❌ | ❌ | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ | ∅ | ∅ |
 | `users.events` | ❌ | ❌ | ❌ | ❌ |
 | `users.block` | ∅ | ∅ | ∅ | ∅ |
 | `repos.list` | unverified | unverified | ❌ | ❌ |

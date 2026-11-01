@@ -112,7 +112,7 @@ Bitbucket doesn't keep a delivery log, so `webhooks.deliveries()` and `webhooks.
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |

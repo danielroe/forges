@@ -474,6 +474,7 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   return {
     traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
     notApplicable: [
+      'users.sponsorable',
       'webhooks.rotateSecret',
       'webhooks.deliveries',
       'webhooks.redeliver',

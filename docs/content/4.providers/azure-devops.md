@@ -139,7 +139,7 @@ for await (const team of provider.orgs.teams(project)) {
 | `repos.get` | ✅ | ✅ |
 | `users.get` | ❌ | ❌ |
 | `users.me` | ❌ | ❌ |
-| `users.sponsorable` | ❌ | ❌ |
+| `users.sponsorable` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |
