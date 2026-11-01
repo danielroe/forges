@@ -16,6 +16,8 @@ import { toFeedEvent as toGitLabFeedEvent } from '../../src/gitlab/feed.ts'
 import { toNoteEvent as toGitLabNoteEvent } from '../../src/gitlab/normalise.ts'
 import { reviewState } from '../../src/kit.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 const repository = { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } }
 const sender = { login: 'octocat', id: 3, type: 'User' }
 
@@ -49,7 +51,7 @@ describe('thread snapshots', () => {
   })
 
   it('carries a thin pull request from an activity feed as its branches alone', () => {
-    const event = toFeedEvent('github.com', {
+    const event = toFeedEvent(githubOrigin, {
       id: '1',
       type: 'PullRequestEvent',
       actor: sender,
@@ -64,7 +66,7 @@ describe('thread snapshots', () => {
   })
 
   it('names who merged a pull request that a webhook reports merged', () => {
-    const [event] = translateGitHubWebhook('github.com', github('pull_request', { action: 'closed', pull_request: { number: 4, state: 'closed', merged: true, merged_by: { login: 'hubot', id: 4, type: 'User' } } }))
+    const [event] = translateGitHubWebhook(githubOrigin, github('pull_request', { action: 'closed', pull_request: { number: 4, state: 'closed', merged: true, merged_by: { login: 'hubot', id: 4, type: 'User' } } }))
 
     expect(event!.threadSnapshot).toMatchObject({ state: 'merged', mergedBy: { login: 'hubot' } })
   })
@@ -90,28 +92,28 @@ describe('thread snapshots', () => {
 
 describe('github webhook detail', () => {
   it('marks a merged pull as `merged` rather than `closed`', () => {
-    const [event] = translateGitHubWebhook('github.com', github('pull_request', { action: 'closed', pull_request: { number: 4, merged: true } }))
+    const [event] = translateGitHubWebhook(githubOrigin, github('pull_request', { action: 'closed', pull_request: { number: 4, merged: true } }))
 
     expect(event).toMatchObject({ kind: 'state_change', action: 'merged', actionRaw: 'closed', detail: { type: 'state_change', state: 'merged' } })
   })
 
   it.each(['created', 'edited', 'deleted'])('lists %s review comments among the events it delivers', (action) => {
-    const [event] = translateGitHubWebhook('github.com', github('pull_request_review_comment', { action, pull_request: { number: 4 }, comment: { id: 9, path: 'a.ts' } }))
+    const [event] = translateGitHubWebhook(githubOrigin, github('pull_request_review_comment', { action, pull_request: { number: 4 }, comment: { id: 9, path: 'a.ts' } }))
 
     expect(event).toMatchObject({ kind: 'review_comment', action })
     expect(GITHUB_WEBHOOK_EVENTS).toContainEqual({ kind: 'review_comment', action })
   })
 
   it('types a comment on a pull as a pull request thread', () => {
-    const [event] = translateGitHubWebhook('github.com', github('issue_comment', { action: 'created', issue: { number: 4, pull_request: {} }, comment: { id: 9, body: 'Thanks!' } }))
+    const [event] = translateGitHubWebhook(githubOrigin, github('issue_comment', { action: 'created', issue: { number: 4, pull_request: {} }, comment: { id: 9, body: 'Thanks!' } }))
 
     expect(event!.thread!.kind).toBe('pull_request')
     expect(event!.detail).toMatchObject({ type: 'comment', body: 'Thanks!', comment: { id: '9', thread: { kind: 'pull_request', number: '4' } } })
   })
 
   it('carries the review verdict and label name', () => {
-    const [review] = translateGitHubWebhook('github.com', github('pull_request_review', { action: 'submitted', pull_request: { number: 4 }, review: { state: 'changes_requested', body: 'Nearly' } }))
-    const [label] = translateGitHubWebhook('github.com', github('issues', { action: 'unlabeled', issue: { number: 5 }, label: { name: 'bug' } }))
+    const [review] = translateGitHubWebhook(githubOrigin, github('pull_request_review', { action: 'submitted', pull_request: { number: 4 }, review: { state: 'changes_requested', body: 'Nearly' } }))
+    const [label] = translateGitHubWebhook(githubOrigin, github('issues', { action: 'unlabeled', issue: { number: 5 }, label: { name: 'bug' } }))
 
     expect(review!.detail).toEqual({ type: 'review', state: 'changes_requested', stateRaw: 'changes_requested', body: 'Nearly' })
     expect(label).toMatchObject({ kind: 'label', action: 'unlabelled', detail: { type: 'label', label: 'bug' } })
@@ -119,8 +121,8 @@ describe('github webhook detail', () => {
 
   it('reports a review request as an assignment of the requested reviewer', () => {
     const reviewer = { login: 'hubot', id: 4, type: 'User' }
-    const [webhook] = translateGitHubWebhook('github.com', github('pull_request', { action: 'review_requested', pull_request: { number: 4 }, requested_reviewer: reviewer }))
-    const polled = toGitHubEvent('github.com', { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '4' }, { event: 'review_requested', actor: sender, requested_reviewer: reviewer })
+    const [webhook] = translateGitHubWebhook(githubOrigin, github('pull_request', { action: 'review_requested', pull_request: { number: 4 }, requested_reviewer: reviewer }))
+    const polled = toGitHubEvent(githubOrigin, { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '4' }, { event: 'review_requested', actor: sender, requested_reviewer: reviewer })
 
     for (const event of [webhook!, completeEvent(polled)]) {
       expect(event).toMatchObject({ kind: 'assignment', action: 'review_requested', detail: { type: 'assignment', assignee: { login: 'hubot' } } })
@@ -130,8 +132,8 @@ describe('github webhook detail', () => {
 
   it('matches "anything that closed" across kinds', () => {
     const closed = [
-      translateGitHubWebhook('github.com', github('issues', { action: 'closed', issue: { number: 5 } })),
-      translateGitHubWebhook('github.com', github('discussion', { action: 'closed', discussion: { number: 6 } })),
+      translateGitHubWebhook(githubOrigin, github('issues', { action: 'closed', issue: { number: 5 } })),
+      translateGitHubWebhook(githubOrigin, github('discussion', { action: 'closed', discussion: { number: 6 } })),
     ].flat().map(completeEvent)
 
     expect(closed.map(event => [event.thread!.kind, event.action])).toEqual([['issue', 'closed'], ['discussion', 'closed']])
@@ -143,8 +145,8 @@ describe('review identity', () => {
   const pull = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '4' } as const
 
   it('names the same GitHub review from a webhook, the timeline and the review listing', () => {
-    const [webhook] = translateGitHubWebhook('github.com', github('pull_request_review', { action: 'submitted', pull_request: { number: 4 }, review: { id: 80, node_id: 'PRR_kwDOAAABCDE', state: 'approved' } }))
-    const polled = toGitHubEvent('github.com', pull, { id: 80, node_id: 'PRR_kwDOAAABCDE', event: 'reviewed', state: 'approved', submitted_at: '2026-09-20T09:00:00Z' })
+    const [webhook] = translateGitHubWebhook(githubOrigin, github('pull_request_review', { action: 'submitted', pull_request: { number: 4 }, review: { id: 80, node_id: 'PRR_kwDOAAABCDE', state: 'approved' } }))
+    const polled = toGitHubEvent(githubOrigin, pull, { id: 80, node_id: 'PRR_kwDOAAABCDE', event: 'reviewed', state: 'approved', submitted_at: '2026-09-20T09:00:00Z' })
     const listed = toReview(pull, { id: 80, state: 'APPROVED' }, [])
 
     expect(webhook!.detail).toMatchObject({ type: 'review', review: listed.ref })
@@ -219,7 +221,7 @@ describe('cross-references', () => {
   it('reads a GitHub cross-referenced entry into a referenced event', () => {
     const thread = { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, kind: 'issue', number: '42' } as const
 
-    const event = toGitHubEvent('github.com', thread, {
+    const event = toGitHubEvent(githubOrigin, thread, {
       id: 9,
       event: 'cross-referenced',
       created_at: '2025-09-20T10:00:00Z',
