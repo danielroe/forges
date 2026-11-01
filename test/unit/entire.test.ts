@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { entire } from '../../src/entire/index.ts'
+import { toCoreRepo } from '../../src/entire/normalise.ts'
 import { BranchMovedError, UnsupportedOperationError } from '../../src/errors.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
@@ -62,5 +63,15 @@ describe('entire', () => {
     await expect(forge.threads.merge(pull, { method: 'squash' })).rejects.toBeInstanceOf(UnsupportedOperationError)
     await expect(forge.threads.create(repo, { kind: 'issue', title: 'A', labels: ['bug'] })).rejects.toBeInstanceOf(UnsupportedOperationError)
     expect(calls).toEqual([])
+  })
+
+  it.each([
+    { label: 'a scoped name', full_name: 'acme/widgets', project: undefined, org: 'acme', expected: { owner: 'acme', name: 'widgets' } },
+    { label: 'a scoped name over the project', full_name: 'acme/widgets', project: 'other', org: 'acme', expected: { owner: 'acme', name: 'widgets' } },
+    { label: 'a bare name', full_name: 'widgets', project: undefined, org: 'acme', expected: { owner: 'acme', name: 'widgets' } },
+    { label: 'no name', full_name: undefined, project: 'acme', org: 'acme', expected: { owner: 'acme', name: 'widgets' } },
+    { label: 'no name and no org', full_name: undefined, project: 'acme', org: undefined, expected: { owner: 'acme', name: 'widgets' } },
+  ])('places a control-plane repo with $label', ({ full_name, project, org, expected }) => {
+    expect(toCoreRepo(origin, { id: 'r1', name: 'widgets', full_name, org }, project)?.ref).toMatchObject(expected)
   })
 })

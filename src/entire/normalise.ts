@@ -69,7 +69,9 @@ export function toCoreRepo(origin: ForgeOrigin, raw: EntireCoreRepo, project?: s
   if (raw.provider && raw.provider !== 'entire') {
     return undefined
   }
-  const [owner = project ?? raw.org ?? '', name = raw.name] = (raw.full_name ?? '').split('/')
+  const [fullOwner, fullName] = (raw.full_name ?? '').split('/')
+  const owner = fullName ? fullOwner ?? '' : project ?? raw.org ?? ''
+  const name = (fullName ?? fullOwner) || raw.name
   const permission = raw.permission ?? (raw.capabilities?.canManage ? 'admin' : raw.capabilities?.canPush ? 'write' : raw.capabilities?.canPull ? 'read' : undefined)
   return {
     ref: toRepoRef(origin, owner, name, raw.id),
