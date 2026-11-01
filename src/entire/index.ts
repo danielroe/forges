@@ -1,6 +1,6 @@
 import type { ProviderContext, ProviderDefinition, ProviderFactoryFunction, ProviderSpec } from '../define.ts'
 import type { Fetcher } from '../fetch.ts'
-import type { Actor, BaseOptions, Branch, ChangedFile, Comment, CommentRef, Commit, CommitQuery, CommitRef, CompareOptions, Comparison, Cursor, FileOptions, ForgeEventInput, ForgeWarning, ListOptions, MergeOptions, MergeResult, Page, PageOptions, RepoQuery, RepoRef, RepoRole, ResolvedThreadRef, Review, ReviewComment, ReviewInput, ReviewRef, ReviewThread, Tag, Thread, ThreadInput, ThreadQuery, ThreadRef, ThreadUpdate, TreeEntry, TreeOptions, UpdateBranchOptions, UpdateBranchResult, User } from '../model.ts'
+import type { Actor, BaseOptions, Branch, ChangedFile, Comment, CommentRef, Commit, CommitQuery, CommitRef, CompareOptions, Comparison, Cursor, FileOptions, ForgeEventInput, ForgeWarning, ListOptions, MergeOptions, MergeResult, Page, PageOptions, RepoQuery, RepoRef, RepoRole, ResolvedThreadRef, Review, ReviewComment, ReviewCommentInput, ReviewInput, ReviewRef, ReviewThread, Tag, Thread, ThreadInput, ThreadQuery, ThreadRef, ThreadUpdate, TreeEntry, TreeOptions, UpdateBranchOptions, UpdateBranchResult, User } from '../model.ts'
 import type { ForgeOptionsBase, TokenAuth, VerbScopes } from '../provider.ts'
 import type { ForgeVerb } from '../supports.ts'
 import type { WebLinks } from '../web.ts'
@@ -498,12 +498,23 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     await cell.json(`${path}/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: opts?.signal })
   }
 
-  /** The text of lines `start` to `end` of `file` at the head of `ref`, which a line finding quotes. */
-  async function selectedText(ref: ResolvedThreadRef, file: string, start: number, end: number, signal?: AbortSignal): Promise<string> {
+  /** The findings of one review, quoting the lines each one anchors to. Each quoted file is read once. */
+  async function reviewComments(inline: ReviewCommentInput[], ref: ResolvedThreadRef, signal?: AbortSignal) {
     const raw = await change(ref, signal)
     const { cell, path } = await located(ref.repo)
-    const response = await cell.raw(`${path}/raw`, { query: { ref: raw.head_sha ?? raw.branch, path: file }, signal })
-    return (await response.text()).split('\n').slice(start - 1, end).join('\n')
+    const gitRef = raw.head_sha ?? raw.branch
+    const textOf = memoBy(async (file: string) => (await (await cell.raw(`${path}/raw`, { query: { ref: gitRef, path: file }, signal })).text()).split('\n'))
+    return Promise.all(inline.map(async (comment, index) => {
+      const end = comment.line ?? comment.startLine
+      const start = comment.startLine ?? end
+      return {
+        client_id: String(index + 1),
+        body: comment.body,
+        location: start === undefined || end === undefined
+          ? { granularity: 'file', file_path: comment.path }
+          : { granularity: start === end ? 'line' : 'range', file_path: comment.path, start_line: start, end_line: end, selected_text: (await textOf(comment.path)).slice(start - 1, end).join('\n') },
+      }
+    }))
   }
 
   async function createReview(thread: ThreadRef, input: ReviewInput, opts?: BaseOptions): Promise<Review> {
@@ -529,17 +540,7 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       throw new UnsupportedOperationError('Entire anchors findings to the head of a change', origin)
     }
     const comments = inline.length
-      ? await Promise.all(inline.map(async (comment, index) => {
-          const end = comment.line ?? comment.startLine
-          const start = comment.startLine ?? end
-          return {
-            client_id: String(index + 1),
-            body: comment.body,
-            location: start === undefined || end === undefined
-              ? { granularity: 'file', file_path: comment.path }
-              : { granularity: start === end ? 'line' : 'range', file_path: comment.path, start_line: start, end_line: end, selected_text: await selectedText(ref, comment.path, start, end, signal) },
-          }
-        }))
+      ? await reviewComments(inline, ref, signal)
       : [{ client_id: '1', body: input.body, location: { granularity: 'whole_change' } }]
     const { data: started } = await cell.json<{ review_id: string }>(`${path}/reviews`, { method: 'POST', json: {}, signal })
     const { data } = await cell.json<EntireReviewPublished>(`${path}/reviews/${encodeURIComponent(started.review_id)}/comments`, {

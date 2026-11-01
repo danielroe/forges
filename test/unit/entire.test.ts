@@ -18,21 +18,34 @@ function provider(overrides: Parameters<typeof fixtureFetch>[1]) {
 }
 
 describe('entire', () => {
-  it('quotes the commented lines of the change head in a line finding', async () => {
+  it('quotes the commented lines of the change head, reading each file once', async () => {
     const finding = { id: 'f1', review_id: 'r1', status: 'open', created_at: '2026-01-01T00:00:00Z', body: 'Shout less', location: { granularity: 'range', file_path: 'src/a.ts', start_line: 2, end_line: 3 } }
+    const raw = `${cell}/git/repos/repo1/raw?ref=abc&path=src%2Fa.ts`
     const { forge, calls } = provider({
       [`GET ${change}`]: { status: 200, body: { id: 'c1', number: 3, title: 'Shout', status: 'open', branch: 'feat', base: 'main', head_sha: 'abc' } },
-      [`GET ${cell}/git/repos/repo1/raw?ref=abc&path=src%2Fa.ts`]: { status: 200, body: 'one\ntwo\nthree\nfour\n' },
+      [`GET ${raw}`]: { status: 200, body: 'one\ntwo\nthree\nfour\n' },
       [`POST ${change}/reviews`]: { status: 201, body: { review_id: 'r1' } },
       [`POST ${change}/reviews/r1/comments`]: { status: 201, body: { results: [{ client_id: '1', status: 'created', comment: finding }] } },
     })
 
-    const review = await forge.threads.createReview(pull, { event: 'comment', body: 'Summary', comments: [{ path: 'src/a.ts', startLine: 2, line: 3, body: 'Shout less' }] })
+    const review = await forge.threads.createReview(pull, {
+      event: 'comment',
+      body: 'Summary',
+      comments: [
+        { path: 'src/a.ts', startLine: 2, line: 3, body: 'Shout less' },
+        { path: 'src/a.ts', line: 4, body: 'End there' },
+      ],
+    })
 
     expect(JSON.parse(calls.find(call => call.url.endsWith('/reviews/r1/comments'))!.body!)).toEqual({
       summary: 'Summary',
-      comments: [{ client_id: '1', body: 'Shout less', location: { granularity: 'range', file_path: 'src/a.ts', start_line: 2, end_line: 3, selected_text: 'two\nthree' } }],
+      comments: [
+        { client_id: '1', body: 'Shout less', location: { granularity: 'range', file_path: 'src/a.ts', start_line: 2, end_line: 3, selected_text: 'two\nthree' } },
+        { client_id: '2', body: 'End there', location: { granularity: 'line', file_path: 'src/a.ts', start_line: 4, end_line: 4, selected_text: 'four' } },
+      ],
     })
+    expect(calls.filter(call => call.url === change)).toHaveLength(1)
+    expect(calls.filter(call => call.url === raw)).toHaveLength(1)
     expect(review).toMatchObject({ state: 'commented', body: 'Summary' })
   })
 
