@@ -293,6 +293,18 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     // number is the scdoc issue and a patch call reads the `scdoc` list, which has none.
     sample: sample({ owner: '~sircmpwn', name: 'scdoc', number: '6', login: '~sircmpwn', sha: '24be30ef17d5ca0162f11b35258c8fa2413d556a', tag: '1.10.1', releaseId: '1.10.1', base: 'master', head: 'master', runId: '1' }),
   },
+  {
+    name: 'Entire',
+    factory: 'entire',
+    module: 'entire',
+    load: () => import('forges/entire'),
+    forge: 'entire',
+    instance: 'entire.com',
+    credentials: [token('ENTIRE_TOKEN', false)],
+    blocked: 'Entire\'s processing cells don\'t allow requests from browsers, and Entire has no anonymous reads.',
+    signedIn: true,
+    sample: sample({ owner: 'forges', name: 'forges-fixtures', number: '1', login: 'danielroe', sha: 'c83b64d5032ae0ee89ecbaeea7273b2291b4d2e5', tag: 'v0.1.0', base: 'main', head: 'feature/shout' }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

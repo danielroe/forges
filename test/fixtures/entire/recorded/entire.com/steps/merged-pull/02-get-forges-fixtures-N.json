@@ -1,0 +1,286 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailDetailResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailDetailResponse.json",
+      "id": "01M5WVNHA7JVWPZP7W0SWDQKYY",
+      "number": 2,
+      "url": "https://entire.com/et/forges/forges-fixtures/trails/2",
+      "title": "docs: say what forges is",
+      "status": "merged",
+      "branch": "fix/typo",
+      "original_branch": "fix/typo",
+      "base": "main",
+      "type": "task",
+      "priority": "none",
+      "author": {
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "login": "danielroe",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "assignees": [
+        "danielroe"
+      ],
+      "assignee_identities": [
+        {
+          "login": "danielroe",
+          "identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          }
+        }
+      ],
+      "reviewers": [
+        {
+          "login": "danielroe",
+          "status": "approved",
+          "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "identity": {
+            "kind": "account",
+            "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "display_name": "Daniel Roe",
+            "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe",
+                "is_primary": true
+              }
+            ]
+          }
+        }
+      ],
+      "ready_for_review": false,
+      "has_code_changes": false,
+      "comment_count": 0,
+      "unresolved_count": 0,
+      "created_at": "2026-10-26T19:40:45.752Z",
+      "updated_at": "2026-10-26T19:41:42.414Z",
+      "merged_at": "2026-10-26T19:41:42.414Z",
+      "last_activity_at": "2026-10-26T19:41:42.414Z",
+      "phase": null,
+      "parent": {
+        "id": "01M5WVNH9VCQPGCDV2QJVA6K0Y",
+        "number": 3,
+        "project_id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "host": "et",
+        "project": "forges",
+        "path": "/api/v1/et/forges/trails/01M5WVNH9VCQPGCDV2QJVA6K0Y",
+        "jurisdiction": "uk",
+        "primary_processing_cell": "aws-eu-west-2",
+        "url": "https://entire.com/et/forges/-/trails/3"
+      },
+      "branch_state": "unknown",
+      "code_changes": "not_applicable",
+      "lifecycle_sync": "settled",
+      "body_document": {
+        "id": "01M5WVNHBT9SNFF17Q2VTA66AJ",
+        "document_key": "trail:01M5WVNHA7JVWPZP7W0SWDQKYY:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "text_snapshot": "",
+        "updated_at": "2026-10-26T19:40:45.752Z",
+        "etag": "W/\"2026-10-26T19:40:45.752733Z\""
+      },
+      "monitors": [],
+      "agents": [],
+      "runners": [],
+      "actions": {
+        "approve": {
+          "state": "unavailable",
+          "reason": "trail_not_open"
+        },
+        "create_ci_pr": {
+          "state": "unavailable",
+          "reason": "trail_not_open"
+        },
+        "merge": {
+          "state": "unavailable",
+          "reason": "trail_not_open"
+        },
+        "merge_with_bypass": {
+          "state": "unavailable",
+          "reason": "trail_not_open"
+        },
+        "update_branch": {
+          "state": "unavailable",
+          "reason": "trail_not_open"
+        },
+        "restore_branch": {
+          "state": "unavailable",
+          "reason": "branch_exists"
+        },
+        "delete_branch": {
+          "state": "enabled",
+          "reason": null
+        }
+      },
+      "mergeability": {
+        "delete_branch_on_merge": false,
+        "bypass_policy": "nobody",
+        "mergeable": true,
+        "behind_by": 0,
+        "comparison_status": "available",
+        "conflict_status": "unknown",
+        "head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+        "gates": [
+          {
+            "reviewers": [
+              {
+                "login": "danielroe",
+                "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "state": "approved",
+                "reviewed_head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+                "reason": null
+              }
+            ],
+            "runner_ids": [],
+            "id": "01M5WVPPCKAK64REFZ7Z59APSB",
+            "gate_definition_id": "01M5WTJP4MSACMEJ1KK4FGP2B1",
+            "gate_key": "approvals",
+            "gate_type": "approvals",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "value": {
+              "approved": 1,
+              "changes_requested": false,
+              "config": {
+                "version": 1,
+                "min_reviewers": 1,
+                "allow_self_approval": true,
+                "dismiss_stale_approvals_on_push": false
+              },
+              "required": 1,
+              "self_excluded": false,
+              "stale_dismissed": 0,
+              "total": 1
+            },
+            "rationale": "1 approval(s) recorded",
+            "created_at": "2026-10-26T19:41:23.731872Z",
+            "completed_at": "2026-10-26T19:41:23.731872Z",
+            "state": "evaluated",
+            "outcome": "passed",
+            "stale_reason": null,
+            "evaluated_at_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "finding_count": null
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "01M5WVPXW16SZKPVENFYE9DYFK",
+            "gate_definition_id": "01M5WTJP5MDYCYNF3Z6BWN7NZ0",
+            "gate_key": "findings",
+            "gate_type": "findings",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "value": {
+              "config": {
+                "version": 1,
+                "agent_findings_min_severity": "high"
+              },
+              "reviewed_head": false,
+              "agent_findings": {
+                "low": 0,
+                "high": 0,
+                "medium": 0,
+                "unspecified": 0
+              },
+              "review_in_flight": false,
+              "reviewer_configured": false,
+              "review_grace_expired": false,
+              "agent_blocking_findings": 0
+            },
+            "rationale": "No blocking findings",
+            "created_at": "2026-10-26T19:41:31.393501Z",
+            "completed_at": "2026-10-26T19:41:31.393501Z",
+            "state": "evaluated",
+            "outcome": "passed",
+            "stale_reason": null,
+            "evaluated_at_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "finding_count": 0
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "01M5WVNHERD57DMBSKD0MMREKD",
+            "gate_definition_id": "01M5WTJP5QR0FQ7TWGE7Y3QCJC",
+            "gate_key": "up_to_date",
+            "gate_type": "up_to_date",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "value": {
+              "config": {
+                "version": 1,
+                "allow_behind_if_mergeable": false
+              },
+              "behind_by": 0,
+              "compare_status": "ahead",
+              "comparison_status": "available"
+            },
+            "rationale": "Up to date",
+            "created_at": "2026-10-26T19:40:45.912404Z",
+            "completed_at": "2026-10-26T19:40:45.912404Z",
+            "state": "evaluated",
+            "outcome": "passed",
+            "stale_reason": null,
+            "evaluated_at_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+            "finding_count": null
+          }
+        ],
+        "checks": {
+          "availability": "not_applicable",
+          "runs": []
+        },
+        "forge_merge_block": null
+      },
+      "deployments": {
+        "availability": "available",
+        "ready": 0,
+        "total": 0,
+        "items": []
+      },
+      "config_source": "snapshot",
+      "merge_base_sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+      "base_sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+      "head_sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca"
+    }
+  }
+}

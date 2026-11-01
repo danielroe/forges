@@ -1,0 +1,87 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/commits?ref=HEAD&includeStats=true&pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListCommitsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListCommitsResponse.json",
+      "commits": [
+        {
+          "sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+          "parents": [
+            "8127b4c88662985c819a6b3cabecde203907c3e2"
+          ],
+          "message": "docs: say what forges is\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          },
+          "stats": {
+            "additions": 1,
+            "deletions": 1,
+            "filesChanged": 1,
+            "truncated": false
+          }
+        },
+        {
+          "sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+          "parents": [
+            "df5c2c540bd97eb54ae4369e7a24dda6c551a9fb"
+          ],
+          "message": "feat: add a command line entry\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:04:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:04:00Z"
+          },
+          "stats": {
+            "additions": 3,
+            "deletions": 0,
+            "filesChanged": 1,
+            "truncated": false
+          }
+        },
+        {
+          "sha": "df5c2c540bd97eb54ae4369e7a24dda6c551a9fb",
+          "parents": [
+            "8344a38e82f7cf7fd830a450b7de4a382ac0de1f"
+          ],
+          "message": "chore: add a licence\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:03:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:03:00Z"
+          },
+          "stats": {
+            "additions": 21,
+            "deletions": 0,
+            "filesChanged": 1,
+            "truncated": false
+          }
+        }
+      ],
+      "nextPageToken": "eyJmIjpbIjgzNDRhMzhlODJmN2NmN2ZkODMwYTQ1MGI3ZGU0YTM4MmFjMGRlMWYiXX0"
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/et/forges/trails/01M5WVNFY1D7AHX0KJW2ANZP14"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T19:40:44.561257Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "project": {
+        "primaryProcessingCell": "aws-eu-west-2",
+        "id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "name": "forges",
+        "provider": "entire",
+        "reference": {
+          "forge": "et",
+          "project": "forges"
+        },
+        "jurisdiction": "uk",
+        "capabilities": {
+          "canManageTrails": true
+        }
+      },
+      "author": {
+        "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "login": "danielroe",
+        "displayName": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "id": "01M5WVNFY1D7AHX0KJW2ANZP14",
+      "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+      "number": 2,
+      "url": "https://entire.com/et/forges/-/trails/2",
+      "title": "Shout greetings",
+      "body": "Adds a `shout` option to `greet()`.",
+      "bodyDocument": {
+        "id": "",
+        "document_key": "project-trail:01M5WVNFY1D7AHX0KJW2ANZP14:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Adds a "
+                },
+                {
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ],
+                  "text": "shout"
+                },
+                {
+                  "type": "text",
+                  "text": " option to "
+                },
+                {
+                  "type": "text",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ],
+                  "text": "greet()"
+                },
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ]
+        },
+        "text_snapshot": "Adds a shout option to greet().",
+        "updated_at": "2026-10-26T19:40:44.561Z",
+        "etag": ""
+      },
+      "status": "open",
+      "phase": "building",
+      "metadata": {},
+      "type": "feature",
+      "priority": "medium",
+      "assignees": [],
+      "assigneeAccountIds": [],
+      "repoIds": [
+        "01M5WS0P331VQ3AARB26Z9DGV7"
+      ],
+      "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "createdAt": "2026-10-26T19:40:44.349Z",
+      "metadataUpdatedAt": "2026-10-26T19:40:44.561Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T19:42:13.290Z",
+      "changes": [
+        {
+          "id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+          "repositoryId": "01M5WS0P331VQ3AARB26Z9DGV7",
+          "repository": "forges-fixtures",
+          "branch": "feature/shout",
+          "originalBranch": "feature/shout",
+          "base": "main",
+          "number": 1,
+          "title": "feat: shout greetings",
+          "status": "open",
+          "hasCodeChanges": true,
+          "createdAt": "2026-10-26T19:40:44.349Z",
+          "updatedAt": "2026-10-26T19:42:13.290Z",
+          "lastActivityAt": "2026-10-26T19:42:13.290Z",
+          "deployments": {
+            "availability": "available",
+            "ready": 0,
+            "total": 0
+          },
+          "readiness": "in_review",
+          "mergeability": {
+            "conflict_status": "unknown",
+            "head_sha": "",
+            "refreshed_at": null,
+            "forge_merge_block": null
+          }
+        }
+      ],
+      "isPossiblyPartial": true
+    }
+  }
+}

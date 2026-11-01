@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/13/discussions/01M5X09V1QW77SKERM3TA6VTXC/messages/01M5X09V1T11B2MR912QBBWXHP",
+    "body": {
+      "body": "An edited comment from run 20261026210133."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailDiscussionMessageResponseBody.json>; rel=\"describedBy\"",
+      "etag": "W/\"message:01M5X09V1T11B2MR912QBBWXHP:2\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailDiscussionMessageResponseBody.json",
+      "message": {
+        "etag": "\"message:01M5X09V1T11B2MR912QBBWXHP:2\"",
+        "id": "01M5X09V1T11B2MR912QBBWXHP",
+        "author": "danielroe-bot",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        },
+        "created_at": "2026-10-26T21:01:45.399Z",
+        "body": "An edited comment from run 20261026210133.",
+        "replies": []
+      }
+    }
+  }
+}

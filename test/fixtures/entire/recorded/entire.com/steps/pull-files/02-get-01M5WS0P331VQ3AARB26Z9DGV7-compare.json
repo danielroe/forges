@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/compare?base=8127b4c88662985c819a6b3cabecde203907c3e2&head=9ec20061f17f35212247320f525ec51d3e00c41a"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/CompareResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/CompareResponse.json",
+      "files": [
+        {
+          "path": "README.md",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 0,
+          "binary": false,
+          "tooLarge": false
+        },
+        {
+          "path": "src/greet.ts",
+          "status": "modified",
+          "additions": 3,
+          "deletions": 2,
+          "binary": false,
+          "tooLarge": false
+        }
+      ],
+      "truncated": false
+    }
+  }
+}

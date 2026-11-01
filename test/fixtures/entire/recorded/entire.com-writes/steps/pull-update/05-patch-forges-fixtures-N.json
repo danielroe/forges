@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9",
+    "body": {
+      "title": "forges fixture 20261026210133: pull, edited"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailUpdateResponseBody.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T21:02:03.358195Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailUpdateResponseBody.json",
+      "trail": {
+        "id": "01M5X0A49M70NAMJX878FD2QD1",
+        "number": 9,
+        "url": "https://entire.com/et/forges-scratch/forges-fixtures/trails/9",
+        "title": "forges fixture 20261026210133: pull, edited",
+        "status": "open",
+        "branch": "forges-fixtures/20261026210133-1",
+        "original_branch": "forges-fixtures/20261026210133-1",
+        "base": "main",
+        "type": "task",
+        "priority": "none",
+        "author": {
+          "id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "login": "danielroe-bot",
+          "identity": {
+            "kind": "account",
+            "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+            "display_name": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+            "handles": [
+              {
+                "provider": "github",
+                "handle": "danielroe-bot",
+                "is_primary": true
+              }
+            ]
+          }
+        },
+        "assignees": [
+          "danielroe-bot"
+        ],
+        "assignee_identities": [
+          {
+            "login": "danielroe-bot",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+              "display_name": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe-bot",
+                  "is_primary": true
+                }
+              ]
+            }
+          }
+        ],
+        "reviewers": [],
+        "ready_for_review": true,
+        "has_code_changes": true,
+        "comment_count": 1,
+        "unresolved_count": 1,
+        "created_at": "2026-10-26T21:01:54.849Z",
+        "updated_at": "2026-10-26T21:02:03.358Z",
+        "merged_at": null,
+        "last_activity_at": "2026-10-26T21:02:03.358Z",
+        "phase": "reviewing",
+        "checkpoint_count": 0,
+        "body_document": {
+          "id": "01M5X0A4AGRFN6FB08AYTPCF6X",
+          "document_key": "trail:01M5X0A49M70NAMJX878FD2QD1:body",
+          "schema_version": 1,
+          "content_json": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "text_snapshot": "",
+          "updated_at": "2026-10-26T21:01:54.849Z",
+          "etag": "W/\"2026-10-26T21:01:54.849162Z\""
+        },
+        "merge_base_sha": null,
+        "base_sha": null,
+        "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba"
+      }
+    }
+  }
+}

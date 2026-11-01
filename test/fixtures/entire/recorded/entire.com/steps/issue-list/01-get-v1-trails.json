@@ -1,0 +1,238 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails?projectId=01M5WS0JJNP4V9AW20MZ3MKF5M&status=open&pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ProjectTrailsListResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ProjectTrailsListResponse.json",
+      "capabilities": {
+        "canManageTrails": true
+      },
+      "items": [
+        {
+          "capabilities": {
+            "canEdit": true,
+            "canManageScope": true
+          },
+          "author": {
+            "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "login": "danielroe",
+            "displayName": "Daniel Roe",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "id": "01M5WVNFY1D7AHX0KJW2ANZP14",
+          "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+          "number": 2,
+          "title": "Shout greetings",
+          "body": "Adds a `shout` option to `greet()`.",
+          "status": "open",
+          "phase": "building",
+          "metadata": {},
+          "type": "feature",
+          "priority": "medium",
+          "assignees": [],
+          "assigneeAccountIds": [],
+          "repoIds": [
+            "01M5WS0P331VQ3AARB26Z9DGV7"
+          ],
+          "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "createdAt": "2026-10-26T19:40:44.349Z",
+          "metadataUpdatedAt": "2026-10-26T19:40:44.561Z",
+          "closedAt": null,
+          "lastVisitedAt": null,
+          "lastActivityAt": "2026-10-26T19:42:13.290Z",
+          "isPossiblyPartial": true,
+          "groupKey": "",
+          "readiness": "in_review",
+          "changes": [
+            {
+              "id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+              "repositoryId": "01M5WS0P331VQ3AARB26Z9DGV7",
+              "repository": "forges-fixtures",
+              "branch": "feature/shout",
+              "originalBranch": "feature/shout",
+              "base": "main",
+              "number": 1,
+              "title": "feat: shout greetings",
+              "status": "open",
+              "hasCodeChanges": true,
+              "createdAt": "2026-10-26T19:40:44.349Z",
+              "updatedAt": "2026-10-26T19:42:13.290Z",
+              "lastActivityAt": "2026-10-26T19:42:13.290Z",
+              "readiness": "in_review",
+              "mergeability": {
+                "conflict_status": "unknown",
+                "head_sha": "",
+                "refreshed_at": null,
+                "forge_merge_block": null
+              }
+            }
+          ]
+        },
+        {
+          "capabilities": {
+            "canEdit": true,
+            "canManageScope": true
+          },
+          "author": {
+            "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "login": "danielroe",
+            "displayName": "Daniel Roe",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "id": "01M5WVNH9VCQPGCDV2QJVA6K0Y",
+          "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+          "number": 3,
+          "title": "Say what forges is",
+          "body": "",
+          "status": "open",
+          "phase": "complete",
+          "metadata": {},
+          "type": "task",
+          "priority": "none",
+          "assignees": [],
+          "assigneeAccountIds": [],
+          "repoIds": [
+            "01M5WS0P331VQ3AARB26Z9DGV7"
+          ],
+          "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "createdAt": "2026-10-26T19:40:45.752Z",
+          "metadataUpdatedAt": "2026-10-26T19:40:45.813Z",
+          "closedAt": null,
+          "lastVisitedAt": null,
+          "lastActivityAt": "2026-10-26T19:41:42.414Z",
+          "isPossiblyPartial": true,
+          "groupKey": "",
+          "readiness": "none",
+          "changes": []
+        },
+        {
+          "capabilities": {
+            "canEdit": true,
+            "canManageScope": true
+          },
+          "author": {
+            "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "login": "danielroe",
+            "displayName": "Daniel Roe",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "assigneeProfiles": [
+            {
+              "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "login": "danielroe",
+              "displayName": "Daniel Roe",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "identity": {
+                "kind": "account",
+                "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "display_name": "Daniel Roe",
+                "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+                "handles": [
+                  {
+                    "provider": "github",
+                    "handle": "danielroe",
+                    "is_primary": true
+                  }
+                ]
+              }
+            }
+          ],
+          "id": "01M5WVMY3H5EDDRN67H0AXA3H0",
+          "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+          "number": 1,
+          "title": "Greet in other languages",
+          "body": "It would be nice to greet people in their own language.\n\n- [ ] French\n- [ ] German",
+          "status": "open",
+          "phase": "planning",
+          "metadata": {},
+          "type": "feature",
+          "priority": "low",
+          "assignees": [
+            "ulid:01M5WRP9RJ4GVR2PA5PCNYP1FC"
+          ],
+          "assigneeAccountIds": [
+            "01M5WRP9RJ4GVR2PA5PCNYP1FC"
+          ],
+          "repoIds": [
+            "01M5WS0P331VQ3AARB26Z9DGV7"
+          ],
+          "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "createdAt": "2026-10-26T19:40:26.099Z",
+          "metadataUpdatedAt": "2026-10-26T19:40:26.099Z",
+          "closedAt": null,
+          "lastVisitedAt": null,
+          "lastActivityAt": "2026-10-26T19:41:11.643Z",
+          "isPossiblyPartial": true,
+          "groupKey": "",
+          "readiness": "none",
+          "changes": []
+        }
+      ],
+      "groups": [
+        {
+          "rank": 0,
+          "key": "",
+          "label": "All trails",
+          "totalCount": 3,
+          "itemCount": 3
+        }
+      ],
+      "groupTotals": [
+        {
+          "rank": 0,
+          "key": "",
+          "label": "All trails",
+          "totalCount": 3
+        }
+      ],
+      "groupBy": "none",
+      "jurisdiction": "uk",
+      "nextPageToken": null
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/commits?ref=main&pageSize=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListCommitsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListCommitsResponse.json",
+      "commits": [
+        {
+          "sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+          "parents": [
+            "8127b4c88662985c819a6b3cabecde203907c3e2"
+          ],
+          "message": "docs: say what forges is\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          }
+        }
+      ],
+      "nextPageToken": "eyJmIjpbIjgxMjdiNGM4ODY2Mjk4NWM4MTlhNmIzY2FiZWNkZTIwMzkwN2MzZTIiXX0"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "ref": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "repo": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "owner": "forges-scratch",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "11",
+    "externalId": "01M5X0A6DAPK6DZNKVR2KEJNF8"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261026210133: pull 3",
+  "body": "Opened by run 20261026210133.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": true,
+  "author": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "login": "danielroe-bot",
+    "id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "entire",
+      "instance": "entire.com",
+      "login": "danielroe-bot",
+      "id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "state": "approved",
+      "stateRaw": "approved"
+    }
+  ],
+  "labels": [],
+  "url": "https://entire.com/et/forges-scratch/forges-fixtures/trails/11",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "commentCount": 0,
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261026210133-3",
+      "sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+      "repo": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "owner": "forges-scratch",
+        "name": "forges-fixtures"
+      }
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}

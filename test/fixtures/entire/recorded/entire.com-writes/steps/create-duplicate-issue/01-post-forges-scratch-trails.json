@@ -1,0 +1,69 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails",
+    "body": {
+      "title": "forges fixture 20261026210133: duplicate",
+      "body": "Opened by run 20261026210133.",
+      "repoIds": [
+        "01M5WYSQC41P69DTXEMZ0TE5YK"
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T21:01:52.188419Z\"",
+      "location": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/01M5X0A1NVH0ZAA8B1J3CQ1CSV"
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "author": {
+        "accountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "login": "danielroe-bot",
+        "displayName": "",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/57801166?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "id": "01M5X0A1NVH0ZAA8B1J3CQ1CSV",
+      "projectId": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+      "number": 14,
+      "url": "https://entire.com/et/forges-scratch/-/trails/14",
+      "title": "forges fixture 20261026210133: duplicate",
+      "body": "Opened by run 20261026210133.",
+      "status": "open",
+      "phase": "planning",
+      "metadata": {},
+      "type": "task",
+      "priority": "none",
+      "assignees": [],
+      "assigneeAccountIds": [],
+      "repoIds": [
+        "01M5WYSQC41P69DTXEMZ0TE5YK"
+      ],
+      "authorAccountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+      "createdAt": "2026-10-26T21:01:52.188Z",
+      "metadataUpdatedAt": "2026-10-26T21:01:52.188Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T21:01:52.188Z"
+    }
+  }
+}

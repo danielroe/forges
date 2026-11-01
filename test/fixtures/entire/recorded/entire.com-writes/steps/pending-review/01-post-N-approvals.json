@@ -1,0 +1,122 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/11/approvals",
+    "body": {
+      "event": "approve"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailApprovalSubmitResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailApprovalSubmitResponse.json",
+      "ok": true,
+      "approval": {
+        "id": "01M5X0AFJEGJWS360MQ5YST9XY",
+        "author": "danielroe",
+        "event": "approved",
+        "body": null,
+        "commit_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+        "created_at": "2026-10-26T21:02:06.414872128Z"
+      },
+      "gates": {
+        "head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+        "gates": [
+          {
+            "reviewers": [
+              {
+                "login": "danielroe",
+                "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "state": "approved",
+                "reviewed_head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+                "reason": null
+              }
+            ],
+            "runner_ids": [],
+            "id": "01M5X0AFK10B04M0VR1DS05YNN",
+            "gate_definition_id": "01M5WZ6B2HAMXBN2SZ9TP2N3SN",
+            "gate_key": "approvals",
+            "gate_type": "approvals",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+            "value": {
+              "approved": 1,
+              "changes_requested": false,
+              "config": {
+                "version": 1,
+                "min_reviewers": 1,
+                "allow_self_approval": false,
+                "dismiss_stale_approvals_on_push": false
+              },
+              "required": 1,
+              "self_excluded": false,
+              "stale_dismissed": 0,
+              "total": 1
+            },
+            "rationale": "1 approval(s) recorded",
+            "created_at": "2026-10-26T21:02:06.433525857Z",
+            "completed_at": "2026-10-26T21:02:06.433525857Z",
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "",
+            "gate_definition_id": "01M5WZ6B2M8PSY34EM5YJGG6ZR",
+            "gate_key": "findings",
+            "gate_type": "findings",
+            "blocking": false,
+            "status": "pending",
+            "head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+            "value": null,
+            "rationale": "Gate has not been evaluated yet",
+            "created_at": "2026-10-26T20:42:22.164428Z",
+            "completed_at": null,
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "01M5X0A6F5K3QMX8SRPSPC76YP",
+            "gate_definition_id": "01M5WZ6B2PC2X2BE023RX01WEY",
+            "gate_key": "up_to_date",
+            "gate_type": "up_to_date",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "f483a62c7214e4cead9ef1df09a663324a4825ae",
+            "value": {
+              "config": {
+                "version": 1,
+                "allow_behind_if_mergeable": false
+              },
+              "behind_by": 0,
+              "compare_status": "ahead",
+              "comparison_status": "available"
+            },
+            "rationale": "Up to date",
+            "created_at": "2026-10-26T21:01:57.093243Z",
+            "completed_at": "2026-10-26T21:01:57.093243Z",
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          }
+        ],
+        "blocking_failures": [],
+        "mergeable": true,
+        "evaluated_at": "2026-10-26T21:02:06.433525857Z",
+        "gates_enabled": true
+      }
+    }
+  }
+}

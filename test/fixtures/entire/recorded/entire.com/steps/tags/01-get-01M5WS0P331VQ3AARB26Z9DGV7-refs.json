@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/refs?prefix=refs%2Ftags%2F&peel=true&symrefs=true&pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListRefsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListRefsResponse.json",
+      "refs": [
+        {
+          "name": "refs/tags/v0.0.1",
+          "oid": "fc6d8c9fb93b340e7d064fee866d49d70073ff34"
+        },
+        {
+          "name": "refs/tags/v0.1.0",
+          "oid": "5637ee18aa488d037aabeea7ce5981ba2037b50c",
+          "peeled": "8127b4c88662985c819a6b3cabecde203907c3e2"
+        }
+      ]
+    }
+  }
+}

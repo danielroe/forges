@@ -1,0 +1,98 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/13/discussions",
+    "body": {
+      "body": "@danielroe-bot a mention from run 20261026210133."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "</api/v1/schemas/DiscussionCreateResponseBody.json>; rel=\"describedBy\"",
+      "etag": "\"discussion:01M5X0AXP2TZKAGWA9N0KWXVZQ:1\"",
+      "location": "https://aws-eu-central-1.api.entire.io/api/v1/et/forges-scratch/trails/01M5X09TE6P0R8TR8WPCVX7H6Y/discussions/01M5X0AXP2TZKAGWA9N0KWXVZQ"
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/DiscussionCreateResponseBody.json",
+      "discussion": {
+        "etag": "\"discussion:01M5X0AXP2TZKAGWA9N0KWXVZQ:1\"",
+        "id": "01M5X0AXP2TZKAGWA9N0KWXVZQ",
+        "trail_id": "01M5X09TE6P0R8TR8WPCVX7H6Y",
+        "title": "@danielroe-bot a mention from run 20261026210133.",
+        "kind": "discussion",
+        "resolved": false,
+        "resolved_by": null,
+        "resolved_by_identity": {
+          "kind": "unknown",
+          "account_id": null,
+          "display_name": null,
+          "avatar_url": null,
+          "handles": []
+        },
+        "resolved_at": null,
+        "created_by": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "created_by_identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        },
+        "created_at": "2026-10-26T21:02:20.866Z",
+        "updated_at": "2026-10-26T21:02:20.866Z",
+        "last_message_at": "2026-10-26T21:02:20.866Z",
+        "last_message_author": "danielroe",
+        "message_count": 1,
+        "participants": [
+          {
+            "login": "danielroe",
+            "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          }
+        ],
+        "review_comment_id": null,
+        "review_comment": null
+      },
+      "message": {
+        "etag": "\"message:01M5X0AXP4NWPTC707S4SNYQYA:1\"",
+        "id": "01M5X0AXP4NWPTC707S4SNYQYA",
+        "author": "danielroe",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        },
+        "created_at": "2026-10-26T21:02:20.866Z",
+        "body": "@danielroe-bot a mention from run 20261026210133.",
+        "replies": []
+      }
+    }
+  }
+}

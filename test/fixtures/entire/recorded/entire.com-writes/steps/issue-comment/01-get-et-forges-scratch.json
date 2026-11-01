@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/projects/resolve/et/forges-scratch"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ResolveProjectOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ResolveProjectOutputBody.json",
+      "project": {
+        "id": "01M5WYSMPPYRBB13ZB20H7NK2Q",
+        "name": "forges-scratch",
+        "ownerType": "account",
+        "ownerId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "ownerName": "github:danielroe-bot",
+        "region": "eu",
+        "createdAt": "2026-10-26T20:35:26.151561Z",
+        "capabilities": {
+          "canDelete": true,
+          "canManageAccess": true,
+          "canCreateRepository": true,
+          "canManageTrails": true,
+          "canManagePlugins": true,
+          "canManageAgents": true
+        },
+        "primaryProcessingCell": "aws-eu-central-1",
+        "apiUrl": "https://aws-eu-central-1.api.entire.io"
+      },
+      "reference": {
+        "host": "et",
+        "project": "forges-scratch"
+      }
+    }
+  }
+}

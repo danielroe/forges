@@ -377,6 +377,83 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
 }
 
 /**
+ * Entire writes go to the processing cell that holds the scratch repository, and to the trails of its project,
+ * which the run's issues and pull requests are opened in. Git redirects each request to a storage node and drops
+ * the credential on the way, so branches are pushed to the node directly.
+ */
+function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
+  const core = client(baseUrl, authorization)
+  const scope: string[] = []
+  const auth = extraHeader(`Authorization: ${authorization}`)
+  let cell: ReturnType<typeof client> | undefined
+  let repoId = ''
+  let projectId = ''
+  let remote = ''
+  let clone: string | undefined
+  const trails = `/trails/et/${enc(scratch.owner)}/${enc(scratch.name)}`
+  const projectTrails = `/et/${enc(scratch.owner)}/trails`
+  const checkout = async (base: string) => {
+    if (!clone) {
+      const response = await fetch(`${remote}/info/refs?service=git-upload-pack`, { headers: { authorization }, redirect: 'manual', signal: AbortSignal.timeout(30_000) })
+      const node = new URL(response.headers.get('location') ?? remote).origin
+      clone = mkdtempSync(join(tmpdir(), 'forges-entire-'))
+      git(clone, ['clone', '-q', '--depth', '1', '--branch', base, `${node}${new URL(remote).pathname}`, '.'], auth)
+    }
+    return clone
+  }
+  return {
+    scope,
+    // The control plane names a repository's cell in reply to a POST, which writes nothing.
+    allows: (url, body) => url === `${baseUrl}/repos/resolve`
+      && ((body as { repositories?: Array<{ fullName?: string }> } | undefined)?.repositories ?? []).every(item => item.fullName === `${scratch.owner}/${scratch.name}`),
+    async prepare() {
+      const { repos } = await core<{ repos: Array<{ id: string, full_name: string, permission?: string, placements?: Array<{ id: string, cell: string, apiBaseUrl?: string, mirror?: boolean }> }> }>(`/repos?filter=${enc(`et/${scratch.owner}/${scratch.name}`)}`)
+      const repo = repos.find(item => item.full_name === `${scratch.owner}/${scratch.name}`)
+      const placement = repo?.placements?.find(item => item.apiBaseUrl && !item.mirror)
+      if (!repo || !placement?.apiBaseUrl || repo.permission !== 'admin') {
+        throw new Error('The author credential does not administer the scratch repository')
+      }
+      repoId = placement.id
+      const api = `${placement.apiBaseUrl}/api/v1`
+      cell = client(api, authorization)
+      remote = `https://${placement.cell}.entire.io/et/${enc(scratch.owner)}/${enc(scratch.name)}`
+      scope.push(`${baseUrl}/repos/${repoId}`, `${api}/repos/${repoId}`, `${api}/git/repos/${repoId}`, `${api}${trails}`, `${api}${projectTrails}`)
+      // The run merges a change it left a finding on, which a blocking findings gate refuses.
+      const { gates } = await cell<{ gates: Array<{ id: string, gateType: string, blocking: boolean }> }>(`/repos/${repoId}/trails/gates`)
+      for (const gate of gates.filter(item => item.gateType === 'findings' && item.blocking)) {
+        await cell(`/repos/${repoId}/trails/gates/${gate.id}`, { method: 'PATCH', json: { blocking: false } })
+      }
+      const data = await cell<{ default_branch: string, owning_project_id: string }>(`/repos/${repoId}`)
+      projectId = data.owning_project_id
+      return data.default_branch
+    },
+    async createBranch(base, branch, path) {
+      const directory = await checkout(base)
+      git(directory, ['switch', '-q', '-C', branch, `origin/${base}`])
+      mkdirSync(dirname(join(directory, path)), { recursive: true })
+      writeFileSync(join(directory, path), fixtureContent(branch))
+      git(directory, ['add', path])
+      git(directory, ['commit', '-q', '-m', `test: add ${path}`])
+      git(directory, ['push', '-q', 'origin', branch], auth)
+    },
+    async cleanUp(branches) {
+      const call = cell!
+      const changes = await call<{ items: Array<{ number: number, title: string }> }>(`${trails}?status=open&per_page=100`).catch(() => ({ items: [] }))
+      const open = await call<{ items: Array<{ number: number, title: string }> }>(`/trails?projectId=${projectId}&status=open&pageSize=100`).catch(() => ({ items: [] }))
+      const heads = await call<{ branches: Array<{ name: string, commitSHA: string }> }>(`/git/repos/${repoId}/branches?pageSize=100`).catch(() => ({ branches: [] }))
+      await settle([
+        ...changes.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${trails}/${item.number}`, { method: 'PATCH', json: { status: 'closed' } })),
+        ...open.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${projectTrails}/${item.number}`, { method: 'PATCH', json: { status: 'closed' } })),
+        ...heads.branches.filter(item => branches.includes(item.name)).map(item => () => call(`/git/repos/${repoId}/branches/${item.name.split('/').map(enc).join('/')}?expectedSHA=${item.commitSHA}`, { method: 'DELETE' })),
+      ])
+    },
+    async removeCollaborator(_repo, id) {
+      await core(`/repos/${repoId}/grants/account/${enc(id)}`, { method: 'DELETE' })
+    },
+  }
+}
+
+/**
  * Tangled writes are records in the signed-in account's own repository on its
  * PDS. A new record may only name the scratch repository, a record of that
  * account, or one of `threads`, apart from the definition of a fixture or
@@ -598,6 +675,7 @@ const HARNESSES: Record<string, (options: HarnessOptions) => WriteHarness> = {
   'gitee': gitee,
   'azure-devops': azureDevOps,
   'pushin': pushin,
+  'entire': entire,
 }
 
 /** The setup and teardown for `options.forge`, or `undefined` where write recordings are not supported. */

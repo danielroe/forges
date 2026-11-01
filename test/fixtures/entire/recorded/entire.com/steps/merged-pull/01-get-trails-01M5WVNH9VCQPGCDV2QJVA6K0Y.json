@@ -1,0 +1,116 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/et/forges/trails/01M5WVNH9VCQPGCDV2QJVA6K0Y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailResponse.json>; rel=\"describedBy\"",
+      "etag": "W/\"2026-10-26T19:40:45.813788Z\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailResponse.json",
+      "capabilities": {
+        "canEdit": true,
+        "canManageScope": true
+      },
+      "project": {
+        "primaryProcessingCell": "aws-eu-west-2",
+        "id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+        "name": "forges",
+        "provider": "entire",
+        "reference": {
+          "forge": "et",
+          "project": "forges"
+        },
+        "jurisdiction": "uk",
+        "capabilities": {
+          "canManageTrails": true
+        }
+      },
+      "author": {
+        "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "login": "danielroe",
+        "displayName": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "display_name": "Daniel Roe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe",
+              "is_primary": true
+            }
+          ]
+        }
+      },
+      "id": "01M5WVNH9VCQPGCDV2QJVA6K0Y",
+      "projectId": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+      "number": 3,
+      "url": "https://entire.com/et/forges/-/trails/3",
+      "title": "Say what forges is",
+      "body": "",
+      "bodyDocument": {
+        "id": "",
+        "document_key": "project-trail:01M5WVNH9VCQPGCDV2QJVA6K0Y:body",
+        "schema_version": 1,
+        "content_json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "text_snapshot": "",
+        "updated_at": "2026-10-26T19:40:45.813Z",
+        "etag": ""
+      },
+      "status": "open",
+      "phase": "complete",
+      "metadata": {},
+      "type": "task",
+      "priority": "none",
+      "assignees": [],
+      "assigneeAccountIds": [],
+      "repoIds": [
+        "01M5WS0P331VQ3AARB26Z9DGV7"
+      ],
+      "authorAccountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "createdAt": "2026-10-26T19:40:45.752Z",
+      "metadataUpdatedAt": "2026-10-26T19:40:45.813Z",
+      "closedAt": null,
+      "lastVisitedAt": null,
+      "lastActivityAt": "2026-10-26T19:41:42.414Z",
+      "changes": [
+        {
+          "id": "01M5WVNHA7JVWPZP7W0SWDQKYY",
+          "repositoryId": "01M5WS0P331VQ3AARB26Z9DGV7",
+          "repository": "forges-fixtures",
+          "branch": "fix/typo",
+          "originalBranch": "fix/typo",
+          "base": "main",
+          "number": 2,
+          "title": "docs: say what forges is",
+          "status": "merged",
+          "hasCodeChanges": false,
+          "createdAt": "2026-10-26T19:40:45.752Z",
+          "updatedAt": "2026-10-26T19:41:42.414Z",
+          "lastActivityAt": "2026-10-26T19:41:42.414Z",
+          "deployments": {
+            "availability": "available",
+            "ready": 0,
+            "total": 0
+          },
+          "readiness": "none",
+          "mergeability": null
+        }
+      ],
+      "isPossiblyPartial": true
+    }
+  }
+}

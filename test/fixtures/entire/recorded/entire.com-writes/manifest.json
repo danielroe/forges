@@ -1,0 +1,29 @@
+{
+  "baseUrl": "https://us.console.entire.io/api/v1",
+  "repo": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "owner": "forges-scratch",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "owner": "forges-scratch",
+    "name": "forges-fixtures"
+  },
+  "run": {
+    "id": "20261026210133",
+    "base": "main",
+    "branches": [
+      "forges-fixtures/20261026210133-1",
+      "forges-fixtures/20261026210133-2",
+      "forges-fixtures/20261026210133-3"
+    ],
+    "files": [
+      "forges-fixtures/20261026210133-1.md",
+      "forges-fixtures/20261026210133-2.md",
+      "forges-fixtures/20261026210133-3.md"
+    ]
+  }
+}

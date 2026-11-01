@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/branches?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListBranchesResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListBranchesResponse.json",
+      "branches": [
+        {
+          "name": "feature/shout",
+          "commitSHA": "9ec20061f17f35212247320f525ec51d3e00c41a"
+        },
+        {
+          "name": "fix/typo",
+          "commitSHA": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca"
+        },
+        {
+          "name": "main",
+          "commitSHA": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca"
+        }
+      ]
+    }
+  }
+}
