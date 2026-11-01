@@ -190,8 +190,19 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     }, (raw: EntireChange) => toPull(repo, raw))
   }
 
+  /** Warnings when the caller asked for filters or an order an Entire trail listing does not apply. */
+  function threadFilterWarnings(query: ThreadQuery): ForgeWarning[] {
+    // Author and assignee are applied. `involves`, `mentions` and `milestone` are not here:
+    // core strips filters a provider does not declare in `threads.listFilters`, and warns.
+    return [
+      ...query.labels?.length ? [{ code: 'filter_unsupported' as const, message: 'Entire trails have no labels' }] : [],
+      ...(query.since !== undefined || query.createdAfter !== undefined) ? [{ code: 'filter_unsupported' as const, message: 'Entire trails cannot be filtered by date' }] : [],
+      ...(query.sort !== undefined || query.direction !== undefined) ? [{ code: 'sort_unsupported' as const, message: 'Entire lists trails in its own order' }] : [],
+    ]
+  }
+
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
-    const warnings: ForgeWarning[] = query.labels?.length ? [{ code: 'filter_unsupported', message: 'Entire trails have no labels' }] : []
+    const warnings = threadFilterWarnings(query)
     const namespace = isNamespaceRef(repo)
     const withWarnings = (page: Page<Thread>) => warnings.length ? { ...page, warnings: [...page.warnings ?? [], ...warnings] } : page
     if (query.kind === 'discussion') {

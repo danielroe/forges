@@ -74,4 +74,18 @@ describe('entire', () => {
   ])('places a control-plane repo with $label', ({ full_name, project, org, expected }) => {
     expect(toCoreRepo(origin, { id: 'r1', name: 'widgets', full_name, org }, project)?.ref).toMatchObject(expected)
   })
+
+  it('warns about the trail filters and orders Entire cannot apply', async () => {
+    const { forge } = provider({
+      [`GET ${cell}/trails/et/acme/widgets?status=open`]: { status: 200, body: { items: [] } },
+    })
+
+    const page = await forge.threads.list(repo, { kind: 'pull_request', labels: ['bug'], since: new Date('2026-01-01'), sort: 'updated' }).page()
+
+    expect(page.warnings).toEqual([
+      { code: 'filter_unsupported', message: 'Entire trails have no labels' },
+      { code: 'filter_unsupported', message: 'Entire trails cannot be filtered by date' },
+      { code: 'sort_unsupported', message: 'Entire lists trails in its own order' },
+    ])
+  })
 })
