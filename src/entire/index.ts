@@ -530,7 +530,7 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     }
     const comments = inline.length
       ? await Promise.all(inline.map(async (comment, index) => {
-          const end = comment.line
+          const end = comment.line ?? comment.startLine
           const start = comment.startLine ?? end
           return {
             client_id: String(index + 1),
