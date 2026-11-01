@@ -15,7 +15,8 @@ export const SOURCEHUT_WEB: WebDefinition<'sourcehut'> = {
 
 /**
  * Sourcehut puts each service on its own subdomain. `baseUrl` is the git host;
- * `parseUrl` also reads the issue and mailing-list hosts, whose threads get
+ * `parseUrl` also reads the instance root, where `/~user/repo` serves the same
+ * project page, and the issue and mailing-list hosts, whose threads get
  * absolute URLs rather than being relative to the git host.
  */
 function sourcehutWeb(instance: string): WebLinks {
@@ -26,7 +27,7 @@ function sourcehutWeb(instance: string): WebLinks {
   const listsHost = serviceHost(instance, 'lists')
   return {
     baseUrl: git,
-    hosts: [todoHost, listsHost],
+    hosts: [instance, todoHost, listsHost],
     repo: repo => repoPath(repo),
     section: (repo, section) => {
       if (repo.kind === 'namespace') {

@@ -41,6 +41,8 @@ The `baseUrl` defaults to `https://sr.ht`. Each service is a subdomain of that h
 
 Sourcehut usernames are written with a leading tilde, so a repository ref's `owner` is `~sircmpwn` and a slug is `~sircmpwn/scdoc`.
 
+`parseUrl()` reads repository pages on both the git host and the instance root, so `https://git.sr.ht/~sircmpwn/scdoc` and `https://sr.ht/~sircmpwn/scdoc` give the same ref. A profile such as `https://sr.ht/~sircmpwn` is not a repository and stays unparsed, and `urlFor({ repo })` always builds the git host URL.
+
 ## Repositories and contents
 
 `repos.get()`, `repos.list()` and `repos.byOwner()` read `git.sr.ht`. `contents.getFile()`, `contents.tree()`, `contents.branches()`, `contents.tags()`, `contents.resolveRef()`, `commits.list()` and `commits.get()` read the same service. Sourcehut has no compare resolver, so `contents.compare()` is unsupported.
