@@ -7,6 +7,13 @@ minimumReleaseAgeExclude:
   - '@nuxt/vite-server@4.6.2'
   - nuxt@4.6.2
   - cssnano@9.9.0
+  - '@nuxt/kit-nightly@5.0.0-2610292252-da55a91'
+  - '@nuxt/nitro-server-nightly@5.0.0-2610292252-da55a91'
+  - '@nuxt/schema-nightly@5.0.0-2610292252-da55a91'
+  - '@nuxt/vite-builder-nightly@5.0.0-2610292252-da55a91'
+  - '@nuxt/vite-server-nightly@5.0.0-2610292252-da55a91'
+  - nitro@3.0.261029-rc
+  - nuxt-nightly@5.0.0-2610292252-da55a91
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
