@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/repos/01M5WS0P331VQ3AARB26Z9DGV7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/RepoListItem.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/RepoListItem.json",
+      "owning_project_id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+      "id": "01M5WS0P331VQ3AARB26Z9DGV7",
+      "github_id": 0,
+      "name": "forges-fixtures",
+      "full_name": "forges/forges-fixtures",
+      "description": null,
+      "html_url": null,
+      "stargazers_count": 0,
+      "language": null,
+      "private": true,
+      "archived": false,
+      "updated_at": "2026-10-26T19:41:42.564Z",
+      "default_branch": "main",
+      "permission": "admin",
+      "capabilities": {
+        "data_role": "write",
+        "can_manage_settings": true,
+        "can_manage_access": true
+      },
+      "checkpoint_count": 0,
+      "viewer_can_see_checkpoint_data": true,
+      "runners_enabled": false,
+      "trails_enabled": true,
+      "auto_run_on_push": false,
+      "public_sharing_enabled": false,
+      "open_pr_count": 0,
+      "repo_group_id": "01M5WS0P33VDWTEFK1HZ5QDEPA"
+    }
+  }
+}

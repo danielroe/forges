@@ -6,6 +6,7 @@
 import type { ForgeWeb, WebForges, WebOptions } from '../web.ts'
 import { AZURE_DEVOPS_WEB } from '../azure-devops/web.ts'
 import { BITBUCKET_WEB } from '../bitbucket/web.ts'
+import { ENTIRE_WEB } from '../entire/web.ts'
 import { FORGEJO_WEB, GITEA_WEB } from '../forgejo/web.ts'
 import { GITEE_WEB } from '../gitee/web.ts'
 import { GITHUB_WEB } from '../github/web.ts'
@@ -22,6 +23,8 @@ export type { ForgeWeb, WebForges }
 export const azureDevOps: (options?: WebOptions) => ForgeWeb<'azure-devops'> = /* @__PURE__ */ defineForgeWeb(AZURE_DEVOPS_WEB)
 /** The web links of Bitbucket Cloud. */
 export const bitbucket: (options?: WebOptions) => ForgeWeb<'bitbucket'> = /* @__PURE__ */ defineForgeWeb(BITBUCKET_WEB)
+/** The web links of Entire. */
+export const entire: (options?: WebOptions) => ForgeWeb<'entire'> = /* @__PURE__ */ defineForgeWeb(ENTIRE_WEB)
 /** The web links of Codeberg or another Forgejo instance. */
 export const forgejo: (options?: WebOptions) => ForgeWeb<'forgejo'> = /* @__PURE__ */ defineForgeWeb(FORGEJO_WEB)
 /** The web links of gitea.com or another Gitea instance. */

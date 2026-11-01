@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/refs?prefix=HEAD&symrefs=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListRefsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListRefsResponse.json",
+      "refs": [
+        {
+          "name": "HEAD",
+          "oid": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+          "symrefTarget": "refs/heads/main"
+        }
+      ]
+    }
+  }
+}

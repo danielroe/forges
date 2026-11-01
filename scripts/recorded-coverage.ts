@@ -32,6 +32,7 @@ const FORGES: Array<[string, string]> = [
   ['tangled', 'Tangled'],
   ['cloudflare-artifacts', 'Cloudflare Artifacts'],
   ['sourcehut', 'Sourcehut'],
+  ['entire', 'Entire'],
 ]
 
 const { values: flags } = parseArgs({ options: { out: { type: 'string' } } })

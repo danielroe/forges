@@ -1,0 +1,138 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/approvals",
+    "body": {
+      "event": "approve"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailApprovalSubmitResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailApprovalSubmitResponse.json",
+      "ok": true,
+      "approval": {
+        "id": "01M5X0APDPB2XFXGPA85JXFMA4",
+        "author": "danielroe",
+        "event": "approved",
+        "body": null,
+        "commit_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+        "created_at": "2026-10-26T21:02:13.430135692Z"
+      },
+      "gates": {
+        "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+        "gates": [
+          {
+            "reviewers": [
+              {
+                "login": "danielroe",
+                "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "state": "approved",
+                "reviewed_head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+                "reason": null
+              }
+            ],
+            "runner_ids": [],
+            "id": "01M5X0APE62CD4GDEZHPF8PRZD",
+            "gate_definition_id": "01M5WZ6B2HAMXBN2SZ9TP2N3SN",
+            "gate_key": "approvals",
+            "gate_type": "approvals",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+            "value": {
+              "approved": 1,
+              "changes_requested": false,
+              "config": {
+                "version": 1,
+                "min_reviewers": 1,
+                "allow_self_approval": false,
+                "dismiss_stale_approvals_on_push": false
+              },
+              "required": 1,
+              "self_excluded": false,
+              "stale_dismissed": 0,
+              "total": 1
+            },
+            "rationale": "1 approval(s) recorded",
+            "created_at": "2026-10-26T21:02:13.446381654Z",
+            "completed_at": "2026-10-26T21:02:13.446381654Z",
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "01M5X0ANSHBMKPX71GYC40D1GV",
+            "gate_definition_id": "01M5WZ6B2M8PSY34EM5YJGG6ZR",
+            "gate_key": "findings",
+            "gate_type": "findings",
+            "blocking": false,
+            "status": "failed",
+            "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+            "value": {
+              "config": {
+                "version": 1,
+                "agent_findings_min_severity": "high"
+              },
+              "reviewed_head": false,
+              "agent_findings": {
+                "low": 0,
+                "high": 0,
+                "medium": 0,
+                "unspecified": 1
+              },
+              "review_in_flight": false,
+              "reviewer_configured": false,
+              "review_grace_expired": false,
+              "agent_blocking_findings": 1
+            },
+            "rationale": "Unresolved findings: 1 without a severity",
+            "created_at": "2026-10-26T21:02:12.7852Z",
+            "completed_at": "2026-10-26T21:02:12.7852Z",
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          },
+          {
+            "reviewers": [],
+            "runner_ids": [],
+            "id": "01M5X0A4D1WK6QWSP6JXWFERW1",
+            "gate_definition_id": "01M5WZ6B2PC2X2BE023RX01WEY",
+            "gate_key": "up_to_date",
+            "gate_type": "up_to_date",
+            "blocking": true,
+            "status": "passed",
+            "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+            "value": {
+              "config": {
+                "version": 1,
+                "allow_behind_if_mergeable": false
+              },
+              "behind_by": 0,
+              "compare_status": "ahead",
+              "comparison_status": "available"
+            },
+            "rationale": "Up to date",
+            "created_at": "2026-10-26T21:01:54.977313Z",
+            "completed_at": "2026-10-26T21:01:54.977313Z",
+            "outcome": null,
+            "stale_reason": null,
+            "evaluated_at_sha": null,
+            "finding_count": null
+          }
+        ],
+        "blocking_failures": [],
+        "mergeable": true,
+        "evaluated_at": "2026-10-26T21:02:13.446381654Z",
+        "gates_enabled": true
+      }
+    }
+  }
+}

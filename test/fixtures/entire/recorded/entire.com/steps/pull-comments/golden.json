@@ -1,0 +1,106 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "thread": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "repo": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "01M5WVP8552KBGTR9NZCXY91QQ"
+      },
+      "body": "Should `shout` also add an exclamation mark?",
+      "author": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "thread": {
+        "id": "01M5WVP84KN3H6SFHM77XGN8WE",
+        "resolved": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "thread": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "repo": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "01M5WVP8Z53BEF7ZA2WFQ2RQAX"
+      },
+      "body": "I think it reads fine without one.",
+      "author": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "thread": {
+        "id": "01M5WVP84KN3H6SFHM77XGN8WE",
+        "resolved": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "thread": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "repo": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        },
+        "id": "01M5WVP9QQB7HMVGA0SRF76KED"
+      },
+      "body": "`shout` or `loud`? I lean towards `shout`.",
+      "author": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "thread": {
+        "id": "01M5WVP9QKVVQWQQWRFW4K3T94",
+        "resolved": false
+      }
+    }
+  ]
+}

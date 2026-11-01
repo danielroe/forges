@@ -1,0 +1,109 @@
+{
+  "items": [
+    {
+      "forge": "entire",
+      "instance": "entire.com",
+      "id": "trail-message-01M5WVPAKKTQ8B5ZX1HK69FDM0",
+      "kindRaw": "comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "owner": "forges",
+        "name": "",
+        "kind": "namespace"
+      },
+      "thread": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "repo": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "owner": "forges",
+          "name": "",
+          "kind": "namespace"
+        },
+        "kind": "issue",
+        "number": "1"
+      },
+      "source": "poll",
+      "kind": "comment",
+      "summary": "danielroe commented",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "thread": {
+            "forge": "entire",
+            "instance": "entire.com",
+            "repo": {
+              "forge": "entire",
+              "instance": "entire.com",
+              "owner": "forges",
+              "name": "",
+              "kind": "namespace"
+            },
+            "kind": "issue",
+            "number": "1"
+          },
+          "id": "01M5WVPAKKTQ8B5ZX1HK69FDM0"
+        }
+      },
+      "action": "created"
+    },
+    {
+      "forge": "entire",
+      "instance": "entire.com",
+      "id": "trail-created-1",
+      "kindRaw": "trail_created",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "owner": "forges",
+        "name": "",
+        "kind": "namespace"
+      },
+      "thread": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "repo": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "owner": "forges",
+          "name": "",
+          "kind": "namespace"
+        },
+        "kind": "issue",
+        "number": "1"
+      },
+      "source": "poll",
+      "kind": "state_change",
+      "action": "opened",
+      "summary": "danielroe opened the trail",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      }
+    }
+  ]
+}

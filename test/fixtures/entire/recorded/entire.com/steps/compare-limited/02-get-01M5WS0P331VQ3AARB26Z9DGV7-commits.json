@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/commits?ref=main&notRef=fc6d8c9fb93b340e7d064fee866d49d70073ff34&pageSize=2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListCommitsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/ListCommitsResponse.json",
+      "commits": [
+        {
+          "sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+          "parents": [
+            "8127b4c88662985c819a6b3cabecde203907c3e2"
+          ],
+          "message": "docs: say what forges is\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-02T11:00:00Z"
+          }
+        },
+        {
+          "sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+          "parents": [
+            "df5c2c540bd97eb54ae4369e7a24dda6c551a9fb"
+          ],
+          "message": "feat: add a command line entry\n",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:04:00Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-01T10:04:00Z"
+          }
+        }
+      ],
+      "nextPageToken": "eyJmIjpbImRmNWMyYzU0MGJkOTdlYjU0YWU0MzY5ZTdhMjRkZGE2YzU1MWE5ZmIiXX0"
+    }
+  }
+}

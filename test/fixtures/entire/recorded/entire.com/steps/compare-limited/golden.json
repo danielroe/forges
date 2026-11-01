@@ -1,0 +1,66 @@
+{
+  "base": "fc6d8c9fb93b340e7d064fee866d49d70073ff34",
+  "head": "main",
+  "aheadBy": 4,
+  "behindBy": 0,
+  "commits": [
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "repo": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca"
+      },
+      "sha": "dd07002e23c86b5e68d53ebe9949e1bf5549c8ca",
+      "message": "docs: say what forges is",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T11:00:00.000Z"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-02T11:00:00.000Z"
+      },
+      "parents": [
+        "8127b4c88662985c819a6b3cabecde203907c3e2"
+      ]
+    },
+    {
+      "ref": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "repo": {
+          "forge": "entire",
+          "instance": "entire.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "8127b4c88662985c819a6b3cabecde203907c3e2"
+      },
+      "sha": "8127b4c88662985c819a6b3cabecde203907c3e2",
+      "message": "feat: add a command line entry",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-01T10:04:00.000Z"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-01T10:04:00.000Z"
+      },
+      "parents": [
+        "df5c2c540bd97eb54ae4369e7a24dda6c551a9fb"
+      ]
+    }
+  ],
+  "files": [],
+  "mergeBaseSha": "fc6d8c9fb93b340e7d064fee866d49d70073ff34"
+}

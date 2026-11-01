@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/repos/01M5WS0P331VQ3AARB26Z9DGV7/collaborators?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/ListRepoCollaboratorsOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/ListRepoCollaboratorsOutputBody.json",
+      "collaborators": [
+        {
+          "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+          "username": "danielroe",
+          "handle": "github:danielroe",
+          "role": "admin"
+        },
+        {
+          "accountId": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "handle": "github:danielroe-bot",
+          "role": "admin"
+        }
+      ]
+    }
+  }
+}

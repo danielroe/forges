@@ -26,6 +26,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [Tangled](/providers/tangled) | `forges/tangled` | `tangled()` |
 | [Cloudflare Artifacts](/providers/cloudflare-artifacts) | `forges/cloudflare-artifacts` | `cloudflareArtifacts()` |
 | [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()` |
+| [Entire](/providers/entire) | `forges/entire` | `entire()` |
 ::
 <!-- capabilities:end -->
 

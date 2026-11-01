@@ -1,0 +1,108 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures?status=open&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailsListResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailsListResponse.json",
+      "items": [
+        {
+          "id": "01M5WVNG0FK8S3JBBFYZGK1VFD",
+          "number": 1,
+          "url": "https://entire.com/et/forges/forges-fixtures/trails/1",
+          "title": "feat: shout greetings",
+          "status": "open",
+          "branch": "feature/shout",
+          "original_branch": "feature/shout",
+          "base": "main",
+          "type": "task",
+          "priority": "none",
+          "author": {
+            "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+            "login": "danielroe",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "display_name": "Daniel Roe",
+              "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe",
+                  "is_primary": true
+                }
+              ]
+            }
+          },
+          "assignees": [
+            "danielroe"
+          ],
+          "assignee_identities": [
+            {
+              "login": "danielroe",
+              "identity": {
+                "kind": "account",
+                "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "display_name": "Daniel Roe",
+                "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+                "handles": [
+                  {
+                    "provider": "github",
+                    "handle": "danielroe",
+                    "is_primary": true
+                  }
+                ]
+              }
+            }
+          ],
+          "reviewers": [
+            {
+              "login": "danielroe",
+              "status": "changes_requested",
+              "actor_account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+              "identity": {
+                "kind": "account",
+                "account_id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+                "display_name": "Daniel Roe",
+                "avatar_url": "https://avatars.githubusercontent.com/u/28706372?v=4",
+                "handles": [
+                  {
+                    "provider": "github",
+                    "handle": "danielroe",
+                    "is_primary": true
+                  }
+                ]
+              }
+            }
+          ],
+          "ready_for_review": true,
+          "has_code_changes": true,
+          "comment_count": 4,
+          "unresolved_count": 4,
+          "created_at": "2026-10-26T19:40:44.349Z",
+          "updated_at": "2026-10-26T19:42:13.290Z",
+          "merged_at": null,
+          "last_activity_at": "2026-10-26T19:42:13.290Z",
+          "phase": "reviewing",
+          "parent": {
+            "id": "01M5WVNFY1D7AHX0KJW2ANZP14",
+            "number": 2,
+            "project_id": "01M5WS0JJNP4V9AW20MZ3MKF5M",
+            "host": "et",
+            "project": "forges",
+            "path": "/api/v1/et/forges/trails/01M5WVNFY1D7AHX0KJW2ANZP14",
+            "jurisdiction": "uk",
+            "primary_processing_cell": "aws-eu-west-2",
+            "url": "https://entire.com/et/forges/-/trails/2"
+          }
+        }
+      ],
+      "total_count": 1
+    }
+  }
+}

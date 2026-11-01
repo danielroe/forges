@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/trails/et/forges/forges-fixtures/1/approvals"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/TrailApprovalsResponse.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://aws-eu-west-2.api.entire.io/api/v1/schemas/TrailApprovalsResponse.json",
+      "approvals": [
+        {
+          "id": "01M5WVPQ2KX1QCY97NEWDQWTB8",
+          "author": "danielroe",
+          "event": "changes_requested",
+          "body": "Please add a test for shouting.",
+          "commit_sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+          "created_at": "2026-10-26T19:41:24.435414047Z"
+        }
+      ]
+    }
+  }
+}

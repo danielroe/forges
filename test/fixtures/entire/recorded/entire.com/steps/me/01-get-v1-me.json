@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://us.console.entire.io/api/v1/me"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "</api/v1/schemas/GetMeOutputBody.json>; rel=\"describedBy\""
+    },
+    "body": {
+      "$schema": "https://us.console.entire.io/api/v1/schemas/GetMeOutputBody.json",
+      "global": {
+        "accountId": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "handle": "danielroe",
+        "username": "danielroe",
+        "homeJurisdiction": "uk",
+        "createdAt": "2026-10-26T18:48:45.073805Z",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "displayName": "Daniel Roe",
+        "handles": [
+          {
+            "provider": "github",
+            "handle": "danielroe",
+            "providerUserId": "28706372",
+            "email": "redacted@example.invalid"
+          }
+        ]
+      },
+      "regionalUnavailable": {
+        "error": "foreign_jurisdiction",
+        "jurisdiction": "uk",
+        "homeCoreUrl": "https://uk.auth.entire.io",
+        "message": "Your profile is hosted in the uk jurisdiction."
+      },
+      "auth": {
+        "provider": "github",
+        "providerUserId": "28706372"
+      },
+      "mode": "regional",
+      "jurisdiction": "us"
+    }
+  }
+}

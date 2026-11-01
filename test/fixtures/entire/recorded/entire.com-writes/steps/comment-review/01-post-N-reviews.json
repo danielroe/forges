@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/reviews",
+    "body": {}
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "</api/v1/schemas/StartReviewResponseBody.json>; rel=\"describedBy\"",
+      "location": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/reviews/01M5X0AGW04E508JH4BY5VE4V7"
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/StartReviewResponseBody.json",
+      "review_id": "01M5X0AGW04E508JH4BY5VE4V7",
+      "trail_id": "01M5X0A49M70NAMJX878FD2QD1",
+      "repo_id": "01M5WYSQC41P69DTXEMZ0TE5YK",
+      "code_version_id": "01M5X0AGVPHGGQD3ZADR9BX2KV",
+      "base_sha": "80c3e7d4c9f5e16f4e11cf7737f571c513d14ac2",
+      "head_sha": "9f5e93477cecca4f94f1888d8680ab55c75fccba",
+      "event_stream_url": "/api/v1/trails/et/forges-scratch/forges-fixtures/9/events",
+      "diff_url": "/api/v1/repos/01M5WYSQC41P69DTXEMZ0TE5YK/trails/9/reviews/01M5X0AGW04E508JH4BY5VE4V7/diff",
+      "files_url": "/api/v1/repos/01M5WYSQC41P69DTXEMZ0TE5YK/trails/9/reviews/01M5X0AGW04E508JH4BY5VE4V7/files",
+      "limits": {
+        "max_comments_per_batch": 100
+      }
+    }
+  }
+}

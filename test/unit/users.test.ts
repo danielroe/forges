@@ -10,6 +10,8 @@ import { NotFoundError, UnsupportedOperationError } from '../../src/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
+const githubOrigin = { forge: 'github', instance: 'github.com' } as const
+
 describe('users.get', () => {
   it('reads a GitHub account anonymously', async () => {
     const { fetch, calls } = fixtureFetch([], {
@@ -48,8 +50,8 @@ describe('users.get', () => {
   })
 
   it('ties a GitHub App bot account to its app', () => {
-    expect(toActor('github.com', { login: 'renovate[bot]', id: 2, type: 'Bot' })?.app).toEqual({ slug: 'renovate' })
-    expect(toActor('github.com', { login: 'octocat', id: 1, type: 'User' })?.app).toBeUndefined()
+    expect(toActor(githubOrigin, { login: 'renovate[bot]', id: 2, type: 'Bot' })?.app).toEqual({ slug: 'renovate' })
+    expect(toActor(githubOrigin, { login: 'octocat', id: 1, type: 'User' })?.app).toBeUndefined()
   })
 })
 

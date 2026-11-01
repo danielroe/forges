@@ -1,0 +1,95 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/discussions",
+    "body": {
+      "body": "An upserted comment from run 20261026210133.\n\n<!-- forges:key=forges-fixture -->"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "link": "</api/v1/schemas/TrailDiscussionCreateResponseBody.json>; rel=\"describedBy\"",
+      "location": "https://aws-eu-central-1.api.entire.io/api/v1/trails/et/forges-scratch/forges-fixtures/9/discussions/01M5X0A9PBSMXT52PCMF5JCE0Y"
+    },
+    "body": {
+      "$schema": "https://aws-eu-central-1.api.entire.io/api/v1/schemas/TrailDiscussionCreateResponseBody.json",
+      "discussion": {
+        "id": "01M5X0A9PBSMXT52PCMF5JCE0Y",
+        "trail_id": "01M5X0A49M70NAMJX878FD2QD1",
+        "title": "An upserted comment from run 20261026210133. <!-- forges:key=forges-fixture -->",
+        "kind": "discussion",
+        "resolved": false,
+        "resolved_by": null,
+        "resolved_by_identity": {
+          "kind": "unknown",
+          "account_id": null,
+          "display_name": null,
+          "avatar_url": null,
+          "handles": []
+        },
+        "resolved_at": null,
+        "created_by": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+        "created_by_identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        },
+        "created_at": "2026-10-26T21:02:00.395Z",
+        "updated_at": "2026-10-26T21:02:00.395Z",
+        "last_message_at": "2026-10-26T21:02:00.395Z",
+        "last_message_author": "danielroe-bot",
+        "message_count": 1,
+        "participants": [
+          {
+            "login": "danielroe-bot",
+            "actor_account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+            "identity": {
+              "kind": "account",
+              "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+              "display_name": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+              "handles": [
+                {
+                  "provider": "github",
+                  "handle": "danielroe-bot",
+                  "is_primary": true
+                }
+              ]
+            }
+          }
+        ],
+        "review_comment_id": null,
+        "review_comment": null
+      },
+      "message": {
+        "id": "01M5X0A9PCYAK06HK5CXJRQR2P",
+        "author": "danielroe-bot",
+        "identity": {
+          "kind": "account",
+          "account_id": "01M5WYRRVZNA1TXNET6KE4Q3WX",
+          "display_name": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/57801166?v=4",
+          "handles": [
+            {
+              "provider": "github",
+              "handle": "danielroe-bot",
+              "is_primary": true
+            }
+          ]
+        },
+        "created_at": "2026-10-26T21:02:00.395Z",
+        "body": "An upserted comment from run 20261026210133.\n\n<!-- forges:key=forges-fixture -->",
+        "replies": []
+      }
+    }
+  }
+}

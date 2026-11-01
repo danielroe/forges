@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://aws-eu-west-2.api.entire.io/api/v1/git/repos/01M5WS0P331VQ3AARB26Z9DGV7/raw?ref=HEAD&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "# forges-fixtures\n\nA repository for the Entire recordings of [forges](https://forges.link), a forge client.\n"
+  }
+}

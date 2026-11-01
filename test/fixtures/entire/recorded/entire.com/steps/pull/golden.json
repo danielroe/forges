@@ -1,0 +1,77 @@
+{
+  "ref": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "repo": {
+      "forge": "entire",
+      "instance": "entire.com",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "1",
+    "externalId": "01M5WVNG0FK8S3JBBFYZGK1VFD"
+  },
+  "kind": "pull_request",
+  "title": "feat: shout greetings",
+  "body": "Adds a `shout` option to `greet()`.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "entire",
+    "instance": "entire.com",
+    "login": "danielroe",
+    "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+    "name": "Daniel Roe",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "entire",
+      "instance": "entire.com",
+      "login": "danielroe",
+      "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+      "name": "Daniel Roe",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [
+    {
+      "actor": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "login": "danielroe",
+        "id": "01M5WRP9RJ4GVR2PA5PCNYP1FC",
+        "name": "Daniel Roe",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?v=4",
+        "isBotHint": false
+      },
+      "state": "changes_requested",
+      "stateRaw": "changes_requested"
+    }
+  ],
+  "labels": [],
+  "url": "https://entire.com/et/forges/forges-fixtures/trails/1",
+  "createdAt": "2026-10-26T19:40:44.349Z",
+  "updatedAt": "2026-10-26T19:42:13.290Z",
+  "lastActivityAt": "2026-10-26T19:42:13.290Z",
+  "commentCount": 4,
+  "branches": {
+    "head": {
+      "ref": "feature/shout",
+      "sha": "9ec20061f17f35212247320f525ec51d3e00c41a",
+      "repo": {
+        "forge": "entire",
+        "instance": "entire.com",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      }
+    },
+    "base": {
+      "ref": "main"
+    }
+  }
+}
