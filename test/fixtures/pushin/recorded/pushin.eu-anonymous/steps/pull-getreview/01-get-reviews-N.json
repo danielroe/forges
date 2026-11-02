@@ -7,8 +7,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "90",
-      "x-ratelimit-remaining": "33",
-      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-remaining": "78",
+      "x-ratelimit-reset": "1793595600",
       "x-ratelimit-resource": "core"
     },
     "body": {
@@ -25,9 +25,9 @@
       "body": "overall review comment",
       "created_at": "2026-10-11T12:48:03.619933Z",
       "submitted_at": "2026-10-11T12:48:17.300209Z",
+      "commit_id": "e8b817265b1b9d09b39dc569dd48a51102ead0d7",
       "html_url": "https://pushin.eu/danielroe/roe.dev-test/pulls/1#pullrequestreview-rev_034e4OeGqbHA2Rm1ZS57bB",
-      "node_id": "rev_034e4OeGqbHA2Rm1ZS57bB",
-      "commit_id": "e8b817265b1b9d09b39dc569dd48a51102ead0d7"
+      "node_id": "rev_034e4OeGqbHA2Rm1ZS57bB"
     }
   }
 }
