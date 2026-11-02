@@ -1,34 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://oysterling.us-west.host.bsky.network/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Awshs7t2adsemcrrd4snkeqli&collection=sh.tangled.label.definition&rkey=assignee"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.repo.issue&rkey=3mxmwlijmkm2y"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"18a-69WCMelLh7alpeGWDACzHnEmF6Y\"",
+      "etag": "W/\"15c-o81GNLv7aiwP+6h8BSLE1XAAbIU\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2992",
-      "ratelimit-reset": "1792385013",
+      "ratelimit-remaining": "2912",
+      "ratelimit-reset": "1793593939",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:wshs7t2adsemcrrd4snkeqli/sh.tangled.label.definition/assignee",
-      "cid": "bafyreieo6jwijef4hscjph4qyr2pgre4kdz3smil5ewhmopbizldhgg2iq",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
+      "cid": "bafyreieu3ukzwub6wy2xdgrea7pzfwtn646h7yy4vhl3qslbofaky7rpti",
       "value": {
-        "name": "assignee",
-        "$type": "sh.tangled.label.definition",
-        "color": "#10B981",
-        "scope": [
-          "sh.tangled.repo.issue",
-          "sh.tangled.repo.pull"
-        ],
-        "multiple": true,
-        "createdAt": "2025-09-22T12:47:59+01:00",
-        "valueType": {
-          "type": "string",
-          "format": "did"
-        }
+        "body": "An issue that read recordings read.",
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "$type": "sh.tangled.repo.issue",
+        "title": "forges seed: issue",
+        "createdAt": "2026-10-11T21:19:26.882Z"
       }
     }
   }
