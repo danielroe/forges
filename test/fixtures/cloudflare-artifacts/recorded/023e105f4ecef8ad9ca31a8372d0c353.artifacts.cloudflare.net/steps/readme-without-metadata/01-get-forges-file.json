@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges/file?ref=95d9018dd1ac8cbec290cdcc3f104445160d1135&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "# forges-artifacts-fixture\n\nA repository for the Cloudflare Artifacts\n recordings of forges.\n"
+  }
+}
