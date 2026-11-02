@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/neelabo/neeview/src/master/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"7684d8e5a18679c90cf128ee66effff0\""
+    },
+    "body": "# :warning: Notice\n\n**NeeView project page has been moved to [GitHub](https://github.com/neelabo/NeeView).**  \n**This repository will not be updated in the future.**\n\n----\n\n# :warning: お知らせ\n\n**NeeView プロジェクトページは [GitHub](https://github.com/neelabo/NeeView) に移動しました。**  \n**このリポジトリは今後更新されません。**\n\n----\n\n# NeeView\n\nアプリの使用についてはWikiを参照してください\n  \n  * [NeeViewプロジェクト Wiki](https://bitbucket.org/neelabo/neeview/wiki/)\n\n## 開発環境\n\n* Windows 10 Pro 64bit\n* VisualStudio 2022\n    - .Net デスクトップ開発\n    - C++によるデスクトップ開発\n\n## Gitリポジトリからのプロジェクト取得\n\n% git clone --recursive https://bitbucket.org/neelabo/neeview.git NeeView\n\n\n"
+  }
+}
