@@ -6,21 +6,21 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1585,
+      "k0": 1625,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1583,
+      "k1": 1624,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1579
+      "k2": 1622
     }
   },
   "response": {
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4941",
-      "x-ratelimit-reset": "1792386290",
+      "x-ratelimit-remaining": "4848",
+      "x-ratelimit-reset": "1793593755",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -28,25 +28,25 @@
         "t0": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABH0aNdg",
-            "number": 1585,
-            "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-            "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABMCorRw",
+            "number": 1625,
+            "title": "fix: return 412 for matching If-None-Match on non-GET/HEAD in handleCacheHeaders",
+            "body": "`handleCacheHeaders` returned `304 Not Modified` for every method when the cache validators matched. Per RFC 9110:\n\n- §13.1.2: a matching `If-None-Match` on a method other than GET/HEAD must fail the request with `412 Precondition Failed`, not `304`;\n- §13.2.1: conditional headers must be ignored for OPTIONS, TRACE and CONNECT;\n- §13.1.3: `If-Modified-Since` must be ignored for methods other than GET/HEAD.\n\nThe fix keeps the helper's control-flow contract (returns `true` = stop) while selecting the right status: 304 for GET/HEAD, 412 for a matching `If-None-Match` on other methods, and `false` (handler runs normally) for the ignore cases. Added four tests covering POST/PUT → 412, HEAD → 304, POST + If-Modified-Since-only → 200, and OPTIONS → 200.\n\nFixes #1623.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Corrected conditional cache responses: matching ETags now return the appropriate status for GET, HEAD, and other methods.\n  * OPTIONS, TRACE, and CONNECT requests now proceed without conditional cache headers affecting their response.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-11T14:13:38Z",
-            "updatedAt": "2026-10-17T12:36:56Z",
+            "createdAt": "2026-11-01T00:46:33Z",
+            "updatedAt": "2026-11-01T00:50:03Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1585",
+            "url": "https://github.com/h3js/h3/pull/1625",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "TalhaHunter101",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-              "url": "https://github.com/TalhaHunter101",
-              "databaseId": 51529912,
-              "name": "Talha Shafeeq"
+              "login": "azdemir",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/54518050?v=4",
+              "url": "https://github.com/azdemir",
+              "databaseId": 54518050,
+              "name": "Demir"
             },
             "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
             "mergedBy": null,
@@ -57,47 +57,39 @@
               "nodes": []
             },
             "comments": {
-              "totalCount": 3
+              "totalCount": 1
             },
             "participants": {
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "TalhaHunter101",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-                  "url": "https://github.com/TalhaHunter101",
-                  "databaseId": 51529912,
-                  "name": "Talha Shafeeq"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
+                  "login": "azdemir",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/54518050?v=4",
+                  "url": "https://github.com/azdemir",
+                  "databaseId": 54518050,
+                  "name": "Demir"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/serve-static-index-paths",
-            "headRefOid": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+            "headRefName": "fix/1623-cache-headers-412",
+            "headRefOid": "658768001a35253b9dc2697f8c84344bbabe9fff",
             "baseRefName": "main",
-            "baseRefOid": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
             "headRepository": {
-              "databaseId": 1414411073,
+              "databaseId": 1441370418,
               "name": "h3",
               "owner": {
-                "login": "TalhaHunter101"
+                "login": "azdemir"
               }
             },
             "mergeCommit": null,
-            "additions": 46,
-            "deletions": 1,
+            "additions": 98,
+            "deletions": 11,
             "changedFiles": 2,
             "commits": {
-              "totalCount": 3,
+              "totalCount": 1,
               "nodes": [
                 {
                   "commit": {
@@ -152,7 +144,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 2
+                            "count": 3
                           },
                           {
                             "state": "TIMED_OUT",
@@ -182,7 +174,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 1
+                            "count": 0
                           }
                         ]
                       }
@@ -207,7 +199,7 @@
             "timelineItems": {
               "nodes": [
                 {
-                  "createdAt": "2026-10-11T14:13:39Z",
+                  "createdAt": "2026-11-01T00:46:35Z",
                   "requestedReviewer": {
                     "__typename": "User",
                     "login": "pi0"
@@ -220,25 +212,25 @@
         "t1": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHzAV3Q",
-            "number": 1583,
-            "title": "docs: fix file paths in static assets example",
-            "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABL63ZEg",
+            "number": 1624,
+            "title": "fix(cache): honor request methods when evaluating cache headers",
+            "body": "resolves #1623\n\nMatching `If-None-Match` preconditions stop POST, PUT, PATCH, and DELETE with `412` rather than `304` ([RFC 9110 §13.1.2](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.2)). These methods ignore `If-Modified-Since`; OPTIONS, TRACE, and CONNECT ignore conditional headers ([§13.2.1](https://www.rfc-editor.org/rfc/rfc9110#section-13.2.1)). GET, HEAD, and QUERY retain their existing `304` behavior.\n\nThe issue includes a runnable reproduction. Regression tests cover both web and Node adapters, including weak tags, wildcards, nonmatches, and validator overrides; helper-level tests also cover TRACE and CONNECT. They fail with only the source changes reverted.\n\n`pnpm lint`, `pnpm typecheck`, `pnpm build`, and the affected suites passed. Local `pnpm test`: 3,219 passed, 51 skipped, one Node body-limit timeout; unchanged main at f0e1780: 3,128 passed, 51 skipped, two body-limit timeouts, including the same test.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Conditional cache validation now returns `304 Not Modified` for matching validators on `GET`, `HEAD`, and `QUERY` requests.\n  * For other methods, a matching `If-None-Match` returns `412 Precondition Failed`; `If-Modified-Since` does not trigger a conditional response.\n  * `CONNECT`, `OPTIONS`, and `TRACE` requests ignore both conditional headers and continue processing.\n\n* **Documentation**\n  * Clarified how conditional cache headers are handled across request methods.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-11T09:57:49Z",
-            "updatedAt": "2026-10-16T19:22:11Z",
+            "createdAt": "2026-10-31T05:30:48Z",
+            "updatedAt": "2026-10-31T05:33:56Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1583",
+            "url": "https://github.com/h3js/h3/pull/1624",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "aaronanish-t",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-              "url": "https://github.com/aaronanish-t",
-              "databaseId": 217176403,
-              "name": "Aaron Anish Thadathil"
+              "login": "clean99",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/53188310?u=b63a8d0319477dd63a202aae7a6dafbeb6319698&v=4",
+              "url": "https://github.com/clean99",
+              "databaseId": 53188310,
+              "name": "clean99"
             },
             "authorAssociation": "FIRST_TIME_CONTRIBUTOR",
             "mergedBy": null,
@@ -249,37 +241,37 @@
               "nodes": []
             },
             "comments": {
-              "totalCount": 2
+              "totalCount": 1
             },
             "participants": {
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "aaronanish-t",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-                  "url": "https://github.com/aaronanish-t",
-                  "databaseId": 217176403,
-                  "name": "Aaron Anish Thadathil"
+                  "login": "clean99",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/53188310?u=b63a8d0319477dd63a202aae7a6dafbeb6319698&v=4",
+                  "url": "https://github.com/clean99",
+                  "databaseId": 53188310,
+                  "name": "clean99"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/fix-static-assets-example",
-            "headRefOid": "36270b8a285744ad4dc5af707112523676ebb9f6",
+            "headRefName": "contrib/h3-cache-method-preconditions",
+            "headRefOid": "682e574765dc0e020b93136e8bf6e8c3239cbd3b",
             "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
             "headRepository": {
-              "databaseId": 1414188488,
+              "databaseId": 1440539176,
               "name": "h3",
               "owner": {
-                "login": "aaronanish-t"
+                "login": "clean99"
               }
             },
             "mergeCommit": null,
-            "additions": 8,
-            "deletions": 3,
-            "changedFiles": 1,
+            "additions": 148,
+            "deletions": 7,
+            "changedFiles": 6,
             "commits": {
               "totalCount": 2,
               "nodes": [
@@ -336,7 +328,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 2
+                            "count": 3
                           },
                           {
                             "state": "TIMED_OUT",
@@ -366,7 +358,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 1
+                            "count": 0
                           }
                         ]
                       }
@@ -391,7 +383,7 @@
             "timelineItems": {
               "nodes": [
                 {
-                  "createdAt": "2026-10-11T09:57:50Z",
+                  "createdAt": "2026-10-31T05:30:51Z",
                   "requestedReviewer": {
                     "__typename": "User",
                     "login": "pi0"
@@ -404,27 +396,27 @@
         "t2": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvErmg",
-            "number": 1579,
-            "title": "docs(static): mount serveStatic example at the root",
-            "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABLiBkhA",
+            "number": 1622,
+            "title": "fix: keep `Server-Timing` entries on error responses and when merging headers",
+            "body": "Error responses (thrown errors, 404s, returned responses with status >= 400) only receive headers staged on `event.res.errHeaders`. `setServerTiming()` only wrote to `event.res.headers`, so its entries were dropped from error responses,\n\n- `setServerTiming()` now also writes to `event.res.errHeaders`, like the CORS utils do.\n- `mergeHeaders()` now keeps both sides of `Server-Timing` (staged entries first, then the response's own) instead of replacing them. Without this, the change above would wipe a returned error response's own entries.\n\n```ts\napp.use((event) => setServerTiming(event, \"auth\", { dur: 1 }));\napp.get(\"/fail\", () => {\n  throw new HTTPError({ status: 503, headers: { \"server-timing\": \"upstream;dur=9\" } });\n});\n// before: server-timing: upstream;dur=9\n// after:  server-timing: auth;dur=1, upstream;dur=9\n```\n\nUsed for nitrojs/nitro#4904\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Server timing information is now retained on error responses, including when a handler or measured operation fails.\n  * Timing entries from middleware and handlers are combined without duplicating entries on cached responses.\n  * When multiple `Server-Timing` values are combined, staged entries appear before existing values. Other response-header behavior remains unchanged.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-10T20:06:27Z",
-            "updatedAt": "2026-10-17T12:00:47Z",
+            "createdAt": "2026-10-29T13:25:35Z",
+            "updatedAt": "2026-10-29T13:34:13Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1579",
+            "url": "https://github.com/h3js/h3/pull/1622",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
+              "login": "RihanArfan",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/20425781?u=245c8e07b1685d61febae74ec56b886c5f5d6a68&v=4",
+              "url": "https://github.com/RihanArfan",
+              "databaseId": 20425781,
+              "name": "Rihan Arfan"
             },
-            "authorAssociation": "CONTRIBUTOR",
+            "authorAssociation": "MEMBER",
             "mergedBy": null,
             "assignees": {
               "nodes": []
@@ -433,53 +425,37 @@
               "nodes": []
             },
             "comments": {
-              "totalCount": 4
+              "totalCount": 3
             },
             "participants": {
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
+                  "login": "RihanArfan",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/20425781?u=245c8e07b1685d61febae74ec56b886c5f5d6a68&v=4",
+                  "url": "https://github.com/RihanArfan",
+                  "databaseId": 20425781,
+                  "name": "Rihan Arfan"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/serve-static-root",
-            "headRefOid": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+            "headRefName": "fix/server-timing-error-headers",
+            "headRefOid": "b5b568a266433e00aa5d56ea6d450de34cc7c628",
             "baseRefName": "main",
-            "baseRefOid": "927fe98fc477720e91cdb7f96b239956d55b10c6",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
             "headRepository": {
-              "databaseId": 1413617363,
+              "databaseId": 879773626,
               "name": "h3",
               "owner": {
-                "login": "harshit-d3v"
+                "login": "RihanArfan"
               }
             },
             "mergeCommit": null,
-            "additions": 9,
-            "deletions": 2,
-            "changedFiles": 1,
+            "additions": 236,
+            "deletions": 7,
+            "changedFiles": 6,
             "commits": {
               "totalCount": 1,
               "nodes": [
@@ -536,7 +512,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 7
+                            "count": 8
                           },
                           {
                             "state": "TIMED_OUT",
@@ -566,7 +542,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 1
+                            "count": 0
                           }
                         ]
                       }
@@ -589,7 +565,15 @@
               ]
             },
             "timelineItems": {
-              "nodes": []
+              "nodes": [
+                {
+                  "createdAt": "2026-10-29T13:25:37Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
             }
           }
         }

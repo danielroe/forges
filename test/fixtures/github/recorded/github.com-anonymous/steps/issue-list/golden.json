@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "number": "1623",
+        "externalId": "I_kwDOErHI988AAAABbXhLzQ"
       },
       "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "title": "handleCacheHeaders returns 304 for matching If-None-Match on POST and PUT",
+      "body": "### Environment\n\nh3 2.0.8, Node.js 24.16.0. Also reproduced on main at f0e17808ac2439b6434bb10609a961067f4d555b.\n\n### Reproduction\n\nRun in an empty directory:\n\n```sh\nnpm init -y\nnpm install h3@2.0.8\nnode --input-type=module <<'EOF'\nimport { H3Event, handleCacheHeaders } from \"h3\";\n\nfor (const method of [\"GET\", \"HEAD\", \"QUERY\", \"POST\", \"PUT\"]) {\n  const event = new H3Event(new Request(\"https://example.com/resource\", {\n    method,\n    headers: { \"if-none-match\": '\"v1\"' },\n  }));\n  const stop = handleCacheHeaders(event, { etag: '\"v1\"' });\n  console.log(method, stop, event.res.status);\n}\nEOF\n```\n\n### Describe the bug\n\nEvery request above returns `true` and sets status `304`. For POST and PUT, the expected status is `412 Precondition Failed`.\n\n[RFC 9110 §13.1.2](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.2) requires an evaluated, matching `If-None-Match` to stop POST and PUT with `412`. Returning `false` and continuing these writes would also violate that precondition. The helper already tells callers to stop when it returns `true`, so retaining that return value and selecting `412` preserves its control-flow contract. This does not apply to OPTIONS, TRACE, or CONNECT: [§13.2.1](https://www.rfc-editor.org/rfc/rfc9110#section-13.2.1) requires ignoring conditional headers for those methods.\n\nSeparately, POST with only a matching `If-Modified-Since` should continue normally, as required by [§13.1.3](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.3), rather than returning `304` or `412`.\n\nA focused fix and regression tests are prepared.\n\n### Additional context\n\nH3 explicitly supports conditional QUERY requests. Its documented `304` behavior should remain unchanged, consistent with [RFC 10008 §2.6 and Appendix A.5](https://www.rfc-editor.org/rfc/rfc10008#section-2.6). GET and HEAD also keep their existing behavior. `serveStatic` and the ocache-backed route rule already gate their cache handling to GET/HEAD.\n\n### Logs\n\n```text\nGET true 304\nHEAD true 304\nQUERY true 304\nPOST true 304\nPUT true 304\n```\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "clean99",
+        "id": "53188310",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/53188310?v=4",
+        "url": "https://github.com/clean99",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -35,10 +35,10 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "url": "https://github.com/h3js/h3/issues/1623",
+      "createdAt": "2026-10-31T05:29:53.000Z",
+      "updatedAt": "2026-10-31T05:29:53.000Z",
+      "lastActivityAt": "2026-10-31T05:29:53.000Z",
       "locked": false,
       "commentCount": 0,
       "reactions": {
@@ -48,13 +48,13 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-    "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoZBvkGjPAAAAAW14S80%3D&page=2",
+    "etag": "W/\"9113ef92a7b3345c0bb673630b4741b51451ea7e61306a03e8bdff0a0376a746\""
   },
-  "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\"",
+  "etag": "W/\"9113ef92a7b3345c0bb673630b4741b51451ea7e61306a03e8bdff0a0376a746\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 21,
+    "remaining": 16,
     "resetAt": "<now>",
     "resource": "core"
   }

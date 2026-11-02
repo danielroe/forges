@@ -6,10 +6,10 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"6abccf8fab2c1f67a3df055b9349f76b78b3bec0445911535d00c2f6ba67e9e1\"",
+      "etag": "W/\"6f835013538eba66e4db731750e3ac6e64bd4d54b47027335cc1532f19b0478c\"",
       "x-ratelimit-limit": "60",
-      "x-ratelimit-remaining": "42",
-      "x-ratelimit-reset": "1792387146",
+      "x-ratelimit-remaining": "37",
+      "x-ratelimit-reset": "1793597251",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -30,6 +30,12 @@
           },
           {
             "w": 1792281600,
+            "a": 0,
+            "d": 0,
+            "c": 0
+          },
+          {
+            "w": 1792886400,
             "a": 0,
             "d": 0,
             "c": 0
@@ -58,7 +64,7 @@
         }
       },
       {
-        "total": 43,
+        "total": 46,
         "weeks": [
           {
             "w": 1791072000,
@@ -74,6 +80,12 @@
           },
           {
             "w": 1792281600,
+            "a": 3,
+            "d": 0,
+            "c": 3
+          },
+          {
+            "w": 1792886400,
             "a": 0,
             "d": 0,
             "c": 0

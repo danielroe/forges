@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1625",
+        "externalId": "PR_kwDOErHI988AAAABMCorRw"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix: return 412 for matching If-None-Match on non-GET/HEAD in handleCacheHeaders",
+      "body": "`handleCacheHeaders` returned `304 Not Modified` for every method when the cache validators matched. Per RFC 9110:\n\n- §13.1.2: a matching `If-None-Match` on a method other than GET/HEAD must fail the request with `412 Precondition Failed`, not `304`;\n- §13.2.1: conditional headers must be ignored for OPTIONS, TRACE and CONNECT;\n- §13.1.3: `If-Modified-Since` must be ignored for methods other than GET/HEAD.\n\nThe fix keeps the helper's control-flow contract (returns `true` = stop) while selecting the right status: 304 for GET/HEAD, 412 for a matching `If-None-Match` on other methods, and `false` (handler runs normally) for the ignore cases. Added four tests covering POST/PUT → 412, HEAD → 304, POST + If-Modified-Since-only → 200, and OPTIONS → 200.\n\nFixes #1623.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Corrected conditional cache responses: matching ETags now return the appropriate status for GET, HEAD, and other methods.\n  * OPTIONS, TRACE, and CONNECT requests now proceed without conditional cache headers affecting their response.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "azdemir",
+        "id": "54518050",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/54518050?v=4",
+        "url": "https://github.com/azdemir",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -50,212 +50,212 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
+      "url": "https://github.com/h3js/h3/pull/1625",
+      "createdAt": "2026-11-01T00:46:33.000Z",
+      "updatedAt": "2026-11-01T00:50:03.000Z",
+      "lastActivityAt": "2026-11-01T00:50:03.000Z",
+      "locked": false,
+      "commentCount": 1,
+      "branches": {
+        "head": {
+          "ref": "fix/1623-cache-headers-412",
+          "sha": "658768001a35253b9dc2697f8c84344bbabe9fff",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "azdemir",
+            "name": "h3",
+            "externalId": "1441370418"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
+        },
+        "mergeCommitSha": "64d0a3386db4822ff11b053a98bec1c046cb2ff1"
+      },
+      "checks": {
+        "state": "success",
+        "stateRaw": "success",
+        "total": 3,
+        "failed": 0,
+        "url": "https://github.com/h3js/h3/pull/1625/checks"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1624",
+        "externalId": "PR_kwDOErHI988AAAABL63ZEg"
+      },
+      "kind": "pull_request",
+      "title": "fix(cache): honor request methods when evaluating cache headers",
+      "body": "resolves #1623\n\nMatching `If-None-Match` preconditions stop POST, PUT, PATCH, and DELETE with `412` rather than `304` ([RFC 9110 §13.1.2](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.2)). These methods ignore `If-Modified-Since`; OPTIONS, TRACE, and CONNECT ignore conditional headers ([§13.2.1](https://www.rfc-editor.org/rfc/rfc9110#section-13.2.1)). GET, HEAD, and QUERY retain their existing `304` behavior.\n\nThe issue includes a runnable reproduction. Regression tests cover both web and Node adapters, including weak tags, wildcards, nonmatches, and validator overrides; helper-level tests also cover TRACE and CONNECT. They fail with only the source changes reverted.\n\n`pnpm lint`, `pnpm typecheck`, `pnpm build`, and the affected suites passed. Local `pnpm test`: 3,219 passed, 51 skipped, one Node body-limit timeout; unchanged main at f0e1780: 3,128 passed, 51 skipped, two body-limit timeouts, including the same test.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Conditional cache validation now returns `304 Not Modified` for matching validators on `GET`, `HEAD`, and `QUERY` requests.\n  * For other methods, a matching `If-None-Match` returns `412 Precondition Failed`; `If-Modified-Since` does not trigger a conditional response.\n  * `CONNECT`, `OPTIONS`, and `TRACE` requests ignore both conditional headers and continue processing.\n\n* **Documentation**\n  * Clarified how conditional cache headers are handled across request methods.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "clean99",
+        "id": "53188310",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/53188310?v=4",
+        "url": "https://github.com/clean99",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "first_time_contributor",
+      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "state": "pending",
+          "stateRaw": "requested"
+        }
+      ],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1624",
+      "createdAt": "2026-10-31T05:30:48.000Z",
+      "updatedAt": "2026-10-31T05:33:56.000Z",
+      "lastActivityAt": "2026-10-31T05:33:56.000Z",
+      "locked": false,
+      "commentCount": 1,
+      "branches": {
+        "head": {
+          "ref": "contrib/h3-cache-method-preconditions",
+          "sha": "682e574765dc0e020b93136e8bf6e8c3239cbd3b",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "clean99",
+            "name": "h3",
+            "externalId": "1440539176"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
+        },
+        "mergeCommitSha": "64d3be4a106bc9cb316a8e2cf96d6645458a4b21"
+      },
+      "checks": {
+        "state": "success",
+        "stateRaw": "success",
+        "total": 3,
+        "failed": 0,
+        "url": "https://github.com/h3js/h3/pull/1624/checks"
+      }
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "kind": "pull_request",
+        "number": "1622",
+        "externalId": "PR_kwDOErHI988AAAABLiBkhA"
+      },
+      "kind": "pull_request",
+      "title": "fix: keep `Server-Timing` entries on error responses and when merging headers",
+      "body": "Error responses (thrown errors, 404s, returned responses with status >= 400) only receive headers staged on `event.res.errHeaders`. `setServerTiming()` only wrote to `event.res.headers`, so its entries were dropped from error responses,\n\n- `setServerTiming()` now also writes to `event.res.errHeaders`, like the CORS utils do.\n- `mergeHeaders()` now keeps both sides of `Server-Timing` (staged entries first, then the response's own) instead of replacing them. Without this, the change above would wipe a returned error response's own entries.\n\n```ts\napp.use((event) => setServerTiming(event, \"auth\", { dur: 1 }));\napp.get(\"/fail\", () => {\n  throw new HTTPError({ status: 503, headers: { \"server-timing\": \"upstream;dur=9\" } });\n});\n// before: server-timing: upstream;dur=9\n// after:  server-timing: auth;dur=1, upstream;dur=9\n```\n\nUsed for nitrojs/nitro#4904\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Server timing information is now retained on error responses, including when a handler or measured operation fails.\n  * Timing entries from middleware and handlers are combined without duplicating entries on cached responses.\n  * When multiple `Server-Timing` values are combined, staged entries appear before existing values. Other response-header behavior remains unchanged.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "RihanArfan",
+        "id": "20425781",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/20425781?v=4",
+        "url": "https://github.com/RihanArfan",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "member",
+      "authorAssociationRaw": "MEMBER",
+      "assignees": [],
+      "reviewers": [
+        {
+          "actor": {
+            "forge": "github",
+            "instance": "github.com",
+            "login": "pi0",
+            "id": "5158436",
+            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
+            "url": "https://github.com/pi0",
+            "typeRaw": "User",
+            "isBotHint": false
+          },
+          "state": "pending",
+          "stateRaw": "requested"
+        }
+      ],
+      "labels": [],
+      "url": "https://github.com/h3js/h3/pull/1622",
+      "createdAt": "2026-10-29T13:25:35.000Z",
+      "updatedAt": "2026-10-29T13:34:13.000Z",
+      "lastActivityAt": "2026-10-29T13:34:13.000Z",
       "locked": false,
       "commentCount": 3,
       "branches": {
         "head": {
-          "ref": "fix/serve-static-index-paths",
-          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+          "ref": "fix/server-timing-error-headers",
+          "sha": "b5b568a266433e00aa5d56ea6d450de34cc7c628",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "TalhaHunter101",
+            "owner": "RihanArfan",
             "name": "h3",
-            "externalId": "1414411073"
+            "externalId": "879773626"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
         },
-        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
-      },
-      "checks": {
-        "state": "success",
-        "stateRaw": "success",
-        "total": 3,
-        "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1585/checks"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
-      },
-      "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "first_time_contributor",
-      "authorAssociationRaw": "FIRST_TIME_CONTRIBUTOR",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
-      "locked": false,
-      "commentCount": 2,
-      "branches": {
-        "head": {
-          "ref": "docs/fix-static-assets-example",
-          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "aaronanish-t",
-            "name": "h3",
-            "externalId": "1414188488"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
-        },
-        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
-      },
-      "checks": {
-        "state": "success",
-        "stateRaw": "success",
-        "total": 3,
-        "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1583/checks"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "kind": "pull_request",
-        "number": "1579",
-        "externalId": "PR_kwDOErHI988AAAABHvErmg"
-      },
-      "kind": "pull_request",
-      "title": "docs(static): mount serveStatic example at the root",
-      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "harshit-d3v",
-        "id": "106448130",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-        "url": "https://github.com/harshit-d3v",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
-      "assignees": [],
-      "reviewers": [
-        {
-          "actor": {
-            "forge": "github",
-            "instance": "github.com",
-            "login": "pi0",
-            "id": "5158436",
-            "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-            "url": "https://github.com/pi0",
-            "typeRaw": "User",
-            "isBotHint": false
-          },
-          "state": "pending",
-          "stateRaw": "requested"
-        }
-      ],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1579",
-      "createdAt": "2026-10-10T20:06:27.000Z",
-      "updatedAt": "2026-10-17T12:00:47.000Z",
-      "lastActivityAt": "2026-10-17T12:00:47.000Z",
-      "locked": false,
-      "commentCount": 4,
-      "branches": {
-        "head": {
-          "ref": "docs/serve-static-root",
-          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "harshit-d3v",
-            "name": "h3",
-            "externalId": "1413617363"
-          }
-        },
-        "base": {
-          "ref": "main",
-          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
-        },
-        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
+        "mergeCommitSha": "32f371606c6626c15b0f4e5dfa058f2ced957876"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
         "total": 8,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1579/checks"
+        "url": "https://github.com/h3js/h3/pull/1622/checks"
       }
     }
   ],
-  "total": 21,
+  "total": 33,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"b8fdd95c7ece7e81e87ca5344478eddced1845ea2e40f27b347d1e58248a5c2f\""
+    "etag": "W/\"0b268907314e150d22ee6a56413f8e5fc4e5e8d9eae9eb3d67bb83f8d95628e9\""
   },
-  "etag": "W/\"b8fdd95c7ece7e81e87ca5344478eddced1845ea2e40f27b347d1e58248a5c2f\"",
+  "etag": "W/\"0b268907314e150d22ee6a56413f8e5fc4e5e8d9eae9eb3d67bb83f8d95628e9\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4943,
+    "remaining": 4959,
     "resetAt": "<now>",
     "resource": "core"
   }

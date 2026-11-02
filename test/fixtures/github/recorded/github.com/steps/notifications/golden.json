@@ -4,7 +4,65 @@
       "ref": {
         "forge": "github",
         "instance": "github.com",
-        "id": "26452313666"
+        "id": "25613310086"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "github",
+          "instance": "github.com",
+          "repo": {
+            "forge": "github",
+            "instance": "github.com",
+            "owner": "elk-zone",
+            "name": "elk",
+            "externalId": "565661866"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "3720"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "subscribed",
+      "reasonRaw": "subscribed",
+      "unread": true,
+      "title": "feat(i18n): update hu-HU.json i18n",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/repos/elk-zone/elk/pulls/3720"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "26842761913"
+      },
+      "subject": {
+        "type": "other",
+        "typeRaw": "CheckSuite",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "nuxt",
+          "name": "modules",
+          "externalId": "290526597"
+        }
+      },
+      "subjectTypeRaw": "CheckSuite",
+      "reason": "ci_activity",
+      "reasonRaw": "ci_activity",
+      "unread": true,
+      "title": "sync workflow run failed for main branch",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/notifications/threads/26842761913"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "id": "26841698670"
       },
       "subject": {
         "type": "thread",
@@ -20,7 +78,7 @@
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36637"
+          "number": "36803"
         }
       },
       "subjectTypeRaw": "PullRequest",
@@ -29,8 +87,8 @@
       "unread": true,
       "title": "chore(deps): update webpack (main)",
       "subjectState": "unknown",
-      "updatedAt": "2026-10-19T03:10:43.000Z",
-      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36637",
+      "updatedAt": "<now>",
+      "url": "https://api.github.com/repos/nuxt/nuxt/pulls/36803",
       "latestComment": {
         "forge": "github",
         "instance": "github.com",
@@ -46,73 +104,22 @@
           },
           "kind": "pull_request",
           "typeRaw": "PullRequest",
-          "number": "36637"
+          "number": "36803"
         },
-        "id": "6258807510"
-      }
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "id": "26452270939"
-      },
-      "subject": {
-        "type": "thread",
-        "thread": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "image",
-            "externalId": "292835647"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "2356"
-        }
-      },
-      "subjectTypeRaw": "PullRequest",
-      "reason": "review_requested",
-      "reasonRaw": "review_requested",
-      "unread": true,
-      "title": "chore(deps): update all non-major dependencies",
-      "subjectState": "unknown",
-      "updatedAt": "2026-10-19T03:08:43.000Z",
-      "url": "https://api.github.com/repos/nuxt/image/pulls/2356",
-      "latestComment": {
-        "forge": "github",
-        "instance": "github.com",
-        "thread": {
-          "forge": "github",
-          "instance": "github.com",
-          "repo": {
-            "forge": "github",
-            "instance": "github.com",
-            "owner": "nuxt",
-            "name": "image",
-            "externalId": "292835647"
-          },
-          "kind": "pull_request",
-          "typeRaw": "PullRequest",
-          "number": "2356"
-        },
-        "id": "6258785054"
+        "id": "6568405933"
       }
     }
   ],
   "cursor": {
     "nextUrl": "https://api.github.com/notifications?all=false&per_page=3&page=2",
-    "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\""
+    "etag": "W/\"6a21c3ebd82d3f378a37ee078c285267da8d735c3ecce89b0666c9000e8a33f8\""
   },
-  "etag": "W/\"9f393d8674c6d99b9b0624222e53fde6f77e056b8eb883bd2d3a98d32caa4a34\"",
+  "etag": "W/\"6a21c3ebd82d3f378a37ee078c285267da8d735c3ecce89b0666c9000e8a33f8\"",
   "notModified": false,
   "nextPollAt": "<now>",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4906,
+    "remaining": 4922,
     "resetAt": "<now>",
     "resource": "core"
   }

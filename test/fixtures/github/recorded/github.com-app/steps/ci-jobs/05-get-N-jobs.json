@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/h3js/h3/actions/runs/41258230528/jobs?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"37d5f759f191fec9af530be8187c839aae53130b8669799297625d32c269370d\"",
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "4951",
+      "x-ratelimit-reset": "1793597293",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "total_count": 0,
+      "jobs": []
+    }
+  }
+}

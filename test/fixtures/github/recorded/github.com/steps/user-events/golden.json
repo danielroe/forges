@@ -3,17 +3,186 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "17571094293",
-      "kind": "label",
-      "kindRaw": "IssuesEvent.labeled",
-      "action": "labelled",
-      "actionRaw": "labeled",
-      "detail": {
-        "type": "label",
-        "label": "bug"
+      "id": "25901890553",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch test/client-bench",
+      "occurredAt": "2026-10-30T20:57:25.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
       },
-      "summary": "danielroe labeled issues",
-      "occurredAt": "<now>",
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "nuxt",
+        "externalId": "71995937"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "test/client-bench",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "25890191990",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to fix/lint-watchers",
+      "occurredAt": "2026-10-30T18:56:41.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "fi3ework",
+        "name": "vite-plugin-checker",
+        "externalId": "352037361"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/fix/lint-watchers",
+        "before": "f606b0cf7584331496af7d16aa0e4311cfb420cc",
+        "after": "d95df6e7792fe557eb72397e23d34fedb9c7bed8",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "25883343562",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to main",
+      "occurredAt": "2026-10-30T17:44:11.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "nuxt",
+        "name": "image",
+        "externalId": "292835647"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "6e2e25131b6bdf321328f1c68edb121ca25e4aef",
+        "after": "f1addeb82c1f7c2b302fd53ef7c0dee5cc1ee12a",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "25866011467",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "PushEvent",
+      "summary": "danielroe pushed to no-shell-spawn",
+      "occurredAt": "2026-10-31T09:24:17.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "Artur-",
+        "name": "vite-plugin-checker",
+        "externalId": "508673915"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/no-shell-spawn",
+        "before": "87d9fbf95871215f8658e5a8e97c71e83e41787b",
+        "after": "18a8688dcdd4d1c16b1a6674f7f778852fe92b44",
+        "forced": false,
+        "commits": []
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "25851221503",
+      "kind": "ref",
+      "action": "deleted",
+      "kindRaw": "DeleteEvent",
+      "summary": "danielroe deleted branch fix/eslint-suppressions",
+      "occurredAt": "2026-10-30T21:18:14.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "fi3ework",
+        "name": "vite-plugin-checker",
+        "externalId": "352037361"
+      },
+      "detail": {
+        "type": "ref",
+        "ref": "fix/eslint-suppressions",
+        "refType": "branch"
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "18817785744",
+      "kind": "state_change",
+      "kindRaw": "PullRequestEvent.merged",
+      "action": "merged",
+      "actionRaw": "merged",
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "danielroe merged pull_request",
+      "occurredAt": "2026-11-01T16:35:32.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -26,8 +195,8 @@
         "forge": "github",
         "instance": "github.com",
         "owner": "danielroe",
-        "name": "beasties",
-        "externalId": "878458624"
+        "name": "forges",
+        "externalId": "1403631860"
       },
       "thread": {
         "forge": "github",
@@ -36,36 +205,102 @@
           "forge": "github",
           "instance": "github.com",
           "owner": "danielroe",
-          "name": "beasties",
-          "externalId": "878458624"
+          "name": "forges",
+          "externalId": "1403631860"
         },
-        "kind": "issue",
-        "number": "460",
-        "externalId": "I_kwDONFw3AM8AAAABW7iO-A"
+        "kind": "pull_request",
+        "number": "256"
       },
       "threadSnapshot": {
-        "title": "inlineFonts drops @font-face when font-family is set through a custom property",
-        "body": "With `inlineFonts: true` (and `preloadFonts: true`), beasties keeps only the `@font-face` rules whose family appears in a critical `font-family` / `font` declaration. A family written through a custom property is never resolved, so its `@font-face` rules are dropped from the inlined CSS. Tailwind v4 always sets the base font this way (`font-family: var(--default-font-family, ...)` in its preflight), so a Tailwind v4 site loses all its `@font-face` rules.\n\nThis is a regression from #422, released in 0.5.4: 0.4.3 to 0.5.3 inline the rule in the reproduction below, 0.5.4 and 0.5.5 drop it, with the classic and the compiled paths alike. `main` still collects the families with `parseFontFamilies(decl.prop, decl.value)`.\n\nReproduction:\n\n```css\n@font-face { font-family: Gotham; src: url(/fonts/g.woff2) format(\"woff2\") }\n:root { --font-secondary: Gotham, sans-serif }\nbody { font-family: var(--font-secondary) }\n```\n\n```html\n<html><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><p>text</p></body></html>\n```\n\nExpected: the `@font-face` rule is inlined, as it is with `body { font-family: Gotham, sans-serif }`. Actual: it is dropped, because `parseFontFamilies('font-family', 'var(--font-secondary)')` returns `[\"var(--font-secondary)\"]`.\n\n#452 fixed the same case for `@keyframes` named through a custom property. Following `var()` the same way for `font-family` and `font` would cover this one.\n\nSeen through Angular 22.2 (`@angular/build` and `@angular/ssr` 22.2.x depend on beasties 0.5.4): in a headless Chrome holding only the inlined critical CSS, our server-rendered page loads Gotham with beasties 0.4.3 and no font at all with 0.5.4, so its text renders in the system fallback until the full stylesheet loads.\n",
-        "state": "open",
-        "stateRaw": "open",
+        "branches": {
+          "head": {
+            "ref": "feat/entire",
+            "sha": "d6e107a265f4fdb568a960782df2ef79833451f1",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "danielroe",
+              "name": "forges",
+              "externalId": "1403631860"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "035fc2e51658d4c887a137c5eb3a432894ce0952"
+          }
+        }
+      },
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "18814705084",
+      "kind": "state_change",
+      "kindRaw": "IssuesEvent.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed",
+        "reason": "completed"
+      },
+      "summary": "danielroe closed issues",
+      "occurredAt": "2026-11-01T15:31:31.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "fi3ework",
+        "name": "vite-plugin-checker",
+        "externalId": "352037361"
+      },
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "fi3ework",
+          "name": "vite-plugin-checker",
+          "externalId": "352037361"
+        },
+        "kind": "issue",
+        "number": "144",
+        "externalId": "I_kwDOFPup8c5MK5Gw"
+      },
+      "threadSnapshot": {
+        "title": "vueTsc doesn't support --composite flag",
+        "body": "### Is your feature request related to a problem? Please describe.\r\n\r\nusing `pnpm create vue@latest` to create a new project and choose `vitest`, the typecheck will be `vue-tsc --noEmit -p tsconfig.vitest.json --composite false`\r\n\r\n![image](https://user-images.githubusercontent.com/32029674/174725275-442b95fc-fe33-43dc-b292-90a6015814f8.png)\r\n\r\n\r\n### Describe the solution you'd like\r\n\r\nmaybe add a new options to set composite\r\n\r\n### Describe alternatives you've considered\r\n\r\n_No response_\r\n\r\n### Additional context\r\n\r\n_No response_\r\n\r\n### Validations\r\n\r\n- [X] Read the [docs](https://github.com/fi3ework/vite-plugin-checker#readme).\r\n- [X] Read the [Contributing Guidelines](https://github.com/fi3ework/vite-plugin-checker/blob/main/CONTRIBUTING.md).\r\n- [X] Check that there isn't already an issue that asks for the same feature to avoid creating a duplicate.",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
         "author": {
           "forge": "github",
           "instance": "github.com",
-          "login": "gildas-refacto",
-          "id": "88440299",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/88440299?v=4",
-          "url": "https://github.com/gildas-refacto",
+          "login": "Ltyi",
+          "id": "32029674",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/32029674?v=4",
+          "url": "https://github.com/Ltyi",
           "typeRaw": "User",
           "isBotHint": false
         },
         "labels": [
           {
-            "name": "bug",
-            "colour": "d73a4a",
-            "description": "Something isn't working"
+            "name": "enhancement",
+            "colour": "a2eeef",
+            "description": "New feature or request"
           }
         ],
-        "url": "https://github.com/danielroe/beasties/issues/460"
+        "url": "https://github.com/fi3ework/vite-plugin-checker/issues/144"
       },
       "source": "poll",
       "isPublic": true
@@ -73,44 +308,36 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "24489799401",
-      "kind": "ref",
-      "action": "deleted",
-      "kindRaw": "DeleteEvent",
-      "summary": "danielroe deleted branch feat/event-detail",
-      "occurredAt": "2026-10-17T08:30:33.000Z",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "danielroe",
-        "id": "28706372",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "github",
-        "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
-      },
-      "detail": {
-        "type": "ref",
-        "ref": "feat/event-detail",
-        "refType": "branch"
-      },
-      "source": "poll",
-      "isPublic": true
-    },
-    {
-      "forge": "github",
-      "instance": "github.com",
-      "id": "24489465703",
-      "kind": "ref",
+      "id": "18814697820",
+      "kind": "comment",
+      "kindRaw": "IssueCommentEvent.created",
       "action": "created",
-      "kindRaw": "CreateEvent",
-      "summary": "danielroe created branch fix/read-state",
-      "occurredAt": "2026-10-17T07:02:53.000Z",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "github",
+          "instance": "github.com",
+          "thread": {
+            "forge": "github",
+            "instance": "github.com",
+            "repo": {
+              "forge": "github",
+              "instance": "github.com",
+              "owner": "fi3ework",
+              "name": "vite-plugin-checker",
+              "externalId": "352037361"
+            },
+            "kind": "issue",
+            "number": "323",
+            "externalId": "I_kwDOFPup8c6JrP4v"
+          },
+          "id": "6560016067"
+        },
+        "body": "what about something like https://vitest.dev/guide/testing-types.html - would that meet your needs?"
+      },
+      "summary": "danielroe created a comment",
+      "occurredAt": "2026-11-01T15:31:21.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -122,14 +349,47 @@
       "repo": {
         "forge": "github",
         "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
+        "owner": "fi3ework",
+        "name": "vite-plugin-checker",
+        "externalId": "352037361"
       },
-      "detail": {
-        "type": "ref",
-        "ref": "fix/read-state",
-        "refType": "branch"
+      "thread": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "fi3ework",
+          "name": "vite-plugin-checker",
+          "externalId": "352037361"
+        },
+        "kind": "issue",
+        "number": "323",
+        "externalId": "I_kwDOFPup8c6JrP4v"
+      },
+      "threadSnapshot": {
+        "title": "[Feature request] Treat TypeScript (and potentially other checker) errors as test failures when running Vitest",
+        "body": "### Is your feature request related to a problem? Please describe.\n\nCurrently, when running Vitest with `vite-plugin-checker` configured, checker errors are only logged and do not fail the test run. This is particularly apparent when using the TypeScript checker, as tools like `ts-jest` treat type errors as test failures by default.\n\n### Describe the solution you'd like\n\nAn MVP would be:\r\n- Detection of any TypeScript errors can (configurably) result in the whole Vitest run failing\r\n- Behaviour is configurable via a boolean flag specific to the TypeScript checker\r\n\r\nThe ideal solution would be:\r\n- Any checker errors can (configurably) result in failures of the individual tests (or test files) they appear in\r\n- Behaviour is configurable via boolean flags specific to each checker implementation\n\n### Describe alternatives you've considered\n\n_No response_\n\n### Additional context\n\n_No response_\n\n### Validations\n\n- [X] Read the [docs](https://github.com/fi3ework/vite-plugin-checker#readme).\n- [X] Read the [Contributing Guidelines](https://github.com/fi3ework/vite-plugin-checker/blob/main/CONTRIBUTING.md).\n- [X] Check that there isn't already an issue that asks for the same feature to avoid creating a duplicate.",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "treybrisbane",
+          "id": "12590804",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/12590804?v=4",
+          "url": "https://github.com/treybrisbane",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [
+          {
+            "name": "enhancement",
+            "colour": "a2eeef",
+            "description": "New feature or request"
+          }
+        ],
+        "url": "https://github.com/fi3ework/vite-plugin-checker/issues/323"
       },
       "source": "poll",
       "isPublic": true
@@ -137,12 +397,13 @@
     {
       "forge": "github",
       "instance": "github.com",
-      "id": "24488903749",
-      "kind": "push",
-      "action": "other",
-      "kindRaw": "PushEvent",
-      "summary": "danielroe pushed to feat/simplify-names",
-      "occurredAt": "2026-10-18T17:31:19.000Z",
+      "id": "18814115680",
+      "kind": "star",
+      "action": "created",
+      "kindRaw": "WatchEvent.started",
+      "actionRaw": "started",
+      "summary": "danielroe starred the repository",
+      "occurredAt": "2026-11-01T15:19:08.000Z",
       "actor": {
         "forge": "github",
         "instance": "github.com",
@@ -154,17 +415,37 @@
       "repo": {
         "forge": "github",
         "instance": "github.com",
-        "owner": "danielroe",
-        "name": "forges",
-        "externalId": "1403631860"
+        "owner": "uxfront-com",
+        "name": "uxd",
+        "externalId": "1307951554"
       },
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/feat/simplify-names",
-        "before": "18f6fac8dd018a11537c22d19a33539be7cfe252",
-        "after": "726b5447453b248e8e4a2e1a6921aae59f5c7f4b",
-        "forced": false,
-        "commits": []
+      "source": "poll",
+      "isPublic": true
+    },
+    {
+      "forge": "github",
+      "instance": "github.com",
+      "id": "18814105429",
+      "kind": "star",
+      "action": "created",
+      "kindRaw": "WatchEvent.started",
+      "actionRaw": "started",
+      "summary": "danielroe starred the repository",
+      "occurredAt": "2026-11-01T15:18:55.000Z",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "danielroe",
+        "id": "28706372",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/28706372?",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "github",
+        "instance": "github.com",
+        "owner": "uxfront-com",
+        "name": "styleframe",
+        "externalId": "1005386417"
       },
       "source": "poll",
       "isPublic": true
@@ -173,12 +454,12 @@
   "total": 300,
   "cursor": {
     "nextUrl": "https://api.github.com/user/28706372/events?per_page=10&page=2",
-    "etag": "W/\"43e0f64da2e659fc5a130f9de322ae881839317b6404d49cfd1c29aea886e67b\""
+    "etag": "W/\"27ec9632c0ef49d1645f0c0effcb221d841cc9be14e01276aa8f1c9da86b682d\""
   },
-  "etag": "W/\"43e0f64da2e659fc5a130f9de322ae881839317b6404d49cfd1c29aea886e67b\"",
+  "etag": "W/\"27ec9632c0ef49d1645f0c0effcb221d841cc9be14e01276aa8f1c9da86b682d\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4914,
+    "remaining": 4930,
     "resetAt": "<now>",
     "resource": "core"
   },

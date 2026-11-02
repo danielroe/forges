@@ -6,11 +6,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAFyLQ5WBBnPAAAAAc59BOc%3D>; rel=\"next\"",
-      "etag": "W/\"94ebb120420afd40713b6ce13f5ce2a6eeaa3bf08fcbc9c14787ea110150eb3a\"",
+      "link": "<https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LP_wu8K5TZQLPAAAAAc59BOc%3D>; rel=\"next\"",
+      "etag": "W/\"2ec872ee4ed1deb1e6cf2719fca4b7f2210639ccd46ff61f47e9ea8f3c393b6a\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4985",
-      "x-ratelimit-reset": "1792385741",
+      "x-ratelimit-remaining": "4988",
+      "x-ratelimit-reset": "1793597237",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -123,8 +123,8 @@
             }
           },
           "epss": {
-            "percentage": 0.02618,
-            "percentile": 0.84794
+            "percentage": 0.02808,
+            "percentile": 0.86506
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
@@ -155,6 +155,9 @@
         "updated_at": "2026-10-09T11:16:40Z",
         "dismissal_request": null,
         "assignees": [],
+        "reachability": {
+          "verdict": "disabled"
+        },
         "dismissed_at": null,
         "dismissed_by": null,
         "dismissed_reason": null,
@@ -265,8 +268,8 @@
             }
           },
           "epss": {
-            "percentage": 0.00402,
-            "percentile": 0.32803
+            "percentage": 0.00337,
+            "percentile": 0.27057
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
@@ -297,6 +300,9 @@
         "updated_at": "2026-10-09T11:16:40Z",
         "dismissal_request": null,
         "assignees": [],
+        "reachability": {
+          "verdict": "disabled"
+        },
         "dismissed_at": null,
         "dismissed_by": null,
         "dismissed_reason": null,
@@ -409,7 +415,7 @@
           },
           "epss": {
             "percentage": 0.01823,
-            "percentile": 0.78429
+            "percentile": 0.78589
           },
           "cvss": {
             "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L",
@@ -440,6 +446,9 @@
         "updated_at": "2026-10-09T11:16:39Z",
         "dismissal_request": null,
         "assignees": [],
+        "reachability": {
+          "verdict": "disabled"
+        },
         "dismissed_at": null,
         "dismissed_by": null,
         "dismissed_reason": null,
