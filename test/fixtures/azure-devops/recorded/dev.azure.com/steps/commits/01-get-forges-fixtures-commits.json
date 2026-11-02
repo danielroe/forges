@@ -12,68 +12,68 @@
       "count": 3,
       "value": [
         {
-          "commitId": "a2076cd9bb64a5914308bde49ac28b2925bedee6",
+          "commitId": "54bd8f3149ccd975642a0cec95bc2990163ac504",
           "author": {
-            "name": "forges fixtures",
+            "name": "danielroebot outlook.com",
             "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:06Z"
+            "date": "2026-10-20T10:09:19Z"
           },
           "committer": {
             "name": "danielroebot outlook.com",
             "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:06Z"
+            "date": "2026-10-20T10:09:19Z"
           },
-          "comment": "test: add a file from run 20261013214601",
+          "comment": "Merge pull request 43 from forges-fixtures/20261020100832-3 into main",
           "changeCounts": {
             "Add": 1,
-            "Edit": 1,
-            "Delete": 0
-          },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/a2076cd9bb64a5914308bde49ac28b2925bedee6",
-          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/a2076cd9bb64a5914308bde49ac28b2925bedee6"
-        },
-        {
-          "commitId": "df010a1358c91d2baf3373b63cd74dcfde4f12c4",
-          "author": {
-            "name": "danielroebot outlook.com",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:05Z"
-          },
-          "committer": {
-            "name": "danielroebot outlook.com",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:05Z"
-          },
-          "comment": "test: change files from run 20261013214601",
-          "commentTruncated": true,
-          "changeCounts": {
-            "Add": 0,
-            "Edit": 1,
-            "Delete": 1
-          },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/df010a1358c91d2baf3373b63cd74dcfde4f12c4",
-          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/df010a1358c91d2baf3373b63cd74dcfde4f12c4"
-        },
-        {
-          "commitId": "26cd9ec905f84c549ebd5e25a0994478c5dadb8d",
-          "author": {
-            "name": "danielroebot outlook.com",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:04Z"
-          },
-          "committer": {
-            "name": "danielroebot outlook.com",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-13T21:46:04Z"
-          },
-          "comment": "test: add files from run 20261013214601",
-          "changeCounts": {
-            "Add": 2,
             "Edit": 0,
             "Delete": 0
           },
-          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/26cd9ec905f84c549ebd5e25a0994478c5dadb8d",
-          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/26cd9ec905f84c549ebd5e25a0994478c5dadb8d"
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/54bd8f3149ccd975642a0cec95bc2990163ac504",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/54bd8f3149ccd975642a0cec95bc2990163ac504"
+        },
+        {
+          "commitId": "fe11545edba6188305928b710b7bd960c4a6e75f",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-20T10:09:17Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-20T10:09:17Z"
+          },
+          "comment": "Merge run 20261020100832",
+          "commentTruncated": true,
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/fe11545edba6188305928b710b7bd960c4a6e75f",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/fe11545edba6188305928b710b7bd960c4a6e75f"
+        },
+        {
+          "commitId": "52ed8276cded3efe60acc4d552c8fd5de05663e6",
+          "author": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-20T10:09:04Z"
+          },
+          "committer": {
+            "name": "danielroebot outlook.com",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-20T10:09:04Z"
+          },
+          "comment": "Merge pull request 43 from forges-fixtures/20261020100832-3 into main",
+          "changeCounts": {
+            "Add": 1,
+            "Edit": 0,
+            "Delete": 0
+          },
+          "url": "https://dev.azure.com/forges/b2332e32-1afe-4c85-9407-12e7af2bf24c/_apis/git/repositories/c67c02dd-cbca-45aa-a679-021bd4d2c4a7/commits/52ed8276cded3efe60acc4d552c8fd5de05663e6",
+          "remoteUrl": "https://dev.azure.com/forges/forges-fixtures/_git/forges-fixtures/commit/52ed8276cded3efe60acc4d552c8fd5de05663e6"
         }
       ]
     }
