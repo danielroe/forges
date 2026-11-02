@@ -13,18 +13,18 @@
       {
         "name": "main",
         "commit": {
-          "id": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-          "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-          "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+          "id": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+          "message": "fix(ci): install pre-commit via apt (#1786)\n\nI noticed that the CI job checking pre-commit has some trouble installing the pre-commit command (https://code.forgejo.org/forgejo/runner/actions/runs/24035/jobs/7/attempt/1).\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1786): <!--number 1786 --><!--line 0 --><!--description Zml4KGNpKTogaW5zdGFsbCBwcmUtY29tbWl0IHZpYSBhcHQ=-->fix(ci): install pre-commit via apt<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1786\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+          "url": "https://code.forgejo.org/forgejo/runner/commit/c07a9b3669dc64d498273d47ce0e6974718792f1",
           "author": {
-            "name": "Renovate Bot",
+            "name": "Clouds",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "clouds666"
           },
           "committer": {
-            "name": "Mathieu Fenniak",
+            "name": "Andreas Ahlenstorf",
             "email": "redacted@example.invalid",
-            "username": "mfenniak"
+            "username": "aahlenst"
           },
           "verification": {
             "verified": false,
@@ -33,7 +33,7 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-10-02T02:59:29Z",
+          "timestamp": "2026-10-31T09:23:38Z",
           "added": null,
           "removed": null,
           "modified": null

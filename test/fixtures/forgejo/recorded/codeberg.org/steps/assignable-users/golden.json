@@ -258,16 +258,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "henrycatalinismith",
-      "id": "274419",
-      "name": "Henry Catalini Smith",
-      "avatarUrl": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-      "url": "https://codeberg.org/henrycatalinismith",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "iamyaash",
       "id": "258926",
       "name": "Yashwanth Rathakrishnan",
@@ -557,7 +547,7 @@
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1986,
+    "remaining": 1985,
     "resetAt": "<now>",
     "resource": "baseline"
   }

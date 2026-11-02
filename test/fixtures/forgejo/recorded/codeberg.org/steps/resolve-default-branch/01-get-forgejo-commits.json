@@ -6,36 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26009&sha=forgejo&stat=false>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1936;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26083&sha=forgejo&stat=false>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1933;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total": "26009",
-      "x-total-count": "26009",
+      "x-total": "26083",
+      "x-total-count": "26083",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "created": "2026-10-18T20:14:06+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+        "sha": "a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+        "created": "2026-11-01T17:34:40+01:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
           "author": {
-            "name": "AverageHelper",
+            "name": "oliverpool",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-01T17:34:40+01:00"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-01T17:34:40+01:00"
           },
-          "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "git(config): replace regexp excaping with --fixed-value flag (#15053)\n\nFixes #15048\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15053\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "created": "2026-10-18T20:14:06+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+            "sha": "a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+            "created": "2026-11-01T17:34:40+01:00"
           },
           "verification": {
             "verified": false,
@@ -46,143 +46,55 @@
           }
         },
         "author": {
-          "id": 135189,
-          "login": "AverageHelper",
+          "id": 32636,
+          "login": "oliverpool",
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "html_url": "https://codeberg.org/AverageHelper",
+          "avatar_url": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
+          "html_url": "https://codeberg.org/oliverpool",
           "active": false,
-          "location": "on your left",
-          "pronouns": "she/her",
-          "website": "https://average.name",
-          "description": "",
-          "followers_count": 2,
-          "following_count": 2,
-          "starred_repos_count": 32,
-          "username": "AverageHelper"
+          "location": "Bad Tölz, Bavaria, Germany",
+          "pronouns": "he/him",
+          "website": "https://code.pfad.fr",
+          "description": "French software developer living in the German Alps.",
+          "followers_count": 13,
+          "following_count": 0,
+          "starred_repos_count": 6,
+          "username": "oliverpool"
         },
         "committer": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 222642,
+          "login": "mfenniak",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Mathieu Fenniak",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 21,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/e71c83d74dda1668e0aebad48fc442c2691dd53f",
+            "sha": "e71c83d74dda1668e0aebad48fc442c2691dd53f",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "web_src/js/modules/toast.test.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/modules/toast.test.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.js",
-            "status": "removed"
-          },
-          {
-            "filename": "package-lock.json",
+            "filename": "modules/git/git.go",
             "status": "modified"
           },
           {
-            "filename": "package.json",
-            "status": "modified"
-          },
-          {
-            "filename": "tailwind.config.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoActionView.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/common-global.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-common.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-diff.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-home.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-content.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-list.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-legacy.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-suggestion.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/htmx.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/markup/tasklist.js",
-            "status": "modified"
-          },
-          {
-            "filename": "webpack.config.ts",
+            "filename": "modules/git/git_test.go",
             "status": "modified"
           }
         ],

@@ -10,12 +10,12 @@
         "name": "forgejo"
       },
       "kind": "pull_request",
-      "number": "14904",
-      "externalId": "7772714"
+      "number": "15096",
+      "externalId": "8023928"
     },
     "kind": "pull_request",
-    "title": "[v17.0/forgejo] git(mirror): silently ignore non-agit PR deletion instead of failing",
-    "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14901\r\n\r\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n(can be removed for JavaScript changes)\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [x] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [x] `make pr-go` before pushing\n\n### Tests for JavaScript changes\n\n(can be removed for Go changes)\n\n- I added test coverage for JavaScript changes...\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
+    "title": "[v17.0/forgejo] git(config): replace regexp escaping with --fixed-value flag",
+    "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15053\r\n\r\nFixes #15048 (macOS only failure apparently: I am not sure a backport is warranted in such case)\n\n## Use `--fixed-value`\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n\n- I added test coverage for Go changes...\n  - [x] in their respective `*_test.go` for unit tests.\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [ ] `make pr-go` before pushing\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
     "state": "merged",
     "stateRaw": "closed",
     "isDraft": false,
@@ -32,34 +32,24 @@
     "reviewers": [],
     "labels": [
       {
-        "name": "bug/confirmed",
-        "colour": "e11d21",
-        "description": "it can be reproduced"
-      },
-      {
-        "name": "code/git",
-        "colour": "eb6420",
-        "description": "Related to the Git backend in Forgejo"
-      },
-      {
         "name": "test/present",
         "colour": "5319e7",
         "description": "test has been added"
       }
     ],
-    "url": "https://codeberg.org/forgejo/forgejo/pulls/14904",
-    "createdAt": "2026-10-18T16:40:50.000Z",
-    "updatedAt": "2026-10-18T18:58:03.000Z",
-    "closedAt": "2026-10-18T18:34:10.000Z",
-    "mergedAt": "2026-10-18T18:34:10.000Z",
-    "lastActivityAt": "2026-10-18T18:58:03.000Z",
+    "url": "https://codeberg.org/forgejo/forgejo/pulls/15096",
+    "createdAt": "2026-11-01T16:35:41.000Z",
+    "updatedAt": "2026-11-01T18:50:16.000Z",
+    "closedAt": "2026-11-01T18:49:49.000Z",
+    "mergedAt": "2026-11-01T18:49:49.000Z",
+    "lastActivityAt": "2026-11-01T18:50:16.000Z",
     "locked": false,
     "commentCount": 2,
     "milestone": {
-      "id": "155134",
-      "title": "Forgejo v17.0.1",
+      "id": "156440",
+      "title": "Forgejo v17.0.2",
       "state": "open",
-      "description": "\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14131) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14902)): <!--number 14902 --><!--line 0 --><!--description Zml4OiBpbnRlcnByZXQgYmxhbmsgbGluZXMgaW4gZGVzY3JpcHRpb24gb2YgRGViaWFuIHBhY2thZ2Vz-->fix: interpret blank lines in description of Debian packages<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14847) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14855)): <!--number 14855 --><!--line 0 --><!--description Zml4OiBkb24ndCBhdHRlbXB0IHRvIHRyYW5zZmVyIEFjdGlvbnMgbG9ncyB0byBzdG9yYWdlIHdoZW4gYWxyZWFkeSB0cmFuc2ZlcnJlZA==-->fix: don't attempt to transfer Actions logs to storage when already transferred<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14829) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14864)): <!--number 14864 --><!--line 0 --><!--description Zml4OiB3b3JrZmxvd3MgcnVubmluZyBmcm9tIGEgdHJ1c3RlZCBQUiBiYXNlIHNvbWV0aW1lcyBoYXMgc2VjcmV0cyBvbWl0dGVk-->fix: workflows running from a trusted PR base sometimes has secrets omitted<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14869) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14870)): <!--number 14870 --><!--line 0 --><!--description Z2l0KGNvbmZpZyk6IGZpeCBjb25maWdVbnNldEFsbCByZWNlaXZlLmhpZGVSZWZz-->git(config): fix configUnsetAll receive.hideRefs<!--description-->\n- Included for completeness but not user-facing (chores, etc.)\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14901) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14904)): <!--number 14904 --><!--line 0 --><!--description Z2l0KG1pcnJvcik6IHNpbGVudGx5IGlnbm9yZSBub24tYWdpdCBQUiBkZWxldGlvbiBpbnN0ZWFkIG9mIGZhaWxpbmc=-->git(mirror): silently ignore non-agit PR deletion instead of failing<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14831) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14889)): <!--number 14889 --><!--line 0 --><!--description Zml4KHVpKTogcHJldmVudCBjb21tYW5kIHN1YnN0aXR1dGlvbiBpbiBDTEkgaW5zdHJ1Y3Rpb25z-->fix(ui): prevent command substitution in CLI instructions<!--description-->\n<!--end release-notes-assistant-->\n"
+      "description": "\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15060) ([backported](https://codeberg.org/forgejo/forgejo/pulls/15069)): <!--number 15069 --><!--line 0 --><!--description Zml4OiBwdWxsX3JlcXVlc3RfdGFyZ2V0IGFjdGlvbnMgd2hlbiBtZXJnaW5nIFBScyBkbyBub3QgcHJvdmlkZSBzZWNyZXRz-->fix: pull_request_target actions when merging PRs do not provide secrets<!--description-->\n- Included for completeness but not user-facing (chores, etc.)\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15053) ([backported](https://codeberg.org/forgejo/forgejo/pulls/15096)): <!--number 15096 --><!--line 0 --><!--description Z2l0KGNvbmZpZyk6IHJlcGxhY2UgcmVnZXhwIGVzY2FwaW5nIHdpdGggLS1maXhlZC12YWx1ZSBmbGFn-->git(config): replace regexp escaping with --fixed-value flag<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15065): <!--number 15065 --><!--line 0 --><!--description VXBkYXRlIG1vZHVsZSBnb2xhbmcub3JnL3gvbmV0IHRvIHYwLjYyLjAgW1NFQ1VSSVRZXSAodjE3LjAvZm9yZ2Vqbyk=-->Update module golang.org/x/net to v0.62.0 [SECURITY] (v17.0/forgejo)<!--description-->\n<!--end release-notes-assistant-->\n"
     }
   },
   "read": {
@@ -73,12 +63,12 @@
         "name": "forgejo"
       },
       "kind": "pull_request",
-      "number": "14904",
-      "externalId": "3412757"
+      "number": "15096",
+      "externalId": "3558158"
     },
     "kind": "pull_request",
-    "title": "[v17.0/forgejo] git(mirror): silently ignore non-agit PR deletion instead of failing",
-    "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/14901\r\n\r\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n(can be removed for JavaScript changes)\n\n- I added test coverage for Go changes...\n  - [ ] in their respective `*_test.go` for unit tests.\n  - [x] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [x] `make pr-go` before pushing\n\n### Tests for JavaScript changes\n\n(can be removed for Go changes)\n\n- I added test coverage for JavaScript changes...\n  - [ ] in `web_src/js/*.test.js` if it can be unit tested.\n  - [ ] in `tests/e2e/*.test.e2e.js` if it requires interactions with a live Forgejo server (see also the [developer guide for JavaScript testing](https://codeberg.org/forgejo/forgejo/src/branch/forgejo/tests/e2e/README.md#end-to-end-tests)).\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
+    "title": "[v17.0/forgejo] git(config): replace regexp escaping with --fixed-value flag",
+    "body": "**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15053\r\n\r\nFixes #15048 (macOS only failure apparently: I am not sure a backport is warranted in such case)\n\n## Use `--fixed-value`\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\n\n## Checklist\n\nThe [contributor guide](https://forgejo.org/docs/next/contributor/) contains information that will be helpful to first time contributors. All work and communication must conform to Forgejo's [AI Agreement](https://codeberg.org/forgejo/governance/src/branch/main/AIAgreement.md). There also are a few [conditions for merging Pull Requests in Forgejo repositories](https://codeberg.org/forgejo/governance/src/branch/main/PullRequestsAgreement.md). You are also welcome to join the [Forgejo development chatroom](https://matrix.to/#/#forgejo-development:matrix.org).\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n### Tests for Go changes\n\n\n- I added test coverage for Go changes...\n  - [x] in their respective `*_test.go` for unit tests.\n  - [ ] in the `tests/integration` directory if it involves interactions with a live Forgejo server.\n- I ran...\n  - [ ] `make pr-go` before pushing\n\n### Documentation\n\n- [ ] I created a pull request [to the documentation](https://codeberg.org/forgejo/docs) to explain to Forgejo users how to use this change.\n- [x] I did not document these changes and I do not expect someone else to do it.\n\n### Release notes\n\n- [x] This change will be noticed by a Forgejo user or admin (feature, bug fix, performance, etc.). I suggest to include a release note for this change.\n- [ ] This change is not visible to a Forgejo user or admin (refactor, dependency upgrade, etc.). I think there is no need to add a release note for this change.\n\n*The decision if the pull request will be shown in the release notes is up to the mergers / release team.*\n\nThe content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n",
     "state": "merged",
     "stateRaw": "closed",
     "isDraft": false,
@@ -97,10 +87,10 @@
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "oliverpool",
-          "id": "32636",
-          "avatarUrl": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
-          "url": "https://codeberg.org/oliverpool",
+          "login": "Gusted",
+          "id": "26734",
+          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
+          "url": "https://codeberg.org/Gusted",
           "isBotHint": false
         },
         "state": "pending",
@@ -110,10 +100,24 @@
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
+          "isBotHint": false
+        },
+        "state": "pending",
+        "stateRaw": "requested"
+      },
+      {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "oliverpool",
+          "id": "32636",
+          "avatarUrl": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
+          "url": "https://codeberg.org/oliverpool",
           "isBotHint": false
         },
         "state": "pending",
@@ -122,48 +126,39 @@
     ],
     "labels": [
       {
-        "name": "bug/confirmed",
-        "colour": "e11d21",
-        "description": "it can be reproduced"
-      },
-      {
-        "name": "code/git",
-        "colour": "eb6420",
-        "description": "Related to the Git backend in Forgejo"
-      },
-      {
         "name": "test/present",
         "colour": "5319e7",
         "description": "test has been added"
       }
     ],
-    "url": "https://codeberg.org/forgejo/forgejo/pulls/14904",
-    "createdAt": "2026-10-18T16:40:50.000Z",
-    "updatedAt": "2026-10-18T18:58:03.000Z",
-    "closedAt": "2026-10-18T18:34:10.000Z",
-    "mergedAt": "2026-10-18T18:34:10.000Z",
+    "url": "https://codeberg.org/forgejo/forgejo/pulls/15096",
+    "createdAt": "2026-11-01T16:35:41.000Z",
+    "updatedAt": "2026-11-01T18:50:16.000Z",
+    "closedAt": "2026-11-01T18:49:49.000Z",
+    "mergedAt": "2026-11-01T18:49:49.000Z",
     "mergedBy": {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "Gusted",
-      "id": "26734",
-      "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-      "url": "https://codeberg.org/Gusted",
+      "login": "mfenniak",
+      "id": "222642",
+      "name": "Mathieu Fenniak",
+      "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+      "url": "https://codeberg.org/mfenniak",
       "isBotHint": false
     },
-    "lastActivityAt": "2026-10-18T18:58:03.000Z",
+    "lastActivityAt": "2026-11-01T18:50:16.000Z",
     "locked": false,
     "commentCount": 2,
     "milestone": {
-      "id": "155134",
-      "title": "Forgejo v17.0.1",
+      "id": "156440",
+      "title": "Forgejo v17.0.2",
       "state": "open",
-      "description": "\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14131) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14902)): <!--number 14902 --><!--line 0 --><!--description Zml4OiBpbnRlcnByZXQgYmxhbmsgbGluZXMgaW4gZGVzY3JpcHRpb24gb2YgRGViaWFuIHBhY2thZ2Vz-->fix: interpret blank lines in description of Debian packages<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14847) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14855)): <!--number 14855 --><!--line 0 --><!--description Zml4OiBkb24ndCBhdHRlbXB0IHRvIHRyYW5zZmVyIEFjdGlvbnMgbG9ncyB0byBzdG9yYWdlIHdoZW4gYWxyZWFkeSB0cmFuc2ZlcnJlZA==-->fix: don't attempt to transfer Actions logs to storage when already transferred<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14829) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14864)): <!--number 14864 --><!--line 0 --><!--description Zml4OiB3b3JrZmxvd3MgcnVubmluZyBmcm9tIGEgdHJ1c3RlZCBQUiBiYXNlIHNvbWV0aW1lcyBoYXMgc2VjcmV0cyBvbWl0dGVk-->fix: workflows running from a trusted PR base sometimes has secrets omitted<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14869) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14870)): <!--number 14870 --><!--line 0 --><!--description Z2l0KGNvbmZpZyk6IGZpeCBjb25maWdVbnNldEFsbCByZWNlaXZlLmhpZGVSZWZz-->git(config): fix configUnsetAll receive.hideRefs<!--description-->\n- Included for completeness but not user-facing (chores, etc.)\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14901) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14904)): <!--number 14904 --><!--line 0 --><!--description Z2l0KG1pcnJvcik6IHNpbGVudGx5IGlnbm9yZSBub24tYWdpdCBQUiBkZWxldGlvbiBpbnN0ZWFkIG9mIGZhaWxpbmc=-->git(mirror): silently ignore non-agit PR deletion instead of failing<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/14831) ([backported](https://codeberg.org/forgejo/forgejo/pulls/14889)): <!--number 14889 --><!--line 0 --><!--description Zml4KHVpKTogcHJldmVudCBjb21tYW5kIHN1YnN0aXR1dGlvbiBpbiBDTEkgaW5zdHJ1Y3Rpb25z-->fix(ui): prevent command substitution in CLI instructions<!--description-->\n<!--end release-notes-assistant-->\n"
+      "description": "\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15060) ([backported](https://codeberg.org/forgejo/forgejo/pulls/15069)): <!--number 15069 --><!--line 0 --><!--description Zml4OiBwdWxsX3JlcXVlc3RfdGFyZ2V0IGFjdGlvbnMgd2hlbiBtZXJnaW5nIFBScyBkbyBub3QgcHJvdmlkZSBzZWNyZXRz-->fix: pull_request_target actions when merging PRs do not provide secrets<!--description-->\n- Included for completeness but not user-facing (chores, etc.)\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15053) ([backported](https://codeberg.org/forgejo/forgejo/pulls/15096)): <!--number 15096 --><!--line 0 --><!--description Z2l0KGNvbmZpZyk6IHJlcGxhY2UgcmVnZXhwIGVzY2FwaW5nIHdpdGggLS1maXhlZC12YWx1ZSBmbGFn-->git(config): replace regexp escaping with --fixed-value flag<!--description-->\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15065): <!--number 15065 --><!--line 0 --><!--description VXBkYXRlIG1vZHVsZSBnb2xhbmcub3JnL3gvbmV0IHRvIHYwLjYyLjAgW1NFQ1VSSVRZXSAodjE3LjAvZm9yZ2Vqbyk=-->Update module golang.org/x/net to v0.62.0 [SECURITY] (v17.0/forgejo)<!--description-->\n<!--end release-notes-assistant-->\n"
     },
     "branches": {
       "head": {
-        "ref": "refs/pull/14904/head",
-        "sha": "fb5ef59f97248adf31b79011c75b81ba88eab427",
+        "ref": "refs/pull/15096/head",
+        "sha": "394592228e39410fb6bcab443fc0442bf035a7a5",
         "repo": {
           "forge": "forgejo",
           "instance": "codeberg.org",
@@ -174,14 +169,14 @@
       },
       "base": {
         "ref": "v17.0/forgejo",
-        "sha": "c1af1b0cf2f61e39fa73dc829c2508f3f442c034"
+        "sha": "15a8325f52213ba895a3a15489186bb7b19689f9"
       },
-      "mergeCommitSha": "c1af1b0cf2f61e39fa73dc829c2508f3f442c034"
+      "mergeCommitSha": "15a8325f52213ba895a3a15489186bb7b19689f9"
     },
     "stats": {
-      "additions": 53,
-      "deletions": 11,
-      "changedFileCount": 3
+      "additions": 8,
+      "deletions": 3,
+      "changedFileCount": 2
     },
     "checks": {
       "state": "unknown",

@@ -6,24 +6,24 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1985;t=600",
+      "ratelimit": "\"baseline\";r=1986;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": {
       "name": "forgejo",
       "commit": {
-        "id": "b021976fb1a87ec18543c3a5586ecfabcc1c06e7",
-        "message": "chore: bump Node version (#14969)\n\nv20 is eol since March 24 2026.\n\nSince forgejo/forgejo!14564 (3ec8ba228a5b0fae7483254c414a5185e86a47d5) a Node version is required that can run Typescript. This was implemented in Node v22.18.0. https://nodejs.org/learn/typescript/run-natively\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14969\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
-        "url": "https://codeberg.org/forgejo/forgejo/commit/b021976fb1a87ec18543c3a5586ecfabcc1c06e7",
+        "id": "a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+        "message": "git(config): replace regexp excaping with --fixed-value flag (#15053)\n\nFixes #15048\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15053\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+        "url": "https://codeberg.org/forgejo/forgejo/commit/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
         "author": {
-          "name": "Gusted",
+          "name": "oliverpool",
           "email": "redacted@example.invalid",
-          "username": "Gusted"
+          "username": "oliverpool"
         },
         "committer": {
-          "name": "Gusted",
+          "name": "Mathieu Fenniak",
           "email": "redacted@example.invalid",
-          "username": "Gusted"
+          "username": "mfenniak"
         },
         "verification": {
           "verified": false,
@@ -32,7 +32,7 @@
           "signer": null,
           "payload": ""
         },
-        "timestamp": "2026-10-22T19:26:24+02:00",
+        "timestamp": "2026-11-01T17:34:40+01:00",
         "added": null,
         "removed": null,
         "modified": null

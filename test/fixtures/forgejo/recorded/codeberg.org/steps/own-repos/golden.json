@@ -4,38 +4,40 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "owner": "forges-fixtures",
-        "name": "forges-fixtures",
-        "externalId": "2702328"
+        "owner": "stewardshiplab",
+        "name": "bindep",
+        "externalId": "2316886"
       },
-      "description": "Automated fixture target for danielroe/forges",
+      "description": "Strategies for finding binary dependencies.",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://codeberg.org/forges-fixtures/forges-fixtures",
+      "url": "https://codeberg.org/stewardshiplab/bindep",
       "cloneUrls": {
-        "https": "https://codeberg.org/forges-fixtures/forges-fixtures.git",
-        "ssh": "ssh://git@codeberg.org/forges-fixtures/forges-fixtures.git"
+        "https": "https://codeberg.org/stewardshiplab/bindep.git",
+        "ssh": "ssh://git@codeberg.org/stewardshiplab/bindep.git"
       },
-      "createdAt": "2026-10-09T11:40:47.000Z",
-      "updatedAt": "2026-10-11T11:36:23.000Z",
+      "createdAt": "2026-07-22T20:22:00.000Z",
+      "updatedAt": "2026-10-27T21:43:12.000Z",
       "openIssueCount": 0,
-      "openPullCount": 0,
+      "openPullCount": 1,
       "owner": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "forges-fixtures",
-        "id": "1540806",
-        "avatarUrl": "https://codeberg.org/avatars/bfd7ebe0169eaad25c20eb9a3dc229ef",
-        "url": "https://codeberg.org/forges-fixtures",
+        "login": "stewardshiplab",
+        "id": "906904",
+        "name": "Software Stewardship Lab",
+        "avatarUrl": "https://codeberg.org/avatars/66d8d708603068bf29fc074365f4b7cee3f6fd64be2f1f1a14f430b2d60c7b78",
+        "url": "https://codeberg.org/stewardshiplab",
         "isBotHint": false
       },
-      "stars": 0,
+      "language": "Python",
+      "stars": 1,
       "forks": 0,
-      "watchers": 2,
+      "watchers": 6,
       "mergeMethods": [
         "merge",
         "squash",
@@ -51,7 +53,7 @@
         "discussions": false,
         "wiki": false,
         "projects": false,
-        "releases": true
+        "releases": false
       },
       "permissions": {
         "admin": true,
@@ -62,8 +64,14 @@
       }
     }
   ],
-  "total": 6,
+  "total": 9,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/user/repos?limit=3&page=2"
+  },
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1948,
+    "resetAt": "<now>",
+    "resource": "baseline"
   }
 }

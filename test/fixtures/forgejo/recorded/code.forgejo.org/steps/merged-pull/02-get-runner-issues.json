@@ -7,9 +7,63 @@
     "status": 200,
     "headers": {
       "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/issues?limit=10&page=2&state=closed&type=pulls>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/issues?limit=10&page=130&state=closed&type=pulls>; rel=\"last\"",
-      "x-total-count": "1294"
+      "x-total-count": "1295"
     },
     "body": [
+      {
+        "id": 15368,
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1786",
+        "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1786",
+        "number": 1786,
+        "user": {
+          "id": 2606,
+          "login": "clouds666",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/d8ab7a0caddc8610cd8daadfa322236b186e9849931336e32a31e994faae81db",
+          "html_url": "https://code.forgejo.org/clouds666",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 2,
+          "username": "clouds666"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "fix(ci): install pre-commit via apt",
+        "body": "I noticed that the CI job checking pre-commit has some trouble installing the pre-commit command (https://code.forgejo.org/forgejo/runner/actions/runs/24035/jobs/7/attempt/1).\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1786): <!--number 1786 --><!--line 0 --><!--description Zml4KGNpKTogaW5zdGFsbCBwcmUtY29tbWl0IHZpYSBhcHQ=-->fix(ci): install pre-commit via apt<!--description-->\n<!--end release-notes-assistant-->\n",
+        "ref": "",
+        "assets": [],
+        "labels": [],
+        "milestone": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "closed",
+        "is_locked": false,
+        "comments": 4,
+        "created_at": "2026-10-30T11:34:07Z",
+        "updated_at": "2026-10-31T09:23:38Z",
+        "closed_at": "2026-10-31T09:23:38Z",
+        "due_date": null,
+        "pull_request": {
+          "merged": true,
+          "merged_at": "2026-10-31T09:23:38Z",
+          "draft": false,
+          "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1786"
+        },
+        "repository": {
+          "id": 2,
+          "name": "runner",
+          "owner": "forgejo",
+          "full_name": "forgejo/runner"
+        },
+        "pin_order": 0
+      },
       {
         "id": 14725,
         "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1768",
@@ -66,7 +120,7 @@
         "is_locked": false,
         "comments": 3,
         "created_at": "2026-10-01T22:02:47Z",
-        "updated_at": "2026-10-02T00:51:19Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-10-02T00:51:17Z",
         "due_date": null,
         "pull_request": {
@@ -212,7 +266,7 @@
         "is_locked": false,
         "comments": 1,
         "created_at": "2026-09-30T22:03:16Z",
-        "updated_at": "2026-10-01T00:45:34Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-10-01T00:45:34Z",
         "due_date": null,
         "pull_request": {
@@ -285,7 +339,7 @@
         "is_locked": false,
         "comments": 3,
         "created_at": "2026-09-30T22:03:00Z",
-        "updated_at": "2026-10-02T02:59:31Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-10-02T02:59:30Z",
         "due_date": null,
         "pull_request": {
@@ -358,7 +412,7 @@
         "is_locked": false,
         "comments": 2,
         "created_at": "2026-09-29T22:04:05Z",
-        "updated_at": "2026-09-30T00:35:46Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-09-30T00:35:45Z",
         "due_date": null,
         "pull_request": {
@@ -422,7 +476,7 @@
         "is_locked": false,
         "comments": 1,
         "created_at": "2026-09-28T16:22:40Z",
-        "updated_at": "2026-09-28T20:25:35Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-09-28T20:25:33Z",
         "due_date": null,
         "pull_request": {
@@ -550,7 +604,7 @@
         "is_locked": false,
         "comments": 2,
         "created_at": "2026-09-28T01:39:00Z",
-        "updated_at": "2026-09-28T13:56:09Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-09-28T13:56:08Z",
         "due_date": null,
         "pull_request": {
@@ -623,7 +677,7 @@
         "is_locked": false,
         "comments": 2,
         "created_at": "2026-09-24T22:02:29Z",
-        "updated_at": "2026-09-27T20:44:40Z",
+        "updated_at": "2026-10-29T23:00:53Z",
         "closed_at": "2026-09-27T20:44:39Z",
         "due_date": null,
         "pull_request": {
@@ -631,60 +685,6 @@
           "merged_at": "2026-09-27T20:44:39Z",
           "draft": false,
           "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1760"
-        },
-        "repository": {
-          "id": 2,
-          "name": "runner",
-          "owner": "forgejo",
-          "full_name": "forgejo/runner"
-        },
-        "pin_order": 0
-      },
-      {
-        "id": 14646,
-        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/pulls/1757",
-        "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1757",
-        "number": 1757,
-        "user": {
-          "id": 1324,
-          "login": "mfenniak",
-          "source_id": 0,
-          "full_name": "Mathieu Fenniak",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-          "html_url": "https://code.forgejo.org/mfenniak",
-          "active": false,
-          "location": "Calgary, Alberta, Canada",
-          "pronouns": "he/him",
-          "website": "https://mathieu.fenniak.net/",
-          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 0,
-          "following_count": 0,
-          "starred_repos_count": 0,
-          "username": "mfenniak"
-        },
-        "original_author": "",
-        "original_author_id": 0,
-        "title": "WIP: chore: test AI Agreement bot",
-        "body": "## Checklist\n\n### Compliance\n\n- [ ] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n     - I refuse to check this box for testing purposes.\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- other\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1757): <!--number 1757 --><!--line 0 --><!--description V0lQOiBjaG9yZTogdGVzdCBBSSBBZ3JlZW1lbnQgYm90-->WIP: chore: test AI Agreement bot<!--description-->\n<!--end release-notes-assistant-->\n",
-        "ref": "",
-        "assets": [],
-        "labels": [],
-        "milestone": null,
-        "assignee": null,
-        "assignees": null,
-        "state": "closed",
-        "is_locked": false,
-        "comments": 1,
-        "created_at": "2026-09-22T02:05:45Z",
-        "updated_at": "2026-09-22T02:13:13Z",
-        "closed_at": "2026-09-22T02:13:03Z",
-        "due_date": null,
-        "pull_request": {
-          "merged": false,
-          "merged_at": null,
-          "draft": true,
-          "html_url": "https://code.forgejo.org/forgejo/runner/pulls/1757"
         },
         "repository": {
           "id": 2,

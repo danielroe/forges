@@ -6,98 +6,104 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1938;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=12>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1935;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total-count": "33"
+      "x-total-count": "34"
     },
     "body": [
       {
-        "name": "renovate/forgejo-idiomorph-0.x",
+        "name": "v17.0/forgejo",
         "commit": {
-          "id": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-          "message": "Update dependency idiomorph to v0.8.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+          "id": "15a8325f52213ba895a3a15489186bb7b19689f9",
+          "message": "[v17.0/forgejo] git(config): replace regexp escaping with --fixed-value flag (#15096)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15053\n\nFixes #15048 (macOS only failure apparently: I am not sure a backport is warranted in such case)\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\nCo-authored-by: oliverpool <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15096\nReviewed-by: oliverpool <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/15a8325f52213ba895a3a15489186bb7b19689f9",
           "author": {
-            "name": "Renovate Bot",
+            "name": "forgejo-backport-action",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "forgejo-backport-action"
           },
           "committer": {
-            "name": "Renovate Bot",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "mfenniak"
           },
           "verification": {
-            "verified": true,
-            "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVt3wAKCRCKxL7rWQD5\ndl+9APdbdeh0S4ElwD96kw/M7HlFbcXPTT5ZZ7tds3QPABDxAQCdEEYomFRQDLNM\nZTusUuQf1MsqjA52djWwdKBhubCwAA==\n=VVeq\n-----END PGP SIGNATURE-----\n",
-            "signer": {
-              "name": "viceice-bot",
-              "email": "redacted@example.invalid",
-              "username": ""
-            },
-            "payload": "tree 660407ea8ef5fd51bd6caa95dffc5e2b586c1a85\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372191 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372191 +0000\n\nUpdate dependency idiomorph to v0.8.0\n"
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
           },
-          "timestamp": "2026-10-19T01:09:51Z",
+          "timestamp": "2026-11-01T19:49:46+01:00",
           "added": null,
           "removed": null,
           "modified": null
         },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-renovate",
+        "name": "forgejo",
         "commit": {
-          "id": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-          "message": "Update renovate Docker tag to v44.167.5\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/29bf51bb67b183078911a446fe0baaeccdf182c0",
+          "id": "a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+          "message": "git(config): replace regexp excaping with --fixed-value flag (#15053)\n\nFixes #15048\n\nThe `--fixed-value` flag is cleaner than regex escaping and should fix the issue reported by @javerous in #15048.\nThe tests already covers this code: checkout each commit and run `go test ./modules/git -run=TestGitConfig` to see the 2 tests failing and how they are being fixed one after the other.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15053\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/a00f3fdf2029236b11b9342b9d5e641b341d4f89",
           "author": {
-            "name": "Renovate Bot",
+            "name": "oliverpool",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "oliverpool"
           },
           "committer": {
-            "name": "Renovate Bot",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "username": "viceice-bot"
+            "username": "mfenniak"
           },
           "verification": {
-            "verified": true,
-            "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVtxAAKCRCKxL7rWQD5\ndiDRAP0S7YlydUCAaqmqbA4rm1QZcz9KfX+sSX9Bb3BGq2khZwD9HzhYuiCVwjgj\nCPTEDCsQnVB9v4E/06myZ/3Cg64Wegk=\n=xwmf\n-----END PGP SIGNATURE-----\n",
-            "signer": {
-              "name": "viceice-bot",
-              "email": "redacted@example.invalid",
-              "username": ""
-            },
-            "payload": "tree df4bad2583f2327ef47ac502f0e5ecc11e2b98d1\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372164 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372164 +0000\n\nUpdate renovate Docker tag to v44.167.5\n"
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
           },
-          "timestamp": "2026-10-19T01:09:24Z",
+          "timestamp": "2026-11-01T17:34:40+01:00",
           "added": null,
           "removed": null,
           "modified": null
         },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
+        "protected": true,
+        "required_approvals": 1,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "testing / frontend-checks (pull_request)",
+          "testing / backend-checks (pull_request)",
+          "testing / test-unit (pull_request)",
+          "testing / test-pgsql (pull_request)",
+          "testing / test-sqlite (pull_request)",
+          "testing / test-mysql (pull_request)"
+        ],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-globals-17.x",
+        "name": "renovate/v17.0/forgejo-npm-minimatch-vulnerability",
         "commit": {
-          "id": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-          "message": "Update dependency globals to v17.13.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+          "id": "ca0710b3d804576335956adf37caf7b4d6977853",
+          "message": "Update dependency minimatch to v11 [SECURITY]\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/ca0710b3d804576335956adf37caf7b4d6977853",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -111,15 +117,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVgQgAKCRCKxL7rWQD5\ndjUDAQDEWurD9xoq/JDd2DF6TfeNYWXsoK1tNY+glQwOCljzxAD9EPv6gAX/srNC\nuvNv1m2KyZMF1FQMc7GW6IrBST1VNQ0=\n=YGja\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCauUzeQAKCRCKxL7rWQD5\ndvEmAQCw3f4SLHsSM6HUlFNhrwLVNwl/E1BpmC73Vd3nG0Qn/AEA2mdV3noea155\nkPsAX5CUnphQ5yeUQQnh4lhOXcmuZgE=\n=TimM\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 79e37338577044c7729704c54258725962c8a742\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792368706 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792368706 +0000\n\nUpdate dependency globals to v17.13.0\n"
+            "payload": "tree 2b032e597d32f4a96e59c2d8dae699c2465a2334\nparent ec5a546ac6274c59d01f0b810d8a785f833e6cd7\nauthor Renovate Bot <redacted@example.invalid> 1793405817 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1793405817 +0000\n\nUpdate dependency minimatch to v11 [SECURITY]\n"
           },
-          "timestamp": "2026-10-19T00:11:46Z",
+          "timestamp": "2026-10-31T00:16:57Z",
           "added": null,
           "removed": null,
           "modified": null

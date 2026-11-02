@@ -1,28 +1,28 @@
 {
   "items": [
     {
-      "name": "renovate/forgejo-idiomorph-0.x",
-      "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-      "isProtected": false
+      "name": "v17.0/forgejo",
+      "sha": "15a8325f52213ba895a3a15489186bb7b19689f9",
+      "isProtected": true
     },
     {
-      "name": "renovate/forgejo-renovate",
-      "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-      "isProtected": false
+      "name": "forgejo",
+      "sha": "a00f3fdf2029236b11b9342b9d5e641b341d4f89",
+      "isProtected": true
     },
     {
-      "name": "renovate/forgejo-globals-17.x",
-      "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+      "name": "renovate/v17.0/forgejo-npm-minimatch-vulnerability",
+      "sha": "ca0710b3d804576335956adf37caf7b4d6977853",
       "isProtected": false
     }
   ],
-  "total": 33,
+  "total": 34,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1873,
+    "remaining": 1867,
     "resetAt": "<now>",
     "resource": "baseline"
   }

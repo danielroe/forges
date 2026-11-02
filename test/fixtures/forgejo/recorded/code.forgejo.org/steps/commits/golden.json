@@ -10,6 +10,66 @@
           "owner": "forgejo",
           "name": "runner"
         },
+        "sha": "c07a9b3669dc64d498273d47ce0e6974718792f1"
+      },
+      "sha": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+      "message": "fix(ci): install pre-commit via apt (#1786)\n\nI noticed that the CI job checking pre-commit has some trouble installing the pre-commit command (https://code.forgejo.org/forgejo/runner/actions/runs/24035/jobs/7/attempt/1).\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1786): <!--number 1786 --><!--line 0 --><!--description Zml4KGNpKTogaW5zdGFsbCBwcmUtY29tbWl0IHZpYSBhcHQ=-->fix(ci): install pre-commit via apt<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1786\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "clouds666",
+          "id": "2606",
+          "avatarUrl": "https://code.forgejo.org/avatars/d8ab7a0caddc8610cd8daadfa322236b186e9849931336e32a31e994faae81db",
+          "url": "https://code.forgejo.org/clouds666",
+          "isBotHint": false
+        },
+        "name": "Clouds",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-31T09:23:38.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "login": "aahlenst",
+          "id": "1580",
+          "name": "Andreas Ahlenstorf",
+          "avatarUrl": "https://code.forgejo.org/avatars/5d71ade99e3af4a5a8754763e636be96c46044cd6bad6d1a16762e3116ec1542",
+          "url": "https://code.forgejo.org/aahlenst",
+          "isBotHint": false
+        },
+        "name": "Andreas Ahlenstorf",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-31T09:23:38.000Z"
+      },
+      "parents": [
+        "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7"
+      ],
+      "url": "https://code.forgejo.org/forgejo/runner/commit/c07a9b3669dc64d498273d47ce0e6974718792f1",
+      "stats": {
+        "additions": 2,
+        "deletions": 3,
+        "total": 5
+      },
+      "files": [
+        {
+          "path": ".forgejo/workflows/test.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
         "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7"
       },
       "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
@@ -124,74 +184,9 @@
           "statusRaw": "modified"
         }
       ]
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner"
-        },
-        "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256"
-      },
-      "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
-      "message": "Update module github.com/docker/cli to v29.8.2+incompatible (#1766)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1766\n",
-      "author": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "login": "viceice-bot",
-          "id": "163",
-          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
-          "url": "https://code.forgejo.org/viceice-bot",
-          "isBotHint": false
-        },
-        "name": "Renovate Bot",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-01T00:45:34.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "login": "mfenniak",
-          "id": "1324",
-          "name": "Mathieu Fenniak",
-          "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-          "url": "https://code.forgejo.org/mfenniak",
-          "isBotHint": false
-        },
-        "name": "Mathieu Fenniak",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-01T00:45:34.000Z"
-      },
-      "parents": [
-        "3cfcf5b674d1f8bf69b1215f7ba6283202299633"
-      ],
-      "url": "https://code.forgejo.org/forgejo/runner/commit/67b065da410fa56d3c803b8bc7b460ace8ebd256",
-      "stats": {
-        "additions": 3,
-        "deletions": 3,
-        "total": 6
-      },
-      "files": [
-        {
-          "path": "go.mod",
-          "status": "modified",
-          "statusRaw": "modified"
-        },
-        {
-          "path": "go.sum",
-          "status": "modified",
-          "statusRaw": "modified"
-        }
-      ]
     }
   ],
-  "total": 2495,
+  "total": 2496,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=3&page=2"
   }
