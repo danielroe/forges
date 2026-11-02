@@ -7,11 +7,11 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2904802294/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=100&pipeline_id=2904802294>; rel=\"last\"",
-      "etag": "W/\"7d0857bb80335c1b414999afc3250d85\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1970",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
+      "etag": "W/\"629f55cd6bb0af0f5de320f4eabca55e\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "61",
+      "ratelimit-reset": "1793593680",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
       "x-total": "19",
       "x-total-pages": "1",
       "x-next-page": "",
@@ -41,7 +41,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -56,9 +56,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -127,7 +127,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -142,9 +142,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -213,7 +213,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -228,9 +228,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -329,7 +329,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -344,9 +344,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -445,7 +445,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -460,9 +460,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -561,7 +561,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -576,9 +576,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -677,7 +677,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -692,9 +692,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -793,7 +793,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -808,9 +808,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -909,7 +909,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -924,9 +924,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1025,7 +1025,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1040,9 +1040,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1141,7 +1141,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1156,9 +1156,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1257,7 +1257,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1272,9 +1272,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1373,7 +1373,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1388,9 +1388,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1489,7 +1489,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1504,9 +1504,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1605,7 +1605,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1620,9 +1620,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1721,7 +1721,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1736,9 +1736,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1776,40 +1776,12 @@
         "project": {
           "ci_job_token_scope_enabled": false
         },
-        "artifacts_file": {
-          "filename": "artifacts.zip",
-          "size": 9682
-        },
         "artifacts": [
-          {
-            "file_type": "archive",
-            "size": 9682,
-            "filename": "artifacts.zip",
-            "file_format": "zip"
-          },
-          {
-            "file_type": "metadata",
-            "size": 302,
-            "filename": "metadata.gz",
-            "file_format": "gzip"
-          },
           {
             "file_type": "trace",
             "size": 20461,
             "filename": "job.log",
             "file_format": null
-          },
-          {
-            "file_type": "dependency_scanning",
-            "size": 3050,
-            "filename": "gl-dependency-scanning-report.json",
-            "file_format": "raw"
-          },
-          {
-            "file_type": "cyclonedx",
-            "size": 8568,
-            "filename": "gl-sbom.cdx.json.gz",
-            "file_format": "gzip"
           }
         ],
         "runner": {
@@ -1865,7 +1837,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1880,9 +1852,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -1951,7 +1923,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -1966,9 +1938,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",
@@ -2006,34 +1978,12 @@
         "project": {
           "ci_job_token_scope_enabled": false
         },
-        "artifacts_file": {
-          "filename": "artifacts.zip",
-          "size": 722
-        },
         "artifacts": [
-          {
-            "file_type": "archive",
-            "size": 722,
-            "filename": "artifacts.zip",
-            "file_format": "zip"
-          },
-          {
-            "file_type": "metadata",
-            "size": 171,
-            "filename": "metadata.gz",
-            "file_format": "gzip"
-          },
           {
             "file_type": "trace",
             "size": 11579,
             "filename": "job.log",
             "file_format": null
-          },
-          {
-            "file_type": "secret_detection",
-            "size": 1319,
-            "filename": "gl-secret-detection-report.json",
-            "file_format": "raw"
           }
         ],
         "runner": {
@@ -2089,7 +2039,7 @@
           "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
           "web_url": "https://gitlab.com/jay_mccure",
           "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
@@ -2104,9 +2054,9 @@
           "organization": "GitLab",
           "bot": false,
           "work_information": "Senior Backend Engineer at GitLab",
-          "followers": 13,
+          "followers": 14,
           "following": 0,
-          "local_time": "2:39 PM"
+          "local_time": "2:27 PM"
         },
         "commit": {
           "id": "c8f8f604c964f29b6765c7ef33aaadada03564f1",

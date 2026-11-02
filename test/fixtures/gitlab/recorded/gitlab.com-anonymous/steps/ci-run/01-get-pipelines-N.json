@@ -1,46 +1,46 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3016054793"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"77873312663ecccf836278d5c4fc3198\"",
+      "etag": "W/\"9142ba4fcfb0b8650209aa7b5339d88c\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "450",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "449",
+      "ratelimit-reset": "1793593740",
       "ratelimit-name": "throttle_unauthenticated_api"
     },
     "body": {
-      "id": 2961499559,
-      "iid": 15548,
+      "id": 3016054793,
+      "iid": 16438,
       "project_id": 34675721,
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "ref": "refs/workloads/86279be7d1a",
+      "sha": "07b074226ba4eb4b35b9cc9994cf0f3bf61de362",
+      "ref": "refs/workloads/d4b0e9d830e",
       "status": "success",
       "source": "duo_workflow",
-      "created_at": "2026-10-19T03:47:23.987Z",
-      "updated_at": "2026-10-19T03:48:32.298Z",
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559",
+      "created_at": "2026-11-02T03:58:22.223Z",
+      "updated_at": "2026-11-02T03:59:29.169Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3016054793",
       "before_sha": "0000000000000000000000000000000000000000",
       "tag": false,
       "yaml_errors": null,
       "user": {
-        "id": 32742181,
-        "username": "duo-code-review-gitlab-org",
+        "id": 39353959,
+        "username": "duo-recommend-reviewers-gitlab-org",
         "public_email": null,
-        "name": "Duo Code Review",
+        "name": "Duo Recommend Reviewers",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
-        "web_url": "https://gitlab.com/duo-code-review-gitlab-org"
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/39353959/gitlab-duo-flow.png?v=1793577945",
+        "web_url": "https://gitlab.com/duo-recommend-reviewers-gitlab-org"
       },
-      "started_at": "2026-10-19T03:47:24.578Z",
-      "finished_at": "2026-10-19T03:48:32.286Z",
+      "started_at": "2026-11-02T03:58:23.281Z",
+      "finished_at": "2026-11-02T03:59:29.157Z",
       "committed_at": null,
-      "duration": 66,
-      "queued_duration": null,
+      "duration": 64,
+      "queued_duration": 1,
       "coverage": null,
       "detailed_status": {
         "icon": "status_success",
@@ -49,7 +49,7 @@
         "group": "success",
         "tooltip": "passed",
         "has_details": true,
-        "details_path": "/gitlab-org/cli/-/pipelines/2961499559",
+        "details_path": "/gitlab-org/cli/-/pipelines/3016054793",
         "illustration": null,
         "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
       },

@@ -4,93 +4,6 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/technical-writing",
-        "name": "docs-gitlab-com",
-        "externalId": "51970333"
-      },
-      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
-        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
-      },
-      "createdAt": "2023-11-07T18:07:49.139Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 91,
-      "stars": 56,
-      "forks": 128,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "squash",
-      "deleteBranchOnMerge": true,
-      "mergeCommit": {
-        "merge": {
-          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
-        },
-        "squash": {
-          "template": "%{first_commit}"
-        }
-      },
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org/analytics-section/platform-insights",
-        "name": "general",
-        "externalId": "64468833"
-      },
-      "defaultBranch": "main",
-      "visibility": "public",
-      "visibilityRaw": "public",
-      "isFork": false,
-      "isArchived": false,
-      "topics": [],
-      "url": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general",
-      "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/analytics-section/platform-insights/general.git",
-        "ssh": "git@gitlab.com:gitlab-org/analytics-section/platform-insights/general.git"
-      },
-      "createdAt": "2024-11-12T21:16:03.594Z",
-      "updatedAt": "<now>",
-      "openIssueCount": 6,
-      "stars": 0,
-      "forks": 0,
-      "mergeMethods": [
-        "merge",
-        "squash"
-      ],
-      "defaultMergeMethod": "merge",
-      "deleteBranchOnMerge": true,
-      "features": {
-        "issues": true,
-        "pullRequests": true,
-        "discussions": false,
-        "wiki": true,
-        "projects": false,
-        "releases": true
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
         "owner": "gitlab-org",
         "name": "gitlab-foss",
         "externalId": "13083"
@@ -114,8 +27,8 @@
       "createdAt": "2013-09-26T06:02:36.000Z",
       "updatedAt": "<now>",
       "openIssueCount": 0,
-      "stars": 7173,
-      "forks": 8274,
+      "stars": 7175,
+      "forks": 8321,
       "mergeMethods": [
         "merge",
         "squash"
@@ -135,18 +48,116 @@
         "projects": false,
         "releases": false
       }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "gitlab",
+        "externalId": "278964"
+      },
+      "description": "GitLab is the open-source DevSecOps platform that provides a complete software development lifecycle toolchain including source control, CI/CD, security scanning, and project management in a single application.",
+      "defaultBranch": "master",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "hacktoberfest",
+        "javascript",
+        "ruby",
+        "vue.js"
+      ],
+      "url": "https://gitlab.com/gitlab-org/gitlab",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/gitlab.git",
+        "ssh": "git@gitlab.com:gitlab-org/gitlab.git"
+      },
+      "createdAt": "2015-05-20T10:47:11.949Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 48916,
+      "stars": 6187,
+      "forks": 12575,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "squash",
+      "deleteBranchOnMerge": true,
+      "mergeCommit": {
+        "merge": {
+          "template": "Merge branch '%{source_branch}' into '%{target_branch}' \r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
+        },
+        "squash": {
+          "template": "%{first_commit}"
+        }
+      },
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": false
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "caproni",
+        "externalId": "78255993"
+      },
+      "description": "Caproni is an alternative development toolkit for developing GitLab that uses Cloud Native GitLab Charts and Kubernetes in the development process.",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "cloud-native",
+        "developer",
+        "gdk",
+        "kubernetes"
+      ],
+      "url": "https://gitlab.com/gitlab-org/caproni",
+      "cloneUrls": {
+        "https": "https://gitlab.com/gitlab-org/caproni.git",
+        "ssh": "git@gitlab.com:gitlab-org/caproni.git"
+      },
+      "createdAt": "2026-02-05T11:06:57.522Z",
+      "updatedAt": "<now>",
+      "openIssueCount": 103,
+      "stars": 15,
+      "forks": 8,
+      "mergeMethods": [
+        "merge",
+        "squash"
+      ],
+      "defaultMergeMethod": "merge",
+      "deleteBranchOnMerge": true,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
     }
   ],
-  "total": 3762,
+  "total": 3788,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\""
+    "etag": "W/\"8251a64a5d8057906a9f351af59c2fa4\""
   },
-  "etag": "W/\"c4e80ed851872c101365ad7a3c3d4d5a\"",
+  "etag": "W/\"8251a64a5d8057906a9f351af59c2fa4\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1942,
+    "limit": 100,
+    "remaining": 33,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

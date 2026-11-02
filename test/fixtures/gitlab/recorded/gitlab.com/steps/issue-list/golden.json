@@ -11,110 +11,46 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8629",
-        "externalId": "207093591"
+        "number": "8709",
+        "externalId": "208781717"
       },
       "kind": "issue",
-      "title": "govern audit sync fails with \"Too many total parameters\" for long sessions",
-      "body": "`glab govern audit sync` batches audit events by count only (500 per request), but GitLab limits that endpoint to 5,000 JSON elements, and one event is 13 to 25 or more. So a session with more than about 200 events to upload fails with:\n\n```plaintext\ncould not post audit events: could not post audit events: POST https://gitlab.com/api/v4/projects/<id>/ai_agent/audit_events: 400 {error: Too many total parameters}\n```\n\nThe cursor doesn't move on failure, so every later sync sends the same batch and the session never finishes syncing. The error prefix is also repeated.\n\nGitLab is raising the limit in https://gitlab.com/gitlab-org/gitlab/-/merge_requests/263119, but older self-managed versions keep 5,000, so glab needs to batch by size too.\n\nDetails and the customer report: https://gitlab.com/gitlab-org/gitlab/-/work_items/634442",
-      "state": "open",
-      "stateRaw": "opened",
-      "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jeanvdw",
-          "id": "27487407",
-          "name": "Jean van der Walt",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-          "url": "https://gitlab.com/jeanvdw",
-          "isBotHint": false
-        }
-      ],
-      "reviewers": [],
-      "lastActivityAt": "2026-10-19T02:48:22.205Z",
-      "author": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jeanvdw",
-        "id": "27487407",
-        "name": "Jean van der Walt",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-        "url": "https://gitlab.com/jeanvdw",
-        "isBotHint": false
-      },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8629",
-      "createdAt": "2026-10-19T02:48:20.600Z",
-      "updatedAt": "2026-10-19T02:48:22.205Z",
-      "labels": [
-        {
-          "name": "Category:AI Governance"
-        },
-        {
-          "name": "devops::security governance"
-        },
-        {
-          "name": "group::ai governance"
-        },
-        {
-          "name": "section::sec"
-        },
-        {
-          "name": "type::bug"
-        }
-      ],
-      "commentCount": 0,
-      "reactions": {
-        "total": 0,
-        "counts": {}
-      }
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "issue",
-        "number": "8628",
-        "externalId": "207092717"
-      },
-      "kind": "issue",
-      "title": "feat: report pipeline status via OSC 7501 in `ci status --live`",
-      "body": "### Problem to solve\n\nAs a developer running `glab ci status --live` or `glab ci status --wait`, I want my terminal tab to show whether the pipeline is still running, has passed, or has failed, so I can switch to other work without repeatedly checking the tab.\n\n### Proposal\n\nReport pipeline state from `glab ci status --live` / `--wait` using the [Program Status Protocol (OSC 7501)](https://github.com/charmbracelet/bubbletea/releases), which recent Bubble Tea releases support:\n\n| Pipeline state | Program status | Reason |\n|---|---|---|\n| `created`, `pending`, `running` | working | e.g. `pipeline #123 running (4/12 jobs)` |\n| `success` | finished | `pipeline #123 passed` |\n| `failed` | failed | e.g. `job rspec 3/8 failed` |\n| `canceled`, `skipped` | finished/failed | pipeline status |\n| `manual` (blocked) | waiting on user | `pipeline #123 waiting on manual job` |\n\nImplementation notes:\n\n- `ci status` renders through `uilive`, not a `tea.Program`, so add a small helper in `internal/iostreams` (for example `SetProgramStatus(state, reason)`) that writes the sequence directly.\n- Emit only when output is a TTY. Never emit for `--output json`, piped output, or `GITLAB_CI`.\n- Reset the status on exit, including Ctrl+C, so a stale \"working\" indicator isn't left behind.\n- Consider an opt-out (config key in `KeySchema` or env var) while terminal support is new.\n\n### Further details\n\nOnce the helper exists, other long-running or interactive commands can reuse it in follow-ups: `ci trace`, `mr merge` waiting on pipelines, `auth login`, `stack sync` conflicts, `duo ask`, and the shared `Confirm`/`Input`/`Select` prompts and spinner.\n\n### Links / references\n\n- Bubble Tea release announcing OSC 7501 support\n- `internal/commands/ci/status/status.go`",
+      "title": "Add `--include-descendants` to `glab milestone list --group`",
+      "body": "## Problem\n\n`glab milestone list --group <group>` only returns milestones defined on that group. You can't list milestones from its subgroups or their projects. The command already has `--include-ancestors` for parent groups, but nothing for descendants.\n\n## Proposal\n\nAdd an `--include-descendants` flag that sets `include_descendants=true` on [List group milestones](https://docs.gitlab.com/api/group_milestones/#list-group-milestones).\n\n- The flag applies only with `--group`. Reject it with `--project`.\n- Show the owning group or project in the output, because results now span namespaces.\n\n## Context\n\nclient-go only started sending `include_descendants` in v3.40.1 ([client-go!3164](https://gitlab.com/gitlab-org/api/client-go/-/merge_requests/3164), which also decodes `project_id` on group milestones). glab picks this up in https://gitlab.com/gitlab-org/cli/-/merge_requests/4273, so this issue depends on that MR being merged.\n\nRelevant code: `internal/commands/milestone/list/list.go`.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
       "assignees": [],
       "reviewers": [],
-      "lastActivityAt": "2026-10-19T03:09:40.451Z",
+      "lastActivityAt": "<now>",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8628",
-      "createdAt": "2026-10-19T02:35:53.439Z",
-      "updatedAt": "2026-10-19T03:09:40.451Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8709",
+      "createdAt": "2026-11-02T02:44:55.173Z",
+      "updatedAt": "<now>",
       "labels": [
         {
           "name": "automation:quick-win-judged"
+        },
+        {
+          "name": "backend"
         },
         {
           "name": "category:gitlab cli"
         },
         {
           "name": "devops::ai clients"
+        },
+        {
+          "name": "feature::enhancement"
         },
         {
           "name": "group::developer clients"
@@ -126,6 +62,79 @@
           "name": "type::feature"
         }
       ],
+      "commentCount": 1,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8708",
+        "externalId": "208775673"
+      },
+      "kind": "issue",
+      "title": "Unblock snap channel releases pending dot-kube-config store declaration",
+      "body": "Snap uploads are held for manual review because the `dot-kube-config` `personal-files` plug (https://gitlab.com/gitlab-org/cli/-/work_items/8304) needs a store declaration. Until it's granted, no glab revision reaches the edge or stable channels.\n\nRequest: https://forum.snapcraft.io/t/personal-files-request-for-glab-kube-config-write-to-kube/53662. Two reviewers have given +1 for installation-only write access to `$HOME/.kube/config` and `$HOME/.kube/config.lock`, with manual connection. Revision [7045](https://dashboard.snapcraft.io/snaps/glab/revisions/7045/) is the first upload with the final plug, and older held revisions have been rejected.\n\n## Tasks\n\n- [ ] Declaration granted and revision 7045 approved\n- [ ] Remove `allow_failure: true` and `retry` from `snapcraft_release_edge` (added in https://gitlab.com/gitlab-org/cli/-/merge_requests/4132)\n- [ ] Get the latest release onto the stable channel. The 1.125.0 upload (revision 7035) was rejected because it had the old plug.",
+      "state": "open",
+      "stateRaw": "opened",
+      "isDraft": false,
+      "assignees": [
+        {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "login": "jay_mccure",
+          "id": "11809982",
+          "name": "Jay McCure",
+          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+          "url": "https://gitlab.com/jay_mccure",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "lastActivityAt": "2026-11-02T00:50:45.396Z",
+      "author": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8708",
+      "createdAt": "2026-11-02T00:35:26.298Z",
+      "updatedAt": "2026-11-02T00:50:45.396Z",
+      "labels": [
+        {
+          "name": "category:gitlab cli"
+        },
+        {
+          "name": "devops::ai clients"
+        },
+        {
+          "name": "group::developer clients"
+        },
+        {
+          "name": "section::ai"
+        },
+        {
+          "name": "type::maintenance"
+        },
+        {
+          "name": "workflow::verification"
+        }
+      ],
       "commentCount": 0,
       "reactions": {
         "total": 0,
@@ -143,45 +152,40 @@
           "name": "cli"
         },
         "kind": "issue",
-        "number": "8627",
-        "externalId": "207091807"
+        "number": "8707",
+        "externalId": "208723622"
       },
       "kind": "issue",
-      "title": "Terminal background-colour query blocks every TTY command, up to 5s per query",
-      "body": "## Summary\n\nWhen stdout is a terminal, every glab command blocks on a terminal background-colour query (an OSC 11 request that waits for the terminal's reply).\n\n- `NewCmdRoot` (`internal/commands/root.go:64`) calls `f.IO().Color()` eagerly, only to colour one help string.\n- `Color()` runs `termenv.HasDarkBackground()` (`internal/iostreams/color.go:55`), which waits for the terminal to answer. Nothing caches the result, so the query runs again on every `Color()` call.\n- `termenv.HasDarkBackground()` is also called directly in `internal/iostreams/iostreams.go:373` and `internal/commands/help/help.go:31`.\n- fang runs its own query on help and error output.\n\nResult: 1 query for `glab version`, and 2 for `mr list`, `issue list` and `--help`.\n\n## Impact\n\n- Local terminal: about zero.\n- Over SSH at 50ms RTT: adds 50–100ms per command.\n- A terminal that never answers waits out `termenv.OSCTimeout` (5s) on each query: about 5s for `version` and 9s for `--help`.\n- Setting `glamour_style` or `GLAB_GLAMOUR_STYLE=dark` does not skip the query. Only `NO_COLOR` does.\n\n## Proposal\n\n1. Drop the eager `Color()` call in `NewCmdRoot`, and colour the help string lazily.\n2. Detect the background once per process and reuse the result in all call sites (`color.go`, `iostreams.go`, `help/help.go`).\n3. Honour an explicit style (`glamour_style` / `GLAB_GLAMOUR_STYLE` set to `dark` or `light`) before probing the terminal.\n4. Lower `termenv.OSCTimeout` from its 5s default.\n5. Upstream: ask fang for an option to accept a known dark/light value, so it doesn't run its own query.\n\n## Acceptance criteria\n\n- At most one background query per process, and none when the style is set explicitly or `NO_COLOR` is set.\n- A terminal that never answers does not delay commands by seconds.\n\nFound during review of https://gitlab.com/gitlab-org/cli/-/merge_requests/4139. Related: https://gitlab.com/gitlab-org/cli/-/work_items/8626 (telemetry blocks exit).",
+      "title": "glab fails when the remote uses the instance's separate SSH hostname, such as ssh.gitlab.gnome.org",
+      "body": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: glab 1.126.0 (4dd0d32d1)\n- [x] Operating system and version: Ubuntu 26.04.1 LTS (Linux 7.2.8, x86_64)\n- [x] Gitlab.com or self-managed instance? self-managed (gitlab.gnome.org)\n- [x] GitLab version (if self-managed): 19.4.5\n- [x] I have performed `glab auth status` to check for authentication issues: logged in to gitlab.gnome.org\n- [x] Run the command in debug mode: `GLAB_DEBUG=true` only adds a telemetry hook line repeating the same error\n\n### Summary\n\nIn a clone whose remote is on `ssh.gitlab.gnome.org`, every repository command fails with \"none of the git remotes configured for this repository point to a known GitLab host\", although glab is logged in to gitlab.gnome.org. The error says to run `glab auth login`, which was already done.\n\ngitlab.gnome.org serves Git over SSH on that separate hostname, and glab only matches a remote on it to the instance when `ssh_host` is set for the instance.\n\n`glab auth login` only sets it with `--ssh-hostname` or when run interactively inside the clone, so a scripted login, or one done before cloning, leaves it unset.\n\nWorkaround: `glab config set ssh_host ssh.gitlab.gnome.org --host gitlab.gnome.org`.\n\n### Environment\n\n- OS: Linux 7.2.8-1-t2-resolute x86_64 (Ubuntu 26.04.1 LTS)\n- SHELL: /bin/bash\n- TERM: xterm-ghostty\n- GLAB: glab 1.126.0 (4dd0d32d1)\n\nOther:\n\n### Steps to reproduce\n\n1. `glab auth login --hostname gitlab.gnome.org --stdin < token.txt`\n2. `git clone git@ssh.gitlab.gnome.org:GNOME/gnome-settings-daemon.git && cd gnome-settings-daemon`\n3. `glab issue list`\n\n### What is the current _bug_ behavior?\n\n```plaintext\nnone of the git remotes configured for this repository point to a known GitLab host. Please use `glab auth login` to authenticate and configure a new host for glab.\n\nConfigured remotes: ssh.gitlab.gnome.org.\n```\n\n### What is the expected _correct_ behavior?\n\nglab lists the issues of `GNOME/gnome-settings-daemon` on gitlab.gnome.org, as it does with the workaround.\n\n### Possible fixes\n\nIn [`remote_resolver.go`](https://gitlab.com/gitlab-org/cli/-/blob/c2544a916/internal/cmdutils/remote_resolver.go#L141-155), map an SSH host that is a subdomain of a configured host to that host, unless an `ssh_host` says otherwise. The test \"SSH host matches but no ssh_host config — remote skipped\" asserts the current behavior; I found no discussion in !2924 that made it deliberate.\n\nI have a merge request ready for this.",
       "state": "open",
       "stateRaw": "opened",
       "isDraft": false,
-      "assignees": [
-        {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "login": "jay_mccure",
-          "id": "11809982",
-          "name": "Jay McCure",
-          "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-          "url": "https://gitlab.com/jay_mccure",
-          "isBotHint": false
-        }
-      ],
+      "assignees": [],
       "reviewers": [],
-      "lastActivityAt": "2026-10-19T02:33:16.145Z",
+      "lastActivityAt": "2026-11-01T23:42:55.930Z",
       "author": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
+        "login": "johan.walles",
+        "id": "1389991",
+        "name": "Johan Walles",
+        "avatarUrl": "https://secure.gravatar.com/avatar/5c5813d918ffaaa888737570c0339cdb9717e73044addd405db78d537be3f219?s=80&d=identicon",
+        "url": "https://gitlab.com/johan.walles",
         "isBotHint": false
       },
-      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8627",
-      "createdAt": "2026-10-19T02:28:20.359Z",
-      "updatedAt": "2026-10-19T02:33:16.145Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/work_items/8707",
+      "createdAt": "2026-11-01T08:18:54.307Z",
+      "updatedAt": "2026-11-01T23:42:55.930Z",
       "labels": [
         {
-          "name": "agent-experience"
+          "name": "automation:ml"
+        },
+        {
+          "name": "backend"
+        },
+        {
+          "name": "bug::functional"
         },
         {
           "name": "category:gitlab cli"
@@ -193,33 +197,30 @@
           "name": "group::developer clients"
         },
         {
-          "name": "maintenance::performance"
-        },
-        {
           "name": "section::ai"
         },
         {
-          "name": "type::maintenance"
+          "name": "type::bug"
         }
       ],
-      "commentCount": 0,
+      "commentCount": 3,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 252,
+  "total": 264,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&order_by=created_at&page=2&per_page=3&sort=desc&state=opened&with_labels_details=false",
-    "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\"",
+    "etag": "W/\"e4c876aff036156c8523657d0239342a\"",
     "token": "0:"
   },
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1961,
+    "limit": 100,
+    "remaining": 52,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   },
-  "etag": "W/\"d634a1b0fcacb06d81e042fc998a0ddb\""
+  "etag": "W/\"e4c876aff036156c8523657d0239342a\""
 }

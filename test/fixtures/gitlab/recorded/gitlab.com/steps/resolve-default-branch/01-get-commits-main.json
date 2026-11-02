@@ -6,49 +6,49 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3101d590e62ac7a5749b053fc24d58ae\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1920",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"5e14103e359c6cb1ebc41429292f00cd\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "10",
+      "ratelimit-reset": "1793593680",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
-      "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "short_id": "e74ebf81",
-      "created_at": "2026-10-19T12:02:22.000+10:00",
+      "id": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
+      "short_id": "9f868798",
+      "created_at": "2026-11-02T13:49:47.000+10:00",
       "parent_ids": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "541cb07ea90470a9d40b510efb2106aa00192636",
+        "88a9afebea1c0c9247a61df2fe92e131a194e2ca"
       ],
-      "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "title": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into 'main'",
+      "message": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into 'main'\n\ndocs(auth): recommend glab as Git credential helper on OAuth-only instances\n\nRelated to #8701\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4264\n\nMerged-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: amegahed12 <redacted@example.invalid>",
       "author_name": "Jay McCure",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-19T12:02:22.000+10:00",
+      "authored_date": "2026-11-02T13:49:47.000+10:00",
       "committer_name": "GitLab",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-19T12:02:22.000+10:00",
+      "committed_date": "2026-11-02T13:49:47.000+10:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9f868798296de3ba64c2d66f7b1f55a2bba34442",
       "stats": {
-        "additions": 203,
-        "deletions": 1,
-        "total": 204
+        "additions": 40,
+        "deletions": 4,
+        "total": 44
       },
-      "status": "success",
+      "status": "running",
       "project_id": 34675721,
       "last_pipeline": {
-        "id": 2961304567,
-        "iid": 15538,
+        "id": 3016039193,
+        "iid": 16434,
         "project_id": 34675721,
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "sha": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
         "ref": "main",
-        "status": "success",
+        "status": "running",
         "source": "push",
-        "created_at": "2026-10-19T02:02:25.218Z",
-        "updated_at": "2026-10-19T02:21:35.568Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961304567"
+        "created_at": "2026-11-02T03:49:51.934Z",
+        "updated_at": "2026-11-02T03:49:53.270Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3016039193"
       }
     }
   }

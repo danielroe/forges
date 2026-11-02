@@ -1,7 +1,7 @@
 {
-  "base": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
+  "base": "7b0124555ba6972a303aba39af2a862523fa3f0e",
   "head": "main",
-  "aheadBy": 7,
+  "aheadBy": 5,
   "commits": [
     {
       "ref": {
@@ -13,25 +13,25 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "sha": "9f868798296de3ba64c2d66f7b1f55a2bba34442"
       },
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "sha": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
+      "message": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into 'main'\n\ndocs(auth): recommend glab as Git credential helper on OAuth-only instances\n\nRelated to #8701\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4264\n\nMerged-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: amegahed12 <redacted@example.invalid>",
       "author": {
         "name": "Jay McCure",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "541cb07ea90470a9d40b510efb2106aa00192636",
+        "88a9afebea1c0c9247a61df2fe92e131a194e2ca"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/9f868798296de3ba64c2d66f7b1f55a2bba34442"
     },
     {
       "ref": {
@@ -43,24 +43,24 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "sha": "88a9afebea1c0c9247a61df2fe92e131a194e2ca"
       },
-      "sha": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-      "message": "feat(issue): add date filters to issue list\n",
+      "sha": "88a9afebea1c0c9247a61df2fe92e131a194e2ca",
+      "message": "docs(auth): recommend glab as Git credential helper on OAuth-only instances\n",
       "author": {
-        "name": "Hamza Hassanain",
+        "name": "Abdelrahman Megahed",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "committer": {
         "name": "GitLab",
         "email": "redacted@example.invalid",
-        "date": "2026-10-19T02:02:22.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "a300719a2aac26acb25eee65fe08398188c99a0e"
+        "c2544a91621d99803bff37be58a17eff33778e3e"
       ],
-      "url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+      "url": "https://gitlab.com/gitlab-org/cli/-/commit/88a9afebea1c0c9247a61df2fe92e131a194e2ca"
     }
   ],
   "files": []

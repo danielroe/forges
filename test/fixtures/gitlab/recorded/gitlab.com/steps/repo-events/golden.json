@@ -3,71 +3,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153890198",
-      "kindRaw": "DiscussionNote.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039460255"
-        },
-        "body": "Thanks @sjestonsingh, I've left a couple of suggestions"
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153889180",
+      "id": "6247697754",
       "kindRaw": "Note.commented on",
       "actionRaw": "commented on",
       "kind": "comment",
@@ -82,7 +18,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4004"
+        "number": "4266"
       },
       "detail": {
         "type": "comment",
@@ -99,25 +35,25 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4004"
+            "number": "4266"
           },
-          "id": "4039458973"
+          "id": "4137474498"
         },
-        "body": "Suggestion: `last_update_check_timestamp` could also be managed globally."
+        "body": ":warning: @amegahed12, you don't have permission to create a pipeline for Code Review Flow in this project. Contact your administrator to update your permissions.\n\nError code: [DCR4003](https://gitlab.com/help/user/duo_agent_platform/flows/foundational_flows/code_review/troubleshooting.md#error-dcr4003)"
       },
-      "summary": "jay_mccure commented",
+      "summary": "GitLabDuo commented",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
+        "title": "fix(auth): validate OAuth client ID before browser step"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
         "isBotHint": false
       },
       "repo": {
@@ -131,7 +67,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153887994",
+      "id": "6247656488",
       "kindRaw": "Note.commented on",
       "actionRaw": "commented on",
       "kind": "comment",
@@ -146,7 +82,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4004"
+        "number": "4275"
       },
       "detail": {
         "type": "comment",
@@ -163,25 +99,25 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4004"
+            "number": "4275"
           },
-          "id": "4039457611"
+          "id": "4137425417"
         },
-        "body": "Hi @phikai, just a sanity check as you are familiar with the external binaries (orbit, duo cli). Is there a use case for being able to configure the binaries locally? With this MR we would only be able to configure `duo_cli_binary_path` and `orbit_cli_binary_path` (and related configs) globally. I think this makes sense but just wanted a sanity check."
+        "body": "This is a focused documentation correction and I verified its technical claims against the code. I confirmed `oauthClientID`/`resolveClientID` in `internal/oauth2/config.go` indeed require a `client_id` on self-managed/Dedicated hosts but default it automatically on GitLab.com, matching the new doc wording. I verified the OAuth application is non-confidential (`printClientIDRegistrationInstructions` states \"Confidential: off\"), supporting the \"no client secret\" claim. I checked that interactive login already prompts for the credential helper via `credentialFlow.Prompt` unless `--setup-git-credential-helper` is set, confirming the new flag description and the \"Interactive sign-in offers this setup\" claim are accurate. I found no broken anchor links from the removed \"Recommended setup for OAuth-only instances\" section, and the `glab config set client_id ... --host ...` example matches the real command syntax. The change is low risk; only a minor wording nit is worth a second look."
       },
-      "summary": "jay_mccure commented",
+      "summary": "GitLabDuo commented",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
+        "title": "docs(auth): correct OAuth client ID requirements for the Git credential helper"
       },
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
+        "login": "GitLabDuo",
+        "id": "21826781",
+        "name": "GitLab Duo",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
+        "url": "https://gitlab.com/GitLabDuo",
         "isBotHint": false
       },
       "repo": {
@@ -195,7 +131,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153868535",
+      "id": "6247656450",
       "kindRaw": "DiffNote.commented on",
       "actionRaw": "commented on",
       "kind": "review_comment",
@@ -210,7 +146,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4004"
+        "number": "4275"
       },
       "detail": {
         "type": "review_comment",
@@ -227,79 +163,15 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4004"
+            "number": "4275"
           },
-          "id": "4039432960"
+          "id": "4137425376"
         },
-        "body": "Re the \"one decision\" in the description: I'd keep the routing, but say so on stderr rather than doing it silently.\n\nNobody reaches these keys through `glab config set` by accident: glab itself updates them via `cfg.Set`, not this command. So whoever runs `glab config set duo_cli_binary_version ...` typed it deliberately (usually debugging or forcing a re-download) and asked for the local file. Silently writing global instead changes every repository without telling them. A one-line notice keeps the convenience and removes the surprise:\n\n```suggestion:-3+0\n\t// A key glab maintains for itself is read from the global file only, so a\n\t// local write would land where nothing reads it and the old local value\n\t// would keep winning. Route those to the global file instead.\n\trouted := !o.isGlobal && o.hostname == \"\" && config.IsGlobalOnlyKey(o.key)\n\twriteGlobal := o.isGlobal || o.hostname != \"\" || routed\n\tif routed {\n\t\to.io.LogErrorf(\"%s %s is managed by glab and is always stored in the global configuration: %s\\n\",\n\t\t\to.io.Color().DotWarnIcon(), o.key, config.ConfigFile())\n\t}\n```\n\n`TestConfigSet_GlobalOnlyKeyWritesGloballyWithoutTheFlag` would then need to assert the notice instead of `assert.Empty(t, out.Stderr())`, e.g. `assert.Contains(t, out.Stderr(), \"always stored in the global configuration\")`."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "jay_mccure",
-        "id": "11809982",
-        "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-        "url": "https://gitlab.com/jay_mccure",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153797912",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4004"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "4039357682"
-        },
-        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- Reconciled my earlier thread: the fake `NotFoundError` is gone and `GetWithSource` now guards the local read with `skipLocal`, so that point is fixed.\n- Checked the new read path. For glab-managed keys it goes straight to the global lookup. Other keys keep their local-over-global behavior.\n- Checked `IsGlobalOnlyKey`. It resolves aliases through `ConfigKeyEquivalence`, and the set is built from `KeySchema` at init, so aliases and names are both covered.\n- Checked `config set`. A glab-managed key routes both the set and the write to the global config, with and without `--global`, and the hostname path is unchanged.\n- Checked the tests. They cover both halves of the fix, the schema drift guard and local precedence for ordinary keys. I found no problems."
+        "body": "This sentence mixes a statement (\"Interactive sign-in offers this setup in a prompt\") with an imperative clause (\"or use the flag when no prompt is available\") joined by `or`, which reads as a grammar mismatch. Consider splitting into two sentences, e.g. \"Interactive sign-in offers this setup in a prompt. Use the flag instead when no prompt is available, such as in a CI/CD job.\""
       },
       "summary": "GitLabDuo commented",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
+        "title": "docs(auth): correct OAuth client ID requirements for the Git credential helper"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -323,11 +195,11 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153797909",
-      "kindRaw": "MergeRequest.approved",
-      "actionRaw": "approved",
-      "kind": "review",
-      "action": "submitted",
+      "id": "6247647584",
+      "kindRaw": "WorkItem.opened",
+      "actionRaw": "opened",
+      "kind": "state_change",
+      "action": "opened",
       "thread": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -337,98 +209,16 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "kind": "pull_request",
-        "number": "4004"
+        "kind": "issue",
+        "number": "8701"
       },
       "detail": {
-        "type": "review",
-        "state": "approved",
-        "stateRaw": "approved",
-        "review": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4004"
-          },
-          "id": "approval:GitLabDuo"
-        }
+        "type": "state_change",
+        "state": "open"
       },
-      "summary": "GitLabDuo approved merge request",
+      "summary": "jay_mccure opened issue",
       "threadSnapshot": {
-        "title": "fix(config): keep glab-managed keys in the global config"
-      },
-      "occurredAt": "<now>",
-      "actor": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
-        "url": "https://gitlab.com/GitLabDuo",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "cli"
-      },
-      "source": "poll"
-    },
-    {
-      "forge": "gitlab",
-      "instance": "gitlab.com",
-      "id": "6153790642",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4062"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4062"
-          },
-          "id": "4039351320"
-        },
-        "body": "Thanks @HamzaHassanain , just one suggestion. :bow: Apologies, but you will have to fix conflicts before we can get this merged."
-      },
-      "summary": "jay_mccure commented",
-      "threadSnapshot": {
-        "title": "fix(config): use host key only as a fallback"
+        "title": "docs: Recommend glab as the Git credential helper on OAuth-only instances"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -437,7 +227,7 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
@@ -452,11 +242,11 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153781763",
-      "kindRaw": "DiffNote.commented on",
-      "actionRaw": "commented on",
-      "kind": "review_comment",
-      "action": "created",
+      "id": "6247637324",
+      "kindRaw": "MergeRequest.opened",
+      "actionRaw": "opened",
+      "kind": "state_change",
+      "action": "opened",
       "thread": {
         "forge": "gitlab",
         "instance": "gitlab.com",
@@ -467,32 +257,15 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4062"
+        "number": "4275"
       },
       "detail": {
-        "type": "review_comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4062"
-          },
-          "id": "4039344382"
-        },
-        "body": "**suggestion (non-blocking):** When a config-file `host` matches no remote, glab now switches to the remote's host without saying so. That's the intended behavior, but a user who expected the configured instance (for example, someone not signed in to gitlab.com, in a repository whose only remote is on gitlab.com) gets a 401/404 with no hint that the configured `host` was set aside. A debug line here would make that easy to spot with `GLAB_DEBUG=true`:\n\n```go\ndbg.Debug(\"config host \" + hostOverride + \" matches no git remote; resolving from remotes instead\")\n```\n\n`dbg` is already used in `factory.go`."
+        "type": "state_change",
+        "state": "open"
       },
-      "summary": "jay_mccure commented",
+      "summary": "jay_mccure opened merge request",
       "threadSnapshot": {
-        "title": "fix(config): use host key only as a fallback"
+        "title": "docs(auth): correct OAuth client ID requirements for the Git credential helper"
       },
       "occurredAt": "<now>",
       "actor": {
@@ -501,7 +274,7 @@
         "login": "jay_mccure",
         "id": "11809982",
         "name": "Jay McCure",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
         "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
@@ -516,57 +289,26 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153778201",
-      "kindRaw": "Note.commented on",
-      "actionRaw": "commented on",
-      "kind": "comment",
+      "id": "6247633265",
+      "kindRaw": "Project.pushed new",
+      "actionRaw": "pushed new",
+      "kind": "ref",
       "action": "created",
-      "thread": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "kind": "pull_request",
-        "number": "4148"
-      },
       "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "thread": {
-            "forge": "gitlab",
-            "instance": "gitlab.com",
-            "repo": {
-              "forge": "gitlab",
-              "instance": "gitlab.com",
-              "owner": "gitlab-org",
-              "name": "cli"
-            },
-            "kind": "pull_request",
-            "number": "4148"
-          },
-          "id": "4039340929"
-        },
-        "body": "@jay_mccure Are you able to review this MR please?"
+        "type": "ref",
+        "ref": "refs/heads/jmc-git-credential-helper-client-id",
+        "refType": "branch"
       },
-      "summary": "jeanvdw commented",
-      "threadSnapshot": {
-        "title": "fix(govern): keep audit event batches within GitLab's limits"
-      },
+      "summary": "jay_mccure created jmc-git-credential-helper-client-id",
       "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "jeanvdw",
-        "id": "27487407",
-        "name": "Jean van der Walt",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/27487407/avatar.png?v=1792383312",
-        "url": "https://gitlab.com/jeanvdw",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "repo": {
@@ -580,7 +322,7 @@
     {
       "forge": "gitlab",
       "instance": "gitlab.com",
-      "id": "6153736615",
+      "id": "6247610992",
       "kindRaw": "Note.commented on",
       "actionRaw": "commented on",
       "kind": "comment",
@@ -595,7 +337,7 @@
           "name": "cli"
         },
         "kind": "pull_request",
-        "number": "4148"
+        "number": "4264"
       },
       "detail": {
         "type": "comment",
@@ -612,25 +354,161 @@
               "name": "cli"
             },
             "kind": "pull_request",
-            "number": "4148"
+            "number": "4264"
           },
-          "id": "4039301590"
+          "id": "4137370447"
         },
-        "body": "I finished my review and found nothing to comment on. Nice work! :tada:\n\n- The wait seam was the only change since my last review. It is now a `waitFor` field on `options` with an `options.wait` method, and no package-level var is left. That addresses my earlier thread.\n- `options.wait` returns `ctx.Err()` on cancellation and otherwise waits on `time.After(d)`. The new cancellation test covers this and is correct.\n- `recordWaits(opts)` is called before each use in the rate-limit tests. Each subtest has its own `tt` and `opts`, so the per-test recording is safe.\n- The hook case in `TestSyncSession_ByCaller` still fails fast and posts nothing. The manual case waits through the stubbed seam and posts 1 event. Both match the intended behavior.\n- I found no new correctness problems in the lines added since my last review."
+        "body": "<!-- triage-serverless CodeReviewExperienceFeedback -->\nHi @amegahed12 :wave:\n\n🎉 See where you rank! Check your spot on the [contributor leaderboard](https://contributors.gitlab.com/leaderboard/amegahed12) and unlock rewards.\n\n---\n\nHow was your experience with this merge request? Please tell us how we can continue to [iterate](https://handbook.gitlab.com/handbook/values/#iteration) and improve:\n\n1. React with a :thumbsup: or a :thumbsdown: on this comment to describe your experience.\n1. Create a new comment starting with `@gitlab-bot feedback` below, and leave any additional feedback you have for us in the comment.\n\nAs a community contributor, you have complimentary access to [GitLab Duo Agent Platform](https://docs.gitlab.com/user/duo_agent_platform/): an AI teammate for understanding unfamiliar code, investigating a failed pipeline, and preparing a merge request for review.\n\nThanks for your help! :heart:\n\n*This message was [generated automatically](https://handbook.gitlab.com/handbook/engineering/infrastructure/engineering-productivity/triage-operations).\n[Improve it](https://gitlab.com/gitlab-org/quality/triage-ops/-/blob/master/triage/processor/community/code_review_experience_feedback.rb)\nor [delete it](https://handbook.gitlab.com/handbook/engineering/infrastructure/engineering-productivity/triage-operations/#reactive-delete_bot_comment-command).*"
       },
-      "summary": "GitLabDuo commented",
+      "summary": "gitlab-bot commented",
       "threadSnapshot": {
-        "title": "fix(govern): keep audit event batches within GitLab's limits"
+        "title": "docs(auth): recommend glab as Git credential helper on OAuth-only instances"
       },
-      "occurredAt": "2026-10-19T03:22:54.732Z",
+      "occurredAt": "<now>",
       "actor": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "login": "GitLabDuo",
-        "id": "21826781",
-        "name": "GitLab Duo",
-        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/21826781/duo-bot.png?v=1792265836",
-        "url": "https://gitlab.com/GitLabDuo",
+        "login": "gitlab-bot",
+        "id": "1786152",
+        "name": "🤖 GitLab Bot 🤖",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/1786152/avatar.png?v=1793590284",
+        "url": "https://gitlab.com/gitlab-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6247610769",
+      "kindRaw": "Project.pushed to",
+      "actionRaw": "pushed to",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/main",
+        "before": "541cb07ea90470a9d40b510efb2106aa00192636",
+        "after": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
+        "commitCount": 2,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
+            "message": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into..."
+          }
+        ]
+      },
+      "summary": "jay_mccure pushed 2 commit(s) to main",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6247610703",
+      "kindRaw": "Issue.closed",
+      "actionRaw": "closed",
+      "kind": "state_change",
+      "action": "closed",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "8701"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "closed"
+      },
+      "summary": "jay_mccure closed issue",
+      "threadSnapshot": {
+        "title": "docs: Recommend glab as the Git credential helper on OAuth-only instances"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+        "url": "https://gitlab.com/jay_mccure",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "owner": "gitlab-org",
+        "name": "cli"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitlab",
+      "instance": "gitlab.com",
+      "id": "6247610672",
+      "kindRaw": "MergeRequest.accepted",
+      "actionRaw": "accepted",
+      "kind": "state_change",
+      "action": "merged",
+      "thread": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "kind": "pull_request",
+        "number": "4264"
+      },
+      "detail": {
+        "type": "state_change",
+        "state": "merged"
+      },
+      "summary": "jay_mccure merged merge request",
+      "threadSnapshot": {
+        "title": "docs(auth): recommend glab as Git credential helper on OAuth-only instances"
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "login": "jay_mccure",
+        "id": "11809982",
+        "name": "Jay McCure",
+        "avatarUrl": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1793590684",
+        "url": "https://gitlab.com/jay_mccure",
         "isBotHint": false
       },
       "repo": {
@@ -644,13 +522,13 @@
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/events?id=gitlab-org%2Fcli&page=2&per_page=10&sort=desc",
-    "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\""
+    "etag": "W/\"4931fc98ae889deea4186f02a6990feb\""
   },
-  "etag": "W/\"1d0cfc60deb15c8bf90e9437ec0330ab\"",
+  "etag": "W/\"4931fc98ae889deea4186f02a6990feb\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1945,
+    "limit": 100,
+    "remaining": 36,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

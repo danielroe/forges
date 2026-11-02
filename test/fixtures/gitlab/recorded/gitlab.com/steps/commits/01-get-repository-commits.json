@@ -7,74 +7,74 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
-      "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1919",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
+      "etag": "W/\"d929de2950d30e3fbc46d9cebde52d8e\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "9",
+      "ratelimit-reset": "1793593680",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-        "short_id": "e74ebf81",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "9f868798296de3ba64c2d66f7b1f55a2bba34442",
+        "short_id": "9f868798",
+        "created_at": "2026-11-02T13:49:47.000+10:00",
         "parent_ids": [
-          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+          "541cb07ea90470a9d40b510efb2106aa00192636",
+          "88a9afebea1c0c9247a61df2fe92e131a194e2ca"
         ],
-        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "title": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into 'main'",
+        "message": "Merge branch '8701-recommend-glab-git-credential-helper-oauth' into 'main'\n\ndocs(auth): recommend glab as Git credential helper on OAuth-only instances\n\nRelated to #8701\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4264\n\nMerged-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: amegahed12 <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T12:02:22.000+10:00",
+        "authored_date": "2026-11-02T13:49:47.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-02T13:49:47.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9f868798296de3ba64c2d66f7b1f55a2bba34442"
       },
       {
-        "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-        "short_id": "d5034f13",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "88a9afebea1c0c9247a61df2fe92e131a194e2ca",
+        "short_id": "88a9afeb",
+        "created_at": "2026-11-02T13:49:47.000+10:00",
         "parent_ids": [
-          "a300719a2aac26acb25eee65fe08398188c99a0e"
+          "c2544a91621d99803bff37be58a17eff33778e3e"
         ],
-        "title": "feat(issue): add date filters to issue list",
-        "message": "feat(issue): add date filters to issue list\n",
-        "author_name": "Hamza Hassanain",
+        "title": "docs(auth): recommend glab as Git credential helper on OAuth-only instances",
+        "message": "docs(auth): recommend glab as Git credential helper on OAuth-only instances\n",
+        "author_name": "Abdelrahman Megahed",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T05:02:22.000+03:00",
+        "authored_date": "2026-11-02T05:49:47.000+02:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-02T13:49:47.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/88a9afebea1c0c9247a61df2fe92e131a194e2ca"
       },
       {
-        "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "short_id": "5573de7d",
-        "created_at": "2026-10-19T11:56:01.000+10:00",
+        "id": "541cb07ea90470a9d40b510efb2106aa00192636",
+        "short_id": "541cb07e",
+        "created_at": "2026-11-02T13:05:53.000+10:00",
         "parent_ids": [
-          "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-          "74931758500a9c66e56ca2c443a0c2a987c5923f"
+          "460c0d0fcdac9009504af47a5313b4f912368175",
+          "7b0124555ba6972a303aba39af2a862523fa3f0e"
         ],
-        "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
-        "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+        "title": "Merge branch 'renovate/go.yaml.in-yaml-v3-3.x' into 'main'",
+        "message": "Merge branch 'renovate/go.yaml.in-yaml-v3-3.x' into 'main'\n\nchore(deps): update module go.yaml.in/yaml/v3 to v3.0.6\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4274\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T11:56:01.000+10:00",
+        "authored_date": "2026-11-02T13:05:53.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T11:56:01.000+10:00",
+        "committed_date": "2026-11-02T13:05:53.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/541cb07ea90470a9d40b510efb2106aa00192636"
       }
     ]
   }
