@@ -98,6 +98,7 @@ The API has no endpoints for hooks and no documented signature scheme. For this 
 | `users.get` | ❌ | ❌ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ∅ | ∅ |
+| `users.sponsorableMany` | ∅ | ∅ |
 | `users.events` | ❌ | ❌ |
 | `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |

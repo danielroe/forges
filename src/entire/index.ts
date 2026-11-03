@@ -630,6 +630,8 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       authKinds: ['token'],
     },
     notApplicable: [
+      'users.sponsorable',
+      'users.sponsorableMany',
       'repos.labels',
       'repos.createLabel',
       'repos.milestones',

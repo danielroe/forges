@@ -206,6 +206,7 @@ A `push` delivery becomes a `push` or `ref` event. Tangled has no API to registe
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ∅ | ∅ |
+| `users.sponsorableMany` | ∅ | ∅ |
 | `users.events` | ✅ | ✅ |
 | `users.block` | ∅ | ∅ |
 | `repos.list` | ✅ | ❌ |

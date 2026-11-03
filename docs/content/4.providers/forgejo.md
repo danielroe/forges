@@ -155,6 +155,7 @@ A label delivery doesn't say which labels were added or removed. When the set of
 | `users.get` | ✅ | ✅ |
 | `users.me` | ✅ | ❌ |
 | `users.sponsorable` | ∅ | ∅ |
+| `users.sponsorableMany` | ∅ | ∅ |
 | `users.events` | ✅ | ✅ |
 | `users.block` | ✅ | ❌ |
 | `repos.list` | ✅ | ❌ |
