@@ -10,16 +10,20 @@
  * repository and, for Tangled, then seed it for the next read recording,
  * except with `--only`. `--defer-splice` passes on to write recordings, to
  * leave their splicing to `scripts/splice-partial.ts`.
+ * A forge with a `server` script, such as GitBucket, records against a
+ * server that the script starts and seeds for the run, and removes after it.
  * `--summary` writes the outcome of each recording as Markdown. The exit code
  * is 1 when any recording failed. `--list` prints the forges that the
  * `fixtures` workflow records of that kind, as a JSON array.
  */
 import type { Buffer } from 'node:buffer'
-import { spawn } from 'node:child_process'
-import { writeFileSync } from 'node:fs'
+import { execFileSync, spawn } from 'node:child_process'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
-import { parseArgs } from 'node:util'
+import { parseArgs, parseEnv } from 'node:util'
 
 interface Recording {
   label: string
@@ -31,9 +35,13 @@ const CODE_FORGEJO = { CODEBERG_BASE_URL: 'https://code.forgejo.org' }
 
 /**
  * The recordings of each forge, by kind. A `local` forge records only on a
- * maintainer's machine, as its credentials expire before the next scheduled run.
+ * maintainer's machine: its credentials expire before the next scheduled run,
+ * or its server starts empty for each run, so every recording would change.
+ * A `server` script, next to this one, starts the forge's server with
+ * `up --out <file>`, writing the variables the recordings need to that file,
+ * and removes it with `down`.
  */
-export const PLANS: Record<string, { reads: Recording[], writes: Recording[], local?: true }> = {
+export const PLANS: Record<string, { reads: Recording[], writes: Recording[], local?: true, server?: string }> = {
   'github': {
     reads: [{ label: 'github.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }, { label: 'app', args: ['--app'] }],
     writes: [{ label: 'writes', args: ['--writes'] }],
@@ -60,16 +68,30 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[], lo
     reads: [{ label: 'tangled.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }],
     writes: [{ label: 'writes', args: ['--writes'] }, { label: 'seed', args: ['--seed'] }],
   },
+  'gitbucket': { reads: [{ label: 'gitbucket', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }, { label: 'webhooks', args: ['--webhooks'] }], local: true, server: 'gitbucket-server.ts' },
+}
+
+/** Starts the server of `script` and returns the variables it wrote, with a function that removes the server. */
+function startServer(script: string): { env: Record<string, string>, stop: () => void } {
+  const path = fileURLToPath(new URL(`./${script}`, import.meta.url))
+  const directory = mkdtempSync(join(tmpdir(), 'forges-server-'))
+  try {
+    execFileSync(process.execPath, [path, 'up', '--out', join(directory, 'server.env')], { stdio: ['ignore', 'inherit', 'inherit'] })
+    return { env: parseEnv(readFileSync(join(directory, 'server.env'), 'utf8')) as Record<string, string>, stop: () => execFileSync(process.execPath, [path, 'down'], { stdio: 'inherit' }) }
+  }
+  finally {
+    rmSync(directory, { recursive: true, force: true })
+  }
 }
 
 /** Lines of the recorder's output that say what it wrote, kept and failed. */
 const OUTCOME = /^(?:FAILED|\d+ step\(s\)|Kept|Removed|Also|These|No |Saved|`|--| {2}\S)/
 
-function record(forge: string, recording: Recording, options: { envFile?: string, only: string[], deferSplice: boolean }): Promise<{ code: number, outcome: string[] }> {
+function record(forge: string, recording: Recording, options: { envFile?: string, env: Record<string, string>, only: string[], deferSplice: boolean }): Promise<{ code: number, outcome: string[] }> {
   const script = fileURLToPath(new URL('./record-fixtures.ts', import.meta.url))
   const deferred = options.deferSplice && recording.args.includes('--writes') ? ['--defer-splice'] : []
   const args = [options.envFile ? `--env-file=${options.envFile}` : '--env-file-if-exists=.env', script, forge, ...recording.args, ...deferred, ...options.only.flatMap(step => ['--only', step])]
-  const child = spawn(process.execPath, args, { env: { ...process.env, ...recording.env }, stdio: ['ignore', 'pipe', 'pipe'] })
+  const child = spawn(process.execPath, args, { env: { ...process.env, ...options.env, ...recording.env }, stdio: ['ignore', 'pipe', 'pipe'] })
   const outcome: string[] = []
   let pending = ''
   const collect = (chunk: Buffer, stream: NodeJS.WriteStream) => {
@@ -96,15 +118,22 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   }
   const summary: string[] = []
   let failed = false
-  for (const recording of PLANS[forge]![kind].filter(recording => !values.only.length || !recording.args.includes('--seed'))) {
-    const actions = process.env.GITHUB_ACTIONS === 'true'
-    console.info(actions ? `::group::${forge} ${recording.label}` : `Recording ${forge} ${recording.label}`)
-    const { code, outcome } = await record(forge, recording, { envFile: values['env-file'], only: values.only, deferSplice: values['defer-splice'] })
-    if (actions) {
-      console.info('::endgroup::')
+  const recordings = PLANS[forge]![kind].filter(recording => !values.only.length || !recording.args.includes('--seed'))
+  const server = recordings.length && PLANS[forge]!.server ? startServer(PLANS[forge]!.server!) : undefined
+  try {
+    for (const recording of recordings) {
+      const actions = process.env.GITHUB_ACTIONS === 'true'
+      console.info(actions ? `::group::${forge} ${recording.label}` : `Recording ${forge} ${recording.label}`)
+      const { code, outcome } = await record(forge, recording, { envFile: values['env-file'], env: server?.env ?? {}, only: values.only, deferSplice: values['defer-splice'] })
+      if (actions) {
+        console.info('::endgroup::')
+      }
+      failed ||= code !== 0
+      summary.push(`#### ${forge}: ${recording.label}${code ? ` (exit ${code})` : ''}`, '', '```text', ...outcome.map(line => line.replaceAll('`', '\'')), '```', '')
     }
-    failed ||= code !== 0
-    summary.push(`#### ${forge}: ${recording.label}${code ? ` (exit ${code})` : ''}`, '', '```text', ...outcome.map(line => line.replaceAll('`', '\'')), '```', '')
+  }
+  finally {
+    server?.stop()
   }
   if (values.summary) {
     writeFileSync(values.summary, `${summary.join('\n')}\n`)

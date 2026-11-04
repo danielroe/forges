@@ -136,6 +136,43 @@ function github({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
   }
 }
 
+/**
+ * GitBucket serves part of GitHub's API: it has no issue edits, so fixture
+ * issues stay open, and no permissions on a repository or roles in an
+ * organisation, so the credential must own the scratch repository or belong
+ * to the organisation that does.
+ */
+function gitbucket(options: HarnessOptions): WriteHarness {
+  const { baseUrl, authorization, scratch } = options
+  const call = client(baseUrl, authorization)
+  const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
+  return {
+    ...github({ ...options, transfer: undefined }),
+    async prepare() {
+      const [{ default_branch }, { login }] = await Promise.all([call<{ default_branch: string }>(repo), call<{ login: string }>('/user')])
+      const orgs = await call<Array<{ login: string }>>(`/users/${enc(login)}/orgs`)
+      if (login !== scratch.owner && !orgs.some(org => org.login === scratch.owner)) {
+        throw new Error('The author credential does not own the scratch repository')
+      }
+      return default_branch
+    },
+    async cleanUp(branches, label, hooks) {
+      const open = await call<Array<{ number: number, title: string }>>(`${repo}/pulls?state=open`).catch(() => [])
+      const releases = await call<Array<{ tag_name: string }>>(`${repo}/releases`).catch(() => [])
+      const tags = await call<Array<{ ref: string }>>(`${repo}/git/refs`).then(refs => refs.filter(item => item.ref.startsWith(`refs/tags/${FIXTURE_TAG}`)), () => [])
+      await settle([
+        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...branches.map(branch => () => call(`${repo}/git/refs/heads/${enc(branch)}`, { method: 'DELETE' })),
+        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
+        ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${enc(item.tag_name)}`, { method: 'DELETE' })),
+        ...tags.map(item => () => call(`${repo}/git/${item.ref.split('/').map(enc).join('/')}`, { method: 'DELETE' })),
+      ])
+    },
+    payloads: undefined,
+  }
+}
+
 function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
   const call = client(baseUrl, authorization)
   const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
@@ -670,6 +707,7 @@ const HARNESSES: Record<string, (options: HarnessOptions) => WriteHarness> = {
   'github': github,
   'forgejo': forgejo,
   'gitea': forgejo,
+  'gitbucket': gitbucket,
   'gitlab': gitlab,
   'bitbucket': bitbucket,
   'gitee': gitee,

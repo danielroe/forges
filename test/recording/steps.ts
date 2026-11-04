@@ -7,6 +7,8 @@ import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src
 export interface RecordingManifest {
   /** The provider's API base when recorded; absent for recordings of the default instance. */
   baseUrl?: string
+  /** The instance in refs, where the recording named it rather than taking the host of `baseUrl`. */
+  instance?: string
   /** The instance version, for a recording whose capabilities depend on it. */
   instanceVersion?: string
   /** Recorded without credentials, so replay creates the provider without them. */
@@ -419,7 +421,7 @@ export const STEPS: Step[] = [
     context.tree = result.items
     return result
   } },
-  { name: 'tree file', verb: 'contents.getFile', run: (provider, manifest, context) => provider.contents.getFile(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
+  { name: 'tree file', verb: 'contents.getFile', when: provider => provider.can('contents.tree'), run: (provider, manifest, context) => provider.contents.getFile(manifest.repo, need(context.tree?.find(entry => entry.type === 'file'), 'a file in the tree').path, { as: 'text' }) },
   { name: 'branches', verb: 'contents.branches', run: async (provider, manifest, context) => {
     const result = await provider.contents.branches(manifest.repo, page).page()
     context.branches = result.items

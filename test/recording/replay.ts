@@ -7,6 +7,7 @@ import { bitbucket } from '../../src/bitbucket/index.ts'
 import { cloudflareArtifacts } from '../../src/cloudflare-artifacts/index.ts'
 import { entire } from '../../src/entire/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
+import { gitbucket } from '../../src/gitbucket/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
@@ -28,6 +29,7 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
   { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
   { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, webhookSecret: manifest.webhookSecret, fetch }) },
   { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
+  { name: 'gitbucket', create: (fetch, manifest) => gitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl!, instance: manifest.instance, webhookSecret: manifest.webhookSecret, fetch }) },
   { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
   { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
   { name: 'cloudflare-artifacts', create: (fetch, manifest) => cloudflareArtifacts({ auth: token, accountId: manifest.repo.instance.split('.')[0]!, baseUrl: manifest.baseUrl, fetch }) },

@@ -1,3 +1,4 @@
+import type { AddressInfo } from 'node:net'
 import type { FetchLike } from '../src/fetch.ts'
 import type * as Forges from '../src/index.ts'
 import type { Fixture } from '../src/testing/index.ts'
@@ -6,13 +7,15 @@ import type { WriteContext, WriteManifest, WriteRun } from '../test/recording/wr
 import type { PendingSplice } from './partial-writes.ts'
 import type { StepRecording, StepRun } from './recording-store.ts'
 import type { HookDelivery, WriteHarness } from './write-harness.ts'
+import { Buffer } from 'node:buffer'
 import { randomBytes } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { createServer } from 'node:http'
 import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -27,10 +30,10 @@ import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
 const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false }, 'defer-splice': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN', 'entire': 'ENTIRE_TOKEN' }
+const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN', 'entire': 'ENTIRE_TOKEN', 'gitbucket': 'GITBUCKET_TOKEN' }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -493,6 +496,19 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         ...setupRepos('GITEA', slug => repoRef('gitea', provider.instance, slug)),
       } }
     }
+    case 'gitbucket': {
+      // The server listens on a local port, which a recording's directory and refs do not name.
+      const provider = gitbucket({ baseUrl: env.GITBUCKET_BASE_URL ?? 'http://127.0.0.1:8080', instance: 'gitbucket.test', auth: tokenAuth, fetch, timeout })
+      const slug = env.FIXTURE_GITBUCKET_REPO ?? 'forges/forges-fixtures'
+      return { provider, manifest: {
+        instance: provider.instance,
+        repo: repoRef('gitbucket', provider.instance, slug),
+        pull: ref('gitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_GITBUCKET_PULL ?? '2'),
+        issue: ref('gitbucket', provider.instance, slug, 'issue', env.FIXTURE_GITBUCKET_ISSUE ?? '1'),
+        feedUser: env.FIXTURE_GITBUCKET_FEED_USER,
+        ...setupRepos('GITBUCKET', slug => repoRef('gitbucket', provider.instance, slug)),
+      } }
+    }
     case 'pushin': {
       const provider = pushin({ baseUrl: env.PUSHIN_BASE_URL, auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_PUSHIN_REPO ?? 'pjullrich/pushin-cli'
@@ -642,9 +658,10 @@ async function recordWrites(): Promise<void> {
     await harness.createTag!(run.base, tag)
   }
 
-  const { baseUrl, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
+  const { baseUrl, instance, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
   const manifest: WriteManifest = {
     baseUrl,
+    instance,
     instanceVersion,
     account,
     pds,
@@ -774,6 +791,28 @@ async function relay(): Promise<DeliverySource> {
   }
 }
 
+/**
+ * A relay on this machine, for a forge server that runs here too and keeps no
+ * payloads: the hook points at `host`, the name the server reaches this machine by.
+ */
+async function localRelay(host: string): Promise<DeliverySource> {
+  const received: HookDelivery[] = []
+  const server = createServer((request, response) => {
+    const chunks: Buffer[] = []
+    request.on('data', (chunk: Buffer) => chunks.push(chunk))
+    request.on('end', () => {
+      received.push({ headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [name, Array.isArray(value) ? value.join(', ') : value ?? ''])), body: Buffer.concat(chunks).toString() })
+      response.end()
+    })
+  })
+  await new Promise<void>(resolve => server.listen(0, host === '127.0.0.1' ? host : '0.0.0.0', resolve))
+  return {
+    url: `http://${host}:${(server.address() as AddressInfo).port}/hook`,
+    deliveries: async () => [...received],
+    close: () => new Promise(resolve => server.close(() => resolve())),
+  }
+}
+
 /** Headers a delivery carries that name the event or the delivery; the rest are the relay's or the transport's. */
 const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-]+|content-type|user-agent|authorization)$/
 
@@ -781,15 +820,17 @@ const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-
  * Records webhook deliveries of the scratch repository: creates a hook, opens,
  * comments on, types and closes an issue and pushes a branch, then reads the deliveries back
  * from the forge's API or, where the forge keeps no payloads, from a relay the
- * hook points at. Each body is redacted and signed again with the dummy
+ * hook points at: on this machine where `FIXTURE_<FORGE>_RELAY_HOST` names it,
+ * or else on webhook.site. Each body is redacted and signed again with the dummy
  * secret, so a replay verifies it like a live delivery.
  */
 async function recordWebhooks(): Promise<void> {
-  const { botToken, scratch, harness } = scratchSetup('--webhooks')
-  const plain = targetFor({ token: botToken }, guardedFetch(live.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] })).provider
+  const { prefix, botToken, scratch, harness } = scratchSetup('--webhooks')
+  const { provider: plain, manifest: { instance } } = targetFor({ token: botToken }, guardedFetch(live.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] }))
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const base = await harness.prepare()
-  const relayed = forgeRecord(harness) ?? await relay()
+  const relayHost = env[`FIXTURE_${prefix}_RELAY_HOST`]
+  const relayed = forgeRecord(harness) ?? (relayHost ? await localRelay(relayHost) : await relay())
   const typed = plain.can('threads.setIssueType', 'issue') ? (await plain.repos.issueTypes(scratch))[0] : undefined
   const hook = await plain.webhooks.create(scratch, { url: relayed.url, events: ['comment', 'state_change', 'push', ...typed ? ['issue_type' as const] : []], secret: FIXTURE_HOOK_SECRET, contentType: 'json' })
   const branch = `forges-fixtures/${id}-webhooks`
@@ -805,7 +846,9 @@ async function recordWebhooks(): Promise<void> {
       await plain.threads.setIssueType(thread.ref, typed)
       await plain.threads.setIssueType(thread.ref, undefined)
     }
-    await plain.threads.close(thread.ref)
+    if (plain.can('threads.close', thread.ref.kind)) {
+      await plain.threads.close(thread.ref)
+    }
     // The push, open, comment and close above produce at least four deliveries; forges may send more, so stop once two polls in a row find nothing new.
     for (let attempt = 0, quiet = 0; attempt < 12 && quiet < 2; attempt++) {
       await new Promise(resolve => setTimeout(resolve, 5_000))
@@ -839,7 +882,7 @@ async function recordWebhooks(): Promise<void> {
     names.push(name)
     console.info(`recorded delivery ${name}`)
   }
-  const manifest = { baseUrl: plain.baseUrl, repo: scratch, scratch, webhookSecret: FIXTURE_HOOK_SECRET, recordedAt: new Date().toISOString(), steps: [], deliveries: names }
+  const manifest = { baseUrl: plain.baseUrl, instance, repo: scratch, scratch, webhookSecret: FIXTURE_HOOK_SECRET, recordedAt: new Date().toISOString(), steps: [], deliveries: names }
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 }
 
