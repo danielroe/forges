@@ -247,9 +247,11 @@ interface ReferenceRule {
 
 const rules = new WeakMap<ReferenceSyntax, ReferenceRule[]>()
 
-function repoIn(slug: string, origin: ForgeOrigin): RepoRef {
+function repoIn(slug: string, from: RepoRef, origin: ForgeOrigin): RepoRef {
   const at = slug.lastIndexOf('/')
-  return { ...origin, owner: slug.slice(0, at), name: slug.slice(at + 1) }
+  const owner = slug.slice(0, at)
+  const name = slug.slice(at + 1)
+  return name === from.name && (owner === from.owner || owner === from.ownerHandle) ? from : { ...origin, owner, name }
 }
 
 /** The spans of URLs in `text`, each from its scheme to the next whitespace. */
@@ -306,13 +308,13 @@ function rulesFor(syntax: ReferenceSyntax): ReferenceRule[] {
     const thread = `${prefix.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&')}(?<id>${number})${suffix}`
     rule(thread, ({ id }, from, origin) => ({ ...origin, repo: namespace ? namespaceRef(origin, from.owner) : from, kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
     if (syntax.repo && !local) {
-      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
+      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, from, origin) => ({ ...origin, repo: repoIn(slug!, from, origin), kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
     }
   }
   if (syntax.commits) {
     rule(`(?<sha>${SHA})`, ({ sha }, from, origin) => isBareSha(sha!) ? { ...origin, repo: from, sha: sha! } : undefined)
     if (syntax.repo) {
-      rule(`(?<slug>${syntax.repo})@(?<sha>${SHA})`, ({ slug, sha }, _, origin) => ({ ...origin, repo: repoIn(slug!, origin), sha: sha! }))
+      rule(`(?<slug>${syntax.repo})@(?<sha>${SHA})`, ({ slug, sha }, from, origin) => ({ ...origin, repo: repoIn(slug!, from, origin), sha: sha! }))
     }
   }
   rules.set(syntax, compiled)

@@ -138,6 +138,17 @@ describe('parseReferences', () => {
     }
   })
 
+  it('reads a qualified reference to the current repository back as that repository', () => {
+    const tg = tangled()
+    const from: RepoRef = { ...repoOn(tg, 'did:plc:abc', 'widgets'), ownerHandle: 'acme.dev' }
+    const ref = { forge: 'tangled', instance: 'tangled.org', repo: from, sha: '1234567890'.repeat(4) } as const
+    const text = tg.referenceFor(ref, { from })!
+
+    expect(text).toBe('acme.dev/widgets@1234567')
+    expect(tg.parseReferences(text, { from })[0]?.ref).toEqual({ forge: 'tangled', instance: 'tangled.org', repo: from, sha: '1234567' })
+    expect(tg.parseReferences('acme.dev/widgets#7', { from })[0]?.ref).toMatchObject({ repo: from })
+  })
+
   it.each([
     ['a word', 'issue#42'],
     ['a path', 'docs/guide/intro.md#42'],
