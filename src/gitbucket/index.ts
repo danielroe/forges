@@ -7,6 +7,7 @@ import { CAPABILITY_TABLE } from '../capability-table.ts'
 import { defineForgeProvider } from '../define.ts'
 import { UnsupportedOperationError } from '../errors.ts'
 import { githubDefinition } from '../github/definition.ts'
+import { labelWrites } from './labels.ts'
 import { commitsPage, threadsPage } from './lists.ts'
 import { GITBUCKET_WEB } from './web.ts'
 import { GITBUCKET_NATIVE_EVENTS, GITBUCKET_WEBHOOK_EVENTS } from './webhook-events.ts'
@@ -130,12 +131,15 @@ const NO_DISCUSSIONS: Record<string, RedeclaredSupport> = Object.fromEntries(CAP
 /** Swaps in the verbs that GitBucket needs done its own way. */
 function forGitBucket(spec: GitHubSpec, { fetcher, origin }: GitHubContext): GitHubSpec {
   const { threads, commits } = spec
-  const { merge, update } = threads
+  const { merge, update, addLabels, removeLabels } = threads
+  const labels = labelWrites(fetcher, origin)
   return {
     ...spec,
     threads: {
       ...threads,
       listPage: { ...threads.listPage, run: threadsPage(fetcher, origin) },
+      addLabels: addLabels && { ...addLabels, run: labels.addLabels },
+      removeLabels: removeLabels && { ...removeLabels, run: labels.removeLabels },
       // Labels or assignees send a pull request's update to the issue endpoint, which GitBucket lacks.
       update: update && { ...update, run: (ref, input, options) => input.labels || input.assignees
         ? Promise.reject(new UnsupportedOperationError('GitBucket edits a pull request\'s title, body and state only; set labels with `setLabels()`', origin))

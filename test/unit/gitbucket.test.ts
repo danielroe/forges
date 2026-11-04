@@ -11,17 +11,17 @@ const issue = { ...origin, repo, kind: 'issue', number: '1' } as const
 const pull = { ...origin, repo, kind: 'pull_request', number: '2' } as const
 const head = '4ddbfdaf459b39e50b1fe3e4ddb5157b57a4aca9'
 
-function provider(fixtures = 'gitbucket') {
-  const { fetch, calls } = fixtureFetch(fixtures)
+function provider(fixtures = 'gitbucket', options: { sequential?: boolean } = {}) {
+  const { fetch, calls } = fixtureFetch(fixtures, {}, options)
   return { forge: gitbucket({ baseUrl, auth: { type: 'token', token: 't' }, webhookSecret: 'tops3cret', fetch }), calls }
 }
 
-/** A GitBucket that answers every list with `count` issues and records the URLs it was asked for. */
-function issuesServer(count: number) {
+/** A GitBucket that answers every list with `count` threads like `fields`, and records the URLs it was asked for. */
+function issuesServer(count: number, fields: Record<string, unknown> = { state: 'open' }) {
   const urls: URL[] = []
   const fetch: FetchLike = async (url) => {
     urls.push(new URL(url))
-    return Response.json(Array.from({ length: count }, (_, index) => ({ number: index + 1, title: `Issue ${index + 1}`, state: 'open', created_at: '2026-10-31T17:45:27Z' })))
+    return Response.json(Array.from({ length: count }, (_, index) => ({ number: index + 1, title: `Issue ${index + 1}`, created_at: '2026-10-31T17:45:27Z', ...fields })))
   }
   return { forge: gitbucket({ baseUrl, fetch }), urls }
 }
@@ -162,6 +162,17 @@ describe('gitbucket', () => {
     expect(page.warnings?.map(warning => warning.code)).toEqual(['kind_unsupported', 'filter_unsupported'])
   })
 
+  it('lists merged pull requests when no kind is given, since only those merge', async () => {
+    const { forge, urls } = issuesServer(2, { state: 'closed', merged: true })
+
+    const page = await forge.threads.list(repo, { state: 'merged' }).page()
+
+    expect(urls[0]!.pathname).toBe('/api/v3/repos/root/widgets/pulls')
+    expect(urls[0]!.searchParams.get('state')).toBe('closed')
+    expect(page.items.map(thread => [thread.ref.kind, thread.state])).toEqual([['pull_request', 'merged'], ['pull_request', 'merged']])
+    expect(page.warnings).toBeUndefined()
+  })
+
   it('stops the commits at a full page, past which GitBucket skips some', async () => {
     const commits = Array.from({ length: 30 }, (_, index) => ({ sha: index.toString(16).padStart(40, '0'), commit: { message: `Commit ${index}` } }))
     const forge = gitbucket({ baseUrl, fetch: async () => Response.json(commits) })
@@ -181,9 +192,28 @@ describe('gitbucket', () => {
     expect(await forge.threads.updateComment(comment.ref, 'Thanks for the report, a fix is up.')).toMatchObject({ body: 'Thanks for the report, a fix is up.' })
     expect(await forge.threads.create(repo, { kind: 'issue', title: 'Typo in the README', body: 'It says widgte.' })).toMatchObject({ ref: { kind: 'issue' }, title: 'Typo in the README' })
     expect((await forge.threads.setLabels(issue, ['bug'])).map(label => label.name)).toEqual(['bug'])
-    expect((await forge.threads.addLabels(issue, ['needs-triage'])).map(label => label.name)).toContain('needs-triage')
-    expect((await forge.threads.removeLabels(issue, ['needs-triage'])).map(label => label.name)).not.toContain('needs-triage')
     expect(await forge.checks.report(repo, head, { name: 'lint', state: 'success', description: 'No problems', url: 'https://ci.example.com/builds/8' })).toMatchObject({ name: 'lint', state: 'success' })
+  })
+
+  it('reads the labels left on a thread after adding or removing some, since GitBucket answers with only those it touched', async () => {
+    const { forge, calls } = provider('gitbucket/writes', { sequential: true })
+
+    expect((await forge.threads.addLabels(issue, ['needs-triage'])).map(label => label.name)).toEqual(['bug', 'needs-triage'])
+    expect((await forge.threads.removeLabels(issue, ['needs-triage'])).map(label => label.name)).toEqual(['bug'])
+    expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
+      'POST /api/v3/repos/root/widgets/issues/1/labels',
+      'GET /api/v3/repos/root/widgets/issues/1/labels',
+      'DELETE /api/v3/repos/root/widgets/issues/1/labels/needs-triage',
+      'GET /api/v3/repos/root/widgets/issues/1/labels',
+    ])
+  })
+
+  it('skips a label the repository does not have when removing labels', async () => {
+    const forge = gitbucket({ baseUrl, auth: { type: 'token', token: 't' }, fetch: async (_url, init) => init?.method === 'DELETE'
+      ? Response.json({ message: 'Not Found' }, { status: 404 })
+      : Response.json([{ name: 'bug', color: 'fc2929' }]) })
+
+    expect((await forge.threads.removeLabels(issue, ['nope'])).map(label => label.name)).toEqual(['bug'])
   })
 
   it('subscribes a hook only to the events GitBucket sends', async () => {
