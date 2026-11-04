@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/comments/cmt_01m6ky5xwvfh2vby9yhyjf4xe1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "574",
+      "x-ratelimit-reset": "1793818154",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "cmt_01m6ky5xwvfh2vby9yhyjf4xe1",
+      "thread": {
+        "id": "cth_01m6ky5xwnebc8p8zhvdwkb8km",
+        "version": {
+          "number": "1",
+          "headSha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+          "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+        },
+        "path": "",
+        "side": "PULL_REQUEST_COMMENT_SIDE_UNSPECIFIED",
+        "startLine": 0,
+        "endLine": 0,
+        "createdAt": "2026-11-04T18:47:12.020Z",
+        "updatedAt": "2026-11-04T18:47:12.020Z"
+      },
+      "body": "An upserted comment from run 20261104184701.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "user": {
+          "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+          "email": "redacted@example.invalid"
+        }
+      },
+      "createdAt": "2026-11-04T18:47:12.027Z",
+      "updatedAt": "2026-11-04T18:47:12.026Z",
+      "reactions": []
+    }
+  }
+}

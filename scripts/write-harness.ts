@@ -490,6 +490,39 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
   }
 }
 
+/** Cursor Origin names a review thread by its id alone, outside the repository's path; the run only learns ids from the scratch repository. */
+function cursorOrigin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
+  const call = client(baseUrl, authorization)
+  const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
+  const ref = (branch: string) => `heads/${branch.split('/').map(enc).join('/')}`
+  return {
+    scope: [`${baseUrl}${repo}`],
+    allows: url => url.startsWith(`${baseUrl}/pulls/threads/`),
+    async prepare() {
+      return (await call<{ defaultBranch: string }>(repo)).defaultBranch
+    },
+    async createBranch(base, branch, path) {
+      const { object } = await call<{ object: { sha: string } }>(`${repo}/git/ref/${ref(base)}`)
+      await call(`${repo}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${branch}`, sha: object.sha } })
+      await call(`${repo}/git/commits:createFromFiles`, { method: 'POST', json: {
+        targetBranch: branch,
+        expectedHeadSha: object.sha,
+        message: `test: add ${path}`,
+        author: { name: 'forges fixtures', email: 'fixtures@forges.link' },
+        files: [{ path, content: fixtureContent(branch) }],
+      } })
+    },
+    async cleanUp(branches, label) {
+      const { pullRequests = [] } = await call<{ pullRequests?: Array<{ number: number, title: string }> }>(`${repo}/pulls?state=open&pageSize=100`).catch(() => ({ pullRequests: [] }))
+      await settle([
+        ...pullRequests.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...branches.map(branch => () => call(`${repo}/git/refs/${ref(branch)}`, { method: 'DELETE' })),
+        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+      ])
+    },
+  }
+}
+
 /**
  * Tangled writes are records in the signed-in account's own repository on its
  * PDS. A new record may only name the scratch repository, a record of that
@@ -714,6 +747,7 @@ const HARNESSES: Record<string, (options: HarnessOptions) => WriteHarness> = {
   'azure-devops': azureDevOps,
   'pushin': pushin,
   'entire': entire,
+  'cursor-origin': cursorOrigin,
 }
 
 /** The setup and teardown for `options.forge`, or `undefined` where write recordings are not supported. */

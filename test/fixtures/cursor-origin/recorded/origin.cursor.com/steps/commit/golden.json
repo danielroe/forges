@@ -1,0 +1,44 @@
+{
+  "ref": {
+    "forge": "cursor-origin",
+    "instance": "origin.cursor.com",
+    "repo": {
+      "forge": "cursor-origin",
+      "instance": "origin.cursor.com",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "sha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73"
+  },
+  "sha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+  "message": "test: add forges-fixtures/20261104184701-1.md",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "cc956befe8047311d4b75c434de1d29aceae4ae6"
+  ],
+  "stats": {
+    "additions": 1,
+    "deletions": 0,
+    "total": 1
+  },
+  "files": [
+    {
+      "path": "forges-fixtures/20261104184701-1.md",
+      "previousPath": "",
+      "status": "added",
+      "statusRaw": "added",
+      "additions": 1,
+      "deletions": 0,
+      "patch": "@@ -1,0 +1,1 @@\n+Added by the forges write recording on forges-fixtures/20261104184701-1.\n"
+    }
+  ]
+}

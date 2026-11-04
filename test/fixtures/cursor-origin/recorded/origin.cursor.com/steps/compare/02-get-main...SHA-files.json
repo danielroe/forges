@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/compare/main...8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73/files?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73-8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73-50-\"",
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "516",
+      "x-ratelimit-reset": "1793818199",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "files": [],
+      "nextPageToken": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/git/matching-refs?ref=tags%2F"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "593",
+      "x-ratelimit-reset": "1793818158",
+      "x-ratelimit-resource": "core"
+    },
+    "body": []
+  }
+}

@@ -7,7 +7,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { createFetcher as createFetcherBase } from '../fetch.ts'
-import { forgeIterable, getManyConcurrently, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
+import { forgeIterable, getManyConcurrently, hexColour, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
 import { createOriginAppCredentials } from './auth.ts'
 import { FORGE, isConversationComment, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toLabel, toRepo, toReview, toReviewEvent, toTag, toThread, toTreeEntry } from './normalise.ts'
 import { cursorOriginWebhooks } from './webhooks.ts'
@@ -157,7 +157,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   /** A user token has no single repository listing, so each namespace the user belongs to is listed in turn. */
   async function userReposPage(listOptions: PageOptions = {}): Promise<Page<Repo>> {
-    const namespaces = await all<{ slug: string }>('/namespaces', 'namespaces', listOptions)
+    const namespaces = (await all<{ namespace: { slug: string } }>('/namespaces', 'namespaces', listOptions)).map(item => item.namespace)
     if (!namespaces.length) {
       return { items: [] }
     }
@@ -207,10 +207,10 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   const spec: ProviderSpec = {
     checks: {
-      list: verb('unverified', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
+      list: verb('experimental', async (repo, sha, options) => ({ items: await headChecks(repo, sha, options?.signal) })),
     },
     contents: {
-      getFile: verb('unverified', async (repo, path, fileOptions = {}) => {
+      getFile: verb('experimental', async (repo, path, fileOptions = {}) => {
         const { data } = await fetcher.json<OriginContent>(`${repoPath(repo)}/contents`, {
           query: { path, ref: fileOptions.ref },
           signal: fileOptions.signal,
@@ -222,7 +222,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           : '')
         return toFileContent(fromBase64(content), file, fileOptions, context)
       }),
-      treePage: verb('unverified', async (repo, treeOptions = {}) => {
+      treePage: verb('experimental', async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data, response } = await fetcher.json<OriginTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
           query: { recursive: treeOptions.recursive ? 'true' : undefined },
@@ -236,16 +236,16 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
           ...data.truncated ? { warnings: [{ code: 'tree_truncated' as const, message: 'Origin truncated the tree; read subtrees non-recursively instead', subject: ref }] } : {},
         }
       }),
-      branchesPage: verb('unverified', async (repo, listOptions = {}) => {
+      branchesPage: verb('experimental', async (repo, listOptions = {}) => {
         const page = await tokenPage<OriginBranch>(`${repoPath(repo)}/branches`, 'branches', listOptions)
         return { ...page, items: page.items.map(toBranch) }
       }),
-      tagsPage: verb('unverified', async (repo, listOptions = {}) => {
+      tagsPage: verb('experimental', async (repo, listOptions = {}) => {
         const { data, response } = await fetcher.json<OriginGitRef[]>(`${repoPath(repo)}/git/matching-refs`, { query: { ref: 'tags/' }, signal: listOptions.signal })
         return { items: (data ?? []).map(toTag), ...rateLimitPart(response) }
       }),
-      resolveRef: verb('unverified', async (repo, ref, options) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      compare: verb('unverified', async (repo, base, head, options) => {
+      resolveRef: verb('experimental', async (repo, ref, options) => (await fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
+      compare: verb('experimental', async (repo, base, head, options) => {
         const basehead = encodeURIComponent(`${base}...${head}`)
         const [comparison, files] = await Promise.all([
           fetcher.json<OriginComparison>(`${repoPath(repo)}/compare/${basehead}`, { signal: options?.signal }),
@@ -264,14 +264,14 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       }),
     },
     commits: {
-      listPage: verb('unverified', async (repo, query = {}) => {
+      listPage: verb('experimental', async (repo, query = {}) => {
         const page = await tokenPage<OriginCommit>(`${repoPath(repo)}/commits`, 'commits', {
           ...query,
           query: { sha: query.ref, authorEmails: query.author, since: query.since?.toISOString() },
         })
         return { ...page, items: page.items.map(raw => toCommit(repo, raw)) }
       }),
-      get: verb('unverified', async ({ repo, sha }, options) => {
+      get: verb('experimental', async ({ repo, sha }, options) => {
         const [commit, files] = await Promise.all([
           fetcher.json<OriginCommit>(`${repoPath(repo)}/commits/${sha}`, { signal: options?.signal }),
           all<OriginCommitFile>(`${repoPath(repo)}/commits/${sha}/files`, 'files', options),
@@ -308,7 +308,12 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     ],
     repos: {
       get: verb('experimental', async (ref, options) => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref), { signal: options?.signal })).data)),
-      listPage: verb('unverified', (listOptions = {}) => auth?.type === 'app' ? reposPage(listOptions) : userReposPage(listOptions)),
+      listPage: verb('experimental', (listOptions = {}) => auth?.type === 'app' ? reposPage(listOptions) : userReposPage(listOptions)),
+      createLabel: verb('experimental', async (repo, label, options) => toLabel((await fetcher.json<OriginLabel>(`${repoPath(repo)}/labels`, {
+        method: 'POST',
+        json: { name: label.name, color: hexColour(label.colour), description: label.description },
+        signal: options?.signal,
+      })).data)),
     },
     installations: credentials && appItself ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
@@ -316,11 +321,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
       getMany: verb('experimental', (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind(PULL, listPage),
       eventsPage: verb('experimental', eventsPage),
-      filesPage: verb('unverified', async (thread, listOptions = {}) => {
+      filesPage: verb('experimental', async (thread, listOptions = {}) => {
         const page = await tokenPage<OriginCommitFile>(`${pullPath(requireThread(thread, context))}/files`, 'files', listOptions)
         return { ...page, items: page.items.map(toChangedFile) }
       }),
-      commitsPage: verb('unverified', async (thread, listOptions = {}) => {
+      commitsPage: verb('experimental', async (thread, listOptions = {}) => {
         const page = await tokenPage<OriginCommit>(`${pullPath(requireThread(thread, context))}/commits`, 'commits', listOptions)
         return { ...page, items: page.items.map(raw => toCommit(thread.repo, raw)) }
       }),
@@ -333,14 +338,14 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         return toComment(ref, (await fetcher.json<OriginComment>(`${pullPath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })).data)
       }),
-      updateComment: perKind(UNVERIFIED, async (ref, body, options) => {
+      updateComment: perKind(PULL, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
         return toComment(thread, (await fetcher.json<OriginComment>(`${repoPath(thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })).data)
       }),
-      deleteComment: perKind(UNVERIFIED, async (ref, options) => {
+      deleteComment: perKind(PULL, async (ref, options) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/pulls/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
-      create: perKind(UNVERIFIED, async (repo, input, options) => {
+      create: perKind(PULL, async (repo, input, options) => {
         if (input.assignees?.length) {
           throw new UnsupportedOperationError('Cursor Origin pull requests have no assignees', context)
         }
@@ -359,7 +364,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         return toThread(ref, data)
       }),
       /** Labels have their own endpoint, so they are set before the edit, whose response includes them. */
-      update: perKind(UNVERIFIED, async (thread, input, options) => {
+      update: perKind(PULL, async (thread, input, options) => {
         const ref = requireThread(thread, context)
         if (input.assignees) {
           throw new UnsupportedOperationError('Cursor Origin pull requests have no assignees', context)
@@ -379,12 +384,12 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const ref = requireThread(thread, context)
         return toThread(ref, (await fetcher.json<OriginPullRequest>(pullPath(ref), { method: 'PATCH', json: { state: 'open' }, signal: options?.signal })).data)
       }),
-      setLabels: perKind(UNVERIFIED, async (thread, labels, options) => {
+      setLabels: perKind(PULL, async (thread, labels, options) => {
         const { data } = await fetcher.json<OriginLabel[] | { labels?: OriginLabel[] } | undefined>(`${pullPath(requireThread(thread, context))}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })
         const written = Array.isArray(data) ? data : data?.labels
         return written ? written.map(toLabel) : labels.map(name => ({ name }))
       }),
-      requestReview: perKind(UNVERIFIED, async (thread, reviewers, options) => {
+      requestReview: perKind(PULL, async (thread, reviewers, options) => {
         const users = reviewers.map(reviewer => typeof reviewer === 'string' ? reviewer : reviewer.id)
         await fetcher.raw(`${pullPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { users }, signal: options?.signal })
       }),
@@ -415,11 +420,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const page = await tokenPage<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews', listOptions)
         return { ...page, items: page.items.map(raw => toReview(ref, raw)) }
       }),
-      getReview: verb('unverified', async (ref, options) => {
-        const thread = requireThread(ref.thread, context)
-        return toReview(thread, (await fetcher.json<OriginReview>(`${pullPath(thread)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
-      }),
-      createReview: verb('unverified', createReview),
+      createReview: verb('experimental', createReview),
       reviewThreads: verb('unverified', {
         resolveReviewThread: (_thread, id, options) => setThreadResolved(id, true, options),
         unresolveReviewThread: (_thread, id, options) => setThreadResolved(id, false, options),

@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/4/requested_reviewers",
+    "body": {
+      "users": [
+        "user_vKoeEFMCkkeaQb3jlXz8FoRSv1"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "493",
+      "x-ratelimit-reset": "1793818095",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "users": [
+        {
+          "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+          "email": "redacted@example.invalid",
+          "displayName": "Daniel Roe"
+        }
+      ],
+      "groups": [],
+      "reviewers": [
+        {
+          "user": {
+            "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+            "email": "redacted@example.invalid",
+            "displayName": "Daniel Roe"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/namespaces?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "545",
+      "x-ratelimit-reset": "1793818196",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "namespaces": [
+        {
+          "namespace": {
+            "slug": "forges",
+            "id": "ns_01m6kw73g9fesagqtrc74jt0p9",
+            "type": "team"
+          },
+          "viewerCanCreateRepositories": true
+        }
+      ],
+      "nextPageToken": ""
+    }
+  }
+}

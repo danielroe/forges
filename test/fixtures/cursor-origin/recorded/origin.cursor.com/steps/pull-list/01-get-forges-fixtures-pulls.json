@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls?state=open&sortBy=created&direction=desc&pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "580",
+      "x-ratelimit-reset": "1793818152",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "pullRequests": [],
+      "nextPageToken": ""
+    }
+  }
+}

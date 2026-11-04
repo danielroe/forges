@@ -1,0 +1,144 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/commits?sha=main&pageSize=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "514",
+      "x-ratelimit-reset": "1793818200",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "commits": [
+        {
+          "sha": "d5ef6037af1a766169c4876b8b6493fb26818414",
+          "commit": {
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:48:45+00:00"
+            },
+            "committer": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:48:45+00:00"
+            },
+            "message": "docs: add docs/writes.md",
+            "tree": {
+              "sha": "c3764e451acc9f060a37da32331f6aca60b87b2b"
+            }
+          },
+          "parents": [
+            {
+              "sha": "2a47850644f1c60992ff88689daa79c267ca921a"
+            }
+          ],
+          "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/d5ef6037af1a766169c4876b8b6493fb26818414"
+        },
+        {
+          "sha": "2a47850644f1c60992ff88689daa79c267ca921a",
+          "commit": {
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:48:45+00:00"
+            },
+            "committer": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:48:45+00:00"
+            },
+            "message": "docs: add docs/fixtures.md",
+            "tree": {
+              "sha": "b1d89ecfd8bb94a86d69df014b186e190b23404b"
+            }
+          },
+          "parents": [
+            {
+              "sha": "6789d64dbd8cead9b88d8d51987df7c491065cc9"
+            }
+          ],
+          "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/2a47850644f1c60992ff88689daa79c267ca921a"
+        },
+        {
+          "sha": "6789d64dbd8cead9b88d8d51987df7c491065cc9",
+          "commit": {
+            "author": {
+              "name": "user-528942664",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:47:20+00:00"
+            },
+            "committer": {
+              "name": "user-528942664",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:47:20+00:00"
+            },
+            "message": "forges fixture 20261104184701: pull, edited (#4)\n\nEdited by run 20261104184701.",
+            "tree": {
+              "sha": "f2d472dc9f18e73482c6f59bcdf0148ebe6f9ae8"
+            }
+          },
+          "parents": [
+            {
+              "sha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+            },
+            {
+              "sha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73"
+            }
+          ],
+          "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/6789d64dbd8cead9b88d8d51987df7c491065cc9"
+        },
+        {
+          "sha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+          "commit": {
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:47:03+00:00"
+            },
+            "committer": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:47:03+00:00"
+            },
+            "message": "test: add forges-fixtures/20261104184701-1.md",
+            "tree": {
+              "sha": "f2d472dc9f18e73482c6f59bcdf0148ebe6f9ae8"
+            }
+          },
+          "parents": [
+            {
+              "sha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+            }
+          ],
+          "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73"
+        },
+        {
+          "sha": "cc956befe8047311d4b75c434de1d29aceae4ae6",
+          "commit": {
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:41:17+00:00"
+            },
+            "committer": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-04T18:41:17+00:00"
+            },
+            "message": "chore: initial commit\n",
+            "tree": {
+              "sha": "501e46fe684aec2a69f17cb5c2af68501a4621c6"
+            }
+          },
+          "parents": [],
+          "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/cc956befe8047311d4b75c434de1d29aceae4ae6"
+        }
+      ],
+      "nextPageToken": ""
+    }
+  }
+}

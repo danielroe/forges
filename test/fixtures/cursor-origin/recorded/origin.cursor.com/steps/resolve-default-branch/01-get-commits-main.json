@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"d5ef6037af1a766169c4876b8b6493fb26818414\"",
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "532",
+      "x-ratelimit-reset": "1793818198",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "sha": "d5ef6037af1a766169c4876b8b6493fb26818414",
+      "commit": {
+        "author": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-11-04T18:48:45+00:00"
+        },
+        "committer": {
+          "name": "forges fixtures",
+          "email": "redacted@example.invalid",
+          "date": "2026-11-04T18:48:45+00:00"
+        },
+        "message": "docs: add docs/writes.md",
+        "tree": {
+          "sha": "c3764e451acc9f060a37da32331f6aca60b87b2b"
+        }
+      },
+      "parents": [
+        {
+          "sha": "2a47850644f1c60992ff88689daa79c267ca921a"
+        }
+      ],
+      "stats": {
+        "additions": 3,
+        "deletions": 0,
+        "total": 3
+      },
+      "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/commit/d5ef6037af1a766169c4876b8b6493fb26818414"
+    }
+  }
+}

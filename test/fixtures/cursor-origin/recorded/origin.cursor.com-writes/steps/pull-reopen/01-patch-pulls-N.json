@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/6",
+    "body": {
+      "state": "open"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "470",
+      "x-ratelimit-reset": "1793818102",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "pr_01m6ky5tvmff5txv1gem6hydr6",
+      "number": "6",
+      "state": "open",
+      "draft": false,
+      "merged": false,
+      "title": "forges fixture 20261104184701: pull 3",
+      "body": "Opened by run 20261104184701.",
+      "head": {
+        "ref": "forges-fixtures/20261104184701-3",
+        "sha": "610ba512f8bc3081b99ed3f41492a675c6dfbed9"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+      },
+      "author": {
+        "user": {
+          "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+          "email": "redacted@example.invalid"
+        }
+      },
+      "createdAt": "2026-11-04T18:47:08.914Z",
+      "updatedAt": "2026-11-04T18:47:22.420Z",
+      "mergeCommitSha": "",
+      "additions": 1,
+      "deletions": 0,
+      "changedFiles": 1,
+      "labels": [],
+      "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/pull/6",
+      "version": {
+        "number": "1",
+        "headSha": "610ba512f8bc3081b99ed3f41492a675c6dfbed9",
+        "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6",
+        "createdAt": "2026-11-04T18:47:08.928Z",
+        "potentialMergeCommit": {
+          "state": "prepared",
+          "sha": "f51d4f7b2433cf6c2ac767b9fa957ab2c4412a0b",
+          "baseSha": "6789d64dbd8cead9b88d8d51987df7c491065cc9"
+        }
+      }
+    }
+  }
+}

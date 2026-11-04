@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/commits/8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73/check-runs?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "599",
+      "x-ratelimit-reset": "1793818157",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "checkRuns": [],
+      "nextPageToken": ""
+    }
+  }
+}

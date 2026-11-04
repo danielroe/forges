@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/4/comments",
+    "body": {
+      "body": "An upserted comment from run 20261104184701.\n\n<!-- forges:key=forges-fixture -->"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "513",
+      "x-ratelimit-reset": "1793818091",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "cmt_01m6ky5xwvfh2vby9yhyjf4xe1",
+      "thread": {
+        "id": "cth_01m6ky5xwnebc8p8zhvdwkb8km",
+        "path": "",
+        "side": "PULL_REQUEST_COMMENT_SIDE_UNSPECIFIED",
+        "startLine": 0,
+        "endLine": 0,
+        "createdAt": "2026-11-04T18:47:12.027Z",
+        "updatedAt": "2026-11-04T18:47:12.027Z"
+      },
+      "body": "An upserted comment from run 20261104184701.\n\n<!-- forges:key=forges-fixture -->",
+      "author": {
+        "user": {
+          "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+          "email": "redacted@example.invalid"
+        }
+      },
+      "createdAt": "2026-11-04T18:47:12.027Z",
+      "updatedAt": "2026-11-04T18:47:12.026Z",
+      "reactions": []
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/commits/8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73/files?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73-50-\"",
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "577",
+      "x-ratelimit-reset": "1793818159",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "files": [
+        {
+          "filename": "forges-fixtures/20261104184701-1.md",
+          "status": "added",
+          "additions": 1,
+          "deletions": 0,
+          "changes": 1,
+          "patch": "@@ -1,0 +1,1 @@\n+Added by the forges write recording on forges-fixtures/20261104184701-1.\n",
+          "previousFilename": ""
+        }
+      ],
+      "nextPageToken": ""
+    }
+  }
+}

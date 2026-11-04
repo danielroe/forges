@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/contents?path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"4e0c8ab40e632bdfdae3cdf7641c0c8c47d52320\"",
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "595",
+      "x-ratelimit-reset": "1793818158",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "type": "file",
+      "encoding": "base64",
+      "size": "99",
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "4e0c8ab40e632bdfdae3cdf7641c0c8c47d52320",
+      "content": "IyBmb3JnZXMtZml4dHVyZXMKCkEgcmVwb3NpdG9yeSBmb3IgdGhlIEN1cnNvciBPcmlnaW4gcmVjb3JkaW5ncyBvZiBbZm9yZ2VzXShodHRwczovL2Zvcmdlcy5saW5rKS4K",
+      "entries": []
+    }
+  }
+}

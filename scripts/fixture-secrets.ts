@@ -7,7 +7,7 @@
  * `mask` prints a GitHub Actions `add-mask` command for each credential in
  * the env file, and for the forms a request sends it in. `scan` exits with 1,
  * naming the file and the variable, when a file under any path holds one.
- * Variables whose name includes `TOKEN`, `PASSWORD`, `SECRET` or
+ * Variables whose name includes `TOKEN`, `PASSWORD`, `SECRET`, `API_KEY` or
  * `PRIVATE_KEY` are credentials; repositories, accounts and ids are not.
  */
 import { Buffer } from 'node:buffer'
@@ -16,7 +16,7 @@ import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseEnv } from 'node:util'
 
-const CREDENTIAL = /TOKEN|PASSWORD|SECRET|PRIVATE_KEY/
+const CREDENTIAL = /TOKEN|PASSWORD|SECRET|API_KEY|PRIVATE_KEY/
 const ACCOUNT = /(?:USERNAME|IDENTIFIER)$/
 
 function base64(text: string): string {

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/labels",
+    "body": {
+      "name": "forges-fixture-20261104184701",
+      "color": "0e8a16",
+      "description": "Created by run 20261104184701"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "545",
+      "x-ratelimit-reset": "1793818085",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "lbl_01m6ky5qvgesdtjh6mc2dej5jy",
+      "name": "forges-fixture-20261104184701",
+      "color": "0e8a16",
+      "description": "Created by run 20261104184701"
+    }
+  }
+}

@@ -62,6 +62,33 @@ function githubApp(): Forges.AppAuth & { installationId: string } {
   return { type: 'app', appId: env.GITHUB_APP_ID, privateKey, installationId: env.GITHUB_APP_INSTALLATION_ID }
 }
 
+/** Where the Origin CLI exchanges a personal Cursor API key for the short-lived user access token that Origin accepts. */
+const CURSOR_API_KEY_EXCHANGE = 'https://api2.cursor.sh/auth/exchange_user_api_key'
+
+/** Sets `CURSOR_AUTH_TOKEN` and `CURSOR_AUTH_BOT_TOKEN`, where unset, by exchanging `CURSOR_API_KEY` and `CURSOR_BOT_API_KEY`. */
+async function exchangeCursorApiKeys(): Promise<void> {
+  for (const [variable, key] of [['CURSOR_AUTH_TOKEN', 'CURSOR_API_KEY'], ['CURSOR_AUTH_BOT_TOKEN', 'CURSOR_BOT_API_KEY']] as const) {
+    const apiKey = env[key]
+    if (env[variable] || !apiKey) {
+      continue
+    }
+    const response = await fetch(CURSOR_API_KEY_EXCHANGE, { method: 'POST', headers: { 'authorization': `Bearer ${apiKey}`, 'content-type': 'application/json' }, body: '{}', signal: AbortSignal.timeout(30_000) })
+    const { accessToken } = (response.ok ? await response.json() : {}) as { accessToken?: string }
+    if (!accessToken) {
+      console.error(`Exchanging ${key} for a user access token failed with ${response.status}.`)
+      exit(1)
+    }
+    if (env.GITHUB_ACTIONS === 'true') {
+      console.info(`::add-mask::${accessToken}`)
+    }
+    env[variable] = accessToken
+  }
+}
+
+if (target === 'cursor-origin' && !flags.anonymous) {
+  await exchangeCursorApiKeys()
+}
+
 const bitbucketBasic = !flags.anonymous && target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
 const codeForgejo = target === 'forgejo' && env.CODEBERG_BASE_URL?.startsWith('https://code.forgejo.org')
 const token = flags.anonymous || app ? undefined : (codeForgejo && env.CODE_FORGEJO_TOKEN) || env[TOKEN_VARIABLES[target] ?? '']
@@ -459,10 +486,10 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
     }
     case 'cursor-origin': {
       const provider = cursorOrigin({ auth: tokenAuth!, fetch, timeout })
-      const slug = env.FIXTURE_CURSOR_ORIGIN_REPO ?? ''
+      const slug = env.FIXTURE_CURSOR_ORIGIN_REPO ?? 'forges/forges-fixtures'
       return { provider, manifest: {
         repo: repoRef('cursor-origin', provider.instance, slug),
-        pull: ref('cursor-origin', provider.instance, slug, 'pull_request', env.FIXTURE_CURSOR_ORIGIN_PULL ?? '1'),
+        pull: ref('cursor-origin', provider.instance, slug, 'pull_request', env.FIXTURE_CURSOR_ORIGIN_PULL ?? '4'),
         ...setupRepos('CURSOR_ORIGIN', slug => repoRef('cursor-origin', provider.instance, slug)),
       } }
     }
@@ -577,6 +604,7 @@ function authorizationFor(token: string): string {
     case 'bitbucket':
     case 'sourcehut':
     case 'entire':
+    case 'cursor-origin':
       return `Bearer ${token}`
     case 'azure-devops':
       return `Basic ${btoa(`:${token}`)}`

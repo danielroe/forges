@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "569",
+      "x-ratelimit-reset": "1793818191",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "r_01m6kw7zaefb292tc9pq7t4ss8",
+      "name": "forges-fixtures",
+      "fullName": "forges/forges-fixtures",
+      "defaultBranch": "main",
+      "createdAt": "2026-11-04T18:13:21.979Z",
+      "updatedAt": "2026-11-04T18:48:46.489Z",
+      "pushedAt": "2026-11-04T18:48:46.032Z",
+      "owner": {
+        "slug": "forges",
+        "id": "ns_01m6kw73g9fesagqtrc74jt0p9",
+        "type": "team"
+      },
+      "cloneUrl": "https://origin.cursor.com/forges/forges-fixtures.git",
+      "visibility": "internal",
+      "allowMergeCommit": true,
+      "allowSquashMerge": true,
+      "deleteBranchOnMerge": false,
+      "webUrl": "https://cursor.com/codebase/forges/forges-fixtures"
+    }
+  }
+}

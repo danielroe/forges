@@ -1,0 +1,183 @@
+{
+  "items": [
+    {
+      "forge": "cursor-origin",
+      "instance": "origin.cursor.com",
+      "id": "cmt_01m6ky5xwvfh2vby9yhyjf4xe1",
+      "kind": "comment",
+      "kindRaw": "pull_request.comment",
+      "summary": "redacted@example.invalid commented",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "login": "redacted@example.invalid",
+        "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "thread": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "4"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "thread": {
+            "forge": "cursor-origin",
+            "instance": "origin.cursor.com",
+            "repo": {
+              "forge": "cursor-origin",
+              "instance": "origin.cursor.com",
+              "owner": "forges",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "4"
+          },
+          "id": "cmt_01m6ky5xwvfh2vby9yhyjf4xe1"
+        },
+        "body": "An upserted comment from run 20261104184701.\n\n<!-- forges:key=forges-fixture -->"
+      },
+      "source": "poll",
+      "action": "created"
+    },
+    {
+      "forge": "cursor-origin",
+      "instance": "origin.cursor.com",
+      "id": "rev_01m6ky63qjf5kvfsb7a86vx3t1",
+      "kind": "review",
+      "kindRaw": "pull_request.review.comment",
+      "summary": "redacted@example.invalid reviewed (commented)",
+      "detail": {
+        "type": "review",
+        "state": "commented",
+        "stateRaw": "comment",
+        "body": "A review comment from run 20261104184701.",
+        "review": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "thread": {
+            "forge": "cursor-origin",
+            "instance": "origin.cursor.com",
+            "repo": {
+              "forge": "cursor-origin",
+              "instance": "origin.cursor.com",
+              "owner": "forges",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "4"
+          },
+          "id": "rev_01m6ky63qjf5kvfsb7a86vx3t1"
+        }
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "login": "redacted@example.invalid",
+        "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+        "name": "Daniel Roe",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "thread": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "4"
+      },
+      "source": "poll",
+      "action": "submitted"
+    },
+    {
+      "forge": "cursor-origin",
+      "instance": "origin.cursor.com",
+      "id": "rev_01m6ky64zpfhca16tmxwwrzn4m",
+      "kind": "review",
+      "kindRaw": "pull_request.review.approve",
+      "summary": "redacted@example.invalid reviewed (approved)",
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve",
+        "review": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "thread": {
+            "forge": "cursor-origin",
+            "instance": "origin.cursor.com",
+            "repo": {
+              "forge": "cursor-origin",
+              "instance": "origin.cursor.com",
+              "owner": "forges",
+              "name": "forges-fixtures"
+            },
+            "kind": "pull_request",
+            "number": "4"
+          },
+          "id": "rev_01m6ky64zpfhca16tmxwwrzn4m"
+        }
+      },
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "login": "redacted@example.invalid",
+        "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+        "name": "Daniel Roe",
+        "typeRaw": "user",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "thread": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "4"
+      },
+      "source": "poll",
+      "action": "submitted"
+    }
+  ]
+}
