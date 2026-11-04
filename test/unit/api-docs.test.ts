@@ -36,9 +36,45 @@ const OPTIONS: PagesOptions = {
   directory: 'reference',
   main: 'pkg',
   pages: [
-    { slug: 'functions', title: 'Functions', description: 'Functions.', sections: [{ names: [/^(?:greet|shout|ANSWER|pick|Counter)$/] }] },
-    { slug: 'types', title: 'Types', description: 'Types.', sections: [{ title: 'Options', names: ['GreetOptions', 'Base', 'Mood', 'Settings', 'Client'] }, { title: 'Errors', source: /entry/ }] },
-    { slug: 'things', title: 'Things', description: 'Things.', sections: [{ namespaces: ['things'] }, { title: 'Unsupported', intro: 'Intro only.' }] },
+    {
+      slug: 'functions',
+      title: 'Functions',
+      description: 'Functions.',
+      sections: [
+        {
+          names: [/^(?:greet|shout|ANSWER|pick|Counter)$/],
+        },
+      ],
+    },
+    {
+      slug: 'types',
+      title: 'Types',
+      description: 'Types.',
+      sections: [
+        {
+          title: 'Options',
+          names: [
+            'GreetOptions',
+            'Base',
+            'Mood',
+            'Settings',
+            'Client',
+          ],
+        },
+        { title: 'Errors', source: /entry/ },
+      ],
+    },
+    {
+      slug: 'things',
+      title: 'Things',
+      description: 'Things.',
+      sections: [
+        {
+          namespaces: ['things'],
+        },
+        { title: 'Unsupported', intro: 'Intro only.' },
+      ],
+    },
   ],
   hiddenMembers: (symbol, member) => symbol.name === 'Settings' && /^raw$|Raw$/.test(member.name),
   capability: () => undefined,
@@ -144,9 +180,21 @@ export interface ForgeProvider {
 
 function sample() {
   const directory = temporary()
-  writeFileSync(join(directory, 'tsconfig.json'), JSON.stringify({ compilerOptions: { target: 'es2022', module: 'nodenext', strict: true, allowImportingTsExtensions: true, types: [] } }))
+  writeFileSync(join(directory, 'tsconfig.json'), JSON.stringify({
+    compilerOptions: {
+      target: 'es2022',
+      module: 'nodenext',
+      strict: true,
+      allowImportingTsExtensions: true,
+      types: [],
+    },
+  }))
   writeFileSync(join(directory, 'entry.ts'), SAMPLE)
-  return extractApi({ root: directory, entries: { pkg: 'entry.ts' }, tsconfig: 'tsconfig.json' })
+  return extractApi({
+    root: directory,
+    entries: { pkg: 'entry.ts' },
+    tsconfig: 'tsconfig.json',
+  })
 }
 
 describe('extractApi', () => {
@@ -159,7 +207,12 @@ describe('extractApi', () => {
     expect(greet.kind).toBe('function')
     expect(greet.description).toBe('Says hello.')
     expect(greet.examples).toEqual(['greet(\'Ada\')'])
-    expect(signature!.params.map(param => [param.name, param.type, param.optional, param.rest])).toEqual([
+    expect(signature!.params.map(param => [
+      param.name,
+      param.type,
+      param.optional,
+      param.rest,
+    ])).toEqual([
       ['name', 'string', false, false],
       ['options', 'GreetOptions', true, false],
       ['rest', 'string[]', false, true],
@@ -177,9 +230,15 @@ describe('extractApi', () => {
 
   it('reads constants, unions and classes', () => {
     expect(symbols.get('ANSWER')).toMatchObject({ kind: 'variable', type: '42' })
-    expect(symbols.get('Mood')).toMatchObject({ kind: 'type', variants: ['\'happy\'', '\'sad\''] })
+    expect(symbols.get('Mood')).toMatchObject({
+      kind: 'type',
+      variants: ['\'happy\'', '\'sad\''],
+    })
     const error = symbols.get('SampleError')!
-    expect(error).toMatchObject({ kind: 'class', extends: ['Error'] })
+    expect(error).toMatchObject({
+      kind: 'class',
+      extends: ['Error'],
+    })
     expect(error.constructors[0]!.params.map(param => param.name)).toEqual(['message', 'code'])
     expect(error.members.map(member => member.name)).toEqual(['code'])
   })
@@ -196,7 +255,19 @@ describe('extractApi', () => {
   })
 
   it('reads a getter as a read-only property', () => {
-    expect(symbols.get('Counter')!.members.map(member => [member.name, member.kind, member.readonly, member.description])).toEqual([['count', 'property', true, 'The count so far.']])
+    expect(symbols.get('Counter')!.members.map(member => [
+      member.name,
+      member.kind,
+      member.readonly,
+      member.description,
+    ])).toEqual([
+      [
+        'count',
+        'property',
+        true,
+        'The count so far.',
+      ],
+    ])
   })
 
   it('reads the default from the tag', () => {
@@ -209,7 +280,12 @@ describe('extractApi', () => {
 })
 
 describe('typeToMarkdown', () => {
-  const resolve = (name: string) => ({ Thread: '/t', ThreadRef: '/r', CommentRef: '/c', verb: '/v' })[name as 'Thread']
+  const resolve = (name: string) => ({
+    Thread: '/t',
+    ThreadRef: '/r',
+    CommentRef: '/c',
+    verb: '/v',
+  })[name as 'Thread']
 
   it('links a type that is, or wraps, one documented type', () => {
     expect(typeToMarkdown('Thread', resolve)).toBe('[`Thread`](/t)')
@@ -236,7 +312,14 @@ describe('buildFiles', () => {
   const things = pages.get('reference/04.things.md')!
 
   it('numbers the pages after an overview that lists them', () => {
-    expect([...pages.keys()]).toEqual(['reference/01.overview.md', 'reference/02.functions.md', 'reference/03.types.md', 'reference/04.things.md'])
+    expect([
+      ...pages.keys(),
+    ]).toEqual([
+      'reference/01.overview.md',
+      'reference/02.functions.md',
+      'reference/03.types.md',
+      'reference/04.things.md',
+    ])
     expect(pages.get('reference/01.overview.md')).toContain('## Types\n\nTypes. See [Types](/api/types).')
     expect(pages.get('reference/01.overview.md')).not.toContain('| Page |')
     expect(pages.get('reference/01.overview.md')).toMatch(/^---\ntitle: "Reference"\nnavigation:\n {2}title: "Overview"\n/)
@@ -308,8 +391,27 @@ describe('buildFiles', () => {
     const located = buildFiles(sample(), {
       ...OPTIONS,
       pages: [
-        { slug: 'a', title: 'A', description: 'A.', sections: [{ names: ['ANSWER', 'greet'] }] },
-        { slug: 'kit', title: 'Kit', description: 'Kit.', location: { directory: '7.guide', basePath: '/guide', file: '5.kit.md' }, sections: [{ names: ['Counter', 'GreetOptions', 'Base'] }] },
+        {
+          slug: 'a',
+          title: 'A',
+          description: 'A.',
+          sections: [
+            {
+              names: ['ANSWER', 'greet'],
+            },
+          ],
+        },
+        {
+          slug: 'kit',
+          title: 'Kit',
+          description: 'Kit.',
+          location: { directory: '7.guide', basePath: '/guide', file: '5.kit.md' },
+          sections: [
+            {
+              names: ['Counter', 'GreetOptions', 'Base'],
+            },
+          ],
+        },
       ],
     })
     const paths = located.files.map(file => file.path)
@@ -320,7 +422,22 @@ describe('buildFiles', () => {
   })
 
   it('throws for a name that no export has', () => {
-    expect(() => buildFiles(sample(), { ...OPTIONS, pages: [{ slug: 'a', title: 'A', description: 'A.', sections: [{ title: 'Stale', names: ['Renamed'] }] }] })).toThrow('a: "Stale" selects Renamed')
+    expect(() => buildFiles(sample(), {
+      ...OPTIONS,
+      pages: [
+        {
+          slug: 'a',
+          title: 'A',
+          description: 'A.',
+          sections: [
+            {
+              title: 'Stale',
+              names: ['Renamed'],
+            },
+          ],
+        },
+      ],
+    })).toThrow('a: "Stale" selects Renamed')
   })
 })
 
@@ -329,8 +446,18 @@ describe('writeFiles', () => {
     const directory = temporary()
     mkdirSync(join(directory, 'reference'))
     writeFileSync(join(directory, 'reference/11.hand.md'), 'mine')
-    writeFiles(directory, [{ path: 'reference/01.old.md', content: generatedPage('old') }])
-    writeFiles(directory, [{ path: 'reference/02.new.md', content: generatedPage('new') }])
+    writeFiles(directory, [
+      {
+        path: 'reference/01.old.md',
+        content: generatedPage('old'),
+      },
+    ])
+    writeFiles(directory, [
+      {
+        path: 'reference/02.new.md',
+        content: generatedPage('new'),
+      },
+    ])
 
     expect(existsSync(join(directory, 'reference/01.old.md'))).toBe(false)
     expect(readFileSync(join(directory, 'reference/02.new.md'), 'utf8')).toContain('new')
@@ -341,7 +468,12 @@ describe('writeFiles', () => {
     const directory = temporary()
     mkdirSync(join(directory, 'reference'))
     writeFileSync(join(directory, 'reference/11.hand.md'), `---\ntitle: "Hand"\n---\n\nThe generator writes this banner:\n\n${BANNER}\n`)
-    writeFiles(directory, [{ path: 'reference/02.new.md', content: generatedPage('new') }])
+    writeFiles(directory, [
+      {
+        path: 'reference/02.new.md',
+        content: generatedPage('new'),
+      },
+    ])
 
     expect(existsSync(join(directory, 'reference/11.hand.md'))).toBe(true)
   })
@@ -349,10 +481,20 @@ describe('writeFiles', () => {
   it('keeps the earlier pages when a target is taken by a hand-written page', () => {
     const directory = temporary()
     mkdirSync(join(directory, 'reference'))
-    writeFiles(directory, [{ path: 'reference/01.old.md', content: generatedPage('old') }])
+    writeFiles(directory, [
+      {
+        path: 'reference/01.old.md',
+        content: generatedPage('old'),
+      },
+    ])
     writeFileSync(join(directory, 'reference/02.hand.md'), 'mine')
 
-    expect(() => writeFiles(directory, [{ path: 'reference/02.hand.md', content: generatedPage('new') }])).toThrow('was not generated')
+    expect(() => writeFiles(directory, [
+      {
+        path: 'reference/02.hand.md',
+        content: generatedPage('new'),
+      },
+    ])).toThrow('was not generated')
     expect(existsSync(join(directory, 'reference/01.old.md'))).toBe(true)
   })
 
@@ -361,7 +503,9 @@ describe('writeFiles', () => {
     mkdirSync(join(directory, 'reference'))
     writeFileSync(join(directory, 'reference/01.hand.md'), 'mine')
 
-    expect(() => writeFiles(directory, [{ path: 'reference/01.hand.md', content: 'generated' }])).toThrow('was not generated')
+    expect(() => writeFiles(directory, [
+      { path: 'reference/01.hand.md', content: 'generated' },
+    ])).toThrow('was not generated')
     expect(readFileSync(join(directory, 'reference/01.hand.md'), 'utf8')).toBe('mine')
   })
 })
@@ -373,11 +517,19 @@ function handWrittenUrls(): Set<string> {
     for (const name of readdirSync(join(root, 'docs/content', directory))) {
       const path = join(directory, name)
       if (statSync(join(root, 'docs/content', path)).isDirectory()) {
-        walk(path, [...segments, name.replace(/^\d+\./, '')])
+        walk(path, [
+          ...segments,
+          name.replace(/^\d+\./, ''),
+        ])
       }
       else if (name.endsWith('.md')) {
         const page = name.replace(/^\d+\./, '').replace(/\.md$/, '')
-        urls.add(`/${[...segments, ...page === 'index' ? [] : [page]].join('/')}`)
+        urls.add(`/${[
+          ...segments,
+          ...page === 'index'
+            ? []
+            : [page],
+        ].join('/')}`)
       }
     }
   }
@@ -492,12 +644,16 @@ describe('the forges reference', () => {
       const path = `/${directory.replace(/^\d+\./, '')}/${name.replace(/^\d+\./, '').replace(/\.md$/, '')}`
       const used = new Map<string, number>()
       const ids = new Set<string>()
-      const headings = [...file.content.replace(/```[\s\S]*?```/g, '').matchAll(/^#{2,6} (.+)$/gm)]
+      const headings = [
+        ...file.content.replace(/```[\s\S]*?```/g, '').matchAll(/^#{2,6} (.+)$/gm),
+      ]
       for (const [, heading] of headings) {
         const base = slug(heading!)
         const count = used.get(base)
         used.set(base, (count ?? 0) + 1)
-        ids.add(count === undefined ? base : `${base}-${count}`)
+        ids.add(count === undefined
+          ? base
+          : `${base}-${count}`)
       }
       expect(ids.size, `unique headings in ${path}`).toBe(headings.length)
       anchors.set(path, ids)
@@ -514,6 +670,8 @@ describe('the forges reference', () => {
         broken.push(target!)
     }
 
-    expect([...new Set(broken)]).toEqual([])
+    expect([
+      ...new Set(broken),
+    ]).toEqual([])
   })
 })

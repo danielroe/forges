@@ -39,7 +39,10 @@ function headersOf(block: string): Record<string, string> {
       headers[last] = match[2]!
     }
   }
-  return Object.fromEntries(Object.entries(headers).map(([key, value]) => [key, decodeWords(value)]))
+  return Object.fromEntries(Object.entries(headers).map(([key, value]) => [
+    key,
+    decodeWords(value),
+  ]))
 }
 
 /** The files of a unified diff in `git diff` format. */
@@ -51,8 +54,12 @@ export function parseDiff(diff: string): ChangedFile[] {
       continue
     }
     const hunk = section.search(/^@@ /m)
-    const meta = hunk === -1 ? section : section.slice(0, hunk)
-    const body = hunk === -1 ? '' : section.slice(hunk).replace(/\n-- \n[^\n]*\n*$/, '').replace(/\n+$/, '')
+    const meta = hunk === -1
+      ? section
+      : section.slice(0, hunk)
+    const body = hunk === -1
+      ? ''
+      : section.slice(hunk).replace(/\n-- \n[^\n]*\n*$/, '').replace(/\n+$/, '')
     const renamed = /^rename from (.+)$/m.exec(meta)
     const copied = /^copy from (.+)$/m.exec(meta)
     const oldPath = renamed?.[1] ?? copied?.[1] ?? header[1]!
@@ -71,13 +78,23 @@ export function parseDiff(diff: string): ChangedFile[] {
     const binary = /^(?:Binary files |GIT binary patch)/m.test(meta)
     files.push({
       path: deleted ? oldPath : newPath,
-      previousPath: renamed || copied ? oldPath : undefined,
-      status: /^new file mode/m.test(meta) ? 'added' : deleted ? 'removed' : renamed ? 'renamed' : copied ? 'copied' : 'modified',
+      previousPath: renamed || copied
+        ? oldPath
+        : undefined,
+      status: /^new file mode/m.test(meta)
+        ? 'added'
+        : deleted
+          ? 'removed'
+          : renamed
+            ? 'renamed'
+            : copied ? 'copied' : 'modified',
       additions,
       deletions,
       patch: body || undefined,
       sha: /^index [0-9a-f]+\.\.([0-9a-f]+)/m.exec(meta)?.[1],
-      ...binary ? { isBinary: true } : {},
+      ...binary
+        ? { isBinary: true }
+        : {},
     })
   }
   return files
@@ -98,11 +115,24 @@ export function patchFiles(commits: PatchCommit[]): Page<ChangedFile> {
       ...seen,
       additions: (seen.additions ?? 0) + (file.additions ?? 0),
       deletions: (seen.deletions ?? 0) + (file.deletions ?? 0),
-      patch: seen.patch && file.patch ? `${seen.patch}\n${file.patch}` : undefined,
+      patch: seen.patch && file.patch
+        ? `${seen.patch}\n${file.patch}`
+        : undefined,
       sha: file.sha,
     })
   }
-  return warnings.length ? { items: [...files.values()], warnings } : { items: [...files.values()] }
+  return warnings.length
+    ? {
+        items: [
+          ...files.values(),
+        ],
+        warnings,
+      }
+    : {
+        items: [
+          ...files.values(),
+        ],
+      }
 }
 
 export function patchCommits(commits: PatchCommit[], origin: ForgeOrigin & { repo: RepoRef }): Commit[] {
@@ -129,25 +159,45 @@ export function parsePatch(patch: string): PatchCommit[] {
   const text = patch.replaceAll('\r\n', '\n')
   const parts = text.split(/^(?=From [0-9a-f]{40} )/m).filter(part => /^From [0-9a-f]{40} /.test(part))
   if (!parts.length) {
-    return [{ sha: '', message: '', files: parseDiff(text) }]
+    return [
+      {
+        sha: '',
+        message: '',
+        files: parseDiff(text),
+      },
+    ]
   }
   return parts.map((part) => {
     const sha = part.slice(5, 45)
     const headerEnd = part.indexOf('\n\n')
-    const headers = headersOf(part.slice(part.indexOf('\n') + 1, headerEnd === -1 ? undefined : headerEnd))
-    const rest = headerEnd === -1 ? '' : part.slice(headerEnd + 2)
+    const headers = headersOf(part.slice(part.indexOf('\n') + 1, headerEnd === -1
+      ? undefined
+      : headerEnd))
+    const rest = headerEnd === -1
+      ? ''
+      : part.slice(headerEnd + 2)
     const diffAt = rest.search(/^diff --git /m)
-    const description = (diffAt === -1 ? rest : rest.slice(0, diffAt)).split(/^---$/m)[0]!.trim()
+    const description = (diffAt === -1
+      ? rest
+      : rest.slice(0, diffAt)).split(/^---$/m)[0]!.trim()
     const subject = (headers.subject ?? '').replace(/^\[PATCH[^\]]*\]\s*/, '')
     const from = /^([^<]*)<([^>]+)>$/.exec(headers.from ?? '')
-    const date = headers.date ? new Date(headers.date) : undefined
+    const date = headers.date
+      ? new Date(headers.date)
+      : undefined
     return {
       sha,
       authorName: from?.[1]?.trim().replace(/^"|"$/g, '') || undefined,
       authorEmail: from?.[2],
-      date: date && !Number.isNaN(date.getTime()) ? date : undefined,
-      message: description ? `${subject}\n\n${description}` : subject,
-      files: diffAt === -1 ? [] : parseDiff(rest.slice(diffAt)),
+      date: date && !Number.isNaN(date.getTime())
+        ? date
+        : undefined,
+      message: description
+        ? `${subject}\n\n${description}`
+        : subject,
+      files: diffAt === -1
+        ? []
+        : parseDiff(rest.slice(diffAt)),
     }
   })
 }

@@ -21,7 +21,28 @@ export function code(text: string): string {
 }
 
 /** Generic wrappers that say how a value is delivered, not what it is, so a type that wraps one documented type is still about that type. */
-const WRAPPERS = new Set(['Array', 'AsyncGenerator', 'AsyncIterable', 'Awaited', 'Exclude', 'Extract', 'ForgeIterable', 'Iterable', 'Map', 'NonNullable', 'Omit', 'Page', 'Partial', 'Pick', 'Promise', 'ReadonlyArray', 'Readonly', 'Record', 'Required', 'Set'])
+const WRAPPERS = new Set([
+  'Array',
+  'AsyncGenerator',
+  'AsyncIterable',
+  'Awaited',
+  'Exclude',
+  'Extract',
+  'ForgeIterable',
+  'Iterable',
+  'Map',
+  'NonNullable',
+  'Omit',
+  'Page',
+  'Partial',
+  'Pick',
+  'Promise',
+  'ReadonlyArray',
+  'Readonly',
+  'Record',
+  'Required',
+  'Set',
+])
 
 /**
  * A type as one inline code chip. When the type is, or wraps, exactly one
@@ -36,7 +57,9 @@ export function typeToMarkdown(type: string, resolve: LinkResolver): string {
     }
   }
   const [only] = targets
-  return only && targets.size === 1 ? `[${code(type)}](${resolve(only)})` : code(type)
+  return only && targets.size === 1
+    ? `[${code(type)}](${resolve(only)})`
+    : code(type)
 }
 
 /**
@@ -51,7 +74,9 @@ export function prose(text: string, resolve: LinkResolver): string {
       fenced = !fenced
       return line
     }
-    return fenced ? line : escapeLine(line.replace(INLINE_LINK_RE, (_, name: string, label?: string) => linkTo(name, label?.trim(), resolve)))
+    return fenced
+      ? line
+      : escapeLine(line.replace(INLINE_LINK_RE, (_, name: string, label?: string) => linkTo(name, label?.trim(), resolve)))
   })
   return lines.join('\n').trim()
 }
@@ -69,9 +94,13 @@ export function typeCell(type: string, resolve: LinkResolver): string {
 function linkTo(name: string, label: string | undefined, resolve: LinkResolver): string {
   const url = resolve(name)
   const text = code(label || name)
-  return url ? `[${text}](${url})` : text
+  return url
+    ? `[${text}](${url})`
+    : text
 }
 
 function escapeLine(line: string): string {
-  return line.split(/(`+[^`]*`+)/).map((part, index) => index % 2 ? part : part.replace(/</g, '&lt;')).join('')
+  return line.split(/(`+[^`]*`+)/).map((part, index) => index % 2
+    ? part
+    : part.replace(/</g, '&lt;')).join('')
 }

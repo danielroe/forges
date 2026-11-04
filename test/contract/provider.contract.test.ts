@@ -31,7 +31,10 @@ async function collect<T>(iterable: AsyncIterable<T>): Promise<T[]> {
 describe.each(contracts)('contract: $name', (contract) => {
   function provider() {
     const { fetch, calls } = fixtureFetch(contract.fixtures)
-    return { instance: contract.create(fetch), calls }
+    return {
+      instance: contract.create(fetch),
+      calls,
+    }
   }
 
   const capabilities = contract.create(stubFetch(500)).capabilities
@@ -119,7 +122,9 @@ describe.each(contracts)('contract: $name', (contract) => {
       }
       await instance.notifications!.unsubscribe!(
         { forge: contract.name, instance: contract.instance, id: notifications!.first.id },
-        { thread: threadRef() },
+        {
+          thread: threadRef(),
+        },
       )
 
       expect(calls.at(-1)).toMatchObject(notifications!.unsubscribe)
@@ -167,7 +172,13 @@ describe.each(contracts)('contract: $name', (contract) => {
 
   it('reads several threads at once, reporting failures as warnings', async () => {
     const { instance } = provider()
-    const results = await instance.threads.getMany([threadRef(), { ...threadRef(), number: undefined }])
+    const results = await instance.threads.getMany([
+      threadRef(),
+      {
+        ...threadRef(),
+        number: undefined,
+      },
+    ])
 
     expect(results).toHaveLength(2)
     expect(results[0]!.ok && results[0]!.thread.title).toBe(contract.thread.title)
@@ -176,10 +187,22 @@ describe.each(contracts)('contract: $name', (contract) => {
 
   it('rejects a comment ref whose thread has no number before it sends a request', async () => {
     const { instance, calls } = provider()
-    const ref = { forge: contract.name, instance: contract.instance, thread: { ...threadRef(), number: undefined }, id: '1' }
+    const ref = {
+      forge: contract.name,
+      instance: contract.instance,
+      thread: {
+        ...threadRef(),
+        number: undefined,
+      },
+      id: '1',
+    }
     const reads = {
       'threads.getComment': () => instance.threads.getComment(ref),
-      ...contract.editsCommentWithoutThreadNumber ? {} : { 'threads.updateComment': () => instance.threads.updateComment(ref, 'Edited') },
+      ...contract.editsCommentWithoutThreadNumber
+        ? {}
+        : {
+            'threads.updateComment': () => instance.threads.updateComment(ref, 'Edited'),
+          },
     }
     const supported = Object.entries(reads).filter(([verb]) => instance.can(verb as ForgeVerb, 'pull_request'))
 
@@ -251,7 +274,10 @@ describe.each(contracts)('contract: $name', (contract) => {
     const reopen = contract.writes.reopen
     expect(Boolean(capabilities.threads.reopen.pull_request)).toBe(Boolean(reopen))
     const closed = await instance.threads.close!(threadRef())
-    expect(closed).toMatchObject({ ref: { number: contract.thread.number }, state: 'closed' })
+    expect(closed).toMatchObject({
+      ref: { number: contract.thread.number },
+      state: 'closed',
+    })
     if (reopen) {
       expect((await instance.threads.reopen!(threadRef())).ref.number).toBe(contract.thread.number)
     }
@@ -259,7 +285,11 @@ describe.each(contracts)('contract: $name', (contract) => {
     const writes = calls.filter(call => call.method !== 'GET' && !contract.writes.ignore?.test(call.url))
     expect(writes.map(({ method, url }) => ({ method, url }))).toEqual([
       { method: contract.writes.close.method, url: contract.writes.close.url },
-      ...reopen ? [{ method: reopen.method, url: reopen.url }] : [],
+      ...reopen
+        ? [
+            { method: reopen.method, url: reopen.url },
+          ]
+        : [],
     ])
     expect(writes[0]!.body ?? '').toContain(contract.writes.close.bodyContains)
     if (reopen) {
@@ -299,7 +329,9 @@ describe.each(contracts)('contract: $name', (contract) => {
 
       expect(review.state).toBe('approved')
       expect(review.ref.thread.number).toBe(contract.thread.number)
-      expect(calls.map(({ method, url }) => ({ method, url }))).toEqual([{ method: merge!.review.method, url: merge!.review.url }])
+      expect(calls.map(({ method, url }) => ({ method, url }))).toEqual([
+        { method: merge!.review.method, url: merge!.review.url },
+      ])
     })
 
     it('merges with an explicit method without reading the repository', async () => {
@@ -319,7 +351,10 @@ describe.each(contracts)('contract: $name', (contract) => {
       [403, InsufficientScopeError],
     ])('maps a %i from the merge endpoint to a typed error', async (status, ErrorType) => {
       const { fetch } = fixtureFetch(contract.fixtures, {
-        [`${merge!.merge.method} ${merge!.merge.url}`]: { status, body: { message: 'nope' } },
+        [`${merge!.merge.method} ${merge!.merge.url}`]: {
+          status,
+          body: { message: 'nope' },
+        },
       })
       const instance = contract.create(fetch)
 
@@ -330,7 +365,10 @@ describe.each(contracts)('contract: $name', (contract) => {
   it('ingests a signed webhook', async () => {
     const { instance } = provider()
     const signature = await contract.webhook.sign(contract.webhook.body, WEBHOOK_SECRET)
-    const delivery = { headers: contract.webhook.headers(signature), body: contract.webhook.body }
+    const delivery = {
+      headers: contract.webhook.headers(signature),
+      body: contract.webhook.body,
+    }
 
     expect(await instance.webhooks.verify(delivery)).toBe(true)
     const events = await instance.webhooks.ingest(delivery)
@@ -347,13 +385,18 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(events[0]!.threadSnapshot?.title).toBe(contract.webhook.expect.title)
     expect(events[0]!.thread?.repo.name).toBe('widgets')
     expect(events[0]!.occurredAt).toBeInstanceOf(Date)
-    expect(events[0]!.detail?.type === 'comment' ? events[0]!.detail.comment?.id : undefined).toBe(contract.webhook.expect.comment)
+    expect(events[0]!.detail?.type === 'comment'
+      ? events[0]!.detail.comment?.id
+      : undefined).toBe(contract.webhook.expect.comment)
   })
 
   it('keys every webhook event so that each key reads back', async () => {
     const { instance } = provider()
     const signature = await contract.webhook.sign(contract.webhook.body, WEBHOOK_SECRET)
-    const events = await instance.webhooks.ingest({ headers: contract.webhook.headers(signature), body: contract.webhook.body })
+    const events = await instance.webhooks.ingest({
+      headers: contract.webhook.headers(signature),
+      body: contract.webhook.body,
+    })
     const keys = events.map(event => affectedKeys(event))
 
     expect(keys.flatMap(({ repos }) => repos).filter(key => !parseRepoKey(key))).toEqual([])
@@ -408,7 +451,12 @@ describe.each(contracts)('contract: $name', (contract) => {
     it('lists, gets and reads the latest release', async () => {
       const { instance } = provider()
       const page = await instance.releases!.list(repoRef()).page()
-      const release = await instance.releases!.get({ forge: contract.name, instance: contract.instance, repo: repoRef(), id: contract.releases!.get.id })
+      const release = await instance.releases!.get({
+        forge: contract.name,
+        instance: contract.instance,
+        repo: repoRef(),
+        id: contract.releases!.get.id,
+      })
       const latest = await instance.releases!.latest(repoRef())
 
       expect(page.items).toHaveLength(contract.releases!.count)
@@ -425,7 +473,11 @@ describe.each(contracts)('contract: $name', (contract) => {
     function abortable() {
       const controller = new AbortController()
       const { fetch, started } = hangingFetch()
-      return { controller, instance: contract.create(fetch), started }
+      return {
+        controller,
+        instance: contract.create(fetch),
+        started,
+      }
     }
 
     it('aborts a repository read with the caller\'s reason', async () => {
@@ -451,7 +503,13 @@ describe.each(contracts)('contract: $name', (contract) => {
     it('aborts a batch thread read with the caller\'s reason', async () => {
       const { controller, instance, started } = abortable()
 
-      const pending = instance.threads.getMany([threadRef(), { ...threadRef(), kind: 'issue' }], { signal: controller.signal })
+      const pending = instance.threads.getMany([
+        threadRef(),
+        {
+          ...threadRef(),
+          kind: 'issue',
+        },
+      ], { signal: controller.signal })
       await started
       controller.abort(reason)
 
@@ -499,7 +557,10 @@ describe.each(contracts)('contract: $name', (contract) => {
     })
 
     const capable = contract.create(stubFetch(500))
-    const issueRef = () => ({ ...threadRef(), kind: 'issue' as const })
+    const issueRef = () => ({
+      ...threadRef(),
+      kind: 'issue' as const,
+    })
 
     it.runIf(capable.can('threads.setMilestone', 'issue'))('aborts a milestone change by title with the caller\'s reason', async () => {
       const { controller, instance, started } = abortable()
@@ -514,7 +575,10 @@ describe.each(contracts)('contract: $name', (contract) => {
     it.runIf(capable.can('threads.markDuplicate'))('aborts marking a duplicate with the caller\'s reason', async () => {
       const { controller, instance, started } = abortable()
 
-      const pending = instance.threads.markDuplicate(issueRef(), { ...issueRef(), number: '1' }, { signal: controller.signal })
+      const pending = instance.threads.markDuplicate(issueRef(), {
+        ...issueRef(),
+        number: '1',
+      }, { signal: controller.signal })
       await started
       controller.abort(reason)
 
@@ -549,7 +613,12 @@ describe.each(contracts)('contract: $name', (contract) => {
       it('aborts a release read by ref with the caller\'s reason', async () => {
         const { controller, instance, started } = abortable()
 
-        const pending = instance.releases!.get({ forge: contract.name, instance: contract.instance, repo: repo(), id: contract.releases!.get.id }, { signal: controller.signal })
+        const pending = instance.releases!.get({
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repo(),
+          id: contract.releases!.get.id,
+        }, { signal: controller.signal })
         await started
         controller.abort(reason)
 
@@ -593,7 +662,13 @@ describe.each(contracts)('contract: $name', (contract) => {
       it('aborts a release update with the caller\'s reason', async () => {
         const { controller, instance, started } = abortable()
 
-        const ref = { forge: contract.name, instance: contract.instance, repo: repo(), id: contract.releases!.get.id, tag: contract.releases!.get.tag }
+        const ref = {
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repo(),
+          id: contract.releases!.get.id,
+          tag: contract.releases!.get.tag,
+        }
         const pending = instance.releases!.update(ref, { name: 'Renamed' }, { signal: controller.signal })
         await started
         controller.abort(reason)
@@ -640,7 +715,9 @@ describe.each(contracts)('contract: $name', (contract) => {
       expect(items.map(item => item.event.kind)).toEqual(contract.stream!.kinds)
       expect(items.every(item => item.event.source === 'stream')).toBe(true)
       expect(items[0]!.event.thread?.number).toBe(contract.thread.number)
-      expect(items.map(item => item.cursor)).toEqual([...items.map(item => item.cursor)].sort())
+      expect(items.map(item => item.cursor)).toEqual([
+        ...items.map(item => item.cursor),
+      ].sort())
       expect(sockets[0]!.closed).toBe(true)
     })
 
@@ -723,58 +800,297 @@ describe.each(contracts)('contract: $name', (contract) => {
   it('has every repository, thread, check, CI, search and webhook verb present, rejecting the ones the capabilities refuse', async () => {
     const repoRef = () => ({ forge: contract.name, instance: contract.instance, ...contract.repo })
     const verbs = [
-      ['repos.labels', (forge: ForgeProvider) => forge.repos.labels(repoRef()).page()],
-      ['repos.createLabel', (forge: ForgeProvider) => forge.repos.createLabel(repoRef(), { name: 'triage' })],
-      ['repos.milestones', (forge: ForgeProvider) => forge.repos.milestones(repoRef()).page()],
-      ['repos.issueTypes', (forge: ForgeProvider) => forge.repos.issueTypes(repoRef())],
-      ['repos.collaborators', (forge: ForgeProvider) => forge.repos.collaborators(repoRef()).page()],
-      ['repos.contributors', (forge: ForgeProvider) => forge.repos.contributors(repoRef()).page()],
-      ['repos.contributorStats', (forge: ForgeProvider) => forge.repos.contributorStats(repoRef())],
-      ['repos.templates', (forge: ForgeProvider) => forge.repos.templates(repoRef())],
-      ['repos.permissionFor', (forge: ForgeProvider) => forge.repos.permissionFor(repoRef(), 'octocat')],
-      ['repos.branchRules', (forge: ForgeProvider) => forge.repos.branchRules(repoRef(), 'main')],
-      ['repos.addCollaborator', (forge: ForgeProvider) => forge.repos.addCollaborator(repoRef(), 'octocat', 'write')],
-      ['repos.assignableUsers', (forge: ForgeProvider) => forge.repos.assignableUsers(repoRef()).page()],
-      ['repos.reviewerCandidates', (forge: ForgeProvider) => forge.repos.reviewerCandidates(threadRef()).page()],
-      ['threads.addLabels', (forge: ForgeProvider) => forge.threads.addLabels(threadRef(), ['bug'])],
-      ['threads.removeLabels', (forge: ForgeProvider) => forge.threads.removeLabels(threadRef(), ['bug'])],
-      ['threads.setMilestone', (forge: ForgeProvider) => forge.threads.setMilestone(threadRef(), '1')],
-      ['threads.setIssueType', (forge: ForgeProvider) => forge.threads.setIssueType(threadRef(), 'Bug')],
-      ['threads.react', (forge: ForgeProvider) => forge.threads.react(threadRef(), '+1')],
-      ['threads.lock', (forge: ForgeProvider) => forge.threads.lock(threadRef(), { reason: 'spam' })],
-      ['threads.unlock', (forge: ForgeProvider) => forge.threads.unlock(threadRef())],
-      ['threads.hideComment', (forge: ForgeProvider) => forge.threads.hideComment({ forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, 'spam')],
-      ['threads.unhideComment', (forge: ForgeProvider) => forge.threads.unhideComment({ forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' })],
-      ['threads.unreact', (forge: ForgeProvider) => forge.threads.unreact(threadRef(), '+1')],
-      ['threads.transfer', (forge: ForgeProvider) => forge.threads.transfer(threadRef(), repoRef())],
-      ['threads.markDuplicate', (forge: ForgeProvider) => forge.threads.markDuplicate(threadRef(), threadRef())],
-      ['threads.updateBranch', (forge: ForgeProvider) => forge.threads.updateBranch(threadRef())],
-      ['threads.closingIssues', (forge: ForgeProvider) => forge.threads.closingIssues(threadRef()).page()],
-      ['threads.closingPullRequests', (forge: ForgeProvider) => forge.threads.closingPullRequests({ ...threadRef(), kind: 'issue' }).page()],
-      ['threads.reviews', (forge: ForgeProvider) => forge.threads.reviews(threadRef()).page()],
-      ['threads.createReview', (forge: ForgeProvider) => forge.threads.createReview(threadRef(), { event: 'approve' })],
-      ['threads.submitReview', (forge: ForgeProvider) => forge.threads.submitReview({ forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, 'approve')],
-      ['threads.approve', (forge: ForgeProvider) => forge.threads.approve(threadRef())],
-      ['threads.replyToReviewComment', (forge: ForgeProvider) => forge.threads.replyToReviewComment(threadRef(), { ref: { forge: contract.name, instance: contract.instance, thread: threadRef(), id: '1' }, thread: { id: '1', resolved: false } }, 'b')],
-      ['threads.reviewThreads', (forge: ForgeProvider) => forge.threads.reviewThreads(threadRef()).page()],
-      ['threads.resolveReviewThread', (forge: ForgeProvider) => forge.threads.resolveReviewThread(threadRef(), '1')],
-      ['threads.unresolveReviewThread', (forge: ForgeProvider) => forge.threads.unresolveReviewThread(threadRef(), '1')],
-      ['checks.list', (forge: ForgeProvider) => forge.checks.list(repoRef(), 'deadbeef')],
-      ['checks.report', (forge: ForgeProvider) => forge.checks.report(repoRef(), 'deadbeef', { name: 'forges', state: 'success' })],
-      ['checks.rerun', (forge: ForgeProvider) => forge.checks.rerun({ forge: contract.name, instance: contract.instance, repo: repoRef(), id: '1', type: 'status' })],
-      ['ci.runs', (forge: ForgeProvider) => forge.ci.runs(repoRef()).page()],
-      ['ci.getRun', (forge: ForgeProvider) => forge.ci.getRun({ forge: contract.name, instance: contract.instance, repo: repoRef(), id: '1' })],
-      ['ci.jobs', (forge: ForgeProvider) => forge.ci.jobs({ forge: contract.name, instance: contract.instance, repo: repoRef(), id: '1' }).page()],
-      ['ci.log', (forge: ForgeProvider) => forge.ci.log({ forge: contract.name, instance: contract.instance, repo: repoRef(), id: '1' })],
-      ['search.threads', (forge: ForgeProvider) => forge.search.threads({ text: 'crash', repo: repoRef() }).page()],
-      ['search.repos', (forge: ForgeProvider) => forge.search.repos({ text: 'widgets' }).page()],
-      ['webhooks.list', (forge: ForgeProvider) => forge.webhooks.list(repoRef()).page()],
-      ['webhooks.create', (forge: ForgeProvider) => forge.webhooks.create(repoRef(), { url: 'https://hooks.test/in', events: ['push'] })],
-      ['webhooks.update', (forge: ForgeProvider) => forge.webhooks.update({ forge: contract.name, instance: contract.instance, target: repoRef(), id: '1' }, { active: false })],
-      ['webhooks.delete', (forge: ForgeProvider) => forge.webhooks.delete({ forge: contract.name, instance: contract.instance, target: repoRef(), id: '1' })],
-      ['webhooks.rotateSecret', (forge: ForgeProvider) => forge.webhooks.rotateSecret({ forge: contract.name, instance: contract.instance, target: repoRef(), id: '1' }, 's')],
-      ['webhooks.deliveries', (forge: ForgeProvider) => forge.webhooks.deliveries({ forge: contract.name, instance: contract.instance, target: repoRef(), id: '1' }).page()],
-      ['webhooks.redeliver', (forge: ForgeProvider) => forge.webhooks.redeliver({ forge: contract.name, instance: contract.instance, hook: { forge: contract.name, instance: contract.instance, target: repoRef(), id: '1' }, id: '2' })],
+      [
+        'repos.labels',
+        (forge: ForgeProvider) => forge.repos.labels(repoRef()).page(),
+      ],
+      [
+        'repos.createLabel',
+        (forge: ForgeProvider) => forge.repos.createLabel(repoRef(), { name: 'triage' }),
+      ],
+      [
+        'repos.milestones',
+        (forge: ForgeProvider) => forge.repos.milestones(repoRef()).page(),
+      ],
+      [
+        'repos.issueTypes',
+        (forge: ForgeProvider) => forge.repos.issueTypes(repoRef()),
+      ],
+      [
+        'repos.collaborators',
+        (forge: ForgeProvider) => forge.repos.collaborators(repoRef()).page(),
+      ],
+      [
+        'repos.contributors',
+        (forge: ForgeProvider) => forge.repos.contributors(repoRef()).page(),
+      ],
+      [
+        'repos.contributorStats',
+        (forge: ForgeProvider) => forge.repos.contributorStats(repoRef()),
+      ],
+      [
+        'repos.templates',
+        (forge: ForgeProvider) => forge.repos.templates(repoRef()),
+      ],
+      [
+        'repos.permissionFor',
+        (forge: ForgeProvider) => forge.repos.permissionFor(repoRef(), 'octocat'),
+      ],
+      [
+        'repos.branchRules',
+        (forge: ForgeProvider) => forge.repos.branchRules(repoRef(), 'main'),
+      ],
+      [
+        'repos.addCollaborator',
+        (forge: ForgeProvider) => forge.repos.addCollaborator(repoRef(), 'octocat', 'write'),
+      ],
+      [
+        'repos.assignableUsers',
+        (forge: ForgeProvider) => forge.repos.assignableUsers(repoRef()).page(),
+      ],
+      [
+        'repos.reviewerCandidates',
+        (forge: ForgeProvider) => forge.repos.reviewerCandidates(threadRef()).page(),
+      ],
+      [
+        'threads.addLabels',
+        (forge: ForgeProvider) => forge.threads.addLabels(threadRef(), ['bug']),
+      ],
+      [
+        'threads.removeLabels',
+        (forge: ForgeProvider) => forge.threads.removeLabels(threadRef(), ['bug']),
+      ],
+      [
+        'threads.setMilestone',
+        (forge: ForgeProvider) => forge.threads.setMilestone(threadRef(), '1'),
+      ],
+      [
+        'threads.setIssueType',
+        (forge: ForgeProvider) => forge.threads.setIssueType(threadRef(), 'Bug'),
+      ],
+      [
+        'threads.react',
+        (forge: ForgeProvider) => forge.threads.react(threadRef(), '+1'),
+      ],
+      [
+        'threads.lock',
+        (forge: ForgeProvider) => forge.threads.lock(threadRef(), { reason: 'spam' }),
+      ],
+      [
+        'threads.unlock',
+        (forge: ForgeProvider) => forge.threads.unlock(threadRef()),
+      ],
+      [
+        'threads.hideComment',
+        (forge: ForgeProvider) => forge.threads.hideComment({
+          forge: contract.name,
+          instance: contract.instance,
+          thread: threadRef(),
+          id: '1',
+        }, 'spam'),
+      ],
+      [
+        'threads.unhideComment',
+        (forge: ForgeProvider) => forge.threads.unhideComment({
+          forge: contract.name,
+          instance: contract.instance,
+          thread: threadRef(),
+          id: '1',
+        }),
+      ],
+      [
+        'threads.unreact',
+        (forge: ForgeProvider) => forge.threads.unreact(threadRef(), '+1'),
+      ],
+      [
+        'threads.transfer',
+        (forge: ForgeProvider) => forge.threads.transfer(threadRef(), repoRef()),
+      ],
+      [
+        'threads.markDuplicate',
+        (forge: ForgeProvider) => forge.threads.markDuplicate(threadRef(), threadRef()),
+      ],
+      [
+        'threads.updateBranch',
+        (forge: ForgeProvider) => forge.threads.updateBranch(threadRef()),
+      ],
+      [
+        'threads.closingIssues',
+        (forge: ForgeProvider) => forge.threads.closingIssues(threadRef()).page(),
+      ],
+      [
+        'threads.closingPullRequests',
+        (forge: ForgeProvider) => forge.threads.closingPullRequests({
+          ...threadRef(),
+          kind: 'issue',
+        }).page(),
+      ],
+      [
+        'threads.reviews',
+        (forge: ForgeProvider) => forge.threads.reviews(threadRef()).page(),
+      ],
+      [
+        'threads.createReview',
+        (forge: ForgeProvider) => forge.threads.createReview(threadRef(), { event: 'approve' }),
+      ],
+      [
+        'threads.submitReview',
+        (forge: ForgeProvider) => forge.threads.submitReview({
+          forge: contract.name,
+          instance: contract.instance,
+          thread: threadRef(),
+          id: '1',
+        }, 'approve'),
+      ],
+      [
+        'threads.approve',
+        (forge: ForgeProvider) => forge.threads.approve(threadRef()),
+      ],
+      [
+        'threads.replyToReviewComment',
+        (forge: ForgeProvider) => forge.threads.replyToReviewComment(threadRef(), {
+          ref: {
+            forge: contract.name,
+            instance: contract.instance,
+            thread: threadRef(),
+            id: '1',
+          },
+          thread: { id: '1', resolved: false },
+        }, 'b'),
+      ],
+      [
+        'threads.reviewThreads',
+        (forge: ForgeProvider) => forge.threads.reviewThreads(threadRef()).page(),
+      ],
+      [
+        'threads.resolveReviewThread',
+        (forge: ForgeProvider) => forge.threads.resolveReviewThread(threadRef(), '1'),
+      ],
+      [
+        'threads.unresolveReviewThread',
+        (forge: ForgeProvider) => forge.threads.unresolveReviewThread(threadRef(), '1'),
+      ],
+      [
+        'checks.list',
+        (forge: ForgeProvider) => forge.checks.list(repoRef(), 'deadbeef'),
+      ],
+      [
+        'checks.report',
+        (forge: ForgeProvider) => forge.checks.report(repoRef(), 'deadbeef', { name: 'forges', state: 'success' }),
+      ],
+      [
+        'checks.rerun',
+        (forge: ForgeProvider) => forge.checks.rerun({
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repoRef(),
+          id: '1',
+          type: 'status',
+        }),
+      ],
+      [
+        'ci.runs',
+        (forge: ForgeProvider) => forge.ci.runs(repoRef()).page(),
+      ],
+      [
+        'ci.getRun',
+        (forge: ForgeProvider) => forge.ci.getRun({
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repoRef(),
+          id: '1',
+        }),
+      ],
+      [
+        'ci.jobs',
+        (forge: ForgeProvider) => forge.ci.jobs({
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repoRef(),
+          id: '1',
+        }).page(),
+      ],
+      [
+        'ci.log',
+        (forge: ForgeProvider) => forge.ci.log({
+          forge: contract.name,
+          instance: contract.instance,
+          repo: repoRef(),
+          id: '1',
+        }),
+      ],
+      [
+        'search.threads',
+        (forge: ForgeProvider) => forge.search.threads({
+          text: 'crash',
+          repo: repoRef(),
+        }).page(),
+      ],
+      [
+        'search.repos',
+        (forge: ForgeProvider) => forge.search.repos({ text: 'widgets' }).page(),
+      ],
+      [
+        'webhooks.list',
+        (forge: ForgeProvider) => forge.webhooks.list(repoRef()).page(),
+      ],
+      [
+        'webhooks.create',
+        (forge: ForgeProvider) => forge.webhooks.create(repoRef(), {
+          url: 'https://hooks.test/in',
+          events: ['push'],
+        }),
+      ],
+      [
+        'webhooks.update',
+        (forge: ForgeProvider) => forge.webhooks.update({
+          forge: contract.name,
+          instance: contract.instance,
+          target: repoRef(),
+          id: '1',
+        }, { active: false }),
+      ],
+      [
+        'webhooks.delete',
+        (forge: ForgeProvider) => forge.webhooks.delete({
+          forge: contract.name,
+          instance: contract.instance,
+          target: repoRef(),
+          id: '1',
+        }),
+      ],
+      [
+        'webhooks.rotateSecret',
+        (forge: ForgeProvider) => forge.webhooks.rotateSecret({
+          forge: contract.name,
+          instance: contract.instance,
+          target: repoRef(),
+          id: '1',
+        }, 's'),
+      ],
+      [
+        'webhooks.deliveries',
+        (forge: ForgeProvider) => forge.webhooks.deliveries({
+          forge: contract.name,
+          instance: contract.instance,
+          target: repoRef(),
+          id: '1',
+        }).page(),
+      ],
+      [
+        'webhooks.redeliver',
+        (forge: ForgeProvider) => forge.webhooks.redeliver({
+          forge: contract.name,
+          instance: contract.instance,
+          hook: {
+            forge: contract.name,
+            instance: contract.instance,
+            target: repoRef(),
+            id: '1',
+          },
+          id: '2',
+        }),
+      ],
     ] as const
     const { instance } = provider()
 

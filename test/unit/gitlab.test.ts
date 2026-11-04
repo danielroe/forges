@@ -19,12 +19,29 @@ import { repoKey } from '../../src/model.ts'
 import { fixtureDirectory, fixtureFetch, stubFetch } from '../utils/fixtures.ts'
 
 const P = 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets'
-const repo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' } as const
-const mr: ResolvedThreadRef = { forge: 'gitlab', instance: 'gitlab.com', repo, kind: 'pull_request', number: '23' }
+const repo = {
+  forge: 'gitlab',
+  instance: 'gitlab.com',
+  owner: 'acme/platform',
+  name: 'widgets',
+} as const
+const mr: ResolvedThreadRef = {
+  forge: 'gitlab',
+  instance: 'gitlab.com',
+  repo,
+  kind: 'pull_request',
+  number: '23',
+}
 
 function provider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('gitlab', overrides)
-  return { instance: gitlab({ auth: { type: 'token', token: 't' }, fetch }), calls }
+  return {
+    instance: gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }),
+    calls,
+  }
 }
 
 describe('gitlab provider', () => {
@@ -32,21 +49,48 @@ describe('gitlab provider', () => {
     const { instance } = provider()
     const { items } = await instance.threads.comments(mr).page()
 
-    expect(items.map(comment => comment.thread)).toEqual([{ id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: false }])
+    expect(items.map(comment => comment.thread)).toEqual([
+      { id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: false },
+    ])
   })
 
   it('treats a reaction the account already left as left', async () => {
     const awards = `${P}/merge_requests/23/award_emoji`
-    const { instance } = provider({ [`POST ${awards}`]: { status: 404, body: { message: '404 Award Emoji Name has already been taken Not Found' } } })
-    const { instance: missing } = provider({ [`POST ${awards}`]: { status: 404, body: { message: '404 Not found' } } })
+    const { instance } = provider({
+      [`POST ${awards}`]: {
+        status: 404,
+        body: { message: '404 Award Emoji Name has already been taken Not Found' },
+      },
+    })
+    const { instance: missing } = provider({
+      [`POST ${awards}`]: {
+        status: 404,
+        body: { message: '404 Not found' },
+      },
+    })
 
     await expect(instance.threads.react(mr, '+1')).resolves.toBeUndefined()
     await expect(missing.threads.react(mr, '+1')).rejects.toThrow(NotFoundError)
   })
 
   it('opens a resolvable discussion for a comment review', async () => {
-    const discussion = { id: 'd1', individual_note: false, notes: [{ id: 7, body: 'Looks off', system: false, created_at: '2025-09-16T09:00:00.000Z', resolvable: true, resolved: false }] }
-    const { instance, calls } = provider({ 'POST https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': { status: 201, body: discussion } })
+    const discussion = {
+      id: 'd1',
+      individual_note: false,
+      notes: [
+        {
+          id: 7,
+          body: 'Looks off',
+          system: false,
+          created_at: '2025-09-16T09:00:00.000Z',
+          resolvable: true,
+          resolved: false,
+        },
+      ],
+    }
+    const { instance, calls } = provider({
+      'POST https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': { status: 201, body: discussion },
+    })
     const review = await instance.threads.createReview(mr, { event: 'comment', body: 'Looks off' })
 
     expect(JSON.parse(calls.at(-1)!.body!)).toEqual({ body: 'Looks off' })
@@ -57,21 +101,40 @@ describe('gitlab provider', () => {
   it('cannot reply to a comment without a discussion', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.replyToReviewComment(mr, { ref: { forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5550001' } }, 'hi')).rejects.toThrow(UnsupportedOperationError)
+    await expect(instance.threads.replyToReviewComment(mr, {
+      ref: {
+        forge: 'gitlab',
+        instance: 'gitlab.com',
+        thread: mr,
+        id: '5550001',
+      },
+    }, 'hi')).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toHaveLength(0)
   })
 
   it('falls back to the user search when the profile needs credentials', async () => {
     const { fetch } = fixtureFetch('gitlab/recorded/gitlab.com', {
-      'GET https://gitlab.com/api/v4/users/8420142': { status: 403, headers: {}, body: { message: '403 Forbidden - Not authorized!' } },
+      'GET https://gitlab.com/api/v4/users/8420142': {
+        status: 403,
+        headers: {},
+        body: { message: '403 Forbidden - Not authorized!' },
+      },
     })
     const user = await gitlab({ fetch }).users.get('gitlab-dependency-update-bot')
 
-    expect(user).toMatchObject({ login: 'gitlab-dependency-update-bot', id: '8420142', name: 'GitLab Dependency Bot', url: 'https://gitlab.com/gitlab-dependency-update-bot' })
+    expect(user).toMatchObject({
+      login: 'gitlab-dependency-update-bot',
+      id: '8420142',
+      name: 'GitLab Dependency Bot',
+      url: 'https://gitlab.com/gitlab-dependency-update-bot',
+    })
   })
 
   it('appends the api prefix and reports the instance host', () => {
-    const selfManaged = gitlab({ baseUrl: 'https://git.example.org', auth: { type: 'token', token: 't' } })
+    const selfManaged = gitlab({
+      baseUrl: 'https://git.example.org',
+      auth: { type: 'token', token: 't' },
+    })
 
     expect(selfManaged.baseUrl).toBe('https://git.example.org/api/v4')
     expect(selfManaged.instance).toBe('git.example.org')
@@ -88,10 +151,17 @@ describe('gitlab provider', () => {
 
   it('maps a group-level epic to an other subject on a namespace ref', async () => {
     const { instance } = provider()
-    const page = await instance.notifications!.list({ cursor: { nextUrl: 'https://gitlab.com/api/v4/todos?page=2&per_page=20&state=pending' } }).page()
+    const page = await instance.notifications!.list({
+      cursor: { nextUrl: 'https://gitlab.com/api/v4/todos?page=2&per_page=20&state=pending' },
+    }).page()
     const epic = page.items[0]!
 
-    expect(epic.subject).toMatchObject({ type: 'other', typeRaw: 'Epic', id: '4', repo: { kind: 'namespace', owner: 'acme/platform', name: '' } })
+    expect(epic.subject).toMatchObject({
+      type: 'other',
+      typeRaw: 'Epic',
+      id: '4',
+      repo: { kind: 'namespace', owner: 'acme/platform', name: '' },
+    })
     expect(epic.reason).toBe('assigned')
   })
 
@@ -110,7 +180,9 @@ describe('gitlab provider', () => {
 
   it('filters todos by since on the client, since the API has no such parameter', async () => {
     const { instance } = provider()
-    const page = await instance.notifications!.list({ since: new Date('2025-09-18T00:00:00Z') }).page()
+    const page = await instance.notifications!.list({
+      since: new Date('2025-09-18T00:00:00Z'),
+    }).page()
 
     expect(page.items.map(item => item.ref.id)).toEqual(['102938401'])
   })
@@ -132,11 +204,22 @@ describe('gitlab provider', () => {
     expect(note('added 2 commits\n\n* abc')).toBe('commit')
     expect(note('approved this merge request')).toBe('review')
     expect(note('changed the description')).toBe('other')
-    expect(toNoteKind({ id: 2, body: 'nit', system: false, type: 'DiffNote', created_at: '' })).toBe('review_comment')
+    expect(toNoteKind({
+      id: 2,
+      body: 'nit',
+      system: false,
+      type: 'DiffNote',
+      created_at: '',
+    })).toBe('review_comment')
   })
 
   it('classifies the legacy capitalised wording found in recorded notes', () => {
-    const note = (body: string) => toNoteKind({ id: 1, body, system: true, created_at: '' })
+    const note = (body: string) => toNoteKind({
+      id: 1,
+      body,
+      system: true,
+      created_at: '',
+    })
 
     expect(note('Reassigned to @marin')).toBe('assignment')
     expect(note('Added 20 commits:\n\n* 0089698f...9bfc23c3 - 17 commits from branch')).toBe('commit')
@@ -167,12 +250,24 @@ describe('gitlab provider', () => {
     const { fetch, calls } = fixtureFetch('gitlab')
     const issue = { ...mr, kind: 'issue', number: '11' } as const
 
-    for (const instance of [gitlab({ auth: { type: 'token', token: 't' }, fetch }), gitlab({ fetch })]) {
+    for (const instance of [
+      gitlab({
+        auth: { type: 'token', token: 't' },
+        fetch,
+      }),
+      gitlab({ fetch }),
+    ]) {
       const issues = (await instance.threads.closingIssues(mr).page()).items
       expect(issues.map(thread => `${thread.ref.repo.owner}/${thread.ref.repo.name}#${thread.ref.number}`)).toEqual(['acme/platform/widgets#11', 'acme/platform/docs#5'])
       expect(issues[1]!.ref.repo.externalId).toBe('278965')
       const [closing] = (await instance.threads.closingPullRequests(issue).page()).items
-      expect(closing).toMatchObject({ kind: 'pull_request', ref: { number: '23', repo: { owner: 'acme/platform', name: 'widgets' } } })
+      expect(closing).toMatchObject({
+        kind: 'pull_request',
+        ref: {
+          number: '23',
+          repo: { owner: 'acme/platform', name: 'widgets' },
+        },
+      })
     }
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       `GET ${P}/merge_requests/23/closes_issues`,
@@ -185,8 +280,13 @@ describe('gitlab provider', () => {
   it('updates a merge request by rebasing it, and refuses a merge', async () => {
     const { instance, calls } = provider()
 
-    await expect(instance.threads.updateBranch(mr, { sha: '9f1c2e3d4b5a' })).resolves.toEqual({ status: 'queued', raw: { rebase_in_progress: true } })
-    await expect(instance.threads.updateBranch(mr, { sha: '0'.repeat(40) })).rejects.toBeInstanceOf(BranchMovedError)
+    await expect(instance.threads.updateBranch(mr, { sha: '9f1c2e3d4b5a' })).resolves.toEqual({
+      status: 'queued',
+      raw: { rebase_in_progress: true },
+    })
+    await expect(instance.threads.updateBranch(mr, {
+      sha: '0'.repeat(40),
+    })).rejects.toBeInstanceOf(BranchMovedError)
     await expect(instance.threads.updateBranch(mr, { method: 'merge' })).rejects.toThrow(UnsupportedOperationError)
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       `GET ${P}/merge_requests/23`,
@@ -206,53 +306,172 @@ describe('gitlab provider', () => {
   })
 
   it.each([
-    ['setLabels', { labels: 'bug' }],
-    ['addLabels', { add_labels: 'bug' }],
-    ['removeLabels', { remove_labels: 'bug' }],
+    [
+      'setLabels',
+      { labels: 'bug' },
+    ],
+    [
+      'addLabels',
+      { add_labels: 'bug' },
+    ],
+    [
+      'removeLabels',
+      { remove_labels: 'bug' },
+    ],
   ] as const)('resolves %s with the labels of the merge request in the response', async (verb, body) => {
-    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, state: 'opened', labels: ['bug', 'triage'] } } })
+    const { instance, calls } = provider({
+      [`PUT ${P}/merge_requests/23`]: {
+        status: 200,
+        body: {
+          iid: 23,
+          state: 'opened',
+          labels: ['bug', 'triage'],
+        },
+      },
+    })
 
-    await expect(instance.threads[verb](mr, ['bug'])).resolves.toEqual([{ name: 'bug' }, { name: 'triage' }])
-    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', body]])
+    await expect(instance.threads[verb](mr, ['bug'])).resolves.toEqual([
+      { name: 'bug' },
+      { name: 'triage' },
+    ])
+    expect(calls.map(call => [
+      call.method,
+      JSON.parse(call.body!),
+    ])).toEqual([
+      ['PUT', body],
+    ])
   })
 
   it('resolves setAssignees with the assignees of the merge request in the response', async () => {
-    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, assignees: [{ id: 7, username: 'ada' }] } } })
+    const { instance, calls } = provider({
+      [`PUT ${P}/merge_requests/23`]: {
+        status: 200,
+        body: {
+          iid: 23,
+          assignees: [
+            { id: 7, username: 'ada' },
+          ],
+        },
+      },
+    })
 
-    await expect(instance.threads.setAssignees(mr, [{ forge: 'gitlab', instance: 'gitlab.com', login: 'ada', id: '7', isBotHint: false }])).resolves.toMatchObject([{ login: 'ada', id: '7' }])
-    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', { assignee_ids: [7] }]])
+    await expect(instance.threads.setAssignees(mr, [
+      {
+        forge: 'gitlab',
+        instance: 'gitlab.com',
+        login: 'ada',
+        id: '7',
+        isBotHint: false,
+      },
+    ])).resolves.toMatchObject([
+      { login: 'ada', id: '7' },
+    ])
+    expect(calls.map(call => [
+      call.method,
+      JSON.parse(call.body!),
+    ])).toEqual([
+      [
+        'PUT',
+        {
+          assignee_ids: [7],
+        },
+      ],
+    ])
   })
 
   it('resolves a state change with the merge request in the response', async () => {
-    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, title: 'Add widgets', state: 'closed', closed_at: '2025-09-18T09:00:00Z', source_branch: 'feat', target_branch: 'main' } } })
+    const { instance, calls } = provider({
+      [`PUT ${P}/merge_requests/23`]: {
+        status: 200,
+        body: {
+          iid: 23,
+          title: 'Add widgets',
+          state: 'closed',
+          closed_at: '2025-09-18T09:00:00Z',
+          source_branch: 'feat',
+          target_branch: 'main',
+        },
+      },
+    })
 
-    await expect(instance.threads.close(mr)).resolves.toMatchObject({ title: 'Add widgets', state: 'closed', closedAt: new Date('2025-09-18T09:00:00Z'), branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
-    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PUT', { state_event: 'close' }]])
+    await expect(instance.threads.close(mr)).resolves.toMatchObject({
+      title: 'Add widgets',
+      state: 'closed',
+      closedAt: new Date('2025-09-18T09:00:00Z'),
+      branches: {
+        head: { ref: 'feat' },
+        base: { ref: 'main' },
+      },
+    })
+    expect(calls.map(call => [
+      call.method,
+      JSON.parse(call.body!),
+    ])).toEqual([
+      [
+        'PUT',
+        { state_event: 'close' },
+      ],
+    ])
   })
 
   it('resolves an approval with the only approver in the response, without reading the viewer', async () => {
-    const approvals = { iid: 23, approved: true, approved_by: [{ user: { id: 7, username: 'ada' }, approved_at: '2026-01-02T03:04:05Z' }] }
-    const { instance, calls } = provider({ [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals } })
+    const approvals = {
+      iid: 23,
+      approved: true,
+      approved_by: [
+        {
+          user: { id: 7, username: 'ada' },
+          approved_at: '2026-01-02T03:04:05Z',
+        },
+      ],
+    }
+    const { instance, calls } = provider({
+      [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals },
+    })
 
-    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' }, state: 'approved' })
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({
+      author: { login: 'ada' },
+      state: 'approved',
+    })
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/merge_requests/23/approve`])
   })
 
   it('picks the viewer from several approvers, reading the viewer once', async () => {
-    const approvals = { iid: 23, approved: true, approved_by: [{ user: { id: 7, username: 'ada' } }, { user: { id: 8, username: 'grace' } }] }
+    const approvals = {
+      iid: 23,
+      approved: true,
+      approved_by: [
+        {
+          user: { id: 7, username: 'ada' },
+        },
+        {
+          user: { id: 8, username: 'grace' },
+        },
+      ],
+    }
     const { instance, calls } = provider({
       [`POST ${P}/merge_requests/23/approve`]: { status: 201, body: approvals },
-      'GET https://gitlab.com/api/v4/user': { status: 200, body: { id: 7, username: 'ada' } },
+      'GET https://gitlab.com/api/v4/user': {
+        status: 200,
+        body: { id: 7, username: 'ada' },
+      },
     })
 
-    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' } })
-    await expect(instance.threads.approve(mr)).resolves.toMatchObject({ author: { login: 'ada' } })
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({
+      author: { login: 'ada' },
+    })
+    await expect(instance.threads.approve(mr)).resolves.toMatchObject({
+      author: { login: 'ada' },
+    })
     expect(calls.map(call => call.method)).toEqual(['POST', 'GET', 'POST'])
   })
 
   it('maps a 401 from approve to InsufficientScopeError, not a revoked token', async () => {
     const { instance } = provider({
-      [`POST ${P}/merge_requests/23/approve`]: { status: 401, body: { message: '401 Unauthorized' } },
+      [`POST ${P}/merge_requests/23/approve`]: {
+        status: 401,
+        body: { message: '401 Unauthorized' },
+      },
     })
 
     const error = await instance.threads.approve(mr).catch((error: unknown) => error)
@@ -303,8 +522,31 @@ describe('gitlab provider', () => {
 
   it('finds a milestone title among ancestor group milestones', async () => {
     const { instance, calls } = provider({
-      [`GET ${P}/milestones?include_ancestors=true`]: { status: 200, body: [{ id: 41, iid: 2, group_id: 9, title: 'Group milestone', state: 'active' }] },
-      [`PUT ${P}/merge_requests/23`]: { status: 200, body: { iid: 23, milestone: { id: 41, iid: 2, group_id: 9, title: 'Group milestone', state: 'active' } } },
+      [`GET ${P}/milestones?include_ancestors=true`]: {
+        status: 200,
+        body: [
+          {
+            id: 41,
+            iid: 2,
+            group_id: 9,
+            title: 'Group milestone',
+            state: 'active',
+          },
+        ],
+      },
+      [`PUT ${P}/merge_requests/23`]: {
+        status: 200,
+        body: {
+          iid: 23,
+          milestone: {
+            id: 41,
+            iid: 2,
+            group_id: 9,
+            title: 'Group milestone',
+            state: 'active',
+          },
+        },
+      },
     })
 
     await expect(instance.threads.setMilestone!(mr, 'Group milestone')).resolves.toMatchObject({ id: '41', title: 'Group milestone', state: 'open' })
@@ -317,13 +559,19 @@ describe('gitlab provider', () => {
   })
 
   it.each([
-    ['12', { changedFileCount: 12 }],
+    [
+      '12',
+      { changedFileCount: 12 },
+    ],
     ['1000+', undefined],
     [null, undefined],
   ])('reads a changes count of %j as %j', async (count, stats) => {
     const thread = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}thread-mr-23.json`, 'utf8')).response.body
     const { instance } = provider({
-      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, changes_count: count } },
+      [`GET ${P}/merge_requests/23`]: {
+        status: 200,
+        body: { ...thread, changes_count: count },
+      },
     })
 
     expect((await instance.threads.get(mr)).stats).toEqual(stats)
@@ -331,10 +579,12 @@ describe('gitlab provider', () => {
 
   it('sorts projects by last activity, with a warning, when asked for push order', async () => {
     const urls: string[] = []
-    const instance = gitlab({ fetch: async (url) => {
-      urls.push(url)
-      return Response.json([])
-    } })
+    const instance = gitlab({
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json([])
+      },
+    })
 
     const page = await instance.repos.byOwner({ ...repo, name: '', kind: 'namespace' }, { sort: 'pushed' }).page()
 
@@ -344,15 +594,22 @@ describe('gitlab provider', () => {
 
   it('warns only when asked to leave unlinked contributors out, which GitLab cannot do', async () => {
     const urls: string[] = []
-    const instance = gitlab({ fetch: async (url) => {
-      urls.push(url)
-      return Response.json([{ name: 'Ada', email: 'ada@example.com', commits: 3 }])
-    } })
+    const instance = gitlab({
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json([
+          { name: 'Ada', email: 'ada@example.com', commits: 3 },
+        ])
+      },
+    })
 
     const implied = await instance.repos.contributors(repo).page()
     const asked = await instance.repos.contributors(repo, { includeUnlinked: true }).page()
     const declined = await instance.repos.contributors(repo, { includeUnlinked: false }).page()
-    const later = await instance.repos.contributors(repo, { includeUnlinked: false, cursor: { token: '30' } }).page()
+    const later = await instance.repos.contributors(repo, {
+      includeUnlinked: false,
+      cursor: { token: '30' },
+    }).page()
 
     expect(urls.map(url => new URL(url).searchParams.has('anon'))).toEqual([false, false, false, false])
     expect(implied.warnings).toBeUndefined()
@@ -363,10 +620,12 @@ describe('gitlab provider', () => {
 
   it('reads a missing nested group as missing rather than as a user', async () => {
     const urls: string[] = []
-    const instance = gitlab({ fetch: async (url) => {
-      urls.push(url)
-      return Response.json({ message: '404 Group Not Found' }, { status: 404 })
-    } })
+    const instance = gitlab({
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json({ message: '404 Group Not Found' }, { status: 404 })
+      },
+    })
 
     await expect(instance.repos.byOwner({ ...repo, name: '', kind: 'namespace' }).page()).rejects.toThrow(NotFoundError)
     expect(urls).toEqual(['https://gitlab.com/api/v4/groups/acme%2Fplatform/projects?with_shared=false'])
@@ -379,7 +638,12 @@ describe('gitlab provider', () => {
 
     const file = await instance.contents.getFile(repo, 'docs/README.md', { as: 'text', metadata: false })
 
-    expect(file).toEqual({ path: 'docs/README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
+    expect(file).toEqual({
+      path: 'docs/README.md',
+      size: 10,
+      encoding: 'utf-8',
+      content: '# widgets\n',
+    })
     expect(calls).toHaveLength(1)
   })
 
@@ -387,20 +651,39 @@ describe('gitlab provider', () => {
     const { instance } = provider()
     const rules = await instance.repos.branchRules(repo, 'main')
 
-    expect(rules).toMatchObject({ branch: 'main', requiredChecks: [], requiresAllChecks: true, requiredApprovals: 2 })
+    expect(rules).toMatchObject({
+      branch: 'main',
+      requiredChecks: [],
+      requiresAllChecks: true,
+      requiredApprovals: 2,
+    })
     expect(rules.warnings).toBeUndefined()
   })
 
   it('matches wildcard branches, and keeps the rules for protected branches off an unprotected one', async () => {
     const { instance } = provider({
-      [`GET ${P}/repository/branches/16-4-stable`]: { status: 200, body: { name: '16-4-stable', protected: false, commit: { id: 'a'.repeat(40) } } },
+      [`GET ${P}/repository/branches/16-4-stable`]: {
+        status: 200,
+        body: {
+          name: '16-4-stable',
+          protected: false,
+          commit: {
+            id: 'a'.repeat(40),
+          },
+        },
+      },
     })
 
     expect((await instance.repos.branchRules(repo, '16-4-stable')).requiredApprovals).toBe(3)
   })
 
   it('warns when the approval rules are out of reach rather than reading them as none', async () => {
-    const { instance } = provider({ [`GET ${P}/approval_rules?per_page=100`]: { status: 403, body: { message: '403 Forbidden' } } })
+    const { instance } = provider({
+      [`GET ${P}/approval_rules?per_page=100`]: {
+        status: 403,
+        body: { message: '403 Forbidden' },
+      },
+    })
     const rules = await instance.repos.branchRules(repo, 'main')
 
     expect(rules.requiredApprovals).toBeUndefined()
@@ -409,12 +692,20 @@ describe('gitlab provider', () => {
 })
 
 describe('gitlab repository licence', () => {
-  const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
+  const cli = {
+    forge: 'gitlab',
+    instance: 'gitlab.com',
+    owner: 'gitlab-org',
+    name: 'cli',
+  } as const
   const project = 'https://gitlab.com/api/v4/projects/gitlab-org%2Fcli'
 
   function recorded(overrides = {}) {
     const { fetch, calls } = fixtureFetch('gitlab/recorded/gitlab.com', overrides)
-    return { instance: gitlab({ fetch }), calls }
+    return {
+      instance: gitlab({ fetch }),
+      calls,
+    }
   }
 
   it('asks for the licence and maps the key GitLab reports', async () => {
@@ -435,7 +726,20 @@ describe('gitlab repository licence', () => {
 
   it('leaves licence undefined when GitLab cannot identify the licence', async () => {
     const { instance } = provider({
-      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: { key: 'other', name: 'Other', nickname: 'LICENSE', html_url: null, source_url: null } } },
+      [`GET ${P}?license=true`]: {
+        status: 200,
+        body: {
+          id: 278964,
+          path_with_namespace: 'acme/platform/widgets',
+          license: {
+            key: 'other',
+            name: 'Other',
+            nickname: 'LICENSE',
+            html_url: null,
+            source_url: null,
+          },
+        },
+      },
     })
     const result = await instance.repos.get(repo, { licence: true })
 
@@ -444,7 +748,10 @@ describe('gitlab repository licence', () => {
 
   it('leaves licence undefined when GitLab reports no licence', async () => {
     const { instance } = provider({
-      [`GET ${P}?license=true`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: null } },
+      [`GET ${P}?license=true`]: {
+        status: 200,
+        body: { id: 278964, path_with_namespace: 'acme/platform/widgets', license: null },
+      },
     })
     const result = await instance.repos.get(repo, { licence: true })
 
@@ -454,11 +761,27 @@ describe('gitlab repository licence', () => {
 
 describe('gitlab merge settings', () => {
   it.each([
-    [{ merge_commit_template: null, squash_commit_template: null }, undefined],
-    [{ merge_commit_template: ' \n', squash_commit_template: '%{title}' }, { squash: { template: '%{title}' } }],
+    [
+      { merge_commit_template: null, squash_commit_template: null },
+      undefined,
+    ],
+    [
+      { merge_commit_template: ' \n', squash_commit_template: '%{title}' },
+      {
+        squash: { template: '%{title}' },
+      },
+    ],
   ])('reads the commit templates from %j', async (templates, mergeCommit) => {
     const { instance } = provider({
-      [`GET ${P}`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', remove_source_branch_after_merge: true, ...templates } },
+      [`GET ${P}`]: {
+        status: 200,
+        body: {
+          id: 278964,
+          path_with_namespace: 'acme/platform/widgets',
+          remove_source_branch_after_merge: true,
+          ...templates,
+        },
+      },
     })
     const result = await instance.repos.get(repo)
 
@@ -473,7 +796,15 @@ describe('gitlab merge settings', () => {
     ['ff', 'always', 'squash'],
   ])('defaults a %s project with squash %s to %s', async (merge_method, squash_option, method) => {
     const { instance } = provider({
-      [`GET ${P}`]: { status: 200, body: { id: 278964, path_with_namespace: 'acme/platform/widgets', merge_method, squash_option } },
+      [`GET ${P}`]: {
+        status: 200,
+        body: {
+          id: 278964,
+          path_with_namespace: 'acme/platform/widgets',
+          merge_method,
+          squash_option,
+        },
+      },
     })
     const result = await instance.repos.get(repo)
 
@@ -501,7 +832,10 @@ describe('gitlab latest release', () => {
 
   it('throws when the project is not found', async () => {
     const { instance } = provider({
-      [`GET ${P}/releases?per_page=1`]: { status: 404, body: { message: '404 Project Not Found' } },
+      [`GET ${P}/releases?per_page=1`]: {
+        status: 404,
+        body: { message: '404 Project Not Found' },
+      },
     })
 
     await expect(instance.releases.latest(repo)).rejects.toThrow(NotFoundError)
@@ -511,8 +845,14 @@ describe('gitlab latest release', () => {
     const upcoming = { tag_name: 'v3.0.0', released_at: '2030-01-01T00:00:00Z', upcoming_release: true }
     const published = { tag_name: 'v2.9.0', released_at: '2025-09-10T12:00:00Z', upcoming_release: false }
     const { instance, calls } = provider({
-      [`GET ${P}/releases?per_page=1`]: { status: 200, body: [upcoming] },
-      [`GET ${P}/releases?per_page=20`]: { status: 200, body: [upcoming, published] },
+      [`GET ${P}/releases?per_page=1`]: {
+        status: 200,
+        body: [upcoming],
+      },
+      [`GET ${P}/releases?per_page=20`]: {
+        status: 200,
+        body: [upcoming, published],
+      },
     })
 
     const latest = await instance.releases.latest(repo)
@@ -532,7 +872,10 @@ describe('gitlab merge methods', () => {
 
   it('uses squash alone when the project always squashes', async () => {
     const { instance, calls } = provider({
-      [`GET ${P}`]: { status: 200, body: { merge_method: 'ff', squash_option: 'always' } },
+      [`GET ${P}`]: {
+        status: 200,
+        body: { merge_method: 'ff', squash_option: 'always' },
+      },
     })
     await instance.threads.merge!(mr)
 
@@ -541,7 +884,10 @@ describe('gitlab merge methods', () => {
 
   it('lists both allowed methods when squash is optional', async () => {
     const { instance } = provider({
-      [`GET ${P}`]: { status: 200, body: { merge_method: 'rebase_merge', squash_option: 'default_on' } },
+      [`GET ${P}`]: {
+        status: 200,
+        body: { merge_method: 'rebase_merge', squash_option: 'default_on' },
+      },
     })
     const error = await instance.threads.merge!(mr).catch((error: unknown) => error)
 
@@ -552,9 +898,22 @@ describe('gitlab merge methods', () => {
   it('reads the jobs of a fork pipeline from the fork, and addresses them there', async () => {
     const thread = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}thread-mr-23.json`, 'utf8')).response.body
     const jobs = JSON.parse(readFileSync(`${fixtureDirectory('gitlab')}pipeline-jobs-610001.json`, 'utf8')).response.body
-    const fork = { forge: 'gitlab', instance: 'gitlab.com', owner: 'contributor', name: 'widgets', externalId: '999' }
+    const fork = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'contributor',
+      name: 'widgets',
+      externalId: '999',
+    }
     const { instance, calls } = provider({
-      [`GET ${P}/merge_requests/23`]: { status: 200, body: { ...thread, source_project_id: 999, head_pipeline: { ...thread.head_pipeline, project_id: 999, web_url: 'https://gitlab.com/contributor/widgets/-/pipelines/610001' } } },
+      [`GET ${P}/merge_requests/23`]: {
+        status: 200,
+        body: {
+          ...thread,
+          source_project_id: 999,
+          head_pipeline: { ...thread.head_pipeline, project_id: 999, web_url: 'https://gitlab.com/contributor/widgets/-/pipelines/610001' },
+        },
+      },
       'GET https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100': { status: 200, body: jobs },
       'POST https://gitlab.com/api/v4/projects/contributor%2Fwidgets/jobs/720001/retry': { status: 201, body: {} },
     })
@@ -563,7 +922,15 @@ describe('gitlab merge methods', () => {
     await instance.checks.rerun(checks.items[0]!.ref)
 
     expect(checks.items).toHaveLength(jobs.length)
-    expect(checks.items.map(check => [check.ref.repo, check.run])).toEqual(checks.items.map(() => [fork, { forge: 'gitlab', instance: 'gitlab.com', repo: fork, id: '610001' }]))
+    expect(checks.items.map(check => [check.ref.repo, check.run])).toEqual(checks.items.map(() => [
+      fork,
+      {
+        forge: 'gitlab',
+        instance: 'gitlab.com',
+        repo: fork,
+        id: '610001',
+      },
+    ]))
     expect(calls.slice(-2).map(call => call.url)).toEqual([
       'https://gitlab.com/api/v4/projects/999/pipelines/610001/jobs?per_page=100',
       'https://gitlab.com/api/v4/projects/contributor%2Fwidgets/jobs/720001/retry',
@@ -575,41 +942,77 @@ describe('gitlab merge methods', () => {
 
     const checks = await instance.threads.checks!(mr)
 
-    expect(checks.items.map(check => check.run)).toEqual(checks.items.map(() => ({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '610001' })))
+    expect(checks.items.map(check => check.run)).toEqual(checks.items.map(() => ({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: '610001',
+    })))
   })
 
   it('re-runs the failed jobs of a pipeline by retrying it', async () => {
     const { instance, calls } = provider()
 
-    await instance.ci.rerunFailed({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '610001' })
+    await instance.ci.rerunFailed({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: '610001',
+    })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`POST ${P}/pipelines/610001/retry`])
-    expect(instance.scopesFor('ci.rerunFailed')).toEqual({ token: ['api'] })
+    expect(instance.scopesFor('ci.rerunFailed')).toEqual({
+      token: ['api'],
+    })
   })
 
   it('can queue the merge until the pipeline succeeds', async () => {
     const queued = { iid: 23, state: 'opened', merge_when_pipeline_succeeds: true }
-    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: queued } })
+    const { instance, calls } = provider({
+      [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: queued },
+    })
 
     await expect(instance.threads.merge!(mr, { method: 'squash', whenChecksPass: true })).resolves.toEqual({ status: 'queued', raw: queued })
     expect(calls[0]!.body).toBe('{"squash":true,"merge_when_pipeline_succeeds":true}')
   })
 
   it.each([
-    ['merge commit', { merge_commit_sha: 'd18f3776502b8aae54697d46dec7fb47ca622c30', squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' }, 'd18f3776502b8aae54697d46dec7fb47ca622c30'],
-    ['squash commit', { merge_commit_sha: null, squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' }, '27323015bcac2e10b82b2e40a515887a8021f6d3'],
+    [
+      'merge commit',
+      { merge_commit_sha: 'd18f3776502b8aae54697d46dec7fb47ca622c30', squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' },
+      'd18f3776502b8aae54697d46dec7fb47ca622c30',
+    ],
+    [
+      'squash commit',
+      { merge_commit_sha: null, squash_commit_sha: '27323015bcac2e10b82b2e40a515887a8021f6d3' },
+      '27323015bcac2e10b82b2e40a515887a8021f6d3',
+    ],
   ])('resolves with the %s of the merged merge request in the response', async (_, shas, sha) => {
     const merged = { iid: 23, state: 'merged', ...shas }
-    const { instance, calls } = provider({ [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: merged } })
+    const { instance, calls } = provider({
+      [`PUT ${P}/merge_requests/23/merge`]: { status: 200, body: merged },
+    })
 
     await expect(instance.threads.merge!(mr, { method: 'squash' })).resolves.toEqual({ status: 'merged', sha, raw: merged })
     expect(calls).toHaveLength(1)
   })
 
   it.each([
-    ['squash', { title: 'Release widgets (!23)', message: 'Ships the widgets' }, { squash_commit_message: 'Release widgets (!23)\n\nShips the widgets' }],
-    ['merge', { title: 'Release widgets (!23)' }, { merge_commit_message: 'Release widgets (!23)' }],
-    ['merge', { message: 'Ships the widgets' }, { merge_commit_message: 'Ships the widgets' }],
+    [
+      'squash',
+      { title: 'Release widgets (!23)', message: 'Ships the widgets' },
+      { squash_commit_message: 'Release widgets (!23)\n\nShips the widgets' },
+    ],
+    [
+      'merge',
+      { title: 'Release widgets (!23)' },
+      { merge_commit_message: 'Release widgets (!23)' },
+    ],
+    [
+      'merge',
+      { message: 'Ships the widgets' },
+      { merge_commit_message: 'Ships the widgets' },
+    ],
   ] as const)('puts the merge commit title before the message for a %s with %j', async (method, text, expected) => {
     const { instance, calls } = provider()
     await instance.threads.merge!(mr, { method, ...text })
@@ -620,13 +1023,22 @@ describe('gitlab merge methods', () => {
 
 describe('gitlab webhooks', () => {
   it('compares X-Gitlab-Token to the secret rather than computing a signature', async () => {
-    expect(await verifyGitLabToken({ headers: { 'X-Gitlab-Token': 's3cret' }, body: '{}' }, 's3cret')).toBe(true)
-    expect(await verifyGitLabToken({ headers: { 'X-Gitlab-Token': 's3cret-but-longer' }, body: '{}' }, 's3cret')).toBe(false)
+    expect(await verifyGitLabToken({
+      headers: { 'X-Gitlab-Token': 's3cret' },
+      body: '{}',
+    }, 's3cret')).toBe(true)
+    expect(await verifyGitLabToken({
+      headers: { 'X-Gitlab-Token': 's3cret-but-longer' },
+      body: '{}',
+    }, 's3cret')).toBe(false)
     expect(await verifyGitLabToken({ headers: {}, body: '{}' }, 's3cret')).toBe(false)
   })
 
   it('maps a merge request approval hook to a review event', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      webhookSecret: 's',
+    })
     const [event] = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook' },
       body: JSON.stringify({
@@ -638,14 +1050,21 @@ describe('gitlab webhooks', () => {
     })
 
     expect(event).toMatchObject({ kind: 'review', kindRaw: 'merge_request.approved' })
-    expect(event!.thread).toMatchObject({ kind: 'pull_request', number: '23', repo: { owner: 'acme/platform', name: 'widgets' } })
+    expect(event!.thread).toMatchObject({
+      kind: 'pull_request',
+      number: '23',
+      repo: { owner: 'acme/platform', name: 'widgets' },
+    })
     expect(event!.occurredAt.toISOString()).toBe('2025-09-18T10:00:00.000Z')
   })
 })
 
 describe('gitlab update webhooks', () => {
   it('splits label, assignee and reviewer changes into one event each', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      webhookSecret: 's',
+    })
     const events = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Merge Request Hook', 'x-gitlab-event-uuid': 'd1' },
       body: JSON.stringify({
@@ -654,19 +1073,79 @@ describe('gitlab update webhooks', () => {
         project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
         object_attributes: { iid: 23, action: 'update', updated_at: '2025-09-18 10:00:00 UTC' },
         changes: {
-          labels: { previous: [{ title: 'bug' }, { title: 'ui' }], current: [{ title: 'bug' }, { title: 'docs' }] },
-          assignees: { previous: [{ id: 1, username: 'grace' }], current: [{ id: 2, username: 'linus' }] },
-          reviewers: { previous: [], current: [{ id: 3, username: 'ken' }] },
+          labels: {
+            previous: [
+              { title: 'bug' },
+              { title: 'ui' },
+            ],
+            current: [
+              { title: 'bug' },
+              { title: 'docs' },
+            ],
+          },
+          assignees: {
+            previous: [
+              { id: 1, username: 'grace' },
+            ],
+            current: [
+              { id: 2, username: 'linus' },
+            ],
+          },
+          reviewers: {
+            previous: [],
+            current: [
+              { id: 3, username: 'ken' },
+            ],
+          },
         },
       }),
     })
 
-    expect(events.map(event => [event.id, event.kind, event.action, event.detail])).toEqual([
-      ['d1:0', 'label', 'labelled', { type: 'label', label: 'docs' }],
-      ['d1:1', 'label', 'unlabelled', { type: 'label', label: 'ui' }],
-      ['d1:2', 'assignment', 'assigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'linus' }) }],
-      ['d1:3', 'assignment', 'unassigned', { type: 'assignment', assignee: expect.objectContaining({ login: 'grace' }) }],
-      ['d1:4', 'assignment', 'review_requested', { type: 'assignment', assignee: expect.objectContaining({ login: 'ken' }) }],
+    expect(events.map(event => [
+      event.id,
+      event.kind,
+      event.action,
+      event.detail,
+    ])).toEqual([
+      [
+        'd1:0',
+        'label',
+        'labelled',
+        { type: 'label', label: 'docs' },
+      ],
+      [
+        'd1:1',
+        'label',
+        'unlabelled',
+        { type: 'label', label: 'ui' },
+      ],
+      [
+        'd1:2',
+        'assignment',
+        'assigned',
+        {
+          type: 'assignment',
+          assignee: expect.objectContaining({ login: 'linus' }),
+        },
+      ],
+      [
+        'd1:3',
+        'assignment',
+        'unassigned',
+        {
+          type: 'assignment',
+          assignee: expect.objectContaining({ login: 'grace' }),
+        },
+      ],
+      [
+        'd1:4',
+        'assignment',
+        'review_requested',
+        {
+          type: 'assignment',
+          assignee: expect.objectContaining({ login: 'ken' }),
+        },
+      ],
     ])
     expect(events.every(event => event.thread?.number === '23')).toBe(true)
     for (const event of events) {
@@ -675,7 +1154,10 @@ describe('gitlab update webhooks', () => {
   })
 
   it('keeps the delivery id for a single change', async () => {
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      webhookSecret: 's',
+    })
     const events = await instance.webhooks.ingest({
       headers: { 'x-gitlab-token': 's', 'x-gitlab-event': 'Issue Hook', 'x-gitlab-event-uuid': 'd2' },
       body: JSON.stringify({
@@ -683,28 +1165,69 @@ describe('gitlab update webhooks', () => {
         user: { id: 4101, username: 'ada' },
         project: { id: 278964, path_with_namespace: 'acme/platform/widgets' },
         object_attributes: { iid: 5, action: 'update' },
-        changes: { labels: { previous: [], current: [{ title: 'bug' }] } },
+        changes: {
+          labels: {
+            previous: [],
+            current: [
+              { title: 'bug' },
+            ],
+          },
+        },
       }),
     })
 
-    expect(events).toMatchObject([{ id: 'd2', kind: 'label', action: 'labelled', summary: 'ada added label bug' }])
+    expect(events).toMatchObject([
+      {
+        id: 'd2',
+        kind: 'label',
+        action: 'labelled',
+        summary: 'ada added label bug',
+      },
+    ])
   })
 })
 
 describe('gitlab release webhooks', () => {
   it('keys GitLab releases by tag so the ref can be fetched', async () => {
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, webhookSecret: 's' })
-    const body = JSON.stringify({ object_kind: 'release', action: 'create', id: 7, tag: 'v2.0.0', name: 'Two', project: { id: 1, path_with_namespace: 'acme/platform/widgets' } })
-    const [event] = await provider.webhooks.ingest({ headers: { 'x-gitlab-event': 'Release Hook', 'x-gitlab-token': 's' }, body })
+    const provider = gitlab({
+      auth: { type: 'token', token: 't' },
+      webhookSecret: 's',
+    })
+    const body = JSON.stringify({
+      object_kind: 'release',
+      action: 'create',
+      id: 7,
+      tag: 'v2.0.0',
+      name: 'Two',
+      project: { id: 1, path_with_namespace: 'acme/platform/widgets' },
+    })
+    const [event] = await provider.webhooks.ingest({
+      headers: { 'x-gitlab-event': 'Release Hook', 'x-gitlab-token': 's' },
+      body,
+    })
 
-    expect(event).toMatchObject({ kind: 'release', action: 'published', detail: { type: 'release', release: { id: 'v2.0.0', tag: 'v2.0.0' }, name: 'Two' } })
+    expect(event).toMatchObject({
+      kind: 'release',
+      action: 'published',
+      detail: {
+        type: 'release',
+        release: { id: 'v2.0.0', tag: 'v2.0.0' },
+        name: 'Two',
+      },
+    })
   })
 })
 
 describe('gitlab release writes', () => {
   it('rejects what a GitLab release cannot be, without sending a request', async () => {
     const { instance, calls } = provider()
-    const ref = { forge: 'gitlab', instance: 'gitlab.com', repo, id: 'v2.0.0', tag: 'v2.0.0' } as const
+    const ref = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: 'v2.0.0',
+      tag: 'v2.0.0',
+    } as const
 
     await expect(instance.releases.create(repo, { tag: 'v2.2.0', draft: true })).rejects.toThrow(UnsupportedOperationError)
     await expect(instance.releases.create(repo, { tag: 'v2.2.0', prerelease: true })).rejects.toThrow('GitLab has no prereleases')
@@ -716,14 +1239,21 @@ describe('gitlab release writes', () => {
 })
 
 describe('gitlab code search', () => {
-  const cli = { forge: 'gitlab', instance: 'gitlab.com', owner: 'gitlab-org', name: 'cli' } as const
+  const cli = {
+    forge: 'gitlab',
+    instance: 'gitlab.com',
+    owner: 'gitlab-org',
+    name: 'cli',
+  } as const
   const project = 'gid://gitlab/Project/80045070'
 
   function recordedSearch(graphql?: (init: Parameters<FixtureFetch['fetch']>[1]) => Response) {
     const recorded = fixtureFetch('gitlab/recorded/gitlab.com')
     const instance = gitlab({
       auth: { type: 'token', token: 't' },
-      fetch: async (input, init) => graphql && String(input).endsWith('/graphql') ? graphql(init) : recorded.fetch(input, init),
+      fetch: async (input, init) => graphql && String(input).endsWith('/graphql')
+        ? graphql(init)
+        : recorded.fetch(input, init),
     })
     return { instance, calls: recorded.calls }
   }
@@ -734,15 +1264,41 @@ describe('gitlab code search', () => {
     const { items } = await instance.search.code({ text: 'import', repo: cli, perPage: 3 }).page()
 
     expect(items).toHaveLength(1)
-    expect(items[0]).toMatchObject({ repo: cli, path: 'internal/commands/variable/import/import.go', ref: 'main', url: 'https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/variable/import/import.go#L27' })
+    expect(items[0]).toMatchObject({
+      repo: cli,
+      path: 'internal/commands/variable/import/import.go',
+      ref: 'main',
+      url: 'https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/variable/import/import.go#L27',
+    })
     expect(items[0]!.fragments.map(fragment => fragment.line)).toEqual([27, 1, 2])
     expect(items[0]!.raw).toHaveLength(3)
   })
 
   it('merges a file that basic search lists once for its name and again for its contents', async () => {
-    const scratch = { forge: 'gitlab', instance: 'gitlab.com', owner: 'forges-fixtures', name: 'forges-fixtures' } as const
-    const blob = { basename: 'notes', data: 'forges-fixtures\n', path: 'notes.md', filename: 'notes.md', id: 'b1', ref: 'main', startline: 1, project_id: 1 }
-    const instance = gitlab({ auth: { type: 'token', token: 't' }, fetch: async () => Response.json([blob, blob, { ...blob, path: 'other.md', filename: 'other.md' }]) })
+    const scratch = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'forges-fixtures',
+      name: 'forges-fixtures',
+    } as const
+    const blob = {
+      basename: 'notes',
+      data: 'forges-fixtures\n',
+      path: 'notes.md',
+      filename: 'notes.md',
+      id: 'b1',
+      ref: 'main',
+      startline: 1,
+      project_id: 1,
+    }
+    const instance = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async () => Response.json([
+        blob,
+        blob,
+        { ...blob, path: 'other.md', filename: 'other.md' },
+      ]),
+    })
 
     const { items } = await instance.search.code({ text: 'forges-fixtures', repo: scratch, perPage: 20 }).page()
 
@@ -756,24 +1312,43 @@ describe('gitlab code search', () => {
     const { items } = await instance.search.code({ text: 'import', owner: 'gitlab-org', perPage: 3 }).page()
     await instance.search.code({ text: 'import', owner: 'gitlab-org', perPage: 3 }).page()
 
-    expect(items.map(item => item.repo)).toEqual([expect.objectContaining({ owner: 'gitlab-org/ai-engineering/agent-foundations', name: 'agentic-productivity', externalId: '80045070' })])
-    expect(calls.filter(call => call.operationName === 'CodeSearchProjects').map(call => call.variables)).toEqual([{ ids: [project] }])
+    expect(items.map(item => item.repo)).toEqual([
+      expect.objectContaining({ owner: 'gitlab-org/ai-engineering/agent-foundations', name: 'agentic-productivity', externalId: '80045070' }),
+    ])
+    expect(calls.filter(call => call.operationName === 'CodeSearchProjects').map(call => call.variables)).toEqual([
+      {
+        ids: [project],
+      },
+    ])
   })
 
   it('asks only for a read scope to search code', () => {
     const { instance } = provider()
 
-    expect(instance.scopesFor('search.code')).toEqual({ token: ['read_api'] })
-    expect(instance.scopesFor('search.code')).toEqual({ token: ['read_api'] })
+    expect(instance.scopesFor('search.code')).toEqual({
+      token: ['read_api'],
+    })
+    expect(instance.scopesFor('search.code')).toEqual({
+      token: ['read_api'],
+    })
   })
 
   it('asks for `read_api` to read and `api` to write', () => {
     const { instance } = provider()
 
-    for (const verb of ['threads.getComment', 'threads.getReview', 'threads.reactions', 'users.me'] as const) {
-      expect(instance.scopesFor(verb)).toEqual({ token: ['read_api'] })
+    for (const verb of [
+      'threads.getComment',
+      'threads.getReview',
+      'threads.reactions',
+      'users.me',
+    ] as const) {
+      expect(instance.scopesFor(verb)).toEqual({
+        token: ['read_api'],
+      })
     }
-    expect(instance.scopesFor('threads.close')).toEqual({ token: ['api'] })
+    expect(instance.scopesFor('threads.close')).toEqual({
+      token: ['api'],
+    })
   })
 
   it('searches a project, a group or the whole instance', async () => {
@@ -794,16 +1369,25 @@ describe('gitlab code search', () => {
   })
 
   it('leaves out the results of a project the token cannot read, with a warning', async () => {
-    const { instance } = recordedSearch(() => Response.json({ data: { projects: { nodes: [] } } }))
+    const { instance } = recordedSearch(() => Response.json({
+      data: {
+        projects: { nodes: [] },
+      },
+    }))
 
     const page = await instance.search.code({ text: 'import', owner: 'gitlab-org', perPage: 3 }).page()
 
     expect(page.items).toEqual([])
-    expect(page.warnings).toEqual([expect.objectContaining({ code: 'record_unreachable', subject: 'project 80045070' })])
+    expect(page.warnings).toEqual([
+      expect.objectContaining({ code: 'record_unreachable', subject: 'project 80045070' }),
+    ])
   })
 
   it('stops a group search when reading its projects is rate limited', async () => {
-    const { instance } = recordedSearch(() => Response.json({ message: 'Retry later' }, { status: 429, headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' } }))
+    const { instance } = recordedSearch(() => Response.json({ message: 'Retry later' }, {
+      status: 429,
+      headers: { 'ratelimit-remaining': '0', 'ratelimit-reset': '1800000000' },
+    }))
 
     await expect(instance.search.code({ text: 'import', owner: 'gitlab-org', perPage: 3 }).page()).rejects.toBeInstanceOf(RateLimitedError)
   })
@@ -815,21 +1399,45 @@ describe('gitlab code search', () => {
       throw init!.signal!.reason
     })
 
-    await expect(instance.search.code({ text: 'import', owner: 'gitlab-org', perPage: 3, signal: controller.signal }).page()).rejects.toMatchObject({ name: 'AbortError' })
+    await expect(instance.search.code({
+      text: 'import',
+      owner: 'gitlab-org',
+      perPage: 3,
+      signal: controller.signal,
+    }).page()).rejects.toMatchObject({ name: 'AbortError' })
   })
 })
 
 describe('gitlab path safety', () => {
   it('refuses a comment id that would climb out of the thread, before any request', async () => {
     const urls: string[] = []
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      urls.push(url)
-      return new Response(null, { status: 204 })
-    } })
-    const repo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }
-    const thread = { forge: 'gitlab', instance: 'gitlab.com', repo, kind: 'issue', number: '1' } as const
+    const provider = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        urls.push(url)
+        return new Response(null, { status: 204 })
+      },
+    })
+    const repo = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'acme',
+      name: 'widgets',
+    }
+    const thread = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      kind: 'issue',
+      number: '1',
+    } as const
 
-    await expect(provider.threads.deleteComment({ forge: 'gitlab', instance: 'gitlab.com', thread, id: '../../../../../user' })).rejects.toThrow(TypeError)
+    await expect(provider.threads.deleteComment({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      thread,
+      id: '../../../../../user',
+    })).rejects.toThrow(TypeError)
     expect(urls).toEqual([])
   })
 })
@@ -841,11 +1449,21 @@ describe('gitlab review threads', () => {
     const threads = await Array.fromAsync(instance.threads.reviewThreads({ ...mr, number: '24' }))
 
     expect(threads).toMatchObject([
-      { id: '87805b7c09016a7058e91bdbe7b29d1f284a39e6', resolved: false, path: 'package.json', line: 27, startLine: 25, side: 'right' },
+      {
+        id: '87805b7c09016a7058e91bdbe7b29d1f284a39e6',
+        resolved: false,
+        path: 'package.json',
+        line: 27,
+        startLine: 25,
+        side: 'right',
+      },
       { id: '6a9c1750b37d513a43987b574953fceb50b03ce7', resolved: true },
     ])
     expect(threads.every(thread => thread.outdated === undefined)).toBe(true)
-    expect(threads[0]!.comments.map(comment => [comment.ref?.id, comment.author?.login, comment.line])).toEqual([['1128', 'root', 27], ['1129', 'ada', 27]])
+    expect(threads[0]!.comments.map(comment => [comment.ref?.id, comment.author?.login, comment.line])).toEqual([
+      ['1128', 'root', 27],
+      ['1129', 'ada', 27],
+    ])
     expect(threads[1]!.path).toBeUndefined()
     expect(calls.map(call => new URL(call.url).pathname)).toEqual(['/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/24/discussions'])
   })
@@ -860,54 +1478,132 @@ describe('gitlab review threads', () => {
 })
 
 describe('gitlab single-item reads', () => {
-  const note = { id: 5, body: 'Looks good', system: false, created_at: '2026-01-01T00:00:00Z' }
+  const note = {
+    id: 5,
+    body: 'Looks good',
+    system: false,
+    created_at: '2026-01-01T00:00:00Z',
+  }
 
   function serve(responses: Record<string, unknown>) {
-    return gitlab({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      const key = new URL(String(url)).pathname
-      return key in responses ? Response.json(responses[key]) : Response.json({ message: '404 Not found' }, { status: 404 })
-    } })
+    return gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        const key = new URL(String(url)).pathname
+        return key in responses
+          ? Response.json(responses[key])
+          : Response.json({ message: '404 Not found' }, { status: 404 })
+      },
+    })
   }
 
   it('gives a resolvable note the discussion that resolves it, as the listing does', async () => {
     const provider = serve({
       '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, resolvable: true, resolved: false },
-      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': [{ id: 'd1', individual_note: false, notes: [{ ...note, resolvable: true, resolved: false }] }],
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/discussions': [
+        {
+          id: 'd1',
+          individual_note: false,
+          notes: [
+            { ...note, resolvable: true, resolved: false },
+          ],
+        },
+      ],
     })
 
-    const comment = await provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })
+    const comment = await provider.threads.getComment({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      thread: mr,
+      id: '5',
+    })
 
     expect(comment.thread).toEqual({ id: 'd1', resolved: false })
   })
 
   it('does not read a system note, which the listing leaves out', async () => {
-    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, system: true } })
+    const provider = serve({
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/notes/5': { ...note, system: true },
+    })
 
-    await expect(provider.threads.getComment({ forge: 'gitlab', instance: 'gitlab.com', thread: mr, id: '5' })).rejects.toThrow(NotFoundError)
+    await expect(provider.threads.getComment({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      thread: mr,
+      id: '5',
+    })).rejects.toThrow(NotFoundError)
   })
 
   it('reads a CI job whose ref names no run, and names the run from the job', async () => {
-    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test', pipeline: { id: 7 } } })
+    const provider = serve({
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': {
+        id: 9,
+        name: 'test',
+        status: 'success',
+        stage: 'test',
+        pipeline: { id: 7 },
+      },
+    })
 
-    const job = await provider.ci.getJob({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })
+    const job = await provider.ci.getJob({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: '9',
+    })
 
-    expect(job.ref.run).toEqual({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '7' })
+    expect(job.ref.run).toEqual({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: '7',
+    })
   })
 
   it('rejects a CI job without its pipeline when its ref names no run', async () => {
-    const provider = serve({ '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': { id: 9, name: 'test', status: 'success', stage: 'test' } })
+    const provider = serve({
+      '/api/v4/projects/acme%2Fplatform%2Fwidgets/jobs/9': {
+        id: 9,
+        name: 'test',
+        status: 'success',
+        stage: 'test',
+      },
+    })
 
-    await expect(provider.ci.getJob({ forge: 'gitlab', instance: 'gitlab.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.ci.getJob({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo,
+      id: '9',
+    })).rejects.toThrow(UnsupportedOperationError)
   })
 })
 
 describe('gitlab thread updates', () => {
   it('reopens, relabels and reassigns a merge request in one request', async () => {
     const { instance, calls } = provider()
-    await instance.threads.update(mr, { title: 'Retry uploads', state: 'open', labels: ['bug', 'ui'], assignees: [{ forge: 'gitlab', instance: 'gitlab.com', login: 'jane', id: '42', isBotHint: false }] })
+    await instance.threads.update(mr, {
+      title: 'Retry uploads',
+      state: 'open',
+      labels: ['bug', 'ui'],
+      assignees: [
+        {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          login: 'jane',
+          id: '42',
+          isBotHint: false,
+        },
+      ],
+    })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([`PUT ${P}/merge_requests/23`])
-    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state_event: 'reopen', labels: 'bug,ui', assignee_ids: [42] })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({
+      title: 'Retry uploads',
+      state_event: 'reopen',
+      labels: 'bug,ui',
+      assignee_ids: [42],
+    })
   })
 
   it('clears labels and assignees with an empty string and an empty list', async () => {
@@ -919,23 +1615,52 @@ describe('gitlab thread updates', () => {
 })
 
 describe('gitlab organisation subgroups and members', () => {
-  const org = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: '', kind: 'namespace' } as const
+  const org = {
+    forge: 'gitlab',
+    instance: 'gitlab.com',
+    owner: 'acme',
+    name: '',
+    kind: 'namespace',
+  } as const
 
   it('lists nested subgroups as teams, with their path below the group as the slug', async () => {
     const { instance } = provider()
 
     const teams = await Array.fromAsync(instance.orgs.teams(org))
 
-    expect(teams.map(team => [team.ref.slug, team.ref.id, team.name, team.parent?.slug, team.parent?.id])).toEqual([
-      ['platform', '20', 'Platform', undefined, undefined],
-      ['platform/web', '21', 'Web', 'platform', '20'],
+    expect(teams.map(team => [
+      team.ref.slug,
+      team.ref.id,
+      team.name,
+      team.parent?.slug,
+      team.parent?.id,
+    ])).toEqual([
+      [
+        'platform',
+        '20',
+        'Platform',
+        undefined,
+        undefined,
+      ],
+      [
+        'platform/web',
+        '21',
+        'Web',
+        'platform',
+        '20',
+      ],
     ])
   })
 
   it('lists the direct members of a nested subgroup, addressed by its path without an id', async () => {
     const { instance, calls } = provider()
 
-    const members = await Array.fromAsync(instance.orgs.teamMembers({ forge: 'gitlab', instance: 'gitlab.com', org, slug: 'platform/web' }))
+    const members = await Array.fromAsync(instance.orgs.teamMembers({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      org,
+      slug: 'platform/web',
+    }))
 
     expect(members.map(member => member.login)).toEqual(['octocat', 'hubot'])
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
@@ -953,23 +1678,58 @@ describe('gitlab organisation subgroups and members', () => {
 describe('gitlab templates', () => {
   it('reads each merge request template by its key, and leaves issue templates alone when asked for one kind', async () => {
     const { instance, calls } = provider({
-      [`GET ${P}/templates/merge_requests?per_page=100`]: { status: 200, body: [{ key: 'Security fix', name: 'Security fix' }] },
-      [`GET ${P}/templates/merge_requests/Security%20fix`]: { status: 200, body: { name: 'Security fix', content: '## Impact\n' } },
+      [`GET ${P}/templates/merge_requests?per_page=100`]: {
+        status: 200,
+        body: [
+          { key: 'Security fix', name: 'Security fix' },
+        ],
+      },
+      [`GET ${P}/templates/merge_requests/Security%20fix`]: {
+        status: 200,
+        body: { name: 'Security fix', content: '## Impact\n' },
+      },
     })
 
     const templates = await instance.repos.templates(repo, { kind: 'pull_request' })
 
-    expect(templates).toEqual([{ kind: 'pull_request', name: 'Security fix', format: 'markdown', body: '## Impact\n', raw: { name: 'Security fix', content: '## Impact\n' } }])
+    expect(templates).toEqual([
+      {
+        kind: 'pull_request',
+        name: 'Security fix',
+        format: 'markdown',
+        body: '## Impact\n',
+        raw: { name: 'Security fix', content: '## Impact\n' },
+      },
+    ])
     expect(calls.some(call => call.url.includes('/templates/issues'))).toBe(false)
   })
 
   it('reads the project\'s own template as well as a group\'s of the same name', async () => {
     const { instance } = provider({
-      [`GET ${P}/templates/issues?per_page=100`]: { status: 200, body: [{ key: 'Bug', name: 'Bug' }, { key: 'Feature', name: 'Feature' }, { key: 'Bug', name: 'Bug' }] },
-      [`GET ${P}`]: { status: 200, body: { id: 7, path_with_namespace: 'acme/platform/widgets' } },
-      [`GET ${P}/templates/issues/Bug`]: { status: 200, body: { name: 'Bug', content: 'From the group' } },
-      [`GET ${P}/templates/issues/Feature`]: { status: 200, body: { name: 'Feature', content: 'Ideas' } },
-      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: { status: 200, body: { name: 'Bug', content: 'From the project' } },
+      [`GET ${P}/templates/issues?per_page=100`]: {
+        status: 200,
+        body: [
+          { key: 'Bug', name: 'Bug' },
+          { key: 'Feature', name: 'Feature' },
+          { key: 'Bug', name: 'Bug' },
+        ],
+      },
+      [`GET ${P}`]: {
+        status: 200,
+        body: { id: 7, path_with_namespace: 'acme/platform/widgets' },
+      },
+      [`GET ${P}/templates/issues/Bug`]: {
+        status: 200,
+        body: { name: 'Bug', content: 'From the group' },
+      },
+      [`GET ${P}/templates/issues/Feature`]: {
+        status: 200,
+        body: { name: 'Feature', content: 'Ideas' },
+      },
+      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: {
+        status: 200,
+        body: { name: 'Bug', content: 'From the project' },
+      },
     })
 
     const templates = await instance.repos.templates(repo, { kind: 'issue' })
@@ -979,16 +1739,35 @@ describe('gitlab templates', () => {
 
   it('reads a name two groups share once, when the project has none of its own', async () => {
     const { instance } = provider({
-      [`GET ${P}/templates/issues?per_page=100`]: { status: 200, body: [{ key: 'Bug', name: 'Bug' }, { key: 'Bug', name: 'Bug' }] },
-      [`GET ${P}`]: { status: 200, body: { id: 7, path_with_namespace: 'acme/platform/widgets' } },
-      [`GET ${P}/templates/issues/Bug`]: { status: 200, body: { name: 'Bug', content: 'From the closest group' } },
-      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: { status: 404, body: { message: '404 Template Not Found' } },
+      [`GET ${P}/templates/issues?per_page=100`]: {
+        status: 200,
+        body: [
+          { key: 'Bug', name: 'Bug' },
+          { key: 'Bug', name: 'Bug' },
+        ],
+      },
+      [`GET ${P}`]: {
+        status: 200,
+        body: { id: 7, path_with_namespace: 'acme/platform/widgets' },
+      },
+      [`GET ${P}/templates/issues/Bug`]: {
+        status: 200,
+        body: { name: 'Bug', content: 'From the closest group' },
+      },
+      [`GET ${P}/templates/issues/Bug?source_template_project_id=7`]: {
+        status: 404,
+        body: { message: '404 Template Not Found' },
+      },
     })
 
-    await expect(instance.repos.templates(repo, { kind: 'issue' })).resolves.toMatchObject([{ body: 'From the closest group' }])
+    await expect(instance.repos.templates(repo, { kind: 'issue' })).resolves.toMatchObject([
+      { body: 'From the closest group' },
+    ])
   })
 
   it('asks only for a read scope', () => {
-    expect(provider().instance.scopesFor('repos.templates')).toEqual({ token: ['read_api'] })
+    expect(provider().instance.scopesFor('repos.templates')).toEqual({
+      token: ['read_api'],
+    })
   })
 })

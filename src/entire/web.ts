@@ -5,14 +5,22 @@ import type { WebDefinition, WebLinks } from '../web.ts'
 export const HOST = 'et'
 
 const projectPath = (project: string) => `/${HOST}/${encodeURIComponent(project)}`
-const repoPath = (repo: RepoRef) => repo.kind === 'namespace' ? projectPath(repo.owner) : `${projectPath(repo.owner)}/${encodeURIComponent(repo.name)}`
+function repoPath(repo: RepoRef) {
+  return repo.kind === 'namespace'
+    ? projectPath(repo.owner)
+    : `${projectPath(repo.owner)}/${encodeURIComponent(repo.name)}`
+}
 
 export const ENTIRE_WEB: WebDefinition<'entire'> = {
   forge: 'entire',
   baseUrl: 'https://us.console.entire.io',
   apiPath: '/api/v1',
-  instance: host => host.endsWith('.console.entire.io') ? 'entire.com' : host,
-  links: ({ instance }) => entireWeb(instance === 'entire.com' ? 'https://entire.com' : `https://${instance}`),
+  instance: host => host.endsWith('.console.entire.io')
+    ? 'entire.com'
+    : host,
+  links: ({ instance }) => entireWeb(instance === 'entire.com'
+    ? 'https://entire.com'
+    : `https://${instance}`),
 }
 
 /**
@@ -27,7 +35,9 @@ function entireWeb(baseUrl: string): WebLinks {
       if (section === 'issues') {
         return `${projectPath(repo.owner)}/-/trails`
       }
-      return section === 'pullRequests' && repo.kind !== 'namespace' ? `${repoPath(repo)}/trails` : undefined
+      return section === 'pullRequests' && repo.kind !== 'namespace'
+        ? `${repoPath(repo)}/trails`
+        : undefined
     },
     thread: (ref) => {
       if (!ref.number) {
@@ -36,25 +46,48 @@ function entireWeb(baseUrl: string): WebLinks {
       if (ref.kind === 'issue') {
         return `${projectPath(ref.repo.owner)}/-/trails/${encodeURIComponent(ref.number)}`
       }
-      return ref.kind === 'pull_request' && ref.repo.kind !== 'namespace' ? `${repoPath(ref.repo)}/trails/${encodeURIComponent(ref.number)}` : undefined
+      return ref.kind === 'pull_request' && ref.repo.kind !== 'namespace'
+        ? `${repoPath(ref.repo)}/trails/${encodeURIComponent(ref.number)}`
+        : undefined
     },
     parse: (segments, _url, from) => {
       const [host, project, name, section, number] = segments
       if (host !== HOST || !project) {
         return undefined
       }
-      const namespace: RepoRef = { ...from, owner: project, name: '', kind: 'namespace' }
+      const namespace: RepoRef = {
+        ...from,
+        owner: project,
+        name: '',
+        kind: 'namespace',
+      }
       if (!name) {
         return { repo: namespace }
       }
       if (name === '-') {
         return section === 'trails' && number && /^\d+$/.test(number)
-          ? { repo: namespace, thread: { ...from, repo: namespace, kind: 'issue', number } }
+          ? {
+              repo: namespace,
+              thread: {
+                ...from,
+                repo: namespace,
+                kind: 'issue',
+                number,
+              },
+            }
           : { repo: namespace }
       }
       const repo: RepoRef = { ...from, owner: project, name }
       return section === 'trails' && number && /^\d+$/.test(number)
-        ? { repo, thread: { ...from, repo, kind: 'pull_request', number } }
+        ? {
+            repo,
+            thread: {
+              ...from,
+              repo,
+              kind: 'pull_request',
+              number,
+            },
+          }
         : { repo }
     },
   }

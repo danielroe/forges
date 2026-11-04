@@ -83,27 +83,48 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
         before: payload.before,
         after: payload.after,
         deleted: Boolean(payload.after && ZERO_SHA.test(payload.after)),
-        commits: (payload.commits ?? []).map(commit => ({ sha: commit.id, message: commit.message, author: commit.author?.username ?? commit.author?.name, url: commit.url })),
+        commits: (payload.commits ?? []).map(commit => ({
+          sha: commit.id,
+          message: commit.message,
+          author: commit.author?.username ?? commit.author?.name,
+          url: commit.url,
+        })),
         commitCount: payload.total_commits,
       })
     case 'create':
     case 'delete':
       return {
         kind: 'ref',
-        action: event === 'create' ? 'created' : 'deleted',
+        action: event === 'create'
+          ? 'created'
+          : 'deleted',
         detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' },
-        summary: `${who} ${event === 'create' ? 'created' : 'deleted'} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
+        summary: `${who} ${event === 'create'
+          ? 'created'
+          : 'deleted'} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
       }
     case 'fork':
       return {
         kind: 'fork',
         action: 'created',
-        detail: { type: 'fork', fork: payload.repository ? toRepoRef(origin, payload.repository) : undefined },
-        summary: `${who} forked the repository${payload.repository ? ` to ${payload.repository.full_name}` : ''}`,
+        detail: {
+          type: 'fork',
+          fork: payload.repository
+            ? toRepoRef(origin, payload.repository)
+            : undefined,
+        },
+        summary: `${who} forked the repository${payload.repository
+          ? ` to ${payload.repository.full_name}`
+          : ''}`,
       }
     case 'wiki': {
       const action = eventAction(payload.action) ?? 'other'
-      return { kind: 'wiki', action, detail: { type: 'wiki', title: payload.page }, summary: `${who} ${payload.action ?? 'edited'} wiki page ${payload.page ?? ''}`.trim() }
+      return {
+        kind: 'wiki',
+        action,
+        detail: { type: 'wiki', title: payload.page },
+        summary: `${who} ${payload.action ?? 'edited'} wiki page ${payload.page ?? ''}`.trim(),
+      }
     }
     case 'release':
       if (!payload.release || !payload.repository) {
@@ -114,7 +135,12 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
         action: eventAction(payload.action) ?? 'other',
         detail: {
           type: 'release',
-          release: { ...origin, repo: toRepoRef(origin, payload.repository), id: String(payload.release.id), tag: payload.release.tag_name },
+          release: {
+            ...origin,
+            repo: toRepoRef(origin, payload.repository),
+            id: String(payload.release.id),
+            tag: payload.release.tag_name,
+          },
           tag: payload.release.tag_name,
           name: payload.release.name,
           body: payload.release.body || undefined,
@@ -131,22 +157,54 @@ function repoLevel(origin: ForgeOrigin, event: string, payload: ForgejoWebhookPa
 
 function detailOf(kind: EventKind, event: string, thread: ThreadRef | undefined, origin: ForgeOrigin, payload: ForgejoWebhookPayload): EventDetail | undefined {
   const comment = payload.comment
-  const commentRef = comment?.id !== undefined && thread ? { ...origin, thread, id: String(comment.id) } : undefined
+  const commentRef = comment?.id !== undefined && thread
+    ? {
+        ...origin,
+        thread,
+        id: String(comment.id),
+      }
+    : undefined
   switch (kind) {
     case 'comment':
       return { type: 'comment', comment: commentRef, body: comment?.body }
     case 'review_comment':
-      return { type: 'review_comment', comment: commentRef, body: comment?.body, path: comment?.path, line: comment?.line }
+      return {
+        type: 'review_comment',
+        comment: commentRef,
+        body: comment?.body,
+        path: comment?.path,
+        line: comment?.line,
+      }
     case 'review': {
       const stateRaw = event.replace('pull_request_review_', '')
-      return { type: 'review', state: reviewState(stateRaw === 'rejected' ? 'changes_requested' : stateRaw), stateRaw, body: payload.review?.content }
+      return {
+        type: 'review',
+        state: reviewState(stateRaw === 'rejected'
+          ? 'changes_requested'
+          : stateRaw),
+        stateRaw,
+        body: payload.review?.content,
+      }
     }
     case 'label':
-      return payload.label?.name ? { type: 'label', label: payload.label.name } : undefined
+      return payload.label?.name
+        ? { type: 'label', label: payload.label.name }
+        : undefined
     case 'assignment':
-      return { type: 'assignment', assignee: toActor(origin, payload.assignee) }
+      return {
+        type: 'assignment',
+        assignee: toActor(origin, payload.assignee),
+      }
     case 'state_change':
-      return { type: 'state_change', state: payload.pull_request?.merged ? 'merged' : payload.action === 'closed' ? 'closed' : 'open', draft: payload.pull_request?.draft }
+      return {
+        type: 'state_change',
+        state: payload.pull_request?.merged
+          ? 'merged'
+          : payload.action === 'closed'
+            ? 'closed'
+            : 'open',
+        draft: payload.pull_request?.draft,
+      }
     default:
       return undefined
   }
@@ -159,7 +217,9 @@ function threadTime({ action, comment, pull_request: pull }: ForgejoWebhookPaylo
   }
   let own: string | null | undefined
   if (comment) {
-    own = action === 'edited' ? comment.updated_at : comment.created_at
+    own = action === 'edited'
+      ? comment.updated_at
+      : comment.created_at
   }
   else if (action === 'opened') {
     own = subject?.created_at
@@ -177,53 +237,80 @@ export function translateForgejoWebhook(origin: ForgeOrigin, delivery: WebhookDe
   }
   const deliveryId = firstHeader(delivery, names.delivery) ?? crypto.randomUUID()
   const payload = JSON.parse(bodyText(delivery.body)) as ForgejoWebhookPayload
-  const source = event === 'fork' ? payload.forkee : payload.repository
-  const repo = source ? toRepoRef(origin, source) : undefined
+  const source = event === 'fork'
+    ? payload.forkee
+    : payload.repository
+  const repo = source
+    ? toRepoRef(origin, source)
+    : undefined
   const actor = toActor(origin, payload.sender)
   const who = actor?.login ?? 'someone'
   const level = repoLevel(origin, event, payload, who)
   if (level) {
-    return [{
-      ...origin,
-      id: deliveryId,
-      kind: level.kind,
-      action: level.action,
-      kindRaw: payload.action ? `${event}.${payload.action}` : event,
-      summary: level.summary,
-      ...eventTime(toDate(payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp ?? (payload.action === 'published' ? payload.release?.published_at : undefined) ?? (event === 'fork' ? payload.repository?.created_at : undefined))),
-      actor,
-      repo,
-      detail: level.detail,
-      source: 'webhook',
-      payload,
-    }]
+    return [
+      {
+        ...origin,
+        id: deliveryId,
+        kind: level.kind,
+        action: level.action,
+        kindRaw: payload.action
+          ? `${event}.${payload.action}`
+          : event,
+        summary: level.summary,
+        ...eventTime(toDate(payload.head_commit?.timestamp ?? payload.commits?.at(-1)?.timestamp ?? (payload.action === 'published'
+          ? payload.release?.published_at
+          : undefined) ?? (event === 'fork'
+          ? payload.repository?.created_at
+          : undefined))),
+        actor,
+        repo,
+        detail: level.detail,
+        source: 'webhook',
+        payload,
+      },
+    ]
   }
   const subject = payload.pull_request ?? payload.issue
   const isPull = Boolean(payload.pull_request || payload.is_pull || payload.issue?.pull_request)
   const thread: ResolvedThreadRef | undefined = repo && subject
-    ? { ...origin, repo, kind: isPull ? 'pull_request' : 'issue', number: String(subject.number) }
+    ? {
+        ...origin,
+        repo,
+        kind: isPull ? 'pull_request' : 'issue',
+        number: String(subject.number),
+      }
     : undefined
   const normalised = thread && subject && toThread(thread, subject)
   const kind = eventKindFor(event, payload)
-  return [{
-    ...origin,
-    id: deliveryId,
-    kind,
-    kindRaw: payload.action ? `${event}.${payload.action}` : event,
-    action: payload.action === 'closed' && payload.pull_request?.merged ? 'merged' : eventAction(payload.action),
-    actionRaw: payload.action,
-    detail: detailOf(kind, event, thread, origin, payload),
-    summary: `${who} ${payload.action ? `${payload.action} ` : ''}${event}`.trim(),
-    ...eventTime(threadTime(payload, subject)),
-    actor,
-    repo,
-    thread,
-    threadSnapshot: normalised && snapshotOfThread({
-      ...normalised,
-      isDraft: isPull ? subject?.draft ?? subject?.pull_request?.draft : false,
-      labels: subject?.labels && normalised.labels,
-    }),
-    source: 'webhook',
-    payload,
-  }]
+  return [
+    {
+      ...origin,
+      id: deliveryId,
+      kind,
+      kindRaw: payload.action
+        ? `${event}.${payload.action}`
+        : event,
+      action: payload.action === 'closed' && payload.pull_request?.merged
+        ? 'merged'
+        : eventAction(payload.action),
+      actionRaw: payload.action,
+      detail: detailOf(kind, event, thread, origin, payload),
+      summary: `${who} ${payload.action
+        ? `${payload.action} `
+        : ''}${event}`.trim(),
+      ...eventTime(threadTime(payload, subject)),
+      actor,
+      repo,
+      thread,
+      threadSnapshot: normalised && snapshotOfThread({
+        ...normalised,
+        isDraft: isPull
+          ? subject?.draft ?? subject?.pull_request?.draft
+          : false,
+        labels: subject?.labels && normalised.labels,
+      }),
+      source: 'webhook',
+      payload,
+    },
+  ]
 }

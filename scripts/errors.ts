@@ -36,7 +36,9 @@ function text(parts: ts.SymbolDisplayPart[]): ErrorText {
       segments.push({ text: part.text, code: true, link: part.text })
     }
     else if (part.kind !== 'link') {
-      part.text.replace(/\s+/g, ' ').split('`').forEach((chunk, index) => chunk && segments.push(index % 2 ? { text: chunk, code: true } : { text: chunk }))
+      part.text.replace(/\s+/g, ' ').split('`').forEach((chunk, index) => chunk && segments.push(index % 2
+        ? { text: chunk, code: true }
+        : { text: chunk }))
     }
   }
   return segments.reduce<ErrorText>((merged, segment) => {
@@ -52,12 +54,16 @@ function text(parts: ts.SymbolDisplayPart[]): ErrorText {
 }
 
 function literals(checker: ts.TypeChecker, node: ts.TypeNode): string[] | undefined {
-  const reference = ts.isArrayTypeNode(node) ? node.elementType : node
+  const reference = ts.isArrayTypeNode(node)
+    ? node.elementType
+    : node
   if (!ts.isTypeReferenceNode(reference)) {
     return undefined
   }
   const type = checker.getTypeFromTypeNode(reference)
-  const members = type.isUnion() ? type.types : [type]
+  const members = type.isUnion()
+    ? type.types
+    : [type]
   return members.every(member => member.isStringLiteral())
     ? members.map(member => `'${(member as ts.StringLiteralType).value}'`)
     : undefined
@@ -71,7 +77,14 @@ function isField(member: ts.ClassElement): member is ts.PropertyDeclaration & { 
 
 /** Every error class `forges` exports, in tree order from `ForgeError`: subclasses with their own subclasses first, then source order. */
 export function errorData(forges: typeof Forges): ErrorClass[] {
-  const program = ts.createProgram([SOURCE], { lib: ['lib.es2022.d.ts'], types: [], module: ts.ModuleKind.NodeNext, strict: true, allowImportingTsExtensions: true, noEmit: true })
+  const program = ts.createProgram([SOURCE], {
+    lib: ['lib.es2022.d.ts'],
+    types: [],
+    module: ts.ModuleKind.NodeNext,
+    strict: true,
+    allowImportingTsExtensions: true,
+    noEmit: true,
+  })
   const checker = program.getTypeChecker()
   const docs = (name: ts.Identifier) => text(checker.getSymbolAtLocation(name)!.getDocumentationComment(checker))
 
@@ -87,8 +100,12 @@ export function errorData(forges: typeof Forges): ErrorClass[] {
         name: member.name.text,
         optional: !!member.questionToken,
         type: member.type.getText(),
-        ...values ? { values } : {},
-        ...description.length ? { description } : {},
+        ...values
+          ? { values }
+          : {},
+        ...description.length
+          ? { description }
+          : {},
       }
     })
     const name = declaration.name.text

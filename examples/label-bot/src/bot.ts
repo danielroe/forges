@@ -65,30 +65,61 @@ export function createLabelBot(options: LabelBotOptions) {
   async function onOpened(provider: ForgeProvider, ref: ThreadRef): Promise<Action[]> {
     const kind = ref.kind
     if (kind === 'other') {
-      return [{ kind: 'ignored', reason: 'subject has no shared kind', thread: describe(ref) }]
+      return [
+        {
+          kind: 'ignored',
+          reason: 'subject has no shared kind',
+          thread: describe(ref),
+        },
+      ]
     }
 
     const thread = await provider.threads.get(ref)
     if (!options.titlePattern.test(thread.title)) {
-      return [{ kind: 'ignored', reason: 'title does not match', thread: describe(ref) }]
+      return [
+        {
+          kind: 'ignored',
+          reason: 'title does not match',
+          thread: describe(ref),
+        },
+      ]
     }
 
     const actions: Action[] = []
 
     if (provider.can('threads.addLabels', kind)) {
       await provider.threads.addLabels(ref, [options.label])
-      actions.push({ kind: 'labelled', reason: options.label, thread: describe(ref) })
+      actions.push({
+        kind: 'labelled',
+        reason: options.label,
+        thread: describe(ref),
+      })
     }
     else {
-      actions.push({ kind: 'unsupported', reason: `${provider.forge} cannot add labels to a ${kind}`, thread: describe(ref) })
+      actions.push({
+        kind: 'unsupported',
+        reason: `${provider.forge} cannot add labels to a ${kind}`,
+        thread: describe(ref),
+      })
     }
 
     if (provider.can('threads.comments', kind) && provider.can('threads.createComment', kind) && provider.can('threads.updateComment', kind)) {
-      await upsertComment(provider, ref, { key: 'label-bot', body: provider.normaliseMarkdown(options.comment) })
-      actions.push({ kind: 'commented', reason: 'matched title', thread: describe(ref) })
+      await upsertComment(provider, ref, {
+        key: 'label-bot',
+        body: provider.normaliseMarkdown(options.comment),
+      })
+      actions.push({
+        kind: 'commented',
+        reason: 'matched title',
+        thread: describe(ref),
+      })
     }
     else {
-      actions.push({ kind: 'unsupported', reason: `${provider.forge} cannot comment on a ${kind}`, thread: describe(ref) })
+      actions.push({
+        kind: 'unsupported',
+        reason: `${provider.forge} cannot comment on a ${kind}`,
+        thread: describe(ref),
+      })
     }
 
     return actions
@@ -97,39 +128,83 @@ export function createLabelBot(options: LabelBotOptions) {
   async function onComment(provider: ForgeProvider, event: ForgeEvent, ref: ThreadRef): Promise<Action[]> {
     const kind = ref.kind
     if (kind === 'other') {
-      return [{ kind: 'ignored', reason: 'subject has no shared kind', thread: describe(ref) }]
+      return [
+        {
+          kind: 'ignored',
+          reason: 'subject has no shared kind',
+          thread: describe(ref),
+        },
+      ]
     }
 
     const comment = await latestCommentBy(provider, ref, event.actor?.login)
     if (!comment?.body.includes(closeCommand)) {
-      return [{ kind: 'ignored', reason: 'no command in the latest comment', thread: describe(ref) }]
+      return [
+        {
+          kind: 'ignored',
+          reason: 'no command in the latest comment',
+          thread: describe(ref),
+        },
+      ]
     }
 
     const login = comment.author?.login ?? event.actor?.login
     if (!login) {
-      return [{ kind: 'refused', reason: 'comment has no author', thread: describe(ref) }]
+      return [
+        {
+          kind: 'refused',
+          reason: 'comment has no author',
+          thread: describe(ref),
+        },
+      ]
     }
 
     if (!provider.can('repos.permissionFor')) {
-      return [{ kind: 'unsupported', reason: `cannot check collaborators on ${provider.forge}`, thread: describe(ref) }]
+      return [
+        {
+          kind: 'unsupported',
+          reason: `cannot check collaborators on ${provider.forge}`,
+          thread: describe(ref),
+        },
+      ]
     }
     if (!WRITE_ROLES.has(await provider.repos.permissionFor(ref.repo, login))) {
-      return [{ kind: 'refused', reason: `${login} cannot write to the repository`, thread: describe(ref) }]
+      return [
+        {
+          kind: 'refused',
+          reason: `${login} cannot write to the repository`,
+          thread: describe(ref),
+        },
+      ]
     }
 
     if (!provider.can('threads.close', kind)) {
-      return [{ kind: 'unsupported', reason: `${provider.forge} cannot close a ${kind}`, thread: describe(ref) }]
+      return [
+        {
+          kind: 'unsupported',
+          reason: `${provider.forge} cannot close a ${kind}`,
+          thread: describe(ref),
+        },
+      ]
     }
 
     await provider.threads.close(ref)
-    return [{ kind: 'closed', reason: `requested by ${login}`, thread: describe(ref) }]
+    return [
+      {
+        kind: 'closed',
+        reason: `requested by ${login}`,
+        thread: describe(ref),
+      },
+    ]
   }
 
   /** Runs one already-ingested event. */
   async function handle(provider: ForgeProvider, event: ForgeEvent): Promise<Action[]> {
     const ref = event.thread
     if (!ref || !isResolvedThread(ref)) {
-      return [{ kind: 'ignored', reason: 'event has no addressable thread' }]
+      return [
+        { kind: 'ignored', reason: 'event has no addressable thread' },
+      ]
     }
     if (isOpened(event)) {
       return onOpened(provider, ref)
@@ -137,7 +212,13 @@ export function createLabelBot(options: LabelBotOptions) {
     if (event.kind === 'comment') {
       return onComment(provider, event, ref)
     }
-    return [{ kind: 'ignored', reason: `nothing to do for ${event.kind}`, thread: describe(ref) }]
+    return [
+      {
+        kind: 'ignored',
+        reason: `nothing to do for ${event.kind}`,
+        thread: describe(ref),
+      },
+    ]
   }
 
   /** Verifies and ingests a delivery, then runs every event in it. */

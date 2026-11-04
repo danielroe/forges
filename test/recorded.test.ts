@@ -40,10 +40,28 @@ const REASONS: NotificationReason[] = [
 /** The forges, by display name, on which a recording reads each listing again with its first page's `etag`. */
 const conditionalListings = new Map<string, Set<string>>()
 
-const FORGE_NAMES: Record<string, string> = { 'github': 'GitHub', 'gitlab': 'GitLab', 'bitbucket': 'Bitbucket', 'forgejo': 'Forgejo', 'gitea': 'Gitea', 'gitee': 'Gitee', 'azure-devops': 'Azure DevOps', 'cursor-origin': 'Cursor Origin', 'pushin': 'Pushin.eu', 'tangled': 'Tangled', 'cloudflare-artifacts': 'Cloudflare Artifacts', 'sourcehut': 'Sourcehut', 'entire': 'Entire', 'gitbucket': 'GitBucket' }
+const FORGE_NAMES: Record<string, string> = {
+  'github': 'GitHub',
+  'gitlab': 'GitLab',
+  'bitbucket': 'Bitbucket',
+  'forgejo': 'Forgejo',
+  'gitea': 'Gitea',
+  'gitee': 'Gitee',
+  'azure-devops': 'Azure DevOps',
+  'cursor-origin': 'Cursor Origin',
+  'pushin': 'Pushin.eu',
+  'tangled': 'Tangled',
+  'cloudflare-artifacts': 'Cloudflare Artifacts',
+  'sourcehut': 'Sourcehut',
+  'entire': 'Entire',
+  'gitbucket': 'GitBucket',
+}
 
 function sameRequest(a: string, b: string): boolean {
-  const [first, second] = [new URL(a), new URL(b)]
+  const [first, second] = [
+    new URL(a),
+    new URL(b),
+  ]
   first.searchParams.sort()
   second.searchParams.sort()
   return first.toString() === second.toString()
@@ -65,7 +83,13 @@ function withEtag(provider: ForgeProvider, verb: string, etag: string, pages: Ar
               return apiKey !== method
                 ? list
                 : (...args: unknown[]) => {
-                    const listing = list(...args.slice(0, -1), { ...args.at(-1) as object, cursor: { etag }, ...POLLED_LISTINGS.has(verb) ? { force: true } : {} })
+                    const listing = list(...args.slice(0, -1), {
+                      ...args.at(-1) as object,
+                      cursor: { etag },
+                      ...POLLED_LISTINGS.has(verb)
+                        ? { force: true }
+                        : {},
+                    })
                     return {
                       ...listing,
                       page: async () => {
@@ -101,21 +125,31 @@ function parsed(text: string): unknown {
  */
 function recordings(name: string): string[] {
   const root = fixtureDirectory(`${name}/recorded`)
-  const all = existsSync(root) ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`) : []
-  return process.env.FORGES_RECORDING ? all.filter(directory => directory === process.env.FORGES_RECORDING) : all
+  const all = existsSync(root)
+    ? readdirSync(root, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => `${name}/recorded/${entry.name}`)
+    : []
+  return process.env.FORGES_RECORDING
+    ? all.filter(directory => directory === process.env.FORGES_RECORDING)
+    : all
 }
 
 for (const { name, create } of REPLAYED_PROVIDERS) {
   for (const directory of recordings(name)) {
     const root = fixtureDirectory(directory)
-    const manifest = existsSync(`${root}manifest.json`) ? JSON.parse(readFileSync(`${root}manifest.json`, 'utf8')) as RecordingManifest : undefined
-    const writes = manifest && 'run' in manifest ? manifest as WriteManifest : undefined
+    const manifest = existsSync(`${root}manifest.json`)
+      ? JSON.parse(readFileSync(`${root}manifest.json`, 'utf8')) as RecordingManifest
+      : undefined
+    const writes = manifest && 'run' in manifest
+      ? manifest as WriteManifest
+      : undefined
     const definitions = new Map<string, Step | WriteStep>((writes ? WRITE_STEPS : STEPS).map(step => [step.name, step]))
     const steps = recordedSteps(root)
     const recorded = new Set(steps.map(step => step.name))
     const jetstreamPath = `${root}jetstream.json`
     const jetstream = existsSync(jetstreamPath)
-      ? JSON.parse(readFileSync(jetstreamPath, 'utf8'), (key, value: unknown) => key === 'messages' ? markStream(value as unknown[], 'recorded') : value) as { cursor: string, messages: unknown[] }
+      ? JSON.parse(readFileSync(jetstreamPath, 'utf8'), (key, value: unknown) => key === 'messages'
+        ? markStream(value as unknown[], 'recorded')
+        : value) as { cursor: string, messages: unknown[] }
       : undefined
 
     describe.skipIf(!manifest)(`recorded: ${directory.replace('/recorded/', ' ')}`, () => {
@@ -126,7 +160,9 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
       let intercept: ((input: string, init?: RequestInit) => Response | undefined) | undefined
       const replayFetch: FetchLike = (input, init) => {
         const response = intercept?.(input, init)
-        return response ? Promise.resolve(response) : replay.fetch(input, init)
+        return response
+          ? Promise.resolve(response)
+          : replay.fetch(input, init)
       }
       const contexts = new Map<string, StepContext & WriteContext>()
       let author: ForgeProvider | undefined
@@ -137,25 +173,50 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         : steps.flatMap((step) => {
             const verb = definitions.get(step.name)?.verb
             const goldenPath = `${root}steps/${step.slug}/golden.json`
-            const etag = verb && existsSync(goldenPath) ? (JSON.parse(readFileSync(goldenPath, 'utf8')) as { etag?: string } | null)?.etag : undefined
+            const etag = verb && existsSync(goldenPath)
+              ? (JSON.parse(readFileSync(goldenPath, 'utf8')) as { etag?: string } | null)?.etag
+              : undefined
             const url = etag && recordedFixtures(`${directory}/steps/${step.slug}`).find(fixture => fixture.response.headers?.etag === etag)?.request.url
-            return url ? [{ ...step, verb: verb!, etag: etag!, url }] : []
+            return url
+              ? [
+                  {
+                    ...step,
+                    verb: verb!,
+                    etag: etag!,
+                    url,
+                  },
+                ]
+              : []
           })
 
       beforeAll(async () => {
-        vi.useFakeTimers({ now: new Date(manifest!.recordedAt ?? steps[0]?.recordedAt ?? 0), toFake: ['Date'] })
+        vi.useFakeTimers({
+          now: new Date(manifest!.recordedAt ?? steps[0]?.recordedAt ?? 0),
+          toFake: ['Date'],
+        })
         try {
           if (manifest!.deliveries) {
             const instance = create(fixtureFetch(directory).fetch, manifest!)
             for (const name of manifest!.deliveries) {
               const { headers, body } = JSON.parse(readFileSync(`${root}${name}.delivery.json`, 'utf8')) as { headers: Record<string, string>, body: string }
-              output[name] = await instance.webhooks.ingest({ headers, body: markPayload(body, 'recorded') })
+              output[name] = await instance.webhooks.ingest({
+                headers,
+                body: markPayload(body, 'recorded'),
+              })
             }
             return
           }
           author = create(replayFetch, manifest!, jetstream?.messages)
-          const reviewer = writes?.reviewerAccount ? create(replay.fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds }) : writes ? create(replay.fetch, writes) : author
-          const context: StepContext & WriteContext = { pulls: [], comments: {}, wait: async () => {} }
+          const reviewer = writes?.reviewerAccount
+            ? create(replay.fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds })
+            : writes
+              ? create(replay.fetch, writes)
+              : author
+          const context: StepContext & WriteContext = {
+            pulls: [],
+            comments: {},
+            wait: async () => {},
+          }
           for (const { name, slug, recordedAt } of steps) {
             const step = definitions.get(name)
             if (!step) {
@@ -164,7 +225,9 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
             replay.use(slug)
             vi.setSystemTime(new Date(recordedAt))
             contexts.set(name, { ...context })
-            output[name] = await step.run(('as' in step && step.as === 'reviewer' ? reviewer : author) as never, manifest as never, context)
+            output[name] = await step.run(('as' in step && step.as === 'reviewer'
+              ? reviewer
+              : author) as never, manifest as never, context)
           }
           conditionalRequests = replay.calls.filter(call => call.headers.has('if-none-match')).map(call => `${call.method} ${call.url}`)
         }
@@ -189,16 +252,29 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
       it.for(conditionalSteps)('reads the first page of $name again with its etag', async ({ name, slug, recordedAt, verb, etag, url }) => {
         const sent: Array<{ url: string, headers: Headers }> = []
         intercept = (input, init) => {
-          sent.push({ url: input, headers: new Headers(init?.headers) })
-          return sameRequest(input, url) ? new Response(null, { status: 304, headers: { etag } }) : undefined
+          sent.push({
+            url: input,
+            headers: new Headers(init?.headers),
+          })
+          return sameRequest(input, url)
+            ? new Response(null, {
+                status: 304,
+                headers: { etag },
+              })
+            : undefined
         }
         const pages: Array<Page<unknown>> = []
         const step = definitions.get(name) as Step
         replay.use(slug)
-        vi.useFakeTimers({ now: new Date(recordedAt), toFake: ['Date'] })
+        vi.useFakeTimers({
+          now: new Date(recordedAt),
+          toFake: ['Date'],
+        })
         try {
           // A step may read on past the conditional page, into responses that were never recorded.
-          await step.run(withEtag(author!, verb, etag, pages), manifest!, { ...contexts.get(name)! }).catch((error: unknown) => {
+          await step.run(withEtag(author!, verb, etag, pages), manifest!, {
+            ...contexts.get(name)!,
+          }).catch((error: unknown) => {
             if (!pages.some(page => page.notModified)) {
               throw error
             }
@@ -226,10 +302,14 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
 
       it.skipIf(!steps.length)('records only steps the recorder still runs', () => {
         const author = create(fixtureFetch(directory).fetch, manifest!)
-        const reviewer = writes?.reviewerAccount ? create(fixtureFetch(directory).fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds }) : author
+        const reviewer = writes?.reviewerAccount
+          ? create(fixtureFetch(directory).fetch, { ...writes, account: writes.reviewerAccount, pds: writes.reviewerPds })
+          : author
         const threads: Record<string, unknown> = { issue: manifest!.issue, pull_request: manifest!.pull, discussion: manifest!.discussion }
         const skipped = steps.flatMap(({ name }) => definitions.get(name) ?? []).filter((step) => {
-          const provider = 'as' in step && step.as === 'reviewer' ? reviewer : author
+          const provider = 'as' in step && step.as === 'reviewer'
+            ? reviewer
+            : author
           const thread = writes || !step.kind || !(step.kind in threads) || threads[step.kind]
           return !thread || !provider.can(step.verb, step.kind) || step.when?.(provider, manifest as never) === false
         })
@@ -240,7 +320,9 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
         const sent = replay.calls.filter(call => call.body !== undefined || call.fixture?.request.body !== undefined)
         const served = new Set(sent.map(call => JSON.stringify(call.fixture)))
 
-        expect(withoutTimes(sent.map(call => call.body === undefined ? undefined : redact(parsed(call.body))))).toEqual(withoutTimes(sent.map(call => call.fixture?.request.body)))
+        expect(withoutTimes(sent.map(call => call.body === undefined
+          ? undefined
+          : redact(parsed(call.body))))).toEqual(withoutTimes(sent.map(call => call.fixture?.request.body)))
         expect(recordedFixtures(directory).filter(fixture => fixture.request.body !== undefined && !served.has(JSON.stringify(fixture))).map(fixture => `${fixture.request.method} ${fixture.request.url}`)).toEqual([])
       })
 
@@ -270,7 +352,9 @@ for (const { name, create } of REPLAYED_PROVIDERS) {
           return context.skip()
         }
 
-        expect(reviewed.flatMap(event => event.detail?.type === 'review' && event.detail.review ? [event.detail.review.id] : []).filter(id => listed.includes(id))).not.toEqual([])
+        expect(reviewed.flatMap(event => event.detail?.type === 'review' && event.detail.review
+          ? [event.detail.review.id]
+          : []).filter(id => listed.includes(id))).not.toEqual([])
       })
 
       it.skipIf(!manifest?.deliveries)('matches the committed golden output (regenerate with `vitest -u`)', async () => {
@@ -389,8 +473,12 @@ describe.skipIf(!!process.env.FORGES_RECORDING)('conditional listings', () => {
     if (!conditionalListings.size) {
       return context.skip()
     }
-    const forges = Object.values(FORGE_NAMES).filter(forge => [...conditionalListings.values()].some(set => set.has(forge)))
-    const rows = [...conditionalListings].sort(([a], [b]) => a.localeCompare(b)).map(([verb, on]) => `| \`${verb}\` | ${forges.map(forge => on.has(forge) ? '✅' : '❌').join(' | ')} |`)
+    const forges = Object.values(FORGE_NAMES).filter(forge => [
+      ...conditionalListings.values(),
+    ].some(set => set.has(forge)))
+    const rows = [...conditionalListings].sort(([a], [b]) => a.localeCompare(b)).map(([verb, on]) => `| \`${verb}\` | ${forges.map(forge => on.has(forge)
+      ? '✅'
+      : '❌').join(' | ')} |`)
     const table = [`| Listing | ${forges.join(' | ')} |`, `| --- |${' --- |'.repeat(forges.length)}`, ...rows].join('\n')
     const guide = readFileSync(new URL('../docs/content/2.guides/7.pagination.md', import.meta.url), 'utf8')
     const section = guide.slice(guide.indexOf('## Polling with conditional requests'))

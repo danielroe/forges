@@ -444,7 +444,15 @@ export type WebhookHandlers<TOptions> = (ctx: Omit<ProviderContext<TOptions, unk
 }
 
 /** Iterables whose page takes only options, with no target before them. */
-const UNTARGETED = new Set(['repos.list', 'notifications.list', 'installations.list', 'search.threads', 'search.repos', 'search.commits', 'search.code'])
+const UNTARGETED = new Set([
+  'repos.list',
+  'notifications.list',
+  'installations.list',
+  'search.threads',
+  'search.repos',
+  'search.commits',
+  'search.code',
+])
 
 /** The thread kind a per-kind verb is called for, read from its arguments. */
 function kindOf(name: string, args: unknown[]): string | undefined {
@@ -457,7 +465,10 @@ function kindOf(name: string, args: unknown[]): string | undefined {
 
 async function* completeItems(items: AsyncIterable<{ event: ForgeEventInput, cursor: string }>): AsyncGenerator<StreamItem> {
   for await (const item of items) {
-    yield { ...item, event: completeEvent(item.event) }
+    yield {
+      ...item,
+      event: completeEvent(item.event),
+    }
   }
 }
 
@@ -488,7 +499,13 @@ async function nonEmptyPage<T>(read: (cursor: Cursor | undefined) => Promise<Pag
     return page
   }
   const later = (page.warnings ?? []).filter(warning => !warnings.some(seen => seen.code === warning.code && seen.message === warning.message))
-  return { ...page, warnings: [...warnings, ...later] }
+  return {
+    ...page,
+    warnings: [
+      ...warnings,
+      ...later,
+    ],
+  }
 }
 
 /** Resets this close together belong to one window, as a reset in seconds from now drifts between responses. */
@@ -513,15 +530,35 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
 ): ForgeProvider<HasWeb> & TExtensions {
   const givenAuth = (givenOptions as { auth?: { type: string } }).auth
   const anonymous = Boolean(definition.anonymous) && (!givenAuth || givenAuth.type === 'anonymous')
-  const options = anonymous && !givenAuth ? { ...givenOptions, auth: { type: 'anonymous' } } as TOptions : givenOptions
+  const options = anonymous && !givenAuth
+    ? {
+        ...givenOptions,
+        auth: { type: 'anonymous' },
+      } as TOptions
+    : givenOptions
   const { baseUrl, instance } = resolveInstance(definition, options)
   const origin = { forge: definition.forge, instance }
   // Browsers send their own user agent, and setting one can trigger a CORS preflight that some forges reject.
   const browser = 'document' in globalThis || 'WorkerGlobalScope' in globalThis
   const userAgent = options.userAgent ?? (browser ? undefined : 'forges')
-  const headers = { ...definition.headers, ...userAgent ? { 'user-agent': userAgent } : {} }
-  const prepared = { options, forge: definition.forge, instance, baseUrl, headers, origin, state: givenState }
-  const state = (definition.prepare ? definition.prepare(prepared) : givenState) as TState
+  const headers = {
+    ...definition.headers,
+    ...userAgent
+      ? { 'user-agent': userAgent }
+      : {},
+  }
+  const prepared = {
+    options,
+    forge: definition.forge,
+    instance,
+    baseUrl,
+    headers,
+    origin,
+    state: givenState,
+  }
+  const state = (definition.prepare
+    ? definition.prepare(prepared)
+    : givenState) as TState
   const base: ProviderBase<TOptions, TState> = { ...prepared, state }
   const budgets = new Map<string | undefined, RateLimit>()
   const tracked: FetcherOptions['onRateLimit'] = (event) => {
@@ -531,12 +568,16 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     }
     options.onRateLimit?.(event)
   }
-  const authHeaders = anonymous ? undefined : definition.authHeaders?.(base)
+  const authHeaders = anonymous
+    ? undefined
+    : definition.authHeaders?.(base)
   const makeFetcher = (overrides: Partial<FetcherOptions> & { baseUrl: string }) => createFetcher({
     fetch: options.fetch,
     timeout: options.timeout,
     onRetry: options.onRetry,
-    onRateLimit: 'authHeaders' in overrides || authHeaders ? options.onRateLimit : tracked,
+    onRateLimit: 'authHeaders' in overrides || authHeaders
+      ? options.onRateLimit
+      : tracked,
     headers,
     query: definition.query,
     context: origin,
@@ -551,17 +592,29 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
   const declaredSpec = applyNotApplicable(definition.setup(ctx))
   const handlers = definition.webhooks?.(ctx)
-  const spec = anonymous || options.readOnly ? restrict(declaredSpec, anonymous, definition.anonymous === 'webhooks') : declaredSpec
-  const authKind = anonymous ? 'anonymous' : (givenAuth?.type ?? spec.traits.authKinds[0] ?? 'anonymous') as AuthKind
+  const spec = anonymous || options.readOnly
+    ? restrict(declaredSpec, anonymous, definition.anonymous === 'webhooks')
+    : declaredSpec
+  const authKind = anonymous
+    ? 'anonymous'
+    : (givenAuth?.type ?? spec.traits.authKinds[0] ?? 'anonymous') as AuthKind
 
   const env: CapabilityEnv = { version: options.instanceVersion }
   const probeVersion = spec.probeVersion && memo(spec.probeVersion)
-  const flags = { experimental: Boolean(definition.experimental), readOnly: Boolean(options.readOnly), webhook: Boolean(handlers) }
+  const flags = {
+    experimental: Boolean(definition.experimental),
+    readOnly: Boolean(options.readOnly),
+    webhook: Boolean(handlers),
+  }
   let capabilities = capabilitiesOf(spec, env, flags)
 
   const unsupported = (verb: string, support?: DeclaredSupport, kind?: string) => options.readOnly && WRITE_VERBS.has(verb)
     ? new ReadOnlyError(`${verb} is a write and this ${definition.forge} provider is read-only`, origin)
-    : new UnsupportedOperationError(`${definition.forge} ${support === 'not_applicable' ? 'has no' : 'does not support'} ${verb}${kind ? ` for a ${kind.replace('_', ' ')}` : ''}`, origin)
+    : new UnsupportedOperationError(`${definition.forge} ${support === 'not_applicable'
+        ? 'has no'
+        : 'does not support'} ${verb}${kind
+        ? ` for a ${kind.replace('_', ' ')}`
+        : ''}`, origin)
   /** An iterable that rejects on first read, for listings the forge does not have. */
   const emptyIterable = <T>(verb: string, support?: DeclaredSupport): ForgeIterable<T> => forgeIterable<T>(async function* () {
     throw unsupported(verb, support)
@@ -571,7 +624,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   function gate(verb: string, support: SupportInput | undefined, run: AnyFunction | undefined): AnyFunction {
     return (...args) => {
       const level = resolve(support, env)
-      return run && !isUnsupported(level) ? run(...args) : Promise.reject(unsupported(verb, level))
+      return run && !isUnsupported(level)
+        ? run(...args)
+        : Promise.reject(unsupported(verb, level))
     }
   }
 
@@ -580,7 +635,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     const name = verb.slice(verb.indexOf('.') + 1)
     return (...args) => {
       const kind = kindOf(name, args)
-      const knownKind = kind && (KINDS as string[]).includes(kind) ? kind as ThreadKind : undefined
+      const knownKind = kind && (KINDS as string[]).includes(kind)
+        ? kind as ThreadKind
+        : undefined
       if (!run || (options.readOnly && WRITE_VERBS.has(verb))) {
         return Promise.reject(unsupported(verb, kinds && resolve(kinds[knownKind ?? 'issue'], env)))
       }
@@ -601,13 +658,19 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   }
   const call = (verb: string): AnyFunction => readPath(api, verb)
   const listing = <T>(read: (options: any) => Promise<Page<T>>, listOptions: object = {}): ForgeListing<T> =>
-    Object.assign(iteratePages(read, listOptions), { page: () => read(listOptions) })
+    Object.assign(iteratePages(read, listOptions), {
+      page: () => read(listOptions),
+    })
 
   const subscriptions = spec.threads.subscriptions
   const createReview = spec.threads.createReview
   const approve = spec.threads.approve ?? (createReview && {
     support: createReview.support,
-    ...createReview.run ? { run: (ref: ThreadRef, body?: string, options?: BaseOptions) => createReview.run(ref, { event: 'approve', body }, options) } : {},
+    ...createReview.run
+      ? {
+          run: (ref: ThreadRef, body?: string, options?: BaseOptions) => createReview.run(ref, { event: 'approve', body }, options),
+        }
+      : {},
   })
   const declaredStream = spec.sources?.stream
   const alerts = spec.securityAlerts
@@ -618,13 +681,26 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const listOwnerRepos = gate('repos.byOwner', spec.repos.byOwnerPage?.support, spec.repos.byOwnerPage?.run)
   const listReviewThreads = gate('threads.reviewThreads', spec.threads.reviewThreadsPage?.support, spec.threads.reviewThreadsPage?.run)
   const listComments = kindGate('threads.comments', spec.threads.commentsPage.kinds, spec.threads.commentsPage.run)
-  const listEvents = kindGate('threads.events', Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind]])), spec.threads.eventsPage.run)
+  const listEvents = kindGate('threads.events', Object.fromEntries(KINDS.map(kind => [
+    kind,
+    (kindEnv: CapabilityEnv) => threadEventKinds(spec, kindEnv)[kind],
+  ])), spec.threads.eventsPage.run)
   const native = spec.search?.queryRaw
   const search = (name: 'threadsPage' | 'reposPage' | 'commitsPage' | 'codePage') => {
     const run = gate(`search.${name.slice(0, -4)}`, spec.search?.[name]?.support, spec.search?.[name]?.run)
     return async ({ queryRaw, ...query }: { queryRaw?: string, cursor?: Cursor } = {}) => {
-      const page = await run(native ? { queryRaw, ...query } : query) as Page<unknown>
-      return !queryRaw || native || !isFirstPage(query.cursor) ? page : { ...page, warnings: [{ code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' }, ...page.warnings ?? []] }
+      const page = await run(native
+        ? { queryRaw, ...query }
+        : query) as Page<unknown>
+      return !queryRaw || native || !isFirstPage(query.cursor)
+        ? page
+        : {
+            ...page,
+            warnings: [
+              { code: 'filter_unsupported', message: 'This search has no query syntax; queryRaw was ignored' },
+              ...page.warnings ?? [],
+            ],
+          }
     }
   }
   const feed = (verb: 'repos.eventsPage' | 'users.eventsPage') => {
@@ -632,7 +708,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     const run = gate(verb.slice(0, -4), declared?.support, declared?.run)
     return async (target: unknown, pageOptions?: EventFeedOptions) => {
       const page = await run(target, pageOptions) as Page<ForgeEventInput>
-      return { ...page, items: page.items.map(completeEvent) }
+      return {
+        ...page,
+        items: page.items.map(completeEvent),
+      }
     }
   }
   const special: Record<string, unknown> = {
@@ -651,21 +730,41 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       for (const filter of ignored) {
         delete query[filter]
       }
-      const run = (cursor: Cursor | undefined) => listThreads(repo, { ...query, ...query.state === 'merged' ? { kind: 'pull_request' } : {}, cursor })
+      const run = (cursor: Cursor | undefined) => listThreads(repo, {
+        ...query,
+        ...query.state === 'merged'
+          ? { kind: 'pull_request' }
+          : {},
+        cursor,
+      })
       const page = await nonEmptyPage(run, query.cursor)
       if (!ignored.length || !isFirstPage(query.cursor)) {
         return page
       }
       const warnings = ignored.map(filter => ({ code: 'filter_unsupported', message: `This listing has no ${filter} filter; it was ignored` }))
-      return { ...page, warnings: [...warnings, ...page.warnings ?? []] }
+      return {
+        ...page,
+        warnings: [
+          ...warnings,
+          ...page.warnings ?? [],
+        ],
+      }
     },
     'repos.byOwnerPage': (owner: RepoRef, query: OwnerRepoQuery = {}) => nonEmptyPage(async (cursor) => {
       const page: Page<Repo> = await listOwnerRepos(owner, { ...query, cursor })
-      return !query.visibility || query.visibility === 'all' ? page : { ...page, items: page.items.filter(repo => repo.visibility === query.visibility) }
+      return !query.visibility || query.visibility === 'all'
+        ? page
+        : {
+            ...page,
+            items: page.items.filter(repo => repo.visibility === query.visibility),
+          }
     }, query.cursor),
     'threads.eventsPage': async (ref: ThreadRef, listOptions?: ListOptions) => {
       const page = await listEvents(ref, listOptions) as Page<ForgeEventInput>
-      return { ...page, items: page.items.map(completeEvent) }
+      return {
+        ...page,
+        items: page.items.map(completeEvent),
+      }
     },
     'threads.commentsPage': (ref: ThreadRef, listOptions: ListOptions = {}) => {
       const since = listOptions.since
@@ -674,16 +773,27 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return nonEmptyPage(async (cursor) => {
         const page: Page<Comment> = await listComments(ref, { ...listOptions, cursor })
-        return { ...page, items: page.items.filter(comment => (comment.updatedAt ?? comment.createdAt ?? since) >= since) }
+        return {
+          ...page,
+          items: page.items.filter(comment => (comment.updatedAt ?? comment.createdAt ?? since) >= since),
+        }
       }, listOptions.cursor)
     },
     'threads.reviewThreadsPage': (ref: ThreadRef, { state, ...listOptions }: ReviewThreadListOptions = {}) => nonEmptyPage(async (cursor) => {
       const page: Page<ReviewThread> = await listReviewThreads(ref, { ...listOptions, cursor })
-      return !state || state === 'all' ? page : { ...page, items: page.items.filter(thread => thread.resolved === (state === 'resolved')) }
+      return !state || state === 'all'
+        ? page
+        : {
+            ...page,
+            items: page.items.filter(thread => thread.resolved === (state === 'resolved')),
+          }
     }, listOptions.cursor),
     'threads.getComment': kindGate(
       'threads.getComment',
-      Object.fromEntries(KINDS.map(kind => [kind, (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind]])),
+      Object.fromEntries(KINDS.map(kind => [
+        kind,
+        (kindEnv: CapabilityEnv) => getCommentKinds(spec, kindEnv)[kind],
+      ])),
       (ref: CommentRef, options?: BaseOptions) => !isUnsupported(resolve(spec.threads.getComment?.kinds[ref.thread.kind], env))
         ? spec.threads.getComment!.run(ref, options)
         : listed(call('threads.comments')(ref.thread, options), ref.id, 'Comment'),
@@ -712,7 +822,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
         return stream
       }
       const bytes = new Uint8Array(await new Response(stream).arrayBuffer())
-      return options.as === 'text' ? decodeText(bytes, `Release asset ${ref.id}`, origin) : bytes
+      return options.as === 'text'
+        ? decodeText(bytes, `Release asset ${ref.id}`, origin)
+        : bytes
     },
     'contents.compare': async (repo: RepoRef, base: string, head: string, compareOptions: CompareOptions = {}) => {
       const comparison: Comparison = await gate('contents.compare', spec.contents?.compare?.support, spec.contents?.compare?.run)(repo, base, head, compareOptions)
@@ -720,11 +832,17 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       if (commitLimit === undefined && files !== false) {
         return comparison
       }
-      const commits = commitLimit === undefined ? comparison.commits : comparison.commits.slice(0, Math.max(0, commitLimit))
+      const commits = commitLimit === undefined
+        ? comparison.commits
+        : comparison.commits.slice(0, Math.max(0, commitLimit))
       return {
         ...comparison,
-        commits: files === false ? commits.map(({ files: _files, ...commit }) => commit) : commits,
-        ...files === false ? { files: [] } : {},
+        commits: files === false
+          ? commits.map(({ files: _files, ...commit }) => commit)
+          : commits,
+        ...files === false
+          ? { files: [] }
+          : {},
       }
     },
     'contents.resolveRef': (repo: RepoRef, ref: string, options?: BaseOptions) => isSha(ref)
@@ -736,7 +854,10 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       if (!declared?.run || isUnsupported(level)) {
         throw unsupported('contents.commitFiles', level)
       }
-      const changes = input.changes.map(change => ({ ...change, path: change.path.replace(/^\/+/, '') }))
+      const changes = input.changes.map(change => ({
+        ...change,
+        path: change.path.replace(/^\/+/, ''),
+      }))
       const paths = new Set(changes.map(change => change.path))
       if (!changes.length || paths.size < changes.length) {
         throw new TypeError('`changes` must name at least one file, and each file once')
@@ -756,7 +877,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return declared.run(repo, { ...input, changes }, options)
     },
-    'webhooks.verify': handlers ? handlers.verify : () => Promise.reject(unsupported('webhooks.verify', capabilities.webhooks.ingest)),
+    'webhooks.verify': handlers
+      ? handlers.verify
+      : () => Promise.reject(unsupported('webhooks.verify', capabilities.webhooks.ingest)),
     'webhooks.ingest': async (delivery: WebhookDelivery) => {
       if (!handlers) {
         throw unsupported('webhooks.ingest', capabilities.webhooks.ingest)
@@ -770,13 +893,19 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       ? completeItems(declaredStream.run(streamOptions))
       : emptyIterable('sources.stream', resolve(declaredStream?.support, env)),
     'securityAlerts.listPage': (repo: RepoRef, listOptions: SecurityAlertListOptions = {}) => {
-      const supported = alerts?.listPage && (listOptions.kind ? !isUnsupported(resolve(alerts.kinds[listOptions.kind as AlertKind], env)) : ALERT_KINDS.some(kind => !isUnsupported(resolve(alerts.kinds[kind], env))))
+      const supported = alerts?.listPage && (listOptions.kind
+        ? !isUnsupported(resolve(alerts.kinds[listOptions.kind as AlertKind], env))
+        : ALERT_KINDS.some(kind => !isUnsupported(resolve(alerts.kinds[kind], env))))
       if (!supported) {
         const level = listOptions.kind
           ? resolve(alerts?.kinds[listOptions.kind as AlertKind], env)
-          : ALERT_KINDS.every(kind => resolve(alerts?.kinds[kind], env) === 'not_applicable') ? 'not_applicable' : false
+          : ALERT_KINDS.every(kind => resolve(alerts?.kinds[kind], env) === 'not_applicable')
+            ? 'not_applicable'
+            : false
         return Promise.reject(listOptions.kind
-          ? new UnsupportedOperationError(`${definition.forge} ${level === 'not_applicable' ? 'has no' : 'cannot list'} ${listOptions.kind.replace('_', ' ')} alerts`, origin)
+          ? new UnsupportedOperationError(`${definition.forge} ${level === 'not_applicable'
+              ? 'has no'
+              : 'cannot list'} ${listOptions.kind.replace('_', ' ')} alerts`, origin)
           : unsupported('securityAlerts.list', level))
       }
       return alerts.listPage(repo, listOptions)
@@ -787,25 +916,39 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
       }
       return declaredInstallations!.run.provider(installation)
     },
-    'installations.providers': () => installationsSupported() ? declaredInstallations!.run.providers() : emptyIterable('installations.providers', resolve(declaredInstallations?.support, env)),
+    'installations.providers': () => installationsSupported()
+      ? declaredInstallations!.run.providers()
+      : emptyIterable('installations.providers', resolve(declaredInstallations?.support, env)),
   }
 
   for (const entry of CAPABILITY_TABLE) {
-    const declared = entry.spec ? readPath(spec, entry.spec) : undefined
+    const declared = entry.spec
+      ? readPath(spec, entry.spec)
+      : undefined
     for (const verb of entry.verbs ?? []) {
       if (verb in special) {
         set(verb, special[verb])
       }
       else if (entry.listings?.includes(verb)) {
         const pageVerb = `${verb}Page`
-        const run = typeof declared?.run === 'function' ? declared.run : declared?.run?.[pageVerb.slice(pageVerb.indexOf('.') + 1)]
-        const page = (special[pageVerb] ?? (entry.perKind ? kindGate(verb, declared?.kinds, run) : gate(verb, declared?.support, run))) as AnyFunction
+        const run = typeof declared?.run === 'function'
+          ? declared.run
+          : declared?.run?.[pageVerb.slice(pageVerb.indexOf('.') + 1)]
+        const page = (special[pageVerb] ?? (entry.perKind
+          ? kindGate(verb, declared?.kinds, run)
+          : gate(verb, declared?.support, run))) as AnyFunction
         const untargeted = UNTARGETED.has(verb)
-        set(verb, (...args: unknown[]) => listing(options => page(...untargeted ? [] : [args[0]], options), ((untargeted ? args[0] : args[1]) ?? {}) as object))
+        set(verb, (...args: unknown[]) => listing(options => page(...untargeted
+          ? []
+          : [args[0]], options), ((untargeted ? args[0] : args[1]) ?? {}) as object))
       }
       else {
-        const run = typeof declared?.run === 'function' ? declared.run : declared?.run?.[verb.slice(verb.indexOf('.') + 1)]
-        set(verb, entry.perKind ? kindGate(verb, declared?.kinds, run) : gate(verb, declared?.support, run))
+        const run = typeof declared?.run === 'function'
+          ? declared.run
+          : declared?.run?.[verb.slice(verb.indexOf('.') + 1)]
+        set(verb, entry.perKind
+          ? kindGate(verb, declared?.kinds, run)
+          : gate(verb, declared?.support, run))
       }
     }
   }
@@ -828,7 +971,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     baseUrl,
     authKind,
     request: createRequest(spec.request ?? fetcher, options.readOnly
-      ? { readOnly: (method, path) => new ReadOnlyError(`${method} ${path} is a write and this ${definition.forge} provider is read-only; pass \`mutates: false\` if it only reads`, origin) }
+      ? {
+          readOnly: (method, path) => new ReadOnlyError(`${method} ${path} is a write and this ${definition.forge} provider is read-only; pass \`mutates: false\` if it only reads`, origin),
+        }
       : {}),
     get capabilities() {
       return capabilities
@@ -840,7 +985,9 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
           budgets.delete(resource)
         }
       }
-      return [...budgets.values()].map(budget => ({ ...budget }))
+      return [
+        ...budgets.values(),
+      ].map(budget => ({ ...budget }))
     }),
     async refreshCapabilities() {
       if (!options.instanceVersion && probeVersion) {
@@ -853,9 +1000,15 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
     scopesFor: verb => spec.scopes?.(verb) ?? {},
     can: (verb, kind) => can(capabilities, verb, kind),
     support: (verb, kind) => support(capabilities, verb, kind),
-    urlFor: ((target: UrlTarget) => spec.web ? webUrlFor(spec.web, target) : undefined) as ForgeProvider<HasWeb>['urlFor'],
-    webOrigin: (spec.web ? new URL(spec.web.baseUrl).origin : undefined) as HasWeb extends true ? string : string | undefined,
-    parseUrl: url => spec.web ? parseWebUrl(spec.web, url, origin) : undefined,
+    urlFor: ((target: UrlTarget) => spec.web
+      ? webUrlFor(spec.web, target)
+      : undefined) as ForgeProvider<HasWeb>['urlFor'],
+    webOrigin: (spec.web
+      ? new URL(spec.web.baseUrl).origin
+      : undefined) as HasWeb extends true ? string : string | undefined,
+    parseUrl: url => spec.web
+      ? parseWebUrl(spec.web, url, origin)
+      : undefined,
     referenceFor: (ref, referenceOptions) => referenceFor(spec.web, ref, referenceOptions),
     parseReferences: (text, { from }) => parseReferences(spec.web, text, from, origin),
   }, () => capabilitiesOf(spec, env, flags, true))

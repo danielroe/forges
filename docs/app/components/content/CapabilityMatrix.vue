@@ -14,7 +14,9 @@ const total = rows.size
 const headerHeight = rotatedHeaderHeight(providers.map(provider => provider.name.length + (provider.experimental ? 2 : 0)))
 
 function signature(cell: SupportCell) {
-  return cell.kinds ? cell.kinds.map(kind => kind.level).join() : cell.level
+  return cell.kinds
+    ? cell.kinds.map(kind => kind.level).join()
+    : cell.level
 }
 
 const visible = computed(() => {
@@ -37,10 +39,14 @@ const tipOther = computed(() => tip.value && cellsFor(tip.value.row, !anonymous.
 
 function inspect(event: PointerEvent) {
   const target = (event.target as HTMLElement).closest<HTMLTableCellElement>('td, th')
-  const column = target && target.cellIndex > 0 && target.colSpan === 1 ? target.cellIndex - 1 : undefined
+  const column = target && target.cellIndex > 0 && target.colSpan === 1
+    ? target.cellIndex - 1
+    : undefined
   hoveredColumn.value = column
   const capability = target?.parentElement?.dataset.capability
-  const row = capability ? rows.get(capability) : undefined
+  const row = capability
+    ? rows.get(capability)
+    : undefined
   if (!target || !row || column === undefined || !wrapper.value) {
     tip.value = undefined
     return
@@ -48,7 +54,12 @@ function inspect(event: PointerEvent) {
   const box = target.getBoundingClientRect()
   const origin = wrapper.value.getBoundingClientRect()
   const x = Math.min(Math.max(box.left + box.width / 2 - origin.left, TIP_HALF_WIDTH), origin.width - TIP_HALF_WIDTH)
-  tip.value = { row, column, x, y: box.top - origin.top }
+  tip.value = {
+    row,
+    column,
+    x,
+    y: box.top - origin.top,
+  }
 }
 
 function leave() {
@@ -59,7 +70,9 @@ function leave() {
 const status = computed(() => `${visible.value.reduce((count, group) => count + group.rows.length, 0)} of ${total} capabilities shown`)
 
 function limits(values?: Record<string, number>) {
-  return values ? Object.entries(values).map(([key, length]) => `${key.replace('Length', '')} ${length.toLocaleString('en')}`) : []
+  return values
+    ? Object.entries(values).map(([key, length]) => `${key.replace('Length', '')} ${length.toLocaleString('en')}`)
+    : []
 }
 </script>
 

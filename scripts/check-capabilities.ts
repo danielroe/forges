@@ -37,8 +37,14 @@ const exercised = readExercised(directory)
 const ownExercised = new Map(exercised)
 
 /** Forges sharing one implementation, so a test on either exercises both. */
-for (const [left, right] of [['forgejo', 'gitea'], ['forgejo:anonymous', 'gitea:anonymous']]) {
-  const merged = new Set([...exercised.get(left!) ?? [], ...exercised.get(right!) ?? []])
+for (const [left, right] of [
+  ['forgejo', 'gitea'],
+  ['forgejo:anonymous', 'gitea:anonymous'],
+]) {
+  const merged = new Set([
+    ...exercised.get(left!) ?? [],
+    ...exercised.get(right!) ?? [],
+  ])
   exercised.set(left!, merged)
   exercised.set(right!, merged)
 }
@@ -56,10 +62,18 @@ for (const [forge, provider] of CHECKED_PROVIDERS) {
       continue
     }
     const value = capabilityAt(provider.capabilities, entry.capability)
-    const cells = value && typeof value === 'object' ? Object.entries(value) : [['', value] as const]
+    const cells = value && typeof value === 'object'
+      ? Object.entries(value)
+      : [
+          ['', value] as const,
+        ]
     for (const [kind, support] of cells) {
-      const name = `${forge}: ${entry.capability}${kind ? ` (${kind})` : ''}`
-      const has = (provenance: string, set = seen) => entry.verbs!.some(verb => set.has(`${kind ? `${verb}:${kind}` : verb}#${provenance}`))
+      const name = `${forge}: ${entry.capability}${kind
+        ? ` (${kind})`
+        : ''}`
+      const has = (provenance: string, set = seen) => entry.verbs!.some(verb => set.has(`${kind
+        ? `${verb}:${kind}`
+        : verb}#${provenance}`))
       const verified = has('recorded') || has('documented') || has('offline')
       if (support === 'not_applicable') {
         if (has('recorded', own) || has('documented', own)) {
@@ -71,7 +85,9 @@ for (const [forge, provider] of CHECKED_PROVIDERS) {
         promotable.push(name)
       }
       else if (support !== false && support !== 'unverified' && !verified) {
-        unverified.push(`${name} is ${support === true ? 'true' : `'${support}'`}`)
+        unverified.push(`${name} is ${support === true
+          ? 'true'
+          : `'${support}'`}`)
       }
       else if (verified && !has('recorded') && !has('offline')) {
         documented.push(name)
@@ -81,11 +97,19 @@ for (const [forge, provider] of CHECKED_PROVIDERS) {
 }
 
 const failures = [
-  ...[...new Set(unverified)].map(line => `${line}, but no test verifies it against a recording or documentation; declare it 'unverified'`),
-  ...[...new Set(promotable)].map(line => `${line} is 'unverified', but a recording or documentation verifies it; declare it true, 'experimental' or 'emulated'`),
-  ...[...new Set(misdeclared)],
+  ...[
+    ...new Set(unverified),
+  ].map(line => `${line}, but no test verifies it against a recording or documentation; declare it 'unverified'`),
+  ...[
+    ...new Set(promotable),
+  ].map(line => `${line} is 'unverified', but a recording or documentation verifies it; declare it true, 'experimental' or 'emulated'`),
+  ...[
+    ...new Set(misdeclared),
+  ],
 ]
-const onlyDocumented = [...new Set(documented)]
+const onlyDocumented = [
+  ...new Set(documented),
+]
 console.info(process.argv.includes('--documented')
   ? `${onlyDocumented.length} capabilities are verified only by fixtures written from documentation:\n  ${onlyDocumented.join('\n  ')}`
   : `${onlyDocumented.length} capabilities are verified only by fixtures written from documentation, and are still to be recorded; pass --documented to list them.`)

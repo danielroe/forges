@@ -91,13 +91,17 @@ const TEXT_INLINE_LIMIT = 128 * 1024
 const BINARY_INLINE_LIMIT = 32 * 1024
 
 function notFound(ref: RepoRef | ThreadRef | ReleaseRef, context: ForgeErrorContext): NotFoundError {
-  const slug = 'repo' in ref ? `${ref.repo.owner}/${ref.repo.name}` : `${ref.owner}/${ref.name}`
+  const slug = 'repo' in ref
+    ? `${ref.repo.owner}/${ref.repo.name}`
+    : `${ref.owner}/${ref.name}`
   return new NotFoundError(`Nothing found for ${slug} on Sourcehut, or the credential cannot see it`, 404, '', context)
 }
 
 /** Sourcehut ids are integers; a non-numeric ref would otherwise reach the API as `null` and fail as a GraphQL error. */
 function numericId(value: string | undefined, what: string, context: ForgeErrorContext): number {
-  const parsed = value ? Number(value) : Number.NaN
+  const parsed = value
+    ? Number(value)
+    : Number.NaN
   if (!Number.isInteger(parsed) || parsed < 0) {
     throw new NotFoundError(`Sourcehut has no ${what} ${value || 'with that id'}`, 404, '', context)
   }
@@ -117,14 +121,25 @@ function hostOf(path: string): string {
 function pageOf<R, T>(page: ShPage<R> | null | undefined, map: (raw: R) => T, warnings?: Page<T>['warnings']): Page<T> {
   return {
     items: (page?.results ?? []).map(map),
-    ...page?.cursor ? { cursor: { token: page.cursor } } : {},
-    ...warnings?.length ? { warnings } : {},
+    ...page?.cursor
+      ? {
+          cursor: { token: page.cursor },
+        }
+      : {},
+    ...warnings?.length
+      ? { warnings }
+      : {},
   }
 }
 
 /** `ListOptions.since` is not a Sourcehut filter, so drop the events the forge returned before it. */
 function filterSince(page: Page<ForgeEventInput>, since: Date | undefined): Page<ForgeEventInput> {
-  return since ? { ...page, items: page.items.filter(item => item.occurredAt >= since) } : page
+  return since
+    ? {
+        ...page,
+        items: page.items.filter(item => item.occurredAt >= since),
+      }
+    : page
 }
 
 /** When a tag was made: the tag object's own time for an annotated tag, else the commit's. */
@@ -139,13 +154,21 @@ function byTagTimeDesc(a: { at: string }, b: { at: string }): number {
 
 /** `Filter.count` is the only page-size knob Sourcehut's repository resolvers accept. */
 function countFilter(perPage?: number): { count: number } | undefined {
-  return perPage === undefined ? undefined : { count: perPage }
+  return perPage === undefined
+    ? undefined
+    : { count: perPage }
 }
 
 function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const { options, instance, origin, createFetcher, fetcher } = ctx
   const authHeaders = async () => ({ authorization: `Bearer ${await resolveToken(options.auth)}` })
-  const fetchers = new Map<Service, Fetcher>(SERVICES.map(service => [service, createFetcher({ baseUrl: serviceUrl(instance, service), authHeaders })]))
+  const fetchers = new Map<Service, Fetcher>(SERVICES.map(service => [
+    service,
+    createFetcher({
+      baseUrl: serviceUrl(instance, service),
+      authHeaders,
+    }),
+  ]))
   const client = (service: Service): SourcehutGraphQL => {
     const url = serviceUrl(instance, service)
     return createSourcehutClient(fetchers.get(service)!, service, `${url}/query`, origin)
@@ -157,7 +180,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   const builds = client('builds')
   const gitFetcher = fetchers.get('git')!
   const buildsFetcher = fetchers.get('builds')!
-  const byHost = new Map(SERVICES.map(service => [serviceHost(instance, service), fetchers.get(service)!]))
+  const byHost = new Map(SERVICES.map(service => [
+    serviceHost(instance, service),
+    fetchers.get(service)!,
+  ]))
   // `request()` takes an absolute URL, which lands on a service subdomain the
   // instance-root fetcher would send no credentials to; route it to its service.
   const requestFetcher: Fetcher = {
@@ -167,7 +193,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   }
   const web = SOURCEHUT_WEB.links({ baseUrl: ctx.baseUrl, instance })
 
-  const repoParts = (repo: RepoRef) => ({ owner: usernameOf(repo.owner), name: repo.name })
+  const repoParts = (repo: RepoRef) => ({
+    owner: usernameOf(repo.owner),
+    name: repo.name,
+  })
 
   async function getRepo(repo: RepoRef, options?: BaseOptions): Promise<Repo> {
     const { user } = await git.query<{ user: { repository: ShRepository | null } | null }>(Q.RepositoryByOwner, repoParts(repo), options)
@@ -178,7 +207,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   }
 
   async function getTicket(ref: ThreadRef, options?: BaseOptions): Promise<ShTicket> {
-    const { user } = await todo.query<{ user: { tracker: { ticket: ShTicket | null } | null } | null }>(Q.Ticket, { ...repoParts(ref.repo), id: numericId(ref.number, 'ticket', origin) }, options)
+    const { user } = await todo.query<{ user: { tracker: { ticket: ShTicket | null } | null } | null }>(Q.Ticket, {
+      ...repoParts(ref.repo),
+      id: numericId(ref.number, 'ticket', origin),
+    }, options)
     const ticket = user?.tracker?.ticket
     if (!ticket) {
       throw notFound(ref, origin)
@@ -193,7 +225,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   }
 
   async function getPatchset(ref: ThreadRef, options?: BaseOptions): Promise<ShPatchset> {
-    const { patchset } = await lists.query<{ patchset: ShPatchset | null }>(Q.Patchset, { id: numericId(ref.number, 'patchset', origin) }, options)
+    const { patchset } = await lists.query<{ patchset: ShPatchset | null }>(Q.Patchset, {
+      id: numericId(ref.number, 'patchset', origin),
+    }, options)
     if (!onList(patchset, ref.repo)) {
       throw notFound(ref, origin)
     }
@@ -212,21 +246,39 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   }
 
   async function listTickets(repo: RepoRef, query: ThreadQuery, warnings?: Page<Thread>['warnings']): Promise<Page<Thread>> {
-    const { user } = await todo.query<{ user: { tracker: { tickets: ShPage<ShTicket> } | null } | null }>(Q.TrackerTickets, { ...repoParts(repo), cursor: query.cursor?.token }, query)
+    const { user } = await todo.query<{ user: { tracker: { tickets: ShPage<ShTicket> } | null } | null }>(Q.TrackerTickets, {
+      ...repoParts(repo),
+      cursor: query.cursor?.token,
+    }, query)
     if (!user) {
       throw notFound(repo, origin)
     }
     const page = pageOf(user.tracker?.tickets, ticket => toTicketThread(origin, ticket))
-    return { ...page, items: filterThreads(page.items, query), ...warnings?.length ? { warnings } : {} }
+    return {
+      ...page,
+      items: filterThreads(page.items, query),
+      ...warnings?.length
+        ? { warnings }
+        : {},
+    }
   }
 
   async function listPatches(repo: RepoRef, query: ThreadQuery, warnings?: Page<Thread>['warnings']): Promise<Page<Thread>> {
-    const { user } = await lists.query<{ user: { list: { patches: ShPage<ShPatchset> } | null } | null }>(Q.ListPatches, { ...repoParts(repo), cursor: query.cursor?.token }, query)
+    const { user } = await lists.query<{ user: { list: { patches: ShPage<ShPatchset> } | null } | null }>(Q.ListPatches, {
+      ...repoParts(repo),
+      cursor: query.cursor?.token,
+    }, query)
     if (!user) {
       throw notFound(repo, origin)
     }
     const page = pageOf(user.list?.patches, patchset => toPatchsetThread(origin, patchset))
-    return { ...page, items: filterThreads(page.items, query), ...warnings?.length ? { warnings } : {} }
+    return {
+      ...page,
+      items: filterThreads(page.items, query),
+      ...warnings?.length
+        ? { warnings }
+        : {},
+    }
   }
 
   function filterThreads(items: Thread[], query: ThreadQuery): Thread[] {
@@ -253,8 +305,16 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     const filtered = query.labels !== undefined || query.author !== undefined || query.assignee !== undefined || query.since !== undefined || query.createdAfter !== undefined
     const sorted = (query.sort !== undefined && query.sort !== 'created') || (query.direction !== undefined && query.direction !== 'desc')
     const warnings = [
-      ...filtered ? [{ code: 'filter_unsupported' as const, message: 'Sourcehut lists threads without filtering by labels, author, assignee or date' }] : [],
-      ...sorted ? [{ code: 'sort_unsupported' as const, message: 'Sourcehut lists threads in its own order' }] : [],
+      ...filtered
+        ? [
+            { code: 'filter_unsupported' as const, message: 'Sourcehut lists threads without filtering by labels, author, assignee or date' },
+          ]
+        : [],
+      ...sorted
+        ? [
+            { code: 'sort_unsupported' as const, message: 'Sourcehut lists threads in its own order' },
+          ]
+        : [],
     ]
     return warnings.length ? warnings : undefined
   }
@@ -262,14 +322,26 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
   /** Warnings when the caller asked for a filter or an order Sourcehut's repository listings cannot apply. */
   function repoWarnings(query: { sort?: unknown, direction?: unknown }, filtered?: string): Page<Repo>['warnings'] {
     const warnings = [
-      ...filtered ? [{ code: 'filter_unsupported' as const, message: filtered }] : [],
-      ...query.sort !== undefined || query.direction !== undefined ? [{ code: 'sort_unsupported' as const, message: 'Sourcehut lists repositories in its own order' }] : [],
+      ...filtered
+        ? [
+            { code: 'filter_unsupported' as const, message: filtered },
+          ]
+        : [],
+      ...query.sort !== undefined || query.direction !== undefined
+        ? [
+            { code: 'sort_unsupported' as const, message: 'Sourcehut lists repositories in its own order' },
+          ]
+        : [],
     ]
     return warnings.length ? warnings : undefined
   }
 
   async function ticketEventPage(ref: ThreadRef, options?: ListOptions): Promise<ShPage<ShEvent>> {
-    const { user } = await todo.query<{ user: { tracker: { ticket: { events: ShPage<ShEvent> } | null } | null } | null }>(Q.TicketEvents, { ...repoParts(ref.repo), id: numericId(ref.number, 'ticket', origin), cursor: options?.cursor?.token }, options)
+    const { user } = await todo.query<{ user: { tracker: { ticket: { events: ShPage<ShEvent> } | null } | null } | null }>(Q.TicketEvents, {
+      ...repoParts(ref.repo),
+      id: numericId(ref.number, 'ticket', origin),
+      cursor: options?.cursor?.token,
+    }, options)
     const events = user?.tracker?.ticket?.events
     if (!events) {
       throw notFound(ref, origin)
@@ -281,7 +353,11 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     const page = await ticketEventPage(ref, options)
     return {
       items: page.results.flatMap(event => toTicketEvents(ref, event)),
-      ...page.cursor ? { cursor: { token: page.cursor } } : {},
+      ...page.cursor
+        ? {
+            cursor: { token: page.cursor },
+          }
+        : {},
     }
   }
 
@@ -292,12 +368,20 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
 
   /** The replies on a patchset's thread. The patch emails themselves are excluded: they are the change, not the conversation. */
   async function patchsetEmails(ref: ThreadRef, options?: ListOptions): Promise<ShPage<ShEmail>> {
-    const { patchset } = await lists.query<{ patchset: (ShPatchset & { thread: { descendants: ShPage<ShEmail> } }) | null }>(Q.PatchsetEmails, { id: numericId(ref.number, 'patchset', origin), cursor: options?.cursor?.token }, options)
-    const descendants = onList(patchset, ref.repo) ? patchset.thread?.descendants : undefined
+    const { patchset } = await lists.query<{ patchset: (ShPatchset & { thread: { descendants: ShPage<ShEmail> } }) | null }>(Q.PatchsetEmails, {
+      id: numericId(ref.number, 'patchset', origin),
+      cursor: options?.cursor?.token,
+    }, options)
+    const descendants = onList(patchset, ref.repo)
+      ? patchset.thread?.descendants
+      : undefined
     if (!descendants) {
       throw notFound(ref, origin)
     }
-    return { ...descendants, results: descendants.results.filter(email => !isPatchEmail(email)) }
+    return {
+      ...descendants,
+      results: descendants.results.filter(email => !isPatchEmail(email)),
+    }
   }
 
   async function comments(ref: ThreadRef, options?: ListOptions): Promise<Page<Comment>> {
@@ -305,7 +389,14 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     if (thread.kind === 'issue') {
       const page = await ticketEventPage(thread, options)
       const items = page.results.flatMap(event => event.changes.filter(change => change.eventType === 'COMMENT').map(change => toTicketComment(thread, event, change)))
-      return { items, ...page.cursor ? { cursor: { token: page.cursor } } : {} }
+      return {
+        items,
+        ...page.cursor
+          ? {
+              cursor: { token: page.cursor },
+            }
+          : {},
+      }
     }
     if (thread.kind === 'pull_request') {
       return pageOf(await patchsetEmails(thread, options), email => toEmailComment(thread, email))
@@ -326,33 +417,60 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
 
   /** The refs of a repository, plus its default branch. Sourcehut returns `repository: null` for a missing repo. */
   async function refs(repo: RepoRef, cursor: string | undefined, options?: BaseOptions): Promise<{ references: ShPage<ShReference>, defaultBranch?: string }> {
-    const { user } = await git.query<{ user: { repository: { HEAD: { name: string } | null, references: ShPage<ShReference> } | null } | null }>(Q.RepositoryRefs, { ...repoParts(repo), cursor }, options)
+    const { user } = await git.query<{ user: { repository: { HEAD: { name: string } | null, references: ShPage<ShReference> } | null } | null }>(Q.RepositoryRefs, {
+      ...repoParts(repo),
+      cursor,
+    }, options)
     if (!user?.repository) {
       throw notFound(repo, origin)
     }
-    return { references: user.repository.references, defaultBranch: branchOf(user.repository.HEAD?.name) }
+    return {
+      references: user.repository.references,
+      defaultBranch: branchOf(user.repository.HEAD?.name),
+    }
   }
 
   async function treePage(repo: RepoRef, options: TreeOptions = {}): Promise<Page<TreeEntry>> {
     const revspec = options.ref ?? 'HEAD'
     const path = (options.path ?? '').replace(/^\/+|\/+$/g, '')
     const warnings = options.recursive
-      ? [{ code: 'recursive_unsupported' as const, message: 'Sourcehut lists one level of a tree; read subdirectories separately' }]
+      ? [
+          { code: 'recursive_unsupported' as const, message: 'Sourcehut lists one level of a tree; read subdirectories separately' },
+        ]
       : undefined
     if (path === '') {
-      const { user } = await git.query<{ user: { repository: { revparse_single: { tree: { entries: ShPage<ShTreeEntryNode> } } | null } | null } | null }>(Q.RepositoryRootTree, { ...repoParts(repo), revspec, cursor: options.cursor?.token }, options)
+      const { user } = await git.query<{ user: { repository: { revparse_single: { tree: { entries: ShPage<ShTreeEntryNode> } } | null } | null } | null }>(Q.RepositoryRootTree, {
+        ...repoParts(repo),
+        revspec,
+        cursor: options.cursor?.token,
+      }, options)
       const entries = user?.repository?.revparse_single?.tree?.entries
       if (!entries) {
         throw new NotFoundError(`No revision ${revspec} in ${repo.owner}/${repo.name}`, 404, '', origin)
       }
-      return { ...pageOf(entries, entry => toTreeEntry('', entry)), ...warnings ? { warnings } : {} }
+      return {
+        ...pageOf(entries, entry => toTreeEntry('', entry)),
+        ...warnings
+          ? { warnings }
+          : {},
+      }
     }
-    const { user } = await git.query<{ user: { repository: { path: { object: { entries: ShPage<ShTreeEntryNode> } } | null } | null } | null }>(Q.RepositoryTree, { ...repoParts(repo), revspec, path, cursor: options.cursor?.token }, options)
+    const { user } = await git.query<{ user: { repository: { path: { object: { entries: ShPage<ShTreeEntryNode> } } | null } | null } | null }>(Q.RepositoryTree, {
+      ...repoParts(repo),
+      revspec,
+      path,
+      cursor: options.cursor?.token,
+    }, options)
     const entries = user?.repository?.path?.object?.entries
     if (!entries) {
       throw new NotFoundError(`No directory ${path} in ${repo.owner}/${repo.name}`, 404, '', origin)
     }
-    return { ...pageOf(entries, entry => toTreeEntry(path, entry)), ...warnings ? { warnings } : {} }
+    return {
+      ...pageOf(entries, entry => toTreeEntry(path, entry)),
+      ...warnings
+        ? { warnings }
+        : {},
+    }
   }
 
   /** Tags with their commit time, newest first, so `releases.latest()` means the most recent tag. */
@@ -360,9 +478,20 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     const { references } = await refs(repo, options?.cursor?.token, options)
     const items = references.results
       .filter(ref => ref.name.startsWith('refs/tags/'))
-      .map(ref => ({ tag: ref.name.replace(/^refs\/tags\//, ''), artifacts: ref.artifacts, at: tagTime(ref) }))
+      .map(ref => ({
+        tag: ref.name.replace(/^refs\/tags\//, ''),
+        artifacts: ref.artifacts,
+        at: tagTime(ref),
+      }))
       .sort(byTagTimeDesc)
-    return { items, ...references.cursor ? { cursor: { token: references.cursor } } : {} }
+    return {
+      items,
+      ...references.cursor
+        ? {
+            cursor: { token: references.cursor },
+          }
+        : {},
+    }
   }
 
   /**
@@ -372,7 +501,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
    */
   async function releasesPage(repo: RepoRef, options?: PageOptions): Promise<Page<Release>> {
     const page = await tagsOf(repo, options)
-    return { ...page, items: page.items.map(({ tag, artifacts, at }) => toRelease(repo, tag, artifacts?.results ?? [], at)) }
+    return {
+      ...page,
+      items: page.items.map(({ tag, artifacts, at }) => toRelease(repo, tag, artifacts?.results ?? [], at)),
+    }
   }
 
   /** `latest` reads every refs page, because tags sort after branches and can fall on a later page. */
@@ -380,7 +512,12 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     const tags: Array<{ tag: string, artifacts: ShReference['artifacts'], at: string }> = []
     let cursor: string | undefined
     do {
-      const page = await tagsOf(repo, { cursor: cursor ? { token: cursor } : undefined, signal: options?.signal })
+      const page = await tagsOf(repo, {
+        cursor: cursor
+          ? { token: cursor }
+          : undefined,
+        signal: options?.signal,
+      })
       tags.push(...page.items)
       cursor = page.cursor?.token
     } while (cursor)
@@ -398,7 +535,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     ],
     users: {
       get: verb(true, async (login, options) => {
-        const { userByName } = await meta.query<{ userByName: ShUser | null }>(Q.UserByName, { username: usernameOf(login) }, options)
+        const { userByName } = await meta.query<{ userByName: ShUser | null }>(Q.UserByName, {
+          username: usernameOf(login),
+        }, options)
         if (!userByName) {
           throw new NotFoundError(`No Sourcehut account named ${login}`, 404, '', origin)
         }
@@ -409,36 +548,71 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     repos: {
       get: verb(true, getRepo),
       listPage: verb(true, async (query: RepoQuery = {}) => {
-        const { repositories } = await git.query<{ repositories: ShPage<ShRepository> }>(Q.MyRepositories, { cursor: query.cursor?.token, filter: countFilter(query.perPage) }, query)
+        const { repositories } = await git.query<{ repositories: ShPage<ShRepository> }>(Q.MyRepositories, {
+          cursor: query.cursor?.token,
+          filter: countFilter(query.perPage),
+        }, query)
         const page = pageOf(repositories, repository => toRepo(origin, repository))
-        const warnings = isFirstPage(query.cursor) ? repoWarnings(query, query.affiliation !== undefined ? 'Sourcehut lists the account\'s repositories without an affiliation filter' : undefined) : undefined
-        return { ...page, items: page.items.filter(repo => !query.visibility || query.visibility === 'all' || repo.visibility === query.visibility), ...warnings ? { warnings } : {} }
+        const warnings = isFirstPage(query.cursor)
+          ? repoWarnings(query, query.affiliation !== undefined
+              ? 'Sourcehut lists the account\'s repositories without an affiliation filter'
+              : undefined)
+          : undefined
+        return {
+          ...page,
+          items: page.items.filter(repo => !query.visibility || query.visibility === 'all' || repo.visibility === query.visibility),
+          ...warnings
+            ? { warnings }
+            : {},
+        }
       }),
       byOwnerPage: verb(true, async (owner: RepoRef, query = {}) => {
-        const { user } = await git.query<{ user: { repositories: ShPage<ShRepository> } | null }>(Q.OwnerRepositories, { owner: usernameOf(owner.owner), cursor: query.cursor?.token, filter: countFilter(query.perPage) }, query)
+        const { user } = await git.query<{ user: { repositories: ShPage<ShRepository> } | null }>(Q.OwnerRepositories, {
+          owner: usernameOf(owner.owner),
+          cursor: query.cursor?.token,
+          filter: countFilter(query.perPage),
+        }, query)
         if (!user) {
           throw new NotFoundError(`No Sourcehut account named ${owner.owner}`, 404, '', origin)
         }
         const page = pageOf(user.repositories, repository => toRepo(origin, repository))
-        const warnings = isFirstPage(query.cursor) ? repoWarnings(query, query.subgroups === true ? 'Sourcehut lists an account\'s repositories without subgroup filtering' : undefined) : undefined
-        return { ...page, items: page.items.filter(repo => !query.visibility || query.visibility === 'all' || repo.visibility === query.visibility), ...warnings ? { warnings } : {} }
+        const warnings = isFirstPage(query.cursor)
+          ? repoWarnings(query, query.subgroups === true
+              ? 'Sourcehut lists an account\'s repositories without subgroup filtering'
+              : undefined)
+          : undefined
+        return {
+          ...page,
+          items: page.items.filter(repo => !query.visibility || query.visibility === 'all' || repo.visibility === query.visibility),
+          ...warnings
+            ? { warnings }
+            : {},
+        }
       }),
       collaboratorsPage: verb(true, async (repo: RepoRef, options: PageOptions = {}) => {
-        const { user } = await git.query<{ user: { repository: { acls: ShPage<ShAcl> } | null } | null }>(Q.RepositoryAcls, { ...repoParts(repo), cursor: options.cursor?.token }, options)
+        const { user } = await git.query<{ user: { repository: { acls: ShPage<ShAcl> } | null } | null }>(Q.RepositoryAcls, {
+          ...repoParts(repo),
+          cursor: options.cursor?.token,
+        }, options)
         if (!user?.repository) {
           throw notFound(repo, origin)
         }
         return pageOf(user.repository.acls, acl => toCollaborator(origin, acl))
       }),
       labelsPage: verb('emulated', async (repo: RepoRef, options: PageOptions = {}) => {
-        const { user } = await todo.query<{ user: { tracker: { labels: ShPage<ShLabel> } | null } | null }>(Q.TrackerLabels, { ...repoParts(repo), cursor: options.cursor?.token }, options)
+        const { user } = await todo.query<{ user: { tracker: { labels: ShPage<ShLabel> } | null } | null }>(Q.TrackerLabels, {
+          ...repoParts(repo),
+          cursor: options.cursor?.token,
+        }, options)
         if (!user) {
           throw notFound(repo, origin)
         }
         return pageOf(user.tracker?.labels, label => toLabel(label))
       }),
       permissionFor: verb('emulated', async (repo: RepoRef, actor, options) => {
-        const login = typeof actor === 'string' ? actor : actor.login
+        const login = typeof actor === 'string'
+          ? actor
+          : actor.login
         // The owner is never on its own access list, so its role is implicit.
         if (usernameOf(repo.owner) === usernameOf(login)) {
           return 'admin' as RepoRole
@@ -446,11 +620,16 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         let cursor: string | undefined
         try {
           do {
-            const { user } = await git.query<{ user: { repository: { acls: ShPage<ShAcl> } | null } | null }>(Q.RepositoryAcls, { ...repoParts(repo), cursor }, options)
+            const { user } = await git.query<{ user: { repository: { acls: ShPage<ShAcl> } | null } | null }>(Q.RepositoryAcls, {
+              ...repoParts(repo),
+              cursor,
+            }, options)
             const page = user?.repository?.acls
             const match = page?.results.find(acl => usernameOf(acl.entity.canonicalName) === usernameOf(login))
             if (match) {
-              return match.mode === 'RW' ? 'write' : 'read'
+              return match.mode === 'RW'
+                ? 'write'
+                : 'read'
             }
             cursor = page?.cursor ?? undefined
           } while (cursor)
@@ -462,7 +641,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
           if (!(error instanceof InsufficientScopeError)) {
             throw error
           }
-          return (await getRepo(repo, options)).visibility === 'public' ? 'read' as RepoRole : 'none' as RepoRole
+          return (await getRepo(repo, options)).visibility === 'public'
+            ? 'read' as RepoRole
+            : 'none' as RepoRole
         }
       }),
     },
@@ -470,7 +651,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
       get: perKind({ issue: true, pull_request: true }, getThread),
       listPage: perKind({ issue: true, pull_request: true }, (repo, query: ThreadQuery = {}) => {
         // Both listings ignore the same filters, so warn once, on the first page.
-        const warnings = isFirstPage(query.cursor) ? threadFilterWarnings(query) : undefined
+        const warnings = isFirstPage(query.cursor)
+          ? threadFilterWarnings(query)
+          : undefined
         if (query.kind === 'issue') {
           return listTickets(repo, query, warnings)
         }
@@ -502,13 +685,24 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     contents: {
       getFile: verb(true, async (repo: RepoRef, path: string, options = {}) => {
         const revspec = options.ref ?? 'HEAD'
-        const { user } = await git.query<{ user: { repository: { path: { id: string, object: ShFileObject } | null } | null } | null }>(Q.RepositoryFile, { ...repoParts(repo), revspec, path }, options)
+        const { user } = await git.query<{ user: { repository: { path: { id: string, object: ShFileObject } | null } | null } | null }>(Q.RepositoryFile, {
+          ...repoParts(repo),
+          revspec,
+          path,
+        }, options)
         const object = user?.repository?.path?.object
         if (!object || object.type !== 'BLOB') {
           throw new NotFoundError(`No file ${path} in ${repo.owner}/${repo.name}`, 404, '', origin)
         }
         const size = object.size ?? undefined
-        const metadata = { path, sha: object.id, size, url: webUrlFor(web, { file: { repo, path, at: revspec } }) }
+        const metadata = {
+          path,
+          sha: object.id,
+          size,
+          url: webUrlFor(web, {
+            file: { repo, path, at: revspec },
+          }),
+        }
         const text = object.text ?? undefined
         const base64 = object.base64 ?? undefined
         // `text` and `base64` are capped inline, so past the cap read the whole blob from `content`.
@@ -516,7 +710,9 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
           ? new TextEncoder().encode(text)
           : base64 !== undefined && (size === undefined || size <= BINARY_INLINE_LIMIT)
             ? fromBase64(base64)
-            : object.content ? new Uint8Array(await (await gitFetcher.raw(object.content, options)).arrayBuffer()) : undefined
+            : object.content
+              ? new Uint8Array(await (await gitFetcher.raw(object.content, options)).arrayBuffer())
+              : undefined
         if (!bytes) {
           throw new NotFoundError(`No file ${path} in ${repo.owner}/${repo.name}`, 404, '', origin)
         }
@@ -526,15 +722,32 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
       branchesPage: verb(true, async (repo: RepoRef, options: PageOptions = {}) => {
         const { references, defaultBranch } = await refs(repo, options.cursor?.token, options)
         const items: Branch[] = references.results.filter(ref => ref.name.startsWith('refs/heads/')).map(ref => toBranch(ref, defaultBranch))
-        return { items, ...references.cursor ? { cursor: { token: references.cursor } } : {} }
+        return {
+          items,
+          ...references.cursor
+            ? {
+                cursor: { token: references.cursor },
+              }
+            : {},
+        }
       }),
       tagsPage: verb(true, async (repo: RepoRef, options: PageOptions = {}) => {
         const { references } = await refs(repo, options.cursor?.token, options)
         const items: Tag[] = references.results.filter(ref => ref.name.startsWith('refs/tags/')).map(toTag)
-        return { items, ...references.cursor ? { cursor: { token: references.cursor } } : {} }
+        return {
+          items,
+          ...references.cursor
+            ? {
+                cursor: { token: references.cursor },
+              }
+            : {},
+        }
       }),
       resolveRef: verb(true, async (repo: RepoRef, ref: string, options?: BaseOptions) => {
-        const { user } = await git.query<{ user: { repository: { revparse_single: { id: string } | null } | null } | null }>(Q.RepositoryResolveRef, { ...repoParts(repo), revspec: ref }, options)
+        const { user } = await git.query<{ user: { repository: { revparse_single: { id: string } | null } | null } | null }>(Q.RepositoryResolveRef, {
+          ...repoParts(repo),
+          revspec: ref,
+        }, options)
         const sha = user?.repository?.revparse_single?.id
         if (!sha) {
           throw new NotFoundError(`No revision ${ref} in ${repo.owner}/${repo.name}`, 404, '', origin)
@@ -544,18 +757,37 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
     },
     commits: {
       listPage: verb(true, async (repo: RepoRef, query = {}) => {
-        const { user } = await git.query<{ user: { repository: { log: ShPage<ShCommit> } | null } | null }>(Q.RepositoryLog, { ...repoParts(repo), from: query.ref, cursor: query.cursor?.token }, query)
+        const { user } = await git.query<{ user: { repository: { log: ShPage<ShCommit> } | null } | null }>(Q.RepositoryLog, {
+          ...repoParts(repo),
+          from: query.ref,
+          cursor: query.cursor?.token,
+        }, query)
         if (!user?.repository) {
           throw notFound(repo, origin)
         }
         const page = pageOf(user.repository.log, commit => toCommit(repo, commit))
-        const warnings = isFirstPage(query.cursor) && [query.since, query.until, query.path, query.author].some(value => value !== undefined)
-          ? [{ code: 'filter_unsupported' as const, message: 'Sourcehut walks the log without filtering by date, path or author' }]
+        const warnings = isFirstPage(query.cursor) && [
+          query.since,
+          query.until,
+          query.path,
+          query.author,
+        ].some(value => value !== undefined)
+          ? [
+              { code: 'filter_unsupported' as const, message: 'Sourcehut walks the log without filtering by date, path or author' },
+            ]
           : undefined
-        return { ...page, ...warnings ? { warnings } : {} }
+        return {
+          ...page,
+          ...warnings
+            ? { warnings }
+            : {},
+        }
       }),
       get: verb(true, async ({ repo, sha }: CommitRef, options?: BaseOptions) => {
-        const { user } = await git.query<{ user: { repository: { revparse_single: ShCommit | null } | null } | null }>(Q.RepositoryCommit, { ...repoParts(repo), revspec: sha }, options)
+        const { user } = await git.query<{ user: { repository: { revparse_single: ShCommit | null } | null } | null }>(Q.RepositoryCommit, {
+          ...repoParts(repo),
+          revspec: sha,
+        }, options)
         const commit = user?.repository?.revparse_single
         if (!commit) {
           throw new NotFoundError(`No commit ${sha} in ${repo.owner}/${repo.name}`, 404, '', origin)
@@ -572,30 +804,47 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         const warnings = isFirstPage(query.cursor)
           ? [
               { code: 'filter_unsupported' as const, message: 'Sourcehut lists the builds of the authenticated account, not of one repository' },
-              ...query.branch || query.state ? [{ code: 'filter_unsupported' as const, message: 'Sourcehut cannot filter builds by branch or state' }] : [],
+              ...query.branch || query.state
+                ? [
+                    { code: 'filter_unsupported' as const, message: 'Sourcehut cannot filter builds by branch or state' },
+                  ]
+                : [],
             ]
           : undefined
-        return { ...page, ...warnings ? { warnings } : {} }
+        return {
+          ...page,
+          ...warnings
+            ? { warnings }
+            : {},
+        }
       }),
       getRun: verb(true, async (ref, options?: BaseOptions) => {
-        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, { id: numericId(ref.id, 'build', origin) }, options)
+        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, {
+          id: numericId(ref.id, 'build', origin),
+        }, options)
         if (!job) {
           throw new NotFoundError(`No Sourcehut build ${ref.id}`, 404, '', origin)
         }
         return toCiRun(origin, ref.repo, job)
       }),
       jobsPage: verb(true, async (ref, options: PageOptions = {}) => {
-        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, { id: numericId(ref.id, 'build', origin) }, options)
+        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, {
+          id: numericId(ref.id, 'build', origin),
+        }, options)
         if (!job) {
           throw new NotFoundError(`No Sourcehut build ${ref.id}`, 404, '', origin)
         }
-        return { items: job.tasks.map(task => toCiJob(origin, ref.repo, job, task)) }
+        return {
+          items: job.tasks.map(task => toCiJob(origin, ref.repo, job, task)),
+        }
       }),
       log: verb(true, async (ref, options?: BaseOptions) => {
         if (!ref.run) {
           throw new UnsupportedOperationError('Sourcehut reads a build log from its build, so the job ref must name one', origin)
         }
-        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, { id: numericId(ref.run.id, 'build', origin) }, options)
+        const { job } = await builds.query<{ job: ShJob | null }>(Q.Job, {
+          id: numericId(ref.run.id, 'build', origin),
+        }, options)
         // A job is one of the build's tasks; the build's own log is the runner's, not this job's.
         const task = job?.tasks.find(candidate => String(candidate.id) === ref.id)
         if (!task?.log?.fullURL) {
@@ -610,7 +859,11 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         if (!repo) {
           throw new UnsupportedOperationError('Sourcehut searches code within one repository', origin)
         }
-        const { user } = await git.query<{ user: { repository: { codeSearch: { totalFiles: number, totalMatches: number, results: ShCodeSearchResult[], cursor?: string | null } } | null } | null }>(Q.RepositoryCodeSearch, { ...repoParts(repo), query: query.text ?? query.queryRaw ?? '', cursor: query.cursor?.token }, query)
+        const { user } = await git.query<{ user: { repository: { codeSearch: { totalFiles: number, totalMatches: number, results: ShCodeSearchResult[], cursor?: string | null } } | null } | null }>(Q.RepositoryCodeSearch, {
+          ...repoParts(repo),
+          query: query.text ?? query.queryRaw ?? '',
+          cursor: query.cursor?.token,
+        }, query)
         const search = user?.repository?.codeSearch
         if (!search) {
           throw notFound(repo, origin)
@@ -618,24 +871,42 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         return {
           items: search.results.map(match => toCodeMatch(repo, match)),
           total: search.totalMatches,
-          ...search.cursor ? { cursor: { token: search.cursor } } : {},
+          ...search.cursor
+            ? {
+                cursor: { token: search.cursor },
+              }
+            : {},
         }
       }),
       reposPage: verb('emulated', async (query) => {
-        const { repositories } = await git.query<{ repositories: ShPage<ShRepository> }>(Q.MyRepositories, { cursor: query.cursor?.token, filter: countFilter(query.perPage) }, query)
+        const { repositories } = await git.query<{ repositories: ShPage<ShRepository> }>(Q.MyRepositories, {
+          cursor: query.cursor?.token,
+          filter: countFilter(query.perPage),
+        }, query)
         const page = pageOf(repositories, repository => toRepo(origin, repository))
         const text = query.text?.toLowerCase()
         const warnings = isFirstPage(query.cursor) && query.owner
-          ? [{ code: 'filter_unsupported' as const, message: 'Sourcehut searches the account\'s own repositories and cannot filter by owner' }]
+          ? [
+              { code: 'filter_unsupported' as const, message: 'Sourcehut searches the account\'s own repositories and cannot filter by owner' },
+            ]
           : undefined
-        return { ...page, items: page.items.filter(repo => !text || `${repo.ref.owner}/${repo.ref.name}`.toLowerCase().includes(text)), ...warnings ? { warnings } : {} }
+        return {
+          ...page,
+          items: page.items.filter(repo => !text || `${repo.ref.owner}/${repo.ref.name}`.toLowerCase().includes(text)),
+          ...warnings
+            ? { warnings }
+            : {},
+        }
       }),
     },
     releases: {
       listPage: verb('emulated', releasesPage),
       get: verb('emulated', async (ref, options?: BaseOptions) => {
         const tag = ref.tag ?? ref.id
-        const { user } = await git.query<{ user: { repository: { reference: ShReference | null } | null } | null }>(Q.RepositoryReference, { ...repoParts(ref.repo), refName: `refs/tags/${tag}` }, options)
+        const { user } = await git.query<{ user: { repository: { reference: ShReference | null } | null } | null }>(Q.RepositoryReference, {
+          ...repoParts(ref.repo),
+          refName: `refs/tags/${tag}`,
+        }, options)
         const reference = user?.repository?.reference
         if (!reference) {
           throw notFound(ref, origin)
@@ -643,7 +914,10 @@ function setupSourcehut(ctx: ProviderContext<SourcehutOptions, undefined>): Prov
         return toRelease(ref.repo, tag, reference.artifacts?.results ?? [], tagTime(reference))
       }),
       getByTag: verb('emulated', async (repo: RepoRef, tag: string, options?: BaseOptions) => {
-        const { user } = await git.query<{ user: { repository: { reference: ShReference | null } | null } | null }>(Q.RepositoryReference, { ...repoParts(repo), refName: `refs/tags/${tag}` }, options)
+        const { user } = await git.query<{ user: { repository: { reference: ShReference | null } | null } | null }>(Q.RepositoryReference, {
+          ...repoParts(repo),
+          refName: `refs/tags/${tag}`,
+        }, options)
         const reference = user?.repository?.reference
         if (!reference) {
           throw new NotFoundError(`No tag ${tag} in ${repo.owner}/${repo.name}`, 404, '', origin)
@@ -692,15 +966,47 @@ function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
   const grant = (service: string, scope: string) => `${service}/${scope}:RO`
   // Each service enforces scopes per resolver, and a query with any out-of-scope
   // field fails as a whole, so a verb must list every grant its queries touch.
-  const git = { profile: grant('git.sr.ht', 'PROFILE'), repositories: grant('git.sr.ht', 'REPOSITORIES'), objects: grant('git.sr.ht', 'OBJECTS'), acls: grant('git.sr.ht', 'ACLS') }
-  const todo = { profile: grant('todo.sr.ht', 'PROFILE'), trackers: grant('todo.sr.ht', 'TRACKERS'), tickets: grant('todo.sr.ht', 'TICKETS'), events: grant('todo.sr.ht', 'EVENTS'), subscriptions: grant('todo.sr.ht', 'SUBSCRIPTIONS') }
-  const lists = { profile: grant('lists.sr.ht', 'PROFILE'), lists: grant('lists.sr.ht', 'LISTS'), emails: grant('lists.sr.ht', 'EMAILS'), patches: grant('lists.sr.ht', 'PATCHES') }
-  const builds = { profile: grant('builds.sr.ht', 'PROFILE'), jobs: grant('builds.sr.ht', 'JOBS'), logs: grant('builds.sr.ht', 'LOGS') }
+  const git = {
+    profile: grant('git.sr.ht', 'PROFILE'),
+    repositories: grant('git.sr.ht', 'REPOSITORIES'),
+    objects: grant('git.sr.ht', 'OBJECTS'),
+    acls: grant('git.sr.ht', 'ACLS'),
+  }
+  const todo = {
+    profile: grant('todo.sr.ht', 'PROFILE'),
+    trackers: grant('todo.sr.ht', 'TRACKERS'),
+    tickets: grant('todo.sr.ht', 'TICKETS'),
+    events: grant('todo.sr.ht', 'EVENTS'),
+    subscriptions: grant('todo.sr.ht', 'SUBSCRIPTIONS'),
+  }
+  const lists = {
+    profile: grant('lists.sr.ht', 'PROFILE'),
+    lists: grant('lists.sr.ht', 'LISTS'),
+    emails: grant('lists.sr.ht', 'EMAILS'),
+    patches: grant('lists.sr.ht', 'PATCHES'),
+  }
+  const builds = {
+    profile: grant('builds.sr.ht', 'PROFILE'),
+    jobs: grant('builds.sr.ht', 'JOBS'),
+    logs: grant('builds.sr.ht', 'LOGS'),
+  }
   // Resolving a repository is REPOSITORIES, and the fragment it returns reads `HEAD`, which is OBJECTS.
   const repo = [git.repositories, git.objects, git.profile]
-  const ticket = [todo.trackers, todo.tickets, todo.subscriptions, todo.profile]
+  const ticket = [
+    todo.trackers,
+    todo.tickets,
+    todo.subscriptions,
+    todo.profile,
+  ]
   const patch = [lists.lists, lists.emails, lists.profile]
-  const threadEvent = [todo.trackers, todo.tickets, todo.profile, todo.events, lists.emails, lists.profile]
+  const threadEvent = [
+    todo.trackers,
+    todo.tickets,
+    todo.profile,
+    todo.events,
+    lists.emails,
+    lists.profile,
+  ]
   const job = [builds.jobs, builds.logs, builds.profile]
   const table: Partial<Record<ForgeVerb, string[]>> = {
     'repos.get': repo,
@@ -709,9 +1015,19 @@ function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
     'repos.labels': [todo.trackers, todo.profile],
     'repos.collaborators': [git.acls, git.repositories, git.profile],
     'repos.permissionFor': [git.acls, git.repositories, git.profile],
-    'threads.get': [...ticket, ...patch],
-    'threads.getMany': [...ticket, ...patch],
-    'threads.list': [...ticket, ...patch, lists.patches],
+    'threads.get': [
+      ...ticket,
+      ...patch,
+    ],
+    'threads.getMany': [
+      ...ticket,
+      ...patch,
+    ],
+    'threads.list': [
+      ...ticket,
+      ...patch,
+      lists.patches,
+    ],
     'threads.events': threadEvent,
     'threads.comments': threadEvent,
     'threads.getComment': threadEvent,
@@ -735,12 +1051,18 @@ function sourcehutScopesFor(verb: ForgeVerb): VerbScopes {
     'releases.latest': repo,
     'releases.getByTag': repo,
     'releases.downloadAsset': [git.objects],
-    'users.get': [grant('meta.sr.ht', 'PROFILE')],
-    'users.me': [grant('meta.sr.ht', 'PROFILE')],
+    'users.get': [
+      grant('meta.sr.ht', 'PROFILE'),
+    ],
+    'users.me': [
+      grant('meta.sr.ht', 'PROFILE'),
+    ],
     // A delivery is verified against the instance's published ed25519 key, not a token.
     'webhooks.verify': [],
     'webhooks.ingest': [],
   }
   const scopes = table[verb]
-  return scopes?.length ? { token: scopes } : {}
+  return scopes?.length
+    ? { token: scopes }
+    : {}
 }

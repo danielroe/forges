@@ -2,11 +2,16 @@
 import { providers as docsProviders } from '#capabilities'
 import { kinds, providers, withoutWebhooks } from '#events'
 
-const columns = providers.map(provider => ({ ...provider, ...docsProviders.find(({ slug }) => slug === provider.slug)! }))
+const columns = providers.map(provider => ({
+  ...provider,
+  ...docsProviders.find(({ slug }) => slug === provider.slug)!,
+}))
 const heuristic = columns.filter(provider => provider.eventKinds === 'heuristic')
 const declaredKinds = kinds.filter(row => row.cells.some(cell => cell.declared))
 const undeclaredKinds = kinds.filter(row => !declaredKinds.includes(row))
-const headerHeight = rotatedHeaderHeight(columns.map(provider => provider.name.length + (provider.eventKinds === 'heuristic' ? 2 : 0)))
+const headerHeight = rotatedHeaderHeight(columns.map(provider => provider.name.length + (provider.eventKinds === 'heuristic'
+  ? 2
+  : 0)))
 const totals = columns.map((_, index) => declaredKinds.filter(row => row.cells[index]!.declared).length)
 
 type Row = (typeof kinds)[number]
@@ -16,16 +21,28 @@ function squares(row: Row, cell: Cell) {
   if (row.actions.length < 2 || !cell.actions.length) {
     return undefined
   }
-  return row.actions.map(action => ({ kind: action, label: action, level: cell.actions.includes(action) ? 'native' : 'none' }))
+  return row.actions.map(action => ({
+    kind: action,
+    label: action,
+    level: cell.actions.includes(action)
+      ? 'native'
+      : 'none',
+  }))
 }
 
 function grid(count: number) {
-  return { gridTemplateColumns: `repeat(${count <= 3 ? count : Math.ceil(count / 2)}, 1fr)` }
+  return { gridTemplateColumns: `repeat(${count <= 3
+    ? count
+    : Math.ceil(count / 2)}, 1fr)` }
 }
 
 function describe(cell: Cell) {
-  const support = cell.declared ? cell.actions.join(', ') || 'Any action' : 'Not declared'
-  return cell.subscribe.length ? `${support}. Subscribes to ${cell.subscribe.join(', ')}.` : support
+  const support = cell.declared
+    ? cell.actions.join(', ') || 'Any action'
+    : 'Not declared'
+  return cell.subscribe.length
+    ? `${support}. Subscribes to ${cell.subscribe.join(', ')}.`
+    : support
 }
 
 const TIP_HALF_WIDTH = 128
@@ -35,10 +52,14 @@ const tip = ref<{ row: Row, column: number, x: number, y: number }>()
 
 function inspect(event: PointerEvent) {
   const target = (event.target as HTMLElement).closest<HTMLTableCellElement>('td, th')
-  const column = target && target.cellIndex > 0 && target.colSpan === 1 ? target.cellIndex - 1 : undefined
+  const column = target && target.cellIndex > 0 && target.colSpan === 1
+    ? target.cellIndex - 1
+    : undefined
   hoveredColumn.value = column
   const kind = target?.parentElement?.dataset.kind
-  const row = kind ? kinds.find(row => row.kind === kind) : undefined
+  const row = kind
+    ? kinds.find(row => row.kind === kind)
+    : undefined
   if (!target || target.tagName !== 'TD' || !row || column === undefined || !wrapper.value) {
     tip.value = undefined
     return
@@ -46,7 +67,12 @@ function inspect(event: PointerEvent) {
   const box = target.getBoundingClientRect()
   const origin = wrapper.value.getBoundingClientRect()
   const x = Math.min(Math.max(box.left + box.width / 2 - origin.left, TIP_HALF_WIDTH), origin.width - TIP_HALF_WIDTH)
-  tip.value = { row, column, x, y: box.top - origin.top }
+  tip.value = {
+    row,
+    column,
+    x,
+    y: box.top - origin.top,
+  }
 }
 
 function leave() {

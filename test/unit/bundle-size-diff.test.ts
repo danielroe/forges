@@ -11,24 +11,88 @@ function snapshot(...bundles: ReturnType<typeof bundle>[]) {
 
 describe('bundle size snapshots', () => {
   it('keeps only measurement fields', () => {
-    const value = { version: 1, bundles: [{ ...bundle(), script: 'ignored' }], comment: 'ignored' }
+    const value = {
+      version: 1,
+      bundles: [
+        {
+          ...bundle(),
+          script: 'ignored',
+        },
+      ],
+      comment: 'ignored',
+    }
     expect(parseBundleSnapshot(JSON.stringify(value))).toEqual(snapshot(bundle()))
   })
 
   it.each([
-    ['another version', { version: 2, bundles: [] }],
-    ['missing measurements', { version: 1 }],
-    ['too many bundles', snapshot(...Array.from({ length: 65 }, (_, i) => bundle(`bundle${i}`)))],
-    ['a duplicate name', snapshot(bundle(), bundle())],
-    ['Markdown in a name', snapshot(bundle('[link](https://example.com)'))],
-    ['a mention', snapshot(bundle('@someone'))],
-    ['a newline', snapshot(bundle('forges\ntext'))],
-    ['a negative size', snapshot(bundle('forges', -1))],
-    ['a fractional size', snapshot(bundle('forges', 1.5))],
-    ['an excessive size', snapshot(bundle('forges', 1_000_000_001))],
-    ['a string size', { version: 1, bundles: [{ ...bundle(), gzipped: '500' }] }],
-    ['a missing size', { version: 1, bundles: [{ name: 'forges', minified: 1000, gzipped: 500 }] }],
-    ['a null bundle', { version: 1, bundles: [null] }],
+    [
+      'another version',
+      { version: 2, bundles: [] },
+    ],
+    [
+      'missing measurements',
+      { version: 1 },
+    ],
+    [
+      'too many bundles',
+      snapshot(...Array.from({ length: 65 }, (_, i) => bundle(`bundle${i}`))),
+    ],
+    [
+      'a duplicate name',
+      snapshot(bundle(), bundle()),
+    ],
+    [
+      'Markdown in a name',
+      snapshot(bundle('[link](https://example.com)')),
+    ],
+    [
+      'a mention',
+      snapshot(bundle('@someone')),
+    ],
+    [
+      'a newline',
+      snapshot(bundle('forges\ntext')),
+    ],
+    [
+      'a negative size',
+      snapshot(bundle('forges', -1)),
+    ],
+    [
+      'a fractional size',
+      snapshot(bundle('forges', 1.5)),
+    ],
+    [
+      'an excessive size',
+      snapshot(bundle('forges', 1_000_000_001)),
+    ],
+    [
+      'a string size',
+      {
+        version: 1,
+        bundles: [
+          {
+            ...bundle(),
+            gzipped: '500',
+          },
+        ],
+      },
+    ],
+    [
+      'a missing size',
+      {
+        version: 1,
+        bundles: [
+          { name: 'forges', minified: 1000, gzipped: 500 },
+        ],
+      },
+    ],
+    [
+      'a null bundle',
+      {
+        version: 1,
+        bundles: [null],
+      },
+    ],
   ])('rejects %s', (_, value) => {
     expect(() => parseBundleSnapshot(JSON.stringify(value))).toThrow()
   })

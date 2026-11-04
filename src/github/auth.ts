@@ -25,11 +25,21 @@ export interface GitHubTokenAuth extends TokenAuth {
 /** The credentials GitHub accepts: a token, a GitHub App, or none for anonymous reads. */
 export type GitHubAuth = GitHubTokenAuth | AppAuth | AnonymousAuth
 
-const TOKEN_PREFIXES: Array<[string, GitHubTokenKind]> = [['ghp_', 'classic'], ['gho_', 'classic'], ['github_pat_', 'fine-grained'], ['ghu_', 'app-user'], ['ghs_', 'installation']]
+const TOKEN_PREFIXES: Array<[string, GitHubTokenKind]> = [
+  ['ghp_', 'classic'],
+  ['gho_', 'classic'],
+  ['github_pat_', 'fine-grained'],
+  ['ghu_', 'app-user'],
+  ['ghs_', 'installation'],
+]
 
 /** The kind of a GitHub token, from its `kind` or the prefix of `token`; `undefined` when neither tells. */
-export function tokenKindOf(auth: GitHubTokenAuth, token: string | undefined = typeof auth.token === 'string' ? auth.token : undefined): GitHubTokenKind | undefined {
-  return auth.kind ?? (token === undefined ? undefined : TOKEN_PREFIXES.find(([prefix]) => token.startsWith(prefix))?.[1])
+export function tokenKindOf(auth: GitHubTokenAuth, token: string | undefined = typeof auth.token === 'string'
+  ? auth.token
+  : undefined): GitHubTokenKind | undefined {
+  return auth.kind ?? (token === undefined
+    ? undefined
+    : TOKEN_PREFIXES.find(([prefix]) => token.startsWith(prefix))?.[1])
 }
 
 export type AuthContext = Pick<FetcherOptions, 'baseUrl' | 'fetch' | 'timeout' | 'headers' | 'onRetry' | 'onRateLimit'>

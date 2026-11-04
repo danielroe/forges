@@ -87,7 +87,9 @@ export function toActor(origin: ForgeOrigin, user: ForgejoUser | undefined | nul
     name: user.full_name || undefined,
     avatarUrl: user.avatar_url,
     url: user.html_url,
-    typeRaw: user.is_bot === undefined ? undefined : user.is_bot ? 'bot' : 'user',
+    typeRaw: user.is_bot === undefined
+      ? undefined
+      : user.is_bot ? 'bot' : 'user',
     isBotHint: user.is_bot === true || user.id === ACTIONS_USER_ID || user.login.endsWith('[bot]'),
   }
 }
@@ -98,14 +100,21 @@ export function toRepoRef(origin: ForgeOrigin, repo: ForgejoRepository): RepoRef
     ...origin,
     owner: repo.owner?.login ?? owner ?? '',
     name: repo.name ?? name ?? '',
-    externalId: repo.id === undefined ? undefined : String(repo.id),
+    externalId: repo.id === undefined
+      ? undefined
+      : String(repo.id),
   }
 }
 
 /** Forgejo and Gitea teams have no slug, so the name stands in for one. */
 export function toTeam(origin: ForgeOrigin, org: RepoRef, raw: ForgejoTeam): Team {
   return {
-    ref: { ...origin, org, id: String(raw.id), slug: raw.name },
+    ref: {
+      ...origin,
+      org,
+      id: String(raw.id),
+      slug: raw.name,
+    },
     name: raw.name,
     description: raw.description || undefined,
     permission: raw.permission,
@@ -126,14 +135,22 @@ export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo 
     ref: toRepoRef(origin, raw),
     description: raw.description || undefined,
     defaultBranch: raw.default_branch,
-    visibility: raw.internal ? 'internal' : raw.private ? 'private' : 'public',
-    visibilityRaw: raw.internal ? 'internal' : raw.private ? 'private' : 'public',
+    visibility: raw.internal
+      ? 'internal'
+      : raw.private ? 'private' : 'public',
+    visibilityRaw: raw.internal
+      ? 'internal'
+      : raw.private ? 'private' : 'public',
     isFork: raw.fork ?? false,
     isArchived: raw.archived ?? false,
-    parent: raw.parent ? toRepoRef(origin, raw.parent) : undefined,
+    parent: raw.parent
+      ? toRepoRef(origin, raw.parent)
+      : undefined,
     topics: raw.topics ?? [],
     url: raw.html_url,
-    cloneUrls: raw.clone_url || raw.ssh_url ? { https: raw.clone_url, ssh: raw.ssh_url } : undefined,
+    cloneUrls: raw.clone_url || raw.ssh_url
+      ? { https: raw.clone_url, ssh: raw.ssh_url }
+      : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     openIssueCount: raw.open_issues_count,
@@ -141,18 +158,30 @@ export function toRepo(origin: ForgeOrigin, raw: ForgejoRepositoryDetail): Repo 
     owner: toActor(origin, raw.owner),
     language: raw.language || undefined,
     homepage: raw.website || undefined,
-    licence: raw.licenses?.length === 1 ? raw.licenses[0] : undefined,
+    licence: raw.licenses?.length === 1
+      ? raw.licenses[0]
+      : undefined,
     stars: raw.stars_count,
     forks: raw.forks_count,
     watchers: raw.watchers_count,
     mergeMethods: raw.allow_merge_commits === undefined
       ? undefined
       : [
-          ...raw.allow_merge_commits ? ['merge' as const] : [],
-          ...raw.allow_squash_merge ? ['squash' as const] : [],
-          ...raw.allow_rebase ? ['rebase' as const] : [],
-          ...raw.allow_rebase_explicit ? ['rebase_merge' as const] : [],
-          ...raw.allow_fast_forward_only_merge ? ['fast_forward_only' as const] : [],
+          ...raw.allow_merge_commits
+            ? ['merge' as const]
+            : [],
+          ...raw.allow_squash_merge
+            ? ['squash' as const]
+            : [],
+          ...raw.allow_rebase
+            ? ['rebase' as const]
+            : [],
+          ...raw.allow_rebase_explicit
+            ? ['rebase_merge' as const]
+            : [],
+          ...raw.allow_fast_forward_only_merge
+            ? ['fast_forward_only' as const]
+            : [],
         ],
     defaultMergeMethod: MERGE_STYLES[raw.default_merge_style ?? ''],
     deleteBranchOnMerge: raw.default_delete_branch_after_merge,
@@ -203,7 +232,9 @@ export function toMilestone(raw: ForgejoMilestone | null | undefined): Milestone
     ? {
         id: String(raw.id),
         title: raw.title,
-        state: raw.state === 'closed' ? 'closed' : 'open',
+        state: raw.state === 'closed'
+          ? 'closed'
+          : 'open',
         description: raw.description || undefined,
         dueOn: toDate(raw.due_on),
         raw,
@@ -242,23 +273,45 @@ export function toSubject(origin: ForgeOrigin, raw: ForgejoNotification): Notifi
   const repo = toRepoRef(origin, raw.repository)
   const kind = toThreadKind(raw.subject.type)
   if (kind) {
-    return { type: 'thread', thread: { ...origin, repo, kind, typeRaw: raw.subject.type, number: numberFromUrl(raw.subject.url) } }
+    return {
+      type: 'thread',
+      thread: {
+        ...origin,
+        repo,
+        kind,
+        typeRaw: raw.subject.type,
+        number: numberFromUrl(raw.subject.url),
+      },
+    }
   }
-  const sha = raw.subject.type === 'Commit' ? numberFromUrl(raw.subject.url) : undefined
+  const sha = raw.subject.type === 'Commit'
+    ? numberFromUrl(raw.subject.url)
+    : undefined
   if (sha) {
-    return { type: 'commit', commit: { ...origin, repo, sha } }
+    return {
+      type: 'commit',
+      commit: { ...origin, repo, sha },
+    }
   }
   if (raw.subject.type === 'Repository') {
     return { type: 'repo', repo }
   }
-  return { type: 'other', typeRaw: raw.subject.type, repo, url: raw.subject.url ?? undefined }
+  return {
+    type: 'other',
+    typeRaw: raw.subject.type,
+    repo,
+    url: raw.subject.url ?? undefined,
+  }
 }
 
 export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): Notification {
   const subject = toSubject(origin, raw)
   const latestComment = latestCommentOf(subject, raw.subject.latest_comment_url)
   return {
-    ref: { ...origin, id: String(raw.id) },
+    ref: {
+      ...origin,
+      id: String(raw.id),
+    },
     subject,
     subjectTypeRaw: raw.subject.type,
     reason: 'unknown',
@@ -268,7 +321,9 @@ export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): N
     subjectStateRaw: raw.subject.state,
     updatedAt: toDate(raw.updated_at) ?? new Date(0),
     url: raw.subject.url ?? raw.url,
-    ...latestComment ? { latestComment } : {},
+    ...latestComment
+      ? { latestComment }
+      : {},
     raw,
   }
 }
@@ -276,12 +331,22 @@ export function toNotification(origin: ForgeOrigin, raw: ForgejoNotification): N
 export function toThread(ref: ResolvedThreadRef, raw: ForgejoIssue): Thread {
   const origin = { forge: ref.forge, instance: ref.instance }
   const isPull = Boolean(raw.pull_request) || Boolean(raw.head)
-  const kind = isPull && ref.kind === 'issue' ? 'pull_request' : ref.kind
+  const kind = isPull && ref.kind === 'issue'
+    ? 'pull_request'
+    : ref.kind
   const state: ThreadState = raw.merged || raw.pull_request?.merged
     ? 'merged'
-    : raw.state === 'open' || raw.state === 'closed' ? raw.state : 'unknown'
+    : raw.state === 'open' || raw.state === 'closed'
+      ? raw.state
+      : 'unknown'
   return {
-    ref: { ...ref, kind, externalId: raw.id === undefined ? ref.externalId : String(raw.id) },
+    ref: {
+      ...ref,
+      kind,
+      externalId: raw.id === undefined
+        ? ref.externalId
+        : String(raw.id),
+    },
     kind,
     title: raw.title,
     body: raw.body ?? undefined,
@@ -292,7 +357,11 @@ export function toThread(ref: ResolvedThreadRef, raw: ForgejoIssue): Thread {
     assignees: (raw.assignees ?? []).flatMap(user => toActor(origin, user) ?? []),
     reviewers: (raw.requested_reviewers ?? []).flatMap((user) => {
       const actor = toActor(origin, user)
-      return actor ? [{ actor, state: 'pending' as const, stateRaw: 'requested' }] : []
+      return actor
+        ? [
+            { actor, state: 'pending' as const, stateRaw: 'requested' },
+          ]
+        : []
     }),
     labels: (raw.labels ?? []).map(label => ({
       name: label.name,
@@ -311,7 +380,13 @@ export function toThread(ref: ResolvedThreadRef, raw: ForgejoIssue): Thread {
     milestone: toMilestone(raw.milestone),
     branches: raw.head && raw.base
       ? {
-          head: { ref: raw.head.ref, sha: raw.head.sha, repo: raw.head.repo ? toRepoRef(origin, raw.head.repo) : undefined },
+          head: {
+            ref: raw.head.ref,
+            sha: raw.head.sha,
+            repo: raw.head.repo
+              ? toRepoRef(origin, raw.head.repo)
+              : undefined,
+          },
           base: { ref: raw.base.ref, sha: raw.base.sha },
           mergeCommitSha: raw.merge_commit_sha ?? undefined,
         }
@@ -323,7 +398,12 @@ export function toThread(ref: ResolvedThreadRef, raw: ForgejoIssue): Thread {
 
 export function toComment(thread: ResolvedThreadRef, raw: ForgejoComment): Comment {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body ?? '',
     author: toActor({ forge: thread.forge, instance: thread.instance }, raw.user),
     createdAt: toDate(raw.created_at),
@@ -366,7 +446,9 @@ function summarise(entry: ForgejoTimelineEntry, kind: EventKind, actor?: Actor):
     case 'commit':
       return `${who} referenced ${entry.ref_commit_sha?.slice(0, 7) || 'a commit'}`
     case 'referenced':
-      return `${who} referenced this${entry.ref_issue ? ` from #${entry.ref_issue.number}` : ''}`
+      return `${who} referenced this${entry.ref_issue
+        ? ` from #${entry.ref_issue.number}`
+        : ''}`
     case 'label':
       return `${who} changed label ${entry.label?.name ?? ''}`.trim()
     case 'state_change':
@@ -386,11 +468,25 @@ function crossReference(thread: ThreadRef, entry: ForgejoTimelineEntry): EventDe
   }
   const [owner = '', name = ''] = source.repository?.full_name.split('/') ?? []
   const repo = name
-    ? { forge: thread.forge, instance: thread.instance, owner, name, externalId: source.repository?.id === undefined ? undefined : String(source.repository.id) }
+    ? {
+        forge: thread.forge,
+        instance: thread.instance,
+        owner,
+        name,
+        externalId: source.repository?.id === undefined
+          ? undefined
+          : String(source.repository.id),
+      }
     : thread.repo
   return {
     type: 'referenced',
-    from: { forge: thread.forge, instance: thread.instance, repo, kind: source.pull_request ? 'pull_request' : 'issue', number: String(source.number) },
+    from: {
+      forge: thread.forge,
+      instance: thread.instance,
+      repo,
+      kind: source.pull_request ? 'pull_request' : 'issue',
+      number: String(source.number),
+    },
     fromRepo: repo,
   }
 }
@@ -400,9 +496,30 @@ function timelineDetail(thread: ThreadRef, entry: ForgejoTimelineEntry, kind: Ev
   switch (kind) {
     case 'comment':
     case 'review_comment':
-      return { type: kind, comment: entry.id === undefined ? undefined : { ...origin, thread, id: String(entry.id) }, body: entry.body ?? undefined }
+      return {
+        type: kind,
+        comment: entry.id === undefined
+          ? undefined
+          : {
+              ...origin,
+              thread,
+              id: String(entry.id),
+            },
+        body: entry.body ?? undefined,
+      }
     case 'review':
-      return { type: 'review', state: 'unknown', body: entry.body || undefined, review: entry.review_id ? { ...origin, thread, id: String(entry.review_id) } : undefined }
+      return {
+        type: 'review',
+        state: 'unknown',
+        body: entry.body || undefined,
+        review: entry.review_id
+          ? {
+              ...origin,
+              thread,
+              id: String(entry.review_id),
+            }
+          : undefined,
+      }
     case 'referenced':
       return crossReference(thread, entry)
     default:
@@ -454,13 +571,21 @@ export function statusState(status: string): CheckState {
 export function toStatusCheck(repo: RepoRef, raw: ForgejoCommitStatus): Check {
   const state = statusState(raw.status)
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id), type: 'status' },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'status',
+    },
     name: raw.context,
     state,
     stateRaw: raw.status,
     url: raw.target_url || undefined,
     startedAt: toDate(raw.created_at),
-    completedAt: state === 'pending' ? undefined : toDate(raw.updated_at),
+    completedAt: state === 'pending'
+      ? undefined
+      : toDate(raw.updated_at),
     raw,
   }
 }
@@ -470,10 +595,20 @@ export function toStatusChecks(repo: RepoRef, raw: ForgejoCombinedStatus): Check
 }
 
 /** Every Actions run and job status behind each normalised state, as the repeated `status` filter takes them. */
-export const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['waiting', 'running', 'blocked'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
+export const ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = {
+  pending: ['waiting', 'running', 'blocked'],
+  success: ['success'],
+  failure: ['failure', 'cancelled'],
+  neutral: ['skipped'],
+}
 
 /** Gitea's statuses and conclusions behind each normalised state, as its repeated `status` filter takes them. */
-export const GITEA_ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = { pending: ['queued', 'waiting', 'in_progress'], success: ['success'], failure: ['failure', 'cancelled'], neutral: ['skipped'] }
+export const GITEA_ACTION_STATES: Record<Exclude<CheckState, 'unknown'>, string[]> = {
+  pending: ['queued', 'waiting', 'in_progress'],
+  success: ['success'],
+  failure: ['failure', 'cancelled'],
+  neutral: ['skipped'],
+}
 
 function stateOf(states: Record<Exclude<CheckState, 'unknown'>, string[]>): Map<string, CheckState> {
   return new Map(Object.entries(states).flatMap(([state, raws]) => raws.map(raw => [raw, state as CheckState])))
@@ -487,29 +622,42 @@ function actionState(status: string): CheckState {
 }
 
 function giteaActionState(raw: GiteaActionRun | GiteaActionJob): CheckState {
-  return GITEA_ACTION_STATE_OF.get(raw.status === 'completed' ? raw.conclusion ?? '' : raw.status) ?? 'unknown'
+  return GITEA_ACTION_STATE_OF.get(raw.status === 'completed'
+    ? raw.conclusion ?? ''
+    : raw.status) ?? 'unknown'
 }
 
 /** Forgejo and Gitea write the zero Unix time for a run or job that never started or stopped. */
 function actionTime(value: string | undefined): Date | undefined {
   const date = toDate(value)
-  return date && date.getTime() > 0 ? date : undefined
+  return date && date.getTime() > 0
+    ? date
+    : undefined
 }
 
 /** `prettyref` is the short ref; pull request runs carry `#<number>` or a bare sha instead of a branch. */
 export function actionBranch(raw: ForgejoActionRun): string | undefined {
   const ref = raw.prettyref
-  return ref && !ref.startsWith('#') && ref !== raw.commit_sha ? ref : undefined
+  return ref && !ref.startsWith('#') && ref !== raw.commit_sha
+    ? ref
+    : undefined
 }
 
 export function toActionRun(repo: RepoRef, raw: ForgejoActionRun): CiRun {
   const state = actionState(raw.status)
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+    },
     name: raw.workflow_id || raw.title || String(raw.id),
     state,
     stateRaw: raw.status,
-    number: raw.index_in_repo === undefined ? undefined : String(raw.index_in_repo),
+    number: raw.index_in_repo === undefined
+      ? undefined
+      : String(raw.index_in_repo),
     eventRaw: raw.trigger_event || raw.event,
     branch: actionBranch(raw),
     sha: raw.commit_sha || undefined,
@@ -517,14 +665,22 @@ export function toActionRun(repo: RepoRef, raw: ForgejoActionRun): CiRun {
     actor: toActor({ forge: repo.forge, instance: repo.instance }, raw.trigger_user),
     createdAt: toDate(raw.created),
     startedAt: actionTime(raw.started),
-    completedAt: state === 'pending' ? undefined : actionTime(raw.stopped),
+    completedAt: state === 'pending'
+      ? undefined
+      : actionTime(raw.stopped),
     raw,
   }
 }
 
 export function toActionJob(run: CiRunRef, raw: ForgejoActionRunJob): CiJob {
   return {
-    ref: { forge: run.forge, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    ref: {
+      forge: run.forge,
+      instance: run.instance,
+      repo: run.repo,
+      id: String(raw.id),
+      run,
+    },
     name: raw.name,
     state: actionState(raw.status),
     stateRaw: raw.status,
@@ -536,11 +692,18 @@ export function toActionJob(run: CiRunRef, raw: ForgejoActionRunJob): CiJob {
 export function toGiteaActionRun(repo: RepoRef, raw: GiteaActionRun): CiRun {
   const state = giteaActionState(raw)
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+    },
     name: raw.path?.split('@refs/')[0] || raw.display_title || String(raw.id),
     state,
     stateRaw: raw.status,
-    number: raw.run_number === undefined ? undefined : String(raw.run_number),
+    number: raw.run_number === undefined
+      ? undefined
+      : String(raw.run_number),
     eventRaw: raw.event,
     branch: raw.head_branch || undefined,
     sha: raw.head_sha || undefined,
@@ -548,7 +711,9 @@ export function toGiteaActionRun(repo: RepoRef, raw: GiteaActionRun): CiRun {
     actor: toActor({ forge: repo.forge, instance: repo.instance }, raw.actor),
     createdAt: toDate(raw.created_at),
     startedAt: actionTime(raw.started_at),
-    completedAt: state === 'pending' ? undefined : actionTime(raw.completed_at),
+    completedAt: state === 'pending'
+      ? undefined
+      : actionTime(raw.completed_at),
     raw,
   }
 }
@@ -556,20 +721,33 @@ export function toGiteaActionRun(repo: RepoRef, raw: GiteaActionRun): CiRun {
 export function toGiteaActionJob(run: CiRunRef, raw: GiteaActionJob): CiJob {
   const state = giteaActionState(raw)
   return {
-    ref: { forge: run.forge, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    ref: {
+      forge: run.forge,
+      instance: run.instance,
+      repo: run.repo,
+      id: String(raw.id),
+      run,
+    },
     name: raw.name,
     state,
     stateRaw: raw.status,
     url: raw.html_url || undefined,
     startedAt: actionTime(raw.started_at),
-    completedAt: state === 'pending' ? undefined : actionTime(raw.completed_at),
+    completedAt: state === 'pending'
+      ? undefined
+      : actionTime(raw.completed_at),
     raw,
   }
 }
 
 export function toRelease(repo: RepoRef, raw: ForgejoRelease): Release {
   const origin = { forge: repo.forge, instance: repo.instance }
-  const ref = { ...origin, repo, id: String(raw.id), tag: raw.tag_name }
+  const ref = {
+    ...origin,
+    repo,
+    id: String(raw.id),
+    tag: raw.tag_name,
+  }
   return {
     ref,
     name: raw.name || undefined,
@@ -577,12 +755,25 @@ export function toRelease(repo: RepoRef, raw: ForgejoRelease): Release {
     body: raw.body || undefined,
     isDraft: raw.draft,
     isPrerelease: raw.prerelease,
-    author: raw.author ? toActor(repo, raw.author) : undefined,
-    publishedAt: raw.draft ? undefined : toDate(raw.published_at),
+    author: raw.author
+      ? toActor(repo, raw.author)
+      : undefined,
+    publishedAt: raw.draft
+      ? undefined
+      : toDate(raw.published_at),
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
     assets: raw.assets?.map(asset => ({
-      ...asset.id === undefined ? {} : { ref: { ...origin, repo, release: ref, id: String(asset.id) } },
+      ...asset.id === undefined
+        ? {}
+        : {
+            ref: {
+              ...origin,
+              repo,
+              release: ref,
+              id: String(asset.id),
+            },
+          },
       name: asset.name,
       url: asset.browser_download_url,
       size: asset.size,
@@ -594,12 +785,19 @@ export function toRelease(repo: RepoRef, raw: ForgejoRelease): Release {
 
 export function toReviewComment(thread: ResolvedThreadRef, raw: ForgejoReviewComment): ReviewComment {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body ?? '',
     author: toActor(thread, raw.user),
     path: raw.path,
     line: raw.position || raw.original_position || undefined,
-    side: raw.position ? 'right' : raw.original_position ? 'left' : undefined,
+    side: raw.position
+      ? 'right'
+      : raw.original_position ? 'left' : undefined,
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
     raw,
@@ -610,23 +808,50 @@ export function toReviewComment(thread: ResolvedThreadRef, raw: ForgejoReviewCom
 export function toReviewThreads(thread: ResolvedThreadRef, raws: ForgejoReviewComment[]): ReviewThread[] {
   const conversations = new Map<string, ForgejoReviewComment[]>()
   for (const raw of raws.toSorted((left, right) => left.id - right.id)) {
-    const key = JSON.stringify([raw.path, raw.position ? 'right' : 'left', raw.position || raw.original_position])
-    conversations.set(key, [...conversations.get(key) ?? [], raw])
+    const key = JSON.stringify([
+      raw.path,
+      raw.position ? 'right' : 'left',
+      raw.position || raw.original_position,
+    ])
+    conversations.set(key, [
+      ...conversations.get(key) ?? [],
+      raw,
+    ])
   }
-  return [...conversations.values()].map((comments) => {
+  return [
+    ...conversations.values(),
+  ].map((comments) => {
     const first = comments[0]!
     const id = String(first.id)
     const resolved = Boolean(first.resolver)
     const { path, line, side } = toReviewComment(thread, first)
-    return { id, resolved, path, line, side, comments: comments.map(raw => ({ ...toReviewComment(thread, raw), thread: { id, resolved } })), raw: comments }
+    return {
+      id,
+      resolved,
+      path,
+      line,
+      side,
+      comments: comments.map(raw => ({
+        ...toReviewComment(thread, raw),
+        thread: { id, resolved },
+      })),
+      raw: comments,
+    }
   })
 }
 
 export function toReview(thread: ResolvedThreadRef, raw: ForgejoReview, comments: ReviewComment[] | false): Review {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     author: toActor(thread, raw.user),
-    state: reviewState(raw.state?.toLowerCase() === 'request_changes' ? 'changes_requested' : raw.state),
+    state: reviewState(raw.state?.toLowerCase() === 'request_changes'
+      ? 'changes_requested'
+      : raw.state),
     stateRaw: raw.state,
     body: raw.body || undefined,
     submittedAt: toDate(raw.submitted_at),
@@ -649,12 +874,27 @@ export function toChangedFile(raw: ForgejoChangedFile | ForgejoCommitFile): Chan
 
 export function toFileCommit(repo: RepoRef, raw: ForgejoFileCommit): Commit {
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.sha },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      sha: raw.sha,
+    },
     sha: raw.sha,
     message: raw.message ?? '',
-    author: { name: raw.author?.name, email: raw.author?.email, date: toDate(raw.author?.date) },
-    committer: { name: raw.committer?.name, email: raw.committer?.email, date: toDate(raw.committer?.date) },
-    parents: raw.parents?.flatMap(parent => parent.sha ? [parent.sha] : []) ?? [],
+    author: {
+      name: raw.author?.name,
+      email: raw.author?.email,
+      date: toDate(raw.author?.date),
+    },
+    committer: {
+      name: raw.committer?.name,
+      email: raw.committer?.email,
+      date: toDate(raw.committer?.date),
+    },
+    parents: raw.parents?.flatMap(parent => parent.sha
+      ? [parent.sha]
+      : []) ?? [],
     url: raw.html_url,
     raw,
   }
@@ -678,23 +918,40 @@ export function toCommit(repo: RepoRef, raw: ForgejoCommit): Commit {
       email: raw.commit?.committer?.email,
       date: toDate(raw.commit?.committer?.date),
     },
-    parents: raw.parents?.flatMap(parent => parent.sha ? [parent.sha] : []) ?? [],
+    parents: raw.parents?.flatMap(parent => parent.sha
+      ? [parent.sha]
+      : []) ?? [],
     url: raw.html_url,
-    ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
-    ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
+    ...raw.stats
+      ? {
+          stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total },
+        }
+      : {},
+    ...raw.files
+      ? {
+          files: raw.files.map(toChangedFile),
+        }
+      : {},
     raw,
   }
 }
 
 export function toBranch(raw: ForgejoBranch): Branch {
-  return { name: raw.name, sha: raw.commit?.id ?? '', isProtected: raw.protected, raw }
+  return {
+    name: raw.name,
+    sha: raw.commit?.id ?? '',
+    isProtected: raw.protected,
+    raw,
+  }
 }
 
 /** The branch reports the protection rule that matches it, so one read covers both checks and approvals. */
 export function toBranchRules(raw: ForgejoBranch): BranchRules {
   return {
     branch: raw.name,
-    requiredChecks: raw.enable_status_check ? (raw.status_check_contexts ?? []).map(name => ({ name })) : [],
+    requiredChecks: raw.enable_status_check
+      ? (raw.status_check_contexts ?? []).map(name => ({ name }))
+      : [],
     requiredApprovals: raw.required_approvals ?? 0,
     raw,
   }
@@ -709,7 +966,9 @@ const TREE_TYPES: Record<string, TreeEntryType> = { blob: 'file', tree: 'directo
 export function toTreeEntry(raw: ForgejoTreeEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.mode === '120000' ? 'symlink' : TREE_TYPES[raw.type ?? ''] ?? 'file',
+    type: raw.mode === '120000'
+      ? 'symlink'
+      : TREE_TYPES[raw.type ?? ''] ?? 'file',
     sha: raw.sha,
     size: raw.size,
     mode: raw.mode,
@@ -719,12 +978,19 @@ export function toTreeEntry(raw: ForgejoTreeEntry): TreeEntry {
 export function toWebhook(target: RepoRef, raw: ForgejoHook): Webhook {
   const nativeEvents = raw.events ?? []
   return {
-    ref: { forge: target.forge, instance: target.instance, target, id: String(raw.id) },
+    ref: {
+      forge: target.forge,
+      instance: target.instance,
+      target,
+      id: String(raw.id),
+    },
     url: raw.config?.url ?? '',
     events: eventKindsOf(FORGEJO_NATIVE_EVENTS, nativeEvents),
     nativeEvents,
     active: raw.active ?? true,
-    contentType: raw.config?.content_type === 'form' ? 'form' : 'json',
+    contentType: raw.config?.content_type === 'form'
+      ? 'form'
+      : 'json',
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     raw,

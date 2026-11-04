@@ -36,7 +36,12 @@ export function mergePull(fetcher: Fetcher, origin: ForgeOrigin) {
     // GitBucket heads the commit message with a title of its own, so `title` joins the message below it.
     const message = [options.title, options.message].filter(Boolean).join('\n\n')
     const path = `/repos/${encodeURIComponent(ref.repo.owner)}/${encodeURIComponent(ref.repo.name)}/pulls/${encodeURIComponent(ref.number)}/merge`
-    const { data } = await fetcher.json<MergeEnvelope>(path, { method: 'PUT', json: { merge_method: strategy, commit_message: message || undefined }, mapError: toMergeError, signal: options.signal })
+    const { data } = await fetcher.json<MergeEnvelope>(path, {
+      method: 'PUT',
+      json: { merge_method: strategy, commit_message: message || undefined },
+      mapError: toMergeError,
+      signal: options.signal,
+    })
     const status = data.status ?? 200
     if (status >= 300) {
       let message = `GitBucket did not merge pull request ${ref.number}`
@@ -44,10 +49,18 @@ export function mergePull(fetcher: Fetcher, origin: ForgeOrigin) {
         message = (JSON.parse(data.body ?? '') as { message?: string }).message ?? message
       }
       catch {}
-      throw toMergeError(new ForgeApiError(message, status, data.body ?? '', { ...origin, url: fetcher.resolve(path), method: 'PUT' }))
+      throw toMergeError(new ForgeApiError(message, status, data.body ?? '', {
+        ...origin,
+        url: fetcher.resolve(path),
+        method: 'PUT',
+      }))
     }
     // The body names the merge commit as `MergeResult(AnyObjectId[<sha>],...)`.
     const sha = /AnyObjectId\[([0-9a-f]{40})\]/.exec(data.body ?? '')?.[1]
-    return { status: 'merged', ...sha && { sha }, raw: data }
+    return {
+      status: 'merged',
+      ...sha && { sha },
+      raw: data,
+    }
   }
 }

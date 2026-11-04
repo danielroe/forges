@@ -47,8 +47,23 @@ export interface AzureDevOpsOptions extends ForgeOptionsBase {
 const ISSUE_AND_PULL = { issue: true, pull_request: true } as const
 const PER_PAGE = 50
 /** System work item types that are not issues: test management and code review records. */
-const NOT_ISSUES = ['Test Case', 'Test Plan', 'Test Suite', 'Shared Steps', 'Shared Parameter', 'Code Review Request', 'Code Review Response', 'Feedback Request', 'Feedback Response']
-const MERGE_STRATEGIES = { merge: 'noFastForward', squash: 'squash', rebase: 'rebase', rebase_merge: 'rebaseMerge' } as const
+const NOT_ISSUES = [
+  'Test Case',
+  'Test Plan',
+  'Test Suite',
+  'Shared Steps',
+  'Shared Parameter',
+  'Code Review Request',
+  'Code Review Response',
+  'Feedback Request',
+  'Feedback Response',
+]
+const MERGE_STRATEGIES = {
+  merge: 'noFastForward',
+  squash: 'squash',
+  rebase: 'rebase',
+  rebase_merge: 'rebaseMerge',
+} as const
 const PULL_STATUSES = { open: 'active', closed: 'abandoned' } as const
 
 function versionDescriptor(ref: string): Record<string, string> {
@@ -59,7 +74,12 @@ function versionDescriptor(ref: string): Record<string, string> {
 /** A commit search's revision, where Azure DevOps reads a version without a type as a branch. */
 function itemVersion(ref: string): Record<string, string> {
   const { version, type } = versionOf(ref)
-  return { 'searchCriteria.itemVersion.version': version, ...type === 'branch' ? {} : { 'searchCriteria.itemVersion.versionType': type } }
+  return {
+    'searchCriteria.itemVersion.version': version,
+    ...type === 'branch'
+      ? {}
+      : { 'searchCriteria.itemVersion.versionType': type },
+  }
 }
 
 function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<AzureDevOpsOptions, undefined>): ProviderSpec & { web: WebLinks } {
@@ -67,14 +87,23 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   /** Pull request statuses, policy evaluations and WIQL queries redirect a request without credentials to sign in. */
   const anonymous = options.auth?.type === 'anonymous'
 
-  const STATUS_STATES: Record<CheckState, AzureStatus['state']> = { pending: 'pending', success: 'succeeded', failure: 'failed', neutral: 'notApplicable', unknown: 'notSet' }
+  const STATUS_STATES: Record<CheckState, AzureStatus['state']> = {
+    pending: 'pending',
+    success: 'succeeded',
+    failure: 'failed',
+    neutral: 'notApplicable',
+    unknown: 'notSet',
+  }
 
   function scope(repo: RepoRef): { org: string, project: string } {
     const slash = repo.owner.indexOf('/')
     if (slash < 0) {
       return { org: options.organization, project: repo.owner }
     }
-    return { org: repo.owner.slice(0, slash), project: repo.owner.slice(slash + 1) }
+    return {
+      org: repo.owner.slice(0, slash),
+      project: repo.owner.slice(slash + 1),
+    }
   }
   const projectPath = (repo: RepoRef) => {
     const { org, project } = scope(repo)
@@ -86,7 +115,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   async function resolveSha(repo: RepoRef, ref: string, signal?: AbortSignal): Promise<string> {
     const { data } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
-      query: { ...itemVersion(ref), $top: 1 },
+      query: {
+        ...itemVersion(ref),
+        $top: 1,
+      },
       signal,
     })
     const sha = data.value[0]?.commitId
@@ -105,10 +137,17 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const name = `refs/heads/${input.branch}`
     let head = input.expectedHead
     if (input.createFrom !== undefined) {
-      head = versionOf(input.createFrom).type === 'commit' ? input.createFrom : await resolveSha(repo, input.createFrom, signal)
+      head = versionOf(input.createFrom).type === 'commit'
+        ? input.createFrom
+        : await resolveSha(repo, input.createFrom, signal)
     }
     else if (head === undefined) {
-      const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: name.slice('refs/'.length) }, signal })
+      const { data } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, {
+        query: {
+          filter: name.slice('refs/'.length),
+        },
+        signal,
+      })
       head = data.value.find(ref => ref.name === name)?.objectId
       if (!head) {
         throw new NotFoundError(`Azure DevOps has no branch ${input.branch}`, 404, '', context)
@@ -117,10 +156,18 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
       try {
         const { data } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
-          query: { 'scopePath': `/${directory}`, 'recursionLevel': 'oneLevel', 'versionDescriptor.version': head, 'versionDescriptor.versionType': 'commit' },
+          query: {
+            'scopePath': `/${directory}`,
+            'recursionLevel': 'oneLevel',
+            'versionDescriptor.version': head,
+            'versionDescriptor.versionType': 'commit',
+          },
           signal,
         })
-        return new Map(data.value.filter(item => !item.isFolder).map(item => [item.path.replace(/^\//, ''), item.objectId ?? item.path]))
+        return new Map(data.value.filter(item => !item.isFolder).map(item => [
+          item.path.replace(/^\//, ''),
+          item.objectId ?? item.path,
+        ]))
       }
       catch (error) {
         if (error instanceof NotFoundError) {
@@ -133,19 +180,40 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const { data } = await fetcher.json<{ commits?: AzureCommit[] }>(`${repoPath(repo)}/pushes`, {
       method: 'POST',
       json: {
-        refUpdates: [{ name, oldObjectId: creating ? '0'.repeat(40) : head }],
-        commits: [{
-          comment: input.message,
-          ...creating && { parents: [head] },
-          ...input.author && { author: input.author },
-          changes: input.changes.map(({ path, content }) => content === null
-            ? { changeType: 'delete', item: { path: `/${path}` } }
-            : {
-                changeType: existing.has(path) ? 'edit' : 'add',
-                item: { path: `/${path}` },
-                newContent: typeof content === 'string' ? { content, contentType: 'rawtext' } : { content: changeBase64(content), contentType: 'base64encoded' },
-              }),
-        }],
+        refUpdates: [
+          {
+            name,
+            oldObjectId: creating
+              ? '0'.repeat(40)
+              : head,
+          },
+        ],
+        commits: [
+          {
+            comment: input.message,
+            ...creating && {
+              parents: [head],
+            },
+            ...input.author && { author: input.author },
+            changes: input.changes.map(({ path, content }) => content === null
+              ? {
+                  changeType: 'delete',
+                  item: { path: `/${path}` },
+                }
+              : {
+                  changeType: existing.has(path)
+                    ? 'edit'
+                    : 'add',
+                  item: { path: `/${path}` },
+                  newContent: typeof content === 'string'
+                    ? { content, contentType: 'rawtext' }
+                    : {
+                        content: changeBase64(content),
+                        contentType: 'base64encoded',
+                      },
+                }),
+          },
+        ],
       },
       mapError: error => !creating && error instanceof ForgeApiError && error.status === 409 && /GitReferenceStaleException|TF401028/.test(error.body)
         ? new BranchMovedError(`${input.branch} is no longer at ${head}`, error.status, error.body, context, { cause: error })
@@ -160,7 +228,13 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   }
   const issueRef = (repo: RepoRef, id: string): ResolvedThreadRef => {
     const { org, project } = scope(repo)
-    return { forge: FORGE, instance, repo: projectRef(instance, org, project), kind: 'issue', number: id }
+    return {
+      forge: FORGE,
+      instance,
+      repo: projectRef(instance, org, project),
+      kind: 'issue',
+      number: id,
+    }
   }
 
   const categories = new Map<string, Promise<Map<string, string>>>()
@@ -178,25 +252,43 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   async function workItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem): Promise<Thread> {
     const type = raw.fields['System.WorkItemType'] as string | undefined
-    const category = type ? (await stateCategories(ref.repo, type)).get(raw.fields['System.State'] as string) : undefined
+    const category = type
+      ? (await stateCategories(ref.repo, type)).get(raw.fields['System.State'] as string)
+      : undefined
     return toWorkItemThread(ref, raw, category)
   }
 
-  const myId = memo(() => fetcher.json<{ authenticatedUser: AzureIdentity }>(`/${enc(options.organization)}/_apis/connectionData`, { query: { 'api-version': '7.1-preview.1' } })
+  const myId = memo(() => fetcher.json<{ authenticatedUser: AzureIdentity }>(`/${enc(options.organization)}/_apis/connectionData`, {
+    query: { 'api-version': '7.1-preview.1' },
+  })
     .then(({ data }) => data.authenticatedUser.id))
 
   async function pullChecks(ref: ResolvedThreadRef, pull: AzurePullRequest, signal?: AbortSignal): Promise<Check[]> {
     const [statuses, evaluations] = await Promise.all([
       fetcher.json<{ value: AzureStatus[] }>(`${pullPath(ref)}/statuses`, { signal }),
-      fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, { query: { 'artifactId': `vstfs:///CodeReview/CodeReviewId/${pull.repository.project.id}/${pull.pullRequestId}`, 'api-version': POLICY_API_VERSION }, signal }),
+      fetcher.json<{ value: AzurePolicyEvaluation[] }>(`${projectPath(ref.repo)}/policy/evaluations`, {
+        query: { 'artifactId': `vstfs:///CodeReview/CodeReviewId/${pull.repository.project.id}/${pull.pullRequestId}`, 'api-version': POLICY_API_VERSION },
+        signal,
+      }),
     ])
-    return [...statuses.data.value.map(raw => toStatusCheck(ref.repo, raw)), ...evaluations.data.value.map(raw => toPolicyCheck(ref.repo, raw))]
+    return [
+      ...statuses.data.value.map(raw => toStatusCheck(ref.repo, raw)),
+      ...evaluations.data.value.map(raw => toPolicyCheck(ref.repo, raw)),
+    ]
   }
 
   /** Azure DevOps has reviewer votes, not reviews: one synthesised review per voter. */
   function toVoteReview(ref: ResolvedThreadRef, reviewer: AzureReviewer): Review {
-    const state = reviewer.vote >= 5 ? 'approved' : reviewer.vote <= -5 ? 'changes_requested' : 'pending'
-    return syntheticReview(ref, `vote:${reviewer.id}`, state, { author: toActor(instance, reviewer), stateRaw: `vote:${reviewer.vote}`, raw: reviewer })
+    const state = reviewer.vote >= 5
+      ? 'approved'
+      : reviewer.vote <= -5
+        ? 'changes_requested'
+        : 'pending'
+    return syntheticReview(ref, `vote:${reviewer.id}`, state, {
+      author: toActor(instance, reviewer),
+      stateRaw: `vote:${reviewer.vote}`,
+      raw: reviewer,
+    })
   }
 
   async function createReview(thread: ThreadRef, input: ReviewInput, options?: BaseOptions): Promise<Review> {
@@ -211,8 +303,14 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       throw new UnsupportedOperationError('Azure DevOps votes carry no body or inline comments; post them as comment threads', context)
     }
     const id = await myId()
-    const vote = input.event === 'approve' ? 10 : -10
-    const { data } = await fetcher.json<AzureReviewer>(`${pullPath(ref)}/reviewers/${enc(id)}`, { method: 'PUT', json: { vote }, signal: options?.signal })
+    const vote = input.event === 'approve'
+      ? 10
+      : -10
+    const { data } = await fetcher.json<AzureReviewer>(`${pullPath(ref)}/reviewers/${enc(id)}`, {
+      method: 'PUT',
+      json: { vote },
+      signal: options?.signal,
+    })
     return toVoteReview(ref, { ...data, id: data.id ?? id, vote: data.vote ?? vote })
   }
 
@@ -228,10 +326,16 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
     const ref = requireIssueOrPull(thread, context, 'read')
     if (ref.kind === 'issue') {
-      return workItemThread(issueRef(ref.repo, ref.number), (await fetcher.json<AzureWorkItem>(workItemPath(ref), { query: { $expand: 'links' }, signal: options?.signal })).data)
+      return workItemThread(issueRef(ref.repo, ref.number), (await fetcher.json<AzureWorkItem>(workItemPath(ref), {
+        query: { $expand: 'links' },
+        signal: options?.signal,
+      })).data)
     }
     const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: options?.signal })
-    const result = toPullThread({ ...ref, repo: toRepoRef(instance, scope(ref.repo).org, data.repository) }, data)
+    const result = toPullThread({
+      ...ref,
+      repo: toRepoRef(instance, scope(ref.repo).org, data.repository),
+    }, data)
     if (anonymous) {
       return result
     }
@@ -242,7 +346,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       if (!(error instanceof ForgeError)) {
         throw error
       }
-      result.warnings = [...result.warnings ?? [], toWarning('checks_unreadable', error, ref.number)]
+      result.warnings = [
+        ...result.warnings ?? [],
+        toWarning('checks_unreadable', error, ref.number),
+      ]
     }
     return result
   }
@@ -258,7 +365,11 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     })
     return {
       items: data.value.flatMap(raw => map(raw) ?? []),
-      cursor: data.value.length === top ? { token: String(skip + top) } : undefined,
+      cursor: data.value.length === top
+        ? {
+            token: String(skip + top),
+          }
+        : undefined,
       ...rateLimitPart(response),
     }
   }
@@ -281,8 +392,18 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       items: data.value
         .filter(raw => !query.author || raw.createdBy?.uniqueName === query.author || raw.createdBy?.id === query.author)
         .filter(raw => !query.labels?.length || query.labels.every(label => raw.labels?.some(item => item.name === label)))
-        .map(raw => toPullThread({ forge: FORGE, instance, repo: toRepoRef(instance, org, raw.repository), kind: 'pull_request', number: String(raw.pullRequestId) }, raw)),
-      cursor: data.value.length === top ? { token: String(skip + top) } : undefined,
+        .map(raw => toPullThread({
+          forge: FORGE,
+          instance,
+          repo: toRepoRef(instance, org, raw.repository),
+          kind: 'pull_request',
+          number: String(raw.pullRequestId),
+        }, raw)),
+      cursor: data.value.length === top
+        ? {
+            token: String(skip + top),
+          }
+        : undefined,
       ...rateLimitPart(response),
     }
   }
@@ -293,13 +414,25 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       '[System.TeamProject] = @project',
       `[System.WorkItemType] NOT IN (${NOT_ISSUES.map(literal).join(', ')})`,
       ...(query.labels ?? []).map(label => `[System.Tags] CONTAINS ${literal(label)}`),
-      ...query.author ? [`[System.CreatedBy] = ${literal(query.author)}`] : [],
-      ...query.assignee ? [`[System.AssignedTo] = ${literal(query.assignee)}`] : [],
-      ...query.since ? [`[System.ChangedDate] >= ${literal(query.since.toISOString())}`] : [],
-      ...query.createdAfter ? [`[System.CreatedDate] >= ${literal(query.createdAfter.toISOString())}`] : [],
-      ...query.text ? [`[System.Title] CONTAINS ${literal(query.text)}`] : [],
+      ...query.author
+        ? [`[System.CreatedBy] = ${literal(query.author)}`]
+        : [],
+      ...query.assignee
+        ? [`[System.AssignedTo] = ${literal(query.assignee)}`]
+        : [],
+      ...query.since
+        ? [`[System.ChangedDate] >= ${literal(query.since.toISOString())}`]
+        : [],
+      ...query.createdAfter
+        ? [`[System.CreatedDate] >= ${literal(query.createdAfter.toISOString())}`]
+        : [],
+      ...query.text
+        ? [`[System.Title] CONTAINS ${literal(query.text)}`]
+        : [],
     ]
-    const order = query.sort === 'updated' ? '[System.ChangedDate]' : '[System.CreatedDate]'
+    const order = query.sort === 'updated'
+      ? '[System.ChangedDate]'
+      : '[System.CreatedDate]'
     return `SELECT [System.Id] FROM WorkItems WHERE ${clauses.join(' AND ')} ORDER BY ${order} ${(query.direction ?? 'desc').toUpperCase()}`
   }
 
@@ -307,21 +440,44 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   async function workItemPage(repo: RepoRef, query: ThreadQuery & { text?: string }, cursor?: Cursor): Promise<Page<Thread>> {
     const offset = Number(cursor?.token ?? 0)
     const size = Math.min(query.perPage ?? PER_PAGE, 200)
-    const { data } = await fetcher.json<{ workItems: Array<{ id: number }> }>(`${projectPath(repo)}/wit/wiql`, { method: 'POST', json: { query: wiql(query) }, signal: query.signal })
+    const { data } = await fetcher.json<{ workItems: Array<{ id: number }> }>(`${projectPath(repo)}/wit/wiql`, {
+      method: 'POST',
+      json: {
+        query: wiql(query),
+      },
+      signal: query.signal,
+    })
     const ids = data.workItems.slice(offset, offset + size).map(item => item.id)
     if (!ids.length) {
       return { items: [] }
     }
-    const { data: batch, response } = await fetcher.json<{ value: AzureWorkItem[] }>(`${projectPath(repo)}/wit/workitemsbatch`, { method: 'POST', json: { ids, $expand: 'Links' }, signal: query.signal })
+    const { data: batch, response } = await fetcher.json<{ value: AzureWorkItem[] }>(`${projectPath(repo)}/wit/workitemsbatch`, {
+      method: 'POST',
+      json: { ids, $expand: 'Links' },
+      signal: query.signal,
+    })
     const state = query.state ?? 'open'
     const items = (await Promise.all(batch.value.map(raw => workItemThread(issueRef(repo, String(raw.id)), raw))))
       .filter(thread => state === 'all' || thread.state === state)
-    return { items, cursor: offset + size < data.workItems.length ? { token: String(offset + size) } : undefined, ...rateLimitPart(response) }
+    return {
+      items,
+      cursor: offset + size < data.workItems.length
+        ? {
+            token: String(offset + size),
+          }
+        : undefined,
+      ...rateLimitPart(response),
+    }
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     if (query.kind === 'discussion') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Azure DevOps has no discussions' }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'kind_unsupported', message: 'Azure DevOps has no discussions' },
+        ],
+      }
     }
     const warnings: ForgeWarning[] = []
     if (isFirstPage(query.cursor) && query.kind !== 'issue') {
@@ -333,7 +489,13 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }
     }
     const state = query.state ?? 'open'
-    const pullStates = state === 'open' ? ['active'] : state === 'merged' ? ['completed'] : state === 'closed' ? ['completed', 'abandoned'] : ['all']
+    const pullStates = state === 'open'
+      ? ['active']
+      : state === 'merged'
+        ? ['completed']
+        : state === 'closed'
+          ? ['completed', 'abandoned']
+          : ['all']
     const phases: Array<(cursor?: Cursor) => Promise<Page<Thread>>> = []
     if (query.kind !== 'pull_request') {
       if (!anonymous) {
@@ -347,7 +509,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       phases.push(...pullStates.map(status => (cursor?: Cursor) => pullPage(repo, status, query, cursor)))
     }
     const page = await phased(phases, query.cursor)
-    return warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
+    return warnings.length
+      ? {
+          ...page,
+          warnings: [
+            ...warnings,
+            ...page.warnings ?? [],
+          ],
+        }
+      : page
   }
 
   async function threads(ref: ResolvedThreadRef, options?: BaseOptions): Promise<AzureThread[]> {
@@ -367,21 +537,34 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       query: { 'api-version': COMMENTS_API_VERSION, '$top': listOptions.perPage ?? PER_PAGE, 'continuationToken': listOptions.cursor?.token },
       signal: listOptions.signal,
     })
-    return { items: data.comments.filter(comment => !comment.isDeleted).map(raw => toWorkItemComment(issue, raw)), cursor: data.continuationToken ? { token: data.continuationToken } : undefined, ...rateLimitPart(response) }
+    return {
+      items: data.comments.filter(comment => !comment.isDeleted).map(raw => toWorkItemComment(issue, raw)),
+      cursor: data.continuationToken
+        ? { token: data.continuationToken }
+        : undefined,
+      ...rateLimitPart(response),
+    }
   }
 
   async function eventsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> {
     const ref = requireIssueOrPull(thread, context, 'list events on')
     if (ref.kind === 'pull_request') {
       const events = (await threads(ref, listOptions)).flatMap(item => toThreadEvents(ref, item))
-      return { items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()) }
+      return {
+        items: events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime()),
+      }
     }
     const issue = issueRef(ref.repo, ref.number)
     const [{ data: updates }, { data: comments }] = await Promise.all([
       fetcher.json<{ value: AzureWorkItemUpdate[] }>(`${workItemPath(ref)}/updates`, { signal: listOptions.signal }),
-      fetcher.json<{ comments: AzureWorkItemComment[] }>(`${workItemPath(ref)}/comments`, { query: { 'api-version': COMMENTS_API_VERSION }, signal: listOptions.signal }),
+      fetcher.json<{ comments: AzureWorkItemComment[] }>(`${workItemPath(ref)}/comments`, {
+        query: { 'api-version': COMMENTS_API_VERSION },
+        signal: listOptions.signal,
+      }),
     ])
-    return { items: toWorkItemEvents(issue, updates.value, comments.comments.filter(comment => !comment.isDeleted)) }
+    return {
+      items: toWorkItemEvents(issue, updates.value, comments.comments.filter(comment => !comment.isDeleted)),
+    }
   }
 
   async function patchWorkItem(ref: ResolvedThreadRef, fields: Record<string, unknown>, signal?: AbortSignal): Promise<AzureWorkItem> {
@@ -406,9 +589,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
   }
 
   async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> {
-    const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
+    const ref = requireIssueOrPull(thread, context, state === 'open'
+      ? 'reopen'
+      : 'close')
     if (ref.kind === 'pull_request') {
-      return toPullThread(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref), { method: 'PATCH', json: { status: PULL_STATUSES[state] }, signal: options?.signal })).data)
+      return toPullThread(ref, (await fetcher.json<AzurePullRequest>(pullPath(ref), {
+        method: 'PATCH',
+        json: { status: PULL_STATUSES[state] },
+        signal: options?.signal,
+      })).data)
     }
     return workItemThread(ref, await patchWorkItem(ref, { 'System.State': await workItemState(ref, state, options) }, options?.signal))
   }
@@ -418,11 +607,15 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     if (assignees.length > 1) {
       throw new UnsupportedOperationError('Azure DevOps work items take a single assignee', context)
     }
-    return assignees[0] === undefined ? '' : actorLogin(assignees[0])
+    return assignees[0] === undefined
+      ? ''
+      : actorLogin(assignees[0])
   }
 
   function workItemState(ref: ResolvedThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<string> {
-    return stateIn(ref, state === 'open' ? ['Proposed', 'InProgress'] : ['Completed'], options)
+    return stateIn(ref, state === 'open'
+      ? ['Proposed', 'InProgress']
+      : ['Completed'], options)
   }
 
   async function setPullLabels(ref: ResolvedThreadRef, labels: string[], signal?: AbortSignal): Promise<Label[]> {
@@ -434,9 +627,16 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     const kept = data.value.filter(item => labels.includes(item.name)).map(item => ({ name: item.name }))
     const added: Label[] = []
     for (const name of labels.filter(item => !current.includes(item))) {
-      added.push({ name: (await fetcher.json<{ name: string }>(`${pullPath(ref)}/labels`, { method: 'POST', json: { name }, signal })).data.name })
+      added.push({ name: (await fetcher.json<{ name: string }>(`${pullPath(ref)}/labels`, {
+        method: 'POST',
+        json: { name },
+        signal,
+      })).data.name })
     }
-    return [...kept, ...added]
+    return [
+      ...kept,
+      ...added,
+    ]
   }
 
   function splitCommentId(ref: CommentRef): { thread: string, comment: string } {
@@ -446,15 +646,24 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
 
   /** WIQL runs against one project, named by `repo` or by `owner`, and reaches work items only: Azure DevOps has no pull request search. */
   async function searchThreadsPage(query: ThreadSearchQuery): Promise<Page<Thread>> {
-    const project = query.repo ?? (query.owner ? namespaceRef({ forge: FORGE, instance }, query.owner) : undefined)
+    const project = query.repo ?? (query.owner
+      ? namespaceRef({ forge: FORGE, instance }, query.owner)
+      : undefined)
     if (!project) {
       throw new UnsupportedOperationError('Azure DevOps work item search is scoped to a project; pass `repo` or `owner`', context)
     }
     if (query.kind === 'pull_request') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Azure DevOps has no pull request search' }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'kind_unsupported', message: 'Azure DevOps has no pull request search' },
+        ],
+      }
     }
     const warnings: ForgeWarning[] = query.involves && isFirstPage(query.cursor)
-      ? [{ code: 'filter_unsupported', message: 'Azure DevOps WIQL has no involves filter; it was ignored' }]
+      ? [
+          { code: 'filter_unsupported', message: 'Azure DevOps WIQL has no involves filter; it was ignored' },
+        ]
       : []
     const page = await workItemPage(project, {
       text: query.text,
@@ -463,16 +672,29 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       author: query.author,
       assignee: query.assignee,
       since: query.since,
-      sort: query.sort === 'created' ? 'created' : 'updated',
+      sort: query.sort === 'created'
+        ? 'created'
+        : 'updated',
       direction: query.direction,
       perPage: query.perPage,
       signal: query.signal,
     }, query.cursor)
-    return warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
+    return warnings.length
+      ? {
+          ...page,
+          warnings: [
+            ...warnings,
+            ...page.warnings ?? [],
+          ],
+        }
+      : page
   }
 
   return {
-    traits: { eventKinds: 'native', authKinds: ['token', 'basic', 'anonymous'] },
+    traits: {
+      eventKinds: 'native',
+      authKinds: ['token', 'basic', 'anonymous'],
+    },
     notApplicable: [
       'users.sponsorable',
       'users.sponsorableMany',
@@ -486,7 +708,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       'threads.lock',
       'threads.updateBranch',
     ],
-    search: { threadsPage: verb(!anonymous, searchThreadsPage) },
+    search: {
+      threadsPage: verb(!anonymous, searchThreadsPage),
+    },
     repos: {
       get: verb(true, async (ref, options) => {
         const { data } = await fetcher.json<AzureRepository>(repoPath(ref), { signal: options?.signal })
@@ -494,12 +718,25 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       }),
       listPage: verb(true, async (listOptions) => {
         const { data, response } = await fetcher.json<{ value: AzureRepository[] }>(`/${enc(options.organization)}/_apis/git/repositories`, { signal: listOptions?.signal })
-        return { items: data.value.map(raw => toRepo(instance, options.organization, raw)), ...rateLimitPart(response) }
+        return {
+          items: data.value.map(raw => toRepo(instance, options.organization, raw)),
+          ...rateLimitPart(response),
+        }
       }),
       byOwnerPage: verb(true, async (owner, query = {}) => {
         const { data, response } = await fetcher.json<{ value: AzureRepository[] }>(`${projectPath(owner)}/git/repositories`, { signal: query.signal })
         const items = data.value.map(raw => toRepo(instance, scope(owner).org, raw))
-        return { items, ...rateLimitPart(response), ...query.sort ? { warnings: [{ code: 'sort_unsupported' as const, message: 'Azure DevOps lists the repositories of a project in its own order' }] } : {} }
+        return {
+          items,
+          ...rateLimitPart(response),
+          ...query.sort
+            ? {
+                warnings: [
+                  { code: 'sort_unsupported' as const, message: 'Azure DevOps lists the repositories of a project in its own order' },
+                ],
+              }
+            : {},
+        }
       }),
     },
     orgs: {
@@ -515,35 +752,67 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           path,
           download: 'true',
           $format: 'octetStream',
-          ...fileOptions.ref ? versionDescriptor(fileOptions.ref) : {},
+          ...fileOptions.ref
+            ? versionDescriptor(fileOptions.ref)
+            : {},
         }
         const response = await fetcher.raw(`${repoPath(repo)}/items`, { query, signal: fileOptions.signal })
-        return toFileContent(new Uint8Array(await response.arrayBuffer()), { path: path.replace(/^\//, '') }, fileOptions, context)
+        return toFileContent(new Uint8Array(await response.arrayBuffer()), {
+          path: path.replace(/^\//, ''),
+        }, fileOptions, context)
       }),
       treePage: verb(true, async (repo, treeOptions = {}) => {
         const { data, response } = await fetcher.json<{ value: AzureItem[] }>(`${repoPath(repo)}/items`, {
           query: {
-            scopePath: treeOptions.path ? `/${treeOptions.path.replace(/^\//, '')}` : '/',
+            scopePath: treeOptions.path
+              ? `/${treeOptions.path.replace(/^\//, '')}`
+              : '/',
             recursionLevel: treeOptions.recursive ? 'full' : 'oneLevel',
-            ...treeOptions.ref ? versionDescriptor(treeOptions.ref) : {},
+            ...treeOptions.ref
+              ? versionDescriptor(treeOptions.ref)
+              : {},
           },
           signal: treeOptions.signal,
         })
-        return { items: data.value.filter(item => item.path !== '/').map(toTreeEntry), ...rateLimitPart(response) }
+        return {
+          items: data.value.filter(item => item.path !== '/').map(toTreeEntry),
+          ...rateLimitPart(response),
+        }
       }),
       branchesPage: verb(true, async (repo, listOptions = {}) => {
-        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'heads/' }, signal: listOptions.signal })
-        return { items: data.value.map(toBranch), ...rateLimitPart(response) }
+        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, {
+          query: { filter: 'heads/' },
+          signal: listOptions.signal,
+        })
+        return {
+          items: data.value.map(toBranch),
+          ...rateLimitPart(response),
+        }
       }),
       tagsPage: verb(true, async (repo, listOptions = {}) => {
-        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, { query: { filter: 'tags/', peelTags: 'true' }, signal: listOptions.signal })
-        return { items: data.value.map(toTag), ...rateLimitPart(response) }
+        const { data, response } = await fetcher.json<{ value: AzureRef[] }>(`${repoPath(repo)}/refs`, {
+          query: { filter: 'tags/', peelTags: 'true' },
+          signal: listOptions.signal,
+        })
+        return {
+          items: data.value.map(toTag),
+          ...rateLimitPart(response),
+        }
       }),
       resolveRef: verb(true, (repo, ref, options) => resolveSha(repo, ref, options?.signal)),
       compare: verb(true, async (repo, base, head, options) => {
-        const [from, to] = [versionOf(base), versionOf(head)]
+        const [from, to] = [
+          versionOf(base),
+          versionOf(head),
+        ]
         const { data } = await fetcher.json<AzureCommitDiffs>(`${repoPath(repo)}/diffs/commits`, {
-          query: { baseVersion: from.version, baseVersionType: from.type, targetVersion: to.version, targetVersionType: to.type, $top: 1000 },
+          query: {
+            baseVersion: from.version,
+            baseVersionType: from.type,
+            targetVersion: to.version,
+            targetVersionType: to.type,
+            $top: 1000,
+          },
           signal: options?.signal,
         })
         return {
@@ -563,7 +832,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       listPage: verb(true, async (repo, query = {}) => {
         const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${repoPath(repo)}/commits`, {
           query: {
-            ...query.ref ? itemVersion(query.ref) : {},
+            ...query.ref
+              ? itemVersion(query.ref)
+              : {},
             'searchCriteria.itemPath': query.path,
             'searchCriteria.author': query.author,
             'searchCriteria.fromDate': query.since?.toISOString(),
@@ -572,15 +843,23 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
           },
           signal: query.signal,
         })
-        return { items: data.value.map(raw => toCommit(repo, raw)), ...rateLimitPart(response) }
+        return {
+          items: data.value.map(raw => toCommit(repo, raw)),
+          ...rateLimitPart(response),
+        }
       }),
       get: verb(true, async ({ repo, sha }, options) => {
-        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, { query: { changeCount: 100 }, signal: options?.signal })
+        const { data } = await fetcher.json<AzureCommit>(`${repoPath(repo)}/commits/${sha}`, {
+          query: { changeCount: 100 },
+          signal: options?.signal,
+        })
         return toCommit(repo, data, (data.changes ?? []).filter(change => !change.item?.isFolder).map(toChangedFile))
       }),
     },
     checks: {
-      list: verb(true, async (repo, sha, options) => ({ items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`, { signal: options?.signal })).data.value.map(raw => toStatusCheck(repo, raw)) })),
+      list: verb(true, async (repo, sha, options) => ({
+        items: (await fetcher.json<{ value: AzureStatus[] }>(`${repoPath(repo)}/commits/${sha}/statuses`, { signal: options?.signal })).data.value.map(raw => toStatusCheck(repo, raw)),
+      })),
       report: verb(true, async (repo, sha, input, options) => toStatusCheck(repo, (await fetcher.json<AzureStatus>(`${repoPath(repo)}/commits/${sha}/statuses`, {
         method: 'POST',
         json: {
@@ -592,9 +871,14 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         signal: options?.signal,
       })).data)),
     },
-    emulated: { getReview: anonymous ? 'unverified' : 'emulated' },
+    emulated: {
+      getReview: anonymous ? 'unverified' : 'emulated',
+    },
     threads: {
-      get: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true }, get),
+      get: perKind({
+        issue: anonymous ? 'unverified' : true,
+        pull_request: true,
+      }, get),
       getMany: verb(true, (refs, options) => getManyConcurrently(refs, get, options)),
       listPage: perKind({ issue: !anonymous, pull_request: true }, listPage),
       eventsPage: verb(true, eventsPage),
@@ -603,15 +887,30 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         if (ref.kind !== 'pull_request') {
           throw new UnsupportedOperationError('Only pull requests can be read for commits', context)
         }
-        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${pullPath(ref)}/commits`, { query: { $top: listOptions.perPage }, signal: listOptions.signal })
-        return { items: data.value.map(raw => toCommit(ref.repo, raw)), ...rateLimitPart(response) }
+        const { data, response } = await fetcher.json<{ value: AzureCommit[] }>(`${pullPath(ref)}/commits`, {
+          query: { $top: listOptions.perPage },
+          signal: listOptions.signal,
+        })
+        return {
+          items: data.value.map(raw => toCommit(ref.repo, raw)),
+          ...rateLimitPart(response),
+        }
       }),
       // Work item comments are a preview API.
-      commentsPage: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, commentsPage),
-      getComment: perKind({ issue: anonymous ? 'unverified' : 'experimental', pull_request: true }, async (ref, options) => {
+      commentsPage: perKind({
+        issue: anonymous ? 'unverified' : 'experimental',
+        pull_request: true,
+      }, commentsPage),
+      getComment: perKind({
+        issue: anonymous ? 'unverified' : 'experimental',
+        pull_request: true,
+      }, async (ref, options) => {
         const thread = requireIssueOrPull(ref.thread, context, 'read comments on')
         if (thread.kind === 'issue') {
-          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, { query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
+          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, {
+            query: { 'api-version': COMMENTS_API_VERSION },
+            signal: options?.signal,
+          })
           return toWorkItemComment(issueRef(thread.repo, thread.number), data)
         }
         const ids = splitCommentId(ref)
@@ -627,26 +926,56 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       createComment: perKind({ issue: 'experimental', pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
         if (ref.kind === 'issue') {
-          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(ref)}/comments`, { method: 'POST', json: { text: body }, query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
+          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(ref)}/comments`, {
+            method: 'POST',
+            json: { text: body },
+            query: { 'api-version': COMMENTS_API_VERSION },
+            signal: options?.signal,
+          })
           return toWorkItemComment(issueRef(ref.repo, ref.number), data)
         }
-        const { data } = await fetcher.json<AzureThread>(`${pullPath(ref)}/threads`, { method: 'POST', json: { comments: [{ parentCommentId: 0, content: body, commentType: 'text' }], status: 'active' }, signal: options?.signal })
+        const { data } = await fetcher.json<AzureThread>(`${pullPath(ref)}/threads`, {
+          method: 'POST',
+          json: {
+            comments: [
+              { parentCommentId: 0, content: body, commentType: 'text' },
+            ],
+            status: 'active',
+          },
+          signal: options?.signal,
+        })
         return toPullComment(ref, data, data.comments[0]!)
       }),
       updateComment: perKind({ issue: 'experimental', pull_request: true }, async (ref, body, options) => {
         const thread = requireIssueOrPull(ref.thread, context, 'edit comments on')
         if (thread.kind === 'issue') {
-          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, { method: 'PATCH', json: { text: body }, query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
+          const { data } = await fetcher.json<AzureWorkItemComment>(`${workItemPath(thread)}/comments/${ref.id}`, {
+            method: 'PATCH',
+            json: { text: body },
+            query: { 'api-version': COMMENTS_API_VERSION },
+            signal: options?.signal,
+          })
           return toWorkItemComment(issueRef(thread.repo, thread.number), data)
         }
         const ids = splitCommentId(ref)
-        const { data } = await fetcher.json<AzureThread['comments'][number]>(`${pullPath(thread)}/threads/${ids.thread}/comments/${ids.comment}`, { method: 'PATCH', json: { content: body }, signal: options?.signal })
-        return toPullComment(thread, { id: Number(ids.thread), comments: [] }, data)
+        const { data } = await fetcher.json<AzureThread['comments'][number]>(`${pullPath(thread)}/threads/${ids.thread}/comments/${ids.comment}`, {
+          method: 'PATCH',
+          json: { content: body },
+          signal: options?.signal,
+        })
+        return toPullComment(thread, {
+          id: Number(ids.thread),
+          comments: [],
+        }, data)
       }),
       deleteComment: perKind({ issue: 'experimental', pull_request: true }, async (ref, options) => {
         const thread = requireIssueOrPull(ref.thread, context, 'delete comments on')
         if (thread.kind === 'issue') {
-          await fetcher.raw(`${workItemPath(thread)}/comments/${ref.id}`, { method: 'DELETE', query: { 'api-version': COMMENTS_API_VERSION }, signal: options?.signal })
+          await fetcher.raw(`${workItemPath(thread)}/comments/${ref.id}`, {
+            method: 'DELETE',
+            query: { 'api-version': COMMENTS_API_VERSION },
+            signal: options?.signal,
+          })
           return
         }
         const ids = splitCommentId(ref)
@@ -684,11 +1013,21 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
             description: input.body,
             isDraft: input.draft ?? false,
             labels: input.labels?.map(name => ({ name })),
-            reviewers: input.assignees?.map(reviewer => ({ id: typeof reviewer === 'string' ? reviewer : reviewer.id })),
+            reviewers: input.assignees?.map(reviewer => ({
+              id: typeof reviewer === 'string'
+                ? reviewer
+                : reviewer.id,
+            })),
           },
           signal: writeOptions?.signal,
         })
-        return toPullThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.pullRequestId) }, data)
+        return toPullThread({
+          forge: FORGE,
+          instance,
+          repo,
+          kind: 'pull_request',
+          number: String(data.pullRequestId),
+        }, data)
       }),
       /** Pull request labels have their own endpoint, so they are set before the edit, whose response includes them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
@@ -721,7 +1060,9 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         }
         const json = { title: input.title, description: input.body, status: input.state && PULL_STATUSES[input.state] }
         const edits = Object.values(json).some(value => value !== undefined)
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), edits ? { method: 'PATCH', json, signal: options?.signal } : { signal: options?.signal })
+        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), edits
+          ? { method: 'PATCH', json, signal: options?.signal }
+          : { signal: options?.signal })
         return toPullThread(ref, data)
       }),
       close: perKind(ISSUE_AND_PULL, (ref, options) => setState(ref, 'closed', options)),
@@ -729,18 +1070,28 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
         return ref.kind === 'issue'
-          ? toWorkItemThread(ref, await patchWorkItem(ref, { 'System.Tags': labels.join('; ') }, options?.signal), undefined).labels
+          ? toWorkItemThread(ref, await patchWorkItem(ref, {
+            'System.Tags': labels.join('; '),
+          }, options?.signal), undefined).labels
           : setPullLabels(ref, labels, options?.signal)
       }),
       setAssignees: perKind({ issue: true }, async (thread, assignees, options) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
-        return toWorkItemThread(ref, await patchWorkItem(ref, { 'System.AssignedTo': assignedTo(assignees) }, options?.signal), undefined).assignees
+        return toWorkItemThread(ref, await patchWorkItem(ref, {
+          'System.AssignedTo': assignedTo(assignees),
+        }, options?.signal), undefined).assignees
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
         const ref = requireThread(thread, context)
         for (const reviewer of reviewers) {
-          const id = typeof reviewer === 'string' ? reviewer : reviewer.id
-          await fetcher.raw(`${pullPath(ref)}/reviewers/${enc(id)}`, { method: 'PUT', json: { vote: 0 }, signal: options?.signal })
+          const id = typeof reviewer === 'string'
+            ? reviewer
+            : reviewer.id
+          await fetcher.raw(`${pullPath(ref)}/reviewers/${enc(id)}`, {
+            method: 'PUT',
+            json: { vote: 0 },
+            signal: options?.signal,
+          })
         }
       }),
       merge: verb(true, async (thread, mergeOptions = {}) => {
@@ -757,13 +1108,27 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
         const message = mergeCommitMessage(mergeOptions)
         const completionOptions = {
           mergeStrategy: MERGE_STRATEGIES[mergeOptions.method],
-          ...message ? { mergeCommitMessage: message } : {},
+          ...message
+            ? { mergeCommitMessage: message }
+            : {},
         }
         const id = await myId()
         const completion = mergeOptions.whenChecksPass
-          ? { autoCompleteSetBy: { id }, completionOptions }
-          : { status: 'completed', lastMergeSourceCommit: { commitId: mergeOptions.sha ?? (await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: mergeOptions.signal })).data.lastMergeSourceCommit?.commitId }, completionOptions }
-        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), { method: 'PATCH', json: completion, mapError: toMergeError, signal: mergeOptions.signal })
+          ? {
+              autoCompleteSetBy: { id },
+              completionOptions,
+            }
+          : {
+              status: 'completed',
+              lastMergeSourceCommit: { commitId: mergeOptions.sha ?? (await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: mergeOptions.signal })).data.lastMergeSourceCommit?.commitId },
+              completionOptions,
+            }
+        const { data } = await fetcher.json<AzurePullRequest>(pullPath(ref), {
+          method: 'PATCH',
+          json: completion,
+          mapError: toMergeError,
+          signal: mergeOptions.signal,
+        })
         return data.status === 'completed'
           ? { status: 'merged', sha: data.lastMergeCommit?.commitId, raw: data } satisfies MergeResult
           : { status: 'queued', raw: data } satisfies MergeResult
@@ -776,7 +1141,10 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
       reviewsPage: verb('emulated', async (thread, listOptions) => {
         const ref = requireThread(thread, context)
         const { data, response } = await fetcher.json<AzurePullRequest>(pullPath(ref), { signal: listOptions?.signal })
-        return { ...rateLimitPart(response), items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)) }
+        return {
+          ...rateLimitPart(response),
+          items: (data.reviewers ?? []).filter(reviewer => reviewer.vote !== 0).map(reviewer => toVoteReview(ref, reviewer)),
+        }
       }),
       createReview: verb('emulated', createReview),
       reviewThreads: verb(true, {
@@ -789,12 +1157,20 @@ function setupAzure({ options, instance, origin: context, fetcher, baseUrl }: Pr
     },
     scopes: (verb) => {
       if (verb.startsWith('webhooks.')) {
-        return { token: ['vso.work_full'], note: 'Service hook subscriptions need project administrator rights' }
+        return {
+          token: ['vso.work_full'],
+          note: 'Service hook subscriptions need project administrator rights',
+        }
       }
       if (verb.startsWith('orgs.')) {
-        return { token: ['vso.project'], note: 'Read projects and their teams' }
+        return {
+          token: ['vso.project'],
+          note: 'Read projects and their teams',
+        }
       }
-      return { token: ['vso.code', 'vso.work'] }
+      return {
+        token: ['vso.code', 'vso.work'],
+      }
     },
   }
 }
@@ -810,7 +1186,9 @@ const AZURE_DEVOPS: ProviderDefinition<AzureDevOpsOptions, undefined, true> = {
     if (!auth || auth.type === 'anonymous') {
       return undefined
     }
-    return async () => ({ authorization: `Basic ${btoa(auth.type === 'token' ? `:${await resolveToken(auth)}` : `${auth.username}:${auth.password}`)}` })
+    return async () => ({ authorization: `Basic ${btoa(auth.type === 'token'
+      ? `:${await resolveToken(auth)}`
+      : `${auth.username}:${auth.password}`)}` })
   },
   webhooks: azureDevOpsWebhooks,
   setup: setupAzure,

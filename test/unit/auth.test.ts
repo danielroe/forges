@@ -18,19 +18,62 @@ import { sourcehut } from '../../src/sourcehut/index.ts'
 type TokenFactory = (token: () => Promise<string>, fetch: FetchLike) => ForgeProvider
 
 const FACTORIES: Record<string, TokenFactory> = {
-  'github': (token, fetch) => github({ auth: { type: 'token', token }, fetch }),
-  'gitlab': (token, fetch) => gitlab({ auth: { type: 'token', token }, fetch }),
-  'forgejo': (token, fetch) => forgejo({ auth: { type: 'token', token }, baseUrl: 'https://codeberg.org', fetch }),
-  'gitea': (token, fetch) => gitea({ auth: { type: 'token', token }, fetch }),
-  'gitee': (token, fetch) => gitee({ auth: { type: 'token', token }, fetch }),
-  'bitbucket': (token, fetch) => bitbucket({ auth: { type: 'token', token }, fetch }),
-  'azure-devops': (token, fetch) => azureDevOps({ auth: { type: 'token', token }, organization: 'acme', fetch }),
-  'cursor-origin': (token, fetch) => cursorOrigin({ auth: { type: 'token', token }, fetch }),
-  'pushin': (token, fetch) => pushin({ auth: { type: 'token', token }, fetch }),
-  'cloudflare-artifacts': (token, fetch) => cloudflareArtifacts({ auth: { type: 'token', token }, accountId: 'acme', fetch }),
-  'sourcehut': (token, fetch) => sourcehut({ auth: { type: 'token', token }, fetch }),
-  'entire': (token, fetch) => entire({ auth: { type: 'token', token }, fetch }),
-  'gitbucket': (token, fetch) => gitbucket({ baseUrl: 'https://gitbucket.example.com', auth: { type: 'token', token }, fetch }),
+  'github': (token, fetch) => github({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'gitlab': (token, fetch) => gitlab({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'forgejo': (token, fetch) => forgejo({
+    auth: { type: 'token', token },
+    baseUrl: 'https://codeberg.org',
+    fetch,
+  }),
+  'gitea': (token, fetch) => gitea({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'gitee': (token, fetch) => gitee({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'bitbucket': (token, fetch) => bitbucket({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'azure-devops': (token, fetch) => azureDevOps({
+    auth: { type: 'token', token },
+    organization: 'acme',
+    fetch,
+  }),
+  'cursor-origin': (token, fetch) => cursorOrigin({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'pushin': (token, fetch) => pushin({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'cloudflare-artifacts': (token, fetch) => cloudflareArtifacts({
+    auth: { type: 'token', token },
+    accountId: 'acme',
+    fetch,
+  }),
+  'sourcehut': (token, fetch) => sourcehut({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'entire': (token, fetch) => entire({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'gitbucket': (token, fetch) => gitbucket({
+    baseUrl: 'https://gitbucket.example.com',
+    auth: { type: 'token', token },
+    fetch,
+  }),
 }
 
 describe('token auth', () => {

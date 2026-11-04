@@ -107,7 +107,16 @@ import { forgejoWebhooks } from './webhooks.ts'
 const YAML_FILE = /\.ya?ml$/i
 
 /** The folders each web UI checks for a pull request template, in its order. Gitea skips `.forgejo` and `docs`. */
-const PULL_TEMPLATE_DIRECTORIES = { forgejo: ['', '.forgejo', '.gitea', '.github', 'docs'], gitea: ['', '.gitea', '.github'] }
+const PULL_TEMPLATE_DIRECTORIES = {
+  forgejo: [
+    '',
+    '.forgejo',
+    '.gitea',
+    '.github',
+    'docs',
+  ],
+  gitea: ['', '.gitea', '.github'],
+}
 const PULL_TEMPLATE_FILES = ['PULL_REQUEST_TEMPLATE', 'pull_request_template'].flatMap(name => [`${name}.md`, `${name}.yaml`, `${name}.yml`])
 
 /** Forgejo and Gitea have no app-installation credential, so only tokens are accepted. */
@@ -163,7 +172,12 @@ const GITEA_BLOCKS = '1.22'
 /** Gitea version with locking an issue or pull request. */
 const GITEA_LOCKS = '1.24'
 
-const GITEA_LOCK_REASONS: Record<LockReason, string> = { off_topic: 'Off-topic', too_heated: 'Too heated', resolved: 'Resolved', spam: 'Spam' }
+const GITEA_LOCK_REASONS: Record<LockReason, string> = {
+  off_topic: 'Off-topic',
+  too_heated: 'Too heated',
+  resolved: 'Resolved',
+  spam: 'Spam',
+}
 
 /** Timelines send no usable count, so only a full page of an explicit size shows that another follows. */
 const TIMELINE_PAGE_SIZE = 50
@@ -182,7 +196,9 @@ export function forgejoDefinition(profile: ForgejoProfile): ProviderDefinition<F
     anonymous: true,
     apiPath: profile.web.apiPath,
     headers: { accept: 'application/json' },
-    authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `token ${await resolveToken(auth)}` }) : undefined,
+    authHeaders: ({ options: { auth } }) => auth?.type === 'token'
+      ? async () => ({ authorization: `token ${await resolveToken(auth)}` })
+      : undefined,
     webhooks: forgejoWebhooks(profile),
     setup: ctx => setupForgejo(ctx, profile),
   }
@@ -198,12 +214,27 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** Organisations are accounts too, so `/users/{owner}/repos` serves both. */
   function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
-    return list(`/users/${encodeURIComponent(owner.owner)}/repos`, query, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw), { warnings: isFirstPage(query.cursor) && ((query.sort ?? 'created') !== 'created' || query.direction === 'desc') ? [{ code: 'sort_unsupported', message: `${profile.forge} lists the repositories of an owner oldest first only` }] : undefined })
+    return list(`/users/${encodeURIComponent(owner.owner)}/repos`, query, (raw: ForgejoRepositoryDetail) => toRepo(origin, raw), {
+      warnings: isFirstPage(query.cursor) && ((query.sort ?? 'created') !== 'created' || query.direction === 'desc')
+        ? [
+            { code: 'sort_unsupported', message: `${profile.forge} lists the repositories of an owner oldest first only` },
+          ]
+        : undefined,
+    })
   }
 
   async function readUser(path: string, signal?: AbortSignal): Promise<User> {
     const { data } = await fetcher.json<ForgejoUser & { description?: string, location?: string, website?: string, created?: string, followers_count?: number, following_count?: number }>(path, { signal })
-    return { ...toActor(origin, data)!, bio: data.description || undefined, location: data.location || undefined, websiteUrl: data.website || undefined, createdAt: toDate(data.created), followers: data.followers_count, following: data.following_count, raw: data }
+    return {
+      ...toActor(origin, data)!,
+      bio: data.description || undefined,
+      location: data.location || undefined,
+      websiteUrl: data.website || undefined,
+      createdAt: toDate(data.created),
+      followers: data.followers_count,
+      following: data.following_count,
+      raw: data,
+    }
   }
 
   function repoPath(repo: Pick<RepoRef, 'owner' | 'name'>): string {
@@ -232,7 +263,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     const branchPath = `${repoPath(repo)}/branches/${input.branch.split('/').map(encodeURIComponent).join('/')}`
     let head = input.expectedHead
     if (input.createFrom !== undefined) {
-      const { data } = await fetcher.json<ForgejoBranch>(`${repoPath(repo)}/branches`, { method: 'POST', json: { new_branch_name: input.branch, old_ref_name: input.createFrom }, signal })
+      const { data } = await fetcher.json<ForgejoBranch>(`${repoPath(repo)}/branches`, {
+        method: 'POST',
+        json: { new_branch_name: input.branch, old_ref_name: input.createFrom },
+        signal,
+      })
       head = data.commit?.id
     }
     else if (head !== undefined) {
@@ -262,8 +297,21 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           message: input.message,
           ...input.author && { author: input.author },
           files: input.changes.map(({ path, content }) => content === null
-            ? { operation: 'delete', path, sha: existing.get(path) }
-            : { operation: existing.has(path) ? 'update' : 'create', path, content: changeBase64(content), ...existing.has(path) && { sha: existing.get(path) } }),
+            ? {
+                operation: 'delete',
+                path,
+                sha: existing.get(path),
+              }
+            : {
+                operation: existing.has(path)
+                  ? 'update'
+                  : 'create',
+                path,
+                content: changeBase64(content),
+                ...existing.has(path) && {
+                  sha: existing.get(path),
+                },
+              }),
         },
         signal,
       })
@@ -289,12 +337,18 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   async function setReaction(target: ThreadRef | CommentRef, reaction: ReactionContent, method: 'POST' | 'DELETE', options?: BaseOptions): Promise<void> {
-    await fetcher.raw(reactionPath(target), { method, json: { content: reaction }, signal: options?.signal })
+    await fetcher.raw(reactionPath(target), {
+      method,
+      json: { content: reaction },
+      signal: options?.signal,
+    })
   }
 
   const labelIdsOf = memoBy(async (path: string) => {
     const map = new Map<string, number>()
-    for await (const label of fetcher.items<{ id: number, name: string }>(path, { query: { limit: 50 } })) {
+    for await (const label of fetcher.items<{ id: number, name: string }>(path, {
+      query: { limit: 50 },
+    })) {
       map.set(label.name, label.id)
     }
     return map
@@ -315,7 +369,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   async function resolveLabels(repo: RepoRef, names: string[]): Promise<number[]> {
     const map = await labelIdsOf(`${repoPath(repo)}/labels`)
-    const shared = names.some(name => !map.has(name)) ? await orgLabelIdsOf(repo.owner) : undefined
+    const shared = names.some(name => !map.has(name))
+      ? await orgLabelIdsOf(repo.owner)
+      : undefined
     return names.map((name) => {
       const id = map.get(name) ?? shared?.get(name)
       if (id === undefined) {
@@ -384,8 +440,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** A pull request is edited through the pulls endpoint, whose response carries its branches and reviewers. */
   async function setState(thread: ThreadRef, state: 'open' | 'closed', options?: BaseOptions): Promise<Thread> {
-    const ref = requireIssueOrPull(thread, context, state === 'open' ? 'reopen' : 'close')
-    const { data } = await fetcher.json<ForgejoIssue>(ref.kind === 'pull_request' ? threadPath(ref) : issuePath(ref), {
+    const ref = requireIssueOrPull(thread, context, state === 'open'
+      ? 'reopen'
+      : 'close')
+    const { data } = await fetcher.json<ForgejoIssue>(ref.kind === 'pull_request'
+      ? threadPath(ref)
+      : issuePath(ref), {
       method: 'PATCH',
       json: { state },
       signal: options?.signal,
@@ -429,7 +489,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       mapError: toMergeError,
       signal: mergeOptions.signal,
     })
-    return { status: mergeOptions.whenChecksPass && response.status === 201 ? 'queued' : 'merged' }
+    return {
+      status: mergeOptions.whenChecksPass && response.status === 201
+        ? 'queued'
+        : 'merged',
+    }
   }
 
   /** The update takes no expected head, so `sha` is compared against a read of the pull request first. */
@@ -442,7 +506,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         throw new BranchMovedError(`Head branch of pull request ${ref.number} is at ${data.head?.sha}, not ${sha}`, 409, '', context)
       }
     }
-    await fetcher.raw(`${pullPath(ref)}/update`, { method: 'POST', query: { style: updateOptions.method ?? 'merge' }, mapError: toMergeError, signal })
+    await fetcher.raw(`${pullPath(ref)}/update`, {
+      method: 'POST',
+      query: { style: updateOptions.method ?? 'merge' },
+      mapError: toMergeError,
+      signal,
+    })
     return { status: 'updated' }
   }
 
@@ -464,7 +533,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return comments?.map(comment => ({
       path: comment.path,
       body: comment.body,
-      ...comment.side === 'left' ? { old_position: comment.line } : { new_position: comment.line },
+      ...comment.side === 'left'
+        ? { old_position: comment.line }
+        : { new_position: comment.line },
     }))
   }
 
@@ -495,13 +566,22 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         if (!(error instanceof ForgeError)) {
           throw error
         }
-        result.warnings = [...result.warnings ?? [], toWarning('checks_unreadable', error, ref.number)]
+        result.warnings = [
+          ...result.warnings ?? [],
+          toWarning('checks_unreadable', error, ref.number),
+        ]
       }
     }
     return result
   }
 
-  const STATUS_STATES: Record<CheckState, string> = { pending: 'pending', success: 'success', failure: 'failure', neutral: 'success', unknown: 'pending' }
+  const STATUS_STATES: Record<CheckState, string> = {
+    pending: 'pending',
+    success: 'success',
+    failure: 'failure',
+    neutral: 'success',
+    unknown: 'pending',
+  }
 
   async function statusChecks(repo: RepoRef, sha: string, signal?: AbortSignal): Promise<Check[]> {
     const { data } = await fetcher.json<ForgejoCombinedStatus>(`${repoPath(repo)}/commits/${sha}/status`, { signal })
@@ -509,7 +589,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
-    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: ForgejoMilestone) => toMilestone(raw)!, {
+      query: { state: listOptions.state ?? 'open' },
+    })
   }
 
   async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
@@ -519,17 +601,31 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate, options?: BaseOptions): Promise<Release> {
     const { data } = await fetcher.json<ForgejoRelease>(path, {
       method,
-      json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+      json: {
+        tag_name: input.tag,
+        target_commitish: input.target,
+        name: input.name,
+        body: input.body,
+        draft: input.draft,
+        prerelease: input.prerelease,
+      },
       signal: options?.signal,
     })
     // A new release has no assets, but a new draft can come back with some that belong elsewhere.
-    return toRelease(repo, method === 'POST' ? { ...data, assets: [] } : data)
+    return toRelease(repo, method === 'POST'
+      ? { ...data, assets: [] }
+      : data)
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     const warnings: ForgeWarning[] = []
     if (query.kind === 'discussion') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: `${profile.forge} has no discussions` }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'kind_unsupported', message: `${profile.forge} has no discussions` },
+        ],
+      }
     }
     const sort = query.sort ?? 'created'
     const direction = query.direction ?? 'desc'
@@ -539,8 +635,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     const createdAfter = query.createdAfter?.getTime()
     const result = await fetcher.page<ForgejoIssue>(`${repoPath(repo)}/issues`, {
       query: {
-        state: query.state === 'merged' ? 'closed' : query.state ?? 'open',
-        type: query.kind === 'pull_request' ? 'pulls' : query.kind === 'issue' ? 'issues' : undefined,
+        state: query.state === 'merged'
+          ? 'closed'
+          : query.state ?? 'open',
+        type: query.kind === 'pull_request'
+          ? 'pulls'
+          : query.kind === 'issue'
+            ? 'issues'
+            : undefined,
         labels: query.labels?.join(','),
         created_by: query.author,
         assigned_by: query.assignee,
@@ -552,13 +654,24 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     })
     const older = (raw: ForgejoIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
     const unmerged = (raw: ForgejoIssue) => query.state === 'merged' && !raw.pull_request?.merged
-    const page = toPage(result, raw => older(raw) || unmerged(raw) || !hasEveryLabel(raw.labels, query.labels) ? undefined : toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw), warnings)
-    return (result.data ?? []).some(older) ? { ...page, cursor: undefined } : page
+    const page = toPage(result, raw => older(raw) || unmerged(raw) || !hasEveryLabel(raw.labels, query.labels)
+      ? undefined
+      : toThread({
+          ...origin,
+          repo,
+          kind: raw.pull_request ? 'pull_request' : 'issue',
+          number: String(raw.number),
+        }, raw), warnings)
+    return (result.data ?? []).some(older)
+      ? { ...page, cursor: undefined }
+      : page
   }
 
   /** Repository hooks, or organisation hooks for a namespace ref. */
   function hooksPath(target: RepoRef): string {
-    return isNamespaceRef(target) ? `/orgs/${encodeURIComponent(target.owner)}/hooks` : `${repoPath(target)}/hooks`
+    return isNamespaceRef(target)
+      ? `/orgs/${encodeURIComponent(target.owner)}/hooks`
+      : `${repoPath(target)}/hooks`
   }
 
   async function searchThreadsPage(query: ThreadSearchQuery): Promise<Page<Thread>> {
@@ -572,7 +685,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     const result = await fetcher.page<ForgejoIssue>('/repos/issues/search', {
       query: {
         q: query.text,
-        type: query.kind === 'pull_request' ? 'pulls' : query.kind === 'issue' ? 'issues' : undefined,
+        type: query.kind === 'pull_request'
+          ? 'pulls'
+          : query.kind === 'issue'
+            ? 'issues'
+            : undefined,
         state: query.state ?? 'all',
         labels: query.labels?.join(','),
         created_by: query.author,
@@ -587,12 +704,24 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     return toPage(result, (raw) => {
       const [owner = '', name = ''] = raw.repository?.full_name.split('/') ?? []
       const repo = query.repo ?? (name
-        ? { ...origin, owner, name, externalId: raw.repository?.id === undefined ? undefined : String(raw.repository.id) }
+        ? {
+            ...origin,
+            owner,
+            name,
+            externalId: raw.repository?.id === undefined
+              ? undefined
+              : String(raw.repository.id),
+          }
         : undefined)
       if (!repo || !hasEveryLabel(raw.labels, query.labels) || !sameLogin(raw.user, query.author) || (query.assignee && !raw.assignees?.some(user => sameLogin(user, query.assignee))) || (query.repo && raw.repository && raw.repository.full_name !== `${query.repo.owner}/${query.repo.name}`)) {
         return undefined
       }
-      return toThread({ ...origin, repo, kind: raw.pull_request ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
+      return toThread({
+        ...origin,
+        repo,
+        kind: raw.pull_request ? 'pull_request' : 'issue',
+        number: String(raw.number),
+      }, raw)
     }, warnings)
   }
 
@@ -600,7 +729,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** Codeberg and gitea.com run a current release, so only a self-hosted instance waits for its version. */
   function released(minimum: string): SupportInput {
-    return hostOf(baseUrl) === hostOf(profile.web.baseUrl) ? true : ({ version }) => versionAtLeast(version, minimum)
+    return hostOf(baseUrl) === hostOf(profile.web.baseUrl)
+      ? true
+      : ({ version }) => versionAtLeast(version, minimum)
   }
 
   function actions(forgejoMinimum: string, giteaMinimum: string): SupportInput {
@@ -613,15 +744,28 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
   }
 
   async function setBlocked(scope: string, login: string, blocked: boolean, options?: BaseOptions): Promise<void> {
-    const path = isGitea ? `${scope}/blocks/${encodeURIComponent(login)}` : `${scope}/${blocked ? 'block' : 'unblock'}/${encodeURIComponent(login)}`
-    await fetcher.raw(path, { method: isGitea && !blocked ? 'DELETE' : 'PUT', signal: options?.signal })
+    const path = isGitea
+      ? `${scope}/blocks/${encodeURIComponent(login)}`
+      : `${scope}/${blocked ? 'block' : 'unblock'}/${encodeURIComponent(login)}`
+    await fetcher.raw(path, {
+      method: isGitea && !blocked
+        ? 'DELETE'
+        : 'PUT',
+      signal: options?.signal,
+    })
   }
 
   async function setLocked(thread: ThreadRef, locked: boolean, options: LockOptions = {}): Promise<void> {
     const ref = requireThread(thread, context)
     await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/lock`, {
       method: locked ? 'PUT' : 'DELETE',
-      ...locked ? { json: options.reason ? { lock_reason: GITEA_LOCK_REASONS[options.reason] } : {} } : {},
+      ...locked
+        ? {
+            json: options.reason
+              ? { lock_reason: GITEA_LOCK_REASONS[options.reason] }
+              : {},
+          }
+        : {},
       signal: options.signal,
     })
   }
@@ -640,7 +784,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** One page of an Actions listing, read from `key` and continued from `total_count` when no `Link` header is sent. */
   async function actionsPage<T>(path: string, key: 'workflow_runs' | 'jobs', query: Record<string, string | number | undefined>, pageOptions: PageOptions): Promise<FetchResult<T[]>> {
-    const url = pageOptions.cursor?.nextUrl ? fetcher.resolve(pageOptions.cursor.nextUrl) : fetcher.resolve(path, query)
+    const url = pageOptions.cursor?.nextUrl
+      ? fetcher.resolve(pageOptions.cursor.nextUrl)
+      : fetcher.resolve(path, query)
     return fetcher.page<T>(path, {
       query,
       cursor: pageOptions.cursor,
@@ -651,8 +797,12 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const items = (listing[key] ?? []) as T[]
         return {
           items,
-          next: next ?? countedNextUrl(url, items.length, listing.total_count === undefined ? null : String(listing.total_count)),
-          ...listing.total_count !== undefined ? { total: listing.total_count } : {},
+          next: next ?? countedNextUrl(url, items.length, listing.total_count === undefined
+            ? null
+            : String(listing.total_count)),
+          ...listing.total_count !== undefined
+            ? { total: listing.total_count }
+            : {},
         }
       },
     })
@@ -660,15 +810,25 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   async function runsPage(repo: RepoRef, query: CiRunQuery = {}): Promise<Page<CiRun>> {
     const states = isGitea ? GITEA_ACTION_STATES : ACTION_STATES
-    const statuses = query.state ? `?${states[query.state].map(status => `status=${status}`).join('&')}` : ''
+    const statuses = query.state
+      ? `?${states[query.state].map(status => `status=${status}`).join('&')}`
+      : ''
     const path = `${repoPath(repo)}/actions/runs${statuses}`
     if (isGitea) {
       return toPage(await actionsPage<GiteaActionRun>(path, 'workflow_runs', { branch: query.branch, page: 1, limit: query.perPage ?? 50 }, query), raw => toGiteaActionRun(repo, raw))
     }
     // Without `page`, Forgejo ignores `limit` and sends the whole run history.
-    const result = await actionsPage<ForgejoActionRun>(path, 'workflow_runs', { ref: query.branch ? `refs/heads/${query.branch}` : undefined, page: 1, limit: query.perPage ?? 50 }, query)
+    const result = await actionsPage<ForgejoActionRun>(path, 'workflow_runs', {
+      ref: query.branch
+        ? `refs/heads/${query.branch}`
+        : undefined,
+      page: 1,
+      limit: query.perPage ?? 50,
+    }, query)
     // Forgejo before 15.0 ignores `ref`, so the branch is checked here too.
-    return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch ? undefined : toActionRun(repo, raw))
+    return toPage(result, raw => query.branch && actionBranch(raw) !== query.branch
+      ? undefined
+      : toActionRun(repo, raw))
   }
 
   async function jobsPage(ref: CiRunRef, listOptions: PageOptions = {}): Promise<Page<CiJob>> {
@@ -678,7 +838,10 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     }
     // Forgejo sends the jobs of a run in one response, whatever the page size.
     const { data, response } = await fetcher.json<ForgejoActionRunJob[] | null>(path, { signal: listOptions.signal })
-    return { items: (data ?? []).map(raw => toActionJob(ref, raw)), ...rateLimitPart(response) }
+    return {
+      items: (data ?? []).map(raw => toActionJob(ref, raw)),
+      ...rateLimitPart(response),
+    }
   }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
@@ -686,7 +849,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       query: {
         q: query.text,
         owner: query.owner,
-        sort: query.sort === 'stars' ? 'stars' : query.sort === 'created' ? 'created' : query.sort === 'updated' ? 'updated' : undefined,
+        sort: query.sort === 'stars'
+          ? 'stars'
+          : query.sort === 'created'
+            ? 'created'
+            : query.sort === 'updated'
+              ? 'updated'
+              : undefined,
         order: query.direction,
         limit: query.perPage,
       },
@@ -699,10 +868,17 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
     const [issues, pulls] = await Promise.all([
-      options.kind === 'pull_request' ? [] : issueTemplates(repo, options.signal),
-      options.kind === 'issue' ? [] : pullTemplate(repo, options.signal),
+      options.kind === 'pull_request'
+        ? []
+        : issueTemplates(repo, options.signal),
+      options.kind === 'issue'
+        ? []
+        : pullTemplate(repo, options.signal),
     ])
-    return [...issues, ...pulls]
+    return [
+      ...issues,
+      ...pulls,
+    ]
   }
 
   /** The API parses each template but drops its front matter and a form's YAML, so the file gets read too. */
@@ -712,12 +888,19 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       kind: 'issue' as const,
       name: raw.name,
       path: raw.file_name,
-      format: YAML_FILE.test(raw.file_name) ? 'form' as const : 'markdown' as const,
+      format: YAML_FILE.test(raw.file_name)
+        ? 'form' as const
+        : 'markdown' as const,
       body: await readText(repo, raw.file_name, signal),
       title: raw.title || undefined,
       about: raw.about || undefined,
       labels: raw.labels?.length ? raw.labels : undefined,
-      fields: raw.body?.map(field => ({ type: field.type, id: field.id || undefined, attributes: field.attributes ?? {}, validations: field.validations ?? undefined })),
+      fields: raw.body?.map(field => ({
+        type: field.type,
+        id: field.id || undefined,
+        attributes: field.attributes ?? {},
+        validations: field.validations ?? undefined,
+      })),
       raw,
     }))
   }
@@ -728,12 +911,25 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
     const root = await listDirectory(repo, '', { signal }) ?? []
     const pick = (entries: ForgejoContentFile[]) => PULL_TEMPLATE_FILES.map(name => entries.find(entry => entry.type === 'file' && entry.name === name)).find(Boolean)
     const inRoot = pick(root)
-    const nested = inRoot ? [] : await Promise.all(directories.filter(directory => directory && root.some(entry => entry.type === 'dir' && entry.name === directory)).map(async directory => await listDirectory(repo, directory, { signal }) ?? []))
+    const nested = inRoot
+      ? []
+      : await Promise.all(directories.filter(directory => directory && root.some(entry => entry.type === 'dir' && entry.name === directory)).map(async directory => await listDirectory(repo, directory, { signal }) ?? []))
     const entry = inRoot ?? nested.map(pick).find(Boolean)
     if (!entry) {
       return []
     }
-    return [{ kind: 'pull_request', name: entry.name, path: entry.path, format: YAML_FILE.test(entry.name) ? 'form' : 'markdown', body: await readText(repo, entry.path, signal), raw: entry }]
+    return [
+      {
+        kind: 'pull_request',
+        name: entry.name,
+        path: entry.path,
+        format: YAML_FILE.test(entry.name)
+          ? 'form'
+          : 'markdown',
+        body: await readText(repo, entry.path, signal),
+        raw: entry,
+      },
+    ]
   }
 
   async function readText(repo: RepoRef, path: string, signal?: AbortSignal): Promise<string> {
@@ -742,15 +938,25 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
 
   /** The entries of a directory, `''` for the root, or `undefined` when the path names a file. */
   async function listDirectory(repo: RepoRef, directory: string, options: { ref?: string, signal?: AbortSignal } = {}): Promise<ForgejoContentFile[] | undefined> {
-    const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory ? `/${directory.split('/').map(encodeURIComponent).join('/')}` : ''}`, { query: { ref: options.ref }, signal: options.signal })
-    return Array.isArray(data) ? data : undefined
+    const { data } = await fetcher.json<ForgejoContentFile[] | ForgejoContentFile>(`${repoPath(repo)}/contents${directory
+      ? `/${directory.split('/').map(encodeURIComponent).join('/')}`
+      : ''}`, {
+      query: { ref: options.ref },
+      signal: options.signal,
+    })
+    return Array.isArray(data)
+      ? data
+      : undefined
   }
 
   /** Large files come back with a null `content`, so they come from the raw endpoint, which has no size limit. */
   async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {
     const encoded = path.split('/').map(encodeURIComponent).join('/')
     if (fileOptions.metadata === false) {
-      const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
+      const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, {
+        query: { ref: fileOptions.ref },
+        signal: fileOptions.signal,
+      })
       const bytes = new Uint8Array(await response.arrayBuffer())
       return toFileContent(bytes, { path, size: bytes.byteLength }, fileOptions, context)
     }
@@ -758,20 +964,33 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       query: { ref: fileOptions.ref },
       signal: fileOptions.signal,
     })
-    const file = { path: data.path, sha: data.sha, size: data.size, url: data.html_url ?? undefined }
+    const file = {
+      path: data.path,
+      sha: data.sha,
+      size: data.size,
+      url: data.html_url ?? undefined,
+    }
     if (data.encoding === 'base64' && data.content) {
       return toFileContent(fromBase64(data.content), file, fileOptions, context)
     }
-    const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, { query: { ref: fileOptions.ref }, signal: fileOptions.signal })
+    const response = await fetcher.raw(`${repoPath(repo)}/raw/${encoded}`, {
+      query: { ref: fileOptions.ref },
+      signal: fileOptions.signal,
+    })
     return toFileContent(new Uint8Array(await response.arrayBuffer()), file, fileOptions, context)
   }
 
   return {
-    traits: { eventKinds: 'native', authKinds: ['token', 'anonymous'] },
+    traits: {
+      eventKinds: 'native',
+      authKinds: ['token', 'anonymous'],
+    },
     notApplicable: [
       'users.sponsorable',
       'users.sponsorableMany',
-      ...isGitea ? [] : ['threads.lock' as const],
+      ...isGitea
+        ? []
+        : ['threads.lock' as const],
       'threads.hideComment',
       'threads.resolveReviewThread',
       'repos.issueTypes',
@@ -801,11 +1020,19 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       labelsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/labels`, listOptions, toLabel)),
       createLabel: verb(true, async (repo, label, options) => toLabel((await fetcher.json<ForgejoLabel>(`${repoPath(repo)}/labels`, {
         method: 'POST',
-        json: { name: label.name, color: hexColour(label.colour, '#'), description: label.description },
+        json: {
+          name: label.name,
+          color: hexColour(label.colour, '#'),
+          description: label.description,
+        },
         signal: options?.signal,
       })).data)),
       milestonesPage: verb(true, milestonesPage),
-      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({ actor: toActor(origin, raw)!, role: 'read' as const, raw }))),
+      collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: ForgejoUser) => ({
+        actor: toActor(origin, raw)!,
+        role: 'read' as const,
+        raw,
+      }))),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
         const { data } = await fetcher.json<{ permission?: string, role_name?: string }>(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`, { signal: options?.signal })
         return toRole(data.role_name ?? data.permission)
@@ -817,7 +1044,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       addCollaborator: verb(true, async (repo, actor, role, options) => {
         await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
           method: 'PUT',
-          json: { permission: role === 'admin' ? 'admin' : role === 'read' || role === 'triage' ? 'read' : 'write' },
+          json: {
+            permission: role === 'admin'
+              ? 'admin'
+              : role === 'read' || role === 'triage'
+                ? 'read'
+                : 'write',
+          },
           signal: options?.signal,
         })
         return { status: 'added' }
@@ -851,9 +1084,14 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       markDone: verb('emulated', (ref, writeOptions) => setStatus(ref, 'read', writeOptions)),
       unsubscribe: verb(true, unsubscribe),
       markAllRead: verb(true, async (bulk: BulkNotificationOptions = {}) => {
-        await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications', {
+        await fetcher.raw(bulk.repo
+          ? `${repoPath(bulk.repo)}/notifications`
+          : '/notifications', {
           method: 'PUT',
-          query: { 'last_read_at': bulk.before?.toISOString(), 'to-status': 'read' },
+          query: {
+            'last_read_at': bulk.before?.toISOString(),
+            'to-status': 'read',
+          },
           signal: bulk.signal,
         })
       }),
@@ -863,12 +1101,19 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       list: verb(true, async (repo, sha, options) => ({ items: await statusChecks(repo, sha, options?.signal) })),
       report: verb(true, async (repo, sha, input, options) => toStatusCheck(repo, (await fetcher.json<ForgejoCommitStatus>(`${repoPath(repo)}/statuses/${sha}`, {
         method: 'POST',
-        json: { state: STATUS_STATES[input.state], context: input.name, description: input.description, target_url: input.url },
+        json: {
+          state: STATUS_STATES[input.state],
+          context: input.name,
+          description: input.description,
+          target_url: input.url,
+        },
         signal: options?.signal,
       })).data)),
     },
     ci: {
-      runsPage: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), runsPage),
+      runsPage: verb(giteaAnonymous
+        ? false
+        : actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), runsPage),
       getRun: verb(actions(FORGEJO_ACTION_RUNS, GITEA_ACTION_RUNS), async (ref, options) => {
         const path = `${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}`
         return isGitea
@@ -876,15 +1121,25 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           : toActionRun(ref.repo, (await fetcher.json<ForgejoActionRun>(path, { signal: options?.signal })).data)
       }),
       jobsPage: verb(actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS), jobsPage),
-      getJob: verb(isGitea && (anonymous ? 'unverified' : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
+      getJob: verb(isGitea && (anonymous
+        ? 'unverified'
+        : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_RUNS)), async (ref, options) => {
         const { data } = await fetcher.json<GiteaActionJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-        const run = ref.run ?? (data.run_id === undefined ? undefined : { ...origin, repo: ref.repo, id: String(data.run_id) })
+        const run = ref.run ?? (data.run_id === undefined
+          ? undefined
+          : {
+              ...origin,
+              repo: ref.repo,
+              id: String(data.run_id),
+            })
         if (!run) {
           throw new UnsupportedOperationError(`Gitea returned job ${ref.id} without its run, and the ref names no run`, context)
         }
         return toGiteaActionJob(run, data)
       }),
-      log: verb(giteaAnonymous ? false : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
+      log: verb(giteaAnonymous
+        ? false
+        : actions(FORGEJO_ACTION_JOBS, GITEA_ACTION_LOGS), async (ref, options) => (await fetcher.stream(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}/logs`, { signal: options?.signal })).body),
       rerunFailed: verb(isGitea && released(GITEA_RERUN_FAILED), async (ref, options) => {
         await fetcher.raw(`${repoPath(ref.repo)}/actions/runs/${encodeURIComponent(ref.id)}/rerun-failed-jobs`, { method: 'POST', signal: options?.signal })
       }),
@@ -894,20 +1149,28 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       treePage: verb(true, async (repo, treeOptions = {}) => {
         const ref = treeOptions.ref ?? 'HEAD'
         const { data, response } = await fetcher.json<ForgejoTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(ref)}`, {
-          query: { recursive: treeOptions.recursive ? 'true' : undefined, per_page: treeOptions.perPage },
+          query: {
+            recursive: treeOptions.recursive ? 'true' : undefined,
+            per_page: treeOptions.perPage,
+          },
           signal: treeOptions.signal,
         })
         const prefix = treeOptions.path?.replace(/^\/|\/$/g, '')
         const entries = (data.tree ?? []).filter(entry => !prefix || entry.path.startsWith(`${prefix}/`))
         const warnings = data.truncated
-          ? [{ code: 'tree_truncated' as const, message: `${profile.forge} truncated the tree; read it directory by directory instead`, subject: ref }]
+          ? [
+              { code: 'tree_truncated' as const, message: `${profile.forge} truncated the tree; read it directory by directory instead`, subject: ref },
+            ]
           : []
         return toPage({ data: entries, response, notModified: false }, toTreeEntry, warnings)
       }),
       branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/branches`, listOptions, toBranch)),
       tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/tags`, listOptions, toTag)),
       resolveRef: verb(true, async (repo, ref, options) => {
-        const { data } = await fetcher.json<ForgejoCommit[]>(`${repoPath(repo)}/commits`, { query: { sha: ref, limit: 1, stat: 'false' }, signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoCommit[]>(`${repoPath(repo)}/commits`, {
+          query: { sha: ref, limit: 1, stat: 'false' },
+          signal: options?.signal,
+        })
         const sha = data[0]?.sha
         if (!sha) {
           throw new NotFoundError(`${profile.forge} has no commit for ${ref}`, 404, '', context)
@@ -916,7 +1179,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       compare: verb(true, async (repo, base, head, options) => {
         const { data } = await fetcher.json<ForgejoCompare>(`${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`, {
-          query: { files: options?.files === false ? false : undefined },
+          query: {
+            files: options?.files === false
+              ? false
+              : undefined,
+          },
           signal: options?.signal,
         })
         return {
@@ -931,8 +1198,18 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       commitFiles: verb(true, commitFiles),
     },
     commits: {
-      listPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, since: query.since?.toISOString(), until: query.until?.toISOString() } })),
-      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, { query: { stat: 'true', files: 'true' }, signal: options?.signal })).data)),
+      listPage: verb(true, (repo, query = {}) => list(`${repoPath(repo)}/commits`, query, (raw: ForgejoCommit) => toCommit(repo, raw), {
+        query: {
+          sha: query.ref,
+          path: query.path,
+          since: query.since?.toISOString(),
+          until: query.until?.toISOString(),
+        },
+      })),
+      get: verb(true, async ({ repo, sha }, options) => toCommit(repo, (await fetcher.json<ForgejoCommit>(`${repoPath(repo)}/git/commits/${sha}`, {
+        query: { stat: 'true', files: 'true' },
+        signal: options?.signal,
+      })).data)),
     },
     releases: {
       listPage: verb(true, releasesPage),
@@ -960,7 +1237,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       checks: perKind({ pull_request: true }, async (thread, options) => {
         const ref = requireThread(thread, context)
         const { data } = await fetcher.json<ForgejoIssue>(threadPath(ref), { signal: options?.signal })
-        return { items: data.head?.sha ? await statusChecks(ref.repo, data.head.sha, options?.signal) : [] }
+        return {
+          items: data.head?.sha
+            ? await statusChecks(ref.repo, data.head.sha, options?.signal)
+            : [],
+        }
       }),
       reviewsPage: verb(true, async (thread, listOptions: PageOptions = {}) => {
         const ref = requirePull(thread, 'reviewed')
@@ -976,15 +1257,24 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
             : (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(raw.id)}/comments`, { signal: listOptions.signal })).data ?? []
           return toReview(ref, raw, comments.map(comment => toReviewComment(ref, comment)))
         }))
-        return { items: reviews, cursor: result.cursor, ...rateLimitPart(result.response) }
+        return {
+          items: reviews,
+          cursor: result.cursor,
+          ...rateLimitPart(result.response),
+        }
       }),
       /** A conversation takes replies from several reviews, so every review is read and the conversations come in one page. */
       reviewThreadsPage: verb('emulated', async (thread, listOptions: PageOptions = {}) => {
         const ref = requirePull(thread, 'read for review threads')
-        const reviews = await Array.fromAsync(fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, { query: { limit: 50 }, signal: listOptions.signal }))
+        const reviews = await Array.fromAsync(fetcher.items<ForgejoReview>(`${pullPath(ref)}/reviews`, {
+          query: { limit: 50 },
+          signal: listOptions.signal,
+        }))
         const comments = await mapConcurrent(reviews.filter(review => review.comments_count !== 0), 4, async review =>
           (await fetcher.json<ForgejoReviewComment[]>(`${pullPath(ref)}/reviews/${encodeURIComponent(review.id)}/comments`, { signal: listOptions.signal })).data ?? [])
-        return { items: toReviewThreads(ref, comments.flat()) }
+        return {
+          items: toReviewThreads(ref, comments.flat()),
+        }
       }),
       getReview: verb(true, async (ref, options) => {
         const pull = requirePull(ref.thread, 'reviewed')
@@ -1006,7 +1296,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toReview(pull, data, [])
       }),
-      replyToReviewComment: verb(isGitea ? released(GITEA_REVIEW_REPLIES) : 'not_applicable', async (thread, comment, body, options) => {
+      replyToReviewComment: verb(isGitea
+        ? released(GITEA_REVIEW_REPLIES)
+        : 'not_applicable', async (thread, comment, body, options) => {
         const pull = requirePull(thread, 'reviewed')
         if (comment.ref === undefined) {
           throw new UnsupportedOperationError(`${profile.forge} replies to a review comment by its id; pass the comment with its \`ref\``, context)
@@ -1027,7 +1319,11 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       commentsPage: perKind(ISSUE_AND_PULL, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> => {
         const ref = requireIssueOrPull(thread, context, 'list comments on')
-        return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
+        return list(`${issuePath(ref)}/comments`, listOptions, (raw: ForgejoComment) => toComment(ref, raw), {
+          query: {
+            since: listOptions.since?.toISOString(),
+          },
+        })
       }),
       getComment: perKind(ISSUE_AND_PULL, async (ref, options) => {
         const thread = requireThread(ref.thread, context)
@@ -1039,37 +1335,71 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
-        const { data } = await fetcher.json<ForgejoComment>(`${issuePath(ref)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoComment>(`${issuePath(ref)}/comments`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
         return toComment(ref, data)
       }),
       updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, options) => {
         const thread = requireThread(ref.thread, context)
-        const { data } = await fetcher.json<ForgejoComment>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'PATCH', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoComment>(`${repoPath(thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, {
+          method: 'PATCH',
+          json: { body },
+          signal: options?.signal,
+        })
         return toComment(thread, data)
       }),
       deleteComment: perKind({ issue: true, pull_request: true }, async (ref, options) => {
         await fetcher.raw(`${repoPath(ref.thread.repo)}/issues/comments/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
       create: perKind({ issue: true, pull_request: true }, async (repo, input, options) => {
-        const labels = input.labels?.length ? await resolveLabels(repo, input.labels) : undefined
+        const labels = input.labels?.length
+          ? await resolveLabels(repo, input.labels)
+          : undefined
         const assignees = input.assignees?.map(actorLogin)
         if (input.kind === 'issue') {
           const { data } = await fetcher.json<ForgejoIssue>(`${repoPath(repo)}/issues`, {
             method: 'POST',
-            json: { title: input.title, body: input.body, labels, assignees },
+            json: {
+              title: input.title,
+              body: input.body,
+              labels,
+              assignees,
+            },
             signal: options?.signal,
           })
-          return toThread({ ...origin, repo, kind: 'issue', number: String(data.number) }, data)
+          return toThread({
+            ...origin,
+            repo,
+            kind: 'issue',
+            number: String(data.number),
+          }, data)
         }
         if (!input.head || !input.base) {
           throw new UnsupportedOperationError('Creating a pull request needs head and base branches', context)
         }
         const { data } = await fetcher.json<ForgejoIssue>(`${repoPath(repo)}/pulls`, {
           method: 'POST',
-          json: { title: input.draft ? `WIP: ${input.title}` : input.title, body: input.body, head: input.head, base: input.base, labels, assignees },
+          json: {
+            title: input.draft
+              ? `WIP: ${input.title}`
+              : input.title,
+            body: input.body,
+            head: input.head,
+            base: input.base,
+            labels,
+            assignees,
+          },
           signal: options?.signal,
         })
-        return toThread({ ...origin, repo, kind: 'pull_request', number: String(data.number) }, data)
+        return toThread({
+          ...origin,
+          repo,
+          kind: 'pull_request',
+          number: String(data.number),
+        }, data)
       }),
       /** An issue edit takes no labels, so an issue's labels are set first and the edit response includes them. */
       update: perKind({ issue: true, pull_request: true }, async (thread, input, options) => {
@@ -1077,15 +1407,31 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const labels = input.labels && await resolveLabels(ref.repo, input.labels)
         const pull = ref.kind === 'pull_request'
         if (labels && !pull) {
-          await fetcher.raw(`${issuePath(ref)}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })
+          await fetcher.raw(`${issuePath(ref)}/labels`, {
+            method: 'PUT',
+            json: { labels },
+            signal: options?.signal,
+          })
         }
-        const json = { title: input.title, body: input.body, state: input.state, assignees: input.assignees?.map(actorLogin), labels: pull ? labels : undefined }
-        const { data } = await fetcher.json<ForgejoIssue>(pull ? threadPath(ref) : issuePath(ref), { method: 'PATCH', json, signal: options?.signal })
+        const json = {
+          title: input.title,
+          body: input.body,
+          state: input.state,
+          assignees: input.assignees?.map(actorLogin),
+          labels: pull ? labels : undefined,
+        }
+        const { data } = await fetcher.json<ForgejoIssue>(pull
+          ? threadPath(ref)
+          : issuePath(ref), { method: 'PATCH', json, signal: options?.signal })
         return toThread(ref, data)
       }),
       addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, { method: 'POST', json: { labels: await resolveLabels(ref.repo, labels) }, signal: options?.signal })).data.map(toLabel)
+        return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, {
+          method: 'POST',
+          json: { labels: await resolveLabels(ref.repo, labels) },
+          signal: options?.signal,
+        })).data.map(toLabel)
       }),
       /** The delete response has no body, so the labels are read afterwards. */
       removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
@@ -1097,7 +1443,15 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => {
         const ref = requireIssueOrPull(thread, context, 'set the milestone of')
-        const { data } = await fetcher.json<ForgejoIssue>(issuePath(ref), { method: 'PATCH', json: { milestone: milestone === undefined ? 0 : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context, options) }, signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoIssue>(issuePath(ref), {
+          method: 'PATCH',
+          json: {
+            milestone: milestone === undefined
+              ? 0
+              : await milestoneId(milestone, page => milestonesPage(ref.repo, page), context, options),
+          },
+          signal: options?.signal,
+        })
         return toMilestone(data.milestone)
       }),
       reactionsPage: perKind(ISSUE_AND_PULL, async (target, listOptions = {}) => {
@@ -1108,7 +1462,13 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         })
         return toPage(result, (raw) => {
           const reactor = toActor(context, raw.user)
-          return reactor && { content: reactionContent(raw.content), contentRaw: raw.content, actor: reactor, createdAt: toDate(raw.created_at), raw }
+          return reactor && {
+            content: reactionContent(raw.content),
+            contentRaw: raw.content,
+            actor: reactor,
+            createdAt: toDate(raw.created_at),
+            raw,
+          }
         })
       }),
       reactions: perKind({ issue: true, pull_request: true }, {
@@ -1117,21 +1477,40 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
       }),
       setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, { method: 'PUT', json: { labels: await resolveLabels(ref.repo, labels) }, signal: options?.signal })).data.map(toLabel)
+        return (await fetcher.json<ForgejoLabel[]>(`${issuePath(ref)}/labels`, {
+          method: 'PUT',
+          json: { labels: await resolveLabels(ref.repo, labels) },
+          signal: options?.signal,
+        })).data.map(toLabel)
       }),
       setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees, options) => {
         const ref = requireIssueOrPull(thread, context, 'assign')
-        const { data } = await fetcher.json<ForgejoIssue>(issuePath(ref), { method: 'PATCH', json: { assignees: assignees.map(actorLogin) }, signal: options?.signal })
+        const { data } = await fetcher.json<ForgejoIssue>(issuePath(ref), {
+          method: 'PATCH',
+          json: {
+            assignees: assignees.map(actorLogin),
+          },
+          signal: options?.signal,
+        })
         return (data.assignees ?? []).flatMap(user => toActor(context, user) ?? [])
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
-        await fetcher.raw(`${threadPath(requireThread(thread, context))}/requested_reviewers`, { method: 'POST', json: { reviewers: reviewers.map(actorLogin) }, signal: options?.signal })
+        await fetcher.raw(`${threadPath(requireThread(thread, context))}/requested_reviewers`, {
+          method: 'POST',
+          json: {
+            reviewers: reviewers.map(actorLogin),
+          },
+          signal: options?.signal,
+        })
       }),
       close: perKind({ issue: true, pull_request: true }, (ref, options) => setState(ref, 'closed', options)),
       reopen: perKind({ issue: true, pull_request: true }, (ref, options) => setState(ref, 'open', options)),
       ...isGitea
         ? {
-            locking: perKind({ issue: released(GITEA_LOCKS), pull_request: released(GITEA_LOCKS) }, {
+            locking: perKind({
+              issue: released(GITEA_LOCKS),
+              pull_request: released(GITEA_LOCKS),
+            }, {
               lock: (thread: ThreadRef, options?: LockOptions) => setLocked(thread, true, options),
               unlock: (thread: ThreadRef, options?: BaseOptions) => setLocked(thread, false, options),
             }),
@@ -1143,7 +1522,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         async subscription(thread, options): Promise<SubscriptionState> {
           const ref = requireIssueOrPull(thread, context, 'read the subscription of')
           const { data } = await fetcher.json<{ subscribed: boolean, ignored: boolean }>(`${issuePath(ref)}/subscriptions/check`, { signal: options?.signal })
-          return data.ignored ? 'ignored' : data.subscribed ? 'subscribed' : 'none'
+          return data.ignored
+            ? 'ignored'
+            : data.subscribed ? 'subscribed' : 'none'
         },
         async subscribe(thread, options) {
           const ref = requireIssueOrPull(thread, context, 'subscribe to')
@@ -1164,17 +1545,39 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
           type: 'gitea',
           active: input.active ?? true,
           events: nativeEventsFor(FORGEJO_NATIVE_EVENTS, input.events, input.nativeEvents),
-          config: { url: input.url, content_type: input.contentType ?? 'json', ...input.secret ? { secret: input.secret } : {} },
+          config: {
+            url: input.url,
+            content_type: input.contentType ?? 'json',
+            ...input.secret
+              ? { secret: input.secret }
+              : {},
+          },
         },
         signal: options?.signal,
       })).data)),
       update: verb(true, async (ref, update, options) => toWebhook(ref.target, (await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
         method: 'PATCH',
         json: {
-          ...update.active === undefined ? {} : { active: update.active },
-          ...update.events || update.nativeEvents ? { events: nativeEventsFor(FORGEJO_NATIVE_EVENTS, update.events, update.nativeEvents) } : {},
+          ...update.active === undefined
+            ? {}
+            : { active: update.active },
+          ...update.events || update.nativeEvents
+            ? {
+                events: nativeEventsFor(FORGEJO_NATIVE_EVENTS, update.events, update.nativeEvents),
+              }
+            : {},
           ...update.url || update.secret || update.contentType
-            ? { config: { ...update.url ? { url: update.url } : {}, content_type: update.contentType ?? 'json', ...update.secret ? { secret: update.secret } : {} } }
+            ? {
+                config: {
+                  ...update.url
+                    ? { url: update.url }
+                    : {},
+                  content_type: update.contentType ?? 'json',
+                  ...update.secret
+                    ? { secret: update.secret }
+                    : {},
+                },
+              }
             : {},
         },
         signal: options?.signal,
@@ -1186,7 +1589,9 @@ function setupForgejo({ options, origin, fetcher: baseFetcher, baseUrl }: Provid
         const current = toWebhook(ref.target, (await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
         const { data } = await fetcher.json<ForgejoHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'PATCH',
-          json: { config: { url: current.url, content_type: current.contentType ?? 'json', secret } },
+          json: {
+            config: { url: current.url, content_type: current.contentType ?? 'json', secret },
+          },
           signal: options?.signal,
         })
         return toWebhook(ref.target, data)
@@ -1204,19 +1609,42 @@ function forgejoScopesFor(verb: ForgeVerb): VerbScopes {
   const [group = '', name = ''] = verb.split('.')
   const write = WRITE_VERBS.has(verb)
   if (group === 'webhooks') {
-    return name === 'verify' || name === 'ingest' ? {} : { token: ['write:repository', 'write:organization'] }
+    return name === 'verify' || name === 'ingest'
+      ? {}
+      : {
+          token: ['write:repository', 'write:organization'],
+        }
   }
   if (group === 'notifications') {
-    return { token: [name === 'list' || name === 'page' || name === 'unreadCount' ? 'read:notification' : 'write:notification'] }
+    return {
+      token: [
+        name === 'list' || name === 'page' || name === 'unreadCount'
+          ? 'read:notification'
+          : 'write:notification',
+      ],
+    }
   }
   if (group === 'users' || group === 'search') {
-    return { token: [write ? 'write:user' : 'read:user'] }
+    return {
+      token: [
+        write ? 'write:user' : 'read:user',
+      ],
+    }
   }
   if (group === 'orgs') {
-    return { token: [write ? 'write:organization' : 'read:organization'] }
+    return {
+      token: [
+        write ? 'write:organization' : 'read:organization',
+      ],
+    }
   }
   if (group === 'threads' || group === 'repos' || group === 'contents' || group === 'releases' || group === 'checks' || group === 'ci') {
-    return { token: [write ? 'write:issue' : 'read:issue', write ? 'write:repository' : 'read:repository'] }
+    return {
+      token: [
+        write ? 'write:issue' : 'read:issue',
+        write ? 'write:repository' : 'read:repository',
+      ],
+    }
   }
   return {}
 }

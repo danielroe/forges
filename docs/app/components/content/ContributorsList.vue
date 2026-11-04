@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const repository = 'danielroe/forges'
-const { data: contributors } = await useFetch('/api/contributors', { default: () => [] })
+const { data: contributors } = await useFetch('/api/contributors', {
+  default: () => [],
+})
 </script>
 
 <template>

@@ -13,7 +13,10 @@ export default defineNuxtModule({
     let highlighter: ReturnType<typeof createHighlighter> | undefined
 
     async function data(name: string) {
-      highlighter ??= createHighlighter({ themes: Object.values(codeThemes), langs: Object.values(LANGUAGES) })
+      highlighter ??= createHighlighter({
+        themes: Object.values(codeThemes),
+        langs: Object.values(LANGUAGES),
+      })
       const shiki = await highlighter
       const { url, files, entry } = exampleSource(name)
       return {

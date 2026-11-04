@@ -1,11 +1,15 @@
 const encoder = new TextEncoder()
 
 function toBytes(value: string | Uint8Array): Uint8Array {
-  return typeof value === 'string' ? encoder.encode(value) : value
+  return typeof value === 'string'
+    ? encoder.encode(value)
+    : value
 }
 
 function toHex(buffer: ArrayBuffer): string {
-  return [...new Uint8Array(buffer)].map(byte => byte.toString(16).padStart(2, '0')).join('')
+  return [
+    ...new Uint8Array(buffer),
+  ].map(byte => byte.toString(16).padStart(2, '0')).join('')
 }
 
 /** Base64 for arbitrary bytes, a byte at a time so a large buffer cannot overflow the call stack. */
@@ -18,7 +22,9 @@ export function toBase64(bytes: Uint8Array): string {
 }
 
 function toBase64Url(input: string | Uint8Array): string {
-  const base64 = typeof input === 'string' ? btoa(input) : toBase64(input)
+  const base64 = typeof input === 'string'
+    ? btoa(input)
+    : toBase64(input)
   return base64.replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '')
 }
 
@@ -73,10 +79,40 @@ function derLength(length: number): number[] {
  * distributed as PKCS#1, which Web Crypto cannot import directly.
  */
 function pkcs1ToPkcs8(der: Uint8Array): Uint8Array {
-  const algorithm = [0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00]
-  const octetString = [0x04, ...derLength(der.length), ...der]
-  const contents = [0x02, 0x01, 0x00, ...algorithm, ...octetString]
-  return new Uint8Array([0x30, ...derLength(contents.length), ...contents])
+  const algorithm = [
+    0x30,
+    0x0D,
+    0x06,
+    0x09,
+    0x2A,
+    0x86,
+    0x48,
+    0x86,
+    0xF7,
+    0x0D,
+    0x01,
+    0x01,
+    0x01,
+    0x05,
+    0x00,
+  ]
+  const octetString = [
+    0x04,
+    ...derLength(der.length),
+    ...der,
+  ]
+  const contents = [
+    0x02,
+    0x01,
+    0x00,
+    ...algorithm,
+    ...octetString,
+  ]
+  return new Uint8Array([
+    0x30,
+    ...derLength(contents.length),
+    ...contents,
+  ])
 }
 
 /** The claims of a signed JWT. Other claims are passed through. */
@@ -95,7 +131,9 @@ export async function signRs256Jwt(privateKeyPem: string, claims: JwtClaims): Pr
   const { der, pkcs1 } = decodePem(privateKeyPem)
   const key = await crypto.subtle.importKey(
     'pkcs8',
-    (pkcs1 ? pkcs1ToPkcs8(der) : der) as BufferSource,
+    (pkcs1
+      ? pkcs1ToPkcs8(der)
+      : der) as BufferSource,
     { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
     false,
     ['sign'],
@@ -121,7 +159,9 @@ export function headerValue(headers: Headers | Record<string, string>, name: str
 
 /** A request body as text. */
 export function bodyText(body: string | Uint8Array): string {
-  return typeof body === 'string' ? body : new TextDecoder().decode(body)
+  return typeof body === 'string'
+    ? body
+    : new TextDecoder().decode(body)
 }
 
 /** Lowercase hex SHA-256 of `body`. */
@@ -132,7 +172,13 @@ export async function sha256Hex(body: string | Uint8Array): Promise<string> {
 /** Signs an EdDSA (Ed25519) JWT with a PKCS#8 PEM private key. `kid` goes in the JOSE header. */
 export async function signEdDsaJwt(privateKeyPem: string, claims: JwtClaims, kid?: string): Promise<string> {
   const key = await crypto.subtle.importKey('pkcs8', decodePem(privateKeyPem).der as BufferSource, { name: 'Ed25519' }, false, ['sign'])
-  const payload = `${toBase64Url(JSON.stringify({ alg: 'EdDSA', typ: 'JWT', ...kid ? { kid } : {} }))}.${toBase64Url(JSON.stringify(claims))}`
+  const payload = `${toBase64Url(JSON.stringify({
+    alg: 'EdDSA',
+    typ: 'JWT',
+    ...kid
+      ? { kid }
+      : {},
+  }))}.${toBase64Url(JSON.stringify(claims))}`
   const signature = await crypto.subtle.sign('Ed25519', key, encoder.encode(payload) as BufferSource)
   return `${payload}.${toBase64Url(new Uint8Array(signature))}`
 }

@@ -85,12 +85,22 @@ export interface CreateCommitOnBranchResult {
 }
 
 function toCommitSignature(origin: ForgeOrigin, raw: GraphQLGitActor | null | undefined): CommitSignature {
-  return { actor: toGraphQLActor(origin, raw?.user), name: raw?.name ?? undefined, email: raw?.email ?? undefined, date: toDate(raw?.date) }
+  return {
+    actor: toGraphQLActor(origin, raw?.user),
+    name: raw?.name ?? undefined,
+    email: raw?.email ?? undefined,
+    date: toDate(raw?.date),
+  }
 }
 
 export function toGraphQLCommit(repo: RepoRef, raw: CreateCommitOnBranchResult['createCommitOnBranch']['commit']): Commit {
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.oid },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      sha: raw.oid,
+    },
     sha: raw.oid,
     message: raw.message,
     author: toCommitSignature(repo, raw.author),
@@ -212,7 +222,9 @@ export function toGraphQLMilestone(raw: GraphQLMilestone | null | undefined): Mi
     ? {
         id: String(raw.number),
         title: raw.title,
-        state: raw.state === 'CLOSED' ? 'closed' : 'open',
+        state: raw.state === 'CLOSED'
+          ? 'closed'
+          : 'open',
         description: raw.description ?? undefined,
         dueOn: toDate(raw.dueOn),
         url: raw.url,
@@ -225,12 +237,25 @@ export interface GraphQLIssueType { id: string, name: string, description?: stri
 
 function toGraphQLIssueType(raw: GraphQLIssueType | null | undefined): IssueType | undefined {
   return raw
-    ? { id: raw.id, name: raw.name, description: raw.description || undefined, colour: raw.color?.toLowerCase(), enabled: raw.isEnabled, raw }
+    ? {
+        id: raw.id,
+        name: raw.name,
+        description: raw.description || undefined,
+        colour: raw.color?.toLowerCase(),
+        enabled: raw.isEnabled,
+        raw,
+      }
     : undefined
 }
 
 export function toViewerSubscription(value: string | null | undefined): SubscriptionState | undefined {
-  return value === 'SUBSCRIBED' ? 'subscribed' : value === 'IGNORED' ? 'ignored' : value === 'UNSUBSCRIBED' ? 'none' : undefined
+  return value === 'SUBSCRIBED'
+    ? 'subscribed'
+    : value === 'IGNORED'
+      ? 'ignored'
+      : value === 'UNSUBSCRIBED'
+        ? 'none'
+        : undefined
 }
 
 export interface GraphQLIssueOrPull {
@@ -281,14 +306,34 @@ export interface GraphQLStatusRollup {
   }
 }
 
-const FAILED_RUNS = new Set(['FAILURE', 'TIMED_OUT', 'CANCELLED', 'ACTION_REQUIRED', 'STARTUP_FAILURE'])
+const FAILED_RUNS = new Set([
+  'FAILURE',
+  'TIMED_OUT',
+  'CANCELLED',
+  'ACTION_REQUIRED',
+  'STARTUP_FAILURE',
+])
 const FAILED_STATUSES = new Set(['FAILURE', 'ERROR'])
 
 function toRollupSummary(rollup: GraphQLStatusRollup, url?: string): ChecksSummary {
   const failed = (rollup.contexts.checkRunCountsByState ?? []).filter(({ state }) => FAILED_RUNS.has(state)).reduce((sum, { count }) => sum + count, 0)
     + (rollup.contexts.statusContextCountsByState ?? []).filter(({ state }) => FAILED_STATUSES.has(state)).reduce((sum, { count }) => sum + count, 0)
-  const state = rollup.state === 'SUCCESS' ? 'success' : rollup.state === 'FAILURE' || rollup.state === 'ERROR' ? 'failure' : rollup.state === 'PENDING' || rollup.state === 'EXPECTED' ? 'pending' : 'unknown'
-  return { state, stateRaw: rollup.state.toLowerCase(), total: rollup.contexts.totalCount, failed, ...url ? { url: `${url}/checks` } : {} }
+  const state = rollup.state === 'SUCCESS'
+    ? 'success'
+    : rollup.state === 'FAILURE' || rollup.state === 'ERROR'
+      ? 'failure'
+      : rollup.state === 'PENDING' || rollup.state === 'EXPECTED'
+        ? 'pending'
+        : 'unknown'
+  return {
+    state,
+    stateRaw: rollup.state.toLowerCase(),
+    total: rollup.contexts.totalCount,
+    failed,
+    ...url
+      ? { url: `${url}/checks` }
+      : {},
+  }
 }
 
 export type ThreadsBatchResult = Record<string, {
@@ -299,7 +344,13 @@ export type ThreadsBatchResult = Record<string, {
 export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull): Thread {
   const isPull = raw.__typename === 'PullRequest'
   const kind = isPull ? 'pull_request' : 'issue'
-  const state = raw.state === 'MERGED' ? 'merged' : raw.state === 'OPEN' ? 'open' : raw.state === 'CLOSED' ? 'closed' : 'unknown'
+  const state = raw.state === 'MERGED'
+    ? 'merged'
+    : raw.state === 'OPEN'
+      ? 'open'
+      : raw.state === 'CLOSED'
+        ? 'closed'
+        : 'unknown'
   const requestedAt = new Map<string, string>()
   for (const { createdAt, requestedReviewer } of raw.timelineItems?.nodes ?? []) {
     const name = requestedReviewer?.slug ?? requestedReviewer?.login
@@ -313,10 +364,33 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     }
     const isTeam = reviewer.__typename === 'Team'
     const actor = isTeam
-      ? { forge: ref.forge, instance: ref.instance, login: reviewer.slug ?? '', id: String(reviewer.databaseId ?? reviewer.slug), name: reviewer.name, url: reviewer.url, typeRaw: 'Team', isBotHint: false }
+      ? {
+          forge: ref.forge,
+          instance: ref.instance,
+          login: reviewer.slug ?? '',
+          id: String(reviewer.databaseId ?? reviewer.slug),
+          name: reviewer.name,
+          url: reviewer.url,
+          typeRaw: 'Team',
+          isBotHint: false,
+        }
       : toGraphQLActor(ref, reviewer)!
     const at = requestedAt.get(`${reviewer.__typename}:${isTeam ? reviewer.slug : reviewer.login}`)
-    return [{ actor, state: 'pending' as const, stateRaw: 'requested', ...isTeam ? { isTeam: true } : {}, ...at ? { requestedAt: new Date(at) } : {} }]
+    return [
+      {
+        actor,
+        state: 'pending' as const,
+        stateRaw: 'requested',
+        ...isTeam
+          ? { isTeam: true }
+          : {},
+        ...at
+          ? {
+              requestedAt: new Date(at),
+            }
+          : {},
+      },
+    ]
   })
   return {
     ref: { ...ref, kind, externalId: raw.id },
@@ -345,21 +419,38 @@ export function toGraphQLThread(ref: ResolvedThreadRef, raw: GraphQLIssueOrPull)
     lastActivityAt: toDate(raw.updatedAt),
     locked: raw.locked,
     commentCount: raw.comments?.totalCount,
-    ...isPull && raw.commits?.nodes[0]?.commit.statusCheckRollup ? { checks: toRollupSummary(raw.commits.nodes[0].commit.statusCheckRollup, raw.url) } : {},
+    ...isPull && raw.commits?.nodes[0]?.commit.statusCheckRollup
+      ? {
+          checks: toRollupSummary(raw.commits.nodes[0].commit.statusCheckRollup, raw.url),
+        }
+      : {},
     branches: isPull && raw.headRefName && raw.baseRefName
       ? {
           head: {
             ref: raw.headRefName,
             sha: raw.headRefOid,
             repo: raw.headRepository
-              ? { forge: ref.forge, instance: ref.instance, owner: raw.headRepository.owner.login, name: raw.headRepository.name, externalId: raw.headRepository.databaseId === undefined ? undefined : String(raw.headRepository.databaseId) }
+              ? {
+                  forge: ref.forge,
+                  instance: ref.instance,
+                  owner: raw.headRepository.owner.login,
+                  name: raw.headRepository.name,
+                  externalId: raw.headRepository.databaseId === undefined
+                    ? undefined
+                    : String(raw.headRepository.databaseId),
+                }
               : undefined,
           },
           base: { ref: raw.baseRefName, sha: raw.baseRefOid },
           mergeCommitSha: raw.mergeCommit?.oid,
         }
       : undefined,
-    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changedFiles, commitCount: raw.commits?.totalCount }),
+    stats: toPullStats({
+      additions: raw.additions,
+      deletions: raw.deletions,
+      changedFileCount: raw.changedFiles,
+      commitCount: raw.commits?.totalCount,
+    }),
     raw,
   }
 }
@@ -462,18 +553,26 @@ export function toGraphQLActor(origin: ForgeOrigin, actor: GraphQLActor | null |
     return undefined
   }
   const isBot = actor.__typename === 'Bot'
-  const slug = isBot ? actor.login.replace(/\[bot\]$/, '') : undefined
+  const slug = isBot
+    ? actor.login.replace(/\[bot\]$/, '')
+    : undefined
   return {
     forge: origin.forge,
     instance: origin.instance,
-    login: slug ? `${slug}[bot]` : actor.login,
+    login: slug
+      ? `${slug}[bot]`
+      : actor.login,
     id: String(actor.databaseId ?? actor.login),
     name: actor.name,
     avatarUrl: actor.avatarUrl,
     url: actor.url,
     typeRaw: actor.__typename,
     isBotHint: isBot || actor.login.endsWith('[bot]'),
-    ...slug ? { app: { slug } } : {},
+    ...slug
+      ? {
+          app: { slug },
+        }
+      : {},
   }
 }
 
@@ -520,7 +619,16 @@ export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQ
     actor,
     repo: ref.repo,
     thread: ref,
-    detail: { type: 'comment', comment: { forge: ref.forge, instance: ref.instance, thread: ref, id: comment.id }, body: comment.body ?? undefined },
+    detail: {
+      type: 'comment',
+      comment: {
+        forge: ref.forge,
+        instance: ref.instance,
+        thread: ref,
+        id: comment.id,
+      },
+      body: comment.body ?? undefined,
+    },
     source: 'poll',
     payload: comment,
   }
@@ -528,7 +636,12 @@ export function toDiscussionCommentEvent(ref: ResolvedThreadRef, comment: GraphQ
 
 export function toDiscussionComment(thread: ResolvedThreadRef, raw: GraphQLComment): Comment {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: raw.id },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: raw.id,
+    },
     body: raw.body ?? '',
     author: toGraphQLActor(thread, raw.author),
     ...toAuthorAssociation(raw.authorAssociation),
@@ -675,7 +788,11 @@ export interface ReviewThreadPageResult {
 
 /** An outdated conversation can lose its `line` on the current diff, so it falls back to the line its comments were written on. */
 export function toReviewThread(ref: ResolvedThreadRef, raw: GraphQLReviewThread): ReviewThread {
-  const side = raw.diffSide === 'LEFT' ? 'left' : raw.diffSide === 'RIGHT' ? 'right' : undefined
+  const side = raw.diffSide === 'LEFT'
+    ? 'left'
+    : raw.diffSide === 'RIGHT'
+      ? 'right'
+      : undefined
   const thread = { id: raw.id, resolved: raw.isResolved }
   return {
     id: raw.id,
@@ -686,13 +803,24 @@ export function toReviewThread(ref: ResolvedThreadRef, raw: GraphQLReviewThread)
     startLine: raw.startLine ?? raw.originalStartLine ?? undefined,
     side,
     comments: raw.comments.nodes.map(comment => ({
-      ...comment.databaseId === null ? {} : { ref: { forge: ref.forge, instance: ref.instance, thread: ref, id: String(comment.databaseId) } },
+      ...comment.databaseId === null
+        ? {}
+        : {
+            ref: {
+              forge: ref.forge,
+              instance: ref.instance,
+              thread: ref,
+              id: String(comment.databaseId),
+            },
+          },
       body: comment.body ?? '',
       author: toGraphQLActor(ref, comment.author),
       path: comment.path ?? undefined,
       line: comment.line ?? comment.originalLine ?? undefined,
       side,
-      inReplyTo: typeof comment.replyTo?.databaseId === 'number' ? String(comment.replyTo.databaseId) : undefined,
+      inReplyTo: typeof comment.replyTo?.databaseId === 'number'
+        ? String(comment.replyTo.databaseId)
+        : undefined,
       thread,
       createdAt: toDate(comment.createdAt),
       url: comment.url,

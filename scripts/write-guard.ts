@@ -14,7 +14,9 @@ export interface GuardOptions {
 
 function parse(text: string | undefined): unknown {
   try {
-    return text === undefined ? undefined : JSON.parse(text)
+    return text === undefined
+      ? undefined
+      : JSON.parse(text)
   }
   catch {
     return undefined
@@ -22,7 +24,9 @@ function parse(text: string | undefined): unknown {
 }
 
 function within(url: string, prefixes: string[]): boolean {
-  return prefixes.some(prefix => url === prefix || url.startsWith(prefix.endsWith('/') ? prefix : `${prefix}/`) || url.startsWith(`${prefix}?`))
+  return prefixes.some(prefix => url === prefix || url.startsWith(prefix.endsWith('/')
+    ? prefix
+    : `${prefix}/`) || url.startsWith(`${prefix}?`))
 }
 
 /** Every string that is an id: under a key naming one (`id`, `labelIds`), or shaped like a GitHub node id. The zero oid names no object. */
@@ -31,12 +35,16 @@ function ids(value: unknown, key = ''): string[] {
     if (/^0{40}$/.test(value)) {
       return []
     }
-    return /ids?$/i.test(key) || /^[A-Z][A-Z_]{0,5}_[\w-]{8,}$/i.test(value) || /^MD[A-Z0-9+/]{8,}={0,2}$/i.test(value) ? [value] : []
+    return /ids?$/i.test(key) || /^[A-Z][A-Z_]{0,5}_[\w-]{8,}$/i.test(value) || /^MD[A-Z0-9+/]{8,}={0,2}$/i.test(value)
+      ? [value]
+      : []
   }
   if (Array.isArray(value)) {
     return value.flatMap(item => ids(item, key))
   }
-  return value && typeof value === 'object' ? Object.entries(value).flatMap(([name, item]) => ids(item, name)) : []
+  return value && typeof value === 'object'
+    ? Object.entries(value).flatMap(([name, item]) => ids(item, name))
+    : []
 }
 
 /** Every `owner/name` that `value` names under `repositoryNameWithOwner`, as `createCommitOnBranch` takes it. */
@@ -45,7 +53,9 @@ function namesWithOwner(value: unknown): string[] {
     return value.flatMap(namesWithOwner)
   }
   return value && typeof value === 'object'
-    ? Object.entries(value).flatMap(([key, item]) => key === 'repositoryNameWithOwner' && typeof item === 'string' ? [item] : namesWithOwner(item))
+    ? Object.entries(value).flatMap(([key, item]) => key === 'repositoryNameWithOwner' && typeof item === 'string'
+        ? [item]
+        : namesWithOwner(item))
     : []
 }
 
@@ -71,7 +81,9 @@ export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike
   const named = (variables: Record<string, unknown>) => options.repos.some(repo => variables.owner === repo.owner && variables.name === repo.name)
   return async (input, init) => {
     const method = (init?.method ?? 'GET').toUpperCase()
-    const body = parse(typeof init?.body === 'string' ? init.body : undefined)
+    const body = parse(typeof init?.body === 'string'
+      ? init.body
+      : undefined)
     const graphql = new URL(input).pathname.endsWith('/graphql')
     let trusted = within(input, options.scope)
     if (graphql) {
@@ -85,7 +97,9 @@ export function guardedFetch(fetch: FetchLike, options: GuardOptions): FetchLike
         throw new Error(`Refused the GraphQL request ${operationName ?? ''}: it names a repository other than the scratch repositories`)
       }
       // A query that names neither a repository nor an id is not tied to the scratch repository, so its ids stay untrusted.
-      trusted = known && (scoped(variables) ? named(variables) : namedIds.length > 0)
+      trusted = known && (scoped(variables)
+        ? named(variables)
+        : namedIds.length > 0)
     }
     else if (method !== 'GET' && method !== 'HEAD' && !trusted && !within(input, options.account ?? [])) {
       if (!options.allows?.(input, body)) {

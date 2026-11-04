@@ -22,30 +22,138 @@ type Create = (fetch: FetchLike, manifest: RecordingManifest, messages?: unknown
 
 const token = { type: 'token', token: 't' } as const
 const authFor = ({ anonymous }: RecordingManifest) => anonymous ? undefined : token
-const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048, privateKeyEncoding: { type: 'pkcs8', format: 'pem' }, publicKeyEncoding: { type: 'spki', format: 'pem' } })
-const githubAuthFor = (manifest: RecordingManifest) => manifest.installation ? { type: 'app', appId: 1, privateKey, installationId: manifest.installation } as const : authFor(manifest)
+const { privateKey } = generateKeyPairSync('rsa', {
+  modulusLength: 2048,
+  privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+  publicKeyEncoding: { type: 'spki', format: 'pem' },
+})
+function githubAuthFor(manifest: RecordingManifest) {
+  return manifest.installation
+    ? {
+        type: 'app',
+        appId: 1,
+        privateKey,
+        installationId: manifest.installation,
+      } as const
+    : authFor(manifest)
+}
 
 /** How replay creates each recorded provider from a manifest, with dummy credentials of the kind the recording used. */
 export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
-  { name: 'github', create: (fetch, manifest) => github({ auth: githubAuthFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'forgejo', create: (fetch, manifest) => forgejo({ auth: authFor(manifest), baseUrl: manifest.baseUrl, instanceVersion: manifest.instanceVersion, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'gitea', create: (fetch, manifest) => gitea({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'gitbucket', create: (fetch, manifest) => gitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl!, instance: manifest.instance, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'gitlab', create: (fetch, manifest) => gitlab({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'bitbucket', create: (fetch, manifest) => bitbucket({ auth: authFor(manifest), baseUrl: manifest.baseUrl, webhookSecret: manifest.webhookSecret, fetch }) },
-  { name: 'cloudflare-artifacts', create: (fetch, manifest) => cloudflareArtifacts({ auth: token, accountId: manifest.repo.instance.split('.')[0]!, baseUrl: manifest.baseUrl, fetch }) },
-  { name: 'pushin', create: (fetch, manifest) => pushin({ auth: authFor(manifest), baseUrl: manifest.baseUrl, fetch }) },
-  { name: 'sourcehut', create: (fetch, manifest) => sourcehut({ auth: authFor(manifest) ?? token, baseUrl: manifest.baseUrl, fetch }) },
-  { name: 'cursor-origin', create: (fetch, manifest) => cursorOrigin({ auth: token, baseUrl: manifest.baseUrl, fetch }) },
-  { name: 'entire', create: (fetch, manifest) => entire({ auth: token, baseUrl: manifest.baseUrl, fetch }) },
-  { name: 'gitee', create: (fetch, manifest) => gitee({ auth: authFor(manifest), fetch }) },
-  { name: 'azure-devops', create: (fetch, manifest) => azureDevOps({ auth: authFor(manifest), organization: manifest.repo.owner.split('/')[0]!, fetch }) },
+  {
+    name: 'github',
+    create: (fetch, manifest) => github({
+      auth: githubAuthFor(manifest),
+      baseUrl: manifest.baseUrl,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'forgejo',
+    create: (fetch, manifest) => forgejo({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      instanceVersion: manifest.instanceVersion,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'gitea',
+    create: (fetch, manifest) => gitea({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'gitbucket',
+    create: (fetch, manifest) => gitbucket({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl!,
+      instance: manifest.instance,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'gitlab',
+    create: (fetch, manifest) => gitlab({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'bitbucket',
+    create: (fetch, manifest) => bitbucket({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'cloudflare-artifacts',
+    create: (fetch, manifest) => cloudflareArtifacts({
+      auth: token,
+      accountId: manifest.repo.instance.split('.')[0]!,
+      baseUrl: manifest.baseUrl,
+      fetch,
+    }),
+  },
+  {
+    name: 'pushin',
+    create: (fetch, manifest) => pushin({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      fetch,
+    }),
+  },
+  {
+    name: 'sourcehut',
+    create: (fetch, manifest) => sourcehut({ auth: authFor(manifest) ?? token, baseUrl: manifest.baseUrl, fetch }),
+  },
+  {
+    name: 'cursor-origin',
+    create: (fetch, manifest) => cursorOrigin({ auth: token, baseUrl: manifest.baseUrl, fetch }),
+  },
+  {
+    name: 'entire',
+    create: (fetch, manifest) => entire({ auth: token, baseUrl: manifest.baseUrl, fetch }),
+  },
+  {
+    name: 'gitee',
+    create: (fetch, manifest) => gitee({
+      auth: authFor(manifest),
+      fetch,
+    }),
+  },
+  {
+    name: 'azure-devops',
+    create: (fetch, manifest) => azureDevOps({
+      auth: authFor(manifest),
+      organization: manifest.repo.owner.split('/')[0]!,
+      fetch,
+    }),
+  },
   {
     name: 'tangled',
     create: (fetch, manifest, messages = []) => tangled({
       fetch,
       recordsUrl: manifest.recordsUrl,
-      ...manifest.account && { auth: { type: 'app_password', identifier: manifest.account, password: 'p', pds: manifest.pds }, notificationsUrl: manifest.notificationsUrl },
+      ...manifest.account && {
+        auth: {
+          type: 'app_password',
+          identifier: manifest.account,
+          password: 'p',
+          pds: manifest.pds,
+        },
+        notificationsUrl: manifest.notificationsUrl,
+      },
       webSocket: url => new FakeWebSocket(url, messages),
     }),
   },
@@ -61,7 +169,9 @@ export function golden(value: unknown, now: number): string {
     }
     const original = (this as Record<string, unknown>)[key]
     if (original instanceof Date) {
-      return Math.abs(now - original.getTime()) < RECENT ? '<now>' : original.toISOString()
+      return Math.abs(now - original.getTime()) < RECENT
+        ? '<now>'
+        : original.toISOString()
     }
     return item
   }, 2)}\n`

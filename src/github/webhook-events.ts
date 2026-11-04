@@ -13,7 +13,12 @@ export const GITHUB_NATIVE_EVENTS: NativeEventMap = {
   ref: ['create', 'delete'],
   repo: ['repository', 'public'],
   installation: ['installation', 'installation_repositories'],
-  membership: ['member', 'membership', 'organization', 'team'],
+  membership: [
+    'member',
+    'membership',
+    'organization',
+    'team',
+  ],
   release: ['release'],
   star: ['star'],
   fork: ['fork'],

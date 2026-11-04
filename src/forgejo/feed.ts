@@ -17,20 +17,84 @@ interface FeedThreadOp {
 
 /** Activity types about an issue or a pull request, whose `content` starts with its number. */
 const FEED_THREAD_OPS: Record<string, FeedThreadOp> = {
-  create_issue: { thread: 'issue', kind: 'state_change', action: 'opened', state: 'open', titled: true },
-  close_issue: { thread: 'issue', kind: 'state_change', action: 'closed', state: 'closed' },
-  reopen_issue: { thread: 'issue', kind: 'state_change', action: 'reopened', state: 'open' },
+  create_issue: {
+    thread: 'issue',
+    kind: 'state_change',
+    action: 'opened',
+    state: 'open',
+    titled: true,
+  },
+  close_issue: {
+    thread: 'issue',
+    kind: 'state_change',
+    action: 'closed',
+    state: 'closed',
+  },
+  reopen_issue: {
+    thread: 'issue',
+    kind: 'state_change',
+    action: 'reopened',
+    state: 'open',
+  },
   comment_issue: { thread: 'issue', kind: 'comment', action: 'created' },
-  create_pull_request: { thread: 'pull_request', kind: 'state_change', action: 'opened', state: 'open', titled: true },
-  close_pull_request: { thread: 'pull_request', kind: 'state_change', action: 'closed', state: 'closed' },
-  reopen_pull_request: { thread: 'pull_request', kind: 'state_change', action: 'reopened', state: 'open' },
-  merge_pull_request: { thread: 'pull_request', kind: 'state_change', action: 'merged', state: 'merged', titled: true },
-  auto_merge_pull_request: { thread: 'pull_request', kind: 'state_change', action: 'merged', state: 'merged', titled: true },
-  pull_request_ready_for_review: { thread: 'pull_request', kind: 'state_change', action: 'ready_for_review', state: 'open' },
+  create_pull_request: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'opened',
+    state: 'open',
+    titled: true,
+  },
+  close_pull_request: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'closed',
+    state: 'closed',
+  },
+  reopen_pull_request: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'reopened',
+    state: 'open',
+  },
+  merge_pull_request: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'merged',
+    state: 'merged',
+    titled: true,
+  },
+  auto_merge_pull_request: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'merged',
+    state: 'merged',
+    titled: true,
+  },
+  pull_request_ready_for_review: {
+    thread: 'pull_request',
+    kind: 'state_change',
+    action: 'ready_for_review',
+    state: 'open',
+  },
   comment_pull: { thread: 'pull_request', kind: 'comment', action: 'created' },
-  approve_pull_request: { thread: 'pull_request', kind: 'review', action: 'submitted', review: 'approved' },
-  reject_pull_request: { thread: 'pull_request', kind: 'review', action: 'submitted', review: 'changes_requested' },
-  pull_review_dismissed: { thread: 'pull_request', kind: 'review', action: 'other', review: 'dismissed' },
+  approve_pull_request: {
+    thread: 'pull_request',
+    kind: 'review',
+    action: 'submitted',
+    review: 'approved',
+  },
+  reject_pull_request: {
+    thread: 'pull_request',
+    kind: 'review',
+    action: 'submitted',
+    review: 'changes_requested',
+  },
+  pull_review_dismissed: {
+    thread: 'pull_request',
+    kind: 'review',
+    action: 'other',
+    review: 'dismissed',
+  },
 }
 
 /** Splits thread activity `content` into the thread number and its text. */
@@ -38,19 +102,29 @@ function threadContent(content = ''): [string, string] {
   if (content.startsWith('[')) {
     try {
       const [number = '', text = ''] = JSON.parse(content) as string[]
-      return [String(number), text]
+      return [
+        String(number),
+        text,
+      ]
     }
     catch {
       return ['', content]
     }
   }
   const index = content.indexOf('|')
-  return index < 0 ? [content, ''] : [content.slice(0, index), content.slice(index + 1)]
+  return index < 0
+    ? [content, '']
+    : [
+        content.slice(0, index),
+        content.slice(index + 1),
+      ]
 }
 
 function pushContent(content: string | undefined): ForgejoPushContent {
   try {
-    return content ? JSON.parse(content) as ForgejoPushContent : {}
+    return content
+      ? JSON.parse(content) as ForgejoPushContent
+      : {}
   }
   catch {
     return {}
@@ -61,7 +135,9 @@ function feedLevel(origin: ForgeOrigin, raw: ForgejoActivity, repo: RepoRef | un
   const ref = raw.ref_name ?? ''
   const name = ref.replace(/^refs\/(?:heads|tags)\//, '')
   // Gitea before 1.14 stored the short name of a pushed tag, and those rows were never migrated
-  const refType = raw.op_type === 'push_tag' || raw.op_type === 'delete_tag' || ref.startsWith('refs/tags/') ? 'tag' : 'branch'
+  const refType = raw.op_type === 'push_tag' || raw.op_type === 'delete_tag' || ref.startsWith('refs/tags/')
+    ? 'tag'
+    : 'branch'
   switch (raw.op_type) {
     case 'commit_repo':
     case 'mirror_sync_push': {
@@ -79,17 +155,39 @@ function feedLevel(origin: ForgeOrigin, raw: ForgejoActivity, repo: RepoRef | un
     case 'delete_tag':
     case 'delete_branch':
     case 'mirror_sync_delete': {
-      const action = raw.op_type === 'push_tag' || raw.op_type === 'mirror_sync_create' ? 'created' : 'deleted'
-      return { kind: 'ref', action, detail: { type: 'ref', ref: name, refType }, summary: `${who} ${action} ${refType} ${name}` }
+      const action = raw.op_type === 'push_tag' || raw.op_type === 'mirror_sync_create'
+        ? 'created'
+        : 'deleted'
+      return {
+        kind: 'ref',
+        action,
+        detail: { type: 'ref', ref: name, refType },
+        summary: `${who} ${action} ${refType} ${name}`,
+      }
     }
     case 'create_repo':
       return { kind: 'repo', action: 'created', summary: `${who} created the repository` }
     case 'rename_repo':
-      return { kind: 'repo', action: 'renamed', detail: { type: 'repo_renamed', from: raw.content ?? '', to: raw.repo?.name ?? '' }, summary: `${who} renamed the repository` }
+      return {
+        kind: 'repo',
+        action: 'renamed',
+        detail: { type: 'repo_renamed', from: raw.content ?? '', to: raw.repo?.name ?? '' },
+        summary: `${who} renamed the repository`,
+      }
     case 'transfer_repo':
-      return { kind: 'repo', action: 'transferred', detail: { type: 'repo_transferred', fromOwner: raw.content?.split('/')[0], toOwner: raw.repo?.owner?.login }, summary: `${who} transferred the repository` }
+      return {
+        kind: 'repo',
+        action: 'transferred',
+        detail: { type: 'repo_transferred', fromOwner: raw.content?.split('/')[0], toOwner: raw.repo?.owner?.login },
+        summary: `${who} transferred the repository`,
+      }
     case 'publish_release':
-      return { kind: 'release', action: 'published', detail: { type: 'release', tag: name || undefined, name: raw.content || undefined }, summary: `${who} published ${raw.content || name || 'a release'}` }
+      return {
+        kind: 'release',
+        action: 'published',
+        detail: { type: 'release', tag: name || undefined, name: raw.content || undefined },
+        summary: `${who} published ${raw.content || name || 'a release'}`,
+      }
     case 'star_repo':
       return { kind: 'star', action: 'created', summary: `${who} starred the repository` }
   }
@@ -98,23 +196,62 @@ function feedLevel(origin: ForgeOrigin, raw: ForgejoActivity, repo: RepoRef | un
     return { kind: 'other', summary: `${who} ${raw.op_type.replaceAll('_', ' ')}` }
   }
   const [number, text] = threadContent(raw.content)
-  const thread: ThreadRef | undefined = repo && number ? { ...origin, repo, kind: op.thread, number } : undefined
-  const noun = op.thread === 'issue' ? 'issue' : 'pull request'
+  const thread: ThreadRef | undefined = repo && number
+    ? {
+        ...origin,
+        repo,
+        kind: op.thread,
+        number,
+      }
+    : undefined
+  const noun = op.thread === 'issue'
+    ? 'issue'
+    : 'pull request'
   const detail: EventDetail = op.kind === 'comment'
-    ? { type: 'comment', comment: thread && raw.comment ? { ...origin, thread, id: String(raw.comment.id) } : undefined, body: raw.comment?.body ?? text }
+    ? {
+        type: 'comment',
+        comment: thread && raw.comment
+          ? {
+              ...origin,
+              thread,
+              id: String(raw.comment.id),
+            }
+          : undefined,
+        body: raw.comment?.body ?? text,
+      }
     : op.review
-      ? { type: 'review', state: op.review, stateRaw: raw.op_type, body: text || undefined }
+      ? {
+          type: 'review',
+          state: op.review,
+          stateRaw: raw.op_type,
+          body: text || undefined,
+        }
       : { type: 'state_change', state: op.state }
   const summary = op.kind === 'comment'
     ? `${who} commented on ${noun} ${number}`
-    : op.review ? `${who} reviewed ${noun} ${number} (${op.review})` : `${who} ${op.action.replaceAll('_', ' ')} ${noun} ${number}`
-  return { kind: op.kind, action: op.action, thread, ...thread && op.titled && text ? { threadSnapshot: { title: text } } : {}, detail, summary: summary.trim() }
+    : op.review
+      ? `${who} reviewed ${noun} ${number} (${op.review})`
+      : `${who} ${op.action.replaceAll('_', ' ')} ${noun} ${number}`
+  return {
+    kind: op.kind,
+    action: op.action,
+    thread,
+    ...thread && op.titled && text
+      ? {
+          threadSnapshot: { title: text },
+        }
+      : {},
+    detail,
+    summary: summary.trim(),
+  }
 }
 
 /** Normalises an item of a repository's or a user's activity feed. */
 export function toFeedEvent(origin: ForgeOrigin, raw: ForgejoActivity): ForgeEventInput {
   const actor = toActor(origin, raw.act_user)
-  const repo = raw.repo ? toRepoRef(origin, raw.repo) : undefined
+  const repo = raw.repo
+    ? toRepoRef(origin, raw.repo)
+    : undefined
   return {
     ...origin,
     id: String(raw.id),
@@ -123,7 +260,9 @@ export function toFeedEvent(origin: ForgeOrigin, raw: ForgejoActivity): ForgeEve
     ...eventTime(toDate(raw.created)),
     actor,
     repo,
-    ...typeof raw.is_private === 'boolean' ? { isPublic: !raw.is_private } : {},
+    ...typeof raw.is_private === 'boolean'
+      ? { isPublic: !raw.is_private }
+      : {},
     source: 'poll',
     payload: raw,
   }

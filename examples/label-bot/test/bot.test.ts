@@ -17,7 +17,13 @@ const REPO = {
 function setup(extra: Record<string, FixtureResponse> = {}) {
   const { fetch, calls } = fixtureFetch(['github'], extra)
   const handler = createHandler({
-    forges: createForges([github({ auth: { type: 'token', token: 'ghp_test' }, webhookSecret: SECRET, fetch })]),
+    forges: createForges([
+      github({
+        auth: { type: 'token', token: 'ghp_test' },
+        webhookSecret: SECRET,
+        fetch,
+      }),
+    ]),
     titlePattern: /retry/i,
     label: 'triage',
     comment: 'Thanks! Queued for triage.',
@@ -37,7 +43,9 @@ async function deliver(
     headers: {
       'content-type': 'application/json',
       ...await signDelivery('github', body, SECRET, { 'x-github-event': event, 'x-github-delivery': 'delivery-1' }),
-      ...signature ? { 'x-hub-signature-256': signature } : {},
+      ...signature
+        ? { 'x-hub-signature-256': signature }
+        : {},
     },
     body,
   }))
@@ -45,7 +53,12 @@ async function deliver(
 
 const opened = {
   action: 'opened',
-  pull_request: { number: 42, node_id: 'PR_42', title: 'Add retry handling to the uploader', user: { login: 'octocat', id: 583231, type: 'User' } },
+  pull_request: {
+    number: 42,
+    node_id: 'PR_42',
+    title: 'Add retry handling to the uploader',
+    user: { login: 'octocat', id: 583231, type: 'User' },
+  },
   repository: REPO,
   sender: { login: 'octocat', id: 583231, type: 'User' },
 }
@@ -53,7 +66,12 @@ const opened = {
 const commented = {
   action: 'created',
   issue: { number: 42, node_id: 'I_42', title: 'Add retry handling to the uploader' },
-  comment: { id: 770002, body: '/close', created_at: '2025-09-19T09:00:00Z', user: { login: 'grace', id: 4102, type: 'User' } },
+  comment: {
+    id: 770002,
+    body: '/close',
+    created_at: '2025-09-19T09:00:00Z',
+    user: { login: 'grace', id: 4102, type: 'User' },
+  },
   repository: REPO,
   sender: { login: 'grace', id: 4102, type: 'User' },
 }
@@ -61,14 +79,27 @@ const commented = {
 const closeComments: FixtureResponse = {
   status: 200,
   body: [
-    { id: 770001, body: 'Could you add a test for the 503 path?', user: { login: 'octocat', id: 583231, type: 'User' }, created_at: '2025-09-16T09:00:00Z' },
-    { id: 770002, body: '/close', user: { login: 'grace', id: 4102, type: 'User' }, created_at: '2025-09-19T09:00:00Z' },
+    {
+      id: 770001,
+      body: 'Could you add a test for the 503 path?',
+      user: { login: 'octocat', id: 583231, type: 'User' },
+      created_at: '2025-09-16T09:00:00Z',
+    },
+    {
+      id: 770002,
+      body: '/close',
+      user: { login: 'grace', id: 4102, type: 'User' },
+      created_at: '2025-09-19T09:00:00Z',
+    },
   ],
 }
 
 function permission(value: string): Record<string, FixtureResponse> {
   return {
-    'GET https://api.github.com/repos/acme/widgets/collaborators/grace/permission': { status: 200, body: { permission: value } },
+    'GET https://api.github.com/repos/acme/widgets/collaborators/grace/permission': {
+      status: 200,
+      body: { permission: value },
+    },
   }
 }
 
@@ -95,14 +126,22 @@ describe('label bot', () => {
       ],
     })
     const labels = calls.find(call => call.method === 'POST' && call.url.endsWith('/issues/42/labels'))
-    expect(labels?.body).toBe(JSON.stringify({ labels: ['triage'] }))
+    expect(labels?.body).toBe(JSON.stringify({
+      labels: ['triage'],
+    }))
     expect(calls.some(call => call.method === 'POST' && call.url.endsWith('/issues/42/comments'))).toBe(true)
   })
 
   it('should leave an opened thread alone when the title does not match', async () => {
     const { fetch, calls } = fixtureFetch(['github'])
     const handler = createHandler({
-      forges: createForges([github({ auth: { type: 'token', token: 'ghp_test' }, webhookSecret: SECRET, fetch })]),
+      forges: createForges([
+        github({
+          auth: { type: 'token', token: 'ghp_test' },
+          webhookSecret: SECRET,
+          fetch,
+        }),
+      ]),
       titlePattern: /^chore/,
       label: 'triage',
       comment: 'Thanks!',
@@ -110,7 +149,11 @@ describe('label bot', () => {
 
     const response = await deliver(handler, 'pull_request', opened)
 
-    expect(await response.json()).toMatchObject({ actions: [{ kind: 'ignored', reason: 'title does not match' }] })
+    expect(await response.json()).toMatchObject({
+      actions: [
+        { kind: 'ignored', reason: 'title does not match' },
+      ],
+    })
     expect(calls.every(call => call.method === 'GET')).toBe(true)
   })
 
@@ -122,7 +165,11 @@ describe('label bot', () => {
 
     const response = await deliver(handler, 'issue_comment', commented)
 
-    expect(await response.json()).toMatchObject({ actions: [{ kind: 'closed', reason: 'requested by grace' }] })
+    expect(await response.json()).toMatchObject({
+      actions: [
+        { kind: 'closed', reason: 'requested by grace' },
+      ],
+    })
     const close = calls.find(call => call.method === 'PATCH' && call.url.endsWith('/issues/42'))
     expect(close?.body).toBe(JSON.stringify({ state: 'closed' }))
   })
@@ -136,7 +183,9 @@ describe('label bot', () => {
     const response = await deliver(handler, 'issue_comment', commented)
 
     expect(await response.json()).toMatchObject({
-      actions: [{ kind: 'refused', reason: 'grace cannot write to the repository' }],
+      actions: [
+        { kind: 'refused', reason: 'grace cannot write to the repository' },
+      ],
     })
     expect(calls.every(call => call.method === 'GET')).toBe(true)
   })
@@ -150,7 +199,9 @@ describe('label bot', () => {
     })
 
     expect(await response.json()).toMatchObject({
-      actions: [{ kind: 'ignored', reason: 'no command in the latest comment' }],
+      actions: [
+        { kind: 'ignored', reason: 'no command in the latest comment' },
+      ],
     })
   })
 })

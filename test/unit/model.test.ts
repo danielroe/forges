@@ -12,7 +12,12 @@ import { createForges } from '../../src/provider.ts'
 import { summariseChecks } from '../../src/utils.ts'
 import { sameRepo } from '../../src/web.ts'
 
-const repo: RepoRef = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
+const repo: RepoRef = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'acme',
+  name: 'widgets',
+}
 const ghes: RepoRef = { ...repo, instance: 'ghe.example.com' }
 
 describe('support', () => {
@@ -32,15 +37,30 @@ describe('identity keys', () => {
   })
 
   it('always carries the repo in a thread key', () => {
-    const thread: ResolvedThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '42' }
-    const other: ResolvedThreadRef = { ...thread, repo: { ...repo, name: 'gadgets' } }
+    const thread: ResolvedThreadRef = {
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      kind: 'issue',
+      number: '42',
+    }
+    const other: ResolvedThreadRef = {
+      ...thread,
+      repo: { ...repo, name: 'gadgets' },
+    }
 
     expect(threadKey(thread)).toBe('github:github.com/acme/widgets#issue/42')
     expect(threadKey(thread)).not.toBe(threadKey(other))
   })
 
   it('distinguishes an issue from a pull request with the same number', () => {
-    const issue: ResolvedThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '42' }
+    const issue: ResolvedThreadRef = {
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      kind: 'issue',
+      number: '42',
+    }
     expect(threadKey(issue)).not.toBe(threadKey({ ...issue, kind: 'pull_request' }))
   })
 
@@ -49,8 +69,19 @@ describe('identity keys', () => {
   })
 
   it('keys what a provider reads by the refs it returns, but not the thread of an event', async () => {
-    const provider = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' }] } })
-    const [listed] = (await provider.threads.list({ forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }).page()).items
+    const provider = fake({
+      seed: {
+        threads: [
+          { repo: 'acme/widgets', kind: 'pull_request', title: 'Fix crash' },
+        ],
+      },
+    })
+    const [listed] = (await provider.threads.list({
+      forge: 'fake',
+      instance: 'fake.test',
+      owner: 'acme',
+      name: 'widgets',
+    }).page()).items
     const ref: ThreadRef = listed!.ref
     const thread = await provider.threads.get(ref)
     const comment = await provider.threads.createComment(ref, 'Thanks!')
@@ -77,8 +108,21 @@ describe('identity keys', () => {
   })
 
   it('keeps a namespace id apart from a repo with the same id', () => {
-    const project: RepoRef = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets', externalId: '7781' }
-    const group: RepoRef = { forge: 'gitlab', instance: 'gitlab.com', kind: 'namespace', owner: 'acme', name: '', externalId: '7781' }
+    const project: RepoRef = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'acme',
+      name: 'widgets',
+      externalId: '7781',
+    }
+    const group: RepoRef = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      kind: 'namespace',
+      owner: 'acme',
+      name: '',
+      externalId: '7781',
+    }
 
     expect(repoKey(project)).not.toBe(repoKey(group))
   })
@@ -91,8 +135,18 @@ describe('identity keys', () => {
   it('builds a repo ref from a provider and the slug people type', () => {
     const provider = github({ baseUrl: 'https://ghe.example.com/api/v3' })
 
-    expect(repoRef(provider, 'acme/widgets')).toEqual({ forge: 'github', instance: 'ghe.example.com', owner: 'acme', name: 'widgets' })
-    expect(repoRef({ forge: 'gitlab', instance: 'gitlab.com' }, 'acme/platform/widgets')).toEqual({ forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' })
+    expect(repoRef(provider, 'acme/widgets')).toEqual({
+      forge: 'github',
+      instance: 'ghe.example.com',
+      owner: 'acme',
+      name: 'widgets',
+    })
+    expect(repoRef({ forge: 'gitlab', instance: 'gitlab.com' }, 'acme/platform/widgets')).toEqual({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'acme/platform',
+      name: 'widgets',
+    })
     for (const slug of ['widgets', '/widgets', 'acme/']) {
       expect(() => repoRef(provider, slug)).toThrow(TypeError)
     }
@@ -102,14 +156,26 @@ describe('identity keys', () => {
     const provider = github({ baseUrl: 'https://ghe.example.com/api/v3' })
     const org = namespaceRef(provider, 'acme')
 
-    expect(org).toEqual({ forge: 'github', instance: 'ghe.example.com', owner: 'acme', name: '', kind: 'namespace' })
+    expect(org).toEqual({
+      forge: 'github',
+      instance: 'ghe.example.com',
+      owner: 'acme',
+      name: '',
+      kind: 'namespace',
+    })
     expect(isNamespaceRef(org)).toBe(true)
     expect(repoSlug(org)).toBe('acme')
     expect(repoKey(org)).toBe('github:ghe.example.com/acme/')
   })
 
   it('treats a ref without `kind: \'namespace\'` as a repository, even without a name', () => {
-    const unnamed: RepoRef = { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: '', externalId: 'did:plc:abc' }
+    const unnamed: RepoRef = {
+      forge: 'tangled',
+      instance: 'tangled.org',
+      owner: 'did:plc:abc',
+      name: '',
+      externalId: 'did:plc:abc',
+    }
 
     expect(isNamespaceRef(unnamed)).toBe(false)
   })
@@ -117,21 +183,60 @@ describe('identity keys', () => {
 
 describe('root entry', () => {
   it('exports every provider factory', () => {
-    const factories = ['bitbucket', 'forgejo', 'gitea', 'github', 'gitlab', 'tangled']
+    const factories = [
+      'bitbucket',
+      'forgejo',
+      'gitea',
+      'github',
+      'gitlab',
+      'tangled',
+    ]
     expect(Object.keys(root).filter(name => factories.includes(name)).sort()).toEqual(factories)
   })
 
   it('exports the consumer helpers and leaves provider-authoring tools to `forges/kit`', () => {
-    const authoring = ['CAPABILITY_TABLE', 'createFetcher', 'createListing', 'defineForgeProvider', 'forgeIterable', 'githubShapedWeb', 'hmacSha256Hex', 'iteratePages', 'nativeEventsFor', 'perKind', 'reactionContent', 'refEvent', 'soleMergeMethod', 'toFileContent', 'toMergeError', 'toPage', 'verb']
+    const authoring = [
+      'CAPABILITY_TABLE',
+      'createFetcher',
+      'createListing',
+      'defineForgeProvider',
+      'forgeIterable',
+      'githubShapedWeb',
+      'hmacSha256Hex',
+      'iteratePages',
+      'nativeEventsFor',
+      'perKind',
+      'reactionContent',
+      'refEvent',
+      'soleMergeMethod',
+      'toFileContent',
+      'toMergeError',
+      'toPage',
+      'verb',
+    ]
 
     expect(Object.keys(root).filter(name => authoring.includes(name))).toEqual([])
     expect(Object.keys(kit).filter(name => authoring.includes(name)).sort()).toEqual([...authoring].sort())
-    expect(Object.keys(root)).toEqual(expect.arrayContaining(['AuthenticationRequiredError', 'isNamespaceRef', 'NotFoundError', 'REACTION_CONTENTS']))
+    expect(Object.keys(root)).toEqual(expect.arrayContaining([
+      'AuthenticationRequiredError',
+      'isNamespaceRef',
+      'NotFoundError',
+      'REACTION_CONTENTS',
+    ]))
     expectTypeOf<root.CommitSearchQuery>().toHaveProperty('committer')
   })
 
   it('lets every provider factory be called without options', () => {
-    for (const factory of [root.bitbucket, root.forgejo, root.gitea, root.gitee, root.github, root.gitlab, root.pushin, root.tangled]) {
+    for (const factory of [
+      root.bitbucket,
+      root.forgejo,
+      root.gitea,
+      root.gitee,
+      root.github,
+      root.gitlab,
+      root.pushin,
+      root.tangled,
+    ]) {
       expect(factory().forge).toBeTypeOf('string')
     }
   })
@@ -140,9 +245,16 @@ describe('root entry', () => {
 describe('createForges', () => {
   it('registers providers lazily and looks them up by kind and instance', () => {
     const forges = createForges([
-      github({ auth: { type: 'token', token: 't' } }),
-      github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } }),
-      forgejo({ auth: { type: 'token', token: 't' } }),
+      github({
+        auth: { type: 'token', token: 't' },
+      }),
+      github({
+        baseUrl: 'https://ghe.example.com/api/v3',
+        auth: { type: 'token', token: 't' },
+      }),
+      forgejo({
+        auth: { type: 'token', token: 't' },
+      }),
     ])
 
     expect(forges.providers).toHaveLength(3)
@@ -156,7 +268,10 @@ describe('createForges', () => {
   it('narrows lookups and provider forges to the kinds registered', () => {
     const auth = { type: 'token', token: 't' } as const
     expectTypeOf(github({ auth }).forge).toEqualTypeOf<'github'>()
-    const forges = createForges([github({ auth }), forgejo({ auth })])
+    const forges = createForges([
+      github({ auth }),
+      forgejo({ auth }),
+    ])
     expectTypeOf(forges).toEqualTypeOf<Forges<'github' | 'forgejo'>>()
     expectTypeOf(forges.get('github')).toEqualTypeOf<ForgeProvider>()
     expectTypeOf(forges.get('github', 'github.com')).toEqualTypeOf<ForgeProvider | undefined>()
@@ -168,10 +283,18 @@ describe('createForges', () => {
 
   it('narrows lookups only to the kinds certainly registered', () => {
     const auth = { type: 'token', token: 't' } as const
-    const many = [github({ auth, baseUrl: 'https://ghe.example.com/api/v3' })]
+    const many = [
+      github({ auth, baseUrl: 'https://ghe.example.com/api/v3' }),
+    ]
     expectTypeOf(createForges(many).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
-    expectTypeOf(createForges([github({ auth }), ...many]).get('github')).toEqualTypeOf<ForgeProvider>()
-    expectTypeOf(createForges([forgejo({ auth }), ...many]).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
+    expectTypeOf(createForges([
+      github({ auth }),
+      ...many,
+    ]).get('github')).toEqualTypeOf<ForgeProvider>()
+    expectTypeOf(createForges([
+      forgejo({ auth }),
+      ...many,
+    ]).get('github')).toEqualTypeOf<ForgeProvider | undefined>()
   })
 
   it('yields nothing when no provider is registered', async () => {
@@ -231,7 +354,12 @@ describe('small helpers', () => {
   })
 
   it('compares repositories case-insensitively only where the forge does', () => {
-    const tangledRepo: RepoRef = { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:abc', name: 'Core' }
+    const tangledRepo: RepoRef = {
+      forge: 'tangled',
+      instance: 'tangled.org',
+      owner: 'did:plc:abc',
+      name: 'Core',
+    }
 
     expect(sameRepo(repo, { ...repo, owner: 'ACME' })).toBe(true)
     expect(sameRepo(tangledRepo, { ...tangledRepo, name: 'core' })).toBe(false)
@@ -239,7 +367,10 @@ describe('small helpers', () => {
 
   it('resolves a full SHA-256 commit id without a request', async () => {
     const sha = 'a'.repeat(64)
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: () => Promise.reject(new Error('no request expected')) })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: () => Promise.reject(new Error('no request expected')),
+    })
 
     expect(await provider.contents.resolveRef(repo, sha.toUpperCase())).toBe(sha)
   })
@@ -250,8 +381,13 @@ describe('defineForgeProvider', () => {
     const setup = (): kit.ProviderSpec => {
       throw new Error('unused')
     }
-    // @ts-expect-error `setup()` may omit `web`
-    kit.defineForgeProvider({ forge: 'acme', baseUrl: 'https://acme.example', hasWeb: true, setup })
+    kit.defineForgeProvider({
+      forge: 'acme',
+      baseUrl: 'https://acme.example',
+      hasWeb: true,
+      // @ts-expect-error `setup()` may omit `web`
+      setup,
+    })
     kit.defineForgeProvider({ forge: 'acme', baseUrl: 'https://acme.example', setup })
   })
 })

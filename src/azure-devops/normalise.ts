@@ -25,7 +25,13 @@ export function toActor(instance: string, identity: AzureIdentity | undefined | 
 
 /** Repositories live in a project in an organization; the owner is `org/project`. */
 export function toRepoRef(instance: string, organization: string, repo: AzureRepository): RepoRef {
-  return { forge: FORGE, instance, owner: `${organization}/${repo.project.name}`, name: repo.name, externalId: repo.id }
+  return {
+    forge: FORGE,
+    instance,
+    owner: `${organization}/${repo.project.name}`,
+    name: repo.name,
+    externalId: repo.id,
+  }
 }
 
 /** Work items belong to a project rather than a repository. */
@@ -36,7 +42,13 @@ export function projectRef(instance: string, organization: string, project: stri
 /** A team belongs to a project, so its ref carries the project as a namespace. */
 export function toTeam(instance: string, org: RepoRef, raw: AzureTeam): Team {
   return {
-    ref: { forge: FORGE, instance, org, id: raw.id, slug: raw.name },
+    ref: {
+      forge: FORGE,
+      instance,
+      org,
+      id: raw.id,
+      slug: raw.name,
+    },
     name: raw.name,
     description: raw.description || undefined,
     raw,
@@ -47,11 +59,15 @@ export function toRepo(instance: string, organization: string, raw: AzureReposit
   return {
     ref: toRepoRef(instance, organization, raw),
     defaultBranch: raw.defaultBranch?.replace(/^refs\/heads\//, ''),
-    visibility: raw.project.visibility === 'public' ? 'public' : 'private',
+    visibility: raw.project.visibility === 'public'
+      ? 'public'
+      : 'private',
     visibilityRaw: raw.project.visibility,
     isFork: raw.isFork ?? false,
     isArchived: raw.isDisabled ?? false,
-    parent: raw.parentRepository?.project ? toRepoRef(instance, organization, { ...raw.parentRepository, project: raw.parentRepository.project }) : undefined,
+    parent: raw.parentRepository?.project
+      ? toRepoRef(instance, organization, { ...raw.parentRepository, project: raw.parentRepository.project })
+      : undefined,
     topics: [],
     url: raw.webUrl,
     cloneUrls: { https: raw.remoteUrl, ssh: raw.sshUrl },
@@ -59,23 +75,47 @@ export function toRepo(instance: string, organization: string, raw: AzureReposit
   }
 }
 
-const VOTES: Record<number, ReviewState> = { 10: 'approved', 5: 'approved', 0: 'pending', [-5]: 'changes_requested', [-10]: 'changes_requested' }
+const VOTES: Record<number, ReviewState> = {
+  10: 'approved',
+  5: 'approved',
+  0: 'pending',
+  [-5]: 'changes_requested',
+  [-10]: 'changes_requested',
+}
 
 function toReviewer(instance: string, raw: AzureReviewer) {
-  return { actor: toActor(instance, raw)!, state: VOTES[raw.vote] ?? 'unknown', stateRaw: `vote:${raw.vote}`, ...raw.isContainer ? { isTeam: true } : {} }
+  return {
+    actor: toActor(instance, raw)!,
+    state: VOTES[raw.vote] ?? 'unknown',
+    stateRaw: `vote:${raw.vote}`,
+    ...raw.isContainer
+      ? { isTeam: true }
+      : {},
+  }
 }
 
 const branch = (ref: string) => ref.replace(/^refs\/heads\//, '')
 
 export function toPullState(status: AzurePullRequest['status']): ThreadState {
-  return status === 'active' ? 'open' : status === 'completed' ? 'merged' : status === 'abandoned' ? 'closed' : 'unknown'
+  return status === 'active'
+    ? 'open'
+    : status === 'completed'
+      ? 'merged'
+      : status === 'abandoned'
+        ? 'closed'
+        : 'unknown'
 }
 
 export function toPullThread(ref: ResolvedThreadRef, raw: AzurePullRequest): Thread {
   const instance = ref.instance
   const state = toPullState(raw.status)
   return {
-    ref: { ...ref, kind: 'pull_request', number: String(raw.pullRequestId), externalId: raw.artifactId },
+    ref: {
+      ...ref,
+      kind: 'pull_request',
+      number: String(raw.pullRequestId),
+      externalId: raw.artifactId,
+    },
     kind: 'pull_request',
     title: raw.title,
     body: raw.description || undefined,
@@ -89,13 +129,25 @@ export function toPullThread(ref: ResolvedThreadRef, raw: AzurePullRequest): Thr
     url: raw._links?.web?.href,
     createdAt: toDate(raw.creationDate),
     closedAt: toDate(raw.closedDate),
-    mergedAt: state === 'merged' ? toDate(raw.closedDate) : undefined,
-    mergedBy: state === 'merged' ? toActor(instance, raw.closedBy) : undefined,
+    mergedAt: state === 'merged'
+      ? toDate(raw.closedDate)
+      : undefined,
+    mergedBy: state === 'merged'
+      ? toActor(instance, raw.closedBy)
+      : undefined,
     lastActivityAt: toDate(raw.closedDate ?? raw.creationDate),
     branches: {
-      head: { ref: branch(raw.sourceRefName), sha: raw.lastMergeSourceCommit?.commitId },
-      base: { ref: branch(raw.targetRefName), sha: raw.lastMergeTargetCommit?.commitId },
-      mergeCommitSha: raw.status === 'completed' ? raw.lastMergeCommit?.commitId : undefined,
+      head: {
+        ref: branch(raw.sourceRefName),
+        sha: raw.lastMergeSourceCommit?.commitId,
+      },
+      base: {
+        ref: branch(raw.targetRefName),
+        sha: raw.lastMergeTargetCommit?.commitId,
+      },
+      mergeCommitSha: raw.status === 'completed'
+        ? raw.lastMergeCommit?.commitId
+        : undefined,
     },
     raw,
   }
@@ -109,9 +161,18 @@ export function toWorkItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem, cat
   const assignee = field<AzureIdentity>(raw, 'System.AssignedTo')
   const tags = field<string>(raw, 'System.Tags')
   const type = field<string>(raw, 'System.WorkItemType')
-  const state = category === undefined ? 'unknown' : category === 'Completed' || category === 'Removed' ? 'closed' : 'open'
+  const state = category === undefined
+    ? 'unknown'
+    : category === 'Completed' || category === 'Removed'
+      ? 'closed'
+      : 'open'
   return {
-    ref: { ...ref, kind: 'issue', number: String(raw.id), typeRaw: type },
+    ref: {
+      ...ref,
+      kind: 'issue',
+      number: String(raw.id),
+      typeRaw: type,
+    },
     kind: 'issue',
     title: field<string>(raw, 'System.Title') ?? '',
     body: field<string>(raw, 'System.Description'),
@@ -120,7 +181,11 @@ export function toWorkItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem, cat
     stateReason: field<string>(raw, 'System.Reason'),
     isDraft: false,
     author: toActor(instance, field<AzureIdentity>(raw, 'System.CreatedBy')),
-    assignees: assignee ? [toActor(instance, assignee)!] : [],
+    assignees: assignee
+      ? [
+          toActor(instance, assignee)!,
+        ]
+      : [],
     reviewers: [],
     labels: (tags ?? '').split(';').map(tag => tag.trim()).filter(Boolean).map(name => ({ name })),
     url: raw._links?.html?.href,
@@ -129,7 +194,9 @@ export function toWorkItemThread(ref: ResolvedThreadRef, raw: AzureWorkItem, cat
     closedAt: toDate(field<string>(raw, 'Microsoft.VSTS.Common.ClosedDate')),
     lastActivityAt: toDate(field<string>(raw, 'System.ChangedDate')),
     commentCount: field<number>(raw, 'System.CommentCount'),
-    issueType: type ? { id: type, name: type, raw: type } : undefined,
+    issueType: type
+      ? { id: type, name: type, raw: type }
+      : undefined,
     raw,
   }
 }
@@ -146,12 +213,22 @@ export function commentId(thread: AzureThread, comment: AzureComment): string {
 
 export function toPullComment(ref: ResolvedThreadRef, thread: AzureThread, raw: AzureComment): Comment {
   return {
-    ref: { forge: FORGE, instance: ref.instance, thread: ref, id: commentId(thread, raw) },
+    ref: {
+      forge: FORGE,
+      instance: ref.instance,
+      thread: ref,
+      id: commentId(thread, raw),
+    },
     body: raw.content ?? '',
     author: toActor(ref.instance, raw.author),
     createdAt: toDate(raw.publishedDate),
     updatedAt: toDate(raw.lastUpdatedDate),
-    ...thread.status && { thread: { id: String(thread.id), resolved: thread.status !== 'active' && thread.status !== 'pending' } },
+    ...thread.status && {
+      thread: {
+        id: String(thread.id),
+        resolved: thread.status !== 'active' && thread.status !== 'pending',
+      },
+    },
     raw,
   }
 }
@@ -162,22 +239,40 @@ export function toThreadEvents(ref: ThreadRef, thread: AzureThread): ForgeEventI
     const system = comment.commentType === 'system'
     const vote = thread.properties?.CodeReviewThreadType?.$value === 'VoteUpdate'
     const path = thread.threadContext?.filePath
-    const kind: ForgeEventInput['kind'] = vote ? 'review' : system ? 'other' : path ? 'review_comment' : 'comment'
-    const commentRef = { forge: FORGE, instance: ref.instance, thread: ref, id: commentId(thread, comment) }
+    const kind: ForgeEventInput['kind'] = vote
+      ? 'review'
+      : system
+        ? 'other'
+        : path ? 'review_comment' : 'comment'
+    const commentRef = {
+      forge: FORGE,
+      instance: ref.instance,
+      thread: ref,
+      id: commentId(thread, comment),
+    }
     return {
       forge: FORGE,
       instance: ref.instance,
       id: commentId(thread, comment),
       kind,
       kindRaw: (thread.properties?.CodeReviewThreadType?.$value as string | undefined) ?? comment.commentType,
-      summary: `${actor?.login ?? 'someone'} ${system ? comment.content ?? 'updated the pull request' : 'commented'}`,
+      summary: `${actor?.login ?? 'someone'} ${system
+        ? comment.content ?? 'updated the pull request'
+        : 'commented'}`,
       ...eventTime(toDate(comment.publishedDate), new Date(0)),
       actor,
       repo: ref.repo,
       thread: ref,
       detail: kind === 'review_comment'
-        ? { type: 'review_comment' as const, comment: commentRef, body: comment.content, path }
-        : kind === 'comment' ? { type: 'comment' as const, comment: commentRef, body: comment.content } : undefined,
+        ? {
+            type: 'review_comment' as const,
+            comment: commentRef,
+            body: comment.content,
+            path,
+          }
+        : kind === 'comment'
+          ? { type: 'comment' as const, comment: commentRef, body: comment.content }
+          : undefined,
       source: 'poll' as const,
       payload: comment,
     }
@@ -186,7 +281,12 @@ export function toThreadEvents(ref: ThreadRef, thread: AzureThread): ForgeEventI
 
 export function toWorkItemComment(ref: ResolvedThreadRef, raw: AzureWorkItemComment): Comment {
   return {
-    ref: { forge: FORGE, instance: ref.instance, thread: ref, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: ref.instance,
+      thread: ref,
+      id: String(raw.id),
+    },
     body: raw.text,
     author: toActor(ref.instance, raw.createdBy),
     createdAt: toDate(raw.createdDate),
@@ -199,58 +299,123 @@ export function toWorkItemEvents(ref: ThreadRef, updates: AzureWorkItemUpdate[],
   const events: ForgeEventInput[] = updates.flatMap((update) => {
     const fields = update.fields ?? {}
     const actor = toActor(ref.instance, update.revisedBy)
-    const kind: ForgeEventInput['kind'] | undefined = fields['System.State'] ? 'state_change' : fields['System.AssignedTo'] ? 'assignment' : fields['System.Tags'] ? 'label' : undefined
+    const kind: ForgeEventInput['kind'] | undefined = fields['System.State']
+      ? 'state_change'
+      : fields['System.AssignedTo']
+        ? 'assignment'
+        : fields['System.Tags'] ? 'label' : undefined
     if (!kind || update.id === 1) {
       return []
     }
-    return [{
-      forge: FORGE,
-      instance: ref.instance,
-      id: `update:${update.id}`,
-      kind,
-      kindRaw: Object.keys(fields).join(','),
-      summary: `${actor?.login ?? 'someone'} changed ${kind === 'state_change' ? `state to ${String(fields['System.State']?.newValue)}` : kind === 'assignment' ? 'the assignee' : 'the tags'}`,
-      ...eventTime(toDate(update.revisedDate), new Date(0)),
-      actor,
-      repo: ref.repo,
-      thread: ref,
-      source: 'poll' as const,
-      payload: update,
-    }]
+    return [
+      {
+        forge: FORGE,
+        instance: ref.instance,
+        id: `update:${update.id}`,
+        kind,
+        kindRaw: Object.keys(fields).join(','),
+        summary: `${actor?.login ?? 'someone'} changed ${kind === 'state_change'
+          ? `state to ${String(fields['System.State']?.newValue)}`
+          : kind === 'assignment'
+            ? 'the assignee'
+            : 'the tags'}`,
+        ...eventTime(toDate(update.revisedDate), new Date(0)),
+        actor,
+        repo: ref.repo,
+        thread: ref,
+        source: 'poll' as const,
+        payload: update,
+      },
+    ]
   })
   for (const comment of comments) {
     const actor = toActor(ref.instance, comment.createdBy)
-    events.push({ forge: FORGE, instance: ref.instance, id: `comment:${comment.id}`, kind: 'comment', kindRaw: 'comment', summary: `${actor?.login ?? 'someone'} commented`, ...eventTime(toDate(comment.createdDate), new Date(0)), actor, repo: ref.repo, thread: ref, detail: { type: 'comment', comment: { forge: FORGE, instance: ref.instance, thread: ref, id: String(comment.id) }, body: comment.text }, source: 'poll', payload: comment })
+    events.push({
+      forge: FORGE,
+      instance: ref.instance,
+      id: `comment:${comment.id}`,
+      kind: 'comment',
+      kindRaw: 'comment',
+      summary: `${actor?.login ?? 'someone'} commented`,
+      ...eventTime(toDate(comment.createdDate), new Date(0)),
+      actor,
+      repo: ref.repo,
+      thread: ref,
+      detail: {
+        type: 'comment',
+        comment: {
+          forge: FORGE,
+          instance: ref.instance,
+          thread: ref,
+          id: String(comment.id),
+        },
+        body: comment.text,
+      },
+      source: 'poll',
+      payload: comment,
+    })
   }
   return events.sort((a, b) => a.occurredAt.getTime() - b.occurredAt.getTime())
 }
 
-const STATUS_STATES: Record<AzureStatus['state'], CheckState> = { notSet: 'unknown', pending: 'pending', succeeded: 'success', failed: 'failure', error: 'failure', notApplicable: 'neutral' }
+const STATUS_STATES: Record<AzureStatus['state'], CheckState> = {
+  notSet: 'unknown',
+  pending: 'pending',
+  succeeded: 'success',
+  failed: 'failure',
+  error: 'failure',
+  notApplicable: 'neutral',
+}
 
 export function toStatusCheck(repo: RepoRef, raw: AzureStatus): Check {
   const state = STATUS_STATES[raw.state] ?? 'unknown'
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), type: 'status' },
-    name: raw.context.genre ? `${raw.context.genre}/${raw.context.name}` : raw.context.name,
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'status',
+    },
+    name: raw.context.genre
+      ? `${raw.context.genre}/${raw.context.name}`
+      : raw.context.name,
     state,
     stateRaw: raw.state,
     url: raw.targetUrl,
     startedAt: toDate(raw.creationDate),
-    completedAt: state === 'pending' ? undefined : toDate(raw.updatedDate),
+    completedAt: state === 'pending'
+      ? undefined
+      : toDate(raw.updatedDate),
     raw,
   }
 }
 
-const POLICY_STATES: Record<AzurePolicyEvaluation['status'], CheckState> = { queued: 'pending', running: 'pending', approved: 'success', rejected: 'failure', broken: 'failure', notApplicable: 'neutral' }
+const POLICY_STATES: Record<AzurePolicyEvaluation['status'], CheckState> = {
+  queued: 'pending',
+  running: 'pending',
+  approved: 'success',
+  rejected: 'failure',
+  broken: 'failure',
+  notApplicable: 'neutral',
+}
 
 /** Branch policy evaluations: required reviewers, builds, linked work items and the like. Optional policies that fail are neutral. */
 export function toPolicyCheck(repo: RepoRef, raw: AzurePolicyEvaluation): Check {
   const blocking = raw.configuration?.isBlocking !== false
   const state = POLICY_STATES[raw.status] ?? 'unknown'
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: raw.evaluationId, type: 'policy' },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: raw.evaluationId,
+      type: 'policy',
+    },
     name: raw.configuration?.settings?.displayName ?? raw.configuration?.type?.displayName ?? 'Policy',
-    state: state === 'failure' && !blocking ? 'neutral' : state,
+    state: state === 'failure' && !blocking
+      ? 'neutral'
+      : state,
     stateRaw: raw.status,
     startedAt: toDate(raw.startedDate),
     completedAt: toDate(raw.completedDate),
@@ -266,7 +431,11 @@ export function toChangedFile(raw: AzureChange): ChangedFile {
     ? 'removed'
     : types.includes('rename')
       ? 'renamed'
-      : types.includes('add') ? 'added' : types.includes('edit') ? 'modified' : 'changed'
+      : types.includes('add')
+        ? 'added'
+        : types.includes('edit')
+          ? 'modified'
+          : 'changed'
   return {
     path,
     previousPath: raw.sourceServerItem?.replace(/^\//, ''),
@@ -279,31 +448,64 @@ export function toChangedFile(raw: AzureChange): ChangedFile {
 export function toCommit(repo: RepoRef, raw: AzureCommit, files?: ChangedFile[]): Commit {
   const counts = raw.changeCounts
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.commitId },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      sha: raw.commitId,
+    },
     sha: raw.commitId,
     message: raw.comment ?? '',
-    author: { name: raw.author?.name, email: raw.author?.email, date: toDate(raw.author?.date) },
-    committer: { name: raw.committer?.name, email: raw.committer?.email, date: toDate(raw.committer?.date) },
+    author: {
+      name: raw.author?.name,
+      email: raw.author?.email,
+      date: toDate(raw.author?.date),
+    },
+    committer: {
+      name: raw.committer?.name,
+      email: raw.committer?.email,
+      date: toDate(raw.committer?.date),
+    },
     parents: raw.parents ?? [],
     url: raw.remoteUrl,
-    ...counts ? { stats: { additions: counts.Add ?? 0, deletions: counts.Delete ?? 0 } } : {},
-    ...files ? { files } : {},
+    ...counts
+      ? {
+          stats: { additions: counts.Add ?? 0, deletions: counts.Delete ?? 0 },
+        }
+      : {},
+    ...files
+      ? { files }
+      : {},
     raw,
   }
 }
 
 export function toBranch(raw: AzureRef): Branch {
-  return { name: raw.name.replace(/^refs\/heads\//, ''), sha: raw.objectId ?? '', url: raw.url, raw }
+  return {
+    name: raw.name.replace(/^refs\/heads\//, ''),
+    sha: raw.objectId ?? '',
+    url: raw.url,
+    raw,
+  }
 }
 
 export function toTag(raw: AzureRef): Tag {
-  return { name: raw.name.replace(/^refs\/tags\//, ''), sha: raw.peeledObjectId ?? raw.objectId ?? '', url: raw.url, raw }
+  return {
+    name: raw.name.replace(/^refs\/tags\//, ''),
+    sha: raw.peeledObjectId ?? raw.objectId ?? '',
+    url: raw.url,
+    raw,
+  }
 }
 
 export function toTreeEntry(raw: AzureItem): TreeEntry {
   return {
     path: raw.path.replace(/^\//, ''),
-    type: raw.isFolder || raw.gitObjectType === 'tree' ? 'directory' : raw.gitObjectType === 'commit' ? 'submodule' : 'file',
+    type: raw.isFolder || raw.gitObjectType === 'tree'
+      ? 'directory'
+      : raw.gitObjectType === 'commit'
+        ? 'submodule'
+        : 'file',
     sha: raw.objectId,
     size: raw.size,
   }

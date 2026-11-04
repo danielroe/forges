@@ -25,8 +25,13 @@ pnpm add forges
 import { createForges, forgejo, github } from 'forges'
 
 const forges = createForges([
-  github({ auth: { type: 'token', token: process.env.GITHUB_TOKEN! } }),
-  forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: process.env.CODEBERG_TOKEN! } }),
+  github({
+    auth: { type: 'token', token: process.env.GITHUB_TOKEN! }
+  }),
+  forgejo({
+    baseUrl: 'https://codeberg.org',
+    auth: { type: 'token', token: process.env.CODEBERG_TOKEN! }
+  }),
 ])
 
 for await (const notification of forges.notifications.list()) {

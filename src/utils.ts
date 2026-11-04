@@ -39,12 +39,20 @@ export function iteratePages<T, O extends { cursor?: Cursor } = ListOptions>(
 
 /** Turns a caught error into a serialisable warning. */
 export function toWarning(code: string, error: unknown, subject?: string): ForgeWarning {
-  const err = error instanceof Error ? error : new Error(String(error))
+  const err = error instanceof Error
+    ? error
+    : new Error(String(error))
   return {
     code,
     message: err.message,
     subject,
-    cause: { name: err.name, message: err.message, status: err instanceof ForgeApiError ? err.status : undefined },
+    cause: {
+      name: err.name,
+      message: err.message,
+      status: err instanceof ForgeApiError
+        ? err.status
+        : undefined,
+    },
   }
 }
 
@@ -58,7 +66,9 @@ export async function mapConcurrent<T, R>(items: readonly T[], limit: number, fn
   const results: R[] = Array.from({ length: items.length })
   let next = 0
   let failed = false
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+  await Promise.all(Array.from({
+    length: Math.min(limit, items.length),
+  }, async () => {
     while (!failed && next < items.length) {
       const index = next++
       try {
@@ -88,7 +98,13 @@ export function getManyConcurrently(
       if (error instanceof ForgeError && !degradesToWarning(error)) {
         throw error
       }
-      return { ok: false, ref, warning: toWarning(error instanceof UnresolvedThreadError ? 'thread_unresolved' : 'thread_unreadable', error, ref.number) }
+      return {
+        ok: false,
+        ref,
+        warning: toWarning(error instanceof UnresolvedThreadError
+          ? 'thread_unresolved'
+          : 'thread_unreadable', error, ref.number),
+      }
     },
   ))
 }
@@ -97,13 +113,25 @@ export function getManyConcurrently(
 export function latestCommentOf(subject: NotificationSubject, url: string | null | undefined): ResolvedCommentRef | CommitCommentRef | undefined {
   if (subject.type === 'commit') {
     const id = /\/repos\/[^/]+\/[^/]+\/comments\/(\d+)$/.exec(url ?? '')?.[1]
-    return id ? { forge: subject.commit.forge, instance: subject.commit.instance, commit: subject.commit, id } : undefined
+    return id
+      ? {
+          forge: subject.commit.forge,
+          instance: subject.commit.instance,
+          commit: subject.commit,
+          id,
+        }
+      : undefined
   }
   const id = /\/issues\/comments\/(\d+)$/.exec(url ?? '')?.[1]
   if (!id || subject.type !== 'thread' || !isResolvedThread(subject.thread)) {
     return undefined
   }
-  return { forge: subject.thread.forge, instance: subject.thread.instance, thread: subject.thread, id }
+  return {
+    forge: subject.thread.forge,
+    instance: subject.thread.instance,
+    thread: subject.thread,
+    id,
+  }
 }
 
 /** Compares dotted numeric versions, ignoring any suffix after the numbers. */
@@ -112,7 +140,10 @@ export function versionAtLeast(version: string | undefined, minimum: string): bo
     return false
   }
   const parts = (value: string) => (/^\D*(\d+(?:\.\d+)*)/.exec(value)?.[1] ?? '0').split('.').map(Number)
-  const [a, b] = [parts(version), parts(minimum)]
+  const [a, b] = [
+    parts(version),
+    parts(minimum),
+  ]
   for (let index = 0; index < Math.max(a.length, b.length); index++) {
     const difference = (a[index] ?? 0) - (b[index] ?? 0)
     if (difference !== 0) {
@@ -128,7 +159,9 @@ export function toDate(value: string | number | null | undefined): Date | undefi
     return undefined
   }
   const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? undefined : date
+  return Number.isNaN(date.getTime())
+    ? undefined
+    : date
 }
 
 /** The host of `baseUrl`, including the port when there is one. */
@@ -138,7 +171,9 @@ export function hostOf(baseUrl: string): string {
 
 /** The namespace ref of `ref`'s owner, for the `org` of a team's ref. */
 export function teamOrg(ref: RepoRef): RepoRef {
-  return isNamespaceRef(ref) ? ref : namespaceRef(ref, ref.owner)
+  return isNamespaceRef(ref)
+    ? ref
+    : namespaceRef(ref, ref.owner)
 }
 
 /** Narrows a ref to one a provider can address, or throws {@link UnresolvedThreadError}. */
@@ -163,7 +198,9 @@ export function requireIssueOrPull(ref: ThreadRef, context: ForgeErrorContext, v
 
 /** The token in `auth`, read again on every call when it is a function. */
 export async function resolveToken(auth: TokenAuth): Promise<string> {
-  return typeof auth.token === 'function' ? await auth.token() : auth.token
+  return typeof auth.token === 'function'
+    ? await auth.token()
+    : auth.token
 }
 
 /**
@@ -176,7 +213,9 @@ export async function milestoneId(
   context: ForgeErrorContext,
   options: BaseOptions = {},
 ): Promise<number> {
-  const value = typeof milestone === 'string' ? milestone : milestone.id
+  const value = typeof milestone === 'string'
+    ? milestone
+    : milestone.id
   if (/^\d+$/.test(value)) {
     return Number(value)
   }
@@ -190,12 +229,16 @@ export async function milestoneId(
 
 /** Joins the merge commit title and message for a forge that takes them as one string. */
 export function mergeCommitMessage({ title, message }: MergeOptions): string | undefined {
-  return title && message ? `${title}\n\n${message}` : title || message
+  return title && message
+    ? `${title}\n\n${message}`
+    : title || message
 }
 
 /** A login from either a login string or an actor. */
 export function actorLogin(actor: string | Actor): string {
-  return typeof actor === 'string' ? actor : actor.login
+  return typeof actor === 'string'
+    ? actor
+    : actor.login
 }
 
 /** Maps one fetched page into a {@link Page}. The cursor is kept only when there is a next page. */
@@ -203,13 +246,23 @@ export function toPage<R, T>(result: FetchResult<R[]>, map: (raw: R) => T | unde
   return {
     items: (result.data ?? []).flatMap((raw) => {
       const item = map(raw)
-      return item === undefined ? [] : [item]
+      return item === undefined
+        ? []
+        : [item]
     }),
-    ...result.total !== undefined ? { total: result.total } : {},
-    cursor: result.cursor?.nextUrl || result.cursor?.token ? result.cursor : undefined,
-    ...result.etag ? { etag: result.etag } : {},
+    ...result.total !== undefined
+      ? { total: result.total }
+      : {},
+    cursor: result.cursor?.nextUrl || result.cursor?.token
+      ? result.cursor
+      : undefined,
+    ...result.etag
+      ? { etag: result.etag }
+      : {},
     notModified: result.notModified || undefined,
-    ...warnings?.length ? { warnings } : {},
+    ...warnings?.length
+      ? { warnings }
+      : {},
     ...rateLimitPart(result.response),
   }
 }
@@ -223,7 +276,9 @@ export function withEtag<T>(page: Page<T>, result: FetchResult<unknown>, cursor:
     return page
   }
   const etag = result.response.headers.get('etag') ?? (result.notModified ? cursor?.etag : undefined)
-  return etag ? { ...page, etag } : page
+  return etag
+    ? { ...page, etag }
+    : page
 }
 
 /** Whether `cursor` asks for the first page of a listing: it has neither `nextUrl` nor `token`, though it may have an `etag`. */
@@ -233,7 +288,9 @@ export function isFirstPage(cursor: Cursor | undefined): boolean {
 
 /** The `etag` of `cursor` when it asks for the first page, to send as `If-None-Match`. */
 export function firstPageEtag(cursor: Cursor | undefined): string | undefined {
-  return isFirstPage(cursor) ? cursor?.etag : undefined
+  return isFirstPage(cursor)
+    ? cursor?.etag
+    : undefined
 }
 
 /** Extra options for a listing: the query, how to select the items and map errors, and where to collect warnings. */
@@ -248,7 +305,12 @@ export type Listing = <R, T>(path: string, options: PageOptions, map: (raw: R) =
 /** Builds a {@link Listing} for a forge that names its page-size parameter `pageParam`. */
 export function createListing(fetcher: Fetcher, pageParam: string, defaultPerPage?: number): Listing {
   return async <R, T>(path: string, options: PageOptions, map: (raw: R) => T | undefined, { warnings, query, ...extras }: ListingExtras = {}) => toPage(
-    await fetcher.page<R>(path, { ...extras, query: { ...query, [pageParam]: options.perPage ?? defaultPerPage }, cursor: options.cursor, signal: options.signal }),
+    await fetcher.page<R>(path, {
+      ...extras,
+      query: { ...query, [pageParam]: options.perPage ?? defaultPerPage },
+      cursor: options.cursor,
+      signal: options.signal,
+    }),
     map,
     warnings,
   )
@@ -256,8 +318,12 @@ export function createListing(fetcher: Fetcher, pageParam: string, defaultPerPag
 
 /** The `rateLimit` of a page built by hand: the budget of the response behind it, or of the page it maps. */
 export function rateLimitPart(source: Response | Pick<Page<unknown>, 'rateLimit'> | undefined): { rateLimit?: RateLimit } {
-  const rateLimit = source && ('headers' in source ? rateLimitOf(source) : source.rateLimit)
-  return rateLimit ? { rateLimit } : {}
+  const rateLimit = source && ('headers' in source
+    ? rateLimitOf(source)
+    : source.rateLimit)
+  return rateLimit
+    ? { rateLimit }
+    : {}
 }
 
 /**
@@ -268,17 +334,31 @@ export function rateLimitPart(source: Response | Pick<Page<unknown>, 'rateLimit'
  */
 export async function phased<T>(phases: Array<(cursor?: Cursor) => Promise<Page<T>>>, cursor?: Cursor): Promise<Page<T>> {
   const match = /^(\d+):(.*)$/s.exec(cursor?.token ?? '')
-  const index = match ? Number(match[1]) : 0
+  const index = match
+    ? Number(match[1])
+    : 0
   const conditional = phases.length === 1
   const inner = cursor && (cursor.nextUrl || match?.[2])
     ? { ...cursor, token: match?.[2] || undefined }
-    : conditional && cursor?.etag ? { etag: cursor.etag } : undefined
+    : conditional && cursor?.etag
+      ? { etag: cursor.etag }
+      : undefined
   const { etag, ...rest } = await phases[index]!(inner)
-  const page = conditional && etag ? { ...rest, etag } : rest
+  const page = conditional && etag
+    ? { ...rest, etag }
+    : rest
   if (page.cursor) {
-    return { ...page, cursor: { ...page.cursor, token: `${index}:${page.cursor.token ?? ''}` } }
+    return {
+      ...page,
+      cursor: { ...page.cursor, token: `${index}:${page.cursor.token ?? ''}` },
+    }
   }
-  return index + 1 < phases.length ? { ...page, cursor: { token: `${index + 1}:` } } : page
+  return index + 1 < phases.length
+    ? {
+        ...page,
+        cursor: { token: `${index + 1}:` },
+      }
+    : page
 }
 
 /** Whether `labels` include every name in `wanted`; true when nothing is wanted. */
@@ -289,7 +369,9 @@ export function hasEveryLabel(labels: ReadonlyArray<{ name: string }> | undefine
 /** The counts that are numbers, or `undefined` when none are. */
 export function toPullStats(counts: { [K in keyof PullStats]?: number | null }): PullStats | undefined {
   const known = Object.entries(counts).filter(([, count]) => typeof count === 'number')
-  return known.length ? Object.fromEntries(known) : undefined
+  return known.length
+    ? Object.fromEntries(known)
+    : undefined
 }
 
 /** Any failure fails, else any pending is pending, else any unknown (or none at all) is unknown, else success. */
@@ -299,11 +381,26 @@ export function summariseChecks(states: CheckState[], url?: string): ChecksSumma
     ? 'failure'
     : states.includes('pending')
       ? 'pending'
-      : !states.length || states.includes('unknown') ? 'unknown' : 'success'
-  return { state, total: states.length, failed, ...url ? { url } : {} }
+      : !states.length || states.includes('unknown')
+          ? 'unknown'
+          : 'success'
+  return {
+    state,
+    total: states.length,
+    failed,
+    ...url
+      ? { url }
+      : {},
+  }
 }
 
-const FAILED_CONCLUSIONS = new Set(['failure', 'timed_out', 'cancelled', 'action_required', 'startup_failure'])
+const FAILED_CONCLUSIONS = new Set([
+  'failure',
+  'timed_out',
+  'cancelled',
+  'action_required',
+  'startup_failure',
+])
 
 /**
  * State of a check run reported as a status plus a conclusion once completed.
@@ -320,7 +417,9 @@ export function checkRunState(status: string, conclusion?: string | null): Check
   if (conclusion && FAILED_CONCLUSIONS.has(conclusion)) {
     return 'failure'
   }
-  return conclusion === 'neutral' || conclusion === 'skipped' ? 'neutral' : 'unknown'
+  return conclusion === 'neutral' || conclusion === 'skipped'
+    ? 'neutral'
+    : 'unknown'
 }
 
 /** Maps a forge's own file-change word onto {@link FileStatus}; unknown words become `'changed'`. */
@@ -359,7 +458,10 @@ export function memo<T>(load: () => Promise<T>, ttl?: number): () => Promise<T> 
   return () => {
     if (!cached || (ttl !== undefined && Date.now() - cached.at > ttl)) {
       const promise = load()
-      cached = { promise, at: Date.now() }
+      cached = {
+        promise,
+        at: Date.now(),
+      }
       promise.catch(() => {
         if (cached?.promise === promise) {
           cached = undefined
@@ -390,7 +492,20 @@ export function memoBy<K, T>(load: (key: K) => Promise<T>): (key: K) => Promise<
  */
 export function syntheticReview(thread: ResolvedThreadRef, id: string, state: ReviewState, extras: { author?: Actor, stateRaw?: string, submittedAt?: Date, raw: unknown }): Review {
   const { author, stateRaw, submittedAt, raw } = extras
-  return { ref: { forge: thread.forge, instance: thread.instance, thread, id }, author, state, stateRaw, submittedAt, comments: false, raw }
+  return {
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id,
+    },
+    author,
+    state,
+    stateRaw,
+    submittedAt,
+    comments: false,
+    raw,
+  }
 }
 
 /** A label colour as six hex digits, with the `#` prefix the forge expects. `ededed` when none is given. */

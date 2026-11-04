@@ -11,30 +11,115 @@ export interface Command {
 export const INTERNAL_SCRIPTS = ['prepack', 'prepare']
 
 export const COMMANDS: Command[] = [
-  { commands: ['pnpm dev'], scripts: ['dev'], description: 'Runs the unit tests in watch mode' },
-  { commands: ['pnpm build'], scripts: ['build'], description: 'Builds the package into `dist`' },
-  { commands: ['pnpm build:docs'], scripts: ['build:docs'], description: 'Builds the docs site. The docs tests and the link check need it' },
-  { commands: ['pnpm test'], scripts: ['test'], description: 'Runs the unit tests, the capability check, the type check and knip' },
-  { commands: ['pnpm test:unit'], scripts: ['test:unit'], description: 'Runs the unit tests once' },
-  { commands: ['pnpm test:docs'], scripts: ['test:docs'], description: 'Tests the built docs site. Build the docs first' },
-  { commands: ['pnpm test:links'], scripts: ['test:links'], description: 'Checks the links of the Markdown and the built docs site with lychee. Build the docs first' },
-  { commands: ['pnpm test:types'], scripts: ['test:types'], description: 'Type-checks `src`, `test` and `scripts`' },
-  { commands: ['pnpm test:capabilities'], scripts: ['test:capabilities'], description: 'Fails for a capability whose declared level does not match what the tests verify against the forge' },
-  { commands: ['pnpm test:knip'], scripts: ['test:knip'], description: 'Finds unused files, exports and dependencies' },
-  { commands: ['pnpm test:size'], scripts: ['test:size'], description: 'Reports browser bundle sizes, and checks that webhook translation loads lazily, the budget of the provider-free bundle and the sizes the docs quote. Run `pnpm build` first; `--update-docs` updates those sizes' },
-  { commands: ['pnpm lint', 'pnpm lint:fix'], scripts: ['lint', 'lint:fix'], description: 'Lints, and fixes what it can' },
-  { commands: ['pnpm capability-matrix'], scripts: ['capability-matrix'], description: 'Updates the capability matrix and the other tables of the docs' },
-  { commands: ['pnpm capability-diff [ref]'], scripts: ['capability-diff'], description: 'Shows how the capabilities differ from `ref`, `main` by default' },
-  { commands: ['pnpm docs:api'], scripts: ['docs:api'], description: 'Updates the API reference. `--list` shows what lacks a description, and `--check` fails for it' },
-  { commands: ['pnpm record-fixtures <forge>'], scripts: ['record-fixtures'], description: 'Records responses from a live forge' },
-  { commands: ['pnpm recorded-coverage'], scripts: ['recorded-coverage'], description: 'Lists the capabilities that no recording of a live forge exercises' },
-  { commands: ['pnpm dev:docs'], scripts: ['dev:docs'], description: 'Starts the docs site' },
-  { commands: ['pnpm dev:playground'], scripts: ['dev:playground'], description: 'Starts the playground' },
-  { commands: ['pnpm check:all'], scripts: ['check:all'], description: 'Runs lint, tests, a build and the size check' },
+  {
+    commands: ['pnpm dev'],
+    scripts: ['dev'],
+    description: 'Runs the unit tests in watch mode',
+  },
+  {
+    commands: ['pnpm build'],
+    scripts: ['build'],
+    description: 'Builds the package into `dist`',
+  },
+  {
+    commands: ['pnpm build:docs'],
+    scripts: ['build:docs'],
+    description: 'Builds the docs site. The docs tests and the link check need it',
+  },
+  {
+    commands: ['pnpm test'],
+    scripts: ['test'],
+    description: 'Runs the unit tests, the capability check, the type check and knip',
+  },
+  {
+    commands: ['pnpm test:unit'],
+    scripts: ['test:unit'],
+    description: 'Runs the unit tests once',
+  },
+  {
+    commands: ['pnpm test:docs'],
+    scripts: ['test:docs'],
+    description: 'Tests the built docs site. Build the docs first',
+  },
+  {
+    commands: ['pnpm test:links'],
+    scripts: ['test:links'],
+    description: 'Checks the links of the Markdown and the built docs site with lychee. Build the docs first',
+  },
+  {
+    commands: ['pnpm test:types'],
+    scripts: ['test:types'],
+    description: 'Type-checks `src`, `test` and `scripts`',
+  },
+  {
+    commands: ['pnpm test:capabilities'],
+    scripts: ['test:capabilities'],
+    description: 'Fails for a capability whose declared level does not match what the tests verify against the forge',
+  },
+  {
+    commands: ['pnpm test:knip'],
+    scripts: ['test:knip'],
+    description: 'Finds unused files, exports and dependencies',
+  },
+  {
+    commands: ['pnpm test:size'],
+    scripts: ['test:size'],
+    description: 'Reports browser bundle sizes, and checks that webhook translation loads lazily, the budget of the provider-free bundle and the sizes the docs quote. Run `pnpm build` first; `--update-docs` updates those sizes',
+  },
+  {
+    commands: ['pnpm lint', 'pnpm lint:fix'],
+    scripts: ['lint', 'lint:fix'],
+    description: 'Lints, and fixes what it can',
+  },
+  {
+    commands: ['pnpm capability-matrix'],
+    scripts: ['capability-matrix'],
+    description: 'Updates the capability matrix and the other tables of the docs',
+  },
+  {
+    commands: ['pnpm capability-diff [ref]'],
+    scripts: ['capability-diff'],
+    description: 'Shows how the capabilities differ from `ref`, `main` by default',
+  },
+  {
+    commands: ['pnpm docs:api'],
+    scripts: ['docs:api'],
+    description: 'Updates the API reference. `--list` shows what lacks a description, and `--check` fails for it',
+  },
+  {
+    commands: ['pnpm record-fixtures <forge>'],
+    scripts: ['record-fixtures'],
+    description: 'Records responses from a live forge',
+  },
+  {
+    commands: ['pnpm recorded-coverage'],
+    scripts: ['recorded-coverage'],
+    description: 'Lists the capabilities that no recording of a live forge exercises',
+  },
+  {
+    commands: ['pnpm dev:docs'],
+    scripts: ['dev:docs'],
+    description: 'Starts the docs site',
+  },
+  {
+    commands: ['pnpm dev:playground'],
+    scripts: ['dev:playground'],
+    description: 'Starts the playground',
+  },
+  {
+    commands: ['pnpm check:all'],
+    scripts: ['check:all'],
+    description: 'Runs lint, tests, a build and the size check',
+  },
 ]
 
 /** The commands as a Markdown table. */
 export function commandTable(): string {
   const rows = COMMANDS.map(({ commands, description }) => `| ${commands.map(command => `\`${command}\``).join(', ')} | ${description} |`)
-  return ['<!-- Generated by `pnpm capability-matrix`; do not edit by hand. -->', '| Command | What it does |', '| --- | --- |', ...rows].join('\n')
+  return [
+    '<!-- Generated by `pnpm capability-matrix`; do not edit by hand. -->',
+    '| Command | What it does |',
+    '| --- | --- |',
+    ...rows,
+  ].join('\n')
 }

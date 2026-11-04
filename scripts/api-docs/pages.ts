@@ -147,7 +147,11 @@ export function buildFiles(source: ApiModel, options: PagesOptions): BuildResult
   const banner = `<!-- Do not edit by hand: \`${options.command}\` writes this page from the JSDoc comments in \`src/\`. -->`
   const files = pages.map((page, index): GeneratedFile => ({
     path: pagePath(page, index, options),
-    content: [frontmatter(page.config.title, page.config.description, undefined, page.config.icon), banner, renderPage(page, pages, name => links.get(name), options).markdown].join('\n\n').concat('\n'),
+    content: [
+      frontmatter(page.config.title, page.config.description, undefined, page.config.icon),
+      banner,
+      renderPage(page, pages, name => links.get(name), options).markdown,
+    ].join('\n\n').concat('\n'),
   }))
   files.unshift(overview(pages, options, banner))
   return { files, unplaced }
@@ -161,12 +165,20 @@ export function withoutHiddenMembers(model: ApiModel, hidden?: PagesOptions['hid
   const strip = (symbol: ApiSymbol): ApiSymbol => {
     let copy = cache.get(symbol)
     if (!copy) {
-      copy = { ...symbol, members: symbol.members.filter(member => !hidden(symbol, member)) }
+      copy = {
+        ...symbol,
+        members: symbol.members.filter(member => !hidden(symbol, member)),
+      }
       cache.set(symbol, copy)
     }
     return copy
   }
-  return { entries: model.entries.map(entry => ({ ...entry, symbols: entry.symbols.map(strip) })) }
+  return {
+    entries: model.entries.map(entry => ({
+      ...entry,
+      symbols: entry.symbols.map(strip),
+    })),
+  }
 }
 
 /**
@@ -196,21 +208,44 @@ function resolvePages(model: ApiModel, options: PagesOptions): { pages: Page[], 
   const provider = main.find(symbol => symbol.name === 'ForgeProvider')
 
   const pages = options.pages.map((config): Page => {
-    const page: Page = { config, sections: [], reexports: [], represents: [] }
+    const page: Page = {
+      config,
+      sections: [],
+      reexports: [],
+      represents: [],
+    }
     for (const section of config.sections) {
       const pool = entries.get(section.entry ?? options.main) ?? []
-      page.sections.push({ title: section.title, intro: section.intro, items: selectItems(section, pool, page, owners, provider) })
+      page.sections.push({
+        title: section.title,
+        intro: section.intro,
+        items: selectItems(section, pool, page, owners, provider),
+      })
     }
     return page
   })
 
-  const all = [...new Set(model.entries.flatMap(entry => entry.symbols))]
+  const all = [
+    ...new Set(model.entries.flatMap(entry => entry.symbols)),
+  ]
   const leftovers = all.filter(symbol => !owners.has(symbol))
   if (leftovers.length) {
-    const other: Page = { config: OTHER, sections: [{ items: leftovers.map(symbol => ({ type: 'symbol', symbol })) }], reexports: [], represents: [] }
+    const other: Page = {
+      config: OTHER,
+      sections: [
+        {
+          items: leftovers.map(symbol => ({ type: 'symbol', symbol })),
+        },
+      ],
+      reexports: [],
+      represents: [],
+    }
     pages.push(other)
   }
-  return { pages, unplaced: leftovers.map(symbol => symbol.name) }
+  return {
+    pages,
+    unplaced: leftovers.map(symbol => symbol.name),
+  }
 }
 
 function selectItems(section: SectionConfig, pool: ApiSymbol[], page: Page, owners: Map<ApiSymbol, Page>, provider?: ApiSymbol): Item[] {
@@ -222,20 +257,37 @@ function selectItems(section: SectionConfig, pool: ApiSymbol[], page: Page, owne
   }
 
   if (section.namespaceTable) {
-    return [{ type: 'namespaces' }]
+    return [
+      { type: 'namespaces' },
+    ]
   }
 
   if (section.namespaces) {
     return section.namespaces.map((name): Item => {
       const member = provider?.members.find(candidate => candidate.name === name)
-      const symbol = member?.reference ? pool.find(candidate => candidate.name === member.reference) : undefined
+      const symbol = member?.reference
+        ? pool.find(candidate => candidate.name === member.reference)
+        : undefined
       if (!member || !symbol) {
         throw new Error(`provider.${name} is not a namespace of ForgeProvider`)
       }
       claim(symbol)
       page.represents.push(symbol)
-      const qualifier = section.namespaces!.length > 1 ? `${name}.` : ''
-      return { type: 'namespace', member, symbol, items: pairPages(symbol.members.filter(entry => entry.kind !== 'group')).map(({ member: entry, twin }): Item => ({ type: 'member', member: entry, twin, verb: `${name}.${entry.name}`, qualifier })) }
+      const qualifier = section.namespaces!.length > 1
+        ? `${name}.`
+        : ''
+      return {
+        type: 'namespace',
+        member,
+        symbol,
+        items: pairPages(symbol.members.filter(entry => entry.kind !== 'group')).map(({ member: entry, twin }): Item => ({
+          type: 'member',
+          member: entry,
+          twin,
+          verb: `${name}.${entry.name}`,
+          qualifier,
+        })),
+      }
     })
   }
 
@@ -265,7 +317,9 @@ function selectItems(section: SectionConfig, pool: ApiSymbol[], page: Page, owne
     }
   }
   for (const selector of section.names ?? []) {
-    const matches = pool.filter(symbol => typeof selector === 'string' ? symbol.name === selector : selector.test(symbol.name))
+    const matches = pool.filter(symbol => typeof selector === 'string'
+      ? symbol.name === selector
+      : selector.test(symbol.name))
     if (!matches.length && typeof selector === 'string') {
       throw new Error(`${page.config.slug}: "${section.title ?? 'untitled section'}" selects ${selector}, which ${section.entry ?? 'the main entry point'} does not export`)
     }
@@ -284,8 +338,12 @@ function pairPages(members: ApiMember[]): Array<{ member: ApiMember, twin?: ApiM
     if (member.kind === 'method' && member.name.endsWith('Page') && names.has(member.name.slice(0, -4))) {
       return []
     }
-    const twin = member.kind === 'method' ? members.find(candidate => candidate.name === `${member.name}Page`) : undefined
-    return [{ member, twin }]
+    const twin = member.kind === 'method'
+      ? members.find(candidate => candidate.name === `${member.name}Page`)
+      : undefined
+    return [
+      { member, twin },
+    ]
   })
 }
 
@@ -294,7 +352,9 @@ function renderPage(page: Page, pages: Page[], resolve: (name: string) => string
   const context: RenderContext = {
     resolve,
     capability: verb => describeCapability(options.capability(verb)),
-    explorer: verb => options.explorable?.(verb) ? `::api-explorer{verb="${verb}"}\n::` : undefined,
+    explorer: verb => options.explorable?.(verb)
+      ? `::api-explorer{verb="${verb}"}\n::`
+      : undefined,
     heading: (level, text, target) => {
       headings.push({ text, target })
       return `${'#'.repeat(level)} ${text}`
@@ -321,10 +381,15 @@ function renderPage(page: Page, pages: Page[], resolve: (name: string) => string
   }
 
   if (page.reexports.length) {
-    const names = page.reexports.map(symbol => resolve(symbol.name) ? `[${code(symbol.name)}](${resolve(symbol.name)})` : code(symbol.name))
+    const names = page.reexports.map(symbol => resolve(symbol.name)
+      ? `[${code(symbol.name)}](${resolve(symbol.name)})`
+      : code(symbol.name))
     blocks.push(`These exports are documented elsewhere: ${names.join(', ')}.`)
   }
-  return { markdown: blocks.join('\n\n'), headings }
+  return {
+    markdown: blocks.join('\n\n'),
+    headings,
+  }
 }
 
 function renderItem(item: Item, level: number, context: RenderContext, pages: Page[], options: PagesOptions): string {
@@ -335,7 +400,9 @@ function renderItem(item: Item, level: number, context: RenderContext, pages: Pa
     return renderMember(item.member, level, context, { verb: item.verb, qualifier: item.qualifier, twin: item.twin })
   }
   if (item.type === 'namespace') {
-    const blocks = [context.heading(level, code(`provider.${item.member.name}`), item.symbol)]
+    const blocks = [
+      context.heading(level, code(`provider.${item.member.name}`), item.symbol),
+    ]
     const description = item.member.description || item.symbol.description
     if (description) {
       blocks.push(prose(description, context.resolve))
@@ -348,7 +415,11 @@ function renderItem(item: Item, level: number, context: RenderContext, pages: Pa
 
 /** The table that lists the namespaces, which needs the pages that document them. */
 function namespaceTable(pages: Page[], options: PagesOptions): string {
-  const rows = pages.flatMap(page => page.sections.flatMap(section => section.items.flatMap(item => item.type === 'namespace' ? [{ item, page }] : []))).map(({ item, page }) =>
+  const rows = pages.flatMap(page => page.sections.flatMap(section => section.items.flatMap(item => item.type === 'namespace'
+    ? [
+        { item, page },
+      ]
+    : []))).map(({ item, page }) =>
     `| [${code(`provider.${item.member.name}`)}](${pageUrl(page, options)}#${slug(`provider.${item.member.name}`)}) | ${page.config.title} |`)
   return ['| Namespace | Documented under |', '| --- | --- |', ...rows].join('\n')
 }
@@ -359,7 +430,9 @@ function anchorsOf(headings: Heading[]): string[] {
     const base = slug(text)
     const count = used.get(base)
     used.set(base, (count ?? 0) + 1)
-    return count === undefined ? base : `${base}-${count}`
+    return count === undefined
+      ? base
+      : `${base}-${count}`
   })
 }
 
@@ -373,7 +446,9 @@ function describeCapability(info: CapabilityInfo | undefined): string | undefine
   const notes = [
     info.perKind ? 'Support differs by thread kind.' : '',
     info.write ? 'Read-only and anonymous providers reject it.' : '',
-    !info.write && info.account ? 'Anonymous providers reject it.' : '',
+    !info.write && info.account
+      ? 'Anonymous providers reject it.'
+      : '',
   ].filter(Boolean)
   return [`**Capability:** ${code(info.capability)}.`, ...notes].join(' ')
 }
@@ -392,24 +467,36 @@ function frontmatter(title: string, description: string, navigationTitle?: strin
   return [
     '---',
     `title: ${JSON.stringify(title)}`,
-    ...navigationTitle ? ['navigation:', `  title: ${JSON.stringify(navigationTitle)}`] : [],
+    ...navigationTitle
+      ? ['navigation:', `  title: ${JSON.stringify(navigationTitle)}`]
+      : [],
     `description: ${JSON.stringify(description)}`,
-    ...icon ? [`icon: ${icon}`] : [],
+    ...icon
+      ? [`icon: ${icon}`]
+      : [],
     '---',
   ].join('\n')
 }
 
 function overview(pages: Page[], options: PagesOptions, banner: string): GeneratedFile {
   const entries = [
-    ...pages.filter(page => !page.config.location).map(page => ({ title: page.config.title, url: pageUrl(page, options), overview: page.config.overview ?? page.config.description })),
+    ...pages.filter(page => !page.config.location).map(page => ({
+      title: page.config.title,
+      url: pageUrl(page, options),
+      overview: page.config.overview ?? page.config.description,
+    })),
     ...options.overviewPages ?? [],
   ]
   const body = [
     frontmatter('Reference', 'The exports of forges, with their signatures, types and descriptions.', 'Overview', options.overviewIcon),
     banner,
-    ...options.overviewIntro ? [options.overviewIntro] : [],
+    ...options.overviewIntro
+      ? [options.overviewIntro]
+      : [],
     ...entries.flatMap(entry => [`## ${entry.title}`, `${entry.overview} See [${entry.title}](${entry.url}).`]),
-    ...options.overviewOutro ? [options.overviewOutro] : [],
+    ...options.overviewOutro
+      ? [options.overviewOutro]
+      : [],
   ]
   return { path: `${options.directory}/01.overview.md`, content: `${body.join('\n\n')}\n` }
 }

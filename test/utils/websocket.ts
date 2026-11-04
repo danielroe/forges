@@ -18,7 +18,9 @@ export class FakeWebSocket implements WebSocketLike {
         if (this.closed) {
           return
         }
-        this.emit('message', { data: JSON.stringify(message) })
+        this.emit('message', {
+          data: JSON.stringify(message),
+        })
       }
       this.finish(1006, 'connection lost')
     })

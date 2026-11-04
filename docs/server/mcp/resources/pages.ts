@@ -11,14 +11,23 @@ export default defineMcpResource({
     const pages = await listAgentPages(useEvent())
     const lines = pages
       .filter(page => page.route !== '/')
-      .map(page => `- [${page.title || page.route}](${page.url})${page.description ? `: ${page.description}` : ''}`)
+      .map(page => `- [${page.title || page.route}](${page.url})${page.description
+        ? `: ${page.description}`
+        : ''}`)
 
     return {
-      contents: [{
-        uri: uri.toString(),
-        mimeType: 'text/markdown',
-        text: ['# forges documentation', '', ...lines, ''].join('\n'),
-      }],
+      contents: [
+        {
+          uri: uri.toString(),
+          mimeType: 'text/markdown',
+          text: [
+            '# forges documentation',
+            '',
+            ...lines,
+            '',
+          ].join('\n'),
+        },
+      ],
     }
   },
 })

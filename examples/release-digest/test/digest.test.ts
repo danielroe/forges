@@ -4,20 +4,53 @@ import { describe, expect, it } from 'vitest'
 import { buildDigest, formatDigest } from '../src/digest.ts'
 
 function setup() {
-  const { fetch, calls } = fixtureFetch(['github', 'gitlab', 'forgejo', 'bitbucket'])
+  const { fetch, calls } = fixtureFetch([
+    'github',
+    'gitlab',
+    'forgejo',
+    'bitbucket',
+  ])
   const forges = createForges([
-    github({ auth: { type: 'token', token: 'ghp_test' }, fetch }),
-    gitlab({ auth: { type: 'token', token: 'glpat_test' }, fetch }),
-    forgejo({ baseUrl: 'https://codeberg.org', auth: { type: 'token', token: 'cb_test' }, fetch }),
-    bitbucket({ auth: { type: 'basic', username: 'tester', password: 'app-password' }, fetch }),
+    github({
+      auth: { type: 'token', token: 'ghp_test' },
+      fetch,
+    }),
+    gitlab({
+      auth: { type: 'token', token: 'glpat_test' },
+      fetch,
+    }),
+    forgejo({
+      baseUrl: 'https://codeberg.org',
+      auth: { type: 'token', token: 'cb_test' },
+      fetch,
+    }),
+    bitbucket({
+      auth: { type: 'basic', username: 'tester', password: 'app-password' },
+      fetch,
+    }),
   ])
   return { forges, calls }
 }
 
 const repos = [
-  { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' },
-  { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme/platform', name: 'widgets' },
-  { forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' },
+  {
+    forge: 'github',
+    instance: 'github.com',
+    owner: 'acme',
+    name: 'widgets',
+  },
+  {
+    forge: 'gitlab',
+    instance: 'gitlab.com',
+    owner: 'acme/platform',
+    name: 'widgets',
+  },
+  {
+    forge: 'forgejo',
+    instance: 'codeberg.org',
+    owner: 'acme',
+    name: 'widgets',
+  },
 ] as const
 
 describe('release digest', () => {
@@ -56,7 +89,12 @@ describe('release digest', () => {
     const { forges } = setup()
 
     const result = await buildDigest(forges, [
-      { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' },
+      {
+        forge: 'bitbucket',
+        instance: 'bitbucket.org',
+        owner: 'acme',
+        name: 'widgets',
+      },
     ])
 
     expect(result.warnings.map(warning => warning.code)).toContain('releases_unsupported')
@@ -67,7 +105,12 @@ describe('release digest', () => {
     const { forges } = setup()
 
     const result = await buildDigest(forges, [
-      { forge: 'gitea', instance: 'gitea.com', owner: 'acme', name: 'widgets' },
+      {
+        forge: 'gitea',
+        instance: 'gitea.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
     ])
 
     expect(result.warnings.map(warning => warning.code)).toEqual(['provider_missing'])

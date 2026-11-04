@@ -16,7 +16,9 @@ function identifierAt(source: ts.SourceFile, position: number): ts.Node | undefi
     if (position < node.getStart(source) || position >= node.getEnd()) {
       return undefined
     }
-    return ts.forEachChild(node, visit) ?? (ts.isIdentifier(node) ? node : undefined)
+    return ts.forEachChild(node, visit) ?? (ts.isIdentifier(node)
+      ? node
+      : undefined)
   }
   return visit(source)
 }
@@ -41,7 +43,9 @@ function expandType(env: Environment, filename: string, position: number): strin
     return undefined
   }
   const lines = members.map((member) => {
-    const optional = member.flags & ts.SymbolFlags.Optional ? '?' : ''
+    const optional = member.flags & ts.SymbolFlags.Optional
+      ? '?'
+      : ''
     return `  ${member.name}${optional}: ${checker.typeToString(checker.getTypeOfSymbolAtLocation(member, node))}`
   })
   return `interface ${checker.symbolToString(symbol!)} {\n${lines.join('\n')}\n}`
@@ -87,11 +91,16 @@ function createExpandingTwoslasher(): TwoslashShikiFunction {
 }
 
 export async function createExampleHighlighter() {
-  const highlighter = await createHighlighter({ themes: [codeTheme], langs: ['ts'] })
+  const highlighter = await createHighlighter({
+    themes: [codeTheme],
+    langs: ['ts'],
+  })
   const twoslash = createTransformerFactory(createExpandingTwoslasher(), rendererRich({
     processHoverDocs: docs => docs.split(/\n\s*\n/)[0]!.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replaceAll('`', ''),
     hast: {
-      hoverPopup: { properties: { ariaHidden: 'true' } },
+      hoverPopup: {
+        properties: { ariaHidden: 'true' },
+      },
     },
   }))({})
 

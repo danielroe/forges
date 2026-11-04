@@ -3,7 +3,9 @@ import { getContributors } from './contributors.ts'
 
 export function createDocsGitHub(token: string) {
   return github({
-    auth: token ? { type: 'token', token } : { type: 'anonymous' },
+    auth: token
+      ? { type: 'token', token }
+      : { type: 'anonymous' },
     timeout: 5000,
     readOnly: true,
   })

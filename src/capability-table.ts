@@ -38,7 +38,13 @@ const TABLE = [
   { capability: 'users.sponsorable', account: true },
   { capability: 'users.sponsorableMany', account: true },
   { capability: 'users.events', listing: true },
-  { capability: 'users.block', write: true, account: true, spec: 'users.blocking', verbs: ['users.block', 'users.unblock'] },
+  {
+    capability: 'users.block',
+    write: true,
+    account: true,
+    spec: 'users.blocking',
+    verbs: ['users.block', 'users.unblock'],
+  },
   { capability: 'repos.list', account: true, listing: true },
   { capability: 'repos.byOwner', listing: true },
   { capability: 'repos.labels', listing: true },
@@ -57,26 +63,59 @@ const TABLE = [
   { capability: 'repos.events', listing: true },
   { capability: 'orgs.teams', listing: true },
   { capability: 'orgs.teamMembers', listing: true, account: true },
-  { capability: 'orgs.block', write: true, spec: 'orgs.blocking', verbs: ['orgs.block', 'orgs.unblock'] },
+  {
+    capability: 'orgs.block',
+    write: true,
+    spec: 'orgs.blocking',
+    verbs: ['orgs.block', 'orgs.unblock'],
+  },
   { capability: 'threads.get', perKind: true },
   { capability: 'threads.list', listing: true, perKind: true },
   { capability: 'threads.getMany' },
   { capability: 'threads.closingIssues', listing: true },
   { capability: 'threads.closingPullRequests', listing: true },
-  { capability: 'threads.events', listing: true, spec: 'threads.eventsPage', derived: 'threadEvents' },
+  {
+    capability: 'threads.events',
+    listing: true,
+    spec: 'threads.eventsPage',
+    derived: 'threadEvents',
+  },
   { capability: 'threads.comments', listing: true, perKind: true },
-  { capability: 'threads.getComment', spec: 'threads.getComment', derived: 'getComment', perKind: true },
+  {
+    capability: 'threads.getComment',
+    spec: 'threads.getComment',
+    derived: 'getComment',
+    perKind: true,
+  },
   { capability: 'threads.createComment', write: true, perKind: true },
   { capability: 'threads.updateComment', write: true, perKind: true },
   { capability: 'threads.deleteComment', write: true, perKind: true },
-  { capability: 'threads.hideComment', write: true, spec: 'threads.hiding', perKind: true, verbs: ['threads.hideComment', 'threads.unhideComment'] },
+  {
+    capability: 'threads.hideComment',
+    write: true,
+    spec: 'threads.hiding',
+    perKind: true,
+    verbs: ['threads.hideComment', 'threads.unhideComment'],
+  },
   { capability: 'threads.reactions', listing: true, perKind: true },
-  { capability: 'threads.react', write: true, spec: 'threads.reactions', perKind: true, verbs: ['threads.react', 'threads.unreact'] },
+  {
+    capability: 'threads.react',
+    write: true,
+    spec: 'threads.reactions',
+    perKind: true,
+    verbs: ['threads.react', 'threads.unreact'],
+  },
   { capability: 'threads.create', write: true, perKind: true },
   { capability: 'threads.update', write: true, perKind: true },
   { capability: 'threads.close', write: true, perKind: true },
   { capability: 'threads.reopen', write: true, perKind: true },
-  { capability: 'threads.lock', write: true, spec: 'threads.locking', perKind: true, verbs: ['threads.lock', 'threads.unlock'] },
+  {
+    capability: 'threads.lock',
+    write: true,
+    spec: 'threads.locking',
+    perKind: true,
+    verbs: ['threads.lock', 'threads.unlock'],
+  },
   { capability: 'threads.setLabels', write: true, perKind: true },
   { capability: 'threads.addLabels', write: true, perKind: true },
   { capability: 'threads.removeLabels', write: true, perKind: true },
@@ -88,8 +127,18 @@ const TABLE = [
   { capability: 'threads.updateBranch', write: true },
   { capability: 'threads.transfer', write: true },
   { capability: 'threads.markDuplicate', write: true },
-  { capability: 'threads.subscription', account: true, spec: 'threads.subscriptions', perKind: true },
-  { capability: 'threads.subscribe', write: true, derived: 'subscriptionSet', verbs: ['threads.subscribe', 'threads.unsubscribe'] },
+  {
+    capability: 'threads.subscription',
+    account: true,
+    spec: 'threads.subscriptions',
+    perKind: true,
+  },
+  {
+    capability: 'threads.subscribe',
+    write: true,
+    derived: 'subscriptionSet',
+    verbs: ['threads.subscribe', 'threads.unsubscribe'],
+  },
   { capability: 'threads.checks', perKind: true },
   { capability: 'threads.files', listing: true },
   { capability: 'threads.commits', listing: true },
@@ -97,10 +146,20 @@ const TABLE = [
   { capability: 'threads.getReview', spec: 'threads.getReview', derived: 'getReview' },
   { capability: 'threads.createReview', write: true },
   { capability: 'threads.submitReview', write: true },
-  { capability: 'threads.approve', write: true, spec: 'threads.approve', derived: 'approve' },
+  {
+    capability: 'threads.approve',
+    write: true,
+    spec: 'threads.approve',
+    derived: 'approve',
+  },
   { capability: 'threads.replyToReviewComment', write: true },
   { capability: 'threads.reviewThreads', listing: true },
-  { capability: 'threads.resolveReviewThread', write: true, spec: 'threads.reviewThreads', verbs: ['threads.resolveReviewThread', 'threads.unresolveReviewThread'] },
+  {
+    capability: 'threads.resolveReviewThread',
+    write: true,
+    spec: 'threads.reviewThreads',
+    verbs: ['threads.resolveReviewThread', 'threads.unresolveReviewThread'],
+  },
   { capability: 'notifications.list', account: true, listing: true },
   { capability: 'notifications.markRead', account: true, write: true },
   { capability: 'notifications.markDone', account: true, write: true },
@@ -108,7 +167,20 @@ const TABLE = [
   { capability: 'notifications.markAllRead', account: true, write: true },
   { capability: 'notifications.markAllDone', account: true, write: true },
   { capability: 'notifications.unreadCount', account: true },
-  { capability: 'installations.list', account: true, spec: 'installations', verbs: ['installations.list', 'installations.get', 'installations.token', 'installations.repos', 'installations.provider', 'installations.providers'], listings: ['installations.list', 'installations.repos'] },
+  {
+    capability: 'installations.list',
+    account: true,
+    spec: 'installations',
+    verbs: [
+      'installations.list',
+      'installations.get',
+      'installations.token',
+      'installations.repos',
+      'installations.provider',
+      'installations.providers',
+    ],
+    listings: ['installations.list', 'installations.repos'],
+  },
   { capability: 'checks.list' },
   { capability: 'checks.get' },
   { capability: 'checks.report', write: true },
@@ -133,7 +205,12 @@ const TABLE = [
   { capability: 'commits.createComment', write: true },
   { capability: 'commits.updateComment', write: true },
   { capability: 'commits.deleteComment', write: true },
-  { capability: 'commits.hideComment', write: true, spec: 'commits.commentHiding', verbs: ['commits.hideComment', 'commits.unhideComment'] },
+  {
+    capability: 'commits.hideComment',
+    write: true,
+    spec: 'commits.commentHiding',
+    verbs: ['commits.hideComment', 'commits.unhideComment'],
+  },
   { capability: 'releases.list', listing: true },
   { capability: 'releases.get' },
   { capability: 'releases.latest' },
@@ -141,7 +218,11 @@ const TABLE = [
   { capability: 'releases.downloadAsset' },
   { capability: 'releases.create', write: true },
   { capability: 'releases.update', write: true },
-  { capability: 'webhooks.ingest', derived: 'webhook', verbs: ['webhooks.verify', 'webhooks.ingest'] },
+  {
+    capability: 'webhooks.ingest',
+    derived: 'webhook',
+    verbs: ['webhooks.verify', 'webhooks.ingest'],
+  },
   { capability: 'webhooks.list', account: true, listing: true },
   { capability: 'webhooks.create', write: true },
   { capability: 'webhooks.update', write: true },
@@ -187,7 +268,20 @@ interface TableRow extends CapabilityEntry {
  * Every capability with the verbs it covers and the flags that gate it, in the order the capability matrix lists them.
  */
 export const CAPABILITY_TABLE: readonly CapabilityEntry[] = (TABLE as readonly TableRow[]).map(({ listing, ...row }) => {
-  const path = listing ? `${row.capability}Page` : row.capability
+  const path = listing
+    ? `${row.capability}Page`
+    : row.capability
   const spec = row.spec ?? (row.derived ? undefined : path)
-  return { ...row, ...spec ? { spec } : {}, verbs: row.verbs ?? [row.capability], ...listing ? { listings: [row.capability] } : {} }
+  return {
+    ...row,
+    ...spec
+      ? { spec }
+      : {},
+    verbs: row.verbs ?? [row.capability],
+    ...listing
+      ? {
+          listings: [row.capability],
+        }
+      : {},
+  }
 })

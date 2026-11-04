@@ -56,13 +56,22 @@ export function toRepo(instance: string, raw: BitbucketRepositoryDetail): Repo {
     description: raw.description || undefined,
     defaultBranch: raw.mainbranch?.name,
     visibility: raw.is_private ? 'private' : 'public',
-    visibilityRaw: raw.is_private === undefined ? undefined : raw.is_private ? 'private' : 'public',
+    visibilityRaw: raw.is_private === undefined
+      ? undefined
+      : raw.is_private ? 'private' : 'public',
     isFork: Boolean(raw.parent),
     isArchived: false,
-    parent: raw.parent ? toRepoRef(instance, raw.parent) : undefined,
+    parent: raw.parent
+      ? toRepoRef(instance, raw.parent)
+      : undefined,
     topics: [],
     url: raw.links?.html?.href,
-    cloneUrls: clone('https') || clone('ssh') ? { https: clone('https'), ssh: clone('ssh') } : undefined,
+    cloneUrls: clone('https') || clone('ssh')
+      ? {
+          https: clone('https'),
+          ssh: clone('ssh'),
+        }
+      : undefined,
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
     owner: toActor(instance, raw.owner),
@@ -70,7 +79,14 @@ export function toRepo(instance: string, raw: BitbucketRepositoryDetail): Repo {
     homepage: raw.website || undefined,
     features: raw.has_issues === undefined
       ? undefined
-      : { issues: raw.has_issues, pullRequests: true, discussions: false, wiki: raw.has_wiki ?? false, projects: false, releases: false },
+      : {
+          issues: raw.has_issues,
+          pullRequests: true,
+          discussions: false,
+          wiki: raw.has_wiki ?? false,
+          projects: false,
+          releases: false,
+        },
     raw,
   }
 }
@@ -116,14 +132,22 @@ function toReviewers(instance: string, raw: BitbucketPullRequest): Reviewer[] {
     }
     const participant = participants.get(user.uuid)
     const stateRaw = participant?.state ?? (participant?.approved ? 'approved' : undefined)
-    const state = stateRaw === 'approved' ? 'approved' : stateRaw === 'changes_requested' ? 'changes_requested' : 'pending'
-    return [{ actor, state, stateRaw: stateRaw ?? undefined }]
+    const state = stateRaw === 'approved'
+      ? 'approved'
+      : stateRaw === 'changes_requested'
+        ? 'changes_requested'
+        : 'pending'
+    return [
+      { actor, state, stateRaw: stateRaw ?? undefined },
+    ]
   })
 }
 
 export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest): Thread {
   const repo = raw.destination?.repository
-  const threadRepo = repo ? { ...ref.repo, externalId: repo.uuid ?? ref.repo.externalId } : ref.repo
+  const threadRepo = repo
+    ? { ...ref.repo, externalId: repo.uuid ?? ref.repo.externalId }
+    : ref.repo
   return {
     ref: { ...ref, repo: threadRepo },
     kind: 'pull_request',
@@ -140,7 +164,9 @@ export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest):
           head: {
             ref: raw.source.branch.name,
             sha: raw.source.commit?.hash,
-            repo: raw.source.repository ? toRepoRef(ref.instance, raw.source.repository) : undefined,
+            repo: raw.source.repository
+              ? toRepoRef(ref.instance, raw.source.repository)
+              : undefined,
           },
           base: { ref: raw.destination.branch.name, sha: raw.destination.commit?.hash },
           mergeCommitSha: raw.merge_commit?.hash,
@@ -150,8 +176,12 @@ export function toPullThread(ref: ResolvedThreadRef, raw: BitbucketPullRequest):
     url: raw.links?.html?.href,
     createdAt: toDate(raw.created_on),
     updatedAt: toDate(raw.updated_on),
-    closedAt: raw.state === 'OPEN' ? undefined : toDate(raw.updated_on),
-    mergedBy: raw.state === 'MERGED' ? toActor(ref.instance, raw.closed_by) : undefined,
+    closedAt: raw.state === 'OPEN'
+      ? undefined
+      : toDate(raw.updated_on),
+    mergedBy: raw.state === 'MERGED'
+      ? toActor(ref.instance, raw.closed_by)
+      : undefined,
     labels: [],
     commentCount: raw.comment_count,
     raw,
@@ -219,19 +249,28 @@ export function toActivityEvent(thread: ResolvedThreadRef, entry: BitbucketActiv
   }
   const update = entry.update
   const terminal = update?.state && update.state !== 'OPEN'
-  const state = terminal ? toPullState(update!.state!) : undefined
+  const state = terminal
+    ? toPullState(update!.state!)
+    : undefined
   return {
     ...event(
       thread,
       `update:${update?.date ?? index}`,
       terminal ? 'state_change' : 'other',
-      terminal ? `update.${update!.state}` : 'update',
+      terminal
+        ? `update.${update!.state}`
+        : 'update',
       toActor(thread.instance, update?.author),
-      terminal ? update!.state!.toLowerCase() : 'updated the pull request',
+      terminal
+        ? update!.state!.toLowerCase()
+        : 'updated the pull request',
       update?.date,
       entry,
     ),
-    ...state && { detail: { type: 'state_change', state }, ...STATE_ACTIONS[state] && { action: STATE_ACTIONS[state] } },
+    ...state && {
+      detail: { type: 'state_change', state },
+      ...STATE_ACTIONS[state] && { action: STATE_ACTIONS[state] },
+    },
   }
 }
 
@@ -241,23 +280,60 @@ export function participantReviewId(instance: string, user: BitbucketUser | unde
 }
 
 export function participantReview(thread: ThreadRef, user: BitbucketUser | undefined, state: ReviewState, stateRaw: string): EventDetail {
-  return { type: 'review', state, stateRaw, review: { forge: FORGE, instance: thread.instance, thread, id: participantReviewId(thread.instance, user) } }
+  return {
+    type: 'review',
+    state,
+    stateRaw,
+    review: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: participantReviewId(thread.instance, user),
+    },
+  }
 }
 
 export function commentDetail(thread: ThreadRef, comment: BitbucketComment): EventDetail {
-  const ref = { forge: FORGE, instance: thread.instance, thread, id: String(comment.id) }
+  const ref = {
+    forge: FORGE,
+    instance: thread.instance,
+    thread,
+    id: String(comment.id),
+  }
   const body = comment.content?.raw
   return comment.inline
-    ? { type: 'review_comment', comment: ref, body, path: comment.inline.path, line: comment.inline.to ?? comment.inline.from ?? undefined }
+    ? {
+        type: 'review_comment',
+        comment: ref,
+        body,
+        path: comment.inline.path,
+        line: comment.inline.to ?? comment.inline.from ?? undefined,
+      }
     : { type: 'comment', comment: ref, body }
 }
 
 export function toComment(thread: ResolvedThreadRef, raw: BitbucketComment): Comment {
-  return { ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) }, ...commentFields(thread.instance, raw) }
+  return {
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
+    ...commentFields(thread.instance, raw),
+  }
 }
 
 export function toCommitComment(commit: CommitRef, raw: BitbucketComment): CommitComment {
-  return { ref: { forge: FORGE, instance: commit.instance, commit, id: String(raw.id) }, ...commentFields(commit.instance, raw) }
+  return {
+    ref: {
+      forge: FORGE,
+      instance: commit.instance,
+      commit,
+      id: String(raw.id),
+    },
+    ...commentFields(commit.instance, raw),
+  }
 }
 
 function commentFields(instance: string, raw: BitbucketComment): Omit<Comment, 'ref'> {
@@ -280,28 +356,49 @@ export function normaliseMarkdown(body: string): string {
 
 /** `STOPPED` builds were cancelled, which counts as a failure. */
 export function statusState(state: string): CheckState {
-  return state === 'SUCCESSFUL' ? 'success' : state === 'FAILED' || state === 'STOPPED' ? 'failure' : state === 'INPROGRESS' ? 'pending' : 'unknown'
+  return state === 'SUCCESSFUL'
+    ? 'success'
+    : state === 'FAILED' || state === 'STOPPED'
+      ? 'failure'
+      : state === 'INPROGRESS'
+        ? 'pending'
+        : 'unknown'
 }
 
 export function toStatusCheck(repo: RepoRef, raw: BitbucketCommitStatus): Check {
   const state = statusState(raw.state)
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: raw.uuid ?? raw.key, type: 'status' },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: raw.uuid ?? raw.key,
+      type: 'status',
+    },
     name: raw.name ?? raw.key,
     state,
     stateRaw: raw.state,
     url: raw.url,
     startedAt: toDate(raw.created_on),
-    completedAt: state === 'pending' ? undefined : toDate(raw.updated_on),
+    completedAt: state === 'pending'
+      ? undefined
+      : toDate(raw.updated_on),
     raw,
   }
 }
 
 export function toCommit(repo: RepoRef, raw: BitbucketCommitDetail, files?: ChangedFile[]): Commit {
   const authored = raw.author?.raw
-  const match = authored ? /^(?<name>[^<]*)<(?<email>[^>]*)>$/.exec(authored) : undefined
+  const match = authored
+    ? /^(?<name>[^<]*)<(?<email>[^>]*)>$/.exec(authored)
+    : undefined
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.hash },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      sha: raw.hash,
+    },
     sha: raw.hash,
     message: raw.message ?? raw.summary?.raw ?? '',
     author: {
@@ -310,9 +407,13 @@ export function toCommit(repo: RepoRef, raw: BitbucketCommitDetail, files?: Chan
       email: match?.groups?.email,
       date: toDate(raw.date),
     },
-    parents: raw.parents?.flatMap(parent => parent.hash ? [parent.hash] : []) ?? [],
+    parents: raw.parents?.flatMap(parent => parent.hash
+      ? [parent.hash]
+      : []) ?? [],
     url: raw.links?.html?.href,
-    ...files ? { files } : {},
+    ...files
+      ? { files }
+      : {},
     raw,
   }
 }
@@ -322,7 +423,9 @@ export function toChangedFile(raw: BitbucketDiffStat): ChangedFile {
   const path = raw.new?.path ?? raw.old?.path ?? ''
   return {
     path,
-    previousPath: raw.status === 'renamed' ? raw.old?.path : undefined,
+    previousPath: raw.status === 'renamed'
+      ? raw.old?.path
+      : undefined,
     status: toFileStatus(raw.status),
     statusRaw: raw.status,
     additions: raw.lines_added,
@@ -334,20 +437,31 @@ export function toBranch(raw: BitbucketRef, defaultBranch?: string): Branch {
   return {
     name: raw.name,
     sha: raw.target?.hash ?? '',
-    isDefault: defaultBranch === undefined ? undefined : raw.name === defaultBranch,
+    isDefault: defaultBranch === undefined
+      ? undefined
+      : raw.name === defaultBranch,
     url: raw.links?.html?.href,
     raw,
   }
 }
 
 export function toTag(raw: BitbucketRef): Tag {
-  return { name: raw.name, sha: raw.target?.hash ?? '', url: raw.links?.html?.href, raw }
+  return {
+    name: raw.name,
+    sha: raw.target?.hash ?? '',
+    url: raw.links?.html?.href,
+    raw,
+  }
 }
 
 export function toTreeEntry(raw: BitbucketSrcEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.type === 'commit_directory' ? 'directory' : raw.attributes?.includes('link') ? 'symlink' : 'file',
+    type: raw.type === 'commit_directory'
+      ? 'directory'
+      : raw.attributes?.includes('link')
+        ? 'symlink'
+        : 'file',
     size: raw.size,
     sha: raw.commit?.hash,
   }
@@ -356,7 +470,12 @@ export function toTreeEntry(raw: BitbucketSrcEntry): TreeEntry {
 export function toWebhook(target: RepoRef, raw: BitbucketHook): Webhook {
   const nativeEvents = raw.events ?? []
   return {
-    ref: { forge: FORGE, instance: target.instance, target, id: raw.uuid },
+    ref: {
+      forge: FORGE,
+      instance: target.instance,
+      target,
+      id: raw.uuid,
+    },
     url: raw.url,
     events: eventKindsOf(BITBUCKET_NATIVE_EVENTS, nativeEvents),
     nativeEvents,

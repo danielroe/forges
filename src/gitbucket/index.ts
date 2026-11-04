@@ -120,7 +120,10 @@ const LEVELS: Record<string, RedeclaredSupport> = {
 }
 
 /** GitBucket has no discussions, so no verb that takes a thread kind takes that one. */
-const NO_DISCUSSIONS: Record<string, RedeclaredSupport> = Object.fromEntries(CAPABILITY_TABLE.filter(entry => entry.perKind).map(entry => [entry.capability, { discussion: 'not_applicable' }]))
+const NO_DISCUSSIONS: Record<string, RedeclaredSupport> = Object.fromEntries(CAPABILITY_TABLE.filter(entry => entry.perKind).map(entry => [
+  entry.capability,
+  { discussion: 'not_applicable' },
+]))
 
 /** Swaps in the verbs that GitBucket needs done its own way. */
 function forGitBucket(spec: GitHubSpec, { fetcher, origin }: GitHubContext): GitHubSpec {
@@ -131,21 +134,39 @@ function forGitBucket(spec: GitHubSpec, { fetcher, origin }: GitHubContext): Git
     ...spec,
     threads: {
       ...threads,
-      listPage: { ...threads.listPage, run: threadsPage(fetcher, origin) },
+      listPage: {
+        ...threads.listPage,
+        run: threadsPage(fetcher, origin),
+      },
       listFilters: ['mentions', 'milestone'],
       setLabels: setLabels && { ...setLabels, run: labels.setLabels },
       addLabels: addLabels && { ...addLabels, run: labels.addLabels },
       removeLabels: removeLabels && { ...removeLabels, run: labels.removeLabels },
       // Labels or assignees on a pull request go through the issue edit endpoint, which GitBucket lacks.
-      create: create && { ...create, run: (repo, input, options) => input.kind === 'pull_request' && (input.labels?.length || input.assignees?.length)
-        ? Promise.reject(new UnsupportedOperationError('GitBucket opens a pull request without labels or assignees; set labels with `setLabels()` once it is open', origin))
-        : create.run(repo, input, options) },
-      update: update && { ...update, run: (ref, input, options) => input.labels || input.assignees
-        ? Promise.reject(new UnsupportedOperationError('GitBucket edits a pull request\'s title, body and state only; set labels with `setLabels()`', origin))
-        : update.run(ref, input, options) },
-      merge: merge && { ...merge, run: mergePull(fetcher, origin) },
+      create: create && {
+        ...create,
+        run: (repo, input, options) => input.kind === 'pull_request' && (input.labels?.length || input.assignees?.length)
+          ? Promise.reject(new UnsupportedOperationError('GitBucket opens a pull request without labels or assignees; set labels with `setLabels()` once it is open', origin))
+          : create.run(repo, input, options),
+      },
+      update: update && {
+        ...update,
+        run: (ref, input, options) => input.labels || input.assignees
+          ? Promise.reject(new UnsupportedOperationError('GitBucket edits a pull request\'s title, body and state only; set labels with `setLabels()`', origin))
+          : update.run(ref, input, options),
+      },
+      merge: merge && {
+        ...merge,
+        run: mergePull(fetcher, origin),
+      },
     },
-    commits: commits?.listPage && { ...commits, listPage: { ...commits.listPage, run: commitsPage(commits.listPage.run) } },
+    commits: commits?.listPage && {
+      ...commits,
+      listPage: {
+        ...commits.listPage,
+        run: commitsPage(commits.listPage.run),
+      },
+    },
   }
 }
 

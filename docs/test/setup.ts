@@ -19,7 +19,9 @@ function freePort(): Promise<number> {
     server.once('error', reject)
     server.listen(0, '127.0.0.1', () => {
       const address = server.address()
-      server.close(() => typeof address === 'object' && address ? resolve(address.port) : reject(new Error('No port')))
+      server.close(() => typeof address === 'object' && address
+        ? resolve(address.port)
+        : reject(new Error('No port')))
     })
   })
 }
@@ -32,7 +34,13 @@ export default async function setup(project: TestProject) {
   const port = await freePort()
   const baseURL = `http://127.0.0.1:${port}`
   const server = spawn(process.execPath, [entry], {
-    env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', NITRO_PORT: String(port), NITRO_HOST: '127.0.0.1' },
+    env: {
+      ...process.env,
+      PORT: String(port),
+      HOST: '127.0.0.1',
+      NITRO_PORT: String(port),
+      NITRO_HOST: '127.0.0.1',
+    },
     stdio: 'ignore',
   })
 

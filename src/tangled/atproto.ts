@@ -11,7 +11,9 @@ export interface AtUri {
 
 export function parseAtUri(uri: string): AtUri | undefined {
   const match = /^at:\/\/(did:[^/]+)\/([^/]+)\/([^/?#]+)$/.exec(uri)
-  return match ? { did: match[1]!, collection: match[2]!, rkey: match[3]! } : undefined
+  return match
+    ? { did: match[1]!, collection: match[2]!, rkey: match[3]! }
+    : undefined
 }
 
 export function atUri(did: string, collection: string, rkey: string): string {
@@ -31,7 +33,9 @@ export function createdAtOf(rkey: string, createdAt: Date | undefined): Date | u
   if (!stamped || !createdAt) {
     return createdAt ?? stamped
   }
-  return Math.abs(stamped.getTime() - createdAt.getTime()) <= 24 * 60 * 60 * 1000 ? stamped : createdAt
+  return Math.abs(stamped.getTime() - createdAt.getTime()) <= 24 * 60 * 60 * 1000
+    ? stamped
+    : createdAt
 }
 /** The moment a record was created, from the timestamp its key carries. */
 function tidTime(rkey: string): Date | undefined {
@@ -47,7 +51,9 @@ function tidTime(rkey: string): Date | undefined {
     value = (value << 5n) | BigInt(digit)
   }
   const time = new Date(Number((value >> 10n) / 1000n))
-  return Number.isNaN(time.getTime()) ? undefined : time
+  return Number.isNaN(time.getTime())
+    ? undefined
+    : time
 }
 
 export interface Identity {
@@ -60,7 +66,9 @@ export interface Identity {
 
 function knotOrigin(endpoint: string | undefined): string | undefined {
   try {
-    return endpoint ? new URL(endpoint).origin : undefined
+    return endpoint
+      ? new URL(endpoint).origin
+      : undefined
   }
   catch {
     return undefined
@@ -130,7 +138,9 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     let did = handles.get(key)
     if (!did) {
       did = (async () => {
-        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, { query: { handle: key } })
+        const { data } = await options.fetcher.json<{ did: string }>(`${options.handleResolverUrl}/xrpc/com.atproto.identity.resolveHandle`, {
+          query: { handle: key },
+        })
         if ((await resolveDid(data.did)).handle?.toLowerCase() !== key) {
           throw new NotFoundError(`${data.did} does not claim the handle ${handle}`, 404, '', options.context)
         }
@@ -155,7 +165,12 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     let cursor: string | undefined
     do {
       const { data }: { data: { records: Array<RecordResponse<T>>, cursor?: string } } = await options.fetcher.json(`${host}/xrpc/com.atproto.repo.listRecords`, {
-        query: { repo: did, collection, limit: 100, cursor },
+        query: {
+          repo: did,
+          collection,
+          limit: 100,
+          cursor,
+        },
         signal,
       })
       yield* data.records
@@ -165,19 +180,30 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
 
   async function listRecordsPage<T extends TangledRecord>(did: string, collection: string, page: { limit: number, cursor?: string, signal?: AbortSignal }): Promise<Array<RecordResponse<T>>> {
     const { data } = await options.fetcher.json<{ records: Array<RecordResponse<T>> }>(`${await pdsOf(did, page.signal)}/xrpc/com.atproto.repo.listRecords`, {
-      query: { repo: did, collection, limit: page.limit, cursor: page.cursor },
+      query: {
+        repo: did,
+        collection,
+        limit: page.limit,
+        cursor: page.cursor,
+      },
       signal: page.signal,
     })
     return data.records
   }
 
   async function collectionsOf(did: string, signal?: AbortSignal): Promise<string[]> {
-    const { data } = await options.fetcher.json<{ collections?: string[] }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.repo.describeRepo`, { query: { repo: did }, signal })
+    const { data } = await options.fetcher.json<{ collections?: string[] }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.repo.describeRepo`, {
+      query: { repo: did },
+      signal,
+    })
     return data.collections ?? []
   }
 
   async function revisionOf(did: string, signal?: AbortSignal): Promise<string> {
-    const { data } = await options.fetcher.json<{ rev: string }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getLatestCommit`, { query: { did }, signal })
+    const { data } = await options.fetcher.json<{ rev: string }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getLatestCommit`, {
+      query: { did },
+      signal,
+    })
     return data.rev
   }
 
@@ -190,14 +216,19 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     const { data } = await options.fetcher.json<RecordResponse<T>>(`${host.replace(/\/$/, '')}/xrpc/com.atproto.repo.getRecord`, {
       query: { repo: parsed.did, collection: parsed.collection, rkey: parsed.rkey },
       // A PDS responds 400 `RecordNotFound` for a missing record.
-      mapError: error => error instanceof ForgeApiError && error.status === 400 ? new NotFoundError(`No record at ${uri}`, 400, error.body, options.context) : error,
+      mapError: error => error instanceof ForgeApiError && error.status === 400
+        ? new NotFoundError(`No record at ${uri}`, 400, error.body, options.context)
+        : error,
       signal,
     })
     return data
   }
 
   async function getBlob(did: string, cid: string, signal?: AbortSignal): Promise<Uint8Array> {
-    const response = await options.fetcher.raw(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getBlob`, { query: { did, cid }, signal })
+    const response = await options.fetcher.raw(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getBlob`, {
+      query: { did, cid },
+      signal,
+    })
     return new Uint8Array(await response.arrayBuffer())
   }
 
@@ -205,7 +236,13 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     let cursor: string | undefined
     do {
       const { data }: { data: BacklinksResponse } = await options.fetcher.json<BacklinksResponse>(`${options.backlinksUrl}/links`, {
-        query: { target, collection, path, limit: 100, cursor },
+        query: {
+          target,
+          collection,
+          path,
+          limit: 100,
+          cursor,
+        },
         headers: { accept: 'application/json' },
         signal,
       })
@@ -216,5 +253,15 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     } while (cursor)
   }
 
-  return { resolveDid, resolveHandle, getRecord, listRecords, listRecordsPage, collectionsOf, revisionOf, getBlob, backlinks }
+  return {
+    resolveDid,
+    resolveHandle,
+    getRecord,
+    listRecords,
+    listRecordsPage,
+    collectionsOf,
+    revisionOf,
+    getBlob,
+    backlinks,
+  }
 }

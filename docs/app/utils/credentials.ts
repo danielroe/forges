@@ -5,7 +5,13 @@ type Access = NonNullable<VerbScopes['permissions']>[string]
 const ACCESS: Access[] = ['read', 'write', 'admin']
 
 function impliedBy(scope: string): string[] {
-  return [scope.replace(/^read:/, 'write:'), `${scope}:write`, scope === 'read_api' ? 'api' : ''].filter(other => other && other !== scope)
+  return [
+    scope.replace(/^read:/, 'write:'),
+    `${scope}:write`,
+    scope === 'read_api'
+      ? 'api'
+      : '',
+  ].filter(other => other && other !== scope)
 }
 
 /** Combines `scopesFor()` results: every token scope, the highest access for each permission, and every note. */
@@ -20,7 +26,11 @@ export function mergeScopes(list: VerbScopes[]): { token: string[], permissions:
   return {
     token: [...all].filter(scope => !impliedBy(scope).some(other => all.has(other))),
     permissions: [...permissions].sort(([a], [b]) => a.localeCompare(b)),
-    notes: [...new Set(list.flatMap(scopes => scopes.note ? [scopes.note] : []))],
+    notes: [
+      ...new Set(list.flatMap(scopes => scopes.note
+        ? [scopes.note]
+        : [])),
+    ],
   }
 }
 

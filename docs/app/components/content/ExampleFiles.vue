@@ -41,10 +41,20 @@ const entries = computed(() => {
       const directory = parts.slice(0, depth + 1).join('/')
       if (!seen.has(directory)) {
         seen.add(directory)
-        list.push({ path: directory, name, depth, directory: true })
+        list.push({
+          path: directory,
+          name,
+          depth,
+          directory: true,
+        })
       }
     })
-    list.push({ path, name: parts.at(-1)!, depth: parts.length - 1, directory: false })
+    list.push({
+      path,
+      name: parts.at(-1)!,
+      depth: parts.length - 1,
+      directory: false,
+    })
   }
   return list
 })

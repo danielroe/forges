@@ -74,8 +74,12 @@ function fixtureKey(method: string, url: string, operationName?: string, variabl
   const parsed = new URL(url)
   parsed.searchParams.sort()
   const base = `${method.toUpperCase()} ${parsed.origin}${parsed.pathname}${parsed.search}`
-  const operation = operationName ? `${base} ${operationName}` : base
-  return variables ? `${operation} ${JSON.stringify(variables, sortedKeys)}` : operation
+  const operation = operationName
+    ? `${base} ${operationName}`
+    : base
+  return variables
+    ? `${operation} ${JSON.stringify(variables, sortedKeys)}`
+    : operation
 }
 
 function operationOf(url: string, body: string | undefined): { operationName?: string, variables?: Record<string, unknown> } {
@@ -93,7 +97,9 @@ function operationOf(url: string, body: string | undefined): { operationName?: s
 }
 
 function callOf(input: string, init: RequestInit | undefined): FixtureCall {
-  const body = typeof init?.body === 'string' ? init.body : undefined
+  const body = typeof init?.body === 'string'
+    ? init.body
+    : undefined
   const headers = new Headers(init?.headers)
   return {
     method: (init?.method ?? 'GET').toUpperCase(),
@@ -127,12 +133,16 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
   const responses = new Map<string, Array<{ response: Fixture['response'], fixture?: Fixture }>>()
   for (const fixture of fixtures) {
     const key = fixtureKey(fixture.request.method, fixture.request.url, fixture.request.operationName, fixture.request.variables)
-    const queue = options.sequential ? responses.get(key) : undefined
+    const queue = options.sequential
+      ? responses.get(key)
+      : undefined
     if (queue) {
       queue.push({ response: fixture.response, fixture })
     }
     else {
-      responses.set(key, [{ response: fixture.response, fixture }])
+      responses.set(key, [
+        { response: fixture.response, fixture },
+      ])
     }
   }
   // Kept apart, so an override also replaces fixtures recorded with GraphQL `variables`.
@@ -157,9 +167,13 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
     calls.push(call)
     const key = fixtureKey(call.method, input, call.operationName)
     const override = replaced.get(key)
-    const match = override ? { response: override } : take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(key)
+    const match = override
+      ? { response: override }
+      : take(fixtureKey(call.method, input, call.operationName, call.variables)) ?? take(key)
     if (!match) {
-      throw new Error(`No fixture for ${call.method} ${input}${call.operationName ? ` (${call.operationName})` : ''}`)
+      throw new Error(`No fixture for ${call.method} ${input}${call.operationName
+        ? ` (${call.operationName})`
+        : ''}`)
     }
     const { response } = match
     call.fixture = match.fixture
@@ -169,9 +183,15 @@ export function fixtureFetch(fixtures: Iterable<Fixture>, overrides: Record<stri
       ? null
       : binary
         ? Uint8Array.from(atob(response.body as string), char => char.charCodeAt(0))
-        : typeof response.body === 'string' ? response.body : JSON.stringify(response.body)
+        : typeof response.body === 'string'
+          ? response.body
+          : JSON.stringify(response.body)
     if (body !== null && !headers.has('content-type')) {
-      headers.set('content-type', binary ? 'application/octet-stream' : typeof response.body === 'string' ? 'text/plain' : 'application/json')
+      headers.set('content-type', binary
+        ? 'application/octet-stream'
+        : typeof response.body === 'string'
+          ? 'text/plain'
+          : 'application/json')
     }
     const result = new Response(body, { status: response.status, headers })
     Object.defineProperty(result, 'url', { value: input })
@@ -188,7 +208,31 @@ export interface RecordingFetch {
   fixtures: Fixture[]
 }
 
-const RECORDED_HEADERS = ['link', 'etag', 'location', 'retry-after', 'x-ratelimit-limit', 'ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset', 'x-ratelimit-resource', 'ratelimit-remaining', 'ratelimit-reset', 'ratelimit-name', 'ratelimit', 'ratelimit-policy', 'x-total', 'x-total-count', 'x-total-pages', 'x-next-page', 'x-page', 'x-per-page', 'x-poll-interval', 'total_page', 'total_count']
+const RECORDED_HEADERS = [
+  'link',
+  'etag',
+  'location',
+  'retry-after',
+  'x-ratelimit-limit',
+  'ratelimit-limit',
+  'x-ratelimit-remaining',
+  'x-ratelimit-reset',
+  'x-ratelimit-resource',
+  'ratelimit-remaining',
+  'ratelimit-reset',
+  'ratelimit-name',
+  'ratelimit',
+  'ratelimit-policy',
+  'x-total',
+  'x-total-count',
+  'x-total-pages',
+  'x-next-page',
+  'x-page',
+  'x-per-page',
+  'x-poll-interval',
+  'total_page',
+  'total_count',
+]
 
 /** Options for {@link recordingFetch}. */
 export interface RecordingFetchOptions {
@@ -238,15 +282,46 @@ export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fix
   const fixtures: Fixture[] = []
   const recording: FetchLike = async (input, init) => {
     const call = callOf(input, init)
-    const sent = options.requestBodies && call.body !== undefined ? parsed(call.body) : undefined
+    const sent = options.requestBodies && call.body !== undefined
+      ? parsed(call.body)
+      : undefined
     const response = await fetch(input, init)
     const bytes = new Uint8Array(await response.clone().arrayBuffer())
     const text = utf8(bytes)
-    const body = text ? parsed(text) : undefined
-    const headers = Object.fromEntries(RECORDED_HEADERS.flatMap(name => response.headers.has(name) ? [[name, response.headers.get(name)!]] : []))
+    const body = text
+      ? parsed(text)
+      : undefined
+    const headers = Object.fromEntries(RECORDED_HEADERS.flatMap(name => response.headers.has(name)
+      ? [
+          [
+            name,
+            response.headers.get(name)!,
+          ],
+        ]
+      : []))
     fixtures.push(redact({
-      request: { method: call.method, url: input, ...call.operationName ? { operationName: call.operationName, variables: call.variables } : {}, ...sent === undefined ? {} : { body: sent } },
-      response: { status: response.status, headers, ...text === undefined ? { body: toBase64(bytes), encoding: 'base64' as const } : body === undefined ? {} : { body } },
+      request: {
+        method: call.method,
+        url: input,
+        ...call.operationName
+          ? { operationName: call.operationName, variables: call.variables }
+          : {},
+        ...sent === undefined
+          ? {}
+          : { body: sent },
+      },
+      response: {
+        status: response.status,
+        headers,
+        ...text === undefined
+          ? {
+              body: toBase64(bytes),
+              encoding: 'base64' as const,
+            }
+          : body === undefined
+            ? {}
+            : { body },
+      },
     }))
     return response
   }
@@ -260,9 +335,13 @@ export function recordingFetch(fetch: FetchLike = globalThis.fetch, redact: (fix
  */
 export async function loadFixtures(directory: string | URL): Promise<Fixture[]> {
   const { readdir, readFile } = await import('node:fs/promises')
-  const base = typeof directory === 'string' ? directory.replace(/\/?$/, '/') : new URL(directory.href.replace(/\/?$/, '/'))
+  const base = typeof directory === 'string'
+    ? directory.replace(/\/?$/, '/')
+    : new URL(directory.href.replace(/\/?$/, '/'))
   const files = (await readdir(base)).filter(file => file.endsWith('.json') && file !== 'manifest.json').sort()
-  const parsed = await Promise.all(files.map(async file => JSON.parse(await readFile(typeof base === 'string' ? `${base}${file}` : new URL(file, base), 'utf8')) as Partial<Fixture>))
+  const parsed = await Promise.all(files.map(async file => JSON.parse(await readFile(typeof base === 'string'
+    ? `${base}${file}`
+    : new URL(file, base), 'utf8')) as Partial<Fixture>))
   return parsed.filter((fixture): fixture is Fixture => fixture.request !== undefined)
 }
 
@@ -291,7 +370,10 @@ const SIGNERS: Partial<Record<ForgeKind, (body: string, secret: string) => Promi
     const der = Uint8Array.from(atob(secret), char => char.charCodeAt(0))
     const key = await crypto.subtle.importKey('pkcs8', der, { name: 'Ed25519' }, false, ['sign'])
     const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', key, new TextEncoder().encode(body + nonce)))
-    return { 'x-payload-nonce': nonce, 'x-payload-signature': toBase64(signature) }
+    return {
+      'x-payload-nonce': nonce,
+      'x-payload-signature': toBase64(signature),
+    }
   },
   'fake': async (body, secret) => ({ 'x-fake-signature': await hmacSha256Hex(secret, body) }),
 }
@@ -311,5 +393,8 @@ export async function signDelivery(forge: ForgeKind, body: string, secret: strin
   if (!sign) {
     throw new Error(`No webhook signer for ${forge}`)
   }
-  return { ...headers, ...await sign(body, secret) }
+  return {
+    ...headers,
+    ...await sign(body, secret),
+  }
 }

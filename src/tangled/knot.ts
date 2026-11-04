@@ -62,34 +62,77 @@ function hex(hash: KnotHash | undefined): string {
 }
 
 function signature({ Name, Email, When }: { Name: string, Email: string, When?: string }) {
-  return { name: Name, email: Email, date: toDate(When) }
+  return {
+    name: Name,
+    email: Email,
+    date: toDate(When),
+  }
 }
 
 function fragmentPatch(fragments: KnotTextFragment[]): string {
   return fragments.map((fragment) => {
-    const header = `@@ -${fragment.OldPosition},${fragment.OldLines} +${fragment.NewPosition},${fragment.NewLines} @@${fragment.Comment ? ` ${fragment.Comment}` : ''}\n`
-    return header + (fragment.Lines ?? []).map(line => `${line.Op === 1 ? '-' : line.Op === 2 ? '+' : ' '}${line.Line}`).join('')
+    const header = `@@ -${fragment.OldPosition},${fragment.OldLines} +${fragment.NewPosition},${fragment.NewLines} @@${fragment.Comment
+      ? ` ${fragment.Comment}`
+      : ''}\n`
+    return header + (fragment.Lines ?? []).map(line => `${line.Op === 1
+      ? '-'
+      : line.Op === 2
+        ? '+'
+        : ' '}${line.Line}`).join('')
   }).join('')
 }
 
 function changedFile(file: { oldName: string, newName: string, isNew: boolean, isDelete: boolean, isCopy: boolean, isRename: boolean, isBinary: boolean, sha?: string, fragments?: KnotTextFragment[] | null }): ChangedFile {
   const fragments = file.fragments ?? []
-  const status = file.isNew ? 'added' : file.isDelete ? 'removed' : file.isRename ? 'renamed' : file.isCopy ? 'copied' : 'modified'
+  const status = file.isNew
+    ? 'added'
+    : file.isDelete
+      ? 'removed'
+      : file.isRename
+        ? 'renamed'
+        : file.isCopy ? 'copied' : 'modified'
   return {
     path: file.isDelete ? file.oldName : file.newName,
-    previousPath: file.isRename || file.isCopy ? file.oldName : undefined,
+    previousPath: file.isRename || file.isCopy
+      ? file.oldName
+      : undefined,
     status,
     additions: fragments.reduce((sum, fragment) => sum + fragment.LinesAdded, 0),
     deletions: fragments.reduce((sum, fragment) => sum + fragment.LinesDeleted, 0),
-    patch: file.isBinary || !fragments.length ? undefined : fragmentPatch(fragments),
+    patch: file.isBinary || !fragments.length
+      ? undefined
+      : fragmentPatch(fragments),
     sha: file.sha || undefined,
     isBinary: file.isBinary || undefined,
   }
 }
 
-const fromDiff = (file: KnotDiffFile) => changedFile({ oldName: file.name.old, newName: file.name.new, isNew: file.is_new, isDelete: file.is_delete, isCopy: file.is_copy, isRename: file.is_rename, isBinary: file.is_binary, fragments: file.text_fragments })
+function fromDiff(file: KnotDiffFile) {
+  return changedFile({
+    oldName: file.name.old,
+    newName: file.name.new,
+    isNew: file.is_new,
+    isDelete: file.is_delete,
+    isCopy: file.is_copy,
+    isRename: file.is_rename,
+    isBinary: file.is_binary,
+    fragments: file.text_fragments,
+  })
+}
 
-const fromPatch = (file: KnotPatchFile) => changedFile({ oldName: file.OldName, newName: file.NewName, isNew: file.IsNew, isDelete: file.IsDelete, isCopy: file.IsCopy, isRename: file.IsRename, isBinary: file.IsBinary, sha: file.NewOIDPrefix, fragments: file.TextFragments })
+function fromPatch(file: KnotPatchFile) {
+  return changedFile({
+    oldName: file.OldName,
+    newName: file.NewName,
+    isNew: file.IsNew,
+    isDelete: file.IsDelete,
+    isCopy: file.IsCopy,
+    isRename: file.IsRename,
+    isBinary: file.IsBinary,
+    sha: file.NewOIDPrefix,
+    fragments: file.TextFragments,
+  })
+}
 
 function stats(files: ChangedFile[]) {
   const additions = files.reduce((sum, file) => sum + (file.additions ?? 0), 0)
@@ -99,12 +142,21 @@ function stats(files: ChangedFile[]) {
 
 /** Offset pagination, as knots page branches, tags and commits. */
 function offsetPage<T>(items: T[], offset: number, limit: number): Pick<Page<T>, 'items' | 'cursor'> {
-  return { items, cursor: items.length >= limit ? { token: String(offset + items.length) } : undefined }
+  return {
+    items,
+    cursor: items.length >= limit
+      ? {
+          token: String(offset + items.length),
+        }
+      : undefined,
+  }
 }
 
 function offsetOf(options: PageOptions): number {
   const offset = Number(options.cursor?.token ?? 0)
-  return Number.isInteger(offset) && offset > 0 ? offset : 0
+  return Number.isInteger(offset) && offset > 0
+    ? offset
+    : 0
 }
 
 export type TangledContents = ReturnType<typeof createTangledContents>
@@ -114,9 +166,13 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
   async function knotFor(repo: RepoRef, signal?: AbortSignal) {
     const { ref, record } = await canonicalRepo(repo, signal)
     const { knot, repoDid, name } = record.value
-    const origin = /^https?:\/\//.test(knot) ? knot.replace(/\/$/, '') : `https://${knot}`
+    const origin = /^https?:\/\//.test(knot)
+      ? knot.replace(/\/$/, '')
+      : `https://${knot}`
     return {
-      ref: repoDid ? { ...ref, externalId: repoDid } : ref,
+      ref: repoDid
+        ? { ...ref, externalId: repoDid }
+        : ref,
       record,
       // Repos without a repo DID are addressed by owner DID and name.
       repo: repoDid ?? `${ref.owner}/${name ?? ref.name}`,
@@ -125,7 +181,13 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       /** Calls a knot procedure as the signed-in account. */
       post: async (nsid: string, json: Record<string, unknown>, mapError?: (error: unknown) => unknown) => {
         const token = await serviceAuth!(`did:web:${encodeURIComponent(new URL(origin).host)}`, nsid, signal)
-        await fetcher.raw(`${origin}/xrpc/${nsid}`, { method: 'POST', json, headers: { authorization: `Bearer ${token}` }, mapError, signal })
+        await fetcher.raw(`${origin}/xrpc/${nsid}`, {
+          method: 'POST',
+          json,
+          headers: { authorization: `Bearer ${token}` },
+          mapError,
+          signal,
+        })
       },
     }
   }
@@ -143,19 +205,37 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       committer: raw.committer && signature(raw.committer),
       parents: (raw.parent_hashes ?? []).map(hex),
       url: `${webUrl}${repoPath(repo)}/commit/${sha}`,
-      ...files ? { files, stats: stats(files) } : {},
+      ...files
+        ? {
+            files,
+            stats: stats(files),
+          }
+        : {},
       raw,
     }
   }
 
   function fromHeader(repo: RepoRef, header: KnotPatchHeader): Commit {
     const files = (header.Files ?? []).map(fromPatch)
-    const author = header.Author && { ...signature(header.Author), date: toDate(header.AuthorDate) }
-    const committer = header.Committer && { ...signature(header.Committer), date: toDate(header.CommitterDate) }
+    const author = header.Author && {
+      ...signature(header.Author),
+      date: toDate(header.AuthorDate),
+    }
+    const committer = header.Committer && {
+      ...signature(header.Committer),
+      date: toDate(header.CommitterDate),
+    }
     return {
-      ref: { forge: FORGE, instance, repo, sha: header.SHA },
+      ref: {
+        forge: FORGE,
+        instance,
+        repo,
+        sha: header.SHA,
+      },
       sha: header.SHA,
-      message: header.Body ? `${header.Title}\n\n${header.Body}` : header.Title,
+      message: header.Body
+        ? `${header.Title}\n\n${header.Body}`
+        : header.Title,
       author: author || undefined,
       committer: committer || undefined,
       parents: [],
@@ -177,26 +257,44 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       if (blob.submodule || blob.content === undefined) {
         throw new NotFoundError(`${path} is a submodule, not a file`, 404, '', context)
       }
-      const bytes = blob.encoding === 'base64' ? fromBase64(blob.content) : new TextEncoder().encode(blob.content)
-      return toFileContent(bytes, { path, size: blob.size, url: pageUrl(knot.ref, 'blob', options.ref, path) }, options, context)
+      const bytes = blob.encoding === 'base64'
+        ? fromBase64(blob.content)
+        : new TextEncoder().encode(blob.content)
+      return toFileContent(bytes, {
+        path,
+        size: blob.size,
+        url: pageUrl(knot.ref, 'blob', options.ref, path),
+      }, options, context)
     },
     async treePage(repo: RepoRef, options: TreeOptions = {}): Promise<Page<TreeEntry>> {
       const knot = await knotFor(repo, options.signal)
       const parent = options.path?.replace(/^\/|\/$/g, '') ?? ''
       const data = await knot.call<{ files?: KnotTreeEntry[] | null }>('sh.tangled.repo.tree', { repo: knot.repo, ref: options.ref, path: parent || undefined })
       const items = (data.files ?? []).map((entry): TreeEntry => {
-        const path = parent ? `${parent}/${entry.name}` : entry.name
+        const path = parent
+          ? `${parent}/${entry.name}`
+          : entry.name
         const type = TREE_TYPES[entry.mode] ?? 'file'
         return {
           path,
           type,
-          size: type === 'file' ? entry.size : undefined,
+          size: type === 'file'
+            ? entry.size
+            : undefined,
           mode: entry.mode.replace(/^0+(?=\d{6}$)/, ''),
-          url: pageUrl(knot.ref, type === 'directory' ? 'tree' : 'blob', options.ref, path),
+          url: pageUrl(knot.ref, type === 'directory'
+            ? 'tree'
+            : 'blob', options.ref, path),
         }
       })
-      const warnings: ForgeWarning[] = options.recursive ? [{ code: 'recursive_unsupported', message: 'Knots list one level of a tree; read subdirectories separately' }] : []
-      return warnings.length ? { items, warnings } : { items }
+      const warnings: ForgeWarning[] = options.recursive
+        ? [
+            { code: 'recursive_unsupported', message: 'Knots list one level of a tree; read subdirectories separately' },
+          ]
+        : []
+      return warnings.length
+        ? { items, warnings }
+        : { items }
     },
     async branchesPage(repo: RepoRef, options: PageOptions = {}): Promise<Page<Branch>> {
       const knot = await knotFor(repo, options.signal)
@@ -218,7 +316,9 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       const data = await knot.call<{ tags?: KnotTag[] | null }>('sh.tangled.repo.tags', { repo: knot.repo, limit, cursor: offset || undefined })
       return offsetPage((data.tags ?? []).map(tag => ({
         name: tag.name,
-        sha: tag.tag ? hex(tag.tag.Target) : tag.hash,
+        sha: tag.tag
+          ? hex(tag.tag.Target)
+          : tag.hash,
         url: `${webUrl}${repoPath(knot.ref)}/tree/${encodeURIComponent(tag.name)}`,
         raw: tag,
       })), offset, limit)
@@ -236,11 +336,21 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       const knot = await knotFor(repo, query.signal)
       const offset = offsetOf(query)
       const limit = query.perPage ?? DEFAULT_PAGE
-      const data = await knot.call<{ commits?: KnotCommit[] | null }>('sh.tangled.repo.log', { repo: knot.repo, ref: query.ref, limit, cursor: offset || undefined })
+      const data = await knot.call<{ commits?: KnotCommit[] | null }>('sh.tangled.repo.log', {
+        repo: knot.repo,
+        ref: query.ref,
+        limit,
+        cursor: offset || undefined,
+      })
       const page = offsetPage((data.commits ?? []).map(commit => toCommit(knot.ref, commit)), offset, limit)
       const ignored = (['path', 'author', 'since', 'until'] as const).filter(key => query[key] !== undefined)
       return ignored.length && !offset
-        ? { ...page, warnings: [{ code: 'filter_unsupported', message: `Knots do not filter commits by ${ignored.join(', ')}; those filters were ignored` }] }
+        ? {
+            ...page,
+            warnings: [
+              { code: 'filter_unsupported', message: `Knots do not filter commits by ${ignored.join(', ')}; those filters were ignored` },
+            ],
+          }
         : page
     },
     async commit(repo: RepoRef, sha: string, options: { signal?: AbortSignal } = {}): Promise<Commit> {
@@ -276,7 +386,13 @@ export function createTangledContents({ fetcher, instance, webUrl, context, cano
       if (!knot.ref.externalId) {
         throw new UnsupportedOperationError(`${repo.owner}/${repo.name} has no repo DID, which merging needs`, context)
       }
-      await knot.post('sh.tangled.repo.merge', { did: knot.ref.owner, name: knot.record.value.name ?? knot.ref.name, repo: knot.ref.externalId, branch, patch }, toMergeError)
+      await knot.post('sh.tangled.repo.merge', {
+        did: knot.ref.owner,
+        name: knot.record.value.name ?? knot.ref.name,
+        repo: knot.ref.externalId,
+        branch,
+        patch,
+      }, toMergeError)
     },
     async addCollaborator(repo: RepoRef, subject: string, signal?: AbortSignal): Promise<void> {
       const knot = await knotFor(repo, signal)

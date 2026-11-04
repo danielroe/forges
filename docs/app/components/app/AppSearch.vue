@@ -7,7 +7,10 @@ const props = defineProps<{
 
 const { forced: forcedColorMode } = useDocusColorMode()
 const { open } = useContentSearch()
-const { search, status: searchStatus, init } = useSearchCollection('docs', { immediate: false, ignoredTags: ['style'] })
+const { search, status: searchStatus, init } = useSearchCollection('docs', {
+  immediate: false,
+  ignoredTags: ['style'],
+})
 
 // The search modal and its index load the first time the search opens.
 const rendered = ref(false)

@@ -7,13 +7,22 @@ export const FORGE = 'cloudflare-artifacts'
 const FORK_SOURCE = 'artifacts:'
 
 export function toRepoRef(origin: ForgeOrigin, namespace: string, raw: ArtifactsRepository): RepoRef {
-  return { ...origin, owner: namespace, name: raw.name, externalId: raw.id }
+  return {
+    ...origin,
+    owner: namespace,
+    name: raw.name,
+    externalId: raw.id,
+  }
 }
 
 /** A fork names its parent as `artifacts:<namespace>/<name>`. An import is no fork. */
 function parentOf(origin: ForgeOrigin, source: string | null | undefined): RepoRef | undefined {
-  const [owner, name] = source?.startsWith(FORK_SOURCE) ? source.slice(FORK_SOURCE.length).split('/') : []
-  return owner && name ? { ...origin, owner, name } : undefined
+  const [owner, name] = source?.startsWith(FORK_SOURCE)
+    ? source.slice(FORK_SOURCE.length).split('/')
+    : []
+  return owner && name
+    ? { ...origin, owner, name }
+    : undefined
 }
 
 export function toRepo(origin: ForgeOrigin, namespace: string, raw: ArtifactsRepository): Repo {
@@ -37,7 +46,11 @@ export function toRepo(origin: ForgeOrigin, namespace: string, raw: ArtifactsRep
 }
 
 function signature(identity: ArtifactsIdentity, seconds: number): CommitSignature {
-  return { name: identity.name, email: identity.email, date: toDate(seconds * 1000) }
+  return {
+    name: identity.name,
+    email: identity.email,
+    date: toDate(seconds * 1000),
+  }
 }
 
 export function toCommit(origin: ForgeOrigin, repo: RepoRef, raw: ArtifactsCommit, files?: ChangedFile[]): Commit {
@@ -48,11 +61,19 @@ export function toCommit(origin: ForgeOrigin, repo: RepoRef, raw: ArtifactsCommi
     author: signature(raw.author, raw.authoredAt),
     committer: signature(raw.committer, raw.committedAt),
     parents: raw.parents,
-    ...files ? { files } : {},
+    ...files
+      ? { files }
+      : {},
     raw,
   }
 }
 
 export function toTreeType(entry: ArtifactsTreeEntry): TreeEntryType {
-  return entry.type === 'tree' ? 'directory' : entry.type === 'symlink' ? 'symlink' : entry.type === 'gitlink' ? 'submodule' : 'file'
+  return entry.type === 'tree'
+    ? 'directory'
+    : entry.type === 'symlink'
+      ? 'symlink'
+      : entry.type === 'gitlink'
+        ? 'submodule'
+        : 'file'
 }

@@ -28,20 +28,30 @@ const views = provider.credentials && [
   { label: 'Without credentials', value: 'anonymous' },
 ]
 const selectedView = computed({
-  get: () => anonymous.value ? 'anonymous' : credential.value?.id ?? 'any',
+  get: () => anonymous.value
+    ? 'anonymous'
+    : credential.value?.id ?? 'any',
   set: (value: string) => {
-    view.value = value === 'any' ? undefined : value
+    view.value = value === 'any'
+      ? undefined
+      : value
   },
 })
 const usual = provider.credentials?.filter(({ usual }) => usual).map(({ id }) => id) ?? []
-const viewText = computed(() => anonymous.value ? ' without credentials' : credential.value ? ` with ${credentialNames([credential.value.id], provider)}` : '')
+const viewText = computed(() => anonymous.value
+  ? ' without credentials'
+  : credential.value
+    ? ` with ${credentialNames([credential.value.id], provider)}`
+    : '')
 const summary = computed(() => summaryFor(provider, view.value))
 
 const sections = computed(() => groups.map(group => ({
   name: group.name,
   rows: group.rows.map(row => ({
     capability: row.capability,
-    name: row.capability.includes('.') ? row.capability.slice(group.name.length + 1) : row.capability,
+    name: row.capability.includes('.')
+      ? row.capability.slice(group.name.length + 1)
+      : row.capability,
     cell: cellsFor(row, view.value)[index]!,
   })),
 })))
@@ -55,10 +65,22 @@ const columns = computed(() => {
   for (let height = 0; split < heights.length && height + heights[split]! / 2 < half; split++) {
     height += heights[split]!
   }
-  return [{ sections: available.value.slice(0, split) }, { sections: available.value.slice(split) }]
+  return [
+    {
+      sections: available.value.slice(0, split),
+    },
+    {
+      sections: available.value.slice(split),
+    },
+  ]
 })
 
-const limits = provider.limits ? Object.entries(provider.limits).map(([key, length]) => ({ key: key.replace('Length', ''), length: length.toLocaleString('en') })) : []
+const limits = provider.limits
+  ? Object.entries(provider.limits).map(([key, length]) => ({
+      key: key.replace('Length', ''),
+      length: length.toLocaleString('en'),
+    }))
+  : []
 </script>
 
 <template>

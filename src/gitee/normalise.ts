@@ -26,7 +26,13 @@ export function toActor(instance: string, user: GiteeUser | undefined | null): A
 
 export function toRepoRef(instance: string, repo: GiteeRepository): RepoRef {
   const [owner = repo.namespace?.path ?? '', name = repo.path] = repo.full_name.split('/')
-  return { forge: FORGE, instance, owner, name, externalId: String(repo.id) }
+  return {
+    forge: FORGE,
+    instance,
+    owner,
+    name,
+    externalId: String(repo.id),
+  }
 }
 
 export function toRepo(instance: string, raw: GiteeRepository): Repo {
@@ -34,13 +40,22 @@ export function toRepo(instance: string, raw: GiteeRepository): Repo {
     ref: toRepoRef(instance, raw),
     description: raw.description ?? undefined,
     defaultBranch: raw.default_branch,
-    visibility: raw.private ? 'private' : raw.internal ? 'internal' : 'public',
+    visibility: raw.private
+      ? 'private'
+      : raw.internal ? 'internal' : 'public',
     isFork: raw.fork ?? false,
     isArchived: false,
-    parent: raw.parent ? toRepoRef(instance, raw.parent) : undefined,
+    parent: raw.parent
+      ? toRepoRef(instance, raw.parent)
+      : undefined,
     topics: [],
     url: raw.html_url,
-    cloneUrls: { https: raw.html_url ? `${raw.html_url}.git` : undefined, ssh: raw.ssh_url },
+    cloneUrls: {
+      https: raw.html_url
+        ? `${raw.html_url}.git`
+        : undefined,
+      ssh: raw.ssh_url,
+    },
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     pushedAt: toDate(raw.pushed_at),
@@ -62,22 +77,37 @@ export function toLabel(raw: GiteeLabel): Label {
 }
 
 function issueState(state: string): Thread['state'] {
-  return state === 'open' || state === 'progressing' ? 'open' : state === 'closed' || state === 'rejected' ? 'closed' : 'unknown'
+  return state === 'open' || state === 'progressing'
+    ? 'open'
+    : state === 'closed' || state === 'rejected'
+      ? 'closed'
+      : 'unknown'
 }
 
 export function toIssueThread(ref: ResolvedThreadRef, raw: GiteeIssue): Thread {
   const instance = ref.instance
   return {
-    ref: { ...ref, kind: 'issue', number: raw.number, externalId: String(raw.id) },
+    ref: {
+      ...ref,
+      kind: 'issue',
+      number: raw.number,
+      externalId: String(raw.id),
+    },
     kind: 'issue',
     title: raw.title,
     body: raw.body ?? undefined,
     state: issueState(raw.state),
     stateRaw: raw.state,
-    stateReason: raw.state === 'rejected' ? 'not_planned' : undefined,
+    stateReason: raw.state === 'rejected'
+      ? 'not_planned'
+      : undefined,
     isDraft: false,
     author: toActor(instance, raw.user),
-    assignees: raw.assignee ? [toActor(instance, raw.assignee)!] : [],
+    assignees: raw.assignee
+      ? [
+          toActor(instance, raw.assignee)!,
+        ]
+      : [],
     reviewers: [],
     labels: (raw.labels ?? []).map(toLabel),
     url: raw.html_url,
@@ -92,9 +122,20 @@ export function toIssueThread(ref: ResolvedThreadRef, raw: GiteeIssue): Thread {
 
 export function toPullThread(ref: ResolvedThreadRef, raw: GiteePullRequest): Thread {
   const instance = ref.instance
-  const state = raw.merged_at || raw.state === 'merged' ? 'merged' : raw.state === 'open' ? 'open' : raw.state === 'closed' ? 'closed' : 'unknown'
+  const state = raw.merged_at || raw.state === 'merged'
+    ? 'merged'
+    : raw.state === 'open'
+      ? 'open'
+      : raw.state === 'closed'
+        ? 'closed'
+        : 'unknown'
   return {
-    ref: { ...ref, kind: 'pull_request', number: String(raw.number), externalId: String(raw.id) },
+    ref: {
+      ...ref,
+      kind: 'pull_request',
+      number: String(raw.number),
+      externalId: String(raw.id),
+    },
     kind: 'pull_request',
     title: raw.title,
     body: raw.body ?? undefined,
@@ -103,7 +144,11 @@ export function toPullThread(ref: ResolvedThreadRef, raw: GiteePullRequest): Thr
     isDraft: raw.draft ?? false,
     author: toActor(instance, raw.user),
     assignees: [],
-    reviewers: (raw.assignees ?? []).map(reviewer => ({ actor: toActor(instance, reviewer)!, state: reviewer.accept ? 'approved' : 'pending', stateRaw: reviewer.accept ? 'accepted' : 'requested' })),
+    reviewers: (raw.assignees ?? []).map(reviewer => ({
+      actor: toActor(instance, reviewer)!,
+      state: reviewer.accept ? 'approved' : 'pending',
+      stateRaw: reviewer.accept ? 'accepted' : 'requested',
+    })),
     labels: (raw.labels ?? []).map(toLabel),
     url: raw.html_url,
     createdAt: toDate(raw.created_at),
@@ -113,7 +158,16 @@ export function toPullThread(ref: ResolvedThreadRef, raw: GiteePullRequest): Thr
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     branches: raw.head && raw.base
-      ? { head: { ref: raw.head.ref, sha: raw.head.sha, repo: raw.head.repo ? toRepoRef(instance, raw.head.repo) : undefined }, base: { ref: raw.base.ref, sha: raw.base.sha } }
+      ? {
+          head: {
+            ref: raw.head.ref,
+            sha: raw.head.sha,
+            repo: raw.head.repo
+              ? toRepoRef(instance, raw.head.repo)
+              : undefined,
+          },
+          base: { ref: raw.base.ref, sha: raw.base.sha },
+        }
       : undefined,
     raw,
   }
@@ -126,7 +180,12 @@ export function isConversationComment(raw: GiteeComment): boolean {
 
 export function toComment(thread: ResolvedThreadRef, raw: GiteeComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body,
     author: toActor(thread.instance, raw.user),
     createdAt: toDate(raw.created_at),
@@ -139,7 +198,12 @@ export function toComment(thread: ResolvedThreadRef, raw: GiteeComment): Comment
 export function toCommentEvent(thread: ThreadRef, raw: GiteeComment): ForgeEventInput {
   const actor = toActor(thread.instance, raw.user)
   const inline = !isConversationComment(raw)
-  const comment = { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) }
+  const comment = {
+    forge: FORGE,
+    instance: thread.instance,
+    thread,
+    id: String(raw.id),
+  }
   return {
     forge: FORGE,
     instance: thread.instance,
@@ -151,7 +215,14 @@ export function toCommentEvent(thread: ThreadRef, raw: GiteeComment): ForgeEvent
     actor,
     repo: thread.repo,
     thread,
-    detail: inline ? { type: 'review_comment', comment, body: raw.body, path: raw.path ?? undefined } : { type: 'comment', comment, body: raw.body },
+    detail: inline
+      ? {
+          type: 'review_comment',
+          comment,
+          body: raw.body,
+          path: raw.path ?? undefined,
+        }
+      : { type: 'comment', comment, body: raw.body },
     source: 'poll',
     payload: raw,
   }
@@ -191,20 +262,48 @@ export function toLogEvent(thread: ThreadRef, raw: GiteeOperateLog): ForgeEventI
 
 function threadFromUrl(instance: string, repo: RepoRef | undefined, url: string | undefined): ThreadRef | undefined {
   const match = /\/(issues|pulls)\/([^/?#]+)/.exec(url ?? '')
-  return repo && match ? { forge: FORGE, instance, repo, kind: match[1] === 'pulls' ? 'pull_request' : 'issue', number: match[2]! } : undefined
+  return repo && match
+    ? {
+        forge: FORGE,
+        instance,
+        repo,
+        kind: match[1] === 'pulls'
+          ? 'pull_request'
+          : 'issue',
+        number: match[2]!,
+      }
+    : undefined
 }
 
 export function toNotification(instance: string, raw: GiteeNotification): Notification {
-  const repo = raw.repository ? toRepoRef(instance, raw.repository) : undefined
+  const repo = raw.repository
+    ? toRepoRef(instance, raw.repository)
+    : undefined
   const type = raw.subject?.type ?? raw.type ?? 'unknown'
   const thread = threadFromUrl(instance, repo, raw.subject?.url ?? raw.html_url)
   return {
-    ref: { forge: FORGE, instance, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance,
+      id: String(raw.id),
+    },
     subject: thread
-      ? { type: 'thread', thread: { ...thread, typeRaw: type } }
-      : repo ? { type: 'repo', repo } : { type: 'other', typeRaw: type, id: String(raw.id), url: raw.html_url },
+      ? {
+          type: 'thread',
+          thread: { ...thread, typeRaw: type },
+        }
+      : repo
+        ? { type: 'repo', repo }
+        : {
+            type: 'other',
+            typeRaw: type,
+            id: String(raw.id),
+            url: raw.html_url,
+          },
     subjectTypeRaw: type,
-    reason: raw.type === 'referer' ? 'mention' : 'unknown',
+    reason: raw.type === 'referer'
+      ? 'mention'
+      : 'unknown',
     reasonRaw: raw.type,
     unread: raw.unread,
     title: raw.subject?.title ?? raw.content ?? type,
@@ -216,7 +315,13 @@ export function toNotification(instance: string, raw: GiteeNotification): Notifi
 
 export function toCheck(repo: RepoRef, raw: GiteeCheckRun): Check {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), type: 'check_run' },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'check_run',
+    },
     name: raw.name,
     state: checkRunState(raw.status, raw.conclusion),
     stateRaw: raw.status,
@@ -231,7 +336,13 @@ export function toCheck(repo: RepoRef, raw: GiteeCheckRun): Check {
 /** Gitee releases have no draft state or separate publish time. */
 export function toRelease(repo: RepoRef, raw: GiteeRelease): Release {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), tag: raw.tag_name },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      tag: raw.tag_name,
+    },
     name: raw.name || undefined,
     tag: raw.tag_name,
     body: raw.body || undefined,
@@ -252,21 +363,34 @@ export function toChangedFile(raw: GiteeCommitFile): ChangedFile {
     statusRaw: raw.status,
     additions: raw.additions,
     deletions: raw.deletions,
-    patch: typeof raw.patch === 'string' ? raw.patch : raw.patch?.diff,
+    patch: typeof raw.patch === 'string'
+      ? raw.patch
+      : raw.patch?.diff,
     sha: raw.sha,
   }
 }
 
 function parentShas(parents: GiteeCommit['parents']): string[] {
   if (Array.isArray(parents)) {
-    return parents.flatMap(parent => typeof parent === 'string' ? [parent] : parent.sha ? [parent.sha] : [])
+    return parents.flatMap(parent => typeof parent === 'string'
+      ? [parent]
+      : parent.sha
+        ? [parent.sha]
+        : [])
   }
-  return parents?.shas ?? (parents?.sha ? [parents.sha] : [])
+  return parents?.shas ?? (parents?.sha
+    ? [parents.sha]
+    : [])
 }
 
 export function toCommit(repo: RepoRef, raw: GiteeCommit): Commit {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.sha },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      sha: raw.sha,
+    },
     sha: raw.sha,
     message: raw.commit?.message ?? '',
     author: {
@@ -283,14 +407,27 @@ export function toCommit(repo: RepoRef, raw: GiteeCommit): Commit {
     },
     parents: parentShas(raw.parents),
     url: raw.html_url,
-    ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
-    ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
+    ...raw.stats
+      ? {
+          stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total },
+        }
+      : {},
+    ...raw.files
+      ? {
+          files: raw.files.map(toChangedFile),
+        }
+      : {},
     raw,
   }
 }
 
 export function toBranch(raw: GiteeBranch): Branch {
-  return { name: raw.name, sha: raw.commit?.sha ?? '', isProtected: raw.protected, raw }
+  return {
+    name: raw.name,
+    sha: raw.commit?.sha ?? '',
+    isProtected: raw.protected,
+    raw,
+  }
 }
 
 export function toTag(raw: GiteeTag): Tag {
@@ -300,7 +437,13 @@ export function toTag(raw: GiteeTag): Tag {
 export function toTreeEntry(raw: GiteeTreeEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.mode === '120000' ? 'symlink' : raw.type === 'tree' ? 'directory' : raw.type === 'commit' ? 'submodule' : 'file',
+    type: raw.mode === '120000'
+      ? 'symlink'
+      : raw.type === 'tree'
+        ? 'directory'
+        : raw.type === 'commit'
+          ? 'submodule'
+          : 'file',
     sha: raw.sha,
     size: raw.size,
     mode: raw.mode,
@@ -310,7 +453,12 @@ export function toTreeEntry(raw: GiteeTreeEntry): TreeEntry {
 export function toWebhook(target: RepoRef, raw: GiteeHook): Webhook {
   const nativeEvents = Object.entries(raw).filter(([key, value]) => key.endsWith('_events') && value === true).map(([key]) => key)
   return {
-    ref: { forge: FORGE, instance: target.instance, target, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: target.instance,
+      target,
+      id: String(raw.id),
+    },
     url: raw.url,
     events: eventKindsOf(GITEE_NATIVE_EVENTS, nativeEvents),
     nativeEvents,

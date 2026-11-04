@@ -36,7 +36,10 @@ import { execFileSync } from 'node:child_process'
 import { entire } from 'forges/entire'
 
 const forge = entire({
-  auth: { type: 'token', token: () => execFileSync('entire', ['auth', 'token'], { encoding: 'utf8' }).trim() },
+  auth: {
+    type: 'token',
+    token: () => execFileSync('entire', ['auth', 'token'], { encoding: 'utf8' }).trim()
+  },
 })
 ```
 
@@ -64,7 +67,13 @@ A project trail is an issue. Its ref names the project rather than a repository,
 const issue = await forge.threads.get({
   forge: 'entire',
   instance: 'entire.com',
-  repo: { forge: 'entire', instance: 'entire.com', owner: 'forges', name: '', kind: 'namespace' },
+  repo: {
+    forge: 'entire',
+    instance: 'entire.com',
+    owner: 'forges',
+    name: '',
+    kind: 'namespace'
+  },
   kind: 'issue',
   number: '1',
 })

@@ -28,27 +28,60 @@ const { privateKey } = generateKeyPairSync('rsa', {
   publicKeyEncoding: { type: 'spki', format: 'pem' },
 })
 
-const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } as const
-const pull = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '42' } as const
-const discussion: ThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'discussion', number: '31' }
+const repo = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'acme',
+  name: 'widgets',
+} as const
+const pull = {
+  forge: 'github',
+  instance: 'github.com',
+  repo,
+  kind: 'pull_request',
+  number: '42',
+} as const
+const discussion: ThreadRef = {
+  forge: 'github',
+  instance: 'github.com',
+  repo,
+  kind: 'discussion',
+  number: '31',
+}
 const HEAD = '6dcb09b5b57875f334f61aebed695e2e4193db5e'
 
 function tokenProvider(overrides = {}) {
   const { fetch, calls } = fixtureFetch('github', overrides)
-  return { provider: github({ auth: { type: 'token', token: 't' }, fetch }), calls }
+  return {
+    provider: github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }),
+    calls,
+  }
 }
 
 function appProvider(installationId?: number) {
   const { fetch, calls } = fixtureFetch('github')
   return {
-    provider: github({ auth: { type: 'app', appId: 12345, privateKey, installationId }, fetch }),
+    provider: github({
+      auth: {
+        type: 'app',
+        appId: 12345,
+        privateKey,
+        installationId,
+      },
+      fetch,
+    }),
     calls,
   }
 }
 
 describe('github provider', () => {
   it('reports github.com as the instance for the default base url', () => {
-    const provider = github({ auth: { type: 'token', token: 't' } })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+    })
 
     expect(provider.instance).toBe('github.com')
     expect(provider.baseUrl).toBe('https://api.github.com')
@@ -71,26 +104,43 @@ describe('github provider', () => {
   describe('repositories of a user', () => {
     function userProvider() {
       const urls: string[] = []
-      const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-        urls.push(url)
-        if (url === 'https://api.github.com/user') {
-          return Response.json({ login: 'Octocat', id: 1 })
-        }
-        if (url.startsWith('https://api.github.com/user/repos')) {
-          return Response.json([{ id: 2, name: 'vault', full_name: 'octocat/vault', private: true, visibility: 'private', owner: { login: 'octocat' } }])
-        }
-        if (url.startsWith('https://api.github.com/users/')) {
-          return Response.json([])
-        }
-        return Response.json({ message: 'Not Found' }, { status: 404 })
-      } })
+      const provider = github({
+        auth: { type: 'token', token: 't' },
+        fetch: async (url) => {
+          urls.push(url)
+          if (url === 'https://api.github.com/user') {
+            return Response.json({ login: 'Octocat', id: 1 })
+          }
+          if (url.startsWith('https://api.github.com/user/repos')) {
+            return Response.json([
+              {
+                id: 2,
+                name: 'vault',
+                full_name: 'octocat/vault',
+                private: true,
+                visibility: 'private',
+                owner: { login: 'octocat' },
+              },
+            ])
+          }
+          if (url.startsWith('https://api.github.com/users/')) {
+            return Response.json([])
+          }
+          return Response.json({ message: 'Not Found' }, { status: 404 })
+        },
+      })
       return { provider, urls }
     }
 
     it('lists the private repositories of the authenticated user', async () => {
       const { provider, urls } = userProvider()
 
-      const page = await provider.repos.byOwner({ ...repo, owner: 'octocat', name: '', kind: 'namespace' }, { visibility: 'private' }).page()
+      const page = await provider.repos.byOwner({
+        ...repo,
+        owner: 'octocat',
+        name: '',
+        kind: 'namespace',
+      }, { visibility: 'private' }).page()
 
       expect(page.items.map(item => item.ref.name)).toEqual(['vault'])
       expect(urls).toEqual([
@@ -103,7 +153,12 @@ describe('github provider', () => {
     it('lists no private repositories of another user, since GitHub lists only their public ones', async () => {
       const { provider, urls } = userProvider()
 
-      const page = await provider.repos.byOwner({ ...repo, owner: 'hubot', name: '', kind: 'namespace' }, { visibility: 'private' }).page()
+      const page = await provider.repos.byOwner({
+        ...repo,
+        owner: 'hubot',
+        name: '',
+        kind: 'namespace',
+      }, { visibility: 'private' }).page()
 
       expect(urls).toEqual(['https://api.github.com/orgs/hubot/repos?type=private', 'https://api.github.com/user'])
       expect(page.items).toEqual([])
@@ -113,7 +168,12 @@ describe('github provider', () => {
     it('lists public repositories of a user or an organisation in one request', async () => {
       const { provider, urls } = userProvider()
 
-      await provider.repos.byOwner({ ...repo, owner: 'hubot', name: '', kind: 'namespace' }, { visibility: 'public' }).page()
+      await provider.repos.byOwner({
+        ...repo,
+        owner: 'hubot',
+        name: '',
+        kind: 'namespace',
+      }, { visibility: 'public' }).page()
 
       expect(urls).toEqual(['https://api.github.com/users/hubot/repos?type=owner'])
     })
@@ -143,19 +203,34 @@ describe('github provider', () => {
     const checkSuite = toNotification(githubOrigin, {
       ...base,
       id: '901234570',
-      subject: { title: 'ci failed', url: null, latest_comment_url: null, type: 'CheckSuite' },
+      subject: {
+        title: 'ci failed',
+        url: null,
+        latest_comment_url: null,
+        type: 'CheckSuite',
+      },
     })
     const release = toNotification(githubOrigin, {
       ...base,
       id: '901234571',
-      subject: { title: 'v1.0.0', url: 'https://api.github.com/repos/acme/widgets/releases/400850047', latest_comment_url: null, type: 'Release' },
+      subject: {
+        title: 'v1.0.0',
+        url: 'https://api.github.com/repos/acme/widgets/releases/400850047',
+        latest_comment_url: null,
+        type: 'Release',
+      },
     })
 
     expect(checkSuite.subject).toMatchObject({ type: 'other', typeRaw: 'CheckSuite' })
     expect(notificationThread(checkSuite)).toBeUndefined()
     expect(release.subject).toEqual({
       type: 'release',
-      release: { forge: 'github', instance: 'github.com', repo: expect.objectContaining({ owner: 'acme', name: 'widgets' }), id: '400850047' },
+      release: {
+        forge: 'github',
+        instance: 'github.com',
+        repo: expect.objectContaining({ owner: 'acme', name: 'widgets' }),
+        id: '400850047',
+      },
     })
   })
 
@@ -168,10 +243,18 @@ describe('github provider', () => {
       last_read_at: null,
       url: 'https://api.github.com/notifications/threads/901234572',
       repository: { name: 'widgets', full_name: 'acme/widgets' },
-      subject: { title: 'Bug', url: 'https://api.github.com/repos/acme/widgets/pulls/7', latest_comment_url: latest, type: 'PullRequest' },
+      subject: {
+        title: 'Bug',
+        url: 'https://api.github.com/repos/acme/widgets/pulls/7',
+        latest_comment_url: latest,
+        type: 'PullRequest',
+      },
     })
 
-    expect(notification('https://api.github.com/repos/acme/widgets/issues/comments/770001').latestComment).toMatchObject({ id: '770001', thread: { kind: 'pull_request', number: '7' } })
+    expect(notification('https://api.github.com/repos/acme/widgets/issues/comments/770001').latestComment).toMatchObject({
+      id: '770001',
+      thread: { kind: 'pull_request', number: '7' },
+    })
     expect(notification('https://api.github.com/repos/acme/widgets/pulls/7').latestComment).toBeUndefined()
     expect(notification('https://api.github.com/repos/acme/widgets/pulls/comments/880001').latestComment).toBeUndefined()
     expect(notification(null).latestComment).toBeUndefined()
@@ -208,8 +291,14 @@ describe('github provider', () => {
       fetch: async (_url, init) => {
         conditions.push((init!.headers as Headers).get('if-none-match'))
         return conditions.length === 1
-          ? new Response('[]', { status: 200, headers: { 'content-type': 'application/json', 'etag': 'W/"first"' } })
-          : new Response(null, { status: 304, headers: { etag: 'W/"first"' } })
+          ? new Response('[]', {
+              status: 200,
+              headers: { 'content-type': 'application/json', 'etag': 'W/"first"' },
+            })
+          : new Response(null, {
+              status: 304,
+              headers: { etag: 'W/"first"' },
+            })
       },
     })
 
@@ -218,7 +307,9 @@ describe('github provider', () => {
     expect(page.cursor).toBeUndefined()
     expect(page.etag).toBe('W/"first"')
 
-    const again = await provider.notifications.list({ cursor: { etag: page.etag } }).page()
+    const again = await provider.notifications.list({
+      cursor: { etag: page.etag },
+    }).page()
 
     expect(again.notModified).toBe(true)
     expect(again.etag).toBe('W/"first"')
@@ -229,7 +320,9 @@ describe('github provider', () => {
 describe('github discussions', () => {
   it('resolves a discussion notification subject to its number through GraphQL', async () => {
     const { provider, calls } = tokenProvider()
-    const page = await provider.notifications!.list({ cursor: { nextUrl: 'https://api.github.com/notifications?all=false&page=2' } }).page()
+    const page = await provider.notifications!.list({
+      cursor: { nextUrl: 'https://api.github.com/notifications?all=false&page=2' },
+    }).page()
 
     expect(notificationThread(page.items[0]!)!).toMatchObject({ kind: 'discussion', number: '31', externalId: 'D_kwDOAAB5ac4AAQ1f' })
     expect(notificationThread(page.items[0]!)!.typeRaw).toBe('Discussion')
@@ -240,14 +333,37 @@ describe('github discussions', () => {
     const { fetch } = fixtureFetch('github', {
       'POST https://api.github.com/graphql RecentDiscussions': {
         status: 200,
-        body: { data: { r0: { discussions: { nodes: [
-          { id: 'D_kwDOAAB5ac4AAQ1f', number: 31, title: 'Weekly digest discussion', updatedAt: '2025-09-17T11:44:58Z' },
-          { id: 'D_kwDOAAB5ac4AAQ2g', number: 64, title: 'Weekly digest discussion', updatedAt: '2025-09-17T11:45:01Z' },
-        ] } } } },
+        body: {
+          data: {
+            r0: {
+              discussions: {
+                nodes: [
+                  {
+                    id: 'D_kwDOAAB5ac4AAQ1f',
+                    number: 31,
+                    title: 'Weekly digest discussion',
+                    updatedAt: '2025-09-17T11:44:58Z',
+                  },
+                  {
+                    id: 'D_kwDOAAB5ac4AAQ2g',
+                    number: 64,
+                    title: 'Weekly digest discussion',
+                    updatedAt: '2025-09-17T11:45:01Z',
+                  },
+                ],
+              },
+            },
+          },
+        },
       },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const page = await provider.notifications!.list({ cursor: { nextUrl: 'https://api.github.com/notifications?all=false&page=2' } }).page()
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const page = await provider.notifications!.list({
+      cursor: { nextUrl: 'https://api.github.com/notifications?all=false&page=2' },
+    }).page()
 
     expect(notificationThread(page.items[0]!)!.kind).toBe('discussion')
     expect(notificationThread(page.items[0]!)!.number).toBeUndefined()
@@ -257,7 +373,12 @@ describe('github discussions', () => {
     const { provider } = tokenProvider()
     const thread = await provider.threads.get(discussion)
 
-    expect(thread).toMatchObject({ kind: 'discussion', title: 'Weekly digest discussion', state: 'open', commentCount: 1 })
+    expect(thread).toMatchObject({
+      kind: 'discussion',
+      title: 'Weekly digest discussion',
+      state: 'open',
+      commentCount: 1,
+    })
     expect(thread.ref.externalId).toBe('D_kwDOAAB5ac4AAQ1f')
     expect(thread.author?.login).toBe('octocat')
     expect(thread.createdAt).toBeInstanceOf(Date)
@@ -283,7 +404,11 @@ describe('github discussions', () => {
       events.push(event)
     }
 
-    expect(events[1]!.actor).toMatchObject({ login: 'github-actions[bot]', id: '41898282', app: { slug: 'github-actions' } })
+    expect(events[1]!.actor).toMatchObject({
+      login: 'github-actions[bot]',
+      id: '41898282',
+      app: { slug: 'github-actions' },
+    })
     expect(events[0]!.actor).not.toHaveProperty('app')
   })
 
@@ -299,7 +424,12 @@ describe('github discussions', () => {
     const { provider, calls } = tokenProvider()
     const ref = { ...discussion, externalId: 'D_kwDOAAB5ac4AAQ1f' }
 
-    await expect(provider.threads.close(ref)).resolves.toMatchObject({ kind: 'discussion', title: 'Weekly digest discussion', state: 'closed', closedAt: new Date('2025-09-18T09:00:00Z') })
+    await expect(provider.threads.close(ref)).resolves.toMatchObject({
+      kind: 'discussion',
+      title: 'Weekly digest discussion',
+      state: 'closed',
+      closedAt: new Date('2025-09-18T09:00:00Z'),
+    })
     await expect(provider.threads.reopen!(ref)).resolves.toMatchObject({ kind: 'discussion', state: 'open', closedAt: undefined })
 
     expect(calls.map(call => call.operationName)).toEqual(['CloseDiscussion', 'ReopenDiscussion'])
@@ -330,19 +460,48 @@ describe('github discussions', () => {
       auth: { type: 'token', token: 't' },
       fetch: async (url, init) => {
         requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
-        return Response.json({ number: 7, title: 'Flaky test', state: 'closed', state_reason: 'not_planned', closed_at: '2025-09-18T09:00:00Z' })
+        return Response.json({
+          number: 7,
+          title: 'Flaky test',
+          state: 'closed',
+          state_reason: 'not_planned',
+          closed_at: '2025-09-18T09:00:00Z',
+        })
       },
     })
 
-    const closed = await provider.threads.close({ forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' }, { reason: 'not_planned' })
+    const closed = await provider.threads.close({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      kind: 'issue',
+      number: '7',
+    }, { reason: 'not_planned' })
 
-    expect(closed).toMatchObject({ title: 'Flaky test', state: 'closed', stateReason: 'not_planned', closedAt: new Date('2025-09-18T09:00:00Z') })
+    expect(closed).toMatchObject({
+      title: 'Flaky test',
+      state: 'closed',
+      stateReason: 'not_planned',
+      closedAt: new Date('2025-09-18T09:00:00Z'),
+    })
 
-    expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { state: 'closed', state_reason: 'not_planned' } }])
+    expect(requests).toEqual([
+      {
+        method: 'PATCH',
+        url: 'https://api.github.com/repos/acme/widgets/issues/7',
+        body: { state: 'closed', state_reason: 'not_planned' },
+      },
+    ])
   })
 
   describe('setMilestone', () => {
-    const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '7' } as const
+    const issue = {
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      kind: 'issue',
+      number: '7',
+    } as const
 
     function milestoneProvider() {
       const requests: Array<{ method?: string, url: string, body?: unknown }> = []
@@ -350,7 +509,10 @@ describe('github discussions', () => {
         auth: { type: 'token', token: 't' },
         fetch: async (url, init) => {
           requests.push({ method: init?.method, url, body: init?.body && JSON.parse(String(init.body)) })
-          const milestones = [{ number: 3, title: 'v1.0', state: 'closed' }, { number: 4, title: 'v2.0', state: 'open' }]
+          const milestones = [
+            { number: 3, title: 'v1.0', state: 'closed' },
+            { number: 4, title: 'v2.0', state: 'open' },
+          ]
           return url.includes('/milestones')
             ? Response.json(milestones)
             : Response.json({ number: 7, milestone: milestones.find(milestone => milestone.number === (requests.at(-1)!.body as { milestone: number | null }).milestone) ?? null })
@@ -364,7 +526,13 @@ describe('github discussions', () => {
 
       await expect(provider.threads.setMilestone(issue, '3')).resolves.toMatchObject({ id: '3', title: 'v1.0', state: 'closed' })
 
-      expect(requests).toEqual([{ method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/issues/7', body: { milestone: 3 } }])
+      expect(requests).toEqual([
+        {
+          method: 'PATCH',
+          url: 'https://api.github.com/repos/acme/widgets/issues/7',
+          body: { milestone: 3 },
+        },
+      ])
     })
 
     it('looks a title up among open and closed milestones', async () => {
@@ -391,10 +559,29 @@ describe('github discussions', () => {
 describe('github thread updates', () => {
   it('closes, relabels and reassigns an issue in one request', async () => {
     const { provider, calls } = tokenProvider()
-    await provider.threads.update({ ...pull, kind: 'issue' }, { title: 'Retry uploads', state: 'closed', labels: ['bug'], assignees: ['octocat', { forge: 'github', instance: 'github.com', login: 'hubot', id: '2', isBotHint: true }] })
+    await provider.threads.update({ ...pull, kind: 'issue' }, {
+      title: 'Retry uploads',
+      state: 'closed',
+      labels: ['bug'],
+      assignees: [
+        'octocat',
+        {
+          forge: 'github',
+          instance: 'github.com',
+          login: 'hubot',
+          id: '2',
+          isBotHint: true,
+        },
+      ],
+    })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://api.github.com/repos/acme/widgets/issues/42'])
-    expect(JSON.parse(calls[0]!.body!)).toEqual({ title: 'Retry uploads', state: 'closed', labels: ['bug'], assignees: ['octocat', 'hubot'] })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({
+      title: 'Retry uploads',
+      state: 'closed',
+      labels: ['bug'],
+      assignees: ['octocat', 'hubot'],
+    })
   })
 
   it('sends a pull request with labels or assignees through the issue, then reads it back', async () => {
@@ -410,13 +597,25 @@ describe('github thread updates', () => {
   })
 
   it('lists comments since a time when upserting a comment with since', async () => {
-    const marked = { id: 7, body: `Deployed\n\n${commentMarker('mutation-1')}`, created_at: '2026-03-01T12:00:03Z', updated_at: '2026-03-01T12:00:03Z' }
+    const marked = {
+      id: 7,
+      body: `Deployed\n\n${commentMarker('mutation-1')}`,
+      created_at: '2026-03-01T12:00:03Z',
+      updated_at: '2026-03-01T12:00:03Z',
+    }
     const { provider, calls } = tokenProvider({
-      'GET https://api.github.com/repos/acme/widgets/issues/42/comments?since=2026-03-01T12:00:00.000Z': { status: 200, body: [marked] },
+      'GET https://api.github.com/repos/acme/widgets/issues/42/comments?since=2026-03-01T12:00:00.000Z': {
+        status: 200,
+        body: [marked],
+      },
       'PATCH https://api.github.com/repos/acme/widgets/issues/comments/7': { status: 200, body: marked },
     })
 
-    const result = await upsertComment(provider, pull, { key: 'mutation-1', body: 'Deployed to staging', since: new Date('2026-03-01T12:00:00Z') })
+    const result = await upsertComment(provider, pull, {
+      key: 'mutation-1',
+      body: 'Deployed to staging',
+      since: new Date('2026-03-01T12:00:00Z'),
+    })
 
     expect(result.created).toBe(false)
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
@@ -427,7 +626,12 @@ describe('github thread updates', () => {
   })
 
   it('edits a pull request without labels or assignees through the pulls endpoint', async () => {
-    const { provider, calls } = tokenProvider({ 'PATCH https://api.github.com/repos/acme/widgets/pulls/42': { status: 200, body: { number: 42, state: 'closed', title: 'Retry uploads' } } })
+    const { provider, calls } = tokenProvider({
+      'PATCH https://api.github.com/repos/acme/widgets/pulls/42': {
+        status: 200,
+        body: { number: 42, state: 'closed', title: 'Retry uploads' },
+      },
+    })
     await provider.threads.update(pull, { title: 'Retry uploads', state: 'closed' })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['PATCH https://api.github.com/repos/acme/widgets/pulls/42'])
@@ -444,7 +648,10 @@ describe('github thread updates', () => {
   it('refuses labels on a discussion before it writes anything', async () => {
     const { provider, calls } = tokenProvider()
 
-    await expect(provider.threads.update(discussion, { state: 'closed', labels: ['bug'] })).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.threads.update(discussion, {
+      state: 'closed',
+      labels: ['bug'],
+    })).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 })
@@ -472,17 +679,32 @@ describe('github app installations', () => {
 
     expect(can({ type: 'token', token: 'ghp_x' })).toBe(true)
     expect(can({ type: 'token', token: 'gho_x' })).toBe(true)
-    expect(can({ type: 'token', token: () => 'github_pat_x' })).toBe(true)
+    expect(can({
+      type: 'token',
+      token: () => 'github_pat_x',
+    })).toBe(true)
     expect(can({ type: 'token', token: 'github_pat_x' })).toBe(false)
     expect(can({ type: 'token', token: 'ghu_x' })).toBe(false)
     expect(can({ type: 'token', token: 'ghs_x' })).toBe(false)
-    expect(can({ type: 'token', token: () => 'x', kind: 'fine-grained' })).toBe(false)
-    expect(can({ type: 'app', appId: 1, privateKey: '', installationId: 1 })).toBe(false)
+    expect(can({
+      type: 'token',
+      token: () => 'x',
+      kind: 'fine-grained',
+    })).toBe(false)
+    expect(can({
+      type: 'app',
+      appId: 1,
+      privateKey: '',
+      installationId: 1,
+    })).toBe(false)
   })
 
   it('lists the repositories of an installation token', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 'ghs_x' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 'ghs_x' },
+      fetch,
+    })
     await provider.repos.list().page()
 
     expect(provider.can('users.me')).toBe(false)
@@ -503,7 +725,10 @@ describe('github app installations', () => {
   it('shares one installation token exchange between concurrent requests', async () => {
     const { provider, calls } = appProvider(55123)
 
-    await Promise.all([provider.repos.get(repo), provider.repos.get(repo)])
+    await Promise.all([
+      provider.repos.get(repo),
+      provider.repos.get(repo),
+    ])
 
     expect(calls.filter(call => call.url.endsWith('/access_tokens'))).toHaveLength(1)
   })
@@ -511,11 +736,16 @@ describe('github app installations', () => {
   it('does not start an installation token exchange for an already-aborted caller', async () => {
     const { fetch } = fixtureFetch('github')
     const importKey = vi.spyOn(crypto.subtle, 'importKey')
-    const provider = github({ auth: { type: 'app', appId: 12345, privateKey }, fetch })
+    const provider = github({
+      auth: { type: 'app', appId: 12345, privateKey },
+      fetch,
+    })
     const reason = new Error('cancelled')
 
     try {
-      await expect(provider.installations.token('55123', { signal: AbortSignal.abort(reason) })).rejects.toBe(reason)
+      await expect(provider.installations.token('55123', {
+        signal: AbortSignal.abort(reason),
+      })).rejects.toBe(reason)
 
       expect(importKey).not.toHaveBeenCalled()
     }
@@ -557,9 +787,15 @@ describe('github app installations', () => {
   it('retries a failed shared installation token exchange', async () => {
     const { fetch: replay } = fixtureFetch('github')
     const fetch = vi.fn(replay).mockResolvedValueOnce(Response.json({ message: 'Unavailable' }, { status: 500 }))
-    const provider = github({ auth: { type: 'app', appId: 12345, privateKey }, fetch })
+    const provider = github({
+      auth: { type: 'app', appId: 12345, privateKey },
+      fetch,
+    })
 
-    const results = await Promise.allSettled([provider.installations.token('55123'), provider.installations.token('55123')])
+    const results = await Promise.allSettled([
+      provider.installations.token('55123'),
+      provider.installations.token('55123'),
+    ])
 
     expect(results.map(result => result.status)).toEqual(['rejected', 'rejected'])
     expect(fetch).toHaveBeenCalledTimes(1)
@@ -573,9 +809,15 @@ describe('github app installations', () => {
     const credentials = createAppCredentials({ type: 'app', appId: 12345, privateKey }, { baseUrl: 'https://api.github.com' })
 
     try {
-      const results = await Promise.allSettled([credentials.appJwt(), credentials.appJwt()])
+      const results = await Promise.allSettled([
+        credentials.appJwt(),
+        credentials.appJwt(),
+      ])
 
-      expect(results).toEqual([{ status: 'rejected', reason }, { status: 'rejected', reason }])
+      expect(results).toEqual([
+        { status: 'rejected', reason },
+        { status: 'rejected', reason },
+      ])
       expect(importKey).toHaveBeenCalledTimes(1)
       const jwt = await credentials.appJwt()
       expect(jwt.split('.')).toHaveLength(3)
@@ -593,11 +835,19 @@ describe('github app installations', () => {
     const onRateLimit = vi.fn()
     let limited = false
     const provider = github({
-      auth: { type: 'app', appId: 12345, privateKey, installationId: 55123 },
+      auth: {
+        type: 'app',
+        appId: 12345,
+        privateKey,
+        installationId: 55123,
+      },
       fetch: async (input, init) => {
         if (String(input).endsWith('/access_tokens') && !limited) {
           limited = true
-          return new Response('{"message":"You have exceeded a secondary rate limit."}', { status: 403, headers: { 'retry-after': '0' } })
+          return new Response('{"message":"You have exceeded a secondary rate limit."}', {
+            status: 403,
+            headers: { 'retry-after': '0' },
+          })
         }
         const response = await replay(input, init)
         const headers = new Headers(response.headers)
@@ -630,7 +880,9 @@ describe('github app installations', () => {
       ['55123', 'acme', 'Organization'],
       ['55124', 'octocat', 'User'],
     ])
-    expect(repos.map(repo => repo.ref)).toEqual([expect.objectContaining({ owner: 'acme', name: 'widgets', instance: 'github.com' })])
+    expect(repos.map(repo => repo.ref)).toEqual([
+      expect.objectContaining({ owner: 'acme', name: 'widgets', instance: 'github.com' }),
+    ])
   })
 
   it('derives one provider per installation sharing a single app JWT', async () => {
@@ -664,17 +916,39 @@ describe('github repository and thread metadata', () => {
     expect(labels[0]!.colour).toBe('d73a4a')
     expect(milestones[0]).toMatchObject({ id: '3', title: 'v2', state: 'open' })
     expect(milestones[0]!.dueOn).toBeInstanceOf(Date)
-    expect(collaborators.map(item => [item.actor.login, item.role])).toEqual([['octocat', 'maintain'], ['hubot', 'read']])
+    expect(collaborators.map(item => [item.actor.login, item.role])).toEqual([
+      ['octocat', 'maintain'],
+      ['hubot', 'read'],
+    ])
   })
 
   it('leaves unlinked contributors out unless they are asked for', async () => {
     const urls: string[] = []
-    const provider = github({ fetch: async (url) => {
-      urls.push(url)
-      const linked = [{ login: 'octocat', id: 1, type: 'User', contributions: 10 }]
-      const anonymous = [...linked, { type: 'Anonymous', name: 'Ada', email: 'ada@example.com', contributions: 3 }]
-      return Response.json(new URL(url).searchParams.has('anon') ? anonymous : linked)
-    } })
+    const provider = github({
+      fetch: async (url) => {
+        urls.push(url)
+        const linked = [
+          {
+            login: 'octocat',
+            id: 1,
+            type: 'User',
+            contributions: 10,
+          },
+        ]
+        const anonymous = [
+          ...linked,
+          {
+            type: 'Anonymous',
+            name: 'Ada',
+            email: 'ada@example.com',
+            contributions: 3,
+          },
+        ]
+        return Response.json(new URL(url).searchParams.has('anon')
+          ? anonymous
+          : linked)
+      },
+    })
 
     const implied = await provider.repos.contributors(repo).page()
     const declined = await provider.repos.contributors(repo, { includeUnlinked: false }).page()
@@ -683,9 +957,24 @@ describe('github repository and thread metadata', () => {
     expect(urls.map(url => new URL(url).searchParams.get('anon'))).toEqual([null, null, '1'])
     expect(implied.items.map(item => item.actor?.login)).toEqual(['octocat'])
     expect(declined.items).toEqual(implied.items)
-    expect(asked.items.map(({ actor, name, email, contributions }) => ({ login: actor?.login, name, email, contributions }))).toEqual([
-      { login: 'octocat', name: undefined, email: undefined, contributions: 10 },
-      { login: undefined, name: 'Ada', email: 'ada@example.com', contributions: 3 },
+    expect(asked.items.map(({ actor, name, email, contributions }) => ({
+      login: actor?.login,
+      name,
+      email,
+      contributions,
+    }))).toEqual([
+      {
+        login: 'octocat',
+        name: undefined,
+        email: undefined,
+        contributions: 10,
+      },
+      {
+        login: undefined,
+        name: 'Ada',
+        email: 'ada@example.com',
+        contributions: 3,
+      },
     ])
 
     expect(await Array.fromAsync(provider.repos.contributors(repo, { includeUnlinked: true }))).toEqual(asked.items)
@@ -712,7 +1001,12 @@ describe('github repository and thread metadata', () => {
   })
 
   it('keeps the ruleset approvals and warns when classic protection is out of reach', async () => {
-    const { provider } = tokenProvider({ 'GET https://api.github.com/repos/acme/widgets/branches/main/protection': { status: 404, body: { message: 'Not Found' } } })
+    const { provider } = tokenProvider({
+      'GET https://api.github.com/repos/acme/widgets/branches/main/protection': {
+        status: 404,
+        body: { message: 'Not Found' },
+      },
+    })
     const rules = await provider.repos.branchRules(repo, 'main')
 
     expect(rules.requiredApprovals).toBe(1)
@@ -721,15 +1015,53 @@ describe('github repository and thread metadata', () => {
 
   it('lists a check once when a ruleset names its app and classic protection accepts any app', async () => {
     const { provider } = tokenProvider({
-      'GET https://api.github.com/repos/acme/widgets/branches/main': { status: 200, body: { name: 'main', commit: { sha: 'a'.repeat(40) }, protected: true, protection: { enabled: true, required_status_checks: { enforcement_level: 'everyone', contexts: ['test'], checks: [{ context: 'test', app_id: null }] } } } },
+      'GET https://api.github.com/repos/acme/widgets/branches/main': {
+        status: 200,
+        body: {
+          name: 'main',
+          commit: {
+            sha: 'a'.repeat(40),
+          },
+          protected: true,
+          protection: {
+            enabled: true,
+            required_status_checks: {
+              enforcement_level: 'everyone',
+              contexts: ['test'],
+              checks: [
+                { context: 'test', app_id: null },
+              ],
+            },
+          },
+        },
+      },
     })
 
-    expect((await provider.repos.branchRules(repo, 'main')).requiredChecks.filter(check => check.name === 'test')).toEqual([{ name: 'test', appId: '15368' }])
+    expect((await provider.repos.branchRules(repo, 'main')).requiredChecks.filter(check => check.name === 'test')).toEqual([
+      { name: 'test', appId: '15368' },
+    ])
   })
 
   it('falls back to the contexts of classic protection when it lists no checks', async () => {
     const { provider } = tokenProvider({
-      'GET https://api.github.com/repos/acme/widgets/branches/main': { status: 200, body: { name: 'main', commit: { sha: 'a'.repeat(40) }, protected: true, protection: { enabled: true, required_status_checks: { enforcement_level: 'everyone', contexts: ['ci/jenkins'], checks: [] } } } },
+      'GET https://api.github.com/repos/acme/widgets/branches/main': {
+        status: 200,
+        body: {
+          name: 'main',
+          commit: {
+            sha: 'a'.repeat(40),
+          },
+          protected: true,
+          protection: {
+            enabled: true,
+            required_status_checks: {
+              enforcement_level: 'everyone',
+              contexts: ['ci/jenkins'],
+              checks: [],
+            },
+          },
+        },
+      },
     })
 
     expect((await provider.repos.branchRules(repo, 'main')).requiredChecks).toContainEqual({ name: 'ci/jenkins' })
@@ -737,7 +1069,20 @@ describe('github repository and thread metadata', () => {
 
   it('reads no protection for a branch that classic protection leaves alone', async () => {
     const { provider, calls } = tokenProvider({
-      'GET https://api.github.com/repos/acme/widgets/branches/release/v1': { status: 200, body: { name: 'release/v1', commit: { sha: 'a'.repeat(40) }, protected: false, protection: { enabled: false, required_status_checks: { enforcement_level: 'off', contexts: [], checks: [] } } } },
+      'GET https://api.github.com/repos/acme/widgets/branches/release/v1': {
+        status: 200,
+        body: {
+          name: 'release/v1',
+          commit: {
+            sha: 'a'.repeat(40),
+          },
+          protected: false,
+          protection: {
+            enabled: false,
+            required_status_checks: { enforcement_level: 'off', contexts: [], checks: [] },
+          },
+        },
+      },
       'GET https://api.github.com/repos/acme/widgets/rules/branches/release/v1?per_page=100': { status: 200, body: [] },
     })
     const rules = await provider.repos.branchRules(repo, 'release/v1')
@@ -748,23 +1093,50 @@ describe('github repository and thread metadata', () => {
 
   it('adds collaborators with the permission names GitHub accepts', async () => {
     const url = 'https://api.github.com/repos/acme/widgets/collaborators/octocat'
-    const { fetch, calls } = fixtureFetch('github', { [`PUT ${url}`]: { status: 204 } })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const { fetch, calls } = fixtureFetch('github', {
+      [`PUT ${url}`]: { status: 204 },
+    })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
-    for (const role of ['read', 'triage', 'write', 'maintain', 'admin'] as const) {
+    for (const role of [
+      'read',
+      'triage',
+      'write',
+      'maintain',
+      'admin',
+    ] as const) {
       await provider.repos.addCollaborator(repo, 'octocat', role)
     }
 
-    expect(calls.map(call => JSON.parse(call.body!).permission)).toEqual(['pull', 'triage', 'push', 'maintain', 'admin'])
+    expect(calls.map(call => JSON.parse(call.body!).permission)).toEqual([
+      'pull',
+      'triage',
+      'push',
+      'maintain',
+      'admin',
+    ])
   })
 
   it('tells an invitation apart from a collaborator who has access', async () => {
     const url = 'https://api.github.com/repos/acme/widgets/collaborators'
     const { fetch } = fixtureFetch('github', {
-      [`PUT ${url}/octocat`]: { status: 201, body: { id: 1, permissions: 'write', invitee: { login: 'octocat', id: 583231 } } },
+      [`PUT ${url}/octocat`]: {
+        status: 201,
+        body: {
+          id: 1,
+          permissions: 'write',
+          invitee: { login: 'octocat', id: 583231 },
+        },
+      },
       [`PUT ${url}/hubot`]: { status: 204 },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     expect(await provider.repos.addCollaborator(repo, 'octocat', 'write')).toEqual({ status: 'invited' })
     expect(await provider.repos.addCollaborator(repo, 'hubot', 'write')).toEqual({ status: 'added' })
@@ -772,42 +1144,96 @@ describe('github repository and thread metadata', () => {
 
   it('ignores a label the thread no longer carries when removing labels', async () => {
     const { provider } = tokenProvider({
-      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': { status: 404, body: { message: 'Label does not exist', documentation_url: 'https://docs.github.com/rest/issues/labels#remove-a-label-from-an-issue' } },
-      'DELETE https://api.github.com/repos/acme/widgets/issues/43/labels/bug': { status: 404, body: { message: 'Not Found' } },
-      'GET https://api.github.com/repos/acme/widgets/issues/42/labels?per_page=100': { status: 200, body: [{ name: 'triage', color: 'ededed' }] },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': {
+        status: 404,
+        body: { message: 'Label does not exist', documentation_url: 'https://docs.github.com/rest/issues/labels#remove-a-label-from-an-issue' },
+      },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/43/labels/bug': {
+        status: 404,
+        body: { message: 'Not Found' },
+      },
+      'GET https://api.github.com/repos/acme/widgets/issues/42/labels?per_page=100': {
+        status: 200,
+        body: [
+          { name: 'triage', color: 'ededed' },
+        ],
+      },
     })
 
-    await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
+    await expect(provider.threads.removeLabels(pull, ['bug'])).resolves.toEqual([
+      { name: 'triage', colour: 'ededed' },
+    ])
     await expect(provider.threads.removeLabels({ ...pull, number: '43' }, ['bug'])).rejects.toThrow(NotFoundError)
   })
 
   it('resolves removeLabels with the labels in the last delete response', async () => {
     const { provider, calls } = tokenProvider({
-      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': { status: 200, body: [{ name: 'triage', color: 'ededed' }, { name: 'ui', color: '0e8a16' }] },
-      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/ui': { status: 200, body: [{ name: 'triage', color: 'ededed' }] },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/bug': {
+        status: 200,
+        body: [
+          { name: 'triage', color: 'ededed' },
+          { name: 'ui', color: '0e8a16' },
+        ],
+      },
+      'DELETE https://api.github.com/repos/acme/widgets/issues/42/labels/ui': {
+        status: 200,
+        body: [
+          { name: 'triage', color: 'ededed' },
+        ],
+      },
     })
 
-    await expect(provider.threads.removeLabels(pull, ['bug', 'ui'])).resolves.toEqual([{ name: 'triage', colour: 'ededed' }])
+    await expect(provider.threads.removeLabels(pull, ['bug', 'ui'])).resolves.toEqual([
+      { name: 'triage', colour: 'ededed' },
+    ])
     expect(calls.map(call => call.method)).toEqual(['DELETE', 'DELETE'])
   })
 
   it.each(['setLabels', 'addLabels'] as const)('resolves %s with the labels in the response', async (verb) => {
-    const labels = [{ name: 'bug', color: 'd73a4a', description: 'Something is broken' }, { name: 'triage', color: 'ededed', description: null }]
+    const labels = [
+      { name: 'bug', color: 'd73a4a', description: 'Something is broken' },
+      { name: 'triage', color: 'ededed', description: null },
+    ]
     const { provider, calls } = tokenProvider({
-      [`${verb === 'setLabels' ? 'PUT' : 'POST'} https://api.github.com/repos/acme/widgets/issues/42/labels`]: { status: 200, body: labels },
+      [`${verb === 'setLabels'
+        ? 'PUT'
+        : 'POST'} https://api.github.com/repos/acme/widgets/issues/42/labels`]: { status: 200, body: labels },
     })
 
-    await expect(provider.threads[verb](pull, ['bug'])).resolves.toEqual([{ name: 'bug', colour: 'd73a4a', description: 'Something is broken' }, { name: 'triage', colour: 'ededed' }])
+    await expect(provider.threads[verb](pull, ['bug'])).resolves.toEqual([
+      { name: 'bug', colour: 'd73a4a', description: 'Something is broken' },
+      { name: 'triage', colour: 'ededed' },
+    ])
     expect(calls).toHaveLength(1)
   })
 
   it('resolves setAssignees with the assignees in the response', async () => {
     const { provider, calls } = tokenProvider({
-      'PATCH https://api.github.com/repos/acme/widgets/issues/42': { status: 200, body: { number: 42, assignees: [{ login: 'octocat', id: 583231, type: 'User' }] } },
+      'PATCH https://api.github.com/repos/acme/widgets/issues/42': {
+        status: 200,
+        body: {
+          number: 42,
+          assignees: [
+            { login: 'octocat', id: 583231, type: 'User' },
+          ],
+        },
+      },
     })
 
-    await expect(provider.threads.setAssignees(pull, ['octocat'])).resolves.toMatchObject([{ login: 'octocat', id: '583231' }])
-    expect(calls.map(call => [call.method, JSON.parse(call.body!)])).toEqual([['PATCH', { assignees: ['octocat'] }]])
+    await expect(provider.threads.setAssignees(pull, ['octocat'])).resolves.toMatchObject([
+      { login: 'octocat', id: '583231' },
+    ])
+    expect(calls.map(call => [
+      call.method,
+      JSON.parse(call.body!),
+    ])).toEqual([
+      [
+        'PATCH',
+        {
+          assignees: ['octocat'],
+        },
+      ],
+    ])
   })
 
   it('adds and removes labels without replacing the rest', async () => {
@@ -847,9 +1273,26 @@ describe('github repository and thread metadata', () => {
 })
 
 describe('github moderation', () => {
-  const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
-  const org = { forge: 'github', instance: 'github.com', owner: 'acme', name: '', kind: 'namespace' } as const
-  const commit = { forge: 'github', instance: 'github.com', repo, sha: HEAD } as const
+  const issue = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    kind: 'issue',
+    number: '17',
+  } as const
+  const org = {
+    forge: 'github',
+    instance: 'github.com',
+    owner: 'acme',
+    name: '',
+    kind: 'namespace',
+  } as const
+  const commit = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    sha: HEAD,
+  } as const
 
   it('locks and unlocks an issue or pull request through REST, with the reason GitHub names', async () => {
     const { provider, calls } = tokenProvider()
@@ -875,22 +1318,60 @@ describe('github moderation', () => {
     await provider.threads.unlock(ref)
 
     expect(calls.map(call => [call.operationName, JSON.parse(call.body!).variables])).toEqual([
-      ['LockLockable', { id: 'D_kwDOAAB5ac4AAQ1f' }],
-      ['UnlockLockable', { id: 'D_kwDOAAB5ac4AAQ1f' }],
+      [
+        'LockLockable',
+        { id: 'D_kwDOAAB5ac4AAQ1f' },
+      ],
+      [
+        'UnlockLockable',
+        { id: 'D_kwDOAAB5ac4AAQ1f' },
+      ],
     ])
   })
 
   it('hides and unhides a comment by its node id, with the classifier GitHub names', async () => {
     const { provider, calls } = tokenProvider()
 
-    await provider.threads.hideComment({ forge: 'github', instance: 'github.com', thread: issue, id: '770001' }, 'low_quality')
-    await provider.threads.unhideComment({ forge: 'github', instance: 'github.com', thread: pull, id: '770001' })
-    await provider.commits.hideComment({ forge: 'github', instance: 'github.com', commit, id: '770005' }, 'spam')
-    await provider.commits.unhideComment({ forge: 'github', instance: 'github.com', commit, id: '770005' })
-    await provider.threads.hideComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'DC_kwDOAAB5ac4AAQ2a' }, 'outdated')
-    await provider.threads.unhideComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'DC_kwDOAAB5ac4AAQ2a' })
+    await provider.threads.hideComment({
+      forge: 'github',
+      instance: 'github.com',
+      thread: issue,
+      id: '770001',
+    }, 'low_quality')
+    await provider.threads.unhideComment({
+      forge: 'github',
+      instance: 'github.com',
+      thread: pull,
+      id: '770001',
+    })
+    await provider.commits.hideComment({
+      forge: 'github',
+      instance: 'github.com',
+      commit,
+      id: '770005',
+    }, 'spam')
+    await provider.commits.unhideComment({
+      forge: 'github',
+      instance: 'github.com',
+      commit,
+      id: '770005',
+    })
+    await provider.threads.hideComment({
+      forge: 'github',
+      instance: 'github.com',
+      thread: discussion,
+      id: 'DC_kwDOAAB5ac4AAQ2a',
+    }, 'outdated')
+    await provider.threads.unhideComment({
+      forge: 'github',
+      instance: 'github.com',
+      thread: discussion,
+      id: 'DC_kwDOAAB5ac4AAQ2a',
+    })
 
-    expect(calls.map(call => call.operationName ? `${call.operationName} ${JSON.stringify(JSON.parse(call.body!).variables)}` : `${call.method} ${call.url}`)).toEqual([
+    expect(calls.map(call => call.operationName
+      ? `${call.operationName} ${JSON.stringify(JSON.parse(call.body!).variables)}`
+      : `${call.method} ${call.url}`)).toEqual([
       'GET https://api.github.com/repos/acme/widgets/issues/comments/770001',
       'MinimizeComment {"id":"IC_kwDOAAB5ac5abc001","classifier":"LOW_QUALITY"}',
       'GET https://api.github.com/repos/acme/widgets/issues/comments/770001',
@@ -918,22 +1399,47 @@ describe('github moderation', () => {
       'PUT https://api.github.com/user/blocks/spammer',
       'DELETE https://api.github.com/user/blocks/spammer',
     ])
-    expect(provider.scopesFor('orgs.block')).toEqual({ token: ['admin:org'], permissions: { organization_user_blocking: 'write' } })
+    expect(provider.scopesFor('orgs.block')).toEqual({
+      token: ['admin:org'],
+      permissions: { organization_user_blocking: 'write' },
+    })
     expect(provider.scopesFor('users.unblock').permissions).toEqual({ blocking: 'write' })
   })
 
   it('blocks for the viewer only with a user token', () => {
-    const app = github({ auth: { type: 'app', appId: 1, privateKey, installationId: 1 } })
+    const app = github({
+      auth: {
+        type: 'app',
+        appId: 1,
+        privateKey,
+        installationId: 1,
+      },
+    })
 
     expect(app.can('users.block')).toBe(false)
     expect(app.can('orgs.block')).toBe(true)
-    expect(declaredCapabilities(github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } })).orgs.block).toBe('unverified')
+    expect(declaredCapabilities(github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: 't' },
+    })).orgs.block).toBe('unverified')
   })
 })
 
 describe('github issue types', () => {
-  const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
-  const bug = { id: 'IT_kwDOAAB5ac4AABAG', name: 'Bug', description: 'An unexpected problem or behavior', colour: 'red', enabled: true }
+  const issue = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    kind: 'issue',
+    number: '17',
+  } as const
+  const bug = {
+    id: 'IT_kwDOAAB5ac4AABAG',
+    name: 'Bug',
+    description: 'An unexpected problem or behavior',
+    colour: 'red',
+    enabled: true,
+  }
   const issueUrl = 'https://api.github.com/repos/acme/widgets/issues/17'
 
   it('lists the issue types of a repository', async () => {
@@ -942,12 +1448,27 @@ describe('github issue types', () => {
     const types = await provider.repos.issueTypes(repo)
 
     expect(types.map(({ raw, ...type }) => type)).toEqual([
-      { id: 'IT_kwDOAAB5ac4AABAF', name: 'Task', description: 'A specific piece of work', colour: 'yellow', enabled: true },
+      {
+        id: 'IT_kwDOAAB5ac4AABAF',
+        name: 'Task',
+        description: 'A specific piece of work',
+        colour: 'yellow',
+        enabled: true,
+      },
       bug,
-      { id: 'IT_kwDOAAB5ac4AABAH', name: 'Feature', description: 'A request, idea, or new functionality', colour: 'blue', enabled: true },
+      {
+        id: 'IT_kwDOAAB5ac4AABAH',
+        name: 'Feature',
+        description: 'A request, idea, or new functionality',
+        colour: 'blue',
+        enabled: true,
+      },
     ])
     expect(calls.map(call => call.url)).toEqual(['https://api.github.com/repos/acme/widgets/issue-types'])
-    expect(provider.scopesFor('repos.issueTypes')).toEqual({ token: ['repo'], permissions: { metadata: 'read' } })
+    expect(provider.scopesFor('repos.issueTypes')).toEqual({
+      token: ['repo'],
+      permissions: { metadata: 'read' },
+    })
   })
 
   it('reads the type of each issue in a listing, and over GraphQL', async () => {
@@ -956,20 +1477,37 @@ describe('github issue types', () => {
     const { items } = await provider.threads.list(repo).page()
     const closing = await provider.threads.closingIssues(pull).page()
 
-    expect(items.map(thread => [thread.ref.number, thread.issueType?.name])).toEqual([['42', undefined], ['17', 'Bug']])
+    expect(items.map(thread => [thread.ref.number, thread.issueType?.name])).toEqual([
+      ['42', undefined],
+      ['17', 'Bug'],
+    ])
     expect(items[1]!.issueType).toMatchObject(bug)
     expect(closing.items[0]!.issueType).toMatchObject(bug)
   })
 
   it('sets an issue type by name or as listed, and clears it', async () => {
     const { provider, calls } = tokenProvider()
-    const cleared = tokenProvider({ [`PATCH ${issueUrl}`]: { status: 200, headers: {}, body: { number: 17, title: 'Crash on empty config', state: 'open', type: null } } })
+    const cleared = tokenProvider({
+      [`PATCH ${issueUrl}`]: {
+        status: 200,
+        headers: {},
+        body: {
+          number: 17,
+          title: 'Crash on empty config',
+          state: 'open',
+          type: null,
+        },
+      },
+    })
 
     await expect(provider.threads.setIssueType(issue, 'Bug')).resolves.toMatchObject(bug)
     await expect(provider.threads.setIssueType(issue, { ...bug, raw: {} })).resolves.toMatchObject(bug)
     await expect(cleared.provider.threads.setIssueType(issue, undefined)).resolves.toBeUndefined()
 
-    expect([...calls, ...cleared.calls].map(call => `${call.method} ${call.url} ${call.body}`)).toEqual([
+    expect([
+      ...calls,
+      ...cleared.calls,
+    ].map(call => `${call.method} ${call.url} ${call.body}`)).toEqual([
       `PATCH ${issueUrl} {"type":"Bug"}`,
       `PATCH ${issueUrl} {"type":"Bug"}`,
       `PATCH ${issueUrl} {"type":null}`,
@@ -978,7 +1516,10 @@ describe('github issue types', () => {
 
   it('sets types on issues only, and lists them only on github.com with a credential', async () => {
     const { provider, calls } = tokenProvider()
-    const enterprise = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } })
+    const enterprise = github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: 't' },
+    })
 
     await expect(provider.threads.setIssueType(pull, 'Bug')).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
@@ -989,7 +1530,13 @@ describe('github issue types', () => {
 })
 
 describe('github closing references', () => {
-  const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue', number: '17' } as const
+  const issue = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    kind: 'issue',
+    number: '17',
+  } as const
 
   it('lists the issues a pull request closes, in any repository', async () => {
     const { provider, calls } = tokenProvider()
@@ -999,7 +1546,13 @@ describe('github closing references', () => {
     expect(page.items.map(thread => `${thread.ref.repo.name}#${thread.ref.number} ${thread.kind} ${thread.state}`)).toEqual(['widgets#17 issue open', 'docs#3 issue open'])
     expect(page.items[1]!.ref.repo).toMatchObject({ owner: 'acme', name: 'docs', externalId: '1296270' })
     expect(page.cursor).toBeUndefined()
-    expect(JSON.parse(calls[0]!.body!).variables).toEqual({ owner: 'acme', name: 'widgets', number: 42, first: 10, after: null })
+    expect(JSON.parse(calls[0]!.body!).variables).toEqual({
+      owner: 'acme',
+      name: 'widgets',
+      number: 42,
+      first: 10,
+      after: null,
+    })
   })
 
   it('lists the pull requests that close an issue, merged or not', async () => {
@@ -1022,7 +1575,13 @@ describe('github closing references', () => {
 })
 
 describe('github organisation teams', () => {
-  const org = { forge: 'github', instance: 'github.com', owner: 'acme', name: '', kind: 'namespace' } as const
+  const org = {
+    forge: 'github',
+    instance: 'github.com',
+    owner: 'acme',
+    name: '',
+    kind: 'namespace',
+  } as const
 
   it('lists an organisation\'s teams and their members', async () => {
     const { provider, calls } = tokenProvider()
@@ -1030,12 +1589,33 @@ describe('github organisation teams', () => {
     const teams = await Array.fromAsync(provider.orgs.teams(org))
     const members = await Array.fromAsync(provider.orgs.teamMembers(teams[0]!.ref))
 
-    expect(teams.map(team => [team.ref.slug, team.ref.id, team.name, team.visibilityRaw, team.parent?.slug])).toEqual([
-      ['stewards', '1', 'Stewards', 'closed', undefined],
-      ['core', '2', 'Core', 'secret', 'stewards'],
+    expect(teams.map(team => [
+      team.ref.slug,
+      team.ref.id,
+      team.name,
+      team.visibilityRaw,
+      team.parent?.slug,
+    ])).toEqual([
+      [
+        'stewards',
+        '1',
+        'Stewards',
+        'closed',
+        undefined,
+      ],
+      [
+        'core',
+        '2',
+        'Core',
+        'secret',
+        'stewards',
+      ],
     ])
     expect(teams[0]!.ref.org).toMatchObject({ kind: 'namespace', owner: 'acme', name: '' })
-    expect(members.map(member => [member.login, member.isBotHint])).toEqual([['octocat', false], ['hubot', true]])
+    expect(members.map(member => [member.login, member.isBotHint])).toEqual([
+      ['octocat', false],
+      ['hubot', true],
+    ])
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
       'GET /orgs/acme/teams',
       'GET /orgs/acme/teams/stewards/members',
@@ -1054,25 +1634,42 @@ describe('github contributor statistics', () => {
   it('retries while GitHub reports the statistics are not ready', async () => {
     const responses = [
       new Response(null, { status: 202 }),
-      Response.json([{ author: { login: 'octocat', id: 583231 }, total: 2, weeks: [{ w: 1704067200, a: 1, d: 0, c: 2 }] }]),
+      Response.json([
+        {
+          author: { login: 'octocat', id: 583231 },
+          total: 2,
+          weeks: [
+            { w: 1704067200, a: 1, d: 0, c: 2 },
+          ],
+        },
+      ]),
     ]
     let calls = 0
-    const provider = github({ fetch: async () => responses[calls++]! })
+    const provider = github({
+      fetch: async () => responses[calls++]!,
+    })
 
     const stats = await provider.repos.contributorStats(repo)
 
     expect(calls).toBe(2)
     expect(stats).toHaveLength(1)
     expect(stats[0]!.actor?.login).toBe('octocat')
-    expect(stats[0]!.weeks[0]).toEqual({ week: new Date('2024-01-01T00:00:00Z'), additions: 1, deletions: 0, commits: 2 })
+    expect(stats[0]!.weeks[0]).toEqual({
+      week: new Date('2024-01-01T00:00:00Z'),
+      additions: 1,
+      deletions: 0,
+      commits: 2,
+    })
   })
 
   it('throws once GitHub still reports the statistics are not ready', async () => {
     let calls = 0
-    const provider = github({ fetch: async () => {
-      calls++
-      return new Response('{}', { status: 202 })
-    } })
+    const provider = github({
+      fetch: async () => {
+        calls++
+        return new Response('{}', { status: 202 })
+      },
+    })
     vi.useFakeTimers()
     try {
       const stats = provider.repos.contributorStats(repo)
@@ -1090,8 +1687,20 @@ describe('github contributor statistics', () => {
 
 describe('github templates', () => {
   const api = 'https://api.github.com/repos/acme'
-  const missing = { status: 404, body: { message: 'Not Found' } }
-  const dotGithub = (visibility = 'public') => ({ status: 200, body: { name: '.github', full_name: 'acme/.github', owner: { login: 'acme' }, private: visibility !== 'public', visibility } })
+  const missing = {
+    status: 404,
+    body: { message: 'Not Found' },
+  }
+  const dotGithub = (visibility = 'public') => ({
+    status: 200,
+    body: {
+      name: '.github',
+      full_name: 'acme/.github',
+      owner: { login: 'acme' },
+      private: visibility !== 'public',
+      visibility,
+    },
+  })
 
   it('takes the pull request template from `.github` over the root and `docs`', async () => {
     const { provider, calls } = tokenProvider({
@@ -1106,10 +1715,38 @@ describe('github templates', () => {
 
     const templates = await provider.repos.templates(repo)
 
-    expect(templates.map(({ kind, name, path, format, body, source }) => ({ kind, name, path, format, body, source }))).toEqual([
-      { kind: 'issue', name: 'bug.yml', path: '.github/ISSUE_TEMPLATE/bug.yml', format: 'form', body: 'name: Bug\nbody: []\n', source: undefined },
-      { kind: 'issue', name: 'question.md', path: '.github/ISSUE_TEMPLATE/question.md', format: 'markdown', body: '---\nname: Question\n---\nAsk away', source: undefined },
-      { kind: 'pull_request', name: 'PULL_REQUEST_TEMPLATE.md', path: '.github/PULL_REQUEST_TEMPLATE.md', format: 'markdown', body: '### Linked issue', source: undefined },
+    expect(templates.map(({ kind, name, path, format, body, source }) => ({
+      kind,
+      name,
+      path,
+      format,
+      body,
+      source,
+    }))).toEqual([
+      {
+        kind: 'issue',
+        name: 'bug.yml',
+        path: '.github/ISSUE_TEMPLATE/bug.yml',
+        format: 'form',
+        body: 'name: Bug\nbody: []\n',
+        source: undefined,
+      },
+      {
+        kind: 'issue',
+        name: 'question.md',
+        path: '.github/ISSUE_TEMPLATE/question.md',
+        format: 'markdown',
+        body: '---\nname: Question\n---\nAsk away',
+        source: undefined,
+      },
+      {
+        kind: 'pull_request',
+        name: 'PULL_REQUEST_TEMPLATE.md',
+        path: '.github/PULL_REQUEST_TEMPLATE.md',
+        format: 'markdown',
+        body: '### Linked issue',
+        source: undefined,
+      },
     ])
     expect(calls.some(call => call.url.includes('/acme/.github/'))).toBe(false)
   })
@@ -1129,7 +1766,19 @@ describe('github templates', () => {
 
     const templates = await provider.repos.templates(repo)
 
-    expect(templates).toEqual([expect.objectContaining({ kind: 'pull_request', path: 'pull_request_template.md', body: 'Thanks!', source: { forge: 'github', instance: 'github.com', owner: 'acme', name: '.github' } })])
+    expect(templates).toEqual([
+      expect.objectContaining({
+        kind: 'pull_request',
+        path: 'pull_request_template.md',
+        body: 'Thanks!',
+        source: {
+          forge: 'github',
+          instance: 'github.com',
+          owner: 'acme',
+          name: '.github',
+        },
+      }),
+    ])
     expect(calls.map(call => new URL(call.url).pathname)).not.toContain('/repos/acme/.github/contents/.github/ISSUE_TEMPLATE')
   })
 
@@ -1147,11 +1796,23 @@ describe('github templates', () => {
 
     const templates = await provider.repos.templates(repo, { kind: 'issue' })
 
-    expect(templates).toMatchObject([{ kind: 'issue', path: '.github/ISSUE_TEMPLATE/bug.yml', source: { name: '.github' } }])
+    expect(templates).toMatchObject([
+      {
+        kind: 'issue',
+        path: '.github/ISSUE_TEMPLATE/bug.yml',
+        source: { name: '.github' },
+      },
+    ])
   })
 
   it('rejects when the `.github` fallback fails, whether or not the repository has templates of its own', async () => {
-    const refused = { [`GET ${api}/.github`]: dotGithub(), [`GET ${api}/.github/contents`]: { status: 403, body: { message: 'Resource not accessible by integration' } } }
+    const refused = {
+      [`GET ${api}/.github`]: dotGithub(),
+      [`GET ${api}/.github/contents`]: {
+        status: 403,
+        body: { message: 'Resource not accessible by integration' },
+      },
+    }
     const own = {
       [`GET ${api}/widgets/contents`]: contentsListing('PULL_REQUEST_TEMPLATE.md'),
       [`GET ${api}/widgets/contents/PULL_REQUEST_TEMPLATE.md`]: contentsFile('PULL_REQUEST_TEMPLATE.md', 'What changed'),
@@ -1159,7 +1820,10 @@ describe('github templates', () => {
     }
 
     await expect(tokenProvider(own).provider.repos.templates(repo)).rejects.toBeInstanceOf(InsufficientScopeError)
-    await expect(tokenProvider({ [`GET ${api}/widgets/contents`]: contentsListing('README.md'), ...refused }).provider.repos.templates(repo)).rejects.toBeInstanceOf(InsufficientScopeError)
+    await expect(tokenProvider({
+      [`GET ${api}/widgets/contents`]: contentsListing('README.md'),
+      ...refused,
+    }).provider.repos.templates(repo)).rejects.toBeInstanceOf(InsufficientScopeError)
   })
 
   it('finds nothing when the owner has no `.github` repository', async () => {
@@ -1178,15 +1842,37 @@ describe('github templates', () => {
       [`GET ${api}/.github/contents/pull_request_template.md`]: contentsFile('pull_request_template.md', 'Thanks!'),
     }
 
-    const hidden = tokenProvider({ ...fallback, [`GET ${api}/.github`]: dotGithub('private') })
+    const hidden = tokenProvider({
+      ...fallback,
+      [`GET ${api}/.github`]: dotGithub('private'),
+    })
     await expect(hidden.provider.repos.templates(repo, { kind: 'pull_request' })).resolves.toEqual([])
     expect(hidden.calls.map(call => new URL(call.url).pathname)).not.toContain('/repos/acme/.github/contents')
-    await expect(tokenProvider({ ...fallback, [`GET ${api}/.github`]: dotGithub('internal') }).provider.repos.templates(repo, { kind: 'pull_request' })).resolves.toMatchObject([{ body: 'Thanks!', source: { name: '.github' } }])
+    await expect(tokenProvider({
+      ...fallback,
+      [`GET ${api}/.github`]: dotGithub('internal'),
+    }).provider.repos.templates(repo, { kind: 'pull_request' })).resolves.toMatchObject([
+      {
+        body: 'Thanks!',
+        source: { name: '.github' },
+      },
+    ])
   })
 
   it('falls back to the `.github` repository of the owner a repository was transferred to', async () => {
     const { provider, calls } = tokenProvider({
-      'GET https://api.github.com/repos/old/widgets/contents': { status: 200, body: [{ type: 'file', name: 'README.md', path: 'README.md', sha: 'f', url: 'https://api.github.com/repos/acme/widgets/contents/README.md?ref=main' }] },
+      'GET https://api.github.com/repos/old/widgets/contents': {
+        status: 200,
+        body: [
+          {
+            type: 'file',
+            name: 'README.md',
+            path: 'README.md',
+            sha: 'f',
+            url: 'https://api.github.com/repos/acme/widgets/contents/README.md?ref=main',
+          },
+        ],
+      },
       [`GET ${api}/.github`]: dotGithub(),
       [`GET ${api}/.github/contents`]: contentsListing('pull_request_template.md'),
       [`GET ${api}/.github/contents/pull_request_template.md`]: contentsFile('pull_request_template.md', 'Thanks!'),
@@ -1194,20 +1880,40 @@ describe('github templates', () => {
 
     const templates = await provider.repos.templates({ ...repo, owner: 'old' }, { kind: 'pull_request' })
 
-    expect(templates).toMatchObject([{ body: 'Thanks!', source: { owner: 'acme', name: '.github' } }])
+    expect(templates).toMatchObject([
+      {
+        body: 'Thanks!',
+        source: { owner: 'acme', name: '.github' },
+      },
+    ])
     expect(calls.some(call => call.url.includes('/repos/old/.github'))).toBe(false)
   })
 
   it('falls back to `.github` for an empty repository', async () => {
     const { provider } = tokenProvider({
-      [`GET ${api}/widgets/contents`]: { status: 404, body: { message: 'This repository is empty.' } },
-      [`GET ${api}/widgets`]: { status: 200, body: { name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme' } } },
+      [`GET ${api}/widgets/contents`]: {
+        status: 404,
+        body: { message: 'This repository is empty.' },
+      },
+      [`GET ${api}/widgets`]: {
+        status: 200,
+        body: {
+          name: 'widgets',
+          full_name: 'acme/widgets',
+          owner: { login: 'acme' },
+        },
+      },
       [`GET ${api}/.github`]: dotGithub(),
       [`GET ${api}/.github/contents`]: contentsListing('pull_request_template.md'),
       [`GET ${api}/.github/contents/pull_request_template.md`]: contentsFile('pull_request_template.md', 'Thanks!'),
     })
 
-    await expect(provider.repos.templates(repo, { kind: 'pull_request' })).resolves.toMatchObject([{ body: 'Thanks!', source: { name: '.github' } }])
+    await expect(provider.repos.templates(repo, { kind: 'pull_request' })).resolves.toMatchObject([
+      {
+        body: 'Thanks!',
+        source: { name: '.github' },
+      },
+    ])
   })
 
   it('lists issue forms before Markdown templates, as the template chooser does', async () => {
@@ -1223,7 +1929,12 @@ describe('github templates', () => {
 
     const templates = await provider.repos.templates(repo, { kind: 'issue' })
 
-    expect(templates.map(template => template.name)).toEqual(['b-bug.yml', 'd-docs.yaml', 'a-question.md', 'c-idea.md'])
+    expect(templates.map(template => template.name)).toEqual([
+      'b-bug.yml',
+      'd-docs.yaml',
+      'a-question.md',
+      'c-idea.md',
+    ])
   })
 
   it('reads the legacy single issue template when the repository has no template folder', async () => {
@@ -1272,7 +1983,14 @@ describe('github reviews', () => {
     expect(reviews[0]!.ref.id).toBe('880097')
     expect(reviews[0]!.submittedAt).toBeInstanceOf(Date)
     const comments = reviews[0]!.comments as Exclude<typeof reviews[0]['comments'], false>
-    expect(comments).toMatchObject([{ path: 'src/index.ts', line: 12, side: 'right', thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false } }])
+    expect(comments).toMatchObject([
+      {
+        path: 'src/index.ts',
+        line: 12,
+        side: 'right',
+        thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false },
+      },
+    ])
     expect(reviews[1]!.comments).toEqual([])
     expect(calls.map(call => call.operationName ?? new URL(call.url).pathname)).toEqual([
       '/repos/acme/widgets/pulls/42/reviews',
@@ -1284,10 +2002,32 @@ describe('github reviews', () => {
   it('reads review comments once across the pages of reviews', async () => {
     const reviewsUrl = 'https://api.github.com/repos/acme/widgets/pulls/42/reviews'
     const { fetch, calls } = fixtureFetch('github', {
-      [`GET ${reviewsUrl}?per_page=1`]: { status: 200, headers: { link: `<${reviewsUrl}?per_page=1&page=2>; rel="next"` }, body: [{ id: 1, state: 'APPROVED', user: { login: 'a' } }] },
-      [`GET ${reviewsUrl}?per_page=1&page=2`]: { status: 200, body: [{ id: 2, state: 'COMMENTED', user: { login: 'b' } }] },
+      [`GET ${reviewsUrl}?per_page=1`]: {
+        status: 200,
+        headers: { link: `<${reviewsUrl}?per_page=1&page=2>; rel="next"` },
+        body: [
+          {
+            id: 1,
+            state: 'APPROVED',
+            user: { login: 'a' },
+          },
+        ],
+      },
+      [`GET ${reviewsUrl}?per_page=1&page=2`]: {
+        status: 200,
+        body: [
+          {
+            id: 2,
+            state: 'COMMENTED',
+            user: { login: 'b' },
+          },
+        ],
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const reviews = await Array.fromAsync(provider.threads.reviews(pull, { perPage: 1 }))
 
@@ -1299,11 +2039,36 @@ describe('github reviews', () => {
   it('reads review comments again for a page resumed after they expire', async () => {
     const reviewsUrl = 'https://api.github.com/repos/acme/widgets/pulls/42/reviews'
     const { fetch, calls } = fixtureFetch('github', {
-      [`GET ${reviewsUrl}?per_page=1`]: { status: 200, headers: { link: `<${reviewsUrl}?per_page=1&page=2>; rel="next"` }, body: [{ id: 1, state: 'APPROVED', user: { login: 'a' } }] },
-      [`GET ${reviewsUrl}?per_page=1&page=2`]: { status: 200, body: [{ id: 2, state: 'COMMENTED', user: { login: 'b' } }] },
+      [`GET ${reviewsUrl}?per_page=1`]: {
+        status: 200,
+        headers: { link: `<${reviewsUrl}?per_page=1&page=2>; rel="next"` },
+        body: [
+          {
+            id: 1,
+            state: 'APPROVED',
+            user: { login: 'a' },
+          },
+        ],
+      },
+      [`GET ${reviewsUrl}?per_page=1&page=2`]: {
+        status: 200,
+        body: [
+          {
+            id: 2,
+            state: 'COMMENTED',
+            user: { login: 'b' },
+          },
+        ],
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    vi.useFakeTimers({ now: 0, toFake: ['Date'] })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    vi.useFakeTimers({
+      now: 0,
+      toFake: ['Date'],
+    })
     try {
       const first = await provider.threads.reviews(pull, { perPage: 1 }).page()
       vi.setSystemTime(10 * 60_000)
@@ -1319,10 +2084,20 @@ describe('github reviews', () => {
   it('creates a pending review and submits it', async () => {
     const { provider, calls } = tokenProvider()
 
-    const review = await provider.threads.createReview(pull, { body: 'nit', comments: [{ path: 'src/index.ts', line: 12, body: 'const' }] })
+    const review = await provider.threads.createReview(pull, {
+      body: 'nit',
+      comments: [
+        { path: 'src/index.ts', line: 12, body: 'const' },
+      ],
+    })
     await provider.threads.submitReview(review.ref, 'approve', 'LGTM')
 
-    expect(JSON.parse(calls[0]!.body!)).toEqual({ body: 'nit', comments: [{ path: 'src/index.ts', body: 'const', line: 12 }] })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({
+      body: 'nit',
+      comments: [
+        { path: 'src/index.ts', body: 'const', line: 12 },
+      ],
+    })
     expect(calls.map(call => `${call.method} ${new URL(call.url).pathname}`)).toEqual([
       'POST /repos/acme/widgets/pulls/42/reviews',
       'POST /repos/acme/widgets/pulls/42/reviews/880099/events',
@@ -1352,10 +2127,23 @@ describe('github reviews', () => {
     expect(threads[0]).toMatchObject({ path: 'src/index.ts', line: 12, side: 'right' })
     expect(threads[0]!.startLine).toBeUndefined()
     expect(threads[0]!.comments).toMatchObject([
-      { ref: { id: '55001' }, author: { login: 'octocat' }, thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false } },
-      { ref: { id: '55002' }, author: { login: 'renovate[bot]' }, inReplyTo: '55001' },
+      {
+        ref: { id: '55001' },
+        author: { login: 'octocat' },
+        thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false },
+      },
+      {
+        ref: { id: '55002' },
+        author: { login: 'renovate[bot]' },
+        inReplyTo: '55001',
+      },
     ])
-    expect(threads[1]).toMatchObject({ path: 'src/util.ts', line: 8, startLine: 5, side: 'left' })
+    expect(threads[1]).toMatchObject({
+      path: 'src/util.ts',
+      line: 8,
+      startLine: 5,
+      side: 'left',
+    })
     expect(threads[2]).toMatchObject({ path: 'README.md', line: 3, startLine: 1 })
     expect(calls.map(call => call.variables?.after ?? null)).toEqual([null, 'Y3Vyc29yOnYyOpK0MjAyNi0wMS0wNFQwOTowMDowMFrOAAAAAg=='])
   })
@@ -1369,30 +2157,98 @@ describe('github reviews', () => {
   })
 
   it('finds the thread of a review comment past the first hundred threads', async () => {
-    const threads = (after: string | null, nodes: unknown[]) => ({ data: { repository: { pullRequest: { reviewThreads: { pageInfo: { hasNextPage: after !== null, endCursor: after }, nodes } } } } })
+    const threads = (after: string | null, nodes: unknown[]) => ({
+      data: {
+        repository: {
+          pullRequest: {
+            reviewThreads: {
+              pageInfo: { hasNextPage: after !== null, endCursor: after },
+              nodes,
+            },
+          },
+        },
+      },
+    })
     const cursors: unknown[] = []
     const fetch: FetchLike = async (input, init) => {
       const url = String(input)
       if (url.endsWith('/graphql')) {
         const { after = null } = JSON.parse(String(init!.body)).variables
         cursors.push(after)
-        const first = Array.from({ length: 100 }, (_, index) => ({ id: `PRRT_${index}`, isResolved: false, comments: { nodes: [{ databaseId: 1000 + index }] } }))
-        return Response.json(after ? threads(null, [{ id: 'PRRT_late', isResolved: true, comments: { nodes: [{ databaseId: 1 }] } }]) : threads('Y3Vyc29yOjEwMA==', first))
+        const first = Array.from({ length: 100 }, (_, index) => ({
+          id: `PRRT_${index}`,
+          isResolved: false,
+          comments: {
+            nodes: [
+              { databaseId: 1000 + index },
+            ],
+          },
+        }))
+        return Response.json(after
+          ? threads(null, [
+              {
+                id: 'PRRT_late',
+                isResolved: true,
+                comments: {
+                  nodes: [
+                    { databaseId: 1 },
+                  ],
+                },
+              },
+            ])
+          : threads('Y3Vyc29yOjEwMA==', first))
       }
-      return Response.json(url.includes('/reviews') ? [{ id: 9, state: 'COMMENTED', user: { login: 'a' } }] : [{ id: 1, pull_request_review_id: 9, path: 'a.ts', line: 1, body: 'late' }])
+      return Response.json(url.includes('/reviews')
+        ? [
+            {
+              id: 9,
+              state: 'COMMENTED',
+              user: { login: 'a' },
+            },
+          ]
+        : [
+            {
+              id: 1,
+              pull_request_review_id: 9,
+              path: 'a.ts',
+              line: 1,
+              body: 'late',
+            },
+          ])
     }
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const [review] = (await provider.threads.reviews(pull).page()).items
 
-    expect(review!.comments).toMatchObject([{ thread: { id: 'PRRT_late', resolved: true } }])
+    expect(review!.comments).toMatchObject([
+      {
+        thread: { id: 'PRRT_late', resolved: true },
+      },
+    ])
     expect(cursors).toEqual([null, 'Y3Vyc29yOjEwMA=='])
   })
 
   it('replies to a reply through the comment it answers', async () => {
     const { fetch, calls } = fixtureFetch('github/recorded/github.com-writes/steps/reply-to-review-comment')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const scratch = { forge: 'github', instance: 'github.com', repo: { forge: 'github', instance: 'github.com', owner: 'forges-fixtures', name: 'forges-fixtures' }, kind: 'pull_request', number: '136' } as const
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const scratch = {
+      forge: 'github',
+      instance: 'github.com',
+      repo: {
+        forge: 'github',
+        instance: 'github.com',
+        owner: 'forges-fixtures',
+        name: 'forges-fixtures',
+      },
+      kind: 'pull_request',
+      number: '136',
+    } as const
     const [comment] = (await provider.threads.reviews(scratch).page()).items.flatMap(review => review.comments || [])
 
     const reply = await provider.threads.replyToReviewComment(scratch, comment!, 'A reply')
@@ -1408,7 +2264,9 @@ describe('github reviews', () => {
   it('needs the id of the review comment it replies to', async () => {
     const { provider, calls } = tokenProvider()
 
-    await expect(provider.threads.replyToReviewComment(pull, { thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false } }, 'hi')).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.threads.replyToReviewComment(pull, {
+      thread: { id: 'PRRT_kwDOAAB5ac5abcde', resolved: false },
+    }, 'hi')).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toHaveLength(0)
   })
 })
@@ -1420,7 +2278,12 @@ describe('github checks and CI', () => {
     const token = tokenProvider()
     const app = appProvider(55123)
 
-    const status = await token.provider.checks.report(repo, sha, { name: 'forges/coverage', state: 'success', description: '84%', url: 'https://ci.example/run/1' })
+    const status = await token.provider.checks.report(repo, sha, {
+      name: 'forges/coverage',
+      state: 'success',
+      description: '84%',
+      url: 'https://ci.example/run/1',
+    })
     const run = await app.provider.checks.report(repo, sha, { name: 'forges/coverage', state: 'success' })
 
     expect(status.ref.type).toBe('status')
@@ -1433,10 +2296,22 @@ describe('github checks and CI', () => {
     const { provider } = tokenProvider()
 
     const page = await provider.checks.list(repo, sha)
-    await provider.checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '4002', type: 'check_run' })
+    await provider.checks.rerun({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '4002',
+      type: 'check_run',
+    })
 
     expect(page.items.map(check => check.ref.type)).toContain('check_run')
-    await expect(provider.checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '4101', type: 'status' }))
+    await expect(provider.checks.rerun({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '4101',
+      type: 'status',
+    }))
       .rejects
       .toBeInstanceOf(UnsupportedOperationError)
   })
@@ -1455,9 +2330,17 @@ describe('github checks and CI', () => {
   it('adds the commit statuses to the check-run total', async () => {
     const { sha, runs, statuses } = recordedChecks()
     const { fetch } = fixtureFetch('github/recorded/github.com-app/steps/check')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
-    const page = await provider.checks.list({ forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' }, sha)
+    const page = await provider.checks.list({
+      forge: 'github',
+      instance: 'github.com',
+      owner: 'h3js',
+      name: 'h3',
+    }, sha)
 
     expect(statuses.total_count).toBeGreaterThan(0)
     expect(page.items).toHaveLength(runs.total_count + statuses.total_count)
@@ -1466,30 +2349,73 @@ describe('github checks and CI', () => {
 
   it('names the app of a check run, and the workflow run of one that GitHub Actions created', async () => {
     const { sha, runs } = recordedChecks()
-    const expected = runs.check_runs.map(run => [run.name, run.app.slug, run.app.slug === 'github-actions' ? /\/actions\/runs\/(\d+)\//.exec(run.details_url)![1] : undefined])
+    const expected = runs.check_runs.map(run => [
+      run.name,
+      run.app.slug,
+      run.app.slug === 'github-actions'
+        ? /\/actions\/runs\/(\d+)\//.exec(run.details_url)![1]
+        : undefined,
+    ])
     const { fetch } = fixtureFetch('github/recorded/github.com-app/steps/check')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const h3 = { forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' } as const
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const h3 = {
+      forge: 'github',
+      instance: 'github.com',
+      owner: 'h3js',
+      name: 'h3',
+    } as const
 
     const { items } = await provider.checks.list(h3, sha)
 
     expect(expected.some(([, app]) => app !== 'github-actions')).toBe(true)
     expect(items.filter(check => check.ref.type === 'check_run').map(check => [check.name, check.ref.app, check.run?.id])).toEqual(expected)
-    expect(items.find(check => check.run)!.run).toEqual({ forge: 'github', instance: 'github.com', repo: h3, id: expected.find(([, , run]) => run)![2] })
+    expect(items.find(check => check.run)!.run).toEqual({
+      forge: 'github',
+      instance: 'github.com',
+      repo: h3,
+      id: expected.find(([, , run]) => run)![2],
+    })
   })
 
   it('counts every page of commit statuses', async () => {
-    const statusUrl = (page: number) => `https://api.github.com/repos/acme/widgets/commits/${sha}/status?per_page=100${page > 1 ? `&page=${page}` : ''}`
+    const statusUrl = (page: number) => `https://api.github.com/repos/acme/widgets/commits/${sha}/status?per_page=100${page > 1
+      ? `&page=${page}`
+      : ''}`
     const provider = github({
       auth: { type: 'token', token: 't' },
       fetch: async (url) => {
         if (url.includes('/check-runs')) {
-          return Response.json({ total_count: 1, check_runs: [{ id: 1, name: 'build', status: 'completed', conclusion: 'success' }] })
+          return Response.json({
+            total_count: 1,
+            check_runs: [
+              {
+                id: 1,
+                name: 'build',
+                status: 'completed',
+                conclusion: 'success',
+              },
+            ],
+          })
         }
         if (url.includes('page=2')) {
-          return Response.json({ state: 'failure', total_count: 2, statuses: [{ id: 3, context: 'lint', state: 'failure' }] })
+          return Response.json({
+            state: 'failure',
+            total_count: 2,
+            statuses: [
+              { id: 3, context: 'lint', state: 'failure' },
+            ],
+          })
         }
-        return new Response(JSON.stringify({ state: 'success', total_count: 2, statuses: [{ id: 2, context: 'test', state: 'success' }] }), {
+        return new Response(JSON.stringify({
+          state: 'success',
+          total_count: 2,
+          statuses: [
+            { id: 2, context: 'test', state: 'success' },
+          ],
+        }), {
           status: 200,
           headers: { link: `<${statusUrl(2)}>; rel="next"` },
         })
@@ -1532,16 +2458,38 @@ describe('github checks and CI', () => {
   it('reports why the job of a check run cannot be re-run, unless the check run has no job', async () => {
     const rerun = (status: number) => github({
       auth: { type: 'token', token: 't' },
-      fetch: async url => new Response('{"message":"x"}', { status: url.endsWith('/rerequest') ? 422 : status }),
-    }).checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '1', type: 'check_run' })
+      fetch: async url => new Response('{"message":"x"}', {
+        status: url.endsWith('/rerequest')
+          ? 422
+          : status,
+      }),
+    }).checks.rerun({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '1',
+      type: 'check_run',
+    })
 
     await expect(rerun(403)).rejects.toMatchObject({ status: 403 })
     await expect(rerun(404)).rejects.toMatchObject({ status: 422 })
   })
 
   describe('re-running a check run another app may have created', () => {
-    const checkRef = (app?: string) => ({ forge: 'github', instance: 'github.com', repo, id: '7', type: 'check_run', ...app ? { app } : {} }) as const
-    const forbidden = (message: string) => new Response(JSON.stringify({ message }), { status: 403, headers: { 'x-accepted-github-permissions': 'checks=write' } })
+    const checkRef = (app?: string) => ({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '7',
+      type: 'check_run',
+      ...app
+        ? { app }
+        : {},
+    }) as const
+    const forbidden = (message: string) => new Response(JSON.stringify({ message }), {
+      status: 403,
+      headers: { 'x-accepted-github-permissions': 'checks=write' },
+    })
     const rerunWith = (respond: (url: string) => Response) => {
       const calls: string[] = []
       const provider = github({
@@ -1551,7 +2499,10 @@ describe('github checks and CI', () => {
           return respond(url)
         },
       })
-      return { calls, rerun: (ref: CheckRef) => provider.checks.rerun(ref) }
+      return {
+        calls,
+        rerun: (ref: CheckRef) => provider.checks.rerun(ref),
+      }
     }
 
     it('re-runs the job of a GitHub Actions check run without re-requesting it', async () => {
@@ -1563,7 +2514,9 @@ describe('github checks and CI', () => {
     })
 
     it('re-runs the job of a check run whose re-request is forbidden', async () => {
-      const { calls, rerun } = rerunWith(url => url.endsWith('/rerequest') ? forbidden('Forbidden') : new Response(null, { status: 201 }))
+      const { calls, rerun } = rerunWith(url => url.endsWith('/rerequest')
+        ? forbidden('Forbidden')
+        : new Response(null, { status: 201 }))
 
       await rerun(checkRef())
 
@@ -1574,20 +2527,26 @@ describe('github checks and CI', () => {
     })
 
     it('rejects a check run that another app created as not_owner', async () => {
-      const { rerun } = rerunWith(url => url.endsWith('/rerequest') ? forbidden('Forbidden') : new Response('{"message":"Not Found"}', { status: 404 }))
+      const { rerun } = rerunWith(url => url.endsWith('/rerequest')
+        ? forbidden('Forbidden')
+        : new Response('{"message":"Not Found"}', { status: 404 }))
 
       await expect(rerun(checkRef('ci-bot'))).rejects.toMatchObject({ name: 'ForbiddenError', status: 403, reason: 'not_owner' })
     })
 
     it('rejects a check run that is not rerequestable and has no job with the 422', async () => {
-      const { calls, rerun } = rerunWith(url => url.endsWith('/rerequest') ? new Response('{"message":"This check run is not rerequestable"}', { status: 422 }) : new Response('{"message":"Not Found"}', { status: 404 }))
+      const { calls, rerun } = rerunWith(url => url.endsWith('/rerequest')
+        ? new Response('{"message":"This check run is not rerequestable"}', { status: 422 })
+        : new Response('{"message":"Not Found"}', { status: 404 }))
 
       await expect(rerun(checkRef())).rejects.toMatchObject({ name: 'ForgeApiError', status: 422 })
       expect(calls).toHaveLength(2)
     })
 
     it('rejects a re-request that the credential lacks the permission for as InsufficientScopeError', async () => {
-      const { rerun } = rerunWith(url => url.endsWith('/rerequest') ? forbidden('Resource not accessible by integration') : new Response('{"message":"Not Found"}', { status: 404 }))
+      const { rerun } = rerunWith(url => url.endsWith('/rerequest')
+        ? forbidden('Resource not accessible by integration')
+        : new Response('{"message":"Not Found"}', { status: 404 }))
 
       await expect(rerun(checkRef())).rejects.toMatchObject({ name: 'InsufficientScopeError', status: 403, acceptedPermissionsRaw: 'checks=write' })
     })
@@ -1595,7 +2554,19 @@ describe('github checks and CI', () => {
 
   it('declares the app permissions of the endpoints each checks and CI verb calls', () => {
     const { provider } = tokenProvider()
-    const verbs = ['threads.checks', 'checks.list', 'checks.get', 'checks.report', 'checks.rerun', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log', 'ci.rerunFailed'] as const
+    const verbs = [
+      'threads.checks',
+      'checks.list',
+      'checks.get',
+      'checks.report',
+      'checks.rerun',
+      'ci.runs',
+      'ci.getRun',
+      'ci.jobs',
+      'ci.getJob',
+      'ci.log',
+      'ci.rerunFailed',
+    ] as const
 
     expect(Object.fromEntries(verbs.map(verb => [verb, provider.scopesFor(verb).permissions]))).toEqual({
       'threads.checks': { pull_requests: 'read', checks: 'read', statuses: 'read' },
@@ -1614,13 +2585,39 @@ describe('github checks and CI', () => {
 
   it('declares the check permissions of the reads that fill the checks of a pull request', () => {
     const { provider } = tokenProvider()
-    const verbs = ['threads.get', 'threads.getMany', 'threads.list', 'threads.closingPullRequests', 'threads.closingIssues'] as const
+    const verbs = [
+      'threads.get',
+      'threads.getMany',
+      'threads.list',
+      'threads.closingPullRequests',
+      'threads.closingIssues',
+    ] as const
 
     expect(Object.fromEntries(verbs.map(verb => [verb, provider.scopesFor(verb).permissions]))).toEqual({
-      'threads.get': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
-      'threads.getMany': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
-      'threads.list': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
-      'threads.closingPullRequests': { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      'threads.get': {
+        issues: 'read',
+        pull_requests: 'read',
+        checks: 'read',
+        statuses: 'read',
+      },
+      'threads.getMany': {
+        issues: 'read',
+        pull_requests: 'read',
+        checks: 'read',
+        statuses: 'read',
+      },
+      'threads.list': {
+        issues: 'read',
+        pull_requests: 'read',
+        checks: 'read',
+        statuses: 'read',
+      },
+      'threads.closingPullRequests': {
+        issues: 'read',
+        pull_requests: 'read',
+        checks: 'read',
+        statuses: 'read',
+      },
       'threads.closingIssues': { issues: 'read', pull_requests: 'read' },
     })
   })
@@ -1628,7 +2625,12 @@ describe('github checks and CI', () => {
   it('re-runs the failed jobs of a workflow run', async () => {
     const { provider, calls } = tokenProvider()
 
-    await provider.ci.rerunFailed({ forge: 'github', instance: 'github.com', repo, id: '77' })
+    await provider.ci.rerunFailed({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '77',
+    })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual(['POST https://api.github.com/repos/acme/widgets/actions/runs/77/rerun-failed-jobs'])
     expect(github({}).can('ci.rerunFailed')).toBe(false)
@@ -1641,7 +2643,13 @@ describe('github checks and CI', () => {
     const jobs = await Array.fromAsync(provider.ci.jobs(runs[0]!.ref))
     const log = await new Response(await provider.ci.log(jobs[1]!.ref)).text()
 
-    expect(runs[0]).toMatchObject({ name: 'ci', state: 'failure', number: '120', branch: 'main', eventRaw: 'push' })
+    expect(runs[0]).toMatchObject({
+      name: 'ci',
+      state: 'failure',
+      number: '120',
+      branch: 'main',
+      eventRaw: 'push',
+    })
     expect(jobs.map(job => job.state)).toEqual(['success', 'failure'])
     expect(jobs[1]!.ref.run?.id).toBe('77')
     expect(log).toContain('lint failed')
@@ -1650,7 +2658,13 @@ describe('github checks and CI', () => {
 
 describe('github repositories', () => {
   it('leaves out a licence GitHub could not identify', () => {
-    const repo = toRepo(githubOrigin, { name: 'widgets', full_name: 'acme/widgets', license: { spdx_id: 'NOASSERTION' }, homepage: '', stargazers_count: 3 })
+    const repo = toRepo(githubOrigin, {
+      name: 'widgets',
+      full_name: 'acme/widgets',
+      license: { spdx_id: 'NOASSERTION' },
+      homepage: '',
+      stargazers_count: 3,
+    })
 
     expect(repo).toMatchObject({ stars: 3 })
     expect(repo.licence).toBeUndefined()
@@ -1658,9 +2672,16 @@ describe('github repositories', () => {
   })
 
   it('keeps a merge commit default it does not know as raw', () => {
-    const repo = toRepo(githubOrigin, { name: 'widgets', full_name: 'acme/widgets', squash_merge_commit_title: 'PR_TITLE', squash_merge_commit_message: 'PR_SUMMARY' })
+    const repo = toRepo(githubOrigin, {
+      name: 'widgets',
+      full_name: 'acme/widgets',
+      squash_merge_commit_title: 'PR_TITLE',
+      squash_merge_commit_message: 'PR_SUMMARY',
+    })
 
-    expect(repo.mergeCommit).toEqual({ squash: { title: 'pull_request_title', titleRaw: 'PR_TITLE', messageRaw: 'PR_SUMMARY' } })
+    expect(repo.mergeCommit).toEqual({
+      squash: { title: 'pull_request_title', titleRaw: 'PR_TITLE', messageRaw: 'PR_SUMMARY' },
+    })
   })
 
   it('leaves the merge commit defaults out where GitHub withholds them', () => {
@@ -1680,7 +2701,12 @@ describe('github contents', () => {
     const text = await provider.contents.getFile(repo, 'package.json', { ref: 'main', as: 'text' })
     const binary = await provider.contents.getFile(repo, 'assets/large.bin')
 
-    expect(text).toMatchObject({ path: 'package.json', encoding: 'utf-8', sha: 'aa1', size: 42 })
+    expect(text).toMatchObject({
+      path: 'package.json',
+      encoding: 'utf-8',
+      sha: 'aa1',
+      size: 42,
+    })
     expect(text.content).toBe('{"name":"widgets"}\n')
     expect(binary.encoding).toBe('binary')
     expect([...(binary.content as Uint8Array)]).toEqual([0, 1, 2, 250])
@@ -1694,16 +2720,34 @@ describe('github contents', () => {
 
     const file = await provider.contents.getFile(repo, 'docs/getting started.md', { ref: 'feat/docs', as: 'text', metadata: false })
 
-    expect(file).toEqual({ path: 'docs/getting started.md', size: 18, encoding: 'utf-8', content: '# Getting started\n' })
+    expect(file).toEqual({
+      path: 'docs/getting started.md',
+      size: 18,
+      encoding: 'utf-8',
+      content: '# Getting started\n',
+    })
     expect(calls).toHaveLength(1)
     expect(calls[0]!.authorization).toBe('Bearer t')
   })
 
   it('reads a file without metadata from the contents API on GitHub Enterprise Server', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'GET https://ghe.example.com/api/v3/repos/acme/widgets/contents/package.json?ref=main': { status: 200, body: { path: 'package.json', sha: 'aa1', size: 2, encoding: 'base64', content: 'e30=' } },
+      'GET https://ghe.example.com/api/v3/repos/acme/widgets/contents/package.json?ref=main': {
+        status: 200,
+        body: {
+          path: 'package.json',
+          sha: 'aa1',
+          size: 2,
+          encoding: 'base64',
+          content: 'e30=',
+        },
+      },
     })
-    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const file = await provider.contents.getFile({ ...repo, instance: 'ghe.example.com' }, 'package.json', { ref: 'main', as: 'text', metadata: false })
 
@@ -1723,17 +2767,35 @@ describe('github contents', () => {
     const page = await provider.contents.tree(repo, { ref: 'main', recursive: true }).page()
 
     expect(page.items).toEqual([
-      { path: 'src', type: 'directory', sha: 't1', size: undefined, mode: '040000' },
-      { path: 'src/index.ts', type: 'file', sha: 'b1', size: 120, mode: '100644' },
+      {
+        path: 'src',
+        type: 'directory',
+        sha: 't1',
+        size: undefined,
+        mode: '040000',
+      },
+      {
+        path: 'src/index.ts',
+        type: 'file',
+        sha: 'b1',
+        size: 120,
+        mode: '100644',
+      },
     ])
     expect(page.warnings?.[0]?.code).toBe('tree_truncated')
   })
 
   it('lists the default branch tree without reading the repository', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'GET https://api.github.com/repos/acme/widgets/git/trees/HEAD%3Asrc': { status: 200, body: { sha: 't1', tree: [], truncated: false } },
+      'GET https://api.github.com/repos/acme/widgets/git/trees/HEAD%3Asrc': {
+        status: 200,
+        body: { sha: 't1', tree: [], truncated: false },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     await provider.contents.tree(repo, { path: 'src' }).page()
 
@@ -1745,40 +2807,89 @@ describe('github contents', () => {
 
     const branches = await Array.fromAsync(provider.contents.branches(repo))
     const tags = await Array.fromAsync(provider.contents.tags(repo))
-    const commit = await provider.commits.get({ forge: 'github', instance: 'github.com', repo, sha })
+    const commit = await provider.commits.get({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      sha,
+    })
     const comparison = await provider.contents.compare(repo, 'v1.0.0', 'main')
 
     expect(branches[0]).toMatchObject({ name: 'main', sha, isProtected: true })
     expect(tags[0]).toMatchObject({ name: 'v1.0.0', sha })
-    expect(commit).toMatchObject({ sha, message: 'fix: handle empty input', stats: { additions: 4, deletions: 1 } })
+    expect(commit).toMatchObject({
+      sha,
+      message: 'fix: handle empty input',
+      stats: { additions: 4, deletions: 1 },
+    })
     expect(commit.author?.actor?.login).toBe('octocat')
     expect(commit.files?.[0]).toMatchObject({ path: 'src/index.ts', status: 'modified', patch: '@@ -1 +1 @@' })
-    expect(comparison).toMatchObject({ aheadBy: 2, behindBy: 0, mergeBaseSha: '0'.repeat(40) })
+    expect(comparison).toMatchObject({
+      aheadBy: 2,
+      behindBy: 0,
+      mergeBaseSha: '0'.repeat(40),
+    })
   })
 
   it('lists a commit with an empty author email without an actor', async () => {
     // GitHub sends `{}` rather than null when the commit was made with an empty email.
     const { provider } = tokenProvider({
-      'GET https://api.github.com/repos/acme/widgets/commits': { status: 200, body: [{ sha, commit: { message: 'fix: handle empty input', author: { name: 'Octo Cat' } }, author: {}, committer: {} }] },
+      'GET https://api.github.com/repos/acme/widgets/commits': {
+        status: 200,
+        body: [
+          {
+            sha,
+            commit: {
+              message: 'fix: handle empty input',
+              author: { name: 'Octo Cat' },
+            },
+            author: {},
+            committer: {},
+          },
+        ],
+      },
     })
 
     const { items } = await provider.commits.list(repo).page()
 
-    expect(items[0]!.author).toEqual({ actor: undefined, name: 'Octo Cat', email: undefined, date: undefined })
+    expect(items[0]!.author).toEqual({
+      actor: undefined,
+      name: 'Octo Cat',
+      email: undefined,
+      date: undefined,
+    })
     expect(items[0]!.committer?.actor).toBeUndefined()
   })
 
   it('reads the newest commits of a comparison from its last pages', async () => {
-    const all = Array.from({ length: 250 }, (_, index) => ({ sha: String(index + 1), commit: { message: `commit ${index + 1}` } }))
+    const all = Array.from({ length: 250 }, (_, index) => ({
+      sha: String(index + 1),
+      commit: { message: `commit ${index + 1}` },
+    }))
     const pages: Array<string | null> = []
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
-      const url = new URL(String(input))
-      const perPage = Number(url.searchParams.get('per_page') ?? 250)
-      const page = Number(url.searchParams.get('page') ?? 1)
-      pages.push(`${url.searchParams.get('per_page')}:${url.searchParams.get('page')}`)
-      const commits = url.searchParams.has('per_page') ? all.slice((page - 1) * perPage, page * perPage) : all.slice(-250)
-      return Response.json({ total_commits: all.length, ahead_by: all.length, behind_by: 0, commits, files: page === 1 ? [{ filename: 'a.ts', status: 'modified' }] : [] })
-    } })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (input) => {
+        const url = new URL(String(input))
+        const perPage = Number(url.searchParams.get('per_page') ?? 250)
+        const page = Number(url.searchParams.get('page') ?? 1)
+        pages.push(`${url.searchParams.get('per_page')}:${url.searchParams.get('page')}`)
+        const commits = url.searchParams.has('per_page')
+          ? all.slice((page - 1) * perPage, page * perPage)
+          : all.slice(-250)
+        return Response.json({
+          total_commits: all.length,
+          ahead_by: all.length,
+          behind_by: 0,
+          commits,
+          files: page === 1
+            ? [
+                { filename: 'a.ts', status: 'modified' },
+              ]
+            : [],
+        })
+      },
+    })
     const shas = async (commitLimit?: number) => (await provider.contents.compare(repo, 'v1.0.0', 'main', { commitLimit })).commits.map(commit => commit.sha)
 
     expect(await shas(3)).toEqual(['250', '249', '248'])
@@ -1800,12 +2911,23 @@ describe('github contents', () => {
 
   it('lists the files and commits of a pull request', async () => {
     const { provider } = tokenProvider()
-    const pull = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '42' } as const
+    const pull = {
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      kind: 'pull_request',
+      number: '42',
+    } as const
 
     const files = await Array.fromAsync(provider.threads.files(pull))
     const commits = await Array.fromAsync(provider.threads.commits(pull))
 
-    expect(files[0]).toMatchObject({ path: 'src/index.ts', previousPath: 'src/old.ts', status: 'renamed', additions: 4 })
+    expect(files[0]).toMatchObject({
+      path: 'src/index.ts',
+      previousPath: 'src/old.ts',
+      status: 'renamed',
+      additions: 4,
+    })
     expect(commits[0]!.sha).toBe(sha)
     await expect(Array.fromAsync(provider.threads.files({ ...pull, kind: 'issue' }))).rejects.toBeInstanceOf(UnsupportedOperationError)
   })
@@ -1820,7 +2942,10 @@ describe('github release assets', () => {
     const downloaded = await new Response(await provider.releases.downloadAsset(asset.ref!)).json() as { bytes: string }
 
     expect(asset).toMatchObject({ name: 'widgets-v1.2.0.tgz', contentType: 'application/gzip' })
-    expect(asset.ref).toMatchObject({ id: '7001', release: { id: '9001', tag: 'v1.2.0' } })
+    expect(asset.ref).toMatchObject({
+      id: '7001',
+      release: { id: '9001', tag: 'v1.2.0' },
+    })
     expect(downloaded.bytes).toBe('asset bytes')
     expect(calls.at(-1)!.url).toContain('objects.githubusercontent.com')
     expect(calls.at(-1)!.headers.get('authorization')).toBeNull()
@@ -1846,14 +2971,27 @@ describe('github thread listing filters', () => {
       urls.push(url)
       const body = url.pathname.endsWith('/milestones')
         ? milestones.map(milestone => ({ ...milestone, id: milestone.number, state: 'open' }))
-        : url.pathname.startsWith('/search/') ? { total_count: 0, items: [] } : []
-      return new Response(JSON.stringify(body), { headers: { 'content-type': 'application/json' } })
+        : url.pathname.startsWith('/search/')
+          ? { total_count: 0, items: [] }
+          : []
+      return new Response(JSON.stringify(body), {
+        headers: { 'content-type': 'application/json' },
+      })
     }
-    return { urls, provider: github({ auth: { type: 'token', token: 't' }, fetch }) }
+    return {
+      urls,
+      provider: github({
+        auth: { type: 'token', token: 't' },
+        fetch,
+      }),
+    }
   }
 
   it('sends mentions and the number of the milestone titled in the query, reading pull requests from the issues listing', async () => {
-    const { urls, provider } = listing([{ number: 3, title: 'v2' }, { number: 7, title: '3' }])
+    const { urls, provider } = listing([
+      { number: 3, title: 'v2' },
+      { number: 7, title: '3' },
+    ])
 
     await provider.threads.list(repo, { kind: 'pull_request', mentions: 'ada', milestone: '3' }).page()
 
@@ -1886,7 +3024,12 @@ describe('github thread listing filters', () => {
   it('adds mentions and the milestone to the search behind merged pull requests', async () => {
     const { urls, provider } = listing()
 
-    await provider.threads.list(repo, { state: 'merged', involves: 'ada', mentions: 'bob', milestone: 'v "2"' }).page()
+    await provider.threads.list(repo, {
+      state: 'merged',
+      involves: 'ada',
+      mentions: 'bob',
+      milestone: 'v "2"',
+    }).page()
 
     expect(urls[0]!.searchParams.get('q')).toContain('is:merged mentions:bob milestone:"v 2"')
     expect(urls[0]!.searchParams.get('q')).toContain('involves:ada')
@@ -1897,7 +3040,14 @@ describe('github search', () => {
   it('translates a structured query into qualifiers and reads the repo from each result', async () => {
     const { provider, calls } = tokenProvider()
 
-    const { items } = await provider.search.threads({ text: 'crash', repo, kind: 'issue', state: 'open', sort: 'updated', direction: 'desc' }).page()
+    const { items } = await provider.search.threads({
+      text: 'crash',
+      repo,
+      kind: 'issue',
+      state: 'open',
+      sort: 'updated',
+      direction: 'desc',
+    }).page()
 
     expect(new URL(calls[0]!.url).searchParams.get('q')).toBe('crash repo:acme/widgets is:issue state:open')
     expect(items[0]!.ref).toMatchObject({ kind: 'issue', number: '42' })
@@ -1914,13 +3064,22 @@ describe('github search', () => {
         const response = await replay(input, init)
         const headers = new Headers(response.headers)
         headers.set('x-ratelimit-remaining', '10')
-        headers.set('x-ratelimit-resource', new URL(String(input)).pathname.startsWith('/search/') ? 'search' : 'core')
+        headers.set('x-ratelimit-resource', new URL(String(input)).pathname.startsWith('/search/')
+          ? 'search'
+          : 'core')
         return new Response(response.body, { status: response.status, headers })
       },
       onRateLimit: ({ rateLimit }) => resources.push(rateLimit.resource),
     })
 
-    const page = await provider.search.threads({ text: 'crash', repo, kind: 'issue', state: 'open', sort: 'updated', direction: 'desc' }).page()
+    const page = await provider.search.threads({
+      text: 'crash',
+      repo,
+      kind: 'issue',
+      state: 'open',
+      sort: 'updated',
+      direction: 'desc',
+    }).page()
     await provider.repos.get(repo)
 
     expect(page.rateLimit).toEqual({ remaining: 10, resource: 'search' })
@@ -1937,13 +3096,21 @@ describe('github search', () => {
   })
 
   describe('code', () => {
-    const h3 = { forge: 'github', instance: 'github.com', owner: 'h3js', name: 'h3' } as const
+    const h3 = {
+      forge: 'github',
+      instance: 'github.com',
+      owner: 'h3js',
+      name: 'h3',
+    } as const
     const search = 'https://api.github.com/search/code?q=import+repo%3Ah3js%2Fh3&per_page=3'
     const recorded = () => loadFixtures('github/recorded/github.com').find(fixture => fixture.request.url === search)!.response as Fixture['response'] & { body: { total_count: number, items: Array<{ path: string, html_url: string }> } }
 
     it('asks for text matches, and reads the indexed commit from each file', async () => {
       const { fetch, calls } = fixtureFetch('github/recorded/github.com')
-      const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+      const provider = github({
+        auth: { type: 'token', token: 't' },
+        fetch,
+      })
 
       const { items } = await provider.search.code({ text: 'import', repo: h3, perPage: 3 }).page()
 
@@ -1952,27 +3119,46 @@ describe('github search', () => {
         repo: h3,
         path: item.path,
         ref: /\/blob\/([0-9a-f]{40})\//.exec(item.html_url)![1],
-        fragments: expect.arrayContaining([{ text: expect.stringContaining('import') }]),
+        fragments: expect.arrayContaining([
+          {
+            text: expect.stringContaining('import'),
+          },
+        ]),
         url: item.html_url,
       })))
     })
 
     it('warns when GitHub stops the search before it finishes', async () => {
       const response = recorded()
-      const { fetch } = fixtureFetch('github/recorded/github.com', { [`GET ${search}`]: { ...response, body: { ...response.body, incomplete_results: true } } })
-      const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+      const { fetch } = fixtureFetch('github/recorded/github.com', {
+        [`GET ${search}`]: {
+          ...response,
+          body: { ...response.body, incomplete_results: true },
+        },
+      })
+      const provider = github({
+        auth: { type: 'token', token: 't' },
+        fetch,
+      })
 
       const page = await provider.search.code({ text: 'import', repo: h3, perPage: 3 }).page()
 
       expect(page.items).toHaveLength(3)
       expect(page.total).toBe(response.body.total_count)
-      expect(page.warnings).toEqual([expect.objectContaining({ code: 'search_incomplete' })])
+      expect(page.warnings).toEqual([
+        expect.objectContaining({ code: 'search_incomplete' }),
+      ])
     })
   })
 })
 
 describe('github webhook management', () => {
-  const hook = { forge: 'github', instance: 'github.com', target: repo, id: '12345678' } as const
+  const hook = {
+    forge: 'github',
+    instance: 'github.com',
+    target: repo,
+    id: '12345678',
+  } as const
 
   it('lists hooks with normalised kinds beside the native names', async () => {
     const { provider } = tokenProvider()
@@ -1981,18 +3167,34 @@ describe('github webhook management', () => {
 
     expect(items[0]).toMatchObject({ url: 'https://hooks.example/forges', active: true, contentType: 'json' })
     expect(items[0]!.nativeEvents).toEqual(['issues', 'issue_comment', 'push'])
-    expect(items[0]!.events.sort()).toEqual(['assignment', 'comment', 'issue_type', 'label', 'push', 'state_change'])
+    expect(items[0]!.events.sort()).toEqual([
+      'assignment',
+      'comment',
+      'issue_type',
+      'label',
+      'push',
+      'state_change',
+    ])
   })
 
   it('translates normalised kinds into native event names on create', async () => {
     const { provider, calls } = tokenProvider()
 
-    await provider.webhooks.create(repo, { url: 'https://hooks.example/forges', events: ['state_change', 'push'], secret: 's3cret' })
+    await provider.webhooks.create(repo, {
+      url: 'https://hooks.example/forges',
+      events: ['state_change', 'push'],
+      secret: 's3cret',
+    })
 
     expect(JSON.parse(calls[0]!.body!)).toEqual({
       name: 'web',
       active: true,
-      events: ['issues', 'pull_request', 'discussion', 'push'],
+      events: [
+        'issues',
+        'pull_request',
+        'discussion',
+        'push',
+      ],
       config: { url: 'https://hooks.example/forges', content_type: 'json', secret: 's3cret' },
     })
   })
@@ -2003,13 +3205,26 @@ describe('github webhook management', () => {
     const { items } = await provider.webhooks.deliveries(hook).page()
     await provider.webhooks.redeliver(items[0]!.ref)
 
-    expect(items[0]).toMatchObject({ event: 'issues.opened', status: 200, ok: true, duration: 123 })
+    expect(items[0]).toMatchObject({
+      event: 'issues.opened',
+      status: 200,
+      ok: true,
+      duration: 123,
+    })
     expect(calls.at(-1)!.url).toContain('/hooks/12345678/deliveries/55001/attempts')
   })
 
   it('maps a 404 from a hook endpoint to ForbiddenError, since GitHub answers 404 for a missing hook scope', async () => {
-    const { fetch } = fixtureFetch('github', { 'GET https://api.github.com/repos/acme/widgets/hooks': { status: 404, body: { message: 'Not Found' } } })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const { fetch } = fixtureFetch('github', {
+      'GET https://api.github.com/repos/acme/widgets/hooks': {
+        status: 404,
+        body: { message: 'Not Found' },
+      },
+    })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const error = await provider.webhooks.list(repo).page().catch((error: unknown) => error)
 
@@ -2020,7 +3235,10 @@ describe('github webhook management', () => {
   it('reports the scopes a verb needs, as data', () => {
     const { provider } = tokenProvider()
 
-    expect(provider.scopesFor('webhooks.create')).toEqual({ token: ['admin:repo_hook', 'admin:org_hook'], permissions: { webhooks: 'admin' } })
+    expect(provider.scopesFor('webhooks.create')).toEqual({
+      token: ['admin:repo_hook', 'admin:org_hook'],
+      permissions: { webhooks: 'admin' },
+    })
     expect(provider.scopesFor('threads.close').permissions).toMatchObject({ issues: 'write' })
     expect(provider.scopesFor('threads.replyToReviewComment').permissions).toMatchObject({ pull_requests: 'write' })
     expect(provider.scopesFor('threads.updateBranch').permissions).toEqual({ pull_requests: 'write', contents: 'write' })
@@ -2028,12 +3246,28 @@ describe('github webhook management', () => {
 })
 
 describe('github release writes', () => {
-  const releaseRef = { forge: 'github', instance: 'github.com', repo, id: '9001', tag: 'v1.2.0' } as const
-  const immutable = { id: 9001, tag_name: 'v1.2.0', draft: false, prerelease: false, immutable: true }
+  const releaseRef = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    id: '9001',
+    tag: 'v1.2.0',
+  } as const
+  const immutable = {
+    id: 9001,
+    tag_name: 'v1.2.0',
+    draft: false,
+    prerelease: false,
+    immutable: true,
+  }
 
   it('rejects release writes on a read-only provider without sending them', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+      readOnly: true,
+    })
 
     await expect(provider.releases.create(repo, { tag: 'v1.3.0' })).rejects.toThrow(ReadOnlyError)
     expect(provider.can('releases.update')).toBe(false)
@@ -2042,19 +3276,46 @@ describe('github release writes', () => {
 
   it('normalises a refused write to an immutable release as a forbidden error', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 422, body: { message: 'Validation Failed', errors: [{ resource: 'Release', code: 'custom', field: 'tag_name', message: 'tag_name cannot be changed when release is immutable' }] } },
+      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': {
+        status: 422,
+        body: {
+          message: 'Validation Failed',
+          errors: [
+            {
+              resource: 'Release',
+              code: 'custom',
+              field: 'tag_name',
+              message: 'tag_name cannot be changed when release is immutable',
+            },
+          ],
+        },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
-    await expect(provider.releases.update(releaseRef, { tag: 'v2.0.0' })).rejects.toMatchObject({ name: 'ForbiddenError', status: 422, reason: 'immutable_release', reasonRaw: 'tag_name cannot be changed when release is immutable' })
+    await expect(provider.releases.update(releaseRef, { tag: 'v2.0.0' })).rejects.toMatchObject({
+      name: 'ForbiddenError',
+      status: 422,
+      reason: 'immutable_release',
+      reasonRaw: 'tag_name cannot be changed when release is immutable',
+    })
     expect(calls.map(call => call.method)).toEqual(['PATCH'])
   })
 
   it('still edits the name and notes of an immutable release', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': { status: 200, body: { ...immutable, name: 'Edited' } },
+      'PATCH https://api.github.com/repos/acme/widgets/releases/9001': {
+        status: 200,
+        body: { ...immutable, name: 'Edited' },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const updated = await provider.releases.update(releaseRef, { name: 'Edited', body: 'Notes' })
 
@@ -2063,38 +3324,103 @@ describe('github release writes', () => {
   })
 })
 
-const widgets = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } as const
+const widgets = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'acme',
+  name: 'widgets',
+} as const
 const secretScanning = 'GET https://api.github.com/repos/acme/widgets/secret-scanning/alerts?state=open'
 
 describe('github checks, releases and security alerts', () => {
   it('summarises the status rollup when reading several pull requests', async () => {
     const { fetch } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const [result] = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+    ])
 
-    expect(result?.ok && result.thread.checks).toEqual({ state: 'failure', stateRaw: 'failure', total: 3, failed: 1, url: 'https://github.com/acme/widgets/pull/42/checks' })
+    expect(result?.ok && result.thread.checks).toEqual({
+      state: 'failure',
+      stateRaw: 'failure',
+      total: 3,
+      failed: 1,
+      url: 'https://github.com/acme/widgets/pull/42/checks',
+    })
   })
 
   it('reads diff stats when reading several pull requests', async () => {
     const { fetch } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const [result] = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+    ])
 
-    expect(result?.ok && result.thread.stats).toEqual({ additions: 24, deletions: 3, changedFileCount: 2, commitCount: 2 })
+    expect(result?.ok && result.thread.stats).toEqual({
+      additions: 24,
+      deletions: 3,
+      changedFileCount: 2,
+      commitCount: 2,
+    })
   })
 
   it('reads when each pending review was last requested when reading several pull requests', async () => {
     const { fetch } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const [result] = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+    ])
 
-    expect(result?.ok && result.thread.reviewers?.map(reviewer => [reviewer.actor.login, reviewer.requestedAt])).toEqual([['hubot', new Date('2025-09-17T11:30:00Z')]])
+    expect(result?.ok && result.thread.reviewers?.map(reviewer => [reviewer.actor.login, reviewer.requestedAt])).toEqual([
+      [
+        'hubot',
+        new Date('2025-09-17T11:30:00Z'),
+      ],
+    ])
   })
 
   it('reads how the author relates to the repository when reading several pull requests', async () => {
     const { fetch } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
-    const [result] = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }])
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
+    const [result] = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+    ])
 
     expect(result?.ok && result.thread).toMatchObject({ authorAssociation: 'first_time_contributor', authorAssociationRaw: 'FIRST_TIME_CONTRIBUTOR' })
   })
@@ -2103,21 +3429,52 @@ describe('github checks, releases and security alerts', () => {
     const message = 'Your token has not been granted the required scopes to execute this query.'
     const provider = github({
       auth: { type: 'token', token: 't' },
-      fetch: async () => Response.json({ errors: [{ type: 'INSUFFICIENT_SCOPES', message }] }),
+      fetch: async () => Response.json({
+        errors: [
+          { type: 'INSUFFICIENT_SCOPES', message },
+        ],
+      }),
     })
-    const results = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }, { forge: 'github', instance: 'github.com', repo: widgets, kind: 'issue', number: '7' }])
+    const results = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'issue',
+        number: '7',
+      },
+    ])
 
-    expect(results.map(result => !result.ok && result.warning)).toEqual(Array.from({ length: 2 }, () => expect.objectContaining({ code: 'insufficient_scope', message: `GraphQL ThreadsBatch failed: ${message}`, cause: expect.objectContaining({ name: 'InsufficientScopeError' }) })))
+    expect(results.map(result => !result.ok && result.warning)).toEqual(Array.from({ length: 2 }, () => expect.objectContaining({
+      code: 'insufficient_scope',
+      message: `GraphQL ThreadsBatch failed: ${message}`,
+      cause: expect.objectContaining({ name: 'InsufficientScopeError' }),
+    })))
   })
 
   it('reads the scopes that a GraphQL scope error names', async () => {
     const message = 'Your token has not been granted the required scopes to execute this query. The \'email\' field requires one of the following scopes: [\'user:email\', \'read:user\'], but your token has only been granted the: [\'repo\'] scopes. Please modify your token\'s scopes at: https://github.com/settings/tokens.'
     const provider = github({
       auth: { type: 'token', token: 't' },
-      fetch: async () => Response.json({ errors: [{ type: 'INSUFFICIENT_SCOPES', message }] }),
+      fetch: async () => Response.json({
+        errors: [
+          { type: 'INSUFFICIENT_SCOPES', message },
+        ],
+      }),
     })
 
-    await expect(provider.graphql('query { viewer { email } }')).rejects.toMatchObject({ name: 'InsufficientScopeError', acceptedScopes: ['user:email', 'read:user'], grantedScopes: ['repo'] })
+    await expect(provider.graphql('query { viewer { email } }')).rejects.toMatchObject({
+      name: 'InsufficientScopeError',
+      acceptedScopes: ['user:email', 'read:user'],
+      grantedScopes: ['repo'],
+    })
   })
 
   it('reports a missing GraphQL scope only on the thread whose alias was denied', async () => {
@@ -2126,20 +3483,58 @@ describe('github checks, releases and security alerts', () => {
       auth: { type: 'token', token: 't' },
       fetch: async () => Response.json({
         data: { t0: null, t1: null },
-        errors: [{ type: 'INSUFFICIENT_SCOPES', message, path: ['t0'] }, { type: 'NOT_FOUND', message: 'Could not resolve to an Issue with the number of 7.', path: ['t1'] }],
+        errors: [
+          {
+            type: 'INSUFFICIENT_SCOPES',
+            message,
+            path: ['t0'],
+          },
+          {
+            type: 'NOT_FOUND',
+            message: 'Could not resolve to an Issue with the number of 7.',
+            path: ['t1'],
+          },
+        ],
       }),
     })
-    const results = await provider.threads.getMany([{ forge: 'github', instance: 'github.com', repo: widgets, kind: 'pull_request', number: '42' }, { forge: 'github', instance: 'github.com', repo: widgets, kind: 'issue', number: '7' }])
+    const results = await provider.threads.getMany([
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'pull_request',
+        number: '42',
+      },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: widgets,
+        kind: 'issue',
+        number: '7',
+      },
+    ])
 
     expect(results.map(result => !result.ok && result.warning)).toEqual([
-      expect.objectContaining({ code: 'insufficient_scope', subject: '42', cause: expect.objectContaining({ name: 'InsufficientScopeError' }) }),
+      expect.objectContaining({
+        code: 'insufficient_scope',
+        subject: '42',
+        cause: expect.objectContaining({ name: 'InsufficientScopeError' }),
+      }),
       expect.objectContaining({ code: 'thread_unreadable', message: 'Could not resolve to an Issue with the number of 7.', subject: '7' }),
     ])
   })
 
   it('reports an unreadable alert kind as a warning when listing every kind, and throws when asked for it', async () => {
-    const { fetch } = fixtureFetch('github', { [secretScanning]: { status: 403, body: { message: 'Resource not accessible by personal access token' } } })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const { fetch } = fixtureFetch('github', {
+      [secretScanning]: {
+        status: 403,
+        body: { message: 'Resource not accessible by personal access token' },
+      },
+    })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
     const page = await provider.securityAlerts!.list(widgets).page()
     const rest = await provider.securityAlerts!.list(widgets, { cursor: page.cursor }).page()
     const secret = await provider.securityAlerts!.list(widgets, { cursor: rest.cursor }).page()
@@ -2154,7 +3549,10 @@ describe('github checks, releases and security alerts', () => {
 
   it('lists repository advisories, drafts and private vulnerability reports included, by state', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const open = await provider.securityAlerts!.list(widgets, { kind: 'advisory' }).page()
     const closed = await provider.securityAlerts!.list(widgets, { kind: 'advisory', state: 'closed' }).page()
@@ -2166,14 +3564,22 @@ describe('github checks, releases and security alerts', () => {
       kindRaw: 'repository_advisory',
       state: 'open',
       title: 'Path traversal in the template cache',
-      package: { ecosystem: 'npm', name: 'widgets', vulnerableRange: '< 2.4.1', fixedIn: '2.4.1' },
+      package: {
+        ecosystem: 'npm',
+        name: 'widgets',
+        vulnerableRange: '< 2.4.1',
+        fixedIn: '2.4.1',
+      },
       url: 'https://github.com/acme/widgets/security/advisories/GHSA-7r2x-4m9q-hv3c',
     })
     expect(open.items[1]!.package).toBeUndefined()
     expect(closed.items.map(alert => `${alert.stateRaw} ${alert.state} ${alert.dismissedAt?.toISOString()}`)).toEqual(['published fixed undefined', 'withdrawn dismissed 2025-12-01T08:00:00.000Z'])
     expect(all.items).toHaveLength(4)
     expect(calls.map(call => call.url)).toEqual(Array.from({ length: 3 }).fill('https://api.github.com/repos/acme/widgets/security-advisories'))
-    expect(github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' } }).can('securityAlerts.list', 'advisory')).toBe(false)
+    expect(github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: 't' },
+    }).can('securityAlerts.list', 'advisory')).toBe(false)
     expect(provider.scopesFor('securityAlerts.list').permissions).toMatchObject({ repository_advisories: 'read' })
   })
 
@@ -2185,14 +3591,34 @@ describe('github checks, releases and security alerts', () => {
       updated_at: '2025-09-01T00:00:00Z',
       last_read_at: null,
       url: 'https://api.github.com/notifications/threads/1',
-      subject: { title: 'Alert', url, latest_comment_url: null, type },
-      repository: { id: 1, name: 'widgets', full_name: 'acme/widgets', owner: { login: 'acme', id: 2 } } as GitHubNotification['repository'],
+      subject: {
+        title: 'Alert',
+        url,
+        latest_comment_url: null,
+        type,
+      },
+      repository: {
+        id: 1,
+        name: 'widgets',
+        full_name: 'acme/widgets',
+        owner: { login: 'acme', id: 2 },
+      } as GitHubNotification['repository'],
     })
 
     expect(toNotification(githubOrigin, raw('RepositoryVulnerabilityAlert', 'https://api.github.com/repos/acme/widgets/dependabot/alerts/3')).subject)
-      .toMatchObject({ type: 'security_alert', alert: { id: '3', kind: 'dependency', repo: { name: 'widgets' } } })
+      .toMatchObject({
+        type: 'security_alert',
+        alert: {
+          id: '3',
+          kind: 'dependency',
+          repo: { name: 'widgets' },
+        },
+      })
     expect(toNotification(githubOrigin, raw('Release', 'https://api.github.com/repos/acme/widgets/releases/9001')).subject)
-      .toMatchObject({ type: 'release', release: { id: '9001' } })
+      .toMatchObject({
+        type: 'release',
+        release: { id: '9001' },
+      })
   })
 })
 
@@ -2202,22 +3628,47 @@ describe('github graphql', () => {
 
   it('returns the data of a query from the GraphQL endpoint of the instance', async () => {
     const { fetch, calls } = fixtureFetch('github', {
-      'POST https://ghe.example.com/api/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+      'POST https://ghe.example.com/api/graphql Viewer': {
+        status: 200,
+        body: {
+          data: {
+            viewer: { login: 'octocat' },
+          },
+        },
+      },
     })
-    const provider = github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
-    expect(await provider.graphql(viewer)).toEqual({ viewer: { login: 'octocat' } })
+    expect(await provider.graphql(viewer)).toEqual({
+      viewer: { login: 'octocat' },
+    })
     expect(JSON.parse(calls[0]!.body!)).toEqual({ query: viewer, variables: {}, operationName: 'Viewer' })
   })
 
   it('names the operation from the top level of the document', async () => {
     const search = '{ search(query: "query Foo", type: ISSUE, first: 1) { issueCount } }'
     const { fetch, calls } = fixtureFetch('github', {
-      'POST https://api.github.com/graphql': { status: 200, body: { data: { search: { issueCount: 0 } } } },
+      'POST https://api.github.com/graphql': {
+        status: 200,
+        body: {
+          data: {
+            search: { issueCount: 0 },
+          },
+        },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
-    expect(await provider.graphql(search)).toEqual({ search: { issueCount: 0 } })
+    expect(await provider.graphql(search)).toEqual({
+      search: { issueCount: 0 },
+    })
     expect(JSON.parse(calls[0]!.body!)).toEqual({ query: search, variables: {} })
   })
 
@@ -2228,16 +3679,44 @@ describe('github graphql', () => {
     const Repo = new TypedDocumentString<{ repository: { stargazerCount: number } | null }, { owner: string, name: string }>('query Repo($owner: String!, $name: String!) { repository(owner: $owner, name: $name) { stargazerCount } }')
     const Viewer = new TypedDocumentString<{ viewer: { login: string } }, { [key: string]: never }>(viewer)
     const { fetch, calls } = fixtureFetch('github', {
-      'POST https://api.github.com/graphql Repo': { status: 200, body: { data: { repository: { stargazerCount: 3 } } } },
-      'POST https://api.github.com/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
-      'POST https://api.github.com/graphql': { status: 200, body: { data: { total: 1 } } },
+      'POST https://api.github.com/graphql Repo': {
+        status: 200,
+        body: {
+          data: {
+            repository: { stargazerCount: 3 },
+          },
+        },
+      },
+      'POST https://api.github.com/graphql Viewer': {
+        status: 200,
+        body: {
+          data: {
+            viewer: { login: 'octocat' },
+          },
+        },
+      },
+      'POST https://api.github.com/graphql': {
+        status: 200,
+        body: {
+          data: { total: 1 },
+        },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const repository = await provider.graphql(Repo, { owner: 'o', name: 'n' })
     expectTypeOf(repository).toEqualTypeOf<{ repository: { stargazerCount: number } | null }>()
-    expect(repository).toEqual({ repository: { stargazerCount: 3 } })
-    expect(JSON.parse(calls[0]!.body!)).toEqual({ query: String(Repo), variables: { owner: 'o', name: 'n' }, operationName: 'Repo' })
+    expect(repository).toEqual({
+      repository: { stargazerCount: 3 },
+    })
+    expect(JSON.parse(calls[0]!.body!)).toEqual({
+      query: String(Repo),
+      variables: { owner: 'o', name: 'n' },
+      operationName: 'Repo',
+    })
     expectTypeOf(await provider.graphql(Viewer)).toEqualTypeOf<{ viewer: { login: string } }>()
     expectTypeOf(await provider.graphql<{ total: number }>('query { total }')).toEqualTypeOf<{ total: number }>()
 
@@ -2251,7 +3730,11 @@ describe('github graphql', () => {
     const message = 'Your token has not been granted the required scopes to execute this query.'
     const provider = github({
       auth: { type: 'token', token: 't' },
-      fetch: async () => Response.json({ errors: [{ type: 'INSUFFICIENT_SCOPES', message }] }),
+      fetch: async () => Response.json({
+        errors: [
+          { type: 'INSUFFICIENT_SCOPES', message },
+        ],
+      }),
     })
 
     await expect(provider.graphql(viewer)).rejects.toThrow(InsufficientScopeError)
@@ -2261,49 +3744,116 @@ describe('github graphql', () => {
   it('runs queries on a read-only provider and rejects mutations', async () => {
     const named = 'query Named($mutation: String) { viewer { login } }'
     const { fetch, calls } = fixtureFetch('github', {
-      'POST https://api.github.com/graphql Viewer': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
-      'POST https://api.github.com/graphql Named': { status: 200, body: { data: { viewer: { login: 'octocat' } } } },
+      'POST https://api.github.com/graphql Viewer': {
+        status: 200,
+        body: {
+          data: {
+            viewer: { login: 'octocat' },
+          },
+        },
+      },
+      'POST https://api.github.com/graphql Named': {
+        status: 200,
+        body: {
+          data: {
+            viewer: { login: 'octocat' },
+          },
+        },
+      },
     })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+      readOnly: true,
+    })
 
-    expect(await provider.graphql(viewer)).toEqual({ viewer: { login: 'octocat' } })
-    expect(await provider.graphql(named)).toEqual({ viewer: { login: 'octocat' } })
+    expect(await provider.graphql(viewer)).toEqual({
+      viewer: { login: 'octocat' },
+    })
+    expect(await provider.graphql(named)).toEqual({
+      viewer: { login: 'octocat' },
+    })
     await expect(provider.graphql(status, { message: 'hi' })).rejects.toThrow(ReadOnlyError)
     expect(calls).toHaveLength(2)
   })
 
   it('reads the operations of a document from its top level', () => {
-    expect(graphqlOperations(status)).toEqual([{ type: 'mutation', name: 'Status' }])
-    expect(graphqlOperations('fragment F on User { login }\nmutation { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'mutation' }])
-    expect(graphqlOperations('{ viewer { login } }')).toEqual([{ type: 'query' }])
-    expect(graphqlOperations('# mutation\nquery { search(query: "mutation } {", type: ISSUE, first: 1) { issueCount } }')).toEqual([{ type: 'query' }])
-    expect(graphqlOperations('{ search(query: "query Foo", type: ISSUE, first: 1) { issueCount } }')).toEqual([{ type: 'query' }])
-    expect(graphqlOperations('query { mutation: viewer { login } }')).toEqual([{ type: 'query' }])
-    expect(graphqlOperations('query Search($query: String!, $mutation: String = """a \\""" mutation X { """) @cached { search(query: $query) { issueCount } }')).toEqual([{ type: 'query', name: 'Search' }])
-    expect(graphqlOperations('# comment\rmutation Star { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'mutation', name: 'Star' }])
-    expect(graphqlOperations('query A { viewer { login } }\nmutation B { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([{ type: 'query', name: 'A' }, { type: 'mutation', name: 'B' }])
+    expect(graphqlOperations(status)).toEqual([
+      { type: 'mutation', name: 'Status' },
+    ])
+    expect(graphqlOperations('fragment F on User { login }\nmutation { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([
+      { type: 'mutation' },
+    ])
+    expect(graphqlOperations('{ viewer { login } }')).toEqual([
+      { type: 'query' },
+    ])
+    expect(graphqlOperations('# mutation\nquery { search(query: "mutation } {", type: ISSUE, first: 1) { issueCount } }')).toEqual([
+      { type: 'query' },
+    ])
+    expect(graphqlOperations('{ search(query: "query Foo", type: ISSUE, first: 1) { issueCount } }')).toEqual([
+      { type: 'query' },
+    ])
+    expect(graphqlOperations('query { mutation: viewer { login } }')).toEqual([
+      { type: 'query' },
+    ])
+    expect(graphqlOperations('query Search($query: String!, $mutation: String = """a \\""" mutation X { """) @cached { search(query: $query) { issueCount } }')).toEqual([
+      { type: 'query', name: 'Search' },
+    ])
+    expect(graphqlOperations('# comment\rmutation Star { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([
+      { type: 'mutation', name: 'Star' },
+    ])
+    expect(graphqlOperations('query A { viewer { login } }\nmutation B { addStar(input: { starrableId: "1" }) { clientMutationId } }')).toEqual([
+      { type: 'query', name: 'A' },
+      { type: 'mutation', name: 'B' },
+    ])
   })
 })
 
 describe('github provider edge cases', () => {
-  const commit = { forge: 'github', instance: 'github.com', repo, sha: 'abc123' } as const
+  const commit = {
+    forge: 'github',
+    instance: 'github.com',
+    repo,
+    sha: 'abc123',
+  } as const
 
   it('lists the comments on a commit, each naming the commit', async () => {
     const urls: string[] = []
-    const forge = github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      urls.push(url)
-      return Response.json([{ id: 7, body: 'Nice', created_at: '2025-01-01T00:00:00Z', user: { login: 'octocat' } }])
-    } })
+    const forge = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json([
+          {
+            id: 7,
+            body: 'Nice',
+            created_at: '2025-01-01T00:00:00Z',
+            user: { login: 'octocat' },
+          },
+        ])
+      },
+    })
     const [comment] = (await forge.commits.comments(commit).page()).items
 
     expect(urls).toEqual(['https://api.github.com/repos/acme/widgets/commits/abc123/comments'])
-    expect(comment).toMatchObject({ body: 'Nice', ref: { id: '7', commit } })
+    expect(comment).toMatchObject({
+      body: 'Nice',
+      ref: { id: '7', commit },
+    })
   })
 
   it('rejects removing a reaction when the viewer cannot be read', async () => {
     const forge = github({
       auth: { type: 'token', token: 't' },
-      fetch: async url => url.endsWith('/user') ? new Response('{}', { status: 500 }) : Response.json([{ id: 1, content: '+1', user: { login: 'octocat' } }]),
+      fetch: async url => url.endsWith('/user')
+        ? new Response('{}', { status: 500 })
+        : Response.json([
+            {
+              id: 1,
+              content: '+1',
+              user: { login: 'octocat' },
+            },
+          ]),
     })
 
     await expect(forge.threads.unreact(pull, '+1')).rejects.toThrow()
@@ -2312,7 +3862,12 @@ describe('github provider edge cases', () => {
 
 describe('github normalisers', () => {
   const origin = { forge: 'gitbucket', instance: 'git.example.com' } as const
-  const ref = { ...origin, repo: { ...origin, owner: 'acme', name: 'widgets' }, kind: 'pull_request', number: '42' } as const
+  const ref = {
+    ...origin,
+    repo: { ...origin, owner: 'acme', name: 'widgets' },
+    kind: 'pull_request',
+    number: '42',
+  } as const
   const body = (name: string) => JSON.parse(readFileSync(`${fixtureDirectory('github')}${name}.json`, 'utf8')).response.body
 
   /** Every forge and instance the normalised value names, leaving the raw API payloads out. */
@@ -2322,7 +3877,9 @@ describe('github normalisers', () => {
     }
     else if (value && typeof value === 'object') {
       if ('forge' in value) {
-        found.add(`${value.forge} ${'instance' in value ? value.instance : ''}`)
+        found.add(`${value.forge} ${'instance' in value
+          ? value.instance
+          : ''}`)
       }
       for (const [key, item] of Object.entries(value)) {
         if (key !== 'raw' && key !== 'payload') {
@@ -2347,16 +3904,28 @@ describe('github normalisers', () => {
       toGraphQLThread(ref, body('graphql-threads-batch').data.t0.issueOrPullRequest),
     ]
 
-    expect([...originsIn(normalised)]).toEqual(['gitbucket git.example.com'])
+    expect([
+      ...originsIn(normalised),
+    ]).toEqual(['gitbucket git.example.com'])
   })
 })
 
 describe('github data residency', () => {
   it('treats ghe.com hosts as github.com rather than Enterprise Server', async () => {
-    const provider = github({ auth: { type: 'token', token: 't' }, baseUrl: 'https://api.acme.ghe.com' })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      baseUrl: 'https://api.acme.ghe.com',
+    })
 
     expect(provider.instance).toBe('acme.ghe.com')
-    expect(provider.urlFor({ repo: { forge: 'github', instance: 'acme.ghe.com', owner: 'acme', name: 'widgets' } })).toBe('https://acme.ghe.com/acme/widgets')
+    expect(provider.urlFor({
+      repo: {
+        forge: 'github',
+        instance: 'acme.ghe.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
+    })).toBe('https://acme.ghe.com/acme/widgets')
     expect(provider.can('notifications.markDone')).toBe(true)
     expect(await provider.refreshCapabilities()).not.toHaveProperty('version', expect.anything())
   })
@@ -2365,14 +3934,19 @@ describe('github data residency', () => {
 describe('github merge', () => {
   it('merges without approving and sends `message` as the commit message', async () => {
     const bodies: Array<{ url: string, body?: string }> = []
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: async (url, init) => {
-      bodies.push({ url, body: init?.body as string | undefined })
-      return new Response('{"status":"merged"}', { status: 200 })
-    } })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url, init) => {
+        bodies.push({ url, body: init?.body as string | undefined })
+        return new Response('{"status":"merged"}', { status: 200 })
+      },
+    })
 
     await provider.threads.merge(pull, { method: 'squash', message: 'Ship it' })
 
-    expect(bodies).toEqual([{ url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async', body: '{"merge_method":"squash","commit_message":"Ship it","merge_action":"direct_merge"}' }])
+    expect(bodies).toEqual([
+      { url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async', body: '{"merge_method":"squash","commit_message":"Ship it","merge_action":"direct_merge"}' },
+    ])
   })
 
   it('updates a branch with a merge through REST, which checks the head sha', async () => {
@@ -2394,7 +3968,11 @@ describe('github merge', () => {
   it('rejects a branch update with BranchMovedError once the head has moved', async () => {
     const moved = '0'.repeat(40)
     const { provider } = tokenProvider({
-      'PUT https://api.github.com/repos/acme/widgets/pulls/42/update-branch': { status: 422, headers: {}, body: { message: 'expected head sha didn\'t match current head ref.' } },
+      'PUT https://api.github.com/repos/acme/widgets/pulls/42/update-branch': {
+        status: 422,
+        headers: {},
+        body: { message: 'expected head sha didn\'t match current head ref.' },
+      },
     })
     const rebase = tokenProvider()
 
@@ -2411,7 +3989,14 @@ describe('github path safety', () => {
       urls.push(url)
       return new Response('{}', { status: 200 })
     }
-    return { provider: github({ auth: { type: 'token', token: 't' }, fetch, ...options }), urls }
+    return {
+      provider: github({
+        auth: { type: 'token', token: 't' },
+        fetch,
+        ...options,
+      }),
+      urls,
+    }
   }
 
   it('keeps a thread number that tries to climb out of the repository inside it', async () => {
@@ -2425,7 +4010,12 @@ describe('github path safety', () => {
   it('encodes owner, name and number so they cannot add path segments or a query', async () => {
     const { provider, urls } = recordingProvider()
 
-    await provider.threads.createComment({ ...pull, repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' }, kind: 'issue', number: '1?x=' }, 'hi')
+    await provider.threads.createComment({
+      ...pull,
+      repo: { ...repo, owner: 'acme/x', name: 'widgets?y=1' },
+      kind: 'issue',
+      number: '1?x=',
+    }, 'hi')
 
     expect(urls).toEqual(['https://api.github.com/repos/acme%2Fx/widgets%3Fy%3D1/issues/1%3Fx%3D/comments'])
   })
@@ -2441,30 +4031,74 @@ describe('github path safety', () => {
 
 describe('github single-item reads', () => {
   function serve(responses: Record<string, unknown>) {
-    return github({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      const key = new URL(String(url)).pathname
-      return key in responses ? Response.json(responses[key]) : Response.json({ message: 'Not Found' }, { status: 404 })
-    } })
+    return github({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        const key = new URL(String(url)).pathname
+        return key in responses
+          ? Response.json(responses[key])
+          : Response.json({ message: 'Not Found' }, { status: 404 })
+      },
+    })
   }
 
   it('rejects a discussion comment id that names a node of another type', async () => {
-    const provider = serve({ '/graphql': { data: { node: {} } } })
+    const provider = serve({
+      '/graphql': {
+        data: { node: {} },
+      },
+    })
 
-    await expect(provider.threads.getComment({ forge: 'github', instance: 'github.com', thread: discussion, id: 'D_kwDOAAB5ac4AAQ1f' })).rejects.toThrow(NotFoundError)
+    await expect(provider.threads.getComment({
+      forge: 'github',
+      instance: 'github.com',
+      thread: discussion,
+      id: 'D_kwDOAAB5ac4AAQ1f',
+    })).rejects.toThrow(NotFoundError)
   })
 
   it('reads a CI job whose ref names no run, and names the run from the job', async () => {
-    const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, run_id: 7, name: 'test', status: 'completed', conclusion: 'success' } })
+    const provider = serve({
+      '/repos/acme/widgets/actions/jobs/9': {
+        id: 9,
+        run_id: 7,
+        name: 'test',
+        status: 'completed',
+        conclusion: 'success',
+      },
+    })
 
-    const job = await provider.ci.getJob({ forge: 'github', instance: 'github.com', repo, id: '9' })
+    const job = await provider.ci.getJob({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '9',
+    })
 
     expect(job.name).toBe('test')
-    expect(job.ref.run).toEqual({ forge: 'github', instance: 'github.com', repo, id: '7' })
+    expect(job.ref.run).toEqual({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '7',
+    })
   })
 
   it('rejects a CI job that names no run when its ref names none either', async () => {
-    const provider = serve({ '/repos/acme/widgets/actions/jobs/9': { id: 9, name: 'test', status: 'completed', conclusion: 'success' } })
+    const provider = serve({
+      '/repos/acme/widgets/actions/jobs/9': {
+        id: 9,
+        name: 'test',
+        status: 'completed',
+        conclusion: 'success',
+      },
+    })
 
-    await expect(provider.ci.getJob({ forge: 'github', instance: 'github.com', repo, id: '9' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(provider.ci.getJob({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '9',
+    })).rejects.toThrow(UnsupportedOperationError)
   })
 })

@@ -45,10 +45,19 @@ describe('footer contributors', () => {
       const login = path.slice('/users/'.length)
       return Response.json({ login, html_url: `https://github.com/${login}`, blog: websites[login] ?? '' })
     })
-    const forge = github({ fetch, auth: { type: 'token', token: 'test-token' } })
+    const forge = github({
+      fetch,
+      auth: { type: 'token', token: 'test-token' },
+    })
     const list = await getContributors(forge)
 
-    expect(list.map(contributor => contributor.login)).toEqual(['danielroe', 'trueberryless', 'antfu', 'third', 'fourth'])
+    expect(list.map(contributor => contributor.login)).toEqual([
+      'danielroe',
+      'trueberryless',
+      'antfu',
+      'third',
+      'fourth',
+    ])
     expect(list[1]).toEqual({
       login: 'trueberryless',
       contributions: 6,
@@ -71,13 +80,15 @@ describe('footer contributors', () => {
     const forge = github({
       fetch: async (url) => {
         if (new URL(url).pathname.startsWith('/repos/')) {
-          return Response.json([{
-            login: 'trueberryless',
-            contributions: 6,
-            type: 'User',
-            html_url: profileUrl,
-            avatar_url: 'https://avatars.githubusercontent.com/trueberryless?v=4',
-          }])
+          return Response.json([
+            {
+              login: 'trueberryless',
+              contributions: 6,
+              type: 'User',
+              html_url: profileUrl,
+              avatar_url: 'https://avatars.githubusercontent.com/trueberryless?v=4',
+            },
+          ])
         }
         return new Response('Unavailable', { status: 503 })
       },
@@ -103,16 +114,25 @@ describe('footer contributors', () => {
 
     const result = await getFooterContributors(forge, list)
 
-    expect(result.contributors.map(contributor => contributor.login)).toEqual(['danielroe', 'contributor0', 'contributor1', 'contributor2'])
+    expect(result.contributors.map(contributor => contributor.login)).toEqual([
+      'danielroe',
+      'contributor0',
+      'contributor1',
+      'contributor2',
+    ])
     expect(result.remaining).toBe(count - 3)
     expect(fetch).toHaveBeenCalledTimes(4)
   })
 
   it('keeps danielroe when GitHub is unavailable', async () => {
-    const forge = github({ fetch: async () => new Response('Unavailable', { status: 503 }) })
+    const forge = github({
+      fetch: async () => new Response('Unavailable', { status: 503 }),
+    })
     const list = await getContributors(forge).catch(() => [])
     expect(await getFooterContributors(forge, list)).toEqual({
-      contributors: [{ login: 'danielroe', to: 'https://github.com/danielroe' }],
+      contributors: [
+        { login: 'danielroe', to: 'https://github.com/danielroe' },
+      ],
       remaining: 0,
     })
   })

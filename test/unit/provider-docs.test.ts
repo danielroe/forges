@@ -43,12 +43,23 @@ describe('generated docs', () => {
     const rows = new Map(groups.flatMap(group => group.rows).map(row => [row.capability, row]))
     const github = providers.findIndex(({ slug }) => slug === 'github')
 
-    expect(providers[github]!.credentials!.map(({ id, usual }) => [id, usual])).toEqual([['classic', true], ['fine-grained', true], ['installation', true], ['app', false]])
+    expect(providers[github]!.credentials!.map(({ id, usual }) => [id, usual])).toEqual([
+      ['classic', true],
+      ['fine-grained', true],
+      ['installation', true],
+      ['app', false],
+    ])
     expect(rows.get('notifications.list')!.cells[github]!.credentials).toEqual(['classic'])
     expect(rows.get('users.me')!.cells[github]!.credentials).toEqual(['classic', 'fine-grained'])
     expect(rows.get('installations.list')!.cells[github]!.credentials).toEqual(['installation', 'app'])
     expect(rows.get('webhooks.ingest')!.cells[github]!.credentials).toBeUndefined()
-    expect(rows.get('repos.get')!.cells[github]).toMatchObject({ level: 'native', byCredential: { classic: { level: 'native' }, app: { level: 'none' } } })
+    expect(rows.get('repos.get')!.cells[github]).toMatchObject({
+      level: 'native',
+      byCredential: {
+        classic: { level: 'native' },
+        app: { level: 'none' },
+      },
+    })
     expect(rows.get('repos.get')!.cells[github]!.credentials).toBeUndefined()
   })
 })

@@ -32,7 +32,9 @@ export function toRepoRef(origin: ForgeOrigin, raw: PushinRepository): RepoRef {
 }
 
 export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
-  const visibility = raw.visibility === 'private' || raw.private ? 'private' : 'public'
+  const visibility = raw.visibility === 'private' || raw.private
+    ? 'private'
+    : 'public'
   return {
     ref: toRepoRef(origin, raw),
     description: raw.description ?? undefined,
@@ -43,7 +45,9 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
     isArchived: false,
     topics: raw.topics ?? [],
     url: raw.html_url,
-    cloneUrls: raw.clone_url ? { https: raw.clone_url } : undefined,
+    cloneUrls: raw.clone_url
+      ? { https: raw.clone_url }
+      : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     owner: toActor(origin, raw.owner),
@@ -59,7 +63,9 @@ export function toRepo(origin: ForgeOrigin, raw: PushinRepository): Repo {
 export function toLabel(raw: PushinLabel): Label {
   return {
     name: raw.name,
-    colour: raw.color && /^[0-9a-f]{6}$/i.test(raw.color) ? raw.color : undefined,
+    colour: raw.color && /^[0-9a-f]{6}$/i.test(raw.color)
+      ? raw.color
+      : undefined,
     description: raw.description ?? undefined,
   }
 }
@@ -94,7 +100,9 @@ export function toRole(raw: PushinCollaborator): RepoRole {
 }
 
 export function toPermissionRole(raw: string): RepoRole {
-  return raw === 'admin' || raw === 'write' || raw === 'read' ? raw : 'none'
+  return raw === 'admin' || raw === 'write' || raw === 'read'
+    ? raw
+    : 'none'
 }
 
 export function toCollaborator(origin: ForgeOrigin, raw: PushinCollaborator): Collaborator {
@@ -109,7 +117,12 @@ export function toCollaborator(origin: ForgeOrigin, raw: PushinCollaborator): Co
 
 export function toComment(thread: ResolvedThreadRef, raw: PushinComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body,
     author: toActor({ forge: FORGE, instance: thread.instance }, raw.user),
     createdAt: toDate(raw.created_at),
@@ -131,13 +144,28 @@ const REASONS: Record<string, NotificationReason> = {
 
 export function toNotification(origin: ForgeOrigin, raw: PushinNotification): Notification {
   const repo = toRepoRef(origin, raw.repository)
-  const kind = raw.subject.type === 'Issue' ? 'issue' : raw.subject.type === 'PullRequest' ? 'pull_request' : undefined
+  const kind = raw.subject.type === 'Issue'
+    ? 'issue'
+    : raw.subject.type === 'PullRequest'
+      ? 'pull_request'
+      : undefined
   const number = /\/(\d+)\/?$/.exec(raw.subject.url)?.[1]
   return {
-    ref: { ...origin, id: String(raw.id) },
+    ref: {
+      ...origin,
+      id: String(raw.id),
+    },
     subject: kind && number
-      ? { type: 'thread', thread: { ...origin, repo, kind, number } }
-      : { type: 'other', typeRaw: raw.subject.type, repo, url: raw.subject.url },
+      ? {
+          type: 'thread',
+          thread: { ...origin, repo, kind, number },
+        }
+      : {
+          type: 'other',
+          typeRaw: raw.subject.type,
+          repo,
+          url: raw.subject.url,
+        },
     subjectTypeRaw: raw.subject.type,
     reason: REASONS[raw.reason] ?? 'unknown',
     reasonRaw: raw.reason,
@@ -155,7 +183,11 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
   const origin = { forge: FORGE, instance: ref.instance }
   const kind = raw.pull_request ? 'pull_request' : ref.kind
   const merged = kind === 'pull_request' && (raw.merged || raw.merged_at || raw.pull_request?.merged_at || raw.state === 'merged')
-  const state = merged ? 'merged' : raw.state === 'closed' ? 'closed' : 'open'
+  const state = merged
+    ? 'merged'
+    : raw.state === 'closed'
+      ? 'closed'
+      : 'open'
   return {
     ref: { ...ref, kind, externalId: raw.node_id ?? String(raw.id) },
     kind,
@@ -172,19 +204,30 @@ export function toThread(ref: ResolvedThreadRef, raw: PushinThread): Thread {
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at ?? raw.merged_at ?? raw.pull_request?.merged_at),
-    mergedAt: kind === 'pull_request' ? toDate(raw.merged_at ?? raw.pull_request?.merged_at) : undefined,
+    mergedAt: kind === 'pull_request'
+      ? toDate(raw.merged_at ?? raw.pull_request?.merged_at)
+      : undefined,
     lastActivityAt: toDate(raw.updated_at),
     locked: raw.locked,
     commentCount: raw.comments,
     branches: kind === 'pull_request' && (raw.head || raw.base)
-      ? { head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha ?? undefined }, base: { ref: raw.base?.ref ?? '' } }
+      ? {
+          head: { ref: raw.head?.ref ?? '', sha: raw.head?.sha ?? undefined },
+          base: { ref: raw.base?.ref ?? '' },
+        }
       : undefined,
     raw,
   }
 }
 
 export function toRelease(repo: RepoRef, raw: PushinRelease): Release {
-  const ref: ReleaseRef = { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), tag: raw.tag_name }
+  const ref: ReleaseRef = {
+    forge: FORGE,
+    instance: repo.instance,
+    repo,
+    id: String(raw.id),
+    tag: raw.tag_name,
+  }
   return {
     ref,
     name: raw.name ?? undefined,
@@ -198,14 +241,22 @@ export function toRelease(repo: RepoRef, raw: PushinRelease): Release {
     publishedAt: toDate(raw.published_at),
     immutable: raw.immutable,
     assets: raw.assets.flatMap(asset => asset.browser_download_url
-      ? [{
-          ref: { forge: FORGE, instance: repo.instance, repo, release: ref, id: String(asset.id) },
-          name: asset.name,
-          url: asset.browser_download_url,
-          contentType: asset.content_type,
-          downloadCount: asset.download_count,
-          size: asset.size,
-        }]
+      ? [
+          {
+            ref: {
+              forge: FORGE,
+              instance: repo.instance,
+              repo,
+              release: ref,
+              id: String(asset.id),
+            },
+            name: asset.name,
+            url: asset.browser_download_url,
+            contentType: asset.content_type,
+            downloadCount: asset.download_count,
+            size: asset.size,
+          },
+        ]
       : []),
     raw,
   }
@@ -213,7 +264,13 @@ export function toRelease(repo: RepoRef, raw: PushinRelease): Release {
 
 export function toTeam(org: RepoRef, raw: PushinTeam): Team {
   return {
-    ref: { forge: FORGE, instance: org.instance, org, id: String(raw.id), slug: raw.slug },
+    ref: {
+      forge: FORGE,
+      instance: org.instance,
+      org,
+      id: String(raw.id),
+      slug: raw.slug,
+    },
     name: raw.name,
     raw,
   }
@@ -221,14 +278,28 @@ export function toTeam(org: RepoRef, raw: PushinTeam): Team {
 
 export function toReviewComment(thread: ResolvedThreadRef, raw: PushinReviewComment): ReviewComment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body,
     author: toActor({ forge: FORGE, instance: thread.instance }, raw.user),
     path: raw.path ?? undefined,
     line: raw.line ?? undefined,
-    side: raw.side === 'LEFT' ? 'left' : raw.side === 'RIGHT' ? 'right' : undefined,
-    inReplyTo: raw.in_reply_to_id === null ? undefined : String(raw.in_reply_to_id),
-    thread: { id: String(raw.in_reply_to_id ?? raw.id), resolved: raw.resolved },
+    side: raw.side === 'LEFT'
+      ? 'left'
+      : raw.side === 'RIGHT'
+        ? 'right'
+        : undefined,
+    inReplyTo: raw.in_reply_to_id === null
+      ? undefined
+      : String(raw.in_reply_to_id),
+    thread: {
+      id: String(raw.in_reply_to_id ?? raw.id),
+      resolved: raw.resolved,
+    },
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
     raw,
@@ -237,7 +308,12 @@ export function toReviewComment(thread: ResolvedThreadRef, raw: PushinReviewComm
 
 export function toReview(thread: ResolvedThreadRef, raw: PushinReview, comments: ReviewComment[]): Review {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     author: toActor({ forge: FORGE, instance: thread.instance }, raw.user),
     state: reviewState(raw.state),
     stateRaw: raw.state,

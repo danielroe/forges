@@ -39,7 +39,9 @@ describe('createFetcher', () => {
       },
     })
 
-    await fetcher.json('/thing', { headers: { accept: 'application/json' } })
+    await fetcher.json('/thing', {
+      headers: { accept: 'application/json' },
+    })
 
     expect(seen[0]!.get('user-agent')).toBe('forges')
     expect(seen[0]!.get('authorization')).toBe('Bearer secret')
@@ -56,7 +58,9 @@ describe('createFetcher', () => {
       },
     })
 
-    await fetcher.json('/thing', { query: { all: false, page: 2, since: undefined } })
+    await fetcher.json('/thing', {
+      query: { all: false, page: 2, since: undefined },
+    })
 
     expect(urls[0]).toBe('https://api.example/thing?all=false&page=2')
   })
@@ -66,7 +70,10 @@ describe('createFetcher', () => {
       baseUrl: 'https://api.example',
       fetch: async (_url, init) => {
         expect((init!.headers as Headers).get('if-none-match')).toBe('W/"abc"')
-        return new Response(null, { status: 304, headers: { etag: 'W/"abc"' } })
+        return new Response(null, {
+          status: 304,
+          headers: { etag: 'W/"abc"' },
+        })
       },
     })
 
@@ -102,7 +109,9 @@ describe('createFetcher', () => {
       }),
     })
 
-    const result = await fetcher.page<number>('/items', { query: { per_page: 3 } })
+    const result = await fetcher.page<number>('/items', {
+      query: { per_page: 3 },
+    })
 
     expect(result.total).toBe(33)
   })
@@ -116,7 +125,9 @@ describe('createFetcher', () => {
       }),
     })
 
-    const result = await fetcher.page<number>('/items', { query: { limit: 3 } })
+    const result = await fetcher.page<number>('/items', {
+      query: { limit: 3 },
+    })
 
     expect(result.total).toBe(33)
   })
@@ -130,7 +141,9 @@ describe('createFetcher', () => {
       }),
     })
 
-    const result = await fetcher.page<number>('/items', { query: { per_page: 50 } })
+    const result = await fetcher.page<number>('/items', {
+      query: { per_page: 50 },
+    })
 
     expect(result.total).toBe(2)
   })
@@ -138,7 +151,10 @@ describe('createFetcher', () => {
   it('prefers a total that the selector reports over the link header', async () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
-      fetch: async () => new Response(JSON.stringify({ items: [1], total_count: 7 }), {
+      fetch: async () => new Response(JSON.stringify({
+        items: [1],
+        total_count: 7,
+      }), {
         status: 200,
         headers: { link: '<https://api.example/items?per_page=1&page=99>; rel="last"' },
       }),
@@ -174,7 +190,9 @@ describe('createFetcher', () => {
       }),
     })
 
-    const result = await fetcher.page<number>('/items', { query: { per_page: 3 } })
+    const result = await fetcher.page<number>('/items', {
+      query: { per_page: 3 },
+    })
 
     expect(result.total).toBe(262)
   })
@@ -182,21 +200,30 @@ describe('createFetcher', () => {
   it('reads an x-total-count header even when it matches the page, except on a timeline', async () => {
     const counted = createFetcher({
       baseUrl: 'https://api.example',
-      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '35' } }),
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: { 'x-total-count': '35' },
+      }),
     })
     expect((await counted.page<number>('/items')).total).toBe(35)
 
     // A one-page listing still reports its exact total.
     const onePage = createFetcher({
       baseUrl: 'https://api.example',
-      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '3' } }),
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: { 'x-total-count': '3' },
+      }),
     })
     expect((await onePage.page<number>('/items')).total).toBe(3)
 
     // A Forgejo or Gitea timeline reports the page's own length there.
     const timeline = createFetcher({
       baseUrl: 'https://api.example',
-      fetch: async () => new Response(JSON.stringify([1, 2, 3]), { status: 200, headers: { 'x-total-count': '3' } }),
+      fetch: async () => new Response(JSON.stringify([1, 2, 3]), {
+        status: 200,
+        headers: { 'x-total-count': '3' },
+      }),
     })
     expect((await timeline.page<number>('/issues/1/timeline')).total).toBeUndefined()
   })
@@ -205,8 +232,13 @@ describe('createFetcher', () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async url => new Response(JSON.stringify(url.includes('page=2')
-        ? { values: [3] }
-        : { values: [1, 2], next: 'https://api.example/items?page=2' })),
+        ? {
+            values: [3],
+          }
+        : {
+            values: [1, 2],
+            next: 'https://api.example/items?page=2',
+          })),
     })
     const items = fetcher.items<number>('/items', {
       select: (body) => {
@@ -227,37 +259,61 @@ describe('createFetcher', () => {
       fetch: async () => {
         attempts++
         if (attempts === 1) {
-          return new Response('{"message":"slow down"}', { status: 403, headers: { 'retry-after': '0' } })
+          return new Response('{"message":"slow down"}', {
+            status: 403,
+            headers: { 'retry-after': '0' },
+          })
         }
         return new Response('{"ok":true}', { status: 200 })
       },
     })
 
-    await expect(fetcher.json('/thing')).resolves.toMatchObject({ data: { ok: true } })
+    await expect(fetcher.json('/thing')).resolves.toMatchObject({
+      data: { ok: true },
+    })
     expect(attempts).toBe(2)
     expect(onRetry).toHaveBeenCalledWith({ url: 'https://api.example/thing', method: 'GET', wait: 0 })
   })
 
   it('reports the rate limit of every response from the API origin', async () => {
     const onRateLimit = vi.fn()
-    const budget = (remaining: string) => ({ 'x-ratelimit-limit': '30', 'x-ratelimit-remaining': remaining, 'x-ratelimit-reset': '1700000000', 'x-ratelimit-resource': 'search' })
+    const budget = (remaining: string) => ({
+      'x-ratelimit-limit': '30',
+      'x-ratelimit-remaining': remaining,
+      'x-ratelimit-reset': '1700000000',
+      'x-ratelimit-resource': 'search',
+    })
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       onRateLimit,
       fetch: async (input) => {
         const url = new URL(String(input))
         if (url.origin !== 'https://api.example') {
-          return new Response('bytes', { status: 200, headers: budget('1') })
+          return new Response('bytes', {
+            status: 200,
+            headers: budget('1'),
+          })
         }
         switch (url.pathname) {
           case '/search':
-            return Response.json([], { headers: budget('29') })
+            return Response.json([], {
+              headers: budget('29'),
+            })
           case '/cached':
-            return new Response(null, { status: 304, headers: budget('28') })
+            return new Response(null, {
+              status: 304,
+              headers: budget('28'),
+            })
           case '/download':
-            return new Response(null, { status: 302, headers: { location: 'https://cdn.example/file' } })
+            return new Response(null, {
+              status: 302,
+              headers: { location: 'https://cdn.example/file' },
+            })
           case '/limited':
-            return new Response('{}', { status: 403, headers: budget('0') })
+            return new Response('{}', {
+              status: 403,
+              headers: budget('0'),
+            })
           default:
             return Response.json({})
         }
@@ -271,11 +327,43 @@ describe('createFetcher', () => {
     await expect(fetcher.json('/limited', { method: 'POST' })).rejects.toBeInstanceOf(RateLimitedError)
 
     const resetAt = new Date(1_700_000_000_000)
-    expect(rateLimitOf(response)).toEqual({ limit: 30, remaining: 29, resetAt, resource: 'search' })
+    expect(rateLimitOf(response)).toEqual({
+      limit: 30,
+      remaining: 29,
+      resetAt,
+      resource: 'search',
+    })
     expect(onRateLimit.mock.calls.map(([event]) => event)).toEqual([
-      { url: 'https://api.example/search', method: 'GET', rateLimit: { limit: 30, remaining: 29, resetAt, resource: 'search' } },
-      { url: 'https://api.example/cached', method: 'GET', rateLimit: { limit: 30, remaining: 28, resetAt, resource: 'search' } },
-      { url: 'https://api.example/limited', method: 'POST', rateLimit: { limit: 30, remaining: 0, resetAt, resource: 'search' } },
+      {
+        url: 'https://api.example/search',
+        method: 'GET',
+        rateLimit: {
+          limit: 30,
+          remaining: 29,
+          resetAt,
+          resource: 'search',
+        },
+      },
+      {
+        url: 'https://api.example/cached',
+        method: 'GET',
+        rateLimit: {
+          limit: 30,
+          remaining: 28,
+          resetAt,
+          resource: 'search',
+        },
+      },
+      {
+        url: 'https://api.example/limited',
+        method: 'POST',
+        rateLimit: {
+          limit: 30,
+          remaining: 0,
+          resetAt,
+          resource: 'search',
+        },
+      },
     ])
   })
 
@@ -305,7 +393,11 @@ describe('createFetcher', () => {
       headers: { 'x-ratelimit-limit': '0', 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': '1800000000' },
     })
     const anonymous = createFetcher({ baseUrl: 'https://api.example', fetch })
-    const authenticated = createFetcher({ baseUrl: 'https://api.example', fetch, authHeaders: () => ({ authorization: 'Bearer t' }) })
+    const authenticated = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch,
+      authHeaders: () => ({ authorization: 'Bearer t' }),
+    })
 
     const missing = await anonymous.json('/graphql', { method: 'POST' }).catch((error: unknown) => error)
     const insufficient = await authenticated.json('/graphql', { method: 'POST' }).catch((error: unknown) => error)
@@ -333,7 +425,9 @@ describe('createFetcher', () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async () => {
-        throw new TypeError('fetch failed', { cause: Object.assign(new Error('read ECONNRESET'), { code: 'ECONNRESET' }) })
+        throw new TypeError('fetch failed', {
+          cause: Object.assign(new Error('read ECONNRESET'), { code: 'ECONNRESET' }),
+        })
       },
     })
 
@@ -347,7 +441,9 @@ describe('createFetcher', () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async () => {
-        throw new TypeError('fetch failed', { cause: new Error('bad port') })
+        throw new TypeError('fetch failed', {
+          cause: new Error('bad port'),
+        })
       },
     })
 
@@ -371,11 +467,19 @@ describe('streaming transport', () => {
       baseUrl: 'https://api.example',
       authHeaders: () => ({ authorization: 'Bearer secret' }),
       fetch: async (url, init) => {
-        calls.push({ url, authorization: new Headers(init?.headers).get('authorization') })
+        calls.push({
+          url,
+          authorization: new Headers(init?.headers).get('authorization'),
+        })
         if (url.startsWith('https://api.example')) {
-          return new Response(null, { status: 302, headers: { location: 'https://cdn.example/asset.bin' } })
+          return new Response(null, {
+            status: 302,
+            headers: { location: 'https://cdn.example/asset.bin' },
+          })
         }
-        return new Response(new Blob([new Uint8Array([1, 2, 3])]).stream(), { status: 200 })
+        return new Response(new Blob([
+          new Uint8Array([1, 2, 3]),
+        ]).stream(), { status: 200 })
       },
     })
     return { fetcher, calls }
@@ -387,7 +491,9 @@ describe('streaming transport', () => {
     const result = await fetcher.stream('/releases/assets/9')
 
     expect(result.status).toBe(200)
-    expect([...new Uint8Array(await new Response(result.body).arrayBuffer())]).toEqual([1, 2, 3])
+    expect([
+      ...new Uint8Array(await new Response(result.body).arrayBuffer()),
+    ]).toEqual([1, 2, 3])
     expect(calls.map(call => call.authorization)).toEqual(['Bearer secret', null])
     expect(calls[1]!.url).toBe('https://cdn.example/asset.bin')
   })
@@ -396,7 +502,10 @@ describe('streaming transport', () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async url => url.startsWith('https://api.example')
-        ? new Response(null, { status: 302, headers: { location: 'https://cdn.example/asset.bin' } })
+        ? new Response(null, {
+            status: 302,
+            headers: { location: 'https://cdn.example/asset.bin' },
+          })
         : new Response('gone', { status: 410 }),
     })
 
@@ -410,7 +519,13 @@ describe('streaming transport', () => {
       fetch: async (_url, init) => {
         modes.push(init?.redirect)
         if (init?.redirect === 'manual') {
-          return { ...Response.error(), type: 'opaqueredirect', ok: false, status: 0, clone: () => new Response('') } as unknown as Response
+          return {
+            ...Response.error(),
+            type: 'opaqueredirect',
+            ok: false,
+            status: 0,
+            clone: () => new Response(''),
+          } as unknown as Response
         }
         return new Response('asset', { status: 200 })
       },
@@ -481,7 +596,10 @@ describe('403 classification', () => {
 
     expect(error).toBeInstanceOf(InsufficientScopeError)
     expect(error).not.toBeInstanceOf(ForbiddenError)
-    expect(error).toMatchObject({ acceptedScopes: ['repo', 'public_repo'], grantedScopes: ['read:user', 'gist'] })
+    expect(error).toMatchObject({
+      acceptedScopes: ['repo', 'public_repo'],
+      grantedScopes: ['read:user', 'gist'],
+    })
   })
 
   it('reports the fine-grained permissions a refused request needs', async () => {
@@ -523,7 +641,9 @@ describe('default query', () => {
       },
     })
     await fetcher.json('/a')
-    await fetcher.json('/b', { query: { 'api-version': '7.1-preview.4' } })
+    await fetcher.json('/b', {
+      query: { 'api-version': '7.1-preview.4' },
+    })
 
     expect(seen).toEqual(['https://forge.example/a?api-version=7.1', 'https://forge.example/b?api-version=7.1-preview.4'])
   })
@@ -536,7 +656,9 @@ describe('cancellation and rate-limit resets', () => {
       baseUrl: 'https://api.example',
       fetch: (_url, init) => new Promise((_, reject) => {
         const signal = init!.signal!
-        signal.aborted ? reject(signal.reason) : signal.addEventListener('abort', () => reject(signal.reason))
+        signal.aborted
+          ? reject(signal.reason)
+          : signal.addEventListener('abort', () => reject(signal.reason))
       }),
     })
     const reason = new Error('cancelled')
@@ -547,7 +669,13 @@ describe('cancellation and rate-limit resets', () => {
   })
 
   it('reads `ratelimit-reset` as seconds from now', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 429, headers: { 'ratelimit-reset': '30' } }) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response('', {
+        status: 429,
+        headers: { 'ratelimit-reset': '30' },
+      }),
+    })
     const error = await fetcher.json('/a').catch((error: unknown) => error) as RateLimitedError
 
     expect(error).toBeInstanceOf(RateLimitedError)
@@ -555,25 +683,55 @@ describe('cancellation and rate-limit resets', () => {
   })
 
   it('reads the leading number of a limit list and an `x-ratelimit-reset` in seconds from now', () => {
-    const response = new Response(null, { headers: { 'x-ratelimit-limit': '60, 60;w=3600', 'x-ratelimit-remaining': '59', 'x-ratelimit-reset': '3476' } })
+    const response = new Response(null, {
+      headers: { 'x-ratelimit-limit': '60, 60;w=3600', 'x-ratelimit-remaining': '59', 'x-ratelimit-reset': '3476' },
+    })
 
-    expect(rateLimitOf(response, 1_800_000_000_000)).toEqual({ limit: 60, remaining: 59, resetAt: new Date(1_800_003_476_000) })
+    expect(rateLimitOf(response, 1_800_000_000_000)).toEqual({
+      limit: 60,
+      remaining: 59,
+      resetAt: new Date(1_800_003_476_000),
+    })
   })
 
   it('reads the IETF `ratelimit` field for the policy with the fewest requests left', () => {
     const now = 1_800_000_000_000
-    const codeberg = new Response(null, { headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': '"baseline";r=1900;t=600' } })
-    const several = new Response(null, { headers: { 'ratelimit-policy': '"burst";q=100;w=60, "day";q=1000;w=86400', 'ratelimit': '"burst";r=90;t=30, "day";r=5;t=3600' } })
-    const unnamed = new Response(null, { headers: { ratelimit: '"other";r=7' } })
+    const codeberg = new Response(null, {
+      headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': '"baseline";r=1900;t=600' },
+    })
+    const several = new Response(null, {
+      headers: { 'ratelimit-policy': '"burst";q=100;w=60, "day";q=1000;w=86400', 'ratelimit': '"burst";r=90;t=30, "day";r=5;t=3600' },
+    })
+    const unnamed = new Response(null, {
+      headers: { ratelimit: '"other";r=7' },
+    })
 
-    expect(rateLimitOf(codeberg, now)).toEqual({ limit: 2000, remaining: 1900, resetAt: new Date(now + 600_000), resource: 'baseline' })
-    expect(rateLimitOf(several, now)).toEqual({ limit: 1000, remaining: 5, resetAt: new Date(now + 3_600_000), resource: 'day' })
+    expect(rateLimitOf(codeberg, now)).toEqual({
+      limit: 2000,
+      remaining: 1900,
+      resetAt: new Date(now + 600_000),
+      resource: 'baseline',
+    })
+    expect(rateLimitOf(several, now)).toEqual({
+      limit: 1000,
+      remaining: 5,
+      resetAt: new Date(now + 3_600_000),
+      resource: 'day',
+    })
     expect(rateLimitOf(unnamed, now)).toEqual({ remaining: 7, resource: 'other' })
-    expect(rateLimitOf(new Response(null, { headers: { 'ratelimit-policy': '3000;w=300' } }), now)).toBeUndefined()
+    expect(rateLimitOf(new Response(null, {
+      headers: { 'ratelimit-policy': '3000;w=300' },
+    }), now)).toBeUndefined()
   })
 
   it('reads an exhausted IETF `ratelimit` field as a rate limit', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 403, headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': '"baseline";r=0;t=30' } }) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response('', {
+        status: 403,
+        headers: { 'ratelimit-policy': '"baseline";q=2000;w=600', 'ratelimit': '"baseline";r=0;t=30' },
+      }),
+    })
     const error = await fetcher.json('/a').catch((error: unknown) => error) as RateLimitedError
 
     expect(error).toBeInstanceOf(RateLimitedError)
@@ -581,7 +739,13 @@ describe('cancellation and rate-limit resets', () => {
   })
 
   it('reads a Unix time in `ratelimit-reset`', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 429, headers: { 'ratelimit-reset': '2000000000' } }) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response('', {
+        status: 429,
+        headers: { 'ratelimit-reset': '2000000000' },
+      }),
+    })
     const error = await fetcher.json('/a').catch((error: unknown) => error) as RateLimitedError
 
     expect(error.resetAt).toEqual(new Date(2_000_000_000_000))
@@ -596,7 +760,10 @@ describe('credential scope', () => {
       authHeaders: () => ({ authorization: 'Bearer secret' }),
       query: { 'api-version': '7.1' },
       fetch: async (url, init) => {
-        calls.push({ url, authorization: new Headers(init?.headers).get('authorization') })
+        calls.push({
+          url,
+          authorization: new Headers(init?.headers).get('authorization'),
+        })
         return new Response('[]', { status: 200 })
       },
     })
@@ -606,7 +773,9 @@ describe('credential scope', () => {
   it('rejects a cursor on another origin before fetching', async () => {
     const { fetcher, calls } = recordingFetcher()
 
-    await expect(fetcher.page('/items', { cursor: { nextUrl: 'https://other.example/items' } })).rejects.toThrow(TypeError)
+    await expect(fetcher.page('/items', {
+      cursor: { nextUrl: 'https://other.example/items' },
+    })).rejects.toThrow(TypeError)
 
     expect(calls).toEqual([])
   })
@@ -616,20 +785,29 @@ describe('credential scope', () => {
 
     await createRequest(fetcher)('GET', 'https://evil.example/x')
 
-    expect(calls).toEqual([{ url: 'https://evil.example/x', authorization: null }])
+    expect(calls).toEqual([
+      { url: 'https://evil.example/x', authorization: null },
+    ])
   })
 
   it('still authenticates an absolute URL on its own origin', async () => {
     const { fetcher, calls } = recordingFetcher()
 
-    await fetcher.page('/items', { cursor: { nextUrl: 'https://api.example/v1/items?page=2' } })
+    await fetcher.page('/items', {
+      cursor: { nextUrl: 'https://api.example/v1/items?page=2' },
+    })
 
-    expect(calls).toEqual([{ url: 'https://api.example/v1/items?page=2&api-version=7.1', authorization: 'Bearer secret' }])
+    expect(calls).toEqual([
+      { url: 'https://api.example/v1/items?page=2&api-version=7.1', authorization: 'Bearer secret' },
+    ])
   })
 })
 
 describe('path safety', () => {
-  const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('{}', { status: 200 }) })
+  const fetcher = createFetcher({
+    baseUrl: 'https://api.example',
+    fetch: async () => new Response('{}', { status: 200 }),
+  })
 
   it.each([
     '/repos/a/b/issues/1/../../../../user/keys',
@@ -668,16 +846,24 @@ describe('streaming timeout', () => {
   }
 
   it('times out while waiting for stream headers', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 10, fetch: (_url, init) => new Promise((_, reject) => {
-      init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
-    }) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      timeout: 10,
+      fetch: (_url, init) => new Promise((_, reject) => {
+        init!.signal!.addEventListener('abort', () => reject(init!.signal!.reason), { once: true })
+      }),
+    })
 
     await expect(fetcher.stream('/logs')).rejects.toMatchObject({ name: 'ForgeTimeoutError' })
   })
 
   it('preserves caller cancellation after stream headers', async () => {
     const controller = new AbortController()
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      timeout: 50,
+      fetch: slowBodyFetch(8),
+    })
     const result = await fetcher.stream('/logs', { signal: controller.signal })
     const reason = new Error('cancelled')
     controller.abort(reason)
@@ -686,7 +872,11 @@ describe('streaming timeout', () => {
   })
 
   it('lets a streamed body outlive the request timeout', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      timeout: 50,
+      fetch: slowBodyFetch(8),
+    })
 
     const result = await fetcher.stream('/logs')
 
@@ -694,7 +884,11 @@ describe('streaming timeout', () => {
   })
 
   it('still times out a JSON body that takes too long', async () => {
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', timeout: 50, fetch: slowBodyFetch(8) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      timeout: 50,
+      fetch: slowBodyFetch(8),
+    })
 
     await expect(fetcher.json('/slow')).rejects.toMatchObject({ name: 'TimeoutError' })
   })
@@ -703,7 +897,13 @@ describe('streaming timeout', () => {
 describe('retry wait', () => {
   it('rejects with the caller\'s abort reason while waiting to retry', async () => {
     const controller = new AbortController()
-    const fetcher = createFetcher({ baseUrl: 'https://api.example', fetch: async () => new Response('', { status: 429, headers: { 'retry-after': '30' } }) })
+    const fetcher = createFetcher({
+      baseUrl: 'https://api.example',
+      fetch: async () => new Response('', {
+        status: 429,
+        headers: { 'retry-after': '30' },
+      }),
+    })
     const reason = new Error('cancelled')
     const pending = fetcher.json('/a', { signal: controller.signal })
     setTimeout(() => controller.abort(reason), 10)
@@ -718,7 +918,11 @@ describe('request()', () => {
     const fetcher = createFetcher({
       baseUrl: 'https://api.example',
       fetch: async (_url, init) => {
-        sent.push({ body: init?.body, contentType: new Headers(init?.headers).get('content-type'), method: init?.method })
+        sent.push({
+          body: init?.body,
+          contentType: new Headers(init?.headers).get('content-type'),
+          method: init?.method,
+        })
         return new Response('{}', { status: 200 })
       },
     })
@@ -729,9 +933,14 @@ describe('request()', () => {
     const { fetcher, sent } = bodyFetcher()
     const bytes = new Uint8Array([1, 2, 3])
 
-    await createRequest(fetcher)('POST', '/upload', { body: bytes, headers: { 'content-type': 'application/octet-stream' } })
+    await createRequest(fetcher)('POST', '/upload', {
+      body: bytes,
+      headers: { 'content-type': 'application/octet-stream' },
+    })
 
-    expect(sent).toEqual([{ body: bytes, contentType: 'application/octet-stream', method: 'POST' }])
+    expect(sent).toEqual([
+      { body: bytes, contentType: 'application/octet-stream', method: 'POST' },
+    ])
   })
 
   it.each([
@@ -758,8 +967,12 @@ describe('request()', () => {
       }
     }
 
-    await createRequest(fetcher)('POST', '/x', { body: new Date(0) })
-    await createRequest(fetcher)('POST', '/x', { body: new Value() })
+    await createRequest(fetcher)('POST', '/x', {
+      body: new Date(0),
+    })
+    await createRequest(fetcher)('POST', '/x', {
+      body: new Value(),
+    })
 
     expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([
       ['"1970-01-01T00:00:00.000Z"', 'application/json'],
@@ -770,10 +983,17 @@ describe('request()', () => {
   it('sends plain objects and arrays as JSON', async () => {
     const { fetcher, sent } = bodyFetcher()
 
-    await createRequest(fetcher)('POST', '/x', { body: { a: 1 } })
-    await createRequest(fetcher)('POST', '/x', { body: [1] })
+    await createRequest(fetcher)('POST', '/x', {
+      body: { a: 1 },
+    })
+    await createRequest(fetcher)('POST', '/x', {
+      body: [1],
+    })
 
-    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([['{"a":1}', 'application/json'], ['[1]', 'application/json']])
+    expect(sent.map(({ body, contentType }) => [body, contentType])).toEqual([
+      ['{"a":1}', 'application/json'],
+      ['[1]', 'application/json'],
+    ])
   })
 
   it('types a raw request passed as a variable as a stream', async () => {
@@ -788,7 +1008,9 @@ describe('request()', () => {
 
   it('rejects a mutating request on a read-only provider unless it says it only reads', async () => {
     const { fetcher, sent } = bodyFetcher()
-    const request = createRequest(fetcher, { readOnly: method => new ReadOnlyError(`${method} is a write`) })
+    const request = createRequest(fetcher, {
+      readOnly: method => new ReadOnlyError(`${method} is a write`),
+    })
 
     await expect(request('DELETE', '/x')).rejects.toBeInstanceOf(ReadOnlyError)
     await expect(request('POST', '/x', { raw: true })).rejects.toBeInstanceOf(ReadOnlyError)
@@ -796,7 +1018,10 @@ describe('request()', () => {
     await expect(request('get', '/x')).resolves.toMatchObject({ status: 200 })
     await expect(request('HEAD', '/x', { raw: true })).resolves.toMatchObject({ status: 200 })
     await expect(request('OPTIONS', '/x')).resolves.toMatchObject({ status: 200 })
-    await expect(request('POST', '/graphql', { body: { query: '{ viewer { login } }' }, mutates: false })).resolves.toMatchObject({ status: 200 })
+    await expect(request('POST', '/graphql', {
+      body: { query: '{ viewer { login } }' },
+      mutates: false,
+    })).resolves.toMatchObject({ status: 200 })
     await expect(request('GET', '/x', { mutates: true })).rejects.toBeInstanceOf(ReadOnlyError)
     expect(sent.map(call => call.method)).toEqual(['GET', 'HEAD', 'OPTIONS', 'POST'])
   })

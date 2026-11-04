@@ -38,7 +38,9 @@ export function markPayload(body: string, provenance: Provenance): string {
 }
 
 export function payloadProvenance(body: unknown): Provenance | undefined {
-  return typeof body === 'string' ? payloads.get(body) : undefined
+  return typeof body === 'string'
+    ? payloads.get(body)
+    : undefined
 }
 
 /** Marks the messages a fake socket replays, such as a recorded Jetstream session. */

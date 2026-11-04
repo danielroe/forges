@@ -257,7 +257,12 @@ const GHES_DEPENDABOT_ALERTS = '3.8'
 const GRAPHQL_BATCH = 20
 /** Each alias reads one scalar from one owner, so a chunk holds far more accounts than a thread batch. */
 const SPONSORABLE_BATCH = 50
-const LOCK_REASONS: Record<LockReason, string> = { off_topic: 'off-topic', too_heated: 'too heated', resolved: 'resolved', spam: 'spam' }
+const LOCK_REASONS: Record<LockReason, string> = {
+  off_topic: 'off-topic',
+  too_heated: 'too heated',
+  resolved: 'resolved',
+  spam: 'spam',
+}
 const REVIEW_CONTEXT_TTL = 5 * 60_000
 const POLL_DELAYS = [500, 1000, 2000]
 const CONTRIBUTOR_STATS_DELAYS = [500, 1000, 2000, 4000, 8000]
@@ -283,7 +288,12 @@ function commitError(error: unknown): unknown {
     return error
   }
   const text = `${error.message} ${error.body}`
-  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  const context = {
+    forge: error.forge,
+    instance: error.instance,
+    url: error.url,
+    method: error.method,
+  }
   if (/Expected branch to point to|not a fast[- ]forward/i.test(text)) {
     return new BranchMovedError('The branch no longer points at the commit the change was made on', 409, error.body, context, { cause: error })
   }
@@ -298,7 +308,12 @@ function updateBranchError(error: unknown): unknown {
   if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError || error.status !== 422) {
     return error
   }
-  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  const context = {
+    forge: error.forge,
+    instance: error.instance,
+    url: error.url,
+    method: error.method,
+  }
   if (/expected head sha/i.test(error.body)) {
     return new BranchMovedError('The head branch no longer points at the expected sha', error.status, error.body, context, { cause: error })
   }
@@ -318,7 +333,9 @@ function threadPath(ref: ResolvedThreadRef): string {
 }
 
 function installationId(installation: Installation | string): string {
-  return typeof installation === 'string' ? installation : installation.id
+  return typeof installation === 'string'
+    ? installation
+    : installation.id
 }
 
 /**
@@ -331,7 +348,9 @@ function advancedFreeText(text: string): string {
     const unclosed = parts.pop()!
     parts.push(`${parts.pop()} ${unclosed}`)
   }
-  return parts.map((part, index) => index % 2 ? part : part.replace(/[()\s]+/g, ' ')).join('"').trim()
+  return parts.map((part, index) => index % 2
+    ? part
+    : part.replace(/[()\s]+/g, ' ')).join('"').trim()
 }
 
 function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
@@ -342,7 +361,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   const anonymous = auth.type === 'anonymous'
   /** An app without an installation reaches only the `/app` endpoints. */
   const appItself = auth.type === 'app' && auth.installationId === undefined
-  const tokenKind = auth.type === 'token' ? tokenKindOf(auth) : undefined
+  const tokenKind = auth.type === 'token'
+    ? tokenKindOf(auth)
+    : undefined
   /** An installation, whether from app credentials or its token, acts as no account. */
   const installation = auth.type === 'app' || tokenKind === 'installation'
   /** GitHub serves notifications only to classic personal access tokens and OAuth app tokens. */
@@ -361,10 +382,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     if (!pending.length) {
       return []
     }
-    const repos = [...new Map(pending.map((item) => {
-      const repo = (item.subject as { thread: ThreadRef }).thread.repo
-      return [`${repo.owner}/${repo.name}`, repo]
-    })).values()]
+    const repos = [
+      ...new Map(pending.map((item) => {
+        const repo = (item.subject as { thread: ThreadRef }).thread.repo
+        return [`${repo.owner}/${repo.name}`, repo]
+      })).values(),
+    ]
     let result: RecentDiscussionsResult
     try {
       const { query, variables } = (await import('./graphql.ts')).recentDiscussionsQuery(repos)
@@ -372,7 +395,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }
     catch (error) {
       if (error instanceof InsufficientScopeError || (error instanceof ForgeApiError && error.status === 200)) {
-        return [toWarning('discussion_unresolved', error)]
+        return [
+          toWarning('discussion_unresolved', error),
+        ]
       }
       throw error
     }
@@ -381,7 +406,14 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       const index = repos.findIndex(repo => repo.owner === thread.repo.owner && repo.name === thread.repo.name)
       const matches = (result[`r${index}`]?.discussions.nodes ?? []).filter(node => node.title === item.title)
       if (matches.length === 1) {
-        item.subject = { type: 'thread', thread: { ...thread, number: String(matches[0]!.number), externalId: matches[0]!.id } }
+        item.subject = {
+          type: 'thread',
+          thread: {
+            ...thread,
+            number: String(matches[0]!.number),
+            externalId: matches[0]!.id,
+          },
+        }
       }
     }
     return []
@@ -397,7 +429,15 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       return undefined
     }
     const warning = { code: 'feed_throttled', message: `GitHub asked to wait ${Math.ceil(wait / 1000)}s more before reading ${subject} again; no request was sent. Read it later, or pass force: true` }
-    return { items: [], throttled: true, nextPollAt: new Date(at), warnings: [warning], ...listOptions.cursor?.etag ? { etag: listOptions.cursor.etag } : {} }
+    return {
+      items: [],
+      throttled: true,
+      nextPollAt: new Date(at),
+      warnings: [warning],
+      ...listOptions.cursor?.etag
+        ? { etag: listOptions.cursor.etag }
+        : {},
+    }
   }
 
   function recordPoll(path: string, cursor: Cursor | undefined, response: Response): { nextPollAt?: Date } {
@@ -407,7 +447,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }
     const at = Date.now() + interval * 1000
     nextPoll.set(path, at)
-    return { nextPollAt: new Date(at) }
+    return {
+      nextPollAt: new Date(at),
+    }
   }
 
   async function notificationPage(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
@@ -428,11 +470,15 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     })
     const items = (result.data ?? []).map(raw => toNotification(context, raw))
     const warnings = await resolveDiscussionNumbers(items)
-    const etag = listOptions.cursor?.nextUrl ? undefined : result.cursor?.etag ?? listOptions.cursor?.etag
+    const etag = listOptions.cursor?.nextUrl
+      ? undefined
+      : result.cursor?.etag ?? listOptions.cursor?.etag
     return {
       items,
       cursor: result.cursor?.nextUrl ? result.cursor : undefined,
-      ...etag ? { etag } : {},
+      ...etag
+        ? { etag }
+        : {},
       notModified: result.notModified,
       warnings: warnings.length ? warnings : undefined,
       ...recordPoll('/notifications', listOptions.cursor, result.response),
@@ -469,8 +515,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }, listOptions)
     const comments = data.repository?.discussion?.comments
     return {
-      items: (comments?.nodes ?? []).flatMap(comment => [{ comment, isReply: false }, ...(comment.replies?.nodes ?? []).map(reply => ({ comment: reply, isReply: true }))]),
-      cursor: comments?.pageInfo.hasNextPage && comments.pageInfo.endCursor ? { token: comments.pageInfo.endCursor } : undefined,
+      items: (comments?.nodes ?? []).flatMap(comment => [
+        { comment, isReply: false },
+        ...(comment.replies?.nodes ?? []).map(reply => ({ comment: reply, isReply: true })),
+      ]),
+      cursor: comments?.pageInfo.hasNextPage && comments.pageInfo.endCursor
+        ? { token: comments.pageInfo.endCursor }
+        : undefined,
     }
   }
 
@@ -485,16 +536,24 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       try {
         const checks = await headChecks(ref.repo, data.head.sha, options?.signal)
         // Without check runs there is no checks page, and the statuses show on the pull request itself.
-        result.checks = summariseChecks(checks.items.map(check => check.state), data.html_url && profile.checkRuns ? `${data.html_url}/checks` : data.html_url)
+        result.checks = summariseChecks(checks.items.map(check => check.state), data.html_url && profile.checkRuns
+          ? `${data.html_url}/checks`
+          : data.html_url)
         if (checks.warnings?.length) {
-          result.warnings = [...result.warnings ?? [], ...checks.warnings]
+          result.warnings = [
+            ...result.warnings ?? [],
+            ...checks.warnings,
+          ]
         }
       }
       catch (error) {
         if (!degradesToWarning(error)) {
           throw error
         }
-        result.warnings = [...result.warnings ?? [], toWarning('checks_unreadable', error, ref.number)]
+        result.warnings = [
+          ...result.warnings ?? [],
+          toWarning('checks_unreadable', error, ref.number),
+        ]
       }
     }
     return result
@@ -531,19 +590,35 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         throw result.reason
       }
     }
-    const statuses = status.status === 'fulfilled' ? status.value : []
+    const statuses = status.status === 'fulfilled'
+      ? status.value
+      : []
     // Only a complete read reports a total: check-runs report their own count,
     // and the older commit statuses add to it.
-    const total = runs.status === 'fulfilled' && status.status === 'fulfilled' && checkRunTotal !== undefined ? checkRunTotal + statuses.length : undefined
+    const total = runs.status === 'fulfilled' && status.status === 'fulfilled' && checkRunTotal !== undefined
+      ? checkRunTotal + statuses.length
+      : undefined
     return {
       items: [
-        ...runs.status === 'fulfilled' ? runs.value : [],
+        ...runs.status === 'fulfilled'
+          ? runs.value
+          : [],
         ...statuses,
       ],
-      ...total !== undefined ? { total } : {},
+      ...total !== undefined
+        ? { total }
+        : {},
       warnings: [
-        ...runs.status === 'rejected' ? [toWarning('checks_unreadable', runs.reason, 'check-runs')] : [],
-        ...status.status === 'rejected' ? [toWarning('checks_unreadable', status.reason, 'statuses')] : [],
+        ...runs.status === 'rejected'
+          ? [
+              toWarning('checks_unreadable', runs.reason, 'check-runs'),
+            ]
+          : [],
+        ...status.status === 'rejected'
+          ? [
+              toWarning('checks_unreadable', status.reason, 'statuses'),
+            ]
+          : [],
       ],
     }
   }
@@ -558,7 +633,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const batchable: Array<{ index: number, ref: ResolvedThreadRef }> = []
     for (const [index, ref] of refs.entries()) {
       if (!isResolvedThread(ref)) {
-        results[index] = { ok: false, ref, warning: toWarning('thread_unresolved', new Error('Thread ref has no number'), ref.number) }
+        results[index] = {
+          ok: false,
+          ref,
+          warning: toWarning('thread_unresolved', new Error('Thread ref has no number'), ref.number),
+        }
       }
       else {
         batchable.push({ index, ref })
@@ -577,28 +656,54 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         json: { query, variables, operationName: 'ThreadsBatch' },
         signal: options?.signal,
       })
-      const failure = data.data ? undefined : graphqlError('ThreadsBatch', data.errors, url, context, response)
+      const failure = data.data
+        ? undefined
+        : graphqlError('ThreadsBatch', data.errors, url, context, response)
       if (failure instanceof RateLimitedError) {
         throw failure
       }
       chunk.forEach(({ index, ref }, offset) => {
         const node = data.data?.[`t${offset}`]
-        const discussion = ref.kind === 'discussion' ? node?.discussion : undefined
-        const issueOrPullRequest = ref.kind === 'discussion' ? undefined : node?.issueOrPullRequest
+        const discussion = ref.kind === 'discussion'
+          ? node?.discussion
+          : undefined
+        const issueOrPullRequest = ref.kind === 'discussion'
+          ? undefined
+          : node?.issueOrPullRequest
         if (failure) {
-          results[index] = { ok: false, ref, warning: toWarning(failure instanceof InsufficientScopeError ? 'insufficient_scope' : 'thread_unreadable', failure, ref.number) }
+          results[index] = {
+            ok: false,
+            ref,
+            warning: toWarning(failure instanceof InsufficientScopeError
+              ? 'insufficient_scope'
+              : 'thread_unreadable', failure, ref.number),
+          }
           return
         }
         if (!discussion && !issueOrPullRequest) {
           const error = data.errors?.find(error => error.path?.[0] === `t${offset}`)
           if (error?.type === 'INSUFFICIENT_SCOPES') {
-            results[index] = { ok: false, ref, warning: toWarning('insufficient_scope', graphqlError('ThreadsBatch', [error], url, context), ref.number) }
+            results[index] = {
+              ok: false,
+              ref,
+              warning: toWarning('insufficient_scope', graphqlError('ThreadsBatch', [error], url, context), ref.number),
+            }
             return
           }
-          results[index] = { ok: false, ref, warning: { code: 'thread_unreadable', message: error?.message ?? 'Not found', subject: ref.number } }
+          results[index] = {
+            ok: false,
+            ref,
+            warning: { code: 'thread_unreadable', message: error?.message ?? 'Not found', subject: ref.number },
+          }
           return
         }
-        results[index] = { ok: true, ref, thread: discussion ? g.toDiscussionThread(ref, discussion) : g.toGraphQLThread(ref, issueOrPullRequest!) }
+        results[index] = {
+          ok: true,
+          ref,
+          thread: discussion
+            ? g.toDiscussionThread(ref, discussion)
+            : g.toGraphQLThread(ref, issueOrPullRequest!),
+        }
       })
     }
     return results
@@ -620,26 +725,46 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         json: { query, variables, operationName: 'SponsorableMany' },
         signal: options?.signal,
       })
-      const requestError = data.errors?.length ? graphqlError('SponsorableMany', data.errors, url, context, response) : undefined
+      const requestError = data.errors?.length
+        ? graphqlError('SponsorableMany', data.errors, url, context, response)
+        : undefined
       if (requestError instanceof RateLimitedError) {
         throw requestError
       }
-      const failure = data.data ? undefined : requestError ?? graphqlError('SponsorableMany', undefined, url, context, response)
+      const failure = data.data
+        ? undefined
+        : requestError ?? graphqlError('SponsorableMany', undefined, url, context, response)
       chunk.forEach((login, offset) => {
         const index = start + offset
         if (failure) {
-          results[index] = { ok: false, login, warning: toWarning(failure instanceof InsufficientScopeError ? 'insufficient_scope' : 'account_unreadable', failure, login) }
+          results[index] = {
+            ok: false,
+            login,
+            warning: toWarning(failure instanceof InsufficientScopeError
+              ? 'insufficient_scope'
+              : 'account_unreadable', failure, login),
+          }
           return
         }
         const owner = data.data?.[`u${offset}`]
         if (!owner) {
           const error = data.errors?.find(error => error.path?.[0] === `u${offset}`)
           if (error && error.type !== 'NOT_FOUND') {
-            const code = error.type === 'INSUFFICIENT_SCOPES' ? 'insufficient_scope' : 'account_unreadable'
-            results[index] = { ok: false, login, warning: toWarning(code, graphqlError('SponsorableMany', [error], url, context), login) }
+            const code = error.type === 'INSUFFICIENT_SCOPES'
+              ? 'insufficient_scope'
+              : 'account_unreadable'
+            results[index] = {
+              ok: false,
+              login,
+              warning: toWarning(code, graphqlError('SponsorableMany', [error], url, context), login),
+            }
             return
           }
-          results[index] = { ok: false, login, warning: { code: 'account_not_found', message: error?.message ?? `Account ${login} not found`, subject: login } }
+          results[index] = {
+            ok: false,
+            login,
+            warning: { code: 'account_not_found', message: error?.message ?? `Account ${login} not found`, subject: login },
+          }
           return
         }
         results[index] = { ok: true, login, sponsorable: owner.hasSponsorsListing }
@@ -654,13 +779,25 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const createdAfter = query.createdAfter?.getTime()
     if (query.kind === 'discussion') {
       if (query.assignee) {
-        return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Discussions have no assignees' }] }
+        return {
+          items: [],
+          warnings: [
+            { code: 'filter_unsupported', message: 'Discussions have no assignees' },
+          ],
+        }
       }
       if (query.milestone && query.milestone !== 'none') {
-        return { items: [], warnings: [{ code: 'filter_unsupported', message: 'Discussions have no milestones' }] }
+        return {
+          items: [],
+          warnings: [
+            { code: 'filter_unsupported', message: 'Discussions have no milestones' },
+          ],
+        }
       }
       const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.sort === 'comments'
-        ? [{ code: 'sort_unsupported', message: 'Discussions cannot be sorted by comments; sorted by update time' }]
+        ? [
+            { code: 'sort_unsupported', message: 'Discussions cannot be sorted by comments; sorted by update time' },
+          ]
         : []
       for (const filter of ['involves', 'mentions'] as const) {
         if (isFirstPage(query.cursor) && query[filter]) {
@@ -672,13 +809,21 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         name: repo.name,
         first: Math.min(query.perPage ?? 50, 100),
         after: query.cursor?.token ?? null,
-        field: query.sort === 'created' || !query.sort ? 'CREATED_AT' : 'UPDATED_AT',
+        field: query.sort === 'created' || !query.sort
+          ? 'CREATED_AT'
+          : 'UPDATED_AT',
         direction: direction.toUpperCase(),
       }, query)
       const { toDiscussionThread } = await import('./graphql.ts')
       const discussions = data.repository?.discussions
       const items = (discussions?.nodes ?? [])
-        .map(node => toDiscussionThread({ forge: context.forge, instance, repo, kind: 'discussion', number: String(node.number) }, node))
+        .map(node => toDiscussionThread({
+          forge: context.forge,
+          instance,
+          repo,
+          kind: 'discussion',
+          number: String(node.number),
+        }, node))
         .filter(thread => (state === 'all' || thread.state === state)
           && (!query.author || thread.author?.login === query.author)
           && (!query.labels?.length || query.labels.every(label => thread.labels.some(item => item.name === label)))
@@ -686,8 +831,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           && (createdAfter === undefined || (thread.createdAt?.getTime() ?? 0) >= createdAfter))
       return {
         items,
-        cursor: discussions?.pageInfo.hasNextPage && discussions.pageInfo.endCursor ? { token: discussions.pageInfo.endCursor } : undefined,
-        ...warnings.length ? { warnings } : {},
+        cursor: discussions?.pageInfo.hasNextPage && discussions.pageInfo.endCursor
+          ? { token: discussions.pageInfo.endCursor }
+          : undefined,
+        ...warnings.length
+          ? { warnings }
+          : {},
       }
     }
     if (state === 'merged') {
@@ -703,7 +852,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           'is:merged',
           query.createdAfter && `created:>=${query.createdAfter.toISOString()}`,
           query.mentions && `mentions:${query.mentions}`,
-          query.milestone && (query.milestone === 'none' ? 'no:milestone' : `milestone:"${query.milestone.replaceAll('"', '')}"`),
+          query.milestone && (query.milestone === 'none'
+            ? 'no:milestone'
+            : `milestone:"${query.milestone.replaceAll('"', '')}"`),
         ].filter(Boolean).join(' '),
         sort: query.sort ?? 'created',
         direction,
@@ -721,7 +872,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       return { items: [] }
     }
     const warnings: ForgeWarning[] = isFirstPage(query.cursor) && query.involves
-      ? [{ code: 'filter_unsupported', message: 'GitHub lists issues and pull requests without an involves filter; it was ignored. search.threads() has one' }]
+      ? [
+          { code: 'filter_unsupported', message: 'GitHub lists issues and pull requests without an involves filter; it was ignored. search.threads() has one' },
+        ]
       : []
     // `/pulls` returns full pages but has no label, author, assignee, mention, milestone or since filter.
     const pullsOnly = query.kind === 'pull_request' && !query.labels?.length && !query.author && !query.assignee && !query.mentions && !query.milestone && !query.since && query.sort !== 'comments'
@@ -747,12 +900,28 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       if ((query.kind === 'issue' && isPull) || (query.kind === 'pull_request' && !isPull) || older(raw)) {
         return undefined
       }
-      return toThread({ forge: context.forge, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
+      return toThread({
+        forge: context.forge,
+        instance,
+        repo,
+        kind: isPull ? 'pull_request' : 'issue',
+        number: String(raw.number),
+      }, raw)
     })
     const ordered = (query.sort ?? 'created') === 'created' && direction === 'desc'
     await withPullChecks(page, query)
-    const listed = warnings.length ? { ...page, warnings: [...warnings, ...page.warnings ?? []] } : page
-    return ordered && (result.data ?? []).some(older) ? { ...listed, cursor: undefined } : listed
+    const listed = warnings.length
+      ? {
+          ...page,
+          warnings: [
+            ...warnings,
+            ...page.warnings ?? [],
+          ],
+        }
+      : page
+    return ordered && (result.data ?? []).some(older)
+      ? { ...listed, cursor: undefined }
+      : listed
   }
 
   /** The number of the milestone titled `title`, or `null` when the repository has none by that title. */
@@ -785,17 +954,30 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       if (!degradesToWarning(error)) {
         throw error
       }
-      page.warnings = [...page.warnings ?? [], toWarning('checks_unreadable', error)]
+      page.warnings = [
+        ...page.warnings ?? [],
+        toWarning('checks_unreadable', error),
+      ]
     }
   }
 
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const ref = requireThread(thread, context)
     if (ref.kind === 'discussion') {
-      const [page, { toDiscussionComment }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
-      return { ...page, items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)) }
+      const [page, { toDiscussionComment }] = await Promise.all([
+        discussionCommentPage(ref, listOptions),
+        import('./graphql.ts'),
+      ])
+      return {
+        ...page,
+        items: page.items.map(({ comment }) => toDiscussionComment(ref, comment)),
+      }
     }
-    return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw), { query: { since: listOptions.since?.toISOString() } })
+    return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, listOptions, (raw: GitHubComment) => toComment(ref, raw), {
+      query: {
+        since: listOptions.since?.toISOString(),
+      },
+    })
   }
 
   /** Discussion comment ids are node ids already; other comments are read for theirs. */
@@ -803,7 +985,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     if ('thread' in ref && ref.thread.kind === 'discussion') {
       return ref.id
     }
-    const { data } = await fetcher.json<GitHubComment>('commit' in ref ? commitCommentPath(ref) : commentPath(ref), { signal: options?.signal })
+    const { data } = await fetcher.json<GitHubComment>('commit' in ref
+      ? commitCommentPath(ref)
+      : commentPath(ref), { signal: options?.signal })
     if (!data.node_id) {
       throw new NotFoundError(`Comment ${ref.id} has no node id`, 404, '', context)
     }
@@ -834,7 +1018,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const reason = options_.reasonRaw ?? options_.reason
     const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), {
       method: 'PATCH',
-      json: ref.kind === 'issue' && state === 'closed' && reason ? { state, state_reason: reason } : { state },
+      json: ref.kind === 'issue' && state === 'closed' && reason
+        ? { state, state_reason: reason }
+        : { state },
       signal: options_.signal,
     })
     return toThread(ref, data)
@@ -866,10 +1052,17 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   async function directMerge(ref: ResolvedThreadRef, method: MergeMethod, mergeOptions: MergeOptions): Promise<MergeResult> {
     const path = `${threadPath(ref)}/merge`
     const { sha, title, message } = mergeOptions
-    const body = { merge_method: method, sha, commit_title: title, commit_message: message }
+    const body = {
+      merge_method: method,
+      sha,
+      commit_title: title,
+      commit_message: message,
+    }
     const timeout = options.timeout ?? 30_000
     const budget = new AbortController()
-    const signal = mergeOptions.signal ? anySignal([budget.signal, mergeOptions.signal]) : budget.signal
+    const signal = mergeOptions.signal
+      ? anySignal([budget.signal, mergeOptions.signal])
+      : budget.signal
     const timer = setTimeout(() => budget.abort(new DOMException('Merge timed out', 'TimeoutError')), timeout)
     const timedOut = (url: string, requestMethod: string, cause: unknown, uuid?: string) => new ForgeTimeoutError(
       uuid
@@ -886,7 +1079,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       let state: GitHubAsyncMerge
       let status: number
       try {
-        const { data, response } = await fetcher.json<GitHubAsyncMerge>(`${path}-async`, { method: 'PUT', json: { ...body, merge_action: 'direct_merge' }, signal })
+        const { data, response } = await fetcher.json<GitHubAsyncMerge>(`${path}-async`, {
+          method: 'PUT',
+          json: { ...body, merge_action: 'direct_merge' },
+          signal,
+        })
         state = data
         status = response.status
       }
@@ -896,7 +1093,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         }
         if (enterprise && error instanceof NotFoundError) {
           url = fetcher.resolve(path)
-          const { data } = await fetcher.json<{ sha?: string } | undefined>(path, { method: 'PUT', json: body, mapError: toMergeError, signal })
+          const { data } = await fetcher.json<{ sha?: string } | undefined>(path, {
+            method: 'PUT',
+            json: body,
+            mapError: toMergeError,
+            signal,
+          })
           return { status: 'merged', sha: data?.sha, raw: data }
         }
         state = pendingMergeFrom(error, method, sha, title, message)
@@ -929,7 +1131,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       }
     }
     catch (error) {
-      throw budget.signal.aborted ? timedOut(url, requestMethod, error, uuid) : error
+      throw budget.signal.aborted
+        ? timedOut(url, requestMethod, error, uuid)
+        : error
     }
     finally {
       clearTimeout(timer)
@@ -979,7 +1183,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }
     const { data } = await fetcher.json<{ message?: string, url?: string }>(`${threadPath(ref)}/update-branch`, {
       method: 'PUT',
-      json: sha === undefined ? {} : { expected_head_sha: sha },
+      json: sha === undefined
+        ? {}
+        : { expected_head_sha: sha },
       mapError: updateBranchError,
       signal,
     })
@@ -1016,7 +1222,14 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     do {
       let data: ReviewThreadsResult
       try {
-        data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', { owner: ref.repo.owner, name: ref.repo.name, number: Number(ref.number), ...after ? { after } : {} }, options)
+        data = await graphql<ReviewThreadsResult>('REVIEW_THREADS', {
+          owner: ref.repo.owner,
+          name: ref.repo.name,
+          number: Number(ref.number),
+          ...after
+            ? { after }
+            : {},
+        }, options)
       }
       catch (error) {
         if (error instanceof ForgeError) {
@@ -1033,7 +1246,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         }
       }
       const next = threads?.pageInfo?.hasNextPage ? threads.pageInfo.endCursor : null
-      after = next !== after ? next : null
+      after = next !== after
+        ? next
+        : null
     } while (after)
     return byComment
   }
@@ -1059,7 +1274,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const kept = (!isFirstPage(listOptions.cursor) && reviewContext.get(key)) || {
       at: now,
       read: Promise.all([
-        Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, { query: { per_page: 100 }, signal: listOptions.signal })),
+        Array.fromAsync(fetcher.items<GitHubReviewComment>(`${key}/comments`, {
+          query: { per_page: 100 },
+          signal: listOptions.signal,
+        })),
         reviewThreadsByComment(ref, listOptions),
       ]),
     }
@@ -1095,7 +1313,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const { nodes, pageInfo } = pull.reviewThreads
     return {
       items: nodes.map(node => toReviewThread(ref, node)),
-      cursor: pageInfo.hasNextPage && pageInfo.endCursor ? { token: pageInfo.endCursor } : undefined,
+      cursor: pageInfo.hasNextPage && pageInfo.endCursor
+        ? { token: pageInfo.endCursor }
+        : undefined,
     }
   }
 
@@ -1131,7 +1351,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const path = `${threadPath(pull)}/reviews/${encodeURIComponent(ref.id)}`
     const [{ data }, comments, byComment] = await Promise.all([
       fetcher.json<GitHubReview>(path, { signal: options?.signal }),
-      Array.fromAsync(fetcher.items<GitHubReviewComment>(`${path}/comments`, { query: { per_page: 100 }, signal: options?.signal })),
+      Array.fromAsync(fetcher.items<GitHubReviewComment>(`${path}/comments`, {
+        query: { per_page: 100 },
+        signal: options?.signal,
+      })),
       reviewThreadsByComment(pull, options),
     ])
     return toReview(pull, data, comments.map(comment => toReviewComment(pull, comment, byComment.get(String(comment.id)))))
@@ -1147,7 +1370,14 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
 
   async function getJob(ref: CiJobRef, options?: BaseOptions): Promise<CiJob> {
     const { data } = await fetcher.json<GitHubWorkflowJob>(`${repoPath(ref.repo)}/actions/jobs/${encodeURIComponent(ref.id)}`, { signal: options?.signal })
-    const run = ref.run ?? (data.run_id === undefined ? undefined : { forge: context.forge, instance, repo: ref.repo, id: String(data.run_id) })
+    const run = ref.run ?? (data.run_id === undefined
+      ? undefined
+      : {
+          forge: context.forge,
+          instance,
+          repo: ref.repo,
+          id: String(data.run_id),
+        })
     if (!run) {
       throw new UnsupportedOperationError(`GitHub returned job ${ref.id} without its run, and the ref names no run`, context)
     }
@@ -1165,7 +1395,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       number: Number(ref.number),
       discussion: ref.kind === 'discussion',
     }, options)
-    const node = ref.kind === 'discussion' ? data.repository?.discussion : data.repository?.issueOrPullRequest
+    const node = ref.kind === 'discussion'
+      ? data.repository?.discussion
+      : data.repository?.issueOrPullRequest
     if (!node) {
       throw new NotFoundError(`Thread ${ref.number} not found`, 404, '', context)
     }
@@ -1173,23 +1405,44 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   }
 
   async function closingPage(ref: ResolvedThreadRef, document: 'CLOSING_ISSUES' | 'CLOSING_PULL_REQUESTS', listOptions: PageOptions): Promise<Page<Thread>> {
-    const [data, { toGraphQLThread }] = await Promise.all([graphql<ClosingReferencesResult>(document, {
-      owner: ref.repo.owner,
-      name: ref.repo.name,
-      number: Number(ref.number),
-      first: Math.min(listOptions.perPage ?? 50, 100),
-      after: listOptions.cursor?.token ?? null,
-    }, listOptions), import('./graphql.ts')])
+    const [data, { toGraphQLThread }] = await Promise.all([
+      graphql<ClosingReferencesResult>(document, {
+        owner: ref.repo.owner,
+        name: ref.repo.name,
+        number: Number(ref.number),
+        first: Math.min(listOptions.perPage ?? 50, 100),
+        after: listOptions.cursor?.token ?? null,
+      }, listOptions),
+      import('./graphql.ts'),
+    ])
     const references = data.repository?.thread?.references
     if (!references) {
       throw new NotFoundError(`Thread ${ref.number} not found`, 404, '', context)
     }
     return {
       items: references.nodes.map((node) => {
-        const repo = { forge: context.forge, instance, owner: node.repository.owner.login, name: node.repository.name, externalId: node.repository.databaseId === undefined ? undefined : String(node.repository.databaseId) }
-        return toGraphQLThread({ forge: context.forge, instance, repo, kind: node.__typename === 'PullRequest' ? 'pull_request' : 'issue', number: String(node.number) }, node)
+        const repo = {
+          forge: context.forge,
+          instance,
+          owner: node.repository.owner.login,
+          name: node.repository.name,
+          externalId: node.repository.databaseId === undefined
+            ? undefined
+            : String(node.repository.databaseId),
+        }
+        return toGraphQLThread({
+          forge: context.forge,
+          instance,
+          repo,
+          kind: node.__typename === 'PullRequest'
+            ? 'pull_request'
+            : 'issue',
+          number: String(node.number),
+        }, node)
       }),
-      cursor: references.pageInfo.hasNextPage && references.pageInfo.endCursor ? { token: references.pageInfo.endCursor } : undefined,
+      cursor: references.pageInfo.hasNextPage && references.pageInfo.endCursor
+        ? { token: references.pageInfo.endCursor }
+        : undefined,
     }
   }
 
@@ -1204,7 +1457,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         query: { per_page: listOptions.perPage },
         cursor: listOptions.cursor,
         signal: listOptions.signal,
-        select: wrapped ? (body, next) => ({ items: (body as { repositories: GitHubRepositoryDetail[] }).repositories, next }) : undefined,
+        select: wrapped
+          ? (body, next) => ({ items: (body as { repositories: GitHubRepositoryDetail[] }).repositories, next })
+          : undefined,
       }),
       raw => toRepo(context, raw),
     )
@@ -1215,16 +1470,28 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
 
   /** `/users/{owner}/repos` serves organisations too, but lists only public repositories. */
   async function ownerReposPage(owner: RepoRef, query: OwnerRepoQuery = {}): Promise<Page<Repo>> {
-    const visibility = query.visibility === 'all' ? undefined : query.visibility
+    const visibility = query.visibility === 'all'
+      ? undefined
+      : query.visibility
     const read = (path: string, params: Record<string, string | undefined>) => list(path, query, (raw: GitHubRepositoryDetail) => toRepo(context, raw), {
-      query: { ...params, sort: query.sort === 'name' ? 'full_name' : query.sort, direction: query.direction },
+      query: {
+        ...params,
+        sort: query.sort === 'name'
+          ? 'full_name'
+          : query.sort,
+        direction: query.direction,
+      },
     })
     const userRepos = () => read(`/users/${encodeURIComponent(owner.owner)}/repos`, { type: 'owner' })
     if (visibility === 'public') {
       return userRepos()
     }
     try {
-      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, { type: visibility === 'internal' ? undefined : visibility })
+      return await read(`/orgs/${encodeURIComponent(owner.owner)}/repos`, {
+        type: visibility === 'internal'
+          ? undefined
+          : visibility,
+      })
     }
     catch (error) {
       if (!(error instanceof NotFoundError) || !isFirstPage(query.cursor)) {
@@ -1232,24 +1499,40 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       }
     }
     if (auth.type === 'token' && !installation && (await viewerLogin()).toLowerCase() === owner.owner.toLowerCase()) {
-      return read('/user/repos', { affiliation: 'owner', visibility: visibility === 'internal' ? undefined : visibility })
+      return read('/user/repos', {
+        affiliation: 'owner',
+        visibility: visibility === 'internal'
+          ? undefined
+          : visibility,
+      })
     }
     if (visibility) {
-      return { items: [], warnings: [{ code: 'filter_unsupported', message: 'GitHub lists only the public repositories of another user' }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'filter_unsupported', message: 'GitHub lists only the public repositories of another user' },
+        ],
+      }
     }
     return userRepos()
   }
 
   /** Repository hooks, or organisation hooks for a namespace ref. */
   function hooksPath(target: RepoRef): string {
-    return isNamespaceRef(target) ? `/orgs/${encodeURIComponent(target.owner)}/hooks` : `${repoPath(target)}/hooks`
+    return isNamespaceRef(target)
+      ? `/orgs/${encodeURIComponent(target.owner)}/hooks`
+      : `${repoPath(target)}/hooks`
   }
 
   function hookConfig(input: { url?: string, contentType?: 'json' | 'form', secret?: string }): Record<string, string> {
     return {
-      ...input.url ? { url: input.url } : {},
+      ...input.url
+        ? { url: input.url }
+        : {},
       content_type: input.contentType ?? 'json',
-      ...input.secret ? { secret: input.secret } : {},
+      ...input.secret
+        ? { secret: input.secret }
+        : {},
     }
   }
 
@@ -1264,7 +1547,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         404,
         error.body,
         'resource_protected',
-        { forge: error.forge, instance: error.instance, url: error.url, method: error.method, reasonRaw: 'hook_scope_404' },
+        {
+          forge: error.forge,
+          instance: error.instance,
+          url: error.url,
+          method: error.method,
+          reasonRaw: 'hook_scope_404',
+        },
         { cause: error },
       )
     }
@@ -1277,7 +1566,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     if (missingScope || /not accessible by/i.test(error.body)) {
       return error
     }
-    return new ForbiddenError('GitHub refused to re-request a check run that another app created', error.status, error.body, 'not_owner', { forge: error.forge, instance: error.instance, url: error.url, method: error.method }, { cause: error })
+    return new ForbiddenError('GitHub refused to re-request a check run that another app created', error.status, error.body, 'not_owner', {
+      forge: error.forge,
+      instance: error.instance,
+      url: error.url,
+      method: error.method,
+    }, { cause: error })
   }
 
   /** GitHub responds with `422` to a change of the tag, target or draft state of an immutable release. */
@@ -1289,7 +1583,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     if (!reasonRaw) {
       return error
     }
-    return new ForbiddenError('GitHub refused the change because the release is immutable', error.status, error.body, 'immutable_release', { forge: error.forge, instance: error.instance, url: error.url, method: error.method, reasonRaw }, { cause: error })
+    return new ForbiddenError('GitHub refused the change because the release is immutable', error.status, error.body, 'immutable_release', {
+      forge: error.forge,
+      instance: error.instance,
+      url: error.url,
+      method: error.method,
+      reasonRaw,
+    }, { cause: error })
   }
 
   /** GitHub search qualifiers, in the order the docs list them. */
@@ -1297,8 +1597,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const qualifiers: string[] = []
     const advanced = !query.kind
     /** In advanced search a bare `OR` binds looser than the other qualifiers, so caller syntax is grouped. */
-    const group = (value: string) => advanced ? `(${value})` : value
-    const text = advanced && query.text ? advancedFreeText(query.text) : query.text
+    const group = (value: string) => advanced
+      ? `(${value})`
+      : value
+    const text = advanced && query.text
+      ? advancedFreeText(query.text)
+      : query.text
     if (text) {
       qualifiers.push(group(text))
     }
@@ -1308,11 +1612,19 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     else if (query.owner) {
       qualifiers.push(`user:${query.owner}`)
     }
-    qualifiers.push(query.kind ? query.kind === 'pull_request' ? 'is:pr' : 'is:issue' : '(is:issue OR is:pr)')
+    qualifiers.push(query.kind
+      ? query.kind === 'pull_request'
+        ? 'is:pr'
+        : 'is:issue'
+      : '(is:issue OR is:pr)')
     if (query.state && query.state !== 'all') {
       qualifiers.push(`state:${query.state}`)
     }
-    for (const [name, value] of [['author', query.author], ['involves', query.involves], ['assignee', query.assignee]] as const) {
+    for (const [name, value] of [
+      ['author', query.author],
+      ['involves', query.involves],
+      ['assignee', query.assignee],
+    ] as const) {
       if (value) {
         qualifiers.push(`${name}:${value}`)
       }
@@ -1346,7 +1658,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       query: {
         q: searchQualifiers(query).join(' '),
         advanced_search: query.kind ? undefined : 'true',
-        sort: query.sort && query.sort !== 'relevance' ? query.sort : undefined,
+        sort: query.sort && query.sort !== 'relevance'
+          ? query.sort
+          : undefined,
         order: query.direction,
         per_page: query.perPage,
       },
@@ -1363,12 +1677,20 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         return undefined
       }
       const isPull = Boolean(raw.pull_request)
-      return toThread({ forge: context.forge, instance, repo, kind: isPull ? 'pull_request' : 'issue', number: String(raw.number) }, raw)
+      return toThread({
+        forge: context.forge,
+        instance,
+        repo,
+        kind: isPull ? 'pull_request' : 'issue',
+        number: String(raw.number),
+      }, raw)
     })
   }
 
   function milestonesPage(repo: RepoRef, listOptions: MilestoneListOptions = {}) {
-    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, { query: { state: listOptions.state ?? 'open' } })
+    return list(`${repoPath(repo)}/milestones`, listOptions, (raw: GitHubMilestone) => toMilestone(raw)!, {
+      query: { state: listOptions.state ?? 'open' },
+    })
   }
 
   async function contributorStats(repo: RepoRef, statsOptions: BaseOptions = {}): Promise<ContributorStats[]> {
@@ -1379,7 +1701,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         return (data ?? []).map(raw => toContributorStats(context, raw))
       }
       if (attempt >= CONTRIBUTOR_STATS_DELAYS.length) {
-        throw new ForgeApiError(`GitHub is still computing the contributor statistics of ${repo.owner}/${repo.name}`, 202, '', { ...context, url: fetcher.resolve(path), method: 'GET' })
+        throw new ForgeApiError(`GitHub is still computing the contributor statistics of ${repo.owner}/${repo.name}`, 202, '', {
+          ...context,
+          url: fetcher.resolve(path),
+          method: 'GET',
+        })
       }
       await sleep(CONTRIBUTOR_STATS_DELAYS[attempt]!, statsOptions.signal)
     }
@@ -1388,9 +1714,16 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   const REPO_SEARCH_SORTS: Partial<Record<NonNullable<RepoSearchQuery['sort']>, string>> = { updated: 'updated', stars: 'stars' }
 
   async function searchReposPage(query: RepoSearchQuery): Promise<Page<Repo>> {
-    const qualifiers = [query.text, query.owner && `user:${query.owner}`, query.language && `language:${query.language}`, query.queryRaw].filter(Boolean)
+    const qualifiers = [
+      query.text,
+      query.owner && `user:${query.owner}`,
+      query.language && `language:${query.language}`,
+      query.queryRaw,
+    ].filter(Boolean)
     const warnings: ForgeWarning[] = query.sort === 'created'
-      ? [{ code: 'sort_unsupported', message: 'GitHub repository search cannot sort by creation time; sorted by relevance' }]
+      ? [
+          { code: 'sort_unsupported', message: 'GitHub repository search cannot sort by creation time; sorted by relevance' },
+        ]
       : []
     const result = await fetcher.page<GitHubRepositoryDetail>('/search/repositories', {
       query: {
@@ -1445,12 +1778,17 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   async function searchCodePage(query: CodeSearchQuery): Promise<Page<CodeMatch>> {
     const qualifiers = [
       query.text,
-      query.repo ? `repo:${query.repo.owner}/${query.repo.name}` : query.owner && `user:${query.owner}`,
+      query.repo
+        ? `repo:${query.repo.owner}/${query.repo.name}`
+        : query.owner && `user:${query.owner}`,
       query.queryRaw,
     ].filter(Boolean)
     let incomplete = false
     const result = await fetcher.page<GitHubCodeSearchItem>('/search/code', {
-      query: { q: qualifiers.join(' '), per_page: query.perPage },
+      query: {
+        q: qualifiers.join(' '),
+        per_page: query.perPage,
+      },
       headers: { accept: 'application/vnd.github.text-match+json' },
       cursor: query.cursor,
       signal: query.signal,
@@ -1461,7 +1799,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       },
     })
     const warnings: ForgeWarning[] = incomplete
-      ? [{ code: 'search_incomplete', message: 'GitHub stopped the search before it finished; the page may be missing matches' }]
+      ? [
+          { code: 'search_incomplete', message: 'GitHub stopped the search before it finished; the page may be missing matches' },
+        ]
       : []
     return toPage(result, raw => ({
       repo: query.repo ?? toRepoRef(context, raw.repository),
@@ -1486,11 +1826,18 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const poll = recordPoll(path, listOptions.cursor, result.response)
     const { toFeedEvents } = await import('./events.ts')
     const page = toPage(result, raw => toFeedEvents(context, raw))
-    return { ...page, items: page.items.flat(), ...poll }
+    return {
+      ...page,
+      items: page.items.flat(),
+      ...poll,
+    }
   }
 
   function createInstallationsApi(app: AppCredentials): InstallationsSpec {
-    const appFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }) })
+    const appFetcher = createFetcher({
+      baseUrl,
+      authHeaders: async () => ({ authorization: `Bearer ${await app.appJwt()}` }),
+    })
     const auth = options.auth as Extract<GitHubAuth, { type: 'app' }>
 
     function toInstallation(raw: GitHubInstallation): Installation {
@@ -1506,12 +1853,22 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }
 
     function provider(installation: Installation | string): ForgeProvider {
-      return derive({ ...options, auth: { ...auth, installationId: installationId(installation) } }, app)
+      return derive({
+        ...options,
+        auth: {
+          ...auth,
+          installationId: installationId(installation),
+        },
+      }, app)
     }
 
     async function listPage(listOptions: PageOptions = {}): Promise<Page<Installation>> {
       return toPage(
-        await appFetcher.page<GitHubInstallation>('/app/installations', { query: { per_page: listOptions.perPage }, cursor: listOptions.cursor, signal: listOptions.signal }),
+        await appFetcher.page<GitHubInstallation>('/app/installations', {
+          query: { per_page: listOptions.perPage },
+          cursor: listOptions.cursor,
+          signal: listOptions.signal,
+        }),
         toInstallation,
       )
     }
@@ -1524,14 +1881,20 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       token: (installation, options) => app.installationTokenDetails(installationId(installation), options),
       reposPage(installation, listOptions) {
         const id = installationId(installation)
-        const installationFetcher = createFetcher({ baseUrl, authHeaders: async () => ({ authorization: `Bearer ${await app.installationToken(id)}` }) })
+        const installationFetcher = createFetcher({
+          baseUrl,
+          authHeaders: async () => ({ authorization: `Bearer ${await app.installationToken(id)}` }),
+        })
         return reposPage(installationFetcher, '/installation/repositories', true, listOptions)
       },
       provider,
       providers() {
         return forgeIterable(async function* () {
           for await (const installation of iteratePages(listPage)) {
-            yield { installation, provider: provider(installation) }
+            yield {
+              installation,
+              provider: provider(installation),
+            }
           }
         })
       },
@@ -1539,7 +1902,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   }
 
   /** github.com serves file bytes from a CDN outside the REST API rate limit. */
-  const rawFetcher = host === 'api.github.com' ? createFetcher({ baseUrl: 'https://raw.githubusercontent.com', authHeaders: createAuthHeaders(options.auth, credentials) }) : undefined
+  const rawFetcher = host === 'api.github.com'
+    ? createFetcher({
+        baseUrl: 'https://raw.githubusercontent.com',
+        authHeaders: createAuthHeaders(options.auth, credentials),
+      })
+    : undefined
 
   async function readFile(repo: RepoRef, path: string, fileOptions: FileOptions = {}): Promise<FileContent> {
     const encoded = path.split('/').map(encodeURIComponent).join('/')
@@ -1552,7 +1920,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       query: { ref: fileOptions.ref },
       signal: fileOptions.signal,
     })
-    const file = { path: data.path, sha: data.sha, size: data.size, url: data.html_url ?? undefined }
+    const file = {
+      path: data.path,
+      sha: data.sha,
+      size: data.size,
+      url: data.html_url ?? undefined,
+    }
     // Files over 1 MB arrive with `encoding: 'none'` and no content; the blob endpoint serves them up to 100 MB.
     const content = data.encoding === 'base64' && data.content !== undefined
       ? data.content
@@ -1562,10 +1935,16 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
 
   async function templates(repo: RepoRef, options: RepoTemplateOptions = {}): Promise<RepoTemplate[]> {
     const signal = options.signal
-    return (await import('./templates.ts')).readTemplates(repo, options.kind ? [options.kind] : ['issue', 'pull_request'], {
+    return (await import('./templates.ts')).readTemplates(repo, options.kind
+      ? [options.kind]
+      : ['issue', 'pull_request'], {
       list: async (ref, path) => {
-        const { data } = await fetcher.json<GitHubContentFile[] | GitHubContentFile>(`${repoPath(ref)}/contents${path ? `/${path.split('/').map(encodeURIComponent).join('/')}` : ''}`, { signal })
-        return Array.isArray(data) ? data : []
+        const { data } = await fetcher.json<GitHubContentFile[] | GitHubContentFile>(`${repoPath(ref)}/contents${path
+          ? `/${path.split('/').map(encodeURIComponent).join('/')}`
+          : ''}`, { signal })
+        return Array.isArray(data)
+          ? data
+          : []
       },
       read: async (ref, path) => (await readFile(ref, path, { as: 'text', signal })).content as string,
       repository: async ref => (await fetcher.json<GitHubRepositoryDetail>(repoPath(ref), { signal })).data,
@@ -1574,13 +1953,19 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
 
   async function treePage(repo: RepoRef, treeOptions: TreeOptions = {}): Promise<Page<TreeEntry>> {
     const ref = treeOptions.ref ?? 'HEAD'
-    const target = treeOptions.path ? `${ref}:${treeOptions.path.replace(/^\/|\/$/g, '')}` : ref
+    const target = treeOptions.path
+      ? `${ref}:${treeOptions.path.replace(/^\/|\/$/g, '')}`
+      : ref
     const { data, response } = await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(target)}`, {
-      query: treeOptions.recursive ? { recursive: '1' } : {},
+      query: treeOptions.recursive
+        ? { recursive: '1' }
+        : {},
       signal: treeOptions.signal,
     })
     const warnings = data.truncated
-      ? [{ code: 'tree_truncated' as const, message: 'GitHub truncated the tree; read it directory by directory instead', subject: target }]
+      ? [
+          { code: 'tree_truncated' as const, message: 'GitHub truncated the tree; read it directory by directory instead', subject: target },
+        ]
       : []
     return toPage({ data: data.tree, response, notModified: false }, toTreeEntry, warnings)
   }
@@ -1588,8 +1973,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   async function compare(repo: RepoRef, base: string, head: string, options: CompareOptions = {}): Promise<Comparison> {
     const path = `${repoPath(repo)}/compare/${encodeURIComponent(base)}...${encodeURIComponent(head)}`
     const limit = options.commitLimit
-    const perPage = limit === undefined ? undefined : Math.min(100, Math.max(1, limit))
-    const { data } = await fetcher.json<GitHubComparison>(path, { query: { per_page: perPage }, signal: options.signal })
+    const perPage = limit === undefined
+      ? undefined
+      : Math.min(100, Math.max(1, limit))
+    const { data } = await fetcher.json<GitHubComparison>(path, {
+      query: { per_page: perPage },
+      signal: options.signal,
+    })
     let commits = data.commits ?? []
     const total = data.total_commits ?? data.ahead_by
     if (limit !== undefined && perPage !== undefined && total !== undefined && total > commits.length) {
@@ -1597,7 +1987,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       const pages = Array.from({ length: Math.ceil(total / perPage) - first + 1 }, (_, index) => first + index)
       commits = (await Promise.all(pages.map(async page => page === 1
         ? commits
-        : (await fetcher.json<GitHubComparison>(path, { query: { per_page: perPage, page }, signal: options.signal })).data.commits ?? []))).flat()
+        : (await fetcher.json<GitHubComparison>(path, {
+            query: { per_page: perPage, page },
+            signal: options.signal,
+          })).data.commits ?? []))).flat()
     }
     return {
       base,
@@ -1612,7 +2005,15 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   }
 
   async function commitsPage(repo: RepoRef, query: CommitQuery = {}): Promise<Page<Commit>> {
-    return list(`${repoPath(repo)}/commits`, query, (raw: GitHubCommit) => toCommit(repo, raw), { query: { sha: query.ref, path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString() } })
+    return list(`${repoPath(repo)}/commits`, query, (raw: GitHubCommit) => toCommit(repo, raw), {
+      query: {
+        sha: query.ref,
+        path: query.path,
+        author: query.author,
+        since: query.since?.toISOString(),
+        until: query.until?.toISOString(),
+      },
+    })
   }
 
   async function releasesPage(repo: RepoRef, listOptions: PageOptions = {}): Promise<Page<Release>> {
@@ -1622,7 +2023,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   /** The commit that `input` builds on: `createFrom` resolved, `expectedHead`, or the head of the branch. */
   async function commitParent(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<string> {
     if (input.createFrom !== undefined) {
-      return isSha(input.createFrom) ? input.createFrom : (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(input.createFrom)}`, { signal: options?.signal })).data.sha
+      return isSha(input.createFrom)
+        ? input.createFrom
+        : (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(input.createFrom)}`, { signal: options?.signal })).data.sha
     }
     return input.expectedHead ?? (await fetcher.json<GitHubGitRef>(`${repoPath(repo)}/git/ref/heads/${branchPath(input.branch)}`, { signal: options?.signal })).data.object.sha
   }
@@ -1633,23 +2036,50 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     if (!repository) {
       throw new NotFoundError(`${repo.owner}/${repo.name} does not exist`, 404, '', context)
     }
-    await graphql('UPDATE_REFS', { input: { repositoryId: repository.id, refUpdates: [{ name: `refs/heads/${branch}`, beforeOid: before, afterOid: after }] } }, options)
+    await graphql('UPDATE_REFS', {
+      input: {
+        repositoryId: repository.id,
+        refUpdates: [
+          { name: `refs/heads/${branch}`, beforeOid: before, afterOid: after },
+        ],
+      },
+    }, options)
   }
 
   /** One `createCommitOnBranch` mutation, which GitHub signs and attributes to the credential's account. */
   async function commitOnBranch(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
     const head = await commitParent(repo, input, options)
     if (input.createFrom !== undefined) {
-      await fetcher.json(`${repoPath(repo)}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${input.branch}`, sha: head }, signal: options?.signal })
+      await fetcher.json(`${repoPath(repo)}/git/refs`, {
+        method: 'POST',
+        json: { ref: `refs/heads/${input.branch}`, sha: head },
+        signal: options?.signal,
+      })
     }
     const fileChanges = {
-      additions: input.changes.flatMap(change => change.content === null ? [] : [{ path: change.path, contents: changeBase64(change.content) }]),
-      deletions: input.changes.flatMap(change => change.content === null ? [{ path: change.path }] : []),
+      additions: input.changes.flatMap(change => change.content === null
+        ? []
+        : [
+            {
+              path: change.path,
+              contents: changeBase64(change.content),
+            },
+          ]),
+      deletions: input.changes.flatMap(change => change.content === null
+        ? [
+            { path: change.path },
+          ]
+        : []),
     }
     try {
       const [data, { toGraphQLCommit }] = await Promise.all([
         graphql<CreateCommitOnBranchResult>('CREATE_COMMIT_ON_BRANCH', {
-          input: { branch: { repositoryNameWithOwner: `${repo.owner}/${repo.name}`, branchName: input.branch }, expectedHeadOid: head, message: splitMessage(input.message), fileChanges },
+          input: {
+            branch: { repositoryNameWithOwner: `${repo.owner}/${repo.name}`, branchName: input.branch },
+            expectedHeadOid: head,
+            message: splitMessage(input.message),
+            fileChanges,
+          },
         }, options),
         import('./graphql.ts'),
       ])
@@ -1667,12 +2097,21 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   async function commitTree(repo: RepoRef, input: CommitFilesInput, options?: BaseOptions): Promise<Commit> {
     const signal = options?.signal
     const parent = await commitParent(repo, input, options)
-    const tree = async (directory: string) => (await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(directory ? `${parent}:${directory}` : parent)}`, { signal })).data
+    const tree = async (directory: string) => (await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees/${encodeURIComponent(directory
+      ? `${parent}:${directory}`
+      : parent)}`, { signal })).data
     const root = memo(() => tree(''))
     const existing = await existingFiles(input.changes, inDirectories(async (directory) => {
       try {
-        const data = directory ? await tree(directory) : await root()
-        return new Map(data.tree.filter(entry => entry.type === 'blob').map(entry => [directory ? `${directory}/${entry.path}` : entry.path, entry]))
+        const data = directory
+          ? await tree(directory)
+          : await root()
+        return new Map(data.tree.filter(entry => entry.type === 'blob').map(entry => [
+          directory
+            ? `${directory}/${entry.path}`
+            : entry.path,
+          entry,
+        ]))
       }
       catch (error) {
         if (error instanceof NotFoundError) {
@@ -1684,19 +2123,49 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const entries = await Promise.all(input.changes.map(async ({ path, content }) => {
       const mode = existing.get(path)?.mode ?? '100644'
       if (content === null || typeof content === 'string') {
-        return { path, mode, type: 'blob', ...content === null ? { sha: null } : { content } }
+        return {
+          path,
+          mode,
+          type: 'blob',
+          ...content === null
+            ? { sha: null }
+            : { content },
+        }
       }
-      const { data } = await fetcher.json<{ sha: string }>(`${repoPath(repo)}/git/blobs`, { method: 'POST', json: { content: changeBase64(content), encoding: 'base64' }, signal })
-      return { path, mode, type: 'blob', sha: data.sha }
+      const { data } = await fetcher.json<{ sha: string }>(`${repoPath(repo)}/git/blobs`, {
+        method: 'POST',
+        json: {
+          content: changeBase64(content),
+          encoding: 'base64',
+        },
+        signal,
+      })
+      return {
+        path,
+        mode,
+        type: 'blob',
+        sha: data.sha,
+      }
     }))
-    const { data: created } = await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees`, { method: 'POST', json: { base_tree: (await root()).sha, tree: entries }, signal })
+    const { data: created } = await fetcher.json<GitHubTree>(`${repoPath(repo)}/git/trees`, {
+      method: 'POST',
+      json: { base_tree: (await root()).sha, tree: entries },
+      signal,
+    })
     const { data: commit } = await fetcher.json<GitHubGitCommit>(`${repoPath(repo)}/git/commits`, {
       method: 'POST',
-      json: { message: input.message, tree: created.sha, parents: [parent], author: input.author },
+      json: {
+        message: input.message,
+        tree: created.sha,
+        parents: [parent],
+        author: input.author,
+      },
       signal,
     })
     try {
-      await swapBranch(repo, input.branch, input.createFrom === undefined ? parent : ZERO_OID, commit.sha, options)
+      await swapBranch(repo, input.branch, input.createFrom === undefined
+        ? parent
+        : ZERO_OID, commit.sha, options)
     }
     catch (error) {
       if (input.createFrom !== undefined) {
@@ -1715,7 +2184,14 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate, options?: BaseOptions): Promise<Release> {
     const { data } = await fetcher.json<GitHubRelease>(path, {
       method,
-      json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+      json: {
+        tag_name: input.tag,
+        target_commitish: input.target,
+        name: input.name,
+        body: input.body,
+        draft: input.draft,
+        prerelease: input.prerelease,
+      },
       mapError: immutableReleaseIs422,
       signal: options?.signal,
     })
@@ -1746,11 +2222,15 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   } as const
 
   async function alertsPage(repo: RepoRef, listOptions: SecurityAlertListOptions = {}): Promise<Page<SecurityAlert>> {
-    const kinds = listOptions.kind ? [listOptions.kind] : Object.keys(ALERT_SOURCES) as Array<keyof typeof ALERT_SOURCES>
+    const kinds = listOptions.kind
+      ? [listOptions.kind]
+      : Object.keys(ALERT_SOURCES) as Array<keyof typeof ALERT_SOURCES>
     return phased(kinds.map(kind => async (cursor?: Cursor): Promise<Page<SecurityAlert>> => {
       const source = ALERT_SOURCES[kind as keyof typeof ALERT_SOURCES]
       const state = listOptions.state ?? 'open'
-      const filter = state === 'all' ? undefined : source.states[state]
+      const filter = state === 'all'
+        ? undefined
+        : source.states[state]
       try {
         const result = await fetcher.page<never>(`${repoPath(repo)}/${source.path}`, {
           query: { state: filter, per_page: listOptions.perPage },
@@ -1759,12 +2239,21 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         })
         return toPage(result, (raw) => {
           const alert = source.map(repo, raw)
-          return filter || state === 'all' || (alert.state === 'open') === (state === 'open') ? alert : undefined
+          return filter || state === 'all' || (alert.state === 'open') === (state === 'open')
+            ? alert
+            : undefined
         })
       }
       catch (error) {
         if (!listOptions.kind && (error instanceof InsufficientScopeError || error instanceof NotFoundError)) {
-          return { items: [], warnings: [toWarning(error instanceof InsufficientScopeError ? 'insufficient_scope' : 'alerts_unavailable', error, kind)] }
+          return {
+            items: [],
+            warnings: [
+              toWarning(error instanceof InsufficientScopeError
+                ? 'insufficient_scope'
+                : 'alerts_unavailable', error, kind),
+            ],
+          }
         }
         throw error
       }
@@ -1786,18 +2275,39 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   }
 
   async function reactionsPage(target: ThreadRef | CommentRef, listOptions: ListOptions = {}): Promise<Page<Reaction>> {
-    const thread = 'thread' in target ? target.thread : target
+    const thread = 'thread' in target
+      ? target.thread
+      : target
     if (thread.kind === 'discussion') {
-      const id = 'thread' in target ? target.id : await nodeId(thread, listOptions)
-      const [data, { toGraphQLActor, GRAPHQL_REACTIONS }] = await Promise.all([graphql<NodeReactionsResult>('NODE_REACTIONS', { id, after: listOptions.cursor?.token ?? null }, listOptions), import('./graphql.ts')])
+      const id = 'thread' in target
+        ? target.id
+        : await nodeId(thread, listOptions)
+      const [data, { toGraphQLActor, GRAPHQL_REACTIONS }] = await Promise.all([
+        graphql<NodeReactionsResult>('NODE_REACTIONS', { id, after: listOptions.cursor?.token ?? null }, listOptions),
+        import('./graphql.ts'),
+      ])
       const reactions = data.node?.reactions
       return {
         items: (reactions?.nodes ?? []).flatMap((raw) => {
           const actor = toGraphQLActor(context, raw.user)
-          return actor ? [{ content: reactionContent(GRAPHQL_REACTIONS[raw.content] ?? raw.content), contentRaw: raw.content, actor, createdAt: toDate(raw.createdAt), raw }] : []
+          return actor
+            ? [
+                {
+                  content: reactionContent(GRAPHQL_REACTIONS[raw.content] ?? raw.content),
+                  contentRaw: raw.content,
+                  actor,
+                  createdAt: toDate(raw.createdAt),
+                  raw,
+                },
+              ]
+            : []
         }),
-        cursor: reactions?.pageInfo.hasNextPage && reactions.pageInfo.endCursor ? { token: reactions.pageInfo.endCursor } : undefined,
-        ...reactions?.totalCount !== undefined ? { total: reactions.totalCount } : {},
+        cursor: reactions?.pageInfo.hasNextPage && reactions.pageInfo.endCursor
+          ? { token: reactions.pageInfo.endCursor }
+          : undefined,
+        ...reactions?.totalCount !== undefined
+          ? { total: reactions.totalCount }
+          : {},
       }
     }
     const result = await fetcher.page<GitHubReaction>(reactionPath(target), {
@@ -1807,27 +2317,54 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     })
     return toPage(result, (raw) => {
       const actor = toActor(context, raw.user)
-      return actor && { content: reactionContent(raw.content), contentRaw: raw.content, actor, createdAt: toDate(raw.created_at), raw }
+      return actor && {
+        content: reactionContent(raw.content),
+        contentRaw: raw.content,
+        actor,
+        createdAt: toDate(raw.created_at),
+        raw,
+      }
     })
   }
 
   async function react(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
-    const thread = 'thread' in target ? target.thread : target
+    const thread = 'thread' in target
+      ? target.thread
+      : target
     if (thread.kind === 'discussion') {
-      await graphql('ADD_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread, options), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
+      await graphql('ADD_REACTION', {
+        id: 'thread' in target
+          ? target.id
+          : await nodeId(thread, options),
+        content: (await import('./graphql.ts')).REACTION_CONTENT[reaction],
+      }, options)
       return
     }
-    await fetcher.raw(reactionPath(target), { method: 'POST', json: { content: reaction }, signal: options?.signal })
+    await fetcher.raw(reactionPath(target), {
+      method: 'POST',
+      json: { content: reaction },
+      signal: options?.signal,
+    })
   }
 
   async function unreact(target: ThreadRef | CommentRef, reaction: ReactionContent, options?: BaseOptions): Promise<void> {
-    const thread = 'thread' in target ? target.thread : target
+    const thread = 'thread' in target
+      ? target.thread
+      : target
     if (thread.kind === 'discussion') {
-      await graphql('REMOVE_REACTION', { id: 'thread' in target ? target.id : await nodeId(thread, options), content: (await import('./graphql.ts')).REACTION_CONTENT[reaction] }, options)
+      await graphql('REMOVE_REACTION', {
+        id: 'thread' in target
+          ? target.id
+          : await nodeId(thread, options),
+        content: (await import('./graphql.ts')).REACTION_CONTENT[reaction],
+      }, options)
       return
     }
     const path = reactionPath(target)
-    const { data } = await fetcher.json<GitHubReaction[]>(path, { query: { content: reaction, per_page: 100 }, signal: options?.signal })
+    const { data } = await fetcher.json<GitHubReaction[]>(path, {
+      query: { content: reaction, per_page: 100 },
+      signal: options?.signal,
+    })
     const login = await viewerLogin()
     const mine = data.find(item => item.content === reaction && item.user?.login === login)
     if (mine) {
@@ -1843,7 +2380,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   /** Check runs need an installation credential; a token writes a commit status instead. */
   const canWriteCheckRuns = auth.type === 'app' && auth.installationId !== undefined
 
-  const STATUS_STATES: Record<CheckState, string> = { pending: 'pending', success: 'success', failure: 'failure', neutral: 'success', unknown: 'pending' }
+  const STATUS_STATES: Record<CheckState, string> = {
+    pending: 'pending',
+    success: 'success',
+    failure: 'failure',
+    neutral: 'success',
+    unknown: 'pending',
+  }
   const CHECK_RUN_CONCLUSIONS: Partial<Record<CheckState, string>> = { success: 'success', failure: 'failure', neutral: 'neutral' }
 
   async function report(repo: RepoRef, sha: string, input: CheckReportInput, options?: BaseOptions): Promise<Check> {
@@ -1858,7 +2401,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           conclusion,
           details_url: input.url,
           external_id: input.externalId,
-          output: input.description ? { title: input.name, summary: input.description } : undefined,
+          output: input.description
+            ? { title: input.name, summary: input.description }
+            : undefined,
         },
         signal: options?.signal,
       })
@@ -1866,7 +2411,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     }
     const { data } = await fetcher.json<GitHubCommitStatus>(`${repoPath(repo)}/statuses/${sha}`, {
       method: 'POST',
-      json: { state: STATUS_STATES[input.state], context: input.name, description: input.description, target_url: input.url },
+      json: {
+        state: STATUS_STATES[input.state],
+        context: input.name,
+        description: input.description,
+        target_url: input.url,
+      },
       signal: options?.signal,
     })
     return toStatusCheck(repo, data)
@@ -1876,7 +2426,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     const result = await fetcher.page<GitHubWorkflowRun>(`${repoPath(repo)}/actions/runs`, {
       query: {
         branch: query.branch,
-        status: query.state === 'pending' ? 'in_progress' : query.state === 'success' ? 'success' : query.state === 'failure' ? 'failure' : undefined,
+        status: query.state === 'pending'
+          ? 'in_progress'
+          : query.state === 'success'
+            ? 'success'
+            : query.state === 'failure'
+              ? 'failure'
+              : undefined,
         per_page: query.perPage,
       },
       cursor: query.cursor,
@@ -1928,7 +2484,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
             if (!(rerunError instanceof NotFoundError)) {
               throw rerunError
             }
-            throw error instanceof InsufficientScopeError ? notOwnerOfCheckRun(error) : error
+            throw error instanceof InsufficientScopeError
+              ? notOwnerOfCheckRun(error)
+              : error
           }
         }
       }),
@@ -1954,7 +2512,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       branchesPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/branches`, listOptions, (raw: GitHubBranch) => toBranch(raw))),
       tagsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/tags`, listOptions, toTag)),
       resolveRef: verb(true, async (repo, ref, options) => (await fetcher.json<GitHubCommit>(`${repoPath(repo)}/commits/${encodeURIComponent(ref)}`, { signal: options?.signal })).data.sha),
-      commitFiles: verb(true, (repo, input, options) => input.author ? commitTree(repo, input, options) : commitOnBranch(repo, input, options)),
+      commitFiles: verb(true, (repo, input, options) => input.author
+        ? commitTree(repo, input, options)
+        : commitOnBranch(repo, input, options)),
       compare: verb(true, compare),
     },
     commits: {
@@ -1966,11 +2526,19 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         return toCommitComment(ref.commit, data)
       }),
       createComment: verb(true, async (commit, body, options) => {
-        const { data } = await fetcher.json<GitHubComment>(`${repoPath(commit.repo)}/commits/${encodeURIComponent(commit.sha)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<GitHubComment>(`${repoPath(commit.repo)}/commits/${encodeURIComponent(commit.sha)}/comments`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
         return toCommitComment(commit, data)
       }),
       updateComment: verb(true, async (ref, body, options) => {
-        const { data } = await fetcher.json<GitHubComment>(commitCommentPath(ref), { method: 'PATCH', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<GitHubComment>(commitCommentPath(ref), {
+          method: 'PATCH',
+          json: { body },
+          signal: options?.signal,
+        })
         return toCommitComment(ref.commit, data)
       }),
       deleteComment: verb(true, async (ref, options) => {
@@ -1978,7 +2546,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       }),
       commentHiding: verb(true, {
         hideComment: async (ref, reason, options) => {
-          await graphql('MINIMIZE_COMMENT', { id: await commentNodeId(ref, options), classifier: reason.toUpperCase() }, options)
+          await graphql('MINIMIZE_COMMENT', {
+            id: await commentNodeId(ref, options),
+            classifier: reason.toUpperCase(),
+          }, options)
         },
         unhideComment: async (ref, options) => {
           await graphql('UNMINIMIZE_COMMENT', { id: await commentNodeId(ref, options) }, options)
@@ -2018,16 +2589,26 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
     },
     securityAlerts: {
       kinds: {
-        dependency: !anonymous && (enterprise ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'unverified' : true),
+        dependency: !anonymous && (enterprise
+          ? ({ version }) => versionAtLeast(version, GHES_DEPENDABOT_ALERTS) && 'unverified'
+          : true),
         code_scanning: !anonymous,
         secret: !anonymous,
         advisory: !anonymous && !enterprise,
       },
       listPage: alertsPage,
     },
-    traits: { eventKinds: 'native', authKinds: profile.authKinds, limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 } },
-    probeVersion: enterprise && profile.meta ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version : undefined,
-    installations: credentials ? verb(true, createInstallationsApi(credentials)) : undefined,
+    traits: {
+      eventKinds: 'native',
+      authKinds: profile.authKinds,
+      limits: { bodyLength: 65536, commentLength: 65536, labelLength: 50 },
+    },
+    probeVersion: enterprise && profile.meta
+      ? async () => (await fetcher.json<{ installed_version?: string }>('/meta')).data.installed_version
+      : undefined,
+    installations: credentials
+      ? verb(true, createInstallationsApi(credentials))
+      : undefined,
     web: profile.web.links({ baseUrl, instance }),
     webhooks: {
       listPage: verb(true, (target, listOptions = {}) => list(hooksPath(target), listOptions, (raw: GitHubHook) => toWebhook(target, raw), { mapError: scopeIs404 })),
@@ -2045,9 +2626,19 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       update: verb(true, async (ref, update, options) => toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
         method: 'PATCH',
         json: {
-          ...update.active === undefined ? {} : { active: update.active },
-          ...update.events || update.nativeEvents ? { events: nativeEventsFor(profile.nativeEvents, update.events, update.nativeEvents) } : {},
-          ...update.url || update.secret || update.contentType ? { config: hookConfig(update) } : {},
+          ...update.active === undefined
+            ? {}
+            : { active: update.active },
+          ...update.events || update.nativeEvents
+            ? {
+                events: nativeEventsFor(profile.nativeEvents, update.events, update.nativeEvents),
+              }
+            : {},
+          ...update.url || update.secret || update.contentType
+            ? {
+                config: hookConfig(update),
+              }
+            : {},
         },
         mapError: scopeIs404,
         signal: options?.signal,
@@ -2059,7 +2650,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         const current = toWebhook(ref.target, (await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, { mapError: scopeIs404, signal: options?.signal })).data)
         const { data } = await fetcher.json<GitHubHook>(`${hooksPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'PATCH',
-          json: { config: hookConfig({ url: current.url, contentType: current.contentType, secret }) },
+          json: {
+            config: hookConfig({ url: current.url, contentType: current.contentType, secret }),
+          },
           mapError: scopeIs404,
           signal: options?.signal,
         })
@@ -2112,7 +2705,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         return data.map(raw => toIssueType(raw)!)
       }),
       collaboratorsPage: verb(!anonymous, (repo, listOptions = {}) => list(`${repoPath(repo)}/collaborators`, listOptions, (raw: GitHubCollaborator) => toCollaborator(context, raw))),
-      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(context, raw), { query: listOptions.includeUnlinked ? { anon: 1 } : {} })),
+      contributorsPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/contributors`, listOptions, (raw: GitHubContributor) => toContributor(context, raw), {
+        query: listOptions.includeUnlinked
+          ? { anon: 1 }
+          : {},
+      })),
       contributorStats: verb(true, contributorStats),
       templates: verb(true, templates),
       permissionFor: verb(!anonymous, async (repo, actor, options) => {
@@ -2120,14 +2717,19 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           `${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}/permission`,
           { signal: options?.signal },
         )
-        return toRole({ role_name: data.role_name ?? (data.permission === 'none' ? undefined : data.permission), permissions: data.user?.permissions })
+        return toRole({ role_name: data.role_name ?? (data.permission === 'none'
+          ? undefined
+          : data.permission), permissions: data.user?.permissions })
       }),
       branchRules: verb(enterprise ? 'unverified' : true, async (repo, name, options) => {
         const branchPath = `branches/${name.split('/').map(encodeURIComponent).join('/')}`
         const path = `${repoPath(repo)}/${branchPath}`
         const [{ data: branch }, rules] = await Promise.all([
           fetcher.json<GitHubBranchDetail>(path, { signal: options?.signal }),
-          Array.fromAsync(fetcher.items<GitHubBranchRule>(`${repoPath(repo)}/rules/${branchPath}`, { query: { per_page: 100 }, signal: options?.signal })),
+          Array.fromAsync(fetcher.items<GitHubBranchRule>(`${repoPath(repo)}/rules/${branchPath}`, {
+            query: { per_page: 100 },
+            signal: options?.signal,
+          })),
         ])
         const warnings: ForgeWarning[] = []
         let protection: GitHubBranchProtection | undefined
@@ -2148,8 +2750,16 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         return toBranchRules(branch, rules, protection, warnings)
       }),
       addCollaborator: verb(true, async (repo, actor, role, options) => {
-        const response = await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, { method: 'PUT', json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role }, signal: options?.signal })
-        return { status: response.status === 201 ? 'invited' : 'added' }
+        const response = await fetcher.raw(`${repoPath(repo)}/collaborators/${encodeURIComponent(actorLogin(actor))}`, {
+          method: 'PUT',
+          json: { permission: COLLABORATOR_PERMISSIONS[role] ?? role },
+          signal: options?.signal,
+        })
+        return {
+          status: response.status === 201
+            ? 'invited'
+            : 'added',
+        }
       }),
       assignableUsersPage: verb(true, (repo, listOptions = {}) => list(`${repoPath(repo)}/assignees`, listOptions, (raw: GitHubUserDetail) => toActor(context, raw)!)),
       reviewerCandidatesPage: verb(!anonymous && 'emulated', async (thread, listOptions = {}) => {
@@ -2159,8 +2769,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           cursor: listOptions.cursor,
           signal: listOptions.signal,
         })
-        const author = page.notModified ? undefined : (await get(ref, listOptions)).author?.login
-        return toPage(page, raw => raw.login === author ? undefined : toActor(context, raw)!)
+        const author = page.notModified
+          ? undefined
+          : (await get(ref, listOptions)).author?.login
+        return toPage(page, raw => raw.login === author
+          ? undefined
+          : toActor(context, raw)!)
       }),
       eventsPage: verb(true, (repo, listOptions) => feedPage(`${repoPath(repo)}/events`, listOptions)),
     },
@@ -2189,16 +2803,26 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       markRead: verb(notificationsAuth, async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'PATCH', signal: options?.signal })
       }),
-      markDone: verb(notificationsAuth && (enterprise ? ({ version }) => versionAtLeast(version, GHES_MARK_DONE) : true), async (ref: NotificationRef, options) => {
+      markDone: verb(notificationsAuth && (enterprise
+        ? ({ version }) => versionAtLeast(version, GHES_MARK_DONE)
+        : true), async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}`, { method: 'DELETE', signal: options?.signal })
       }),
       unsubscribe: verb(notificationsAuth, async (ref: NotificationRef, options) => {
         await fetcher.raw(`/notifications/threads/${encodeURIComponent(ref.id)}/subscription`, { method: 'DELETE', signal: options?.signal })
       }),
       markAllRead: verb(notificationsAuth, async (bulk: BulkNotificationOptions = {}) => {
-        await fetcher.raw(bulk.repo ? `${repoPath(bulk.repo)}/notifications` : '/notifications', {
+        await fetcher.raw(bulk.repo
+          ? `${repoPath(bulk.repo)}/notifications`
+          : '/notifications', {
           method: 'PUT',
-          ...bulk.before ? { json: { last_read_at: bulk.before.toISOString() } } : {},
+          ...bulk.before
+            ? {
+                json: {
+                  last_read_at: bulk.before.toISOString(),
+                },
+              }
+            : {},
           signal: bulk.signal,
         })
       }),
@@ -2211,13 +2835,23 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       eventsPage: verb(true, async (thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<ForgeEventInput>> => {
         const ref = requireThread(thread, context)
         if (ref.kind === 'discussion') {
-          const [page, { toDiscussionCommentEvent }] = await Promise.all([discussionCommentPage(ref, listOptions), import('./graphql.ts')])
-          return { ...page, items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)) }
+          const [page, { toDiscussionCommentEvent }] = await Promise.all([
+            discussionCommentPage(ref, listOptions),
+            import('./graphql.ts'),
+          ])
+          return {
+            ...page,
+            items: page.items.map(({ comment, isReply }) => toDiscussionCommentEvent(ref, comment, isReply)),
+          }
         }
         return list(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/timeline`, listOptions, (entry: GitHubTimelineEntry) => toEvent(context, ref, entry))
       }),
       commentsPage: perKind({ issue: true, pull_request: true, discussion: !anonymous }, commentsPage),
-      getComment: perKind({ issue: anonymous ? 'unverified' : true, pull_request: true, discussion: !anonymous }, getComment),
+      getComment: perKind({
+        issue: anonymous ? 'unverified' : true,
+        pull_request: true,
+        discussion: !anonymous,
+      }, getComment),
       reviewsPage: verb(true, reviewsPage),
       getReview: verb(anonymous ? 'unverified' : true, getReview),
       filesPage: verb(true, (ref, listOptions = {}) => list(`${threadPath(requirePull(ref, 'read for changed files'))}/files`, listOptions, toChangedFile)),
@@ -2257,7 +2891,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       checks: perKind({ pull_request: true }, async (thread, options) => {
         const ref = requireThread(thread, context)
         const { data } = await fetcher.json<GitHubIssue>(threadPath(ref), { signal: options?.signal })
-        return data.head?.sha ? headChecks(ref.repo, data.head.sha, options?.signal) : { items: [] }
+        return data.head?.sha
+          ? headChecks(ref.repo, data.head.sha, options?.signal)
+          : { items: [] }
       }),
       createComment: perKind({ issue: true, pull_request: true, discussion: true }, async (thread, body, options) => {
         const ref = requireThread(thread, context)
@@ -2265,7 +2901,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           const data = await graphql<{ addDiscussionComment: { comment: GraphQLComment } }>('ADD_DISCUSSION_COMMENT', { id: await discussionId(ref, options), body }, options)
           return (await import('./graphql.ts')).toDiscussionComment(ref, data.addDiscussionComment.comment)
         }
-        const { data } = await fetcher.json<GitHubComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<GitHubComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
         return toComment(ref, data)
       }),
       updateComment: perKind({ issue: true, pull_request: true, discussion: true }, async (ref, body, options) => {
@@ -2274,7 +2914,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           const data = await graphql<{ updateDiscussionComment: { comment: GraphQLComment } }>('UPDATE_DISCUSSION_COMMENT', { id: ref.id, body }, options)
           return (await import('./graphql.ts')).toDiscussionComment(thread, data.updateDiscussionComment.comment)
         }
-        const { data } = await fetcher.json<GitHubComment>(commentPath(ref), { method: 'PATCH', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<GitHubComment>(commentPath(ref), {
+          method: 'PATCH',
+          json: { body },
+          signal: options?.signal,
+        })
         return toComment(thread, data)
       }),
       deleteComment: perKind({ issue: true, pull_request: true, discussion: true }, async (ref, options) => {
@@ -2289,10 +2933,21 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         if (input.kind === 'issue') {
           const { data } = await fetcher.json<GitHubIssue>(`${repoPath(repo)}/issues`, {
             method: 'POST',
-            json: { title: input.title, body: input.body, labels: input.labels, assignees },
+            json: {
+              title: input.title,
+              body: input.body,
+              labels: input.labels,
+              assignees,
+            },
             signal: options?.signal,
           })
-          return toThread({ forge: context.forge, instance, repo, kind: 'issue', number: String(data.number) }, data)
+          return toThread({
+            forge: context.forge,
+            instance,
+            repo,
+            kind: 'issue',
+            number: String(data.number),
+          }, data)
         }
         if (input.kind !== 'pull_request') {
           throw new UnsupportedOperationError('GitHub discussions cannot be created through this API yet', context)
@@ -2302,10 +2957,22 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         }
         const { data: pull } = await fetcher.json<GitHubIssue>(`${repoPath(repo)}/pulls`, {
           method: 'POST',
-          json: { title: input.title, body: input.body, head: input.head, base: input.base, draft: input.draft },
+          json: {
+            title: input.title,
+            body: input.body,
+            head: input.head,
+            base: input.base,
+            draft: input.draft,
+          },
           signal: options?.signal,
         })
-        const ref: ResolvedThreadRef = { forge: context.forge, instance, repo, kind: 'pull_request', number: String(pull.number) }
+        const ref: ResolvedThreadRef = {
+          forge: context.forge,
+          instance,
+          repo,
+          kind: 'pull_request',
+          number: String(pull.number),
+        }
         if (!input.labels?.length && !assignees?.length) {
           return toThread(ref, pull)
         }
@@ -2332,7 +2999,13 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           return (await import('./graphql.ts')).toDiscussionThread(ref, data.updateDiscussion.discussion)
         }
         const target = requireIssueOrPull(ref, context, 'update')
-        const json = { title: input.title, body: input.body, state: input.state, labels: input.labels, assignees: input.assignees?.map(actorLogin) }
+        const json = {
+          title: input.title,
+          body: input.body,
+          state: input.state,
+          labels: input.labels,
+          assignees: input.assignees?.map(actorLogin),
+        }
         if (target.kind === 'pull_request' && (input.labels || input.assignees)) {
           await issuePatch(target, json, 'update', options?.signal)
           return toThread(target, (await fetcher.json<GitHubIssue>(threadPath(target), { signal: options?.signal })).data)
@@ -2342,7 +3015,11 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       }),
       addLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        return toLabels((await fetcher.json<GitHubIssue['labels']>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'POST', json: { labels }, signal: options?.signal })).data)
+        return toLabels((await fetcher.json<GitHubIssue['labels']>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, {
+          method: 'POST',
+          json: { labels },
+          signal: options?.signal,
+        })).data)
       }),
       removeLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
@@ -2358,17 +3035,30 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
             }
           }
         }
-        return toLabels(remaining ?? (await fetcher.json<GitHubIssue['labels']>(path, { query: { per_page: 100 }, signal: options?.signal })).data)
+        return toLabels(remaining ?? (await fetcher.json<GitHubIssue['labels']>(path, {
+          query: { per_page: 100 },
+          signal: options?.signal,
+        })).data)
       }),
       setMilestone: perKind({ issue: true, pull_request: true }, async (thread, milestone, options) => toMilestone((await issuePatch(
         thread,
-        { milestone: milestone === undefined ? null : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context, options) },
+        {
+          milestone: milestone === undefined
+            ? null
+            : await milestoneId(milestone, page => milestonesPage(requireThread(thread, context).repo, page), context, options),
+        },
         'set the milestone of',
         options?.signal,
       )).milestone)),
-      setIssueType: perKind({ issue: enterprise ? 'unverified' : true }, async (thread, issueType, options) => toIssueType((await issuePatch(
+      setIssueType: perKind({
+        issue: enterprise ? 'unverified' : true,
+      }, async (thread, issueType, options) => toIssueType((await issuePatch(
         thread,
-        { type: typeof issueType === 'object' ? issueType.name : issueType ?? null },
+        {
+          type: typeof issueType === 'object'
+            ? issueType.name
+            : issueType ?? null,
+        },
         'set the type of',
         options?.signal,
       )).type)),
@@ -2382,7 +3072,9 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           }
           await fetcher.raw(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/lock`, {
             method: 'PUT',
-            json: options.reason ? { lock_reason: LOCK_REASONS[options.reason] } : {},
+            json: options.reason
+              ? { lock_reason: LOCK_REASONS[options.reason] }
+              : {},
             signal: options.signal,
           })
         },
@@ -2397,7 +3089,10 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       }),
       hiding: perKind({ issue: true, pull_request: true, discussion: true }, {
         hideComment: async (ref: CommentRef, reason: HideCommentReason, options?: BaseOptions) => {
-          await graphql('MINIMIZE_COMMENT', { id: await commentNodeId(ref, options), classifier: reason.toUpperCase() }, options)
+          await graphql('MINIMIZE_COMMENT', {
+            id: await commentNodeId(ref, options),
+            classifier: reason.toUpperCase(),
+          }, options)
         },
         unhideComment: async (ref: CommentRef, options?: BaseOptions) => {
           await graphql('UNMINIMIZE_COMMENT', { id: await commentNodeId(ref, options) }, options)
@@ -2414,17 +3109,30 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
           throw new NotFoundError(`Repository ${repo.owner}/${repo.name} not found`, 404, '', context)
         }
         const data = await graphql<{ transferIssue: { issue: { id: string, number: number } } }>('TRANSFER_ISSUE', { issue: await nodeId(ref, options), repo: target.repository.id }, options)
-        return { forge: context.forge, instance, repo, kind: 'issue', number: String(data.transferIssue.issue.number), externalId: data.transferIssue.issue.id }
+        return {
+          forge: context.forge,
+          instance,
+          repo,
+          kind: 'issue',
+          number: String(data.transferIssue.issue.number),
+          externalId: data.transferIssue.issue.id,
+        }
       }),
       markDuplicate: verb(true, async (thread, canonical, options) => {
         await graphql('MARK_DUPLICATE', { canonical: await nodeId(canonical, options), duplicate: await nodeId(thread, options) }, options)
       }),
       setLabels: perKind({ issue: true, pull_request: true }, async (thread, labels, options) => {
         const ref = requireIssueOrPull(thread, context, 'label')
-        return toLabels((await fetcher.json<GitHubIssue['labels']>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, { method: 'PUT', json: { labels }, signal: options?.signal })).data)
+        return toLabels((await fetcher.json<GitHubIssue['labels']>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/labels`, {
+          method: 'PUT',
+          json: { labels },
+          signal: options?.signal,
+        })).data)
       }),
       setAssignees: perKind({ issue: true, pull_request: true }, async (thread, assignees, options) => {
-        const data = await issuePatch(thread, { assignees: assignees.map(actorLogin) }, 'assign', options?.signal)
+        const data = await issuePatch(thread, {
+          assignees: assignees.map(actorLogin),
+        }, 'assign', options?.signal)
         return (data.assignees ?? []).flatMap(user => toActor(context, user) ?? [])
       }),
       requestReview: perKind({ pull_request: true }, async (thread, reviewers, options) => {
@@ -2436,7 +3144,12 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
         const users = reviewers.filter(reviewer => typeof reviewer === 'string' || reviewer.typeRaw !== 'Team').map(actorLogin)
         await fetcher.raw(`${threadPath(ref)}/requested_reviewers`, {
           method: 'POST',
-          json: { reviewers: users, ...teams.length ? { team_reviewers: teams } : {} },
+          json: {
+            reviewers: users,
+            ...teams.length
+              ? { team_reviewers: teams }
+              : {},
+          },
           signal: options?.signal,
         })
       }),
@@ -2455,15 +3168,23 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
       subscriptions: perKind(ISSUE_LIKE, {
         subscription: async (thread, options): Promise<SubscriptionState> => {
           const { state } = await subscriptionNode(thread, options)
-          return state === 'SUBSCRIBED' ? 'subscribed' : state === 'IGNORED' ? 'ignored' : 'none'
+          return state === 'SUBSCRIBED'
+            ? 'subscribed'
+            : state === 'IGNORED'
+              ? 'ignored'
+              : 'none'
         },
         subscribe: (thread, options) => setSubscription(thread, 'SUBSCRIBED', options),
         unsubscribe: (thread, options) => setSubscription(thread, 'UNSUBSCRIBED', options),
       }),
     },
   }
-  const declared = profile.narrow ? profile.narrow(spec, ctx) : spec
-  return appItself ? supportOnly(declared, ['installations']) : declared
+  const declared = profile.narrow
+    ? profile.narrow(spec, ctx)
+    : spec
+  return appItself
+    ? supportOnly(declared, ['installations'])
+    : declared
 }
 
 /** How a forge that serves GitHub's REST API differs from GitHub, so one implementation covers both. */
@@ -2515,7 +3236,14 @@ export function githubDefinition(profile: GitHubProfile): ProviderDefinition<Git
     instance: profile.web.instance,
     headers: { 'accept': 'application/vnd.github+json', 'x-github-api-version': '2022-11-28' },
     prepare: ({ options, baseUrl, headers, state }) => options.auth?.type === 'app'
-      ? state ?? createAppCredentials(options.auth, { baseUrl, fetch: options.fetch, timeout: options.timeout, onRetry: options.onRetry, onRateLimit: options.onRateLimit, headers })
+      ? state ?? createAppCredentials(options.auth, {
+        baseUrl,
+        fetch: options.fetch,
+        timeout: options.timeout,
+        onRetry: options.onRetry,
+        onRateLimit: options.onRateLimit,
+        headers,
+      })
       : undefined,
     authHeaders: ({ options, state }) => createAuthHeaders(options.auth, state),
     webhooks: githubWebhooks(profile.webhookEvents),
@@ -2523,7 +3251,12 @@ export function githubDefinition(profile: GitHubProfile): ProviderDefinition<Git
   }
 }
 
-const PULL_CHECK_READS = new Set<ForgeVerb>(['threads.get', 'threads.getMany', 'threads.list', 'threads.closingPullRequests'])
+const PULL_CHECK_READS = new Set<ForgeVerb>([
+  'threads.get',
+  'threads.getMany',
+  'threads.list',
+  'threads.closingPullRequests',
+])
 
 /**
  * Token scopes and fine-grained permissions GitHub documents per endpoint
@@ -2535,15 +3268,26 @@ function githubScopesFor(verb: ForgeVerb): VerbScopes {
   if (group === 'webhooks') {
     return name === 'verify' || name === 'ingest'
       ? {}
-      : { token: ['admin:repo_hook', 'admin:org_hook'], permissions: { webhooks: 'admin' } }
+      : {
+          token: ['admin:repo_hook', 'admin:org_hook'],
+          permissions: { webhooks: 'admin' },
+        }
   }
   if (group === 'notifications') {
-    return { token: ['notifications'], note: 'Notifications need a classic personal access token or an OAuth app token; fine-grained tokens and GitHub Apps have no access to them' }
+    return {
+      token: ['notifications'],
+      note: 'Notifications need a classic personal access token or an OAuth app token; fine-grained tokens and GitHub Apps have no access to them',
+    }
   }
   if (group === 'securityAlerts') {
     return {
       token: ['security_events', 'repo'],
-      permissions: { vulnerability_alerts: 'read', secret_scanning_alerts: 'read', code_scanning_alerts: 'read', repository_advisories: 'read' },
+      permissions: {
+        vulnerability_alerts: 'read',
+        secret_scanning_alerts: 'read',
+        code_scanning_alerts: 'read',
+        repository_advisories: 'read',
+      },
       note: 'Drafts and private vulnerability reports need a security manager, an administrator, or a collaborator on the advisory',
     }
   }
@@ -2551,40 +3295,83 @@ function githubScopesFor(verb: ForgeVerb): VerbScopes {
     return { note: 'App credentials: an app JWT signed with the app private key' }
   }
   if (verb === 'users.block' || verb === 'users.unblock') {
-    return { token: ['user'], permissions: { blocking: 'write' }, note: 'Needs a user token: a GitHub App installation cannot block for an account' }
+    return {
+      token: ['user'],
+      permissions: { blocking: 'write' },
+      note: 'Needs a user token: a GitHub App installation cannot block for an account',
+    }
   }
   if (verb === 'orgs.block' || verb === 'orgs.unblock') {
-    return { token: ['admin:org'], permissions: { organization_user_blocking: 'write' } }
+    return {
+      token: ['admin:org'],
+      permissions: { organization_user_blocking: 'write' },
+    }
   }
   if (group === 'users' || group === 'search') {
-    return { token: ['read:user'], permissions: {} }
+    return {
+      token: ['read:user'],
+      permissions: {},
+    }
   }
   if (group === 'orgs') {
-    return { token: ['read:org'], permissions: { members: 'read' } }
+    return {
+      token: ['read:org'],
+      permissions: { members: 'read' },
+    }
   }
   if (verb === 'threads.checks') {
-    return { token: ['repo'], permissions: { pull_requests: 'read', checks: 'read', statuses: 'read' } }
+    return {
+      token: ['repo'],
+      permissions: { pull_requests: 'read', checks: 'read', statuses: 'read' },
+    }
   }
   if (verb === 'checks.list') {
-    return { token: ['repo'], permissions: { checks: 'read', statuses: 'read' } }
+    return {
+      token: ['repo'],
+      permissions: { checks: 'read', statuses: 'read' },
+    }
   }
   if (verb === 'checks.get') {
-    return { token: ['repo'], permissions: { checks: 'read' } }
+    return {
+      token: ['repo'],
+      permissions: { checks: 'read' },
+    }
   }
   if (verb === 'checks.rerun') {
-    return { token: ['repo'], permissions: { checks: 'write', actions: 'write' }, note: 'A check run created by GitHub Actions is re-run as its job, which needs `actions: write`' }
+    return {
+      token: ['repo'],
+      permissions: { checks: 'write', actions: 'write' },
+      note: 'A check run created by GitHub Actions is re-run as its job, which needs `actions: write`',
+    }
   }
   if (group === 'ci') {
-    return { token: ['repo'], permissions: { actions: WRITE_VERBS.has(verb) ? 'write' : 'read' } }
+    return {
+      token: ['repo'],
+      permissions: {
+        actions: WRITE_VERBS.has(verb)
+          ? 'write'
+          : 'read',
+      },
+    }
   }
   if (verb === 'checks.report') {
-    return { token: ['repo:status'], permissions: { checks: 'write', statuses: 'write' } }
+    return {
+      token: ['repo:status'],
+      permissions: { checks: 'write', statuses: 'write' },
+    }
   }
   if (verb === 'threads.updateBranch') {
-    return { token: ['repo', 'public_repo'], permissions: { pull_requests: 'write', contents: 'write' }, note: 'A GitHub App needs `contents: write` on the head repository' }
+    return {
+      token: ['repo', 'public_repo'],
+      permissions: { pull_requests: 'write', contents: 'write' },
+      note: 'A GitHub App needs `contents: write` on the head repository',
+    }
   }
   if (verb === 'repos.issueTypes') {
-    return { token: ['repo'], permissions: { metadata: 'read' } }
+    return {
+      token: ['repo'],
+      permissions: { metadata: 'read' },
+    }
   }
   if (verb === 'repos.branchRules') {
     return {
@@ -2594,21 +3381,42 @@ function githubScopesFor(verb: ForgeVerb): VerbScopes {
     }
   }
   if (verb === 'threads.setIssueType') {
-    return { token: ['repo', 'public_repo'], permissions: { issues: 'write' }, note: 'Needs push access: without it, GitHub leaves the type unchanged' }
+    return {
+      token: ['repo', 'public_repo'],
+      permissions: { issues: 'write' },
+      note: 'Needs push access: without it, GitHub leaves the type unchanged',
+    }
   }
   const write = WRITE_VERBS.has(verb)
   if (PULL_CHECK_READS.has(verb)) {
     return {
       token: ['repo', 'public_repo'],
-      permissions: { issues: 'read', pull_requests: 'read', checks: 'read', statuses: 'read' },
+      permissions: {
+        issues: 'read',
+        pull_requests: 'read',
+        checks: 'read',
+        statuses: 'read',
+      },
       note: 'The `checks` of a pull request are read from its check runs and commit statuses',
     }
   }
   if (group === 'threads') {
-    return { token: ['repo', 'public_repo'], permissions: { issues: write ? 'write' : 'read', pull_requests: write ? 'write' : 'read' } }
+    return {
+      token: ['repo', 'public_repo'],
+      permissions: {
+        issues: write ? 'write' : 'read',
+        pull_requests: write ? 'write' : 'read',
+      },
+    }
   }
   if (group === 'repos' || group === 'contents' || group === 'releases') {
-    return { token: ['repo', 'public_repo'], permissions: { contents: write ? 'write' : 'read', metadata: 'read' } }
+    return {
+      token: ['repo', 'public_repo'],
+      permissions: {
+        contents: write ? 'write' : 'read',
+        metadata: 'read',
+      },
+    }
   }
   return {}
 }

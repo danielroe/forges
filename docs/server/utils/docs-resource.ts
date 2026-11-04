@@ -31,7 +31,13 @@ export function defineDocsResource({ name, path, title, description }: DocsResou
       }
 
       return {
-        contents: [{ uri: uri.toString(), mimeType: 'text/markdown', text: document.markdown }],
+        contents: [
+          {
+            uri: uri.toString(),
+            mimeType: 'text/markdown',
+            text: document.markdown,
+          },
+        ],
       }
     },
   })

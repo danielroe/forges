@@ -13,7 +13,9 @@ export function cellsFor(row: CapabilityRow, view: View): SupportCell[] {
   if (isAnonymous(view)) {
     return row.anonymousCells
   }
-  return typeof view === 'string' ? row.cells.map(cell => cell.byCredential?.[view] ?? cell) : row.cells
+  return typeof view === 'string'
+    ? row.cells.map(cell => cell.byCredential?.[view] ?? cell)
+    : row.cells
 }
 
 /** A provider's summary in a view. */
@@ -33,12 +35,21 @@ export function applicableTotal(provider: CapabilityProvider): number {
 export function credentialNames(ids: string[], provider: CapabilityProvider): string {
   const names = ids.map((id) => {
     const label = provider.credentials?.find(credential => credential.id === id)?.label ?? id
-    return `${/^[aeio]/i.test(label) ? 'an' : 'a'} ${label.charAt(0).toLowerCase()}${label.slice(1)}`
+    return `${/^[aeio]/i.test(label)
+      ? 'an'
+      : 'a'} ${label.charAt(0).toLowerCase()}${label.slice(1)}`
   })
   return new Intl.ListFormat('en-GB', { type: 'disjunction' }).format(names)
 }
 
-export const supportLevels: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'not_applicable', 'none']
+export const supportLevels: SupportLevel[] = [
+  'native',
+  'experimental',
+  'emulated',
+  'unverified',
+  'not_applicable',
+  'none',
+]
 
 /** Whether a level means the operation is available. */
 export function isAvailable(level: SupportLevel): boolean {
@@ -92,8 +103,12 @@ export function describeCell(cell: SupportCell, provider?: CapabilityProvider): 
     ? shortSupportLabels[cell.level]
     : supported.length
       ? supported.map(kind => `${kind.label} ${shortSupportLabels[kind.level].toLowerCase()}`).join(', ')
-      : cell.kinds!.every(kind => kind.level === 'not_applicable') ? shortSupportLabels.not_applicable : shortSupportLabels.none
-  return cell.credentials && provider ? `${text}, only with ${credentialNames(cell.credentials, provider)}` : text
+      : cell.kinds!.every(kind => kind.level === 'not_applicable')
+        ? shortSupportLabels.not_applicable
+        : shortSupportLabels.none
+  return cell.credentials && provider
+    ? `${text}, only with ${credentialNames(cell.credentials, provider)}`
+    : text
 }
 
 /** A provider's coverage as text, for the bars that only show the native count. */
@@ -104,7 +119,9 @@ export function describeSummary(summary: Record<SupportLevel, number>): string {
 /** Text for what a row does, for screen readers. */
 export function describeRow(row: CapabilityRow): string {
   return [
-    row.verbs.length ? `Calls ${row.verbs.map(verb => `${verb}()`).join(', ')}.` : '',
+    row.verbs.length
+      ? `Calls ${row.verbs.map(verb => `${verb}()`).join(', ')}.`
+      : '',
     row.write ? 'Changes state.' : '',
     row.account ? 'Needs an account.' : '',
   ].filter(Boolean).join(' ')

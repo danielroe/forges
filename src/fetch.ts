@@ -154,7 +154,12 @@ function cursorFrom(response: Response): Cursor | undefined {
 
 /** The page size a URL carries, under the names forges use for it. */
 function pageSize(url: URL): number | undefined {
-  for (const name of ['per_page', 'limit', 'perPage', 'pagelen']) {
+  for (const name of [
+    'per_page',
+    'limit',
+    'perPage',
+    'pagelen',
+  ]) {
     const value = Number(url.searchParams.get(name))
     if (Number.isInteger(value) && value > 0) {
       return value
@@ -179,7 +184,9 @@ function headerTotal(response: Response, itemCount: number, requestUrl: string):
   if (counted === undefined) {
     return undefined
   }
-  return counted <= itemCount && /\/timeline(?:\?|$)/.test(requestUrl) ? undefined : counted
+  return counted <= itemCount && /\/timeline(?:\?|$)/.test(requestUrl)
+    ? undefined
+    : counted
 }
 
 /**
@@ -212,7 +219,9 @@ function linkTotal(header: string | null | undefined, requestUrl: string, itemCo
     return itemCount
   }
   const size = pageSize(lastUrl) ?? pageSize(request)
-  return size === undefined ? undefined : page * size
+  return size === undefined
+    ? undefined
+    : page * size
 }
 
 function retryAfterMs(response: Response): number | undefined {
@@ -225,7 +234,9 @@ function retryAfterMs(response: Response): number | undefined {
     return seconds * 1000
   }
   const date = Date.parse(header)
-  return Number.isNaN(date) ? undefined : Math.max(0, date - Date.now())
+  return Number.isNaN(date)
+    ? undefined
+    : Math.max(0, date - Date.now())
 }
 
 /** `x-ratelimit-reset` and `ratelimit-reset` hold a Unix time in seconds on some forges, and seconds from now on others. */
@@ -234,7 +245,9 @@ function resetDate(response: Response, now: number): Date | undefined {
   if (reset === undefined) {
     return undefined
   }
-  return new Date(reset > 1_000_000_000 ? reset * 1000 : now + reset * 1000)
+  return new Date(reset > 1_000_000_000
+    ? reset * 1000
+    : now + reset * 1000)
 }
 
 /** A budget with requests left resets on its own schedule, which says nothing about when a secondary limit lifts. */
@@ -264,7 +277,10 @@ function fieldMembers(response: Response, name: string): Map<string, Record<stri
     const [key = '', ...params] = member.split(';')
     members.set(key.trim().replace(/^"(.*)"$/, '$1'), Object.fromEntries(params.map((param) => {
       const [field = '', value] = param.split('=')
-      return [field.trim(), Number(value)]
+      return [
+        field.trim(),
+        Number(value),
+      ]
     })))
   }
   return members
@@ -272,16 +288,26 @@ function fieldMembers(response: Response, name: string): Map<string, Record<stri
 
 /** The IETF `ratelimit` and `ratelimit-policy` fields, for the policy with the fewest requests left. */
 function structuredRateLimit(response: Response, now: number): RateLimit | undefined {
-  const [name, state] = [...fieldMembers(response, 'ratelimit')].filter(([, params]) => Number.isFinite(params.r)).sort(([, a], [, b]) => a.r! - b.r!)[0] ?? []
+  const [name, state] = [
+    ...fieldMembers(response, 'ratelimit'),
+  ].filter(([, params]) => Number.isFinite(params.r)).sort(([, a], [, b]) => a.r! - b.r!)[0] ?? []
   if (!state) {
     return undefined
   }
   const limit = fieldMembers(response, 'ratelimit-policy').get(name!)?.q
   return {
-    ...Number.isFinite(limit) ? { limit } : {},
+    ...Number.isFinite(limit)
+      ? { limit }
+      : {},
     remaining: state.r,
-    ...Number.isFinite(state.t) ? { resetAt: new Date(now + state.t! * 1000) } : {},
-    ...name ? { resource: name } : {},
+    ...Number.isFinite(state.t)
+      ? {
+          resetAt: new Date(now + state.t! * 1000),
+        }
+      : {},
+    ...name
+      ? { resource: name }
+      : {},
   }
 }
 
@@ -295,16 +321,26 @@ export function rateLimitOf(response: Response, now: number = Date.now()): RateL
   }
   const resource = response.headers.get('x-ratelimit-resource') || response.headers.get('ratelimit-name') || undefined
   return {
-    ...limit === undefined ? {} : { limit },
-    ...remaining === undefined ? {} : { remaining },
-    ...reset === undefined ? {} : { resetAt: reset },
-    ...resource === undefined ? {} : { resource },
+    ...limit === undefined
+      ? {}
+      : { limit },
+    ...remaining === undefined
+      ? {}
+      : { remaining },
+    ...reset === undefined
+      ? {}
+      : { resetAt: reset },
+    ...resource === undefined
+      ? {}
+      : { resource },
   }
 }
 
 /** Whether the `message` or an `errors[].message` of a JSON error body names a secondary rate limit. */
 function scopeList(header: string | null): string[] | undefined {
-  return header === null ? undefined : header.split(',').map(scope => scope.trim()).filter(Boolean)
+  return header === null
+    ? undefined
+    : header.split(',').map(scope => scope.trim()).filter(Boolean)
 }
 
 function namesSecondaryRateLimit(body: string): boolean {
@@ -316,7 +352,12 @@ function namesSecondaryRateLimit(body: string): boolean {
     return false
   }
   const { message, errors } = (parsed ?? {}) as { message?: unknown, errors?: unknown }
-  const messages = [message, ...Array.isArray(errors) ? errors.map(error => (error as { message?: unknown } | null)?.message) : []]
+  const messages = [
+    message,
+    ...Array.isArray(errors)
+      ? errors.map(error => (error as { message?: unknown } | null)?.message)
+      : [],
+  ]
   return messages.some(text => typeof text === 'string' && isSecondaryRateLimit(text))
 }
 
@@ -472,14 +513,20 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   async function send(url: string, options_: RequestOptions, attempt: number, authenticated = true, download = false, redirects = 0, streaming = false, follow = false): Promise<Response> {
     const target = assertUrl(new URL(url))
     const trusted = authenticated && target.origin === baseOrigin
-    const controller = streaming ? new AbortController() : undefined
-    const timer = controller ? setTimeout(() => controller.abort(new DOMException('Request timed out', 'TimeoutError')), timeout) : undefined
+    const controller = streaming
+      ? new AbortController()
+      : undefined
+    const timer = controller
+      ? setTimeout(() => controller.abort(new DOMException('Request timed out', 'TimeoutError')), timeout)
+      : undefined
     const signals = [controller?.signal ?? AbortSignal.timeout(timeout)]
     if (options_.signal) {
       signals.push(options_.signal)
     }
     const headers = new Headers(trusted ? options.headers : undefined)
-    for (const [key, value] of Object.entries(trusted ? await (options.authHeaders?.() ?? {}) : {})) {
+    for (const [key, value] of Object.entries(trusted
+      ? await (options.authHeaders?.() ?? {})
+      : {})) {
       headers.set(key, value)
     }
     for (const [key, value] of new Headers(options_.headers as HeadersInit | undefined)) {
@@ -495,12 +542,16 @@ export function createFetcher(options: FetcherOptions): Fetcher {
 
     let response: Response
     try {
-      response = await doFetch(trusted ? withDefaultQuery(url) : url, {
+      response = await doFetch(trusted
+        ? withDefaultQuery(url)
+        : url, {
         ...init,
         redirect: follow ? 'follow' : 'manual',
         credentials: trusted ? init.credentials : 'omit',
         headers,
-        body: payload === undefined ? init.body : JSON.stringify(payload),
+        body: payload === undefined
+          ? init.body
+          : JSON.stringify(payload),
         signal: anySignal(signals),
       })
     }
@@ -516,10 +567,18 @@ export function createFetcher(options: FetcherOptions): Fetcher {
           { cause },
         )
       }
-      const inner = cause instanceof Error ? cause.cause as { code?: unknown, message?: unknown } | undefined : undefined
-      const reason = typeof inner?.code === 'string' ? inner.code : inner?.message
+      const inner = cause instanceof Error
+        ? cause.cause as { code?: unknown, message?: unknown } | undefined
+        : undefined
+      const reason = typeof inner?.code === 'string'
+        ? inner.code
+        : inner?.message
       throw new ForgeNetworkError(
-        `Request to ${url} failed: ${cause instanceof Error ? cause.message : String(cause)}${typeof reason === 'string' && reason ? ` (${reason})` : ''}`,
+        `Request to ${url} failed: ${cause instanceof Error
+          ? cause.message
+          : String(cause)}${typeof reason === 'string' && reason
+          ? ` (${reason})`
+          : ''}`,
         { ...options.context, url, method: options_.method ?? 'GET' },
         { cause },
       )
@@ -546,7 +605,9 @@ export function createFetcher(options: FetcherOptions): Fetcher {
     if (budget && options.onRateLimit && target.origin === baseOrigin) {
       options.onRateLimit({ url, method: options_.method ?? 'GET', rateLimit: budget })
     }
-    const location = REDIRECT_STATUSES.has(response.status) ? response.headers.get('location') : null
+    const location = REDIRECT_STATUSES.has(response.status)
+      ? response.headers.get('location')
+      : null
     if (location && options_.redirect !== 'manual') {
       await response.body?.cancel()
       if (options_.redirect === 'error' || redirects >= 20) {
@@ -568,10 +629,22 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       }
       else if ((response.status === 303 && method !== 'HEAD') || ((response.status === 301 || response.status === 302) && method === 'POST')) {
         const nextHeaders = new Headers(options_.headers)
-        for (const name of ['content-type', 'content-length', 'content-encoding', 'content-language', 'content-location']) {
+        for (const name of [
+          'content-type',
+          'content-length',
+          'content-encoding',
+          'content-language',
+          'content-location',
+        ]) {
           nextHeaders.delete(name)
         }
-        nextOptions = { ...options_, method: 'GET', body: undefined, json: undefined, headers: nextHeaders }
+        nextOptions = {
+          ...options_,
+          method: 'GET',
+          body: undefined,
+          json: undefined,
+          headers: nextHeaders,
+        }
       }
       return send(next.toString(), nextOptions, attempt, authenticated && sameOrigin, download, redirects + 1, streaming)
     }
@@ -617,10 +690,19 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       const grantedScopes = scopeList(response.headers.get('x-oauth-scopes'))
       const missingScope = acceptedScopes?.length && !acceptedScopes.some(scope => grantedScopes?.includes(scope))
       const ssoUrl = response.headers.get('x-github-sso')?.match(/\burl=(\S+)/)?.[1]
-      const forbidden = missingScope ? undefined : ssoUrl ? { reason: 'sso_required' as const, reasonRaw: forbiddenReason(body)?.reasonRaw } : forbiddenReason(body)
+      const forbidden = missingScope
+        ? undefined
+        : ssoUrl
+          ? { reason: 'sso_required' as const, reasonRaw: forbiddenReason(body)?.reasonRaw }
+          : forbiddenReason(body)
       if (!forbidden) {
         const acceptedPermissionsRaw = response.headers.get('x-accepted-github-permissions') || undefined
-        throw new InsufficientScopeError('Credentials lack the scope or permission for this request', 403, body, { ...context, acceptedScopes, grantedScopes, acceptedPermissionsRaw })
+        throw new InsufficientScopeError('Credentials lack the scope or permission for this request', 403, body, {
+          ...context,
+          acceptedScopes,
+          grantedScopes,
+          acceptedPermissionsRaw,
+        })
       }
       throw new ForbiddenError(`Forge refused the request (${forbidden.reason})`, 403, body, forbidden.reason, { ...context, reasonRaw: forbidden.reasonRaw, ssoUrl })
     }
@@ -638,18 +720,27 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       return await send(resolve(path, options_.query), options_, 0)
     }
     catch (error) {
-      throw options_.mapError ? options_.mapError(error) : error
+      throw options_.mapError
+        ? options_.mapError(error)
+        : error
     }
   }
 
   async function json<T>(path: string, options_: RequestOptions = {}): Promise<FetchResult<T>> {
     const response = await raw(path, options_)
     if (response.status === 304 || response.status === 204) {
-      return { data: undefined as T, response, notModified: response.status === 304, cursor: cursorFrom(response) }
+      return {
+        data: undefined as T,
+        response,
+        notModified: response.status === 304,
+        cursor: cursorFrom(response),
+      }
     }
     const text = await response.text()
     return {
-      data: (text ? parseJson(text) : undefined) as T,
+      data: (text
+        ? parseJson(text)
+        : undefined) as T,
       response,
       notModified: false,
       cursor: cursorFrom(response),
@@ -659,25 +750,60 @@ export function createFetcher(options: FetcherOptions): Fetcher {
   async function page<T>(path: string, options_: PaginateOptions & { cursor?: Cursor } = {}): Promise<FetchResult<T[]>> {
     const { select, cursor, conditional = true, ...requestOptions } = options_
     const initial = resolve(path, requestOptions.query)
-    const url = cursor?.nextUrl ? resolve(cursor.nextUrl) : initial
+    const url = cursor?.nextUrl
+      ? resolve(cursor.nextUrl)
+      : initial
     if (new URL(url).origin !== new URL(initial).origin) {
       throw new TypeError('Pagination URL must remain on the requested origin')
     }
     const first = conditional && !cursor?.nextUrl && !cursor?.token
-    const sent = first ? requestOptions.etag ?? cursor?.etag : undefined
+    const sent = first
+      ? requestOptions.etag ?? cursor?.etag
+      : undefined
     const result: FetchResult<unknown> = await json<unknown>(url, { ...requestOptions, etag: sent, query: undefined })
-    const validator = first ? result.response.headers.get('etag') ?? (result.notModified ? sent : undefined) : undefined
-    const etag = validator ? { etag: validator } : {}
+    const validator = first
+      ? result.response.headers.get('etag') ?? (result.notModified ? sent : undefined)
+      : undefined
+    const etag = validator
+      ? { etag: validator }
+      : {}
     if (result.notModified) {
-      return { ...result, data: [], cursor: undefined, ...etag }
+      return {
+        ...result,
+        data: [],
+        cursor: undefined,
+        ...etag,
+      }
     }
-    const next = select ? select(result.data, result.cursor?.nextUrl) : undefined
-    const items = (next ? next.items : result.data ?? []) as unknown[]
+    const next = select
+      ? select(result.data, result.cursor?.nextUrl)
+      : undefined
+    const items = (next
+      ? next.items
+      : result.data ?? []) as unknown[]
     const total = next?.total ?? headerTotal(result.response, items.length, url) ?? linkTotal(result.response.headers.get('link'), url, items.length)
     if (!next) {
-      return { ...result, data: items as T[], cursor: result.cursor?.nextUrl ? result.cursor : undefined, ...total !== undefined ? { total } : {}, ...etag }
+      return {
+        ...result,
+        data: items as T[],
+        cursor: result.cursor?.nextUrl ? result.cursor : undefined,
+        ...total !== undefined
+          ? { total }
+          : {},
+        ...etag,
+      }
     }
-    return { ...result, data: items as T[], cursor: next.next ? { ...result.cursor, nextUrl: next.next } : undefined, ...total !== undefined ? { total } : {}, ...etag }
+    return {
+      ...result,
+      data: items as T[],
+      cursor: next.next
+        ? { ...result.cursor, nextUrl: next.next }
+        : undefined,
+      ...total !== undefined
+        ? { total }
+        : {},
+      ...etag,
+    }
   }
 
   async function* items<T>(path: string, options_: PaginateOptions = {}): AsyncGenerator<T> {
@@ -695,11 +821,20 @@ export function createFetcher(options: FetcherOptions): Fetcher {
       return { status: response.status, headers: response.headers, body: response.body ?? emptyStream() }
     }
     catch (error) {
-      throw options_.mapError ? options_.mapError(error) : error
+      throw options_.mapError
+        ? options_.mapError(error)
+        : error
     }
   }
 
-  return { raw, stream, json, page, items, resolve }
+  return {
+    raw,
+    stream,
+    json,
+    page,
+    items,
+    resolve,
+  }
 }
 
 const LONG_NUMBER_RE = /\d{16}/
@@ -715,7 +850,9 @@ export function parseJson(text: string): unknown {
     return JSON.parse(text)
   }
   return JSON.parse(text, (_key, value: unknown, context?: { source?: string }) =>
-    typeof value === 'number' && !Number.isSafeInteger(value) && context?.source && INTEGER_RE.test(context.source) ? context.source : value)
+    typeof value === 'number' && !Number.isSafeInteger(value) && context?.source && INTEGER_RE.test(context.source)
+      ? context.source
+      : value)
 }
 
 function emptyStream(): ReadableStream<Uint8Array> {
@@ -782,15 +919,31 @@ export function createRequest(fetcher: Fetcher, createOptions: CreateRequestOpti
       method: upperMethod,
       query: options.query,
       signal: options.signal,
-      headers: { ...json ? { 'content-type': 'application/json' } : {}, ...options.headers },
-      body: options.body === undefined ? undefined : json ? JSON.stringify(options.body) : options.body as BodyInit,
+      headers: {
+        ...json
+          ? { 'content-type': 'application/json' }
+          : {},
+        ...options.headers,
+      },
+      body: options.body === undefined
+        ? undefined
+        : json
+          ? JSON.stringify(options.body)
+          : options.body as BodyInit,
     }
     if ('raw' in options && options.raw) {
       return fetcher.stream(path, init)
     }
     const result = await fetcher.json<T>(path, init)
     const rateLimit = rateLimitOf(result.response)
-    return { status: result.response.status, data: result.data, headers: result.response.headers, ...rateLimit ? { rateLimit } : {} }
+    return {
+      status: result.response.status,
+      data: result.data,
+      headers: result.response.headers,
+      ...rateLimit
+        ? { rateLimit }
+        : {},
+    }
   }) as ForgeRequest
 }
 

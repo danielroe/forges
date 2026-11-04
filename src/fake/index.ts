@@ -414,7 +414,9 @@ const CLOSING_KEYWORD = /\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?):?\s+#(\d+)\
 
 /** The numbers of the issues in the same repository that a pull request body names after a closing keyword, such as `Fixes #1`. */
 function closedNumbers(body: string | undefined): Set<string> {
-  return new Set([...(body ?? '').matchAll(CLOSING_KEYWORD)].map(match => match[1]!))
+  return new Set([
+    ...(body ?? '').matchAll(CLOSING_KEYWORD),
+  ].map(match => match[1]!))
 }
 
 const ALL_KINDS: Partial<Record<ThreadKind, SupportInput>> = { issue: true, pull_request: true, discussion: true }
@@ -426,12 +428,22 @@ function pageOf<T>(items: T[], options: { cursor?: { token?: string }, perPage?:
   const offset = Number(options.cursor?.token ?? 0)
   const size = options.perPage ?? 30
   const next = offset + size
-  return { items: items.slice(offset, next), cursor: next < items.length ? { token: String(next) } : undefined }
+  return {
+    items: items.slice(offset, next),
+    cursor: next < items.length
+      ? {
+          token: String(next),
+        }
+      : undefined,
+  }
 }
 
 function splitRepo(slug: string): { owner: string, name: string } {
   const index = slug.lastIndexOf('/')
-  return { owner: slug.slice(0, index), name: slug.slice(index + 1) }
+  return {
+    owner: slug.slice(0, index),
+    name: slug.slice(index + 1),
+  }
 }
 
 /** A weak validator from an FNV-1a hash of the JSON of `value`. */
@@ -449,11 +461,15 @@ function conditional<T>(page: Page<T>, options: { cursor?: Cursor }): Page<T> {
     return page
   }
   const etag = digest(page.items)
-  return options.cursor?.etag === etag ? { items: [], notModified: true, etag } : { ...page, etag }
+  return options.cursor?.etag === etag
+    ? { items: [], notModified: true, etag }
+    : { ...page, etag }
 }
 
 function copyOf<T>(value: T): T {
-  return value instanceof ReadableStream ? value : structuredClone(value)
+  return value instanceof ReadableStream
+    ? value
+    : structuredClone(value)
 }
 
 function signalOf(args: unknown[]): AbortSignal | undefined {
@@ -469,7 +485,10 @@ function signalOf(args: unknown[]): AbortSignal | undefined {
 /** Reads a stored file key, `<ref>:<path>`, where the ref `*` stands for every ref. */
 function splitFileKey(key: string): { ref: string, path: string } {
   const index = key.indexOf(':')
-  return { ref: key.slice(0, index), path: key.slice(index + 1) }
+  return {
+    ref: key.slice(0, index),
+    path: key.slice(index + 1),
+  }
 }
 
 /**
@@ -498,7 +517,14 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const instance = options.instance ?? 'fake.test'
   const origin = { forge, instance }
   const viewerLogin = options.viewer ?? 'fake-user'
-  const store: FakeStore = { repos: new Map(), notifications: [], events: [], webhooks: [], blocks: new Map(), sponsorable: new Set() }
+  const store: FakeStore = {
+    repos: new Map(),
+    notifications: [],
+    events: [],
+    webhooks: [],
+    blocks: new Map(),
+    sponsorable: new Set(),
+  }
   const secrets = new Map<string, string | undefined>()
   const listeners = new Set<(event: ForgeEvent) => void>()
   const now = () => new Date(options.now?.() ?? Date.now())
@@ -517,7 +543,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
 
   function setRateLimit(given: FakeRateLimit | undefined): void {
     const window = given?.window ?? 3_600_000
-    budget = given && { limit: given.limit, remaining: given.remaining ?? given.limit, window, resetAt: new Date(now().getTime() + window) }
+    budget = given && {
+      limit: given.limit,
+      remaining: given.remaining ?? given.limit,
+      window,
+      resetAt: new Date(now().getTime() + window),
+    }
     seen = undefined
   }
   setRateLimit(options.rateLimit)
@@ -533,15 +564,32 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     }
     const exhausted = budget.remaining <= 0
     budget.remaining = Math.max(0, budget.remaining - 1)
-    seen = { limit: budget.limit, remaining: budget.remaining, resetAt: new Date(budget.resetAt) }
-    if (exhausted) {
-      throw new RateLimitedError(`Rate limit of ${budget.limit} requests exhausted until ${budget.resetAt.toISOString()}`, 429, '', { ...origin, resetAt: new Date(budget.resetAt) })
+    seen = {
+      limit: budget.limit,
+      remaining: budget.remaining,
+      resetAt: new Date(budget.resetAt),
     }
-    return { ...seen, resetAt: new Date(budget.resetAt) }
+    if (exhausted) {
+      throw new RateLimitedError(`Rate limit of ${budget.limit} requests exhausted until ${budget.resetAt.toISOString()}`, 429, '', {
+        ...origin,
+        resetAt: new Date(budget.resetAt),
+      })
+    }
+    return {
+      ...seen,
+      resetAt: new Date(budget.resetAt),
+    }
   }
 
   function rateLimits(): RateLimit[] {
-    return seen?.resetAt && now() < seen.resetAt ? [{ ...seen, resetAt: new Date(seen.resetAt) }] : []
+    return seen?.resetAt && now() < seen.resetAt
+      ? [
+          {
+            ...seen,
+            resetAt: new Date(seen.resetAt),
+          },
+        ]
+      : []
   }
 
   function takeFailure(verb: string): { error: Error, applied: boolean } | undefined {
@@ -553,7 +601,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     if (--next.times <= 0) {
       queue.shift()
     }
-    return { error: typeof next.error === 'function' ? next.error() : next.error, applied: next.applied }
+    return {
+      error: typeof next.error === 'function'
+        ? next.error()
+        : next.error,
+      applied: next.applied,
+    }
   }
 
   const disconnected = (verb: string) => new ForgeNetworkError(`${verb} failed: ${instance} is offline`, origin)
@@ -568,7 +621,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       if (!connected) {
         throw disconnected(verb)
       }
-      const delay = typeof latency === 'function' ? latency(verb as ForgeVerb) : latency ?? 0
+      const delay = typeof latency === 'function'
+        ? latency(verb as ForgeVerb)
+        : latency ?? 0
       if (delay > 0) {
         await sleep(Math.min(delay, timeout), signal)
         if (delay > timeout) {
@@ -621,10 +676,23 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
 
   const notFound = (message: string) => new NotFoundError(message, 404, '', origin)
-  const actor = (login: string): Actor => ({ ...origin, login, id: login, isBotHint: login.endsWith('[bot]') })
+  const actor = (login: string): Actor => ({
+    ...origin,
+    login,
+    id: login,
+    isBotHint: login.endsWith('[bot]'),
+  })
   const label = (name: string): Label => ({ name })
-  const issueType = (name: string): IssueType => ({ id: name, name, enabled: true, raw: { name } })
-  const repoRef = (slug: string): RepoRef => ({ ...origin, ...splitRepo(slug) })
+  const issueType = (name: string): IssueType => ({
+    id: name,
+    name,
+    enabled: true,
+    raw: { name },
+  })
+  const repoRef = (slug: string): RepoRef => ({
+    ...origin,
+    ...splitRepo(slug),
+  })
   const slugOf = (repo: RepoRef) => `${repo.owner}/${repo.name}`
 
   function repoState(repo: RepoRef) {
@@ -703,7 +771,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
 
   function threadsOf(repo: RepoRef, kind: ThreadKind): Thread[] {
-    return [...repoState(repo).threads.values()].map(state => state.thread).filter(thread => thread.kind === kind)
+    return [
+      ...repoState(repo).threads.values(),
+    ].map(state => state.thread).filter(thread => thread.kind === kind)
   }
 
   function threadState(ref: ThreadRef): FakeThreadState {
@@ -717,8 +787,15 @@ export function fake(options: FakeOptions = {}): FakeProvider {
 
   function addThread(seed: FakeThreadSeed): Thread {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
-    const number = String(seed.number ?? Math.max(0, ...[...repo.threads.keys()].map(Number)) + 1)
-    const ref: ResolvedThreadRef = { ...origin, repo: repo.repo.ref, kind: seed.kind, number }
+    const number = String(seed.number ?? Math.max(0, ...[
+      ...repo.threads.keys(),
+    ].map(Number)) + 1)
+    const ref: ResolvedThreadRef = {
+      ...origin,
+      repo: repo.repo.ref,
+      kind: seed.kind,
+      number,
+    }
     const at = now()
     const thread: Thread = {
       ref,
@@ -728,36 +805,74 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       state: seed.state ?? 'open',
       isDraft: seed.isDraft ?? false,
       author: actor(seed.author ?? viewerLogin),
-      ...seed.authorAssociation ? { authorAssociation: seed.authorAssociation } : {},
+      ...seed.authorAssociation
+        ? { authorAssociation: seed.authorAssociation }
+        : {},
       assignees: (seed.assignees ?? []).map(actor),
       reviewers: [],
       labels: (seed.labels ?? []).map(label),
-      ...seed.milestone === undefined ? {} : { milestone: { id: seed.milestone, title: seed.milestone, state: 'open' as const, raw: { title: seed.milestone } } },
-      ...seed.issueType === undefined ? {} : { issueType: issueType(seed.issueType) },
-      url: `https://${instance}/${seed.repo}/${seed.kind === 'pull_request' ? 'pull' : seed.kind === 'discussion' ? 'discussions' : 'issues'}/${number}`,
+      ...seed.milestone === undefined
+        ? {}
+        : {
+            milestone: {
+              id: seed.milestone,
+              title: seed.milestone,
+              state: 'open' as const,
+              raw: { title: seed.milestone },
+            },
+          },
+      ...seed.issueType === undefined
+        ? {}
+        : {
+            issueType: issueType(seed.issueType),
+          },
+      url: `https://${instance}/${seed.repo}/${seed.kind === 'pull_request'
+        ? 'pull'
+        : seed.kind === 'discussion'
+          ? 'discussions'
+          : 'issues'}/${number}`,
       createdAt: at,
       updatedAt: at,
       commentCount: seed.comments?.length ?? 0,
-      ...seed.kind === 'pull_request' ? { branches: { head: { ref: seed.head?.ref ?? `patch-${number}`, sha: seed.head?.sha ?? seed.commits?.at(-1) }, base: { ref: repo.repo.defaultBranch ?? 'main' } } } : {},
+      ...seed.kind === 'pull_request'
+        ? {
+            branches: {
+              head: { ref: seed.head?.ref ?? `patch-${number}`, sha: seed.head?.sha ?? seed.commits?.at(-1) },
+              base: { ref: repo.repo.defaultBranch ?? 'main' },
+            },
+          }
+        : {},
       raw: seed,
     }
     const comments = (seed.comments ?? []).map((comment, index): Comment => ({
       ref: { ...origin, thread: ref, id: `${number}-${index + 1}` },
       body: comment.body,
       author: actor(comment.author ?? viewerLogin),
-      ...comment.authorAssociation ? { authorAssociation: comment.authorAssociation } : {},
+      ...comment.authorAssociation
+        ? { authorAssociation: comment.authorAssociation }
+        : {},
       createdAt: at,
       raw: comment,
     }))
     const checks = (seed.checks ?? []).map((check, index): Check => ({
-      ref: { ...origin, repo: ref.repo, id: `${number}-check-${index + 1}`, type: 'check_run' },
+      ref: {
+        ...origin,
+        repo: ref.repo,
+        id: `${number}-check-${index + 1}`,
+        type: 'check_run',
+      },
       name: check.name,
       state: check.state,
       stateRaw: check.state,
       raw: check,
     }))
     if (checks.length) {
-      thread.checks = { state: summaryState(checks), stateRaw: summaryState(checks), total: checks.length, failed: checks.filter(check => check.state === 'failure').length }
+      thread.checks = {
+        state: summaryState(checks),
+        stateRaw: summaryState(checks),
+        total: checks.length,
+        failed: checks.filter(check => check.state === 'failure').length,
+      }
     }
     const files = (seed.files ?? []).map((file): ChangedFile => ({
       path: file.path,
@@ -767,14 +882,28 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       deletions: file.deletions ?? 0,
       patch: file.patch,
     }))
-    const state: FakeThreadState = { thread, files, commits: seed.commits ?? [], comments, reactions: new Map(), checks, reviews: [], subscription: 'subscribed', mergeable: seed.mergeable ?? 'clean', hidden: new Map() }
+    const state: FakeThreadState = {
+      thread,
+      files,
+      commits: seed.commits ?? [],
+      comments,
+      reactions: new Map(),
+      checks,
+      reviews: [],
+      subscription: 'subscribed',
+      mergeable: seed.mergeable ?? 'clean',
+      hidden: new Map(),
+    }
     repo.threads.set(number, state)
     commentCounts.set(state, comments.length)
     return thread
   }
 
   function mentioned(thread: Thread, comments: Comment[], login: string): boolean {
-    return [thread.body, ...comments.map(comment => comment.body)].some(body => mentions(body, login))
+    return [
+      thread.body,
+      ...comments.map(comment => comment.body),
+    ].some(body => mentions(body, login))
   }
 
   function mentions(body: string | undefined, login: string): boolean {
@@ -789,7 +918,11 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
 
   function inBulk(notification: Notification, bulk: BulkNotificationOptions): boolean {
-    const repo = notification.subject.type === 'thread' ? notification.subject.thread.repo : 'repo' in notification.subject ? notification.subject.repo : undefined
+    const repo = notification.subject.type === 'thread'
+      ? notification.subject.thread.repo
+      : 'repo' in notification.subject
+        ? notification.subject.repo
+        : undefined
     return (!bulk.repo || (repo !== undefined && slugOf(repo) === slugOf(bulk.repo)))
       && (!bulk.before || notification.updatedAt < bulk.before)
   }
@@ -801,7 +934,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     if (checks.some(check => check.state === 'pending')) {
       return 'pending'
     }
-    return checks.every(check => check.state === 'success' || check.state === 'neutral') ? 'success' : 'unknown'
+    return checks.every(check => check.state === 'success' || check.state === 'neutral')
+      ? 'success'
+      : 'unknown'
   }
 
   /** The recorded events that `match`, newest first, as a feed reads them. */
@@ -825,13 +960,17 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       occurredAt: now(),
       actor: actor(by),
       repo: subject.repo,
-      ...'sha' in subject ? { commit: subject } : { thread: subject },
+      ...'sha' in subject
+        ? { commit: subject }
+        : { thread: subject },
       detail,
       source: 'stream',
       payload: { kind, action, detail },
     })
     store.events.push(event)
-    const state = 'sha' in subject ? undefined : repoState(subject.repo).threads.get(String(subject.number))
+    const state = 'sha' in subject
+      ? undefined
+      : repoState(subject.repo).threads.get(String(subject.number))
     if (state) {
       state.thread.updatedAt = event.occurredAt
       state.thread.lastActivityAt = event.occurredAt
@@ -847,19 +986,36 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   function reasonFor(state: FakeThreadState, event: ForgeEvent): NotificationReason | undefined {
     const detail = event.detail
     if (detail?.type === 'assignment') {
-      return detail.assignee?.login !== viewerLogin ? undefined : event.action === 'review_requested' ? 'review_requested' : event.action === 'assigned' ? 'assigned' : undefined
+      return detail.assignee?.login !== viewerLogin
+        ? undefined
+        : event.action === 'review_requested'
+          ? 'review_requested'
+          : event.action === 'assigned'
+            ? 'assigned'
+            : undefined
     }
-    if (!['comment', 'review', 'review_comment', 'state_change'].includes(event.kind) || event.action === 'deleted') {
+    if (![
+      'comment',
+      'review',
+      'review_comment',
+      'state_change',
+    ].includes(event.kind) || event.action === 'deleted') {
       return undefined
     }
-    const body = detail && 'body' in detail ? detail.body : undefined
+    const body = detail && 'body' in detail
+      ? detail.body
+      : undefined
     if (mentions(body, viewerLogin)) {
       return 'mention'
     }
     if (state.subscription !== 'subscribed') {
       return undefined
     }
-    return state.thread.author?.login === viewerLogin ? 'author' : state.comments.some(comment => comment.author?.login === viewerLogin) ? 'comment' : 'subscribed'
+    return state.thread.author?.login === viewerLogin
+      ? 'author'
+      : state.comments.some(comment => comment.author?.login === viewerLogin)
+        ? 'comment'
+        : 'subscribed'
   }
 
   function notify(state: FakeThreadState, event: ForgeEvent): void {
@@ -870,7 +1026,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     const { thread } = state
     const existing = store.notifications.find(item => item.subject.type === 'thread' && slugOf(item.subject.thread.repo) === slugOf(thread.ref.repo) && item.subject.thread.number === thread.ref.number)
     const notification: Notification = existing ?? {
-      ref: { ...origin, id: String(++notificationCount) },
+      ref: {
+        ...origin,
+        id: String(++notificationCount),
+      },
       subject: { type: 'thread', thread: thread.ref },
       reason,
       unread: true,
@@ -879,7 +1038,14 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       updatedAt: event.occurredAt,
       raw: { reason },
     }
-    Object.assign(notification, { reason, reasonRaw: reason, unread: true, title: thread.title, subjectState: thread.state, updatedAt: event.occurredAt })
+    Object.assign(notification, {
+      reason,
+      reasonRaw: reason,
+      unread: true,
+      title: thread.title,
+      subjectState: thread.state,
+      updatedAt: event.occurredAt,
+    })
     if (event.detail?.type === 'comment' && event.detail.comment) {
       notification.latestComment = { ...event.detail.comment, thread: thread.ref }
     }
@@ -896,17 +1062,31 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
   for (const seed of options.seed?.releases ?? []) {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
-    const releaseRef = { ...origin, repo: repo.repo.ref, id: String(repo.releases.length + 1), tag: seed.tag }
+    const releaseRef = {
+      ...origin,
+      repo: repo.repo.ref,
+      id: String(repo.releases.length + 1),
+      tag: seed.tag,
+    }
     for (const asset of seed.assets ?? []) {
-      repo.assets.set(`${releaseRef.id}:${asset.name}`, typeof asset.content === 'string' ? new TextEncoder().encode(asset.content) : asset.content)
+      repo.assets.set(`${releaseRef.id}:${asset.name}`, typeof asset.content === 'string'
+        ? new TextEncoder().encode(asset.content)
+        : asset.content)
     }
     repo.releases.push({
       ref: releaseRef,
       assets: (seed.assets ?? []).map(asset => ({
-        ref: { ...origin, repo: repo.repo.ref, release: releaseRef, id: asset.name },
+        ref: {
+          ...origin,
+          repo: repo.repo.ref,
+          release: releaseRef,
+          id: asset.name,
+        },
         name: asset.name,
         url: `https://${instance}/${seed.repo}/releases/download/${seed.tag}/${asset.name}`,
-        size: (typeof asset.content === 'string' ? new TextEncoder().encode(asset.content) : asset.content).byteLength,
+        size: (typeof asset.content === 'string'
+          ? new TextEncoder().encode(asset.content)
+          : asset.content).byteLength,
         contentType: asset.contentType,
       })),
       tag: seed.tag,
@@ -937,7 +1117,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       },
       jobs: (seed.jobs ?? []).map((job, index) => ({
         job: {
-          ref: { ...origin, repo: repo.repo.ref, id: `${id}-${index + 1}`, run: ref },
+          ref: {
+            ...origin,
+            repo: repo.repo.ref,
+            id: `${id}-${index + 1}`,
+            run: ref,
+          },
           name: job.name,
           state: job.state ?? seed.state ?? 'success',
           stateRaw: job.state ?? seed.state ?? 'success',
@@ -949,7 +1134,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   }
   for (const seed of options.seed?.files ?? []) {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
-    repo.files.set(`${seed.ref ?? '*'}:${seed.path}`, typeof seed.content === 'string' ? new TextEncoder().encode(seed.content) : seed.content)
+    repo.files.set(`${seed.ref ?? '*'}:${seed.path}`, typeof seed.content === 'string'
+      ? new TextEncoder().encode(seed.content)
+      : seed.content)
   }
   for (const seed of options.seed?.commits ?? []) {
     const repo = store.repos.get(seed.repo) ?? (addRepo({ repo: seed.repo }), store.repos.get(seed.repo)!)
@@ -965,7 +1152,11 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       ref: { ...origin, repo: repo.repo.ref, sha: seed.sha },
       sha: seed.sha,
       message: seed.message,
-      author: { actor: actor(seed.author ?? viewerLogin), name: seed.author ?? viewerLogin, date: seed.committedAt ?? now() },
+      author: {
+        actor: actor(seed.author ?? viewerLogin),
+        name: seed.author ?? viewerLogin,
+        date: seed.committedAt ?? now(),
+      },
       parents: seed.parents ?? [],
       stats: {
         additions: files.reduce((total, file) => total + (file.additions ?? 0), 0),
@@ -981,7 +1172,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       throw new Error(`Notification seed references unknown thread ${seed.repo}#${seed.number}`)
     }
     store.notifications.push({
-      ref: { ...origin, id: String(++notificationCount) },
+      ref: {
+        ...origin,
+        id: String(++notificationCount),
+      },
       subject: { type: 'thread', thread: state.thread.ref },
       reason: seed.reason ?? 'subscribed',
       reasonRaw: seed.reason ?? 'subscribed',
@@ -1000,7 +1194,13 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     const state = seed.state ?? 'open'
     const at = now()
     repo.securityAlerts.push({
-      ref: { ...origin, repo: repo.repo.ref, id, kind: seed.kind, severityRaw: severity },
+      ref: {
+        ...origin,
+        repo: repo.repo.ref,
+        id,
+        kind: seed.kind,
+        severityRaw: severity,
+      },
       kind: seed.kind,
       kindRaw: seed.kind,
       severity,
@@ -1012,7 +1212,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       url: `https://${instance}/${seed.repo}/security/${seed.kind}/${id}`,
       createdAt: at,
       updatedAt: at,
-      ...state === 'dismissed' ? { dismissedAt: at } : {},
+      ...state === 'dismissed'
+        ? { dismissedAt: at }
+        : {},
       raw: seed,
     })
   }
@@ -1024,14 +1226,18 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const givenSupport = (name: ForgeVerb): FakeSupport | undefined => options.support?.[name] ?? (options.capabilities && capabilityOf(options.capabilities, name))
   const support = (name: ForgeVerb, fallback: SupportInput): SupportInput => {
     const given = givenSupport(name)
-    return given === undefined || typeof given === 'object' ? fallback : given
+    return given === undefined || typeof given === 'object'
+      ? fallback
+      : given
   }
   const kinds = (name: ForgeVerb, fallback: Partial<Record<ThreadKind, SupportInput>>): Partial<Record<ThreadKind, SupportInput>> => {
     const given = givenSupport(name)
     if (given === undefined) {
       return fallback
     }
-    return typeof given === 'object' ? given : Object.fromEntries(Object.keys(fallback).map(kind => [kind, given]))
+    return typeof given === 'object'
+      ? given
+      : Object.fromEntries(Object.keys(fallback).map(kind => [kind, given]))
   }
 
   type RepoState = ReturnType<typeof repoState>
@@ -1043,7 +1249,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   const ownFiles = (state: RepoState, ref: string | undefined) => ref !== undefined && ref !== defaultBranchOf(state) && state.branches.has(ref)
 
   function headOf(state: RepoState, branch: string): string | undefined {
-    return state.branches.get(branch) ?? (branch === defaultBranchOf(state) ? state.commits.at(-1)?.sha ?? '0'.repeat(40) : undefined)
+    return state.branches.get(branch) ?? (branch === defaultBranchOf(state)
+      ? state.commits.at(-1)?.sha ?? '0'.repeat(40)
+      : undefined)
   }
 
   function readFile(state: RepoState, ref: string | undefined, path: string): Uint8Array | undefined {
@@ -1063,22 +1271,30 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     if (from !== undefined && head !== undefined) {
       throw new ForgeApiError(`Branch ${input.branch} already exists`, 422, '', origin)
     }
-    const parent = from === undefined ? head : headOf(state, from) ?? state.commits.find(commit => commit.sha === from.toLowerCase())?.sha
+    const parent = from === undefined
+      ? head
+      : headOf(state, from) ?? state.commits.find(commit => commit.sha === from.toLowerCase())?.sha
     if (parent === undefined) {
       throw notFound(`No branch ${from ?? input.branch} in ${slugOf(repo)}`)
     }
     if (input.expectedHead !== undefined && input.expectedHead.toLowerCase() !== parent) {
       throw new BranchMovedError(`Branch ${input.branch} is at ${parent}, not ${input.expectedHead}`, 409, '', origin)
     }
-    const read = (path: string) => from === undefined ? readFile(state, input.branch, path) : readFile(state, from, path)
+    const read = (path: string) => from === undefined
+      ? readFile(state, input.branch, path)
+      : readFile(state, from, path)
     const missing = input.changes.find(change => change.content === null && !read(change.path))
     if (missing) {
       throw notFound(`No file ${missing.path} on ${from ?? input.branch} in ${slugOf(repo)}`)
     }
     if (from !== undefined) {
-      const paths = new Set([...state.files.keys()].flatMap((key) => {
+      const paths = new Set([
+        ...state.files.keys(),
+      ].flatMap((key) => {
         const { ref, path } = splitFileKey(key)
-        return ref === '*' || ref === from ? [path] : []
+        return ref === '*' || ref === from
+          ? [path]
+          : []
       }))
       for (const path of paths) {
         const bytes = readFile(state, from, path)
@@ -1088,17 +1304,25 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       }
     }
     const files = input.changes.map((change): ChangedFile => {
-      const status: FileStatus = change.content === null ? 'removed' : read(change.path) ? 'modified' : 'added'
+      const status: FileStatus = change.content === null
+        ? 'removed'
+        : read(change.path)
+          ? 'modified'
+          : 'added'
       return { path: change.path, status, statusRaw: status }
     })
-    const prefix = input.branch === main ? '*' : input.branch
+    const prefix = input.branch === main
+      ? '*'
+      : input.branch
     for (const change of input.changes) {
       state.files.delete(`${input.branch}:${change.path}`)
       if (change.content === null) {
         state.files.delete(`${prefix}:${change.path}`)
       }
       else {
-        state.files.set(`${prefix}:${change.path}`, typeof change.content === 'string' ? new TextEncoder().encode(change.content) : change.content)
+        state.files.set(`${prefix}:${change.path}`, typeof change.content === 'string'
+          ? new TextEncoder().encode(change.content)
+          : change.content)
       }
     }
     const sha = `fa4e${String(++commitCount).padStart(36, '0')}`
@@ -1107,12 +1331,27 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       ref: { ...origin, repo: state.repo.ref, sha },
       sha,
       message: input.message,
-      author: input.author ? { ...input.author, date } : { actor: actor(by), name: by, date },
-      committer: { actor: actor(by), name: by, date },
-      parents: /^0+$/.test(parent) ? [] : [parent],
+      author: input.author
+        ? { ...input.author, date }
+        : {
+            actor: actor(by),
+            name: by,
+            date,
+          },
+      committer: {
+        actor: actor(by),
+        name: by,
+        date,
+      },
+      parents: /^0+$/.test(parent)
+        ? []
+        : [parent],
       url: `https://${instance}/${slugOf(repo)}/commit/${sha}`,
       files,
-      raw: { ...input, changes: input.changes.map(change => ({ path: change.path, deleted: change.content === null })) },
+      raw: {
+        ...input,
+        changes: input.changes.map(change => ({ path: change.path, deleted: change.content === null })),
+      },
     }
     state.commits.push(commit)
     state.branches.set(input.branch, sha)
@@ -1128,7 +1367,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       return
     }
     current.state = state
-    current.closedAt = state === 'open' ? undefined : now()
+    current.closedAt = state === 'open'
+      ? undefined
+      : now()
     if (state === 'merged') {
       current.mergedAt = current.closedAt
       current.mergedBy = actor(by)
@@ -1153,7 +1394,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
   function setAssignees(by: string, ref: ThreadRef, assignees: Array<string | Actor>): Actor[] {
     const thread = threadState(ref).thread
     const before = thread.assignees
-    thread.assignees = assignees.map(item => typeof item === 'string' ? actor(item) : { ...item })
+    thread.assignees = assignees.map(item => typeof item === 'string'
+      ? actor(item)
+      : { ...item })
     for (const assignee of thread.assignees.filter(item => !before.some(existing => existing.login === item.login))) {
       record(by, ref, 'assignment', 'assigned', `assigned ${assignee.login}`, { type: 'assignment', assignee })
     }
@@ -1193,19 +1436,28 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       state: input.event ? REVIEW_STATES[input.event] : 'pending',
       stateRaw: input.event ?? 'pending',
       body: input.body,
-      submittedAt: input.event ? now() : undefined,
+      submittedAt: input.event
+        ? now()
+        : undefined,
       comments,
       raw: input,
     }
     state.reviews.push(review)
     if (input.event) {
-      record(by, state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: input.body, review: review.ref })
+      record(by, state.thread.ref, 'review', 'submitted', `reviewed (${review.state})`, {
+        type: 'review',
+        state: review.state,
+        body: input.body,
+        review: review.ref,
+      })
     }
     return review
   }
 
   function setReviewThreadResolved(ref: ThreadRef, id: string, resolved: boolean): void {
-    const comments = threadState(ref).reviews.flatMap(review => review.comments === false ? [] : review.comments).filter(item => item.thread?.id === id)
+    const comments = threadState(ref).reviews.flatMap(review => review.comments === false
+      ? []
+      : review.comments).filter(item => item.thread?.id === id)
     if (comments.length === 0) {
       throw notFound(`No review thread ${id}`)
     }
@@ -1216,7 +1468,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
 
   function reviewThreads(ref: ThreadRef): ReviewThread[] {
     const threads = new Map<string, ReviewThread>()
-    for (const comment of threadState(ref).reviews.flatMap(review => review.comments === false ? [] : review.comments)) {
+    for (const comment of threadState(ref).reviews.flatMap(review => review.comments === false
+      ? []
+      : review.comments)) {
       if (!comment.thread) {
         continue
       }
@@ -1225,9 +1479,19 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         thread.comments.push(comment)
         continue
       }
-      threads.set(comment.thread.id, { id: comment.thread.id, resolved: comment.thread.resolved, path: comment.path, line: comment.line, side: comment.side, comments: [comment], raw: comment })
+      threads.set(comment.thread.id, {
+        id: comment.thread.id,
+        resolved: comment.thread.resolved,
+        path: comment.path,
+        line: comment.line,
+        side: comment.side,
+        comments: [comment],
+        raw: comment,
+      })
     }
-    return [...threads.values()]
+    return [
+      ...threads.values(),
+    ]
   }
 
   function replyToReviewComment(by: string, ref: ThreadRef, comment: Pick<ReviewComment, 'ref' | 'thread' | 'inReplyTo'>, body: string): ReviewComment {
@@ -1236,7 +1500,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       if (review.comments === false) {
         continue
       }
-      const parent = review.comments.find(item => comment.ref ? item.ref?.id === comment.ref.id : comment.thread !== undefined && item.thread?.id === comment.thread.id)
+      const parent = review.comments.find(item => comment.ref
+        ? item.ref?.id === comment.ref.id
+        : comment.thread !== undefined && item.thread?.id === comment.thread.id)
       if (!parent?.ref) {
         continue
       }
@@ -1253,7 +1519,13 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         raw: { body },
       }
       review.comments.push(reply)
-      record(by, state.thread.ref, 'review_comment', 'created', 'replied to a review comment', { type: 'review_comment', comment: reply.ref, body, path: reply.path, line: reply.line })
+      record(by, state.thread.ref, 'review_comment', 'created', 'replied to a review comment', {
+        type: 'review_comment',
+        comment: reply.ref,
+        body,
+        path: reply.path,
+        line: reply.line,
+      })
       return reply
     }
     throw notFound(`No review comment ${comment.ref?.id ?? comment.thread?.id}`)
@@ -1264,7 +1536,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
     if (given !== undefined && typeof given === 'object') {
       return given
     }
-    return { dependency: given ?? true, code_scanning: given ?? true, secret: given ?? true, advisory: given ?? true }
+    return {
+      dependency: given ?? true,
+      code_scanning: given ?? true,
+      secret: given ?? true,
+      advisory: given ?? true,
+    }
   })()
 
   /** An `'emulated'` `markDone()` marks the notification read and keeps it. */
@@ -1278,7 +1555,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       translate: (delivery) => {
         const parsed = JSON.parse(bodyText(delivery.body)) as ForgeEventInput | ForgeEventInput[]
         const deliveryId = headerValue(delivery.headers, 'x-fake-delivery')
-        return (Array.isArray(parsed) ? parsed : [parsed]).map((event, index) => ({
+        return (Array.isArray(parsed)
+          ? parsed
+          : [parsed]).map((event, index) => ({
           ...event,
           ...origin,
           id: event.id ?? `${deliveryId ?? 'delivery'}:${index}`,
@@ -1289,12 +1568,22 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       events: FAKE_WEBHOOK_EVENTS,
     }),
     setup: ({ options: { viewer: by = viewerLogin } }) => actingAs(by, overNetwork({
-      traits: { eventKinds: 'native', authKinds: ['token'] },
+      traits: {
+        eventKinds: 'native',
+        authKinds: ['token'],
+      },
       rateLimits,
       users: {
-        me: verb(support('users.me', true), async () => ({ ...actor(by), raw: undefined })),
+        me: verb(support('users.me', true), async () => ({
+          ...actor(by),
+          raw: undefined,
+        })),
         sponsorable: verb(support('users.sponsorable', true), async login => store.sponsorable.has(login)),
-        sponsorableMany: verb(support('users.sponsorableMany', true), async logins => logins.map((login): SponsorableManyResult => ({ ok: true, login, sponsorable: store.sponsorable.has(login) }))),
+        sponsorableMany: verb(support('users.sponsorableMany', true), async logins => logins.map((login): SponsorableManyResult => ({
+          ok: true,
+          login,
+          sponsorable: store.sponsorable.has(login),
+        }))),
         eventsPage: verb(support('users.events', true), async (login, listOptions = {}) => conditional(pageOf(feed(event => event.actor?.login === login), listOptions), listOptions)),
         blocking: verb(support('users.block', true), {
           block: async login => setBlocked(by, login, true),
@@ -1309,17 +1598,30 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       },
       repos: {
         get: verb(support('repos.get', true), async repo => repoState(repo).repo),
-        listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([...store.repos.values()].map(state => state.repo), listOptions)),
+        listPage: verb(support('repos.list', true), async (listOptions: ListOptions = {}) => pageOf([
+          ...store.repos.values(),
+        ].map(state => state.repo), listOptions)),
         byOwnerPage: verb(support('repos.byOwner', true), async (owner, query = {}) => {
-          const repos = [...store.repos.values()]
+          const repos = [
+            ...store.repos.values(),
+          ]
             .map(state => state.repo)
             .filter(repo => (repo.ref.owner === owner.owner || (query.subgroups && repo.ref.owner.startsWith(`${owner.owner}/`)))
               && (!query.visibility || query.visibility === 'all' || repo.visibility === query.visibility))
           if (query.sort === 'name') {
-            repos.sort((a, b) => slugOf(a.ref).localeCompare(slugOf(b.ref)) * (query.direction === 'desc' ? -1 : 1))
+            repos.sort((a, b) => slugOf(a.ref).localeCompare(slugOf(b.ref)) * (query.direction === 'desc'
+              ? -1
+              : 1))
           }
           const page = pageOf(repos, query)
-          return query.sort && query.sort !== 'name' && !query.cursor ? { ...page, warnings: [{ code: 'sort_unsupported', message: 'The fake forge keeps no repository dates; sorted in seed order' }] } : page
+          return query.sort && query.sort !== 'name' && !query.cursor
+            ? {
+                ...page,
+                warnings: [
+                  { code: 'sort_unsupported', message: 'The fake forge keeps no repository dates; sorted in seed order' },
+                ],
+              }
+            : page
         }),
         eventsPage: verb(support('repos.events', true), async (repo, listOptions = {}) => conditional(pageOf(feed(event => event.repo?.owner === repo.owner && event.repo.name === repo.name), listOptions), listOptions)),
         issueTypes: verb(support('repos.issueTypes', true), async repo => repoState(repo).issueTypes),
@@ -1328,23 +1630,35 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         threadsPage: verb(support('search.threads', true), async (query = {}) => {
           const text = query.text?.toLowerCase()
           const state = query.state ?? 'all'
-          const items = [...store.repos.values()]
-            .filter(entry => query.repo ? slugOf(entry.repo.ref) === slugOf(query.repo) : !query.owner || entry.repo.ref.owner === query.owner)
-            .flatMap(entry => [...entry.threads.values()].map(thread => thread.thread))
+          const items = [
+            ...store.repos.values(),
+          ]
+            .filter(entry => query.repo
+              ? slugOf(entry.repo.ref) === slugOf(query.repo)
+              : !query.owner || entry.repo.ref.owner === query.owner)
+            .flatMap(entry => [
+              ...entry.threads.values(),
+            ].map(thread => thread.thread))
             .filter(thread => (thread.kind === 'issue' || thread.kind === 'pull_request')
               && (!query.kind || thread.kind === query.kind)
-              && (state === 'all' || (state === 'open' ? thread.state === 'open' : thread.state !== 'open'))
+              && (state === 'all' || (state === 'open'
+                ? thread.state === 'open'
+                : thread.state !== 'open'))
               && (!text || thread.title.toLowerCase().includes(text) || (thread.body ?? '').toLowerCase().includes(text))
               && (!query.author || thread.author?.login === query.author)
               && (!query.assignee || thread.assignees.some(item => item.login === query.assignee))
               && (!query.involves || thread.author?.login === query.involves || thread.assignees.some(item => item.login === query.involves))
               && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
               && (!query.since || (thread.updatedAt?.getTime() ?? 0) >= query.since.getTime()))
-          return pageOf(query.direction === 'asc' ? items : items.toReversed(), query)
+          return pageOf(query.direction === 'asc'
+            ? items
+            : items.toReversed(), query)
         }),
         reposPage: verb(support('search.repos', true), async (query = {}) => {
           const text = query.text?.toLowerCase()
-          const items = [...store.repos.values()]
+          const items = [
+            ...store.repos.values(),
+          ]
             .map(entry => entry.repo)
             .filter(repo => (!query.owner || repo.ref.owner === query.owner)
               && (!text || `${repo.ref.owner}/${repo.ref.name}`.toLowerCase().includes(text) || (repo.description ?? '').toLowerCase().includes(text)))
@@ -1352,13 +1666,17 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         }),
         commitsPage: verb(support('search.commits', true), async (query = {}) => {
           const text = query.text?.toLowerCase()
-          const items = [...store.repos.values()]
+          const items = [
+            ...store.repos.values(),
+          ]
             .filter(entry => !query.repo || slugOf(entry.repo.ref) === slugOf(query.repo))
             .flatMap(entry => entry.commits)
             .filter(commit => (!text || commit.message.toLowerCase().includes(text))
               && (!query.author || commit.author?.name === query.author)
               && (!query.committer || commit.committer?.name === query.committer))
-          return pageOf(query.direction === 'asc' ? items : items.toReversed(), query)
+          return pageOf(query.direction === 'asc'
+            ? items
+            : items.toReversed(), query)
         }),
         codePage: verb(support('search.code', true), async (query = {}) => {
           const text = query.text?.toLowerCase()
@@ -1366,13 +1684,31 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             return pageOf([], query)
           }
           const decoder = new TextDecoder()
-          const items = [...store.repos.values()]
+          const items = [
+            ...store.repos.values(),
+          ]
             .filter(entry => (!query.repo || slugOf(entry.repo.ref) === slugOf(query.repo)) && (!query.owner || entry.repo.ref.owner === query.owner))
             .flatMap(entry => [...entry.files].flatMap(([key, bytes]): CodeMatch[] => {
               const { ref, path } = splitFileKey(key)
               const lines = decoder.decode(bytes).split('\n')
-              const fragments = lines.flatMap((line, index) => line.toLowerCase().includes(text) ? [{ text: line, line: index + 1 }] : [])
-              return fragments.length ? [{ repo: entry.repo.ref, path, ref: ref === '*' ? undefined : ref, fragments, raw: undefined }] : []
+              const fragments = lines.flatMap((line, index) => line.toLowerCase().includes(text)
+                ? [
+                    { text: line, line: index + 1 },
+                  ]
+                : [])
+              return fragments.length
+                ? [
+                    {
+                      repo: entry.repo.ref,
+                      path,
+                      ref: ref === '*'
+                        ? undefined
+                        : ref,
+                      fragments,
+                      raw: undefined,
+                    },
+                  ]
+                : []
             }))
           return pageOf(items, query)
         }),
@@ -1381,21 +1717,35 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         get: perKind(kinds('threads.get', ALL_KINDS), async ref => threadState(ref).thread),
         listPage: perKind(kinds('threads.list', ALL_KINDS), async (repo, query = {}) => {
           const state = query.state ?? 'open'
-          const sortKey = (entry: FakeThreadState) => query.sort === 'comments' ? entry.thread.commentCount ?? 0 : query.sort === 'updated' ? entry.thread.updatedAt?.getTime() ?? 0 : entry.thread.createdAt?.getTime() ?? 0
-          const items = [...repoState(repo).threads.values()]
+          const sortKey = (entry: FakeThreadState) => query.sort === 'comments'
+            ? entry.thread.commentCount ?? 0
+            : query.sort === 'updated'
+              ? entry.thread.updatedAt?.getTime() ?? 0
+              : entry.thread.createdAt?.getTime() ?? 0
+          const items = [
+            ...repoState(repo).threads.values(),
+          ]
             .filter(({ thread, comments }) => (!query.kind || thread.kind === query.kind)
-              && (state === 'all' || (state === 'open' ? thread.state === 'open' : state === 'merged' ? thread.state === 'merged' : thread.state !== 'open'))
-              && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
-              && (!query.author || thread.author?.login === query.author)
-              && (!query.assignee || thread.assignees.some(item => item.login === query.assignee))
-              && (!query.mentions || mentioned(thread, comments, query.mentions))
-              && (!query.involves || involved(thread, comments, query.involves))
-              && (!query.milestone || (query.milestone === 'none' ? !thread.milestone : thread.milestone?.title === query.milestone))
-              && (!query.since || (thread.updatedAt?.getTime() ?? 0) >= query.since.getTime())
-              && (!query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime()))
+              && (state === 'all' || (state === 'open'
+                ? thread.state === 'open'
+                : state === 'merged'
+                  ? thread.state === 'merged'
+                  : thread.state !== 'open'))
+                && (!query.labels?.length || query.labels.every(name => thread.labels.some(item => item.name === name)))
+                && (!query.author || thread.author?.login === query.author)
+                && (!query.assignee || thread.assignees.some(item => item.login === query.assignee))
+                && (!query.mentions || mentioned(thread, comments, query.mentions))
+                && (!query.involves || involved(thread, comments, query.involves))
+                && (!query.milestone || (query.milestone === 'none'
+                  ? !thread.milestone
+                  : thread.milestone?.title === query.milestone))
+                && (!query.since || (thread.updatedAt?.getTime() ?? 0) >= query.since.getTime())
+                && (!query.createdAfter || (thread.createdAt?.getTime() ?? 0) >= query.createdAfter.getTime()))
             .toSorted((a, b) => sortKey(a) - sortKey(b))
             .map(entry => entry.thread)
-          return conditional(pageOf(query.direction === 'asc' ? items : items.toReversed(), query), query)
+          return conditional(pageOf(query.direction === 'asc'
+            ? items
+            : items.toReversed(), query), query)
         }),
         listFilters: ['involves', 'mentions', 'milestone'],
         getMany: verb(support('threads.getMany', true), refs => getManyConcurrently(refs, async ref => threadState(ref).thread)),
@@ -1416,26 +1766,44 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         eventsPage: verb(true, async (ref, listOptions = {}) => conditional(pageOf(store.events.filter(event => event.thread?.repo.owner === ref.repo.owner && event.thread.repo.name === ref.repo.name && event.thread.number === ref.number).map(event => polled(event, 'timeline')), listOptions), listOptions)),
         commentsPage: perKind(kinds('threads.comments', ALL_KINDS), async (ref, listOptions = {}) => conditional(pageOf(threadState(ref).comments, listOptions), listOptions)),
         reactionsPage: perKind(kinds('threads.reactions', ALL_KINDS), async (target, listOptions = {}) => {
-          const thread = 'thread' in target ? target.thread : target
-          return pageOf(threadState(thread).reactions.get('thread' in target ? target.id : '') ?? [], listOptions)
+          const thread = 'thread' in target
+            ? target.thread
+            : target
+          return pageOf(threadState(thread).reactions.get('thread' in target
+            ? target.id
+            : '') ?? [], listOptions)
         }),
         reactions: perKind(kinds('threads.react', WRITABLE), {
           async react(target, reaction) {
-            const thread = 'thread' in target ? target.thread : target
+            const thread = 'thread' in target
+              ? target.thread
+              : target
             const state = threadState(thread)
-            const key = 'thread' in target ? target.id : ''
+            const key = 'thread' in target
+              ? target.id
+              : ''
             const left = state.reactions.get(key) ?? []
             if (left.some(item => item.content === reaction && item.actor.login === by)) {
               return
             }
-            left.push({ content: reaction, contentRaw: reaction, actor: actor(by), createdAt: now(), raw: { content: reaction } })
+            left.push({
+              content: reaction,
+              contentRaw: reaction,
+              actor: actor(by),
+              createdAt: now(),
+              raw: { content: reaction },
+            })
             state.reactions.set(key, left)
             record(by, thread, 'reaction', 'created', `reacted ${reaction}`)
           },
           async unreact(target, reaction) {
-            const thread = 'thread' in target ? target.thread : target
+            const thread = 'thread' in target
+              ? target.thread
+              : target
             const state = threadState(thread)
-            const key = 'thread' in target ? target.id : ''
+            const key = 'thread' in target
+              ? target.id
+              : ''
             const before = state.reactions.get(key) ?? []
             const left = before.filter(item => !(item.content === reaction && item.actor.login === by))
             if (left.length === before.length) {
@@ -1449,7 +1817,13 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const state = threadState(ref)
           const count = Math.max(commentCounts.get(state) ?? 0, state.comments.length) + 1
           commentCounts.set(state, count)
-          const comment: Comment = { ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${count}` }, body, author: actor(by), createdAt: now(), raw: { body } }
+          const comment: Comment = {
+            ref: { ...origin, thread: state.thread.ref, id: `${ref.number}-${count}` },
+            body,
+            author: actor(by),
+            createdAt: now(),
+            raw: { body },
+          }
           state.comments.push(comment)
           state.thread.commentCount = state.comments.length
           record(by, state.thread.ref, 'comment', 'created', 'commented', { type: 'comment', comment: comment.ref, body })
@@ -1495,16 +1869,35 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         create: perKind(kinds('threads.create', { issue: true, pull_request: true, discussion: true }), async (repo, input) => {
           const existing = store.repos.get(slugOf(repo))
           const base = input.base ?? existing?.repo.defaultBranch ?? 'main'
-          const open = input.kind === 'pull_request' && input.head !== undefined && [...existing?.threads.values() ?? []]
+          const open = input.kind === 'pull_request' && input.head !== undefined && [
+            ...existing?.threads.values() ?? [],
+          ]
             .some(({ thread }) => thread.kind === 'pull_request' && thread.state === 'open' && thread.branches?.head.ref === input.head && thread.branches?.base.ref === base)
           if (open) {
             throw new ForgeApiError(`A pull request already exists for ${input.head}`, 422, '', origin)
           }
-          const thread = addThread({ repo: slugOf(repo), kind: input.kind, title: input.title, body: input.body, author: by, labels: input.labels, assignees: input.assignees?.map(item => typeof item === 'string' ? item : item.login), ...input.head === undefined ? {} : { head: { ref: input.head } } })
+          const thread = addThread({
+            repo: slugOf(repo),
+            kind: input.kind,
+            title: input.title,
+            body: input.body,
+            author: by,
+            labels: input.labels,
+            assignees: input.assignees?.map(item => typeof item === 'string'
+              ? item
+              : item.login),
+            ...input.head === undefined
+              ? {}
+              : {
+                  head: { ref: input.head },
+                },
+          })
           if (thread.branches) {
             thread.branches.base.ref = base
           }
-          record(by, thread.ref, 'state_change', 'opened', `opened ${thread.kind === 'pull_request' ? 'a pull request' : `a ${thread.kind}`}`, { type: 'state_change', state: 'open' })
+          record(by, thread.ref, 'state_change', 'opened', `opened ${thread.kind === 'pull_request'
+            ? 'a pull request'
+            : `a ${thread.kind}`}`, { type: 'state_change', state: 'open' })
           return thread
         }),
         update: perKind(kinds('threads.update', WRITABLE), async (ref, input) => {
@@ -1516,7 +1909,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           }
           if (input.state && input.state !== thread.state) {
             thread.stateReason = undefined
-            setState(by, ref, input.state, input.state === 'open' ? 'reopened' : 'closed')
+            setState(by, ref, input.state, input.state === 'open'
+              ? 'reopened'
+              : 'closed')
           }
           if (input.labels) {
             setLabels(by, ref, input.labels)
@@ -1546,7 +1941,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         addLabels: perKind(kinds('threads.addLabels', WRITABLE), async (ref, labels) => {
           const thread = threadState(ref).thread
           for (const name of labels.filter(name => !thread.labels.some(item => item.name === name))) {
-            thread.labels = [...thread.labels, label(name)]
+            thread.labels = [
+              ...thread.labels,
+              label(name),
+            ]
             record(by, ref, 'label', 'labelled', `added label ${name}`, { type: 'label', label: name })
           }
           return thread.labels
@@ -1563,7 +1961,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         setIssueType: perKind(kinds('threads.setIssueType', { issue: true }), async (ref, wanted) => {
           const thread = threadState(ref).thread
           const before = thread.issueType
-          const name = typeof wanted === 'object' ? wanted.name : wanted
+          const name = typeof wanted === 'object'
+            ? wanted.name
+            : wanted
           if (name === undefined) {
             delete thread.issueType
             if (before) {
@@ -1577,14 +1977,19 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           }
           if (before?.id !== found.id) {
             thread.issueType = copyOf(found)
-            record(by, ref, 'issue_type', 'typed', `set the issue type ${found.name}`, { type: 'issue_type', issueType: copyOf(found) })
+            record(by, ref, 'issue_type', 'typed', `set the issue type ${found.name}`, {
+              type: 'issue_type',
+              issueType: copyOf(found),
+            })
           }
           return found
         }),
         setAssignees: perKind(kinds('threads.setAssignees', WRITABLE), async (ref, assignees) => setAssignees(by, ref, assignees)),
         requestReview: perKind(kinds('threads.requestReview', PULLS), async (ref, reviewers) => {
           const thread = threadState(ref).thread
-          for (const reviewer of reviewers.map(item => typeof item === 'string' ? actor(item) : { ...item }).filter(item => !thread.reviewers.some(existing => existing.actor.login === item.login))) {
+          for (const reviewer of reviewers.map(item => typeof item === 'string'
+            ? actor(item)
+            : { ...item }).filter(item => !thread.reviewers.some(existing => existing.actor.login === item.login))) {
             thread.reviewers.push({ actor: reviewer, state: 'pending' })
             record(by, ref, 'assignment', 'review_requested', `requested review from ${reviewer.login}`, { type: 'assignment', assignee: reviewer })
           }
@@ -1611,7 +2016,11 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             state.thread.branches = { ...state.thread.branches, mergeCommitSha: sha }
           }
           setState(by, ref, 'merged', 'merged')
-          return { status: 'merged', sha, raw: { sha } }
+          return {
+            status: 'merged',
+            sha,
+            raw: { sha },
+          }
         }),
         updateBranch: verb(support('threads.updateBranch', true), async (ref, updateOptions = {}) => {
           const state = threadState(ref)
@@ -1629,7 +2038,13 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             throw new BranchMovedError(`Head branch of ${slugOf(ref.repo)}#${ref.number} is at ${branches?.head.sha}, not ${updateOptions.sha}`, 409, '', origin)
           }
           if (branches) {
-            state.thread.branches = { ...branches, head: { ...branches.head, sha: (++updates).toString(16).padStart(40, 'e') } }
+            state.thread.branches = {
+              ...branches,
+              head: {
+                ...branches.head,
+                sha: (++updates).toString(16).padStart(40, 'e'),
+              },
+            }
           }
           return { status: 'updated' }
         }),
@@ -1656,7 +2071,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           if (body !== undefined) {
             review.body = body
           }
-          record(by, ref.thread, 'review', 'submitted', `reviewed (${review.state})`, { type: 'review', state: review.state, body: review.body, review: review.ref })
+          record(by, ref.thread, 'review', 'submitted', `reviewed (${review.state})`, {
+            type: 'review',
+            state: review.state,
+            body: review.body,
+            review: review.ref,
+          })
           return review
         }),
         filesPage: verb(support('threads.files', true), async (ref, listOptions = {}) => pageOf(threadState(ref).files, listOptions)),
@@ -1684,32 +2104,60 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const prefix = treeOptions.path?.replace(/^\/|\/$/g, '')
           const state = repoState(repo)
           const own = ownFiles(state, treeOptions.ref)
-          const paths = [...new Set([...state.files.keys()]
-            .flatMap((key) => {
-              const { ref, path } = splitFileKey(key)
-              return (ref === '*' && !own) || ref === treeOptions.ref ? [path] : []
-            }))]
+          const paths = [
+            ...new Set([
+              ...state.files.keys(),
+            ]
+              .flatMap((key) => {
+                const { ref, path } = splitFileKey(key)
+                return (ref === '*' && !own) || ref === treeOptions.ref
+                  ? [path]
+                  : []
+              })),
+          ]
             .filter(path => !prefix || path.startsWith(`${prefix}/`))
           const entries = treeOptions.recursive
             ? paths
-            : [...new Set(paths.map((path) => {
-                const rest = prefix ? path.slice(prefix.length + 1) : path
-                return prefix ? `${prefix}/${rest.split('/')[0]}` : rest.split('/')[0]!
-              }))]
+            : [
+                ...new Set(paths.map((path) => {
+                  const rest = prefix
+                    ? path.slice(prefix.length + 1)
+                    : path
+                  return prefix
+                    ? `${prefix}/${rest.split('/')[0]}`
+                    : rest.split('/')[0]!
+                })),
+              ]
           return pageOf(entries.toSorted().map((path): TreeEntry => ({
             path,
-            type: paths.includes(path) ? 'file' : 'directory',
+            type: paths.includes(path)
+              ? 'file'
+              : 'directory',
             size: readFile(state, treeOptions.ref, path)?.byteLength,
           })), treeOptions)
         }),
         branchesPage: verb(support('contents.branches', true), async (repo, listOptions = {}) => {
           const state = repoState(repo)
           const main = defaultBranchOf(state)
-          const names = [main, ...[...state.branches.keys()].filter(name => name !== main)]
-          return pageOf(names.map(name => ({ name, sha: headOf(state, name)!, isDefault: name === main, raw: { name } })), listOptions)
+          const names = [
+            main,
+            ...[
+              ...state.branches.keys(),
+            ].filter(name => name !== main),
+          ]
+          return pageOf(names.map(name => ({
+            name,
+            sha: headOf(state, name)!,
+            isDefault: name === main,
+            raw: { name },
+          })), listOptions)
         }),
         tagsPage: verb(support('contents.tags', true), async (repo, listOptions = {}) => pageOf(
-          repoState(repo).releases.map(release => ({ name: release.tag, sha: '0'.repeat(40), raw: release.raw })),
+          repoState(repo).releases.map(release => ({
+            name: release.tag,
+            sha: '0'.repeat(40),
+            raw: release.raw,
+          })),
           listOptions,
         )),
         resolveRef: verb(support('contents.resolveRef', true), async (repo, ref) => {
@@ -1724,7 +2172,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const commits = repoState(repo).commits
           const from = commits.findIndex(commit => commit.sha === base)
           const to = commits.findIndex(commit => commit.sha === head)
-          const between = commits.slice(from + 1, to < 0 ? undefined : to + 1)
+          const between = commits.slice(from + 1, to < 0
+            ? undefined
+            : to + 1)
           return {
             base,
             head,
@@ -1760,8 +2210,17 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const count = (commitCommentCounts.get(key) ?? 0) + 1
           commitCommentCounts.set(key, count)
           const commit: CommitRef = { ...origin, repo: state.repo.ref, sha }
-          const comment: CommitComment = { ref: { ...origin, commit, id: `${sha.slice(0, 7)}-${count}` }, body, author: actor(by), createdAt: now(), raw: { body } }
-          state.commitComments.set(sha, [...state.commitComments.get(sha) ?? [], comment])
+          const comment: CommitComment = {
+            ref: { ...origin, commit, id: `${sha.slice(0, 7)}-${count}` },
+            body,
+            author: actor(by),
+            createdAt: now(),
+            raw: { body },
+          }
+          state.commitComments.set(sha, [
+            ...state.commitComments.get(sha) ?? [],
+            comment,
+          ])
           record(by, commit, 'comment', 'created', 'commented on a commit', { type: 'comment', comment: comment.ref, body })
           return comment
         }),
@@ -1808,7 +2267,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const state = repoState(repo)
           const existing = state.statuses.get(sha) ?? []
           const check: Check = {
-            ref: { ...origin, repo: state.repo.ref, id: input.externalId ?? `${sha}-${existing.length + 1}`, type: 'status' },
+            ref: {
+              ...origin,
+              repo: state.repo.ref,
+              id: input.externalId ?? `${sha}-${existing.length + 1}`,
+              type: 'status',
+            },
             name: input.name,
             state: input.state,
             stateRaw: input.state,
@@ -1816,7 +2280,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             startedAt: now(),
             raw: input,
           }
-          state.statuses.set(sha, [...existing.filter(item => item.name !== input.name), check])
+          state.statuses.set(sha, [
+            ...existing.filter(item => item.name !== input.name),
+            check,
+          ])
           return check
         }),
       },
@@ -1841,10 +2308,20 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           const state = runState(ref)
           const failed = state.jobs.filter(item => item.job.state === 'failure')
           for (const item of failed) {
-            item.job = { ...item.job, state: 'pending', stateRaw: 'pending', completedAt: undefined }
+            item.job = {
+              ...item.job,
+              state: 'pending',
+              stateRaw: 'pending',
+              completedAt: undefined,
+            }
           }
           if (failed.length) {
-            state.run = { ...state.run, state: 'pending', stateRaw: 'pending', completedAt: undefined }
+            state.run = {
+              ...state.run,
+              state: 'pending',
+              stateRaw: 'pending',
+              completedAt: undefined,
+            }
           }
         }),
       },
@@ -1871,7 +2348,12 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           requireFreeTag(state.releases, input.tag)
           const at = now()
           const release: Release = {
-            ref: { ...origin, repo: state.repo.ref, id: String(state.releases.length + 1), tag: input.tag },
+            ref: {
+              ...origin,
+              repo: state.repo.ref,
+              id: String(state.releases.length + 1),
+              tag: input.tag,
+            },
             tag: input.tag,
             name: input.name,
             body: input.body,
@@ -1900,7 +2382,9 @@ export function fake(options: FakeOptions = {}): FakeProvider {
           release.body = update.body ?? release.body
           release.isDraft = update.draft ?? release.isDraft
           release.isPrerelease = update.prerelease ?? release.isPrerelease
-          release.publishedAt = release.isDraft ? undefined : release.publishedAt ?? now()
+          release.publishedAt = release.isDraft
+            ? undefined
+            : release.publishedAt ?? now()
           return release
         }),
       },
@@ -1961,7 +2445,11 @@ export function fake(options: FakeOptions = {}): FakeProvider {
             webhookCount++
           }
           const hook: Webhook = {
-            ref: { ...origin, target, id: String(++webhookCount) },
+            ref: {
+              ...origin,
+              target,
+              id: String(++webhookCount),
+            },
             url: input.url,
             events: input.events ?? [],
             nativeEvents: input.nativeEvents ?? (input.events ?? []).map(kind => kind),
@@ -1977,11 +2465,21 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         update: verb(support('webhooks.update', true), async (ref, update) => {
           const hook = webhookState(ref)
           Object.assign(hook, {
-            ...update.url ? { url: update.url } : {},
-            ...update.events ? { events: update.events } : {},
-            ...update.nativeEvents ? { nativeEvents: update.nativeEvents } : {},
-            ...update.active === undefined ? {} : { active: update.active },
-            ...update.contentType ? { contentType: update.contentType } : {},
+            ...update.url
+              ? { url: update.url }
+              : {},
+            ...update.events
+              ? { events: update.events }
+              : {},
+            ...update.nativeEvents
+              ? { nativeEvents: update.nativeEvents }
+              : {},
+            ...update.active === undefined
+              ? {}
+              : { active: update.active },
+            ...update.contentType
+              ? { contentType: update.contentType }
+              : {},
             updatedAt: now(),
           })
           if (update.secret) {
@@ -2043,12 +2541,18 @@ export function fake(options: FakeOptions = {}): FakeProvider {
         const event = queue.shift()
         if (event) {
           cursor = event.id
-          yield { event: structuredClone(event), cursor }
+          yield {
+            event: structuredClone(event),
+            cursor,
+          }
           continue
         }
-        await Promise.race([new Promise<void>((resolve) => {
-          wake = resolve
-        }), aborted])
+        await Promise.race([
+          new Promise<void>((resolve) => {
+            wake = resolve
+          }),
+          aborted,
+        ])
       }
     }
     finally {
@@ -2074,7 +2578,10 @@ export function fake(options: FakeOptions = {}): FakeProvider {
       if (!sendsRequest(key)) {
         throw new TypeError(`${verb} is not implemented by the fake forge, so it sends no request to fail`)
       }
-      failures.set(key, [...failures.get(key) ?? [], { error, applied: failureOptions.applied ?? false, times: failureOptions.times ?? 1 }])
+      failures.set(key, [
+        ...failures.get(key) ?? [],
+        { error, applied: failureOptions.applied ?? false, times: failureOptions.times ?? 1 },
+      ])
     },
     offline() {
       connected = false

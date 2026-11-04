@@ -6,7 +6,9 @@ export default defineEventHandler(async (event) => {
   const provider = useForges().get(forge)
   if (!provider) {
     setResponseStatus(event, 404)
-    return { error: { name: 'ProviderNotFound', message: `No ${forge} provider is configured` } }
+    return {
+      error: { name: 'ProviderNotFound', message: `No ${forge} provider is configured` },
+    }
   }
   try {
     const events = await provider.webhooks.ingest({

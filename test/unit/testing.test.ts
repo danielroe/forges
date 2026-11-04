@@ -14,9 +14,20 @@ describe('forges/testing', () => {
   })
 
   it('replays what it recorded', async () => {
-    const upstream = fixtureFetch([{ request: { method: 'GET', url: 'https://api.example.com/a?x=1&y=2' }, response: { status: 200, headers: { etag: '"e"' }, body: { ok: true } } }])
+    const upstream = fixtureFetch([
+      {
+        request: { method: 'GET', url: 'https://api.example.com/a?x=1&y=2' },
+        response: {
+          status: 200,
+          headers: { etag: '"e"' },
+          body: { ok: true },
+        },
+      },
+    ])
     const recorder = recordingFetch(upstream.fetch)
-    await recorder.fetch('https://api.example.com/a?x=1&y=2', { headers: { authorization: 'Bearer secret' } })
+    await recorder.fetch('https://api.example.com/a?x=1&y=2', {
+      headers: { authorization: 'Bearer secret' },
+    })
     const replay = fixtureFetch(recorder.fixtures)
     const response = await replay.fetch('https://api.example.com/a?y=2&x=1')
 
@@ -26,8 +37,19 @@ describe('forges/testing', () => {
   })
 
   it('replays a binary body byte for byte', async () => {
-    const bytes = Uint8Array.from([0x1F, 0x8B, 0x08, 0x00, 0xFF, 0xFE, 0x00, 0x80])
-    const recorder = recordingFetch(async () => new Response(bytes, { headers: { 'content-type': 'application/octet-stream' } }))
+    const bytes = Uint8Array.from([
+      0x1F,
+      0x8B,
+      0x08,
+      0x00,
+      0xFF,
+      0xFE,
+      0x00,
+      0x80,
+    ])
+    const recorder = recordingFetch(async () => new Response(bytes, {
+      headers: { 'content-type': 'application/octet-stream' },
+    }))
     await recorder.fetch('https://api.example.com/asset')
     const replay = fixtureFetch(JSON.parse(JSON.stringify(recorder.fixtures)))
     const response = await replay.fetch('https://api.example.com/asset')
@@ -38,7 +60,13 @@ describe('forges/testing', () => {
 
   it('serves fixtures that share a request in recorded order when sequential', async () => {
     const url = 'https://api.example.com/issues/1'
-    const fixtures = [1, 2].map(version => ({ request: { method: 'GET', url }, response: { status: 200, body: { version } } }))
+    const fixtures = [1, 2].map(version => ({
+      request: { method: 'GET', url },
+      response: {
+        status: 200,
+        body: { version },
+      },
+    }))
     const sequential = fixtureFetch(fixtures, {}, { sequential: true })
     const last = fixtureFetch(fixtures)
     const read = async (fetch: typeof last.fetch) => ((await (await fetch(url)).json()) as { version: number }).version
@@ -49,9 +77,31 @@ describe('forges/testing', () => {
 
   it('matches GraphQL requests on nested variables', async () => {
     const url = 'https://api.github.com/graphql'
-    const fixtures = ['one', 'two'].map(title => ({ request: { method: 'POST', url, operationName: 'M', variables: { input: { title } } }, response: { status: 200, body: { title } } }))
+    const fixtures = ['one', 'two'].map(title => ({
+      request: {
+        method: 'POST',
+        url,
+        operationName: 'M',
+        variables: {
+          input: { title },
+        },
+      },
+      response: {
+        status: 200,
+        body: { title },
+      },
+    }))
     const { fetch } = fixtureFetch(fixtures)
-    const send = (title: string) => fetch(url, { method: 'POST', body: JSON.stringify({ query: 'mutation M { m }', operationName: 'M', variables: { input: { title } } }) })
+    const send = (title: string) => fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        query: 'mutation M { m }',
+        operationName: 'M',
+        variables: {
+          input: { title },
+        },
+      }),
+    })
 
     expect(await (await send('one')).json()).toEqual({ title: 'one' })
     await expect(send('three')).rejects.toThrow('No fixture')
@@ -59,15 +109,45 @@ describe('forges/testing', () => {
 
   it('serves an override over a GraphQL fixture recorded with variables', async () => {
     const url = 'https://api.github.com/graphql'
-    const { fetch } = fixtureFetch([{ request: { method: 'POST', url, operationName: 'M', variables: { id: '1' } }, response: { status: 200, body: { from: 'fixture' } } }], { [`POST ${url} M`]: { status: 200, body: { from: 'override' } } })
-    const response = await fetch(url, { method: 'POST', body: JSON.stringify({ query: 'query M { m }', operationName: 'M', variables: { id: '1' } }) })
+    const { fetch } = fixtureFetch([
+      {
+        request: {
+          method: 'POST',
+          url,
+          operationName: 'M',
+          variables: { id: '1' },
+        },
+        response: {
+          status: 200,
+          body: { from: 'fixture' },
+        },
+      },
+    ], {
+      [`POST ${url} M`]: {
+        status: 200,
+        body: { from: 'override' },
+      },
+    })
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        query: 'query M { m }',
+        operationName: 'M',
+        variables: { id: '1' },
+      }),
+    })
 
     expect(await response.json()).toEqual({ from: 'override' })
   })
 
   it('records request bodies only when asked to', async () => {
-    const upstream = async () => new Response('{}', { headers: { 'content-type': 'application/json' } })
-    const init = { method: 'POST', body: JSON.stringify({ title: 'x' }) }
+    const upstream = async () => new Response('{}', {
+      headers: { 'content-type': 'application/json' },
+    })
+    const init = {
+      method: 'POST',
+      body: JSON.stringify({ title: 'x' }),
+    }
     const withBodies = recordingFetch(upstream, undefined, { requestBodies: true })
     const without = recordingFetch(upstream)
     await withBodies.fetch('https://api.example.com/issues', init)
@@ -80,8 +160,21 @@ describe('forges/testing', () => {
   it('replays an integer beyond the safe range exactly', async () => {
     const recorder = recordingFetch(async () => new Response('[{"id":3847328607500238881}]'))
     await recorder.fetch('https://api.github.com/repos/acme/widgets/hooks/1/deliveries')
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch: fixtureFetch(recorder.fixtures).fetch })
-    const hook = { forge: 'github', instance: 'github.com', target: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, id: '1' }
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch: fixtureFetch(recorder.fixtures).fetch,
+    })
+    const hook = {
+      forge: 'github',
+      instance: 'github.com',
+      target: {
+        forge: 'github',
+        instance: 'github.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
+      id: '1',
+    }
 
     expect((await provider.webhooks.deliveries(hook).page()).items[0]!.ref.id).toBe('3847328607500238881')
   })

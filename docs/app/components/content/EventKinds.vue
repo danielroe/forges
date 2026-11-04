@@ -2,7 +2,10 @@
 import { providers as docsProviders } from '#capabilities'
 import { kinds, providers } from '#events'
 
-const columns = providers.map(provider => ({ ...provider, ...docsProviders.find(({ slug }) => slug === provider.slug)! }))
+const columns = providers.map(provider => ({
+  ...provider,
+  ...docsProviders.find(({ slug }) => slug === provider.slug)!,
+}))
 
 type Column = (typeof columns)[number]
 type Cell = (typeof kinds)[number]['cells'][number]
@@ -14,13 +17,22 @@ function groupCells(cells: Cell[]) {
     if (!cell.declared && !cell.subscribe.length) {
       return
     }
-    const key = JSON.stringify([cell.declared, cell.actions, cell.subscribe, provider.subscriptions])
+    const key = JSON.stringify([
+      cell.declared,
+      cell.actions,
+      cell.subscribe,
+      provider.subscriptions,
+    ])
     const group = groups.find(group => group.key === key)
     if (group) {
       group.providers.push(provider)
     }
     else {
-      groups.push({ ...cell, key, providers: [provider] })
+      groups.push({
+        ...cell,
+        key,
+        providers: [provider],
+      })
     }
   })
   return groups

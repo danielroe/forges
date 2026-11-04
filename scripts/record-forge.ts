@@ -43,33 +43,205 @@ const CODE_FORGEJO = { CODEBERG_BASE_URL: 'https://code.forgejo.org' }
  */
 export const PLANS: Record<string, { reads: Recording[], writes: Recording[], local?: true, server?: string }> = {
   'github': {
-    reads: [{ label: 'github.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }, { label: 'app', args: ['--app'] }],
-    writes: [{ label: 'writes', args: ['--writes'] }],
+    reads: [
+      { label: 'github.com', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+      {
+        label: 'app',
+        args: ['--app'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
   },
-  'gitlab': { reads: [{ label: 'gitlab.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
-  'bitbucket': { reads: [{ label: 'bitbucket.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
+  'gitlab': {
+    reads: [
+      { label: 'gitlab.com', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
+  'bitbucket': {
+    reads: [
+      { label: 'bitbucket.org', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
   'forgejo': {
     reads: [
       { label: 'codeberg.org', args: [] },
-      { label: 'anonymous', args: ['--anonymous'] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
       { label: 'code.forgejo.org', args: [], env: CODE_FORGEJO },
-      { label: 'code.forgejo.org anonymous', args: ['--anonymous'], env: CODE_FORGEJO },
+      {
+        label: 'code.forgejo.org anonymous',
+        args: ['--anonymous'],
+        env: CODE_FORGEJO,
+      },
     ],
-    writes: [{ label: 'writes', args: ['--writes'] }],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
   },
-  'gitea': { reads: [{ label: 'gitea.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
-  'gitee': { reads: [{ label: 'gitee.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [] },
-  'azure-devops': { reads: [{ label: 'dev.azure.com', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
-  'pushin': { reads: [{ label: 'pushin.eu', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
-  'cloudflare-artifacts': { reads: [{ label: 'artifacts.cloudflare.net', args: [] }], writes: [] },
-  'sourcehut': { reads: [{ label: 'sr.ht', args: [] }], writes: [] },
-  'cursor-origin': { reads: [{ label: 'origin.cursor.com', args: [] }], writes: [{ label: 'writes', args: ['--writes'] }] },
-  'entire': { reads: [{ label: 'entire.com', args: [] }], writes: [{ label: 'writes', args: ['--writes'] }], local: true },
+  'gitea': {
+    reads: [
+      { label: 'gitea.com', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
+  'gitee': {
+    reads: [
+      { label: 'gitee.com', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [],
+  },
+  'azure-devops': {
+    reads: [
+      { label: 'dev.azure.com', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
+  'pushin': {
+    reads: [
+      { label: 'pushin.eu', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
+  'cloudflare-artifacts': {
+    reads: [
+      { label: 'artifacts.cloudflare.net', args: [] },
+    ],
+    writes: [],
+  },
+  'sourcehut': {
+    reads: [
+      { label: 'sr.ht', args: [] },
+    ],
+    writes: [],
+  },
+  'cursor-origin': {
+    reads: [
+      { label: 'origin.cursor.com', args: [] },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+  },
+  'entire': {
+    reads: [
+      { label: 'entire.com', args: [] },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+    ],
+    local: true,
+  },
   'tangled': {
-    reads: [{ label: 'tangled.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }],
-    writes: [{ label: 'writes', args: ['--writes'] }, { label: 'seed', args: ['--seed'] }],
+    reads: [
+      { label: 'tangled.org', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+      {
+        label: 'seed',
+        args: ['--seed'],
+      },
+    ],
   },
-  'gitbucket': { reads: [{ label: 'gitbucket', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }, { label: 'webhooks', args: ['--webhooks'] }], local: true, server: 'gitbucket-server.ts' },
+  'gitbucket': {
+    reads: [
+      { label: 'gitbucket', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+      {
+        label: 'webhooks',
+        args: ['--webhooks'],
+      },
+    ],
+    local: true,
+    server: 'gitbucket-server.ts',
+  },
 }
 
 /** Starts the server of `script` and returns the variables it wrote, with a function that removes the server. */
@@ -77,8 +249,18 @@ function startServer(script: string): { env: Record<string, string>, stop: () =>
   const path = fileURLToPath(new URL(`./${script}`, import.meta.url))
   const directory = mkdtempSync(join(tmpdir(), 'forges-server-'))
   try {
-    execFileSync(process.execPath, [path, 'up', '--out', join(directory, 'server.env')], { stdio: ['ignore', 'inherit', 'inherit'] })
-    return { env: parseEnv(readFileSync(join(directory, 'server.env'), 'utf8')) as Record<string, string>, stop: () => execFileSync(process.execPath, [path, 'down'], { stdio: 'inherit' }) }
+    execFileSync(process.execPath, [
+      path,
+      'up',
+      '--out',
+      join(directory, 'server.env'),
+    ], {
+      stdio: ['ignore', 'inherit', 'inherit'],
+    })
+    return {
+      env: parseEnv(readFileSync(join(directory, 'server.env'), 'utf8')) as Record<string, string>,
+      stop: () => execFileSync(process.execPath, [path, 'down'], { stdio: 'inherit' }),
+    }
   }
   finally {
     rmSync(directory, { recursive: true, force: true })
@@ -90,9 +272,27 @@ const OUTCOME = /^(?:FAILED|\d+ step\(s\)|Kept|Removed|Also|These|No |Saved|`|--
 
 function record(forge: string, recording: Recording, options: { envFile?: string, env: Record<string, string>, only: string[], deferSplice: boolean }): Promise<{ code: number, outcome: string[] }> {
   const script = fileURLToPath(new URL('./record-fixtures.ts', import.meta.url))
-  const deferred = options.deferSplice && recording.args.includes('--writes') ? ['--defer-splice'] : []
-  const args = [options.envFile ? `--env-file=${options.envFile}` : '--env-file-if-exists=.env', script, forge, ...recording.args, ...deferred, ...options.only.flatMap(step => ['--only', step])]
-  const child = spawn(process.execPath, args, { env: { ...process.env, ...options.env, ...recording.env }, stdio: ['ignore', 'pipe', 'pipe'] })
+  const deferred = options.deferSplice && recording.args.includes('--writes')
+    ? ['--defer-splice']
+    : []
+  const args = [
+    options.envFile
+      ? `--env-file=${options.envFile}`
+      : '--env-file-if-exists=.env',
+    script,
+    forge,
+    ...recording.args,
+    ...deferred,
+    ...options.only.flatMap(step => ['--only', step]),
+  ]
+  const child = spawn(process.execPath, args, {
+    env: {
+      ...process.env,
+      ...options.env,
+      ...recording.env,
+    },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  })
   const outcome: string[] = []
   let pending = ''
   const collect = (chunk: Buffer, stream: NodeJS.WriteStream) => {
@@ -107,7 +307,17 @@ function record(forge: string, recording: Recording, options: { envFile?: string
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { positionals: [forge], values } = parseArgs({ allowPositionals: true, options: { 'kind': { type: 'string' }, 'list': { type: 'string' }, 'env-file': { type: 'string' }, 'only': { type: 'string', multiple: true, default: [] }, 'defer-splice': { type: 'boolean', default: false }, 'summary': { type: 'string' } } })
+  const { positionals: [forge], values } = parseArgs({
+    allowPositionals: true,
+    options: {
+      'kind': { type: 'string' },
+      'list': { type: 'string' },
+      'env-file': { type: 'string' },
+      'only': { type: 'string', multiple: true, default: [] },
+      'defer-splice': { type: 'boolean', default: false },
+      'summary': { type: 'string' },
+    },
+  })
   if (values.list === 'reads' || values.list === 'writes') {
     console.info(JSON.stringify(Object.keys(PLANS).filter(name => !PLANS[name]!.local && PLANS[name]![values.list as 'reads' | 'writes'].length)))
     process.exit(0)
@@ -120,17 +330,28 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const summary: string[] = []
   let failed = false
   const recordings = PLANS[forge]![kind].filter(recording => !values.only.length || !recording.args.includes('--seed'))
-  const server = recordings.length && PLANS[forge]!.server ? startServer(PLANS[forge]!.server!) : undefined
+  const server = recordings.length && PLANS[forge]!.server
+    ? startServer(PLANS[forge]!.server!)
+    : undefined
   try {
     for (const recording of recordings) {
       const actions = process.env.GITHUB_ACTIONS === 'true'
-      console.info(actions ? `::group::${forge} ${recording.label}` : `Recording ${forge} ${recording.label}`)
-      const { code, outcome } = await record(forge, recording, { envFile: values['env-file'], env: server?.env ?? {}, only: values.only, deferSplice: values['defer-splice'] })
+      console.info(actions
+        ? `::group::${forge} ${recording.label}`
+        : `Recording ${forge} ${recording.label}`)
+      const { code, outcome } = await record(forge, recording, {
+        envFile: values['env-file'],
+        env: server?.env ?? {},
+        only: values.only,
+        deferSplice: values['defer-splice'],
+      })
       if (actions) {
         console.info('::endgroup::')
       }
       failed ||= code !== 0
-      summary.push(`#### ${forge}: ${recording.label}${code ? ` (exit ${code})` : ''}`, '', '```text', ...outcome.map(line => line.replaceAll('`', '\'')), '```', '')
+      summary.push(`#### ${forge}: ${recording.label}${code
+        ? ` (exit ${code})`
+        : ''}`, '', '```text', ...outcome.map(line => line.replaceAll('`', '\'')), '```', '')
     }
   }
   finally {

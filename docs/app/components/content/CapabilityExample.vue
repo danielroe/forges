@@ -21,7 +21,10 @@ const rows = props.capabilities.split(',').map((capability) => {
   if (!row) {
     throw new Error(`Unknown capability: ${capability}`)
   }
-  return { capability: row.capability, cells: columns.map(({ index }) => row.cells[index]!) }
+  return {
+    capability: row.capability,
+    cells: columns.map(({ index }) => row.cells[index]!),
+  }
 })
 </script>
 

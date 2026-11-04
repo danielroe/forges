@@ -44,8 +44,22 @@ interface TokenPageShape {
   token: string
 }
 
-const camelPage = (items: string): TokenPageShape => ({ items, next: 'nextPageToken', size: 'pageSize', token: 'pageToken' })
-const snakePage = (items: string): TokenPageShape => ({ items, next: 'next_cursor', size: 'per_page', token: 'cursor' })
+function camelPage(items: string): TokenPageShape {
+  return {
+    items,
+    next: 'nextPageToken',
+    size: 'pageSize',
+    token: 'pageToken',
+  }
+}
+function snakePage(items: string): TokenPageShape {
+  return {
+    items,
+    next: 'next_cursor',
+    size: 'per_page',
+    token: 'cursor',
+  }
+}
 
 const bearer = (auth: EntireAuth) => async () => ({ authorization: `Bearer ${await resolveToken(auth)}` })
 
@@ -58,7 +72,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
 
   /** A project the account reads through one of its repositories, when it has no grant on the project itself. */
   async function projectThroughRepo(name: string): Promise<Project | undefined> {
-    const { data } = await fetcher.json<{ repos: EntireCoreRepo[] }>('/repos', { query: { org: name, pageSize: 1 } })
+    const { data } = await fetcher.json<{ repos: EntireCoreRepo[] }>('/repos', {
+      query: { org: name, pageSize: 1 },
+    })
     const raw = data.repos[0]
     const placement = placed(raw)
     if (!raw || !placement?.apiBaseUrl) {
@@ -66,7 +82,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     }
     const cell = await cellFetcher(placement.apiBaseUrl)
     const { data: repo } = await cell.json<EntireRepo>(`/repos/${encodeURIComponent(placement.id)}`)
-    return repo.owning_project_id ? { id: repo.owning_project_id, cell } : undefined
+    return repo.owning_project_id
+      ? { id: repo.owning_project_id, cell }
+      : undefined
   }
 
   const project = memoBy(async (name: string): Promise<Project> => {
@@ -78,7 +96,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       return { id: data.project.id, cell: await cellFetcher(data.project.apiUrl) }
     }
     catch (error) {
-      const fallback = error instanceof ForgeApiError && error.status === 403 ? await projectThroughRepo(name) : undefined
+      const fallback = error instanceof ForgeApiError && error.status === 403
+        ? await projectThroughRepo(name)
+        : undefined
       if (!fallback) {
         throw error
       }
@@ -87,7 +107,14 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   })
 
   const placement = memoBy(async (path: string): Promise<{ cell: Fetcher, id: string }> => {
-    const { data } = await fetcher.json<{ resolutions: EntireRepoResolution[] }>('/repos/resolve', { method: 'POST', json: { repositories: [{ fullName: path, provider: 'entire' }] } })
+    const { data } = await fetcher.json<{ resolutions: EntireRepoResolution[] }>('/repos/resolve', {
+      method: 'POST',
+      json: {
+        repositories: [
+          { fullName: path, provider: 'entire' },
+        ],
+      },
+    })
     const found = placed(data.resolutions[0])
     if (!found?.apiBaseUrl) {
       throw new NotFoundError(`No repository ${path} on Entire`, 404, '', origin)
@@ -97,7 +124,11 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
 
   async function located(repo: RepoRef): Promise<{ cell: Fetcher, id: string, path: string }> {
     const { cell, id } = await placement(`${repo.owner}/${repo.name}`)
-    return { cell, id: encodeURIComponent(id), path: `/git/repos/${encodeURIComponent(id)}` }
+    return {
+      cell,
+      id: encodeURIComponent(id),
+      path: `/git/repos/${encodeURIComponent(id)}`,
+    }
   }
 
   const trailPath = (repo: RepoRef) => `/trails/${HOST}/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
@@ -113,8 +144,14 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const total = data.total_count
     return {
       items: (raw ?? []).flatMap(item => map(item) ?? []),
-      ...typeof total === 'number' ? { total } : {},
-      ...typeof next === 'string' && next ? { cursor: { token: next } } : {},
+      ...typeof total === 'number'
+        ? { total }
+        : {},
+      ...typeof next === 'string' && next
+        ? {
+            cursor: { token: next },
+          }
+        : {},
     }
   }
 
@@ -133,7 +170,16 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const offset = Number(page.cursor?.token ?? 0)
     const size = page.perPage ?? 100
     const next = offset + size
-    return { items: items.slice(offset, next), ...next < items.length ? { cursor: { token: String(next) } } : {} }
+    return {
+      items: items.slice(offset, next),
+      ...next < items.length
+        ? {
+            cursor: {
+              token: String(next),
+            },
+          }
+        : {},
+    }
   }
 
   function requirePull(thread: ThreadRef, action: string): ResolvedThreadRef {
@@ -162,7 +208,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     if (ref.kind === 'pull_request') {
       const { repo } = requirePull(ref, 'read')
       const raw = await change(ref, opts?.signal)
-      const parent = raw.body_document?.text_snapshot ? undefined : await parentTrail(repo, raw, opts?.signal)
+      const parent = raw.body_document?.text_snapshot
+        ? undefined
+        : await parentTrail(repo, raw, opts?.signal)
       return toPull(repo, raw, parent?.body)
     }
     const { cell } = await project(ref.repo.owner)
@@ -172,17 +220,32 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
 
   async function issuesPage(repo: RepoRef, query: ThreadQuery, cursor?: Cursor): Promise<Page<Thread>> {
     const { id, cell } = await project(repo.owner)
-    const status = query.state === 'all' ? undefined : query.state === 'closed' ? 'closed' : 'open'
+    const status = query.state === 'all'
+      ? undefined
+      : query.state === 'closed'
+        ? 'closed'
+        : 'open'
     return tokenPage(cell, '/trails', camelPage('items'), {
       ...query,
       cursor,
-      query: { projectId: id, status, author: query.author, assignee: query.assignee },
+      query: {
+        projectId: id,
+        status,
+        author: query.author,
+        assignee: query.assignee,
+      },
     }, (raw: EntireProjectTrail) => toIssue(origin, repo.owner, raw))
   }
 
   async function pullsPage(repo: RepoRef, query: ThreadQuery, cursor?: Cursor): Promise<Page<Thread>> {
     const { cell } = await located(repo)
-    const status = query.state === 'all' ? undefined : query.state === 'merged' ? 'merged' : query.state === 'closed' ? 'closed,merged' : 'open'
+    const status = query.state === 'all'
+      ? undefined
+      : query.state === 'merged'
+        ? 'merged'
+        : query.state === 'closed'
+          ? 'closed,merged'
+          : 'open'
     return tokenPage(cell, trailPath(repo), snakePage('items'), {
       ...query,
       cursor,
@@ -195,21 +258,48 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     // Author and assignee are applied. `involves`, `mentions` and `milestone` are not here:
     // core strips filters a provider does not declare in `threads.listFilters`, and warns.
     return [
-      ...query.labels?.length ? [{ code: 'filter_unsupported' as const, message: 'Entire trails have no labels' }] : [],
-      ...(query.since !== undefined || query.createdAfter !== undefined) ? [{ code: 'filter_unsupported' as const, message: 'Entire trails cannot be filtered by date' }] : [],
-      ...(query.sort !== undefined || query.direction !== undefined) ? [{ code: 'sort_unsupported' as const, message: 'Entire lists trails in its own order' }] : [],
+      ...query.labels?.length
+        ? [
+            { code: 'filter_unsupported' as const, message: 'Entire trails have no labels' },
+          ]
+        : [],
+      ...(query.since !== undefined || query.createdAfter !== undefined)
+        ? [
+            { code: 'filter_unsupported' as const, message: 'Entire trails cannot be filtered by date' },
+          ]
+        : [],
+      ...(query.sort !== undefined || query.direction !== undefined)
+        ? [
+            { code: 'sort_unsupported' as const, message: 'Entire lists trails in its own order' },
+          ]
+        : [],
     ]
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     const warnings = threadFilterWarnings(query)
     const namespace = isNamespaceRef(repo)
-    const withWarnings = (page: Page<Thread>) => warnings.length ? { ...page, warnings: [...page.warnings ?? [], ...warnings] } : page
+    const withWarnings = (page: Page<Thread>) => warnings.length
+      ? {
+          ...page,
+          warnings: [
+            ...page.warnings ?? [],
+            ...warnings,
+          ],
+        }
+      : page
     if (query.kind === 'discussion') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: 'Entire has no discussions' }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'kind_unsupported', message: 'Entire has no discussions' },
+        ],
+      }
     }
     if (query.kind === 'issue' || namespace) {
-      return query.state === 'merged' ? { items: [] } : withWarnings(await issuesPage(projectRef(origin, repo.owner), query, query.cursor))
+      return query.state === 'merged'
+        ? { items: [] }
+        : withWarnings(await issuesPage(projectRef(origin, repo.owner), query, query.cursor))
     }
     if (query.kind === 'pull_request' || query.state === 'merged') {
       return withWarnings(await pullsPage(repo, query, query.cursor))
@@ -255,7 +345,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         return { thread, discussion, message }
       }
     }
-    throw new NotFoundError(`No comment ${ref.id} on ${thread.kind === 'issue' ? 'trail' : 'change'} ${thread.number}`, 404, '', origin)
+    throw new NotFoundError(`No comment ${ref.id} on ${thread.kind === 'issue'
+      ? 'trail'
+      : 'change'} ${thread.number}`, 404, '', origin)
   }
 
   async function findings(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<EntireReviewComment[]> {
@@ -274,9 +366,14 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   }
 
   async function reviews(ref: ResolvedThreadRef, signal?: AbortSignal): Promise<Review[]> {
-    const [approved, all] = await Promise.all([approvals(ref, signal), findings(ref, signal)])
+    const [approved, all] = await Promise.all([
+      approvals(ref, signal),
+      findings(ref, signal),
+    ])
     const byReview = Map.groupBy(all.sort((a, b) => a.created_at.localeCompare(b.created_at)), finding => finding.review_id)
-    const summaries = await Promise.all([...byReview.keys()].map(async id => (await codeReview(ref, id, signal)).review.summary))
+    const summaries = await Promise.all([
+      ...byReview.keys(),
+    ].map(async id => (await codeReview(ref, id, signal)).review.summary))
     return [
       ...approved.map(approval => toApproval(ref, approval)),
       ...[...byReview].map(([id, items], index) => toCodeReview(ref, id, items, summaries[index])),
@@ -284,7 +381,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   }
 
   function toEvent(ref: ResolvedThreadRef, item: EntireTimelineItem, threads = new Map<string, EntireDiscussion>()): ForgeEventInput {
-    const actor = item.actor ? identityActor(origin, item.actor.identity, item.actor.login) : undefined
+    const actor = item.actor
+      ? identityActor(origin, item.actor.identity, item.actor.login)
+      : undefined
     const who = actor?.login ?? 'someone'
     const base = {
       ...origin,
@@ -305,22 +404,116 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         const finding = discussion?.review_comment
         if (finding) {
           const line = finding.location.end_line ?? finding.location.start_line
-          return { ...base, kind: 'review_comment', summary: `${who} commented on a review`, detail: { type: 'review_comment', ...commentId ? { comment: { ...origin, thread: ref, id: commentId } } : {}, ...body ? { body } : {}, ...finding.location.file_path ? { path: finding.location.file_path } : {}, ...line ? { line } : {} } }
+          return {
+            ...base,
+            kind: 'review_comment',
+            summary: `${who} commented on a review`,
+            detail: {
+              type: 'review_comment',
+              ...commentId
+                ? {
+                    comment: { ...origin, thread: ref, id: commentId },
+                  }
+                : {},
+              ...body
+                ? { body }
+                : {},
+              ...finding.location.file_path
+                ? { path: finding.location.file_path }
+                : {},
+              ...line
+                ? { line }
+                : {},
+            },
+          }
         }
-        return { ...base, kind: 'comment', summary: `${who} commented`, detail: { type: 'comment', ...commentId ? { comment: { ...origin, thread: ref, id: commentId } } : {}, ...body ? { body } : {} } }
+        return {
+          ...base,
+          kind: 'comment',
+          summary: `${who} commented`,
+          detail: {
+            type: 'comment',
+            ...commentId
+              ? {
+                  comment: { ...origin, thread: ref, id: commentId },
+                }
+              : {},
+            ...body
+              ? { body }
+              : {},
+          },
+        }
       }
       case 'approval': {
         const state = approvalState(item.approvalStatus ?? '')
-        return { ...base, kind: 'review', summary: `${who} ${state === 'approved' ? 'approved' : state === 'changes_requested' ? 'requested changes' : 'reviewed'}`, detail: { type: 'review', state, ...item.approvalStatus ? { stateRaw: item.approvalStatus } : {}, ...item.body ? { body: item.body } : {}, review: { ...origin, thread: ref, id: item.id.replace(/^trail-approval-/, '') } } }
+        return {
+          ...base,
+          kind: 'review',
+          summary: `${who} ${state === 'approved'
+            ? 'approved'
+            : state === 'changes_requested'
+              ? 'requested changes'
+              : 'reviewed'}`,
+          detail: {
+            type: 'review',
+            state,
+            ...item.approvalStatus
+              ? { stateRaw: item.approvalStatus }
+              : {},
+            ...item.body
+              ? { body: item.body }
+              : {},
+            review: {
+              ...origin,
+              thread: ref,
+              id: item.id.replace(/^trail-approval-/, ''),
+            },
+          },
+        }
       }
       case 'review_posted':
-        return { ...base, kind: 'review', summary: `${who} reviewed`, detail: { type: 'review', state: 'commented', stateRaw: item.kind, review: { ...origin, thread: ref, id: item.id.replace(/^trail-review-/, '') } } }
+        return {
+          ...base,
+          kind: 'review',
+          summary: `${who} reviewed`,
+          detail: {
+            type: 'review',
+            state: 'commented',
+            stateRaw: item.kind,
+            review: {
+              ...origin,
+              thread: ref,
+              id: item.id.replace(/^trail-review-/, ''),
+            },
+          },
+        }
       case 'commit':
-        return { ...base, kind: 'commit', summary: item.title ?? 'commit', ...item.commitSha ? { commit: { ...origin, repo: ref.repo, sha: item.commitSha } } : {} }
+        return {
+          ...base,
+          kind: 'commit',
+          summary: item.title ?? 'commit',
+          ...item.commitSha
+            ? {
+                commit: { ...origin, repo: ref.repo, sha: item.commitSha },
+              }
+            : {},
+        }
       case 'trail_created':
-        return { ...base, kind: 'state_change', action: 'opened', summary: `${who} opened the trail`, detail: { type: 'state_change', state: 'open' } }
+        return {
+          ...base,
+          kind: 'state_change',
+          action: 'opened',
+          summary: `${who} opened the trail`,
+          detail: { type: 'state_change', state: 'open' },
+        }
       case 'trail_branch_merged':
-        return { ...base, kind: 'state_change', action: 'merged', summary: `${who} merged the change`, detail: { type: 'state_change', state: 'merged' } }
+        return {
+          ...base,
+          kind: 'state_change',
+          action: 'merged',
+          summary: `${who} merged the change`,
+          detail: { type: 'state_change', state: 'merged' },
+        }
       default:
         return { ...base, kind: 'other', summary: item.title ?? item.kind }
     }
@@ -335,7 +528,10 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         discussions(ref, list.signal),
       ])
       const threads = new Map(all.map(discussion => [discussion.id, discussion]))
-      return { ...page, items: page.items.map(item => toEvent(ref, item, threads)) }
+      return {
+        ...page,
+        items: page.items.map(item => toEvent(ref, item, threads)),
+      }
     }
     const { cell } = await project(ref.repo.owner)
     return tokenPage(cell, `${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}/timeline`, snakePage('items'), list, (item: EntireTimelineItem) => toEvent(ref, item))
@@ -344,11 +540,26 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   async function compare(repo: RepoRef, base: string, head: string, compareOptions: CompareOptions = {}): Promise<Comparison> {
     const { cell, path } = await located(repo)
     const signal = compareOptions.signal
-    const { data: status } = await cell.json<EntireCompareStatus>(`${path}/compare/status`, { query: { base, head }, signal })
+    const { data: status } = await cell.json<EntireCompareStatus>(`${path}/compare/status`, {
+      query: { base, head },
+      signal,
+    })
     const from = status.mergeBaseSHA ?? base
     const [files, commits] = await Promise.all([
-      compareOptions.files === false ? undefined : cell.json<{ files?: EntireCompareFile[] }>(`${path}/compare`, { query: { base: from, head }, signal }),
-      cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, { query: { ref: head, notRef: from, pageSize: Math.min(compareOptions.commitLimit ?? 200, 200) }, signal }),
+      compareOptions.files === false
+        ? undefined
+        : cell.json<{ files?: EntireCompareFile[] }>(`${path}/compare`, {
+            query: { base: from, head },
+            signal,
+          }),
+      cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, {
+        query: {
+          ref: head,
+          notRef: from,
+          pageSize: Math.min(compareOptions.commitLimit ?? 200, 200),
+        },
+        signal,
+      }),
     ])
     return {
       base,
@@ -357,7 +568,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       behindBy: status.commitsBehind,
       commits: commits.data.commits.map(commit => toCommit(origin, repo, commit)),
       files: (files?.data.files ?? []).map(toChangedFile),
-      ...status.mergeBaseSHA ? { mergeBaseSha: status.mergeBaseSHA } : {},
+      ...status.mergeBaseSHA
+        ? { mergeBaseSha: status.mergeBaseSHA }
+        : {},
       raw: { status, files: files?.data, commits: commits.data },
     }
   }
@@ -370,13 +583,19 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       return { repo: ref.repo, base: raw.merge_base_sha, head }
     }
     const { cell, path } = await located(ref.repo)
-    const { data } = await cell.json<EntireCompareStatus>(`${path}/compare/status`, { query: { base: raw.base, head }, signal })
+    const { data } = await cell.json<EntireCompareStatus>(`${path}/compare/status`, {
+      query: { base: raw.base, head },
+      signal,
+    })
     return { repo: ref.repo, base: data.mergeBaseSHA ?? raw.base, head }
   }
 
   async function refsPage(repo: RepoRef, prefix: string, page: PageOptions): Promise<Page<EntireRef>> {
     const { cell, path } = await located(repo)
-    return tokenPage(cell, `${path}/refs`, camelPage('refs'), { ...page, query: { prefix, peel: true, symrefs: true } }, (raw: EntireRef) => raw)
+    return tokenPage(cell, `${path}/refs`, camelPage('refs'), {
+      ...page,
+      query: { prefix, peel: true, symrefs: true },
+    }, (raw: EntireRef) => raw)
   }
 
   async function resolveRef(repo: RepoRef, ref: string, opts?: BaseOptions): Promise<string> {
@@ -384,7 +603,10 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       return ref
     }
     const { cell, path } = await located(repo)
-    const { data } = await cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, { query: { ref, pageSize: 1 }, signal: opts?.signal })
+    const { data } = await cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, {
+      query: { ref, pageSize: 1 },
+      signal: opts?.signal,
+    })
     const sha = data.commits[0]?.sha
     if (!sha) {
       throw new NotFoundError(`No revision ${ref} in ${repo.owner}/${repo.name}`, 404, '', origin)
@@ -396,7 +618,9 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     if (typeof actor !== 'string') {
       return `ulid:${actor.id}`
     }
-    return actor.startsWith('ulid:') || actor.startsWith('@') ? actor : `@${actor}`
+    return actor.startsWith('ulid:') || actor.startsWith('@')
+      ? actor
+      : `@${actor}`
   }
 
   function refuseLabels(labels: string[] | undefined): void {
@@ -409,11 +633,20 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     refuseLabels(input.labels)
     const assignees = input.assignees?.map(actorReference)
     if (input.kind === 'issue') {
-      const scoped = isNamespaceRef(repo) ? undefined : await located(repo)
+      const scoped = isNamespaceRef(repo)
+        ? undefined
+        : await located(repo)
       const cell = scoped?.cell ?? (await project(repo.owner)).cell
       const { data } = await cell.json<EntireProjectTrail>(projectTrailPath(repo.owner), {
         method: 'POST',
-        json: { title: input.title, body: input.body, assignees, repoIds: scoped && [decodeURIComponent(scoped.id)] },
+        json: {
+          title: input.title,
+          body: input.body,
+          assignees,
+          repoIds: scoped && [
+            decodeURIComponent(scoped.id),
+          ],
+        },
         signal: opts?.signal,
       })
       return toIssue(origin, repo.owner, data)
@@ -431,12 +664,24 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const repositoryId = decodeURIComponent(id)
     const { data } = await cell.json<EntireProjectTrail>(projectTrailPath(repo.owner), {
       method: 'POST',
-      headers: { 'idempotency-key': crypto.randomUUID() },
+      headers: {
+        'idempotency-key': crypto.randomUUID(),
+      },
       json: {
         title: input.title,
         body: input.body,
         repoIds: [repositoryId],
-        changes: [{ repositoryId, branchName: input.head, base: input.base, branchAction: 'link', title: input.title, assignees, readyForReview: !input.draft }],
+        changes: [
+          {
+            repositoryId,
+            branchName: input.head,
+            base: input.base,
+            branchAction: 'link',
+            title: input.title,
+            assignees,
+            readyForReview: !input.draft,
+          },
+        ],
       },
       signal: opts?.signal,
     })
@@ -456,7 +701,12 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       const { cell } = await project(ref.repo.owner)
       const { data } = await cell.json<EntireProjectTrail>(`${projectTrailPath(ref.repo.owner)}/${encodeURIComponent(ref.number)}`, {
         method: 'PATCH',
-        json: { title: input.title, body: input.body, status: input.state, assignees },
+        json: {
+          title: input.title,
+          body: input.body,
+          status: input.state,
+          assignees,
+        },
         signal,
       })
       return toIssue(origin, ref.repo.owner, data)
@@ -464,14 +714,22 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const pull = requirePull(ref, 'updated')
     const { cell } = await located(pull.repo)
     if (input.title !== undefined || input.state !== undefined || assignees) {
-      await cell.json(`${trailPath(pull.repo)}/${encodeURIComponent(pull.number)}`, { method: 'PATCH', json: { title: input.title, status: input.state, assignees }, signal })
+      await cell.json(`${trailPath(pull.repo)}/${encodeURIComponent(pull.number)}`, {
+        method: 'PATCH',
+        json: { title: input.title, status: input.state, assignees },
+        signal,
+      })
     }
     if (input.body !== undefined) {
       const raw = await change(pull, signal)
       if (!raw.parent) {
         throw new UnsupportedOperationError(`Change ${pull.number} has no trail to hold its description`, origin)
       }
-      await cell.json(`${projectTrailPath(raw.parent.project)}/${encodeURIComponent(raw.parent.id)}`, { method: 'PATCH', json: { body: input.body }, signal })
+      await cell.json(`${projectTrailPath(raw.parent.project)}/${encodeURIComponent(raw.parent.id)}`, {
+        method: 'PATCH',
+        json: { body: input.body },
+        signal,
+      })
     }
     return get(pull, opts)
   }
@@ -479,7 +737,11 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
   async function createComment(thread: ThreadRef, body: string, opts?: BaseOptions): Promise<Comment> {
     const ref = requireIssueOrPull(thread, origin, 'comment on')
     const { cell, path } = await discussionsAt(ref)
-    const { data } = await cell.json<EntireDiscussionCreated>(path, { method: 'POST', json: { body }, signal: opts?.signal })
+    const { data } = await cell.json<EntireDiscussionCreated>(path, {
+      method: 'POST',
+      json: { body },
+      signal: opts?.signal,
+    })
     return toComment(ref, data.discussion, data.message)
   }
 
@@ -489,13 +751,22 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       throw new UnsupportedOperationError('Entire edits a finding through the code review that left it', origin)
     }
     const { cell, path } = await discussionsAt(found.thread)
-    return { ...found, message: found.message, cell, path: `${path}/${encodeURIComponent(found.discussion.id)}/messages/${encodeURIComponent(found.message.id)}` }
+    return {
+      ...found,
+      message: found.message,
+      cell,
+      path: `${path}/${encodeURIComponent(found.discussion.id)}/messages/${encodeURIComponent(found.message.id)}`,
+    }
   }
 
   async function setResolved(thread: ThreadRef, id: string, resolved: boolean, opts?: BaseOptions): Promise<void> {
     const ref = requirePull(thread, 'reviewed')
     const { cell, path } = await discussionsAt(ref)
-    await cell.json(`${path}/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: opts?.signal })
+    await cell.json(`${path}/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      json: { resolved },
+      signal: opts?.signal,
+    })
   }
 
   /** The findings of one review, quoting the lines each one anchors to. Each quoted file is read once. */
@@ -503,7 +774,10 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const raw = await change(ref, signal)
     const { cell, path } = await located(ref.repo)
     const gitRef = raw.head_sha ?? raw.branch
-    const textOf = memoBy(async (file: string) => (await (await cell.raw(`${path}/raw`, { query: { ref: gitRef, path: file }, signal })).text()).split('\n'))
+    const textOf = memoBy(async (file: string) => (await (await cell.raw(`${path}/raw`, {
+      query: { ref: gitRef, path: file },
+      signal,
+    })).text()).split('\n'))
     return Promise.all(inline.map(async (comment, index) => {
       const end = comment.line ?? comment.startLine
       const start = comment.startLine ?? end
@@ -512,7 +786,15 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         body: comment.body,
         location: start === undefined || end === undefined
           ? { granularity: 'file', file_path: comment.path }
-          : { granularity: start === end ? 'line' : 'range', file_path: comment.path, start_line: start, end_line: end, selected_text: (await textOf(comment.path)).slice(start - 1, end).join('\n') },
+          : {
+              granularity: start === end
+                ? 'line'
+                : 'range',
+              file_path: comment.path,
+              start_line: start,
+              end_line: end,
+              selected_text: (await textOf(comment.path)).slice(start - 1, end).join('\n'),
+            },
       }
     }))
   }
@@ -526,7 +808,11 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       if (input.comments?.length) {
         throw new UnsupportedOperationError('Entire approvals carry no inline comments', origin)
       }
-      const { data } = await cell.json<{ approval: EntireApproval }>(`${path}/approvals`, { method: 'POST', json: { event: input.event, body: input.body }, signal })
+      const { data } = await cell.json<{ approval: EntireApproval }>(`${path}/approvals`, {
+        method: 'POST',
+        json: { event: input.event, body: input.body },
+        signal,
+      })
       return toApproval(ref, data.approval)
     }
     if (input.event !== 'comment') {
@@ -541,7 +827,13 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     }
     const comments = inline.length
       ? await reviewComments(inline, ref, signal)
-      : [{ client_id: '1', body: input.body, location: { granularity: 'whole_change' } }]
+      : [
+          {
+            client_id: '1',
+            body: input.body,
+            location: { granularity: 'whole_change' },
+          },
+        ]
     const { data: started } = await cell.json<{ review_id: string }>(`${path}/reviews`, { method: 'POST', json: {}, signal })
     const { data } = await cell.json<EntireReviewPublished>(`${path}/reviews/${encodeURIComponent(started.review_id)}/comments`, {
       method: 'POST',
@@ -572,9 +864,18 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       throw new UnsupportedOperationError('Entire replies to a review comment in its discussion; pass the comment with its `thread` or `ref`', origin)
     }
     const { cell, path } = await discussionsAt(ref)
-    const { data } = await cell.json<{ message: EntireMessage }>(`${path}/${encodeURIComponent(discussion)}/messages`, { method: 'POST', json: { body }, signal: opts?.signal })
+    const { data } = await cell.json<{ message: EntireMessage }>(`${path}/${encodeURIComponent(discussion)}/messages`, {
+      method: 'POST',
+      json: { body },
+      signal: opts?.signal,
+    })
     const reply = toComment(ref, { id: discussion, resolved: comment.thread?.resolved ?? false }, data.message)
-    return { ...reply, ...comment.inReplyTo ?? comment.ref?.id ? { inReplyTo: comment.inReplyTo ?? comment.ref?.id } : {} }
+    return {
+      ...reply,
+      ...comment.inReplyTo ?? comment.ref?.id
+        ? { inReplyTo: comment.inReplyTo ?? comment.ref?.id }
+        : {},
+    }
   }
 
   const moved = (error: unknown) => error instanceof ForgeApiError && (error.status === 412 || (error.status === 409 && /head_mismatch/.test(error.body)))
@@ -591,7 +892,12 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     }
     const { cell, id } = await located(ref.repo)
     const path = `/repos/${id}/trails/${encodeURIComponent(ref.number)}`
-    const submit = () => cell.json<EntireMerged>(`${path}/merge`, { method: 'POST', json: { deleteBranch: false, expectedHeadSha: options.sha }, mapError: moved, signal: options.signal })
+    const submit = () => cell.json<EntireMerged>(`${path}/merge`, {
+      method: 'POST',
+      json: { deleteBranch: false, expectedHeadSha: options.sha },
+      mapError: moved,
+      signal: options.signal,
+    })
     const { data } = await submit().catch(async (error: unknown) => {
       if (!(error instanceof ForgeApiError) || error.status !== 422 || !/merge_gates_pending/.test(error.body)) {
         throw error
@@ -599,7 +905,13 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       await cell.json(`${path}/gates/recompute`, { method: 'POST', signal: options.signal })
       return submit()
     })
-    return { status: 'merged', ...data.mergeCommitSha ? { sha: data.mergeCommitSha } : {}, raw: data }
+    return {
+      status: 'merged',
+      ...data.mergeCommitSha
+        ? { sha: data.mergeCommitSha }
+        : {},
+      raw: data,
+    }
   }
 
   async function updateBranch(thread: ThreadRef, options: UpdateBranchOptions = {}): Promise<UpdateBranchResult> {
@@ -608,7 +920,12 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
     const signal = options.signal
     const raw = await change(ref, signal)
     if (options.method === 'rebase') {
-      const response = await cell.raw(`${path}/rebases`, { method: 'POST', json: { branch: raw.branch, onto: raw.base, expectedBranchSHA: options.sha }, mapError: moved, signal })
+      const response = await cell.raw(`${path}/rebases`, {
+        method: 'POST',
+        json: { branch: raw.branch, onto: raw.base, expectedBranchSHA: options.sha },
+        mapError: moved,
+        signal,
+      })
       const events = (await response.text()).split('\n').filter(Boolean).map(line => JSON.parse(line) as { type: string })
       if (events.at(-1)?.type !== 'completed') {
         throw new ForgeError(`Entire did not finish rebasing ${raw.branch}: ${JSON.stringify(events.at(-1))}`, origin)
@@ -662,12 +979,24 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
           ...origin,
           login: data.global.username ?? data.global.handle ?? data.global.accountId,
           id: data.global.accountId,
-          ...data.global.displayName ? { name: data.global.displayName } : {},
-          ...data.global.avatarUrl ? { avatarUrl: data.global.avatarUrl } : {},
+          ...data.global.displayName
+            ? { name: data.global.displayName }
+            : {},
+          ...data.global.avatarUrl
+            ? { avatarUrl: data.global.avatarUrl }
+            : {},
           isBotHint: false,
-          ...data.regional?.bio ? { bio: data.regional.bio } : {},
-          ...data.regional?.location ? { location: data.regional.location } : {},
-          ...data.global.createdAt ? { createdAt: toDate(data.global.createdAt) } : {},
+          ...data.regional?.bio
+            ? { bio: data.regional.bio }
+            : {},
+          ...data.regional?.location
+            ? { location: data.regional.location }
+            : {},
+          ...data.global.createdAt
+            ? {
+                createdAt: toDate(data.global.createdAt),
+              }
+            : {},
           raw: data,
         }
       }),
@@ -681,7 +1010,12 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       byOwnerPage: verb(true, async (owner: RepoRef, query: RepoQuery = {}) => {
         const { id } = await project(owner.owner)
         const page = await tokenPage(fetcher, `/projects/${encodeURIComponent(id)}/repos`, camelPage('repos'), query, (raw: EntireCoreRepo) => toCoreRepo(origin, raw, owner.owner))
-        return query.visibility && query.visibility !== 'all' ? { ...page, items: page.items.filter(repo => repo.visibility === query.visibility) } : page
+        return query.visibility && query.visibility !== 'all'
+          ? {
+              ...page,
+              items: page.items.filter(repo => repo.visibility === query.visibility),
+            }
+          : page
       }),
       collaboratorsPage: verb(true, async (repo, page: PageOptions = {}) => {
         const { id } = await located(repo)
@@ -696,7 +1030,11 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
           throw new UnsupportedOperationError('Entire grants access to an account by its id; pass an actor', origin)
         }
         const { id } = await located(repo)
-        await fetcher.json(`/repos/${id}/grants`, { method: 'POST', json: { accountId: actor.id, role: grant }, signal: opts?.signal })
+        await fetcher.json(`/repos/${id}/grants`, {
+          method: 'POST',
+          json: { accountId: actor.id, role: grant },
+          signal: opts?.signal,
+        })
         return { status: 'added' }
       }),
     },
@@ -708,12 +1046,18 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       commentsPage: perKind({ issue: true, pull_request: true }, async (thread: ThreadRef, list: ListOptions = {}) => slice(await comments(requireIssueOrPull(thread, origin, 'read comments on'), list.signal), list)),
       getComment: perKind({ issue: true, pull_request: true }, async (ref, opts) => {
         const { thread, discussion, message } = await findComment(ref, opts?.signal)
-        return message ? toComment(thread, discussion, message) : findingComment(thread, discussion.review_comment!, discussion.resolved || discussion.review_comment!.status !== 'open')
+        return message
+          ? toComment(thread, discussion, message)
+          : findingComment(thread, discussion.review_comment!, discussion.resolved || discussion.review_comment!.status !== 'open')
       }),
       createComment: perKind({ issue: true, pull_request: true }, createComment),
       updateComment: perKind({ issue: true, pull_request: true }, async (ref, body, opts) => {
         const { thread, discussion, cell, path } = await messagePath(ref, opts?.signal)
-        const { data } = await cell.json<{ message: EntireMessage }>(path, { method: 'PATCH', json: { body }, signal: opts?.signal })
+        const { data } = await cell.json<{ message: EntireMessage }>(path, {
+          method: 'PATCH',
+          json: { body },
+          signal: opts?.signal,
+        })
         return toComment(thread, discussion, data.message)
       }),
       deleteComment: perKind({ issue: true, pull_request: true }, async (ref, opts) => {
@@ -745,23 +1089,41 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
       filesPage: verb(true, async (thread: ThreadRef, page: PageOptions = {}): Promise<Page<ChangedFile>> => {
         const { repo, base, head } = await changeRange(thread, page.signal)
         const { cell, path } = await located(repo)
-        const { data } = await cell.json<{ files?: EntireCompareFile[] }>(`${path}/compare`, { query: { base, head }, signal: page.signal })
+        const { data } = await cell.json<{ files?: EntireCompareFile[] }>(`${path}/compare`, {
+          query: { base, head },
+          signal: page.signal,
+        })
         return slice((data.files ?? []).map(toChangedFile), page)
       }),
       commitsPage: verb(true, async (thread: ThreadRef, page: PageOptions = {}): Promise<Page<Commit>> => {
         const { repo, base, head } = await changeRange(thread, page.signal)
         const { cell, path } = await located(repo)
-        return tokenPage(cell, `${path}/commits`, camelPage('commits'), { ...page, query: { ref: head, notRef: base } }, (raw: EntireCommit) => toCommit(origin, repo, raw))
+        return tokenPage(cell, `${path}/commits`, camelPage('commits'), {
+          ...page,
+          query: { ref: head, notRef: base },
+        }, (raw: EntireCommit) => toCommit(origin, repo, raw))
       }),
     },
     contents: {
       getFile: verb(true, async (repo: RepoRef, filePath: string, fileOptions: FileOptions = {}) => {
         const { cell, path } = await located(repo)
         const at = fileOptions.ref ?? 'HEAD'
-        const response = await cell.raw(`${path}/raw`, { query: { ref: at, path: filePath }, signal: fileOptions.signal })
+        const response = await cell.raw(`${path}/raw`, {
+          query: { ref: at, path: filePath },
+          signal: fileOptions.signal,
+        })
         const bytes = new Uint8Array(await response.arrayBuffer())
         const sha = response.headers.get('entire-sha') ?? undefined
-        const metadata = { path: filePath, ...sha ? { sha } : {}, size: bytes.byteLength, url: webUrlFor(web, { file: { repo, path: filePath, at } }) }
+        const metadata = {
+          path: filePath,
+          ...sha
+            ? { sha }
+            : {},
+          size: bytes.byteLength,
+          url: webUrlFor(web, {
+            file: { repo, path: filePath, at },
+          }),
+        }
         return toFileContent(bytes, metadata, fileOptions, origin)
       }),
       treePage: verb(true, async (repo: RepoRef, tree: TreeOptions = {}): Promise<Page<TreeEntry>> => {
@@ -770,21 +1132,43 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
           query: { ref: tree.ref ?? 'HEAD', path: tree.path || undefined, recursive: tree.recursive || undefined },
           signal: tree.signal,
         })
-        const page = slice(data.entries.map(entry => toTreeEntry(entry, tree.recursive ? '' : tree.path?.replace(/\/$/, '') ?? '')), tree)
-        return data.truncated ? { ...page, warnings: [{ code: 'tree_truncated', message: 'Entire truncated the tree' }] } : page
+        const page = slice(data.entries.map(entry => toTreeEntry(entry, tree.recursive
+          ? ''
+          : tree.path?.replace(/\/$/, '') ?? '')), tree)
+        return data.truncated
+          ? {
+              ...page,
+              warnings: [
+                { code: 'tree_truncated', message: 'Entire truncated the tree' },
+              ],
+            }
+          : page
       }),
       branchesPage: verb(true, async (repo: RepoRef, page: PageOptions = {}): Promise<Page<Branch>> => {
         const { cell, path } = await located(repo)
         const [head, branches] = await Promise.all([
-          cell.json<{ refs: EntireRef[] }>(`${path}/refs`, { query: { prefix: 'HEAD', symrefs: true }, signal: page.signal }),
+          cell.json<{ refs: EntireRef[] }>(`${path}/refs`, {
+            query: { prefix: 'HEAD', symrefs: true },
+            signal: page.signal,
+          }),
           tokenPage(cell, `${path}/branches`, camelPage('branches'), page, (raw: EntireBranch) => raw),
         ])
         const defaultBranch = head.data.refs.find(ref => ref.name === 'HEAD')?.symrefTarget?.replace(/^refs\/heads\//, '')
-        return { ...branches, items: branches.items.map(raw => toBranch(raw, defaultBranch)) }
+        return {
+          ...branches,
+          items: branches.items.map(raw => toBranch(raw, defaultBranch)),
+        }
       }),
       tagsPage: verb(true, async (repo: RepoRef, page: PageOptions = {}): Promise<Page<Tag>> => {
         const refs = await refsPage(repo, 'refs/tags/', page)
-        return { ...refs, items: refs.items.map(raw => ({ name: raw.name.replace(/^refs\/tags\//, ''), sha: raw.peeled ?? raw.oid, raw })) }
+        return {
+          ...refs,
+          items: refs.items.map(raw => ({
+            name: raw.name.replace(/^refs\/tags\//, ''),
+            sha: raw.peeled ?? raw.oid,
+            raw,
+          })),
+        }
       }),
       resolveRef: verb(true, resolveRef),
       compare: verb(true, compare),
@@ -794,13 +1178,23 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         const { cell, path } = await located(repo)
         return tokenPage(cell, `${path}/commits`, camelPage('commits'), {
           ...query,
-          query: { ref: query.ref ?? 'HEAD', path: query.path, author: query.author, since: query.since?.toISOString(), until: query.until?.toISOString(), includeStats: true },
+          query: {
+            ref: query.ref ?? 'HEAD',
+            path: query.path,
+            author: query.author,
+            since: query.since?.toISOString(),
+            until: query.until?.toISOString(),
+            includeStats: true,
+          },
         }, (raw: EntireCommit) => toCommit(origin, repo, raw))
       }),
       get: verb(true, async ({ repo, sha }: CommitRef, opts?: BaseOptions) => {
         const { cell, path, id } = await located(repo)
         const [{ data: list }, { data: detail }] = await Promise.all([
-          cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, { query: { ref: sha, pageSize: 1, includeStats: true }, signal: opts?.signal }),
+          cell.json<{ commits: EntireCommit[] }>(`${path}/commits`, {
+            query: { ref: sha, pageSize: 1, includeStats: true },
+            signal: opts?.signal,
+          }),
           cell.json<EntireCommitDetail>(`/repos/${id}/commits/${encodeURIComponent(sha)}`, { signal: opts?.signal }),
         ])
         const commit = list.commits[0]
@@ -809,12 +1203,20 @@ function setupEntire({ options, instance, origin, fetcher, createFetcher, baseUr
         }
         const files = (detail.commit.fileStats ?? []).map((file): ChangedFile => ({
           path: file.filename,
-          ...file.previousFilename && file.previousFilename !== file.filename ? { previousPath: file.previousFilename } : {},
+          ...file.previousFilename && file.previousFilename !== file.filename
+            ? { previousPath: file.previousFilename }
+            : {},
           status: toFileStatus(file.status),
           statusRaw: file.status,
-          ...file.additions !== undefined ? { additions: file.additions } : {},
-          ...file.deletions !== undefined ? { deletions: file.deletions } : {},
-          ...file.patch ? { patch: file.patch } : {},
+          ...file.additions !== undefined
+            ? { additions: file.additions }
+            : {},
+          ...file.deletions !== undefined
+            ? { deletions: file.deletions }
+            : {},
+          ...file.patch
+            ? { patch: file.patch }
+            : {},
         }))
         return toCommit(origin, repo, commit, files, detail)
       }),

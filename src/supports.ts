@@ -48,7 +48,9 @@ export function support(capabilities: ForgeCapabilities, verb: ForgeVerb, kind?:
     return declared[kind] ?? false
   }
   const levels = Object.values(declared)
-  return LEVELS.find(level => levels.includes(level)) ?? (levels.includes('not_applicable') ? 'not_applicable' : false)
+  return LEVELS.find(level => levels.includes(level)) ?? (levels.includes('not_applicable')
+    ? 'not_applicable'
+    : false)
 }
 
 /** The capability entry behind `verb`: one support level, or one per kind. */

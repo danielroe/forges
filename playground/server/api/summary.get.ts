@@ -22,7 +22,9 @@ async function repoFor(provider: ForgeProvider): Promise<RepoRef | undefined> {
   if (configured) {
     return { forge: provider.forge, instance: provider.instance, ...configured }
   }
-  return provider.can('repos.list') ? (await provider.repos.listPage({ perPage: 1 })).items[0]?.ref : undefined
+  return provider.can('repos.list')
+    ? (await provider.repos.listPage({ perPage: 1 })).items[0]?.ref
+    : undefined
 }
 
 async function latest(provider: ForgeProvider, repo: RepoRef | undefined) {
@@ -30,7 +32,13 @@ async function latest(provider: ForgeProvider, repo: RepoRef | undefined) {
     const page = await provider.notifications.listPage({ perPage: LATEST })
     return {
       type: 'notifications' as const,
-      items: page.items.slice(0, LATEST).map(item => ({ key: notificationKey(item.ref), title: item.title, reason: item.reason, updatedAt: item.updatedAt, raw: item.raw })),
+      items: page.items.slice(0, LATEST).map(item => ({
+        key: notificationKey(item.ref),
+        title: item.title,
+        reason: item.reason,
+        updatedAt: item.updatedAt,
+        raw: item.raw,
+      })),
       warnings: page.warnings ?? [],
     }
   }
@@ -41,7 +49,13 @@ async function latest(provider: ForgeProvider, repo: RepoRef | undefined) {
   return {
     type: 'threads' as const,
     repo: `${repo.owner}/${repo.name}`,
-    items: page.items.slice(0, LATEST).map(thread => ({ key: threadKey(thread.ref), title: thread.title, state: thread.state, updatedAt: thread.updatedAt, raw: thread.raw })),
+    items: page.items.slice(0, LATEST).map(thread => ({
+      key: threadKey(thread.ref),
+      title: thread.title,
+      state: thread.state,
+      updatedAt: thread.updatedAt,
+      raw: thread.raw,
+    })),
     warnings: page.warnings ?? [],
   }
 }
@@ -55,7 +69,12 @@ async function checks(provider: ForgeProvider, repo: RepoRef) {
   return {
     title: pull.title,
     summary: (await provider.threads.get(pull.ref)).checks,
-    items: items.map(check => ({ name: check.name, state: check.state, url: check.url, raw: check.raw })),
+    items: items.map(check => ({
+      name: check.name,
+      state: check.state,
+      url: check.url,
+      raw: check.raw,
+    })),
   }
 }
 
@@ -66,25 +85,46 @@ export default defineEventHandler(async (event) => {
     const repo = await repoFor(provider).catch(() => undefined)
     const [listing, checkResult, release, alerts] = await Promise.all([
       attempt(() => latest(provider, repo)),
-      repo && provider.can('threads.checks', 'pull_request') ? attempt(() => checks(provider, repo)) : NONE,
-      repo && provider.can('releases.latest') ? attempt(() => provider.releases.latest(repo)) : NONE,
-      repo && provider.can('securityAlerts.list') ? attempt(() => provider.securityAlerts.listPage(repo, { state: 'open', perPage: LATEST })) : NONE,
+      repo && provider.can('threads.checks', 'pull_request')
+        ? attempt(() => checks(provider, repo))
+        : NONE,
+      repo && provider.can('releases.latest')
+        ? attempt(() => provider.releases.latest(repo))
+        : NONE,
+      repo && provider.can('securityAlerts.list')
+        ? attempt(() => provider.securityAlerts.listPage(repo, { state: 'open', perPage: LATEST }))
+        : NONE,
     ])
     return {
       key,
       forge: provider.forge,
       instance: provider.instance,
-      repo: repo ? `${repo.owner}/${repo.name}` : undefined,
+      repo: repo
+        ? `${repo.owner}/${repo.name}`
+        : undefined,
       capabilities: provider.capabilities,
       latest: listing.value,
       checks: checkResult.value,
       release: release.value,
-      alerts: alerts.value && { items: alerts.value.items.slice(0, LATEST), warnings: alerts.value.warnings ?? [] },
-      errors: [listing.error, checkResult.error, release.error, alerts.error].filter(Boolean),
+      alerts: alerts.value && {
+        items: alerts.value.items.slice(0, LATEST),
+        warnings: alerts.value.warnings ?? [],
+      },
+      errors: [
+        listing.error,
+        checkResult.error,
+        release.error,
+        alerts.error,
+      ].filter(Boolean),
       webhooks: webhookEvents(key),
       stream: provider.can('sources.stream'),
     }
   }))
-  const body = { providers, skipped: skippedProviders() }
-  return showRaw ? body : redactRaw(body)
+  const body = {
+    providers,
+    skipped: skippedProviders(),
+  }
+  return showRaw
+    ? body
+    : redactRaw(body)
 })

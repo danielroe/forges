@@ -13,7 +13,13 @@ let directory: string
 beforeEach(() => {
   directory = mkdtempSync(join(tmpdir(), 'forges-bundle-test-'))
   writeFileSync(join(directory, 'index.mjs'), `export const createForges = ${JSON.stringify('x'.repeat(4_000))}`)
-  for (const name of ['github', 'gitlab', 'tangled', 'gitea', 'bitbucket']) {
+  for (const name of [
+    'github',
+    'gitlab',
+    'tangled',
+    'gitea',
+    'bitbucket',
+  ]) {
     mkdirSync(join(directory, name))
     writeFileSync(join(directory, name, 'index.mjs'), `export const ${name} = 'full'`)
   }
@@ -84,7 +90,14 @@ describe('browser bundle measurements', () => {
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual(['forges', 'forges/github', 'forges/gitlab', 'forges/gitea', 'forges/bitbucket', 'forges/web'])
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles.map(bundle => bundle.name)).toEqual([
+      'forges',
+      'forges/github',
+      'forges/gitlab',
+      'forges/gitea',
+      'forges/bitbucket',
+      'forges/web',
+    ])
   })
 
   it('counts and reports every chunk besides the entry', () => {

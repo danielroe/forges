@@ -78,14 +78,22 @@ function snapshotOf(instance: string, raw: GitLabHookThread | undefined): Thread
   return raw && threadSnapshot({
     title: raw.title,
     body: raw.description ?? undefined,
-    state: raw.state ? toState(raw.state) : undefined,
+    state: raw.state
+      ? toState(raw.state)
+      : undefined,
     stateRaw: raw.state,
     isDraft: raw.draft ?? undefined,
     labels: raw.labels?.map(label => toLabel({ name: label.title, color: label.color, description: label.description })),
     url: raw.url,
     branches: raw.source_branch && raw.target_branch
       ? {
-          head: { ref: raw.source_branch, sha: raw.last_commit?.id, repo: raw.source?.path_with_namespace ? toRepoRef(instance, raw.source.path_with_namespace, raw.source.id) : undefined },
+          head: {
+            ref: raw.source_branch,
+            sha: raw.last_commit?.id,
+            repo: raw.source?.path_with_namespace
+              ? toRepoRef(instance, raw.source.path_with_namespace, raw.source.id)
+              : undefined,
+          },
           base: { ref: raw.target_branch },
           mergeCommitSha: raw.merge_commit_sha ?? undefined,
         }
@@ -105,18 +113,38 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
         after: payload.after,
         created: Boolean(payload.before && ZERO_SHA.test(payload.before)),
         deleted: Boolean(payload.after && ZERO_SHA.test(payload.after)),
-        commits: (payload.commits ?? []).map(commit => ({ sha: commit.id, message: commit.message, author: commit.author?.name, url: commit.url })),
+        commits: (payload.commits ?? []).map(commit => ({
+          sha: commit.id,
+          message: commit.message,
+          author: commit.author?.name,
+          url: commit.url,
+        })),
         commitCount: payload.total_commits_count,
       })
     case 'release': {
       if (!repo) {
         return undefined
       }
-      const action = payload.action === 'create' ? 'published' : eventAction(payload.action) ?? 'other'
+      const action = payload.action === 'create'
+        ? 'published'
+        : eventAction(payload.action) ?? 'other'
       return {
         kind: 'release',
         action,
-        detail: { type: 'release', release: { forge: FORGE, instance, repo, id: payload.tag ?? String(payload.id), tag: payload.tag }, tag: payload.tag, name: payload.name, body: payload.description ?? undefined, url: payload.url },
+        detail: {
+          type: 'release',
+          release: {
+            forge: FORGE,
+            instance,
+            repo,
+            id: payload.tag ?? String(payload.id),
+            tag: payload.tag,
+          },
+          tag: payload.tag,
+          name: payload.name,
+          body: payload.description ?? undefined,
+          url: payload.url,
+        },
         summary: `${who} ${action} ${payload.name ?? payload.tag ?? 'a release'}`,
       }
     }
@@ -175,7 +203,9 @@ function repoLevel(instance: string, payload: GitLabWebhookPayload, who: string,
 /** The time of the change a project-level delivery reports, else the time its subject last changed. */
 function repoLevelTime(payload: GitLabWebhookPayload): string | undefined {
   if (payload.object_kind === 'release') {
-    return payload.action === 'create' ? payload.created_at ?? payload.released_at : undefined
+    return payload.action === 'create'
+      ? payload.created_at ?? payload.released_at
+      : undefined
   }
   if (payload.event_name?.startsWith('user_add_')) {
     return payload.created_at
@@ -191,12 +221,16 @@ function threadTime(payload: GitLabWebhookPayload): string | null | undefined {
   const attributes = payload.object_attributes
   const action = attributes?.action
   if (payload.object_kind === 'note') {
-    return action === 'update' ? attributes?.updated_at : attributes?.created_at ?? attributes?.updated_at
+    return action === 'update'
+      ? attributes?.updated_at
+      : attributes?.created_at ?? attributes?.updated_at
   }
   if (action === 'open') {
     return attributes?.created_at
   }
-  return (action === 'close' ? attributes?.closed_at : undefined) ?? attributes?.updated_at
+  return (action === 'close'
+    ? attributes?.closed_at
+    : undefined) ?? attributes?.updated_at
 }
 
 function membershipAction(eventName: string | undefined): EventAction {
@@ -206,7 +240,9 @@ function membershipAction(eventName: string | undefined): EventAction {
   if (eventName?.startsWith('user_remove_')) {
     return 'removed'
   }
-  return eventName?.startsWith('user_update_') ? 'edited' : 'other'
+  return eventName?.startsWith('user_update_')
+    ? 'edited'
+    : 'other'
 }
 
 interface ChangeEvent {
@@ -226,7 +262,10 @@ function diff<T>(change: Change<T> | undefined, key: (item: T) => string | numbe
   const current = change?.current ?? []
   const before = new Set(previous.map(key))
   const after = new Set(current.map(key))
-  return { added: current.filter(item => !before.has(key(item))), removed: previous.filter(item => !after.has(key(item))) }
+  return {
+    added: current.filter(item => !before.has(key(item))),
+    removed: previous.filter(item => !after.has(key(item))),
+  }
 }
 
 /** One event per label, assignee or reviewer an `update` delivery adds or removes. */
@@ -237,16 +276,35 @@ function changeEvents(instance: string, payload: GitLabWebhookPayload, who: stri
   }
   const events: ChangeEvent[] = []
   const labels = diff(changes.labels, label => label.title)
-  for (const [items, action, verb] of [[labels.added, 'labelled', 'added'], [labels.removed, 'unlabelled', 'removed']] as const) {
+  for (const [items, action, verb] of [
+    [labels.added, 'labelled', 'added'],
+    [labels.removed, 'unlabelled', 'removed'],
+  ] as const) {
     for (const { title = '' } of items) {
-      events.push({ kind: 'label', action, detail: { type: 'label', label: title }, summary: `${who} ${verb} label ${title}`.trim() })
+      events.push({
+        kind: 'label',
+        action,
+        detail: { type: 'label', label: title },
+        summary: `${who} ${verb} label ${title}`.trim(),
+      })
     }
   }
   const people = (change: Change<GitLabUser> | undefined, added: [EventAction, string], removed: [EventAction, string]) => {
     const { added: joined, removed: left } = diff(change, user => user.username)
-    for (const [users, [action, verb]] of [[joined, added], [left, removed]] as const) {
+    for (const [users, [action, verb]] of [
+      [joined, added],
+      [left, removed],
+    ] as const) {
       for (const user of users) {
-        events.push({ kind: 'assignment', action, detail: { type: 'assignment', assignee: toActor(instance, user) }, summary: `${who} ${verb} ${user.username}` })
+        events.push({
+          kind: 'assignment',
+          action,
+          detail: {
+            type: 'assignment',
+            assignee: toActor(instance, user),
+          },
+          summary: `${who} ${verb} ${user.username}`,
+        })
       }
     }
   }
@@ -259,7 +317,9 @@ function eventKindFor(payload: GitLabWebhookPayload): EventKind {
   const attributes = payload.object_attributes
   switch (payload.object_kind) {
     case 'note':
-      return attributes?.noteable_type !== 'Commit' && (attributes?.type === 'DiffNote' || attributes?.position) ? 'review_comment' : 'comment'
+      return attributes?.noteable_type !== 'Commit' && (attributes?.type === 'DiffNote' || attributes?.position)
+        ? 'review_comment'
+        : 'comment'
     case 'push':
       return 'commit'
     case 'emoji':
@@ -300,7 +360,9 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
   const payload = JSON.parse(bodyText(delivery.body)) as GitLabWebhookPayload
   const repo = payload.project?.path_with_namespace
     ? toRepoRef(instance, payload.project.path_with_namespace, payload.project.id)
-    : payload.path_with_namespace ? toRepoRef(instance, payload.path_with_namespace, payload.project_id) : undefined
+    : payload.path_with_namespace
+      ? toRepoRef(instance, payload.path_with_namespace, payload.project_id)
+      : undefined
   const user = payload.user?.username
     ? toActor(instance, { id: payload.user.id ?? 0, ...payload.user, username: payload.user.username })
     : undefined
@@ -309,37 +371,54 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
   const subject = payload.object_kind === 'note'
     ? payload.merge_request
       ? { kind: 'pull_request' as const, iid: payload.merge_request.iid }
-      : payload.issue ? { kind: 'issue' as const, iid: payload.issue.iid } : undefined
+      : payload.issue
+        ? { kind: 'issue' as const, iid: payload.issue.iid }
+        : undefined
     : payload.object_kind === 'merge_request' && attributes?.iid !== undefined
       ? { kind: 'pull_request' as const, iid: attributes.iid }
       : payload.object_kind === 'issue' && attributes?.iid !== undefined
         ? { kind: 'issue' as const, iid: attributes.iid }
         : undefined
   const thread: ThreadRef | undefined = repo && subject
-    ? { forge: FORGE, instance, repo, kind: subject.kind, number: String(subject.iid) }
+    ? {
+        forge: FORGE,
+        instance,
+        repo,
+        kind: subject.kind,
+        number: String(subject.iid),
+      }
     : undefined
   const commit: CommitRef | undefined = repo && !thread && payload.object_kind === 'note' && payload.commit?.id
-    ? { forge: FORGE, instance, repo, sha: payload.commit.id }
+    ? {
+        forge: FORGE,
+        instance,
+        repo,
+        sha: payload.commit.id,
+      }
     : undefined
-  const snapshot = thread && snapshotOf(instance, payload.object_kind === 'note' ? payload.merge_request ?? payload.issue : attributes)
+  const snapshot = thread && snapshotOf(instance, payload.object_kind === 'note'
+    ? payload.merge_request ?? payload.issue
+    : attributes)
 
   const level = repoLevel(instance, payload, user?.login ?? payload.user_username ?? 'someone', repo)
   if (level) {
-    return [{
-      forge: FORGE,
-      instance,
-      id: deliveryId,
-      kind: level.kind,
-      action: level.action,
-      kindRaw: payload.object_kind ?? payload.event_name ?? event,
-      summary: level.summary,
-      ...eventTime(toDate(repoLevelTime(payload))),
-      actor: user,
-      repo,
-      detail: level.detail,
-      source: 'webhook',
-      payload,
-    }]
+    return [
+      {
+        forge: FORGE,
+        instance,
+        id: deliveryId,
+        kind: level.kind,
+        action: level.action,
+        kindRaw: payload.object_kind ?? payload.event_name ?? event,
+        summary: level.summary,
+        ...eventTime(toDate(repoLevelTime(payload))),
+        actor: user,
+        repo,
+        detail: level.detail,
+        source: 'webhook',
+        payload,
+      },
+    ]
   }
 
   const time = eventTime(toDate(threadTime(payload)))
@@ -348,7 +427,9 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
     return changes.map((change, index) => ({
       forge: FORGE,
       instance,
-      id: changes.length === 1 ? deliveryId : `${deliveryId}:${index}`,
+      id: changes.length === 1
+        ? deliveryId
+        : `${deliveryId}:${index}`,
       ...change,
       kindRaw: `${payload.object_kind}.update`,
       actionRaw: 'update',
@@ -364,33 +445,91 @@ export function translateGitLabWebhook(instance: string, delivery: WebhookDelive
 
   const kind = eventKindFor(payload)
   const action = attributes?.action
-  return [{
-    forge: FORGE,
-    instance,
-    id: deliveryId,
-    kind,
-    kindRaw: action ? `${payload.object_kind}.${action}` : payload.object_kind ?? event,
-    action: action === 'update' && attributes?.oldrev ? 'synchronised' : action === 'merge' ? 'merged' : eventAction(action),
-    actionRaw: action,
-    detail: kind === 'review_comment'
-      ? { type: kind, comment: thread && attributes?.id !== undefined ? { forge: FORGE, instance, thread, id: String(attributes.id) } : undefined, body: attributes?.note }
-      : kind === 'comment'
-        ? { type: kind, comment: attributes?.id === undefined ? undefined : thread ? { forge: FORGE, instance, thread, id: String(attributes.id) } : commit && { forge: FORGE, instance, commit, id: String(attributes.id) }, body: attributes?.note }
-        : kind === 'state_change'
-          ? { type: 'state_change', state: action === 'merge' ? 'merged' : action === 'close' ? 'closed' : 'open' }
-          : kind === 'review'
-            ? { type: 'review', state: 'approved', stateRaw: action, review: thread && payload.user?.username ? { forge: FORGE, instance, thread, id: approvalId(payload.user) } : undefined }
-            : undefined,
-    summary: payload.object_kind === 'note'
-      ? `${user?.login ?? 'someone'} commented`
-      : `${user?.login ?? 'someone'} ${action ? `${action} ` : ''}${payload.object_kind ?? event}`.trim(),
-    ...time,
-    actor: user,
-    repo,
-    thread,
-    commit,
-    threadSnapshot: snapshot,
-    source: 'webhook',
-    payload,
-  }]
+  return [
+    {
+      forge: FORGE,
+      instance,
+      id: deliveryId,
+      kind,
+      kindRaw: action
+        ? `${payload.object_kind}.${action}`
+        : payload.object_kind ?? event,
+      action: action === 'update' && attributes?.oldrev
+        ? 'synchronised'
+        : action === 'merge'
+          ? 'merged'
+          : eventAction(action),
+      actionRaw: action,
+      detail: kind === 'review_comment'
+        ? {
+            type: kind,
+            comment: thread && attributes?.id !== undefined
+              ? {
+                  forge: FORGE,
+                  instance,
+                  thread,
+                  id: String(attributes.id),
+                }
+              : undefined,
+            body: attributes?.note,
+          }
+        : kind === 'comment'
+          ? {
+              type: kind,
+              comment: attributes?.id === undefined
+                ? undefined
+                : thread
+                  ? {
+                      forge: FORGE,
+                      instance,
+                      thread,
+                      id: String(attributes.id),
+                    }
+                  : commit && {
+                    forge: FORGE,
+                    instance,
+                    commit,
+                    id: String(attributes.id),
+                  },
+              body: attributes?.note,
+            }
+          : kind === 'state_change'
+            ? {
+                type: 'state_change',
+                state: action === 'merge'
+                  ? 'merged'
+                  : action === 'close'
+                    ? 'closed'
+                    : 'open',
+              }
+            : kind === 'review'
+              ? {
+                  type: 'review',
+                  state: 'approved',
+                  stateRaw: action,
+                  review: thread && payload.user?.username
+                    ? {
+                        forge: FORGE,
+                        instance,
+                        thread,
+                        id: approvalId(payload.user),
+                      }
+                    : undefined,
+                }
+              : undefined,
+      summary: payload.object_kind === 'note'
+        ? `${user?.login ?? 'someone'} commented`
+        : `${user?.login ?? 'someone'} ${action
+            ? `${action} `
+            : ''}${payload.object_kind ?? event}`.trim(),
+      ...time,
+      actor: user,
+      repo,
+      thread,
+      commit,
+      threadSnapshot: snapshot,
+      source: 'webhook',
+      payload,
+    },
+  ]
 }

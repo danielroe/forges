@@ -6,8 +6,12 @@ const tabs = examples.map(example => ({
   ...example,
   value: example.name,
   label: example.name,
-  icon: example.slug === 'unified' ? 'i-lucide-layers' : providers.find(provider => provider.slug === example.slug)!.icon,
-  text: example.slug === 'unified' ? 'unified' : undefined,
+  icon: example.slug === 'unified'
+    ? 'i-lucide-layers'
+    : providers.find(provider => provider.slug === example.slug)!.icon,
+  text: example.slug === 'unified'
+    ? 'unified'
+    : undefined,
 }))
 
 const selected = ref(tabs[0]!.name)
@@ -15,7 +19,9 @@ const selected = ref(tabs[0]!.name)
 /** The explorer, with the selected example's forge already picked. */
 const explorerLink = computed(() => {
   const slug = tabs.find(tab => tab.name === selected.value)!.slug
-  return `/getting-started/explorer?verb=threads.get${slug === 'unified' ? '' : `&forge=${slug}`}`
+  return `/getting-started/explorer?verb=threads.get${slug === 'unified'
+    ? ''
+    : `&forge=${slug}`}`
 })
 const shown = shallowRef({ name: tabs[0]!.name, ...initial })
 

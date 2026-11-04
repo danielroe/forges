@@ -5,7 +5,9 @@ import * as forges from '../../src/index.ts'
 
 function frontmatter(page: string, key: string): string | undefined {
   const value = page.match(new RegExp(`^${key}: (.+)$`, 'm'))?.[1]?.trim()
-  return value?.startsWith('"') ? JSON.parse(value) : value
+  return value?.startsWith('"')
+    ? JSON.parse(value)
+    : value
 }
 
 export default defineNuxtModule({

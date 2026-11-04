@@ -55,7 +55,9 @@ export function hasCommentMarker(body: string, key: string): boolean {
  * ```
  */
 export function withCommentMarker(body: string, key: string): string {
-  return hasCommentMarker(body, key) ? body : `${body}\n\n${commentMarker(key)}`
+  return hasCommentMarker(body, key)
+    ? body
+    : `${body}\n\n${commentMarker(key)}`
 }
 
 function sameBody(a: string, b: string): boolean {
@@ -95,7 +97,9 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef | Co
       return { comment: await provider.commits.createComment(ref, body, options), created: true }
     }
     return {
-      comment: sameBody(existing.body, body) ? existing : await provider.commits.updateComment(existing.ref, body, options),
+      comment: sameBody(existing.body, body)
+        ? existing
+        : await provider.commits.updateComment(existing.ref, body, options),
       created: false,
     }
   }
@@ -109,7 +113,9 @@ export async function upsertComment(provider: ForgeProvider, ref: ThreadRef | Co
     return { comment: await provider.threads.createComment(ref, body, options), created: true }
   }
   return {
-    comment: sameBody(existing.body, body) ? existing : await provider.threads.updateComment(existing.ref, body, options),
+    comment: sameBody(existing.body, body)
+      ? existing
+      : await provider.threads.updateComment(existing.ref, body, options),
     created: false,
   }
 }
@@ -157,7 +163,9 @@ function waitResult({ items, warnings }: Page<Check>, timedOut: boolean): WaitFo
     state: summariseChecks(items.map(check => check.state)).state,
     checks: items,
     pending: items.filter(check => check.state === 'pending'),
-    ...warnings?.length ? { warnings } : {},
+    ...warnings?.length
+      ? { warnings }
+      : {},
   }
 }
 

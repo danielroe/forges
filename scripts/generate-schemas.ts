@@ -67,7 +67,9 @@ function rewriteRefs(value: Json, prefix: string): Json {
   if (value && typeof value === 'object') {
     return Object.fromEntries(Object.entries(value).map(([key, item]) => [
       key,
-      key === '$ref' && typeof item === 'string' ? item.replace(/^#\/(?:definitions|components\/schemas)\//, prefix) : rewriteRefs(item, prefix),
+      key === '$ref' && typeof item === 'string'
+        ? item.replace(/^#\/(?:definitions|components\/schemas)\//, prefix)
+        : rewriteRefs(item, prefix),
     ]))
   }
   return value
@@ -86,7 +88,10 @@ function replaceByteArrays(value: Json): Json {
   if (properties && typeof properties === 'object' && 'BYTES_PER_ELEMENT' in properties) {
     return BYTES_SCHEMA
   }
-  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, replaceByteArrays(item)]))
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    replaceByteArrays(item),
+  ]))
 }
 
 /** ts-json-schema-generator pads `{@link X}` with spaces and keeps the indentation of wrapped doc lines. */
@@ -139,7 +144,10 @@ export function generateSchemas(): Record<string, Schema> {
   }
   return Object.fromEntries(Object.keys(definitions).sort().map(name => [
     name,
-    { ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name]!)), '#/components/schemas/') as Schema, 'x-forges-type': name },
+    {
+      ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name]!)), '#/components/schemas/') as Schema,
+      'x-forges-type': name,
+    },
   ]))
 }
 
@@ -148,7 +156,10 @@ export function standaloneSchema(name: string, schemas: Record<string, Schema>):
   return {
     $schema: 'http://json-schema.org/draft-07/schema#',
     ...rewriteRefs(schemas[name]!, '#/definitions/') as Schema,
-    definitions: Object.fromEntries(dependenciesOf(name, schemas).map(other => [other, rewriteRefs(schemas[other]!, '#/definitions/')])),
+    definitions: Object.fromEntries(dependenciesOf(name, schemas).map(other => [
+      other,
+      rewriteRefs(schemas[other]!, '#/definitions/'),
+    ])),
   }
 }
 

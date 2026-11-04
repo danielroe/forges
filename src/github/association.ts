@@ -12,5 +12,7 @@ const AUTHOR_ASSOCIATIONS: Record<string, AuthorAssociation> = {
 }
 
 export function toAuthorAssociation(raw: string | null | undefined): { authorAssociation?: AuthorAssociation, authorAssociationRaw?: string } {
-  return raw ? { authorAssociation: AUTHOR_ASSOCIATIONS[raw] ?? 'unknown', authorAssociationRaw: raw } : {}
+  return raw
+    ? { authorAssociation: AUTHOR_ASSOCIATIONS[raw] ?? 'unknown', authorAssociationRaw: raw }
+    : {}
 }

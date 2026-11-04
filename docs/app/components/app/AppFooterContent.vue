@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const { data: attribution } = await useFetch('/api/footer-contributors', {
-  default: () => ({ contributors: [{ login: 'danielroe', to: 'https://github.com/danielroe' }], remaining: 0 }),
+  default: () => ({
+    contributors: [
+      { login: 'danielroe', to: 'https://github.com/danielroe' },
+    ],
+    remaining: 0,
+  }),
 })
 
 const links = [

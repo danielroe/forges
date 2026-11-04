@@ -95,7 +95,9 @@ const ORIGIN_DELIVERY = 'whd_01k2ja2000delivery00000000a'
 async function signOrigin(body: string, secret: string): Promise<string> {
   const timestamp = Math.floor(Date.now() / 1000)
   const digest = await sha256Hex(`${ORIGIN_DELIVERY}.${timestamp}.${body}`)
-  const der = Uint8Array.from(atob(secret === WEBHOOK_SECRET ? ORIGIN_KEY : ORIGIN_OTHER_KEY), char => char.charCodeAt(0))
+  const der = Uint8Array.from(atob(secret === WEBHOOK_SECRET
+    ? ORIGIN_KEY
+    : ORIGIN_OTHER_KEY), char => char.charCodeAt(0))
   const key = await crypto.subtle.importKey('pkcs8', der, { name: 'Ed25519' }, false, ['sign'])
   const signature = new Uint8Array(await crypto.subtle.sign('Ed25519', key, new TextEncoder().encode(digest)))
   return `${timestamp}.${btoa(String.fromCharCode(...signature))}`
@@ -108,10 +110,36 @@ const TANGLED_PULL = 'at://did:plc:adaauthor222222222222222/sh.tangled.repo.pull
 export const contracts: ProviderContract[] = [
   {
     name: 'github',
-    checks: { summary: { state: 'failure', total: 3, failed: 1 }, names: ['test (ubuntu-latest)', 'lint', 'ci/netlify'] },
-    reviews: { states: ['changes_requested', 'approved'], comments: true },
-    releases: { count: 2, get: { id: '9001', tag: 'v1.2.0' }, latest: 'v1.2.0', writes: true },
-    securityAlerts: { kinds: ['dependency', 'code_scanning', 'secret', 'advisory', 'advisory'], severities: ['high', 'critical', 'unknown', 'high', 'unknown'] },
+    checks: {
+      summary: { state: 'failure', total: 3, failed: 1 },
+      names: ['test (ubuntu-latest)', 'lint', 'ci/netlify'],
+    },
+    reviews: {
+      states: ['changes_requested', 'approved'],
+      comments: true,
+    },
+    releases: {
+      count: 2,
+      get: { id: '9001', tag: 'v1.2.0' },
+      latest: 'v1.2.0',
+      writes: true,
+    },
+    securityAlerts: {
+      kinds: [
+        'dependency',
+        'code_scanning',
+        'secret',
+        'advisory',
+        'advisory',
+      ],
+      severities: [
+        'high',
+        'critical',
+        'unknown',
+        'high',
+        'unknown',
+      ],
+    },
     fixtures: 'github',
     instance: 'github.com',
     repo: { owner: 'acme', name: 'widgets' },
@@ -122,10 +150,21 @@ export const contracts: ProviderContract[] = [
       webhookSecret: WEBHOOK_SECRET,
     }),
     request: { path: '/repos/acme/widgets', field: 'full_name' },
-    thread: { number: '42', title: 'Add retry handling to the uploader', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
+    thread: {
+      number: '42',
+      title: 'Add retry handling to the uploader',
+      label: 'enhancement',
+      eventKinds: ['comment', 'label', 'review'],
+      botActor: true,
+    },
     notifications: {
       count: 3,
-      first: { id: '901234567', reason: 'review_requested', reasonRaw: 'review_requested', subjectState: 'unknown' },
+      first: {
+        id: '901234567',
+        reason: 'review_requested',
+        reasonRaw: 'review_requested',
+        subjectState: 'unknown',
+      },
       markDone: { method: 'DELETE', url: 'https://api.github.com/notifications/threads/901234567' },
       markRead: { method: 'PATCH', url: 'https://api.github.com/notifications/threads/901234567' },
       unsubscribe: { method: 'DELETE', url: 'https://api.github.com/notifications/threads/901234567/subscription' },
@@ -136,11 +175,15 @@ export const contracts: ProviderContract[] = [
       reopen: { method: 'PATCH', url: 'https://api.github.com/repos/acme/widgets/pulls/42', bodyContains: '{"state":"open"}' },
     },
     merge: {
-      reads: [{ method: 'GET', url: 'https://api.github.com/repos/acme/widgets' }],
+      reads: [
+        { method: 'GET', url: 'https://api.github.com/repos/acme/widgets' },
+      ],
       multiMethodRepo: { allow_merge_commit: true, allow_squash_merge: true, allow_rebase_merge: false },
       review: { method: 'POST', url: 'https://api.github.com/repos/acme/widgets/pulls/42/reviews', body: '{"event":"APPROVE"}' },
       merge: { method: 'PUT', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async', body: '{"merge_method":"squash","merge_action":"direct_merge"}' },
-      settle: [{ method: 'GET', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async/3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' }],
+      settle: [
+        { method: 'GET', url: 'https://api.github.com/repos/acme/widgets/pulls/42/merge-async/3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' },
+      ],
       explicit: { method: 'rebase', bodyContains: '"merge_method":"rebase"' },
       result: { status: 'merged', sha: '7a9c3e1f0b2d4c6e8a1f3b5d7c9e0a2b4d6f8a1c' },
     },
@@ -152,14 +195,34 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature-256': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '17', actor: 'octocat', comment: '770003', detail: { type: 'comment', body: 'Still reproducible on 2.1.0.' }, title: 'Crash on empty config' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '17',
+        actor: 'octocat',
+        comment: '770003',
+        detail: { type: 'comment', body: 'Still reproducible on 2.1.0.' },
+        title: 'Crash on empty config',
+      },
     },
   },
   {
     name: 'forgejo',
-    checks: { summary: { state: 'failure', total: 2, failed: 1 }, names: ['ci/woodpecker/push/test', 'ci/woodpecker/push/lint'] },
-    reviews: { states: ['approved'], comments: true },
-    releases: { count: 2, get: { id: '31001', tag: 'v0.4.0' }, latest: 'v0.4.0', writes: true },
+    checks: {
+      summary: { state: 'failure', total: 2, failed: 1 },
+      names: ['ci/woodpecker/push/test', 'ci/woodpecker/push/lint'],
+    },
+    reviews: {
+      states: ['approved'],
+      comments: true,
+    },
+    releases: {
+      count: 2,
+      get: { id: '31001', tag: 'v0.4.0' },
+      latest: 'v0.4.0',
+      writes: true,
+    },
     fixtures: 'forgejo',
     instance: 'codeberg.org',
     repo: { owner: 'acme', name: 'widgets' },
@@ -170,7 +233,13 @@ export const contracts: ProviderContract[] = [
       webhookSecret: WEBHOOK_SECRET,
     }),
     request: { path: '/repos/acme/widgets', field: 'allow_squash_merge' },
-    thread: { number: '7', title: 'Support custom cache directory', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
+    thread: {
+      number: '7',
+      title: 'Support custom cache directory',
+      label: 'enhancement',
+      eventKinds: ['comment', 'label', 'review'],
+      botActor: true,
+    },
     notifications: {
       count: 2,
       first: { id: '5512', reason: 'unknown', subjectState: 'open' },
@@ -184,7 +253,9 @@ export const contracts: ProviderContract[] = [
       reopen: { method: 'PATCH', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7', bodyContains: '{"state":"open"}' },
     },
     merge: {
-      reads: [{ method: 'GET', url: 'https://codeberg.org/api/v1/repos/acme/widgets' }],
+      reads: [
+        { method: 'GET', url: 'https://codeberg.org/api/v1/repos/acme/widgets' },
+      ],
       multiMethodRepo: { allow_merge_commits: true, allow_squash_merge: true, default_merge_style: 'squash' },
       review: { method: 'POST', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/reviews', body: '{"event":"APPROVED","body":""}' },
       merge: { method: 'POST', url: 'https://codeberg.org/api/v1/repos/acme/widgets/pulls/7/merge', body: '{"Do":"squash"}' },
@@ -199,15 +270,38 @@ export const contracts: ProviderContract[] = [
         'x-forgejo-signature': signature,
       }),
       sign: (body, secret) => hmacSha256Hex(secret, body),
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '880003', detail: { type: 'comment', body: 'Fixed in the latest push.' }, title: 'Docs typo in README' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '9',
+        actor: 'grace',
+        comment: '880003',
+        detail: { type: 'comment', body: 'Fixed in the latest push.' },
+        title: 'Docs typo in README',
+      },
     },
   },
   {
     name: 'gitlab',
-    checks: { summary: { state: 'failure' }, names: ['test: test', 'test: lint', 'deploy: deploy'] },
-    reviews: { states: ['approved'], comments: false },
-    releases: { count: 2, get: { id: 'v2.0.0', tag: 'v2.0.0' }, latest: 'v2.0.0', writes: true },
-    securityAlerts: { kinds: ['dependency', 'code_scanning'], severities: ['high', 'critical'] },
+    checks: {
+      summary: { state: 'failure' },
+      names: ['test: test', 'test: lint', 'deploy: deploy'],
+    },
+    reviews: {
+      states: ['approved'],
+      comments: false,
+    },
+    releases: {
+      count: 2,
+      get: { id: 'v2.0.0', tag: 'v2.0.0' },
+      latest: 'v2.0.0',
+      writes: true,
+    },
+    securityAlerts: {
+      kinds: ['dependency', 'code_scanning'],
+      severities: ['high', 'critical'],
+    },
     fixtures: 'gitlab',
     instance: 'gitlab.com',
     repo: { owner: 'acme/platform', name: 'widgets' },
@@ -218,10 +312,21 @@ export const contracts: ProviderContract[] = [
       webhookSecret: WEBHOOK_SECRET,
     }),
     request: { path: '/projects/acme%2Fplatform%2Fwidgets', field: 'merge_method' },
-    thread: { number: '23', title: 'Cache compiled templates', label: 'enhancement', eventKinds: ['comment', 'label', 'review'], botActor: true },
+    thread: {
+      number: '23',
+      title: 'Cache compiled templates',
+      label: 'enhancement',
+      eventKinds: ['comment', 'label', 'review'],
+      botActor: true,
+    },
     notifications: {
       count: 3,
-      first: { id: '102938401', reason: 'review_requested', reasonRaw: 'review_requested', subjectState: 'open' },
+      first: {
+        id: '102938401',
+        reason: 'review_requested',
+        reasonRaw: 'review_requested',
+        subjectState: 'open',
+      },
       markDone: { method: 'POST', url: 'https://gitlab.com/api/v4/todos/102938401/mark_as_done' },
       unsubscribe: { method: 'POST', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/unsubscribe' },
     },
@@ -231,7 +336,9 @@ export const contracts: ProviderContract[] = [
       reopen: { method: 'PUT', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23', bodyContains: '{"state_event":"reopen"}' },
     },
     merge: {
-      reads: [{ method: 'GET', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets' }],
+      reads: [
+        { method: 'GET', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets' },
+      ],
       multiMethodRepo: { merge_method: 'merge', squash_option: 'default_off' },
       review: { method: 'POST', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/approve', body: '{}' },
       merge: { method: 'PUT', url: 'https://gitlab.com/api/v4/projects/acme%2Fplatform%2Fwidgets/merge_requests/23/merge', body: '{"squash":false,"merge_when_pipeline_succeeds":false}' },
@@ -246,12 +353,24 @@ export const contracts: ProviderContract[] = [
         'x-gitlab-token': token,
       }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'issue', threadNumber: '11', actor: 'grace', comment: '5550011', detail: { type: 'comment', body: 'Reproduced on main.' }, title: 'Template cache never expires' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'issue',
+        threadNumber: '11',
+        actor: 'grace',
+        comment: '5550011',
+        detail: { type: 'comment', body: 'Reproduced on main.' },
+        title: 'Template cache never expires',
+      },
     },
   },
   {
     name: 'bitbucket',
-    checks: { summary: { state: 'pending', total: 2, failed: 0 }, names: ['Pipeline #120 test', 'Pipeline #120 deploy'] },
+    checks: {
+      summary: { state: 'pending', total: 2, failed: 0 },
+      names: ['Pipeline #120 test', 'Pipeline #120 deploy'],
+    },
     fixtures: 'bitbucket',
     instance: 'bitbucket.org',
     repo: { owner: 'acme', name: 'widgets' },
@@ -264,12 +383,22 @@ export const contracts: ProviderContract[] = [
     probe: instance => instance.threads.get({
       forge: 'bitbucket',
       instance: 'bitbucket.org',
-      repo: { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' },
+      repo: {
+        forge: 'bitbucket',
+        instance: 'bitbucket.org',
+        owner: 'acme',
+        name: 'widgets',
+      },
       kind: 'pull_request',
       number: '31',
     }),
     request: { path: '/repositories/acme/widgets', field: 'mainbranch' },
-    thread: { number: '31', title: 'Cache compiled templates', eventKinds: ['other', 'comment', 'review'], botActor: true },
+    thread: {
+      number: '31',
+      title: 'Cache compiled templates',
+      eventKinds: ['other', 'comment', 'review'],
+      botActor: true,
+    },
     writes: {
       comment: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/comments' },
       close: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline', bodyContains: '' },
@@ -279,7 +408,10 @@ export const contracts: ProviderContract[] = [
         { method: 'GET', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31' },
         { method: 'GET', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/refs/branches/main' },
       ],
-      multiMethodRepo: { name: 'main', merge_strategies: ['merge_commit', 'squash'] },
+      multiMethodRepo: {
+        name: 'main',
+        merge_strategies: ['merge_commit', 'squash'],
+      },
       review: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/approve', body: '' },
       merge: { method: 'POST', url: 'https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge', body: '{"merge_strategy":"squash"}' },
       explicit: { method: 'rebase_merge', bodyContains: '"merge_strategy":"rebase_merge"' },
@@ -294,7 +426,16 @@ export const contracts: ProviderContract[] = [
         'x-hub-signature': signature,
       }),
       sign: hmac,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '31', actor: 'grace', comment: '440011', detail: { type: 'comment', body: 'Reproduced on main.' }, title: 'Cache compiled templates' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '31',
+        actor: 'grace',
+        comment: '440011',
+        detail: { type: 'comment', body: 'Reproduced on main.' },
+        title: 'Cache compiled templates',
+      },
     },
   },
   {
@@ -304,7 +445,12 @@ export const contracts: ProviderContract[] = [
     editsCommentWithoutThreadNumber: true,
     repo: { owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
     create: (fetch, options) => tangled({
-      auth: { type: 'app_password', identifier: 'acme.example.com', password: 'app-password', pds: 'https://pds.example.com' },
+      auth: {
+        type: 'app_password',
+        identifier: 'acme.example.com',
+        password: 'app-password',
+        pds: 'https://pds.example.com',
+      },
       fetch,
       timeout: options?.timeout,
       webSocket: options?.webSocket,
@@ -313,13 +459,23 @@ export const contracts: ProviderContract[] = [
     probe: instance => instance.threads.get({
       forge: 'tangled',
       instance: 'tangled.org',
-      repo: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
+      repo: {
+        forge: 'tangled',
+        instance: 'tangled.org',
+        owner: 'did:plc:acmeowner222222222222222',
+        name: 'widgets',
+      },
       kind: 'pull_request',
       number: TANGLED_PULL,
     }),
     anonymousReads: true,
     request: { path: '/xrpc/_health', field: 'version' },
-    thread: { number: TANGLED_PULL, title: 'Cache compiled templates', eventKinds: ['comment', 'label', 'reaction'], botActor: false },
+    thread: {
+      number: TANGLED_PULL,
+      title: 'Cache compiled templates',
+      eventKinds: ['comment', 'label', 'reaction'],
+      botActor: false,
+    },
     writes: {
       comment: { method: 'POST', url: 'https://pds.example.com/xrpc/com.atproto.repo.createRecord' },
       close: { method: 'POST', url: 'https://pds.example.com/xrpc/com.atproto.repo.createRecord', bodyContains: 'sh.tangled.repo.pull.status.closed' },
@@ -335,7 +491,15 @@ export const contracts: ProviderContract[] = [
         'x-tangled-signature-256': signature,
       }),
       sign: hmac,
-      expect: { kind: 'state_change', action: 'opened', threadKind: 'pull_request', displayNumber: '4', actor: 'did:plc:adaauthor222222222222222', detail: { type: 'state_change', state: 'open' }, title: 'Cache compiled templates' },
+      expect: {
+        kind: 'state_change',
+        action: 'opened',
+        threadKind: 'pull_request',
+        displayNumber: '4',
+        actor: 'did:plc:adaauthor222222222222222',
+        detail: { type: 'state_change', state: 'open' },
+        title: 'Cache compiled templates',
+      },
     },
     stream: {
       messages: (JSON.parse(fixture('tangled', 'jetstream/thread-activity')) as { messages: unknown[] }).messages,
@@ -345,8 +509,14 @@ export const contracts: ProviderContract[] = [
   },
   {
     name: 'cursor-origin',
-    checks: { summary: { state: 'failure', total: 2, failed: 1 }, names: ['test', 'lint'] },
-    reviews: { states: ['approved'], comments: false },
+    checks: {
+      summary: { state: 'failure', total: 2, failed: 1 },
+      names: ['test', 'lint'],
+    },
+    reviews: {
+      states: ['approved'],
+      comments: false,
+    },
     fixtures: 'cursor-origin',
     instance: 'origin.cursor.com',
     repo: { owner: 'acme', name: 'widgets' },
@@ -355,16 +525,30 @@ export const contracts: ProviderContract[] = [
       fetch,
       timeout: options?.timeout,
     }),
-    probe: instance => instance.repos.get({ forge: 'cursor-origin', instance: 'origin.cursor.com', owner: 'acme', name: 'widgets' }),
+    probe: instance => instance.repos.get({
+      forge: 'cursor-origin',
+      instance: 'origin.cursor.com',
+      owner: 'acme',
+      name: 'widgets',
+    }),
     request: { path: '/repos/acme/widgets', field: 'allowSquashMerge' },
-    thread: { number: '12', title: 'Add launch telemetry', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true, stats: { additions: 40, deletions: 2, changedFileCount: 3 } },
+    thread: {
+      number: '12',
+      title: 'Add launch telemetry',
+      label: 'enhancement',
+      eventKinds: ['comment', 'review_comment', 'review'],
+      botActor: true,
+      stats: { additions: 40, deletions: 2, changedFileCount: 3 },
+    },
     writes: {
       comment: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/comments' },
       close: { method: 'PATCH', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12', bodyContains: '{"state":"closed"}' },
       reopen: { method: 'PATCH', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12', bodyContains: '{"state":"open"}' },
     },
     merge: {
-      reads: [{ method: 'GET', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets' }],
+      reads: [
+        { method: 'GET', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets' },
+      ],
       multiMethodRepo: { allowMergeCommit: true, allowSquashMerge: true },
       review: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/reviews', body: '{"verdict":"approve","body":""}' },
       merge: { method: 'POST', url: 'https://api.cursor.com/v1/origin/repos/acme/widgets/pulls/12/merge', body: '{"mergeMethod":"squash"}' },
@@ -383,13 +567,29 @@ export const contracts: ProviderContract[] = [
         }
       },
       sign: signOrigin,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: 'cmt_09', detail: { type: 'comment', body: 'Rebased onto main.' }, title: 'Fix ignition retry' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '9',
+        actor: 'grace',
+        comment: 'cmt_09',
+        detail: { type: 'comment', body: 'Rebased onto main.' },
+        title: 'Fix ignition retry',
+      },
     },
   },
   {
     name: 'gitee',
-    checks: { summary: { state: 'pending', total: 2, failed: 0 }, names: ['test', 'build'] },
-    releases: { count: 2, get: { id: '41001', tag: 'v0.4.0' }, latest: 'v0.4.0' },
+    checks: {
+      summary: { state: 'pending', total: 2, failed: 0 },
+      names: ['test', 'build'],
+    },
+    releases: {
+      count: 2,
+      get: { id: '41001', tag: 'v0.4.0' },
+      latest: 'v0.4.0',
+    },
     fixtures: 'gitee',
     instance: 'gitee.com',
     repo: { owner: 'acme', name: 'widgets' },
@@ -400,10 +600,21 @@ export const contracts: ProviderContract[] = [
       webhookSecret: WEBHOOK_SECRET,
     }),
     request: { path: '/repos/acme/widgets', field: 'full_name' },
-    thread: { number: '7', title: 'Support custom cache directory', label: 'enhancement', eventKinds: ['label', 'comment', 'review_comment'], botActor: true },
+    thread: {
+      number: '7',
+      title: 'Support custom cache directory',
+      label: 'enhancement',
+      eventKinds: ['label', 'comment', 'review_comment'],
+      botActor: true,
+    },
     notifications: {
       count: 2,
-      first: { id: '880001', reason: 'unknown', reasonRaw: 'event', subjectState: 'unknown' },
+      first: {
+        id: '880001',
+        reason: 'unknown',
+        reasonRaw: 'event',
+        subjectState: 'unknown',
+      },
       markRead: { method: 'PATCH', url: 'https://gitee.com/api/v5/notifications/threads/880001' },
     },
     writes: {
@@ -415,12 +626,24 @@ export const contracts: ProviderContract[] = [
       body: fixture('gitee', 'webhooks/note-on-pull-request'),
       headers: token => ({ 'x-gitee-event': 'Note Hook', 'x-gitee-token': token }),
       sign: async (_body, secret) => secret,
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace', comment: '5504', detail: { type: 'comment', body: 'Rebased.' }, title: 'Fix cache eviction' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '9',
+        actor: 'grace',
+        comment: '5504',
+        detail: { type: 'comment', body: 'Rebased.' },
+        title: 'Fix cache eviction',
+      },
     },
   },
   {
     name: 'azure-devops',
-    checks: { summary: { state: 'failure', total: 2, failed: 1 }, names: ['netlify/deploy-preview', 'CI build'] },
+    checks: {
+      summary: { state: 'failure', total: 2, failed: 1 },
+      names: ['netlify/deploy-preview', 'CI build'],
+    },
     fixtures: 'azure-devops',
     instance: 'dev.azure.com',
     repo: { owner: 'acme/Widgets', name: 'widgets' },
@@ -431,9 +654,20 @@ export const contracts: ProviderContract[] = [
       timeout: options?.timeout,
       webhookSecret: WEBHOOK_SECRET,
     }),
-    probe: instance => instance.repos.get({ forge: 'azure-devops', instance: 'dev.azure.com', owner: 'acme/Widgets', name: 'widgets' }),
+    probe: instance => instance.repos.get({
+      forge: 'azure-devops',
+      instance: 'dev.azure.com',
+      owner: 'acme/Widgets',
+      name: 'widgets',
+    }),
     request: { path: '/acme/Widgets/_apis/git/repositories/widgets', field: 'defaultBranch' },
-    thread: { number: '42', title: 'Add retry handling to the uploader', label: 'enhancement', eventKinds: ['comment', 'review_comment', 'review'], botActor: true },
+    thread: {
+      number: '42',
+      title: 'Add retry handling to the uploader',
+      label: 'enhancement',
+      eventKinds: ['comment', 'review_comment', 'review'],
+      botActor: true,
+    },
     writes: {
       comment: { method: 'POST', url: 'https://dev.azure.com/acme/Widgets/_apis/git/repositories/widgets/pullRequests/42/threads?api-version=7.1' },
       close: { method: 'PATCH', url: 'https://dev.azure.com/acme/Widgets/_apis/git/repositories/widgets/pullRequests/42?api-version=7.1', bodyContains: '{"status":"abandoned"}' },
@@ -443,7 +677,15 @@ export const contracts: ProviderContract[] = [
       body: fixture('azure-devops', 'webhooks/pull-request-comment'),
       headers: token => ({ authorization: `Basic ${token}` }),
       sign: async (_body, secret) => btoa(secret),
-      expect: { kind: 'comment', action: 'created', threadKind: 'pull_request', threadNumber: '9', actor: 'grace@contoso.com', detail: { type: 'comment', body: 'Rebased onto main.' }, title: 'Fix eviction' },
+      expect: {
+        kind: 'comment',
+        action: 'created',
+        threadKind: 'pull_request',
+        threadNumber: '9',
+        actor: 'grace@contoso.com',
+        detail: { type: 'comment', body: 'Rebased onto main.' },
+        title: 'Fix eviction',
+      },
     },
   },
 ]

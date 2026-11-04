@@ -12,12 +12,22 @@ export function partialRun(directory: URL): string[] {
     return ['the run did not finish']
   }
   const run = JSON.parse(readFileSync(file, 'utf8')) as VerbRun
-  const list = (files: string[]) => files.length > 5 ? `${files.slice(0, 5).join(', ')} and ${files.length - 5} more` : files.join(', ')
+  const list = (files: string[]) => files.length > 5
+    ? `${files.slice(0, 5).join(', ')} and ${files.length - 5} more`
+    : files.join(', ')
   return [
-    ...run.missing.length ? [`${run.missing.length} test files did not run: ${list(run.missing)}`] : [],
-    ...run.failed.length ? [`${run.failed.length} test files failed: ${list(run.failed)}`] : [],
-    ...run.testNamePattern ? [`it ran only the tests matching /${run.testNamePattern}/`] : [],
-    ...run.recording ? [`FORGES_RECORDING limited it to ${run.recording}`] : [],
+    ...run.missing.length
+      ? [`${run.missing.length} test files did not run: ${list(run.missing)}`]
+      : [],
+    ...run.failed.length
+      ? [`${run.failed.length} test files failed: ${list(run.failed)}`]
+      : [],
+    ...run.testNamePattern
+      ? [`it ran only the tests matching /${run.testNamePattern}/`]
+      : [],
+    ...run.recording
+      ? [`FORGES_RECORDING limited it to ${run.recording}`]
+      : [],
   ]
 }
 
@@ -43,36 +53,127 @@ export function readExercised(directory: URL): Map<string, Set<string>> {
 const auth = { type: 'token', token: 't' } as const
 
 const checked: Array<[string, ForgeProvider]> = [
-  ['github', github({ auth })],
-  ['github', github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } })],
-  ['gitlab', gitlab({ auth })],
-  ['bitbucket', bitbucket({ auth })],
-  ['forgejo', forgejo({ auth })],
-  ['gitea', gitea({ auth })],
-  ['gitee', gitee({ auth })],
-  ['azure-devops', azureDevOps({ auth, organization: 'acme' })],
-  ['cursor-origin', cursorOrigin({ auth })],
-  ['tangled', tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' })],
-  ['pushin', pushin({ auth })],
-  ['cloudflare-artifacts', cloudflareArtifacts({ auth, accountId: 'acme' })],
-  ['sourcehut', sourcehut({ auth })],
-  ['entire', entire({ auth })],
-  ['gitbucket', gitbucket({ auth, baseUrl: 'https://gitbucket.example.com' })],
-  ['github:anonymous', github({})],
-  ['gitlab:anonymous', gitlab({})],
-  ['bitbucket:anonymous', bitbucket({})],
-  ['forgejo:anonymous', forgejo({})],
-  ['gitea:anonymous', gitea({})],
-  ['gitee:anonymous', gitee({})],
-  ['azure-devops:anonymous', azureDevOps({ organization: 'acme' })],
-  ['cursor-origin:anonymous', cursorOrigin({})],
-  ['tangled:anonymous', tangled({})],
-  ['pushin:anonymous', pushin({})],
-  ['gitbucket:anonymous', gitbucket({ baseUrl: 'https://gitbucket.example.com' })],
+  [
+    'github',
+    github({ auth }),
+  ],
+  [
+    'github',
+    github({
+      auth: {
+        type: 'app',
+        appId: 1,
+        privateKey: '',
+        installationId: 1,
+      },
+    }),
+  ],
+  [
+    'gitlab',
+    gitlab({ auth }),
+  ],
+  [
+    'bitbucket',
+    bitbucket({ auth }),
+  ],
+  [
+    'forgejo',
+    forgejo({ auth }),
+  ],
+  [
+    'gitea',
+    gitea({ auth }),
+  ],
+  [
+    'gitee',
+    gitee({ auth }),
+  ],
+  [
+    'azure-devops',
+    azureDevOps({ auth, organization: 'acme' }),
+  ],
+  [
+    'cursor-origin',
+    cursorOrigin({ auth }),
+  ],
+  [
+    'tangled',
+    tangled({
+      auth: { type: 'app_password', identifier: 'h', password: 'p' },
+      notificationsUrl: 'https://notifications.example',
+    }),
+  ],
+  [
+    'pushin',
+    pushin({ auth }),
+  ],
+  [
+    'cloudflare-artifacts',
+    cloudflareArtifacts({ auth, accountId: 'acme' }),
+  ],
+  [
+    'sourcehut',
+    sourcehut({ auth }),
+  ],
+  [
+    'entire',
+    entire({ auth }),
+  ],
+  [
+    'gitbucket',
+    gitbucket({ auth, baseUrl: 'https://gitbucket.example.com' }),
+  ],
+  [
+    'github:anonymous',
+    github({}),
+  ],
+  [
+    'gitlab:anonymous',
+    gitlab({}),
+  ],
+  [
+    'bitbucket:anonymous',
+    bitbucket({}),
+  ],
+  [
+    'forgejo:anonymous',
+    forgejo({}),
+  ],
+  [
+    'gitea:anonymous',
+    gitea({}),
+  ],
+  [
+    'gitee:anonymous',
+    gitee({}),
+  ],
+  [
+    'azure-devops:anonymous',
+    azureDevOps({ organization: 'acme' }),
+  ],
+  [
+    'cursor-origin:anonymous',
+    cursorOrigin({}),
+  ],
+  [
+    'tangled:anonymous',
+    tangled({}),
+  ],
+  [
+    'pushin:anonymous',
+    pushin({}),
+  ],
+  [
+    'gitbucket:anonymous',
+    gitbucket({ baseUrl: 'https://gitbucket.example.com' }),
+  ],
 ]
 
 /** Every provider whose declarations are checked, keyed like `readExercised()`, with each auth kind that changes them and the levels it declares as its capabilities. */
-export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = checked.map(([key, provider]) => [key, withDeclared(provider)])
+export const CHECKED_PROVIDERS: Array<[string, ForgeProvider]> = checked.map(([key, provider]) => [
+  key,
+  withDeclared(provider),
+])
 
 export function capabilityAt(capabilities: ForgeCapabilities, path: string): unknown {
   return path.split('.').reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], capabilities)

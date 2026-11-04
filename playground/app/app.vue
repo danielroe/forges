@@ -18,7 +18,11 @@ interface Summary {
 }
 
 const showRaw = ref(false)
-const { data, refresh, status } = await useFetch<Summary>('/api/summary', { query: computed(() => ({ raw: showRaw.value ? '1' : undefined })) })
+const { data, refresh, status } = await useFetch<Summary>('/api/summary', {
+  query: computed(() => ({
+    raw: showRaw.value ? '1' : undefined,
+  })),
+})
 
 const live = reactive<Record<string, Array<{ cursor: string, kind: string, summary?: string }>>>({})
 const sources: EventSource[] = []
@@ -32,7 +36,10 @@ onMounted(() => {
     live[provider.key] = []
     source.addEventListener('event', (message) => {
       const { cursor, event } = JSON.parse(message.data) as { cursor: string, event: { kind: string, summary?: string } }
-      live[provider.key] = [{ cursor, kind: event.kind, summary: event.summary }, ...live[provider.key]!].slice(0, 20)
+      live[provider.key] = [
+        { cursor, kind: event.kind, summary: event.summary },
+        ...live[provider.key]!,
+      ].slice(0, 20)
     })
     sources.push(source)
   }
@@ -42,7 +49,9 @@ onBeforeUnmount(() => sources.forEach(source => source.close()))
 const available = (value: unknown) => Boolean(value) && value !== 'not_applicable'
 
 function supported(record: Record<string, unknown>): string[] {
-  return Object.entries(record).filter(([, value]) => typeof value === 'object' && value !== null ? Object.values(value).some(available) : available(value)).map(([name]) => name)
+  return Object.entries(record).filter(([, value]) => typeof value === 'object' && value !== null
+    ? Object.values(value).some(available)
+    : available(value)).map(([name]) => name)
 }
 </script>
 

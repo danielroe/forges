@@ -22,7 +22,12 @@ export function loadFixtures(provider: string): Fixture[] {
   const directory = fixtureDirectory(provider)
   const steps = recordedSteps(directory)
   if (steps.length) {
-    const groups = [...existsSync(`${directory}${SETUP_DIRECTORY}/`) ? [SETUP_DIRECTORY] : [], ...steps.map(step => `steps/${step.slug}`)]
+    const groups = [
+      ...existsSync(`${directory}${SETUP_DIRECTORY}/`)
+        ? [SETUP_DIRECTORY]
+        : [],
+      ...steps.map(step => `steps/${step.slug}`),
+    ]
     return groups.flatMap(group => loadFixtures(`${provider}/${group}`))
   }
   return readdirSync(directory)
@@ -64,7 +69,9 @@ export interface StepFixtureFetch extends FixtureFetch {
  * step.
  */
 export function stepFixtureFetch(recording: string, options: FixtureFetchOptions = {}): StepFixtureFetch {
-  const setup = existsSync(`${fixtureDirectory(recording)}${SETUP_DIRECTORY}/`) ? fixtureFetch(`${recording}/${SETUP_DIRECTORY}`, {}, options) : undefined
+  const setup = existsSync(`${fixtureDirectory(recording)}${SETUP_DIRECTORY}/`)
+    ? fixtureFetch(`${recording}/${SETUP_DIRECTORY}`, {}, options)
+    : undefined
   const steps = new Map<string, FixtureFetch>()
   const calls: FixtureCall[] = []
   let current = ''
@@ -72,7 +79,10 @@ export function stepFixtureFetch(recording: string, options: FixtureFetchOptions
     if (!steps.has(current)) {
       steps.set(current, fixtureFetch(`${recording}/steps/${current}`, {}, options))
     }
-    for (const source of [steps.get(current)!, setup]) {
+    for (const source of [
+      steps.get(current)!,
+      setup,
+    ]) {
       const index = source?.calls.length ?? 0
       try {
         const response = await source?.fetch(input, init)
@@ -137,16 +147,33 @@ export function hangingFetch(): { fetch: FetchLike, started: Promise<void> } {
 
 /** A contents API directory listing as GitHub, Forgejo and Gitea serve it, where a path ending in `/` is a directory. */
 export function contentsListing(...paths: string[]): Fixture['response'] {
-  return { status: 200, body: paths.map(contentsEntry) }
+  return {
+    status: 200,
+    body: paths.map(contentsEntry),
+  }
 }
 
 /** One file from the contents API, base64 encoded the way GitHub, Forgejo and Gitea serve it. */
 export function contentsFile(path: string, text: string): Fixture['response'] {
-  return { status: 200, body: { ...contentsEntry(path), encoding: 'base64', content: toBase64(new TextEncoder().encode(text)) } }
+  return {
+    status: 200,
+    body: {
+      ...contentsEntry(path),
+      encoding: 'base64',
+      content: toBase64(new TextEncoder().encode(text)),
+    },
+  }
 }
 
 function contentsEntry(path: string) {
   const directory = path.endsWith('/')
-  const clean = directory ? path.slice(0, -1) : path
-  return { type: directory ? 'dir' : 'file', name: clean.split('/').at(-1), path: clean, sha: directory ? 'd' : 'f' }
+  const clean = directory
+    ? path.slice(0, -1)
+    : path
+  return {
+    type: directory ? 'dir' : 'file',
+    name: clean.split('/').at(-1),
+    path: clean,
+    sha: directory ? 'd' : 'f',
+  }
 }

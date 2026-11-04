@@ -64,7 +64,12 @@ function pullDetail(event: string, pull: PullEvent, payload: BitbucketWebhookPay
     return payload.comment && commentDetail(thread, payload.comment)
   }
   return pull.kind === 'state_change' && payload.pullrequest
-    ? { type: 'state_change', state: toPullState(payload.pullrequest.state), draft: payload.pullrequest.draft, reason: payload.pullrequest.reason || undefined }
+    ? {
+        type: 'state_change',
+        state: toPullState(payload.pullrequest.state),
+        draft: payload.pullrequest.draft,
+        reason: payload.pullrequest.reason || undefined,
+      }
     : undefined
 }
 
@@ -96,19 +101,43 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   }
   const deliveryId = headerValue(delivery.headers, DELIVERY_HEADER) ?? crypto.randomUUID()
   const payload = JSON.parse(bodyText(delivery.body)) as BitbucketWebhookPayload
-  const repo = payload.repository ? toRepoRef(instance, payload.repository) : undefined
+  const repo = payload.repository
+    ? toRepoRef(instance, payload.repository)
+    : undefined
   const actor = toActor(instance, payload.actor)
   const who = actor?.login ?? 'someone'
   const thread: ResolvedThreadRef | undefined = repo && payload.pullrequest
-    ? { forge: FORGE, instance, repo, kind: 'pull_request', number: String(payload.pullrequest.id) }
+    ? {
+        forge: FORGE,
+        instance,
+        repo,
+        kind: 'pull_request',
+        number: String(payload.pullrequest.id),
+      }
     : undefined
 
   if (event === 'repo:push' && payload.push) {
     return payload.push.changes.map((change, index): ForgeEventInput => {
       const ref = change.new ?? change.old
-      const refType = ref?.type === 'tag' ? 'tag' : 'branch'
+      const refType = ref?.type === 'tag'
+        ? 'tag'
+        : 'branch'
       const name = ref?.name ?? ''
-      const base = { forge: FORGE, instance, id: `${deliveryId}:${index}`, kindRaw: event, actor, repo, source: 'webhook' as const, payload: { ...payload, push: { changes: [change] } } }
+      const base = {
+        forge: FORGE,
+        instance,
+        id: `${deliveryId}:${index}`,
+        kindRaw: event,
+        actor,
+        repo,
+        source: 'webhook' as const,
+        payload: {
+          ...payload,
+          push: {
+            changes: [change],
+          },
+        },
+      }
       return {
         ...base,
         ...refEvent(who, {
@@ -119,7 +148,12 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
           deleted: change.closed,
           created: change.created && !change.commits?.length,
           forced: change.forced,
-          commits: (change.commits ?? []).map(commit => ({ sha: commit.hash, message: commit.message, author: commit.author?.raw, url: commit.links?.html?.href })),
+          commits: (change.commits ?? []).map(commit => ({
+            sha: commit.hash,
+            message: commit.message,
+            author: commit.author?.raw,
+            url: commit.links?.html?.href,
+          })),
         }),
         ...eventTime(toDate(change.commits?.[0]?.date)),
       }
@@ -127,35 +161,102 @@ export function translateBitbucketWebhook(instance: string, delivery: WebhookDel
   }
 
   if (event === 'repo:updated' && payload.changes?.name) {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'renamed', kindRaw: event, summary: `${who} renamed the repository`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new }, source: 'webhook', payload }]
+    return [
+      {
+        forge: FORGE,
+        instance,
+        id: deliveryId,
+        kind: 'repo',
+        action: 'renamed',
+        kindRaw: event,
+        summary: `${who} renamed the repository`,
+        occurredAt: new Date(),
+        undated: true,
+        actor,
+        repo,
+        detail: { type: 'repo_renamed', from: payload.changes.name.old, to: payload.changes.name.new },
+        source: 'webhook',
+        payload,
+      },
+    ]
   }
 
   if (event === 'repo:fork') {
     const fork = payload.fork && toRepoRef(instance, payload.fork)
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'fork', action: 'created', kindRaw: event, summary: `${who} forked the repository${fork ? ` to ${fork.owner}/${fork.name}` : ''}`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'fork', fork }, source: 'webhook', payload }]
+    return [
+      {
+        forge: FORGE,
+        instance,
+        id: deliveryId,
+        kind: 'fork',
+        action: 'created',
+        kindRaw: event,
+        summary: `${who} forked the repository${fork
+          ? ` to ${fork.owner}/${fork.name}`
+          : ''}`,
+        occurredAt: new Date(),
+        undated: true,
+        actor,
+        repo,
+        detail: { type: 'fork', fork },
+        source: 'webhook',
+        payload,
+      },
+    ]
   }
 
   if (event === 'repo:transfer') {
-    return [{ forge: FORGE, instance, id: deliveryId, kind: 'repo', action: 'transferred', kindRaw: event, summary: `${who} transferred the repository`, occurredAt: new Date(), undated: true, actor, repo, detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner }, source: 'webhook', payload }]
+    return [
+      {
+        forge: FORGE,
+        instance,
+        id: deliveryId,
+        kind: 'repo',
+        action: 'transferred',
+        kindRaw: event,
+        summary: `${who} transferred the repository`,
+        occurredAt: new Date(),
+        undated: true,
+        actor,
+        repo,
+        detail: { type: 'repo_transferred', fromOwner: payload.previous_workspace?.slug, toOwner: repo?.owner },
+        source: 'webhook',
+        payload,
+      },
+    ]
   }
 
   const pull = PULL_EVENTS[event]
   const detail = pull && pullDetail(event, pull, payload, thread)
-  return [{
-    forge: FORGE,
-    instance,
-    id: deliveryId,
-    kind: detail?.type === 'review_comment' ? 'review_comment' : pull?.kind ?? 'other',
-    ...pull ? { action: pull.action } : {},
-    ...detail ? { detail } : {},
-    kindRaw: event,
-    summary: `${who} ${event.split(':')[1]?.replaceAll('_', ' ') ?? event}`,
-    ...eventTime(pull?.action === 'deleted' ? undefined : toDate(pullTime(event, payload) ?? payload.pullrequest?.updated_on)),
-    actor,
-    repo,
-    thread,
-    threadSnapshot: thread && payload.pullrequest && snapshotOfThread({ ...toPullThread(thread, payload.pullrequest), isDraft: payload.pullrequest.draft, labels: undefined }),
-    source: 'webhook',
-    payload,
-  }]
+  return [
+    {
+      forge: FORGE,
+      instance,
+      id: deliveryId,
+      kind: detail?.type === 'review_comment'
+        ? 'review_comment'
+        : pull?.kind ?? 'other',
+      ...pull
+        ? { action: pull.action }
+        : {},
+      ...detail
+        ? { detail }
+        : {},
+      kindRaw: event,
+      summary: `${who} ${event.split(':')[1]?.replaceAll('_', ' ') ?? event}`,
+      ...eventTime(pull?.action === 'deleted'
+        ? undefined
+        : toDate(pullTime(event, payload) ?? payload.pullrequest?.updated_on)),
+      actor,
+      repo,
+      thread,
+      threadSnapshot: thread && payload.pullrequest && snapshotOfThread({
+        ...toPullThread(thread, payload.pullrequest),
+        isDraft: payload.pullrequest.draft,
+        labels: undefined,
+      }),
+      source: 'webhook',
+      payload,
+    },
+  ]
 }

@@ -52,18 +52,104 @@ function forge(title: string, directory: string, names: RegExp[] = []) {
 }
 
 const DATA_MODEL_SECTIONS: SectionConfig[] = [
-  { title: 'Forges and refs', names: ['ForgeKind', 'KnownForgeKind', 'ForgeInstance', 'ForgeOrigin', 'ThreadKind', 'RepoRef', 'ThreadRef', 'ResolvedThreadRef', 'CommentRef', 'ResolvedCommentRef', 'CommitCommentRef', 'NotificationRef', 'repoKey', 'parseRepoKey', 'repoSlug', 'repoRef', 'namespaceRef', 'threadKey', 'parseThreadKey', 'threadSlug', 'commentKey', 'parseCommentKey', 'commitKey', 'parseCommitKey', 'commitCommentKey', 'parseCommitCommentKey', 'releaseKey', 'parseReleaseKey', 'notificationKey', 'parseNotificationKey', 'notificationThread', 'affectedKeys', 'AffectedKeys', 'isNamespaceRef', 'isResolvedThread', 'normaliseRepoName', 'namesAreCaseInsensitive'] },
-  { title: 'Accounts and repositories', names: [/^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/, 'OwnerRepoQuery', 'AddCollaboratorResult', 'SponsorableManyResult', 'TextLimits'] },
-  { title: 'Threads and comments', names: [/^(?:Thread|SubscriptionState|Close|Comment|Milestone|IssueType|Label|GetMany|Merge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation'] },
-  { title: 'Reactions', names: [/^React/, 'REACTION_CONTENTS'] },
-  { title: 'Reviews', names: [/^Review/, 'ResolvedReviewRef', 'PullBranches', 'PullStats', 'ThreadStack'] },
-  { title: 'Checks and CI', names: [/^(?:Check|Ci)/] },
-  { title: 'Files and commits', names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Compar)/, 'RequiredCheck'] },
-  { title: 'Releases', names: [/^Release/, 'DownloadAssetOptions'] },
-  { title: 'Security alerts', names: [/^Security/] },
-  { title: 'Webhooks', names: [/^Webhook/] },
-  { title: 'Notifications and events', names: [/^(?:Notification|BulkNotification|ForgeEvent|Event|PushCommit|SourceKind|StreamOptions|StreamItem)/] },
-  { title: 'Dates', names: ['reviveDates', 'DATE_FIELDS'] },
+  {
+    title: 'Forges and refs',
+    names: [
+      'ForgeKind',
+      'KnownForgeKind',
+      'ForgeInstance',
+      'ForgeOrigin',
+      'ThreadKind',
+      'RepoRef',
+      'ThreadRef',
+      'ResolvedThreadRef',
+      'CommentRef',
+      'ResolvedCommentRef',
+      'CommitCommentRef',
+      'NotificationRef',
+      'repoKey',
+      'parseRepoKey',
+      'repoSlug',
+      'repoRef',
+      'namespaceRef',
+      'threadKey',
+      'parseThreadKey',
+      'threadSlug',
+      'commentKey',
+      'parseCommentKey',
+      'commitKey',
+      'parseCommitKey',
+      'commitCommentKey',
+      'parseCommitCommentKey',
+      'releaseKey',
+      'parseReleaseKey',
+      'notificationKey',
+      'parseNotificationKey',
+      'notificationThread',
+      'affectedKeys',
+      'AffectedKeys',
+      'isNamespaceRef',
+      'isResolvedThread',
+      'normaliseRepoName',
+      'namesAreCaseInsensitive',
+    ],
+  },
+  {
+    title: 'Accounts and repositories',
+    names: [
+      /^(?:Actor|User|Collaborator|Contributor|Repo|Installation|Team)/,
+      'OwnerRepoQuery',
+      'AddCollaboratorResult',
+      'SponsorableManyResult',
+      'TextLimits',
+    ],
+  },
+  {
+    title: 'Threads and comments',
+    names: [/^(?:Thread|SubscriptionState|Close|Comment|Milestone|IssueType|Label|GetMany|Merge|UpdateBranch|Lock|HideComment)/, 'AuthorAssociation'],
+  },
+  {
+    title: 'Reactions',
+    names: [/^React/, 'REACTION_CONTENTS'],
+  },
+  {
+    title: 'Reviews',
+    names: [
+      /^Review/,
+      'ResolvedReviewRef',
+      'PullBranches',
+      'PullStats',
+      'ThreadStack',
+    ],
+  },
+  {
+    title: 'Checks and CI',
+    names: [/^(?:Check|Ci)/],
+  },
+  {
+    title: 'Files and commits',
+    names: [/^(?:Commit|Code|File|Tree|Branch|Tag|ChangedFile|Compar)/, 'RequiredCheck'],
+  },
+  {
+    title: 'Releases',
+    names: [/^Release/, 'DownloadAssetOptions'],
+  },
+  {
+    title: 'Security alerts',
+    names: [/^Security/],
+  },
+  {
+    title: 'Webhooks',
+    names: [/^Webhook/],
+  },
+  {
+    title: 'Notifications and events',
+    names: [/^(?:Notification|BulkNotification|ForgeEvent|Event|PushCommit|SourceKind|StreamOptions|StreamItem)/],
+  },
+  {
+    title: 'Dates',
+    names: ['reviveDates', 'DATE_FIELDS'],
+  },
 ]
 
 export const OVERVIEW_INTRO = '`forges` is one client for every forge. You create a provider for each forge that you use, call the same operations on all of them, such as `provider.threads.merge()`, and get the same objects back.'
@@ -92,7 +178,17 @@ export const PAGES: PageConfig[] = [
     overview: 'Create a provider with the factory of your forge, such as `github()`. Combine providers with `createForges()`, or create them from environment variables with `forgesFromEnv()`.',
     intro: 'Each forge has a factory such as `github()`, which creates a provider. Pass providers to `createForges()` to combine them.',
     sections: [
-      { title: 'Options and authentication', names: ['ForgeOptionsBase', 'TokenAuth', 'BasicAuth', 'AppAuth', 'AnonymousAuth', 'AuthKind'] },
+      {
+        title: 'Options and authentication',
+        names: [
+          'ForgeOptionsBase',
+          'TokenAuth',
+          'BasicAuth',
+          'AppAuth',
+          'AnonymousAuth',
+          'AuthKind',
+        ],
+      },
       forge('GitHub', 'github'),
       forge('GitLab', 'gitlab'),
       forge('Bitbucket', 'bitbucket'),
@@ -107,10 +203,27 @@ export const PAGES: PageConfig[] = [
       forge('Sourcehut', 'sourcehut'),
       forge('Entire', 'entire'),
       forge('GitBucket', 'gitbucket'),
-      { title: 'Forges registry', intro: 'A registry routes each ref to the provider it belongs to.', names: ['createForges', 'ProviderFactoryFunction'] },
-      { title: 'Registry methods', members: { of: 'Forges' } },
-      { title: 'Create from the environment', intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).', entry: 'forges/env', names: [/./] },
-      { title: 'Web links without a client', intro: 'Import from `forges/web`. Each factory takes the `baseUrl` and `instance` of its provider and reads and builds web URLs and references, with no API client. See [Links without a client](/guides/bundling#links-without-a-client).', entry: 'forges/web', names: [/./] },
+      {
+        title: 'Forges registry',
+        intro: 'A registry routes each ref to the provider it belongs to.',
+        names: ['createForges', 'ProviderFactoryFunction'],
+      },
+      {
+        title: 'Registry methods',
+        members: { of: 'Forges' },
+      },
+      {
+        title: 'Create from the environment',
+        intro: 'Import from `forges/env`. The variable names are listed under [Environment variables](/reference/environment-variables).',
+        entry: 'forges/env',
+        names: [/./],
+      },
+      {
+        title: 'Web links without a client',
+        intro: 'Import from `forges/web`. Each factory takes the `baseUrl` and `instance` of its provider and reads and builds web URLs and references, with no API client. See [Links without a client](/guides/bundling#links-without-a-client).',
+        entry: 'forges/web',
+        names: [/./],
+      },
     ],
   },
   {
@@ -122,11 +235,30 @@ export const PAGES: PageConfig[] = [
     intro: 'See [Capabilities](/concepts/capabilities) for what each level means, and the [capability matrix](/reference/capability-matrix) for every forge.',
     sections: [
       { title: 'Namespaces', namespaceTable: true },
-      { title: 'Properties', members: { of: 'ForgeProvider', kind: 'property', withoutNamespaces: true } },
-      { title: 'Methods', members: { of: 'ForgeProvider', kind: 'method' } },
+      {
+        title: 'Properties',
+        members: { of: 'ForgeProvider', kind: 'property', withoutNamespaces: true },
+      },
+      {
+        title: 'Methods',
+        members: { of: 'ForgeProvider', kind: 'method' },
+      },
       { title: 'Unsupported operations', intro: 'A method for an operation that the forge lacks rejects with {@link UnsupportedOperationError}, or with {@link ReadOnlyError} on a read-only provider. Call `provider.can(verb)` first, or `provider.support(verb)` for the level of support.' },
-      { title: 'Check support', names: ['can', 'support', 'isUnsupported'] },
-      { title: 'Capability types', names: ['ForgeVerb', 'ForgeCapabilities', 'Support', 'PerKind', 'AlertSupport', 'VerbScopes'] },
+      {
+        title: 'Check support',
+        names: ['can', 'support', 'isUnsupported'],
+      },
+      {
+        title: 'Capability types',
+        names: [
+          'ForgeVerb',
+          'ForgeCapabilities',
+          'Support',
+          'PerKind',
+          'AlertSupport',
+          'VerbScopes',
+        ],
+      },
     ],
   },
   {
@@ -137,8 +269,15 @@ export const PAGES: PageConfig[] = [
     overview: 'The methods of `provider.threads`: read, create and update issues and pull requests, then comment, label, review and merge them.',
     intro: `Issues, pull requests and the other discussion kinds are threads. ${OPERATIONS}`,
     sections: [
-      { namespaces: ['threads'] },
-      { title: 'Comment helpers', intro: 'Import from `forges/helpers`. They call the methods of `provider.threads`, so they work with any provider.', entry: 'forges/helpers', names: [/comment/i] },
+      {
+        namespaces: ['threads'],
+      },
+      {
+        title: 'Comment helpers',
+        intro: 'Import from `forges/helpers`. They call the methods of `provider.threads`, so they work with any provider.',
+        entry: 'forges/helpers',
+        names: [/comment/i],
+      },
     ],
   },
   {
@@ -148,7 +287,20 @@ export const PAGES: PageConfig[] = [
     description: 'Repositories, files, commits, releases, accounts, teams and search.',
     overview: 'The `repos`, `contents`, `commits`, `releases`, `users`, `installations`, `orgs` and `search` namespaces: repositories, their files, commits and releases, accounts, app installations, organisation teams and search.',
     intro: OPERATIONS,
-    sections: [{ namespaces: ['repos', 'contents', 'commits', 'releases', 'users', 'installations', 'orgs', 'search'] }],
+    sections: [
+      {
+        namespaces: [
+          'repos',
+          'contents',
+          'commits',
+          'releases',
+          'users',
+          'installations',
+          'orgs',
+          'search',
+        ],
+      },
+    ],
   },
   {
     slug: 'notifications',
@@ -158,8 +310,22 @@ export const PAGES: PageConfig[] = [
     overview: 'The `notifications`, `sources`, `webhooks`, `checks`, `ci` and `securityAlerts` namespaces.',
     intro: OPERATIONS,
     sections: [
-      { namespaces: ['notifications', 'sources', 'webhooks', 'checks', 'ci', 'securityAlerts'] },
-      { title: 'Checks helpers', intro: 'Import from `forges/helpers`. It only needs `checks.list()`, so it works on any forge that has it.', entry: 'forges/helpers', names: [/Checks/] },
+      {
+        namespaces: [
+          'notifications',
+          'sources',
+          'webhooks',
+          'checks',
+          'ci',
+          'securityAlerts',
+        ],
+      },
+      {
+        title: 'Checks helpers',
+        intro: 'Import from `forges/helpers`. It only needs `checks.list()`, so it works on any forge that has it.',
+        entry: 'forges/helpers',
+        names: [/Checks/],
+      },
     ],
   },
   {
@@ -179,8 +345,33 @@ export const PAGES: PageConfig[] = [
     overview: 'Pages and cursors for lists, `request()` for endpoints that the model does not cover, and the helpers that turn web URLs into refs.',
     intro: 'See [Page through results](/guides/pagination) for a walkthrough.',
     sections: [
-      { title: 'Pagination', names: ['Page', 'BaseOptions', 'PageOptions', 'ListOptions', 'EventFeedOptions', 'Cursor', 'ForgeListing', 'ForgeIterable', 'ForgeWarning', 'ForgeWarningCode', 'RateLimit'] },
-      { title: 'Raw requests', names: ['ForgeRequest', 'ForgeRequestOptions', 'ForgeRawRequestOptions', 'ForgeResponse', 'RawResponse', 'FetchLike'] },
+      {
+        title: 'Pagination',
+        names: [
+          'Page',
+          'BaseOptions',
+          'PageOptions',
+          'ListOptions',
+          'EventFeedOptions',
+          'Cursor',
+          'ForgeListing',
+          'ForgeIterable',
+          'ForgeWarning',
+          'ForgeWarningCode',
+          'RateLimit',
+        ],
+      },
+      {
+        title: 'Raw requests',
+        names: [
+          'ForgeRequest',
+          'ForgeRequestOptions',
+          'ForgeRawRequestOptions',
+          'ForgeResponse',
+          'RawResponse',
+          'FetchLike',
+        ],
+      },
       { title: 'URLs and references', source: /^src\/web\.ts$/ },
     ],
   },
@@ -191,7 +382,9 @@ export const PAGES: PageConfig[] = [
     description: 'Every error class that forges throws.',
     overview: 'The error classes that forges throws, with their properties. All of them extend `ForgeError`.',
     intro: 'All errors extend [`ForgeError`](#forgeerror). Errors from a request carry `forge`, `instance`, `url` and `method`. A class has the properties of the classes it extends. See [Handle errors and rate limits](/guides/errors).',
-    sections: [{ source: /^src\/errors\.ts$/ }],
+    sections: [
+      { source: /^src\/errors\.ts$/ },
+    ],
   },
   {
     slug: 'testing',
@@ -201,8 +394,18 @@ export const PAGES: PageConfig[] = [
     overview: '`fake()` creates an in-memory provider, and `fixtureFetch()` replays recorded requests.',
     intro: 'See [Test your code](/guides/testing) for a walkthrough.',
     sections: [
-      { title: 'Fake provider', intro: 'Import from `forges/fake`.', entry: 'forges/fake', names: [/./] },
-      { title: 'Fixtures', intro: 'Import from `forges/testing`.', entry: 'forges/testing', names: [/./] },
+      {
+        title: 'Fake provider',
+        intro: 'Import from `forges/fake`.',
+        entry: 'forges/fake',
+        names: [/./],
+      },
+      {
+        title: 'Fixtures',
+        intro: 'Import from `forges/testing`.',
+        entry: 'forges/testing',
+        names: [/./],
+      },
     ],
   },
   {
@@ -218,7 +421,11 @@ export const PAGES: PageConfig[] = [
       { title: 'Requests', entry: 'forges/kit', source: /^src\/fetch\.ts$/ },
       { title: 'Webhooks and events', entry: 'forges/kit', source: /^src\/(?:webhooks|events)\.ts$/ },
       { title: 'Cryptography', entry: 'forges/kit', source: /^src\/crypto\.ts$/ },
-      { title: 'Helpers', entry: 'forges/kit', names: [/./] },
+      {
+        title: 'Helpers',
+        entry: 'forges/kit',
+        names: [/./],
+      },
     ],
   },
 ]

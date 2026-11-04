@@ -26,13 +26,23 @@ const CONTENTS_OWNER = /\/repos\/([^/]+)\/[^/]+\/contents(?:[/?]|$)/
 export async function readTemplates(repo: RepoRef, kinds: TemplateKind[], reader: TemplateReader): Promise<RepoTemplate[]> {
   const root = await rootOf(repo, reader)
   const own = await templatesOf(repo, root.entries, kinds, reader)
-  const missing = kinds.filter(kind => kind === 'issue' ? !own.ownsIssues : !own.templates.some(template => template.kind === kind))
+  const missing = kinds.filter(kind => kind === 'issue'
+    ? !own.ownsIssues
+    : !own.templates.some(template => template.kind === kind))
   if (!missing.length || repo.name.toLowerCase() === '.github') {
     return own.templates
   }
-  const source: RepoRef = { forge: repo.forge, instance: repo.instance, owner: root.owner, name: '.github' }
+  const source: RepoRef = {
+    forge: repo.forge,
+    instance: repo.instance,
+    owner: root.owner,
+    name: '.github',
+  }
   const fallback = await fallbackOf(source, missing, reader)
-  return [...own.templates, ...fallback.map(template => ({ ...template, source }))]
+  return [
+    ...own.templates,
+    ...fallback.map(template => ({ ...template, source })),
+  ]
 }
 
 /** The root of the default branch, and the owner the repository lives under now, which differs from `repo.owner` after a transfer. */
@@ -40,7 +50,12 @@ async function rootOf(repo: RepoRef, reader: TemplateReader): Promise<{ entries:
   try {
     const entries = await reader.list(repo, '')
     const owner = entries.map(entry => entry.url && CONTENTS_OWNER.exec(new URL(entry.url).pathname)?.[1]).find(Boolean)
-    return { entries, owner: owner ? decodeURIComponent(owner) : repo.owner }
+    return {
+      entries,
+      owner: owner
+        ? decodeURIComponent(owner)
+        : repo.owner,
+    }
   }
   catch (error) {
     if (!(error instanceof NotFoundError)) {
@@ -64,7 +79,9 @@ async function fallbackOf(source: RepoRef, kinds: TemplateKind[], reader: Templa
     }
     throw error
   }
-  if (detail.visibility ? detail.visibility === 'private' : detail.private) {
+  if (detail.visibility
+    ? detail.visibility === 'private'
+    : detail.private) {
     return []
   }
   return (await templatesOf(source, await orEmpty(reader.list(source, '')), kinds, reader)).templates
@@ -74,14 +91,22 @@ async function fallbackOf(source: RepoRef, kinds: TemplateKind[], reader: Templa
 async function templatesOf(repo: RepoRef, root: GitHubContentFile[], kinds: TemplateKind[], reader: TemplateReader) {
   const locations = await Promise.all(LOCATIONS.map(directory => !directory
     ? root
-    : root.some(entry => entry.type === 'dir' && entry.name === directory) ? orEmpty(reader.list(repo, directory)) : []))
+    : root.some(entry => entry.type === 'dir' && entry.name === directory)
+      ? orEmpty(reader.list(repo, directory))
+      : []))
   const folder = async (entries: GitHubContentFile[], name: string) => {
     const found = entries.find(entry => entry.type === 'dir' && entry.name.toLowerCase() === name)
-    return found ? (await orEmpty(reader.list(repo, found.path))).filter(entry => entry.type === 'file') : []
+    return found
+      ? (await orEmpty(reader.list(repo, found.path))).filter(entry => entry.type === 'file')
+      : []
   }
   const [issueFiles, pullFiles] = await Promise.all([
-    kinds.includes('issue') ? folder(locations[0]!, 'issue_template') : [],
-    kinds.includes('pull_request') ? folder(locations.flat(), 'pull_request_template') : [],
+    kinds.includes('issue')
+      ? folder(locations[0]!, 'issue_template')
+      : [],
+    kinds.includes('pull_request')
+      ? folder(locations.flat(), 'pull_request_template')
+      : [],
   ])
 
   const found: Array<Pick<RepoTemplate, 'kind' | 'format'> & { entry: GitHubContentFile }> = []
@@ -103,10 +128,22 @@ async function templatesOf(repo: RepoRef, root: GitHubContentFile[], kinds: Temp
   }
   if (kinds.includes('pull_request')) {
     const single = firstFile(locations, 'pull_request_template')
-    found.push(...[...single ? [single] : [], ...pullFiles].map(entry => ({ kind: 'pull_request' as const, format: 'markdown' as const, entry })))
+    found.push(...[
+      ...single
+        ? [single]
+        : [],
+      ...pullFiles,
+    ].map(entry => ({ kind: 'pull_request' as const, format: 'markdown' as const, entry })))
   }
 
-  const templates = await mapConcurrent(found, 4, async ({ kind, format, entry }): Promise<RepoTemplate> => ({ kind, name: entry.name, path: entry.path, format, body: await reader.read(repo, entry.path), raw: entry }))
+  const templates = await mapConcurrent(found, 4, async ({ kind, format, entry }): Promise<RepoTemplate> => ({
+    kind,
+    name: entry.name,
+    path: entry.path,
+    format,
+    body: await reader.read(repo, entry.path),
+    raw: entry,
+  }))
   return { templates, ownsIssues }
 }
 

@@ -8,7 +8,14 @@ export function useRadioGroup<T>(selected: Ref<T>, values: () => readonly T[]) {
   function onKeydown(event: KeyboardEvent) {
     const list = values()
     const index = list.indexOf(selected.value)
-    const next = { ArrowRight: index + 1, ArrowDown: index + 1, ArrowLeft: index - 1, ArrowUp: index - 1, Home: 0, End: list.length - 1 }[event.key]
+    const next = {
+      ArrowRight: index + 1,
+      ArrowDown: index + 1,
+      ArrowLeft: index - 1,
+      ArrowUp: index - 1,
+      Home: 0,
+      End: list.length - 1,
+    }[event.key]
     if (next === undefined) {
       return
     }
@@ -19,5 +26,10 @@ export function useRadioGroup<T>(selected: Ref<T>, values: () => readonly T[]) {
     nextTick(() => group.querySelector<HTMLElement>('[aria-checked="true"]')?.focus())
   }
 
-  return { onKeydown, tabindex: (value: T) => (value === selected.value ? 0 : -1) }
+  return {
+    onKeydown,
+    tabindex: (value: T) => (value === selected.value
+      ? 0
+      : -1),
+  }
 }

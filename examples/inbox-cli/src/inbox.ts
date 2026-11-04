@@ -46,24 +46,36 @@ export interface InboxOptions {
 }
 
 function repoName(repo: RepoRef): string {
-  return repo.name ? `${repo.owner}/${repo.name}` : repo.owner
+  return repo.name
+    ? `${repo.owner}/${repo.name}`
+    : repo.owner
 }
 
 function rowFromNotification(provider: ForgeProvider, notification: Notification): InboxRow {
   const thread = notificationThread(notification)
   const subject = notification.subject
   const repo = thread?.repo
-    ?? (subject.type === 'repo' ? subject.repo : undefined)
-    ?? (subject.type === 'release' ? subject.release.repo : undefined)
-    ?? (subject.type === 'security_alert' ? subject.alert.repo : undefined)
-    ?? (subject.type === 'other' ? subject.repo : undefined)
+    ?? (subject.type === 'repo'
+      ? subject.repo
+      : undefined)
+    ?? (subject.type === 'release'
+      ? subject.release.repo
+      : undefined)
+    ?? (subject.type === 'security_alert'
+      ? subject.alert.repo
+      : undefined)
+    ?? (subject.type === 'other'
+      ? subject.repo
+      : undefined)
 
   return {
     key: notificationKey(notification.ref),
     at: notification.updatedAt,
     forge: provider.forge,
     instance: provider.instance,
-    repo: repo ? repoName(repo) : '-',
+    repo: repo
+      ? repoName(repo)
+      : '-',
     kind: thread ? thread.kind : subject.type,
     title: notification.title,
     reason: notification.reason,

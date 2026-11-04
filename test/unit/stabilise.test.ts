@@ -7,13 +7,49 @@ const api = 'https://api.github.com/repos/bot/forges-fixtures'
 
 function created(run: string, issue: number, comment: number, extra: Record<string, unknown> = {}): Fixture[] {
   return [
-    { request: { method: 'POST', url: `${api}/issues`, body: { title: `forges fixture ${run}: issue` } }, response: { status: 201, body: { number: issue, node_id: `I_kwDOAB${issue}xyz`, title: `forges fixture ${run}: issue`, comments: 0, ...extra } } },
-    { request: { method: 'POST', url: `${api}/issues/${issue}/comments`, body: { body: `A comment from run ${run}.` } }, response: { status: 201, body: { id: comment, html_url: `https://github.com/bot/forges-fixtures/issues/${issue}#issuecomment-${comment}`, created_at: '2026-10-12T11:00:00Z' } } },
+    {
+      request: {
+        method: 'POST',
+        url: `${api}/issues`,
+        body: { title: `forges fixture ${run}: issue` },
+      },
+      response: {
+        status: 201,
+        body: {
+          number: issue,
+          node_id: `I_kwDOAB${issue}xyz`,
+          title: `forges fixture ${run}: issue`,
+          comments: 0,
+          ...extra,
+        },
+      },
+    },
+    {
+      request: {
+        method: 'POST',
+        url: `${api}/issues/${issue}/comments`,
+        body: { body: `A comment from run ${run}.` },
+      },
+      response: {
+        status: 201,
+        body: { id: comment, html_url: `https://github.com/bot/forges-fixtures/issues/${issue}#issuecomment-${comment}`, created_at: '2026-10-12T11:00:00Z' },
+      },
+    },
   ]
 }
 
 function run(id: string, fixtures: Fixture[]): Run {
-  return { manifest: { run: { id, branches: [`forges-fixtures/${id}-1`] } }, steps: new Map([['create issue', fixtures]]) }
+  return {
+    manifest: {
+      run: {
+        id,
+        branches: [`forges-fixtures/${id}-1`],
+      },
+    },
+    steps: new Map([
+      ['create issue', fixtures],
+    ]),
+  }
 }
 
 describe('stabilising a write recording', () => {
@@ -23,8 +59,22 @@ describe('stabilising a write recording', () => {
 
     expect(manifest).toEqual(previous.manifest)
     expect(steps.get('create issue')!.map(fixture => [fixture.request, (fixture.response.body as { title?: string, id?: number }).title ?? (fixture.response.body as { id?: number }).id])).toEqual([
-      [{ method: 'POST', url: `${api}/issues`, body: { title: 'forges fixture 20261011164520: issue' } }, 'forges fixture 20261011164520: issue'],
-      [{ method: 'POST', url: `${api}/issues/75/comments`, body: { body: 'A comment from run 20261011164520.' } }, 6110273232],
+      [
+        {
+          method: 'POST',
+          url: `${api}/issues`,
+          body: { title: 'forges fixture 20261011164520: issue' },
+        },
+        'forges fixture 20261011164520: issue',
+      ],
+      [
+        {
+          method: 'POST',
+          url: `${api}/issues/75/comments`,
+          body: { body: 'A comment from run 20261011164520.' },
+        },
+        6110273232,
+      ],
     ])
     expect((steps.get('create issue')![0]!.response.body as { node_id: string }).node_id).toBe('I_kwDOAB75xyz')
   })
@@ -44,7 +94,17 @@ describe('stabilising a write recording', () => {
 
   it('leaves an identifier whose previous value stands for something else in this run', () => {
     const current = run('20261012113502', created('20261012113502', 85, 6111313679))
-    current.steps.set('list issues', [{ request: { method: 'GET', url: `${api}/issues` }, response: { status: 200, body: [{ number: 75, title: 'an older issue' }] } }])
+    current.steps.set('list issues', [
+      {
+        request: { method: 'GET', url: `${api}/issues` },
+        response: {
+          status: 200,
+          body: [
+            { number: 75, title: 'an older issue' },
+          ],
+        },
+      },
+    ])
     const { steps, skipped } = stabilise(current, run('20261011164520', created('20261011164520', 75, 6110273232)))
 
     expect(steps.get('create issue')![1]!.request.url).toBe(`${api}/issues/85/comments`)
@@ -52,8 +112,14 @@ describe('stabilising a write recording', () => {
   })
 
   it('leaves identifiers that pair with more than one of the previous run', () => {
-    const current = [...created('20261012113502', 85, 6111313679), ...created('20261012113502', 85, 6111313680)]
-    const before = [...created('20261011164520', 75, 6110273232), ...created('20261011164520', 76, 6110273233)]
+    const current = [
+      ...created('20261012113502', 85, 6111313679),
+      ...created('20261012113502', 85, 6111313680),
+    ]
+    const before = [
+      ...created('20261011164520', 75, 6110273232),
+      ...created('20261011164520', 76, 6110273233),
+    ]
     const { skipped } = stabilise(run('20261012113502', current), run('20261011164520', before))
 
     expect(skipped.get('85')).toMatch(/pairs with 2/)

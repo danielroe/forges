@@ -28,7 +28,13 @@ export interface PushinOptions extends ForgeOptionsBase {
   baseUrl?: string
 }
 
-const COLLABORATOR_PERMISSIONS: Partial<Record<RepoRole, string>> = { admin: 'admin', maintain: 'push', write: 'push', triage: 'pull', read: 'pull' }
+const COLLABORATOR_PERMISSIONS: Partial<Record<RepoRole, string>> = {
+  admin: 'admin',
+  maintain: 'push',
+  write: 'push',
+  triage: 'pull',
+  read: 'pull',
+}
 
 function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: ProviderContext<PushinOptions, undefined>): ProviderSpec & { web: WebLinks } {
   const anonymous = options.auth?.type === 'anonymous'
@@ -36,7 +42,9 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
   const repoPath = (repo: RepoRef) => `/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}`
 
   function threadPath(ref: ResolvedThreadRef): string {
-    return `${repoPath(ref.repo)}/${ref.kind === 'pull_request' ? 'pulls' : 'issues'}/${encodeURIComponent(ref.number)}`
+    return `${repoPath(ref.repo)}/${ref.kind === 'pull_request'
+      ? 'pulls'
+      : 'issues'}/${encodeURIComponent(ref.number)}`
   }
 
   function requirePull(thread: ThreadRef, action: string): ResolvedThreadRef {
@@ -48,13 +56,20 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
   }
 
   async function reviewComments(pull: ResolvedThreadRef, id: string, signal?: AbortSignal): Promise<ReviewComment[]> {
-    const { data } = await fetcher.json<PushinReviewComment[]>(`${threadPath(pull)}/reviews/${encodeURIComponent(id)}/comments`, { query: { per_page: 100 }, signal })
+    const { data } = await fetcher.json<PushinReviewComment[]>(`${threadPath(pull)}/reviews/${encodeURIComponent(id)}/comments`, {
+      query: { per_page: 100 },
+      signal,
+    })
     return data.map(raw => toReviewComment(pull, raw))
   }
 
   async function setResolved(thread: ThreadRef, id: string, resolved: boolean, options?: BaseOptions): Promise<void> {
     const pull = requirePull(thread, 'reviewed')
-    await fetcher.raw(`${repoPath(pull.repo)}/pulls/comments/${encodeURIComponent(id)}`, { method: 'PATCH', json: { resolved }, signal: options?.signal })
+    await fetcher.raw(`${repoPath(pull.repo)}/pulls/comments/${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      json: { resolved },
+      signal: options?.signal,
+    })
   }
 
   async function get(thread: ThreadRef, options?: BaseOptions): Promise<Thread> {
@@ -65,17 +80,39 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
     if (query.kind && query.kind !== 'issue' && query.kind !== 'pull_request') {
-      return { items: [], warnings: [{ code: 'kind_unsupported', message: `Pushin.eu has no listing for ${query.kind}s` }] }
+      return {
+        items: [],
+        warnings: [
+          { code: 'kind_unsupported', message: `Pushin.eu has no listing for ${query.kind}s` },
+        ],
+      }
     }
-    const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
-    const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
-      query: { state: query.state === 'merged' ? 'closed' : query.state, per_page: query.perPage },
+    const kind = query.kind === 'pull_request'
+      ? 'pull_request'
+      : 'issue'
+    const result = await fetcher.page<PushinThread>(`${repoPath(repo)}/${kind === 'pull_request'
+      ? 'pulls'
+      : 'issues'}`, {
+      query: {
+        state: query.state === 'merged'
+          ? 'closed'
+          : query.state,
+        per_page: query.perPage,
+      },
       cursor: query.cursor,
       signal: query.signal,
     })
     return toPage(result, (raw) => {
-      const thread = toThread({ forge: FORGE, instance, repo, kind, number: String(raw.number) }, raw)
-      return (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && thread.state !== 'merged') ? undefined : thread
+      const thread = toThread({
+        forge: FORGE,
+        instance,
+        repo,
+        kind,
+        number: String(raw.number),
+      }, raw)
+      return (query.kind === 'issue' && raw.pull_request) || (query.state === 'merged' && thread.state !== 'merged')
+        ? undefined
+        : thread
     })
   }
 
@@ -119,7 +156,14 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
   async function writeRelease(repo: RepoRef, path: string, method: 'POST' | 'PATCH', input: ReleaseUpdate, options?: BaseOptions): Promise<Release> {
     const { data } = await fetcher.json<PushinRelease>(path, {
       method,
-      json: { tag_name: input.tag, target_commitish: input.target, name: input.name, body: input.body, draft: input.draft, prerelease: input.prerelease },
+      json: {
+        tag_name: input.tag,
+        target_commitish: input.target,
+        name: input.name,
+        body: input.body,
+        draft: input.draft,
+        prerelease: input.prerelease,
+      },
       signal: options?.signal,
     })
     return toRelease(repo, data)
@@ -173,7 +217,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
     users: {
       me: verb(true, async (options) => {
         const { data } = await fetcher.json<PushinUser>('/user', { signal: options?.signal })
-        return { ...toActor({ forge: FORGE, instance }, data)!, company: data.company ?? undefined, raw: data }
+        return {
+          ...toActor({ forge: FORGE, instance }, data)!,
+          company: data.company ?? undefined,
+          raw: data,
+        }
       }),
     },
     repos: {
@@ -226,7 +274,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
           conditional: false,
         })
         const items = await Promise.all((result.data ?? []).map(async raw => toReview(ref, raw, await reviewComments(ref, String(raw.id), listOptions.signal))))
-        return { items, cursor: result.cursor, ...rateLimitPart(result.response) }
+        return {
+          items,
+          cursor: result.cursor,
+          ...rateLimitPart(result.response),
+        }
       }),
       getReview: verb(true, async (ref, options) => {
         const pull = requirePull(ref.thread, 'reviewed')
@@ -239,7 +291,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
         if (id === undefined) {
           throw new UnsupportedOperationError('Pushin.eu replies to a review comment by its id; pass the comment with its `ref`', context)
         }
-        const { data } = await fetcher.json<PushinReviewComment>(`${threadPath(pull)}/comments/${encodeURIComponent(id)}/replies`, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<PushinReviewComment>(`${threadPath(pull)}/comments/${encodeURIComponent(id)}/replies`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
         return toReviewComment(pull, data)
       }),
       reviewThreads: verb(true, {
@@ -248,7 +304,11 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
       }),
       createComment: perKind({ issue: true, pull_request: true }, async (thread, body, options) => {
         const ref = requireIssueOrPull(thread, context, 'comment on')
-        const { data } = await fetcher.json<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, { method: 'POST', json: { body }, signal: options?.signal })
+        const { data } = await fetcher.json<PushinComment>(`${repoPath(ref.repo)}/issues/${encodeURIComponent(ref.number)}/comments`, {
+          method: 'POST',
+          json: { body },
+          signal: options?.signal,
+        })
         return toComment(ref, data)
       }),
       create: perKind({ issue: true, pull_request: true }, async (repo, input, options) => {
@@ -261,22 +321,44 @@ function setupPushin({ options, instance, origin: context, fetcher, baseUrl }: P
             json: { title: input.title, body: input.body, labels: input.labels },
             signal: options?.signal,
           })
-          return toThread({ forge: FORGE, instance, repo, kind: 'issue', number: String(data.number) }, data)
+          return toThread({
+            forge: FORGE,
+            instance,
+            repo,
+            kind: 'issue',
+            number: String(data.number),
+          }, data)
         }
         if (input.kind !== 'pull_request' || !input.head || !input.base) {
           throw new UnsupportedOperationError('Creating a pull request needs head and base branches', context)
         }
         const { data } = await fetcher.json<PushinThread>(`${repoPath(repo)}/pulls`, {
           method: 'POST',
-          json: { title: input.title, body: input.body, head: input.head, base: input.base, draft: input.draft, labels: input.labels },
+          json: {
+            title: input.title,
+            body: input.body,
+            head: input.head,
+            base: input.base,
+            draft: input.draft,
+            labels: input.labels,
+          },
           signal: options?.signal,
         })
-        return toThread({ forge: FORGE, instance, repo, kind: 'pull_request', number: String(data.number) }, data)
+        return toThread({
+          forge: FORGE,
+          instance,
+          repo,
+          kind: 'pull_request',
+          number: String(data.number),
+        }, data)
       }),
     },
     notifications: {
       listPage: verb(true, (listOptions = {}) => list('/notifications', listOptions, (raw: PushinNotification) => toNotification({ forge: FORGE, instance }, raw), {
-        query: { all: listOptions.all, since: listOptions.since?.toISOString() },
+        query: {
+          all: listOptions.all,
+          since: listOptions.since?.toISOString(),
+        },
       })),
     },
     web: PUSHIN_WEB.links({ baseUrl, instance }),
@@ -315,7 +397,9 @@ const PUSHIN: ProviderDefinition<PushinOptions, undefined, true> = {
   baseUrl: 'https://pushin.eu',
   apiPath: '/api/v1',
   headers: { accept: 'application/vnd.github+json' },
-  authHeaders: ({ options: { auth } }) => auth?.type === 'token' ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` }) : undefined,
+  authHeaders: ({ options: { auth } }) => auth?.type === 'token'
+    ? async () => ({ authorization: `Bearer ${await resolveToken(auth)}` })
+    : undefined,
   setup: setupPushin,
 }
 

@@ -15,7 +15,10 @@ describe('reading the wait a rate limit asks for', () => {
   })
 
   it('reads the reset of an exhausted budget', async () => {
-    expect(await rateLimitWait(response(403, { 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(now / 1000 + 600) }), now)).toBe(600_000)
+    expect(await rateLimitWait(response(403, {
+      'x-ratelimit-remaining': '0',
+      'x-ratelimit-reset': String(now / 1000 + 600),
+    }), now)).toBe(600_000)
     expect(await rateLimitWait(response(429, { 'ratelimit-remaining': '0', 'ratelimit-reset': '45' }), now)).toBe(45_000)
     expect(await rateLimitWait(response(429, { ratelimit: '"baseline";r=0;t=120' }), now)).toBe(120_000)
     expect(await rateLimitWait(response(429, { 'x-ratelimit-limit': '60, 60;w=3600', 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': '3476' }), now)).toBe(3_476_000)
@@ -41,18 +44,25 @@ describe('sending requests patiently', () => {
   function clock() {
     let time = now
     const slept: number[] = []
-    return { now: () => time, slept, sleep: async (ms: number) => {
-      slept.push(ms)
-      time += ms
-    } }
+    return {
+      now: () => time,
+      slept,
+      sleep: async (ms: number) => {
+        slept.push(ms)
+        time += ms
+      },
+    }
   }
 
   function replies(...responses: Response[]): { fetch: FetchLike, sent: string[] } {
     const sent: string[] = []
-    return { sent, fetch: async (input, init) => {
-      sent.push(`${init?.method ?? 'GET'} ${input}`)
-      return responses.shift()!
-    } }
+    return {
+      sent,
+      fetch: async (input, init) => {
+        sent.push(`${init?.method ?? 'GET'} ${input}`)
+        return responses.shift()!
+      },
+    }
   }
 
   it('spaces out writes and not reads', async () => {
@@ -82,10 +92,13 @@ describe('sending requests patiently', () => {
     const controller = new AbortController()
     const time = clock()
     const { fetch, sent } = replies(response(429, { 'retry-after': '20' }), response(201))
-    const patient = patientFetch(fetch, { ...time, sleep: async (ms) => {
-      await time.sleep(ms)
-      controller.abort(new Error('timed out'))
-    } })
+    const patient = patientFetch(fetch, {
+      ...time,
+      sleep: async (ms) => {
+        await time.sleep(ms)
+        controller.abort(new Error('timed out'))
+      },
+    })
 
     await expect(patient.fetch('https://forge.test/issues', { method: 'POST', body: '{}', signal: controller.signal })).rejects.toThrow('timed out')
     expect(sent).toHaveLength(1)
@@ -106,7 +119,10 @@ describe('sending requests patiently', () => {
 
   it('passes on a limit that asks for a longer wait than it allows', async () => {
     const time = clock()
-    const { fetch, sent } = replies(response(403, { 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(now / 1000 + 3600) }))
+    const { fetch, sent } = replies(response(403, {
+      'x-ratelimit-remaining': '0',
+      'x-ratelimit-reset': String(now / 1000 + 3600),
+    }))
     const patient = patientFetch(fetch, { maxWait: 300_000, ...time })
     const result = await patient.fetch('https://forge.test/issues', { method: 'POST', body: '{}' })
 

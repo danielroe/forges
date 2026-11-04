@@ -49,7 +49,10 @@ export function createTangledNotifications(url: string, { instance, context, fet
   const titles = new Map<string, Promise<string | undefined>>()
 
   async function call<T>(nsid: string, init: RequestOptions = {}): Promise<T> {
-    const { token } = await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud: audience, lxm: nsid }, signal: init.signal })
+    const { token } = await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', {
+      query: { aud: audience, lxm: nsid },
+      signal: init.signal,
+    })
     const { data } = await fetcher.json<T>(`${url}/xrpc/${nsid}`, {
       ...init,
       headers: { ...init.headers as Record<string, string>, authorization: `Bearer ${token}` },
@@ -68,13 +71,24 @@ export function createTangledNotifications(url: string, { instance, context, fet
 
   async function toItem(item: DeliberiNotification): Promise<Notification> {
     const subject = item.issueAt ?? item.pullAt
-    const parsed = subject ? parseAtUri(subject) : undefined
+    const parsed = subject
+      ? parseAtUri(subject)
+      : undefined
     const repo = item.repoDid
-      ? await resolveRepo(item.repoDid).catch((): RepoRef => ({ forge: FORGE, instance, owner: item.repoDid!, name: '', externalId: item.repoDid }))
+      ? await resolveRepo(item.repoDid).catch((): RepoRef => ({
+          forge: FORGE,
+          instance,
+          owner: item.repoDid!,
+          name: '',
+          externalId: item.repoDid,
+        }))
       : undefined
     let notificationSubject: NotificationSubject
     if (parsed && repo) {
-      notificationSubject = { type: 'thread', thread: toThreadRef(instance, repo, parsed) }
+      notificationSubject = {
+        type: 'thread',
+        thread: toThreadRef(instance, repo, parsed),
+      }
     }
     else if (item.type === 'followed') {
       notificationSubject = { type: 'actor', actor: await actorFor(item.actorDid) }
@@ -92,7 +106,9 @@ export function createTangledNotifications(url: string, { instance, context, fet
       reason: toNotificationReason(item.type),
       reasonRaw: item.type,
       unread: !item.read,
-      title: (subject ? await titleOf(subject) : undefined) ?? item.type.replaceAll('_', ' '),
+      title: (subject
+        ? await titleOf(subject)
+        : undefined) ?? item.type.replaceAll('_', ' '),
       subjectState: 'unknown',
       updatedAt: toDate(item.createdAt) ?? new Date(0),
       raw: item,
@@ -101,7 +117,10 @@ export function createTangledNotifications(url: string, { instance, context, fet
 
   async function page(listOptions: NotificationListOptions = {}): Promise<Page<Notification>> {
     const data = await call<{ notifications: DeliberiNotification[] }>(NOTIFICATION_NSID.list, {
-      query: { read: listOptions.all ? 'all' : 'unread', limit: listOptions.perPage ?? 100 },
+      query: {
+        read: listOptions.all ? 'all' : 'unread',
+        limit: listOptions.perPage ?? 100,
+      },
       signal: listOptions.signal,
     })
     const since = listOptions.since?.getTime()

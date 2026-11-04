@@ -10,7 +10,11 @@ const haystacks = errors.map(entry => ({
   text: [
     entry.name,
     ...entry.description.map(segment => segment.text),
-    ...entry.fields.flatMap(field => [field.name, field.type, ...field.values ?? []]),
+    ...entry.fields.flatMap(field => [
+      field.name,
+      field.type,
+      ...field.values ?? [],
+    ]),
   ].join(' ').toLowerCase(),
 }))
 

@@ -33,7 +33,10 @@ const model = extractApi({ root, entries: ENTRIES })
 /** Every input an explorer can show: each forge's sample, with both thread kinds, and with and without a ref. */
 const inputs = EXPLORER_FORGES.flatMap(forge =>
   (['issue', 'pull_request'] as const).flatMap(kind =>
-    ['', 'main'].map(ref => ({ forge, input: { ...forge.sample, kind, ref } as ExplorerInput })),
+    ['', 'main'].map(ref => ({
+      forge,
+      input: { ...forge.sample, kind, ref } as ExplorerInput,
+    })),
   ),
 )
 
@@ -63,7 +66,9 @@ describe('explorer operations', () => {
       const [namespace, name] = verb.split('.') as [string, string]
       const api = symbols.find(symbol => symbol.name === namespaces.find(member => member.name === namespace)?.reference)
       const declared = api?.members.find(member => member.name === name)?.signatures[0]?.returns.type
-      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), verb).toBe(page ? returns.replace(/^Page</, 'ForgeListing<') : returns)
+      expect(declared?.replace(/^Promise<(.+)>$/, '$1'), verb).toBe(page
+        ? returns.replace(/^Page</, 'ForgeListing<')
+        : returns)
     }
   })
 
@@ -75,7 +80,10 @@ describe('explorer operations', () => {
         expect(factory(options).authKind, forge.forge).toBe('anonymous')
       }
       for (const credential of forge.credentials) {
-        expect(factory({ ...options, auth: placeholderAuth(credential) }).authKind, `${forge.forge} ${credential.kind}`).toBe(credential.kind)
+        expect(factory({
+          ...options,
+          auth: placeholderAuth(credential),
+        }).authKind, `${forge.forge} ${credential.kind}`).toBe(credential.kind)
       }
     }
   })
@@ -90,7 +98,9 @@ describe('explorer operations', () => {
       return factory(forge.options?.(forge.sample) ?? {})
     }))
     for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run && !entry.auth)) {
-      const kinds = operation.kind ? (['issue', 'pull_request'] as const) : ([undefined] as const)
+      const kinds = operation.kind
+        ? (['issue', 'pull_request'] as const)
+        : ([undefined] as const)
       const supported = anonymous.some(provider => kinds.some(kind => provider.can(operation.verb, kind)))
       expect(supported, operation.verb).toBe(true)
     }
@@ -100,10 +110,15 @@ describe('explorer operations', () => {
     const signedIn = await Promise.all(EXPLORER_FORGES.filter(forge => !forge.blocked && forge.credentials.some(credential => credential.runnable)).map(async (forge) => {
       const factory = (await forge.load() as Record<string, (options: object) => forges.ForgeProvider>)[forge.factory]!
       const options = forge.options?.(forge.sample) ?? {}
-      return factory({ ...options, auth: placeholderAuth(forge.credentials.find(credential => credential.runnable)!) })
+      return factory({
+        ...options,
+        auth: placeholderAuth(forge.credentials.find(credential => credential.runnable)!),
+      })
     }))
     for (const operation of EXPLORER_OPERATIONS.filter(entry => entry.run && entry.auth)) {
-      const kinds = operation.kind ? (['issue', 'pull_request'] as const) : ([undefined] as const)
+      const kinds = operation.kind
+        ? (['issue', 'pull_request'] as const)
+        : ([undefined] as const)
       const supported = signedIn.some(provider => kinds.some(kind => provider.can(operation.verb, kind)))
       expect(supported, operation.verb).toBe(true)
     }
@@ -112,7 +127,12 @@ describe('explorer operations', () => {
   it('build refs for the forge of the provider', () => {
     const provider = github()
     const { repo, thread } = explorerRefs(provider, EXPLORER_FORGES[0]!.sample)
-    expect(repo).toEqual({ forge: 'github', instance: 'github.com', owner: 'nuxt', name: 'nuxt' })
+    expect(repo).toEqual({
+      forge: 'github',
+      instance: 'github.com',
+      owner: 'nuxt',
+      name: 'nuxt',
+    })
     expect(thread).toMatchObject({ repo, kind: 'pull_request', number: '36506' })
   })
 })
@@ -136,7 +156,9 @@ describe('explorer credentials', () => {
         const code = authCode(credential)
         expect(code).toContain(`type: '${credential.kind}'`)
         for (const field of credential.fields.filter(field => !field.optional)) {
-          expect(code, `${forge.forge} ${credential.kind} ${field.field}`).toContain(field.value === undefined ? `process.env.${field.env}!` : `'${field.value}'`)
+          expect(code, `${forge.forge} ${credential.kind} ${field.field}`).toContain(field.value === undefined
+            ? `process.env.${field.env}!`
+            : `'${field.value}'`)
         }
       }
     }
@@ -151,7 +173,12 @@ describe('explorer credentials', () => {
     expect(placeholderAuth(basic)).toEqual({ type: 'basic', username: 'placeholder', password: 'placeholder' })
 
     const app = EXPLORER_FORGES.find(forge => forge.forge === 'github')!.credentials.find(credential => credential.kind === 'app')!
-    expect(authFromValues(app, { APP_ID: '1', PRIVATE_KEY: 'a\\nb', INSTALLATION_ID: '2' })).toEqual({ type: 'app', appId: '1', privateKey: 'a\nb', installationId: '2' })
+    expect(authFromValues(app, { APP_ID: '1', PRIVATE_KEY: 'a\\nb', INSTALLATION_ID: '2' })).toEqual({
+      type: 'app',
+      appId: '1',
+      privateKey: 'a\nb',
+      installationId: '2',
+    })
     expect(authFromValues(app, { APP_ID: '1', PRIVATE_KEY: 'a\\nb' })).toEqual({ type: 'app', appId: '1', privateKey: 'a\nb' })
   })
 
@@ -187,7 +214,9 @@ describe('explorer code', () => {
           expect(text.slice(start, end), `${label} ${field}`).toMatch(/^['[]/)
         }
         for (const { id, start, end } of symbols) {
-          const name = id.startsWith('const:') ? id.split(':')[1] : id.split(/[:.]/).at(-1)
+          const name = id.startsWith('const:')
+            ? id.split(':')[1]
+            : id.split(/[:.]/).at(-1)
           expect(text.slice(start, end), `${label} ${id}`).toBe(name)
         }
       }
@@ -251,7 +280,9 @@ describe('explorer code', () => {
       files.has(name)
         ? ts.createSourceFile(name, files.get(name)!, version)
         : getSourceFile(name, version)
-    const program = ts.createProgram([...files.keys()], options, host)
+    const program = ts.createProgram([
+      ...files.keys(),
+    ], options, host)
     const errors = ts
       .getPreEmitDiagnostics(program)
       .filter(diagnostic => diagnostic.file && files.has(diagnostic.file.fileName))
@@ -268,7 +299,12 @@ describe('explorer results', () => {
     ref: {
       forge: 'github',
       instance: 'github.com',
-      repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' },
+      repo: {
+        forge: 'github',
+        instance: 'github.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
       kind: 'pull_request',
       number: '7',
     },
@@ -309,7 +345,9 @@ describe('explorer results', () => {
       { subject },
       {
         type: 'object',
-        properties: { subject: { $ref: '#/components/schemas/NotificationSubject' } },
+        properties: {
+          subject: { $ref: '#/components/schemas/NotificationSubject' },
+        },
       },
       schemas,
       true,
@@ -364,7 +402,9 @@ describe('reference pages', () => {
     const { files } = generateApiDocs({ root, contentDir: directory, explorable })
     const shown = new Set(
       files.flatMap(file =>
-        [...file.content.matchAll(/::api-explorer\{verb="([^"]+)"\}/g)].map(match => match[1]),
+        [
+          ...file.content.matchAll(/::api-explorer\{verb="([^"]+)"\}/g),
+        ].map(match => match[1]),
       ),
     )
     expect([...shown].sort()).toEqual(
