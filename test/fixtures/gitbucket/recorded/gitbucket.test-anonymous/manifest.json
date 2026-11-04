@@ -1,0 +1,42 @@
+{
+  "baseUrl": "http://127.0.0.1:8080/api/v3",
+  "anonymous": true,
+  "instance": "gitbucket.test",
+  "repo": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures"
+  },
+  "pull": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "2"
+  },
+  "issue": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "issue",
+    "number": "1"
+  },
+  "feedUser": "forges-reader",
+  "scratch": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures-scratch"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures",
+        "externalId": "1"
+      },
+      "description": "The repository the forges read recordings read.",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures",
+      "cloneUrls": {
+        "https": "http://127.0.0.1:8080/git/forges/forges-fixtures.git"
+      },
+      "owner": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges",
+        "id": "4",
+        "avatarUrl": "http://127.0.0.1:8080/forges/_avatar",
+        "url": "http://127.0.0.1:8080/forges",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "forks": 0,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
+    },
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch",
+        "externalId": "2"
+      },
+      "description": "The repository the forges write recordings write to.",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch",
+      "cloneUrls": {
+        "https": "http://127.0.0.1:8080/git/forges/forges-fixtures-scratch.git"
+      },
+      "owner": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges",
+        "id": "4",
+        "avatarUrl": "http://127.0.0.1:8080/forges/_avatar",
+        "url": "http://127.0.0.1:8080/forges",
+        "typeRaw": "Organization",
+        "isBotHint": false
+      },
+      "forks": 0,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": false,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
+    }
+  ]
+}

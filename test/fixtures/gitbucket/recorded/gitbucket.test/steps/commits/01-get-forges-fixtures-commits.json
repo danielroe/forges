@@ -1,0 +1,186 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+        "sha": "73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+        "html_url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+        "comment_url": "http://127.0.0.1:8080",
+        "commit": {
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+          "author": {
+            "name": "forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:46Z"
+          },
+          "committer": {
+            "name": "forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:46Z"
+          },
+          "message": "Merge pull request #3 from forges/merged",
+          "comment_count": 0,
+          "tree": {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+            "sha": "73d160056f5e47b0cd5a209362ec8fd00740ee5a"
+          }
+        },
+        "author": {
+          "id": 3,
+          "login": "forges-bot",
+          "email": "redacted@example.invalid",
+          "type": "User",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:32:45Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges-bot",
+          "html_url": "http://127.0.0.1:8080/forges-bot",
+          "avatar_url": "http://127.0.0.1:8080/forges-bot/_avatar"
+        },
+        "committer": {
+          "id": 3,
+          "login": "forges-bot",
+          "email": "redacted@example.invalid",
+          "type": "User",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:32:45Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges-bot",
+          "html_url": "http://127.0.0.1:8080/forges-bot",
+          "avatar_url": "http://127.0.0.1:8080/forges-bot/_avatar"
+        },
+        "parents": [
+          {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/5429b633986167882ccd67b0ab6c31bdc90fd042",
+            "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+          },
+          {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+            "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a"
+          }
+        ],
+        "stats": {
+          "additions": 2,
+          "deletions": 0,
+          "total": 2
+        },
+        "files": [
+          {
+            "filename": "merged.md",
+            "additions": 2,
+            "deletions": 0,
+            "changes": 2,
+            "status": "added",
+            "raw_url": "http://127.0.0.1:8080/forges/forges-fixtures/raw/73d160056f5e47b0cd5a209362ec8fd00740ee5a/merged.md",
+            "blob_url": "http://127.0.0.1:8080/forges/forges-fixtures/blob/73d160056f5e47b0cd5a209362ec8fd00740ee5a/merged.md",
+            "patch": "+++ b/merged.md\n@@ -0,0 +1 @@\n+Added on merged."
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/5429b633986167882ccd67b0ab6c31bdc90fd042",
+        "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042",
+        "html_url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/5429b633986167882ccd67b0ab6c31bdc90fd042",
+        "comment_url": "http://127.0.0.1:8080",
+        "commit": {
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/5429b633986167882ccd67b0ab6c31bdc90fd042",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "message": "docs: write docs/guide.md",
+          "comment_count": 0,
+          "tree": {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/5429b633986167882ccd67b0ab6c31bdc90fd042",
+            "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/17e417836b6c35fc76bf66efc18988ec89e79d8b",
+            "sha": "17e417836b6c35fc76bf66efc18988ec89e79d8b"
+          }
+        ],
+        "stats": {
+          "additions": 4,
+          "deletions": 0,
+          "total": 4
+        },
+        "files": [
+          {
+            "filename": "docs/guide.md",
+            "additions": 4,
+            "deletions": 0,
+            "changes": 4,
+            "status": "added",
+            "raw_url": "http://127.0.0.1:8080/forges/forges-fixtures/raw/5429b633986167882ccd67b0ab6c31bdc90fd042/docs/guide.md",
+            "blob_url": "http://127.0.0.1:8080/forges/forges-fixtures/blob/5429b633986167882ccd67b0ab6c31bdc90fd042/docs/guide.md",
+            "patch": "+++ b/docs/guide.md\n@@ -0,0 +1,3 @@\n+# Guide\n+\n+A second file, in a directory."
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+        "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a",
+        "html_url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+        "comment_url": "http://127.0.0.1:8080",
+        "commit": {
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "message": "docs: write merged.md",
+          "comment_count": 0,
+          "tree": {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+            "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a"
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/tree/5429b633986167882ccd67b0ab6c31bdc90fd042",
+            "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+          }
+        ],
+        "stats": {
+          "additions": 2,
+          "deletions": 0,
+          "total": 2
+        },
+        "files": [
+          {
+            "filename": "merged.md",
+            "additions": 2,
+            "deletions": 0,
+            "changes": 2,
+            "status": "added",
+            "raw_url": "http://127.0.0.1:8080/forges/forges-fixtures/raw/1c86e61427f37755a40a39e61136fb05a9d7e58a/merged.md",
+            "blob_url": "http://127.0.0.1:8080/forges/forges-fixtures/blob/1c86e61427f37755a40a39e61136fb05a9d7e58a/merged.md",
+            "patch": "+++ b/merged.md\n@@ -0,0 +1 @@\n+Added on merged."
+          }
+        ]
+      }
+    ]
+  }
+}

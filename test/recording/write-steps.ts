@@ -439,7 +439,7 @@ export const WRITE_STEPS: WriteStep[] = [
     context.reviewComment ??= review.comments ? review.comments[0]?.ref : undefined
     return review
   } },
-  { name: 'get review comment', verb: 'threads.getComment', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.getComment(need(context.reviewComment, 'a review comment')) },
+  { name: 'get review comment', verb: 'threads.getComment', kind: 'pull_request', when: provider => provider.can('threads.getReview'), run: (provider, _manifest, context) => provider.threads.getComment(need(context.reviewComment, 'a review comment')) },
   { name: 'reply to review comment', verb: 'threads.replyToReviewComment', kind: 'pull_request', run: async (provider, manifest, context) => {
     const pull = reviewedOf(context)
     const reviews = await provider.threads.reviews(pull).page()

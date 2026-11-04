@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "895ca080c86639ce06468171c43514a6af818b6e"
+      },
+      "sha": "895ca080c86639ce06468171c43514a6af818b6e",
+      "message": "docs: write feature.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+      },
+      "sha": "4de241e86e230f5aea18c6cdc2339ffecc5ba585",
+      "message": "docs: write feature.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "5429b633986167882ccd67b0ab6c31bdc90fd042"
+      ]
+    }
+  ]
+}

@@ -27,6 +27,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [Cloudflare Artifacts](/providers/cloudflare-artifacts) | `forges/cloudflare-artifacts` | `cloudflareArtifacts()` |
 | [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()` |
 | [Entire](/providers/entire) | `forges/entire` | `entire()` |
+| [GitBucket](/providers/gitbucket) | `forges/gitbucket` | `gitbucket()` |
 ::
 <!-- capabilities:end -->
 

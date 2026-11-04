@@ -8,6 +8,9 @@ import { capabilityData, isUnsupportedLevel, matrixProviders, supportCell } from
 /** Forge-specific fields. `providersFromEnv()` is probed with combinations of them. */
 const CANDIDATES = ['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID', 'USERNAME', 'IDENTIFIER', 'PASSWORD', 'PDS', 'ORGANIZATION', 'ACCOUNT_ID', 'API_URL', 'NOTIFICATIONS_URL']
 
+/** Probed only for whether a forge needs it, since every forge reads it when it is set. */
+const REQUIRED_ONLY = ['BASE_URL']
+
 /** Credential fields stay out of `required`, even where a set without them is skipped. */
 const CREDENTIAL_FIELDS = new Set(['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'USERNAME', 'IDENTIFIER', 'PASSWORD'])
 
@@ -116,7 +119,8 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
   return Promise.all(matrixProviders(forges).map(async ({ slug, name }) => {
     const kind = slug.toUpperCase().replaceAll('-', '_')
     const values = (fields: string[]) => Object.fromEntries(fields.map(field => [field, probeValue(field)]))
-    const required = CANDIDATES.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(CANDIDATES.filter(other => other !== field)), ENABLED: '1' }).skipped)
+    const probed = [...CANDIDATES, ...REQUIRED_ONLY]
+    const required = probed.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(probed.filter(other => other !== field)), ENABLED: '1' }).skipped)
     const supported = [...reach.get(slug)!]
     const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => isUnsupportedLevel(supportCell(at(provider.capabilities, capability)).level)) : supported
 

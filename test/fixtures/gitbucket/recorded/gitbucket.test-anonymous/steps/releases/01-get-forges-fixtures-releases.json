@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/releases?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "name": "v1.0.0",
+        "tag_name": "v1.0.0",
+        "body": "The first release.",
+        "author": {
+          "id": 3,
+          "login": "forges-bot",
+          "email": "redacted@example.invalid",
+          "type": "User",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:32:45Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges-bot",
+          "html_url": "http://127.0.0.1:8080/forges-bot",
+          "avatar_url": "http://127.0.0.1:8080/forges-bot/_avatar"
+        },
+        "assets": [
+          {
+            "name": "notes.txt",
+            "size": 15,
+            "label": "notes.txt",
+            "file_id": "1793813566552AMeBjktQ0C",
+            "browser_download_url": "http://127.0.0.1:8080/forges/forges-fixtures/releases/v1.0.0/assets/1793813566552AMeBjktQ0C"
+          }
+        ]
+      }
+    ]
+  }
+}

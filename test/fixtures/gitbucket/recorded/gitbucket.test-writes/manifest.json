@@ -1,0 +1,31 @@
+{
+  "baseUrl": "http://127.0.0.1:8080/api/v3",
+  "instance": "gitbucket.test",
+  "repo": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures-scratch"
+  },
+  "scratch": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures-scratch"
+  },
+  "run": {
+    "id": "20261104173742",
+    "base": "main",
+    "branches": [
+      "forges-fixtures/20261104173742-1",
+      "forges-fixtures/20261104173742-2",
+      "forges-fixtures/20261104173742-3"
+    ],
+    "files": [
+      "forges-fixtures/20261104173742-1.md",
+      "forges-fixtures/20261104173742-2.md",
+      "forges-fixtures/20261104173742-3.md"
+    ],
+    "reviewer": "forges-reader"
+  }
+}

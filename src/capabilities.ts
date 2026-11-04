@@ -257,3 +257,35 @@ export function supportOnly<T extends ProviderSpec>(spec: T, keep: readonly stri
   }
   return (kept('securityAlerts') ? restricted : update(restricted, 'securityAlerts', unsupportedKinds)) as T
 }
+
+/** A level for one capability, or one per thread kind for a capability declared per kind. */
+export type RedeclaredSupport = DeclaredSupport | Partial<Record<ThreadKind, DeclaredSupport>>
+
+/**
+ * Declares each capability in `levels` at the level given there, for a forge
+ * that reuses another forge's implementation but serves only part of its API.
+ * Capabilities left out keep their declaration, and `'not_applicable'` joins
+ * `notApplicable`, so the capabilities derived from it follow. A single level
+ * for a capability declared per kind skips the kinds that are `'not_applicable'`.
+ * @param spec The spec that `setup()` declares.
+ * @param levels Levels by capability path, such as `'threads.files': false`, or by thread kind for a capability declared per kind.
+ */
+export function redeclare<T extends ProviderSpec>(spec: T, levels: Readonly<Record<string, RedeclaredSupport>>): T {
+  const absent = Object.keys(levels).filter(capability => levels[capability] === 'not_applicable')
+  let updated: unknown = applyNotApplicable({ ...spec, notApplicable: [...spec.notApplicable ?? [], ...absent] })
+  for (const entry of CAPABILITY_TABLE) {
+    const level = levels[entry.capability]
+    if (!entry.spec || level === undefined || level === 'not_applicable') {
+      continue
+    }
+    updated = update(updated, entry.spec, (declared) => {
+      if (!declared || !entry.perKind) {
+        return declared && { ...declared as object, support: level }
+      }
+      const kinds = (declared as KindVerb<unknown>).kinds
+      // One level for every kind leaves the kinds that are `'not_applicable'` as they are.
+      return { ...declared as object, kinds: typeof level === 'object' ? { ...kinds, ...level } : Object.fromEntries(Object.entries(kinds).map(([kind, value]) => [kind, value === 'not_applicable' ? value : level])) }
+    })
+  }
+  return updated as T
+}

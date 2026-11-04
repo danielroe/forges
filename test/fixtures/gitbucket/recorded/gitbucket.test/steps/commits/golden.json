@@ -1,0 +1,163 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "73d160056f5e47b0cd5a209362ec8fd00740ee5a"
+      },
+      "sha": "73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+      "message": "Merge pull request #3 from forges/merged",
+      "author": {
+        "actor": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "login": "forges-bot",
+          "id": "3",
+          "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+          "url": "http://127.0.0.1:8080/forges-bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "login": "forges-bot",
+          "id": "3",
+          "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+          "url": "http://127.0.0.1:8080/forges-bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "5429b633986167882ccd67b0ab6c31bdc90fd042",
+        "1c86e61427f37755a40a39e61136fb05a9d7e58a"
+      ],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/73d160056f5e47b0cd5a209362ec8fd00740ee5a",
+      "stats": {
+        "additions": 2,
+        "deletions": 0,
+        "total": 2
+      },
+      "files": [
+        {
+          "path": "merged.md",
+          "status": "added",
+          "statusRaw": "added",
+          "additions": 2,
+          "deletions": 0,
+          "patch": "+++ b/merged.md\n@@ -0,0 +1 @@\n+Added on merged."
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+      },
+      "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042",
+      "message": "docs: write docs/guide.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "17e417836b6c35fc76bf66efc18988ec89e79d8b"
+      ],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/5429b633986167882ccd67b0ab6c31bdc90fd042",
+      "stats": {
+        "additions": 4,
+        "deletions": 0,
+        "total": 4
+      },
+      "files": [
+        {
+          "path": "docs/guide.md",
+          "status": "added",
+          "statusRaw": "added",
+          "additions": 4,
+          "deletions": 0,
+          "patch": "+++ b/docs/guide.md\n@@ -0,0 +1,3 @@\n+# Guide\n+\n+A second file, in a directory."
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a"
+      },
+      "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a",
+      "message": "docs: write merged.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "5429b633986167882ccd67b0ab6c31bdc90fd042"
+      ],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/1c86e61427f37755a40a39e61136fb05a9d7e58a",
+      "stats": {
+        "additions": 2,
+        "deletions": 0,
+        "total": 2
+      },
+      "files": [
+        {
+          "path": "merged.md",
+          "status": "added",
+          "statusRaw": "added",
+          "additions": 2,
+          "deletions": 0,
+          "patch": "+++ b/merged.md\n@@ -0,0 +1 @@\n+Added on merged."
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "code": "commits_truncated",
+      "message": "GitBucket pages commits past the first 3 wrongly, so the listing stops there; narrow it with `since`, `until` or `path`"
+    }
+  ]
+}

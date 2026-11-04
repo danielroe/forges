@@ -1,0 +1,135 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/pulls",
+    "body": {
+      "title": "forges fixture 20261104173742: pull 1",
+      "body": "Opened by run 20261104173742.",
+      "head": "forges-fixtures/20261104173742-1",
+      "base": "main"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "number": 3,
+      "state": "open",
+      "updated_at": "2026-11-04T17:37:51Z",
+      "created_at": "2026-11-04T17:37:51Z",
+      "head": {
+        "sha": "099c0597c970db5df53476cbe7c1555b4d203117",
+        "ref": "forges-fixtures/20261104173742-1",
+        "repo": {
+          "id": 2,
+          "name": "forges-fixtures-scratch",
+          "full_name": "forges/forges-fixtures-scratch",
+          "description": "The repository the forges write recordings write to.",
+          "fork": false,
+          "watchers": 0,
+          "forks": 0,
+          "private": false,
+          "default_branch": "main",
+          "owner": {
+            "id": 4,
+            "login": "forges",
+            "email": "redacted@example.invalid",
+            "type": "Organization",
+            "site_admin": false,
+            "created_at": "2026-11-04T17:37:40Z",
+            "url": "http://127.0.0.1:8080/api/v3/users/forges",
+            "html_url": "http://127.0.0.1:8080/forges",
+            "avatar_url": "http://127.0.0.1:8080/forges/_avatar"
+          },
+          "has_issues": true,
+          "forks_count": 0,
+          "watchers_count": 0,
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch",
+          "clone_url": "http://127.0.0.1:8080/git/forges/forges-fixtures-scratch.git",
+          "html_url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch"
+        },
+        "label": "forges-fixtures/20261104173742-1",
+        "user": {
+          "id": 4,
+          "login": "forges",
+          "email": "redacted@example.invalid",
+          "type": "Organization",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:37:40Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges",
+          "html_url": "http://127.0.0.1:8080/forges",
+          "avatar_url": "http://127.0.0.1:8080/forges/_avatar"
+        }
+      },
+      "base": {
+        "sha": "4a1fe455fd55ae4a2ffcd34cea3869477b8a98d7",
+        "ref": "main",
+        "repo": {
+          "id": 2,
+          "name": "forges-fixtures-scratch",
+          "full_name": "forges/forges-fixtures-scratch",
+          "description": "The repository the forges write recordings write to.",
+          "fork": false,
+          "watchers": 0,
+          "forks": 0,
+          "private": false,
+          "default_branch": "main",
+          "owner": {
+            "id": 4,
+            "login": "forges",
+            "email": "redacted@example.invalid",
+            "type": "Organization",
+            "site_admin": false,
+            "created_at": "2026-11-04T17:37:40Z",
+            "url": "http://127.0.0.1:8080/api/v3/users/forges",
+            "html_url": "http://127.0.0.1:8080/forges",
+            "avatar_url": "http://127.0.0.1:8080/forges/_avatar"
+          },
+          "has_issues": true,
+          "forks_count": 0,
+          "watchers_count": 0,
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch",
+          "clone_url": "http://127.0.0.1:8080/git/forges/forges-fixtures-scratch.git",
+          "html_url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch"
+        },
+        "label": "main",
+        "user": {
+          "id": 4,
+          "login": "forges",
+          "email": "redacted@example.invalid",
+          "type": "Organization",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:37:40Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges",
+          "html_url": "http://127.0.0.1:8080/forges",
+          "avatar_url": "http://127.0.0.1:8080/forges/_avatar"
+        }
+      },
+      "merged": false,
+      "title": "forges fixture 20261104173742: pull 1",
+      "body": "Opened by run 20261104173742.",
+      "user": {
+        "id": 3,
+        "login": "forges-bot",
+        "email": "redacted@example.invalid",
+        "type": "User",
+        "site_admin": false,
+        "created_at": "2026-11-04T17:37:40Z",
+        "url": "http://127.0.0.1:8080/api/v3/users/forges-bot",
+        "html_url": "http://127.0.0.1:8080/forges-bot",
+        "avatar_url": "http://127.0.0.1:8080/forges-bot/_avatar"
+      },
+      "labels": [],
+      "assignees": [],
+      "draft": false,
+      "id": 0,
+      "html_url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/pull/3",
+      "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/pulls/3",
+      "commits_url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/pulls/3/commits",
+      "review_comments_url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/pulls/3/comments",
+      "review_comment_url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/pulls/comments/{number}",
+      "comments_url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/issues/3/comments",
+      "statuses_url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/statuses/099c0597c970db5df53476cbe7c1555b4d203117"
+    }
+  }
+}

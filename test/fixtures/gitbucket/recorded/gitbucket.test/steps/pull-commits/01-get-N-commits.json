@@ -1,0 +1,60 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/pulls/2/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": [
+      {
+        "sha": "895ca080c86639ce06468171c43514a6af818b6e",
+        "commit": {
+          "message": "docs: write feature.md",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/git/commits/895ca080c86639ce06468171c43514a6af818b6e"
+        },
+        "parents": [
+          {
+            "sha": "4de241e86e230f5aea18c6cdc2339ffecc5ba585",
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+          }
+        ],
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/895ca080c86639ce06468171c43514a6af818b6e"
+      },
+      {
+        "sha": "4de241e86e230f5aea18c6cdc2339ffecc5ba585",
+        "commit": {
+          "message": "docs: write feature.md",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-04T17:32:45Z"
+          },
+          "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/git/commits/4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+        },
+        "parents": [
+          {
+            "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042",
+            "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/5429b633986167882ccd67b0ab6c31bdc90fd042"
+          }
+        ],
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+      }
+    ]
+  }
+}

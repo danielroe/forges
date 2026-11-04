@@ -1,0 +1,82 @@
+[
+  {
+    "ok": true,
+    "ref": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "2"
+    },
+    "thread": {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "2"
+      },
+      "kind": "pull_request",
+      "title": "forges seed: pull",
+      "body": "A pull request that read recordings read.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-bot",
+        "id": "3",
+        "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+        "url": "http://127.0.0.1:8080/forges-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "forges-seed",
+          "colour": "8b5cf6"
+        }
+      ],
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/2",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "branches": {
+        "head": {
+          "ref": "feature",
+          "sha": "895ca080c86639ce06468171c43514a6af818b6e",
+          "repo": {
+            "forge": "gitbucket",
+            "instance": "gitbucket.test",
+            "owner": "forges",
+            "name": "forges-fixtures",
+            "externalId": "1"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+        }
+      },
+      "checks": {
+        "state": "success",
+        "total": 1,
+        "failed": 0,
+        "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/2"
+      }
+    }
+  }
+]

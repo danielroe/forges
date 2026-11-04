@@ -1,0 +1,33 @@
+{
+  "ref": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "thread": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch"
+      },
+      "kind": "pull_request",
+      "number": "3"
+    },
+    "id": "13"
+  },
+  "body": "An edited comment from run 20261104173742.",
+  "author": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "login": "forges-bot",
+    "id": "3",
+    "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+    "url": "http://127.0.0.1:8080/forges-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/pull/3#comment-13"
+}
