@@ -86,4 +86,12 @@ describe('searching recordings for credentials', () => {
 
     expect(scanForCredentials(env, [directory]).map(({ file, name }) => `${file.slice(directory.length + 1)} ${name}`).sort()).toEqual(['a.json GITHUB_TOKEN', 'b.json BITBUCKET_APP_PASSWORD'])
   })
+
+  it('treats an API key as a credential', () => {
+    const directory = temporary()
+    const env = { CURSOR_API_KEY: 'crsr_abcdefghijklmnopqrstuvwxyz' }
+    write(`${directory}/a.json`, JSON.stringify({ key: env.CURSOR_API_KEY }))
+
+    expect(scanForCredentials(env, [directory]).map(({ name }) => name)).toEqual(['CURSOR_API_KEY'])
+  })
 })

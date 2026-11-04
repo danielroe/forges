@@ -490,10 +490,7 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
   }
 }
 
-/**
- * Cursor Origin resolves and unresolves a review thread by its id alone, outside the repository's path. The
- * providers only learn thread ids from the scratch repository's pull requests, so those writes are allowed.
- */
+/** Cursor Origin names a review thread by its id alone, outside the repository's path; the run only learns ids from the scratch repository. */
 function cursorOrigin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
   const call = client(baseUrl, authorization)
   const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
