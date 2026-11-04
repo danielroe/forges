@@ -1,0 +1,69 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/4/reviews?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "576",
+      "x-ratelimit-reset": "1793818153",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "reviews": [
+        {
+          "id": "rev_01m6ky63qjf5kvfsb7a86vx3t1",
+          "author": {
+            "user": {
+              "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+              "email": "redacted@example.invalid",
+              "displayName": "Daniel Roe"
+            }
+          },
+          "verdict": "comment",
+          "body": "A review comment from run 20261104184701.",
+          "submittedAt": "2026-11-04T18:47:17.997Z",
+          "pullRequestVersion": {
+            "number": "1",
+            "headSha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+            "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+          }
+        },
+        {
+          "id": "rev_01m6ky64zpfhca16tmxwwrzn4m",
+          "author": {
+            "user": {
+              "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+              "email": "redacted@example.invalid",
+              "displayName": "Daniel Roe"
+            }
+          },
+          "verdict": "approve",
+          "body": "",
+          "submittedAt": "2026-11-04T18:47:19.281Z",
+          "pullRequestVersion": {
+            "number": "1",
+            "headSha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+            "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+          }
+        }
+      ],
+      "pullRequest": {
+        "id": "pr_01m6ky5rzafwrs3y9zjzmzeb3c",
+        "number": "4",
+        "repository": {
+          "id": "r_01m6kw7zaefb292tc9pq7t4ss8",
+          "name": "forges-fixtures",
+          "owner": {
+            "slug": "forges",
+            "id": "ns_01m6kw73g9fesagqtrc74jt0p9",
+            "type": "team"
+          }
+        }
+      },
+      "nextPageToken": ""
+    }
+  }
+}

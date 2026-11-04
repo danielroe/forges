@@ -1,0 +1,68 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/4",
+    "body": {
+      "title": "forges fixture 20261104184701: pull, edited",
+      "body": "Edited by run 20261104184701."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "498",
+      "x-ratelimit-reset": "1793818095",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "pr_01m6ky5rzafwrs3y9zjzmzeb3c",
+      "number": "4",
+      "state": "open",
+      "draft": false,
+      "merged": false,
+      "title": "forges fixture 20261104184701: pull, edited",
+      "body": "Edited by run 20261104184701.",
+      "head": {
+        "ref": "forges-fixtures/20261104184701-1",
+        "sha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+      },
+      "author": {
+        "user": {
+          "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+          "email": "redacted@example.invalid"
+        }
+      },
+      "createdAt": "2026-11-04T18:47:06.985Z",
+      "updatedAt": "2026-11-04T18:47:15.078Z",
+      "mergeCommitSha": "",
+      "additions": 1,
+      "deletions": 0,
+      "changedFiles": 1,
+      "labels": [
+        {
+          "id": "lbl_01m6ky5qvgesdtjh6mc2dej5jy",
+          "name": "forges-fixture-20261104184701",
+          "color": "0e8a16",
+          "description": "Created by run 20261104184701"
+        }
+      ],
+      "webUrl": "https://cursor.com/codebase/forges/forges-fixtures/pull/4",
+      "version": {
+        "number": "1",
+        "headSha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+        "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6",
+        "createdAt": "2026-11-04T18:47:06.997Z",
+        "potentialMergeCommit": {
+          "state": "prepared",
+          "sha": "aedb3c48a833fd18c0e6a684b61ceb16fa62a942",
+          "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+        }
+      }
+    }
+  }
+}

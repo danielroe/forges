@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/6/reviews?pageSize=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "492",
+      "x-ratelimit-reset": "1793818098",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "reviews": [
+        {
+          "id": "rev_01m6ky62svfhrrpk1qt0j1bq80",
+          "author": {
+            "user": {
+              "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+              "email": "redacted@example.invalid",
+              "displayName": "Daniel Roe"
+            }
+          },
+          "verdict": "approve",
+          "body": "",
+          "submittedAt": "2026-11-04T18:47:17.043Z",
+          "pullRequestVersion": {
+            "number": "1",
+            "headSha": "610ba512f8bc3081b99ed3f41492a675c6dfbed9",
+            "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+          }
+        }
+      ],
+      "pullRequest": {
+        "id": "pr_01m6ky5tvmff5txv1gem6hydr6",
+        "number": "6",
+        "repository": {
+          "id": "r_01m6kw7zaefb292tc9pq7t4ss8",
+          "name": "forges-fixtures",
+          "owner": {
+            "slug": "forges",
+            "id": "ns_01m6kw73g9fesagqtrc74jt0p9",
+            "type": "team"
+          }
+        }
+      },
+      "nextPageToken": ""
+    }
+  }
+}

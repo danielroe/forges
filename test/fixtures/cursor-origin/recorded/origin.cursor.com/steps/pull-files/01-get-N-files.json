@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/4/files?pageSize=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "565",
+      "x-ratelimit-reset": "1793818155",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "files": [
+        {
+          "filename": "forges-fixtures/20261104184701-1.md",
+          "status": "added",
+          "additions": 1,
+          "deletions": 0,
+          "changes": 1,
+          "patch": "@@ -1,0 +1,1 @@\n+Added by the forges write recording on forges-fixtures/20261104184701-1.\n",
+          "previousFilename": ""
+        }
+      ],
+      "nextPageToken": "",
+      "narrowedToOwnChanges": false
+    }
+  }
+}

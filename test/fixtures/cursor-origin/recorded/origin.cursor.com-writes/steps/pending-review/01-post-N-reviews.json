@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/6/reviews",
+    "body": {
+      "verdict": "approve",
+      "body": ""
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "595",
+      "x-ratelimit-reset": "1793818096",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "rev_01m6ky62svfhrrpk1qt0j1bq80",
+      "author": {
+        "user": {
+          "id": "user_vKoeEFMCkkeaQb3jlXz8FoRSv1",
+          "email": "redacted@example.invalid",
+          "displayName": "Daniel Roe"
+        }
+      },
+      "verdict": "approve",
+      "body": "",
+      "submittedAt": "2026-11-04T18:47:17.043Z",
+      "pullRequestVersion": {
+        "number": "1",
+        "headSha": "610ba512f8bc3081b99ed3f41492a675c6dfbed9",
+        "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+      }
+    }
+  }
+}

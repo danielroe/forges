@@ -108,10 +108,10 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `users.sponsorableMany` | ∅ | ∅ | ∅ | ∅ |
 | `users.events` | ❌ | ❌ | ❌ | ❌ |
 | `users.block` | ∅ | ∅ | ∅ | ∅ |
-| `repos.list` | unverified | unverified | ❌ | ❌ |
+| `repos.list` | experimental | experimental | ❌ | ❌ |
 | `repos.byOwner` | ❌ | ❌ | ❌ | ❌ |
 | `repos.labels` | ❌ | ❌ | ❌ | ❌ |
-| `repos.createLabel` | unverified | unverified | ❌ | ❌ |
+| `repos.createLabel` | experimental | experimental | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ | ❌ | ❌ |
 | `repos.issueTypes` | ∅ | ∅ | ∅ | ∅ |
 | `repos.collaborators` | ❌ | ❌ | ❌ | ❌ |
@@ -136,23 +136,23 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.comments` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.getComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
 | `threads.createComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `threads.updateComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `threads.deleteComment` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.updateComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.deleteComment` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.hideComment` | ∅ | ∅ | ∅ | ∅ |
 | `threads.reactions` | ❌ | ❌ | ❌ | ❌ |
 | `threads.react` | ❌ | ❌ | ❌ | ❌ |
-| `threads.create` | PR (unverified) | PR (unverified) | ❌ | ❌ |
-| `threads.update` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.create` | PR (experimental) | PR (experimental) | ❌ | ❌ |
+| `threads.update` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.close` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.reopen` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.lock` | ∅ | ∅ | ∅ | ∅ |
-| `threads.setLabels` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.setLabels` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.addLabels` | ❌ | ❌ | ❌ | ❌ |
 | `threads.removeLabels` | ❌ | ❌ | ❌ | ❌ |
 | `threads.setMilestone` | ❌ | ❌ | ❌ | ❌ |
 | `threads.setIssueType` | ∅ | ∅ | ∅ | ∅ |
 | `threads.setAssignees` | ❌ | ❌ | ❌ | ❌ |
-| `threads.requestReview` | PR (unverified) | PR (unverified) | ❌ | ❌ |
+| `threads.requestReview` | PR (experimental) | PR (experimental) | ❌ | ❌ |
 | `threads.merge` | experimental | experimental | ❌ | ❌ |
 | `threads.updateBranch` | ∅ | ∅ | ∅ | ∅ |
 | `threads.transfer` | ❌ | ❌ | ❌ | ❌ |
@@ -160,13 +160,13 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.subscription` | ❌ | ❌ | ❌ | ❌ |
 | `threads.subscribe` | ❌ | ❌ | ❌ | ❌ |
 | `threads.checks` | PR (experimental) | PR (experimental) | ❌ | ❌ |
-| `threads.files` | unverified | unverified | ❌ | ❌ |
-| `threads.commits` | unverified | unverified | ❌ | ❌ |
+| `threads.files` | experimental | experimental | ❌ | ❌ |
+| `threads.commits` | experimental | experimental | ❌ | ❌ |
 | `threads.reviews` | experimental | experimental | ❌ | ❌ |
 | `threads.getReview` | unverified | unverified | ❌ | ❌ |
-| `threads.createReview` | unverified | unverified | ❌ | ❌ |
+| `threads.createReview` | experimental | experimental | ❌ | ❌ |
 | `threads.submitReview` | ❌ | ❌ | ❌ | ❌ |
-| `threads.approve` | unverified | unverified | ❌ | ❌ |
+| `threads.approve` | experimental | experimental | ❌ | ❌ |
 | `threads.replyToReviewComment` | ❌ | ❌ | ❌ | ❌ |
 | `threads.reviewThreads` | ❌ | ❌ | ❌ | ❌ |
 | `threads.resolveReviewThread` | unverified | unverified | ❌ | ❌ |
@@ -178,7 +178,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `notifications.markAllDone` | ∅ | ∅ | ∅ | ∅ |
 | `notifications.unreadCount` | ∅ | ∅ | ∅ | ∅ |
 | `installations.list` | ❌ | ❌ | unverified | ❌ |
-| `checks.list` | unverified | unverified | ❌ | ❌ |
+| `checks.list` | experimental | experimental | ❌ | ❌ |
 | `checks.get` | ❌ | ❌ | ❌ | ❌ |
 | `checks.report` | ❌ | ❌ | ❌ | ❌ |
 | `checks.rerun` | ❌ | ❌ | ❌ | ❌ |
@@ -188,15 +188,15 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `ci.getJob` | ❌ | ❌ | ❌ | ❌ |
 | `ci.log` | ❌ | ❌ | ❌ | ❌ |
 | `ci.rerunFailed` | ❌ | ❌ | ❌ | ❌ |
-| `contents.getFile` | unverified | unverified | ❌ | ❌ |
-| `contents.tree` | unverified | unverified | ❌ | ❌ |
-| `contents.branches` | unverified | unverified | ❌ | ❌ |
-| `contents.tags` | unverified | unverified | ❌ | ❌ |
-| `contents.resolveRef` | unverified | unverified | ❌ | ❌ |
-| `contents.compare` | unverified | unverified | ❌ | ❌ |
+| `contents.getFile` | experimental | experimental | ❌ | ❌ |
+| `contents.tree` | experimental | experimental | ❌ | ❌ |
+| `contents.branches` | experimental | experimental | ❌ | ❌ |
+| `contents.tags` | experimental | experimental | ❌ | ❌ |
+| `contents.resolveRef` | experimental | experimental | ❌ | ❌ |
+| `contents.compare` | experimental | experimental | ❌ | ❌ |
 | `contents.commitFiles` | ❌ | ❌ | ❌ | ❌ |
-| `commits.list` | unverified | unverified | ❌ | ❌ |
-| `commits.get` | unverified | unverified | ❌ | ❌ |
+| `commits.list` | experimental | experimental | ❌ | ❌ |
+| `commits.get` | experimental | experimental | ❌ | ❌ |
 | `commits.comments` | ❌ | ❌ | ❌ | ❌ |
 | `commits.getComment` | ❌ | ❌ | ❌ | ❌ |
 | `commits.createComment` | ❌ | ❌ | ❌ | ❌ |

@@ -1,0 +1,27 @@
+{
+  "baseUrl": "https://api.cursor.com/v1/origin",
+  "repo": {
+    "forge": "cursor-origin",
+    "instance": "origin.cursor.com",
+    "owner": "forges",
+    "name": "forges-fixtures"
+  },
+  "pull": {
+    "forge": "cursor-origin",
+    "instance": "origin.cursor.com",
+    "repo": {
+      "forge": "cursor-origin",
+      "instance": "origin.cursor.com",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "4"
+  },
+  "scratch": {
+    "forge": "cursor-origin",
+    "instance": "origin.cursor.com",
+    "owner": "forges",
+    "name": "forges-fixtures"
+  }
+}

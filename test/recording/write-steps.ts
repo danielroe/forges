@@ -481,8 +481,8 @@ export const WRITE_STEPS: WriteStep[] = [
     throw new Error('No finished CI check on the base branch')
   } },
   { name: 'approve', verb: 'threads.approve', kind: 'pull_request', as: 'reviewer', run: (provider, _manifest, context) => provider.threads.approve(threadOf(context, 'pull_request')) },
-  // Tangled applies a pull's commits onto its target branch, so it only rebases.
-  { name: 'merge', verb: 'threads.merge', kind: 'pull_request', run: (provider, manifest, context) => provider.threads.merge(threadOf(context, 'pull_request'), { method: provider.forge === 'tangled' ? 'rebase' : 'merge', title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` }) },
+  // Tangled applies a pull's commits onto its target branch, so it only rebases. Cursor Origin writes its own merge commit message.
+  { name: 'merge', verb: 'threads.merge', kind: 'pull_request', run: (provider, manifest, context) => provider.threads.merge(threadOf(context, 'pull_request'), { method: provider.forge === 'tangled' ? 'rebase' : 'merge', ...provider.forge !== 'cursor-origin' && { title: `Merge run ${manifest.run.id}`, message: `Merged by run ${manifest.run.id}` } }) },
   { name: 'pull close', verb: 'threads.close', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.close(need(context.pulls[2], 'the third pull request').ref) },
   { name: 'pull reopen', verb: 'threads.reopen', kind: 'pull_request', run: (provider, _manifest, context) => provider.threads.reopen(need(context.pulls[2], 'the third pull request').ref) },
   // After the reopen, as GitHub refuses to reopen a pull request whose branch moved while it was closed.

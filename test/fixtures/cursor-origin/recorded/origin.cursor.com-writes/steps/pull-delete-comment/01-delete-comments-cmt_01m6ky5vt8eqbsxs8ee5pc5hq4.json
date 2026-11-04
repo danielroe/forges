@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/comments/cmt_01m6ky5vt8eqbsxs8ee5pc5hq4"
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "508",
+      "x-ratelimit-reset": "1793818093",
+      "x-ratelimit-resource": "core"
+    }
+  }
+}

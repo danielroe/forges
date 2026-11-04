@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://api.cursor.com/v1/origin/repos/forges/forges-fixtures/pulls/comments/cmt_01m6ky5vt8eqbsxs8ee5pc5hq4",
+    "body": {
+      "body": "An edited comment from run 20261104184701."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "600",
+      "x-ratelimit-remaining": "520",
+      "x-ratelimit-reset": "1793818090",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": "cmt_01m6ky5vt8eqbsxs8ee5pc5hq4",
+      "thread": {
+        "id": "cth_01m6ky5vszf009s34h7s98csrm",
+        "version": {
+          "number": "1",
+          "headSha": "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73",
+          "baseSha": "cc956befe8047311d4b75c434de1d29aceae4ae6"
+        },
+        "path": "",
+        "side": "PULL_REQUEST_COMMENT_SIDE_UNSPECIFIED",
+        "startLine": 0,
+        "endLine": 0,
+        "createdAt": "2026-11-04T18:47:09.886Z",
+        "updatedAt": "2026-11-04T18:47:09.886Z"
+      },
+      "body": "An edited comment from run 20261104184701.",
+      "author": {
+        "user": {
+          "id": "user_Cs7IpGH38D01KmETGkgN4rdwpn",
+          "email": "redacted@example.invalid"
+        }
+      },
+      "createdAt": "2026-11-04T18:47:09.896Z",
+      "updatedAt": "2026-11-04T18:47:10.911Z",
+      "reactions": []
+    }
+  }
+}

@@ -63,6 +63,7 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[], lo
   'pushin': { reads: [{ label: 'pushin.eu', args: [] }, { label: 'anonymous', args: ['--anonymous'] }], writes: [{ label: 'writes', args: ['--writes'] }] },
   'cloudflare-artifacts': { reads: [{ label: 'artifacts.cloudflare.net', args: [] }], writes: [] },
   'sourcehut': { reads: [{ label: 'sr.ht', args: [] }], writes: [] },
+  'cursor-origin': { reads: [{ label: 'origin.cursor.com', args: [] }], writes: [{ label: 'writes', args: ['--writes'] }] },
   'entire': { reads: [{ label: 'entire.com', args: [] }], writes: [{ label: 'writes', args: ['--writes'] }], local: true },
   'tangled': {
     reads: [{ label: 'tangled.org', args: [] }, { label: 'anonymous', args: ['--anonymous'] }],

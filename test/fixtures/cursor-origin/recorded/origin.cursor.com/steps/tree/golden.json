@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "path": "README.md",
+      "type": "file",
+      "sha": "4e0c8ab40e632bdfdae3cdf7641c0c8c47d52320",
+      "size": 99,
+      "mode": "100644"
+    },
+    {
+      "path": "docs",
+      "type": "directory",
+      "sha": "bcb2b401690c192519ac52266848fd303688f141",
+      "mode": "040000"
+    },
+    {
+      "path": "forges-fixtures",
+      "type": "directory",
+      "sha": "abcee57323bbe74bef5d766f69de92549e527ecd",
+      "mode": "040000"
+    }
+  ],
+  "rateLimit": {
+    "limit": 600,
+    "remaining": 540,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

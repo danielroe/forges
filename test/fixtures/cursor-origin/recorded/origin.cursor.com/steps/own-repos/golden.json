@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "owner": "forges",
+        "name": "forges-fixtures",
+        "externalId": "r_01m6kw7zaefb292tc9pq7t4ss8"
+      },
+      "defaultBranch": "main",
+      "visibility": "internal",
+      "visibilityRaw": "internal",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "cloneUrls": {
+        "https": "https://origin.cursor.com/forges/forges-fixtures.git"
+      },
+      "pushedAt": "<now>"
+    }
+  ],
+  "rateLimit": {
+    "limit": 600,
+    "remaining": 544,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

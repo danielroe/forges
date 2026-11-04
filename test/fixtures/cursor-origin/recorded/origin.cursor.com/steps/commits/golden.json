@@ -1,0 +1,98 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "d5ef6037af1a766169c4876b8b6493fb26818414"
+      },
+      "sha": "d5ef6037af1a766169c4876b8b6493fb26818414",
+      "message": "docs: add docs/writes.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "2a47850644f1c60992ff88689daa79c267ca921a"
+      ]
+    },
+    {
+      "ref": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "2a47850644f1c60992ff88689daa79c267ca921a"
+      },
+      "sha": "2a47850644f1c60992ff88689daa79c267ca921a",
+      "message": "docs: add docs/fixtures.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "6789d64dbd8cead9b88d8d51987df7c491065cc9"
+      ]
+    },
+    {
+      "ref": {
+        "forge": "cursor-origin",
+        "instance": "origin.cursor.com",
+        "repo": {
+          "forge": "cursor-origin",
+          "instance": "origin.cursor.com",
+          "owner": "forges",
+          "name": "forges-fixtures"
+        },
+        "sha": "6789d64dbd8cead9b88d8d51987df7c491065cc9"
+      },
+      "sha": "6789d64dbd8cead9b88d8d51987df7c491065cc9",
+      "message": "forges fixture 20261104184701: pull, edited (#4)\n\nEdited by run 20261104184701.",
+      "author": {
+        "name": "user-528942664",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "user-528942664",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "cc956befe8047311d4b75c434de1d29aceae4ae6",
+        "8296b0e3bcb9cbfbeb790fabe52516d1c1c0bd73"
+      ]
+    }
+  ],
+  "cursor": {
+    "token": "eyJ2IjoxLCJuYW1lc3BhY2VTbHVnIjoiZm9yZ2VzIiwibmFtZSI6ImZvcmdlcy1maXh0dXJlcyIsInJldmlzaW9uIjoibWFpbiIsInNjYW5PZmZzZXQiOjMsInBhZ2VTaXplIjozLCJhdXRob3JFbWFpbHMiOltdLCJjb21taXR0ZXJFbWFpbHMiOltdLCJwYXRoIjoiIn0"
+  },
+  "rateLimit": {
+    "limit": 600,
+    "remaining": 531,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}
