@@ -38,19 +38,28 @@ If you leave out `auth`, the provider makes anonymous reads of public data.
 
 ## Instance
 
-GitBucket has no public instance, so `baseUrl` is required. Set it to the root of your server, including the context path if GitBucket runs under one, such as `https://example.com/gitbucket`. The provider appends `/api/v3` itself, and the `instance` in every ref is the host of the server.
+GitBucket has no public instance, so `baseUrl` is required. Set it to the root of your server, including the context path if GitBucket runs under one, such as `https://example.com/gitbucket`. The provider appends `/api/v3` itself. The `instance` in every ref defaults to the host of the server. Two GitBucket servers on one host, under different context paths, need an `instance` each, because a [registry](/guides/multiple-forges) takes one provider per forge and instance. Give it the shape of a host, without a slash, since refs and keys carry it:
+
+```ts
+import { createForges, gitbucket } from 'forges'
+
+const forges = createForges([
+  gitbucket({ baseUrl: 'https://example.com/team', instance: 'team.example.com' }),
+  gitbucket({ baseUrl: 'https://example.com/lab', instance: 'lab.example.com' }),
+])
+```
 
 ## What GitBucket leaves out
 
 GitBucket has no GraphQL, no check runs, no Actions, no reviews, no reactions and no search. It doesn't serve notifications, activity feeds, contributors, branch rules, comparisons, trees or commit comments either. `support()` reports each of those as `false`, or as `'not_applicable'` where GitBucket has no such feature at all, and calling one rejects with `UnsupportedOperationError` before any request goes out. The [capability matrix](/reference/capability-matrix) has the full list.
 
-Some operations that GitBucket does serve still aren't supported, because the provider couldn't do what they promise:
+Some operations that GitBucket does serve still aren't supported, because the provider couldn't do what they promise. They reject with `UnsupportedOperationError` before any request goes out as well, and this is what GitBucket's endpoints do with them:
 
 - `threads.setAssignees()` and `setMilestone()`, and `update()`, `close()` and `reopen()` on an issue, need GitBucket to edit an issue, which its API can't do. A pull request is different: `update()`, `close()` and `reopen()` work, for its title, body and state. An update that also sets labels or assignees rejects with `UnsupportedOperationError`, so set the labels with `setLabels()`.
-- `threads.deleteComment()` deletes the comment, but GitBucket answers with the comment's id as the HTTP status code, so the provider can't tell whether it worked.
-- `repos.collaborators()` would list every collaborator without a role, and `repos.addCollaborator()` fails with a `500` for the roles that GitHub has beyond read, write and admin.
-- `releases.create()` creates a release without its tag and drops `draft`, `prerelease` and `target`, while `releases.update()` needs the whole release.
-- `webhooks.update()` and `webhooks.rotateSecret()` need the whole hook, while the provider sends only what changes.
+- `threads.deleteComment()`: GitBucket deletes the comment, but answers with the comment's id as the HTTP status code, so a deletion looks like a failed request.
+- `repos.collaborators()` and `repos.addCollaborator()`: GitBucket lists collaborators without a role, and fails with a `500` for the roles that GitHub has beyond read, write and admin.
+- `releases.create()` and `releases.update()`: GitBucket creates a release without its tag and drops `draft`, `prerelease` and `target`, and it updates a release only when it gets the whole of it.
+- `webhooks.update()` and `webhooks.rotateSecret()`: GitBucket updates a hook only when it gets the whole of it, while the provider sends only what changes.
 
 ## Listing threads
 

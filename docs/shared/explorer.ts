@@ -312,7 +312,7 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
     load: () => import('forges/gitbucket'),
     forge: 'gitbucket',
     instance: 'gitbucket.example.com',
-    credentials: [token('GITBUCKET_TOKEN')],
+    credentials: [token('GITBUCKET_TOKEN', false)],
     options: () => ({ baseUrl: 'https://gitbucket.example.com' }),
     blocked: 'GitBucket has no public instance, so the code runs against your own server.',
     // The repository the unit tests read, on a GitBucket 4.48 server.
