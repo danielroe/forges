@@ -381,11 +381,11 @@ describe('defineForgeProvider', () => {
     const setup = (): kit.ProviderSpec => {
       throw new Error('unused')
     }
-    // @ts-expect-error `setup()` may omit `web`
     kit.defineForgeProvider({
       forge: 'acme',
       baseUrl: 'https://acme.example',
       hasWeb: true,
+      // @ts-expect-error `setup()` may omit `web`
       setup,
     })
     kit.defineForgeProvider({ forge: 'acme', baseUrl: 'https://acme.example', setup })
