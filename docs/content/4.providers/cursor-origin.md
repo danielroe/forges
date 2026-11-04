@@ -163,7 +163,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `threads.files` | experimental | experimental | ❌ | ❌ |
 | `threads.commits` | experimental | experimental | ❌ | ❌ |
 | `threads.reviews` | experimental | experimental | ❌ | ❌ |
-| `threads.getReview` | unverified | unverified | ❌ | ❌ |
+| `threads.getReview` | emulated | emulated | ❌ | ❌ |
 | `threads.createReview` | experimental | experimental | ❌ | ❌ |
 | `threads.submitReview` | ❌ | ❌ | ❌ | ❌ |
 | `threads.approve` | experimental | experimental | ❌ | ❌ |
