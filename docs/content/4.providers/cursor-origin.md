@@ -111,7 +111,7 @@ Deliveries of `installation.*` events become `installation` events. You register
 | `repos.list` | unverified | unverified | ❌ | ❌ |
 | `repos.byOwner` | ❌ | ❌ | ❌ | ❌ |
 | `repos.labels` | ❌ | ❌ | ❌ | ❌ |
-| `repos.createLabel` | ❌ | ❌ | ❌ | ❌ |
+| `repos.createLabel` | unverified | unverified | ❌ | ❌ |
 | `repos.milestones` | ❌ | ❌ | ❌ | ❌ |
 | `repos.issueTypes` | ∅ | ∅ | ∅ | ∅ |
 | `repos.collaborators` | ❌ | ❌ | ❌ | ❌ |

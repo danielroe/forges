@@ -7,7 +7,7 @@ import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
 import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { createFetcher as createFetcherBase } from '../fetch.ts'
-import { forgeIterable, getManyConcurrently, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
+import { forgeIterable, getManyConcurrently, hexColour, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
 import { createOriginAppCredentials } from './auth.ts'
 import { FORGE, isConversationComment, toBranch, toChangedFile, toCheck, toComment, toCommentEvent, toCommit, toLabel, toRepo, toReview, toReviewEvent, toTag, toThread, toTreeEntry } from './normalise.ts'
 import { cursorOriginWebhooks } from './webhooks.ts'
@@ -309,6 +309,11 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
     repos: {
       get: verb('experimental', async (ref, options) => toRepo(instance, (await fetcher.json<OriginRepo>(repoPath(ref), { signal: options?.signal })).data)),
       listPage: verb('unverified', (listOptions = {}) => auth?.type === 'app' ? reposPage(listOptions) : userReposPage(listOptions)),
+      createLabel: verb('unverified', async (repo, label, options) => toLabel((await fetcher.json<OriginLabel>(`${repoPath(repo)}/labels`, {
+        method: 'POST',
+        json: { name: label.name, color: hexColour(label.colour), description: label.description },
+        signal: options?.signal,
+      })).data)),
     },
     installations: credentials && appItself ? verb('unverified', createInstallationsApi(credentials)) : undefined,
     threads: {
