@@ -112,6 +112,7 @@ describe('parseReferences', () => {
 
       expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only digits'] }, { from })).toBe('acme/widgets@1234567')
       expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only letters'] }, { from })).toBe('acme/widgets@abcdefa')
+      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: `${shas['only digits']}a${'0'.repeat(23)}` }, { from })).toBe('acme/widgets@1234567')
       expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbFrom, sha: shas['only digits'] }, { from: bbFrom })).toMatch(/^https:\/\/bitbucket\.org\/acme\/widgets\/commits\//)
     })
   })
