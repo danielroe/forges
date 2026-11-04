@@ -5,7 +5,7 @@ import type { CursorOriginAuth, OriginAppCredentials } from './auth.ts'
 import type { OriginBlob, OriginBranch, OriginCheckRun, OriginComment, OriginCommit, OriginCommitFile, OriginComparison, OriginContent, OriginGitRef, OriginInstallation, OriginLabel, OriginPullRequest, OriginRepo, OriginReview, OriginTree } from './types.ts'
 import { fromBase64, toFileContent } from '../contents.ts'
 import { defineForgeProvider, perKind, supportOnly, verb } from '../define.ts'
-import { ForgeError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
+import { ForgeError, NotFoundError, soleMergeMethod, toMergeError, UnsupportedOperationError } from '../errors.ts'
 import { createFetcher as createFetcherBase } from '../fetch.ts'
 import { forgeIterable, getManyConcurrently, isFirstPage, iteratePages, phased, rateLimitPart, requireThread, resolveToken, summariseChecks, toWarning } from '../utils.ts'
 import { createOriginAppCredentials } from './auth.ts'
@@ -157,7 +157,7 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
 
   /** A user token has no single repository listing, so each namespace the user belongs to is listed in turn. */
   async function userReposPage(listOptions: PageOptions = {}): Promise<Page<Repo>> {
-    const namespaces = await all<{ slug: string }>('/namespaces', 'namespaces', listOptions)
+    const namespaces = (await all<{ namespace: { slug: string } }>('/namespaces', 'namespaces', listOptions)).map(item => item.namespace)
     if (!namespaces.length) {
       return { items: [] }
     }
@@ -415,9 +415,15 @@ function setupOrigin({ options, baseUrl, instance, origin: context, fetcher, cre
         const page = await tokenPage<OriginReview>(`${pullPath(ref)}/reviews`, 'reviews', listOptions)
         return { ...page, items: page.items.map(raw => toReview(ref, raw)) }
       }),
+      /** Origin has no endpoint for a single review, so the pull request's reviews are listed until it is found. */
       getReview: verb('unverified', async (ref, options) => {
         const thread = requireThread(ref.thread, context)
-        return toReview(thread, (await fetcher.json<OriginReview>(`${pullPath(thread)}/reviews/${encodeURIComponent(ref.id)}`, { signal: options?.signal })).data)
+        for await (const raw of iteratePages(page => tokenPage<OriginReview>(`${pullPath(thread)}/reviews`, 'reviews', { ...page, signal: options?.signal }))) {
+          if (raw.id === ref.id) {
+            return toReview(thread, raw)
+          }
+        }
+        throw new NotFoundError(`No review ${ref.id} on pull request ${thread.number}`, 404, '', context)
       }),
       createReview: verb('unverified', createReview),
       reviewThreads: verb('unverified', {

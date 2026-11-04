@@ -12,8 +12,12 @@
     "body": {
       "namespaces": [
         {
-          "slug": "acme",
-          "id": "ns_01k2ja2000acme00000000000a"
+          "namespace": {
+            "slug": "acme",
+            "id": "ns_01k2ja2000acme00000000000a",
+            "type": "team"
+          },
+          "viewerCanCreateRepositories": true
         }
       ],
       "nextPageToken": ""
