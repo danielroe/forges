@@ -29,7 +29,16 @@ function operationFor(verb: string) {
 const operation = operationFor(props.verb)
 
 // Colours go by position, so that any operation's fields are told apart.
-const PALETTE = ['oklch(0.62 0.16 255)', 'oklch(0.6 0.17 300)', 'oklch(0.62 0.14 160)', 'oklch(0.7 0.15 70)', 'oklch(0.62 0.18 25)', 'oklch(0.64 0.11 205)', 'oklch(0.6 0.18 340)', 'oklch(0.62 0.12 110)']
+const PALETTE = [
+  'oklch(0.62 0.16 255)',
+  'oklch(0.6 0.17 300)',
+  'oklch(0.62 0.14 160)',
+  'oklch(0.7 0.15 70)',
+  'oklch(0.62 0.18 25)',
+  'oklch(0.64 0.11 205)',
+  'oklch(0.6 0.18 340)',
+  'oklch(0.62 0.12 110)',
+]
 
 const open = ref(props.expanded)
 const panel = useTemplateRef<HTMLElement>('panel')
@@ -68,7 +77,9 @@ const runnableCredentials = computed(() => forge.value.credentials.filter(creden
 /** The credential the form holds: the kind the person chose, and the value of each field. */
 const credentialState = computed(() => credentials.value[forgeId.value]!)
 const selectedCredential = computed(() => runnableCredentials.value.find(credential => credential.kind === credentialState.value.kind) ?? runnableCredentials.value[0])
-const hasCredential = computed(() => selectedCredential.value ? isCredentialComplete(selectedCredential.value, credentialState.value.values) : false)
+const hasCredential = computed(() => selectedCredential.value
+  ? isCredentialComplete(selectedCredential.value, credentialState.value.values)
+  : false)
 
 // Every explorer shares one credential, so create the state the form binds to for the current forge. It runs
 // again when the forge changes or "Remember in this tab" replaces the record.
@@ -82,13 +93,20 @@ const SECRET_FIELDS = new Set(['TOKEN', 'PASSWORD', 'PRIVATE_KEY'])
 const revealed = reactive<Record<string, boolean>>({})
 
 /** The kind of credential the form offers, when a forge accepts more than one. */
-const credentialItems = computed(() => runnableCredentials.value.map(credential => ({ label: credentialLabel(credential.fields.map(field => field.field)), value: credential.kind })))
+const credentialItems = computed(() => runnableCredentials.value.map(credential => ({
+  label: credentialLabel(credential.fields.map(field => field.field)),
+  value: credential.kind,
+})))
 /** The name of the chosen credential, such as "Token" or "Username and password". */
-const credentialName = computed(() => selectedCredential.value ? credentialLabel(selectedCredential.value.fields.map(field => field.field)) : '')
+const credentialName = computed(() => selectedCredential.value
+  ? credentialLabel(selectedCredential.value.fields.map(field => field.field))
+  : '')
 /** Where to create the chosen credential, with the forge and kind the environment guide preselects. */
 const credentialWizard = computed(() => {
   const first = selectedCredential.value?.fields[0]
-  return first ? `/guides/environment?forge=${forge.value.forge}&auth=${first.field.toLowerCase()}` : '/guides/environment'
+  return first
+    ? `/guides/environment?forge=${forge.value.forge}&auth=${first.field.toLowerCase()}`
+    : '/guides/environment'
 })
 /** The chosen credential's fields, with the mask each one needs. */
 const credentialFields = computed(() => (selectedCredential.value?.fields ?? []).map(field => ({
@@ -112,7 +130,9 @@ const fields = computed(() => explorerFields(operation, input).map((field, index
     label: config.label,
     colour: PALETTE[index % PALETTE.length]!,
     items: config.items?.map(value => ({ label: value, value })),
-    hint: config.optional ? 'optional' : config.list ? 'comma-separated' : undefined,
+    hint: config.optional
+      ? 'optional'
+      : config.list ? 'comma-separated' : undefined,
     placeholder: config.placeholder,
   }
 }))
@@ -137,7 +157,9 @@ watch([open, forgeId], async ([isOpen, id]) => {
   }
   catch (caught) {
     if (forgeId.value === id) {
-      providerError.value = `The ${forge.value.name} provider failed to load: ${caught instanceof Error ? caught.message : String(caught)}`
+      providerError.value = `The ${forge.value.name} provider failed to load: ${caught instanceof Error
+        ? caught.message
+        : String(caught)}`
     }
   }
 }, { immediate: true })
@@ -148,10 +170,16 @@ const anonymousSupport = computed(() => loaded.value?.anonymous.support(operatio
 const signedInSupport = computed(() => loaded.value?.signedIn.support(operation.verb, kind.value))
 /** Support for the credential the form holds, or for an anonymous call when it holds none. */
 const activeSupport = computed(() => hasCredential.value ? signedInSupport.value : anonymousSupport.value)
-const unsupported = computed(() => loaded.value ? !loaded.value.signedIn.can(operation.verb, kind.value) : false)
-const unsupportedText = computed(() => signedInSupport.value === 'not_applicable' ? `${forge.value.name} has no` : `${forge.value.name} doesn't support`)
+const unsupported = computed(() => loaded.value
+  ? !loaded.value.signedIn.can(operation.verb, kind.value)
+  : false)
+const unsupportedText = computed(() => signedInSupport.value === 'not_applicable'
+  ? `${forge.value.name} has no`
+  : `${forge.value.name} doesn't support`)
 /** The call needs credentials on this forge, so the code passes `auth`. */
-const requiresCredentials = computed(() => operation.auth || Boolean(forge.value.signedIn) || (loaded.value ? !loaded.value.anonymous.can(operation.verb, kind.value) && !unsupported.value : false))
+const requiresCredentials = computed(() => operation.auth || Boolean(forge.value.signedIn) || (loaded.value
+  ? !loaded.value.anonymous.can(operation.verb, kind.value) && !unsupported.value
+  : false))
 /** The explorer can make this call here: with the credential it needs, or anonymously. */
 const supportedHere = computed(() => Boolean(operation.run) && !forge.value.blocked && !unsupported.value && activeSupport.value !== false && (!requiresCredentials.value || hasCredential.value))
 /** The scopes the call needs, from the provider that holds placeholder credentials. */
@@ -159,18 +187,30 @@ const credentialScopes = computed(() => {
   if (!requiresCredentials.value || !loaded.value) {
     return []
   }
-  const { token, permissions } = mergeScopes([loaded.value.signedIn.scopesFor(operation.verb)])
-  return [...token, ...permissions.map(([name]) => name)]
+  const { token, permissions } = mergeScopes([
+    loaded.value.signedIn.scopesFor(operation.verb),
+  ])
+  return [
+    ...token,
+    ...permissions.map(([name]) => name),
+  ]
 })
 
 /** Whether the form still points at the forge's sample repository, which the confirmation names. */
 const onSampleRepo = computed(() => input.owner === forge.value.sample.owner && input.name === forge.value.sample.name)
 /** What a write changes, for the confirmation: a repository, or the account for a call that takes no repo. */
-const writeTarget = computed(() => operation.uses === 'none' ? 'your account' : `${input.owner}/${input.name}`)
+const writeTarget = computed(() => operation.uses === 'none'
+  ? 'your account'
+  : `${input.owner}/${input.name}`)
 const confirmed = ref(false)
 const canRun = computed(() => supportedHere.value && (!operation.mutates || confirmed.value))
 
-watch([() => operation.verb, forgeId, () => input.owner, () => input.name], () => {
+watch([
+  () => operation.verb,
+  forgeId,
+  () => input.owner,
+  () => input.name,
+], () => {
   confirmed.value = false
 })
 
@@ -205,15 +245,25 @@ const notice = computed(() => {
 const missing = computed(() => explorerFields(operation, input).filter(field => !EXPLORER_FIELDS[field].optional && !input[field].trim()))
 const missingText = computed(() => new Intl.ListFormat('en', { type: 'conjunction' }).format(missing.value.map(field => EXPLORER_FIELDS[field].label)))
 
-const code = computed(() => explorerCode(operation, forge.value, input, hasCredential.value && selectedCredential.value ? selectedCredential.value : requiresCredentials.value))
+const code = computed(() => explorerCode(operation, forge.value, input, hasCredential.value && selectedCredential.value
+  ? selectedCredential.value
+  : requiresCredentials.value))
 const codeHtml = ref('')
 // Collapsed explorers build no code: a reference page has dozens of them.
 watch(() => open.value ? code.value : undefined, async (current) => {
   if (current) {
     const colours = new Map(fields.value.map(({ field, colour }) => [field, colour]))
     const decorations = [
-      ...current.values.map(({ field, start, end }) => ({ start, end, properties: { 'class': 'explorer-value', 'data-field': field, 'style': `--field: ${colours.get(field)}` } })),
-      ...current.symbols.map(({ id, start, end }) => ({ start, end, properties: { 'class': 'explorer-symbol', 'data-symbol': id, 'tabindex': -1 } })),
+      ...current.values.map(({ field, start, end }) => ({
+        start,
+        end,
+        properties: { 'class': 'explorer-value', 'data-field': field, 'style': `--field: ${colours.get(field)}` },
+      })),
+      ...current.symbols.map(({ id, start, end }) => ({
+        start,
+        end,
+        properties: { 'class': 'explorer-symbol', 'data-symbol': id, 'tabindex': -1 },
+      })),
     ]
     const html = await highlightExplorerCode(current.text, 'typescript', decorations)
     if (code.value === current) {
@@ -235,7 +285,9 @@ watch([activeField, codeHtml], () => {
 
 function onCodePointer(event: PointerEvent) {
   onHoverPointer(event)
-  const target = event.target instanceof Element ? event.target.closest<HTMLElement>('.explorer-value') : null
+  const target = event.target instanceof Element
+    ? event.target.closest<HTMLElement>('.explorer-value')
+    : null
   activeField.value = (target?.dataset.field as ExplorerField | undefined) ?? undefined
 }
 
@@ -277,12 +329,17 @@ async function run() {
     }
     const value = await operation.run(provider, { ...input }, explorerRefs(provider, input))
     if (current === runs) {
-      result.value = { value, ms: Math.round(performance.now() - started) }
+      result.value = {
+        value,
+        ms: Math.round(performance.now() - started),
+      }
     }
   }
   catch (caught) {
     if (current === runs) {
-      error.value = caught instanceof Error ? caught : new Error(String(caught))
+      error.value = caught instanceof Error
+        ? caught
+        : new Error(String(caught))
     }
   }
   finally {
@@ -298,9 +355,13 @@ function rawOf(value: unknown): unknown {
     if ('raw' in value) {
       return value.raw
     }
-    const items = 'items' in value && Array.isArray(value.items) ? value.items as unknown[] : []
+    const items = 'items' in value && Array.isArray(value.items)
+      ? value.items as unknown[]
+      : []
     if (items.some(item => item && typeof item === 'object' && 'raw' in item)) {
-      return items.map(item => (item && typeof item === 'object' && 'raw' in item ? item.raw : undefined))
+      return items.map(item => (item && typeof item === 'object' && 'raw' in item
+        ? item.raw
+        : undefined))
     }
   }
   return undefined
@@ -310,12 +371,24 @@ const status = computed(() => {
   if (running.value) {
     return `Running ${operation.verb}()…`
   }
-  return result.value ? `Done in ${result.value.ms} ms.` : ''
+  return result.value
+    ? `Done in ${result.value.ms} ms.`
+    : ''
 })
 
 const views = computed(() => [
-  { label: 'Normalised', value: 'normalised' as const, icon: 'i-lucide-layers', text: 'normalised' },
-  { label: `Raw from ${forge.value.name}`, value: 'raw' as const, icon: icons[forge.value.forge]!, text: 'raw' },
+  {
+    label: 'Normalised',
+    value: 'normalised' as const,
+    icon: 'i-lucide-layers',
+    text: 'normalised',
+  },
+  {
+    label: `Raw from ${forge.value.name}`,
+    value: 'raw' as const,
+    icon: icons[forge.value.forge]!,
+    text: 'raw',
+  },
 ])
 const hasRaw = computed(() => rawOf(result.value?.value) !== undefined)
 
@@ -354,11 +427,20 @@ watch([result, view, pageMembers], async () => {
   const array = /^(\w+)\[\]$/.exec(returns)
   const schema = page
     ? pageSchema(page[1]!, pageMembers.value)
-    : array ? { type: 'array', items: { $ref: `#/components/schemas/${array[1]}` } } : { $ref: `#/components/schemas/${returns}` }
+    : array
+      ? {
+          type: 'array',
+          items: { $ref: `#/components/schemas/${array[1]}` },
+        }
+      : { $ref: `#/components/schemas/${returns}` }
   const { text, keys } = raw
     ? annotateJson(rawOf(result.value.value), undefined, {}, false)
     : annotateJson(result.value.value, schema, await explorerSchemas(), true)
-  const decorations = keys.map(({ start, end }, index) => ({ start, end, properties: { 'class': 'explorer-key', 'data-key': index, 'tabindex': -1 } }))
+  const decorations = keys.map(({ start, end }, index) => ({
+    start,
+    end,
+    properties: { 'class': 'explorer-key', 'data-key': index, 'tabindex': -1 },
+  }))
   const html = await highlightExplorerCode(text, 'json', decorations)
   if (current === renders) {
     resultHtml.value = html
@@ -372,7 +454,9 @@ const hoveredInfo = computed((): { signature: string, description?: string } | u
   const { key, symbol } = hovered.value?.dataset ?? {}
   if (key !== undefined) {
     const info = resultKeys.value[Number(key)]
-    return info && { signature: `(property) ${info.owner ? `${info.owner}.` : ''}${info.name}${info.optional ? '?' : ''}: ${info.type}`, description: info.description }
+    return info && { signature: `(property) ${info.owner
+      ? `${info.owner}.`
+      : ''}${info.name}${info.optional ? '?' : ''}: ${info.type}`, description: info.description }
   }
   if (symbol?.startsWith('const:')) {
     // A constant the code declares, such as `const:result:Page<Thread>`, described by its type.
@@ -400,14 +484,18 @@ watch(hoveredInfo, async (info) => {
 })
 
 /** What a screen reader hears for the key or name that has focus. */
-const hoverAnnouncement = computed(() => hoveredInfo.value ? `${hoveredInfo.value.signature}. ${hoveredInfo.value.description ?? ''}` : '')
+const hoverAnnouncement = computed(() => hoveredInfo.value
+  ? `${hoveredInfo.value.signature}. ${hoveredInfo.value.description ?? ''}`
+  : '')
 
 const HOVERABLE = '.explorer-key, .explorer-symbol'
 
 /** Arrow keys move between the hoverable keys or names of a region, so their types are reachable without a pointer. */
 function onHoverKeydown(event: KeyboardEvent) {
   const region = event.currentTarget as HTMLElement
-  const targets = [...region.querySelectorAll<HTMLElement>(HOVERABLE)]
+  const targets = [
+    ...region.querySelectorAll<HTMLElement>(HOVERABLE),
+  ]
   if (!targets.length) {
     return
   }
@@ -417,7 +505,12 @@ function onHoverKeydown(event: KeyboardEvent) {
     return
   }
   const current = targets.indexOf(document.activeElement as HTMLElement)
-  const next = { ArrowDown: current + 1, ArrowUp: current - 1, Home: 0, End: targets.length - 1 }[event.key]
+  const next = {
+    ArrowDown: current + 1,
+    ArrowUp: current - 1,
+    Home: 0,
+    End: targets.length - 1,
+  }[event.key]
   if (next !== undefined) {
     event.preventDefault()
     targets[Math.max(0, Math.min(targets.length - 1, next))]!.focus()
@@ -425,12 +518,16 @@ function onHoverKeydown(event: KeyboardEvent) {
 }
 
 function onHoverFocus(event: FocusEvent) {
-  hovered.value = event.target instanceof HTMLElement && event.target.matches(HOVERABLE) ? event.target : null
+  hovered.value = event.target instanceof HTMLElement && event.target.matches(HOVERABLE)
+    ? event.target
+    : null
 }
 
 function onHoverPointer(event: PointerEvent) {
   if (event.pointerType !== 'touch') {
-    hovered.value = event.target instanceof Element ? event.target.closest<HTMLElement>(HOVERABLE) : null
+    hovered.value = event.target instanceof Element
+      ? event.target.closest<HTMLElement>(HOVERABLE)
+      : null
   }
 }
 
@@ -441,9 +538,22 @@ function descriptionParts(text: string) {
 
 /** A web URL of the forge's sample: a thread when the operation reads one, else the repository. */
 function exampleUrl(anonymous: ForgeProvider, { sample }: ExplorerForge): string | undefined {
-  const repo = { forge: anonymous.forge, instance: anonymous.instance, owner: sample.owner, name: sample.name }
-  return (operation.uses === 'thread' && anonymous.urlFor({ thread: { forge: anonymous.forge, instance: anonymous.instance, repo, kind: sample.kind as ThreadKind, number: sample.number } }))
-    || anonymous.urlFor({ repo })
+  const repo = {
+    forge: anonymous.forge,
+    instance: anonymous.instance,
+    owner: sample.owner,
+    name: sample.name,
+  }
+  return (operation.uses === 'thread' && anonymous.urlFor({
+    thread: {
+      forge: anonymous.forge,
+      instance: anonymous.instance,
+      repo,
+      kind: sample.kind as ThreadKind,
+      number: sample.number,
+    },
+  }))
+  || anonymous.urlFor({ repo })
 }
 
 const urlPlaceholder = computed(() => {
@@ -451,7 +561,9 @@ const urlPlaceholder = computed(() => {
     return 'Paste a URL'
   }
   const example = exampleUrl(anonymousProvider.value, forge.value)
-  return example ? `Paste a URL, such as ${example}` : `${forge.value.name} has no web URLs to paste`
+  return example
+    ? `Paste a URL, such as ${example}`
+    : `${forge.value.name} has no web URLs to paste`
 })
 
 const url = ref('')
@@ -485,7 +597,9 @@ async function fillFromUrl(text: string) {
     anonymous = (await explorerProviders(target.forge)).anonymous
   }
   catch (caught) {
-    urlError.value = `The ${target.name} provider failed to load: ${caught instanceof Error ? caught.message : String(caught)}`
+    urlError.value = `The ${target.name} provider failed to load: ${caught instanceof Error
+      ? caught.message
+      : String(caught)}`
     return
   }
   if (url.value.trim() !== text) {
@@ -493,7 +607,9 @@ async function fillFromUrl(text: string) {
   }
   const parsed = anonymous.parseUrl(text)
   if (!parsed) {
-    urlError.value = exampleUrl(anonymous, target) ? `${target.name} has no repository at that URL.` : `${target.name} has no web URLs to read.`
+    urlError.value = exampleUrl(anonymous, target)
+      ? `${target.name} has no repository at that URL.`
+      : `${target.name} has no web URLs to read.`
     return
   }
   // Start from the sample, and drop its values that only exist in its own repository, such as a commit sha.

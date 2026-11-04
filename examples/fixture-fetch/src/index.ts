@@ -29,7 +29,9 @@ function key(method: string, url: string, operationName?: string): string {
   const parsed = new URL(url)
   parsed.searchParams.sort()
   const base = `${method.toUpperCase()} ${parsed.origin}${parsed.pathname}${parsed.search}`
-  return operationName ? `${base} ${operationName}` : base
+  return operationName
+    ? `${base} ${operationName}`
+    : base
 }
 
 function operationOf(body: string | undefined): string | undefined {
@@ -74,19 +76,32 @@ export function fixtureFetch(
   const calls: FixtureCall[] = []
   const fetch: FetchLike = async (input, init) => {
     const method = (init?.method ?? 'GET').toUpperCase()
-    const body = typeof init?.body === 'string' ? init.body : undefined
-    const operationName = input.endsWith('/graphql') ? operationOf(body) : undefined
-    calls.push({ method, url: input, body, operationName })
+    const body = typeof init?.body === 'string'
+      ? init.body
+      : undefined
+    const operationName = input.endsWith('/graphql')
+      ? operationOf(body)
+      : undefined
+    calls.push({
+      method,
+      url: input,
+      body,
+      operationName,
+    })
 
     const response = responses.get(key(method, input, operationName))
     if (!response) {
-      throw new Error(`No fixture for ${method} ${input}${operationName ? ` (${operationName})` : ''}`)
+      throw new Error(`No fixture for ${method} ${input}${operationName
+        ? ` (${operationName})`
+        : ''}`)
     }
     const headers = new Headers(response.headers)
     if (response.body !== undefined && !headers.has('content-type')) {
       headers.set('content-type', 'application/json')
     }
-    const result = new Response(response.body === undefined ? null : JSON.stringify(response.body), {
+    const result = new Response(response.body === undefined
+      ? null
+      : JSON.stringify(response.body), {
       status: response.status,
       headers,
     })

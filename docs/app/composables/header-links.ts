@@ -2,12 +2,14 @@ export function useHeaderLinks() {
   const appConfig = useAppConfig()
   return computed(() => [
     ...(appConfig.github && appConfig.github.url
-      ? [{
-          'icon': 'i-simple-icons-github',
-          'to': appConfig.github.url,
-          'target': '_blank',
-          'aria-label': 'forges on GitHub',
-        }]
+      ? [
+          {
+            'icon': 'i-simple-icons-github',
+            'to': appConfig.github.url,
+            'target': '_blank',
+            'aria-label': 'forges on GitHub',
+          },
+        ]
       : []),
     {
       'icon': 'i-simple-icons-discord',

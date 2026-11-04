@@ -24,7 +24,11 @@ export function toFileContent(
   context?: { forge?: string, instance?: string },
 ): FileContent {
   return options?.as === 'text'
-    ? { ...file, content: decodeText(bytes, file.path, context), encoding: 'utf-8' }
+    ? {
+        ...file,
+        content: decodeText(bytes, file.path, context),
+        encoding: 'utf-8',
+      }
     : { ...file, content: bytes, encoding: 'binary' }
 }
 
@@ -40,7 +44,9 @@ export function decodeText(bytes: Uint8Array, what: string, context?: { forge?: 
 
 /** The bytes of a file to write, with a string encoded as UTF-8. */
 export function changeBytes(content: string | Uint8Array): Uint8Array {
-  return typeof content === 'string' ? new TextEncoder().encode(content) : content
+  return typeof content === 'string'
+    ? new TextEncoder().encode(content)
+    : content
 }
 
 /** Base64 of a file to write, with a string encoded as UTF-8. */
@@ -51,7 +57,9 @@ export function changeBase64(content: string | Uint8Array): string {
 /** The directory that holds `path`, or `''` at the root. */
 export function directoryOf(path: string): string {
   const index = path.lastIndexOf('/')
-  return index < 0 ? '' : path.slice(0, index)
+  return index < 0
+    ? ''
+    : path.slice(0, index)
 }
 
 /**
@@ -68,7 +76,11 @@ export async function existingFiles<T>(
   if (missing) {
     throw new NotFoundError(`${missing.path} does not exist, so it cannot be deleted`, 404, '', context)
   }
-  return new Map(found.flatMap(([path, file]) => file === undefined ? [] : [[path, file]]))
+  return new Map(found.flatMap(([path, file]) => file === undefined
+    ? []
+    : [
+        [path, file],
+      ]))
 }
 
 /**
@@ -90,7 +102,9 @@ export function inDirectories<T>(list: (directory: string) => Promise<Map<string
 export function splitMessage(message: string): { headline: string, body?: string } {
   const [headline = '', ...rest] = message.split('\n')
   const body = rest.join('\n').replace(/^\n+/, '')
-  return body ? { headline, body } : { headline }
+  return body
+    ? { headline, body }
+    : { headline }
 }
 
 /** True for a full SHA-1 or SHA-256 commit id, which needs no lookup to resolve. */

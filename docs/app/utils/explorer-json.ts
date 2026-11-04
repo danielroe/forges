@@ -23,15 +23,30 @@ export function pageSchema(item: string, members: Array<{ name: string, type: st
   const schemaOf = (type: string): Schema => {
     const array = /^(\w+)\[\]$/.exec(type)
     if (array) {
-      return { type: 'array', items: schemaOf(array[1] === 'T' ? item : array[1]!) }
+      return {
+        type: 'array',
+        items: schemaOf(array[1] === 'T'
+          ? item
+          : array[1]!),
+      }
     }
-    return /^[A-Z]/.test(type) ? { $ref: `${REF}${type === 'T' ? item : type}` } : { type }
+    return /^[A-Z]/.test(type)
+      ? { $ref: `${REF}${type === 'T'
+          ? item
+          : type}` }
+      : { type }
   }
   return {
     'x-forges-type': `Page<${item}>`,
     'type': 'object',
     'required': members.filter(member => !member.optional).map(member => member.name),
-    'properties': Object.fromEntries(members.map(member => [member.name, { ...schemaOf(member.type), description: member.description || undefined }])),
+    'properties': Object.fromEntries(members.map(member => [
+      member.name,
+      {
+        ...schemaOf(member.type),
+        description: member.description || undefined,
+      },
+    ])),
   }
 }
 
@@ -66,7 +81,9 @@ export function annotateJson(value: unknown, schema: Schema | undefined, schemas
         && ((variant.required as string[] | undefined) ?? []).every(key => key in object))
       return match && { owner: (match['x-forges-type'] as string | undefined) ?? owner, schema: match }
     }
-    return resolved.properties ? { owner, schema: resolved } : undefined
+    return resolved.properties
+      ? { owner, schema: resolved }
+      : undefined
   }
 
   const itemsOf = (entry: Schema | undefined): Schema | undefined => {
@@ -90,7 +107,9 @@ export function annotateJson(value: unknown, schema: Schema | undefined, schemas
       text += '['
       entry.forEach((item, index) => {
         text += `${index ? ',' : ''}\n${indent}  `
-        print(item === undefined ? null : item, items, `${indent}  `)
+        print(item === undefined
+          ? null
+          : item, items, `${indent}  `)
       })
       text += `\n${indent}]`
     }
@@ -112,11 +131,19 @@ export function annotateJson(value: unknown, schema: Schema | undefined, schemas
           keys.push({
             start: text.length,
             end: text.length + quoted.length,
-            info: { owner: matched?.owner, name: key, type: typeText(property, schemas), optional: !required.has(key), description: property.description ?? deref(property)?.description },
+            info: {
+              owner: matched?.owner,
+              name: key,
+              type: typeText(property, schemas),
+              optional: !required.has(key),
+              description: property.description ?? deref(property)?.description,
+            },
           })
         }
         text += `${quoted}: `
-        print(key === 'raw' && hideRaw ? '…' : field, property, `${indent}  `)
+        print(key === 'raw' && hideRaw
+          ? '…'
+          : field, property, `${indent}  `)
       })
       text += `\n${indent}}`
     }
@@ -148,8 +175,12 @@ function typeText(schema: Schema, schemas: Record<string, Schema>): string {
     return (variants as Schema[]).map(variant => typeText(variant, schemas)).join(' | ')
   }
   if (schema.type === 'array') {
-    const item = schema.items ? typeText(schema.items, schemas) : 'unknown'
-    return item.includes(' | ') ? `(${item})[]` : `${item}[]`
+    const item = schema.items
+      ? typeText(schema.items, schemas)
+      : 'unknown'
+    return item.includes(' | ')
+      ? `(${item})[]`
+      : `${item}[]`
   }
   if (schema.type === 'string' && schema.format === 'date-time') {
     return 'Date'
@@ -158,7 +189,9 @@ function typeText(schema: Schema, schemas: Record<string, Schema>): string {
     return 'number'
   }
   if (schema.type === 'object') {
-    return schema.properties ? `{ ${Object.keys(schema.properties).join(', ')} }` : 'Record<string, unknown>'
+    return schema.properties
+      ? `{ ${Object.keys(schema.properties).join(', ')} }`
+      : 'Record<string, unknown>'
   }
   if (Array.isArray(schema.type)) {
     return schema.type.join(' | ')
@@ -167,5 +200,7 @@ function typeText(schema: Schema, schemas: Record<string, Schema>): string {
 }
 
 function literal(value: unknown): string {
-  return typeof value === 'string' ? `'${value}'` : String(value)
+  return typeof value === 'string'
+    ? `'${value}'`
+    : String(value)
 }

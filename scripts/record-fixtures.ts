@@ -29,8 +29,35 @@ import { canReplay, fixtures } from './stabilise-recordings.ts'
 import { guardedFetch } from './write-guard.ts'
 import { writeHarness } from './write-harness.ts'
 
-const { positionals: [target], values: flags } = parseArgs({ allowPositionals: true, options: { 'anonymous': { type: 'boolean', default: false }, 'app': { type: 'boolean', default: false }, 'writes': { type: 'boolean', default: false }, 'webhooks': { type: 'boolean', default: false }, 'seed': { type: 'boolean', default: false }, 'only': { type: 'string', multiple: true }, 'allow-fewer': { type: 'boolean', default: false }, 'defer-splice': { type: 'boolean', default: false } } })
-const TOKEN_VARIABLES: Record<string, string> = { 'github': 'GITHUB_TOKEN', 'forgejo': 'CODEBERG_TOKEN', 'gitlab': 'GITLAB_TOKEN', 'bitbucket': 'BITBUCKET_TOKEN', 'cursor-origin': 'CURSOR_AUTH_TOKEN', 'gitee': 'GITEE_TOKEN', 'azure-devops': 'AZURE_DEVOPS_TOKEN', 'gitea': 'GITEA_TOKEN', 'pushin': 'PUSHIN_TOKEN', 'tangled': 'TANGLED_PASSWORD', 'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN', 'sourcehut': 'SOURCEHUT_TOKEN', 'entire': 'ENTIRE_TOKEN', 'gitbucket': 'GITBUCKET_TOKEN' }
+const { positionals: [target], values: flags } = parseArgs({
+  allowPositionals: true,
+  options: {
+    'anonymous': { type: 'boolean', default: false },
+    'app': { type: 'boolean', default: false },
+    'writes': { type: 'boolean', default: false },
+    'webhooks': { type: 'boolean', default: false },
+    'seed': { type: 'boolean', default: false },
+    'only': { type: 'string', multiple: true },
+    'allow-fewer': { type: 'boolean', default: false },
+    'defer-splice': { type: 'boolean', default: false },
+  },
+})
+const TOKEN_VARIABLES: Record<string, string> = {
+  'github': 'GITHUB_TOKEN',
+  'forgejo': 'CODEBERG_TOKEN',
+  'gitlab': 'GITLAB_TOKEN',
+  'bitbucket': 'BITBUCKET_TOKEN',
+  'cursor-origin': 'CURSOR_AUTH_TOKEN',
+  'gitee': 'GITEE_TOKEN',
+  'azure-devops': 'AZURE_DEVOPS_TOKEN',
+  'gitea': 'GITEA_TOKEN',
+  'pushin': 'PUSHIN_TOKEN',
+  'tangled': 'TANGLED_PASSWORD',
+  'cloudflare-artifacts': 'CLOUDFLARE_ARTIFACTS_TOKEN',
+  'sourcehut': 'SOURCEHUT_TOKEN',
+  'entire': 'ENTIRE_TOKEN',
+  'gitbucket': 'GITBUCKET_TOKEN',
+}
 
 if (!target || !(target in TOKEN_VARIABLES)) {
   console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
@@ -44,13 +71,17 @@ if (only && (flags.webhooks || flags.seed)) {
   console.error('--only records read or write steps. Webhook deliveries and the seed are recorded as a whole.')
   exit(1)
 }
-const unknown = [...only ?? []].filter(name => !selectable.some(step => step.name === name))
+const unknown = [
+  ...only ?? [],
+].filter(name => !selectable.some(step => step.name === name))
 if (unknown.length) {
   console.error(`No ${flags.writes ? 'write' : 'read'} steps named ${unknown.map(name => `\`${name}\``).join(', ')}.`)
   exit(1)
 }
 
-const app = flags.app ? githubApp() : undefined
+const app = flags.app
+  ? githubApp()
+  : undefined
 
 /** GitHub App credentials from `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY` (or `GITHUB_APP_PRIVATE_KEY_PATH`) and `GITHUB_APP_INSTALLATION_ID`. */
 function githubApp(): Forges.AppAuth & { installationId: string } {
@@ -59,7 +90,12 @@ function githubApp(): Forges.AppAuth & { installationId: string } {
     console.error('--app records GitHub only, and needs GITHUB_APP_ID, GITHUB_APP_PRIVATE_KEY or GITHUB_APP_PRIVATE_KEY_PATH, and GITHUB_APP_INSTALLATION_ID.')
     exit(1)
   }
-  return { type: 'app', appId: env.GITHUB_APP_ID, privateKey, installationId: env.GITHUB_APP_INSTALLATION_ID }
+  return {
+    type: 'app',
+    appId: env.GITHUB_APP_ID,
+    privateKey,
+    installationId: env.GITHUB_APP_INSTALLATION_ID,
+  }
 }
 
 /** Where the Origin CLI exchanges a personal Cursor API key for the short-lived user access token that Origin accepts. */
@@ -67,13 +103,23 @@ const CURSOR_API_KEY_EXCHANGE = 'https://api2.cursor.sh/auth/exchange_user_api_k
 
 /** Sets `CURSOR_AUTH_TOKEN` and `CURSOR_AUTH_BOT_TOKEN`, where unset, by exchanging `CURSOR_API_KEY` and `CURSOR_BOT_API_KEY`. */
 async function exchangeCursorApiKeys(): Promise<void> {
-  for (const [variable, key] of [['CURSOR_AUTH_TOKEN', 'CURSOR_API_KEY'], ['CURSOR_AUTH_BOT_TOKEN', 'CURSOR_BOT_API_KEY']] as const) {
+  for (const [variable, key] of [
+    ['CURSOR_AUTH_TOKEN', 'CURSOR_API_KEY'],
+    ['CURSOR_AUTH_BOT_TOKEN', 'CURSOR_BOT_API_KEY'],
+  ] as const) {
     const apiKey = env[key]
     if (env[variable] || !apiKey) {
       continue
     }
-    const response = await fetch(CURSOR_API_KEY_EXCHANGE, { method: 'POST', headers: { 'authorization': `Bearer ${apiKey}`, 'content-type': 'application/json' }, body: '{}', signal: AbortSignal.timeout(30_000) })
-    const { accessToken } = (response.ok ? await response.json() : {}) as { accessToken?: string }
+    const response = await fetch(CURSOR_API_KEY_EXCHANGE, {
+      method: 'POST',
+      headers: { 'authorization': `Bearer ${apiKey}`, 'content-type': 'application/json' },
+      body: '{}',
+      signal: AbortSignal.timeout(30_000),
+    })
+    const { accessToken } = (response.ok
+      ? await response.json()
+      : {}) as { accessToken?: string }
     if (!accessToken) {
       console.error(`Exchanging ${key} for a user access token failed with ${response.status}.`)
       exit(1)
@@ -91,9 +137,13 @@ if (target === 'cursor-origin' && !flags.anonymous) {
 
 const bitbucketBasic = !flags.anonymous && target === 'bitbucket' && env.BITBUCKET_USERNAME && env.BITBUCKET_APP_PASSWORD
 const codeForgejo = target === 'forgejo' && env.CODEBERG_BASE_URL?.startsWith('https://code.forgejo.org')
-const token = flags.anonymous || app ? undefined : (codeForgejo && env.CODE_FORGEJO_TOKEN) || env[TOKEN_VARIABLES[target] ?? '']
+const token = flags.anonymous || app
+  ? undefined
+  : (codeForgejo && env.CODE_FORGEJO_TOKEN) || env[TOKEN_VARIABLES[target] ?? '']
 if (!token && (target === 'cursor-origin' || target === 'cloudflare-artifacts')) {
-  console.error(flags.anonymous ? `${target} has no anonymous access.` : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
+  console.error(flags.anonymous
+    ? `${target} has no anonymous access.`
+    : `No ${TOKEN_VARIABLES[target]} in the environment or .env.`)
   exit(1)
 }
 const anonymous = !token && !bitbucketBasic && !app && !flags.writes && !flags.webhooks && !flags.seed
@@ -103,7 +153,9 @@ if (anonymous) {
 
 /** The example account id from Cloudflare's docs, so the real one stays out of recordings. */
 const ARTIFACTS_ACCOUNT = '023e105f4ecef8ad9ca31a8372d0c353'
-const artifactsAccount = target === 'cloudflare-artifacts' ? env.CLOUDFLARE_ARTIFACTS_ACCOUNT_ID : undefined
+const artifactsAccount = target === 'cloudflare-artifacts'
+  ? env.CLOUDFLARE_ARTIFACTS_ACCOUNT_ID
+  : undefined
 if (target === 'cloudflare-artifacts' && !artifactsAccount) {
   console.error('No CLOUDFLARE_ARTIFACTS_ACCOUNT_ID in the environment or .env.')
   exit(1)
@@ -121,7 +173,9 @@ async function liveFetch(input: string, init?: RequestInit): Promise<Response> {
     text = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
   }
   catch {}
-  const body = text === undefined ? bytes : text.replaceAll(artifactsAccount, ARTIFACTS_ACCOUNT)
+  const body = text === undefined
+    ? bytes
+    : text.replaceAll(artifactsAccount, ARTIFACTS_ACCOUNT)
   return new Response(bytes.length ? body : null, { status: response.status, statusText: response.statusText, headers: response.headers })
 }
 
@@ -136,7 +190,13 @@ let out = ''
  * deliveries replace the directory; other recordings update it step by step.
  */
 function useInstance(provider: Forges.ForgeProvider): void {
-  out = `${root}${provider.instance}${anonymous ? '-anonymous' : app ? '-app' : flags.writes ? '-writes' : flags.webhooks ? '-webhooks' : ''}/`
+  out = `${root}${provider.instance}${anonymous
+    ? '-anonymous'
+    : app
+      ? '-app'
+      : flags.writes
+        ? '-writes'
+        : flags.webhooks ? '-webhooks' : ''}/`
   if (flags.webhooks) {
     rmSync(out, { recursive: true, force: true })
   }
@@ -146,37 +206,78 @@ function useInstance(provider: Forges.ForgeProvider): void {
 let failures = 0
 
 /** Query parameters that sign a short-lived download URL, such as a release asset or a job log in blob storage. */
-const SIGNATURE_PARAMETERS = new Set(['sig', 'jwt', 'token', 'skoid', 'sktid', 'x-amz-signature', 'x-amz-credential', 'x-amz-security-token'])
+const SIGNATURE_PARAMETERS = new Set([
+  'sig',
+  'jwt',
+  'token',
+  'skoid',
+  'sktid',
+  'x-amz-signature',
+  'x-amz-credential',
+  'x-amz-security-token',
+])
 
 function unsign(url: string): string {
   const parsed = new URL(url)
   let signed = false
-  for (const key of [...parsed.searchParams.keys()]) {
+  for (const key of [
+    ...parsed.searchParams.keys(),
+  ]) {
     if (SIGNATURE_PARAMETERS.has(key.toLowerCase())) {
       parsed.searchParams.set(key, 'REDACTED')
       signed = true
     }
   }
-  return signed ? parsed.toString() : url
+  return signed
+    ? parsed.toString()
+    : url
 }
 
-const live = patientFetch(liveFetch, { writeGap: flags.writes || flags.webhooks || flags.seed ? 1000 : 0, timeout: 30_000, log: message => console.error(message) })
+const live = patientFetch(liveFetch, {
+  writeGap: flags.writes || flags.webhooks || flags.seed
+    ? 1000
+    : 0,
+  timeout: 30_000,
+  log: message => console.error(message),
+})
 
 const recorder = recordingFetch(async (input, init) => {
   const method = (init?.method ?? 'GET').toUpperCase()
   const response = await live.fetch(input, init)
-  console.info(`${response.status < 400 ? 'recorded' : 'error   '} ${response.status} ${method} ${unsign(input)}`)
+  console.info(`${response.status < 400
+    ? 'recorded'
+    : 'error   '} ${response.status} ${method} ${unsign(input)}`)
   return response
 }, ({ request, response }) => {
   const { body, encoding, headers, ...rest } = response
-  const kept = typeof body === 'string' && !encoding && body.length > LOG_LIMIT ? body.slice(0, LOG_LIMIT) : body
+  const kept = typeof body === 'string' && !encoding && body.length > LOG_LIMIT
+    ? body.slice(0, LOG_LIMIT)
+    : body
   return {
-    request: { ...request, url: unsign(request.url), ...request.body !== undefined && { body: redact(request.body) } },
+    request: {
+      ...request,
+      url: unsign(request.url),
+      ...request.body !== undefined && {
+        body: redact(request.body),
+      },
+    },
     response: {
       ...rest,
-      headers: headers?.location ? { ...headers, location: unsign(new URL(headers.location, request.url).toString()) } : headers,
+      headers: headers?.location
+        ? {
+            ...headers,
+            location: unsign(new URL(headers.location, request.url).toString()),
+          }
+        : headers,
       // A redirect body repeats the signed location and nothing reads it.
-      ...response.status >= 300 && response.status < 400 ? {} : { body: encoding ? body : redact(kept), ...encoding && { encoding } },
+      ...response.status >= 300 && response.status < 400
+        ? {}
+        : {
+            body: encoding
+              ? body
+              : redact(kept),
+            ...encoding && { encoding },
+          },
     },
   }
 }, { requestBodies: flags.writes })
@@ -201,7 +302,12 @@ function trackedContext<T extends object>(target: T): { context: T, run: (name: 
       const ok = await step(name, run)
       const needs = reads()
       if (ok) {
-        recorded.push({ name, recordedAt, needs, fixtures: recorder.fixtures.slice(start) })
+        recorded.push({
+          name,
+          recordedAt,
+          needs,
+          fixtures: recorder.fixtures.slice(start),
+        })
       }
       else {
         failed.push({ name, needs })
@@ -215,7 +321,13 @@ function trackedContext<T extends object>(target: T): { context: T, run: (name: 
 function writeSteps(options: { keepFailed?: boolean } = {}): void {
   const inSteps = new Set(recorded.flatMap(step => step.fixtures))
   const setup = recorder.fixtures.filter(fixture => !inSteps.has(fixture) && !discarded.has(fixture))
-  const result = writeRecording(out, { steps: recorded, failed, setup, only, ...options })
+  const result = writeRecording(out, {
+    steps: recorded,
+    failed,
+    setup,
+    only,
+    ...options,
+  })
   const list = (names: string[]) => names.map(name => `\n  ${name}`).join('')
   console.info(`${result.written.length} step(s) written, ${result.unchanged.length} unchanged apart from rate limits, counters and activity times.`)
   if (result.extra.length) {
@@ -241,7 +353,11 @@ function spliceSelected(recording: string, manifest: WriteManifest, selection: S
   const setup = recorder.fixtures.filter(fixture => !inSteps.has(fixture) && !discarded.has(fixture))
   const run = { manifest, steps: recorded, setup }
   if (flags['defer-splice']) {
-    writeFileSync(`${out}${PENDING_SPLICE}`, `${JSON.stringify({ ...run, only: [...selection], remove } satisfies PendingSplice)}\n`)
+    writeFileSync(`${out}${PENDING_SPLICE}`, `${JSON.stringify({
+      ...run,
+      only: [...selection],
+      remove,
+    } satisfies PendingSplice)}\n`)
     console.info(`Saved the run in ${out}${PENDING_SPLICE}, for \`node scripts/splice-partial.ts\` to splice into the committed recording.`)
     return true
   }
@@ -249,8 +365,12 @@ function spliceSelected(recording: string, manifest: WriteManifest, selection: S
 }
 
 export function failureMessage(error: unknown): string {
-  const message = error instanceof Error ? error.message : String(error)
-  const text = error instanceof ForgeApiError && error.body ? `${message}: ${error.body}` : message
+  const message = error instanceof Error
+    ? error.message
+    : String(error)
+  const text = error instanceof ForgeApiError && error.body
+    ? `${message}: ${error.body}`
+    : message
   return text.replace(/\s+/g, ' ').trim()
 }
 
@@ -285,13 +405,19 @@ async function dropPrivateTodos(baseUrl: string): Promise<void> {
   const visibility = new Map<string, Promise<boolean>>()
   const isPublic = (path: string) => {
     if (!visibility.has(path)) {
-      visibility.set(path, fetch(`${baseUrl}${path}`, { signal: AbortSignal.timeout(10_000) }).then(response => response.ok))
+      visibility.set(path, fetch(`${baseUrl}${path}`, {
+        signal: AbortSignal.timeout(10_000),
+      }).then(response => response.ok))
     }
     return visibility.get(path)!
   }
   const kept = []
   for (const todo of todos) {
-    const path = todo.project ? `/projects/${todo.project.id}` : todo.group ? `/groups/${todo.group.id}` : undefined
+    const path = todo.project
+      ? `/projects/${todo.project.id}`
+      : todo.group
+        ? `/groups/${todo.group.id}`
+        : undefined
     if (path && await isPublic(path)) {
       kept.push(todo)
     }
@@ -314,7 +440,13 @@ function ref(forge: string, instance: string, slug: string, kind: Forges.ThreadK
     return undefined
   }
   const [owner = '', name = ''] = slug.split('/')
-  return { forge, instance, repo: { forge, instance, owner, name }, kind, number }
+  return {
+    forge,
+    instance,
+    repo: { forge, instance, owner, name },
+    kind,
+    number,
+  }
 }
 
 function repoRef(forge: string, instance: string, slug: string): Forges.RepoRef {
@@ -328,8 +460,26 @@ function repoRef(forge: string, instance: string, slug: string): Forges.RepoRef 
  * reads that need setup the recorded repository lacks and for write recordings.
  */
 function setupRepos(prefix: string, toRef: (slug: string) => Forges.RepoRef): Pick<RecordingManifest, 'scratch' | 'alerts' | 'transfer' | 'collaborators'> {
-  const [scratch, alerts, transfer, collaborators] = ['SCRATCH', 'ALERTS', 'TRANSFER', 'COLLABORATOR'].map(kind => env[`FIXTURE_${prefix}_${kind}_REPO`])
-  return { ...scratch && { scratch: toRef(scratch) }, ...alerts && { alerts: toRef(alerts) }, ...transfer && { transfer: toRef(transfer) }, ...collaborators && { collaborators: toRef(collaborators) } }
+  const [scratch, alerts, transfer, collaborators] = [
+    'SCRATCH',
+    'ALERTS',
+    'TRANSFER',
+    'COLLABORATOR',
+  ].map(kind => env[`FIXTURE_${prefix}_${kind}_REPO`])
+  return {
+    ...scratch && {
+      scratch: toRef(scratch),
+    },
+    ...alerts && {
+      alerts: toRef(alerts),
+    },
+    ...transfer && {
+      transfer: toRef(transfer),
+    },
+    ...collaborators && {
+      collaborators: toRef(collaborators),
+    },
+  }
 }
 
 /** Long enough for `live` to wait out rate limits, which limits each attempt itself. */
@@ -346,7 +496,9 @@ interface Credentials {
 
 const readCredentials: Credentials = {
   token,
-  ...bitbucketBasic && { basic: { username: env.BITBUCKET_USERNAME!, password: env.BITBUCKET_APP_PASSWORD! } },
+  ...bitbucketBasic && {
+    basic: { username: env.BITBUCKET_USERNAME!, password: env.BITBUCKET_APP_PASSWORD! },
+  },
   ...app && { app },
   identifier: env.TANGLED_IDENTIFIER,
   pds: env.TANGLED_PDS,
@@ -354,8 +506,12 @@ const readCredentials: Credentials = {
 
 /** Who reviews in a write recording. A Tangled reviewer writes records into its own account, so it is a second bot rather than yours. */
 const reviewerCredentials: Credentials | undefined = target === 'tangled'
-  ? env.TANGLED_REVIEWER_PASSWORD ? { token: env.TANGLED_REVIEWER_PASSWORD, identifier: env.TANGLED_REVIEWER_IDENTIFIER, pds: env.TANGLED_REVIEWER_PDS } : undefined
-  : readCredentials.token || readCredentials.basic ? readCredentials : undefined
+  ? env.TANGLED_REVIEWER_PASSWORD
+    ? { token: env.TANGLED_REVIEWER_PASSWORD, identifier: env.TANGLED_REVIEWER_IDENTIFIER, pds: env.TANGLED_REVIEWER_PDS }
+    : undefined
+  : readCredentials.token || readCredentials.basic
+    ? readCredentials
+    : undefined
 
 interface Target {
   provider: Forges.ForgeProvider
@@ -368,42 +524,66 @@ interface Target {
 }
 
 function targetFor(credentials: Credentials, fetch: FetchLike): Target {
-  const tokenAuth = credentials.token ? { type: 'token' as const, token: credentials.token } : undefined
+  const tokenAuth = credentials.token
+    ? { type: 'token' as const, token: credentials.token }
+    : undefined
   switch (target) {
     case 'github': {
-      const provider = github({ baseUrl: env.GITHUB_BASE_URL, auth: credentials.app ?? tokenAuth, fetch, timeout })
+      const provider = github({
+        baseUrl: env.GITHUB_BASE_URL,
+        auth: credentials.app ?? tokenAuth,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_GITHUB_REPO ?? 'h3js/h3'
       const discussionSlug = env.FIXTURE_GITHUB_DISCUSSION_REPO ?? 'nuxt/nuxt'
-      return { provider, manifest: {
-        repo: repoRef('github', provider.instance, slug),
-        pull: ref('github', provider.instance, slug, 'pull_request', env.FIXTURE_GITHUB_PULL ?? '1000'),
-        issue: ref('github', provider.instance, slug, 'issue', env.FIXTURE_GITHUB_ISSUE ?? '1558'),
-        discussion: ref('github', provider.instance, discussionSlug, 'discussion', env.FIXTURE_GITHUB_DISCUSSION ?? '9303'),
-        feedUser: env.FIXTURE_GITHUB_FEED_USER ?? 'danielroe',
-        ...credentials.app && { installation: credentials.app.installationId },
-        ...setupRepos('GITHUB', slug => repoRef('github', provider.instance, slug)),
-      }, scrub: async () => dropPrivateEvents() }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('github', provider.instance, slug),
+          pull: ref('github', provider.instance, slug, 'pull_request', env.FIXTURE_GITHUB_PULL ?? '1000'),
+          issue: ref('github', provider.instance, slug, 'issue', env.FIXTURE_GITHUB_ISSUE ?? '1558'),
+          discussion: ref('github', provider.instance, discussionSlug, 'discussion', env.FIXTURE_GITHUB_DISCUSSION ?? '9303'),
+          feedUser: env.FIXTURE_GITHUB_FEED_USER ?? 'danielroe',
+          ...credentials.app && { installation: credentials.app.installationId },
+          ...setupRepos('GITHUB', slug => repoRef('github', provider.instance, slug)),
+        },
+        scrub: async () => dropPrivateEvents(),
+      }
     }
     case 'bitbucket': {
       const provider = bitbucket({
-        auth: credentials.basic ? { type: 'basic', ...credentials.basic } : tokenAuth,
+        auth: credentials.basic
+          ? { type: 'basic', ...credentials.basic }
+          : tokenAuth,
         baseUrl: env.BITBUCKET_BASE_URL,
         fetch,
         timeout,
       })
       const slug = env.FIXTURE_BITBUCKET_REPO ?? 'neelabo/neeview'
-      return { provider, manifest: {
-        repo: repoRef('bitbucket', provider.instance, slug),
-        pull: ref('bitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_BITBUCKET_PULL ?? '37'),
-        ...setupRepos('BITBUCKET', slug => repoRef('bitbucket', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('bitbucket', provider.instance, slug),
+          pull: ref('bitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_BITBUCKET_PULL ?? '37'),
+          ...setupRepos('BITBUCKET', slug => repoRef('bitbucket', provider.instance, slug)),
+        },
+      }
     }
     case 'tangled': {
       const messages: unknown[] = []
       const provider = tangled({
         baseUrl: env.TANGLED_BASE_URL,
         recordsUrl: env.TANGLED_RECORDS_URL,
-        ...credentials.token && { auth: { type: 'app_password', identifier: credentials.identifier ?? '', password: credentials.token, pds: credentials.pds }, notificationsUrl: env.TANGLED_NOTIFICATIONS_URL },
+        ...credentials.token && {
+          auth: {
+            type: 'app_password',
+            identifier: credentials.identifier ?? '',
+            password: credentials.token,
+            pds: credentials.pds,
+          },
+          notificationsUrl: env.TANGLED_NOTIFICATIONS_URL,
+        },
         fetch,
         timeout,
         webSocket: (url) => {
@@ -412,9 +592,26 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           return socket as unknown as Forges.WebSocketLike
         },
       })
-      const placeholder = { forge: 'tangled', instance: provider.instance, owner: '', name: '' }
-      const issue: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'issue', number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y' }
-      const pull: Forges.ThreadRef = { forge: 'tangled', instance: provider.instance, repo: placeholder, kind: 'pull_request', number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22' }
+      const placeholder = {
+        forge: 'tangled',
+        instance: provider.instance,
+        owner: '',
+        name: '',
+      }
+      const issue: Forges.ThreadRef = {
+        forge: 'tangled',
+        instance: provider.instance,
+        repo: placeholder,
+        kind: 'issue',
+        number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y',
+      }
+      const pull: Forges.ThreadRef = {
+        forge: 'tangled',
+        instance: provider.instance,
+        repo: placeholder,
+        kind: 'pull_request',
+        number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22',
+      }
       const manifest: Target['manifest'] = {
         repo: placeholder,
         pull,
@@ -428,7 +625,10 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         provider,
         manifest,
         prepare: async (recorded) => {
-          const [pullThread, issueThread] = await Promise.all([provider.threads.get(pull), provider.threads.get(issue)])
+          const [pullThread, issueThread] = await Promise.all([
+            provider.threads.get(pull),
+            provider.threads.get(issue),
+          ])
           recorded.repo = pullThread.ref.repo
           recorded.pull = pullThread.ref
           recorded.issue = issueThread.ref
@@ -457,55 +657,112 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
     }
     case 'azure-devops': {
       // A new organisation cannot have public projects, so anonymous recordings read a public one elsewhere.
-      const fixture = (name: string, publicDefault: string) => anonymous ? env[`FIXTURE_AZURE_DEVOPS_ANONYMOUS_${name}`] ?? publicDefault : env[`FIXTURE_AZURE_DEVOPS_${name}`] ?? ''
+      const fixture = (name: string, publicDefault: string) => anonymous
+        ? env[`FIXTURE_AZURE_DEVOPS_ANONYMOUS_${name}`] ?? publicDefault
+        : env[`FIXTURE_AZURE_DEVOPS_${name}`] ?? ''
       const organization = fixture('ORGANIZATION', 'dnceng-public')
-      const provider = azureDevOps({ auth: tokenAuth, organization, fetch, timeout })
+      const provider = azureDevOps({
+        auth: tokenAuth,
+        organization,
+        fetch,
+        timeout,
+      })
       const projectRepo = (slug: string) => {
         const [project = '', name = ''] = slug.split('/')
-        return { forge: 'azure-devops', instance: provider.instance, owner: `${organization}/${project}`, name }
+        return {
+          forge: 'azure-devops',
+          instance: provider.instance,
+          owner: `${organization}/${project}`,
+          name,
+        }
       }
       const repo = projectRepo(`${fixture('PROJECT', 'public')}/${fixture('REPO', 'dotnet-public-wiki')}`)
       const issue = fixture('ISSUE', '')
-      return { provider, manifest: {
-        repo,
-        pull: { forge: 'azure-devops', instance: provider.instance, repo, kind: 'pull_request', number: fixture('PULL', '5') || '1' },
-        issue: issue ? { forge: 'azure-devops', instance: provider.instance, repo, kind: 'issue', number: issue } : undefined,
-        ...setupRepos('AZURE_DEVOPS', projectRepo),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo,
+          pull: {
+            forge: 'azure-devops',
+            instance: provider.instance,
+            repo,
+            kind: 'pull_request',
+            number: fixture('PULL', '5') || '1',
+          },
+          issue: issue
+            ? {
+                forge: 'azure-devops',
+                instance: provider.instance,
+                repo,
+                kind: 'issue',
+                number: issue,
+              }
+            : undefined,
+          ...setupRepos('AZURE_DEVOPS', projectRepo),
+        },
+      }
     }
     case 'gitee': {
       const provider = gitee({ auth: tokenAuth, fetch, timeout })
       const slug = env.FIXTURE_GITEE_REPO ?? 'cmcc-oneos/OneOS'
-      return { provider, manifest: {
-        repo: repoRef('gitee', provider.instance, slug),
-        pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '540'),
-        issue: ref('gitee', provider.instance, slug, 'issue', env.FIXTURE_GITEE_ISSUE ?? 'I8NUPF'),
-        feedUser: env.FIXTURE_GITEE_FEED_USER,
-        ...setupRepos('GITEE', slug => repoRef('gitee', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('gitee', provider.instance, slug),
+          pull: ref('gitee', provider.instance, slug, 'pull_request', env.FIXTURE_GITEE_PULL ?? '540'),
+          issue: ref('gitee', provider.instance, slug, 'issue', env.FIXTURE_GITEE_ISSUE ?? 'I8NUPF'),
+          feedUser: env.FIXTURE_GITEE_FEED_USER,
+          ...setupRepos('GITEE', slug => repoRef('gitee', provider.instance, slug)),
+        },
+      }
     }
     case 'cursor-origin': {
       const provider = cursorOrigin({ auth: tokenAuth!, fetch, timeout })
       const slug = env.FIXTURE_CURSOR_ORIGIN_REPO ?? 'forges/forges-fixtures'
-      return { provider, manifest: {
-        repo: repoRef('cursor-origin', provider.instance, slug),
-        pull: ref('cursor-origin', provider.instance, slug, 'pull_request', env.FIXTURE_CURSOR_ORIGIN_PULL ?? '4'),
-        ...setupRepos('CURSOR_ORIGIN', slug => repoRef('cursor-origin', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('cursor-origin', provider.instance, slug),
+          pull: ref('cursor-origin', provider.instance, slug, 'pull_request', env.FIXTURE_CURSOR_ORIGIN_PULL ?? '4'),
+          ...setupRepos('CURSOR_ORIGIN', slug => repoRef('cursor-origin', provider.instance, slug)),
+        },
+      }
     }
     case 'gitlab': {
-      const provider = gitlab({ baseUrl: env.GITLAB_BASE_URL, auth: tokenAuth, fetch, timeout })
+      const provider = gitlab({
+        baseUrl: env.GITLAB_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
       const projectRepo = (project: string) => {
         const slash = project.lastIndexOf('/')
-        return { forge: 'gitlab', instance: provider.instance, owner: project.slice(0, slash), name: project.slice(slash + 1) }
+        return {
+          forge: 'gitlab',
+          instance: provider.instance,
+          owner: project.slice(0, slash),
+          name: project.slice(slash + 1),
+        }
       }
       const repo = projectRepo(env.FIXTURE_GITLAB_PROJECT ?? 'gitlab-org/cli')
       return {
         provider,
         manifest: {
           repo,
-          pull: { forge: 'gitlab', instance: provider.instance, repo, kind: 'pull_request', number: env.FIXTURE_GITLAB_MR ?? '3988' },
-          issue: { forge: 'gitlab', instance: provider.instance, repo, kind: 'issue', number: env.FIXTURE_GITLAB_ISSUE ?? '8572' },
+          pull: {
+            forge: 'gitlab',
+            instance: provider.instance,
+            repo,
+            kind: 'pull_request',
+            number: env.FIXTURE_GITLAB_MR ?? '3988',
+          },
+          issue: {
+            forge: 'gitlab',
+            instance: provider.instance,
+            repo,
+            kind: 'issue',
+            number: env.FIXTURE_GITLAB_ISSUE ?? '8572',
+          },
           feedUser: env.FIXTURE_GITLAB_FEED_USER ?? 'danielroe',
           ...setupRepos('GITLAB', projectRepo),
         },
@@ -513,69 +770,142 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       }
     }
     case 'gitea': {
-      const provider = gitea({ baseUrl: env.GITEA_BASE_URL, auth: tokenAuth, fetch, timeout })
+      const provider = gitea({
+        baseUrl: env.GITEA_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_GITEA_REPO ?? 'gitea/tea'
-      return { provider, manifest: {
-        repo: repoRef('gitea', provider.instance, slug),
-        pull: ref('gitea', provider.instance, slug, 'pull_request', env.FIXTURE_GITEA_PULL ?? '1099'),
-        issue: ref('gitea', provider.instance, slug, 'issue', env.FIXTURE_GITEA_ISSUE ?? '1095'),
-        feedUser: env.FIXTURE_GITEA_FEED_USER ?? 'danielroe',
-        ...setupRepos('GITEA', slug => repoRef('gitea', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('gitea', provider.instance, slug),
+          pull: ref('gitea', provider.instance, slug, 'pull_request', env.FIXTURE_GITEA_PULL ?? '1099'),
+          issue: ref('gitea', provider.instance, slug, 'issue', env.FIXTURE_GITEA_ISSUE ?? '1095'),
+          feedUser: env.FIXTURE_GITEA_FEED_USER ?? 'danielroe',
+          ...setupRepos('GITEA', slug => repoRef('gitea', provider.instance, slug)),
+        },
+      }
     }
     case 'gitbucket': {
       // The server listens on a local port, which a recording's directory and refs do not name.
-      const provider = gitbucket({ baseUrl: env.GITBUCKET_BASE_URL ?? 'http://127.0.0.1:8080', instance: 'gitbucket.test', auth: tokenAuth, fetch, timeout })
+      const provider = gitbucket({
+        baseUrl: env.GITBUCKET_BASE_URL ?? 'http://127.0.0.1:8080',
+        instance: 'gitbucket.test',
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_GITBUCKET_REPO ?? 'forges/forges-fixtures'
-      return { provider, manifest: {
-        instance: provider.instance,
-        repo: repoRef('gitbucket', provider.instance, slug),
-        pull: ref('gitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_GITBUCKET_PULL ?? '2'),
-        issue: ref('gitbucket', provider.instance, slug, 'issue', env.FIXTURE_GITBUCKET_ISSUE ?? '1'),
-        feedUser: env.FIXTURE_GITBUCKET_FEED_USER,
-        ...setupRepos('GITBUCKET', slug => repoRef('gitbucket', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          instance: provider.instance,
+          repo: repoRef('gitbucket', provider.instance, slug),
+          pull: ref('gitbucket', provider.instance, slug, 'pull_request', env.FIXTURE_GITBUCKET_PULL ?? '2'),
+          issue: ref('gitbucket', provider.instance, slug, 'issue', env.FIXTURE_GITBUCKET_ISSUE ?? '1'),
+          feedUser: env.FIXTURE_GITBUCKET_FEED_USER,
+          ...setupRepos('GITBUCKET', slug => repoRef('gitbucket', provider.instance, slug)),
+        },
+      }
     }
     case 'pushin': {
-      const provider = pushin({ baseUrl: env.PUSHIN_BASE_URL, auth: tokenAuth, fetch, timeout })
+      const provider = pushin({
+        baseUrl: env.PUSHIN_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_PUSHIN_REPO ?? 'pjullrich/pushin-cli'
-      return { provider, manifest: {
-        repo: repoRef('pushin', provider.instance, slug),
-        issue: ref('pushin', provider.instance, slug, 'issue', env.FIXTURE_PUSHIN_ISSUE ?? '2'),
-        pull: ref('pushin', provider.instance, env.FIXTURE_PUSHIN_PULL_REPO ?? 'danielroe/roe.dev-test', 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '1'),
-        ...setupRepos('PUSHIN', slug => repoRef('pushin', provider.instance, slug)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('pushin', provider.instance, slug),
+          issue: ref('pushin', provider.instance, slug, 'issue', env.FIXTURE_PUSHIN_ISSUE ?? '2'),
+          pull: ref('pushin', provider.instance, env.FIXTURE_PUSHIN_PULL_REPO ?? 'danielroe/roe.dev-test', 'pull_request', env.FIXTURE_PUSHIN_PULL ?? '1'),
+          ...setupRepos('PUSHIN', slug => repoRef('pushin', provider.instance, slug)),
+        },
+      }
     }
     case 'cloudflare-artifacts': {
-      const provider = cloudflareArtifacts({ accountId: ARTIFACTS_ACCOUNT, auth: tokenAuth!, fetch, timeout })
-      return { provider, manifest: { repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges') } }
+      const provider = cloudflareArtifacts({
+        accountId: ARTIFACTS_ACCOUNT,
+        auth: tokenAuth!,
+        fetch,
+        timeout,
+      })
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('cloudflare-artifacts', provider.instance, env.FIXTURE_CLOUDFLARE_ARTIFACTS_REPO ?? 'forges-fixtures/forges'),
+        },
+      }
     }
     case 'sourcehut': {
-      const provider = sourcehut({ baseUrl: env.SOURCEHUT_BASE_URL, auth: tokenAuth!, fetch, timeout })
+      const provider = sourcehut({
+        baseUrl: env.SOURCEHUT_BASE_URL,
+        auth: tokenAuth!,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_SOURCEHUT_REPO ?? '~sircmpwn/scdoc'
       // Patchsets live on a mailing list, so the pull ref names a list, not a git repository.
       const list = env.FIXTURE_SOURCEHUT_LIST ?? '~sircmpwn/sr.ht-dev'
-      return { provider, manifest: {
-        repo: repoRef('sourcehut', provider.instance, slug),
-        issue: ref('sourcehut', provider.instance, slug, 'issue', env.FIXTURE_SOURCEHUT_ISSUE ?? '6'),
-        pull: ref('sourcehut', provider.instance, list, 'pull_request', env.FIXTURE_SOURCEHUT_PATCHSET ?? '71657'),
-        ...setupRepos('SOURCEHUT', value => repoRef('sourcehut', provider.instance, value)),
-      } }
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('sourcehut', provider.instance, slug),
+          issue: ref('sourcehut', provider.instance, slug, 'issue', env.FIXTURE_SOURCEHUT_ISSUE ?? '6'),
+          pull: ref('sourcehut', provider.instance, list, 'pull_request', env.FIXTURE_SOURCEHUT_PATCHSET ?? '71657'),
+          ...setupRepos('SOURCEHUT', value => repoRef('sourcehut', provider.instance, value)),
+        },
+      }
     }
     case 'entire': {
-      const provider = entire({ baseUrl: env.ENTIRE_BASE_URL, auth: tokenAuth!, fetch, timeout })
+      const provider = entire({
+        baseUrl: env.ENTIRE_BASE_URL,
+        auth: tokenAuth!,
+        fetch,
+        timeout,
+      })
       const [project = '', name = ''] = (env.FIXTURE_ENTIRE_REPO ?? 'forges/forges-fixtures').split('/')
-      const repo = { forge: 'entire', instance: provider.instance, owner: project, name }
-      return { provider, manifest: {
-        repo,
-        // Project trails stand in for issues, so the issue ref names the project rather than a repository.
-        issue: { forge: 'entire', instance: provider.instance, repo: { ...repo, name: '', kind: 'namespace' }, kind: 'issue', number: env.FIXTURE_ENTIRE_ISSUE ?? '1' },
-        pull: { forge: 'entire', instance: provider.instance, repo, kind: 'pull_request', number: env.FIXTURE_ENTIRE_PULL ?? '1' },
-        ...setupRepos('ENTIRE', slug => repoRef('entire', provider.instance, slug)),
-      } }
+      const repo = {
+        forge: 'entire',
+        instance: provider.instance,
+        owner: project,
+        name,
+      }
+      return {
+        provider,
+        manifest: {
+          repo,
+          // Project trails stand in for issues, so the issue ref names the project rather than a repository.
+          issue: {
+            forge: 'entire',
+            instance: provider.instance,
+            repo: { ...repo, name: '', kind: 'namespace' },
+            kind: 'issue',
+            number: env.FIXTURE_ENTIRE_ISSUE ?? '1',
+          },
+          pull: {
+            forge: 'entire',
+            instance: provider.instance,
+            repo,
+            kind: 'pull_request',
+            number: env.FIXTURE_ENTIRE_PULL ?? '1',
+          },
+          ...setupRepos('ENTIRE', slug => repoRef('entire', provider.instance, slug)),
+        },
+      }
     }
     default: {
-      const provider = forgejo({ baseUrl: env.CODEBERG_BASE_URL, auth: tokenAuth, fetch, timeout })
+      const provider = forgejo({
+        baseUrl: env.CODEBERG_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
       const slug = env.FIXTURE_FORGEJO_REPO ?? (codeForgejo ? 'forgejo/runner' : 'forgejo/forgejo')
       return {
         provider,
@@ -634,12 +964,34 @@ function scratchSetup(mode: string) {
     console.error('Write recordings only write to repositories whose names include `forges-fixtures`.')
     exit(1)
   }
-  const harness = writeHarness({ forge: target!, baseUrl: probe.baseUrl, authorization: authorizationFor(botToken), scratch, transfer, collaborators, read: target === 'tangled' ? tangled({}) : undefined, threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean), ...target === 'tangled' && botToken && env.TANGLED_BOT_IDENTIFIER && { account: { identifier: env.TANGLED_BOT_IDENTIFIER, password: botToken, pds: env.TANGLED_BOT_PDS } } })
+  const harness = writeHarness({
+    forge: target!,
+    baseUrl: probe.baseUrl,
+    authorization: authorizationFor(botToken),
+    scratch,
+    transfer,
+    collaborators,
+    read: target === 'tangled'
+      ? tangled({})
+      : undefined,
+    threads: [env[`FIXTURE_${prefix}_SCRATCH_PULL`] ?? ''].filter(Boolean),
+    ...target === 'tangled' && botToken && env.TANGLED_BOT_IDENTIFIER && {
+      account: { identifier: env.TANGLED_BOT_IDENTIFIER, password: botToken, pds: env.TANGLED_BOT_PDS },
+    },
+  })
   if (!harness) {
     console.error(`${target} has no write recording setup.`)
     exit(1)
   }
-  return { prefix, botToken, probe, scratch, transfer, collaborators, harness }
+  return {
+    prefix,
+    botToken,
+    probe,
+    scratch,
+    transfer,
+    collaborators,
+    harness,
+  }
 }
 
 /** The block and unblock URLs of one account, for the scratch repository's owner and for the bot itself, as GitHub, Gitea and Forgejo spell them. */
@@ -650,13 +1002,24 @@ function blockPaths(baseUrl: string, owner: string, login: string): string[] {
 
 async function recordWrites(): Promise<void> {
   const { prefix, botToken, probe, scratch, transfer, collaborators, harness } = scratchSetup('--writes')
-  const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
+  const guard = {
+    scope: harness.scope,
+    allows: harness.allows,
+    repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined),
+  }
   const blocked = env[`FIXTURE_${prefix}_BLOCKED_USER`]
-  const blocks = blocked ? blockPaths(probe.baseUrl, scratch.owner, blocked) : []
-  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(recordLive, { ...guard, account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`, ...blocks] }))
+  const blocks = blocked
+    ? blockPaths(probe.baseUrl, scratch.owner, blocked)
+    : []
+  const author = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(recordLive, {
+    ...guard,
+    account: [`${probe.baseUrl}/notifications`, `${probe.baseUrl}/todos`, ...blocks],
+  }))
   const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(recordLive, guard)).provider
   useInstance(author.provider)
-  const recording = out.startsWith(fixtures) ? out.slice(fixtures.length, -1) : undefined
+  const recording = out.startsWith(fixtures)
+    ? out.slice(fixtures.length, -1)
+    : undefined
   if (only && (!recording || !existsSync(`${out}manifest.json`))) {
     console.error(`--only adds steps to a write recording under test/fixtures/, and ${out} is not one. Record every step instead of passing --only.`)
     exit(1)
@@ -676,13 +1039,22 @@ async function recordWrites(): Promise<void> {
     ...env[`FIXTURE_${prefix}_SCRATCH_PULL`] && { pull: env[`FIXTURE_${prefix}_SCRATCH_PULL`] },
     ...blocked && { blocked },
     // Codeberg refuses a new issue or pull request when the account opened two with similar titles in the last hour.
-    ...new URL(probe.baseUrl).hostname === 'codeberg.org' && { salt: randomBytes(16).toString('hex') },
+    ...new URL(probe.baseUrl).hostname === 'codeberg.org' && {
+      salt: randomBytes(16).toString('hex'),
+    },
   }
   await harness.cleanUp([], undefined, [])
-  for (const [index, branch] of harness.createBranch ? run.branches.entries() : []) {
+  for (const [index, branch] of harness.createBranch
+    ? run.branches.entries()
+    : []) {
     await harness.createBranch!(run.base, branch, run.files[index]!)
   }
-  for (const tag of harness.createTag ? [fixtureTag(run, 'draft'), fixtureTag(run)] : []) {
+  for (const tag of harness.createTag
+    ? [
+        fixtureTag(run, 'draft'),
+        fixtureTag(run),
+      ]
+    : []) {
     await harness.createTag!(run.base, tag)
   }
 
@@ -702,13 +1074,21 @@ async function recordWrites(): Promise<void> {
     collaborators,
     run,
   }
-  const { context, run: recordStep } = trackedContext<WriteContext>({ pulls: [], comments: {}, wait: ms => new Promise(resolve => setTimeout(resolve, ms)) })
+  const { context, run: recordStep } = trackedContext<WriteContext>({
+    pulls: [],
+    comments: {},
+    wait: ms => new Promise(resolve => setTimeout(resolve, ms)),
+  })
   const succeeded = (name: string) => recorded.some(step => step.name === name)
-  const last = only ? Math.max(...[...only].map(name => WRITE_STEPS.findIndex(step => step.name === name))) : WRITE_STEPS.length - 1
+  const last = only
+    ? Math.max(...[...only].map(name => WRITE_STEPS.findIndex(step => step.name === name)))
+    : WRITE_STEPS.length - 1
   const inapplicable = new Set<string>()
   try {
     for (const item of WRITE_STEPS.slice(0, last + 1)) {
-      const provider = item.as === 'reviewer' ? reviewer : author.provider
+      const provider = item.as === 'reviewer'
+        ? reviewer
+        : author.provider
       if (!provider?.can(item.verb, item.kind) || item.when?.(provider, manifest) === false) {
         inapplicable.add(item.name)
         continue
@@ -721,7 +1101,12 @@ async function recordWrites(): Promise<void> {
     }
   }
   finally {
-    await harness.cleanUp([...run.branches, filesBranch(run)], fixtureLabel(run), context.webhook && !succeeded('delete webhook') ? [context.webhook.ref.id] : [])
+    await harness.cleanUp([
+      ...run.branches,
+      filesBranch(run),
+    ], fixtureLabel(run), context.webhook && !succeeded('delete webhook')
+      ? [context.webhook.ref.id]
+      : [])
     if (collaborators && context.reviewer && succeeded('add collaborator')) {
       await harness.removeCollaborator?.(collaborators, context.reviewer.id)
     }
@@ -740,7 +1125,9 @@ async function recordWrites(): Promise<void> {
     if (selectedFailures.length) {
       console.error(`These selected steps failed, so they were not written:${list(selectedFailures)}`)
     }
-    process.exitCode = spliceSelected(recording!, manifest, only) && !skipped.length && !selectedFailures.length ? 0 : 1
+    process.exitCode = spliceSelected(recording!, manifest, only) && !skipped.length && !selectedFailures.length
+      ? 0
+      : 1
     return
   }
   const missing = recordedSteps(out).map(step => step.name).filter(name => !succeeded(name))
@@ -763,21 +1150,47 @@ async function recordWrites(): Promise<void> {
 async function recordReads(): Promise<void> {
   const { provider, manifest: partial, prepare, after, scrub } = targetFor(readCredentials, recordLive)
   useInstance(provider)
-  const previous = only && existsSync(`${out}manifest.json`) ? JSON.parse(readFileSync(`${out}manifest.json`, 'utf8')) as RecordingManifest : undefined
-  const committedRepos = Object.fromEntries((['scratch', 'alerts', 'transfer', 'collaborators'] as const).flatMap(key => previous?.[key] && !partial[key] ? [[key, previous[key]]] : []))
-  const manifest: RecordingManifest = { baseUrl: provider.baseUrl, ...(anonymous && { anonymous }), ...partial, ...committedRepos }
+  const previous = only && existsSync(`${out}manifest.json`)
+    ? JSON.parse(readFileSync(`${out}manifest.json`, 'utf8')) as RecordingManifest
+    : undefined
+  const committedRepos = Object.fromEntries(([
+    'scratch',
+    'alerts',
+    'transfer',
+    'collaborators',
+  ] as const).flatMap(key => previous?.[key] && !partial[key]
+    ? [
+        [key, previous[key]],
+      ]
+    : []))
+  const manifest: RecordingManifest = {
+    baseUrl: provider.baseUrl,
+    ...(anonymous && { anonymous }),
+    ...partial,
+    ...committedRepos,
+  }
   await prepare?.(manifest)
   const json = `${JSON.stringify(manifest, null, 2)}\n`
-  const differing = previous ? differingKeys({ ...previous }, JSON.parse(json) as Record<string, unknown>) : []
+  const differing = previous
+    ? differingKeys({ ...previous }, JSON.parse(json) as Record<string, unknown>)
+    : []
   if (differing.length) {
     console.error(`${differing.map(key => `\`${key}\``).join(', ')} differ from ${out}manifest.json, so the other steps would no longer match. Record every step instead of passing --only.`)
     exit(1)
   }
   const planned = only && connectedSteps(out, only)
-  const last = planned ? Math.max(...[...planned].map(name => STEPS.findIndex(step => step.name === name))) : STEPS.length - 1
+  const last = planned
+    ? Math.max(...[...planned].map(name => STEPS.findIndex(step => step.name === name)))
+    : STEPS.length - 1
   const { context, run: recordStep } = trackedContext<StepContext>({})
   for (const item of STEPS.slice(0, last + 1)) {
-    const thread = item.kind === 'issue' ? manifest.issue : item.kind === 'discussion' ? manifest.discussion : item.kind === 'pull_request' ? manifest.pull : true
+    const thread = item.kind === 'issue'
+      ? manifest.issue
+      : item.kind === 'discussion'
+        ? manifest.discussion
+        : item.kind === 'pull_request'
+          ? manifest.pull
+          : true
     if (!thread || !provider.can(item.verb, item.kind) || item.when?.(provider, manifest) === false) {
       continue
     }
@@ -801,17 +1214,34 @@ interface DeliverySource {
 
 /** The forge's own record of what a hook sent, where its API returns it; the hook can then point nowhere. */
 function forgeRecord(harness: WriteHarness): DeliverySource | undefined {
-  return harness.payloads && { url: FIXTURE_HOOK_URL, deliveries: harness.payloads, close: async () => {} }
+  return harness.payloads && {
+    url: FIXTURE_HOOK_URL,
+    deliveries: harness.payloads,
+    close: async () => {},
+  }
 }
 
 /** A webhook.site relay: deliveries sent to `url` are read back over HTTPS, so the recorder needs no inbound access. */
 async function relay(): Promise<DeliverySource> {
-  const { uuid } = await (await fetch('https://webhook.site/token', { method: 'POST', headers: { accept: 'application/json' } })).json() as { uuid: string }
+  const { uuid } = await (await fetch('https://webhook.site/token', {
+    method: 'POST',
+    headers: { accept: 'application/json' },
+  })).json() as { uuid: string }
   return {
     url: `https://webhook.site/${uuid}`,
     deliveries: async () => {
-      const { data } = await (await fetch(`https://webhook.site/token/${uuid}/requests?sorting=oldest&per_page=50`, { headers: { accept: 'application/json' } })).json() as { data: Array<{ content: string, headers: Record<string, string[] | string> }> }
-      return data.map(request => ({ body: request.content, headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value])) }))
+      const { data } = await (await fetch(`https://webhook.site/token/${uuid}/requests?sorting=oldest&per_page=50`, {
+        headers: { accept: 'application/json' },
+      })).json() as { data: Array<{ content: string, headers: Record<string, string[] | string> }> }
+      return data.map(request => ({
+        body: request.content,
+        headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [
+          name.toLowerCase(),
+          Array.isArray(value)
+            ? value.join(', ')
+            : value,
+        ])),
+      }))
     },
     close: async () => {
       await fetch(`https://webhook.site/token/${uuid}`, { method: 'DELETE' })
@@ -829,11 +1259,21 @@ async function localRelay(host: string): Promise<DeliverySource> {
     const chunks: Buffer[] = []
     request.on('data', (chunk: Buffer) => chunks.push(chunk))
     request.on('end', () => {
-      received.push({ headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [name, Array.isArray(value) ? value.join(', ') : value ?? ''])), body: Buffer.concat(chunks).toString() })
+      received.push({
+        headers: Object.fromEntries(Object.entries(request.headers).map(([name, value]) => [
+          name,
+          Array.isArray(value)
+            ? value.join(', ')
+            : value ?? '',
+        ])),
+        body: Buffer.concat(chunks).toString(),
+      })
       response.end()
     })
   })
-  await new Promise<void>(resolve => server.listen(0, host === '127.0.0.1' ? host : '0.0.0.0', resolve))
+  await new Promise<void>(resolve => server.listen(0, host === '127.0.0.1'
+    ? host
+    : '0.0.0.0', resolve))
   return {
     url: `http://${host}:${(server.address() as AddressInfo).port}/hook`,
     deliveries: async () => [...received],
@@ -854,13 +1294,33 @@ const DELIVERY_HEADER = /^(?:x-(?!forwarded|real-ip|amz|vercel|webhook-site)[\w-
  */
 async function recordWebhooks(): Promise<void> {
   const { prefix, botToken, scratch, harness } = scratchSetup('--webhooks')
-  const { provider: plain, manifest: { instance } } = targetFor({ token: botToken }, guardedFetch(live.fetch, { scope: harness.scope, allows: harness.allows, repos: [scratch] }))
+  const { provider: plain, manifest: { instance } } = targetFor({ token: botToken }, guardedFetch(live.fetch, {
+    scope: harness.scope,
+    allows: harness.allows,
+    repos: [scratch],
+  }))
   const id = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const base = await harness.prepare()
   const relayHost = env[`FIXTURE_${prefix}_RELAY_HOST`]
-  const relayed = forgeRecord(harness) ?? (relayHost ? await localRelay(relayHost) : await relay())
-  const typed = plain.can('threads.setIssueType', 'issue') ? (await plain.repos.issueTypes(scratch))[0] : undefined
-  const hook = await plain.webhooks.create(scratch, { url: relayed.url, events: ['comment', 'state_change', 'push', ...typed ? ['issue_type' as const] : []], secret: FIXTURE_HOOK_SECRET, contentType: 'json' })
+  const relayed = forgeRecord(harness) ?? (relayHost
+    ? await localRelay(relayHost)
+    : await relay())
+  const typed = plain.can('threads.setIssueType', 'issue')
+    ? (await plain.repos.issueTypes(scratch))[0]
+    : undefined
+  const hook = await plain.webhooks.create(scratch, {
+    url: relayed.url,
+    events: [
+      'comment',
+      'state_change',
+      'push',
+      ...typed
+        ? ['issue_type' as const]
+        : [],
+    ],
+    secret: FIXTURE_HOOK_SECRET,
+    contentType: 'json',
+  })
   const branch = `forges-fixtures/${id}-webhooks`
   let deliveries: HookDelivery[] = []
   try {
@@ -868,7 +1328,13 @@ async function recordWebhooks(): Promise<void> {
     // Forges without issues, such as Bitbucket, get a pull request from the pushed branch instead.
     const thread = plain.can('threads.create', 'issue')
       ? await plain.threads.create(scratch, { kind: 'issue', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.` })
-      : await plain.threads.create(scratch, { kind: 'pull_request', title: `${FIXTURE_TITLE} ${id}: webhooks`, body: `Opened by run ${id}.`, head: branch, base })
+      : await plain.threads.create(scratch, {
+          kind: 'pull_request',
+          title: `${FIXTURE_TITLE} ${id}: webhooks`,
+          body: `Opened by run ${id}.`,
+          head: branch,
+          base,
+        })
     await plain.threads.createComment(thread.ref, `A comment from run ${id}.`)
     if (typed) {
       await plain.threads.setIssueType(thread.ref, typed)
@@ -882,7 +1348,9 @@ async function recordWebhooks(): Promise<void> {
       await new Promise(resolve => setTimeout(resolve, 5_000))
       const previous = deliveries.length
       deliveries = await relayed.deliveries(hook.ref.id)
-      quiet = deliveries.length >= 4 && deliveries.length === previous ? quiet + 1 : 0
+      quiet = deliveries.length >= 4 && deliveries.length === previous
+        ? quiet + 1
+        : 0
     }
   }
   finally {
@@ -910,7 +1378,16 @@ async function recordWebhooks(): Promise<void> {
     names.push(name)
     console.info(`recorded delivery ${name}`)
   }
-  const manifest = { baseUrl: plain.baseUrl, instance, repo: scratch, scratch, webhookSecret: FIXTURE_HOOK_SECRET, recordedAt: new Date().toISOString(), steps: [], deliveries: names }
+  const manifest = {
+    baseUrl: plain.baseUrl,
+    instance,
+    repo: scratch,
+    scratch,
+    webhookSecret: FIXTURE_HOOK_SECRET,
+    recordedAt: new Date().toISOString(),
+    steps: [],
+    deliveries: names,
+  }
   writeFileSync(`${out}manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`)
 }
 
@@ -919,15 +1396,35 @@ async function seed(): Promise<void> {
   const { prefix, botToken, scratch, transfer, collaborators, harness } = scratchSetup('--seed')
   await harness.prepare()
   await harness.seed?.()
-  const guard = { scope: harness.scope, allows: harness.allows, repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined) }
+  const guard = {
+    scope: harness.scope,
+    allows: harness.allows,
+    repos: [scratch, transfer, collaborators].filter(repo => repo !== undefined),
+  }
   const { provider } = targetFor({ token: botToken, identifier: env.TANGLED_BOT_IDENTIFIER, pds: env.TANGLED_BOT_PDS }, guardedFetch(live.fetch, guard))
   const reviewer = reviewerCredentials && targetFor(reviewerCredentials, guardedFetch(live.fetch, guard)).provider
   const pull = env[`FIXTURE_${prefix}_SCRATCH_PULL`]
-  const seeded = await seedScratch(provider, scratch, pull ? { forge: provider.forge, instance: provider.instance, repo: scratch, kind: 'pull_request', number: pull } : undefined, reviewer)
-  console.info(`seeded issue ${seeded.issue.number}${seeded.pull ? ` and pull ${seeded.pull.number}` : ''}`)
+  const seeded = await seedScratch(provider, scratch, pull
+    ? {
+        forge: provider.forge,
+        instance: provider.instance,
+        repo: scratch,
+        kind: 'pull_request',
+        number: pull,
+      }
+    : undefined, reviewer)
+  console.info(`seeded issue ${seeded.issue.number}${seeded.pull
+    ? ` and pull ${seeded.pull.number}`
+    : ''}`)
 }
 
-await (flags.seed ? seed() : flags.writes ? recordWrites() : flags.webhooks ? recordWebhooks() : recordReads())
+await (flags.seed
+  ? seed()
+  : flags.writes
+    ? recordWrites()
+    : flags.webhooks
+      ? recordWebhooks()
+      : recordReads())
 
 if (failures) {
   console.error(`${failures} step(s) failed.`)

@@ -71,7 +71,10 @@ export function explorerProviders(id: string): Promise<ExplorerProviders> {
     const options = forge.options?.(forge.sample) ?? {}
     loaded = explorerFactory(id).then(factory => ({
       anonymous: factory(options),
-      signedIn: factory({ ...options, auth: placeholderAuth(forge.credentials[0]!) }),
+      signedIn: factory({
+        ...options,
+        auth: placeholderAuth(forge.credentials[0]!),
+      }),
     }))
     loaded.catch(() => providers.delete(id))
     providers.set(id, loaded)
@@ -84,7 +87,10 @@ export async function explorerCredentialProvider(id: string, input: ExplorerInpu
   const forge = EXPLORER_FORGES.find(entry => entry.forge === id)!
   const options = forge.options?.(input) ?? {}
   const factory = await explorerFactory(id)
-  return factory({ ...options, auth: authFromValues(credential, values) })
+  return factory({
+    ...options,
+    auth: authFromValues(credential, values),
+  })
 }
 
 /** A credential the person typed, and the kind it is. */

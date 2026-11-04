@@ -115,7 +115,13 @@ export function toActor(origin: ForgeOrigin, user: GitHubUser | Record<string, n
     url: user.html_url,
     typeRaw: user.type,
     isBotHint: user.type === 'Bot' || user.login.endsWith('[bot]'),
-    ...user.type === 'Bot' && user.login.endsWith('[bot]') ? { app: { slug: user.login.slice(0, -'[bot]'.length) } } : {},
+    ...user.type === 'Bot' && user.login.endsWith('[bot]')
+      ? {
+          app: {
+            slug: user.login.slice(0, -'[bot]'.length),
+          },
+        }
+      : {},
   }
 }
 
@@ -141,14 +147,23 @@ export function toRepoRef(origin: ForgeOrigin, repo: GitHubRepository): RepoRef 
     instance: origin.instance,
     owner: repo.owner?.login ?? owner ?? '',
     name: repo.name ?? name ?? '',
-    externalId: repo.id === undefined ? undefined : String(repo.id),
+    externalId: repo.id === undefined
+      ? undefined
+      : String(repo.id),
   }
 }
 
 /** Reads `owner` and `name` out of an API repository URL, which search results carry instead of a nested repository. */
 export function repoRefFromApiUrl(origin: ForgeOrigin, url: string | undefined): RepoRef | undefined {
   const [, owner, name] = url?.match(/\/repos\/([^/]+)\/([^/]+)$/) ?? []
-  return owner && name ? { forge: origin.forge, instance: origin.instance, owner, name } : undefined
+  return owner && name
+    ? {
+        forge: origin.forge,
+        instance: origin.instance,
+        owner,
+        name,
+      }
+    : undefined
 }
 
 const MERGE_COMMIT_TITLES: Record<string, MergeCommitDefaults['title']> = {
@@ -166,46 +181,71 @@ const MERGE_COMMIT_MESSAGES: Record<string, MergeCommitDefaults['message']> = {
 
 function toMergeCommitDefaults(title: string | undefined, message: string | undefined): MergeCommitDefaults | undefined {
   return title || message
-    ? { title: MERGE_COMMIT_TITLES[title ?? ''], titleRaw: title, message: MERGE_COMMIT_MESSAGES[message ?? ''], messageRaw: message }
+    ? {
+        title: MERGE_COMMIT_TITLES[title ?? ''],
+        titleRaw: title,
+        message: MERGE_COMMIT_MESSAGES[message ?? ''],
+        messageRaw: message,
+      }
     : undefined
 }
 
 function toMergeCommit(raw: GitHubRepositoryDetail): Repo['mergeCommit'] {
   const merge = toMergeCommitDefaults(raw.merge_commit_title, raw.merge_commit_message)
   const squash = toMergeCommitDefaults(raw.squash_merge_commit_title, raw.squash_merge_commit_message)
-  return merge || squash ? { merge, squash } : undefined
+  return merge || squash
+    ? { merge, squash }
+    : undefined
 }
 
 export function toRepo(origin: ForgeOrigin, raw: GitHubRepositoryDetail): Repo {
-  const visibility = raw.visibility === 'internal' ? 'internal' : raw.private || raw.visibility === 'private' ? 'private' : 'public'
+  const visibility = raw.visibility === 'internal'
+    ? 'internal'
+    : raw.private || raw.visibility === 'private'
+      ? 'private'
+      : 'public'
   return {
     ref: toRepoRef(origin, raw),
     description: raw.description ?? undefined,
     defaultBranch: raw.default_branch,
     visibility,
-    visibilityRaw: raw.visibility ?? (raw.private === undefined ? undefined : raw.private ? 'private' : 'public'),
+    visibilityRaw: raw.visibility ?? (raw.private === undefined
+      ? undefined
+      : raw.private ? 'private' : 'public'),
     isFork: raw.fork ?? false,
     isArchived: raw.archived ?? false,
-    parent: raw.parent ? toRepoRef(origin, raw.parent) : undefined,
+    parent: raw.parent
+      ? toRepoRef(origin, raw.parent)
+      : undefined,
     topics: raw.topics ?? [],
     url: raw.html_url,
-    cloneUrls: raw.clone_url || raw.ssh_url ? { https: raw.clone_url, ssh: raw.ssh_url } : undefined,
+    cloneUrls: raw.clone_url || raw.ssh_url
+      ? { https: raw.clone_url, ssh: raw.ssh_url }
+      : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     pushedAt: toDate(raw.pushed_at),
     owner: toActor(origin, raw.owner),
     language: raw.language ?? undefined,
     homepage: raw.homepage || undefined,
-    licence: raw.license?.spdx_id && raw.license.spdx_id !== 'NOASSERTION' ? raw.license.spdx_id : undefined,
+    licence: raw.license?.spdx_id && raw.license.spdx_id !== 'NOASSERTION'
+      ? raw.license.spdx_id
+      : undefined,
     stars: raw.stargazers_count,
     forks: raw.forks_count,
     watchers: raw.subscribers_count,
     mergeMethods: raw.allow_merge_commit === undefined && raw.allow_squash_merge === undefined && raw.allow_rebase_merge === undefined
       ? undefined
       : [
-          ...raw.allow_merge_commit ? ['merge' as const] : [],
-          ...raw.allow_squash_merge ? ['squash' as const] : [],
-          ...raw.allow_rebase_merge ? ['rebase' as const] : [],
+          ...raw.allow_merge_commit
+            ? ['merge' as const]
+            : [],
+          ...raw.allow_squash_merge
+            ? ['squash' as const]
+            : [],
+          ...raw.allow_rebase_merge
+            ? ['rebase' as const]
+            : [],
         ],
     deleteBranchOnMerge: raw.delete_branch_on_merge,
     mergeCommit: toMergeCommit(raw),
@@ -236,7 +276,11 @@ export function toReactions(raw: GitHubReactions | undefined): ReactionSummary |
   if (!raw) {
     return undefined
   }
-  const counts = Object.fromEntries(REACTION_CONTENTS.flatMap(name => raw[name] ? [[name, raw[name]!]] : []))
+  const counts = Object.fromEntries(REACTION_CONTENTS.flatMap(name => raw[name]
+    ? [
+        [name, raw[name]!],
+      ]
+    : []))
   return { total: raw.total_count ?? Object.values(counts).reduce((sum, count) => sum + count, 0), counts }
 }
 
@@ -245,7 +289,9 @@ export function toMilestone(raw: GitHubMilestone | null | undefined): Milestone 
     ? {
         id: String(raw.number ?? raw.id ?? ''),
         title: raw.title,
-        state: raw.state === 'closed' ? 'closed' : 'open',
+        state: raw.state === 'closed'
+          ? 'closed'
+          : 'open',
         description: raw.description ?? undefined,
         dueOn: toDate(raw.due_on),
         url: raw.html_url,
@@ -281,18 +327,40 @@ export function toRole(raw: { role_name?: string, permissions?: { admin?: boolea
   if (!permissions) {
     return 'none'
   }
-  return permissions.admin ? 'admin' : permissions.maintain ? 'maintain' : permissions.push ? 'write' : permissions.triage ? 'triage' : permissions.pull ? 'read' : 'none'
+  return permissions.admin
+    ? 'admin'
+    : permissions.maintain
+      ? 'maintain'
+      : permissions.push
+        ? 'write'
+        : permissions.triage
+          ? 'triage'
+          : permissions.pull ? 'read' : 'none'
 }
 
 export function toCollaborator(origin: ForgeOrigin, raw: GitHubCollaborator): Collaborator {
-  return { actor: toActor(origin, raw)!, role: toRole(raw), roleRaw: raw.role_name, raw }
+  return {
+    actor: toActor(origin, raw)!,
+    role: toRole(raw),
+    roleRaw: raw.role_name,
+    raw,
+  }
 }
 
 export function toContributor(origin: ForgeOrigin, raw: GitHubContributor): Contributor {
   if (!('login' in raw)) {
-    return { name: raw.name || undefined, email: raw.email || undefined, contributions: raw.contributions, raw }
+    return {
+      name: raw.name || undefined,
+      email: raw.email || undefined,
+      contributions: raw.contributions,
+      raw,
+    }
   }
-  return { actor: toActor(origin, raw), contributions: raw.contributions, raw }
+  return {
+    actor: toActor(origin, raw),
+    contributions: raw.contributions,
+    raw,
+  }
 }
 
 export function toContributorStats(origin: ForgeOrigin, raw: GitHubContributorStats): ContributorStats {
@@ -311,10 +379,22 @@ export function toContributorStats(origin: ForgeOrigin, raw: GitHubContributorSt
 
 export function toTeam(origin: ForgeOrigin, org: RepoRef, raw: GitHubTeam): Team {
   const parent: TeamRef | undefined = raw.parent
-    ? { forge: origin.forge, instance: origin.instance, org, id: String(raw.parent.id), slug: raw.parent.slug }
+    ? {
+        forge: origin.forge,
+        instance: origin.instance,
+        org,
+        id: String(raw.parent.id),
+        slug: raw.parent.slug,
+      }
     : undefined
   return {
-    ref: { forge: origin.forge, instance: origin.instance, org, id: String(raw.id), slug: raw.slug },
+    ref: {
+      forge: origin.forge,
+      instance: origin.instance,
+      org,
+      id: String(raw.id),
+      slug: raw.slug,
+    },
     name: raw.name,
     description: raw.description ?? undefined,
     permission: raw.permission,
@@ -396,23 +476,68 @@ export function toSubject(origin: ForgeOrigin, raw: GitHubNotification): Notific
   const type = raw.subject.type
   const kind = toThreadKind(type)
   if (kind) {
-    return { type: 'thread', thread: { forge: origin.forge, instance: origin.instance, repo, kind, typeRaw: type, number: numberFromUrl(raw.subject.url) } }
+    return {
+      type: 'thread',
+      thread: {
+        forge: origin.forge,
+        instance: origin.instance,
+        repo,
+        kind,
+        typeRaw: type,
+        number: numberFromUrl(raw.subject.url),
+      },
+    }
   }
-  const sha = type === 'Commit' ? numberFromUrl(raw.subject.url) : undefined
+  const sha = type === 'Commit'
+    ? numberFromUrl(raw.subject.url)
+    : undefined
   if (sha) {
-    return { type: 'commit', commit: { forge: origin.forge, instance: origin.instance, repo, sha } }
+    return {
+      type: 'commit',
+      commit: {
+        forge: origin.forge,
+        instance: origin.instance,
+        repo,
+        sha,
+      },
+    }
   }
   if (type === 'Release') {
-    return { type: 'release', release: { forge: origin.forge, instance: origin.instance, repo, id: lastSegment(raw.subject.url) ?? raw.id } }
+    return {
+      type: 'release',
+      release: {
+        forge: origin.forge,
+        instance: origin.instance,
+        repo,
+        id: lastSegment(raw.subject.url) ?? raw.id,
+      },
+    }
   }
   if (SECURITY_SUBJECTS.has(type)) {
     const kind = SECURITY_SUBJECTS_KIND[type]
-    return { type: 'security_alert', alert: { forge: origin.forge, instance: origin.instance, repo, id: lastSegment(raw.subject.url) ?? raw.id, ...kind ? { kind } : {} } }
+    return {
+      type: 'security_alert',
+      alert: {
+        forge: origin.forge,
+        instance: origin.instance,
+        repo,
+        id: lastSegment(raw.subject.url) ?? raw.id,
+        ...kind
+          ? { kind }
+          : {},
+      },
+    }
   }
   if (type === 'RepositoryInvitation') {
     return { type: 'repo', repo }
   }
-  return { type: 'other', typeRaw: type, repo, id: lastSegment(raw.subject.url), url: raw.subject.url ?? undefined }
+  return {
+    type: 'other',
+    typeRaw: type,
+    repo,
+    id: lastSegment(raw.subject.url),
+    url: raw.subject.url ?? undefined,
+  }
 }
 
 export function toNotification(origin: ForgeOrigin, raw: GitHubNotification): Notification {
@@ -430,7 +555,9 @@ export function toNotification(origin: ForgeOrigin, raw: GitHubNotification): No
     updatedAt: toDate(raw.updated_at) ?? new Date(0),
     lastReadAt: toDate(raw.last_read_at),
     url: raw.subject.url ?? raw.url,
-    ...latestComment ? { latestComment } : {},
+    ...latestComment
+      ? { latestComment }
+      : {},
     raw,
   }
 }
@@ -442,29 +569,53 @@ export function toLabel(raw: GitHubLabel): Label {
 export function toLabels(labels: GitHubIssue['labels']): Label[] {
   return (labels ?? []).flatMap((label) => {
     if (typeof label === 'string') {
-      return [{ name: label }]
+      return [
+        { name: label },
+      ]
     }
-    return label.name ? [{ name: label.name, colour: label.color ?? undefined, description: label.description ?? undefined }] : []
+    return label.name
+      ? [
+          { name: label.name, colour: label.color ?? undefined, description: label.description ?? undefined },
+        ]
+      : []
   })
 }
 
 function toReviewers(origin: ForgeOrigin, raw: GitHubIssue): Reviewer[] {
   const users = (raw.requested_reviewers ?? []).flatMap((user) => {
     const actor = toActor(origin, user)
-    return actor ? [{ actor, state: 'pending' as const, stateRaw: 'requested' }] : []
+    return actor
+      ? [
+          { actor, state: 'pending' as const, stateRaw: 'requested' },
+        ]
+      : []
   })
   const teams = (raw.requested_teams ?? []).map(team => ({
-    actor: { forge: origin.forge, instance: origin.instance, login: team.slug, id: String(team.id), name: team.name, url: team.html_url, typeRaw: 'Team', isBotHint: false },
+    actor: {
+      forge: origin.forge,
+      instance: origin.instance,
+      login: team.slug,
+      id: String(team.id),
+      name: team.name,
+      url: team.html_url,
+      typeRaw: 'Team',
+      isBotHint: false,
+    },
     state: 'pending' as const,
     stateRaw: 'requested',
     isTeam: true,
   }))
-  return [...users, ...teams]
+  return [
+    ...users,
+    ...teams,
+  ]
 }
 
 /** Builds a thread from an issue, a pull request, or a pull request as returned by the issues API. */
 export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
-  const kind = raw.pull_request || raw.head ? 'pull_request' : ref.kind
+  const kind = raw.pull_request || raw.head
+    ? 'pull_request'
+    : ref.kind
   return {
     ref: { ...ref, kind, externalId: raw.node_id ?? ref.externalId },
     kind,
@@ -493,22 +644,49 @@ export function toThread(ref: ResolvedThreadRef, raw: GitHubIssue): Thread {
     reactions: toReactions(raw.reactions),
     branches: raw.head && raw.base
       ? {
-          head: { ref: raw.head.ref, sha: raw.head.sha, repo: raw.head.repo ? toRepoRef(ref, raw.head.repo) : undefined },
+          head: {
+            ref: raw.head.ref,
+            sha: raw.head.sha,
+            repo: raw.head.repo
+              ? toRepoRef(ref, raw.head.repo)
+              : undefined,
+          },
           base: { ref: raw.base.ref, sha: raw.base.sha },
           mergeCommitSha: raw.merge_commit_sha ?? undefined,
         }
       : undefined,
-    stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changed_files, commitCount: raw.commits }),
+    stats: toPullStats({
+      additions: raw.additions,
+      deletions: raw.deletions,
+      changedFileCount: raw.changed_files,
+      commitCount: raw.commits,
+    }),
     raw,
   }
 }
 
 export function toComment(thread: ResolvedThreadRef, raw: GitHubComment): Comment {
-  return { ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) }, ...commentFields(thread, raw) }
+  return {
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
+    ...commentFields(thread, raw),
+  }
 }
 
 export function toCommitComment(commit: CommitRef, raw: GitHubComment): CommitComment {
-  return { ref: { forge: commit.forge, instance: commit.instance, commit, id: String(raw.id) }, ...commentFields(commit, raw) }
+  return {
+    ref: {
+      forge: commit.forge,
+      instance: commit.instance,
+      commit,
+      id: String(raw.id),
+    },
+    ...commentFields(commit, raw),
+  }
 }
 
 function commentFields(origin: ForgeOrigin, raw: GitHubComment): Omit<Comment, 'ref'> {
@@ -562,16 +740,22 @@ function summarise(entry: GitHubTimelineEntry, kind: EventKind, actor?: Actor): 
     case 'commit':
       return `${entry.author?.name ?? who} committed ${entry.sha?.slice(0, 7) ?? 'a commit'}`
     case 'label':
-      return `${who} ${entry.event === 'unlabeled' ? 'removed' : 'added'} label ${entry.label?.name ?? ''}`.trim()
+      return `${who} ${entry.event === 'unlabeled'
+        ? 'removed'
+        : 'added'} label ${entry.label?.name ?? ''}`.trim()
     case 'state_change':
       return `${who} ${entry.event ?? 'changed state'}`
     case 'referenced':
       return `${who} referenced this`
     case 'assignment':
       if (entry.event === 'review_requested' || entry.event === 'review_request_removed') {
-        return `${who} ${entry.event === 'review_requested' ? 'requested review from' : 'removed the review request for'} ${entry.requested_reviewer?.login ?? ''}`.trim()
+        return `${who} ${entry.event === 'review_requested'
+          ? 'requested review from'
+          : 'removed the review request for'} ${entry.requested_reviewer?.login ?? ''}`.trim()
       }
-      return `${who} ${entry.event === 'unassigned' ? 'unassigned' : 'assigned'} ${entry.assignee?.login ?? ''}`.trim()
+      return `${who} ${entry.event === 'unassigned'
+        ? 'unassigned'
+        : 'assigned'} ${entry.assignee?.login ?? ''}`.trim()
     default:
       return `${who} ${entry.event ?? 'acted'}`
   }
@@ -581,34 +765,88 @@ function summarise(entry: GitHubTimelineEntry, kind: EventKind, actor?: Actor): 
 function crossReference(origin: ForgeOrigin, thread: ThreadRef, entry: GitHubTimelineEntry): EventDetail {
   const source = entry.source?.issue
   if (source) {
-    const repo = source.repository ? toRepoRef(origin, source.repository) : thread.repo
+    const repo = source.repository
+      ? toRepoRef(origin, source.repository)
+      : thread.repo
     return {
       type: 'referenced',
-      from: { forge: origin.forge, instance: origin.instance, repo, kind: source.pull_request ? 'pull_request' : 'issue', number: String(source.number) },
+      from: {
+        forge: origin.forge,
+        instance: origin.instance,
+        repo,
+        kind: source.pull_request ? 'pull_request' : 'issue',
+        number: String(source.number),
+      },
       fromRepo: repo,
     }
   }
   return entry.commit_id
-    ? { type: 'referenced', from: { forge: origin.forge, instance: origin.instance, repo: thread.repo, sha: entry.commit_id }, fromRepo: thread.repo }
+    ? {
+        type: 'referenced',
+        from: {
+          forge: origin.forge,
+          instance: origin.instance,
+          repo: thread.repo,
+          sha: entry.commit_id,
+        },
+        fromRepo: thread.repo,
+      }
     : { type: 'referenced' }
 }
 
 function timelineDetail(origin: ForgeOrigin, thread: ThreadRef, entry: GitHubTimelineEntry, kind: EventKind): EventDetail | undefined {
   switch (kind) {
     case 'comment':
-      return { type: 'comment', comment: entry.id !== undefined ? { forge: origin.forge, instance: origin.instance, thread, id: String(entry.id) } : undefined, body: entry.body ?? undefined }
+      return {
+        type: 'comment',
+        comment: entry.id !== undefined
+          ? {
+              forge: origin.forge,
+              instance: origin.instance,
+              thread,
+              id: String(entry.id),
+            }
+          : undefined,
+        body: entry.body ?? undefined,
+      }
     case 'review':
-      return { type: 'review', state: reviewState(entry.state), stateRaw: entry.state, body: entry.body ?? undefined, review: entry.id !== undefined ? { forge: origin.forge, instance: origin.instance, thread, id: String(entry.id) } : undefined }
+      return {
+        type: 'review',
+        state: reviewState(entry.state),
+        stateRaw: entry.state,
+        body: entry.body ?? undefined,
+        review: entry.id !== undefined
+          ? {
+              forge: origin.forge,
+              instance: origin.instance,
+              thread,
+              id: String(entry.id),
+            }
+          : undefined,
+      }
     case 'label':
-      return entry.label ? { type: 'label', label: entry.label.name } : undefined
+      return entry.label
+        ? { type: 'label', label: entry.label.name }
+        : undefined
     case 'assignment':
-      return { type: 'assignment', assignee: toActor(origin, entry.assignee ?? entry.requested_reviewer) }
+      return {
+        type: 'assignment',
+        assignee: toActor(origin, entry.assignee ?? entry.requested_reviewer),
+      }
     case 'referenced':
       return crossReference(origin, thread, entry)
     case 'state_change':
       return entry.event === 'convert_to_draft' || entry.event === 'ready_for_review'
         ? { type: 'state_change', state: 'open', draft: entry.event === 'convert_to_draft' }
-        : { type: 'state_change', state: entry.event === 'merged' ? 'merged' : entry.event === 'closed' ? 'closed' : 'open', reason: entry.state_reason ?? undefined }
+        : {
+            type: 'state_change',
+            state: entry.event === 'merged'
+              ? 'merged'
+              : entry.event === 'closed'
+                ? 'closed'
+                : 'open',
+            reason: entry.state_reason ?? undefined,
+          }
     default:
       return undefined
   }
@@ -640,7 +878,13 @@ export function toEvent(
 }
 
 export function statusState(state: string): CheckState {
-  return state === 'success' ? 'success' : state === 'pending' ? 'pending' : state === 'failure' || state === 'error' ? 'failure' : 'unknown'
+  return state === 'success'
+    ? 'success'
+    : state === 'pending'
+      ? 'pending'
+      : state === 'failure' || state === 'error'
+        ? 'failure'
+        : 'unknown'
 }
 
 const ACTIONS_JOB_URL = /\/actions\/runs\/(\d+)\/job\/\d+$/
@@ -648,7 +892,16 @@ const ACTIONS_JOB_URL = /\/actions\/runs\/(\d+)\/job\/\d+$/
 export function toCheckRun(repo: RepoRef, raw: GitHubCheckRun): Check {
   const runId = raw.html_url?.match(ACTIONS_JOB_URL)?.[1]
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id), type: 'check_run', ...raw.app?.slug ? { app: raw.app.slug } : {} },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'check_run',
+      ...raw.app?.slug
+        ? { app: raw.app.slug }
+        : {},
+    },
     name: raw.name,
     state: checkRunState(raw.status, raw.conclusion),
     stateRaw: raw.status,
@@ -656,7 +909,16 @@ export function toCheckRun(repo: RepoRef, raw: GitHubCheckRun): Check {
     url: raw.html_url ?? raw.details_url ?? undefined,
     startedAt: toDate(raw.started_at),
     completedAt: toDate(raw.completed_at),
-    ...runId ? { run: { forge: repo.forge, instance: repo.instance, repo, id: runId } } : {},
+    ...runId
+      ? {
+          run: {
+            forge: repo.forge,
+            instance: repo.instance,
+            repo,
+            id: runId,
+          },
+        }
+      : {},
     raw,
   }
 }
@@ -664,19 +926,35 @@ export function toCheckRun(repo: RepoRef, raw: GitHubCheckRun): Check {
 export function toStatusCheck(repo: RepoRef, raw: GitHubCommitStatus): Check {
   const state = statusState(raw.state)
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id), type: 'status' },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'status',
+    },
     name: raw.context,
     state,
     stateRaw: raw.state,
     url: raw.target_url ?? undefined,
     startedAt: toDate(raw.created_at),
-    completedAt: state === 'pending' ? undefined : toDate(raw.updated_at),
+    completedAt: state === 'pending'
+      ? undefined
+      : toDate(raw.updated_at),
     raw,
   }
 }
 
 export function toRelease(repo: RepoRef, raw: GitHubRelease): Release {
-  const ref = { forge: repo.forge, instance: repo.instance, repo, id: raw.id === undefined ? raw.tag_name : String(raw.id), tag: raw.tag_name }
+  const ref = {
+    forge: repo.forge,
+    instance: repo.instance,
+    repo,
+    id: raw.id === undefined
+      ? raw.tag_name
+      : String(raw.id),
+    tag: raw.tag_name,
+  }
   return {
     ref,
     name: raw.name ?? undefined,
@@ -690,7 +968,17 @@ export function toRelease(repo: RepoRef, raw: GitHubRelease): Release {
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
     assets: raw.assets?.map(asset => ({
-      ...asset.id === undefined ? {} : { ref: { forge: repo.forge, instance: repo.instance, repo, release: ref, id: String(asset.id) } },
+      ...asset.id === undefined
+        ? {}
+        : {
+            ref: {
+              forge: repo.forge,
+              instance: repo.instance,
+              repo,
+              release: ref,
+              id: String(asset.id),
+            },
+          },
       name: asset.name,
       url: asset.browser_download_url,
       size: asset.size,
@@ -721,14 +1009,27 @@ export function toSeverity(raw: string | null | undefined): SecuritySeverity {
 }
 
 function alertState(raw: string): SecurityAlert['state'] {
-  return raw === 'open' ? 'open' : raw === 'fixed' ? 'fixed' : raw === 'dismissed' || raw === 'auto_dismissed' ? 'dismissed' : 'unknown'
+  return raw === 'open'
+    ? 'open'
+    : raw === 'fixed'
+      ? 'fixed'
+      : raw === 'dismissed' || raw === 'auto_dismissed'
+        ? 'dismissed'
+        : 'unknown'
 }
 
 export function toDependabotAlert(repo: RepoRef, raw: GitHubDependabotAlert): SecurityAlert {
   const severityRaw = raw.security_vulnerability?.severity ?? raw.security_advisory?.severity
   const pkg = raw.dependency?.package
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.number), kind: 'dependency', severityRaw },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.number),
+      kind: 'dependency',
+      severityRaw,
+    },
     kind: 'dependency',
     kindRaw: 'dependabot',
     severity: toSeverity(severityRaw),
@@ -757,7 +1058,14 @@ export function toDependabotAlert(repo: RepoRef, raw: GitHubDependabotAlert): Se
 export function toCodeScanningAlert(repo: RepoRef, raw: GitHubCodeScanningAlert): SecurityAlert {
   const severityRaw = raw.rule?.security_severity_level ?? raw.rule?.severity ?? undefined
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.number), kind: 'code_scanning', severityRaw },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.number),
+      kind: 'code_scanning',
+      severityRaw,
+    },
     kind: 'code_scanning',
     kindRaw: raw.tool?.name ?? 'code_scanning',
     severity: toSeverity(severityRaw),
@@ -775,30 +1083,59 @@ export function toCodeScanningAlert(repo: RepoRef, raw: GitHubCodeScanningAlert)
 
 /** Secret scanning reports no severity. A revoked secret is fixed; any other resolution dismisses the alert. */
 export function toSecretScanningAlert(repo: RepoRef, raw: GitHubSecretScanningAlert): SecurityAlert {
-  const state = raw.state === 'open' ? 'open' : raw.state === 'resolved' ? (raw.resolution === 'revoked' ? 'fixed' : 'dismissed') : 'unknown'
+  const state = raw.state === 'open'
+    ? 'open'
+    : raw.state === 'resolved'
+      ? (raw.resolution === 'revoked'
+          ? 'fixed'
+          : 'dismissed')
+      : 'unknown'
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.number), kind: 'secret' },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.number),
+      kind: 'secret',
+    },
     kind: 'secret',
     kindRaw: raw.secret_type ?? 'secret_scanning',
     severity: 'unknown',
     state,
-    stateRaw: raw.resolution ? `${raw.state}:${raw.resolution}` : raw.state,
+    stateRaw: raw.resolution
+      ? `${raw.state}:${raw.resolution}`
+      : raw.state,
     title: raw.secret_type_display_name ?? raw.secret_type ?? 'Secret scanning alert',
     url: raw.html_url,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
-    dismissedAt: state === 'dismissed' ? toDate(raw.resolved_at) : undefined,
+    dismissedAt: state === 'dismissed'
+      ? toDate(raw.resolved_at)
+      : undefined,
     raw,
   }
 }
 
 /** A private vulnerability report in triage, or a draft, is open; a published advisory is fixed; a closed or withdrawn one is dismissed. */
 export function toRepositoryAdvisory(repo: RepoRef, raw: GitHubRepositoryAdvisory): SecurityAlert {
-  const state = raw.state === 'triage' || raw.state === 'draft' ? 'open' : raw.state === 'published' ? 'fixed' : raw.state === 'closed' || raw.state === 'withdrawn' ? 'dismissed' : 'unknown'
+  const state = raw.state === 'triage' || raw.state === 'draft'
+    ? 'open'
+    : raw.state === 'published'
+      ? 'fixed'
+      : raw.state === 'closed' || raw.state === 'withdrawn'
+        ? 'dismissed'
+        : 'unknown'
   const severityRaw = raw.severity ?? undefined
   const vulnerability = raw.vulnerabilities?.find(item => item.package?.name)
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: raw.ghsa_id, kind: 'advisory', severityRaw },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: raw.ghsa_id,
+      kind: 'advisory',
+      severityRaw,
+    },
     kind: 'advisory',
     kindRaw: 'repository_advisory',
     severity: toSeverity(severityRaw),
@@ -819,20 +1156,31 @@ export function toRepositoryAdvisory(repo: RepoRef, raw: GitHubRepositoryAdvisor
     url: raw.html_url,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
-    dismissedAt: state === 'dismissed' ? toDate(raw.withdrawn_at ?? raw.closed_at) : undefined,
+    dismissedAt: state === 'dismissed'
+      ? toDate(raw.withdrawn_at ?? raw.closed_at)
+      : undefined,
     raw,
   }
 }
 
 export function toReviewComment(thread: ResolvedThreadRef, raw: GitHubReviewComment, reviewThread?: { id: string, resolved: boolean }): ReviewComment {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     body: raw.body ?? '',
     author: toActor(thread, raw.user),
     path: raw.path,
     line: raw.line ?? raw.original_line ?? undefined,
-    side: raw.side?.toLowerCase() === 'left' ? 'left' : raw.side ? 'right' : undefined,
-    inReplyTo: raw.in_reply_to_id === null || raw.in_reply_to_id === undefined ? undefined : String(raw.in_reply_to_id),
+    side: raw.side?.toLowerCase() === 'left'
+      ? 'left'
+      : raw.side ? 'right' : undefined,
+    inReplyTo: raw.in_reply_to_id === null || raw.in_reply_to_id === undefined
+      ? undefined
+      : String(raw.in_reply_to_id),
     thread: reviewThread,
     createdAt: toDate(raw.created_at),
     url: raw.html_url,
@@ -842,7 +1190,12 @@ export function toReviewComment(thread: ResolvedThreadRef, raw: GitHubReviewComm
 
 export function toReview(thread: ResolvedThreadRef, raw: GitHubReview, comments: ReviewComment[]): Review {
   return {
-    ref: { forge: thread.forge, instance: thread.instance, thread, id: String(raw.id) },
+    ref: {
+      forge: thread.forge,
+      instance: thread.instance,
+      thread,
+      id: String(raw.id),
+    },
     author: toActor(thread, raw.user),
     state: reviewState(raw.state),
     stateRaw: raw.state,
@@ -856,11 +1209,18 @@ export function toReview(thread: ResolvedThreadRef, raw: GitHubReview, comments:
 
 export function toWorkflowRun(repo: RepoRef, raw: GitHubWorkflowRun): CiRun {
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, id: String(raw.id) },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+    },
     name: raw.name || raw.display_title || String(raw.id),
     state: checkRunState(raw.status ?? 'queued', raw.conclusion),
     stateRaw: raw.status ?? 'unknown',
-    number: raw.run_number === undefined ? undefined : String(raw.run_number),
+    number: raw.run_number === undefined
+      ? undefined
+      : String(raw.run_number),
     eventRaw: raw.event,
     branch: raw.head_branch ?? undefined,
     sha: raw.head_sha,
@@ -868,14 +1228,22 @@ export function toWorkflowRun(repo: RepoRef, raw: GitHubWorkflowRun): CiRun {
     actor: toActor(repo, raw.actor),
     createdAt: toDate(raw.created_at),
     startedAt: toDate(raw.run_started_at),
-    completedAt: raw.status === 'completed' ? toDate(raw.updated_at) : undefined,
+    completedAt: raw.status === 'completed'
+      ? toDate(raw.updated_at)
+      : undefined,
     raw,
   }
 }
 
 export function toWorkflowJob(run: CiRunRef, raw: GitHubWorkflowJob): CiJob {
   return {
-    ref: { forge: run.forge, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    ref: {
+      forge: run.forge,
+      instance: run.instance,
+      repo: run.repo,
+      id: String(raw.id),
+      run,
+    },
     name: raw.name,
     state: checkRunState(raw.status ?? 'queued', raw.conclusion),
     stateRaw: raw.status ?? 'unknown',
@@ -901,7 +1269,12 @@ export function toChangedFile(raw: GitHubCommitFile): ChangedFile {
 
 export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.sha },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      sha: raw.sha,
+    },
     sha: raw.sha,
     message: raw.commit.message,
     author: {
@@ -918,8 +1291,16 @@ export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
     },
     parents: raw.parents?.map(parent => parent.sha) ?? [],
     url: raw.html_url,
-    ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
-    ...raw.files ? { files: raw.files.map(toChangedFile) } : {},
+    ...raw.stats
+      ? {
+          stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total },
+        }
+      : {},
+    ...raw.files
+      ? {
+          files: raw.files.map(toChangedFile),
+        }
+      : {},
     raw,
   }
 }
@@ -927,11 +1308,24 @@ export function toCommit(repo: RepoRef, raw: GitHubCommit): Commit {
 /** A commit from the Git database API, which matches no accounts. */
 export function toGitCommit(repo: RepoRef, raw: GitHubGitCommit): Commit {
   return {
-    ref: { forge: repo.forge, instance: repo.instance, repo, sha: raw.sha },
+    ref: {
+      forge: repo.forge,
+      instance: repo.instance,
+      repo,
+      sha: raw.sha,
+    },
     sha: raw.sha,
     message: raw.message,
-    author: { name: raw.author?.name, email: raw.author?.email, date: toDate(raw.author?.date) },
-    committer: { name: raw.committer?.name, email: raw.committer?.email, date: toDate(raw.committer?.date) },
+    author: {
+      name: raw.author?.name,
+      email: raw.author?.email,
+      date: toDate(raw.author?.date),
+    },
+    committer: {
+      name: raw.committer?.name,
+      email: raw.committer?.email,
+      date: toDate(raw.committer?.date),
+    },
     parents: raw.parents?.map(parent => parent.sha) ?? [],
     url: raw.html_url,
     raw,
@@ -942,7 +1336,9 @@ export function toBranch(raw: GitHubBranch, defaultBranch?: string): Branch {
   return {
     name: raw.name,
     sha: raw.commit.sha,
-    isDefault: defaultBranch === undefined ? undefined : raw.name === defaultBranch,
+    isDefault: defaultBranch === undefined
+      ? undefined
+      : raw.name === defaultBranch,
     isProtected: raw.protected,
     raw,
   }
@@ -952,7 +1348,12 @@ export function toBranch(raw: GitHubBranch, defaultBranch?: string): Branch {
 export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRule[], protection: GitHubBranchProtection | undefined, warnings: ForgeWarning[]): BranchRules {
   const checks = new Map<string, RequiredCheck>()
   const add = (name: string, appId?: number | null) => {
-    const check: RequiredCheck = appId == null ? { name } : { name, appId: String(appId) }
+    const check: RequiredCheck = appId == null
+      ? { name }
+      : {
+          name,
+          appId: String(appId),
+        }
     checks.set(`${check.appId ?? ''}\0${name}`, check)
   }
   const approvals: number[] = []
@@ -968,7 +1369,9 @@ export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRul
   }
   const classic = branch.protection?.enabled ? branch.protection.required_status_checks : undefined
   if (classic && classic.enforcement_level !== 'off') {
-    for (const check of classic.checks?.length ? classic.checks : classic.contexts?.map(context => ({ context, app_id: undefined })) ?? []) {
+    for (const check of classic.checks?.length
+      ? classic.checks
+      : classic.contexts?.map(context => ({ context, app_id: undefined })) ?? []) {
       add(check.context, check.app_id)
     }
   }
@@ -976,12 +1379,22 @@ export function toBranchRules(branch: GitHubBranchDetail, rules: GitHubBranchRul
     approvals.push(protection.required_pull_request_reviews?.required_approving_review_count ?? 0)
   }
   const known = protection || !branch.protection?.enabled
-  const pinned = new Set([...checks.values()].filter(check => check.appId).map(check => check.name))
+  const pinned = new Set([
+    ...checks.values(),
+  ].filter(check => check.appId).map(check => check.name))
   return {
     branch: branch.name,
-    requiredChecks: [...checks.values()].filter(check => check.appId || !pinned.has(check.name)),
-    requiredApprovals: known ? Math.max(0, ...approvals) : approvals.length ? Math.max(...approvals) : undefined,
-    ...warnings.length ? { warnings } : {},
+    requiredChecks: [
+      ...checks.values(),
+    ].filter(check => check.appId || !pinned.has(check.name)),
+    requiredApprovals: known
+      ? Math.max(0, ...approvals)
+      : approvals.length
+        ? Math.max(...approvals)
+        : undefined,
+    ...warnings.length
+      ? { warnings }
+      : {},
     raw: { branch, rules, protection },
   }
 }
@@ -995,7 +1408,9 @@ const TREE_TYPES: Record<string, TreeEntryType> = { blob: 'file', tree: 'directo
 export function toTreeEntry(raw: GitHubTreeEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.mode === '120000' ? 'symlink' : TREE_TYPES[raw.type ?? ''] ?? 'file',
+    type: raw.mode === '120000'
+      ? 'symlink'
+      : TREE_TYPES[raw.type ?? ''] ?? 'file',
     sha: raw.sha,
     size: raw.size,
     mode: raw.mode,
@@ -1005,12 +1420,19 @@ export function toTreeEntry(raw: GitHubTreeEntry): TreeEntry {
 export function toWebhook(target: RepoRef, raw: GitHubHook): Webhook {
   const nativeEvents = raw.events ?? []
   return {
-    ref: { forge: target.forge, instance: target.instance, target, id: String(raw.id) },
+    ref: {
+      forge: target.forge,
+      instance: target.instance,
+      target,
+      id: String(raw.id),
+    },
     url: raw.config?.url ?? '',
     events: eventKindsOf(GITHUB_NATIVE_EVENTS, nativeEvents),
     nativeEvents,
     active: raw.active ?? true,
-    contentType: raw.config?.content_type === 'form' ? 'form' : 'json',
+    contentType: raw.config?.content_type === 'form'
+      ? 'form'
+      : 'json',
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     raw,
@@ -1020,8 +1442,16 @@ export function toWebhook(target: RepoRef, raw: GitHubHook): Webhook {
 export function toWebhookDelivery(hook: WebhookRef, raw: GitHubHookDelivery): WebhookDeliveryRecord {
   const status = raw.status_code ?? 0
   return {
-    ref: { forge: hook.forge, instance: hook.instance, hook, id: String(raw.id), guid: raw.guid },
-    event: raw.action ? `${raw.event}.${raw.action}` : raw.event ?? '',
+    ref: {
+      forge: hook.forge,
+      instance: hook.instance,
+      hook,
+      id: String(raw.id),
+      guid: raw.guid,
+    },
+    event: raw.action
+      ? `${raw.event}.${raw.action}`
+      : raw.event ?? '',
     status,
     ok: status >= 200 && status < 300,
     deliveredAt: toDate(raw.delivered_at),

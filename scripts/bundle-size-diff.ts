@@ -37,7 +37,12 @@ export function parseBundleSnapshot(text: string): BundleSnapshot {
       throw new Error('Invalid bundle size')
     }
     names.add(name)
-    return { name, minified: minified as number, gzipped: gzipped as number, lazy: lazy as number }
+    return {
+      name,
+      minified: minified as number,
+      gzipped: gzipped as number,
+      lazy: lazy as number,
+    }
   })
   return { version: 1, bundles }
 }
@@ -57,8 +62,12 @@ function cell(before: number | undefined, after: number | undefined): string {
   if (!delta) {
     return format(after)
   }
-  const sign = delta > 0 ? '+' : '-'
-  const percent = before ? `, ${sign}${(Math.abs(delta) / before * 100).toFixed(1)}%` : ''
+  const sign = delta > 0
+    ? '+'
+    : '-'
+  const percent = before
+    ? `, ${sign}${(Math.abs(delta) / before * 100).toFixed(1)}%`
+    : ''
   return `${format(before)} → ${format(after)} (${sign}${format(Math.abs(delta))}${percent})`
 }
 
@@ -66,7 +75,10 @@ function cell(before: number | undefined, after: number | undefined): string {
 export function renderBundleSizeDiff(base: BundleSnapshot, head: BundleSnapshot): string {
   const before = new Map(base.bundles.map(bundle => [bundle.name, bundle]))
   const after = new Map(head.bundles.map(bundle => [bundle.name, bundle]))
-  const names = new Set([...before.keys(), ...after.keys()])
+  const names = new Set([
+    ...before.keys(),
+    ...after.keys(),
+  ])
   return [
     '<!-- forges:bundle-size -->',
     '## Bundle size',
@@ -94,7 +106,12 @@ function readSnapshot(path: string): BundleSnapshot {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { values } = parseArgs({ options: { base: { type: 'string' }, head: { type: 'string' } } })
+  const { values } = parseArgs({
+    options: {
+      base: { type: 'string' },
+      head: { type: 'string' },
+    },
+  })
   if (!values.base || !values.head) {
     throw new Error('Expected --base and --head snapshot paths')
   }

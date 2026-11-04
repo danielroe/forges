@@ -44,7 +44,11 @@ export async function accountFeedPage({ atproto, recordEvent }: AccountFeedConte
   })))
   const merged = listings
     .flatMap(({ collection, records }) => records.map(record => ({ collection, record, rkey: parseAtUri(record.uri)?.rkey ?? '' })))
-    .sort((a, b) => a.rkey < b.rkey ? 1 : a.rkey > b.rkey ? -1 : 0)
+    .sort((a, b) => a.rkey < b.rkey
+      ? 1
+      : a.rkey > b.rkey
+        ? -1
+        : 0)
     .slice(0, limit)
   const next: Positions = {}
   for (const { collection, records } of listings) {
@@ -63,10 +67,23 @@ export async function accountFeedPage({ atproto, recordEvent }: AccountFeedConte
   }
   const threads = new Map<string, Promise<ThreadRead | undefined>>()
   const items = await mapConcurrent(merged, 4, ({ collection, record }: { collection: string, record: RecordResponse }) =>
-    recordEvent({ uri: record.uri, collection, record: record.value, operation: 'create' }, 'poll', new Date(), threads, signal))
+    recordEvent({
+      uri: record.uri,
+      collection,
+      record: record.value,
+      operation: 'create',
+    }, 'poll', new Date(), threads, signal))
   return {
     items,
-    ...Object.keys(next).length ? { cursor: { token: JSON.stringify(next) } } : {},
-    ...etag ? { etag } : {},
+    ...Object.keys(next).length
+      ? {
+          cursor: {
+            token: JSON.stringify(next),
+          },
+        }
+      : {},
+    ...etag
+      ? { etag }
+      : {},
   }
 }

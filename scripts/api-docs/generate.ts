@@ -49,12 +49,20 @@ export function generateApiDocs({ root, contentDir, basePath = '/reference', exp
     command: 'pnpm docs:api',
   })
   writeFiles(contentDir, files)
-  return { files, undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)), unplaced, model }
+  return {
+    files,
+    undocumented: undocumented(withoutHiddenMembers(model, HIDDEN_MEMBERS)),
+    unplaced,
+    model,
+  }
 }
 
 /** Replaces the pages of the previous run, and refuses to overwrite a file that it did not write. */
 export function writeFiles(contentDir: string, files: GeneratedFile[]): void {
-  const directories = new Set([...GENERATED_DIRECTORIES, ...files.map(file => dirname(file.path))])
+  const directories = new Set([
+    ...GENERATED_DIRECTORIES,
+    ...files.map(file => dirname(file.path)),
+  ])
   const previous = new Set<string>()
   for (const directory of directories) {
     mkdirSync(join(contentDir, directory), { recursive: true })
@@ -81,12 +89,15 @@ export function writeFiles(contentDir: string, files: GeneratedFile[]): void {
 }
 
 const VERBS = new Map<string, CapabilityInfo>(
-  CAPABILITY_TABLE.flatMap(entry => (entry.verbs ?? []).map(verb => [verb, {
-    capability: entry.capability,
-    perKind: entry.perKind,
-    write: entry.write,
-    account: entry.account,
-  }] as const)),
+  CAPABILITY_TABLE.flatMap(entry => (entry.verbs ?? []).map(verb => [
+    verb,
+    {
+      capability: entry.capability,
+      perKind: entry.perKind,
+      write: entry.write,
+      account: entry.account,
+    },
+  ] as const)),
 )
 
 /** The capability behind a verb. */

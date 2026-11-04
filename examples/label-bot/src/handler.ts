@@ -26,7 +26,9 @@ export function createHandler(options: HandlerOptions): (request: Request) => Pr
     }
 
     const [kind, instance] = pathname.slice(basePath.length + 1).split('/')
-    const provider = kind ? options.forges.get(kind, instance) : undefined
+    const provider = kind
+      ? options.forges.get(kind, instance)
+      : undefined
     if (!provider) {
       return Response.json({ error: `no provider configured for ${pathname}` }, { status: 404 })
     }

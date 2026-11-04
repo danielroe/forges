@@ -62,11 +62,20 @@ export function explorerHovers(model: ApiModel): Record<string, ExplorerHover> {
   }
 
   // The types of the constants that the code declares, for `const repo: RepoRef` and the like.
-  const types = new Set(['ForgeOrigin', 'RepoRef', 'ThreadRef', 'ForgeProvider', 'Page', ...EXPLORER_OPERATIONS.map(operation => operation.returns.replace(/ \| undefined$/, '').replace(/^Page<(\w+)>$/, '$1').replace(/\[\]$/, ''))])
+  const types = new Set([
+    'ForgeOrigin',
+    'RepoRef',
+    'ThreadRef',
+    'ForgeProvider',
+    'Page',
+    ...EXPLORER_OPERATIONS.map(operation => operation.returns.replace(/ \| undefined$/, '').replace(/^Page<(\w+)>$/, '$1').replace(/\[\]$/, '')),
+  ])
   for (const name of types) {
     const symbol = symbols.get(name)
     if (symbol) {
-      hovers[`type:${name}`] = { signature: `${symbol.kind === 'type' ? 'type' : 'interface'} ${name}`, description: symbol.description }
+      hovers[`type:${name}`] = { signature: `${symbol.kind === 'type'
+        ? 'type'
+        : 'interface'} ${name}`, description: symbol.description }
     }
   }
   return hovers

@@ -13,7 +13,9 @@ export default defineNuxtModule({
         getContents: async () => {
           highlighter ??= createExampleHighlighter()
           const { highlight } = await highlighter
-          return `export default ${JSON.stringify({ html: highlight(example.code) })}`
+          return `export default ${JSON.stringify({
+            html: highlight(example.code),
+          })}`
         },
       })
     }
@@ -25,7 +27,9 @@ export default defineNuxtModule({
         `import initial from './${forgeExamples[0]!.slug}.js'`,
         `export { initial }`,
         `export default [`,
-        ...forgeExamples.map((example, index) => `  { name: ${JSON.stringify(example.name)}, slug: ${JSON.stringify(example.slug)}, load: ${index ? `() => import('./${example.slug}.js').then(module => module.default)` : '() => Promise.resolve(initial)'} },`),
+        ...forgeExamples.map((example, index) => `  { name: ${JSON.stringify(example.name)}, slug: ${JSON.stringify(example.slug)}, load: ${index
+          ? `() => import('./${example.slug}.js').then(module => module.default)`
+          : '() => Promise.resolve(initial)'} },`),
         `]`,
       ].join('\n'),
     }).dst

@@ -56,10 +56,14 @@ function sourcehutWeb(instance: string): WebLinks {
     },
     commit: (repo, sha) => `${repoPath(repo)}/commit/${encodeURIComponent(sha)}`,
     // A file page carries the `item` segment; a directory page does not.
-    file: (repo, path, at, line) => `${repoPath(repo)}/tree/${encodeURIComponent(at)}/item/${encodePath(path)}${line ? `#L${line}` : ''}`,
+    file: (repo, path, at, line) => `${repoPath(repo)}/tree/${encodeURIComponent(at)}/item/${encodePath(path)}${line
+      ? `#L${line}`
+      : ''}`,
     // The raw bytes are on `blob` and the rendered page on `tree/<at>/item`, the reverse of GitHub.
     raw: (repo, path, at) => `${repoPath(repo)}/blob/${encodeURIComponent(at)}/${encodePath(path)}`,
-    release: ref => ref.tag ? `${repoPath(ref.repo)}/tree/${encodeURIComponent(ref.tag)}` : undefined,
+    release: ref => ref.tag
+      ? `${repoPath(ref.repo)}/tree/${encodeURIComponent(ref.tag)}`
+      : undefined,
     parse: (segments, url, from) => {
       // Tickets and patchsets are identified by an integer id, which is both the
       // API number and the display number, so a parsed ref is already resolved.
@@ -70,7 +74,18 @@ function sourcehutWeb(instance: string): WebLinks {
         }
         const repo: RepoRef = { ...from, owner, name }
         // Other trailing segments, such as `settings`, are tracker pages, not tickets.
-        return id && /^\d+$/.test(id) ? { repo, thread: { ...from, repo, kind: 'issue', number: id, displayNumber: id } } : { repo }
+        return id && /^\d+$/.test(id)
+          ? {
+              repo,
+              thread: {
+                ...from,
+                repo,
+                kind: 'issue',
+                number: id,
+                displayNumber: id,
+              },
+            }
+          : { repo }
       }
       if (url.host === listsHost) {
         const [owner, name, marker, id] = segments
@@ -78,32 +93,69 @@ function sourcehutWeb(instance: string): WebLinks {
           return undefined
         }
         const repo: RepoRef = { ...from, owner, name }
-        return marker === 'patches' && id && /^\d+$/.test(id) ? { repo, thread: { ...from, repo, kind: 'pull_request', number: id, displayNumber: id } } : { repo }
+        return marker === 'patches' && id && /^\d+$/.test(id)
+          ? {
+              repo,
+              thread: {
+                ...from,
+                repo,
+                kind: 'pull_request',
+                number: id,
+                displayNumber: id,
+              },
+            }
+          : { repo }
       }
       const [owner, name, section, at, marker] = segments
       if (!owner?.startsWith('~') || !name) {
         return undefined
       }
-      const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
+      const repo: RepoRef = {
+        ...from,
+        owner,
+        name: name.replace(/\.git$/, ''),
+      }
       if (section === 'tree' && at && marker === 'item' && segments[5]) {
-        return { repo, file: { at, path: segments.slice(5).join('/'), ...lineOf(url.hash.replace(/^#L/, '')) } }
+        return {
+          repo,
+          file: {
+            at,
+            path: segments.slice(5).join('/'),
+            ...lineOf(url.hash.replace(/^#L/, '')),
+          },
+        }
       }
       if (section === 'commit' && at) {
-        return { repo, commit: { ...from, repo, sha: at } }
+        return {
+          repo,
+          commit: { ...from, repo, sha: at },
+        }
       }
       return { repo }
     },
     reference: (ref, same) => {
       if ('sha' in ref) {
-        return (same ? bareSha(ref.sha, 7) : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
+        return (same
+          ? bareSha(ref.sha, 7)
+          : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
       // Only issues have a text syntax; a patchset falls back to its lists.sr.ht URL.
       if (ref.kind !== 'issue') {
         return undefined
       }
       const number = ref.displayNumber ?? ref.number
-      return number ? `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}#${number}` : undefined
+      return number
+        ? `${same
+          ? ''
+          : `${ref.repo.owner}/${ref.repo.name}`}#${number}`
+        : undefined
     },
-    references: { threads: [{ prefix: '#', kind: 'issue' }], repo: String.raw`~[\w.-]+\/[\w.-]+`, commits: true },
+    references: {
+      threads: [
+        { prefix: '#', kind: 'issue' },
+      ],
+      repo: String.raw`~[\w.-]+\/[\w.-]+`,
+      commits: true,
+    },
   }
 }

@@ -4,7 +4,9 @@ import { headerValue, hmacSha256Hex, timingSafeEqual } from './crypto.ts'
 
 /** The first of `names` the delivery carries a non-empty value for. */
 export function firstHeader(delivery: WebhookDelivery, names: string | readonly string[]): string | undefined {
-  for (const name of typeof names === 'string' ? [names] : names) {
+  for (const name of typeof names === 'string'
+    ? [names]
+    : names) {
     const value = headerValue(delivery.headers, name)
     if (value) {
       return value
@@ -60,7 +62,9 @@ export interface RefChange {
  */
 export function refEvent(who: string, change: RefChange): Pick<ForgeEventInput, 'kind' | 'action' | 'detail' | 'summary'> {
   const name = change.ref.replace(/^refs\/(?:heads|tags)\//, '')
-  const refType = change.refType ?? (change.ref.startsWith('refs/tags/') ? 'tag' : 'branch')
+  const refType = change.refType ?? (change.ref.startsWith('refs/tags/')
+    ? 'tag'
+    : 'branch')
   if (change.deleted || change.created) {
     return {
       kind: 'ref',
@@ -72,8 +76,18 @@ export function refEvent(who: string, change: RefChange): Pick<ForgeEventInput, 
   const count = change.commitCount ?? change.commits?.length
   return {
     kind: 'push',
-    detail: { type: 'push', ref: change.ref, before: change.before, after: change.after, commitCount: count, forced: change.forced ?? false, commits: change.commits ?? [] },
-    summary: count === undefined ? `${who} pushed to ${name}` : `${who} pushed ${count} commit(s) to ${name}`,
+    detail: {
+      type: 'push',
+      ref: change.ref,
+      before: change.before,
+      after: change.after,
+      commitCount: count,
+      forced: change.forced ?? false,
+      commits: change.commits ?? [],
+    },
+    summary: count === undefined
+      ? `${who} pushed to ${name}`
+      : `${who} pushed ${count} commit(s) to ${name}`,
   }
 }
 

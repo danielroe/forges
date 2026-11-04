@@ -25,7 +25,9 @@ function hover(element: HTMLElement | null) {
 
 function onPointerOver(event: PointerEvent) {
   if (event.pointerType !== 'touch') {
-    hover(event.target instanceof Element ? event.target.closest<HTMLElement>('.twoslash-hover') : null)
+    hover(event.target instanceof Element
+      ? event.target.closest<HTMLElement>('.twoslash-hover')
+      : null)
   }
 }
 

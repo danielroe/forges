@@ -7,7 +7,9 @@ export default defineEventHandler((event) => {
   const provider = useForges().get(forge)
   if (!provider?.can('sources.stream')) {
     setResponseStatus(event, 404)
-    return { error: { name: 'ProviderNotFound', message: `No ${forge} provider with a live feed is configured` } }
+    return {
+      error: { name: 'ProviderNotFound', message: `No ${forge} provider with a live feed is configured` },
+    }
   }
   const encoder = new TextEncoder()
   const signal = event.req.signal
@@ -35,5 +37,7 @@ export default defineEventHandler((event) => {
       await iterator.return?.()
     },
   })
-  return new Response(body, { headers: { 'content-type': 'text/event-stream', 'cache-control': 'no-cache' } })
+  return new Response(body, {
+    headers: { 'content-type': 'text/event-stream', 'cache-control': 'no-cache' },
+  })
 })

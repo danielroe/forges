@@ -31,7 +31,12 @@ export function createOriginAppCredentials(auth: AppAuth, createFetcher: (authHe
       return jwt.value
     }
     const now = Math.floor(Date.now() / 1000)
-    const value = await signEdDsaJwt(auth.privateKey, { iss: appId, aud: 'origin-apps', iat: now, exp: now + JWT_LIFETIME_SECONDS }, appId)
+    const value = await signEdDsaJwt(auth.privateKey, {
+      iss: appId,
+      aud: 'origin-apps',
+      iat: now,
+      exp: now + JWT_LIFETIME_SECONDS,
+    }, appId)
     jwt = { value, expiresAt: (now + JWT_LIFETIME_SECONDS) * 1000 }
     return value
   }
@@ -44,7 +49,11 @@ export function createOriginAppCredentials(auth: AppAuth, createFetcher: (authHe
       return cached
     }
     const { data } = await fetcher.json<{ token: string, expiresAt: string }>(`/app/installations/${installationId}/access_tokens`, { method: 'POST', json: {}, signal: options?.signal })
-    const token: InstallationToken = { token: data.token, expiresAt: new Date(data.expiresAt), permissions: {} }
+    const token: InstallationToken = {
+      token: data.token,
+      expiresAt: new Date(data.expiresAt),
+      permissions: {},
+    }
     tokens.set(installationId, token)
     return token
   }

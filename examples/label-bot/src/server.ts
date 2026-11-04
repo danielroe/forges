@@ -5,7 +5,9 @@ import { createForges } from 'forges'
 import { providersFromEnv } from 'forges/env'
 import { createHandler } from './handler.ts'
 
-const providers = providersFromEnv(process.env).flatMap(entry => entry.provider ? [entry.provider] : [])
+const providers = providersFromEnv(process.env).flatMap(entry => entry.provider
+  ? [entry.provider]
+  : [])
 if (providers.length === 0) {
   process.stderr.write('No providers configured. Set FORGES_GITHUB_TOKEN and FORGES_GITHUB_WEBHOOK_SECRET.\n')
   process.exit(1)
@@ -28,9 +30,13 @@ createServer((incoming, outgoing) => {
       method: incoming.method,
       headers: Object.entries(incoming.headers).map(([name, value]): [string, string] => [
         name,
-        Array.isArray(value) ? value.join(',') : value ?? '',
+        Array.isArray(value)
+          ? value.join(',')
+          : value ?? '',
       ]),
-      body: incoming.method === 'GET' || incoming.method === 'HEAD' ? undefined : Buffer.concat(chunks),
+      body: incoming.method === 'GET' || incoming.method === 'HEAD'
+        ? undefined
+        : Buffer.concat(chunks),
     })
     handler(request)
       .then(async (response) => {
@@ -39,7 +45,11 @@ createServer((incoming, outgoing) => {
       })
       .catch((error: unknown) => {
         outgoing.writeHead(500, { 'content-type': 'application/json' })
-        outgoing.end(JSON.stringify({ error: error instanceof Error ? error.message : 'unknown error' }))
+        outgoing.end(JSON.stringify({
+          error: error instanceof Error
+            ? error.message
+            : 'unknown error',
+        }))
       })
   })
 }).listen(port, () => process.stdout.write(`label-bot listening on http://127.0.0.1:${port}/webhooks/<forge>\n`))

@@ -14,11 +14,19 @@ const auth = { type: 'token', token: 't' } as const
 const sha = 'a1b2c3d4e5f60718293a4b5c6d7e8f9012345678'
 
 function repoOn(provider: ForgeProvider, owner: string, name: string): RepoRef {
-  return { forge: provider.forge, instance: provider.instance, owner, name }
+  return {
+    forge: provider.forge,
+    instance: provider.instance,
+    owner,
+    name,
+  }
 }
 
 function read(provider: ForgeProvider, text: string, from: RepoRef) {
-  return provider.parseReferences(text, { from }).map(({ start, end, ref }) => ({ text: text.slice(start, end), ref }))
+  return provider.parseReferences(text, { from }).map(({ start, end, ref }) => ({
+    text: text.slice(start, end),
+    ref,
+  }))
 }
 
 describe('parseReferences', () => {
@@ -29,27 +37,102 @@ describe('parseReferences', () => {
     const text = 'Fixes #42 and GH-7, see octo/tools#3 and octo/tools@abc1234, landed in 9f8e7d6.'
 
     expect(gh.parseReferences(text, { from: ghRepo })).toEqual([
-      { start: 6, end: 9, ref: { forge: 'github', instance: 'github.com', repo: ghRepo, kind: 'issue', number: '42' } },
-      { start: 14, end: 18, ref: { forge: 'github', instance: 'github.com', repo: ghRepo, kind: 'issue', number: '7' } },
-      { start: 24, end: 36, ref: { forge: 'github', instance: 'github.com', repo: repoOn(gh, 'octo', 'tools'), kind: 'issue', number: '3' } },
-      { start: 41, end: 59, ref: { forge: 'github', instance: 'github.com', repo: repoOn(gh, 'octo', 'tools'), sha: 'abc1234' } },
-      { start: 71, end: 78, ref: { forge: 'github', instance: 'github.com', repo: ghRepo, sha: '9f8e7d6' } },
+      {
+        start: 6,
+        end: 9,
+        ref: {
+          forge: 'github',
+          instance: 'github.com',
+          repo: ghRepo,
+          kind: 'issue',
+          number: '42',
+        },
+      },
+      {
+        start: 14,
+        end: 18,
+        ref: {
+          forge: 'github',
+          instance: 'github.com',
+          repo: ghRepo,
+          kind: 'issue',
+          number: '7',
+        },
+      },
+      {
+        start: 24,
+        end: 36,
+        ref: {
+          forge: 'github',
+          instance: 'github.com',
+          repo: repoOn(gh, 'octo', 'tools'),
+          kind: 'issue',
+          number: '3',
+        },
+      },
+      {
+        start: 41,
+        end: 59,
+        ref: {
+          forge: 'github',
+          instance: 'github.com',
+          repo: repoOn(gh, 'octo', 'tools'),
+          sha: 'abc1234',
+        },
+      },
+      {
+        start: 71,
+        end: 78,
+        ref: {
+          forge: 'github',
+          instance: 'github.com',
+          repo: ghRepo,
+          sha: '9f8e7d6',
+        },
+      },
     ])
   })
 
   it('reads back every reference that referenceFor writes', () => {
     const other = repoOn(gh, 'octo', 'tools')
     const refs = [
-      { forge: 'github', instance: 'github.com', repo: ghRepo, kind: 'issue', number: '42' },
-      { forge: 'github', instance: 'github.com', repo: other, kind: 'issue', number: '3' },
-      { forge: 'github', instance: 'github.com', repo: ghRepo, sha },
-      { forge: 'github', instance: 'github.com', repo: other, sha },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: ghRepo,
+        kind: 'issue',
+        number: '42',
+      },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: other,
+        kind: 'issue',
+        number: '3',
+      },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: ghRepo,
+        sha,
+      },
+      {
+        forge: 'github',
+        instance: 'github.com',
+        repo: other,
+        sha,
+      },
     ] as const
     for (const ref of refs) {
       const text = gh.referenceFor(ref, { from: ghRepo })!
       const [parsed] = gh.parseReferences(`See ${text}.`, { from: ghRepo })
 
-      expect(parsed?.ref).toMatchObject('sha' in ref ? { repo: ref.repo, sha: ref.sha.slice(0, 7) } : { repo: ref.repo, number: ref.number })
+      expect(parsed?.ref).toMatchObject('sha' in ref
+        ? {
+            repo: ref.repo,
+            sha: ref.sha.slice(0, 7),
+          }
+        : { repo: ref.repo, number: ref.number })
     }
   })
 
@@ -61,21 +144,46 @@ describe('parseReferences', () => {
       'only digits': '1234567890'.repeat(4),
       'only letters': 'abcdef'.repeat(7).slice(0, 40),
     }
-    const providers = [github(), gitlab(), sourcehut({ auth }), tangled(), bitbucket(), forgejo(), gitee({ auth })]
+    const providers = [
+      github(),
+      gitlab(),
+      sourcehut({ auth }),
+      tangled(),
+      bitbucket(),
+      forgejo(),
+      gitee({ auth }),
+    ]
 
     it.each(providers.flatMap(provider => Object.entries(shas).map(([name, value]) => [provider.forge, name, provider, value] as const)))('reads back what %s writes for a sha with %s', (_forge, _name, provider, value) => {
-      const owner = provider.forge === 'sourcehut' ? '~acme' : 'acme'
+      const owner = provider.forge === 'sourcehut'
+        ? '~acme'
+        : 'acme'
       const from = repoOn(provider, owner, 'widgets')
-      for (const repo of [from, repoOn(provider, owner, 'tools')]) {
-        const ref = { forge: provider.forge, instance: provider.instance, repo, sha: value }
+      for (const repo of [
+        from,
+        repoOn(provider, owner, 'tools'),
+      ]) {
+        const ref = {
+          forge: provider.forge,
+          instance: provider.instance,
+          repo,
+          sha: value,
+        }
         const text = provider.referenceFor(ref, { from })!
         if (text.startsWith('https://')) {
-          expect(provider.parseUrl(text)).toMatchObject({ commit: { repo: { owner: repo.owner, name: repo.name }, sha: value } })
+          expect(provider.parseUrl(text)).toMatchObject({
+            commit: {
+              repo: { owner: repo.owner, name: repo.name },
+              sha: value,
+            },
+          })
           continue
         }
         const [parsed] = provider.parseReferences(`See ${text}.`, { from })
 
-        expect(parsed?.ref).toMatchObject({ repo: { owner: repo.owner, name: repo.name } })
+        expect(parsed?.ref).toMatchObject({
+          repo: { owner: repo.owner, name: repo.name },
+        })
         expect(value.startsWith((parsed!.ref as { sha: string }).sha)).toBe(true)
       }
     })
@@ -83,24 +191,51 @@ describe('parseReferences', () => {
     it('extends a bare sha until it has a letter and a digit', () => {
       const gh = github()
       const from = repoOn(gh, 'acme', 'widgets')
-      const at = (value: string) => gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: value }, { from })
+      const at = (value: string) => gh.referenceFor({
+        forge: 'github',
+        instance: 'github.com',
+        repo: from,
+        sha: value,
+      }, { from })
 
       expect(at(sha)).toBe('a1b2c3d')
       expect(at(shas['letters before the first digit'])).toBe('deadbeefcafebabe1')
       expect(at(shas['digits before the first letter'])).toBe('12345678901234a')
-      for (const provider of [gitlab(), bitbucket()]) {
+      for (const provider of [
+        gitlab(),
+        bitbucket(),
+      ]) {
         const from = repoOn(provider, 'acme', 'widgets')
 
-        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: shas['letters before the first digit'] }, { from })).toBe('deadbeefcafebabe1')
-        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: shas['digits before the first letter'] }, { from })).toBe('12345678901234a')
+        expect(provider.referenceFor({
+          forge: provider.forge,
+          instance: provider.instance,
+          repo: from,
+          sha: shas['letters before the first digit'],
+        }, { from })).toBe('deadbeefcafebabe1')
+        expect(provider.referenceFor({
+          forge: provider.forge,
+          instance: provider.instance,
+          repo: from,
+          sha: shas['digits before the first letter'],
+        }, { from })).toBe('12345678901234a')
       }
     })
 
     it('writes a sha shorter than the forge\'s length as it is', () => {
-      for (const provider of [github(), gitlab(), bitbucket()]) {
+      for (const provider of [
+        github(),
+        gitlab(),
+        bitbucket(),
+      ]) {
         const from = repoOn(provider, 'acme', 'widgets')
 
-        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: 'a1b2c3d' }, { from })).toBe('a1b2c3d')
+        expect(provider.referenceFor({
+          forge: provider.forge,
+          instance: provider.instance,
+          repo: from,
+          sha: 'a1b2c3d',
+        }, { from })).toBe('a1b2c3d')
       }
     })
 
@@ -110,10 +245,30 @@ describe('parseReferences', () => {
       const bb = bitbucket()
       const bbFrom = repoOn(bb, 'acme', 'widgets')
 
-      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only digits'] }, { from })).toBe('acme/widgets@1234567')
-      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: shas['only letters'] }, { from })).toBe('acme/widgets@abcdefa')
-      expect(gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: `${shas['only digits']}a${'0'.repeat(23)}` }, { from })).toBe('acme/widgets@1234567')
-      expect(bb.referenceFor({ forge: 'bitbucket', instance: 'bitbucket.org', repo: bbFrom, sha: shas['only digits'] }, { from: bbFrom })).toMatch(/^https:\/\/bitbucket\.org\/acme\/widgets\/commits\//)
+      expect(gh.referenceFor({
+        forge: 'github',
+        instance: 'github.com',
+        repo: from,
+        sha: shas['only digits'],
+      }, { from })).toBe('acme/widgets@1234567')
+      expect(gh.referenceFor({
+        forge: 'github',
+        instance: 'github.com',
+        repo: from,
+        sha: shas['only letters'],
+      }, { from })).toBe('acme/widgets@abcdefa')
+      expect(gh.referenceFor({
+        forge: 'github',
+        instance: 'github.com',
+        repo: from,
+        sha: `${shas['only digits']}a${'0'.repeat(23)}`,
+      }, { from })).toBe('acme/widgets@1234567')
+      expect(bb.referenceFor({
+        forge: 'bitbucket',
+        instance: 'bitbucket.org',
+        repo: bbFrom,
+        sha: shas['only digits'],
+      }, { from: bbFrom })).toMatch(/^https:\/\/bitbucket\.org\/acme\/widgets\/commits\//)
     })
   })
 
@@ -123,9 +278,27 @@ describe('parseReferences', () => {
     const other = repoOn(tg, 'vueuse', 'vueuse')
     const did = repoOn(tg, 'did:plc:abc', 'core')
     const refs = [
-      { forge: 'tangled', instance: 'tangled.org', repo: from, kind: 'issue', displayNumber: '4195' },
-      { forge: 'tangled', instance: 'tangled.org', repo: other, kind: 'issue', displayNumber: '4195' },
-      { forge: 'tangled', instance: 'tangled.org', repo: did, kind: 'issue', displayNumber: '7' },
+      {
+        forge: 'tangled',
+        instance: 'tangled.org',
+        repo: from,
+        kind: 'issue',
+        displayNumber: '4195',
+      },
+      {
+        forge: 'tangled',
+        instance: 'tangled.org',
+        repo: other,
+        kind: 'issue',
+        displayNumber: '4195',
+      },
+      {
+        forge: 'tangled',
+        instance: 'tangled.org',
+        repo: did,
+        kind: 'issue',
+        displayNumber: '7',
+      },
     ] as const
 
     expect(tg.referenceFor(refs[0], { from })).toBe('#4195')
@@ -141,12 +314,25 @@ describe('parseReferences', () => {
 
   it('reads a qualified reference to the current repository back as that repository', () => {
     const tg = tangled()
-    const from: RepoRef = { ...repoOn(tg, 'did:plc:abc', 'widgets'), ownerHandle: 'acme.dev' }
-    const ref = { forge: 'tangled', instance: 'tangled.org', repo: from, sha: '1234567890'.repeat(4) } as const
+    const from: RepoRef = {
+      ...repoOn(tg, 'did:plc:abc', 'widgets'),
+      ownerHandle: 'acme.dev',
+    }
+    const ref = {
+      forge: 'tangled',
+      instance: 'tangled.org',
+      repo: from,
+      sha: '1234567890'.repeat(4),
+    } as const
     const text = tg.referenceFor(ref, { from })!
 
     expect(text).toBe('acme.dev/widgets@1234567')
-    expect(tg.parseReferences(text, { from })[0]?.ref).toEqual({ forge: 'tangled', instance: 'tangled.org', repo: from, sha: '1234567' })
+    expect(tg.parseReferences(text, { from })[0]?.ref).toEqual({
+      forge: 'tangled',
+      instance: 'tangled.org',
+      repo: from,
+      sha: '1234567',
+    })
     expect(tg.parseReferences('acme.dev/widgets#7', { from })[0]?.ref).toMatchObject({ repo: from })
   })
 
@@ -169,8 +355,12 @@ describe('parseReferences', () => {
   })
 
   it('reads nothing when the text is written on another instance', () => {
-    expect(gh.parseReferences('#42', { from: { ...ghRepo, instance: 'ghe.example.com' } })).toEqual([])
-    expect(gh.parseReferences('#42', { from: repoOn(gitlab(), 'acme', 'widgets') })).toEqual([])
+    expect(gh.parseReferences('#42', {
+      from: { ...ghRepo, instance: 'ghe.example.com' },
+    })).toEqual([])
+    expect(gh.parseReferences('#42', {
+      from: repoOn(gitlab(), 'acme', 'widgets'),
+    })).toEqual([])
   })
 
   it('reads GitLab issues, merge requests and nested groups, with the + suffix', () => {
@@ -178,11 +368,55 @@ describe('parseReferences', () => {
     const from = repoOn(gl, 'acme/platform', 'widgets')
 
     expect(read(gl, '#1, !2+, acme/tools!3, a/b/c#4+s and a/b/c@abc12345', from)).toEqual([
-      { text: '#1', ref: { forge: 'gitlab', instance: 'gitlab.com', repo: from, kind: 'issue', number: '1' } },
-      { text: '!2+', ref: { forge: 'gitlab', instance: 'gitlab.com', repo: from, kind: 'pull_request', number: '2' } },
-      { text: 'acme/tools!3', ref: { forge: 'gitlab', instance: 'gitlab.com', repo: repoOn(gl, 'acme', 'tools'), kind: 'pull_request', number: '3' } },
-      { text: 'a/b/c#4+s', ref: { forge: 'gitlab', instance: 'gitlab.com', repo: repoOn(gl, 'a/b', 'c'), kind: 'issue', number: '4' } },
-      { text: 'a/b/c@abc12345', ref: { forge: 'gitlab', instance: 'gitlab.com', repo: repoOn(gl, 'a/b', 'c'), sha: 'abc12345' } },
+      {
+        text: '#1',
+        ref: {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          repo: from,
+          kind: 'issue',
+          number: '1',
+        },
+      },
+      {
+        text: '!2+',
+        ref: {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          repo: from,
+          kind: 'pull_request',
+          number: '2',
+        },
+      },
+      {
+        text: 'acme/tools!3',
+        ref: {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          repo: repoOn(gl, 'acme', 'tools'),
+          kind: 'pull_request',
+          number: '3',
+        },
+      },
+      {
+        text: 'a/b/c#4+s',
+        ref: {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          repo: repoOn(gl, 'a/b', 'c'),
+          kind: 'issue',
+          number: '4',
+        },
+      },
+      {
+        text: 'a/b/c@abc12345',
+        ref: {
+          forge: 'gitlab',
+          instance: 'gitlab.com',
+          repo: repoOn(gl, 'a/b', 'c'),
+          sha: 'abc12345',
+        },
+      },
     ])
   })
 
@@ -190,7 +424,10 @@ describe('parseReferences', () => {
     const ge = gitee({ auth })
     const from = repoOn(ge, 'acme', 'widgets')
 
-    expect(read(ge, '#I6XZ2N, !7 and #42', from).map(({ text, ref }) => [text, 'kind' in ref && ref.kind])).toEqual([['#I6XZ2N', 'issue'], ['!7', 'pull_request']])
+    expect(read(ge, '#I6XZ2N, !7 and #42', from).map(({ text, ref }) => [text, 'kind' in ref && ref.kind])).toEqual([
+      ['#I6XZ2N', 'issue'],
+      ['!7', 'pull_request'],
+    ])
   })
 
   it('reads Bitbucket pull request references within the repository only', () => {
@@ -198,9 +435,35 @@ describe('parseReferences', () => {
     const from = repoOn(bb, 'acme', 'widgets')
 
     expect(read(bb, '#1, #2, acme/tools#3 and 0123456789ab', from)).toEqual([
-      { text: '#1', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'pull_request', number: '1' } },
-      { text: '#2', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, kind: 'pull_request', number: '2' } },
-      { text: '0123456789ab', ref: { forge: 'bitbucket', instance: 'bitbucket.org', repo: from, sha: '0123456789ab' } },
+      {
+        text: '#1',
+        ref: {
+          forge: 'bitbucket',
+          instance: 'bitbucket.org',
+          repo: from,
+          kind: 'pull_request',
+          number: '1',
+        },
+      },
+      {
+        text: '#2',
+        ref: {
+          forge: 'bitbucket',
+          instance: 'bitbucket.org',
+          repo: from,
+          kind: 'pull_request',
+          number: '2',
+        },
+      },
+      {
+        text: '0123456789ab',
+        ref: {
+          forge: 'bitbucket',
+          instance: 'bitbucket.org',
+          repo: from,
+          sha: '0123456789ab',
+        },
+      },
     ])
   })
 
@@ -209,8 +472,32 @@ describe('parseReferences', () => {
     const from = repoOn(az, 'contoso/Widgets', 'widgets')
 
     expect(read(az, '#1 and !2', from)).toEqual([
-      { text: '#1', ref: { forge: 'azure-devops', instance: 'dev.azure.com', repo: { forge: 'azure-devops', instance: 'dev.azure.com', owner: 'contoso/Widgets', name: '', kind: 'namespace' }, kind: 'issue', number: '1' } },
-      { text: '!2', ref: { forge: 'azure-devops', instance: 'dev.azure.com', repo: from, kind: 'pull_request', number: '2' } },
+      {
+        text: '#1',
+        ref: {
+          forge: 'azure-devops',
+          instance: 'dev.azure.com',
+          repo: {
+            forge: 'azure-devops',
+            instance: 'dev.azure.com',
+            owner: 'contoso/Widgets',
+            name: '',
+            kind: 'namespace',
+          },
+          kind: 'issue',
+          number: '1',
+        },
+      },
+      {
+        text: '!2',
+        ref: {
+          forge: 'azure-devops',
+          instance: 'dev.azure.com',
+          repo: from,
+          kind: 'pull_request',
+          number: '2',
+        },
+      },
     ])
   })
 
@@ -218,10 +505,30 @@ describe('parseReferences', () => {
     const cb = forgejo()
     const sh = sourcehut({ auth })
 
-    expect(read(cb, 'acme/tools#3', repoOn(cb, 'acme', 'widgets'))).toMatchObject([{ text: 'acme/tools#3', ref: { repo: { owner: 'acme', name: 'tools' }, number: '3' } }])
+    expect(read(cb, 'acme/tools#3', repoOn(cb, 'acme', 'widgets'))).toMatchObject([
+      {
+        text: 'acme/tools#3',
+        ref: {
+          repo: { owner: 'acme', name: 'tools' },
+          number: '3',
+        },
+      },
+    ])
     expect(read(sh, '#1 and ~acme/tools#3', repoOn(sh, '~acme', 'widgets'))).toMatchObject([
-      { text: '#1', ref: { repo: { owner: '~acme', name: 'widgets' }, number: '1' } },
-      { text: '~acme/tools#3', ref: { repo: { owner: '~acme', name: 'tools' }, number: '3' } },
+      {
+        text: '#1',
+        ref: {
+          repo: { owner: '~acme', name: 'widgets' },
+          number: '1',
+        },
+      },
+      {
+        text: '~acme/tools#3',
+        ref: {
+          repo: { owner: '~acme', name: 'tools' },
+          number: '3',
+        },
+      },
     ])
   })
 
@@ -230,8 +537,25 @@ describe('parseReferences', () => {
     const from = repoOn(tg, 'acme.dev', 'widgets')
 
     expect(read(tg, '#1 and abc1234', from)).toEqual([
-      { text: '#1', ref: { forge: 'tangled', instance: 'tangled.org', repo: from, kind: 'issue', displayNumber: '1' } },
-      { text: 'abc1234', ref: { forge: 'tangled', instance: 'tangled.org', repo: from, sha: 'abc1234' } },
+      {
+        text: '#1',
+        ref: {
+          forge: 'tangled',
+          instance: 'tangled.org',
+          repo: from,
+          kind: 'issue',
+          displayNumber: '1',
+        },
+      },
+      {
+        text: 'abc1234',
+        ref: {
+          forge: 'tangled',
+          instance: 'tangled.org',
+          repo: from,
+          sha: 'abc1234',
+        },
+      },
     ])
   })
 
@@ -239,8 +563,16 @@ describe('parseReferences', () => {
     const gl = gitlab()
     const forges = createForges([gh, gl])
 
-    expect(forges.parseReferences('!2', { from: repoOn(gl, 'acme', 'widgets') })).toMatchObject([{ ref: { forge: 'gitlab', kind: 'pull_request' } }])
+    expect(forges.parseReferences('!2', {
+      from: repoOn(gl, 'acme', 'widgets'),
+    })).toMatchObject([
+      {
+        ref: { forge: 'gitlab', kind: 'pull_request' },
+      },
+    ])
     expect(forges.parseReferences('!2', { from: ghRepo })).toEqual([])
-    expect(forges.parseReferences('#2', { from: repoOn(forgejo(), 'acme', 'widgets') })).toEqual([])
+    expect(forges.parseReferences('#2', {
+      from: repoOn(forgejo(), 'acme', 'widgets'),
+    })).toEqual([])
   })
 })

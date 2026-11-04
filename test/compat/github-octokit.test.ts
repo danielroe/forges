@@ -39,9 +39,20 @@ const { privateKey } = generateKeyPairSync('rsa', {
   publicKeyEncoding: { type: 'spki', format: 'pem' },
 })
 
-const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } as const
+const repo = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'acme',
+  name: 'widgets',
+} as const
 
-const pull: ResolvedThreadRef = { forge: 'github', instance: 'github.com', repo, kind: 'pull_request', number: '42' }
+const pull: ResolvedThreadRef = {
+  forge: 'github',
+  instance: 'github.com',
+  repo,
+  kind: 'pull_request',
+  number: '42',
+}
 const notification = { forge: 'github', instance: 'github.com', id: '901234567' } as const
 
 interface Comparable {
@@ -59,7 +70,9 @@ function comparable(call: FixtureCall): Comparable {
     method: call.method,
     path: url.pathname,
     query: [...url.searchParams].sort(([a], [b]) => a.localeCompare(b)),
-    body: call.body ? JSON.parse(call.body) : undefined,
+    body: call.body
+      ? JSON.parse(call.body)
+      : undefined,
     ifNoneMatch: call.headers.get('if-none-match'),
   }
 }
@@ -76,8 +89,14 @@ function harness(overrides: Parameters<typeof fixtureFetch>[1] = {}) {
   const ours = fixtureFetch('github', overrides)
   const theirs = fixtureFetch('github', overrides)
   return {
-    provider: github({ auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }),
-    octokit: new Octokit({ auth: TOKEN, request: { fetch: theirs.fetch } }),
+    provider: github({
+      auth: { type: 'token', token: TOKEN },
+      fetch: ours.fetch,
+    }),
+    octokit: new Octokit({
+      auth: TOKEN,
+      request: { fetch: theirs.fetch },
+    }),
     ours: ours.calls,
     theirs: theirs.calls,
   }
@@ -100,19 +119,29 @@ const name = 'widgets'
 describe('request compatibility with Octokit', () => {
   it('lists notifications across every page, without a conditional header on later pages', async () => {
     const h = harness()
-    await drain(h.provider.notifications!.list({ cursor: { etag: 'W/"stale"' } }))
+    await drain(h.provider.notifications!.list({
+      cursor: { etag: 'W/"stale"' },
+    }))
     await h.octokit.paginate(h.octokit.rest.activity.listNotificationsForAuthenticatedUser, { all: false })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
 
-    expect(rest.map(call => ({ ...comparable(call), ifNoneMatch: null }))).toEqual(h.theirs.map(comparable))
+    expect(rest.map(call => ({
+      ...comparable(call),
+      ifNoneMatch: null,
+    }))).toEqual(h.theirs.map(comparable))
     expect(rest.map(call => call.headers.get('if-none-match'))).toEqual(['W/"stale"', null])
   })
 
   it('sends If-None-Match for a conditional notifications poll', async () => {
     const etag = 'W/"e1a7c5f0c0de4f0b9d6b5d2b0a1f3c21"'
     await compare(
-      provider => provider.notifications!.list({ cursor: { etag } }).page().catch(() => undefined),
-      octokit => octokit.rest.activity.listNotificationsForAuthenticatedUser({ all: false, headers: { 'if-none-match': etag } }).catch(() => undefined),
+      provider => provider.notifications!.list({
+        cursor: { etag },
+      }).page().catch(() => undefined),
+      octokit => octokit.rest.activity.listNotificationsForAuthenticatedUser({
+        all: false,
+        headers: { 'if-none-match': etag },
+      }).catch(() => undefined),
     )
   })
 
@@ -142,8 +171,18 @@ describe('request compatibility with Octokit', () => {
       provider => provider.threads.get(pull),
       async (octokit) => {
         const { data } = await octokit.rest.pulls.get({ owner, repo: name, pull_number: 42 })
-        await octokit.rest.checks.listForRef({ owner, repo: name, ref: data.head.sha, per_page: 100 })
-        await octokit.rest.repos.getCombinedStatusForRef({ owner, repo: name, ref: data.head.sha, per_page: 100 })
+        await octokit.rest.checks.listForRef({
+          owner,
+          repo: name,
+          ref: data.head.sha,
+          per_page: 100,
+        })
+        await octokit.rest.repos.getCombinedStatusForRef({
+          owner,
+          repo: name,
+          ref: data.head.sha,
+          per_page: 100,
+        })
       },
     )
   })
@@ -153,8 +192,18 @@ describe('request compatibility with Octokit', () => {
       provider => provider.threads.checks!(pull),
       async (octokit) => {
         const { data } = await octokit.rest.pulls.get({ owner, repo: name, pull_number: 42 })
-        await octokit.rest.checks.listForRef({ owner, repo: name, ref: data.head.sha, per_page: 100 })
-        await octokit.rest.repos.getCombinedStatusForRef({ owner, repo: name, ref: data.head.sha, per_page: 100 })
+        await octokit.rest.checks.listForRef({
+          owner,
+          repo: name,
+          ref: data.head.sha,
+          per_page: 100,
+        })
+        await octokit.rest.repos.getCombinedStatusForRef({
+          owner,
+          repo: name,
+          ref: data.head.sha,
+          per_page: 100,
+        })
       },
     )
   })
@@ -163,7 +212,12 @@ describe('request compatibility with Octokit', () => {
     await compare(
       async (provider) => {
         await provider.releases!.list(repo).page()
-        await provider.releases!.get({ forge: 'github', instance: 'github.com', repo, id: '9001' })
+        await provider.releases!.get({
+          forge: 'github',
+          instance: 'github.com',
+          repo,
+          id: '9001',
+        })
         await provider.releases!.latest(repo)
       },
       async (octokit) => {
@@ -177,12 +231,38 @@ describe('request compatibility with Octokit', () => {
   it('creates a draft release and publishes it', async () => {
     await compare(
       async (provider) => {
-        await provider.releases.create(repo, { tag: 'v1.3.0', target: 'main', name: 'Widgets v1.3.0', body: 'Notes', draft: true, prerelease: false }).catch(() => undefined)
-        await provider.releases.update({ forge: 'github', instance: 'github.com', repo, id: '9003' }, { draft: false }).catch(() => undefined)
+        await provider.releases.create(repo, {
+          tag: 'v1.3.0',
+          target: 'main',
+          name: 'Widgets v1.3.0',
+          body: 'Notes',
+          draft: true,
+          prerelease: false,
+        }).catch(() => undefined)
+        await provider.releases.update({
+          forge: 'github',
+          instance: 'github.com',
+          repo,
+          id: '9003',
+        }, { draft: false }).catch(() => undefined)
       },
       async (octokit) => {
-        await octokit.rest.repos.createRelease({ owner, repo: name, tag_name: 'v1.3.0', target_commitish: 'main', name: 'Widgets v1.3.0', body: 'Notes', draft: true, prerelease: false }).catch(() => undefined)
-        await octokit.rest.repos.updateRelease({ owner, repo: name, release_id: 9003, draft: false }).catch(() => undefined)
+        await octokit.rest.repos.createRelease({
+          owner,
+          repo: name,
+          tag_name: 'v1.3.0',
+          target_commitish: 'main',
+          name: 'Widgets v1.3.0',
+          body: 'Notes',
+          draft: true,
+          prerelease: false,
+        }).catch(() => undefined)
+        await octokit.rest.repos.updateRelease({
+          owner,
+          repo: name,
+          release_id: 9003,
+          draft: false,
+        }).catch(() => undefined)
       },
     )
   })
@@ -209,7 +289,12 @@ describe('request compatibility with Octokit', () => {
   it('comments on a pull request through the issues API', async () => {
     await compare(
       provider => provider.threads.createComment!(pull, 'Thanks!'),
-      octokit => octokit.rest.issues.createComment({ owner, repo: name, issue_number: 42, body: 'Thanks!' }),
+      octokit => octokit.rest.issues.createComment({
+        owner,
+        repo: name,
+        issue_number: 42,
+        body: 'Thanks!',
+      }),
     )
   })
 
@@ -220,8 +305,18 @@ describe('request compatibility with Octokit', () => {
         await provider.threads.reopen!(pull)
       },
       async (octokit) => {
-        await octokit.rest.pulls.update({ owner, repo: name, pull_number: 42, state: 'closed' })
-        await octokit.rest.pulls.update({ owner, repo: name, pull_number: 42, state: 'open' })
+        await octokit.rest.pulls.update({
+          owner,
+          repo: name,
+          pull_number: 42,
+          state: 'closed',
+        })
+        await octokit.rest.pulls.update({
+          owner,
+          repo: name,
+          pull_number: 42,
+          state: 'open',
+        })
       },
     )
   })
@@ -233,10 +328,26 @@ describe('request compatibility with Octokit', () => {
         await provider.threads.merge!(pull)
       },
       async (octokit) => {
-        await octokit.rest.pulls.createReview({ owner, repo: name, pull_number: 42, event: 'APPROVE' })
+        await octokit.rest.pulls.createReview({
+          owner,
+          repo: name,
+          pull_number: 42,
+          event: 'APPROVE',
+        })
         await octokit.rest.repos.get({ owner, repo: name })
-        await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge-async', { owner, repo: name, pull_number: 42, merge_method: 'squash', merge_action: 'direct_merge' })
-        await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/merge-async/{uuid}', { owner, repo: name, pull_number: 42, uuid: '3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f' })
+        await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge-async', {
+          owner,
+          repo: name,
+          pull_number: 42,
+          merge_method: 'squash',
+          merge_action: 'direct_merge',
+        })
+        await octokit.request('GET /repos/{owner}/{repo}/pulls/{pull_number}/merge-async/{uuid}', {
+          owner,
+          repo: name,
+          pull_number: 42,
+          uuid: '3f1c2a9e-5b7d-4e8a-9c0f-1a2b3c4d5e6f',
+        })
       },
     )
   })
@@ -245,7 +356,12 @@ describe('request compatibility with Octokit', () => {
     const h = harness()
     await h.provider.threads.reviews(pull).page()
     await h.octokit.rest.pulls.listReviews({ owner, repo: name, pull_number: 42 })
-    await h.octokit.rest.pulls.listReviewComments({ owner, repo: name, pull_number: 42, per_page: 100 })
+    await h.octokit.rest.pulls.listReviewComments({
+      owner,
+      repo: name,
+      pull_number: 42,
+      per_page: 100,
+    })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
 
     expect(rest.map(comparable)).toEqual(h.theirs.map(comparable))
@@ -259,8 +375,20 @@ describe('request compatibility with Octokit', () => {
         await provider.threads.submitReview(review.ref, 'approve', 'LGTM')
       },
       async (octokit) => {
-        await octokit.rest.pulls.createReview({ owner, repo: name, pull_number: 42, body: 'nit' })
-        await octokit.rest.pulls.submitReview({ owner, repo: name, pull_number: 42, review_id: 880099, event: 'APPROVE', body: 'LGTM' })
+        await octokit.rest.pulls.createReview({
+          owner,
+          repo: name,
+          pull_number: 42,
+          body: 'nit',
+        })
+        await octokit.rest.pulls.submitReview({
+          owner,
+          repo: name,
+          pull_number: 42,
+          review_id: 880099,
+          event: 'APPROVE',
+          body: 'LGTM',
+        })
       },
     )
   })
@@ -269,11 +397,30 @@ describe('request compatibility with Octokit', () => {
     const sha = '6dcb09b5b57875f334f61aebed695e2e4193db5e'
     await compare(
       async (provider) => {
-        await provider.checks.report(repo, sha, { name: 'forges/coverage', state: 'success', description: '84%', url: 'https://ci.example/run/1' })
-        await provider.checks.rerun({ forge: 'github', instance: 'github.com', repo, id: '4002', type: 'check_run' })
+        await provider.checks.report(repo, sha, {
+          name: 'forges/coverage',
+          state: 'success',
+          description: '84%',
+          url: 'https://ci.example/run/1',
+        })
+        await provider.checks.rerun({
+          forge: 'github',
+          instance: 'github.com',
+          repo,
+          id: '4002',
+          type: 'check_run',
+        })
       },
       async (octokit) => {
-        await octokit.rest.repos.createCommitStatus({ owner, repo: name, sha, state: 'success', context: 'forges/coverage', description: '84%', target_url: 'https://ci.example/run/1' })
+        await octokit.rest.repos.createCommitStatus({
+          owner,
+          repo: name,
+          sha,
+          state: 'success',
+          context: 'forges/coverage',
+          description: '84%',
+          target_url: 'https://ci.example/run/1',
+        })
         await octokit.rest.checks.rerequestRun({ owner, repo: name, check_run_id: 4002 })
       },
     )
@@ -284,7 +431,12 @@ describe('request compatibility with Octokit', () => {
       async (provider) => {
         const { items } = await provider.ci.runs(repo).page()
         await provider.ci.jobs(items[0]!.ref).page()
-        await provider.ci.log({ forge: 'github', instance: 'github.com', repo, id: '4002' })
+        await provider.ci.log({
+          forge: 'github',
+          instance: 'github.com',
+          repo,
+          id: '4002',
+        })
       },
       async (octokit) => {
         await octokit.rest.actions.listWorkflowRunsForRepo({ owner, repo: name })
@@ -295,14 +447,31 @@ describe('request compatibility with Octokit', () => {
   })
 
   it('manages webhooks and their deliveries', async () => {
-    const hook = { forge: 'github', instance: 'github.com', target: repo, id: '12345678' } as const
+    const hook = {
+      forge: 'github',
+      instance: 'github.com',
+      target: repo,
+      id: '12345678',
+    } as const
     await compare(
       async (provider) => {
         await provider.webhooks.list(repo).page()
-        await provider.webhooks.create(repo, { url: 'https://hooks.example/forges', events: ['state_change', 'push'], secret: 's3cret' })
-        await provider.webhooks.update(hook, { active: false, nativeEvents: ['push'] })
+        await provider.webhooks.create(repo, {
+          url: 'https://hooks.example/forges',
+          events: ['state_change', 'push'],
+          secret: 's3cret',
+        })
+        await provider.webhooks.update(hook, {
+          active: false,
+          nativeEvents: ['push'],
+        })
         await provider.webhooks.deliveries(hook).page()
-        await provider.webhooks.redeliver({ forge: 'github', instance: 'github.com', hook, id: '55001' })
+        await provider.webhooks.redeliver({
+          forge: 'github',
+          instance: 'github.com',
+          hook,
+          id: '55001',
+        })
         await provider.webhooks.delete(hook)
       },
       async (octokit) => {
@@ -312,12 +481,28 @@ describe('request compatibility with Octokit', () => {
           repo: name,
           name: 'web',
           active: true,
-          events: ['issues', 'pull_request', 'discussion', 'push'],
+          events: [
+            'issues',
+            'pull_request',
+            'discussion',
+            'push',
+          ],
           config: { url: 'https://hooks.example/forges', content_type: 'json', secret: 's3cret' },
         })
-        await octokit.rest.repos.updateWebhook({ owner, repo: name, hook_id: 12345678, active: false, events: ['push'] })
+        await octokit.rest.repos.updateWebhook({
+          owner,
+          repo: name,
+          hook_id: 12345678,
+          active: false,
+          events: ['push'],
+        })
         await octokit.rest.repos.listWebhookDeliveries({ owner, repo: name, hook_id: 12345678 })
-        await octokit.rest.repos.redeliverWebhookDelivery({ owner, repo: name, hook_id: 12345678, delivery_id: 55001 })
+        await octokit.rest.repos.redeliverWebhookDelivery({
+          owner,
+          repo: name,
+          hook_id: 12345678,
+          delivery_id: 55001,
+        })
         await octokit.rest.repos.deleteWebhook({ owner, repo: name, hook_id: 12345678 })
       },
     )
@@ -326,7 +511,14 @@ describe('request compatibility with Octokit', () => {
   it('searches issues and repositories', async () => {
     await compare(
       async (provider) => {
-        await provider.search.threads({ text: 'crash', repo, kind: 'issue', state: 'open', sort: 'updated', direction: 'desc' }).page()
+        await provider.search.threads({
+          text: 'crash',
+          repo,
+          kind: 'issue',
+          state: 'open',
+          sort: 'updated',
+          direction: 'desc',
+        }).page()
         await provider.search.repos({ text: 'widgets', owner: 'acme', sort: 'stars' }).page()
       },
       async (octokit) => {
@@ -345,17 +537,37 @@ describe('request compatibility with Octokit', () => {
         await provider.contents.branches(repo).page()
         await provider.contents.tags(repo).page()
         await provider.commits.list(repo).page()
-        await provider.commits.get({ forge: repo.forge, instance: repo.instance, repo, sha })
+        await provider.commits.get({
+          forge: repo.forge,
+          instance: repo.instance,
+          repo,
+          sha,
+        })
         await provider.contents.compare(repo, 'v1.0.0', 'main')
       },
       async (octokit) => {
-        await octokit.rest.repos.getContent({ owner, repo: name, path: 'package.json', ref: 'main' })
-        await octokit.rest.git.getTree({ owner, repo: name, tree_sha: 'main', recursive: '1' })
+        await octokit.rest.repos.getContent({
+          owner,
+          repo: name,
+          path: 'package.json',
+          ref: 'main',
+        })
+        await octokit.rest.git.getTree({
+          owner,
+          repo: name,
+          tree_sha: 'main',
+          recursive: '1',
+        })
         await octokit.rest.repos.listBranches({ owner, repo: name })
         await octokit.rest.repos.listTags({ owner, repo: name })
         await octokit.rest.repos.listCommits({ owner, repo: name })
         await octokit.rest.repos.getCommit({ owner, repo: name, ref: sha })
-        await octokit.rest.repos.compareCommits({ owner, repo: name, base: 'v1.0.0', head: 'main' })
+        await octokit.rest.repos.compareCommits({
+          owner,
+          repo: name,
+          base: 'v1.0.0',
+          head: 'main',
+        })
       },
     )
   })
@@ -366,7 +578,12 @@ describe('request compatibility with Octokit', () => {
     const release = await h.provider.releases.getByTag(repo, 'v1.2.0')
     await h.provider.releases.downloadAsset(release.assets![0]!.ref!)
     await h.octokit.rest.repos.getReleaseByTag({ owner, repo: name, tag: 'v1.2.0' })
-    await h.octokit.rest.repos.getReleaseAsset({ owner, repo: name, asset_id: 7001, headers: { accept: 'application/octet-stream' } })
+    await h.octokit.rest.repos.getReleaseAsset({
+      owner,
+      repo: name,
+      asset_id: 7001,
+      headers: { accept: 'application/octet-stream' },
+    })
 
     // Octokit stops at the redirect; the provider follows it to the CDN itself, so only the API calls compare.
     expect(h.ours.slice(0, 2).map(comparable)).toEqual(h.theirs.map(comparable))
@@ -404,7 +621,13 @@ describe('request compatibility with Octokit', () => {
   it('lists pull requests through the pulls API', async () => {
     const h = harness()
     await drain(h.provider.threads.list(repo, { kind: 'pull_request' }))
-    await h.octokit.paginate(h.octokit.rest.pulls.list, { owner, repo: name, state: 'open', sort: 'created', direction: 'desc' })
+    await h.octokit.paginate(h.octokit.rest.pulls.list, {
+      owner,
+      repo: name,
+      state: 'open',
+      sort: 'created',
+      direction: 'desc',
+    })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
 
     expect(rest.map(comparable)).toEqual(h.theirs.map(comparable))
@@ -414,8 +637,18 @@ describe('request compatibility with Octokit', () => {
   it('lists labelled pull requests through the issues API, as GitHub filters by label and author only there', async () => {
     const listed = (await import('../fixtures/github/list-issues.json')).default.response
     const h = harness({ 'GET https://api.github.com/repos/acme/widgets/issues?state=open&labels=enhancement&sort=created&direction=desc': listed as never })
-    await drain(h.provider.threads.list(repo, { kind: 'pull_request', labels: ['enhancement'] }))
-    await h.octokit.paginate(h.octokit.rest.issues.listForRepo, { owner, repo: name, state: 'open', labels: 'enhancement', sort: 'created', direction: 'desc' })
+    await drain(h.provider.threads.list(repo, {
+      kind: 'pull_request',
+      labels: ['enhancement'],
+    }))
+    await h.octokit.paginate(h.octokit.rest.issues.listForRepo, {
+      owner,
+      repo: name,
+      state: 'open',
+      labels: 'enhancement',
+      sort: 'created',
+      direction: 'desc',
+    })
     const rest = h.ours.filter(call => !call.url.endsWith('/graphql'))
 
     expect(rest.map(comparable)).toEqual(h.theirs.map(comparable))
@@ -423,7 +656,12 @@ describe('request compatibility with Octokit', () => {
   })
 
   it('lists, edits and deletes conversation comments', async () => {
-    const commentRef = { forge: 'github', instance: 'github.com', thread: pull, id: '770001' }
+    const commentRef = {
+      forge: 'github',
+      instance: 'github.com',
+      thread: pull,
+      id: '770001',
+    }
     await compare(
       async (provider) => {
         await drain(provider.threads.comments(pull))
@@ -432,7 +670,12 @@ describe('request compatibility with Octokit', () => {
       },
       async (octokit) => {
         await octokit.paginate(octokit.rest.issues.listComments, { owner, repo: name, issue_number: 42 })
-        await octokit.rest.issues.updateComment({ owner, repo: name, comment_id: 770001, body: 'Edited' })
+        await octokit.rest.issues.updateComment({
+          owner,
+          repo: name,
+          comment_id: 770001,
+          body: 'Edited',
+        })
         await octokit.rest.issues.deleteComment({ owner, repo: name, comment_id: 770001 })
       },
     )
@@ -453,7 +696,13 @@ describe('request compatibility with Octokit', () => {
   })
 
   it('searches code', async () => {
-    const h = harness({ 'GET https://api.github.com/search/code?q=useFetch+repo%3Aacme%2Fwidgets': { status: 200, headers: {}, body: { total_count: 0, incomplete_results: false, items: [] } } })
+    const h = harness({
+      'GET https://api.github.com/search/code?q=useFetch+repo%3Aacme%2Fwidgets': {
+        status: 200,
+        headers: {},
+        body: { total_count: 0, incomplete_results: false, items: [] },
+      },
+    })
     await h.provider.search.code({ text: 'useFetch', repo }).page()
     await h.octokit.rest.search.code({ q: 'useFetch repo:acme/widgets' })
 
@@ -463,14 +712,24 @@ describe('request compatibility with Octokit', () => {
   it('creates an issue', async () => {
     await compare(
       provider => provider.threads.create!(repo, { kind: 'issue', title: 'New issue', body: 'Details' }),
-      octokit => octokit.rest.issues.create({ owner, repo: name, title: 'New issue', body: 'Details' }),
+      octokit => octokit.rest.issues.create({
+        owner,
+        repo: name,
+        title: 'New issue',
+        body: 'Details',
+      }),
     )
   })
 
   it('updates a pull request title', async () => {
     await compare(
       provider => provider.threads.update!(pull, { title: 'Renamed' }),
-      octokit => octokit.rest.pulls.update({ owner, repo: name, pull_number: 42, title: 'Renamed' }),
+      octokit => octokit.rest.pulls.update({
+        owner,
+        repo: name,
+        pull_number: 42,
+        title: 'Renamed',
+      }),
     )
   })
 
@@ -482,9 +741,24 @@ describe('request compatibility with Octokit', () => {
         await provider.threads.requestReview!(pull, ['hubot'])
       },
       async (octokit) => {
-        await octokit.rest.issues.setLabels({ owner, repo: name, issue_number: 42, labels: ['bug'] })
-        await octokit.rest.issues.update({ owner, repo: name, issue_number: 42, assignees: ['octocat'] })
-        await octokit.rest.pulls.requestReviewers({ owner, repo: name, pull_number: 42, reviewers: ['hubot'] })
+        await octokit.rest.issues.setLabels({
+          owner,
+          repo: name,
+          issue_number: 42,
+          labels: ['bug'],
+        })
+        await octokit.rest.issues.update({
+          owner,
+          repo: name,
+          issue_number: 42,
+          assignees: ['octocat'],
+        })
+        await octokit.rest.pulls.requestReviewers({
+          owner,
+          repo: name,
+          pull_number: 42,
+          reviewers: ['hubot'],
+        })
       },
     )
   })
@@ -497,7 +771,9 @@ describe('request compatibility with Octokit', () => {
         await provider.notifications!.markAllRead!({ repo })
       },
       async (octokit) => {
-        await octokit.rest.activity.markNotificationsAsRead({ last_read_at: before.toISOString() })
+        await octokit.rest.activity.markNotificationsAsRead({
+          last_read_at: before.toISOString(),
+        })
         await octokit.rest.activity.markRepoNotificationsAsRead({ owner, repo: name })
       },
     )
@@ -506,8 +782,16 @@ describe('request compatibility with Octokit', () => {
   it('reads the GHES version from /meta', async () => {
     const ours = fixtureFetch('github')
     const theirs = fixtureFetch('github')
-    await github({ baseUrl: 'https://ghe.example.com/api/v3', auth: { type: 'token', token: TOKEN }, fetch: ours.fetch }).refreshCapabilities()
-    await new Octokit({ auth: TOKEN, baseUrl: 'https://ghe.example.com/api/v3', request: { fetch: theirs.fetch } }).rest.meta.get()
+    await github({
+      baseUrl: 'https://ghe.example.com/api/v3',
+      auth: { type: 'token', token: TOKEN },
+      fetch: ours.fetch,
+    }).refreshCapabilities()
+    await new Octokit({
+      auth: TOKEN,
+      baseUrl: 'https://ghe.example.com/api/v3',
+      request: { fetch: theirs.fetch },
+    }).rest.meta.get()
 
     expect(ours.calls.map(comparable)).toEqual(theirs.calls.map(comparable))
   })
@@ -523,7 +807,15 @@ describe('request compatibility with Octokit', () => {
     function appHarness(installationId?: number) {
       const ours = fixtureFetch('github')
       const theirs = fixtureFetch('github')
-      const provider = github({ auth: { type: 'app', appId: 12345, privateKey, installationId }, fetch: ours.fetch })
+      const provider = github({
+        auth: {
+          type: 'app',
+          appId: 12345,
+          privateKey,
+          installationId,
+        },
+        fetch: ours.fetch,
+      })
       return { provider, ours: ours.calls, theirs }
     }
 
@@ -531,7 +823,10 @@ describe('request compatibility with Octokit', () => {
       const { provider, ours, theirs } = appHarness(55123)
       await provider.repos.get(repo)
       const jwt = ours[0]!.authorization!.split(' ')[1]!
-      await new Octokit({ auth: jwt, request: { fetch: theirs.fetch } }).rest.apps.createInstallationAccessToken({ installation_id: 55123 })
+      await new Octokit({
+        auth: jwt,
+        request: { fetch: theirs.fetch },
+      }).rest.apps.createInstallationAccessToken({ installation_id: 55123 })
 
       expect(comparable(ours[0]!)).toEqual(comparable(theirs.calls[0]!))
       expect(ours[0]!.authorization!.split(' ')[0]!.toLowerCase()).toBe(theirs.calls[0]!.authorization!.split(' ')[0])
@@ -541,7 +836,10 @@ describe('request compatibility with Octokit', () => {
       const { provider, ours, theirs } = appHarness()
       await provider.installations!.get('55123')
       const jwt = ours[0]!.authorization!.split(' ')[1]!
-      await new Octokit({ auth: jwt, request: { fetch: theirs.fetch } }).rest.apps.getInstallation({ installation_id: 55123 })
+      await new Octokit({
+        auth: jwt,
+        request: { fetch: theirs.fetch },
+      }).rest.apps.getInstallation({ installation_id: 55123 })
 
       expect(ours.map(comparable)).toEqual(theirs.calls.map(comparable))
     })
@@ -551,13 +849,25 @@ describe('request compatibility with Octokit', () => {
       await drain(provider.installations!.list())
       await drain(provider.installations!.repos('55123'))
       const jwt = ours[0]!.authorization!.split(' ')[1]!
-      await new Octokit({ auth: jwt, request: { fetch: theirs.fetch } }).paginate(
-        new Octokit({ auth: jwt, request: { fetch: theirs.fetch } }).rest.apps.listInstallations,
+      await new Octokit({
+        auth: jwt,
+        request: { fetch: theirs.fetch },
+      }).paginate(
+        new Octokit({
+          auth: jwt,
+          request: { fetch: theirs.fetch },
+        }).rest.apps.listInstallations,
       )
       const tokenExchange = ours.find(call => call.url.endsWith('/access_tokens'))!
       theirs.calls.push(tokenExchange)
-      await new Octokit({ auth: 'ghs_fixtureinstallationtoken', request: { fetch: theirs.fetch } }).paginate(
-        new Octokit({ auth: 'ghs_fixtureinstallationtoken', request: { fetch: theirs.fetch } }).rest.apps.listReposAccessibleToInstallation,
+      await new Octokit({
+        auth: 'ghs_fixtureinstallationtoken',
+        request: { fetch: theirs.fetch },
+      }).paginate(
+        new Octokit({
+          auth: 'ghs_fixtureinstallationtoken',
+          request: { fetch: theirs.fetch },
+        }).rest.apps.listReposAccessibleToInstallation,
       )
 
       expect(ours.map(comparable)).toEqual(theirs.calls.map(comparable))

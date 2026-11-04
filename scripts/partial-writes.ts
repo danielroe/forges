@@ -45,8 +45,15 @@ export interface SpliceResult {
 export function planSplice({ selected, ancestors, rewritten, skipped, steps }: { selected: string[], ancestors: Set<string>, rewritten: string[], skipped: Map<string, string>, steps: Map<string, Fixture[]> }): { write: string[], extra: string[], unchanged: string[], unrenamed: string[] } {
   const changed = new Set(rewritten)
   const write = [...ancestors].filter(name => changed.has(name))
-  const unrenamed = write.flatMap(name => [...identifiersIn(steps.get(name) ?? [])].filter(token => skipped.has(token)).map(token => `${name}: ${token} ${skipped.get(token)}`))
-  return { write, extra: write.filter(name => !selected.includes(name)), unchanged: selected.filter(name => !changed.has(name)), unrenamed }
+  const unrenamed = write.flatMap(name => [
+    ...identifiersIn(steps.get(name) ?? []),
+  ].filter(token => skipped.has(token)).map(token => `${name}: ${token} ${skipped.get(token)}`))
+  return {
+    write,
+    extra: write.filter(name => !selected.includes(name)),
+    unchanged: selected.filter(name => !changed.has(name)),
+    unrenamed,
+  }
 }
 
 /** Replaces the directories of the steps `names` in the recording `into` with those in `from`, and removes those of the steps in `remove`. */
@@ -63,8 +70,15 @@ export function spliceSteps(from: string, into: string, names: string[], remove:
 
 /** The top-level keys whose values differ between two manifests. */
 export function differingKeys(a: Record<string, unknown>, b: Record<string, unknown>): string[] {
-  const sorted = (value: unknown) => JSON.stringify(value, (_key, item: unknown) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([x], [y]) => x.localeCompare(y))) : item)
-  return [...new Set([...Object.keys(a), ...Object.keys(b)])].filter(key => sorted(a[key]) !== sorted(b[key]))
+  const sorted = (value: unknown) => JSON.stringify(value, (_key, item: unknown) => item && typeof item === 'object' && !Array.isArray(item)
+    ? Object.fromEntries(Object.entries(item).sort(([x], [y]) => x.localeCompare(y)))
+    : item)
+  return [
+    ...new Set([
+      ...Object.keys(a),
+      ...Object.keys(b),
+    ]),
+  ].filter(key => sorted(a[key]) !== sorted(b[key]))
 }
 
 /**
@@ -96,7 +110,13 @@ export function reportSplice(result: SpliceResult): boolean {
 
 export function spliceWrites(recording: string, run: PartialRun, only: Set<string>, remove: string[] = []): SpliceResult {
   const directory = `${fixtures}${recording}/`
-  const refused = (reason: string): SpliceResult => ({ saved: false, reason, written: [], extra: [], unchanged: [] })
+  const refused = (reason: string): SpliceResult => ({
+    saved: false,
+    reason,
+    written: [],
+    extra: [],
+    unchanged: [],
+  })
   if (!existsSync(`${directory}manifest.json`)) {
     return refused(`${recording} has no committed recording to add steps to`)
   }
@@ -133,7 +153,13 @@ export function spliceWrites(recording: string, run: PartialRun, only: Set<strin
     if (differing.length) {
       return refuse(`${differing.map(key => `\`${key}\``).join(', ')} in the manifest differ from the committed one once renamed`)
     }
-    const plan = planSplice({ selected, ancestors, rewritten: result.rewritten, skipped: result.skipped, steps: load(directory).steps })
+    const plan = planSplice({
+      selected,
+      ancestors,
+      rewritten: result.rewritten,
+      skipped: result.skipped,
+      steps: load(directory).steps,
+    })
     if (plan.unrenamed.length) {
       return refuse(`these identifiers could not be renamed to the committed recording's:${plan.unrenamed.map(line => `\n  ${line}`).join('')}`)
     }
@@ -143,7 +169,12 @@ export function spliceWrites(recording: string, run: PartialRun, only: Set<strin
     if (!replay(recording, { update: false })) {
       return refuse('the recording does not replay with the steps written into it')
     }
-    return { saved: true, written: plan.write, extra: plan.extra, unchanged: plan.unchanged }
+    return {
+      saved: true,
+      written: plan.write,
+      extra: plan.extra,
+      unchanged: plan.unchanged,
+    }
   }
   catch (error) {
     restore()

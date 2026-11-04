@@ -28,11 +28,19 @@ export interface MatrixProvider {
 type CredentialOptions<O> = Omit<MatrixCredential, 'provider'> & { options: O }
 
 /** Traits describe the provider, not an operation, so they stay the same without credentials. */
-const TRAITS = new Set(['experimental', 'eventKinds', 'authKinds', 'limits'])
+const TRAITS = new Set([
+  'experimental',
+  'eventKinds',
+  'authKinds',
+  'limits',
+])
 
 /** `provider` with the levels it declares as its capabilities, so that the docs show which are experimental or unverified. */
 export function withDeclared(provider: Forges.ForgeProvider): Forges.ForgeProvider {
-  return { ...provider, capabilities: declaredCapabilities(provider) }
+  return {
+    ...provider,
+    capabilities: declaredCapabilities(provider),
+  }
 }
 
 /** Without anonymous reads, a provider reaches nothing, but its traits and `not_applicable` entries stay. */
@@ -42,8 +50,15 @@ function withoutCredentials(provider: Forges.ForgeProvider): Forges.ForgeProvide
     const [group, name] = capability.split('.') as [string, string | undefined]
     const current = name ? capabilities[group]![name] : (capabilities as Record<string, unknown>)[group]
     const next = current && typeof current === 'object'
-      ? Object.fromEntries(Object.entries(current).map(([key, value]) => [key, value === 'not_applicable' ? 'not_applicable' : false]))
-      : current === 'not_applicable' ? 'not_applicable' : false
+      ? Object.fromEntries(Object.entries(current).map(([key, value]) => [
+          key,
+          value === 'not_applicable'
+            ? 'not_applicable'
+            : false,
+        ]))
+      : current === 'not_applicable'
+        ? 'not_applicable'
+        : false
     if (name) {
       capabilities[group]![name] = next
     }
@@ -61,26 +76,67 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
   const entry = <O>(slug: string, name: string, factory: (options: O) => Forges.ForgeProvider, options: O, credentials?: CredentialOptions<O>[]): MatrixProvider => {
     const exported = Object.keys(forges).find(key => (forges as Record<string, unknown>)[key] === factory)!
     const provider = withDeclared(factory(options))
-    const anonymous = provider.capabilities.authKinds.includes('anonymous') ? withDeclared(factory({ ...options, auth: undefined })) : withoutCredentials(provider)
+    const anonymous = provider.capabilities.authKinds.includes('anonymous')
+      ? withDeclared(factory({ ...options, auth: undefined }))
+      : withoutCredentials(provider)
     return {
       slug,
       name,
       factories: [exported],
       provider,
       anonymous,
-      ...credentials ? { credentials: credentials.map(({ options, ...credential }) => ({ ...credential, provider: withDeclared(factory(options)) })) } : {},
+      ...credentials
+        ? {
+            credentials: credentials.map(({ options, ...credential }) => ({
+              ...credential,
+              provider: withDeclared(factory(options)),
+            })),
+          }
+        : {},
     }
   }
   const githubApp = { type: 'app', appId: 1, privateKey: '' } as const
-  const githubInstallation = { auth: { ...githubApp, installationId: 1 } }
+  const githubInstallation = {
+    auth: { ...githubApp, installationId: 1 },
+  }
   const originApp = { type: 'app', appId: '1', privateKey: '' } as const
-  const originInstallation = { auth: { ...originApp, installationId: '1' } }
+  const originInstallation = {
+    auth: { ...originApp, installationId: '1' },
+  }
   return [
     entry('github', 'GitHub', github, githubInstallation, [
-      { id: 'classic', label: 'Classic token', description: 'A personal access token (classic) or an OAuth app token', env: ['TOKEN'], options: { auth: { type: 'token', token: 'ghp_token' } } },
-      { id: 'fine-grained', label: 'Fine-grained token', description: 'A fine-grained personal access token or a GitHub App user access token', env: ['TOKEN'], options: { auth: { type: 'token', token: 'github_pat_token' } } },
-      { id: 'installation', label: 'App installation', description: 'An app with an `installationId`, or an installation access token such as the `GITHUB_TOKEN` of a workflow', env: ['APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID'], options: githubInstallation },
-      { id: 'app', label: 'App', description: 'An app without an `installationId`', env: ['APP_ID', 'PRIVATE_KEY'], options: { auth: githubApp } },
+      {
+        id: 'classic',
+        label: 'Classic token',
+        description: 'A personal access token (classic) or an OAuth app token',
+        env: ['TOKEN'],
+        options: {
+          auth: { type: 'token', token: 'ghp_token' },
+        },
+      },
+      {
+        id: 'fine-grained',
+        label: 'Fine-grained token',
+        description: 'A fine-grained personal access token or a GitHub App user access token',
+        env: ['TOKEN'],
+        options: {
+          auth: { type: 'token', token: 'github_pat_token' },
+        },
+      },
+      {
+        id: 'installation',
+        label: 'App installation',
+        description: 'An app with an `installationId`, or an installation access token such as the `GITHUB_TOKEN` of a workflow',
+        env: ['APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID'],
+        options: githubInstallation,
+      },
+      {
+        id: 'app',
+        label: 'App',
+        description: 'An app without an `installationId`',
+        env: ['APP_ID', 'PRIVATE_KEY'],
+        options: { auth: githubApp },
+      },
     ]),
     entry('gitlab', 'GitLab', gitlab, { auth }),
     entry('bitbucket', 'Bitbucket', bitbucket, { auth }),
@@ -89,12 +145,33 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
     entry('gitee', 'Gitee', gitee, { auth }),
     entry('azure-devops', 'Azure DevOps', azureDevOps, { auth, organization: 'acme' }),
     entry('cursor-origin', 'Cursor Origin', cursorOrigin, { auth }, [
-      { id: 'token', label: 'User token', description: 'A user access token, as the Origin CLI reads from `CURSOR_AUTH_TOKEN`', env: ['TOKEN'], options: { auth } },
-      { id: 'installation', label: 'App installation', description: 'An app with an `installationId`', env: ['APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID'], options: originInstallation },
-      { id: 'app', label: 'App', description: 'An app without an `installationId`', env: ['APP_ID', 'PRIVATE_KEY'], options: { auth: originApp } },
+      {
+        id: 'token',
+        label: 'User token',
+        description: 'A user access token, as the Origin CLI reads from `CURSOR_AUTH_TOKEN`',
+        env: ['TOKEN'],
+        options: { auth },
+      },
+      {
+        id: 'installation',
+        label: 'App installation',
+        description: 'An app with an `installationId`',
+        env: ['APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID'],
+        options: originInstallation,
+      },
+      {
+        id: 'app',
+        label: 'App',
+        description: 'An app without an `installationId`',
+        env: ['APP_ID', 'PRIVATE_KEY'],
+        options: { auth: originApp },
+      },
     ]),
     entry('pushin', 'Pushin.eu', pushin, { auth }),
-    entry('tangled', 'Tangled', tangled, { auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' }),
+    entry('tangled', 'Tangled', tangled, {
+      auth: { type: 'app_password', identifier: 'handle', password: 'password' },
+      notificationsUrl: 'https://notifications.example',
+    }),
     entry('cloudflare-artifacts', 'Cloudflare Artifacts', cloudflareArtifacts, { auth, accountId: 'acme' }),
     entry('sourcehut', 'Sourcehut', sourcehut, { auth }),
     entry('entire', 'Entire', entire, { auth }),
@@ -103,7 +180,16 @@ export function matrixProviders(forges: typeof Forges): MatrixProvider[] {
 }
 
 /** Labels for the thread and alert kinds of per-kind capabilities. */
-export const KINDS: Record<string, string> = { issue: 'issue', pull_request: 'PR', discussion: 'discussion', commit: 'commit', dependency: 'dependency', code_scanning: 'code scanning', secret: 'secret', advisory: 'advisory' }
+export const KINDS: Record<string, string> = {
+  issue: 'issue',
+  pull_request: 'PR',
+  discussion: 'discussion',
+  commit: 'commit',
+  dependency: 'dependency',
+  code_scanning: 'code scanning',
+  secret: 'secret',
+  advisory: 'advisory',
+}
 
 /** How far a provider supports a capability, as the docs show it. */
 export type SupportLevel = 'native' | 'experimental' | 'emulated' | 'unverified' | 'not_applicable' | 'none'
@@ -118,10 +204,21 @@ export interface SupportCell {
   byCredential?: Record<string, SupportCell>
 }
 
-const LEVEL_RANK: SupportLevel[] = ['native', 'experimental', 'emulated', 'unverified', 'not_applicable', 'none']
+const LEVEL_RANK: SupportLevel[] = [
+  'native',
+  'experimental',
+  'emulated',
+  'unverified',
+  'not_applicable',
+  'none',
+]
 
 function levelOf(value: unknown): SupportLevel {
-  return value === true ? 'native' : value === 'experimental' || value === 'emulated' || value === 'unverified' || value === 'not_applicable' ? value : 'none'
+  return value === true
+    ? 'native'
+    : value === 'experimental' || value === 'emulated' || value === 'unverified' || value === 'not_applicable'
+      ? value
+      : 'none'
 }
 
 /** Whether a level means the operation is unavailable. */
@@ -132,9 +229,15 @@ export function isUnsupportedLevel(level: SupportLevel): boolean {
 /** A capability value as a level, with the level of each kind for per-kind values. */
 export function supportCell(value: unknown): SupportCell {
   if (!value || typeof value !== 'object') {
-    return { level: levelOf(value) }
+    return {
+      level: levelOf(value),
+    }
   }
-  const kinds = Object.entries(value).map(([kind, support]) => ({ kind, label: KINDS[kind] ?? kind, level: levelOf(support) }))
+  const kinds = Object.entries(value).map(([kind, support]) => ({
+    kind,
+    label: KINDS[kind] ?? kind,
+    level: levelOf(support),
+  }))
   // ∅ only when the forge has no such operation for any kind; one unavailable kind keeps it applicable.
   const level = kinds.every(kind => kind.level === 'not_applicable')
     ? 'not_applicable'
@@ -148,7 +251,12 @@ function at(capabilities: Forges.ForgeCapabilities, path: string): unknown {
 
 const CAPABILITIES = CAPABILITY_TABLE.map(entry => entry.capability).filter(capability => !TRAITS.has(capability))
 
-const signature = (cell: SupportCell) => JSON.stringify([cell.level, cell.kinds?.map(kind => kind.level)])
+function signature(cell: SupportCell) {
+  return JSON.stringify([
+    cell.level,
+    cell.kinds?.map(kind => kind.level),
+  ])
+}
 
 interface CredentialedCells {
   cells: Map<string, SupportCell>
@@ -170,16 +278,29 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
   }
   const { provider, credentials } = entry
   if (!credentials) {
-    const result = { cells: new Map(CAPABILITIES.map(capability => [capability, supportCell(at(provider.capabilities, capability))])) }
+    const result = {
+      cells: new Map(CAPABILITIES.map(capability => [
+        capability,
+        supportCell(at(provider.capabilities, capability)),
+      ])),
+    }
     credentialedCache.set(entry, result)
     return result
   }
   const found = CAPABILITIES.map((capability) => {
-    const byCredential = Object.fromEntries(credentials.map(({ id, provider }) => [id, supportCell(at(provider.capabilities, capability))]))
+    const byCredential = Object.fromEntries(credentials.map(({ id, provider }) => [
+      id,
+      supportCell(at(provider.capabilities, capability)),
+    ]))
     const level = LEVEL_RANK.find(rank => Object.values(byCredential).some(cell => cell.level === rank))!
     const best = Object.values(byCredential).find(cell => cell.level === level)!
     const having = credentials.map(({ id }) => id).filter(id => signature(byCredential[id]!) === signature(best))
-    return { capability, best, having, byCredential }
+    return {
+      capability,
+      best,
+      having,
+      byCredential,
+    }
   })
   const counts = new Map<string, number>()
   for (const { best, having } of found) {
@@ -190,11 +311,16 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
   const usual = [...counts].sort(([, a], [, b]) => b - a)[0]?.[0]
   const result = {
     usual: usual?.split(','),
-    cells: new Map(found.map(({ capability, best, having, byCredential }) => [capability, {
-      ...best,
-      ...!isUnsupportedLevel(best.level) && having.length < credentials.length && having.join() !== usual ? { credentials: having } : {},
-      byCredential,
-    }])),
+    cells: new Map(found.map(({ capability, best, having, byCredential }) => [
+      capability,
+      {
+        ...best,
+        ...!isUnsupportedLevel(best.level) && having.length < credentials.length && having.join() !== usual
+          ? { credentials: having }
+          : {},
+        byCredential,
+      },
+    ])),
   }
   credentialedCache.set(entry, result)
   return result
@@ -202,9 +328,21 @@ function credentialedCells(entry: MatrixProvider): CredentialedCells {
 
 function supportText({ level, kinds, credentials }: SupportCell): string {
   const text = kinds
-    ? kinds.filter(kind => !isUnsupportedLevel(kind.level)).map(({ label, level }) => level === 'native' ? label : `${label} (${level})`).join(', ') || (kinds.every(kind => kind.level === 'not_applicable') ? '∅' : '❌')
-    : level === 'native' ? '✅' : level === 'none' ? '❌' : level === 'not_applicable' ? '∅' : level
-  return credentials ? `${text} (only with ${credentials.map(id => `\`${id}\``).join(' or ')})` : text
+    ? kinds.filter(kind => !isUnsupportedLevel(kind.level)).map(({ label, level }) => level === 'native'
+      ? label
+      : `${label} (${level})`).join(', ') || (kinds.every(kind => kind.level === 'not_applicable')
+      ? '∅'
+      : '❌')
+    : level === 'native'
+      ? '✅'
+      : level === 'none'
+        ? '❌'
+        : level === 'not_applicable'
+          ? '∅'
+          : level
+  return credentials
+    ? `${text} (only with ${credentials.map(id => `\`${id}\``).join(' or ')})`
+    : text
 }
 
 function cell(value: unknown): string {
@@ -220,7 +358,9 @@ function cell(value: unknown): string {
 /** One row per capability the table produces, in table order. */
 const rows = CAPABILITY_TABLE.map((entry) => {
   const read = entry.capability === 'limits'
-    ? (c: Forges.ForgeCapabilities) => c.limits ? Object.entries(c.limits).map(([key, length]) => `${key.replace('Length', '')} ${length}`).join(', ') : 'unknown'
+    ? (c: Forges.ForgeCapabilities) => c.limits
+        ? Object.entries(c.limits).map(([key, length]) => `${key.replace('Length', '')} ${length}`).join(', ')
+        : 'unknown'
     : (c: Forges.ForgeCapabilities) => at(c, entry.capability)
   return {
     name: entry.capability,
@@ -282,7 +422,14 @@ export interface CapabilityProvider {
 }
 
 function summarise(cells: SupportCell[]): Record<SupportLevel, number> {
-  const summary: Record<SupportLevel, number> = { native: 0, experimental: 0, emulated: 0, unverified: 0, not_applicable: 0, none: 0 }
+  const summary: Record<SupportLevel, number> = {
+    native: 0,
+    experimental: 0,
+    emulated: 0,
+    unverified: 0,
+    not_applicable: 0,
+    none: 0,
+  }
   for (const { level } of cells) {
     summary[level]++
   }
@@ -324,7 +471,11 @@ export function capabilityData(forges: typeof Forges): { providers: CapabilityPr
       experimental: !!capabilities.experimental,
       auth: [...capabilities.authKinds],
       eventKinds: capabilities.eventKinds,
-      ...capabilities.limits ? { limits: { ...capabilities.limits } } : {},
+      ...capabilities.limits
+        ? {
+            limits: { ...capabilities.limits },
+          }
+        : {},
       summary: summarise(all.map(row => row.cells[index]!)),
       anonymousSummary: summarise(all.map(row => row.anonymousCells[index]!)),
       ...credentials
@@ -388,7 +539,9 @@ export function providerIndex(forges: typeof Forges): string {
 /** One provider's capabilities, as the generated section of its page, with a column per kind of credential. */
 export function providerSection(entry: MatrixProvider): string {
   const { slug, provider, anonymous, credentials } = entry
-  const columns = credentials ?? [{ id: '', label: 'Support', provider }]
+  const columns = credentials ?? [
+    { id: '', label: 'Support', provider },
+  ]
   const supportWith = (row: typeof rows[number], credential: Pick<MatrixCredential, 'id' | 'provider'>) => TRAITS.has(row.name) || !credentials
     ? cell(row.read(credential.provider.capabilities))
     : supportText(credentialedCells(entry).cells.get(row.name)!.byCredential![credential.id]!)
@@ -400,7 +553,14 @@ export function providerSection(entry: MatrixProvider): string {
     `| Capability | ${columns.map(({ label }) => label).join(' | ')} | Without credentials |`,
     `| --- | ${columns.map(() => '---').join(' | ')} | --- |`,
     ...rows.map(row => `| \`${row.name}\` | ${columns.map(credential => supportWith(row, credential)).join(' | ')} | ${cell(row.read(anonymous.capabilities))} |`),
-    ...credentials ? ['', 'Support depends on the kind of credential:', '', ...credentialList(entry)] : [],
+    ...credentials
+      ? [
+          '',
+          'Support depends on the kind of credential:',
+          '',
+          ...credentialList(entry),
+        ]
+      : [],
     '::',
   ].join('\n')
 }

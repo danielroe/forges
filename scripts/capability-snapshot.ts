@@ -51,8 +51,12 @@ export function capabilitySnapshot(): CapabilitySnapshot {
     const map: SupportMap = {}
     for (const row of rows) {
       const cell = cellOf(row)
-      for (const { kind, level } of cell.kinds ?? [{ kind: '', level: cell.level }]) {
-        map[kind ? `${row.capability}:${kind}` : row.capability] = level
+      for (const { kind, level } of cell.kinds ?? [
+        { kind: '', level: cell.level },
+      ]) {
+        map[kind
+          ? `${row.capability}:${kind}`
+          : row.capability] = level
       }
     }
     return map
@@ -67,7 +71,11 @@ export function capabilitySnapshot(): CapabilitySnapshot {
       capabilities: flatten(row => row.cells[index]!),
       anonymous: flatten(row => row.anonymousCells[index]!),
       ...credentials && {
-        credentials: credentials.map(({ id, label }) => ({ id, label, capabilities: flatten(row => row.cells[index]!.byCredential![id]!) })),
+        credentials: credentials.map(({ id, label }) => ({
+          id,
+          label,
+          capabilities: flatten(row => row.cells[index]!.byCredential![id]!),
+        })),
       },
     })),
   }
@@ -80,16 +88,27 @@ export function capabilitySnapshot(): CapabilitySnapshot {
  */
 export function snapshotAt(ref: string): string | undefined {
   const root = fileURLToPath(new URL('..', import.meta.url))
-  const baseline = /^v\d+\.\d+\.\d+$/.test(ref) ? fileURLToPath(new URL(`./capability-baselines/${ref}.json`, import.meta.url)) : undefined
+  const baseline = /^v\d+\.\d+\.\d+$/.test(ref)
+    ? fileURLToPath(new URL(`./capability-baselines/${ref}.json`, import.meta.url))
+    : undefined
   const directory = mkdtempSync(join(tmpdir(), 'forges-capabilities-'))
   try {
-    const archive = execFileSync('git', ['archive', '--format=tar', ref, 'package.json', 'src', 'scripts'], { cwd: root, maxBuffer: 256 * 1024 * 1024 })
+    const archive = execFileSync('git', [
+      'archive',
+      '--format=tar',
+      ref,
+      'package.json',
+      'src',
+      'scripts',
+    ], { cwd: root, maxBuffer: 256 * 1024 * 1024 })
     execFileSync('tar', ['-x', '-C', directory], { input: archive })
     const script = join(directory, 'scripts/capability-snapshot.ts')
     if (existsSync(script)) {
       return execFileSync(process.execPath, [script], { cwd: directory, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 })
     }
-    return baseline && existsSync(baseline) ? readFileSync(baseline, 'utf8') : undefined
+    return baseline && existsSync(baseline)
+      ? readFileSync(baseline, 'utf8')
+      : undefined
   }
   finally {
     rmSync(directory, { recursive: true, force: true })
@@ -97,8 +116,15 @@ export function snapshotAt(ref: string): string | undefined {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { values } = parseArgs({ options: { ref: { type: 'string' }, out: { type: 'string' } } })
-  const json = values.ref ? snapshotAt(values.ref) : `${JSON.stringify(capabilitySnapshot(), null, 2)}\n`
+  const { values } = parseArgs({
+    options: {
+      ref: { type: 'string' },
+      out: { type: 'string' },
+    },
+  })
+  const json = values.ref
+    ? snapshotAt(values.ref)
+    : `${JSON.stringify(capabilitySnapshot(), null, 2)}\n`
   if (json === undefined) {
     console.info(`${values.ref} has no capability snapshot script; nothing to compare against.`)
   }

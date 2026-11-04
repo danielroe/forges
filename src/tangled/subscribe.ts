@@ -98,19 +98,28 @@ export function subscribeJetstream(options: JetstreamSubscriptionOptions): Async
           const event = await options.toEvent(message)
           lastCursor = cursor
           if (event) {
-            settle({ done: false, value: { event, cursor } })
+            settle({
+              done: false,
+              value: { event, cursor },
+            })
           }
         }).catch((error: unknown) => {
-          settle({ error: new StreamClosedError('Failed to translate a stream message', lastCursor, options.context, { cause: error }) })
+          settle({
+            error: new StreamClosedError('Failed to translate a stream message', lastCursor, options.context, { cause: error }),
+          })
           socket.close(1011)
         })
       })
       socket.addEventListener('error', (event) => {
-        chain = chain.then(() => settle({ error: new StreamClosedError('Stream connection failed', lastCursor, options.context, { cause: event }) }))
+        chain = chain.then(() => settle({
+          error: new StreamClosedError('Stream connection failed', lastCursor, options.context, { cause: event }),
+        }))
       })
       socket.addEventListener('close', ({ code, reason }) => {
         chain = chain.then(() => settle({
-          error: new StreamClosedError(`Stream closed (${code ?? 'no code'}${reason ? `: ${reason}` : ''})`, lastCursor, options.context),
+          error: new StreamClosedError(`Stream closed (${code ?? 'no code'}${reason
+            ? `: ${reason}`
+            : ''})`, lastCursor, options.context),
         }))
       })
 
@@ -121,7 +130,9 @@ export function subscribeJetstream(options: JetstreamSubscriptionOptions): Async
             if ('error' in value) {
               throw value.error
             }
-            return value.done ? { done: true, value: undefined } : value
+            return value.done
+              ? { done: true, value: undefined }
+              : value
           }
           if (settled) {
             return Promise.resolve().then(() => resolve(settled))

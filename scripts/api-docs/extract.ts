@@ -26,7 +26,10 @@ const CLOSING_SEMICOLON_RE = /;\s*\}/g
 
 /** Reads the public API of every entry point: its symbols, their signatures, members and JSDoc. */
 export function extractApi({ root, entries, tsconfig = 'tsconfig.json' }: ExtractOptions): ApiModel {
-  const files = Object.entries(entries).map(([specifier, path]) => [specifier, resolve(root, path)] as const)
+  const files = Object.entries(entries).map(([specifier, path]) => [
+    specifier,
+    resolve(root, path),
+  ] as const)
   const program = ts.createProgram(files.map(([, file]) => file), compilerOptions(root, tsconfig))
   const context: Context = {
     checker: program.getTypeChecker(),
@@ -45,7 +48,9 @@ export function extractApi({ root, entries, tsconfig = 'tsconfig.json' }: Extrac
 
     const entry: ApiEntry = { specifier, symbols: [] }
     for (const exported of context.checker.getExportsOfModule(module)) {
-      const target = exported.flags & ts.SymbolFlags.Alias ? context.checker.getAliasedSymbol(exported) : exported
+      const target = exported.flags & ts.SymbolFlags.Alias
+        ? context.checker.getAliasedSymbol(exported)
+        : exported
       let symbol = symbols.get(target)
       if (!symbol) {
         symbol = describeSymbol(context, exported.name, target)
@@ -70,7 +75,10 @@ function compilerOptions(root: string, tsconfig: string): ts.CompilerOptions {
   if (error) {
     throw new Error(ts.flattenDiagnosticMessageText(error.messageText, '\n'))
   }
-  return { ...ts.parseJsonConfigFileContent(config, ts.sys, dirname(path)).options, noEmit: true }
+  return {
+    ...ts.parseJsonConfigFileContent(config, ts.sys, dirname(path)).options,
+    noEmit: true,
+  }
 }
 
 function describeSymbol(context: Context, name: string, symbol: ts.Symbol): ApiSymbol | undefined {
@@ -97,7 +105,9 @@ function describeSymbol(context: Context, name: string, symbol: ts.Symbol): ApiS
 
   if (ts.isFunctionDeclaration(declaration)) {
     const overloads = (symbol.declarations ?? []).filter((node): node is ts.FunctionDeclaration => ts.isFunctionDeclaration(node) && !node.body)
-    const declarations = overloads.length ? overloads : [declaration]
+    const declarations = overloads.length
+      ? overloads
+      : [declaration]
     described.signatures = declarations.map(node => signatureOf(context, node, node.name && checker.getSymbolAtLocation(node.name)))
   }
   else if (ts.isVariableDeclaration(declaration)) {
@@ -139,14 +149,18 @@ function describeVariable(context: Context, described: ApiSymbol, declaration: t
 
   if (!declaration.type && initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer))) {
     described.kind = 'function'
-    described.signatures = [signatureOf(context, initializer, symbol)]
+    described.signatures = [
+      signatureOf(context, initializer, symbol),
+    ]
   }
   else if (calls.length) {
     described.kind = 'function'
     described.signatures = calls.map(call => resolvedSignatureOf(context, call, declaration, symbol))
   }
   else {
-    described.type = declaration.type ? squash(declaration.type.getText()) : checker.typeToString(type)
+    described.type = declaration.type
+      ? squash(declaration.type.getText())
+      : checker.typeToString(type)
   }
 }
 
@@ -208,7 +222,9 @@ function membersOf(context: Context, type: ts.Type, owner: string, prefix = ''):
     }
 
     const parent = declaration.parent
-    const declaredIn = ts.isInterfaceDeclaration(parent) || ts.isClassDeclaration(parent) || ts.isTypeAliasDeclaration(parent) ? parent.name?.text : undefined
+    const declaredIn = ts.isInterfaceDeclaration(parent) || ts.isClassDeclaration(parent) || ts.isTypeAliasDeclaration(parent)
+      ? parent.name?.text
+      : undefined
     const member = memberOf(context, declaration, prefix)
     if (declaredIn && declaredIn !== owner && !prefix) {
       member.inheritedFrom = declaredIn
@@ -219,7 +235,9 @@ function membersOf(context: Context, type: ts.Type, owner: string, prefix = ''):
     if (nested) {
       member.kind = 'group'
       for (const nestedMember of membersOf(context, context.checker.getTypeOfSymbolAtLocation(property, declaration), owner, `${member.name}.`)) {
-        members.push(member.inheritedFrom ? { ...nestedMember, inheritedFrom: member.inheritedFrom } : nestedMember)
+        members.push(member.inheritedFrom
+          ? { ...nestedMember, inheritedFrom: member.inheritedFrom }
+          : nestedMember)
       }
     }
   }
@@ -236,9 +254,13 @@ function memberOf(context: Context, declaration: MemberDeclaration, prefix = '')
   const { checker } = context
   const symbol = checker.getSymbolAtLocation(declaration.name)
   const flags = ts.getCombinedModifierFlags(declaration)
-  const typeNode = ts.isMethodSignature(declaration) || ts.isMethodDeclaration(declaration) ? undefined : declaration.type
+  const typeNode = ts.isMethodSignature(declaration) || ts.isMethodDeclaration(declaration)
+    ? undefined
+    : declaration.type
   const base = {
-    ...symbol ? docOf(checker, symbol) : emptyDoc(),
+    ...symbol
+      ? docOf(checker, symbol)
+      : emptyDoc(),
     name: `${prefix}${declaration.name.getText()}`,
     optional: 'questionToken' in declaration && !!declaration.questionToken,
     readonly: !!(flags & ts.ModifierFlags.Readonly) || ts.isGetAccessorDeclaration(declaration),
@@ -247,22 +269,44 @@ function memberOf(context: Context, declaration: MemberDeclaration, prefix = '')
 
   const signatureNode = ts.isMethodSignature(declaration) || ts.isMethodDeclaration(declaration)
     ? declaration
-    : typeNode && ts.isFunctionTypeNode(typeNode) ? typeNode : undefined
+    : typeNode && ts.isFunctionTypeNode(typeNode)
+      ? typeNode
+      : undefined
   if (signatureNode) {
-    return { ...base, kind: 'method', type: squash(signatureNode.getText()), signatures: [signatureOf(context, signatureNode, symbol)] }
+    return {
+      ...base,
+      kind: 'method',
+      type: squash(signatureNode.getText()),
+      signatures: [
+        signatureOf(context, signatureNode, symbol),
+      ],
+    }
   }
-  const calls = typeNode && ts.isTypeLiteralNode(typeNode) ? typeNode.members.filter(ts.isCallSignatureDeclaration) : []
+  const calls = typeNode && ts.isTypeLiteralNode(typeNode)
+    ? typeNode.members.filter(ts.isCallSignatureDeclaration)
+    : []
   if (calls.length && calls.length === (typeNode as ts.TypeLiteralNode).members.length) {
-    return { ...base, kind: 'method', type: squash(typeNode!.getText()), signatures: calls.map(call => signatureOf(context, call, symbol)) }
+    return {
+      ...base,
+      kind: 'method',
+      type: squash(typeNode!.getText()),
+      signatures: calls.map(call => signatureOf(context, call, symbol)),
+    }
   }
 
-  const type = typeNode ? squash(typeNode.getText()) : checker.typeToString(checker.getTypeAtLocation(declaration))
+  const type = typeNode
+    ? squash(typeNode.getText())
+    : checker.typeToString(checker.getTypeAtLocation(declaration))
   return {
     ...base,
     kind: 'property',
     type,
     signatures: [],
-    ...typeNode && ts.isTypeReferenceNode(typeNode) && !typeNode.typeArguments ? { reference: typeNode.typeName.getText() } : {},
+    ...typeNode && ts.isTypeReferenceNode(typeNode) && !typeNode.typeArguments
+      ? {
+          reference: typeNode.typeName.getText(),
+        }
+      : {},
   }
 }
 
@@ -271,10 +315,14 @@ function memberOfParameter(context: Context, parameter: ts.ParameterDeclaration)
   const symbol = checker.getSymbolAtLocation(parameter.name)
   const flags = ts.getCombinedModifierFlags(parameter)
   return {
-    ...symbol ? docOf(checker, symbol) : emptyDoc(),
+    ...symbol
+      ? docOf(checker, symbol)
+      : emptyDoc(),
     name: parameter.name.getText(),
     kind: 'property',
-    type: parameter.type ? squash(parameter.type.getText()) : checker.typeToString(checker.getTypeAtLocation(parameter)),
+    type: parameter.type
+      ? squash(parameter.type.getText())
+      : checker.typeToString(checker.getTypeAtLocation(parameter)),
     optional: !!parameter.questionToken,
     readonly: !!(flags & ts.ModifierFlags.Readonly),
     static: false,
@@ -293,17 +341,25 @@ function signatureOf(context: Context, node: ts.SignatureDeclaration, symbol?: t
     const name = parameter.name.getText()
     return {
       name,
-      type: parameter.type ? squash(parameter.type.getText()) : checker.typeToString(checker.getTypeAtLocation(parameter)),
+      type: parameter.type
+        ? squash(parameter.type.getText())
+        : checker.typeToString(checker.getTypeAtLocation(parameter)),
       optional: !!parameter.questionToken || !!parameter.initializer,
       rest: !!parameter.dotDotDotToken,
-      ...parameter.initializer ? { default: squash(parameter.initializer.getText()) } : {},
+      ...parameter.initializer
+        ? {
+            default: squash(parameter.initializer.getText()),
+          }
+        : {},
       description: parameterDocs.get(name) ?? '',
     }
   })
 
   const returnType = node.type
     ? squash(node.type.getText())
-    : signature ? checker.typeToString(checker.getReturnTypeOfSignature(signature)) : 'void'
+    : signature
+      ? checker.typeToString(checker.getReturnTypeOfSignature(signature))
+      : 'void'
   return finishSignature(tags, params, returnType, typeParametersOf(node), signature && ownDoc(checker, signature, symbol))
 }
 
@@ -319,7 +375,9 @@ function resolvedSignatureOf(context: Context, signature: ts.Signature, location
     const type = checker.getTypeOfSymbolAtLocation(parameter, location)
     return {
       name: parameter.name,
-      type: checker.typeToString(optional ? checker.getNonNullableType(type) : type),
+      type: checker.typeToString(optional
+        ? checker.getNonNullableType(type)
+        : type),
       optional,
       rest: !!declaration && ts.isParameter(declaration) && !!declaration.dotDotDotToken,
       description: parameterDocs.get(parameter.name) ?? '',
@@ -331,29 +389,46 @@ function resolvedSignatureOf(context: Context, signature: ts.Signature, location
 function finishSignature(tags: ts.JSDocTagInfo[], params: ApiParam[], returnType: string, typeParameters?: string, doc?: ApiDoc): ApiSignature {
   const returns = tags.find(tag => tag.name === 'returns' || tag.name === 'return')
   return {
-    ...typeParameters ? { typeParameters } : {},
+    ...typeParameters
+      ? { typeParameters }
+      : {},
     params,
-    returns: { type: returnType, description: returns ? tagText(returns) : '' },
+    returns: {
+      type: returnType,
+      description: returns
+        ? tagText(returns)
+        : '',
+    },
     throws: tags.filter(tag => tag.name === 'throws').map(tagText),
-    ...doc ? { doc } : {},
+    ...doc
+      ? { doc }
+      : {},
   }
 }
 
 function typeParametersOf(node: ts.Node & { typeParameters?: ts.NodeArray<ts.TypeParameterDeclaration> }): string | undefined {
-  return node.typeParameters?.length ? `<${node.typeParameters.map(parameter => squash(parameter.getText())).join(', ')}>` : undefined
+  return node.typeParameters?.length
+    ? `<${node.typeParameters.map(parameter => squash(parameter.getText())).join(', ')}>`
+    : undefined
 }
 
 /** Tags from the signature's own comment, or from the symbol that holds it when the signature has none. */
 function tagsOf(checker: ts.TypeChecker, symbol: ts.Symbol | undefined, signature: ts.Signature | undefined): ts.JSDocTagInfo[] {
   const own = signature?.getJsDocTags() ?? []
-  return own.length ? own : symbol?.getJsDocTags(checker) ?? []
+  return own.length
+    ? own
+    : symbol?.getJsDocTags(checker) ?? []
 }
 
 /** The comment of one overload, when it differs from the comment of the symbol. */
 function ownDoc(checker: ts.TypeChecker, signature: ts.Signature, symbol?: ts.Symbol): ApiDoc | undefined {
   const description = ts.displayPartsToString(signature.getDocumentationComment(checker))
-  const symbolDescription = symbol ? ts.displayPartsToString(symbol.getDocumentationComment(checker)) : ''
-  return description && description !== symbolDescription ? docFrom(description, signature.getJsDocTags()) : undefined
+  const symbolDescription = symbol
+    ? ts.displayPartsToString(symbol.getDocumentationComment(checker))
+    : ''
+  return description && description !== symbolDescription
+    ? docFrom(description, signature.getJsDocTags())
+    : undefined
 }
 
 function parameterDescriptions(tags: ts.JSDocTagInfo[]): Map<string, string> {
@@ -378,8 +453,16 @@ function docFrom(description: string, tags: ts.JSDocTagInfo[]): ApiDoc {
   return {
     description: description.trim(),
     examples: tags.filter(tag => tag.name === 'example').map(tagText),
-    ...deprecated ? { deprecated: tagText(deprecated) } : {},
-    ...defaultValue ? { default: tagText(defaultValue).replace(BACKTICKS_RE, '') } : {},
+    ...deprecated
+      ? {
+          deprecated: tagText(deprecated),
+        }
+      : {},
+    ...defaultValue
+      ? {
+          default: tagText(defaultValue).replace(BACKTICKS_RE, ''),
+        }
+      : {},
     see: tags.filter(tag => tag.name === 'see').map(tagText),
   }
 }

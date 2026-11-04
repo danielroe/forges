@@ -16,14 +16,32 @@ const ADA = 'did:plc:adaauthor222222222222222'
 const PULL = `at://${ADA}/sh.tangled.repo.pull/3mwqpull22222`
 const PDS = 'https://pds.example.com'
 const C = 'https://constellation.microcosm.blue/links'
-const repo = { forge: 'tangled', instance: 'tangled.org', owner: OWNER, name: 'widgets' } as const
-const pull: ResolvedThreadRef = { forge: 'tangled', instance: 'tangled.org', repo, kind: 'pull_request', number: PULL }
+const repo = {
+  forge: 'tangled',
+  instance: 'tangled.org',
+  owner: OWNER,
+  name: 'widgets',
+} as const
+const pull: ResolvedThreadRef = {
+  forge: 'tangled',
+  instance: 'tangled.org',
+  repo,
+  kind: 'pull_request',
+  number: PULL,
+}
 
 function provider(overrides = {}, auth = true) {
   const { fetch, calls } = fixtureFetch('tangled', overrides)
   return {
     instance: tangled({
-      auth: auth ? { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS } : undefined,
+      auth: auth
+        ? {
+            type: 'app_password',
+            identifier: 'acme.example.com',
+            password: 'pw',
+            pds: PDS,
+          }
+        : undefined,
       fetch,
     }),
     calls,
@@ -37,7 +55,10 @@ describe('tangled identity', () => {
   })
 
   it('never collides two authors whose record keys match', () => {
-    const other = { ...pull, number: PULL.replace(ADA, 'did:plc:someoneelse2222222222222') }
+    const other = {
+      ...pull,
+      number: PULL.replace(ADA, 'did:plc:someoneelse2222222222222'),
+    }
     expect(threadKey(pull)).not.toBe(threadKey(other))
   })
 
@@ -48,7 +69,10 @@ describe('tangled identity', () => {
 
   it('resolves the repo DID to its owner and name through backlinks', async () => {
     const { instance } = provider()
-    const thread = await instance.threads.get({ ...pull, repo: { ...repo, owner: 'unknown', name: 'unknown' } })
+    const thread = await instance.threads.get({
+      ...pull,
+      repo: { ...repo, owner: 'unknown', name: 'unknown' },
+    })
 
     expect(thread.ref.repo).toEqual({ ...repo, externalId: 'did:plc:widgetsrepo2222222222222', ownerHandle: 'acme.example.com' })
     expect(thread.author).toMatchObject({ login: 'ada.example.com', id: ADA })
@@ -56,7 +80,10 @@ describe('tangled identity', () => {
 
   it('reads a repo whose owner is a handle, as parseUrl returns it', async () => {
     const { instance } = provider({
-      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': {
+        status: 200,
+        body: { did: OWNER },
+      },
     })
     const parsed = instance.parseUrl('https://tangled.org/@acme.example.com/widgets')!
     const found = await instance.repos.get(parsed.repo)
@@ -67,17 +94,38 @@ describe('tangled identity', () => {
 
   it('refuses a handle that the DID document does not claim', async () => {
     const { instance } = provider({
-      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=impostor.example.com': { status: 200, body: { did: OWNER } },
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=impostor.example.com': {
+        status: 200,
+        body: { did: OWNER },
+      },
     })
 
     await expect(instance.repos.get({ ...repo, owner: 'impostor.example.com' })).rejects.toThrow('does not claim the handle')
   })
 
   it('finds a repo by its name where the record key differs', async () => {
-    const record = { uri: `at://${OWNER}/sh.tangled.repo/3lzrepokey222`, cid: 'bafy', value: { $type: 'sh.tangled.repo', knot: 'knot1.tangled.sh', name: 'gadgets', repoDid: 'did:plc:gadgetsrepo222222222222', createdAt: '2025-09-01T00:00:00Z' } }
+    const record = {
+      uri: `at://${OWNER}/sh.tangled.repo/3lzrepokey222`,
+      cid: 'bafy',
+      value: {
+        $type: 'sh.tangled.repo',
+        knot: 'knot1.tangled.sh',
+        name: 'gadgets',
+        repoDid: 'did:plc:gadgetsrepo222222222222',
+        createdAt: '2025-09-01T00:00:00Z',
+      },
+    }
     const { instance } = provider({
-      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo&rkey=gadgets`]: { status: 400, body: { error: 'RecordNotFound' } },
-      [`GET ${PDS}/xrpc/com.atproto.repo.listRecords?repo=${OWNER}&collection=sh.tangled.repo&limit=100`]: { status: 200, body: { records: [record] } },
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo&rkey=gadgets`]: {
+        status: 400,
+        body: { error: 'RecordNotFound' },
+      },
+      [`GET ${PDS}/xrpc/com.atproto.repo.listRecords?repo=${OWNER}&collection=sh.tangled.repo&limit=100`]: {
+        status: 200,
+        body: {
+          records: [record],
+        },
+      },
     })
     const found = await instance.repos.get({ ...repo, name: 'gadgets' })
 
@@ -104,7 +152,10 @@ describe('tangled web addresses', () => {
 
   it('leaves a thread the appview does not list unlinked', async () => {
     const { instance, calls } = provider({
-      'GET https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0': { status: 404, body: { error: 'NotFound' } },
+      'GET https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0': {
+        status: 404,
+        body: { error: 'NotFound' },
+      },
     })
     const thread = await instance.threads.get(pull)
 
@@ -130,7 +181,9 @@ describe('tangled web addresses', () => {
     const thread = await instance.threads.get(pull)
 
     expect(instance.referenceFor(thread.ref, { from: thread.ref.repo })).toBe('#7')
-    expect(instance.referenceFor(thread.ref, { from: { ...repo, name: 'gadgets' } })).toBe('acme.example.com/widgets#7')
+    expect(instance.referenceFor(thread.ref, {
+      from: { ...repo, name: 'gadgets' },
+    })).toBe('acme.example.com/widgets#7')
   })
 
   it('believes a number the caller knows over the one the appview shows', async () => {
@@ -160,7 +213,15 @@ describe('tangled web addresses', () => {
 
   it('falls back to the DID of an owner whose DID document claims no handle', async () => {
     const { instance } = provider({
-      'GET https://plc.directory/did:plc:acmeowner222222222222222': { status: 200, body: { id: OWNER, service: [{ id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS }] } },
+      'GET https://plc.directory/did:plc:acmeowner222222222222222': {
+        status: 200,
+        body: {
+          id: OWNER,
+          service: [
+            { id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS },
+          ],
+        },
+      },
     })
     const found = await instance.repos.get(repo)
 
@@ -171,7 +232,15 @@ describe('tangled web addresses', () => {
 
   it('numbers a thread of a repository whose owner has no handle', async () => {
     const { instance, calls } = provider({
-      'GET https://plc.directory/did:plc:acmeowner222222222222222': { status: 200, body: { id: OWNER, service: [{ id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS }] } },
+      'GET https://plc.directory/did:plc:acmeowner222222222222222': {
+        status: 200,
+        body: {
+          id: OWNER,
+          service: [
+            { id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: PDS },
+          ],
+        },
+      },
       [`GET https://tangled.org/${OWNER}/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100&offset=0`]: {
         status: 200,
         body: '<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">',
@@ -189,19 +258,25 @@ describe('tangled appview listings', () => {
   it('names a thread by the link to its page and the title beside it', () => {
     const page = parseAppviewThreads('<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">', 'pull_request')
 
-    expect(page.threads).toEqual([{
-      number: '7',
-      key: 'cachecompiledtemplates',
-      author: 'did:plc:adaauthor222222222222222',
-      at: new Date('2025-09-15T08:00:03Z'),
-    }])
+    expect(page.threads).toEqual([
+      {
+        number: '7',
+        key: 'cachecompiledtemplates',
+        author: 'did:plc:adaauthor222222222222222',
+        at: new Date('2025-09-15T08:00:03Z'),
+      },
+    ])
   })
 
   it('matches a rendered title to the title its record stores', () => {
     const page = parseAppviewThreads('<a href="/acme.example.com/widgets/issues/13">Don&#39;t use <code>.name</code> &amp; &lt;b&gt; <span>#13</span></a><time datetime="2025-09-15T08:00:03&#43;00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">', 'issue')
 
     expect(page.threads[0]?.at).toEqual(new Date('2025-09-15T08:00:03Z'))
-    expect(appviewNumber(page.threads, { title: 'Don\'t use `.name` & <b>', author: ADA, createdAt: new Date('2025-09-15T08:00:00Z') })).toBe('13')
+    expect(appviewNumber(page.threads, {
+      title: 'Don\'t use `.name` & <b>',
+      author: ADA,
+      createdAt: new Date('2025-09-15T08:00:00Z'),
+    })).toBe('13')
   })
 
   it('lists every thread a page links to, whether or not its title reads', () => {
@@ -217,7 +292,10 @@ describe('tangled appview listings', () => {
   it('reads on past a page of threads whose titles do not read', async () => {
     const list = `https://tangled.org/acme.example.com/widgets/pulls?q=state%3Aall+author%3Adid%3Aplc%3Aadaauthor222222222222222&limit=100`
     const { instance } = provider({
-      [`GET ${list}&offset=0`]: { status: 200, body: Array.from({ length: 100 }, (_, index) => `<a href="/acme.example.com/widgets/pulls/${index + 100}">untitled</a>`).join('') },
+      [`GET ${list}&offset=0`]: {
+        status: 200,
+        body: Array.from({ length: 100 }, (_, index) => `<a href="/acme.example.com/widgets/pulls/${index + 100}">untitled</a>`).join(''),
+      },
       [`GET ${list}&offset=100`]: {
         status: 200,
         body: '<a href="/acme.example.com/widgets/pulls/7">Cache compiled templates <span>#7</span></a><time datetime="2025-09-15T08:00:03+00:00"></time><img src="https://avatar.tangled.sh/hash/did:plc:adaauthor222222222222222?size=tiny">',
@@ -236,8 +314,14 @@ describe('tangled repo counts', () => {
 
   it('leaves out a count the index cannot return', async () => {
     const { instance } = provider({
-      [`GET ${API}/sh.tangled.feed.countStars?subject=${REPO_DID}`]: { status: 500, body: { error: 'InternalServerError' } },
-      [`GET ${API}/sh.tangled.repo.countForks?subject=${REPO_DID}`]: { status: 200, body: { count: 3, distinctAuthors: 3 } },
+      [`GET ${API}/sh.tangled.feed.countStars?subject=${REPO_DID}`]: {
+        status: 500,
+        body: { error: 'InternalServerError' },
+      },
+      [`GET ${API}/sh.tangled.repo.countForks?subject=${REPO_DID}`]: {
+        status: 200,
+        body: { count: 3, distinctAuthors: 3 },
+      },
     }, false)
     const found = await instance.repos.get(repo)
 
@@ -259,7 +343,11 @@ describe('tangled state', () => {
     const { instance } = provider({
       'GET https://knot.example.com/xrpc/sh.tangled.repo.listCollaborators?subject=did:plc:widgetsrepo2222222222222&limit=1000': {
         status: 200,
-        body: { items: [{ subject: 'did:plc:strangerdid2222222222222', addedBy: OWNER, createdAt: '2025-09-01T00:00:00Z' }] },
+        body: {
+          items: [
+            { subject: 'did:plc:strangerdid2222222222222', addedBy: OWNER, createdAt: '2025-09-01T00:00:00Z' },
+          ],
+        },
       },
     })
 
@@ -281,11 +369,19 @@ describe('tangled state', () => {
     const { instance } = provider({
       [`GET ${C}?target=${PULL}&collection=sh.tangled.repo.pull.status&path=.pull&limit=100`]: {
         status: 200,
-        body: { linking_records: [{ did: OWNER, collection: 'sh.tangled.repo.pull.status', rkey: '3mwqowner2222' }], cursor: null },
+        body: {
+          linking_records: [
+            { did: OWNER, collection: 'sh.tangled.repo.pull.status', rkey: '3mwqowner2222' },
+          ],
+          cursor: null,
+        },
       },
       [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo.pull.status&rkey=3mwqowner2222`]: {
         status: 200,
-        body: { uri: 'x', value: { pull: PULL, status: 'sh.tangled.repo.pull.status.merged', createdAt: '2025-09-19T00:00:00Z' } },
+        body: {
+          uri: 'x',
+          value: { pull: PULL, status: 'sh.tangled.repo.pull.status.merged', createdAt: '2025-09-19T00:00:00Z' },
+        },
       },
     })
     const thread = await instance.threads.get(pull)
@@ -317,7 +413,15 @@ describe('tangled cancellation', () => {
       }
       return served(input, init)
     }
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS }, fetch })
+    const instance = tangled({
+      auth: {
+        type: 'app_password',
+        identifier: 'acme.example.com',
+        password: 'pw',
+        pds: PDS,
+      },
+      fetch,
+    })
     return {
       instance,
       reached,
@@ -379,7 +483,9 @@ describe('tangled index listing', () => {
       threads.push(thread)
     }
 
-    expect(threads.map(thread => [thread.ref.number, thread.state, thread.commentCount])).toEqual([[PULL, 'open', 1]])
+    expect(threads.map(thread => [thread.ref.number, thread.state, thread.commentCount])).toEqual([
+      [PULL, 'open', 1],
+    ])
     expect(calls.filter(call => call.url.includes('order=desc'))).toHaveLength(1)
     expect(calls.some(call => call.url.includes('constellation'))).toBe(false)
     expect(listing.warnings.map(warning => warning.code)).toEqual(['index_possibly_stale'])
@@ -417,15 +523,30 @@ describe('tangled writes', () => {
 
   describe('editing a comment whose ref has no thread number', () => {
     const uri = `at://${OWNER}/sh.tangled.feed.comment/3mwqowncomment`
-    const unnumbered = { forge: 'tangled', instance: 'tangled.org', thread: { ...pull, number: undefined }, id: uri } as const
+    const unnumbered = {
+      forge: 'tangled',
+      instance: 'tangled.org',
+      thread: { ...pull, number: undefined },
+      id: uri,
+    } as const
     const edit = (subject: string) => provider({
-      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.feed.comment&rkey=3mwqowncomment`]: { status: 200, body: { uri, cid: 'bafyreiowncomment', value: {
-        $type: 'sh.tangled.feed.comment',
-        body: { $type: 'sh.tangled.markup.markdown', text: 'Before' },
-        subject: { uri: subject, cid: 'bafyreisubject' },
-        createdAt: '2025-09-16T09:00:00Z',
-      } } },
-      [`POST ${PDS}/xrpc/com.atproto.repo.putRecord`]: { status: 200, body: { uri, cid: 'bafyreiedited' } },
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.feed.comment&rkey=3mwqowncomment`]: {
+        status: 200,
+        body: {
+          uri,
+          cid: 'bafyreiowncomment',
+          value: {
+            $type: 'sh.tangled.feed.comment',
+            body: { $type: 'sh.tangled.markup.markdown', text: 'Before' },
+            subject: { uri: subject, cid: 'bafyreisubject' },
+            createdAt: '2025-09-16T09:00:00Z',
+          },
+        },
+      },
+      [`POST ${PDS}/xrpc/com.atproto.repo.putRecord`]: {
+        status: 200,
+        body: { uri, cid: 'bafyreiedited' },
+      },
     })
 
     it('takes the thread from the comment record', async () => {
@@ -447,9 +568,15 @@ describe('tangled writes', () => {
 
   it('signs in at the PDS a handle resolves to', async () => {
     const { fetch, calls } = fixtureFetch('tangled', {
-      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': { status: 200, body: { did: OWNER } },
+      'GET https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com': {
+        status: 200,
+        body: { did: OWNER },
+      },
     })
-    const instance = tangled({ auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' }, fetch })
+    const instance = tangled({
+      auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw' },
+      fetch,
+    })
     await instance.threads.createComment!(pull, 'Thanks!')
 
     expect(calls.find(call => call.url.endsWith('createSession'))!.url).toBe(`${PDS}/xrpc/com.atproto.server.createSession`)
@@ -457,7 +584,10 @@ describe('tangled writes', () => {
 
   it('refuses to change state for an account the appview would ignore', async () => {
     const { instance, calls } = provider({
-      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 200, body: { did: 'did:plc:strangerdid2222222222222', accessJwt: 'a', refreshJwt: 'r' } },
+      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: {
+        status: 200,
+        body: { did: 'did:plc:strangerdid2222222222222', accessJwt: 'a', refreshJwt: 'r' },
+      },
     })
 
     await expect(instance.threads.close!(pull)).rejects.toThrow(InsufficientScopeError)
@@ -466,7 +596,10 @@ describe('tangled writes', () => {
 
   it('accepts state changes from Tangled\'s own account', async () => {
     const { instance, calls } = provider({
-      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 200, body: { did: 'did:plc:wshs7t2adsemcrrd4snkeqli', accessJwt: 'a', refreshJwt: 'r' } },
+      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: {
+        status: 200,
+        body: { did: 'did:plc:wshs7t2adsemcrrd4snkeqli', accessJwt: 'a', refreshJwt: 'r' },
+      },
     })
     await instance.threads.reopen!(pull)
 
@@ -480,7 +613,13 @@ describe('tangled writes', () => {
     const closed = await instance.threads.close!(pull)
 
     expect(before.state).toBe('open')
-    expect(closed).toMatchObject({ ref: { number: before.ref.number }, title: before.title, state: 'closed', stateRaw: 'closed', closedAt: expect.any(Date) })
+    expect(closed).toMatchObject({
+      ref: { number: before.ref.number },
+      title: before.title,
+      state: 'closed',
+      stateRaw: 'closed',
+      closedAt: expect.any(Date),
+    })
     expect(closed.updatedAt).toEqual(closed.closedAt)
     expect((await instance.threads.reopen!(pull))).toMatchObject({ state: 'open', stateRaw: 'open', closedAt: undefined })
     expect(calls.filter(call => call.method === 'POST' && call.url.endsWith('createRecord'))).toHaveLength(2)
@@ -489,10 +628,18 @@ describe('tangled writes', () => {
   it('refreshes an expired session once', async () => {
     let attempts = 0
     const { fetch: base, calls } = fixtureFetch('tangled', {
-      [`POST ${PDS}/xrpc/com.atproto.server.refreshSession`]: { status: 200, body: { did: OWNER, accessJwt: 'fresh-jwt', refreshJwt: 'fresh-refresh' } },
+      [`POST ${PDS}/xrpc/com.atproto.server.refreshSession`]: {
+        status: 200,
+        body: { did: OWNER, accessJwt: 'fresh-jwt', refreshJwt: 'fresh-refresh' },
+      },
     })
     const instance = tangled({
-      auth: { type: 'app_password', identifier: OWNER, password: 'pw', pds: PDS },
+      auth: {
+        type: 'app_password',
+        identifier: OWNER,
+        password: 'pw',
+        pds: PDS,
+      },
       fetch: async (url, init) => {
         if (url.endsWith('createRecord') && attempts++ === 0) {
           return new Response('{"error":"ExpiredToken","message":"Token has expired"}', { status: 400 })
@@ -528,7 +675,10 @@ describe('tangled writes', () => {
 
   it('maps a rejected app password to TokenRevokedError', async () => {
     const { instance } = provider({
-      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: { status: 401, body: { error: 'AuthenticationRequired', message: 'Invalid identifier or password' } },
+      [`POST ${PDS}/xrpc/com.atproto.server.createSession`]: {
+        status: 401,
+        body: { error: 'AuthenticationRequired', message: 'Invalid identifier or password' },
+      },
     })
 
     await expect(instance.threads.createComment(pull, 'x')).rejects.toThrow(TokenRevokedError)
@@ -555,7 +705,12 @@ describe('tangled notifications (experimental)', () => {
     const { fetch, calls } = fixtureFetch('tangled')
     return {
       instance: tangled({
-        auth: { type: 'app_password', identifier: 'acme.example.com', password: 'pw', pds: PDS },
+        auth: {
+          type: 'app_password',
+          identifier: 'acme.example.com',
+          password: 'pw',
+          pds: PDS,
+        },
         notificationsUrl: 'https://notifs.example.com',
         fetch,
       }),
@@ -581,10 +736,20 @@ describe('tangled notifications (experimental)', () => {
       reasonRaw: 'pull_commented',
       unread: true,
       title: 'Cache compiled templates',
-      subject: { type: 'thread', thread: { kind: 'pull_request', number: PULL, repo: { owner: OWNER, name: 'widgets' } } },
+      subject: {
+        type: 'thread',
+        thread: {
+          kind: 'pull_request',
+          number: PULL,
+          repo: { owner: OWNER, name: 'widgets' },
+        },
+      },
     })
     expect(comment!.ref.id).not.toBe(notificationThread(comment!)!.number)
-    expect(follow!.subject).toMatchObject({ type: 'actor', actor: { id: 'did:plc:strangerdid2222222222222' } })
+    expect(follow!.subject).toMatchObject({
+      type: 'actor',
+      actor: { id: 'did:plc:strangerdid2222222222222' },
+    })
     expect(follow!.reason).toBe('followed')
     expect(page.cursor).toBeUndefined()
   })
@@ -609,24 +774,34 @@ describe('tangled stream', () => {
     const { fetch } = fixtureFetch('tangled')
     const instance = tangled({
       fetch,
-      webSocket: url => new FakeWebSocket(url, [{
-        did: ADA,
-        time_us: 1,
-        kind: 'commit',
-        commit: {
-          rev: 'r',
-          operation: 'create',
-          collection: 'sh.tangled.feed.comment',
-          rkey: '3mwqcomment22',
-          record: { subject: { uri: PULL, cid: 'c' }, body: 'Looks good.', createdAt: '2025-09-18T00:00:00Z' },
+      webSocket: url => new FakeWebSocket(url, [
+        {
+          did: ADA,
+          time_us: 1,
+          kind: 'commit',
+          commit: {
+            rev: 'r',
+            operation: 'create',
+            collection: 'sh.tangled.feed.comment',
+            rkey: '3mwqcomment22',
+            record: {
+              subject: { uri: PULL, cid: 'c' },
+              body: 'Looks good.',
+              createdAt: '2025-09-18T00:00:00Z',
+            },
+          },
         },
-      }]),
+      ]),
     })
     const { value } = await instance.sources!.stream()[Symbol.asyncIterator]().next()
 
     expect(value!.event).toMatchObject({
       kind: 'comment',
-      detail: { type: 'comment', comment: { id: `at://${ADA}/sh.tangled.feed.comment/3mwqcomment22` }, body: 'Looks good.' },
+      detail: {
+        type: 'comment',
+        comment: { id: `at://${ADA}/sh.tangled.feed.comment/3mwqcomment22` },
+        body: 'Looks good.',
+      },
       threadSnapshot: { title: 'Cache compiled templates' },
     })
   })
@@ -635,23 +810,28 @@ describe('tangled stream', () => {
     const { fetch } = fixtureFetch('tangled')
     const instance = tangled({
       fetch,
-      webSocket: url => new FakeWebSocket(url, [{
-        did: ADA,
-        time_us: 1,
-        kind: 'commit',
-        commit: {
-          rev: 'r',
-          operation: 'create',
-          collection: 'sh.tangled.feed.reaction',
-          rkey: '3mwqother2222',
-          record: { subject: `at://${ADA}/sh.tangled.repo.issue/3mwqmissing22`, reaction: '👀', createdAt: '2025-09-18T00:00:00Z' },
+      webSocket: url => new FakeWebSocket(url, [
+        {
+          did: ADA,
+          time_us: 1,
+          kind: 'commit',
+          commit: {
+            rev: 'r',
+            operation: 'create',
+            collection: 'sh.tangled.feed.reaction',
+            rkey: '3mwqother2222',
+            record: { subject: `at://${ADA}/sh.tangled.repo.issue/3mwqmissing22`, reaction: '👀', createdAt: '2025-09-18T00:00:00Z' },
+          },
         },
-      }]),
+      ]),
     })
     const iterator = instance.sources!.stream()[Symbol.asyncIterator]()
     const first = await iterator.next()
 
-    expect(first.value).toMatchObject({ cursor: '1', event: { kind: 'reaction', id: `at://${ADA}/sh.tangled.feed.reaction/3mwqother2222` } })
+    expect(first.value).toMatchObject({
+      cursor: '1',
+      event: { kind: 'reaction', id: `at://${ADA}/sh.tangled.feed.reaction/3mwqother2222` },
+    })
     expect(first.value!.event.thread).toBeUndefined()
     await expect(iterator.next()).rejects.toThrow(StreamClosedError)
   })
@@ -661,9 +841,19 @@ describe('tangled webhooks', () => {
   it('fills the thread number through resolveDisplayNumber when provided', async () => {
     const instance = tangled({
       webhookSecret: 's',
-      resolveDisplayNumber: async (_repo, kind, number) => kind === 'pull_request' && number === '4' ? PULL : undefined,
+      resolveDisplayNumber: async (_repo, kind, number) => kind === 'pull_request' && number === '4'
+        ? PULL
+        : undefined,
     })
-    const body = JSON.stringify({ action: 'closed', pull_request: { number: 4 }, repository: { name: 'widgets', owner: { did: OWNER } }, sender: { did: OWNER } })
+    const body = JSON.stringify({
+      action: 'closed',
+      pull_request: { number: 4 },
+      repository: {
+        name: 'widgets',
+        owner: { did: OWNER },
+      },
+      sender: { did: OWNER },
+    })
     const { hmacSha256Hex } = await import('../../src/crypto.ts')
     const [event] = await instance.webhooks.ingest({
       headers: { 'x-tangled-event': 'pull_request:closed', 'x-tangled-signature-256': `sha256=${await hmacSha256Hex('s', body)}` },
@@ -676,7 +866,9 @@ describe('tangled webhooks', () => {
 
 describe('tangled anonymous auth', () => {
   it('treats `{ type: \'anonymous\' }` like no credentials', () => {
-    const provider = tangled({ auth: { type: 'anonymous' } })
+    const provider = tangled({
+      auth: { type: 'anonymous' },
+    })
 
     expect(provider.capabilities.threads.createComment.issue).toBe(false)
   })
@@ -735,58 +927,146 @@ rename to src/new.ts
 
 describe('tangled contents', () => {
   it('reads changed files and commits from the gzipped patch of the latest round', async () => {
-    const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(PATCH).toString('base64') } }, false)
+    const { instance } = provider({
+      [BLOB]: {
+        status: 200,
+        encoding: 'base64',
+        body: gzipSync(PATCH).toString('base64'),
+      },
+    }, false)
 
     const files = await instance.threads.files(pull).page()
     expect(files.items).toEqual([
-      expect.objectContaining({ path: 'src/cache.ts', status: 'modified', additions: 2, deletions: 1, sha: '3333333' }),
-      expect.objectContaining({ path: 'src/new.ts', previousPath: 'src/old.ts', status: 'renamed', additions: 0, deletions: 0 }),
+      expect.objectContaining({
+        path: 'src/cache.ts',
+        status: 'modified',
+        additions: 2,
+        deletions: 1,
+        sha: '3333333',
+      }),
+      expect.objectContaining({
+        path: 'src/new.ts',
+        previousPath: 'src/old.ts',
+        status: 'renamed',
+        additions: 0,
+        deletions: 0,
+      }),
     ])
-    expect(files.warnings?.map(warning => [warning.code, warning.subject])).toEqual([['files_approximate', 'src/cache.ts']])
+    expect(files.warnings?.map(warning => [warning.code, warning.subject])).toEqual([
+      ['files_approximate', 'src/cache.ts'],
+    ])
 
     const commits = await instance.threads.commits(pull).page()
-    expect(commits.items.map(commit => [commit.sha, commit.author?.name, commit.message, commit.stats])).toEqual([
-      [SHA_A, 'Ada Løvelace', 'Cache compiled templates by content hash\n\nKeyed by the hash of the source.', { additions: 1, deletions: 1 }],
-      [SHA_B, 'Ada', 'Rename the cache', { additions: 1, deletions: 0 }],
+    expect(commits.items.map(commit => [
+      commit.sha,
+      commit.author?.name,
+      commit.message,
+      commit.stats,
+    ])).toEqual([
+      [
+        SHA_A,
+        'Ada Løvelace',
+        'Cache compiled templates by content hash\n\nKeyed by the hash of the source.',
+        { additions: 1, deletions: 1 },
+      ],
+      [
+        SHA_B,
+        'Ada',
+        'Rename the cache',
+        { additions: 1, deletions: 0 },
+      ],
     ])
     expect(commits.items[0]!.author?.date).toEqual(new Date('2025-09-15T08:00:00Z'))
   })
 
   it('reads a plain diff as the files of a pull without commits', async () => {
     const diff = PATCH.slice(PATCH.indexOf('diff --git'), PATCH.indexOf('\n-- \n'))
-    const { instance } = provider({ [BLOB]: { status: 200, encoding: 'base64', body: gzipSync(diff).toString('base64') } }, false)
+    const { instance } = provider({
+      [BLOB]: {
+        status: 200,
+        encoding: 'base64',
+        body: gzipSync(diff).toString('base64'),
+      },
+    }, false)
 
-    expect((await instance.threads.files(pull).page()).items).toEqual([expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 })])
+    expect((await instance.threads.files(pull).page()).items).toEqual([
+      expect.objectContaining({ path: 'src/cache.ts', additions: 1, deletions: 1 }),
+    ])
     expect((await instance.threads.commits(pull).page()).items).toEqual([])
   })
 
   it('takes the commit an annotated tag points at, and a lightweight tag as is', async () => {
     const { instance } = provider({
-      [`GET ${KNOT}/sh.tangled.repo.tags?repo=${REPO_DID}&limit=2`]: { status: 200, body: { tags: [
-        { name: 'v2', hash: 'c'.repeat(40), tag: { Target: Array.from({ length: 20 }).fill(0xDD), Message: 'v2' }, message: 'v2' },
-        { name: 'v1', hash: 'e'.repeat(40), message: 'v1' },
-      ] } },
+      [`GET ${KNOT}/sh.tangled.repo.tags?repo=${REPO_DID}&limit=2`]: {
+        status: 200,
+        body: {
+          tags: [
+            {
+              name: 'v2',
+              hash: 'c'.repeat(40),
+              tag: {
+                Target: Array.from({ length: 20 }).fill(0xDD),
+                Message: 'v2',
+              },
+              message: 'v2',
+            },
+            {
+              name: 'v1',
+              hash: 'e'.repeat(40),
+              message: 'v1',
+            },
+          ],
+        },
+      },
     }, false)
     const tags = await instance.contents.tags(repo, { perPage: 2 }).page()
 
-    expect(tags.items.map(tag => [tag.name, tag.sha])).toEqual([['v2', 'd'.repeat(40)], ['v1', 'e'.repeat(40)]])
+    expect(tags.items.map(tag => [tag.name, tag.sha])).toEqual([
+      [
+        'v2',
+        'd'.repeat(40),
+      ],
+      [
+        'v1',
+        'e'.repeat(40),
+      ],
+    ])
     expect(tags.cursor).toEqual({ token: '2' })
   })
 
   it('decodes a binary file and types tree entries by mode', async () => {
     const { instance } = provider({
-      [`GET ${KNOT}/sh.tangled.repo.blob?repo=${REPO_DID}&ref=main&path=logo.png`]: { status: 200, body: { ref: 'main', path: 'logo.png', content: 'iVBORw==', encoding: 'base64', size: 4, isBinary: true } },
-      [`GET ${KNOT}/sh.tangled.repo.tree?repo=${REPO_DID}&path=src`]: { status: 200, body: { files: [
-        { name: 'lib', mode: '0040000', size: 0 },
-        { name: 'index.ts', mode: '0100644', size: 12 },
-        { name: 'link', mode: '0120000', size: 4 },
-        { name: 'vendor', mode: '0160000', size: 0 },
-      ] } },
+      [`GET ${KNOT}/sh.tangled.repo.blob?repo=${REPO_DID}&ref=main&path=logo.png`]: {
+        status: 200,
+        body: {
+          ref: 'main',
+          path: 'logo.png',
+          content: 'iVBORw==',
+          encoding: 'base64',
+          size: 4,
+          isBinary: true,
+        },
+      },
+      [`GET ${KNOT}/sh.tangled.repo.tree?repo=${REPO_DID}&path=src`]: {
+        status: 200,
+        body: {
+          files: [
+            { name: 'lib', mode: '0040000', size: 0 },
+            { name: 'index.ts', mode: '0100644', size: 12 },
+            { name: 'link', mode: '0120000', size: 4 },
+            { name: 'vendor', mode: '0160000', size: 0 },
+          ],
+        },
+      },
     }, false)
     const file = await instance.contents.getFile(repo, 'logo.png', { ref: 'main' })
     const tree = await instance.contents.tree(repo, { path: 'src/', recursive: true }).page()
 
-    expect(file).toMatchObject({ encoding: 'binary', content: new Uint8Array([0x89, 0x50, 0x4E, 0x47]), size: 4 })
+    expect(file).toMatchObject({
+      encoding: 'binary',
+      content: new Uint8Array([0x89, 0x50, 0x4E, 0x47]),
+      size: 4,
+    })
     expect(tree.items.map(entry => [entry.path, entry.type, entry.mode])).toEqual([
       ['src/lib', 'directory', '040000'],
       ['src/index.ts', 'file', '100644'],
@@ -798,11 +1078,35 @@ describe('tangled contents', () => {
 
   it('warns about commit filters the knot cannot apply', async () => {
     const { instance } = provider({
-      [`GET ${KNOT}/sh.tangled.repo.log?repo=${REPO_DID}&ref=main&limit=1`]: { status: 200, body: { commits: [{ hash: SHA_A, this: SHA_A, message: 'One', parent_hashes: [Array.from({ length: 20 }).fill(0xBB)] }] } },
+      [`GET ${KNOT}/sh.tangled.repo.log?repo=${REPO_DID}&ref=main&limit=1`]: {
+        status: 200,
+        body: {
+          commits: [
+            {
+              hash: SHA_A,
+              this: SHA_A,
+              message: 'One',
+              parent_hashes: [
+                Array.from({ length: 20 }).fill(0xBB),
+              ],
+            },
+          ],
+        },
+      },
     }, false)
-    const page = await instance.commits.list(repo, { ref: 'main', perPage: 1, path: 'src', since: new Date(0) }).page()
+    const page = await instance.commits.list(repo, {
+      ref: 'main',
+      perPage: 1,
+      path: 'src',
+      since: new Date(0),
+    }).page()
 
-    expect(page.items.map(commit => [commit.sha, commit.parents])).toEqual([[SHA_A, [SHA_B]]])
+    expect(page.items.map(commit => [commit.sha, commit.parents])).toEqual([
+      [
+        SHA_A,
+        [SHA_B],
+      ],
+    ])
     expect(page.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
     expect(page.cursor).toEqual({ token: '1' })
   })
@@ -812,39 +1116,92 @@ const GRACE = 'did:plc:gracecomment222222222222'
 const STRANGER = 'did:plc:strangerdid2222222222222'
 function definition(rkey: string, value: Record<string, unknown>) {
   return {
-    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.label.definition&rkey=${rkey}`]: { status: 200, body: { uri: `at://${OWNER}/sh.tangled.label.definition/${rkey}`, value: { $type: 'sh.tangled.label.definition', createdAt: '2025-09-01T00:00:00Z', ...value } } },
+    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.label.definition&rkey=${rkey}`]: {
+      status: 200,
+      body: {
+        uri: `at://${OWNER}/sh.tangled.label.definition/${rkey}`,
+        value: { $type: 'sh.tangled.label.definition', createdAt: '2025-09-01T00:00:00Z', ...value },
+      },
+    },
   }
 }
 function labelOp(did: string, rkey: string, performedAt: string, add: Array<[string, string]>, remove: Array<[string, string]> = []) {
   return {
-    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${did}&collection=sh.tangled.label.op&rkey=${rkey}`]: { status: 200, body: { uri: `at://${did}/sh.tangled.label.op/${rkey}`, value: {
-      subject: PULL,
-      add: add.map(([key, value]) => ({ key: `at://${OWNER}/sh.tangled.label.definition/${key}`, value })),
-      delete: remove.map(([key, value]) => ({ key: `at://${OWNER}/sh.tangled.label.definition/${key}`, value })),
-      performedAt,
-    } } },
+    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${did}&collection=sh.tangled.label.op&rkey=${rkey}`]: {
+      status: 200,
+      body: {
+        uri: `at://${did}/sh.tangled.label.op/${rkey}`,
+        value: {
+          subject: PULL,
+          add: add.map(([key, value]) => ({ key: `at://${OWNER}/sh.tangled.label.definition/${key}`, value })),
+          delete: remove.map(([key, value]) => ({ key: `at://${OWNER}/sh.tangled.label.definition/${key}`, value })),
+          performedAt,
+        },
+      },
+    },
   }
 }
 
 describe('tangled labels, reactions and people', () => {
   it('folds label ops from accounts with push access into labels and assignees', async () => {
     const { instance } = provider({
-      [`GET ${C}?target=${PULL}&collection=sh.tangled.label.op&path=.subject&limit=100`]: { status: 200, body: { linking_records: [
-        { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabelb222' },
-        { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabela222' },
-        { did: STRANGER, collection: 'sh.tangled.label.op', rkey: '3mwqlabels222' },
-      ], cursor: null } },
-      ...labelOp(OWNER, '3mwqlabela222', '2025-09-16T09:00:00Z', [['bug', 'null'], ['priority', 'high'], ['assignee', ADA], ['assignee', GRACE], ['docs', 'null']]),
-      ...labelOp(OWNER, '3mwqlabelb222', '2025-09-17T09:00:00Z', [['priority', 'low']], [['bug', 'null'], ['assignee', ADA]]),
-      ...labelOp(STRANGER, '3mwqlabels222', '2025-09-18T09:00:00Z', [['spam', 'null']]),
-      ...definition('bug', { name: 'bug', color: '#EF4444', valueType: { type: 'null', format: 'any' } }),
-      ...definition('priority', { name: 'priority', color: '#F59E0B', valueType: { type: 'string', format: 'any', enum: ['high', 'low'] } }),
-      ...definition('assignee', { name: 'assignee', multiple: true, valueType: { type: 'string', format: 'did' } }),
-      ...definition('docs', { name: 'docs', scope: ['sh.tangled.repo.issue'], valueType: { type: 'null', format: 'any' } }),
+      [`GET ${C}?target=${PULL}&collection=sh.tangled.label.op&path=.subject&limit=100`]: {
+        status: 200,
+        body: {
+          linking_records: [
+            { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabelb222' },
+            { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabela222' },
+            { did: STRANGER, collection: 'sh.tangled.label.op', rkey: '3mwqlabels222' },
+          ],
+          cursor: null,
+        },
+      },
+      ...labelOp(OWNER, '3mwqlabela222', '2025-09-16T09:00:00Z', [
+        ['bug', 'null'],
+        ['priority', 'high'],
+        ['assignee', ADA],
+        ['assignee', GRACE],
+        ['docs', 'null'],
+      ]),
+      ...labelOp(OWNER, '3mwqlabelb222', '2025-09-17T09:00:00Z', [
+        ['priority', 'low'],
+      ], [
+        ['bug', 'null'],
+        ['assignee', ADA],
+      ]),
+      ...labelOp(STRANGER, '3mwqlabels222', '2025-09-18T09:00:00Z', [
+        ['spam', 'null'],
+      ]),
+      ...definition('bug', {
+        name: 'bug',
+        color: '#EF4444',
+        valueType: { type: 'null', format: 'any' },
+      }),
+      ...definition('priority', {
+        name: 'priority',
+        color: '#F59E0B',
+        valueType: {
+          type: 'string',
+          format: 'any',
+          enum: ['high', 'low'],
+        },
+      }),
+      ...definition('assignee', {
+        name: 'assignee',
+        multiple: true,
+        valueType: { type: 'string', format: 'did' },
+      }),
+      ...definition('docs', {
+        name: 'docs',
+        scope: ['sh.tangled.repo.issue'],
+        valueType: { type: 'null', format: 'any' },
+      }),
     }, false)
     const thread = await instance.threads.get(pull)
 
-    expect(thread.labels).toEqual([{ name: 'priority:low', colour: 'F59E0B' }])
+    expect(thread.labels).toEqual([
+      { name: 'priority:low', colour: 'F59E0B' },
+    ])
     expect(thread.assignees.map(actor => actor.login)).toEqual(['grace.example.com'])
   })
 
@@ -852,7 +1209,10 @@ describe('tangled labels, reactions and people', () => {
     const { instance } = provider({}, false)
     const collaborators = await instance.repos.collaborators(repo).page()
 
-    expect(collaborators.items.map(collaborator => [collaborator.actor.id, collaborator.role])).toEqual([[OWNER, 'admin'], [GRACE, 'write']])
+    expect(collaborators.items.map(collaborator => [collaborator.actor.id, collaborator.role])).toEqual([
+      [OWNER, 'admin'],
+      [GRACE, 'write'],
+    ])
     expect(await instance.repos.permissionFor(repo, OWNER)).toBe('admin')
     expect(await instance.repos.permissionFor(repo, collaborators.items[1]!.actor)).toBe('write')
     expect(await instance.repos.permissionFor(repo, STRANGER)).toBe('read')
@@ -860,61 +1220,151 @@ describe('tangled labels, reactions and people', () => {
 
   it('reads a user profile, and an account without one', async () => {
     const { instance } = provider({
-      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${ADA}&collection=sh.tangled.actor.profile&rkey=self`]: { status: 200, body: { uri: `at://${ADA}/sh.tangled.actor.profile/self`, value: { description: 'Writes widgets', location: 'London', links: ['', 'https://ada.example.com'], avatar: { $type: 'blob', ref: { $link: 'bafkreiavatar' }, mimeType: 'image/png', size: 10 } } } },
-      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${GRACE}&collection=sh.tangled.actor.profile&rkey=self`]: { status: 400, body: { error: 'RecordNotFound' } },
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${ADA}&collection=sh.tangled.actor.profile&rkey=self`]: {
+        status: 200,
+        body: {
+          uri: `at://${ADA}/sh.tangled.actor.profile/self`,
+          value: {
+            description: 'Writes widgets',
+            location: 'London',
+            links: ['', 'https://ada.example.com'],
+            avatar: {
+              $type: 'blob',
+              ref: { $link: 'bafkreiavatar' },
+              mimeType: 'image/png',
+              size: 10,
+            },
+          },
+        },
+      },
+      [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${GRACE}&collection=sh.tangled.actor.profile&rkey=self`]: {
+        status: 400,
+        body: { error: 'RecordNotFound' },
+      },
     }, false)
 
-    expect(await instance.users.get(ADA)).toMatchObject({ login: 'ada.example.com', bio: 'Writes widgets', location: 'London', websiteUrl: 'https://ada.example.com', avatarUrl: `${PDS}/xrpc/com.atproto.sync.getBlob?did=${ADA}&cid=bafkreiavatar` })
+    expect(await instance.users.get(ADA)).toMatchObject({
+      login: 'ada.example.com',
+      bio: 'Writes widgets',
+      location: 'London',
+      websiteUrl: 'https://ada.example.com',
+      avatarUrl: `${PDS}/xrpc/com.atproto.sync.getBlob?did=${ADA}&cid=bafkreiavatar`,
+    })
     expect(await instance.users.get(GRACE)).toMatchObject({ login: 'grace.example.com', bio: undefined })
   })
 })
 
 describe('tangled thread updates', () => {
   const labelled = {
-    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo&rkey=widgets`]: { status: 200, body: { uri: `at://${OWNER}/sh.tangled.repo/widgets`, cid: 'bafyreirepocid', value: {
-      $type: 'sh.tangled.repo',
-      knot: 'knot1.tangled.sh',
-      name: 'widgets',
-      repoDid: 'did:plc:widgetsrepo2222222222222',
-      labels: ['bug', 'priority', 'assignee'].map(rkey => `at://${OWNER}/sh.tangled.label.definition/${rkey}`),
-      createdAt: '2025-09-01T00:00:00Z',
-    } } },
-    [`GET ${C}?target=${PULL}&collection=sh.tangled.label.op&path=.subject&limit=100`]: { status: 200, body: { linking_records: [
-      { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabela222' },
-    ], cursor: null } },
-    ...labelOp(OWNER, '3mwqlabela222', '2025-09-16T09:00:00Z', [['priority', 'low'], ['assignee', GRACE]]),
-    ...definition('bug', { name: 'bug', color: '#EF4444', valueType: { type: 'null', format: 'any' } }),
-    ...definition('priority', { name: 'priority', color: '#F59E0B', valueType: { type: 'string', format: 'any', enum: ['high', 'low'] } }),
-    ...definition('assignee', { name: 'assignee', multiple: true, valueType: { type: 'string', format: 'did' } }),
+    [`GET ${PDS}/xrpc/com.atproto.repo.getRecord?repo=${OWNER}&collection=sh.tangled.repo&rkey=widgets`]: {
+      status: 200,
+      body: {
+        uri: `at://${OWNER}/sh.tangled.repo/widgets`,
+        cid: 'bafyreirepocid',
+        value: {
+          $type: 'sh.tangled.repo',
+          knot: 'knot1.tangled.sh',
+          name: 'widgets',
+          repoDid: 'did:plc:widgetsrepo2222222222222',
+          labels: ['bug', 'priority', 'assignee'].map(rkey => `at://${OWNER}/sh.tangled.label.definition/${rkey}`),
+          createdAt: '2025-09-01T00:00:00Z',
+        },
+      },
+    },
+    [`GET ${C}?target=${PULL}&collection=sh.tangled.label.op&path=.subject&limit=100`]: {
+      status: 200,
+      body: {
+        linking_records: [
+          { did: OWNER, collection: 'sh.tangled.label.op', rkey: '3mwqlabela222' },
+        ],
+        cursor: null,
+      },
+    },
+    ...labelOp(OWNER, '3mwqlabela222', '2025-09-16T09:00:00Z', [
+      ['priority', 'low'],
+      ['assignee', GRACE],
+    ]),
+    ...definition('bug', {
+      name: 'bug',
+      color: '#EF4444',
+      valueType: { type: 'null', format: 'any' },
+    }),
+    ...definition('priority', {
+      name: 'priority',
+      color: '#F59E0B',
+      valueType: {
+        type: 'string',
+        format: 'any',
+        enum: ['high', 'low'],
+      },
+    }),
+    ...definition('assignee', {
+      name: 'assignee',
+      multiple: true,
+      valueType: { type: 'string', format: 'did' },
+    }),
   }
   const written = (calls: Array<{ url: string, body?: string }>) => calls.filter(call => call.url.endsWith('createRecord') || call.url.endsWith('putRecord')).map(call => JSON.parse(call.body!) as { collection: string, record: Record<string, unknown> })
 
   it('writes labels and assignees as one label op', async () => {
     const { instance, calls } = provider(labelled)
-    await instance.threads.update(pull, { labels: ['bug'], assignees: [ADA] })
+    await instance.threads.update(pull, {
+      labels: ['bug'],
+      assignees: [ADA],
+    })
     const writes = written(calls)
 
     expect(writes.map(write => write.collection)).toEqual(['sh.tangled.label.op'])
     expect(writes[0]!.record).toMatchObject({
       subject: PULL,
-      add: [{ key: `at://${OWNER}/sh.tangled.label.definition/bug`, value: 'null' }, { key: `at://${OWNER}/sh.tangled.label.definition/assignee`, value: ADA }],
-      delete: [{ key: `at://${OWNER}/sh.tangled.label.definition/priority`, value: 'low' }, { key: `at://${OWNER}/sh.tangled.label.definition/assignee`, value: GRACE }],
+      add: [
+        { key: `at://${OWNER}/sh.tangled.label.definition/bug`, value: 'null' },
+        { key: `at://${OWNER}/sh.tangled.label.definition/assignee`, value: ADA },
+      ],
+      delete: [
+        { key: `at://${OWNER}/sh.tangled.label.definition/priority`, value: 'low' },
+        { key: `at://${OWNER}/sh.tangled.label.definition/assignee`, value: GRACE },
+      ],
     })
   })
 
   it('returns the state, labels and assignees it wrote', async () => {
     const { instance } = provider(labelled)
-    const thread = await instance.threads.update(pull, { state: 'closed', labels: ['bug'], assignees: [ADA] })
+    const thread = await instance.threads.update(pull, {
+      state: 'closed',
+      labels: ['bug'],
+      assignees: [ADA],
+    })
 
     expect(thread.state).toBe('closed')
-    expect(thread.labels).toEqual([{ name: 'bug', colour: 'EF4444' }])
+    expect(thread.labels).toEqual([
+      { name: 'bug', colour: 'EF4444' },
+    ])
     expect(thread.assignees.map(actor => actor.id)).toEqual([ADA])
   })
 
   it.each([
-    ['setLabels', ['bug', 'priority:high'], [{ name: 'bug', colour: 'EF4444' }, { name: 'priority:high', colour: 'F59E0B' }]],
-    ['addLabels', ['bug'], [{ name: 'priority:low', colour: 'F59E0B' }, { name: 'bug', colour: 'EF4444' }]],
-    ['removeLabels', ['priority:low'], []],
+    [
+      'setLabels',
+      ['bug', 'priority:high'],
+      [
+        { name: 'bug', colour: 'EF4444' },
+        { name: 'priority:high', colour: 'F59E0B' },
+      ],
+    ],
+    [
+      'addLabels',
+      ['bug'],
+      [
+        { name: 'priority:low', colour: 'F59E0B' },
+        { name: 'bug', colour: 'EF4444' },
+      ],
+    ],
+    [
+      'removeLabels',
+      ['priority:low'],
+      [],
+    ],
   ] as const)('resolves %s with the labels its op leaves, reading the label ops once', async (verb, names, expected) => {
     const { instance, calls } = provider(labelled)
 
@@ -933,23 +1383,44 @@ describe('tangled thread updates', () => {
   })
 
   it('clears assignees as a no-op where the repository has no assignee label', async () => {
-    const { instance, calls } = provider({ ...labelled, ...definition('assignee', { name: 'owner', valueType: { type: 'string', format: 'any' } }) })
-    await instance.threads.update(pull, { labels: ['bug'], assignees: [] })
+    const { instance, calls } = provider({
+      ...labelled,
+      ...definition('assignee', {
+        name: 'owner',
+        valueType: { type: 'string', format: 'any' },
+      }),
+    })
+    await instance.threads.update(pull, {
+      labels: ['bug'],
+      assignees: [],
+    })
 
-    expect(written(calls).map(write => write.record)).toMatchObject([{ add: [{ key: `at://${OWNER}/sh.tangled.label.definition/bug`, value: 'null' }] }])
+    expect(written(calls).map(write => write.record)).toMatchObject([
+      {
+        add: [
+          { key: `at://${OWNER}/sh.tangled.label.definition/bug`, value: 'null' },
+        ],
+      },
+    ])
   })
 
   it('checks the label names before it writes the state', async () => {
     const { instance, calls } = provider(labelled)
 
-    await expect(instance.threads.update(pull, { state: 'closed', labels: ['wontfix'] })).rejects.toThrow('No label named wontfix')
+    await expect(instance.threads.update(pull, {
+      state: 'closed',
+      labels: ['wontfix'],
+    })).rejects.toThrow('No label named wontfix')
     expect(written(calls)).toEqual([])
   })
 
   it('refuses to retitle another account\'s pull before it writes the labels', async () => {
     const { instance, calls } = provider(labelled)
 
-    await expect(instance.threads.update(pull, { title: 'Retry uploads', labels: ['bug'] })).rejects.toThrow(InsufficientScopeError)
+    await expect(instance.threads.update(pull, {
+      title: 'Retry uploads',
+      labels: ['bug'],
+    })).rejects.toThrow(InsufficientScopeError)
     expect(written(calls)).toEqual([])
   })
 })

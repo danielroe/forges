@@ -38,7 +38,9 @@ import { fake } from 'forges/fake'
 
 const forge = fake({
   seed: {
-    threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }],
+    threads: [
+      { repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }
+    ],
   },
 })
 

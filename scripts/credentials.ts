@@ -6,13 +6,33 @@ import { providersFromEnv } from '../src/env.ts'
 import { capabilityData, isUnsupportedLevel, matrixProviders, supportCell } from './capabilities.ts'
 
 /** Forge-specific fields. `providersFromEnv()` is probed with combinations of them. */
-const CANDIDATES = ['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'INSTALLATION_ID', 'USERNAME', 'IDENTIFIER', 'PASSWORD', 'PDS', 'ORGANIZATION', 'ACCOUNT_ID', 'API_URL', 'NOTIFICATIONS_URL']
+const CANDIDATES = [
+  'TOKEN',
+  'APP_ID',
+  'PRIVATE_KEY',
+  'INSTALLATION_ID',
+  'USERNAME',
+  'IDENTIFIER',
+  'PASSWORD',
+  'PDS',
+  'ORGANIZATION',
+  'ACCOUNT_ID',
+  'API_URL',
+  'NOTIFICATIONS_URL',
+]
 
 /** Probed only for whether a forge needs it, since every forge reads it when it is set. */
 const REQUIRED_ONLY = ['BASE_URL']
 
 /** Credential fields stay out of `required`, even where a set without them is skipped. */
-const CREDENTIAL_FIELDS = new Set(['TOKEN', 'APP_ID', 'PRIVATE_KEY', 'USERNAME', 'IDENTIFIER', 'PASSWORD'])
+const CREDENTIAL_FIELDS = new Set([
+  'TOKEN',
+  'APP_ID',
+  'PRIVATE_KEY',
+  'USERNAME',
+  'IDENTIFIER',
+  'PASSWORD',
+])
 
 const KEYS = [
   generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey.export({ type: 'pkcs8', format: 'pem' }) as string,
@@ -21,7 +41,11 @@ const KEYS = [
 
 function probeValue(field: string, key = KEYS[0]!): string {
   const name = `probe-${field.toLowerCase().replaceAll('_', '-')}`
-  return field === 'PRIVATE_KEY' ? key : field === 'PDS' || field.endsWith('_URL') ? `https://${name}.invalid` : name
+  return field === 'PRIVATE_KEY'
+    ? key
+    : field === 'PDS' || field.endsWith('_URL')
+      ? `https://${name}.invalid`
+      : name
 }
 
 export interface CredentialSet {
@@ -76,20 +100,33 @@ function authenticated(provider?: Forges.ForgeProvider): boolean {
 /** The fields whose values reach the forge in a request, for a set made of `fields`. */
 async function leaks(kind: string, fields: string[]): Promise<Set<string>> {
   const found = new Set<string>()
-  for (const key of fields.includes('PRIVATE_KEY') ? KEYS : KEYS.slice(0, 1)) {
+  for (const key of fields.includes('PRIVATE_KEY')
+    ? KEYS
+    : KEYS.slice(0, 1)) {
     const sent: string[] = []
     const fetch = async (input: string | URL | Request, init?: RequestInit) => {
       const request = new Request(input, init)
       sent.push(request.url, ...request.headers.values(), await request.text())
       return Response.json({})
     }
-    const values = Object.fromEntries(fields.map(field => [field, probeValue(field, key)]))
+    const values = Object.fromEntries(fields.map(field => [
+      field,
+      probeValue(field, key),
+    ]))
     // Tangled only opens an atproto session for calls such as notifications, which need a notifications service.
-    const env = Object.fromEntries(Object.entries({ NOTIFICATIONS_URL: probeValue('NOTIFICATIONS_URL'), ...values }).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
+    const env = Object.fromEntries(Object.entries({
+      NOTIFICATIONS_URL: probeValue('NOTIFICATIONS_URL'),
+      ...values,
+    }).map(([field, value]) => [`FORGES_${kind}_${field}`, value]))
     const provider = providersFromEnv(env, { fetch })[0]?.provider
     await provider?.request('GET', '/probe').catch(() => {})
     await provider?.notifications.list().page().catch(() => {})
-    const text = sent.flatMap(value => [value, ...[...value.matchAll(/(?:Basic|Bearer) ([\w.=-]+)/g)].flatMap(([, token]) => token!.split('.').map(part => Buffer.from(part, 'base64').toString()))]).join('\n')
+    const text = sent.flatMap(value => [
+      value,
+      ...[
+        ...value.matchAll(/(?:Basic|Bearer) ([\w.=-]+)/g),
+      ].flatMap(([, token]) => token!.split('.').map(part => Buffer.from(part, 'base64').toString())),
+    ]).join('\n')
     for (const field of fields) {
       if (text.includes(values[field]!)) {
         found.add(field)
@@ -110,7 +147,10 @@ function subsets<T>(items: T[], size: number): T[][] {
 function supportedCapabilities(forges: typeof Forges): Map<string, Set<string>> {
   const { providers, groups } = capabilityData(forges)
   const rows = groups.flatMap(group => group.rows)
-  return new Map(providers.map(({ slug }, index) => [slug, new Set(rows.filter(row => !isUnsupportedLevel(row.cells[index]!.level)).map(row => row.capability))]))
+  return new Map(providers.map(({ slug }, index) => [
+    slug,
+    new Set(rows.filter(row => !isUnsupportedLevel(row.cells[index]!.level)).map(row => row.capability)),
+  ]))
 }
 
 /** What each forge needs in `FORGES_<KIND>_*`, found by probing `providersFromEnv()`. */
@@ -118,37 +158,89 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
   const reach = supportedCapabilities(forges)
   return Promise.all(matrixProviders(forges).map(async ({ slug, name }) => {
     const kind = slug.toUpperCase().replaceAll('-', '_')
-    const values = (fields: string[]) => Object.fromEntries(fields.map(field => [field, probeValue(field)]))
-    const probed = [...CANDIDATES, ...REQUIRED_ONLY]
-    const required = probed.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, { ...values(probed.filter(other => other !== field)), ENABLED: '1' }).skipped)
-    const supported = [...reach.get(slug)!]
-    const unavailable = (provider?: Forges.ForgeProvider) => provider ? supported.filter(capability => isUnsupportedLevel(supportCell(at(provider.capabilities, capability)).level)) : supported
+    const values = (fields: string[]) => Object.fromEntries(fields.map(field => [
+      field,
+      probeValue(field),
+    ]))
+    const probed = [
+      ...CANDIDATES,
+      ...REQUIRED_ONLY,
+    ]
+    const required = probed.filter(field => !CREDENTIAL_FIELDS.has(field) && probe(kind, {
+      ...values(probed.filter(other => other !== field)),
+      ENABLED: '1',
+    }).skipped)
+    const supported = [
+      ...reach.get(slug)!,
+    ]
+    const unavailable = (provider?: Forges.ForgeProvider) => provider
+      ? supported.filter(capability => isUnsupportedLevel(supportCell(at(provider.capabilities, capability)).level))
+      : supported
 
     const rest = CANDIDATES.filter(field => !required.includes(field))
     const minimal: string[][] = []
     for (let size = 1; size <= 3; size++) {
       for (const fields of subsets(rest, size)) {
-        if (!minimal.some(set => set.every(field => fields.includes(field))) && authenticated(probe(kind, values([...required, ...fields])).provider)) {
+        if (!minimal.some(set => set.every(field => fields.includes(field))) && authenticated(probe(kind, values([
+          ...required,
+          ...fields,
+        ])).provider)) {
           minimal.push(fields)
         }
       }
     }
     const credentials = await Promise.all(minimal.map(async (fields) => {
       const others = rest.filter(field => !fields.includes(field))
-      const without = unavailable(probe(kind, values([...required, ...fields])).provider)
+      const without = unavailable(probe(kind, values([
+        ...required,
+        ...fields,
+      ])).provider)
       const optional = (await Promise.all(others.map(async (field) => {
-        const unlocks = without.filter(capability => !unavailable(probe(kind, values([...required, ...fields, field])).provider).includes(capability))
-        return unlocks.length || (await leaks(kind, [...required, ...fields, field])).has(field) ? [{ field, unlocks }] : []
+        const unlocks = without.filter(capability => !unavailable(probe(kind, values([
+          ...required,
+          ...fields,
+          field,
+        ])).provider).includes(capability))
+        return unlocks.length || (await leaks(kind, [
+          ...required,
+          ...fields,
+          field,
+        ])).has(field)
+          ? [
+              { field, unlocks },
+            ]
+          : []
       }))).flat()
-      return { fields, optional, unavailable: unavailable(probe(kind, values([...required, ...fields, ...optional.map(({ field }) => field)])).provider) }
+      return {
+        fields,
+        optional,
+        unavailable: unavailable(probe(kind, values([
+          ...required,
+          ...fields,
+          ...optional.map(({ field }) => field),
+        ])).provider),
+      }
     }))
 
-    const bare = probe(kind, { ...values(required), INSTANCE: 'probe.invalid' })
+    const bare = probe(kind, {
+      ...values(required),
+      INSTANCE: 'probe.invalid',
+    })
     const anonymousWith = ['ENABLED', 'DEMO_REPO'].filter((field) => {
-      const { provider } = probe(kind, { ...values(required), [field]: field === 'ENABLED' ? '1' : 'probe/repo' })
+      const { provider } = probe(kind, {
+        ...values(required),
+        [field]: field === 'ENABLED'
+          ? '1'
+          : 'probe/repo',
+      })
       return provider && !authenticated(provider)
     })
-    const anonymous = bare.provider ?? (anonymousWith.length ? probe(kind, { ...values(required), ENABLED: '1' }).provider : undefined)
+    const anonymous = bare.provider ?? (anonymousWith.length
+      ? probe(kind, {
+        ...values(required),
+        ENABLED: '1',
+      }).provider
+      : undefined)
     return {
       slug,
       name,
@@ -167,18 +259,24 @@ export async function forgeRequirements(forges: typeof Forges): Promise<ForgeReq
 
 function code(fields: string[]): string {
   const names = fields.map(field => `\`${field}\``)
-  return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0] ?? ''
+  return names.length > 1
+    ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`
+    : names[0] ?? ''
 }
 
 function credentialCell({ required, credentials }: ForgeRequirements): string {
   const sets = credentials.map(({ fields }) => code(fields)).join(', or ')
-  return required.length ? `${code(required)}, and ${sets}` : sets
+  return required.length
+    ? `${code(required)}, and ${sets}`
+    : sets
 }
 
 function optionalCell({ credentials }: ForgeRequirements): string {
   const cells = credentials.filter(set => set.optional.length).map((set) => {
     const list = code(set.optional.map(({ field }) => field))
-    return credentials.length > 1 ? `${list} with ${code(set.fields)}` : list
+    return credentials.length > 1
+      ? `${list} with ${code(set.fields)}`
+      : list
   })
   return cells.join('; ') || 'None'
 }
@@ -189,7 +287,9 @@ function anonymousCell({ anonymous }: ForgeRequirements): string {
   if (anonymous.default) {
     return access
   }
-  return enable ? `${access} with ${enable}. Skipped otherwise` : `Skipped, even with \`ENABLED\``
+  return enable
+    ? `${access} with ${enable}. Skipped otherwise`
+    : `Skipped, even with \`ENABLED\``
 }
 
 /** The generated "What each forge needs" section of the environment variables page. Forges with the same needs share a row. */
@@ -197,7 +297,10 @@ export async function requirementsTable(forges: typeof Forges): Promise<string> 
   const rows = new Map<string, string[]>()
   for (const forge of await forgeRequirements(forges)) {
     const cells = `${credentialCell(forge)} | ${optionalCell(forge)} | ${anonymousCell(forge)}`
-    rows.set(cells, [...rows.get(cells) ?? [], forge.name])
+    rows.set(cells, [
+      ...rows.get(cells) ?? [],
+      forge.name,
+    ])
   }
   return [
     '<!-- Generated by `pnpm capability-matrix`; do not edit by hand. -->',
@@ -221,31 +324,267 @@ export interface CredentialTask {
 }
 
 const TASKS: CredentialTask[] = [
-  { id: 'repos', group: 'Read', label: 'Repositories and people', capabilities: ['repos.get', 'repos.list', 'repos.byOwner', 'repos.labels', 'repos.milestones', 'repos.issueTypes', 'repos.collaborators', 'repos.contributors', 'repos.contributorStats', 'repos.templates', 'repos.permissionFor', 'repos.branchRules', 'repos.assignableUsers', 'repos.reviewerCandidates', 'users.get', 'users.me', 'users.sponsorable', 'users.sponsorableMany'] },
-  { id: 'orgs', group: 'Read', label: 'Organisation teams', capabilities: ['orgs.teams', 'orgs.teamMembers'] },
-  { id: 'threads', group: 'Read', label: 'Issues and PRs', capabilities: ['threads.get', 'threads.list', 'threads.getMany', 'threads.closingIssues', 'threads.closingPullRequests', 'threads.events', 'threads.comments', 'threads.getComment', 'threads.reactions', 'threads.reviews', 'threads.getReview', 'threads.reviewThreads', 'threads.files', 'threads.commits'] },
-  { id: 'code', group: 'Read', label: 'Code and history', capabilities: ['contents.getFile', 'contents.tree', 'contents.branches', 'contents.tags', 'contents.resolveRef', 'commits.list', 'commits.get', 'contents.compare', 'commits.comments', 'commits.getComment'] },
-  { id: 'releases', group: 'Read', label: 'Releases', capabilities: ['releases.list', 'releases.get', 'releases.latest', 'releases.getByTag', 'releases.downloadAsset'] },
-  { id: 'ci', group: 'Read', label: 'Checks and CI', capabilities: ['threads.checks', 'checks.list', 'checks.get', 'ci.runs', 'ci.getRun', 'ci.jobs', 'ci.getJob', 'ci.log'] },
-  { id: 'search', group: 'Read', label: 'Search', capabilities: ['search.threads', 'search.repos', 'search.commits', 'search.code'] },
-  { id: 'security', group: 'Read', label: 'Security alerts', capabilities: ['securityAlerts.list'] },
-  { id: 'notifications', group: 'Read', label: 'Notifications', capabilities: ['notifications.list', 'notifications.unreadCount', 'threads.subscription'] },
-  { id: 'comment', group: 'Write', label: 'Comment and react', capabilities: ['threads.createComment', 'threads.updateComment', 'threads.deleteComment', 'threads.react', 'commits.createComment', 'commits.updateComment', 'commits.deleteComment'] },
-  { id: 'edit', group: 'Write', label: 'Open, edit and close', capabilities: ['threads.create', 'threads.update', 'threads.close', 'threads.reopen', 'threads.transfer', 'threads.markDuplicate'] },
-  { id: 'triage', group: 'Write', label: 'Labels, assignees, milestones and issue types', capabilities: ['threads.setLabels', 'threads.addLabels', 'threads.removeLabels', 'threads.setMilestone', 'threads.setIssueType', 'threads.setAssignees', 'repos.createLabel'] },
-  { id: 'review', group: 'Write', label: 'Review PRs', capabilities: ['threads.requestReview', 'threads.createReview', 'threads.submitReview', 'threads.approve', 'threads.replyToReviewComment', 'threads.resolveReviewThread'] },
-  { id: 'merge', group: 'Write', label: 'Merge PRs', capabilities: ['threads.merge', 'threads.updateBranch'] },
-  { id: 'checks', group: 'Write', label: 'Report checks', capabilities: ['checks.report', 'checks.rerun', 'ci.rerunFailed'] },
-  { id: 'push', group: 'Write', label: 'Commit files', capabilities: ['contents.commitFiles'] },
-  { id: 'publish', group: 'Write', label: 'Publish releases', capabilities: ['releases.create', 'releases.update'] },
-  { id: 'inbox', group: 'Write', label: 'Triage notifications', capabilities: ['notifications.markRead', 'notifications.markDone', 'notifications.unsubscribe', 'notifications.markAllRead', 'notifications.markAllDone', 'threads.subscribe'] },
-  { id: 'moderate', group: 'Write', label: 'Lock conversations and hide comments', capabilities: ['threads.lock', 'threads.hideComment', 'commits.hideComment'] },
-  { id: 'receive', group: 'Events', label: 'Receive webhooks', capabilities: ['webhooks.ingest'], fields: ['WEBHOOK_SECRET'] },
-  { id: 'events', group: 'Events', label: 'Poll or stream events', capabilities: ['sources.stream', 'repos.events', 'users.events'] },
-  { id: 'webhooks', group: 'Administer', label: 'Manage webhooks', capabilities: ['webhooks.list', 'webhooks.create', 'webhooks.update', 'webhooks.delete', 'webhooks.rotateSecret', 'webhooks.deliveries', 'webhooks.redeliver'] },
-  { id: 'collaborators', group: 'Administer', label: 'Add collaborators', capabilities: ['repos.addCollaborator'] },
-  { id: 'block', group: 'Administer', label: 'Block accounts', capabilities: ['orgs.block', 'users.block'] },
-  { id: 'installations', group: 'Administer', label: 'App installations', capabilities: ['installations.list'] },
+  {
+    id: 'repos',
+    group: 'Read',
+    label: 'Repositories and people',
+    capabilities: [
+      'repos.get',
+      'repos.list',
+      'repos.byOwner',
+      'repos.labels',
+      'repos.milestones',
+      'repos.issueTypes',
+      'repos.collaborators',
+      'repos.contributors',
+      'repos.contributorStats',
+      'repos.templates',
+      'repos.permissionFor',
+      'repos.branchRules',
+      'repos.assignableUsers',
+      'repos.reviewerCandidates',
+      'users.get',
+      'users.me',
+      'users.sponsorable',
+      'users.sponsorableMany',
+    ],
+  },
+  {
+    id: 'orgs',
+    group: 'Read',
+    label: 'Organisation teams',
+    capabilities: ['orgs.teams', 'orgs.teamMembers'],
+  },
+  {
+    id: 'threads',
+    group: 'Read',
+    label: 'Issues and PRs',
+    capabilities: [
+      'threads.get',
+      'threads.list',
+      'threads.getMany',
+      'threads.closingIssues',
+      'threads.closingPullRequests',
+      'threads.events',
+      'threads.comments',
+      'threads.getComment',
+      'threads.reactions',
+      'threads.reviews',
+      'threads.getReview',
+      'threads.reviewThreads',
+      'threads.files',
+      'threads.commits',
+    ],
+  },
+  {
+    id: 'code',
+    group: 'Read',
+    label: 'Code and history',
+    capabilities: [
+      'contents.getFile',
+      'contents.tree',
+      'contents.branches',
+      'contents.tags',
+      'contents.resolveRef',
+      'commits.list',
+      'commits.get',
+      'contents.compare',
+      'commits.comments',
+      'commits.getComment',
+    ],
+  },
+  {
+    id: 'releases',
+    group: 'Read',
+    label: 'Releases',
+    capabilities: [
+      'releases.list',
+      'releases.get',
+      'releases.latest',
+      'releases.getByTag',
+      'releases.downloadAsset',
+    ],
+  },
+  {
+    id: 'ci',
+    group: 'Read',
+    label: 'Checks and CI',
+    capabilities: [
+      'threads.checks',
+      'checks.list',
+      'checks.get',
+      'ci.runs',
+      'ci.getRun',
+      'ci.jobs',
+      'ci.getJob',
+      'ci.log',
+    ],
+  },
+  {
+    id: 'search',
+    group: 'Read',
+    label: 'Search',
+    capabilities: [
+      'search.threads',
+      'search.repos',
+      'search.commits',
+      'search.code',
+    ],
+  },
+  {
+    id: 'security',
+    group: 'Read',
+    label: 'Security alerts',
+    capabilities: ['securityAlerts.list'],
+  },
+  {
+    id: 'notifications',
+    group: 'Read',
+    label: 'Notifications',
+    capabilities: ['notifications.list', 'notifications.unreadCount', 'threads.subscription'],
+  },
+  {
+    id: 'comment',
+    group: 'Write',
+    label: 'Comment and react',
+    capabilities: [
+      'threads.createComment',
+      'threads.updateComment',
+      'threads.deleteComment',
+      'threads.react',
+      'commits.createComment',
+      'commits.updateComment',
+      'commits.deleteComment',
+    ],
+  },
+  {
+    id: 'edit',
+    group: 'Write',
+    label: 'Open, edit and close',
+    capabilities: [
+      'threads.create',
+      'threads.update',
+      'threads.close',
+      'threads.reopen',
+      'threads.transfer',
+      'threads.markDuplicate',
+    ],
+  },
+  {
+    id: 'triage',
+    group: 'Write',
+    label: 'Labels, assignees, milestones and issue types',
+    capabilities: [
+      'threads.setLabels',
+      'threads.addLabels',
+      'threads.removeLabels',
+      'threads.setMilestone',
+      'threads.setIssueType',
+      'threads.setAssignees',
+      'repos.createLabel',
+    ],
+  },
+  {
+    id: 'review',
+    group: 'Write',
+    label: 'Review PRs',
+    capabilities: [
+      'threads.requestReview',
+      'threads.createReview',
+      'threads.submitReview',
+      'threads.approve',
+      'threads.replyToReviewComment',
+      'threads.resolveReviewThread',
+    ],
+  },
+  {
+    id: 'merge',
+    group: 'Write',
+    label: 'Merge PRs',
+    capabilities: ['threads.merge', 'threads.updateBranch'],
+  },
+  {
+    id: 'checks',
+    group: 'Write',
+    label: 'Report checks',
+    capabilities: ['checks.report', 'checks.rerun', 'ci.rerunFailed'],
+  },
+  {
+    id: 'push',
+    group: 'Write',
+    label: 'Commit files',
+    capabilities: ['contents.commitFiles'],
+  },
+  {
+    id: 'publish',
+    group: 'Write',
+    label: 'Publish releases',
+    capabilities: ['releases.create', 'releases.update'],
+  },
+  {
+    id: 'inbox',
+    group: 'Write',
+    label: 'Triage notifications',
+    capabilities: [
+      'notifications.markRead',
+      'notifications.markDone',
+      'notifications.unsubscribe',
+      'notifications.markAllRead',
+      'notifications.markAllDone',
+      'threads.subscribe',
+    ],
+  },
+  {
+    id: 'moderate',
+    group: 'Write',
+    label: 'Lock conversations and hide comments',
+    capabilities: ['threads.lock', 'threads.hideComment', 'commits.hideComment'],
+  },
+  {
+    id: 'receive',
+    group: 'Events',
+    label: 'Receive webhooks',
+    capabilities: ['webhooks.ingest'],
+    fields: ['WEBHOOK_SECRET'],
+  },
+  {
+    id: 'events',
+    group: 'Events',
+    label: 'Poll or stream events',
+    capabilities: ['sources.stream', 'repos.events', 'users.events'],
+  },
+  {
+    id: 'webhooks',
+    group: 'Administer',
+    label: 'Manage webhooks',
+    capabilities: [
+      'webhooks.list',
+      'webhooks.create',
+      'webhooks.update',
+      'webhooks.delete',
+      'webhooks.rotateSecret',
+      'webhooks.deliveries',
+      'webhooks.redeliver',
+    ],
+  },
+  {
+    id: 'collaborators',
+    group: 'Administer',
+    label: 'Add collaborators',
+    capabilities: ['repos.addCollaborator'],
+  },
+  {
+    id: 'block',
+    group: 'Administer',
+    label: 'Block accounts',
+    capabilities: ['orgs.block', 'users.block'],
+  },
+  {
+    id: 'installations',
+    group: 'Administer',
+    label: 'App installations',
+    capabilities: ['installations.list'],
+  },
 ]
 
 /** The wizard's tasks. Throws unless every capability in the matrix belongs to exactly one task. */
@@ -255,7 +594,10 @@ export function credentialTasks(forges: typeof Forges): CredentialTask[] {
   const missing = matrix.filter(capability => !listed.includes(capability))
   const extra = listed.filter((capability, index) => !matrix.includes(capability) || listed.indexOf(capability) !== index)
   if (missing.length || extra.length) {
-    throw new Error(`Credential tasks are out of step with the capability table: ${[...missing.map(name => `missing ${name}`), ...extra.map(name => `unknown or repeated ${name}`)].join(', ')}`)
+    throw new Error(`Credential tasks are out of step with the capability table: ${[
+      ...missing.map(name => `missing ${name}`),
+      ...extra.map(name => `unknown or repeated ${name}`),
+    ].join(', ')}`)
   }
   return TASKS
 }
@@ -264,14 +606,25 @@ export function credentialTasks(forges: typeof Forges): CredentialTask[] {
 export function taskScopes(forges: typeof Forges): Record<string, Record<string, Forges.VerbScopes[]>> {
   const verbs = new Map(CAPABILITY_TABLE.map(entry => [entry.capability, entry.verbs ?? []]))
   const reach = supportedCapabilities(forges)
-  return Object.fromEntries(matrixProviders(forges).map(({ slug, provider }) => [slug, Object.fromEntries(credentialTasks(forges).map((task) => {
-    const scopes = task.capabilities
-      .filter(capability => reach.get(slug)!.has(capability))
-      .flatMap(capability => verbs.get(capability)!)
-      .map(verb => provider.scopesFor(verb as Forges.ForgeVerb))
-      .filter(scopes => Object.keys(scopes).length)
-    return [task.id, [...new Map(scopes.map(scopes => [JSON.stringify(scopes), scopes])).values()]]
-  }))]))
+  return Object.fromEntries(matrixProviders(forges).map(({ slug, provider }) => [
+    slug,
+    Object.fromEntries(credentialTasks(forges).map((task) => {
+      const scopes = task.capabilities
+        .filter(capability => reach.get(slug)!.has(capability))
+        .flatMap(capability => verbs.get(capability)!)
+        .map(verb => provider.scopesFor(verb as Forges.ForgeVerb))
+        .filter(scopes => Object.keys(scopes).length)
+      return [
+        task.id,
+        [
+          ...new Map(scopes.map(scopes => [
+            JSON.stringify(scopes),
+            scopes,
+          ])).values(),
+        ],
+      ]
+    })),
+  ]))
 }
 
 /** The tasks the credentials wizard offers, as the Markdown inside its block on the environment guide. */

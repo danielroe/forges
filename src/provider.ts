@@ -1509,11 +1509,24 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
   query: Q,
   read: (provider: ForgeProvider, query: Q & SearchOrder & { cursor: Cursor | undefined }) => Promise<Page<T>>,
 ): ForgeIterable<T> {
-  const order: SearchOrder = { sort: query.sort === 'created' ? 'created' : 'updated', direction: query.direction === 'asc' ? 'asc' : 'desc' }
-  const sign = order.direction === 'asc' ? 1 : -1
+  const order: SearchOrder = {
+    sort: query.sort === 'created'
+      ? 'created'
+      : 'updated',
+    direction: query.direction === 'asc'
+      ? 'asc'
+      : 'desc',
+  }
+  const sign = order.direction === 'asc'
+    ? 1
+    : -1
   const rank = (item: T, missing: number) => {
-    const time = (order.sort === 'created' ? item.createdAt : item.updatedAt)?.getTime()
-    return time === undefined ? missing : sign * time
+    const time = (order.sort === 'created'
+      ? item.createdAt
+      : item.updatedAt)?.getTime()
+    return time === undefined
+      ? missing
+      : sign * time
   }
   return forgeIterable(async function* (warn) {
     const sources: Array<SearchSource<T>> = providers
@@ -1523,7 +1536,11 @@ function mergeByTime<Q extends Partial<SearchOrder>, T extends { createdAt?: Dat
     async function fill(source: SearchSource<T>): Promise<void> {
       while (!source.items.length && !source.done) {
         try {
-          const page = await read(source.provider, { ...query, ...order, cursor: source.cursor })
+          const page = await read(source.provider, {
+            ...query,
+            ...order,
+            cursor: source.cursor,
+          })
           page.warnings?.forEach(warn)
           source.items = page.items.toSorted((a, b) => rank(a, Infinity) - rank(b, Infinity) || 0)
           source.cursor = page.cursor
@@ -1595,10 +1612,17 @@ export function createForges<const T extends readonly ForgeProvider[]>(providers
           const provider = find(ref)
           if (!provider) {
             const error = new UnknownForgeError(`No provider registered for ${ref.forge} on ${ref.instance}`, { forge: ref.forge, instance: ref.instance })
-            results[index] = { ok: false, ref, warning: toWarning('thread_unreadable', error, ref.number) }
+            results[index] = {
+              ok: false,
+              ref,
+              warning: toWarning('thread_unreadable', error, ref.number),
+            }
             continue
           }
-          groups.set(provider, [...groups.get(provider) ?? [], index])
+          groups.set(provider, [
+            ...groups.get(provider) ?? [],
+            index,
+          ])
         }
         await Promise.all([...groups].map(async ([provider, indexes]) => {
           const batch = await provider.threads.getMany(indexes.map(index => refs[index]!), options)
@@ -1628,7 +1652,10 @@ export function createForges<const T extends readonly ForgeProvider[]>(providers
                 yield* iterable
               }
               catch (error) {
-                warnings.push({ ...toWarning('notifications_failed', error), subject: `${provider.forge}:${provider.instance}` })
+                warnings.push({
+                  ...toWarning('notifications_failed', error),
+                  subject: `${provider.forge}:${provider.instance}`,
+                })
               }
               finally {
                 warnings.push(...iterable.warnings)

@@ -57,7 +57,11 @@ If `token` is a function, pass `kind` as well, or the provider assumes that the 
 
 ```ts
 const forge = github({
-  auth: { type: 'token', token: () => refreshUserToken(), kind: 'app-user' },
+  auth: {
+    type: 'token',
+    token: () => refreshUserToken(),
+    kind: 'app-user'
+  },
 })
 ```
 
@@ -230,7 +234,10 @@ export default {
   schema: 'https://docs.github.com/public/fpt/schema.docs.graphql',
   documents: ['src/**/*.ts'],
   generates: {
-    './src/gql/': { preset: 'client', config: { documentMode: 'string' } },
+    './src/gql/': {
+      preset: 'client',
+      config: { documentMode: 'string' }
+    },
   },
 } satisfies CodegenConfig
 ```

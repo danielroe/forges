@@ -19,16 +19,37 @@ export function toActor(instance: string, actor: OriginActor | undefined): Actor
     }
   }
   if (actor?.app) {
-    return { forge: FORGE, instance, login: actor.app.displayName ?? actor.app.id, id: actor.app.id, name: actor.app.displayName, typeRaw: 'app', isBotHint: true }
+    return {
+      forge: FORGE,
+      instance,
+      login: actor.app.displayName ?? actor.app.id,
+      id: actor.app.id,
+      name: actor.app.displayName,
+      typeRaw: 'app',
+      isBotHint: true,
+    }
   }
   if (actor?.serviceAccount) {
-    return { forge: FORGE, instance, login: actor.serviceAccount.id, id: actor.serviceAccount.id, typeRaw: 'service_account', isBotHint: true }
+    return {
+      forge: FORGE,
+      instance,
+      login: actor.serviceAccount.id,
+      id: actor.serviceAccount.id,
+      typeRaw: 'service_account',
+      isBotHint: true,
+    }
   }
   return undefined
 }
 
 export function toRepoRef(instance: string, repo: OriginRepositoryReference): RepoRef {
-  return { forge: FORGE, instance, owner: repo.owner.slug, name: repo.name, externalId: repo.id }
+  return {
+    forge: FORGE,
+    instance,
+    owner: repo.owner.slug,
+    name: repo.name,
+    externalId: repo.id,
+  }
 }
 
 export function toRepo(instance: string, raw: OriginRepo): Repo {
@@ -40,7 +61,9 @@ export function toRepo(instance: string, raw: OriginRepo): Repo {
     isFork: false,
     isArchived: false,
     topics: [],
-    cloneUrls: raw.cloneUrl ? { https: raw.cloneUrl } : undefined,
+    cloneUrls: raw.cloneUrl
+      ? { https: raw.cloneUrl }
+      : undefined,
     createdAt: toDate(raw.createdAt),
     updatedAt: toDate(raw.updatedAt),
     pushedAt: toDate(raw.pushedAt),
@@ -49,13 +72,24 @@ export function toRepo(instance: string, raw: OriginRepo): Repo {
 }
 
 export function threadState(raw: OriginPullRequest): Thread['state'] {
-  return raw.merged ? 'merged' : raw.state === 'open' ? 'open' : raw.state === 'closed' ? 'closed' : 'unknown'
+  return raw.merged
+    ? 'merged'
+    : raw.state === 'open'
+      ? 'open'
+      : raw.state === 'closed'
+        ? 'closed'
+        : 'unknown'
 }
 
 export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread {
   const parent = raw.stack?.parentPullRequest
   return {
-    ref: { ...ref, kind: 'pull_request', number: raw.number, externalId: raw.id },
+    ref: {
+      ...ref,
+      kind: 'pull_request',
+      number: raw.number,
+      externalId: raw.id,
+    },
     kind: 'pull_request',
     title: raw.title,
     body: raw.body || undefined,
@@ -72,7 +106,11 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
     mergedAt: toDate(raw.mergedAt),
     lastActivityAt: toDate(raw.updatedAt),
     branches: raw.head && raw.base
-      ? { head: { ref: raw.head.ref, sha: raw.head.sha }, base: { ref: raw.base.ref, sha: raw.base.sha }, mergeCommitSha: raw.mergeCommitSha }
+      ? {
+          head: { ref: raw.head.ref, sha: raw.head.sha },
+          base: { ref: raw.base.ref, sha: raw.base.sha },
+          mergeCommitSha: raw.mergeCommitSha,
+        }
       : undefined,
     stats: toPullStats({ additions: raw.additions, deletions: raw.deletions, changedFileCount: raw.changedFiles }),
     ...raw.stack
@@ -80,7 +118,16 @@ export function toThread(ref: ResolvedThreadRef, raw: OriginPullRequest): Thread
           stack: {
             id: raw.stack.id,
             ...parent
-              ? { parent: { forge: FORGE, instance: ref.instance, repo: ref.repo, kind: 'pull_request' as const, number: parent.number, externalId: parent.id } }
+              ? {
+                  parent: {
+                    forge: FORGE,
+                    instance: ref.instance,
+                    repo: ref.repo,
+                    kind: 'pull_request' as const,
+                    number: parent.number,
+                    externalId: parent.id,
+                  },
+                }
               : {},
           },
         }
@@ -100,7 +147,12 @@ export function isConversationComment(raw: OriginComment): boolean {
 
 export function toComment(thread: ResolvedThreadRef, raw: OriginComment): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: raw.id,
+    },
     body: raw.body,
     author: toActor(thread.instance, raw.author),
     createdAt: toDate(raw.createdAt),
@@ -110,10 +162,21 @@ export function toComment(thread: ResolvedThreadRef, raw: OriginComment): Commen
 }
 
 export function commentDetail(thread: ThreadRef, raw: OriginComment): EventDetail {
-  const comment = { forge: FORGE, instance: thread.instance, thread, id: raw.id }
+  const comment = {
+    forge: FORGE,
+    instance: thread.instance,
+    thread,
+    id: raw.id,
+  }
   return isConversationComment(raw)
     ? { type: 'comment', comment, body: raw.body }
-    : { type: 'review_comment', comment, body: raw.body, path: raw.thread?.path, line: raw.thread?.endLine ?? raw.thread?.startLine }
+    : {
+        type: 'review_comment',
+        comment,
+        body: raw.body,
+        path: raw.thread?.path,
+        line: raw.thread?.endLine ?? raw.thread?.startLine,
+      }
 }
 
 export function toCommentEvent(thread: ThreadRef, raw: OriginComment): ForgeEventInput {
@@ -125,7 +188,9 @@ export function toCommentEvent(thread: ThreadRef, raw: OriginComment): ForgeEven
     id: raw.id,
     kind: anchored ? 'review_comment' : 'comment',
     kindRaw: anchored ? 'pull_request.review_comment' : 'pull_request.comment',
-    summary: `${actor?.login ?? 'someone'} ${anchored ? `commented on ${raw.thread!.path}` : 'commented'}`,
+    summary: `${actor?.login ?? 'someone'} ${anchored
+      ? `commented on ${raw.thread!.path}`
+      : 'commented'}`,
     ...eventTime(toDate(raw.createdAt), new Date(0)),
     actor,
     repo: thread.repo,
@@ -149,9 +214,26 @@ export function toReviewEvent(thread: ThreadRef, raw: OriginReview, source: Forg
     instance: thread.instance,
     id: raw.id,
     kind: 'review',
-    kindRaw: raw.dismissal ? 'pull_request.review.dismissed' : `pull_request.review.${raw.verdict}`,
-    summary: `${actor?.login ?? 'someone'} ${raw.dismissal ? 'dismissed a review' : `reviewed (${VERDICTS[raw.verdict] ?? raw.verdict})`}`,
-    detail: { type: 'review', state: raw.dismissal ? 'dismissed' : VERDICTS[raw.verdict] ?? 'unknown', stateRaw: raw.verdict, body: raw.body || undefined, review: { forge: FORGE, instance: thread.instance, thread, id: raw.id } },
+    kindRaw: raw.dismissal
+      ? 'pull_request.review.dismissed'
+      : `pull_request.review.${raw.verdict}`,
+    summary: `${actor?.login ?? 'someone'} ${raw.dismissal
+      ? 'dismissed a review'
+      : `reviewed (${VERDICTS[raw.verdict] ?? raw.verdict})`}`,
+    detail: {
+      type: 'review',
+      state: raw.dismissal
+        ? 'dismissed'
+        : VERDICTS[raw.verdict] ?? 'unknown',
+      stateRaw: raw.verdict,
+      body: raw.body || undefined,
+      review: {
+        forge: FORGE,
+        instance: thread.instance,
+        thread,
+        id: raw.id,
+      },
+    },
     ...eventTime(toDate(raw.submittedAt), new Date(0)),
     actor,
     repo: thread.repo,
@@ -163,7 +245,13 @@ export function toReviewEvent(thread: ThreadRef, raw: OriginReview, source: Forg
 
 export function toCheck(repo: RepoRef, raw: OriginCheckRun): Check {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: raw.id, type: 'check_run' },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: raw.id,
+      type: 'check_run',
+    },
     name: raw.name,
     state: checkRunState(raw.status, raw.conclusion),
     stateRaw: raw.status,
@@ -177,9 +265,16 @@ export function toCheck(repo: RepoRef, raw: OriginCheckRun): Check {
 
 export function toReview(thread: ResolvedThreadRef, raw: OriginReview): Review {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: raw.id },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: raw.id,
+    },
     author: toActor(thread.instance, raw.author),
-    state: raw.dismissal ? 'dismissed' : VERDICTS[raw.verdict] ?? 'unknown',
+    state: raw.dismissal
+      ? 'dismissed'
+      : VERDICTS[raw.verdict] ?? 'unknown',
     stateRaw: raw.verdict,
     body: raw.body || undefined,
     submittedAt: toDate(raw.submittedAt),
@@ -202,14 +297,35 @@ export function toChangedFile(raw: OriginCommitFile): ChangedFile {
 
 export function toCommit(repo: RepoRef, raw: OriginCommit, files?: ChangedFile[]): Commit {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.sha },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      sha: raw.sha,
+    },
     sha: raw.sha,
     message: raw.commit?.message ?? '',
-    author: { name: raw.commit?.author?.name, email: raw.commit?.author?.email, date: toDate(raw.commit?.author?.date) },
-    committer: { name: raw.commit?.committer?.name, email: raw.commit?.committer?.email, date: toDate(raw.commit?.committer?.date) },
-    parents: raw.parents?.flatMap(parent => parent.sha ? [parent.sha] : []) ?? [],
-    ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
-    ...files ? { files } : {},
+    author: {
+      name: raw.commit?.author?.name,
+      email: raw.commit?.author?.email,
+      date: toDate(raw.commit?.author?.date),
+    },
+    committer: {
+      name: raw.commit?.committer?.name,
+      email: raw.commit?.committer?.email,
+      date: toDate(raw.commit?.committer?.date),
+    },
+    parents: raw.parents?.flatMap(parent => parent.sha
+      ? [parent.sha]
+      : []) ?? [],
+    ...raw.stats
+      ? {
+          stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total },
+        }
+      : {},
+    ...files
+      ? { files }
+      : {},
     raw,
   }
 }
@@ -220,13 +336,23 @@ export function toBranch(raw: OriginBranch): Branch {
 
 /** Origin lists tags as refs, so the name is the ref minus its `refs/tags/` prefix. */
 export function toTag(raw: OriginGitRef): Tag {
-  return { name: raw.ref.replace(/^refs\/tags\//, ''), sha: raw.object?.sha ?? '', raw }
+  return {
+    name: raw.ref.replace(/^refs\/tags\//, ''),
+    sha: raw.object?.sha ?? '',
+    raw,
+  }
 }
 
 export function toTreeEntry(raw: OriginTreeEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.mode === '120000' ? 'symlink' : raw.type === 'tree' ? 'directory' : raw.type === 'commit' ? 'submodule' : 'file',
+    type: raw.mode === '120000'
+      ? 'symlink'
+      : raw.type === 'tree'
+        ? 'directory'
+        : raw.type === 'commit'
+          ? 'submodule'
+          : 'file',
     sha: raw.sha,
     size: raw.size,
     mode: raw.mode,

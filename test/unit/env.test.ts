@@ -13,17 +13,40 @@ describe('providersFromEnv', () => {
       UNRELATED: 'x',
     })
 
-    expect(entries.map(({ forge, suffix, provider, skipped }) => ({ forge, suffix, instance: provider?.instance, skipped }))).toEqual([
-      { forge: 'github', suffix: '', instance: 'github.com', skipped: undefined },
-      { forge: 'github', suffix: 'WORK', instance: 'ghe.example.com', skipped: undefined },
-      { forge: 'gitlab', suffix: '', instance: undefined, skipped: 'needs TOKEN, or ENABLED for anonymous reads' },
+    expect(entries.map(({ forge, suffix, provider, skipped }) => ({
+      forge,
+      suffix,
+      instance: provider?.instance,
+      skipped,
+    }))).toEqual([
+      {
+        forge: 'github',
+        suffix: '',
+        instance: 'github.com',
+        skipped: undefined,
+      },
+      {
+        forge: 'github',
+        suffix: 'WORK',
+        instance: 'ghe.example.com',
+        skipped: undefined,
+      },
+      {
+        forge: 'gitlab',
+        suffix: '',
+        instance: undefined,
+        skipped: 'needs TOKEN, or ENABLED for anonymous reads',
+      },
     ])
   })
 
   it('skips a set whose ENABLED is off, whatever else it sets', () => {
     const entries = providersFromEnv({ FORGES_TANGLED_ENABLED: 'false', FORGES_GITHUB_TOKEN: 'a', FORGES_GITHUB_ENABLED: '0' })
 
-    expect(entries.map(entry => [entry.forge, entry.skipped])).toEqual([['tangled', 'ENABLED is off'], ['github', 'ENABLED is off']])
+    expect(entries.map(entry => [entry.forge, entry.skipped])).toEqual([
+      ['tangled', 'ENABLED is off'],
+      ['github', 'ENABLED is off'],
+    ])
   })
 
   it('needs the server of a GitBucket set, since GitBucket has no public instance', () => {
@@ -51,7 +74,11 @@ describe('providersFromEnv', () => {
       FORGES_SOURCEHUT_TOKEN: 't',
       FORGES_SOURCEHUT_WEBHOOK_PUBLIC_KEY: publicKey.subarray(publicKey.length - 32).toString('base64'),
     })
-    const body = JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } })
+    const body = JSON.stringify({
+      data: {
+        webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' },
+      },
+    })
     const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
 
     // The default is sr.ht's key, so this only verifies when the variable reached the provider.

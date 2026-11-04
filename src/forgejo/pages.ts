@@ -10,7 +10,9 @@ export function countedNextUrl(url: string, count: number, totalHeader: string |
     return undefined
   }
   const size = limit ?? count
-  const total = totalHeader === null ? Number.NaN : Number(totalHeader)
+  const total = totalHeader === null
+    ? Number.NaN
+    : Number(totalHeader)
   const remaining = Number.isFinite(total) && (page - 1) * size + count < total
   if (!remaining && count !== limit) {
     return undefined
@@ -27,9 +29,16 @@ export function countedPages(fetcher: Fetcher): Fetcher {
     if (result.cursor?.nextUrl || result.notModified) {
       return result
     }
-    const url = options.cursor?.nextUrl ? fetcher.resolve(options.cursor.nextUrl) : fetcher.resolve(path, options.query)
+    const url = options.cursor?.nextUrl
+      ? fetcher.resolve(options.cursor.nextUrl)
+      : fetcher.resolve(path, options.query)
     const nextUrl = countedNextUrl(url, result.data.length, result.response.headers.get('x-total-count'))
-    return nextUrl ? { ...result, cursor: { ...result.cursor, nextUrl } } : result
+    return nextUrl
+      ? {
+          ...result,
+          cursor: { ...result.cursor, nextUrl },
+        }
+      : result
   }
 
   async function* items<T>(path: string, options: PaginateOptions = {}): AsyncGenerator<T> {

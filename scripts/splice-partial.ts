@@ -32,7 +32,11 @@ export function parsePendingSplice(text: string): PendingSplice {
   if (!steps.every(step => isRecord(step) && Array.isArray(step.fixtures))) {
     throw new Error(`${PENDING_SPLICE} has a step without fixtures`)
   }
-  const names = [...value.only, ...value.remove, ...steps.map(step => (step as Record<string, unknown>).name)]
+  const names = [
+    ...value.only,
+    ...value.remove,
+    ...steps.map(step => (step as Record<string, unknown>).name),
+  ]
   const unknown = names.filter(name => typeof name !== 'string' || !STEP_NAMES.has(name))
   if (unknown.length) {
     throw new Error(`${PENDING_SPLICE} names steps that are not write steps: ${unknown.map(name => JSON.stringify(name).slice(0, 80)).join(', ')}`)
@@ -44,7 +48,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   let failed = false
   for (const forge of readdirSync(fixtures)) {
     const recorded = `${fixtures}${forge}/recorded/`
-    for (const label of existsSync(recorded) ? readdirSync(recorded) : []) {
+    for (const label of existsSync(recorded)
+      ? readdirSync(recorded)
+      : []) {
       const file = `${recorded}${label}/${PENDING_SPLICE}`
       if (!existsSync(file)) {
         continue

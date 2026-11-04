@@ -36,14 +36,26 @@ const FORGES: Array<[string, string]> = [
   ['gitbucket', 'GitBucket'],
 ]
 
-const { values: flags } = parseArgs({ options: { out: { type: 'string' } } })
+const { values: flags } = parseArgs({
+  options: {
+    out: { type: 'string' },
+  },
+})
 const root = new URL('../', import.meta.url)
 
 function replay(pattern: string): Map<string, Set<string>> {
   const directory = mkdtempSync(join(tmpdir(), 'forges-verbs-'))
   try {
     const vitest = fileURLToPath(new URL('node_modules/vitest/vitest.mjs', root))
-    const result = spawnSync(process.execPath, [vitest, 'run', '--project', 'unit', 'test/recorded.test.ts', '-t', pattern], {
+    const result = spawnSync(process.execPath, [
+      vitest,
+      'run',
+      '--project',
+      'unit',
+      'test/recorded.test.ts',
+      '-t',
+      pattern,
+    ], {
       cwd: root,
       env: { ...process.env, FORGES_VERBS_DIR: directory },
       stdio: ['ignore', 'ignore', 'inherit'],
@@ -62,7 +74,12 @@ function replay(pattern: string): Map<string, Set<string>> {
 const anonymousRun = replay(String.raw`recorded: \S+ \S+-anonymous `)
 const authenticatedRun = replay(String.raw`recorded: \S+ \S+(?<!-anonymous) `)
 
-const coveredWithout = (forge: string) => new Set([...anonymousRun.get(`${forge}:anonymous`) ?? [], ...authenticatedRun.get(`${forge}:anonymous`) ?? []])
+function coveredWithout(forge: string) {
+  return new Set([
+    ...anonymousRun.get(`${forge}:anonymous`) ?? [],
+    ...authenticatedRun.get(`${forge}:anonymous`) ?? [],
+  ])
+}
 const coveredWith = (forge: string) => authenticatedRun.get(forge) ?? new Set<string>()
 const providersOf = (key: string) => CHECKED_PROVIDERS.filter(([name]) => name === key).map(([, provider]) => provider)
 
@@ -71,16 +88,26 @@ interface Cell { label: string, level: string, verified: boolean }
 /** The declared support of one capability across `providers`, one cell per kind, or one for the whole capability. */
 function cellsFor(providers: ForgeProvider[], covered: Set<string>, entry: CapabilityEntry): Cell[] {
   const cells = new Map<string, Cell>()
-  const hit = (kind?: string) => entry.verbs!.some(verb => covered.has(kind ? `${verb}:${kind}` : verb))
+  const hit = (kind?: string) => entry.verbs!.some(verb => covered.has(kind
+    ? `${verb}:${kind}`
+    : verb))
   for (const provider of providers) {
     const { level, kinds }: SupportCell = supportCell(capabilityAt(provider.capabilities, entry.capability))
-    for (const item of kinds ?? [{ kind: '', label: '', level }]) {
+    for (const item of kinds ?? [
+      { kind: '', label: '', level },
+    ]) {
       if (!isUnsupportedLevel(item.level) && !cells.has(item.kind)) {
-        cells.set(item.kind, { label: item.label, level: item.level, verified: hit(item.kind || undefined) })
+        cells.set(item.kind, {
+          label: item.label,
+          level: item.level,
+          verified: hit(item.kind || undefined),
+        })
       }
     }
   }
-  return [...cells.values()]
+  return [
+    ...cells.values(),
+  ]
 }
 
 function render(cells: Cell[]): string {
@@ -92,12 +119,21 @@ function render(cells: Cell[]): string {
     return '✅'
   }
   const verified = cells.filter(cell => cell.verified && cell.label).map(cell => cell.label)
-  const text = missing.map(cell => [cell.label, cell.level === 'native' ? '⚠️' : `⚠️ ${cell.level}`].filter(Boolean).join(' ')).join(', ')
-  return verified.length ? `${text} (✅ ${verified.join(', ')})` : text
+  const text = missing.map(cell => [
+    cell.label,
+    cell.level === 'native'
+      ? '⚠️'
+      : `⚠️ ${cell.level}`,
+  ].filter(Boolean).join(' ')).join(', ')
+  return verified.length
+    ? `${text} (✅ ${verified.join(', ')})`
+    : text
 }
 
 function list(names: string[]): string {
-  return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0] ?? ''
+  return names.length > 1
+    ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`
+    : names[0] ?? ''
 }
 
 function section(title: string, keyOf: (forge: string) => string, coveredOf: (forge: string) => Set<string>, include: (entry: CapabilityEntry) => boolean): string {
@@ -122,12 +158,16 @@ function section(title: string, keyOf: (forge: string) => string, coveredOf: (fo
   return [
     `### ${title}`,
     '',
-    `${sum(verified)} of ${sum(declared)} declared capabilities, counting each kind, are exercised by a recording.${unrecorded ? ` No recording exercises any for ${unrecorded}.` : ''}`,
+    `${sum(verified)} of ${sum(declared)} declared capabilities, counting each kind, are exercised by a recording.${unrecorded
+      ? ` No recording exercises any for ${unrecorded}.`
+      : ''}`,
     '',
     `| Capability | ${FORGES.map(([, name]) => name).join(' | ')} |`,
     `| --- | ${FORGES.map(() => '---').join(' | ')} |`,
     ...rows,
-    `| Exercised | ${FORGES.map((_, index) => declared[index] ? `${verified[index]} of ${declared[index]}` : '').join(' | ')} |`,
+    `| Exercised | ${FORGES.map((_, index) => declared[index]
+      ? `${verified[index]} of ${declared[index]}`
+      : '').join(' | ')} |`,
     '',
   ].join('\n')
 }

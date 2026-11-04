@@ -63,7 +63,9 @@ export async function seedScratch(provider: ForgeProvider, scratch: RepoRef, pul
   else if (issue.state !== 'open') {
     await provider.threads.reopen(issue.ref)
   }
-  await seedThread(provider, issue.ref, other ? [other, SEED_LABEL] : [SEED_LABEL])
+  await seedThread(provider, issue.ref, other
+    ? [other, SEED_LABEL]
+    : [SEED_LABEL])
   if (pull) {
     const { title } = await provider.threads.get(pull)
     if (title !== SEED_PULL_TITLE) {

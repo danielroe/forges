@@ -32,10 +32,15 @@ export function recordedSteps(directory: string): Array<RecordedStep & { slug: s
   if (!existsSync(root)) {
     return []
   }
-  const order = 'run' in JSON.parse(readFileSync(`${directory}manifest.json`, 'utf8')) ? WRITE_ORDER : READ_ORDER
+  const order = 'run' in JSON.parse(readFileSync(`${directory}manifest.json`, 'utf8'))
+    ? WRITE_ORDER
+    : READ_ORDER
   return readdirSync(root, { withFileTypes: true })
     .filter(entry => entry.isDirectory())
-    .map(entry => ({ slug: entry.name, ...JSON.parse(readFileSync(`${root}${entry.name}/step.json`, 'utf8')) as RecordedStep }))
+    .map(entry => ({
+      slug: entry.name,
+      ...JSON.parse(readFileSync(`${root}${entry.name}/step.json`, 'utf8')) as RecordedStep,
+    }))
     .sort((a, b) => (order.get(a.name) ?? Infinity) - (order.get(b.name) ?? Infinity))
 }
 

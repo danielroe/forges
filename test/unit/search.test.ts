@@ -23,7 +23,12 @@ describe('queryRaw', () => {
     await provider.search.commits({ text: 'fix', queryRaw: 'merge:false' }).page()
     await provider.search.code({ text: 'useFetch', owner: 'acme', queryRaw: 'language:typescript' }).page()
 
-    expect(queries).toEqual(['crash is:issue review-requested:octocat', 'user:acme stars:>100', 'fix merge:false', 'useFetch user:acme language:typescript'])
+    expect(queries).toEqual([
+      'crash is:issue review-requested:octocat',
+      'user:acme stars:>100',
+      'fix merge:false',
+      'useFetch user:acme language:typescript',
+    ])
   })
 
   it('searches issues and pull requests in one advanced search when no kind is given', async () => {
@@ -35,7 +40,16 @@ describe('queryRaw', () => {
       },
     })
 
-    await provider.search.threads({ text: 'crash OR hang', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }, queryRaw: 'author:a OR author:b' }).page()
+    await provider.search.threads({
+      text: 'crash OR hang',
+      repo: {
+        forge: 'github',
+        instance: 'github.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
+      queryRaw: 'author:a OR author:b',
+    }).page()
 
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['(crash OR hang) repo:acme/widgets (is:issue OR is:pr) (author:a OR author:b)'])
     expect(requests[0]!.searchParams.get('advanced_search')).toBe('true')
@@ -58,8 +72,19 @@ describe('queryRaw', () => {
   })
 
   it.each([
-    ['on GitHub Enterprise Server', { baseUrl: 'https://github.example.com/api/v3' }],
-    ['with a GitHub App user access token', { auth: { type: 'token', token: async () => 'ghu_abc' } }],
+    [
+      'on GitHub Enterprise Server',
+      { baseUrl: 'https://github.example.com/api/v3' },
+    ],
+    [
+      'with a GitHub App user access token',
+      {
+        auth: {
+          type: 'token',
+          token: async () => 'ghu_abc',
+        },
+      },
+    ],
   ] as const)('searches issues, then pull requests, %s when no kind is given', async (_, options) => {
     const requests: URL[] = []
     const provider = github({
@@ -69,7 +94,12 @@ describe('queryRaw', () => {
         return Response.json({ items: [] })
       },
     })
-    const repo = { forge: 'github', instance: provider.instance, owner: 'acme', name: 'widgets' }
+    const repo = {
+      forge: 'github',
+      instance: provider.instance,
+      owner: 'acme',
+      name: 'widgets',
+    }
 
     const first = await provider.search.threads({ text: 'crash', repo }).page()
     await provider.search.threads({ text: 'crash', repo, cursor: first.cursor }).page()
@@ -88,7 +118,11 @@ describe('queryRaw', () => {
     })
 
     const first = await provider.search.repos({ text: 'widgets', queryRaw: 'stars:>100' }).page()
-    const next = await provider.search.repos({ text: 'widgets', queryRaw: 'stars:>100', cursor: { nextUrl: 'https://gitlab.com/api/v4/projects?page=2' } }).page()
+    const next = await provider.search.repos({
+      text: 'widgets',
+      queryRaw: 'stars:>100',
+      cursor: { nextUrl: 'https://gitlab.com/api/v4/projects?page=2' },
+    }).page()
 
     expect(first.warnings?.map(warning => warning.code)).toEqual(['filter_unsupported'])
     expect(next.warnings).toBeUndefined()
@@ -108,17 +142,33 @@ describe('owner', () => {
 
   it('narrows a GitHub thread search to the account, unless a repository is given', async () => {
     const { requests, fetch } = recording({ items: [] })
-    const provider = github({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     await provider.search.threads({ text: 'crash', kind: 'issue', owner: 'nuxt' }).page()
-    await provider.search.threads({ text: 'crash', kind: 'issue', owner: 'nuxt', repo: { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' } }).page()
+    await provider.search.threads({
+      text: 'crash',
+      kind: 'issue',
+      owner: 'nuxt',
+      repo: {
+        forge: 'github',
+        instance: 'github.com',
+        owner: 'acme',
+        name: 'widgets',
+      },
+    }).page()
 
     expect(requests.map(url => url.searchParams.get('q'))).toEqual(['crash user:nuxt is:issue', 'crash repo:acme/widgets is:issue'])
   })
 
   it('searches the issues and merge requests of a GitLab group', async () => {
     const { requests, fetch } = recording([])
-    const provider = gitlab({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = gitlab({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const first = await provider.search.threads({ text: 'crash', owner: 'acme/platform' }).page()
     await provider.search.threads({ text: 'crash', owner: 'acme/platform', cursor: first.cursor }).page()
@@ -126,16 +176,26 @@ describe('owner', () => {
     expect(requests.map(url => url.pathname)).toEqual(['/api/v4/groups/acme%2Fplatform/issues', '/api/v4/groups/acme%2Fplatform/merge_requests'])
   })
 
-  it.each([['Forgejo', forgejo], ['Gitea', gitea]] as const)('passes it to the %s issue search', async (_, create) => {
+  it.each([
+    ['Forgejo', forgejo],
+    ['Gitea', gitea],
+  ] as const)('passes it to the %s issue search', async (_, create) => {
     const { requests, fetch } = recording([])
-    await create({ auth: { type: 'token', token: 't' }, fetch }).search.threads({ text: 'crash', owner: 'acme' }).page()
+    await create({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }).search.threads({ text: 'crash', owner: 'acme' }).page()
 
     expect(requests[0]!.searchParams.get('owner')).toBe('acme')
   })
 
   it('searches the work items of the Azure DevOps project it names', async () => {
     const { requests, fetch } = recording({ workItems: [] })
-    const provider = azureDevOps({ auth: { type: 'token', token: 'pat' }, organization: 'acme', fetch })
+    const provider = azureDevOps({
+      auth: { type: 'token', token: 'pat' },
+      organization: 'acme',
+      fetch,
+    })
 
     await provider.search.threads({ text: 'crash', owner: 'acme/Widgets' }).page()
 
@@ -144,17 +204,31 @@ describe('owner', () => {
 
   it('warns where the search cannot filter by owner', async () => {
     const { fetch } = recording([])
-    const provider = gitee({ auth: { type: 'token', token: 't' }, fetch })
+    const provider = gitee({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
 
     const first = await provider.search.threads({ text: 'crash', owner: 'acme' }).page()
-    const next = await provider.search.threads({ text: 'crash', owner: 'acme', cursor: { token: '2' } }).page()
+    const next = await provider.search.threads({
+      text: 'crash',
+      owner: 'acme',
+      cursor: { token: '2' },
+    }).page()
 
     expect(first.warnings).toContainEqual(expect.objectContaining({ code: 'filter_unsupported' }))
     expect(next.warnings).toBeUndefined()
   })
 
   it('keeps the fake forge\'s threads of other owners out', async () => {
-    const forge = fake({ seed: { threads: [{ repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' }, { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' }] } })
+    const forge = fake({
+      seed: {
+        threads: [
+          { repo: 'acme/widgets', kind: 'issue', title: 'Crash on start' },
+          { repo: 'other/gadgets', kind: 'issue', title: 'Crash on exit' },
+        ],
+      },
+    })
 
     const threads = await Array.fromAsync(forge.search.threads({ text: 'crash', owner: 'acme' }))
 

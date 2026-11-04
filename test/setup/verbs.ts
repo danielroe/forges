@@ -40,18 +40,26 @@ function provenanceOf(verb: string, sources: Sources): string | undefined {
     return undefined
   }
   if (!sources.size) {
-    return PAYLOAD_VERBS.has(verb) ? undefined : 'offline'
+    return PAYLOAD_VERBS.has(verb)
+      ? undefined
+      : 'offline'
   }
-  return sources.has('documented') ? 'documented' : 'recorded'
+  return sources.has('documented')
+    ? 'documented'
+    : 'recorded'
 }
 
 function record(provider: ForgeProvider, verb: string, args: unknown[], sources: Sources): void {
   const kind = kindOf(args)
   const provenance = provenanceOf(verb, sources)
-  for (const key of provider.authKind === 'anonymous' ? [provider.forge, `${provider.forge}:anonymous`] : [provider.forge]) {
+  for (const key of provider.authKind === 'anonymous'
+    ? [provider.forge, `${provider.forge}:anonymous`]
+    : [provider.forge]) {
     const set = exercised.get(key) ?? new Set<string>()
     exercised.set(key, set)
-    for (const name of kind ? [verb, `${verb}:${kind}`] : [verb]) {
+    for (const name of kind
+      ? [verb, `${verb}:${kind}`]
+      : [verb]) {
       set.add(name)
       if (provenance) {
         set.add(`${name}#${provenance}`)
@@ -81,7 +89,9 @@ function trackIterable<T extends AsyncIterable<unknown>>(iterable: T, sources: S
           get(inner, name, innerReceiver) {
             if (name !== 'next') {
               const value = Reflect.get(inner, name, innerReceiver) as unknown
-              return typeof value === 'function' ? value.bind(inner) : value
+              return typeof value === 'function'
+                ? value.bind(inner)
+                : value
             }
             return async (...args: []) => {
               const result = await traceSources(sources, () => inner.next(...args))
@@ -153,7 +163,12 @@ vi.mock('../../src/define.ts', async (importActual) => {
     ...actual,
     defineForgeProvider: (definition: Parameters<typeof actual.defineForgeProvider>[0]) => {
       const factory = actual.defineForgeProvider(definition)
-      return (options?: { fetch?: FetchLike }) => trackProvider(factory((options?.fetch ? { ...options, fetch: traced(options.fetch) } : options) as never))
+      return (options?: { fetch?: FetchLike }) => trackProvider(factory((options?.fetch
+        ? {
+            ...options,
+            fetch: traced(options.fetch),
+          }
+        : options) as never))
     },
   }
 })
@@ -164,5 +179,8 @@ afterAll(() => {
   }
   mkdirSync(verbsDirectory, { recursive: true })
   const file = `${process.pid}-${Math.random().toString(36).slice(2)}.json`
-  writeFileSync(new URL(file, verbsDirectory), JSON.stringify(Object.fromEntries([...exercised].map(([forge, verbs]) => [forge, [...verbs].sort()]))))
+  writeFileSync(new URL(file, verbsDirectory), JSON.stringify(Object.fromEntries([...exercised].map(([forge, verbs]) => [
+    forge,
+    [...verbs].sort(),
+  ]))))
 })

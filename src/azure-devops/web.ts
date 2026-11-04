@@ -17,12 +17,23 @@ const VERSION_PREFIXES = { commit: 'GC', tag: 'GT', branch: 'GB' } as const
  */
 export function versionOf(at: string): { version: string, type: 'commit' | 'tag' | 'branch' } {
   if (at.startsWith(TAG_REF)) {
-    return { version: at.slice(TAG_REF.length), type: 'tag' }
+    return {
+      version: at.slice(TAG_REF.length),
+      type: 'tag',
+    }
   }
   if (at.startsWith(BRANCH_REF)) {
-    return { version: at.slice(BRANCH_REF.length), type: 'branch' }
+    return {
+      version: at.slice(BRANCH_REF.length),
+      type: 'branch',
+    }
   }
-  return { version: at, type: isSha(at) ? 'commit' : 'branch' }
+  return {
+    version: at,
+    type: isSha(at)
+      ? 'commit'
+      : 'branch',
+  }
 }
 
 function version(at: string): string {
@@ -52,7 +63,9 @@ function parseVersion(value: string | null): string | undefined {
   if (type === 'T') {
     return `${TAG_REF}${ref}`
   }
-  return type === 'B' && (isSha(ref) || ref.startsWith('refs/')) ? `${BRANCH_REF}${ref}` : ref
+  return type === 'B' && (isSha(ref) || ref.startsWith('refs/'))
+    ? `${BRANCH_REF}${ref}`
+    : ref
 }
 
 export const AZURE_DEVOPS_WEB: WebDefinition<'azure-devops'> = {
@@ -64,12 +77,16 @@ export const AZURE_DEVOPS_WEB: WebDefinition<'azure-devops'> = {
 function azureWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
-    repo: repo => repo.kind === 'namespace' ? `/${encode(repo.owner)}` : gitPath(repo),
+    repo: repo => repo.kind === 'namespace'
+      ? `/${encode(repo.owner)}`
+      : gitPath(repo),
     section: (repo, section) => {
       if (section === 'issues') {
         return `/${encode(repo.owner)}/_workitems`
       }
-      return repo.kind === 'namespace' || !REPO_PAGES[section] ? undefined : `${gitPath(repo)}/${REPO_PAGES[section]}`
+      return repo.kind === 'namespace' || !REPO_PAGES[section]
+        ? undefined
+        : `${gitPath(repo)}/${REPO_PAGES[section]}`
     },
     thread: (ref) => {
       if (!ref.number) {
@@ -83,9 +100,17 @@ function azureWeb(baseUrl: string): WebLinks {
       }
       return undefined
     },
-    commit: (repo, sha) => repo.kind === 'namespace' ? undefined : `${gitPath(repo)}/commit/${encodeURIComponent(sha)}`,
-    file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at) ? '' : `&version=${version(at)}`}${line ? `&line=${line}` : ''}`,
-    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at) ? '' : rawVersion(at)}&$format=octetStream`,
+    commit: (repo, sha) => repo.kind === 'namespace'
+      ? undefined
+      : `${gitPath(repo)}/commit/${encodeURIComponent(sha)}`,
+    file: (repo, path, at, line) => `${gitPath(repo)}?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at)
+      ? ''
+      : `&version=${version(at)}`}${line
+      ? `&line=${line}`
+      : ''}`,
+    raw: (repo, path, at) => `/${encode(repo.owner)}/_apis/git/repositories/${encodeURIComponent(repo.name)}/items?path=${encodeURIComponent(`/${path}`)}${isDefaultRevision(at)
+      ? ''
+      : rawVersion(at)}&$format=octetStream`,
     compare: (repo, base, head) => `${gitPath(repo)}/branchCompare?baseVersion=${version(base)}&targetVersion=${version(head)}`,
     parse: (segments, url, from) => {
       const [org, project, section, ...rest] = segments
@@ -95,32 +120,71 @@ function azureWeb(baseUrl: string): WebLinks {
       const owner = `${org}/${project}`
       if (section === '_workitems' && rest[0] === 'edit' && rest[1]) {
         const repo = namespaceRef(from, owner)
-        return { repo, thread: { ...from, repo, kind: 'issue', number: rest[1] } }
+        return {
+          repo,
+          thread: {
+            ...from,
+            repo,
+            kind: 'issue',
+            number: rest[1],
+          },
+        }
       }
       if (section !== '_git' || !rest[0]) {
-        return { repo: namespaceRef(from, owner) }
+        return {
+          repo: namespaceRef(from, owner),
+        }
       }
       const repo: RepoRef = { ...from, owner, name: rest[0] }
       const path = url.searchParams.get('path')?.replace(/^\//, '')
       if (!rest[1] && path) {
         const at = parseVersion(url.searchParams.get('version'))
-        return { repo, file: { path, ...at ? { at } : {}, ...lineOf(url.searchParams.get('line')) } }
+        return {
+          repo,
+          file: {
+            path,
+            ...at
+              ? { at }
+              : {},
+            ...lineOf(url.searchParams.get('line')),
+          },
+        }
       }
       if (rest[1] === 'commit' && rest[2]) {
-        return { repo, commit: { ...from, repo, sha: rest[2] } }
+        return {
+          repo,
+          commit: { ...from, repo, sha: rest[2] },
+        }
       }
       const base = parseVersion(url.searchParams.get('baseVersion'))
       const head = parseVersion(url.searchParams.get('targetVersion'))
       if (rest[1] === 'branchCompare' && base && head) {
-        return { repo, compare: { base, head } }
+        return {
+          repo,
+          compare: { base, head },
+        }
       }
       if (rest[1] !== 'pullrequest' || !rest[2]) {
         return { repo }
       }
-      const thread: ThreadRef = { ...from, repo, kind: 'pull_request', number: rest[2] }
+      const thread: ThreadRef = {
+        ...from,
+        repo,
+        kind: 'pull_request',
+        number: rest[2],
+      }
       return { repo, thread }
     },
-    reference: ref => 'sha' in ref || !ref.number ? undefined : ref.kind === 'issue' ? `#${ref.number}` : `!${ref.number}`,
-    references: { threads: [{ prefix: '#', kind: 'issue', namespace: true }, { prefix: '!', kind: 'pull_request' }] },
+    reference: ref => 'sha' in ref || !ref.number
+      ? undefined
+      : ref.kind === 'issue'
+        ? `#${ref.number}`
+        : `!${ref.number}`,
+    references: {
+      threads: [
+        { prefix: '#', kind: 'issue', namespace: true },
+        { prefix: '!', kind: 'pull_request' },
+      ],
+    },
   }
 }

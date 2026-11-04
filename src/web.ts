@@ -128,21 +128,32 @@ export function sameRepo(a: RepoRef, b: RepoRef | undefined): boolean {
   if (!b || a.forge !== b.forge || a.instance !== b.instance) {
     return false
   }
-  const [left, right] = [normaliseRepoName(a), normaliseRepoName(b)]
+  const [left, right] = [
+    normaliseRepoName(a),
+    normaliseRepoName(b),
+  ]
   return left.owner === right.owner && left.name === right.name
 }
 
 export function lineOf(value: string | null | undefined): { line?: number } {
   const line = Number.parseInt(value ?? '', 10)
-  return line > 0 ? { line } : {}
+  return line > 0
+    ? { line }
+    : {}
 }
 
 /** Reads `base...head` or `base..head`. Git forbids `..` in a ref name, so the first `..` separates the two. */
 export function rangeOf(value: string): { compare?: { base: string, head: string } } {
   const at = value.indexOf('..')
   const base = value.slice(0, at)
-  const head = value.slice(value[at + 2] === '.' ? at + 3 : at + 2)
-  return at > 0 && head ? { compare: { base, head } } : {}
+  const head = value.slice(value[at + 2] === '.'
+    ? at + 3
+    : at + 2)
+  return at > 0 && head
+    ? {
+        compare: { base, head },
+      }
+    : {}
 }
 
 function encodePath(path: string): string {
@@ -150,20 +161,34 @@ function encodePath(path: string): string {
 }
 
 export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined {
-  const revision = 'file' in target ? target.file : 'raw' in target ? target.raw : 'commit' in target ? target.commit : 'compare' in target ? target.compare : undefined
+  const revision = 'file' in target
+    ? target.file
+    : 'raw' in target
+      ? target.raw
+      : 'commit' in target
+        ? target.commit
+        : 'compare' in target
+          ? target.compare
+          : undefined
   if (revision?.repo.kind === 'namespace') {
     return undefined
   }
   let path: string | undefined
   if ('repo' in target) {
-    path = 'section' in target && target.section ? web.section?.(target.repo, target.section) : web.repo(target.repo)
+    path = 'section' in target && target.section
+      ? web.section?.(target.repo, target.section)
+      : web.repo(target.repo)
   }
   else if ('thread' in target) {
-    path = isResolvedThread(target.thread) || target.thread.displayNumber ? web.thread(target.thread) : undefined
+    path = isResolvedThread(target.thread) || target.thread.displayNumber
+      ? web.thread(target.thread)
+      : undefined
   }
   else if ('comment' in target) {
     const { comment } = target
-    path = isResolvedThread(comment.thread) ? web.comment?.(comment as ResolvedCommentRef) : undefined
+    path = isResolvedThread(comment.thread)
+      ? web.comment?.(comment as ResolvedCommentRef)
+      : undefined
   }
   else if ('release' in target) {
     path = web.release?.(target.release)
@@ -175,12 +200,18 @@ export function webUrlFor(web: WebLinks, target: UrlTarget): string | undefined 
     path = web.raw?.(target.raw.repo, target.raw.path, target.raw.at ?? DEFAULT_REVISION)
   }
   else if ('commit' in target) {
-    path = target.commit.sha ? web.commit?.(target.commit.repo, target.commit.sha) : undefined
+    path = target.commit.sha
+      ? web.commit?.(target.commit.repo, target.commit.sha)
+      : undefined
   }
   else {
     path = web.compare?.(target.compare.repo, target.compare.base, target.compare.head)
   }
-  return path === undefined ? undefined : path.startsWith('/') ? `${web.baseUrl}${path}` : path
+  return path === undefined
+    ? undefined
+    : path.startsWith('/')
+      ? `${web.baseUrl}${path}`
+      : path
 }
 
 /** `ssh://user@host:port/path` or `git://host:port/path` with the host in group 1, or `user@host:path` with it in group 2; the path is group 3. */
@@ -200,7 +231,9 @@ export function parseWebUrl(web: WebLinks, input: string | URL, origin: ForgeOri
   const clone = CLONE_URL_RE.exec(source)
   let url: URL
   try {
-    url = new URL(clone && (clone[1] ?? clone[2])!.toLowerCase() === base.hostname ? `${base.origin}${prefix}/${clone[3]}` : source)
+    url = new URL(clone && (clone[1] ?? clone[2])!.toLowerCase() === base.hostname
+      ? `${base.origin}${prefix}/${clone[3]}`
+      : source)
   }
   catch {
     return undefined
@@ -225,7 +258,9 @@ export function referenceFor(web: WebLinks | undefined, ref: ThreadRef | CommitR
   if (!web || !('sha' in ref || isResolvedThread(ref) || ref.displayNumber)) {
     return undefined
   }
-  return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, 'sha' in ref ? { commit: ref } : { thread: ref })
+  return web.reference?.(ref, sameRepo(ref.repo, options.from), options.expand ?? false) ?? webUrlFor(web, 'sha' in ref
+    ? { commit: ref }
+    : { thread: ref })
 }
 
 /** `owner/name`, for forges that nest no deeper. */
@@ -251,7 +286,9 @@ function repoIn(slug: string, from: RepoRef, origin: ForgeOrigin): RepoRef {
   const at = slug.lastIndexOf('/')
   const owner = slug.slice(0, at)
   const name = slug.slice(at + 1)
-  return name === from.name && (owner === from.owner || owner === from.ownerHandle) ? from : { ...origin, owner, name }
+  return name === from.name && (owner === from.owner || owner === from.ownerHandle)
+    ? from
+    : { ...origin, owner, name }
 }
 
 /** The spans of URLs in `text`, each from its scheme to the next whitespace. */
@@ -302,19 +339,46 @@ function rulesFor(syntax: ReferenceSyntax): ReferenceRule[] {
     return cached
   }
   const compiled: ReferenceRule[] = []
-  const rule = (source: string, read: ReferenceRule['read']) => compiled.push({ pattern: new RegExp(`${BEFORE}${source}${AFTER}`, 'g'), read })
-  const suffix = syntax.suffix ? `(?:${syntax.suffix})?` : ''
+  const rule = (source: string, read: ReferenceRule['read']) => compiled.push({
+    pattern: new RegExp(`${BEFORE}${source}${AFTER}`, 'g'),
+    read,
+  })
+  const suffix = syntax.suffix
+    ? `(?:${syntax.suffix})?`
+    : ''
   for (const { prefix, kind, number = String.raw`[1-9]\d*`, displayNumber, sameRepo: local, namespace } of syntax.threads) {
     const thread = `${prefix.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&')}(?<id>${number})${suffix}`
-    rule(thread, ({ id }, from, origin) => ({ ...origin, repo: namespace ? namespaceRef(origin, from.owner) : from, kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
+    rule(thread, ({ id }, from, origin) => ({
+      ...origin,
+      repo: namespace
+        ? namespaceRef(origin, from.owner)
+        : from,
+      kind,
+      ...displayNumber
+        ? { displayNumber: id! }
+        : { number: id! },
+    }))
     if (syntax.repo && !local) {
-      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, from, origin) => ({ ...origin, repo: repoIn(slug!, from, origin), kind, ...displayNumber ? { displayNumber: id! } : { number: id! } }))
+      rule(`(?<slug>${syntax.repo})${thread}`, ({ slug, id }, from, origin) => ({
+        ...origin,
+        repo: repoIn(slug!, from, origin),
+        kind,
+        ...displayNumber
+          ? { displayNumber: id! }
+          : { number: id! },
+      }))
     }
   }
   if (syntax.commits) {
-    rule(`(?<sha>${SHA})`, ({ sha }, from, origin) => isBareSha(sha!) ? { ...origin, repo: from, sha: sha! } : undefined)
+    rule(`(?<sha>${SHA})`, ({ sha }, from, origin) => isBareSha(sha!)
+      ? { ...origin, repo: from, sha: sha! }
+      : undefined)
     if (syntax.repo) {
-      rule(`(?<slug>${syntax.repo})@(?<sha>${SHA})`, ({ slug, sha }, from, origin) => ({ ...origin, repo: repoIn(slug!, from, origin), sha: sha! }))
+      rule(`(?<slug>${syntax.repo})@(?<sha>${SHA})`, ({ slug, sha }, from, origin) => ({
+        ...origin,
+        repo: repoIn(slug!, from, origin),
+        sha: sha!,
+      }))
     }
   }
   rules.set(syntax, compiled)
@@ -329,7 +393,9 @@ export function parseReferences(web: WebLinks | undefined, text: string, from: R
   const found: ParsedReference[] = []
   for (const { pattern, read } of rulesFor(web.references)) {
     for (const match of text.matchAll(pattern)) {
-      const ref = urls.some(([start, end]) => match.index >= start && match.index < end) ? undefined : read(match.groups!, from, origin)
+      const ref = urls.some(([start, end]) => match.index >= start && match.index < end)
+        ? undefined
+        : read(match.groups!, from, origin)
       if (ref) {
         found.push({ start: match.index, end: match.index + match[0].length, ref })
       }
@@ -382,13 +448,24 @@ export interface GitHubShape {
 
 /** Reads GitHub's file route, `blob/{at}/{path}`. */
 function parseGitHubFile([route, at, ...path]: string[]): { at: string, path: string } | undefined {
-  return route === 'blob' && at && path.length ? { at, path: path.join('/') } : undefined
+  return route === 'blob' && at && path.length
+    ? {
+        at,
+        path: path.join('/'),
+      }
+    : undefined
 }
 
 /** Web links for forges laid out like GitHub: `/{owner}/{name}/issues/{n}` and friends. */
 export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
   const repoPath = (repo: RepoRef) => `/${encodePath(repo.owner)}/${encodeURIComponent(repo.name)}`
-  const kindPath: Partial<Record<ThreadKind, string>> = { issue: 'issues', pull_request: shape.pull, ...shape.discussions ? { discussion: 'discussions' } : {} }
+  const kindPath: Partial<Record<ThreadKind, string>> = {
+    issue: 'issues',
+    pull_request: shape.pull,
+    ...shape.discussions
+      ? { discussion: 'discussions' }
+      : {},
+  }
   const commitPath = shape.commit ?? 'commit'
   const kindOf = new Map<string, ThreadKind>(Object.entries(kindPath).map(([kind, path]) => [path, kind as ThreadKind]))
   const reserved = new Set(shape.reserved?.map(segment => segment.toLowerCase()))
@@ -404,13 +481,21 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       if (path === null) {
         return undefined
       }
-      return `${repoPath(repo)}/${path ?? (section === 'pullRequests' ? 'pulls' : section)}`
+      return `${repoPath(repo)}/${path ?? (section === 'pullRequests'
+        ? 'pulls'
+        : section)}`
     },
-    thread: ref => kindPath[ref.kind] && ref.number ? `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}` : undefined,
+    thread: ref => kindPath[ref.kind] && ref.number
+      ? `${repoPath(ref.repo)}/${kindPath[ref.kind]}/${encodeURIComponent(ref.number)}`
+      : undefined,
     comment: ref => kindPath[ref.thread.kind] && `${repoPath(ref.thread.repo)}/${kindPath[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#${shape.commentFragment}${ref.id}`,
     commit: (repo, sha) => `${repoPath(repo)}/${commitPath}/${encodeURIComponent(sha)}`,
-    release: ref => ref.tag ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}` : undefined,
-    file: (repo, path, at, line) => `${repoPath(repo)}${shape.file(at)}/${encodePath(path)}${line ? `#${shape.lineFragment(line)}` : ''}`,
+    release: ref => ref.tag
+      ? `${repoPath(ref.repo)}/releases/tag/${encodeURIComponent(ref.tag)}`
+      : undefined,
+    file: (repo, path, at, line) => `${repoPath(repo)}${shape.file(at)}/${encodePath(path)}${line
+      ? `#${shape.lineFragment(line)}`
+      : ''}`,
     raw: (repo, path, at) => shape.raw === false
       ? undefined
       : shape.rawOrigin
@@ -422,43 +507,96 @@ export function githubShapedWeb(baseUrl: string, shape: GitHubShape): WebLinks {
       if (!owner || !name || reserved.has(owner.toLowerCase())) {
         return undefined
       }
-      const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
+      const repo: RepoRef = {
+        ...from,
+        owner,
+        name: name.replace(/\.git$/, ''),
+      }
       const file = parseFile(segments.slice(2))
       if (file) {
-        return { repo, file: { ...file, ...lineOf(url.hash.replace(/^#L/, '')) } }
+        return {
+          repo,
+          file: {
+            ...file,
+            ...lineOf(url.hash.replace(/^#L/, '')),
+          },
+        }
       }
-      const kind = section ? kindOf.get(section) : undefined
+      const kind = section
+        ? kindOf.get(section)
+        : undefined
       if (section === 'releases' && id === 'tag' && segments[4]) {
-        return { repo, release: { ...from, repo, id: segments[4], tag: segments[4] } }
+        return {
+          repo,
+          release: {
+            ...from,
+            repo,
+            id: segments[4],
+            tag: segments[4],
+          },
+        }
       }
       if (section === commitPath && id) {
-        return { repo, commit: { ...from, repo, sha: id } }
+        return {
+          repo,
+          commit: { ...from, repo, sha: id },
+        }
       }
       if (section === 'compare' && id) {
-        return { repo, ...rangeOf(segments.slice(3).join('/')) }
+        return {
+          repo,
+          ...rangeOf(segments.slice(3).join('/')),
+        }
       }
       if (!kind || !id) {
         return { repo }
       }
       const thread: ThreadRef = { ...from, repo, kind, number: id }
       if (kind === 'pull_request' && segments[4] === 'commits' && segments[5]) {
-        return { repo, thread, commit: { ...from, repo, sha: segments[5] } }
+        return {
+          repo,
+          thread,
+          commit: { ...from, repo, sha: segments[5] },
+        }
       }
-      const comment = url.hash.startsWith(`#${shape.commentFragment}`) ? url.hash.slice(shape.commentFragment.length + 1) : undefined
-      return { repo, thread, ...comment ? { comment: { ...from, thread, id: comment } } : {} }
+      const comment = url.hash.startsWith(`#${shape.commentFragment}`)
+        ? url.hash.slice(shape.commentFragment.length + 1)
+        : undefined
+      return {
+        repo,
+        thread,
+        ...comment
+          ? {
+              comment: { ...from, thread, id: comment },
+            }
+          : {},
+      }
     },
     reference: (ref, same) => {
       if ('sha' in ref) {
-        return (same ? bareSha(ref.sha, 7) : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
+        return (same
+          ? bareSha(ref.sha, 7)
+          : undefined) ?? `${ref.repo.owner}/${ref.repo.name}@${ref.sha.slice(0, 7)}`
       }
       if (!ref.number) {
         return undefined
       }
-      const prefix = ref.kind === 'pull_request' && shape.pullPrefix ? shape.pullPrefix : '#'
-      return `${same ? '' : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}`
+      const prefix = ref.kind === 'pull_request' && shape.pullPrefix
+        ? shape.pullPrefix
+        : '#'
+      return `${same
+        ? ''
+        : `${ref.repo.owner}/${ref.repo.name}`}${prefix}${ref.number}`
     },
     references: shape.references ?? {
-      threads: [{ prefix: '#', kind: 'issue' }, ...shape.pullPrefix ? [{ prefix: shape.pullPrefix, kind: 'pull_request' as const }] : []],
+      threads: [
+        { prefix: '#', kind: 'issue' },
+        ...shape.pullPrefix
+          ? [
+              { prefix: shape.pullPrefix, kind: 'pull_request' as const },
+            ]
+          : [],
+      ],
       repo: OWNER_NAME,
       commits: true,
     },
@@ -492,7 +630,9 @@ export function resolveInstance(definition: Omit<WebDefinition, 'links'>, option
     throw new TypeError(`${definition.forge} has no public instance, so it needs the baseUrl of your server`)
   }
   const root = (options.baseUrl ?? definition.baseUrl).replace(/\/$/, '')
-  const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath) ? `${root}${definition.apiPath}` : root
+  const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath)
+    ? `${root}${definition.apiPath}`
+    : root
   let host: string
   try {
     host = new URL(baseUrl).host

@@ -4,16 +4,45 @@ import { ForgeApiError, ForgeNetworkError, ForgeTimeoutError, MergeBlockedError,
 import { fake } from '../../src/fake/index.ts'
 import { upsertComment } from '../../src/helpers.ts'
 
-const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
-const issue = { forge: 'fake', instance: 'fake.test', repo, kind: 'issue' as const, number: '1' }
-const pull = { forge: 'fake', instance: 'fake.test', repo, kind: 'pull_request' as const, number: '2' }
+const repo = {
+  forge: 'fake',
+  instance: 'fake.test',
+  owner: 'acme',
+  name: 'widgets',
+}
+const issue = {
+  forge: 'fake',
+  instance: 'fake.test',
+  repo,
+  kind: 'issue' as const,
+  number: '1',
+}
+const pull = {
+  forge: 'fake',
+  instance: 'fake.test',
+  repo,
+  kind: 'pull_request' as const,
+  number: '2',
+}
 const seed = {
-  repos: [{ repo: 'acme/widgets' }],
+  repos: [
+    { repo: 'acme/widgets' },
+  ],
   threads: [
     { repo: 'acme/widgets', kind: 'issue' as const, title: 'Crash on start' },
-    { repo: 'acme/widgets', kind: 'pull_request' as const, title: 'Fix crash', head: { ref: 'fix', sha: 'a'.repeat(40) } },
+    {
+      repo: 'acme/widgets',
+      kind: 'pull_request' as const,
+      title: 'Fix crash',
+      head: {
+        ref: 'fix',
+        sha: 'a'.repeat(40),
+      },
+    },
   ],
-  notifications: [{ repo: 'acme/widgets', number: 1 }],
+  notifications: [
+    { repo: 'acme/widgets', number: 1 },
+  ],
 }
 
 afterEach(() => {
@@ -97,7 +126,12 @@ describe('fake forge offline', () => {
 describe('fake forge latency', () => {
   it('delays each request by the latency of its verb', async () => {
     vi.useFakeTimers()
-    const forge = fake({ seed, latency: (verb: ForgeVerb) => verb === 'threads.get' ? 100 : 0 })
+    const forge = fake({
+      seed,
+      latency: (verb: ForgeVerb) => verb === 'threads.get'
+        ? 100
+        : 0,
+    })
     let settled = false
     const read = forge.threads.get(issue).then(() => {
       settled = true
@@ -138,7 +172,10 @@ describe('fake forge latency', () => {
 describe('fake forge clock', () => {
   it('stamps writes with the injected clock', async () => {
     let time = Date.parse('2026-01-01T00:00:00Z')
-    const forge = fake({ seed, now: () => new Date(time) })
+    const forge = fake({
+      seed,
+      now: () => new Date(time),
+    })
 
     time += 60_000
     const comment = await forge.threads.createComment(issue, 'Later')
@@ -146,9 +183,14 @@ describe('fake forge clock', () => {
     await forge.threads.close(issue)
 
     expect(comment.createdAt).toEqual(new Date('2026-01-01T00:01:00Z'))
-    expect(forge.store.events.map(event => event.occurredAt)).toEqual([new Date('2026-01-01T00:01:00Z'), new Date('2026-01-01T00:02:00Z')])
+    expect(forge.store.events.map(event => event.occurredAt)).toEqual([
+      new Date('2026-01-01T00:01:00Z'),
+      new Date('2026-01-01T00:02:00Z'),
+    ])
     expect((await forge.threads.get(issue)).closedAt).toEqual(new Date('2026-01-01T00:02:00Z'))
-    expect((await forge.search.threads({ since: new Date('2026-01-01T00:02:00Z') }).page()).items.map(thread => thread.ref.number)).toEqual(['1'])
+    expect((await forge.search.threads({
+      since: new Date('2026-01-01T00:02:00Z'),
+    }).page()).items.map(thread => thread.ref.number)).toEqual(['1'])
   })
 })
 
@@ -222,13 +264,21 @@ describe('fake forge merges', () => {
     forge.store.repos.get('acme/widgets')!.threads.get('2')!.thread.branches!.head.sha = 'b'.repeat(40)
 
     await expect(forge.threads.merge(pull, { sha: head })).rejects.toThrow(MergeConflictError)
-    await forge.threads.merge(pull, { sha: 'b'.repeat(40) })
+    await forge.threads.merge(pull, {
+      sha: 'b'.repeat(40),
+    })
     expect((await forge.threads.get(pull)).state).toBe('merged')
     await expect(forge.threads.merge(pull)).rejects.toThrow(MergeBlockedError)
   })
 
   it('refuses a blocked or conflicted pull request', async () => {
-    const forge = fake({ seed: { threads: [{ ...seed.threads[1]!, mergeable: 'blocked' }] } })
+    const forge = fake({
+      seed: {
+        threads: [
+          { ...seed.threads[1]!, mergeable: 'blocked' },
+        ],
+      },
+    })
 
     await expect(forge.threads.merge({ ...pull, number: '1' })).rejects.toThrow(MergeBlockedError)
     forge.store.repos.get('acme/widgets')!.threads.get('1')!.mergeable = 'conflict'
@@ -260,7 +310,16 @@ describe('fake forge repeated writes', () => {
   })
 
   it('records the assignees that setAssignees adds and removes', async () => {
-    const forge = fake({ seed: { threads: [{ ...seed.threads[0]!, assignees: ['jane'] }] } })
+    const forge = fake({
+      seed: {
+        threads: [
+          {
+            ...seed.threads[0]!,
+            assignees: ['jane'],
+          },
+        ],
+      },
+    })
     await forge.threads.setAssignees(issue, ['jane', 'joe'])
     await forge.threads.setAssignees(issue, ['joe'])
 
@@ -269,11 +328,19 @@ describe('fake forge repeated writes', () => {
 
   it('refuses a second open pull request from the same head to the same base', async () => {
     const forge = fake({ seed })
-    const input = { kind: 'pull_request' as const, title: 'Retry uploads', head: 'retry', base: 'main' }
+    const input = {
+      kind: 'pull_request' as const,
+      title: 'Retry uploads',
+      head: 'retry',
+      base: 'main',
+    }
 
     const created = await forge.threads.create(repo, input)
 
-    expect(created.branches).toMatchObject({ head: { ref: 'retry' }, base: { ref: 'main' } })
+    expect(created.branches).toMatchObject({
+      head: { ref: 'retry' },
+      base: { ref: 'main' },
+    })
     await expect(forge.threads.create(repo, input)).rejects.toMatchObject({ status: 422 })
     await forge.threads.create(repo, { ...input, base: 'next' })
   })
@@ -282,17 +349,29 @@ describe('fake forge repeated writes', () => {
 describe('fake forge rate limit', () => {
   it('spends the budget on each request and resets it with the clock', async () => {
     let time = Date.parse('2026-01-01T00:00:00Z')
-    const forge = fake({ seed, now: () => new Date(time), rateLimit: { limit: 2, window: 60_000 } })
+    const forge = fake({
+      seed,
+      now: () => new Date(time),
+      rateLimit: { limit: 2, window: 60_000 },
+    })
 
     const page = await forge.threads.list(repo).page()
     await forge.threads.get(issue)
     const error = await forge.threads.get(issue).catch((error: unknown) => error)
     time += 60_000
 
-    expect(page.rateLimit).toEqual({ limit: 2, remaining: 1, resetAt: new Date('2026-01-01T00:01:00Z') })
+    expect(page.rateLimit).toEqual({
+      limit: 2,
+      remaining: 1,
+      resetAt: new Date('2026-01-01T00:01:00Z'),
+    })
     expect(error).toBeInstanceOf(RateLimitedError)
     expect((error as RateLimitedError).resetAt).toEqual(new Date('2026-01-01T00:01:00Z'))
-    expect((await forge.threads.list(repo).page()).rateLimit).toEqual({ limit: 2, remaining: 1, resetAt: new Date('2026-01-01T00:02:00Z') })
+    expect((await forge.threads.list(repo).page()).rateLimit).toEqual({
+      limit: 2,
+      remaining: 1,
+      resetAt: new Date('2026-01-01T00:02:00Z'),
+    })
   })
 
   it('spends nothing on a not-modified page', async () => {
@@ -300,22 +379,39 @@ describe('fake forge rate limit', () => {
     forge.setRateLimit({ limit: 10 })
 
     const first = await forge.notifications.list().page()
-    const again = await forge.notifications.list({ cursor: { etag: first.etag } }).page()
+    const again = await forge.notifications.list({
+      cursor: { etag: first.etag },
+    }).page()
 
     expect(first.rateLimit?.remaining).toBe(9)
-    expect(again).toMatchObject({ notModified: true, rateLimit: { remaining: 9 } })
-    expect(forge.rateLimits()).toMatchObject([{ remaining: 9 }])
+    expect(again).toMatchObject({
+      notModified: true,
+      rateLimit: { remaining: 9 },
+    })
+    expect(forge.rateLimits()).toMatchObject([
+      { remaining: 9 },
+    ])
   })
 
   it('reports the budget of the latest request in rateLimits() until the window ends on its clock', async () => {
     let time = Date.parse('2026-01-01T00:00:00Z')
-    const forge = fake({ seed, now: () => new Date(time), rateLimit: { limit: 1, window: 60_000 } })
+    const forge = fake({
+      seed,
+      now: () => new Date(time),
+      rateLimit: { limit: 1, window: 60_000 },
+    })
     const other = forge.as('fake-user')
 
     expect(forge.rateLimits()).toEqual([])
 
     await forge.threads.get(issue)
-    const exhausted = [{ limit: 1, remaining: 0, resetAt: new Date('2026-01-01T00:01:00Z') }]
+    const exhausted = [
+      {
+        limit: 1,
+        remaining: 0,
+        resetAt: new Date('2026-01-01T00:01:00Z'),
+      },
+    ]
 
     expect(forge.rateLimits()).toEqual(exhausted)
     expect(other.rateLimits()).toEqual(exhausted)
@@ -329,7 +425,10 @@ describe('fake forge rate limit', () => {
   })
 
   it('forgets the reported budget when the budget is replaced', async () => {
-    const forge = fake({ seed, rateLimit: { limit: 5 } })
+    const forge = fake({
+      seed,
+      rateLimit: { limit: 5 },
+    })
     await forge.threads.get(issue)
 
     forge.setRateLimit({ limit: 10 })
@@ -338,11 +437,16 @@ describe('fake forge rate limit', () => {
   })
 
   it('rejects with a secondary limit through failNext() while the budget has requests left', async () => {
-    const forge = fake({ seed, rateLimit: { limit: 10 } })
+    const forge = fake({
+      seed,
+      rateLimit: { limit: 10 },
+    })
     forge.failNext('threads.createComment', new RateLimitedError('Secondary rate limit', 403, '', { secondary: true }))
 
     await expect(forge.threads.createComment(issue, 'Hello')).rejects.toMatchObject({ secondary: true, resetAt: undefined })
-    expect(forge.rateLimits()).toMatchObject([{ remaining: 9 }])
+    expect(forge.rateLimits()).toMatchObject([
+      { remaining: 9 },
+    ])
   })
 })
 

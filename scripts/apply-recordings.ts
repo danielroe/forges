@@ -80,7 +80,9 @@ function check(recorded: string): number {
 
 /** Whether a recording directory belongs to `kind`. */
 function ofKind(recording: string, kind: 'reads' | 'writes'): boolean {
-  return kind === 'writes' ? recording.endsWith('-writes') : !recording.endsWith('-writes') && !recording.endsWith('-webhooks')
+  return kind === 'writes'
+    ? recording.endsWith('-writes')
+    : !recording.endsWith('-writes') && !recording.endsWith('-webhooks')
 }
 
 /** Copies the recordings of `kind` from `directory` into `fixtures`, and returns the forges copied with their summaries. */
@@ -104,19 +106,32 @@ export function applyRecordings(directory: string, kind: 'reads' | 'writes', fix
   for (const artifact of artifacts) {
     const forge = artifact.slice(`recording-${kind}-`.length)
     const recorded = `${directory}/${artifact}/recorded`
-    for (const recording of existsSync(recorded) ? entries(recorded).filter(entry => ofKind(entry, kind)) : []) {
+    for (const recording of existsSync(recorded)
+      ? entries(recorded).filter(entry => ofKind(entry, kind))
+      : []) {
       const target = `${fixtures}/${forge}/recorded/${recording}`
       rmSync(target, { recursive: true, force: true })
       cpSync(`${recorded}/${recording}`, target, { recursive: true })
     }
     const summary = `${directory}/${artifact}/summary.md`
-    applied.push({ forge, summary: existsSync(summary) && lstatSync(summary).isFile() ? readFileSync(summary, 'utf8').slice(0, 20_000) : '' })
+    applied.push({
+      forge,
+      summary: existsSync(summary) && lstatSync(summary).isFile()
+        ? readFileSync(summary, 'utf8').slice(0, 20_000)
+        : '',
+    })
   }
   return applied
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { positionals: [directory], values } = parseArgs({ allowPositionals: true, options: { kind: { type: 'string' }, summary: { type: 'string' } } })
+  const { positionals: [directory], values } = parseArgs({
+    allowPositionals: true,
+    options: {
+      kind: { type: 'string' },
+      summary: { type: 'string' },
+    },
+  })
   if (!directory || (values.kind !== 'reads' && values.kind !== 'writes')) {
     console.error('Usage: node scripts/apply-recordings.ts <directory> --kind reads|writes [--summary <file>]')
     process.exit(1)

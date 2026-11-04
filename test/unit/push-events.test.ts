@@ -308,7 +308,9 @@ const EXPECTED: Record<string, Array<Pick<ForgeEventInput, 'kind' | 'action' | '
         after: 'b0b',
         commitCount: 1,
         forced: false,
-        commits: [{ sha: 'b0b', message: 'Fix retry', author: 'did:plc:ada' }],
+        commits: [
+          { sha: 'b0b', message: 'Fix retry', author: 'did:plc:ada' },
+        ],
       },
     },
   ],
@@ -329,7 +331,10 @@ const EXPECTED: Record<string, Array<Pick<ForgeEventInput, 'kind' | 'action' | '
 describe('push webhooks', () => {
   it.each(Object.keys(CASES))('%s', (name) => {
     const { forge, headers, payload } = CASES[name]!
-    const events = TRANSLATE[forge]!({ headers, body: JSON.stringify(payload) })
+    const events = TRANSLATE[forge]!({
+      headers,
+      body: JSON.stringify(payload),
+    })
 
     expect(events.map(({ kind, action, summary, detail }) => ({ kind, action, summary, detail }))).toEqual(EXPECTED[name])
   })

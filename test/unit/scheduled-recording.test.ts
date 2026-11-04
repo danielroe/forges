@@ -43,7 +43,9 @@ describe('applying scheduled recordings', () => {
     write(`${fixtures}/github/recorded/github.com/steps/old/step.json`, '{}')
     write(`${fixtures}/github/recorded/github.com-writes/manifest.json`, '"kept"')
 
-    expect(applyRecordings(downloads, 'reads', fixtures)).toEqual([{ forge: 'github', summary: '#### github' }])
+    expect(applyRecordings(downloads, 'reads', fixtures)).toEqual([
+      { forge: 'github', summary: '#### github' },
+    ])
     expect(existsSync(`${fixtures}/github/recorded/github.com/steps/old`)).toBe(false)
     expect(existsSync(`${fixtures}/github/recorded/github.com/steps/repo/01-get-h3js-h3.json`)).toBe(true)
     expect(readFileSync(`${fixtures}/github/recorded/github.com-writes/manifest.json`, 'utf8')).toBe('"kept"')
@@ -60,12 +62,30 @@ describe('applying scheduled recordings', () => {
   })
 
   it.each([
-    ['an unknown forge', ({ downloads }: ReturnType<typeof artifact>) => write(`${downloads}/recording-reads-evil/recorded/x/manifest.json`, '{}')],
-    ['a file that is not fixture JSON', ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/repo/01-get-x.sh`, 'echo')],
-    ['a file outside a step', ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/package.json`, '{}')],
-    ['JSON that does not parse', ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/repo/02-get-x.json`, '{')],
-    ['a symbolic link', ({ recorded }: ReturnType<typeof artifact>) => symlinkSync('/etc/passwd', `${recorded}/github.com/steps/repo/02-get-x.json`)],
-    ['a directory named like a path', ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/..repo/01-get-x.json`, '{}')],
+    [
+      'an unknown forge',
+      ({ downloads }: ReturnType<typeof artifact>) => write(`${downloads}/recording-reads-evil/recorded/x/manifest.json`, '{}'),
+    ],
+    [
+      'a file that is not fixture JSON',
+      ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/repo/01-get-x.sh`, 'echo'),
+    ],
+    [
+      'a file outside a step',
+      ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/package.json`, '{}'),
+    ],
+    [
+      'JSON that does not parse',
+      ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/repo/02-get-x.json`, '{'),
+    ],
+    [
+      'a symbolic link',
+      ({ recorded }: ReturnType<typeof artifact>) => symlinkSync('/etc/passwd', `${recorded}/github.com/steps/repo/02-get-x.json`),
+    ],
+    [
+      'a directory named like a path',
+      ({ recorded }: ReturnType<typeof artifact>) => write(`${recorded}/github.com/steps/..repo/01-get-x.json`, '{}'),
+    ],
   ])('refuses every recording when one holds %s', (_, tamper) => {
     const files = artifact('reads')
     tamper(files)
@@ -79,7 +99,12 @@ describe('applying scheduled recordings', () => {
 describe('searching recordings for credentials', () => {
   it('finds a credential as sent in a URL or a Basic header, and ignores repositories and accounts', () => {
     const directory = temporary()
-    const env = { GITHUB_TOKEN: 'ghp_abcdefghijklmnopqrstuvwxyz', BITBUCKET_USERNAME: 'bot@example.com', BITBUCKET_APP_PASSWORD: 'app-password-123', FIXTURE_GITHUB_REPO: 'h3js/h3' }
+    const env = {
+      GITHUB_TOKEN: 'ghp_abcdefghijklmnopqrstuvwxyz',
+      BITBUCKET_USERNAME: 'bot@example.com',
+      BITBUCKET_APP_PASSWORD: 'app-password-123',
+      FIXTURE_GITHUB_REPO: 'h3js/h3',
+    }
     write(`${directory}/a.json`, JSON.stringify({ url: `https://x.test/?t=${encodeURIComponent(env.GITHUB_TOKEN)}`, repo: 'h3js/h3', login: 'bot@example.com' }))
     write(`${directory}/b.json`, JSON.stringify({ authorization: `Basic ${Buffer.from(`${env.BITBUCKET_USERNAME}:${env.BITBUCKET_APP_PASSWORD}`).toString('base64')}` }))
     write(`${directory}/c.json`, '{"clean":true}')

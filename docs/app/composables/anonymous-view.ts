@@ -7,7 +7,9 @@ export function useCredentialView() {
   const view = ref<string>()
 
   onMounted(() => {
-    view.value = typeof route.query.auth === 'string' ? route.query.auth : undefined
+    view.value = typeof route.query.auth === 'string'
+      ? route.query.auth
+      : undefined
     watch(view, (value) => {
       const url = new URL(window.location.href)
       if (value) {

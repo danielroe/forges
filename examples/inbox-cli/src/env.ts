@@ -20,7 +20,9 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
     if (!provider) {
       warnings.push({
         code: 'provider_skipped',
-        message: `${entry.forge}${entry.suffix ? ` (${entry.suffix})` : ''}: ${entry.skipped ?? 'not configured'}`,
+        message: `${entry.forge}${entry.suffix
+          ? ` (${entry.suffix})`
+          : ''}: ${entry.skipped ?? 'not configured'}`,
         subject: entry.forge,
       })
       continue
@@ -36,5 +38,9 @@ export function fromEnv(env: Record<string, string | undefined>): InboxEnv {
     }
   }
 
-  return { forges: createForges(providers), repos, warnings }
+  return {
+    forges: createForges(providers),
+    repos,
+    warnings,
+  }
 }

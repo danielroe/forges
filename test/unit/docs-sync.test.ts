@@ -11,7 +11,10 @@ describe('commands', () => {
   const scripts = Object.keys((JSON.parse(read('package.json')) as { scripts: Record<string, string> }).scripts)
 
   it('lists every script that someone runs by hand', () => {
-    const listed = new Set([...COMMANDS.flatMap(command => command.scripts), ...INTERNAL_SCRIPTS])
+    const listed = new Set([
+      ...COMMANDS.flatMap(command => command.scripts),
+      ...INTERNAL_SCRIPTS,
+    ])
 
     expect(scripts.filter(script => !listed.has(script))).toEqual([])
   })
@@ -24,7 +27,9 @@ describe('commands', () => {
 describe('environment variables page', () => {
   const page = read('docs/content/5.reference/13.environment-variables.md')
   const source = read('src/env.ts')
-  const names = (list: string) => [...new RegExp(`const ${list} = \\[([^\\]]*)\\]`).exec(source)![1]!.matchAll(/'([A-Z_]+)'/g)].map(match => match[1]!)
+  const names = (list: string) => [
+    ...new RegExp(`const ${list} = \\[([^\\]]*)\\]`).exec(source)![1]!.matchAll(/'([A-Z_]+)'/g),
+  ].map(match => match[1]!)
 
   it('names every kind that `providersFromEnv()` reads', () => {
     expect(names('KINDS').filter(kind => !page.includes(kind))).toEqual([])

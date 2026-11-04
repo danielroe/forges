@@ -24,7 +24,10 @@ export interface MemberOptions {
 /** A symbol as a section with the heading `level`: its comment, signatures and members. */
 export function renderSymbol(symbol: ApiSymbol, level: number, context: RenderContext): string {
   const callable = symbol.kind === 'function'
-  const blocks = [context.heading(level, code(`${symbol.name}${callable ? '()' : ''}`), symbol), ...docBlocks(symbol, context)]
+  const blocks = [
+    context.heading(level, code(`${symbol.name}${callable ? '()' : ''}`), symbol),
+    ...docBlocks(symbol, context),
+  ]
 
   if (callable) {
     blocks.push(...symbol.signatures.flatMap((signature, index) => renderSignature(symbol.name, signature, 'function', context, overloadLabel(index, symbol.signatures.length))))
@@ -47,7 +50,10 @@ export function renderSymbol(symbol: ApiSymbol, level: number, context: RenderCo
 export function renderMember(member: ApiMember, level: number, context: RenderContext, { verb, qualifier = '', twin }: MemberOptions = {}): string {
   const method = member.kind === 'method'
   const name = `${qualifier}${member.name}`
-  const blocks = [context.heading(level, code(`${name}${method ? '()' : ''}`), member), ...docBlocks(member, context)]
+  const blocks = [
+    context.heading(level, code(`${name}${method ? '()' : ''}`), member),
+    ...docBlocks(member, context),
+  ]
 
   const capability = verb && context.capability(verb)
   if (capability) {
@@ -83,16 +89,24 @@ function renderPair(name: string, member: ApiMember, twin: ApiMember, signature:
   if (!twinSignature) {
     return member.signatures.flatMap(entry => renderSignature(name, entry, 'method', context))
   }
-  const returns = [[name, signature], [`${name}Page`, twinSignature]] as const
+  const returns = [
+    [name, signature],
+    [`${name}Page`, twinSignature],
+  ] as const
   return [
     `\`\`\`ts\n${returns.map(([title, entry]) => signatureText(title, entry, 'method')).join('\n')}\n\`\`\``,
     ...renderParams(signature.params, context),
-    ['**Returns:**', ...returns.map(([title, entry]) => `- ${code(`${title}()`)}: ${typeToMarkdown(entry.returns.type, context.resolve)}`)].join('\n'),
+    [
+      '**Returns:**',
+      ...returns.map(([title, entry]) => `- ${code(`${title}()`)}: ${typeToMarkdown(entry.returns.type, context.resolve)}`),
+    ].join('\n'),
   ]
 }
 
 function overloadLabel(index: number, count: number): string | undefined {
-  return count > 1 ? `**Overload ${index + 1} of ${count}**` : undefined
+  return count > 1
+    ? `**Overload ${index + 1} of ${count}**`
+    : undefined
 }
 
 /** The call as written in code, such as `createComment(ref: ThreadRef, body: string): Promise<Comment>`. */
@@ -102,7 +116,9 @@ export function signatureText(name: string, signature: ApiSignature, kind: 'func
   if (kind === 'constructor') {
     return `new ${name}${generics}(${params})`
   }
-  return `${kind === 'function' ? 'function ' : ''}${name}${generics}(${params}): ${signature.returns.type}`
+  return `${kind === 'function'
+    ? 'function '
+    : ''}${name}${generics}(${params}): ${signature.returns.type}`
 }
 
 /** The code block, the parameters and the return value of one signature. */
@@ -119,9 +135,14 @@ function renderSignature(name: string, signature: ApiSignature, kind: 'function'
     blocks.push(`**Returns:** ${typeToMarkdown(signature.returns.type, context.resolve)}${description}`)
   }
   if (signature.throws.length) {
-    blocks.push(['**Throws:**', ...signature.throws.map(text => `- ${prose(text, context.resolve)}`)].join('\n'))
+    blocks.push([
+      '**Throws:**',
+      ...signature.throws.map(text => `- ${prose(text, context.resolve)}`),
+    ].join('\n'))
   }
-  return label ? [label, ...blocks] : blocks
+  return label
+    ? [label, ...blocks]
+    : blocks
 }
 
 /** The parameters as a table, with a description column when any parameter has a description or a default. */
@@ -129,20 +150,36 @@ function renderParams(params: ApiParam[], context: RenderContext): string[] {
   if (!params.length) {
     return []
   }
-  const describe = (param: ApiParam) => [cell(param.description, context.resolve), param.default && `Defaults to ${code(param.default).replace(/\|/g, '\\|')}.`].filter(Boolean).join(' ')
+  const describe = (param: ApiParam) => [
+    cell(param.description, context.resolve),
+    param.default && `Defaults to ${code(param.default).replace(/\|/g, '\\|')}.`,
+  ].filter(Boolean).join(' ')
   const described = params.some(describe)
   const rows = params.map((param) => {
     const name = code(`${param.rest ? '...' : ''}${param.name}${param.optional ? '?' : ''}`)
     const type = typeCell(param.type, context.resolve)
-    return described ? `| ${name} | ${type} | ${describe(param)} |` : `| ${name} | ${type} |`
+    return described
+      ? `| ${name} | ${type} | ${describe(param)} |`
+      : `| ${name} | ${type} |`
   })
-  const header = described ? ['| Parameter | Type | Description |', '| --- | --- | --- |'] : ['| Parameter | Type |', '| --- | --- |']
-  return [[...header, ...rows].join('\n')]
+  const header = described
+    ? ['| Parameter | Type | Description |', '| --- | --- | --- |']
+    : ['| Parameter | Type |', '| --- | --- |']
+  return [
+    [
+      ...header,
+      ...rows,
+    ].join('\n'),
+  ]
 }
 
 function paramText(param: ApiParam): string {
-  const name = `${param.rest ? '...' : ''}${param.name}${param.optional && !param.default ? '?' : ''}`
-  return `${name}: ${param.type}${param.default ? ` = ${param.default}` : ''}`
+  const name = `${param.rest ? '...' : ''}${param.name}${param.optional && !param.default
+    ? '?'
+    : ''}`
+  return `${name}: ${param.type}${param.default
+    ? ` = ${param.default}`
+    : ''}`
 }
 
 function renderClassHead(symbol: ApiSymbol, context: RenderContext): string[] {
@@ -163,7 +200,10 @@ function renderTypeHead(symbol: ApiSymbol, context: RenderContext): string[] {
     blocks.push(`**extends:** ${symbol.extends.map(name => typeToMarkdown(name, context.resolve)).join(', ')}`)
   }
   if (symbol.variants) {
-    blocks.push(['**one of:**', ...symbol.variants.map(variant => `- ${typeToMarkdown(variant, context.resolve)}`)].join('\n'))
+    blocks.push([
+      '**one of:**',
+      ...symbol.variants.map(variant => `- ${typeToMarkdown(variant, context.resolve)}`),
+    ].join('\n'))
   }
   else if (symbol.kind === 'type' && symbol.type && !symbol.members.length) {
     blocks.push(`**type:** ${typeToMarkdown(symbol.type, context.resolve)}`)
@@ -181,13 +221,45 @@ function renderMembers(all: ApiMember[], context: RenderContext): string[] {
   const described = members.some(member => memberDescription(member, context, true))
   const defaults = members.some(member => member.default)
   const rows = members.map((member) => {
-    const name = code(`${member.name}${member.kind === 'method' ? '()' : ''}${member.optional ? '?' : ''}`)
-    const type = member.kind === 'group' ? '' : typeCell(member.kind === 'method' ? memberSignature(member) : member.type, context.resolve)
-    const cells = [name, type, ...defaults ? [member.default ? code(member.default).replace(/\|/g, '\\|') : ''] : [], ...described ? [memberDescription(member, context, true)] : []]
+    const name = code(`${member.name}${member.kind === 'method'
+      ? '()'
+      : ''}${member.optional ? '?' : ''}`)
+    const type = member.kind === 'group'
+      ? ''
+      : typeCell(member.kind === 'method'
+          ? memberSignature(member)
+          : member.type, context.resolve)
+    const cells = [
+      name,
+      type,
+      ...defaults
+        ? [
+            member.default
+              ? code(member.default).replace(/\|/g, '\\|')
+              : '',
+          ]
+        : [],
+      ...described
+        ? [
+            memberDescription(member, context, true),
+          ]
+        : [],
+    ]
     return `| ${cells.join(' | ')} |`
   })
-  const columns = ['Member', 'Type', ...defaults ? ['Default'] : [], ...described ? ['Description'] : []]
-  return [[`| ${columns.join(' | ')} |`, `| ${columns.map(() => '---').join(' | ')} |`, ...rows].join('\n')]
+  const columns = [
+    'Member',
+    'Type',
+    ...defaults
+      ? ['Default']
+      : [],
+    ...described
+      ? ['Description']
+      : [],
+  ]
+  return [
+    [`| ${columns.join(' | ')} |`, `| ${columns.map(() => '---').join(' | ')} |`, ...rows].join('\n'),
+  ]
 }
 
 function docBlocks(doc: ApiDoc, context: RenderContext): string[] {
@@ -199,16 +271,23 @@ function docBlocks(doc: ApiDoc, context: RenderContext): string[] {
     blocks.push(prose(doc.description, context.resolve))
   }
   for (const example of doc.examples) {
-    blocks.push(`**Example**\n\n${example.includes('```') ? example : `\`\`\`ts\n${example}\n\`\`\``}`)
+    blocks.push(`**Example**\n\n${example.includes('```')
+      ? example
+      : `\`\`\`ts\n${example}\n\`\`\``}`)
   }
   if (doc.see.length) {
-    blocks.push(['**See also:**', ...doc.see.map(text => `- ${prose(text, context.resolve)}`)].join('\n'))
+    blocks.push([
+      '**See also:**',
+      ...doc.see.map(text => `- ${prose(text, context.resolve)}`),
+    ].join('\n'))
   }
   return blocks
 }
 
 function memberDescription(member: ApiMember, context: RenderContext, inTable = false): string {
-  const description = inTable ? cell(member.description, context.resolve) : prose(member.description, context.resolve)
+  const description = inTable
+    ? cell(member.description, context.resolve)
+    : prose(member.description, context.resolve)
   const inherited = member.inheritedFrom && `Inherited from ${typeToMarkdown(member.inheritedFrom, context.resolve)}.`
   return [description, inherited].filter(Boolean).join(' ')
 }
@@ -216,5 +295,7 @@ function memberDescription(member: ApiMember, context: RenderContext, inTable = 
 /** A method's signature in one line, for a table. */
 function memberSignature(member: ApiMember): string {
   const [signature] = member.signatures
-  return signature ? `(${signature.params.map(paramText).join(', ')}) => ${signature.returns.type}` : member.type
+  return signature
+    ? `(${signature.params.map(paramText).join(', ')}) => ${signature.returns.type}`
+    : member.type
 }

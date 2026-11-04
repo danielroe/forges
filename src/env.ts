@@ -16,7 +16,22 @@ import { pushin } from './pushin/index.ts'
 import { sourcehut } from './sourcehut/index.ts'
 import { tangled } from './tangled/index.ts'
 
-const KINDS = ['GITHUB', 'GITLAB', 'BITBUCKET', 'FORGEJO', 'GITEA', 'TANGLED', 'CURSOR_ORIGIN', 'GITEE', 'AZURE_DEVOPS', 'PUSHIN', 'CLOUDFLARE_ARTIFACTS', 'SOURCEHUT', 'ENTIRE', 'GITBUCKET'] as const
+const KINDS = [
+  'GITHUB',
+  'GITLAB',
+  'BITBUCKET',
+  'FORGEJO',
+  'GITEA',
+  'TANGLED',
+  'CURSOR_ORIGIN',
+  'GITEE',
+  'AZURE_DEVOPS',
+  'PUSHIN',
+  'CLOUDFLARE_ARTIFACTS',
+  'SOURCEHUT',
+  'ENTIRE',
+  'GITBUCKET',
+] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
 const FIELDS = [
@@ -60,7 +75,12 @@ export interface EnvProvider {
 function parseRepo(value: string | undefined): { owner: string, name: string } | undefined {
   const path = value?.replace(/^@/, '')
   const slash = path?.lastIndexOf('/') ?? -1
-  return path && slash > 0 ? { owner: path.slice(0, slash), name: path.slice(slash + 1) } : undefined
+  return path && slash > 0
+    ? {
+        owner: path.slice(0, slash),
+        name: path.slice(slash + 1),
+      }
+    : undefined
 }
 
 /** Options for `providersFromEnv()` and `forgesFromEnv()`. */
@@ -98,21 +118,41 @@ export function providersFromEnv(env: Record<string, string | undefined>, option
     sets.set(id, set)
   }
 
-  return [...sets.values()].map(set => fromFields(set.kind, set.suffix, set.fields, options))
+  return [
+    ...sets.values(),
+  ].map(set => fromFields(set.kind, set.suffix, set.fields, options))
 }
 
 function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<Record<Field, string>>, options: FromEnvOptions): EnvProvider {
   const base: ForgeOptionsBase = {
-    ...options.fetch ? { fetch: options.fetch } : {},
-    ...fields.BASE_URL ? { baseUrl: fields.BASE_URL } : {},
-    ...fields.WEBHOOK_SECRET ? { webhookSecret: fields.WEBHOOK_SECRET } : {},
-    ...fields.INSTANCE ? { instance: fields.INSTANCE } : {},
-    ...fields.INSTANCE_VERSION ? { instanceVersion: fields.INSTANCE_VERSION } : {},
-    ...isOn(fields.READ_ONLY) ? { readOnly: true } : {},
+    ...options.fetch
+      ? { fetch: options.fetch }
+      : {},
+    ...fields.BASE_URL
+      ? { baseUrl: fields.BASE_URL }
+      : {},
+    ...fields.WEBHOOK_SECRET
+      ? { webhookSecret: fields.WEBHOOK_SECRET }
+      : {},
+    ...fields.INSTANCE
+      ? { instance: fields.INSTANCE }
+      : {},
+    ...fields.INSTANCE_VERSION
+      ? { instanceVersion: fields.INSTANCE_VERSION }
+      : {},
+    ...isOn(fields.READ_ONLY)
+      ? { readOnly: true }
+      : {},
   }
   const demoRepo = parseRepo(fields.DEMO_REPO)
   const anonymous = isOn(fields.ENABLED) || Boolean(demoRepo)
-  const entry = { forge: kind.toLowerCase().replaceAll('_', '-'), suffix, ...demoRepo ? { demoRepo } : {} }
+  const entry = {
+    forge: kind.toLowerCase().replaceAll('_', '-'),
+    suffix,
+    ...demoRepo
+      ? { demoRepo }
+      : {},
+  }
   if (fields.ENABLED === '0' || fields.ENABLED === 'false') {
     return { ...entry, skipped: 'ENABLED is off' }
   }
@@ -123,20 +163,51 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
           ...entry,
           provider: github({
             ...base,
-            auth: { type: 'app', appId: fields.APP_ID, privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'), installationId: fields.INSTALLATION_ID },
+            auth: {
+              type: 'app',
+              appId: fields.APP_ID,
+              privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'),
+              installationId: fields.INSTALLATION_ID,
+            },
           }),
         }
       }
       if (fields.TOKEN || anonymous) {
-        return { ...entry, provider: github({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        return {
+          ...entry,
+          provider: github({
+            ...base,
+            ...fields.TOKEN
+              ? {
+                  auth: { type: 'token', token: fields.TOKEN },
+                }
+              : {},
+          }),
+        }
       }
       return { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for anonymous reads' }
     case 'BITBUCKET':
       if (fields.USERNAME && fields.PASSWORD) {
-        return { ...entry, provider: bitbucket({ ...base, auth: { type: 'basic', username: fields.USERNAME, password: fields.PASSWORD } }) }
+        return {
+          ...entry,
+          provider: bitbucket({
+            ...base,
+            auth: { type: 'basic', username: fields.USERNAME, password: fields.PASSWORD },
+          }),
+        }
       }
       if (fields.TOKEN || anonymous) {
-        return { ...entry, provider: bitbucket({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        return {
+          ...entry,
+          provider: bitbucket({
+            ...base,
+            ...fields.TOKEN
+              ? {
+                  auth: { type: 'token', token: fields.TOKEN },
+                }
+              : {},
+          }),
+        }
       }
       return { ...entry, skipped: 'needs TOKEN, or USERNAME and PASSWORD, or ENABLED for anonymous reads' }
     case 'AZURE_DEVOPS': {
@@ -145,14 +216,32 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       }
       const auth = fields.USERNAME && fields.PASSWORD
         ? { type: 'basic' as const, username: fields.USERNAME, password: fields.PASSWORD }
-        : fields.TOKEN ? { type: 'token' as const, token: fields.TOKEN } : undefined
+        : fields.TOKEN
+          ? { type: 'token' as const, token: fields.TOKEN }
+          : undefined
       return auth || anonymous
-        ? { ...entry, provider: azureDevOps({ ...base, organization: fields.ORGANIZATION, ...auth ? { auth } : {} }) }
+        ? {
+            ...entry,
+            provider: azureDevOps({
+              ...base,
+              organization: fields.ORGANIZATION,
+              ...auth
+                ? { auth }
+                : {},
+            }),
+          }
         : { ...entry, skipped: 'needs TOKEN, or USERNAME and PASSWORD, or ENABLED for anonymous reads' }
     }
     case 'CLOUDFLARE_ARTIFACTS':
       return fields.TOKEN && fields.ACCOUNT_ID
-        ? { ...entry, provider: cloudflareArtifacts({ ...base, accountId: fields.ACCOUNT_ID, auth: { type: 'token', token: fields.TOKEN } }) }
+        ? {
+            ...entry,
+            provider: cloudflareArtifacts({
+              ...base,
+              accountId: fields.ACCOUNT_ID,
+              auth: { type: 'token', token: fields.TOKEN },
+            }),
+          }
         : { ...entry, skipped: 'needs TOKEN and ACCOUNT_ID' }
     case 'CURSOR_ORIGIN':
       if (fields.APP_ID && fields.PRIVATE_KEY) {
@@ -160,40 +249,93 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
           ...entry,
           provider: cursorOrigin({
             ...base,
-            auth: { type: 'app', appId: fields.APP_ID, privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'), installationId: fields.INSTALLATION_ID },
+            auth: {
+              type: 'app',
+              appId: fields.APP_ID,
+              privateKey: fields.PRIVATE_KEY.replaceAll('\\n', '\n'),
+              installationId: fields.INSTALLATION_ID,
+            },
           }),
         }
       }
       if (fields.TOKEN) {
-        return { ...entry, provider: cursorOrigin({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
+        return {
+          ...entry,
+          provider: cursorOrigin({
+            ...base,
+            auth: { type: 'token', token: fields.TOKEN },
+          }),
+        }
       }
       return isOn(fields.ENABLED)
-        ? { ...entry, provider: cursorOrigin(base) }
+        ? {
+            ...entry,
+            provider: cursorOrigin(base),
+          }
         : { ...entry, skipped: 'needs TOKEN, or APP_ID and PRIVATE_KEY, or ENABLED for webhooks only' }
     case 'ENTIRE':
       return fields.TOKEN
-        ? { ...entry, provider: entire({ ...base, auth: { type: 'token', token: fields.TOKEN } }) }
+        ? {
+            ...entry,
+            provider: entire({
+              ...base,
+              auth: { type: 'token', token: fields.TOKEN },
+            }),
+          }
         : { ...entry, skipped: 'needs TOKEN' }
     case 'GITBUCKET':
       if (!fields.BASE_URL) {
         return { ...entry, skipped: 'needs BASE_URL' }
       }
       return fields.TOKEN || anonymous
-        ? { ...entry, provider: gitbucket({ ...base, baseUrl: fields.BASE_URL, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+        ? {
+            ...entry,
+            provider: gitbucket({
+              ...base,
+              baseUrl: fields.BASE_URL,
+              ...fields.TOKEN
+                ? {
+                    auth: { type: 'token', token: fields.TOKEN },
+                  }
+                : {},
+            }),
+          }
         : { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
     case 'SOURCEHUT':
       return fields.TOKEN
-        ? { ...entry, provider: sourcehut({ ...base, ...fields.WEBHOOK_PUBLIC_KEY ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY } : {}, auth: { type: 'token', token: fields.TOKEN } }) }
+        ? {
+            ...entry,
+            provider: sourcehut({
+              ...base,
+              ...fields.WEBHOOK_PUBLIC_KEY
+                ? { webhookPublicKey: fields.WEBHOOK_PUBLIC_KEY }
+                : {},
+              auth: { type: 'token', token: fields.TOKEN },
+            }),
+          }
         : { ...entry, skipped: 'needs TOKEN' }
     case 'TANGLED':
       return {
         ...entry,
         provider: tangled({
           ...base,
-          ...fields.API_URL ? { apiUrl: fields.API_URL } : {},
-          ...fields.NOTIFICATIONS_URL ? { notificationsUrl: fields.NOTIFICATIONS_URL } : {},
+          ...fields.API_URL
+            ? { apiUrl: fields.API_URL }
+            : {},
+          ...fields.NOTIFICATIONS_URL
+            ? { notificationsUrl: fields.NOTIFICATIONS_URL }
+            : {},
           ...fields.IDENTIFIER && fields.PASSWORD
-            ? { auth: { type: 'app_password', identifier: fields.IDENTIFIER, password: fields.PASSWORD, ...fields.PDS ? { pds: fields.PDS } : {} } }
+            ? {
+                auth: {
+                  type: 'app_password',
+                  identifier: fields.IDENTIFIER,
+                  password: fields.PASSWORD,
+                  ...fields.PDS
+                    ? { pds: fields.PDS }
+                    : {},
+                },
+              }
             : {},
         }),
       }
@@ -201,8 +343,24 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       if (!fields.TOKEN && !anonymous) {
         return { ...entry, skipped: 'needs TOKEN, or ENABLED for anonymous reads' }
       }
-      const create = { GITLAB: gitlab, FORGEJO: forgejo, GITEA: gitea, GITEE: gitee, PUSHIN: pushin }[kind]
-      return { ...entry, provider: create({ ...base, ...fields.TOKEN ? { auth: { type: 'token', token: fields.TOKEN } } : {} }) }
+      const create = {
+        GITLAB: gitlab,
+        FORGEJO: forgejo,
+        GITEA: gitea,
+        GITEE: gitee,
+        PUSHIN: pushin,
+      }[kind]
+      return {
+        ...entry,
+        provider: create({
+          ...base,
+          ...fields.TOKEN
+            ? {
+                auth: { type: 'token', token: fields.TOKEN },
+              }
+            : {},
+        }),
+      }
     }
   }
 }
@@ -224,5 +382,7 @@ function isOn(value: string | undefined): boolean {
  * ```
  */
 export function forgesFromEnv(env: Record<string, string | undefined>, options: FromEnvOptions = {}): Forges {
-  return createForges(providersFromEnv(env, options).flatMap(entry => entry.provider ? [entry.provider] : []))
+  return createForges(providersFromEnv(env, options).flatMap(entry => entry.provider
+    ? [entry.provider]
+    : []))
 }

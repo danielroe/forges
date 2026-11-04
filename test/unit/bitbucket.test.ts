@@ -8,12 +8,26 @@ import { MergeConflictError, UnsupportedOperationError } from '../../src/errors.
 import { repoKey } from '../../src/model.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
-const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' } as const
-const pull: ResolvedThreadRef = { forge: 'bitbucket', instance: 'bitbucket.org', repo, kind: 'pull_request', number: '31' }
+const repo = {
+  forge: 'bitbucket',
+  instance: 'bitbucket.org',
+  owner: 'acme',
+  name: 'widgets',
+} as const
+const pull: ResolvedThreadRef = {
+  forge: 'bitbucket',
+  instance: 'bitbucket.org',
+  repo,
+  kind: 'pull_request',
+  number: '31',
+}
 
 function provider(auth: BitbucketOptions['auth'] = { type: 'token', token: 't' }, overrides: Parameters<typeof fixtureFetch>[1] = {}) {
   const { fetch, calls } = fixtureFetch('bitbucket', overrides)
-  return { instance: bitbucket({ auth, fetch }), calls }
+  return {
+    instance: bitbucket({ auth, fetch }),
+    calls,
+  }
 }
 
 describe('bitbucket provider', () => {
@@ -26,12 +40,21 @@ describe('bitbucket provider', () => {
 
   it('keeps the budget of a response, which names its reset in seconds from now', async () => {
     const { fetch } = fixtureFetch('bitbucket', {
-      'GET https://api.bitbucket.org/2.0/user': { status: 200, headers: { 'x-ratelimit-limit': '1000', 'x-ratelimit-remaining': '998', 'x-ratelimit-reset': '3476' }, body: {} },
+      'GET https://api.bitbucket.org/2.0/user': {
+        status: 200,
+        headers: { 'x-ratelimit-limit': '1000', 'x-ratelimit-remaining': '998', 'x-ratelimit-reset': '3476' },
+        body: {},
+      },
     })
-    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch })
+    const instance = bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    })
     await instance.request('GET', '/user')
 
-    expect(instance.rateLimits()).toMatchObject([{ limit: 1000, remaining: 998 }])
+    expect(instance.rateLimits()).toMatchObject([
+      { limit: 1000, remaining: 998 },
+    ])
   })
 
   it('sends app passwords and API tokens as basic auth', async () => {
@@ -56,7 +79,9 @@ describe('bitbucket provider', () => {
     }
 
     expect(calls.map(call => call.url.split('?')[1])).toEqual(['pagelen=50', 'pagelen=50&ctx=page2'])
-    expect(events.map(event => event.occurredAt.toISOString())).toEqual([...events.map(event => event.occurredAt.toISOString())].sort())
+    expect(events.map(event => event.occurredAt.toISOString())).toEqual([
+      ...events.map(event => event.occurredAt.toISOString()),
+    ].sort())
   })
 
   it('maps no merge method for a strategy the model lacks', () => {
@@ -84,24 +109,52 @@ describe('bitbucket provider', () => {
   })
 
   it('resolves with the merge commit from the merged pull request in the response', async () => {
-    const merged = { id: 31, state: 'MERGED', merge_commit: { hash: 'a170f2a9c280582207a93574cddc40064afe328e' } }
-    const { instance, calls } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 200, body: merged } })
+    const merged = {
+      id: 31,
+      state: 'MERGED',
+      merge_commit: { hash: 'a170f2a9c280582207a93574cddc40064afe328e' },
+    }
+    const { instance, calls } = provider(undefined, {
+      'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 200, body: merged },
+    })
 
     await expect(instance.threads.merge!(pull, { method: 'squash' })).resolves.toEqual({ status: 'merged', sha: 'a170f2a9c280582207a93574cddc40064afe328e', raw: merged })
     expect(calls).toHaveLength(1)
   })
 
   it('resolves a decline with the pull request in the response', async () => {
-    const declined = { id: 31, title: 'Add widgets', state: 'DECLINED', source: { branch: { name: 'feat' } }, destination: { branch: { name: 'main' } } }
-    const { instance, calls } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline': { status: 200, body: declined } })
+    const declined = {
+      id: 31,
+      title: 'Add widgets',
+      state: 'DECLINED',
+      source: {
+        branch: { name: 'feat' },
+      },
+      destination: {
+        branch: { name: 'main' },
+      },
+    }
+    const { instance, calls } = provider(undefined, {
+      'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/decline': { status: 200, body: declined },
+    })
 
-    await expect(instance.threads.close!(pull)).resolves.toMatchObject({ title: 'Add widgets', state: 'closed', stateRaw: 'DECLINED', branches: { head: { ref: 'feat' }, base: { ref: 'main' } } })
+    await expect(instance.threads.close!(pull)).resolves.toMatchObject({
+      title: 'Add widgets',
+      state: 'closed',
+      stateRaw: 'DECLINED',
+      branches: {
+        head: { ref: 'feat' },
+        base: { ref: 'main' },
+      },
+    })
     expect(calls).toHaveLength(1)
   })
 
   it('resolves queued when the merge outlasts the timeout of Bitbucket', async () => {
     const accepted = { task_status: 'PENDING' }
-    const { instance } = provider(undefined, { 'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 202, body: accepted } })
+    const { instance } = provider(undefined, {
+      'POST https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31/merge': { status: 202, body: accepted },
+    })
 
     await expect(instance.threads.merge!(pull, { method: 'squash' })).resolves.toEqual({ status: 'queued', raw: accepted })
   })
@@ -115,17 +168,29 @@ describe('bitbucket provider', () => {
 
   it('sorts the repositories of a workspace newest first, and names A to Z, unless told otherwise', async () => {
     const urls: string[] = []
-    const instance = bitbucket({ fetch: async (url) => {
-      urls.push(url)
-      return Response.json({ values: [] })
-    } })
+    const instance = bitbucket({
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json({ values: [] })
+      },
+    })
     const workspace = { ...repo, name: '', kind: 'namespace' } as const
 
-    for (const query of [{ sort: 'updated' }, { sort: 'updated', direction: 'asc' }, { sort: 'name' }, { sort: 'name', direction: 'desc' }] as const) {
+    for (const query of [
+      { sort: 'updated' },
+      { sort: 'updated', direction: 'asc' },
+      { sort: 'name' },
+      { sort: 'name', direction: 'desc' },
+    ] as const) {
       await instance.repos.byOwner(workspace, query).page()
     }
 
-    expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual(['-updated_on', 'updated_on', 'name', '-name'])
+    expect(urls.map(url => new URL(url).searchParams.get('sort'))).toEqual([
+      '-updated_on',
+      'updated_on',
+      'name',
+      '-name',
+    ])
   })
 
   it('lists no internal repositories of a workspace, with a warning', async () => {
@@ -144,7 +209,12 @@ describe('bitbucket provider', () => {
 
     const file = await instance.contents.getFile(repo, 'README.md', { ref: 'main', as: 'text', metadata: false })
 
-    expect(file).toEqual({ path: 'README.md', size: 10, encoding: 'utf-8', content: '# widgets\n' })
+    expect(file).toEqual({
+      path: 'README.md',
+      size: 10,
+      encoding: 'utf-8',
+      content: '# widgets\n',
+    })
     expect(calls).toHaveLength(1)
   })
 })
@@ -152,12 +222,23 @@ describe('bitbucket provider', () => {
 describe('bitbucket webhooks', () => {
   it('subscribes `repo` to renames and transfers', async () => {
     const bodies: string[] = []
-    const instance = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (_url, init) => {
-      bodies.push(init?.body as string)
-      return Response.json({ uuid: '{hook}', url: 'https://hooks.test/in', active: true, events: ['repo:updated', 'repo:transfer'] })
-    } })
+    const instance = bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch: async (_url, init) => {
+        bodies.push(init?.body as string)
+        return Response.json({
+          uuid: '{hook}',
+          url: 'https://hooks.test/in',
+          active: true,
+          events: ['repo:updated', 'repo:transfer'],
+        })
+      },
+    })
 
-    await instance.webhooks.create(repo, { url: 'https://hooks.test/in', events: ['repo'] })
+    await instance.webhooks.create(repo, {
+      url: 'https://hooks.test/in',
+      events: ['repo'],
+    })
 
     expect(JSON.parse(bodies[0]!).events).toEqual(['repo:updated', 'repo:transfer'])
     expect(instance.webhooks.events).toContainEqual({ kind: 'repo', action: 'renamed' })
@@ -166,15 +247,33 @@ describe('bitbucket webhooks', () => {
   it('reads an inline comment and a review from pull request deliveries', () => {
     const deliver = (event: string, payload: Record<string, unknown>) => translateBitbucketWebhook('bitbucket.org', {
       headers: { 'x-event-key': event },
-      body: JSON.stringify({ repository: { full_name: 'acme/widgets', name: 'widgets' }, pullrequest: { id: 31, title: 'Widgets', state: 'OPEN' }, ...payload }),
+      body: JSON.stringify({
+        repository: { full_name: 'acme/widgets', name: 'widgets' },
+        pullrequest: { id: 31, title: 'Widgets', state: 'OPEN' },
+        ...payload,
+      }),
     })[0]
 
-    expect(deliver('pullrequest:comment_updated', { comment: { id: 7, content: { raw: 'Typo' }, inline: { path: 'src/a.ts', from: null, to: 12 } } })).toMatchObject({
+    expect(deliver('pullrequest:comment_updated', {
+      comment: {
+        id: 7,
+        content: { raw: 'Typo' },
+        inline: { path: 'src/a.ts', from: null, to: 12 },
+      },
+    })).toMatchObject({
       kind: 'review_comment',
       action: 'edited',
-      detail: { type: 'review_comment', comment: { id: '7' }, body: 'Typo', path: 'src/a.ts', line: 12 },
+      detail: {
+        type: 'review_comment',
+        comment: { id: '7' },
+        body: 'Typo',
+        path: 'src/a.ts',
+        line: 12,
+      },
     })
-    expect(deliver('pullrequest:changes_request_created', { changes_request: { date: '2026-01-02T03:04:05Z' } })).toMatchObject({
+    expect(deliver('pullrequest:changes_request_created', {
+      changes_request: { date: '2026-01-02T03:04:05Z' },
+    })).toMatchObject({
       kind: 'review',
       action: 'submitted',
       detail: { type: 'review', state: 'changes_requested' },
@@ -185,10 +284,21 @@ describe('bitbucket webhooks', () => {
 describe('bitbucket queries', () => {
   it('escapes quotes in BBQL string literals', async () => {
     const urls: string[] = []
-    const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (url) => {
-      urls.push(url)
-      return Response.json({ values: url.includes('/user/workspaces') ? [{ workspace: { slug: 'acme' } }] : [] })
-    } })
+    const forge = bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch: async (url) => {
+        urls.push(url)
+        return Response.json({
+          values: url.includes('/user/workspaces')
+            ? [
+                {
+                  workspace: { slug: 'acme' },
+                },
+              ]
+            : [],
+        })
+      },
+    })
 
     await forge.search.repos({ text: 'say "hi"' }).page()
 
@@ -197,19 +307,38 @@ describe('bitbucket queries', () => {
 
   it('lists member repositories one workspace at a time', async () => {
     const urls: URL[] = []
-    const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
-      const url = new URL(input)
-      urls.push(url)
-      if (url.pathname.endsWith('/user/workspaces')) {
-        return Response.json({ values: [{ workspace: { slug: 'acme' } }, { workspace: { slug: 'globex' } }] })
-      }
-      return Response.json({ values: [{ full_name: `${url.pathname.split('/').at(-1)}/widgets`, name: 'widgets', slug: 'widgets' }] })
-    } })
+    const forge = bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch: async (input) => {
+        const url = new URL(input)
+        urls.push(url)
+        if (url.pathname.endsWith('/user/workspaces')) {
+          return Response.json({
+            values: [
+              {
+                workspace: { slug: 'acme' },
+              },
+              {
+                workspace: { slug: 'globex' },
+              },
+            ],
+          })
+        }
+        return Response.json({
+          values: [
+            { full_name: `${url.pathname.split('/').at(-1)}/widgets`, name: 'widgets', slug: 'widgets' },
+          ],
+        })
+      },
+    })
 
     const repos = await Array.fromAsync(forge.repos.list())
 
     expect(repos.map(repo => `${repo.ref.owner}/${repo.ref.name}`)).toEqual(['acme/widgets', 'globex/widgets'])
-    expect(urls.filter(url => url.pathname.startsWith('/2.0/repositories/')).map(url => [url.pathname, url.searchParams.get('role')])).toEqual([
+    expect(urls.filter(url => url.pathname.startsWith('/2.0/repositories/')).map(url => [
+      url.pathname,
+      url.searchParams.get('role'),
+    ])).toEqual([
       ['/2.0/repositories/acme', 'member'],
       ['/2.0/repositories/globex', 'member'],
     ])
@@ -217,11 +346,19 @@ describe('bitbucket queries', () => {
 
   it('lists pull requests only', async () => {
     const urls: URL[] = []
-    const forge = bitbucket({ auth: { type: 'token', token: 't' }, fetch: async (input) => {
-      urls.push(new URL(input))
-      return Response.json({ values: [] })
-    } })
-    const repo = { forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }
+    const forge = bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch: async (input) => {
+        urls.push(new URL(input))
+        return Response.json({ values: [] })
+      },
+    })
+    const repo = {
+      forge: 'bitbucket',
+      instance: 'bitbucket.org',
+      owner: 'acme',
+      name: 'widgets',
+    }
 
     await forge.threads.list(repo).page()
     const search = await forge.search.threads({ repo, kind: 'issue' }).page()
@@ -235,8 +372,16 @@ describe('bitbucket queries', () => {
 
 describe('bitbucket thread updates', () => {
   it('edits a pull request before declining it and returns the declined pull request', async () => {
-    const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
-    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'closed' })
+    const { fetch, calls } = fixtureFetch('bitbucket', {
+      'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': {
+        status: 200,
+        body: { id: 31, state: 'OPEN', title: 'Retry uploads' },
+      },
+    })
+    const thread = await bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }).threads.update(pull, { title: 'Retry uploads', state: 'closed' })
 
     expect(calls.map(call => `${call.method} ${call.url}`)).toEqual([
       'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31',
@@ -254,23 +399,49 @@ describe('bitbucket thread updates', () => {
   })
 
   it('keeps an open pull request open and edits it', async () => {
-    const { fetch, calls } = fixtureFetch('bitbucket', { 'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state: 'OPEN', title: 'Retry uploads' } } })
-    const thread = await bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'open' })
+    const { fetch, calls } = fixtureFetch('bitbucket', {
+      'PUT https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': {
+        status: 200,
+        body: { id: 31, state: 'OPEN', title: 'Retry uploads' },
+      },
+    })
+    const thread = await bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }).threads.update(pull, { title: 'Retry uploads', state: 'open' })
 
     expect(calls.map(call => call.method)).toEqual(['GET', 'PUT'])
     expect(thread.state).toBe('open')
   })
 
   it.each(['DECLINED', 'MERGED'])('refuses to reopen a %s pull request before it writes anything', async (state) => {
-    const { fetch, calls } = fixtureFetch('bitbucket', { 'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': { status: 200, body: { id: 31, state, title: 'Retry uploads' } } })
+    const { fetch, calls } = fixtureFetch('bitbucket', {
+      'GET https://api.bitbucket.org/2.0/repositories/acme/widgets/pullrequests/31': {
+        status: 200,
+        body: { id: 31, state, title: 'Retry uploads' },
+      },
+    })
 
-    await expect(bitbucket({ auth: { type: 'token', token: 't' }, fetch }).threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow(`cannot reopen a ${state.toLowerCase()} pull request`)
+    await expect(bitbucket({
+      auth: { type: 'token', token: 't' },
+      fetch,
+    }).threads.update(pull, { title: 'Retry uploads', state: 'open' })).rejects.toThrow(`cannot reopen a ${state.toLowerCase()} pull request`)
     expect(calls.map(call => call.method)).toEqual(['GET'])
   })
 
   it.each([
-    [{ labels: ['bug'] }, 'no labels'],
-    [{ assignees: ['jane'] }, 'no assignees'],
+    [
+      {
+        labels: ['bug'],
+      },
+      'no labels',
+    ],
+    [
+      {
+        assignees: ['jane'],
+      },
+      'no assignees',
+    ],
   ])('refuses %j before it writes anything', async (input, message) => {
     const { instance, calls } = provider()
 

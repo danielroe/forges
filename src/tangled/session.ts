@@ -32,14 +32,27 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   async function createSession(refresh?: Session): Promise<Session> {
     const auth = options.auth as Extract<TangledAuth, { type: 'app_password' }>
     if (!pdsUrl) {
-      const did = auth.pds ? undefined : auth.identifier.startsWith('did:') ? auth.identifier : await atproto.resolveHandle(auth.identifier).catch(() => undefined)
-      pdsUrl = auth.pds ?? (did ? (await atproto.resolveDid(did)).pds : undefined) ?? 'https://bsky.social'
+      const did = auth.pds
+        ? undefined
+        : auth.identifier.startsWith('did:')
+          ? auth.identifier
+          : await atproto.resolveHandle(auth.identifier).catch(() => undefined)
+      pdsUrl = auth.pds ?? (did
+        ? (await atproto.resolveDid(did)).pds
+        : undefined) ?? 'https://bsky.social'
     }
     const { data } = await fetcher.json<Session>(
       `${pdsUrl}/xrpc/com.atproto.server.${refresh ? 'refreshSession' : 'createSession'}`,
       refresh
-        ? { method: 'POST', headers: { authorization: `Bearer ${refresh.refreshJwt}` } }
-        : { method: 'POST', json: { identifier: auth.identifier, password: auth.password }, mapError: rejectedPassword },
+        ? {
+            method: 'POST',
+            headers: { authorization: `Bearer ${refresh.refreshJwt}` },
+          }
+        : {
+            method: 'POST',
+            json: { identifier: auth.identifier, password: auth.password },
+            mapError: rejectedPassword,
+          },
     )
     return data
   }
@@ -54,14 +67,22 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
 
   async function viewerDid(): Promise<string> {
     const auth = options.auth!
-    return auth.type === 'oauth' ? auth.did : (await currentSession()).did
+    return auth.type === 'oauth'
+      ? auth.did
+      : (await currentSession()).did
   }
 
   /** Calls an XRPC method on the authenticated account's PDS, refreshing an expired session once. */
   async function pdsCall<T>(nsid: string, init: RequestOptions = {}): Promise<T> {
     const auth = options.auth!
     if (auth.type === 'oauth') {
-      const client = createFetcher({ baseUrl: auth.pds, fetch: auth.fetch, authenticated: true, timeout: options.timeout, context })
+      const client = createFetcher({
+        baseUrl: auth.pds,
+        fetch: auth.fetch,
+        authenticated: true,
+        timeout: options.timeout,
+        context,
+      })
       return (await client.json<T>(`${auth.pds.replace(/\/$/, '')}/xrpc/${nsid}`, init)).data
     }
     const send = async (current: Session) => (await fetcher.json<T>(`${pdsUrl}/xrpc/${nsid}`, {
@@ -84,7 +105,11 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   async function createRecord(collection: string, record: Record<string, unknown>, signal?: AbortSignal): Promise<{ uri: string, cid: string }> {
     return pdsCall<{ uri: string, cid: string }>('com.atproto.repo.createRecord', {
       method: 'POST',
-      json: { repo: await viewerDid(), collection, record: { $type: collection, ...record } },
+      json: {
+        repo: await viewerDid(),
+        collection,
+        record: { $type: collection, ...record },
+      },
       signal,
     })
   }
@@ -100,7 +125,13 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     const record = update(current.value)
     await pdsCall('com.atproto.repo.putRecord', {
       method: 'POST',
-      json: { repo: viewer, collection: parsed.collection, rkey: parsed.rkey, record, swapRecord: current.cid },
+      json: {
+        repo: viewer,
+        collection: parsed.collection,
+        rkey: parsed.rkey,
+        record,
+        swapRecord: current.cid,
+      },
       signal,
     })
     return record
@@ -133,20 +164,43 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
   }
 
   async function serviceAuth(aud: string, lxm: string, signal?: AbortSignal): Promise<string> {
-    return (await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud, lxm }, signal })).token
+    return (await pdsCall<{ token: string }>('com.atproto.server.getServiceAuth', {
+      query: { aud, lxm },
+      signal,
+    })).token
   }
 
   async function uploadBlob(bytes: Uint8Array, mimeType: string, signal?: AbortSignal): Promise<BlobRef> {
-    return (await pdsCall<{ blob: BlobRef }>('com.atproto.repo.uploadBlob', { method: 'POST', body: bytes as BodyInit, headers: { 'content-type': mimeType }, signal })).blob
+    return (await pdsCall<{ blob: BlobRef }>('com.atproto.repo.uploadBlob', {
+      method: 'POST',
+      body: bytes as BodyInit,
+      headers: { 'content-type': mimeType },
+      signal,
+    })).blob
   }
 
-  return { writable, viewerDid, pdsCall, createRecord, putOwnRecord, deleteOwnRecord, ownRecords, serviceAuth, uploadBlob }
+  return {
+    writable,
+    viewerDid,
+    pdsCall,
+    createRecord,
+    putOwnRecord,
+    deleteOwnRecord,
+    ownRecords,
+    serviceAuth,
+    uploadBlob,
+  }
 }
 
 function rejectedPassword(error: unknown): unknown {
   if (!(error instanceof AuthenticationRequiredError)) {
     return error
   }
-  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  const context = {
+    forge: error.forge,
+    instance: error.instance,
+    url: error.url,
+    method: error.method,
+  }
   return new TokenRevokedError('Identifier or app password was rejected by the PDS', error.status, error.body, context, { cause: error })
 }

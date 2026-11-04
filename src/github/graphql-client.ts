@@ -30,7 +30,12 @@ type GraphQLErrors = Array<{ message: string, type?: string }>
 export function graphqlError(operationName: string | undefined, errors: GraphQLErrors | undefined, url: string, context: ForgeOrigin, response?: Response): ForgeApiError {
   const message = `GraphQL ${operationName ?? 'request'} failed: ${errors?.map(error => error.message).join('; ') || 'Empty GraphQL response'}`
   const body = JSON.stringify(errors ?? null).slice(0, 512)
-  const errorContext = { forge: context.forge, instance: context.instance, url, method: 'POST' }
+  const errorContext = {
+    forge: context.forge,
+    instance: context.instance,
+    url,
+    method: 'POST',
+  }
   const secondary = errors?.some(error => isSecondaryRateLimit(error.message)) ?? false
   if (secondary || errors?.some(error => error.type === 'RATE_LIMITED')) {
     const budget = response && rateLimitOf(response)
@@ -49,7 +54,11 @@ export function graphqlError(operationName: string | undefined, errors: GraphQLE
 }
 
 function quotedScopes(list: string | undefined): string[] | undefined {
-  return list === undefined ? undefined : [...list.matchAll(/'([^']+)'/g)].map(match => match[1]!)
+  return list === undefined
+    ? undefined
+    : [
+        ...list.matchAll(/'([^']+)'/g),
+      ].map(match => match[1]!)
 }
 
 interface GraphQLOperation {
@@ -85,7 +94,9 @@ export function graphqlOperations(document: string): GraphQLOperation[] {
       if (awaitingName && /^[_a-z]/i.test(token)) {
         awaitingName.name = token
       }
-      awaitingName = definitionStart && OPERATION_TYPES.has(token) ? { type: token as GraphQLOperation['type'] } : undefined
+      awaitingName = definitionStart && OPERATION_TYPES.has(token)
+        ? { type: token as GraphQLOperation['type'] }
+        : undefined
       if (awaitingName) {
         operations.push(awaitingName)
       }
@@ -100,7 +111,9 @@ export type GraphQLClient = <T>(query: DocumentName | { query: string }, variabl
 
 export function createGraphQLClient(fetcher: Fetcher, url: string, context: ForgeOrigin): GraphQLClient {
   return async <T>(document: DocumentName | { query: string }, variables: Record<string, unknown>, options?: BaseOptions): Promise<T> => {
-    const query = typeof document === 'string' ? (await import('./graphql.ts'))[document] : document.query
+    const query = typeof document === 'string'
+      ? (await import('./graphql.ts'))[document]
+      : document.query
     const operationName = graphqlOperations(query)[0]?.name
     const { data, response } = await fetcher.json<GraphQLResponse<T>>(url, {
       method: 'POST',

@@ -56,7 +56,9 @@ const KIND_DEFAULTS: Partial<Record<EventKind, EventAction>> = {
 
 /** Normalises a forge-native verb (`closed`, `close`, `synchronize`, ...) into an {@link EventAction}. */
 export function eventAction(raw: string | undefined): EventAction | undefined {
-  return raw ? ACTIONS[raw.toLowerCase()] : undefined
+  return raw
+    ? ACTIONS[raw.toLowerCase()]
+    : undefined
 }
 
 /**
@@ -84,7 +86,9 @@ const REVIEW_STATES: Record<string, ReviewState> = {
 
 /** Sets `occurredAt` to `time`, or to `fallback` with `undated` when the forge reported no time. */
 export function eventTime(time: Date | undefined, fallback: Date = new Date()): Pick<ForgeEventInput, 'occurredAt' | 'undated'> {
-  return time ? { occurredAt: time } : { occurredAt: fallback, undated: true }
+  return time
+    ? { occurredAt: time }
+    : { occurredAt: fallback, undated: true }
 }
 
 /** Normalises a forge-native review verdict (`APPROVED`, `changes_requested`, ...) into a {@link ReviewState}. */
@@ -95,10 +99,26 @@ export function reviewState(raw: string | undefined): ReviewState {
 /** A {@link ThreadSnapshot} of the fields that are known, or `undefined` when none is. An `unknown` state is dropped. */
 export function threadSnapshot(fields: Omit<ThreadSnapshot, 'state'> & { state?: ThreadState }): ThreadSnapshot | undefined {
   const known = Object.entries(fields).filter(([key, value]) => value !== undefined && !(key === 'state' && value === 'unknown'))
-  return known.length ? Object.fromEntries(known) : undefined
+  return known.length
+    ? Object.fromEntries(known)
+    : undefined
 }
 
 /** The {@link ThreadSnapshot} of a thread normalised from the issue or pull request an event embeds. */
 export function snapshotOfThread({ title, body, state, stateRaw, stateReason, isDraft, author, labels, issueType, url, branches, stats, mergedBy }: Partial<Thread>): ThreadSnapshot | undefined {
-  return threadSnapshot({ title, body, state, stateRaw, stateReason, isDraft, author, labels, issueType, url, branches, stats, mergedBy })
+  return threadSnapshot({
+    title,
+    body,
+    state,
+    stateRaw,
+    stateReason,
+    isDraft,
+    author,
+    labels,
+    issueType,
+    url,
+    branches,
+    stats,
+    mergedBy,
+  })
 }

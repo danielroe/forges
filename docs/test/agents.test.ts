@@ -23,7 +23,12 @@ async function mcp<T = any>(method: string, params: Record<string, unknown> = {}
   const response = await fetch(`${baseURL}/mcp`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'accept': 'application/json, text/event-stream' },
-    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 1,
+      method,
+      params,
+    }),
   })
   expect(response.status).toBe(200)
   const text = await response.text()
@@ -133,7 +138,13 @@ describe('mcp', () => {
 })
 
 describe('generated reference', () => {
-  it.each(['/reference/overview', '/reference/providers', '/reference/threads', '/reference/errors', '/contributing/provider-kit'])('serves %s', async (path) => {
+  it.each([
+    '/reference/overview',
+    '/reference/providers',
+    '/reference/threads',
+    '/reference/errors',
+    '/contributing/provider-kit',
+  ])('serves %s', async (path) => {
     const response = await get(path)
     expect(response.status).toBe(200)
   })
@@ -150,7 +161,9 @@ describe('generated reference', () => {
     const html = await get('/reference/providers').then(response => response.text())
     const start = html.indexOf('href="/reference/overview"')
     const link = html.slice(start, start + html.slice(start).indexOf('</a>'))
-    expect([...link.matchAll(/>([^<>]+)</g)].map(match => match[1])).toEqual(['Overview'])
+    expect([
+      ...link.matchAll(/>([^<>]+)</g),
+    ].map(match => match[1])).toEqual(['Overview'])
   })
 })
 
@@ -171,7 +184,14 @@ describe('developer portal', () => {
     expect(response.headers.get('content-type')).toMatch(/^text\/html/)
     const html = await response.text()
     expect(html).toContain('<title>Developers - forges</title>')
-    for (const path of ['/getting-started/quick-start', '/guides/authentication', '/guides/testing', '/reference/overview', '/llms.txt', '/llms-full.txt']) {
+    for (const path of [
+      '/getting-started/quick-start',
+      '/guides/authentication',
+      '/guides/testing',
+      '/reference/overview',
+      '/llms.txt',
+      '/llms-full.txt',
+    ]) {
       expect(html).toContain(`href="${path}"`)
     }
   })

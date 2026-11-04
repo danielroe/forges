@@ -44,7 +44,12 @@ export interface HookDelivery {
 }
 
 function lowercased(headers: Record<string, string | string[]>): Record<string, string> {
-  return Object.fromEntries(Object.entries(headers).map(([name, value]) => [name.toLowerCase(), Array.isArray(value) ? value.join(', ') : value]))
+  return Object.fromEntries(Object.entries(headers).map(([name, value]) => [
+    name.toLowerCase(),
+    Array.isArray(value)
+      ? value.join(', ')
+      : value,
+  ]))
 }
 
 export interface HarnessOptions {
@@ -71,8 +76,16 @@ function client(baseUrl: string, authorization: string) {
   return async function call<T = unknown>(path: string, init: { method?: string, json?: unknown, form?: FormData } = {}): Promise<T> {
     const response = await fetch(`${baseUrl}${path}`, {
       method: init.method ?? 'GET',
-      headers: { authorization, accept: 'application/json', ...init.json === undefined ? {} : { 'content-type': 'application/json' } },
-      body: init.form ?? (init.json === undefined ? undefined : JSON.stringify(init.json)),
+      headers: {
+        authorization,
+        accept: 'application/json',
+        ...init.json === undefined
+          ? {}
+          : { 'content-type': 'application/json' },
+      },
+      body: init.form ?? (init.json === undefined
+        ? undefined
+        : JSON.stringify(init.json)),
       signal: AbortSignal.timeout(30_000),
     })
     if (!response.ok) {
@@ -80,7 +93,9 @@ function client(baseUrl: string, authorization: string) {
     }
     const text = await response.text()
     // GitHub delivery ids exceed `Number.MAX_SAFE_INTEGER`, so they are kept as their digits.
-    return (text ? parseJson(text) : undefined) as T
+    return (text
+      ? parseJson(text)
+      : undefined) as T
   }
 }
 
@@ -112,17 +127,34 @@ function github({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
     },
     async createBranch(base, branch, path) {
       const { object } = await call<{ object: { sha: string } }>(`${repo}/git/ref/heads/${enc(base)}`)
-      await call(`${repo}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${branch}`, sha: object.sha } })
-      await call(`${repo}/contents/${path}`, { method: 'PUT', json: { message: `test: add ${path}`, content: base64(fixtureContent(branch)), branch } })
+      await call(`${repo}/git/refs`, {
+        method: 'POST',
+        json: { ref: `refs/heads/${branch}`, sha: object.sha },
+      })
+      await call(`${repo}/contents/${path}`, {
+        method: 'PUT',
+        json: {
+          message: `test: add ${path}`,
+          content: base64(fixtureContent(branch)),
+          branch,
+        },
+      })
     },
     async cleanUp(branches, label, hooks) {
       const open = await call<Array<{ number: number, title: string }>>(`${repo}/issues?state=open&per_page=100`).catch(() => [])
       const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?per_page=100`).catch(() => [])
       const tags = await call<Array<{ ref: string }>>(`${repo}/git/matching-refs/tags/${enc(FIXTURE_TAG)}`).catch(() => [])
       await settle([
-        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, {
+          method: 'PATCH',
+          json: { state: 'closed' },
+        })),
         ...branches.map(branch => () => call(`${repo}/git/refs/heads/${enc(branch)}`, { method: 'DELETE' })),
-        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...label
+          ? [
+              () => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' }),
+            ]
+          : [],
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
         ...tags.map(item => () => call(`${repo}/git/${item.ref.split('/').map(enc).join('/')}`, { method: 'DELETE' })),
@@ -131,7 +163,10 @@ function github({ baseUrl, authorization, scratch, transfer }: HarnessOptions): 
     async payloads(hook) {
       const list = await call<Array<{ id: string }>>(`${repo}/hooks/${enc(hook)}/deliveries?per_page=50`)
       const details = await Promise.all(list.map(({ id }) => call<{ request: { headers: Record<string, string>, payload: unknown } }>(`${repo}/hooks/${enc(hook)}/deliveries/${id}`)))
-      return details.reverse().map(({ request }) => ({ headers: lowercased(request.headers), body: JSON.stringify(request.payload) }))
+      return details.reverse().map(({ request }) => ({
+        headers: lowercased(request.headers),
+        body: JSON.stringify(request.payload),
+      }))
     },
   }
 }
@@ -149,7 +184,10 @@ function gitbucket(options: HarnessOptions): WriteHarness {
   return {
     ...github({ ...options, transfer: undefined }),
     async prepare() {
-      const [{ default_branch }, { login }] = await Promise.all([call<{ default_branch: string }>(repo), call<{ login: string }>('/user')])
+      const [{ default_branch }, { login }] = await Promise.all([
+        call<{ default_branch: string }>(repo),
+        call<{ login: string }>('/user'),
+      ])
       const orgs = await call<Array<{ login: string }>>(`/users/${enc(login)}/orgs`)
       if (login !== scratch.owner && !orgs.some(org => org.login === scratch.owner)) {
         throw new Error('The author credential does not own the scratch repository')
@@ -161,9 +199,16 @@ function gitbucket(options: HarnessOptions): WriteHarness {
       const releases = await call<Array<{ tag_name: string }>>(`${repo}/releases`).catch(() => [])
       const tags = await call<Array<{ ref: string }>>(`${repo}/git/refs`).then(refs => refs.filter(item => item.ref.startsWith(`refs/tags/${FIXTURE_TAG}`)), () => [])
       await settle([
-        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, {
+          method: 'PATCH',
+          json: { state: 'closed' },
+        })),
         ...branches.map(branch => () => call(`${repo}/git/refs/heads/${enc(branch)}`, { method: 'DELETE' })),
-        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...label
+          ? [
+              () => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' }),
+            ]
+          : [],
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${enc(item.tag_name)}`, { method: 'DELETE' })),
         ...tags.map(item => () => call(`${repo}/git/${item.ref.split('/').map(enc).join('/')}`, { method: 'DELETE' })),
@@ -186,7 +231,15 @@ function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarn
       return data.default_branch
     },
     async createBranch(base, branch, path) {
-      await call(`${repo}/contents/${path}`, { method: 'POST', json: { message: `test: add ${path}`, content: base64(fixtureContent(branch)), branch: base, new_branch: branch } })
+      await call(`${repo}/contents/${path}`, {
+        method: 'POST',
+        json: {
+          message: `test: add ${path}`,
+          content: base64(fixtureContent(branch)),
+          branch: base,
+          new_branch: branch,
+        },
+      })
     },
     async cleanUp(branches, _label, hooks) {
       const open = await call<Array<{ number: number, title: string }>>(`${repo}/issues?state=open&limit=50`).catch(() => [])
@@ -196,7 +249,10 @@ function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarn
       // A tag that a release points to cannot be deleted, so the releases go first.
       // Steps read the list of every label to find the run's, so every fixture label goes.
       await settle([
-        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...open.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/issues/${item.number}`, {
+          method: 'PATCH',
+          json: { state: 'closed' },
+        })),
         ...branches.map(branch => () => call(`${repo}/branches/${enc(branch)}`, { method: 'DELETE' })),
         ...labels.filter(item => item.name.startsWith(FIXTURE_LABEL)).map(item => () => call(`${repo}/labels/${item.id}`, { method: 'DELETE' })),
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
@@ -226,7 +282,21 @@ function gitlab({ baseUrl, authorization, scratch, transfer, collaborators }: Ha
       return data.default_branch
     },
     async createBranch(base, branch, path) {
-      await call(`${project}/repository/commits`, { method: 'POST', json: { branch, start_branch: base, commit_message: `test: add ${path}`, actions: [{ action: 'create', file_path: path, content: fixtureContent(branch) }] } })
+      await call(`${project}/repository/commits`, {
+        method: 'POST',
+        json: {
+          branch,
+          start_branch: base,
+          commit_message: `test: add ${path}`,
+          actions: [
+            {
+              action: 'create',
+              file_path: path,
+              content: fixtureContent(branch),
+            },
+          ],
+        },
+      })
     },
     async cleanUp(branches, label, hooks) {
       const issues = await call<Array<{ iid: number, title: string }>>(`${project}/issues?state=opened&per_page=100`).catch(() => [])
@@ -234,10 +304,20 @@ function gitlab({ baseUrl, authorization, scratch, transfer, collaborators }: Ha
       const releases = await call<Array<{ tag_name: string }>>(`${project}/releases?per_page=100`).catch(() => [])
       const tags = await call<Array<{ name: string }>>(`${project}/repository/tags?search=${enc(`^${FIXTURE_TAG}`)}&per_page=100`).catch(() => [])
       await settle([
-        ...issues.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/issues/${item.iid}`, { method: 'PUT', json: { state_event: 'close' } })),
-        ...merges.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/merge_requests/${item.iid}`, { method: 'PUT', json: { state_event: 'close' } })),
+        ...issues.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/issues/${item.iid}`, {
+          method: 'PUT',
+          json: { state_event: 'close' },
+        })),
+        ...merges.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${project}/merge_requests/${item.iid}`, {
+          method: 'PUT',
+          json: { state_event: 'close' },
+        })),
         ...branches.map(branch => () => call(`${project}/repository/branches/${enc(branch)}`, { method: 'DELETE' })),
-        ...label ? [() => call(`${project}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...label
+          ? [
+              () => call(`${project}/labels/${enc(label)}`, { method: 'DELETE' }),
+            ]
+          : [],
         ...hooks.map(hook => () => call(`${project}/hooks/${enc(hook)}`, { method: 'DELETE' })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${project}/releases/${enc(item.tag_name)}`, { method: 'DELETE' })),
         ...tags.filter(item => item.name.startsWith(FIXTURE_TAG)).map(item => () => call(`${project}/repository/tags/${enc(item.name)}`, { method: 'DELETE' })),
@@ -245,7 +325,12 @@ function gitlab({ baseUrl, authorization, scratch, transfer, collaborators }: Ha
     },
     async payloads(hook) {
       const events = await call<Array<{ request_headers: Record<string, string>, request_data: unknown }>>(`${project}/hooks/${enc(hook)}/events`)
-      return events.reverse().map(event => ({ headers: lowercased(event.request_headers), body: typeof event.request_data === 'string' ? event.request_data : JSON.stringify(event.request_data) }))
+      return events.reverse().map(event => ({
+        headers: lowercased(event.request_headers),
+        body: typeof event.request_data === 'string'
+          ? event.request_data
+          : JSON.stringify(event.request_data),
+      }))
     },
   }
 }
@@ -296,16 +381,36 @@ function gitee({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarnes
       return data.default_branch
     },
     async createBranch(base, branch, path) {
-      await call(`${repo}/branches`, { method: 'POST', json: { refs: base, branch_name: branch } })
-      await call(`${repo}/contents/${path}`, { method: 'POST', json: { message: `test: add ${path}`, content: base64(fixtureContent(branch)), branch } })
+      await call(`${repo}/branches`, {
+        method: 'POST',
+        json: { refs: base, branch_name: branch },
+      })
+      await call(`${repo}/contents/${path}`, {
+        method: 'POST',
+        json: {
+          message: `test: add ${path}`,
+          content: base64(fixtureContent(branch)),
+          branch,
+        },
+      })
     },
     async cleanUp(_branches, label, hooks) {
       const issues = await call<Array<{ number: string, title: string }>>(`${repo}/issues?state=open&per_page=100`).catch(() => [])
       const pulls = await call<Array<{ number: number, title: string }>>(`${repo}/pulls?state=open&per_page=100`).catch(() => [])
       await settle([
-        ...issues.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`/repos/${enc(scratch.owner)}/issues/${enc(item.number)}`, { method: 'PATCH', json: { repo: scratch.name, state: 'closed' } })),
-        ...pulls.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
-        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...issues.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`/repos/${enc(scratch.owner)}/issues/${enc(item.number)}`, {
+          method: 'PATCH',
+          json: { repo: scratch.name, state: 'closed' },
+        })),
+        ...pulls.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, {
+          method: 'PATCH',
+          json: { state: 'closed' },
+        })),
+        ...label
+          ? [
+              () => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' }),
+            ]
+          : [],
         ...hooks.map(hook => () => call(`${repo}/hooks/${enc(hook)}`, { method: 'DELETE' })),
       ])
     },
@@ -329,19 +434,50 @@ function azureDevOps({ baseUrl, authorization, scratch }: HarnessOptions): Write
       return (data.defaultBranch ?? 'refs/heads/main').replace('refs/heads/', '')
     },
     async createBranch(base, branch, path) {
-      await call(`${repo}/pushes?${version}`, { method: 'POST', json: {
-        refUpdates: [{ name: `refs/heads/${branch}`, oldObjectId: await headOf(base) }],
-        commits: [{ comment: `test: add ${path}`, changes: [{ changeType: 'add', item: { path: `/${path}` }, newContent: { content: fixtureContent(branch), contentType: 'rawtext' } }] }],
-      } })
+      await call(`${repo}/pushes?${version}`, {
+        method: 'POST',
+        json: {
+          refUpdates: [
+            { name: `refs/heads/${branch}`, oldObjectId: await headOf(base) },
+          ],
+          commits: [
+            {
+              comment: `test: add ${path}`,
+              changes: [
+                {
+                  changeType: 'add',
+                  item: { path: `/${path}` },
+                  newContent: {
+                    content: fixtureContent(branch),
+                    contentType: 'rawtext',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      })
     },
     async cleanUp(branches) {
       const { value: pulls } = await call<{ value: Array<{ pullRequestId: number, title: string }> }>(`${repo}/pullrequests?searchCriteria.status=active&${version}`).catch(() => ({ value: [] }))
       await settle([
-        ...pulls.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pullrequests/${item.pullRequestId}?${version}`, { method: 'PATCH', json: { status: 'abandoned' } })),
+        ...pulls.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pullrequests/${item.pullRequestId}?${version}`, {
+          method: 'PATCH',
+          json: { status: 'abandoned' },
+        })),
         ...branches.map(branch => async () => {
           const sha = await headOf(branch)
           if (sha) {
-            await call(`${repo}/refs?${version}`, { method: 'POST', json: [{ name: `refs/heads/${branch}`, oldObjectId: sha, newObjectId: '0'.repeat(40) }] })
+            await call(`${repo}/refs?${version}`, {
+              method: 'POST',
+              json: [
+                {
+                  name: `refs/heads/${branch}`,
+                  oldObjectId: sha,
+                  newObjectId: '0'.repeat(40),
+                },
+              ],
+            })
           }
         }),
       ])
@@ -360,7 +496,16 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
   const checkout = (base: string) => {
     if (!clone) {
       clone = mkdtempSync(join(tmpdir(), 'forges-pushin-'))
-      git(clone, ['clone', '-q', '--depth', '1', '--branch', base, remote, '.'], auth)
+      git(clone, [
+        'clone',
+        '-q',
+        '--depth',
+        '1',
+        '--branch',
+        base,
+        remote,
+        '.',
+      ], auth)
     }
     return clone
   }
@@ -375,15 +520,31 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
     },
     async createBranch(base, branch, path) {
       const directory = checkout(base)
-      git(directory, ['switch', '-q', '-C', branch, `origin/${base}`])
+      git(directory, [
+        'switch',
+        '-q',
+        '-C',
+        branch,
+        `origin/${base}`,
+      ])
       mkdirSync(dirname(join(directory, path)), { recursive: true })
       writeFileSync(join(directory, path), fixtureContent(branch))
       git(directory, ['add', path])
-      git(directory, ['commit', '-q', '-m', `test: add ${path}`])
+      git(directory, [
+        'commit',
+        '-q',
+        '-m',
+        `test: add ${path}`,
+      ])
       git(directory, ['push', '-q', 'origin', branch], auth)
     },
     async createTag(base, tag) {
-      git(checkout(base), ['push', '-q', 'origin', `refs/remotes/origin/${base}:refs/tags/${tag}`], auth)
+      git(checkout(base), [
+        'push',
+        '-q',
+        'origin',
+        `refs/remotes/origin/${base}:refs/tags/${tag}`,
+      ], auth)
     },
     /**
      * The API cannot close threads, so fixture issues and pull requests are closed by importing them
@@ -396,8 +557,26 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
       const releases = await call<Array<{ id: number, tag_name: string }>>(`${repo}/releases?per_page=100`).catch(() => [])
       const fixture = (item: Open) => item.title.startsWith(FIXTURE_TITLE)
       await settle([
-        ...pulls.filter(fixture).map(item => () => call(`${repo}/pulls`, { method: 'POST', json: { number: item.number, title: item.title, body: item.body, head: item.head?.ref, base: item.base?.ref, state: 'closed' } })),
-        ...issues.filter(item => fixture(item) && !item.pull_request).map(item => () => call(`${repo}/issues`, { method: 'POST', json: { number: item.number, title: item.title, body: item.body, state: 'closed' } })),
+        ...pulls.filter(fixture).map(item => () => call(`${repo}/pulls`, {
+          method: 'POST',
+          json: {
+            number: item.number,
+            title: item.title,
+            body: item.body,
+            head: item.head?.ref,
+            base: item.base?.ref,
+            state: 'closed',
+          },
+        })),
+        ...issues.filter(item => fixture(item) && !item.pull_request).map(item => () => call(`${repo}/issues`, {
+          method: 'POST',
+          json: {
+            number: item.number,
+            title: item.title,
+            body: item.body,
+            state: 'closed',
+          },
+        })),
         ...releases.filter(item => item.tag_name.startsWith(FIXTURE_TAG)).map(item => () => call(`${repo}/releases/${item.id}`, { method: 'DELETE' })),
         async () => {
           const directory = mkdtempSync(join(tmpdir(), 'forges-pushin-'))
@@ -405,7 +584,12 @@ function pushin({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
           const stale = git(directory, ['ls-remote', remote], auth).split('\n').map(line => line.split('\t')[1] ?? '').filter(ref =>
             ref.startsWith(`refs/tags/${FIXTURE_TAG}`) || ref.startsWith('refs/heads/forges-fixtures/') || branches.some(branch => ref === `refs/heads/${branch}`))
           if (stale.length) {
-            git(directory, ['push', '-q', remote, ...stale.map(ref => `:${ref}`)], auth)
+            git(directory, [
+              'push',
+              '-q',
+              remote,
+              ...stale.map(ref => `:${ref}`),
+            ], auth)
           }
         },
       ])
@@ -431,10 +615,23 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
   const projectTrails = `/et/${enc(scratch.owner)}/trails`
   const checkout = async (base: string) => {
     if (!clone) {
-      const response = await fetch(`${remote}/info/refs?service=git-upload-pack`, { headers: { authorization }, redirect: 'manual', signal: AbortSignal.timeout(30_000) })
+      const response = await fetch(`${remote}/info/refs?service=git-upload-pack`, {
+        headers: { authorization },
+        redirect: 'manual',
+        signal: AbortSignal.timeout(30_000),
+      })
       const node = new URL(response.headers.get('location') ?? remote).origin
       clone = mkdtempSync(join(tmpdir(), 'forges-entire-'))
-      git(clone, ['clone', '-q', '--depth', '1', '--branch', base, `${node}${new URL(remote).pathname}`, '.'], auth)
+      git(clone, [
+        'clone',
+        '-q',
+        '--depth',
+        '1',
+        '--branch',
+        base,
+        `${node}${new URL(remote).pathname}`,
+        '.',
+      ], auth)
     }
     return clone
   }
@@ -458,7 +655,10 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
       // The run merges a change it left a finding on, which a blocking findings gate refuses.
       const { gates } = await cell<{ gates: Array<{ id: string, gateType: string, blocking: boolean }> }>(`/repos/${repoId}/trails/gates`)
       for (const gate of gates.filter(item => item.gateType === 'findings' && item.blocking)) {
-        await cell(`/repos/${repoId}/trails/gates/${gate.id}`, { method: 'PATCH', json: { blocking: false } })
+        await cell(`/repos/${repoId}/trails/gates/${gate.id}`, {
+          method: 'PATCH',
+          json: { blocking: false },
+        })
       }
       const data = await cell<{ default_branch: string, owning_project_id: string }>(`/repos/${repoId}`)
       projectId = data.owning_project_id
@@ -466,11 +666,22 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
     },
     async createBranch(base, branch, path) {
       const directory = await checkout(base)
-      git(directory, ['switch', '-q', '-C', branch, `origin/${base}`])
+      git(directory, [
+        'switch',
+        '-q',
+        '-C',
+        branch,
+        `origin/${base}`,
+      ])
       mkdirSync(dirname(join(directory, path)), { recursive: true })
       writeFileSync(join(directory, path), fixtureContent(branch))
       git(directory, ['add', path])
-      git(directory, ['commit', '-q', '-m', `test: add ${path}`])
+      git(directory, [
+        'commit',
+        '-q',
+        '-m',
+        `test: add ${path}`,
+      ])
       git(directory, ['push', '-q', 'origin', branch], auth)
     },
     async cleanUp(branches) {
@@ -479,8 +690,14 @@ function entire({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarne
       const open = await call<{ items: Array<{ number: number, title: string }> }>(`/trails?projectId=${projectId}&status=open&pageSize=100`).catch(() => ({ items: [] }))
       const heads = await call<{ branches: Array<{ name: string, commitSHA: string }> }>(`/git/repos/${repoId}/branches?pageSize=100`).catch(() => ({ branches: [] }))
       await settle([
-        ...changes.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${trails}/${item.number}`, { method: 'PATCH', json: { status: 'closed' } })),
-        ...open.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${projectTrails}/${item.number}`, { method: 'PATCH', json: { status: 'closed' } })),
+        ...changes.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${trails}/${item.number}`, {
+          method: 'PATCH',
+          json: { status: 'closed' },
+        })),
+        ...open.items.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${projectTrails}/${item.number}`, {
+          method: 'PATCH',
+          json: { status: 'closed' },
+        })),
         ...heads.branches.filter(item => branches.includes(item.name)).map(item => () => call(`/git/repos/${repoId}/branches/${item.name.split('/').map(enc).join('/')}?expectedSHA=${item.commitSHA}`, { method: 'DELETE' })),
       ])
     },
@@ -503,21 +720,39 @@ function cursorOrigin({ baseUrl, authorization, scratch }: HarnessOptions): Writ
     },
     async createBranch(base, branch, path) {
       const { object } = await call<{ object: { sha: string } }>(`${repo}/git/ref/${ref(base)}`)
-      await call(`${repo}/git/refs`, { method: 'POST', json: { ref: `refs/heads/${branch}`, sha: object.sha } })
-      await call(`${repo}/git/commits:createFromFiles`, { method: 'POST', json: {
-        targetBranch: branch,
-        expectedHeadSha: object.sha,
-        message: `test: add ${path}`,
-        author: { name: 'forges fixtures', email: 'fixtures@forges.link' },
-        files: [{ path, content: fixtureContent(branch) }],
-      } })
+      await call(`${repo}/git/refs`, {
+        method: 'POST',
+        json: { ref: `refs/heads/${branch}`, sha: object.sha },
+      })
+      await call(`${repo}/git/commits:createFromFiles`, {
+        method: 'POST',
+        json: {
+          targetBranch: branch,
+          expectedHeadSha: object.sha,
+          message: `test: add ${path}`,
+          author: { name: 'forges fixtures', email: 'fixtures@forges.link' },
+          files: [
+            {
+              path,
+              content: fixtureContent(branch),
+            },
+          ],
+        },
+      })
     },
     async cleanUp(branches, label) {
       const { pullRequests = [] } = await call<{ pullRequests?: Array<{ number: number, title: string }> }>(`${repo}/pulls?state=open&pageSize=100`).catch(() => ({ pullRequests: [] }))
       await settle([
-        ...pullRequests.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, { method: 'PATCH', json: { state: 'closed' } })),
+        ...pullRequests.filter(item => item.title.startsWith(FIXTURE_TITLE)).map(item => () => call(`${repo}/pulls/${item.number}`, {
+          method: 'PATCH',
+          json: { state: 'closed' },
+        })),
         ...branches.map(branch => () => call(`${repo}/git/refs/${ref(branch)}`, { method: 'DELETE' })),
-        ...label ? [() => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' })] : [],
+        ...label
+          ? [
+              () => call(`${repo}/labels/${enc(label)}`, { method: 'DELETE' }),
+            ]
+          : [],
       ])
     },
   }
@@ -535,12 +770,27 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
   let pds: Promise<{ call: <T>(nsid: string, init?: { query?: Record<string, string>, json?: unknown }) => Promise<T>, did: string }> | undefined
   const session = () => pds ??= (async () => {
     const host = account!.pds ?? await resolvePds(account!.identifier)
-    const created = await (await fetch(`${host}/xrpc/com.atproto.server.createSession`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ identifier: account!.identifier, password: account!.password }) })).json() as { did: string, accessJwt: string }
+    const created = await (await fetch(`${host}/xrpc/com.atproto.server.createSession`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ identifier: account!.identifier, password: account!.password }),
+    })).json() as { did: string, accessJwt: string }
     const call = async <T>(nsid: string, init: { query?: Record<string, string>, json?: unknown } = {}) => {
-      const response = await fetch(`${host}/xrpc/${nsid}${init.query ? `?${new URLSearchParams(init.query)}` : ''}`, {
-        method: init.json === undefined ? 'GET' : 'POST',
-        headers: { authorization: `Bearer ${created.accessJwt}`, ...init.json === undefined ? {} : { 'content-type': 'application/json' } },
-        body: init.json === undefined ? undefined : JSON.stringify(init.json),
+      const response = await fetch(`${host}/xrpc/${nsid}${init.query
+        ? `?${new URLSearchParams(init.query)}`
+        : ''}`, {
+        method: init.json === undefined
+          ? 'GET'
+          : 'POST',
+        headers: {
+          authorization: `Bearer ${created.accessJwt}`,
+          ...init.json === undefined
+            ? {}
+            : { 'content-type': 'application/json' },
+        },
+        body: init.json === undefined
+          ? undefined
+          : JSON.stringify(init.json),
         signal: AbortSignal.timeout(30_000),
       })
       if (!response.ok) {
@@ -554,7 +804,16 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
     const { call, did } = await session()
     let cursor: string | undefined
     do {
-      const page = await call<{ records: Array<{ uri: string, cid: string, value: T }>, cursor?: string }>('com.atproto.repo.listRecords', { query: { repo: did, collection, limit: '100', ...cursor ? { cursor } : {} } })
+      const page = await call<{ records: Array<{ uri: string, cid: string, value: T }>, cursor?: string }>('com.atproto.repo.listRecords', {
+        query: {
+          repo: did,
+          collection,
+          limit: '100',
+          ...cursor
+            ? { cursor }
+            : {},
+        },
+      })
       yield* page.records
       cursor = page.records.length ? page.cursor : undefined
     } while (cursor)
@@ -564,16 +823,28 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
   let repoKnot: Promise<{ origin: string, repoDid: string }> | undefined
   const knot = () => repoKnot ??= read!.repos.get(scratch).then(({ ref, raw }) => {
     const host = (raw as { value: { knot: string } }).value.knot
-    return { origin: /^https?:\/\//.test(host) ? host.replace(/\/$/, '') : `https://${host}`, repoDid: ref.externalId! }
+    return {
+      origin: /^https?:\/\//.test(host)
+        ? host.replace(/\/$/, '')
+        : `https://${host}`,
+      repoDid: ref.externalId!,
+    }
   })
   async function serviceToken(lxm: string): Promise<string> {
     const { call } = await session()
     const { origin } = await knot()
-    return (await call<{ token: string }>('com.atproto.server.getServiceAuth', { query: { aud: `did:web:${encodeURIComponent(new URL(origin).host)}`, lxm } })).token
+    return (await call<{ token: string }>('com.atproto.server.getServiceAuth', {
+      query: { aud: `did:web:${encodeURIComponent(new URL(origin).host)}`, lxm },
+    })).token
   }
   async function knotPost(nsid: string, json: unknown): Promise<void> {
     const { origin } = await knot()
-    const response = await fetch(`${origin}/xrpc/${nsid}`, { method: 'POST', headers: { 'authorization': `Bearer ${await serviceToken(nsid)}`, 'content-type': 'application/json' }, body: JSON.stringify(json), signal: AbortSignal.timeout(30_000) })
+    const response = await fetch(`${origin}/xrpc/${nsid}`, {
+      method: 'POST',
+      headers: { 'authorization': `Bearer ${await serviceToken(nsid)}`, 'content-type': 'application/json' },
+      body: JSON.stringify(json),
+      signal: AbortSignal.timeout(30_000),
+    })
     if (!response.ok) {
       throw new Error(`${nsid} failed with ${response.status}: ${await response.text()}`)
     }
@@ -581,12 +852,26 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
   /** Pushes `refspecs` to the knot over HTTPS, with the token in the environment rather than the command line. */
   async function push(directory: string, ...refspecs: string[]): Promise<void> {
     const { origin, repoDid } = await knot()
-    git(directory, ['push', '-q', `${origin}/${repoDid}`, ...refspecs], extraHeader(`Authorization: Bearer ${await serviceToken('sh.tangled.repo.push')}`))
+    git(directory, [
+      'push',
+      '-q',
+      `${origin}/${repoDid}`,
+      ...refspecs,
+    ], extraHeader(`Authorization: Bearer ${await serviceToken('sh.tangled.repo.push')}`))
   }
   let clone: Promise<string> | undefined
   const checkout = (base: string) => clone ??= knot().then(({ origin, repoDid }) => {
     const directory = mkdtempSync(join(tmpdir(), 'forges-tangled-'))
-    git(directory, ['clone', '-q', '--depth', '1', '--branch', base, `${origin}/${repoDid}`, '.'])
+    git(directory, [
+      'clone',
+      '-q',
+      '--depth',
+      '1',
+      '--branch',
+      base,
+      `${origin}/${repoDid}`,
+      '.',
+    ])
     return directory
   })
 
@@ -615,24 +900,37 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
     },
     async seed() {
       const { call, did } = await session()
-      await call('com.atproto.repo.putRecord', { json: { repo: did, collection: 'sh.tangled.actor.profile', rkey: 'self', record: {
-        $type: 'sh.tangled.actor.profile',
-        description: 'The account forges records its Tangled fixtures with.',
-        location: 'The scratch repository',
-        links: ['https://forges.link'],
-        bluesky: false,
-      } } })
+      await call('com.atproto.repo.putRecord', {
+        json: {
+          repo: did,
+          collection: 'sh.tangled.actor.profile',
+          rkey: 'self',
+          record: {
+            $type: 'sh.tangled.actor.profile',
+            description: 'The account forges records its Tangled fixtures with.',
+            location: 'The scratch repository',
+            links: ['https://forges.link'],
+            bluesky: false,
+          },
+        },
+      })
       const { repoDid } = await knot()
       for await (const star of records<{ subject?: { did?: string } }>('sh.tangled.feed.star')) {
         if (star.value.subject?.did === repoDid) {
           return
         }
       }
-      await call('com.atproto.repo.createRecord', { json: { repo: did, collection: 'sh.tangled.feed.star', record: {
-        $type: 'sh.tangled.feed.star',
-        subject: { $type: 'sh.tangled.feed.star#repo', did: repoDid },
-        createdAt: new Date().toISOString(),
-      } } })
+      await call('com.atproto.repo.createRecord', {
+        json: {
+          repo: did,
+          collection: 'sh.tangled.feed.star',
+          record: {
+            $type: 'sh.tangled.feed.star',
+            subject: { $type: 'sh.tangled.feed.star#repo', did: repoDid },
+            createdAt: new Date().toISOString(),
+          },
+        },
+      })
     },
     async prepare() {
       const repo = await read!.repos.get(scratch)
@@ -644,7 +942,13 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
     },
     async createBranch(base, branch, path) {
       const directory = await checkout(base)
-      git(directory, ['switch', '-q', '-C', branch, `origin/${base}`])
+      git(directory, [
+        'switch',
+        '-q',
+        '-C',
+        branch,
+        `origin/${base}`,
+      ])
       mkdirSync(dirname(join(directory, path)), { recursive: true })
       writeFileSync(join(directory, path), `Written by a forges fixture run on ${branch}.\n`)
       git(directory, ['add', path])
@@ -672,7 +976,13 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
         git(directory, ['init', '-q'])
         await push(directory, ...stale.map(name => `:${name}`))
       }
-      const remove = (collection: string, uri: string) => call('com.atproto.repo.deleteRecord', { json: { repo: did, collection, rkey: rkeyOf(uri) } })
+      const remove = (collection: string, uri: string) => call('com.atproto.repo.deleteRecord', {
+        json: {
+          repo: did,
+          collection,
+          rkey: rkeyOf(uri),
+        },
+      })
       const labels: string[] = []
       for await (const definition of records<{ name?: string }>('sh.tangled.label.definition')) {
         if (definition.value.name?.startsWith(FIXTURE_LABEL)) {
@@ -680,8 +990,21 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
         }
       }
       if (labels.length) {
-        const current = await call<{ cid: string, value: { labels?: string[] } }>('com.atproto.repo.getRecord', { query: { repo: did, collection: 'sh.tangled.repo', rkey: ref.name } })
-        await call('com.atproto.repo.putRecord', { json: { repo: did, collection: 'sh.tangled.repo', rkey: ref.name, record: { ...current.value, labels: (current.value.labels ?? []).filter(uri => !labels.includes(uri)) }, swapRecord: current.cid } })
+        const current = await call<{ cid: string, value: { labels?: string[] } }>('com.atproto.repo.getRecord', {
+          query: { repo: did, collection: 'sh.tangled.repo', rkey: ref.name },
+        })
+        await call('com.atproto.repo.putRecord', {
+          json: {
+            repo: did,
+            collection: 'sh.tangled.repo',
+            rkey: ref.name,
+            record: {
+              ...current.value,
+              labels: (current.value.labels ?? []).filter(uri => !labels.includes(uri)),
+            },
+            swapRecord: current.cid,
+          },
+        })
         await Promise.allSettled(labels.map(uri => remove('sh.tangled.label.definition', uri)))
       }
       const threadsToDelete: Array<[string, string]> = []
@@ -694,8 +1017,16 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       }
       await Promise.allSettled(threadsToDelete.map(([collection, uri]) => remove(collection, uri)))
       const activity: Array<[string, string]> = []
-      const subjects = [...threads, ...threadsToDelete.map(([, uri]) => uri)]
-      for (const collection of ['sh.tangled.feed.comment', 'sh.tangled.repo.pull.status', 'sh.tangled.label.op', 'sh.tangled.feed.reaction']) {
+      const subjects = [
+        ...threads,
+        ...threadsToDelete.map(([, uri]) => uri),
+      ]
+      for (const collection of [
+        'sh.tangled.feed.comment',
+        'sh.tangled.repo.pull.status',
+        'sh.tangled.label.op',
+        'sh.tangled.feed.reaction',
+      ]) {
         for await (const record of records(collection)) {
           if (subjects.some(subject => JSON.stringify(record.value).includes(subject))) {
             activity.push([collection, record.uri])
@@ -718,13 +1049,26 @@ const GIT_ENV = {
 }
 
 function git(directory: string, args: string[], env: Record<string, string> = {}): string {
-  return execFileSync('git', args, { cwd: directory, stdio: ['ignore', 'pipe', 'inherit'], encoding: 'utf8', env: { ...process.env, ...GIT_ENV, ...env } })
+  return execFileSync('git', args, {
+    cwd: directory,
+    stdio: ['ignore', 'pipe', 'inherit'],
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      ...GIT_ENV,
+      ...env,
+    },
+  })
 }
 
 /** Sends `header` with every HTTP request git makes, through the environment rather than the command line. */
 function extraHeader(header: string): Record<string, string> {
   const count = Number(process.env.GIT_CONFIG_COUNT ?? 0)
-  return { GIT_CONFIG_COUNT: String(count + 1), [`GIT_CONFIG_KEY_${count}`]: 'http.extraHeader', [`GIT_CONFIG_VALUE_${count}`]: header }
+  return {
+    GIT_CONFIG_COUNT: String(count + 1),
+    [`GIT_CONFIG_KEY_${count}`]: 'http.extraHeader',
+    [`GIT_CONFIG_VALUE_${count}`]: header,
+  }
 }
 
 async function resolvePds(identifier: string): Promise<string> {

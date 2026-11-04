@@ -37,7 +37,9 @@ function identifiers(text: string, key: string, visit: (token: string, index: nu
     const digits = /^\d+$/.test(token)
     const before = text.slice(0, match.index)
     const placed = /(?:[/#!]|%2F)$/i.test(before) || /(?:^|_)(?:id|iid|number|ref|sha)(?:=|%3D)$/i.test(before)
-    if (digits ? named || token.length >= 6 || placed : token.length >= 6) {
+    if (digits
+      ? named || token.length >= 6 || placed
+      : token.length >= 6) {
       visit(token, match.index)
     }
   }
@@ -62,7 +64,9 @@ function walk(current: unknown, previous: unknown, key: string, visit: Visit): v
     }
     for (const [name, value] of Object.entries(current)) {
       if (Object.hasOwn(previous, name)) {
-        walk(value, (previous as Record<string, unknown>)[name], Array.isArray(current) ? key : name, visit)
+        walk(value, (previous as Record<string, unknown>)[name], Array.isArray(current)
+          ? key
+          : name, visit)
       }
     }
     return
@@ -103,8 +107,12 @@ function learn(pairs: Map<string, Set<string>>, current: unknown, previous: unkn
   }
   const ours = at(current)
   const theirs = at(previous)
-  const others = [...previous.matchAll(TOKEN)]
-  for (const [position, match] of [...current.matchAll(TOKEN)].entries()) {
+  const others = [
+    ...previous.matchAll(TOKEN),
+  ]
+  for (const [position, match] of [
+    ...current.matchAll(TOKEN),
+  ].entries()) {
     const other = others[position]!
     if (match[0] !== other[0] && ours.has(match.index) && theirs.has(other.index) && alike(match[0], other[0])) {
       add(match[0], other[0])
@@ -118,18 +126,27 @@ export function rename(value: unknown, key: string, map: Map<string, string>): u
     return value.map(item => rename(item, key, map))
   }
   if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([name, item]) => [name, rename(item, name, map)]))
+    return Object.fromEntries(Object.entries(value).map(([name, item]) => [
+      name,
+      rename(item, name, map),
+    ]))
   }
   if (typeof value === 'number') {
-    const renamed = numberIsRenamed(value, key) ? map.get(String(value)) : undefined
-    return renamed === undefined ? value : Number(renamed)
+    const renamed = numberIsRenamed(value, key)
+      ? map.get(String(value))
+      : undefined
+    return renamed === undefined
+      ? value
+      : Number(renamed)
   }
   if (typeof value !== 'string') {
     return value
   }
   const replacements: Array<[index: number, from: string, to: string]> = []
   identifiers(value, key, (token, index) => {
-    const to = map.get(token) ?? (token.includes('-') ? token.replace(/\d{6,}/g, digits => map.get(digits) ?? digits) : token)
+    const to = map.get(token) ?? (token.includes('-')
+      ? token.replace(/\d{6,}/g, digits => map.get(digits) ?? digits)
+      : token)
     if (to !== token) {
       replacements.push([index, token, to])
     }
@@ -200,7 +217,10 @@ export function stabilise(current: Run, previous: Run): Stabilised {
       continue
     }
     const target = [...to][0]!
-    sources.set(target, [...sources.get(target) ?? [], from])
+    sources.set(target, [
+      ...sources.get(target) ?? [],
+      from,
+    ])
   }
   const map = new Map<string, string>()
   for (const [target, from] of sources) {
@@ -223,7 +243,10 @@ export function stabilise(current: Run, previous: Run): Stabilised {
   }
   return {
     manifest: rename(current.manifest, '', map) as Record<string, unknown>,
-    steps: new Map([...current.steps].map(([name, fixtures]) => [name, rename(fixtures, '', map) as Fixture[]])),
+    steps: new Map([...current.steps].map(([name, fixtures]) => [
+      name,
+      rename(fixtures, '', map) as Fixture[],
+    ])),
     renamed: map,
     skipped,
   }

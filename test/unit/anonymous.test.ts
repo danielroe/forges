@@ -5,8 +5,19 @@ import { gitlab } from '../../src/gitlab/index.ts'
 import { ReadOnlyError, UnsupportedOperationError } from '../../src/index.ts'
 import { fixtureFetch } from '../utils/fixtures.ts'
 
-const repo = { forge: 'github', instance: 'github.com', owner: 'acme', name: 'widgets' }
-const issue = { forge: 'github', instance: 'github.com', repo, kind: 'issue' as const, number: '1' }
+const repo = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'acme',
+  name: 'widgets',
+}
+const issue = {
+  forge: 'github',
+  instance: 'github.com',
+  repo,
+  kind: 'issue' as const,
+  number: '1',
+}
 
 describe('anonymous providers', () => {
   it('reads without credentials and supports nothing that needs an account', async () => {
@@ -17,7 +28,15 @@ describe('anonymous providers', () => {
     expect(calls[0]!.authorization).toBeUndefined()
     expect(forge.capabilities.authKinds).toContain('anonymous')
     expect(forge.authKind).toBe('anonymous')
-    expect(['threads.createComment', 'threads.close', 'notifications.list', 'repos.list', 'installations.list', 'threads.subscribe', 'ci.log'].filter(verb => forge.can(verb as never))).toEqual([])
+    expect([
+      'threads.createComment',
+      'threads.close',
+      'notifications.list',
+      'repos.list',
+      'installations.list',
+      'threads.subscribe',
+      'ci.log',
+    ].filter(verb => forge.can(verb as never))).toEqual([])
     expect(forge.can('threads.get', 'issue')).toBe(true)
     await expect(forge.threads.createComment(issue, 'hi')).rejects.toThrow(UnsupportedOperationError)
   })
@@ -27,7 +46,12 @@ describe('anonymous providers', () => {
     const forge = github({ fetch })
 
     expect(forge.can('ci.runs')).toBe(true)
-    await expect(forge.ci.log({ forge: 'github', instance: 'github.com', repo, id: '4002' })).rejects.toThrow(UnsupportedOperationError)
+    await expect(forge.ci.log({
+      forge: 'github',
+      instance: 'github.com',
+      repo,
+      id: '4002',
+    })).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 
@@ -39,13 +63,26 @@ describe('anonymous providers', () => {
         return Response.json([])
       },
     })
-    const gitlabRepo = { forge: 'gitlab', instance: 'gitlab.com', owner: 'acme', name: 'widgets' }
+    const gitlabRepo = {
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      owner: 'acme',
+      name: 'widgets',
+    }
 
     expect(forge.can('threads.comments', 'issue')).toBe(false)
     expect(forge.can('threads.comments', 'pull_request')).toBe(false)
     expect(forge.can('commits.comments')).toBe(true)
-    expect(gitlab({ auth: { type: 'token', token: 't' } }).can('threads.comments', 'issue')).toBe(true)
-    await expect(forge.threads.comments({ forge: 'gitlab', instance: 'gitlab.com', repo: gitlabRepo, kind: 'issue', number: '1' }).page()).rejects.toThrow(UnsupportedOperationError)
+    expect(gitlab({
+      auth: { type: 'token', token: 't' },
+    }).can('threads.comments', 'issue')).toBe(true)
+    await expect(forge.threads.comments({
+      forge: 'gitlab',
+      instance: 'gitlab.com',
+      repo: gitlabRepo,
+      kind: 'issue',
+      number: '1',
+    }).page()).rejects.toThrow(UnsupportedOperationError)
     expect(calls).toEqual([])
   })
 
@@ -53,7 +90,13 @@ describe('anonymous providers', () => {
     const { fetch, calls } = fixtureFetch('github')
     const rules = await github({ fetch }).repos.branchRules(repo, 'next')
 
-    expect(rules).toMatchObject({ branch: 'next', requiredChecks: [{ name: 'test' }], requiredApprovals: 1 })
+    expect(rules).toMatchObject({
+      branch: 'next',
+      requiredChecks: [
+        { name: 'test' },
+      ],
+      requiredApprovals: 1,
+    })
     expect(rules.warnings).toBeUndefined()
     expect(calls).toHaveLength(2)
   })
@@ -70,7 +113,12 @@ describe('anonymous providers', () => {
 
   it('reads the rules of a Forgejo branch without credentials', async () => {
     const { fetch, calls } = fixtureFetch('forgejo')
-    const rules = await forgejo({ fetch }).repos.branchRules({ forge: 'forgejo', instance: 'codeberg.org', owner: 'acme', name: 'widgets' }, 'main')
+    const rules = await forgejo({ fetch }).repos.branchRules({
+      forge: 'forgejo',
+      instance: 'codeberg.org',
+      owner: 'acme',
+      name: 'widgets',
+    }, 'main')
 
     expect(calls[0]!.authorization).toBeUndefined()
     expect(rules.requiredApprovals).toBe(1)
@@ -89,7 +137,22 @@ describe('anonymous providers', () => {
     const forge = github({
       fetch: async (url) => {
         urls.push(url)
-        return Response.json(url.includes('/issues/1') ? { number: 1, title: 'Crash', state: 'open', user: { login: 'a' } } : [{ number: 2, title: 'Fix', state: 'open', pull_request: {}, user: { login: 'a' } }])
+        return Response.json(url.includes('/issues/1')
+          ? {
+              number: 1,
+              title: 'Crash',
+              state: 'open',
+              user: { login: 'a' },
+            }
+          : [
+              {
+                number: 2,
+                title: 'Fix',
+                state: 'open',
+                pull_request: {},
+                user: { login: 'a' },
+              },
+            ])
       },
     })
 
@@ -106,9 +169,14 @@ describe('anonymous providers', () => {
     const { fetch, calls } = fixtureFetch('github')
     const forge = github({ fetch })
 
-    const [result] = await forge.threads.getMany([{ ...issue, kind: 'discussion', number: '7' }])
+    const [result] = await forge.threads.getMany([
+      { ...issue, kind: 'discussion', number: '7' },
+    ])
 
-    expect(result).toMatchObject({ ok: false, warning: { code: 'thread_unreadable' } })
+    expect(result).toMatchObject({
+      ok: false,
+      warning: { code: 'thread_unreadable' },
+    })
     expect(calls).toEqual([])
   })
 
@@ -134,7 +202,15 @@ describe('anonymous providers', () => {
   })
 
   it('accepts `{ type: \'anonymous\' }` explicitly on every forge that allows it', () => {
-    for (const forge of [gitlab({ auth: { type: 'anonymous' } }), forgejo({ auth: { type: 'anonymous' }, baseUrl: 'https://codeberg.org' })]) {
+    for (const forge of [
+      gitlab({
+        auth: { type: 'anonymous' },
+      }),
+      forgejo({
+        auth: { type: 'anonymous' },
+        baseUrl: 'https://codeberg.org',
+      }),
+    ]) {
       expect(forge.can('threads.get', 'issue')).toBe(true)
       expect(forge.can('notifications.list')).toBe(false)
     }
@@ -143,17 +219,28 @@ describe('anonymous providers', () => {
 
 describe('auth kind', () => {
   it('reports the auth type each provider was created with', () => {
-    expect(github({ auth: { type: 'token', token: 't' } }).authKind).toBe('token')
-    expect(gitlab({ auth: { type: 'anonymous' } }).authKind).toBe('anonymous')
+    expect(github({
+      auth: { type: 'token', token: 't' },
+    }).authKind).toBe('token')
+    expect(gitlab({
+      auth: { type: 'anonymous' },
+    }).authKind).toBe('anonymous')
     expect(forgejo({ baseUrl: 'https://codeberg.org' }).authKind).toBe('anonymous')
-    expect(github({ auth: { type: 'token', token: 't' }, readOnly: true }).authKind).toBe('token')
+    expect(github({
+      auth: { type: 'token', token: 't' },
+      readOnly: true,
+    }).authKind).toBe('token')
   })
 })
 
 describe('read-only providers', () => {
   it('rejects every write with ReadOnlyError and keeps reads', async () => {
     const { fetch, calls } = fixtureFetch('github')
-    const forge = github({ auth: { type: 'token', token: 't' }, fetch, readOnly: true })
+    const forge = github({
+      auth: { type: 'token', token: 't' },
+      fetch,
+      readOnly: true,
+    })
 
     expect(forge.can('threads.close', 'issue')).toBe(false)
     expect(forge.can('notifications.markDone')).toBe(false)

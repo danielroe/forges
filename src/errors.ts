@@ -235,7 +235,12 @@ export function toMergeError(error: unknown): unknown {
   if (!(error instanceof ForgeApiError) || error.constructor !== ForgeApiError) {
     return error
   }
-  const context = { forge: error.forge, instance: error.instance, url: error.url, method: error.method }
+  const context = {
+    forge: error.forge,
+    instance: error.instance,
+    url: error.url,
+    method: error.method,
+  }
   if (error.status === 405) {
     return new MergeBlockedError('Pull request is not mergeable yet', error.status, error.body, context, { cause: error })
   }

@@ -13,11 +13,19 @@ function bitbucketWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
     repo: repoPath,
-    section: (repo, section) => repo.kind === 'namespace' || !PAGES[section] ? undefined : `${repoPath(repo)}/${PAGES[section]}`,
-    thread: ref => SECTIONS[ref.kind] && ref.number ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}` : undefined,
-    comment: ref => !SECTIONS[ref.thread.kind] ? undefined : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
+    section: (repo, section) => repo.kind === 'namespace' || !PAGES[section]
+      ? undefined
+      : `${repoPath(repo)}/${PAGES[section]}`,
+    thread: ref => SECTIONS[ref.kind] && ref.number
+      ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`
+      : undefined,
+    comment: ref => !SECTIONS[ref.thread.kind]
+      ? undefined
+      : `${repoPath(ref.thread.repo)}/${SECTIONS[ref.thread.kind]}/${encodeURIComponent(ref.thread.number)}#comment-${ref.id}`,
     commit: (repo, sha) => `${repoPath(repo)}/commits/${encodeURIComponent(sha)}`,
-    file: (repo, path, at, line) => `${repoPath(repo)}/src/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}${line ? `#lines-${line}` : ''}`,
+    file: (repo, path, at, line) => `${repoPath(repo)}/src/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}${line
+      ? `#lines-${line}`
+      : ''}`,
     raw: (repo, path, at) => `${repoPath(repo)}/raw/${encodeURIComponent(at)}/${path.split('/').map(encodeURIComponent).join('/')}`,
     compare: (repo, base, head) => `${repoPath(repo)}/branches/compare/${encodeURIComponent(head)}%0D${encodeURIComponent(base)}`,
     parse: (segments, url, from) => {
@@ -25,24 +33,55 @@ function bitbucketWeb(baseUrl: string): WebLinks {
       if (!owner || !name) {
         return undefined
       }
-      const repo: RepoRef = { ...from, owner, name: name.replace(/\.git$/, '') }
+      const repo: RepoRef = {
+        ...from,
+        owner,
+        name: name.replace(/\.git$/, ''),
+      }
       if (section === 'src' && id && segments[4]) {
-        return { repo, file: { at: id, path: segments.slice(4).join('/'), ...lineOf(url.hash.replace(/^#lines-/, '')) } }
+        return {
+          repo,
+          file: {
+            at: id,
+            path: segments.slice(4).join('/'),
+            ...lineOf(url.hash.replace(/^#lines-/, '')),
+          },
+        }
       }
       if (section === 'commits' && id) {
-        return { repo, commit: { ...from, repo, sha: id } }
+        return {
+          repo,
+          commit: { ...from, repo, sha: id },
+        }
       }
-      const [head, base] = section === 'branches' && id === 'compare' ? segments.slice(4).join('/').split('\r') : []
+      const [head, base] = section === 'branches' && id === 'compare'
+        ? segments.slice(4).join('/').split('\r')
+        : []
       if (head && base) {
-        return { repo, compare: { base, head } }
+        return {
+          repo,
+          compare: { base, head },
+        }
       }
-      const kind = section ? KINDS.get(section) : undefined
+      const kind = section
+        ? KINDS.get(section)
+        : undefined
       if (!kind || !id) {
         return { repo }
       }
       const thread: ThreadRef = { ...from, repo, kind, number: id }
-      const comment = url.hash.startsWith('#comment-') ? url.hash.slice('#comment-'.length) : undefined
-      return { repo, thread, ...comment ? { comment: { ...from, thread, id: comment } } : {} }
+      const comment = url.hash.startsWith('#comment-')
+        ? url.hash.slice('#comment-'.length)
+        : undefined
+      return {
+        repo,
+        thread,
+        ...comment
+          ? {
+              comment: { ...from, thread, id: comment },
+            }
+          : {},
+      }
     },
     reference: (ref, same) => {
       if (!same) {
@@ -52,19 +91,30 @@ function bitbucketWeb(baseUrl: string): WebLinks {
         // Bitbucket has no repository-qualified commit syntax, so a sha with no bare prefix falls back to its URL.
         return bareSha(ref.sha, 12)
       }
-      return ref.kind === 'pull_request' && ref.number ? `#${ref.number}` : undefined
+      return ref.kind === 'pull_request' && ref.number
+        ? `#${ref.number}`
+        : undefined
     },
-    references: { threads: [{ prefix: '#', kind: 'pull_request' }], commits: true },
+    references: {
+      threads: [
+        { prefix: '#', kind: 'pull_request' },
+      ],
+      commits: true,
+    },
   }
 }
 
 export function bitbucketInstance(host: string): string {
-  return host === 'api.bitbucket.org' ? 'bitbucket.org' : host
+  return host === 'api.bitbucket.org'
+    ? 'bitbucket.org'
+    : host
 }
 
 export const BITBUCKET_WEB: WebDefinition<'bitbucket'> = {
   forge: 'bitbucket',
   baseUrl: 'https://api.bitbucket.org/2.0',
   instance: bitbucketInstance,
-  links: ({ baseUrl }) => bitbucketWeb(new URL(baseUrl).host === 'api.bitbucket.org' ? 'https://bitbucket.org' : baseUrl.replace(/\/2\.0$/, '')),
+  links: ({ baseUrl }) => bitbucketWeb(new URL(baseUrl).host === 'api.bitbucket.org'
+    ? 'https://bitbucket.org'
+    : baseUrl.replace(/\/2\.0$/, '')),
 }

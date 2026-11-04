@@ -51,7 +51,9 @@ export function threadKindOf(collection: string): ThreadKind | undefined {
   if (collection === COLLECTIONS.issue) {
     return 'issue'
   }
-  return collection === COLLECTIONS.pull ? 'pull_request' : undefined
+  return collection === COLLECTIONS.pull
+    ? 'pull_request'
+    : undefined
 }
 
 export function toActor(instance: string, identity: Identity, webUrl: string): Actor {
@@ -73,7 +75,9 @@ export function toThreadRef(instance: string, repo: RepoRef, uri: AtUri): Resolv
     forge: FORGE,
     instance,
     repo,
-    kind: uri.collection === COLLECTIONS.pull ? 'pull_request' : 'issue',
+    kind: uri.collection === COLLECTIONS.pull
+      ? 'pull_request'
+      : 'issue',
     typeRaw: uri.collection,
     number: value,
     externalId: value,
@@ -108,12 +112,23 @@ export function isAssigneeLabel(definition: LabelDefinitionRecord): boolean {
 }
 
 /** The emoji Tangled stores for each reaction. */
-export const REACTION_EMOJI: Record<ReactionContent, string> = { '+1': '👍', '-1': '👎', 'laugh': '😆', 'hooray': '🎉', 'confused': '🫤', 'heart': '❤️', 'rocket': '🚀', 'eyes': '👀' }
+export const REACTION_EMOJI: Record<ReactionContent, string> = {
+  '+1': '👍',
+  '-1': '👎',
+  'laugh': '😆',
+  'hooray': '🎉',
+  'confused': '🫤',
+  'heart': '❤️',
+  'rocket': '🚀',
+  'eyes': '👀',
+}
 
 /** A label as threads carry it: the definition's name, and for a label with values, `name:value`. */
 export function toLabel(definition: LabelDefinitionRecord, value: string): Label {
   return {
-    name: !definition.valueType || definition.valueType.type === 'null' ? definition.name : `${definition.name}:${value}`,
+    name: !definition.valueType || definition.valueType.type === 'null'
+      ? definition.name
+      : `${definition.name}:${value}`,
     colour: definition.color?.replace(/^#/, ''),
   }
 }
@@ -156,14 +171,20 @@ export function toEventKind(collection: string, operation: ActivityRecord['opera
     case COLLECTIONS.comment:
     case COLLECTIONS.issueComment:
     case COLLECTIONS.pullComment:
-      return operation === 'create' ? 'comment' : 'other'
+      return operation === 'create'
+        ? 'comment'
+        : 'other'
     case COLLECTIONS.issueState:
     case COLLECTIONS.pullStatus:
       return 'state_change'
     case COLLECTIONS.issue:
-      return operation === 'create' ? 'state_change' : 'other'
+      return operation === 'create'
+        ? 'state_change'
+        : 'other'
     case COLLECTIONS.pull:
-      return operation === 'create' ? 'state_change' : 'commit'
+      return operation === 'create'
+        ? 'state_change'
+        : 'commit'
     case COLLECTIONS.reaction:
       return 'reaction'
     case COLLECTIONS.labelOp:
@@ -182,14 +203,20 @@ function toEventAction(activity: ActivityRecord): EventAction {
   }
   switch (collection) {
     case COLLECTIONS.issue:
-      return operation === 'create' ? 'opened' : 'edited'
+      return operation === 'create'
+        ? 'opened'
+        : 'edited'
     case COLLECTIONS.pull:
-      return operation === 'create' ? 'opened' : 'synchronised'
+      return operation === 'create'
+        ? 'opened'
+        : 'synchronised'
     case COLLECTIONS.issueState:
     case COLLECTIONS.pullStatus:
       return STATE_ACTIONS[stateToken(activity.record as StateRecord) ?? ''] ?? 'other'
     default:
-      return operation === 'create' ? 'created' : 'edited'
+      return operation === 'create'
+        ? 'created'
+        : 'edited'
   }
 }
 
@@ -224,19 +251,35 @@ function occurredAt(record: TangledRecord | undefined): Date | undefined {
   if (!record) {
     return undefined
   }
-  return toDate('performedAt' in record ? record.performedAt : (record as { createdAt?: string }).createdAt)
+  return toDate('performedAt' in record
+    ? record.performedAt
+    : (record as { createdAt?: string }).createdAt)
 }
 
 function activityDetail(activity: ActivityRecord, kind: EventKind, thread: ResolvedThreadRef | undefined): EventDetail | undefined {
   if (kind === 'comment') {
     const record = activity.record as FeedCommentRecord | LegacyCommentRecord | undefined
-    return { type: 'comment', comment: thread && { forge: FORGE, instance: thread.instance, thread, id: activity.uri }, body: record?.body === undefined ? undefined : commentBody(record) }
+    return {
+      type: 'comment',
+      comment: thread && {
+        forge: FORGE,
+        instance: thread.instance,
+        thread,
+        id: activity.uri,
+      },
+      body: record?.body === undefined
+        ? undefined
+        : commentBody(record),
+    }
   }
   if (kind !== 'state_change') {
     return undefined
   }
   return activity.collection === COLLECTIONS.issueState || activity.collection === COLLECTIONS.pullStatus
-    ? { type: 'state_change', state: toThreadState(stateToken(activity.record as StateRecord)) }
+    ? {
+        type: 'state_change',
+        state: toThreadState(stateToken(activity.record as StateRecord)),
+      }
     : { type: 'state_change', state: 'open' }
 }
 
@@ -253,9 +296,13 @@ export function toActivityEvent(
   return {
     forge: FORGE,
     instance,
-    id: activity.operation === 'create' || !activity.rev ? activity.uri : `${activity.uri}#${activity.rev}`,
+    id: activity.operation === 'create' || !activity.rev
+      ? activity.uri
+      : `${activity.uri}#${activity.rev}`,
     kind,
-    kindRaw: activity.operation === 'create' ? activity.collection : `${activity.collection}:${activity.operation}`,
+    kindRaw: activity.operation === 'create'
+      ? activity.collection
+      : `${activity.collection}:${activity.operation}`,
     action: toEventAction(activity),
     actionRaw: activity.operation,
     detail: activityDetail(activity, kind, thread),
@@ -266,7 +313,9 @@ export function toActivityEvent(
     thread,
     threadSnapshot: threadRecord && threadSnapshot({ title: threadRecord.title, body: threadRecord.body }),
     source,
-    payload: activity.record ? { uri: activity.uri, ...activity.record } : { uri: activity.uri },
+    payload: activity.record
+      ? { uri: activity.uri, ...activity.record }
+      : { uri: activity.uri },
   }
 }
 
@@ -280,7 +329,9 @@ export function toThread(
   url?: string,
 ): Thread {
   const value = toThreadState(state.token)
-  const pull = 'target' in record ? record : undefined
+  const pull = 'target' in record
+    ? record
+    : undefined
   const updatedAt = toDate(state.at) ?? toDate(pull?.rounds?.at(-1)?.createdAt) ?? toDate(record.createdAt)
   return {
     ref,
@@ -295,31 +346,53 @@ export function toThread(
     reviewers: [],
     createdAt: toDate(record.createdAt),
     updatedAt,
-    closedAt: value === 'open' ? undefined : toDate(state.at),
-    mergedAt: value === 'merged' ? toDate(state.at) : undefined,
+    closedAt: value === 'open'
+      ? undefined
+      : toDate(state.at),
+    mergedAt: value === 'merged'
+      ? toDate(state.at)
+      : undefined,
     lastActivityAt: updatedAt,
     labels: [],
     commentCount,
-    ...url ? { url } : {},
-    branches: pull ? { head: { ref: pull.source?.branch ?? '' }, base: { ref: pull.target.branch } } : undefined,
-    ...warnings.length ? { warnings } : {},
+    ...url
+      ? { url }
+      : {},
+    branches: pull
+      ? {
+          head: { ref: pull.source?.branch ?? '' },
+          base: { ref: pull.target.branch },
+        }
+      : undefined,
+    ...warnings.length
+      ? { warnings }
+      : {},
     raw: record,
   }
 }
 
 function commentBody(record: FeedCommentRecord | LegacyCommentRecord): string {
-  return typeof record.body === 'string' ? record.body : record.body.original ?? record.body.text ?? ''
+  return typeof record.body === 'string'
+    ? record.body
+    : record.body.original ?? record.body.text ?? ''
 }
 
 export function toRecordComment(thread: ResolvedThreadRef, uri: string, record: FeedCommentRecord | LegacyCommentRecord, author: Actor, webUrl: string): Comment {
-  const ref = { forge: FORGE, instance: thread.instance, thread, id: uri }
+  const ref = {
+    forge: FORGE,
+    instance: thread.instance,
+    thread,
+    id: uri,
+  }
   const url = commentUrl(webUrl, ref)
   return {
     ref,
     body: commentBody(record),
     author,
     createdAt: toDate(record.createdAt),
-    ...url ? { url } : {},
+    ...url
+      ? { url }
+      : {},
     raw: { uri, ...record },
   }
 }

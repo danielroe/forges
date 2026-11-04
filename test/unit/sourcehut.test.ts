@@ -11,22 +11,49 @@ const TOKEN = { type: 'token', token: 't' } as const
 const origin = { forge: 'sourcehut', instance: 'sr.ht' } as const
 const repo: RepoRef = { ...origin, owner: '~sircmpwn', name: 'scdoc' }
 const listRepo: RepoRef = { ...origin, owner: '~sircmpwn', name: 'sr.ht-dev' }
-const issue: ThreadRef = { ...origin, repo, kind: 'issue', number: '1' }
-const pull: ThreadRef = { ...origin, repo: listRepo, kind: 'pull_request', number: '1' }
+const issue: ThreadRef = {
+  ...origin,
+  repo,
+  kind: 'issue',
+  number: '1',
+}
+const pull: ThreadRef = {
+  ...origin,
+  repo: listRepo,
+  kind: 'pull_request',
+  number: '1',
+}
 const runRef = { ...origin, repo, id: '100' } as const
-const jobRef = { ...origin, repo, id: '200', run: runRef } as const
+const jobRef = {
+  ...origin,
+  repo,
+  id: '200',
+  run: runRef,
+} as const
 
 /** A GraphQL fixture, hand-authored from Sourcehut's published schema. */
 function gql(service: string, operationName: string, variables: Record<string, unknown>, data: unknown): Fixture {
   return {
     handAuthored: true,
-    request: { method: 'POST', url: `https://${service}.sr.ht/query`, operationName, variables },
-    response: { status: 200, body: { data } },
+    request: {
+      method: 'POST',
+      url: `https://${service}.sr.ht/query`,
+      operationName,
+      variables,
+    },
+    response: {
+      status: 200,
+      body: { data },
+    },
   }
 }
 
 function get(url: string, body: string): Fixture {
-  return { handAuthored: true, request: { method: 'GET', url }, response: { status: 200, body } }
+  return {
+    handAuthored: true,
+    request: { method: 'GET', url },
+    response: { status: 200, body },
+  }
 }
 
 const USER = {
@@ -41,7 +68,18 @@ const USER = {
   bio: 'hi',
   avatar: null,
 }
-const ALICE = { id: 2, created: '2020-01-01T00:00:00Z', updated: '2020-01-01T00:00:00Z', canonicalName: '~alice', username: 'alice', email: 'alice@example.org', url: null, location: null, bio: null, avatar: null }
+const ALICE = {
+  id: 2,
+  created: '2020-01-01T00:00:00Z',
+  updated: '2020-01-01T00:00:00Z',
+  canonicalName: '~alice',
+  username: 'alice',
+  email: 'alice@example.org',
+  url: null,
+  location: null,
+  bio: null,
+  avatar: null,
+}
 const REPOSITORY = {
   id: 42,
   rid: '42',
@@ -54,7 +92,12 @@ const REPOSITORY = {
   HEAD: { name: 'refs/heads/master', target: 'sha1' },
   access: 'RW',
 }
-const ACL = { id: 1, created: '2020-01-01T00:00:00Z', mode: 'RW', entity: ALICE }
+const ACL = {
+  id: 1,
+  created: '2020-01-01T00:00:00Z',
+  mode: 'RW',
+  entity: ALICE,
+}
 const COMMIT = {
   id: 'sha1',
   shortId: 'sha1',
@@ -63,17 +106,76 @@ const COMMIT = {
   message: 'Initial commit',
   parents: [],
 }
-const ARTIFACT = { id: 9, created: '2020-01-01T00:00:00Z', filename: 'a.txt', checksum: 'sha256:abc', size: 3, url: 'https://git.sr.ht/query/artifact/sha256:abc/a.txt' }
-const TAG_REF = { name: 'refs/tags/v1.0.0', target: 'sha2', follow: { id: 'sha2', committer: { time: '2021-01-01T00:00:00Z' } }, artifacts: { results: [ARTIFACT], cursor: null } }
+const ARTIFACT = {
+  id: 9,
+  created: '2020-01-01T00:00:00Z',
+  filename: 'a.txt',
+  checksum: 'sha256:abc',
+  size: 3,
+  url: 'https://git.sr.ht/query/artifact/sha256:abc/a.txt',
+}
+const TAG_REF = {
+  name: 'refs/tags/v1.0.0',
+  target: 'sha2',
+  follow: {
+    id: 'sha2',
+    committer: { time: '2021-01-01T00:00:00Z' },
+  },
+  artifacts: {
+    results: [ARTIFACT],
+    cursor: null,
+  },
+}
 const REFS = [
-  { name: 'HEAD', target: 'refs/heads/master', follow: { id: 'sha1' }, artifacts: { results: [], cursor: null } },
-  { name: 'refs/heads/master', target: 'sha1', follow: { id: 'sha1' }, artifacts: { results: [], cursor: null } },
+  {
+    name: 'HEAD',
+    target: 'refs/heads/master',
+    follow: { id: 'sha1' },
+    artifacts: { results: [], cursor: null },
+  },
+  {
+    name: 'refs/heads/master',
+    target: 'sha1',
+    follow: { id: 'sha1' },
+    artifacts: { results: [], cursor: null },
+  },
   TAG_REF,
 ]
-const TREE_ENTRY = { id: 'b1', name: 'README.md', mode: 33188, object: { type: 'BLOB', id: 'b1', shortId: 'b1', size: 5 } }
-const MATCH = { lang: 'TypeScript', name: 'src/a.ts', score: 1, lines: [{ line: 'import x', lineNo: 1 }] }
-const TRACKER = { id: 7, rid: '7', created: '2020-01-01T00:00:00Z', updated: '2020-01-02T00:00:00Z', owner: USER, name: 'scdoc', description: null, visibility: 'PUBLIC' }
-const LABEL = { id: 3, name: 'bug', backgroundColor: '#ff0000', foregroundColor: '#ffffff' }
+const TREE_ENTRY = {
+  id: 'b1',
+  name: 'README.md',
+  mode: 33188,
+  object: {
+    type: 'BLOB',
+    id: 'b1',
+    shortId: 'b1',
+    size: 5,
+  },
+}
+const MATCH = {
+  lang: 'TypeScript',
+  name: 'src/a.ts',
+  score: 1,
+  lines: [
+    { line: 'import x', lineNo: 1 },
+  ],
+}
+const TRACKER = {
+  id: 7,
+  rid: '7',
+  created: '2020-01-01T00:00:00Z',
+  updated: '2020-01-02T00:00:00Z',
+  owner: USER,
+  name: 'scdoc',
+  description: null,
+  visibility: 'PUBLIC',
+}
+const LABEL = {
+  id: 3,
+  name: 'bug',
+  backgroundColor: '#ff0000',
+  foregroundColor: '#ffffff',
+}
 const TICKET = {
   id: 1,
   created: '2021-01-01T00:00:00Z',
@@ -93,8 +195,20 @@ const EVENT = {
   id: 11,
   created: '2021-01-03T00:00:00Z',
   changes: [
-    { eventType: 'COMMENT', author: ALICE, text: 'Me too', authenticity: 'AUTHENTIC' },
-    { eventType: 'STATUS_CHANGE', editor: ALICE, oldStatus: 'REPORTED', newStatus: 'RESOLVED', oldResolution: 'UNRESOLVED', newResolution: 'WONT_FIX' },
+    {
+      eventType: 'COMMENT',
+      author: ALICE,
+      text: 'Me too',
+      authenticity: 'AUTHENTIC',
+    },
+    {
+      eventType: 'STATUS_CHANGE',
+      editor: ALICE,
+      oldStatus: 'REPORTED',
+      newStatus: 'RESOLVED',
+      oldResolution: 'UNRESOLVED',
+      newResolution: 'WONT_FIX',
+    },
   ],
 }
 const PATCHSET = {
@@ -107,9 +221,23 @@ const PATCHSET = {
   status: 'PROPOSED',
   submitter: ALICE,
   coverLetter: { id: 20, body: 'Please review' },
-  list: { id: 9, rid: '9', name: 'sr.ht-dev', owner: USER },
+  list: {
+    id: 9,
+    rid: '9',
+    name: 'sr.ht-dev',
+    owner: USER,
+  },
 }
-const EMAIL = { id: 30, sender: ALICE, received: '2021-02-03T00:00:00Z', date: null, subject: 'Re: Fix the thing', body: 'Looks good', messageID: 'm1', inReplyTo: null }
+const EMAIL = {
+  id: 30,
+  sender: ALICE,
+  received: '2021-02-03T00:00:00Z',
+  date: null,
+  subject: 'Re: Fix the thing',
+  body: 'Looks good',
+  messageID: 'm1',
+  inReplyTo: null,
+}
 const JOB = {
   id: 100,
   created: '2021-03-01T00:00:00Z',
@@ -122,7 +250,16 @@ const JOB = {
   image: 'debian',
   runner: null,
   owner: USER,
-  tasks: [{ id: 200, created: '2021-03-01T00:00:00Z', updated: '2021-03-01T01:00:00Z', name: 'build', status: 'SUCCESS', log: { last128KiB: 'log', fullURL: 'https://builds.sr.ht/~sircmpwn/job/100/log' } }],
+  tasks: [
+    {
+      id: 200,
+      created: '2021-03-01T00:00:00Z',
+      updated: '2021-03-01T01:00:00Z',
+      name: 'build',
+      status: 'SUCCESS',
+      log: { last128KiB: 'log', fullURL: 'https://builds.sr.ht/~sircmpwn/job/100/log' },
+    },
+  ],
   log: { last128KiB: '', fullURL: 'https://builds.sr.ht/~sircmpwn/job/100/log' },
   artifacts: [],
 }
@@ -130,27 +267,184 @@ const JOB = {
 const FIXTURES: Fixture[] = [
   gql('meta', 'UserByName', { username: 'sircmpwn' }, { userByName: USER }),
   gql('meta', 'Me', {}, { me: USER }),
-  gql('git', 'RepositoryByOwner', { owner: 'sircmpwn', name: 'scdoc' }, { user: { repository: REPOSITORY } }),
-  gql('git', 'MyRepositories', {}, { repositories: { results: [REPOSITORY], cursor: null } }),
-  gql('git', 'OwnerRepositories', { owner: 'sircmpwn' }, { user: { repositories: { results: [REPOSITORY], cursor: null } } }),
-  gql('git', 'RepositoryAcls', { owner: 'sircmpwn', name: 'scdoc' }, { user: { repository: { acls: { results: [ACL], cursor: null } } } }),
-  gql('git', 'RepositoryRefs', { owner: 'sircmpwn', name: 'scdoc' }, { user: { repository: { HEAD: { name: 'refs/heads/master' }, references: { results: REFS, cursor: null } } } }),
-  gql('git', 'RepositoryLog', { owner: 'sircmpwn', name: 'scdoc' }, { user: { repository: { log: { results: [COMMIT], cursor: null } } } }),
-  gql('git', 'RepositoryCommit', { owner: 'sircmpwn', name: 'scdoc', revspec: 'sha1' }, { user: { repository: { revparse_single: COMMIT } } }),
-  gql('git', 'RepositoryResolveRef', { owner: 'sircmpwn', name: 'scdoc', revspec: 'HEAD' }, { user: { repository: { revparse_single: { id: 'sha1' } } } }),
-  gql('git', 'RepositoryRootTree', { owner: 'sircmpwn', name: 'scdoc', revspec: 'HEAD' }, { user: { repository: { revparse_single: { tree: { entries: { results: [TREE_ENTRY], cursor: null } } } } } }),
-  gql('git', 'RepositoryFile', { owner: 'sircmpwn', name: 'scdoc', revspec: 'HEAD', path: 'README.md' }, { user: { repository: { path: { id: 'b1', object: { type: 'BLOB', id: 'b1', shortId: 'b1', text: 'hello', size: 5 } } } } }),
-  gql('git', 'RepositoryCodeSearch', { owner: 'sircmpwn', name: 'scdoc', query: 'import' }, { user: { repository: { codeSearch: { totalFiles: 1, totalMatches: 1, results: [MATCH], cursor: null } } } }),
-  gql('git', 'RepositoryReference', { owner: 'sircmpwn', name: 'scdoc', refName: 'refs/tags/v1.0.0' }, { user: { repository: { reference: TAG_REF } } }),
-  gql('todo', 'Tracker', { owner: 'sircmpwn', name: 'scdoc' }, { user: { tracker: TRACKER } }),
-  gql('todo', 'TrackerTickets', { owner: 'sircmpwn', name: 'scdoc' }, { user: { tracker: { tickets: { results: [TICKET], cursor: null } } } }),
-  gql('todo', 'Ticket', { owner: 'sircmpwn', name: 'scdoc', id: 1 }, { user: { tracker: { ticket: TICKET } } }),
-  gql('todo', 'TicketEvents', { owner: 'sircmpwn', name: 'scdoc', id: 1 }, { user: { tracker: { ticket: { events: { results: [EVENT], cursor: null } } } } }),
-  gql('todo', 'TrackerLabels', { owner: 'sircmpwn', name: 'scdoc' }, { user: { tracker: { labels: { results: [LABEL], cursor: null } } } }),
+  gql('git', 'RepositoryByOwner', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: { repository: REPOSITORY },
+  }),
+  gql('git', 'MyRepositories', {}, {
+    repositories: {
+      results: [REPOSITORY],
+      cursor: null,
+    },
+  }),
+  gql('git', 'OwnerRepositories', { owner: 'sircmpwn' }, {
+    user: {
+      repositories: {
+        results: [REPOSITORY],
+        cursor: null,
+      },
+    },
+  }),
+  gql('git', 'RepositoryAcls', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: {
+      repository: {
+        acls: {
+          results: [ACL],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('git', 'RepositoryRefs', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: {
+      repository: {
+        HEAD: { name: 'refs/heads/master' },
+        references: { results: REFS, cursor: null },
+      },
+    },
+  }),
+  gql('git', 'RepositoryLog', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: {
+      repository: {
+        log: {
+          results: [COMMIT],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('git', 'RepositoryCommit', { owner: 'sircmpwn', name: 'scdoc', revspec: 'sha1' }, {
+    user: {
+      repository: { revparse_single: COMMIT },
+    },
+  }),
+  gql('git', 'RepositoryResolveRef', { owner: 'sircmpwn', name: 'scdoc', revspec: 'HEAD' }, {
+    user: {
+      repository: {
+        revparse_single: { id: 'sha1' },
+      },
+    },
+  }),
+  gql('git', 'RepositoryRootTree', { owner: 'sircmpwn', name: 'scdoc', revspec: 'HEAD' }, {
+    user: {
+      repository: {
+        revparse_single: {
+          tree: {
+            entries: {
+              results: [TREE_ENTRY],
+              cursor: null,
+            },
+          },
+        },
+      },
+    },
+  }),
+  gql('git', 'RepositoryFile', {
+    owner: 'sircmpwn',
+    name: 'scdoc',
+    revspec: 'HEAD',
+    path: 'README.md',
+  }, {
+    user: {
+      repository: {
+        path: {
+          id: 'b1',
+          object: {
+            type: 'BLOB',
+            id: 'b1',
+            shortId: 'b1',
+            text: 'hello',
+            size: 5,
+          },
+        },
+      },
+    },
+  }),
+  gql('git', 'RepositoryCodeSearch', { owner: 'sircmpwn', name: 'scdoc', query: 'import' }, {
+    user: {
+      repository: {
+        codeSearch: {
+          totalFiles: 1,
+          totalMatches: 1,
+          results: [MATCH],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('git', 'RepositoryReference', { owner: 'sircmpwn', name: 'scdoc', refName: 'refs/tags/v1.0.0' }, {
+    user: {
+      repository: { reference: TAG_REF },
+    },
+  }),
+  gql('todo', 'Tracker', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: { tracker: TRACKER },
+  }),
+  gql('todo', 'TrackerTickets', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: {
+      tracker: {
+        tickets: {
+          results: [TICKET],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('todo', 'Ticket', { owner: 'sircmpwn', name: 'scdoc', id: 1 }, {
+    user: {
+      tracker: { ticket: TICKET },
+    },
+  }),
+  gql('todo', 'TicketEvents', { owner: 'sircmpwn', name: 'scdoc', id: 1 }, {
+    user: {
+      tracker: {
+        ticket: {
+          events: {
+            results: [EVENT],
+            cursor: null,
+          },
+        },
+      },
+    },
+  }),
+  gql('todo', 'TrackerLabels', { owner: 'sircmpwn', name: 'scdoc' }, {
+    user: {
+      tracker: {
+        labels: {
+          results: [LABEL],
+          cursor: null,
+        },
+      },
+    },
+  }),
   gql('lists', 'Patchset', { id: 1 }, { patchset: PATCHSET }),
-  gql('lists', 'ListPatches', { owner: 'sircmpwn', name: 'sr.ht-dev' }, { user: { list: { patches: { results: [PATCHSET], cursor: null } } } }),
-  gql('lists', 'PatchsetEmails', { id: 1 }, { patchset: { id: 1, list: PATCHSET.list, thread: { descendants: { results: [EMAIL], cursor: null } } } }),
-  gql('builds', 'Jobs', {}, { jobs: { results: [JOB], cursor: null } }),
+  gql('lists', 'ListPatches', { owner: 'sircmpwn', name: 'sr.ht-dev' }, {
+    user: {
+      list: {
+        patches: {
+          results: [PATCHSET],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('lists', 'PatchsetEmails', { id: 1 }, {
+    patchset: {
+      id: 1,
+      list: PATCHSET.list,
+      thread: {
+        descendants: {
+          results: [EMAIL],
+          cursor: null,
+        },
+      },
+    },
+  }),
+  gql('builds', 'Jobs', {}, {
+    jobs: {
+      results: [JOB],
+      cursor: null,
+    },
+  }),
   gql('builds', 'Job', { id: 100 }, { job: JOB }),
   get('https://builds.sr.ht/~sircmpwn/job/100/log', 'the log'),
   get('https://git.sr.ht/query/artifact/sha256:abc/a.txt', 'asset'),
@@ -166,7 +460,10 @@ function provider(fixtures: Fixture[] = FIXTURES, auth: { type: 'token', token: 
     }
     return response
   }
-  return { forge: sourcehut({ auth, fetch }), calls: served.calls }
+  return {
+    forge: sourcehut({ auth, fetch }),
+    calls: served.calls,
+  }
 }
 
 describe('sourcehut', () => {
@@ -174,7 +471,12 @@ describe('sourcehut', () => {
     const { forge } = provider()
     expect((await forge.repos.get(repo)).ref).toMatchObject({ owner: '~sircmpwn', name: 'scdoc' })
     expect((await forge.repos.list().page()).items).toHaveLength(1)
-    expect((await forge.repos.byOwner({ ...origin, owner: '~sircmpwn', name: '', kind: 'namespace' }).page()).items).toHaveLength(1)
+    expect((await forge.repos.byOwner({
+      ...origin,
+      owner: '~sircmpwn',
+      name: '',
+      kind: 'namespace',
+    }).page()).items).toHaveLength(1)
     expect((await forge.repos.collaborators(repo).page()).items[0]).toMatchObject({ role: 'write', roleRaw: 'RW' })
     expect((await forge.repos.labels(repo).page()).items[0]).toMatchObject({ name: 'bug', colour: 'ff0000' })
     expect(await forge.repos.permissionFor(repo, '~alice')).toBe('write')
@@ -202,7 +504,10 @@ describe('sourcehut', () => {
     expect((await forge.threads.comments(issue).page()).items[0]!.body).toBe('Me too')
     expect((await forge.threads.getComment({ ...origin, thread: issue, id: '11' })).body).toBe('Me too')
     expect((await forge.threads.events(issue).page()).items[0]!.kind).toBe('comment')
-    expect((await forge.threads.events(issue).page()).items[1]).toMatchObject({ kind: 'state_change', detail: { type: 'state_change', state: 'closed', reason: 'not_planned' } })
+    expect((await forge.threads.events(issue).page()).items[1]).toMatchObject({
+      kind: 'state_change',
+      detail: { type: 'state_change', state: 'closed', reason: 'not_planned' },
+    })
     expect(await forge.threads.subscription(issue)).toBe('subscribed')
   })
 
@@ -235,9 +540,22 @@ describe('sourcehut', () => {
   it('attributes an account-wide build to its account, not the queried repository', async () => {
     // `jobs` lists the authenticated account's builds and never names a job's
     // repository, so the run ref follows the job's account rather than `repo`.
-    const otherJob = { ...JOB, id: 300, owner: ALICE, tags: ['other'] }
+    const otherJob = {
+      ...JOB,
+      id: 300,
+      owner: ALICE,
+      tags: ['other'],
+    }
     const withoutJobs = FIXTURES.filter(fixture => fixture.request.operationName !== 'Jobs')
-    const { forge } = provider([...withoutJobs, gql('builds', 'Jobs', {}, { jobs: { results: [otherJob], cursor: null } })])
+    const { forge } = provider([
+      ...withoutJobs,
+      gql('builds', 'Jobs', {}, {
+        jobs: {
+          results: [otherJob],
+          cursor: null,
+        },
+      }),
+    ])
     const [run] = (await forge.ci.runs(repo).page()).items
 
     expect(run!.ref.repo).toMatchObject({ owner: '~alice', name: '', kind: 'namespace' })
@@ -246,14 +564,31 @@ describe('sourcehut', () => {
   it('reports a not-found for a job, build or patchset that does not exist', async () => {
     const { forge } = provider()
     // A job is a task of its build, so an id the build does not have is not found, not the build's own log.
-    await expect(forge.ci.log({ ...origin, repo, id: '999', run: runRef })).rejects.toThrow(NotFoundError)
+    await expect(forge.ci.log({
+      ...origin,
+      repo,
+      id: '999',
+      run: runRef,
+    })).rejects.toThrow(NotFoundError)
     await expect(forge.ci.getRun({ ...origin, repo, id: 'nope' })).rejects.toThrow(NotFoundError)
     // A patchset id is global, so one from another list is not the pull this ref names.
-    await expect(forge.threads.get({ ...origin, repo: { ...origin, owner: '~other', name: 'other' }, kind: 'pull_request', number: '1' })).rejects.toThrow(NotFoundError)
+    await expect(forge.threads.get({
+      ...origin,
+      repo: { ...origin, owner: '~other', name: 'other' },
+      kind: 'pull_request',
+      number: '1',
+    })).rejects.toThrow(NotFoundError)
   })
 
   it('sends the token through request() to a service subdomain', async () => {
-    const fixture: Fixture = { handAuthored: true, request: { method: 'GET', url: 'https://todo.sr.ht/api/1/user' }, response: { status: 200, body: { ok: true } } }
+    const fixture: Fixture = {
+      handAuthored: true,
+      request: { method: 'GET', url: 'https://todo.sr.ht/api/1/user' },
+      response: {
+        status: 200,
+        body: { ok: true },
+      },
+    }
     const { forge, calls } = provider([...FIXTURES, fixture])
     await forge.request('GET', 'https://todo.sr.ht/api/1/user')
     expect(calls.at(-1)?.authorization).toBe('Bearer t')
@@ -266,7 +601,12 @@ describe('sourcehut', () => {
     expect((await forge.search.code({ repo, text: 'import' }).page()).items[0]).toMatchObject({ path: 'src/a.ts' })
     expect((await forge.search.repos({ text: 'scdoc' }).page()).items).toHaveLength(1)
     expect((await forge.releases.list(repo).page()).items[0]!.tag).toBe('v1.0.0')
-    expect((await forge.releases.get({ ...origin, repo, id: 'v1.0.0', tag: 'v1.0.0' })).tag).toBe('v1.0.0')
+    expect((await forge.releases.get({
+      ...origin,
+      repo,
+      id: 'v1.0.0',
+      tag: 'v1.0.0',
+    })).tag).toBe('v1.0.0')
     expect((await forge.releases.getByTag(repo, 'v1.0.0')).tag).toBe('v1.0.0')
     expect((await forge.releases.latest(repo))?.tag).toBe('v1.0.0')
     const asset = (await forge.releases.list(repo).page()).items[0]!.assets![0]!
@@ -279,8 +619,12 @@ describe('sourcehut web links', () => {
 
   it('builds a raw file URL on the blob route', () => {
     // Sourcehut serves raw bytes on `blob`, unlike GitHub's `raw`.
-    expect(forge.urlFor({ raw: { repo, path: 'README.md', at: 'master' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/master/README.md')
-    expect(forge.urlFor({ raw: { repo, path: 'src/a b.ts', at: 'v1.0.0' } })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/v1.0.0/src/a%20b.ts')
+    expect(forge.urlFor({
+      raw: { repo, path: 'README.md', at: 'master' },
+    })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/master/README.md')
+    expect(forge.urlFor({
+      raw: { repo, path: 'src/a b.ts', at: 'v1.0.0' },
+    })).toBe('https://git.sr.ht/~sircmpwn/scdoc/blob/v1.0.0/src/a%20b.ts')
   })
 
   it('reads a repository page on the instance root', () => {
@@ -300,25 +644,43 @@ describe('sourcehut explicit baseUrl', () => {
 
   it('treats the public git host as the instance root', () => {
     expect(explicit.parseUrl('https://git.sr.ht/~user/repo')).toEqual(implicit.parseUrl('https://git.sr.ht/~user/repo'))
-    expect(explicit.parseUrl('https://git.sr.ht/~user/repo')?.repo).toEqual({ forge: 'sourcehut', instance: 'sr.ht', owner: '~user', name: 'repo' })
+    expect(explicit.parseUrl('https://git.sr.ht/~user/repo')?.repo).toEqual({
+      forge: 'sourcehut',
+      instance: 'sr.ht',
+      owner: '~user',
+      name: 'repo',
+    })
     expect(explicit.instance).toBe('sr.ht')
     expect(explicit.webOrigin).toBe('https://git.sr.ht')
   })
 
   it('still reads the issue and patchset hosts', () => {
     for (const forge of [implicit, explicit]) {
-      expect(forge.parseUrl('https://todo.sr.ht/~user/repo/42')).toMatchObject({ repo: { instance: 'sr.ht' }, thread: { kind: 'issue', number: '42' } })
-      expect(forge.parseUrl('https://lists.sr.ht/~user/repo/patches/7')).toMatchObject({ repo: { instance: 'sr.ht' }, thread: { kind: 'pull_request', number: '7' } })
+      expect(forge.parseUrl('https://todo.sr.ht/~user/repo/42')).toMatchObject({
+        repo: { instance: 'sr.ht' },
+        thread: { kind: 'issue', number: '42' },
+      })
+      expect(forge.parseUrl('https://lists.sr.ht/~user/repo/patches/7')).toMatchObject({
+        repo: { instance: 'sr.ht' },
+        thread: { kind: 'pull_request', number: '7' },
+      })
     }
   })
 
   it('resolves a self-hosted instance from its root or one of its service hosts', () => {
     for (const baseUrl of ['https://sr.example.com', 'https://git.sr.example.com']) {
       const forge = sourcehut({ auth: TOKEN, baseUrl })
-      const customRepo: RepoRef = { forge: 'sourcehut', instance: 'sr.example.com', owner: '~user', name: 'repo' }
+      const customRepo: RepoRef = {
+        forge: 'sourcehut',
+        instance: 'sr.example.com',
+        owner: '~user',
+        name: 'repo',
+      }
       expect(forge.instance).toBe('sr.example.com')
       expect(forge.parseUrl('https://git.sr.example.com/~user/repo')).toMatchObject({ repo: customRepo })
-      expect(forge.parseUrl('https://todo.sr.example.com/~user/repo/42')).toMatchObject({ thread: { kind: 'issue', number: '42' } })
+      expect(forge.parseUrl('https://todo.sr.example.com/~user/repo/42')).toMatchObject({
+        thread: { kind: 'issue', number: '42' },
+      })
       expect(forge.parseUrl('https://git.sr.ht/~user/repo')).toBeUndefined()
       expect(forge.urlFor({ repo: customRepo })).toBe('https://git.sr.example.com/~user/repo')
     }
@@ -334,25 +696,49 @@ describe('sourcehut webhooks', () => {
   it('verifies and translates a signed delivery', async () => {
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
     const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey })
-    const body = markPayload(JSON.stringify({ data: { webhook: {
-      uuid: 'u1',
-      event: 'GIT_POST_RECEIVE',
-      date: '2021-01-01T00:00:00Z',
-      repository: { name: 'scdoc', owner: { canonicalName: '~sircmpwn' } },
-      pusher: { canonicalName: '~alice' },
-      updates: [{ ref: { name: 'refs/heads/master' }, old: { id: 'a' }, new: { id: 'b' } }],
-    } } }), 'documented')
+    const body = markPayload(JSON.stringify({
+      data: {
+        webhook: {
+          uuid: 'u1',
+          event: 'GIT_POST_RECEIVE',
+          date: '2021-01-01T00:00:00Z',
+          repository: {
+            name: 'scdoc',
+            owner: { canonicalName: '~sircmpwn' },
+          },
+          pusher: { canonicalName: '~alice' },
+          updates: [
+            {
+              ref: { name: 'refs/heads/master' },
+              old: { id: 'a' },
+              new: { id: 'b' },
+            },
+          ],
+        },
+      },
+    }), 'documented')
     const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
     const events = await forge.webhooks.ingest({ headers, body })
     expect(events).toHaveLength(1)
-    expect(events[0]).toMatchObject({ kind: 'push', source: 'webhook', repo: { owner: '~sircmpwn', name: 'scdoc' } })
+    expect(events[0]).toMatchObject({
+      kind: 'push',
+      source: 'webhook',
+      repo: { owner: '~sircmpwn', name: 'scdoc' },
+    })
   })
 
   it('rejects a delivery signed by another key', async () => {
-    const other = generateKeyPairSync('ed25519', { privateKeyEncoding: { type: 'pkcs8', format: 'der' }, publicKeyEncoding: { type: 'spki', format: 'der' } })
+    const other = generateKeyPairSync('ed25519', {
+      privateKeyEncoding: { type: 'pkcs8', format: 'der' },
+      publicKeyEncoding: { type: 'spki', format: 'der' },
+    })
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
     const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch, webhookPublicKey })
-    const body = JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } })
+    const body = JSON.stringify({
+      data: {
+        webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' },
+      },
+    })
     const headers = await signDelivery('sourcehut', body, other.privateKey.toString('base64'))
     await expect(forge.webhooks.ingest({ headers, body })).rejects.toThrow()
   })
@@ -361,7 +747,11 @@ describe('sourcehut webhooks', () => {
     const webhookPublicKey = publicKey.subarray(publicKey.length - 32).toString('base64')
     // No provider key, so only the delivery's own key can verify the signature.
     const forge = sourcehut({ auth: TOKEN, fetch: serveFixtures([]).fetch })
-    const body = markPayload(JSON.stringify({ data: { webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' } } }), 'documented')
+    const body = markPayload(JSON.stringify({
+      data: {
+        webhook: { uuid: 'u1', event: 'REPO_UPDATE', date: '2021-01-01T00:00:00Z' },
+      },
+    }), 'documented')
     const headers = await signDelivery('sourcehut', body, privateKey.toString('base64'))
 
     await expect(forge.webhooks.ingest({ headers, body, secret: webhookPublicKey })).resolves.toHaveLength(1)

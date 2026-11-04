@@ -22,13 +22,49 @@ import { rolldown } from 'rolldown'
 
 /** `absent` is a string the entry chunk must not hold, such as one only the lazily loaded webhook translation holds; `budget` is the most the entry chunk may weigh, minified. */
 const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: string, budget?: number }> = [
-  { name: 'forges', source: 'index.mjs', imports: 'createForges', budget: 5_000 },
-  { name: 'forges/github', source: 'github/index.mjs', imports: 'github', absent: 'x-github-event' },
-  { name: 'forges/gitlab', source: 'gitlab/index.mjs', imports: 'gitlab', absent: 'x-gitlab-event' },
-  { name: 'forges/tangled', source: 'tangled/index.mjs', imports: 'tangled', absent: 'x-tangled-event' },
-  { name: 'forges/gitea', source: 'gitea/index.mjs', imports: 'gitea', absent: 'pull_request_review_comment_created' },
-  { name: 'forges/bitbucket', source: 'bitbucket/index.mjs', imports: 'bitbucket', absent: 'x-event-key' },
-  { name: 'forges/web', source: 'web/index.mjs', imports: 'github', absent: 'x-github-api-version', budget: 10_000 },
+  {
+    name: 'forges',
+    source: 'index.mjs',
+    imports: 'createForges',
+    budget: 5_000,
+  },
+  {
+    name: 'forges/github',
+    source: 'github/index.mjs',
+    imports: 'github',
+    absent: 'x-github-event',
+  },
+  {
+    name: 'forges/gitlab',
+    source: 'gitlab/index.mjs',
+    imports: 'gitlab',
+    absent: 'x-gitlab-event',
+  },
+  {
+    name: 'forges/tangled',
+    source: 'tangled/index.mjs',
+    imports: 'tangled',
+    absent: 'x-tangled-event',
+  },
+  {
+    name: 'forges/gitea',
+    source: 'gitea/index.mjs',
+    imports: 'gitea',
+    absent: 'pull_request_review_comment_created',
+  },
+  {
+    name: 'forges/bitbucket',
+    source: 'bitbucket/index.mjs',
+    imports: 'bitbucket',
+    absent: 'x-event-key',
+  },
+  {
+    name: 'forges/web',
+    source: 'web/index.mjs',
+    imports: 'github',
+    absent: 'x-github-api-version',
+    budget: 10_000,
+  },
 ]
 
 interface Size {
@@ -40,7 +76,12 @@ const kB = (bytes: number, digits = 1) => (bytes / 1000).toFixed(digits)
 
 /** The sizes the docs quote: `read` takes them from a match of `pattern`, and `render` writes them back. */
 const DOCUMENTED: Array<{ file: string, bundle: string, pattern: RegExp, read: (match: RegExpMatchArray) => Partial<Size>, render: (size: Size) => string }> = [
-  ...[['GitHub', 'forges/github'], ['GitLab', 'forges/gitlab'], ['Gitea / Forgejo', 'forges/gitea'], ['Bitbucket', 'forges/bitbucket']].map(([label, bundle]) => ({
+  ...[
+    ['GitHub', 'forges/github'],
+    ['GitLab', 'forges/gitlab'],
+    ['Gitea / Forgejo', 'forges/gitea'],
+    ['Bitbucket', 'forges/bitbucket'],
+  ].map(([label, bundle]) => ({
     file: 'docs/content/2.guides/8.bundling.md',
     bundle: bundle!,
     pattern: new RegExp(`^\\| ${label!.replace('/', '\\/')} \\| ([\\d.]+) kB, ([\\d.]+) kB gzip \\|`, 'm'),
@@ -83,11 +124,16 @@ async function measure(directory: string, source: string, imports: string) {
   const bundle = await rolldown({ input: entry, platform: 'browser' })
   try {
     const { output } = await bundle.generate({ format: 'esm', minify: true })
-    const chunks = output.flatMap(chunk => chunk.type === 'chunk' ? [chunk] : [])
+    const chunks = output.flatMap(chunk => chunk.type === 'chunk'
+      ? [chunk]
+      : [])
     const byName = new Map(chunks.map(chunk => [chunk.fileName, chunk]))
     const reached = new Set(chunks.filter(chunk => chunk.isEntry).map(chunk => chunk.fileName))
     for (const name of reached) {
-      for (const next of [...byName.get(name)?.imports ?? [], ...byName.get(name)?.dynamicImports ?? []]) {
+      for (const next of [
+        ...byName.get(name)?.imports ?? [],
+        ...byName.get(name)?.dynamicImports ?? [],
+      ]) {
         reached.add(next)
       }
     }
@@ -95,9 +141,17 @@ async function measure(directory: string, source: string, imports: string) {
     const others = chunks.filter(chunk => !chunk.isEntry).map(chunk => ({
       name: chunk.fileName,
       size: Buffer.byteLength(chunk.code),
-      kind: !reached.has(chunk.fileName) ? 'unreachable' : chunk.isDynamicEntry ? 'dynamic import' : 'shared',
+      kind: !reached.has(chunk.fileName)
+        ? 'unreachable'
+        : chunk.isDynamicEntry ? 'dynamic import' : 'shared',
     }))
-    return { minified: eager.byteLength, gzipped: gzipSync(eager).byteLength, lazy: others.reduce((total, chunk) => total + chunk.size, 0), others, code: eager.toString() }
+    return {
+      minified: eager.byteLength,
+      gzipped: gzipSync(eager).byteLength,
+      lazy: others.reduce((total, chunk) => total + chunk.size, 0),
+      others,
+      code: eager.toString(),
+    }
   }
   finally {
     await bundle.close()
@@ -113,7 +167,9 @@ try {
       if (!values.report) {
         throw error
       }
-      console.warn(`${name.padEnd(16)} skipped: ${error instanceof Error ? error.message.split('\n')[0] : error}`)
+      console.warn(`${name.padEnd(16)} skipped: ${error instanceof Error
+        ? error.message.split('\n')[0]
+        : error}`)
     })
     if (!result) {
       continue
@@ -143,7 +199,10 @@ finally {
 
 if (resolve(values.dist) === defaultDist) {
   const root = fileURLToPath(new URL('../', import.meta.url))
-  const originals = new Map(DOCUMENTED.map(({ file }) => [file, readFileSync(join(root, file), 'utf8')]))
+  const originals = new Map(DOCUMENTED.map(({ file }) => [
+    file,
+    readFileSync(join(root, file), 'utf8'),
+  ]))
   const texts = new Map(originals)
   for (const { file, bundle, pattern, read, render } of DOCUMENTED) {
     const size = bundles.find(entry => entry.name === bundle)

@@ -31,8 +31,18 @@ function credentialForms(env: Record<string, string | undefined>): Array<[name: 
     if (!CREDENTIAL.test(name) || !value || value.length < 8) {
       continue
     }
-    const lines = value.includes('\n') ? value.split('\n').map(line => line.trim()).filter(line => line.length >= 20 && !line.startsWith('-----')) : []
-    for (const form of [value, ...lines, base64(value), encodeURIComponent(value), base64(`:${value}`), base64(`x-access-token:${value}`), ...accounts.map(account => base64(`${account}:${value}`))]) {
+    const lines = value.includes('\n')
+      ? value.split('\n').map(line => line.trim()).filter(line => line.length >= 20 && !line.startsWith('-----'))
+      : []
+    for (const form of [
+      value,
+      ...lines,
+      base64(value),
+      encodeURIComponent(value),
+      base64(`:${value}`),
+      base64(`x-access-token:${value}`),
+      ...accounts.map(account => base64(`${account}:${value}`)),
+    ]) {
       forms.push([name, form])
     }
   }
@@ -54,7 +64,9 @@ function* files(path: string): Generator<string> {
 export function scanForCredentials(env: Record<string, string | undefined>, paths: string[]): Array<{ file: string, name: string }> {
   const forms = credentialForms(env)
   const found: Array<{ file: string, name: string }> = []
-  for (const file of paths.flatMap(path => [...files(path)])) {
+  for (const file of paths.flatMap(path => [
+    ...files(path),
+  ])) {
     const text = readFileSync(file, 'utf8')
     for (const name of new Set(forms.filter(([, form]) => text.includes(form)).map(([name]) => name))) {
       found.push({ file, name })

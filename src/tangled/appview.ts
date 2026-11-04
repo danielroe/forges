@@ -51,7 +51,16 @@ export interface AppviewPage {
  * absolute because a relative path that starts with a DID reads as a URL.
  */
 export async function listAppviewThreads(fetcher: Fetcher, baseUrl: string, repo: RepoRef, kind: 'issue' | 'pull_request', author: string | undefined, offset: number, signal?: AbortSignal): Promise<AppviewPage> {
-  const response = await fetcher.raw(`${baseUrl}${repoPath(repo)}/${SECTIONS[kind]}`, { query: { q: author ? `state:all author:${author}` : 'state:all', limit: PAGE_SIZE, offset }, signal })
+  const response = await fetcher.raw(`${baseUrl}${repoPath(repo)}/${SECTIONS[kind]}`, {
+    query: {
+      q: author
+        ? `state:all author:${author}`
+        : 'state:all',
+      limit: PAGE_SIZE,
+      offset,
+    },
+    signal,
+  })
   return parseAppviewThreads(await response.text(), kind)
 }
 
@@ -59,7 +68,9 @@ export async function listAppviewThreads(fetcher: Fetcher, baseUrl: string, repo
 export function parseAppviewThreads(html: string, kind: 'issue' | 'pull_request'): AppviewPage {
   const section = SECTIONS[kind]
   const pattern = new RegExp(`href="[^"]*?/${section}/(\\d+)"[^>]*>\\s*([\\s\\S]*?)\\s*<span[^>]*>#\\1</span>`, 'g')
-  const matches = [...html.matchAll(pattern)]
+  const matches = [
+    ...html.matchAll(pattern),
+  ]
   const threads = matches.map((match, index) => {
     const rest = html.slice(match.index! + match[0].length, matches[index + 1]?.index ?? html.length)
     return {
@@ -69,7 +80,11 @@ export function parseAppviewThreads(html: string, kind: 'issue' | 'pull_request'
       at: date(/<time datetime="([^"]+)"/.exec(rest)?.[1]),
     }
   })
-  const listed = [...new Set([...html.matchAll(new RegExp(`/${section}/(\\d+)`, 'g'))].map(match => match[1]!))]
+  const listed = [
+    ...new Set([
+      ...html.matchAll(new RegExp(`/${section}/(\\d+)`, 'g')),
+    ].map(match => match[1]!)),
+  ]
   return { threads, listed }
 }
 
@@ -99,7 +114,11 @@ export function appviewNumber(threads: AppviewThread[], thread: ListedThread): s
 
 /** A thread record, to find in the appview's list. */
 export function listedThread(uri: AtUri, record: { title: string, createdAt?: string }): ListedThread {
-  return { title: record.title, author: uri.did, createdAt: createdAtOf(uri.rkey, toDate(record.createdAt)) }
+  return {
+    title: record.title,
+    author: uri.did,
+    createdAt: createdAtOf(uri.rkey, toDate(record.createdAt)),
+  }
 }
 
 /** A title reduced to its letters and digits, so that markup and punctuation do not tell the rendered and stored titles apart. */
@@ -109,10 +128,16 @@ function titleKey(title: string): string {
 
 /** How far the appview saw a thread from the moment it was created. */
 function distance(thread: AppviewThread, createdAt: Date): number {
-  return thread.at ? Math.abs(thread.at.getTime() - createdAt.getTime()) : Number.POSITIVE_INFINITY
+  return thread.at
+    ? Math.abs(thread.at.getTime() - createdAt.getTime())
+    : Number.POSITIVE_INFINITY
 }
 
 function date(value: string | undefined): Date | undefined {
-  const parsed = value ? new Date(value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)))) : undefined
-  return parsed && !Number.isNaN(parsed.getTime()) ? parsed : undefined
+  const parsed = value
+    ? new Date(value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code))))
+    : undefined
+  return parsed && !Number.isNaN(parsed.getTime())
+    ? parsed
+    : undefined
 }

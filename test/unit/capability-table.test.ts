@@ -37,31 +37,97 @@ type Uncovered = Exclude<SpecPath<ProviderSpec>, TablePath>
 const auth = { type: 'token', token: 'token' } as const
 
 const providers = [
-  ['github token', () => github({ auth })],
-  ['github app', () => github({ auth: { type: 'app', appId: 1, privateKey: '', installationId: 1 } })],
-  ['github anonymous', () => github({})],
-  ['github read-only', () => github({ auth, readOnly: true })],
-  ['gitlab token', () => gitlab({ auth })],
-  ['gitlab anonymous', () => gitlab({})],
-  ['bitbucket token', () => bitbucket({ auth })],
-  ['forgejo token', () => forgejo({ auth })],
-  ['forgejo anonymous', () => forgejo({})],
-  ['gitea token', () => gitea({ auth })],
-  ['gitee token', () => gitee({ auth })],
-  ['azure devops token', () => azureDevOps({ auth, organization: 'acme' })],
-  ['cursor origin token', () => cursorOrigin({ auth })],
-  ['tangled app password', () => tangled({ auth: { type: 'app_password', identifier: 'handle', password: 'password' }, notificationsUrl: 'https://notifications.example' })],
-  ['fake', () => fake()],
+  [
+    'github token',
+    () => github({ auth }),
+  ],
+  [
+    'github app',
+    () => github({
+      auth: {
+        type: 'app',
+        appId: 1,
+        privateKey: '',
+        installationId: 1,
+      },
+    }),
+  ],
+  [
+    'github anonymous',
+    () => github({}),
+  ],
+  [
+    'github read-only',
+    () => github({ auth, readOnly: true }),
+  ],
+  [
+    'gitlab token',
+    () => gitlab({ auth }),
+  ],
+  [
+    'gitlab anonymous',
+    () => gitlab({}),
+  ],
+  [
+    'bitbucket token',
+    () => bitbucket({ auth }),
+  ],
+  [
+    'forgejo token',
+    () => forgejo({ auth }),
+  ],
+  [
+    'forgejo anonymous',
+    () => forgejo({}),
+  ],
+  [
+    'gitea token',
+    () => gitea({ auth }),
+  ],
+  [
+    'gitee token',
+    () => gitee({ auth }),
+  ],
+  [
+    'azure devops token',
+    () => azureDevOps({ auth, organization: 'acme' }),
+  ],
+  [
+    'cursor origin token',
+    () => cursorOrigin({ auth }),
+  ],
+  [
+    'tangled app password',
+    () => tangled({
+      auth: { type: 'app_password', identifier: 'handle', password: 'password' },
+      notificationsUrl: 'https://notifications.example',
+    }),
+  ],
+  [
+    'fake',
+    () => fake(),
+  ],
 ] as const
 
-const KIND_KEYS = new Set(['issue', 'pull_request', 'discussion', 'commit', 'dependency', 'code_scanning', 'secret', 'advisory'])
+const KIND_KEYS = new Set([
+  'issue',
+  'pull_request',
+  'discussion',
+  'commit',
+  'dependency',
+  'code_scanning',
+  'secret',
+  'advisory',
+])
 
 /** Leaf paths of a capability object; a record keyed by thread or alert kind is itself a leaf. */
 function capabilityLeaves(value: unknown, prefix = ''): string[] {
   const isGroup = Boolean(value) && typeof value === 'object' && !Array.isArray(value)
     && !Object.keys(value as object).every(key => KIND_KEYS.has(key))
   return isGroup
-    ? Object.keys(value as object).flatMap(key => capabilityLeaves((value as Record<string, unknown>)[key], prefix ? `${prefix}.${key}` : key))
+    ? Object.keys(value as object).flatMap(key => capabilityLeaves((value as Record<string, unknown>)[key], prefix
+        ? `${prefix}.${key}`
+        : key))
     : [prefix]
 }
 
@@ -73,7 +139,9 @@ function specVerbs(spec: unknown, prefix = ''): string[] {
   if ('run' in spec && ('support' in spec || 'kinds' in spec)) {
     return [prefix]
   }
-  return Object.entries(spec).flatMap(([key, value]) => specVerbs(value, prefix ? `${prefix}.${key}` : key))
+  return Object.entries(spec).flatMap(([key, value]) => specVerbs(value, prefix
+    ? `${prefix}.${key}`
+    : key))
 }
 
 const declared = new Set(providers.flatMap(([, create]) => {
@@ -86,20 +154,35 @@ describe('capability table', () => {
   it('declares listings as their page verb', () => {
     const labels = table.find(entry => entry.capability === 'repos.labels')
 
-    expect(labels).toEqual({ capability: 'repos.labels', spec: 'repos.labelsPage', verbs: ['repos.labels'], listings: ['repos.labels'] })
+    expect(labels).toEqual({
+      capability: 'repos.labels',
+      spec: 'repos.labelsPage',
+      verbs: ['repos.labels'],
+      listings: ['repos.labels'],
+    })
     expect(table.filter(entry => 'listing' in entry)).toEqual([])
   })
 
   it('produces every capability leaf exactly once', () => {
-    const produced = table.flatMap(entry => entry.verbs?.length ? entry.verbs : [entry.capability])
+    const produced = table.flatMap(entry => entry.verbs?.length
+      ? entry.verbs
+      : [entry.capability])
 
     expect(new Set(produced).size).toBe(produced.length)
     for (const [name, create] of providers) {
       const leaves = new Set(capabilityLeaves(create().capabilities)
         .filter(path => path !== 'version')
         .map(path => path.replace(/^limits\..*/, 'limits')))
-      const expected = produced.filter(path => path !== 'experimental' && path !== 'limits' ? true : leaves.has(path))
-      expect([name, [...leaves].sort()]).toEqual([name, expected.sort()])
+      const expected = produced.filter(path => path !== 'experimental' && path !== 'limits'
+        ? true
+        : leaves.has(path))
+      expect([
+        name,
+        [...leaves].sort(),
+      ]).toEqual([
+        name,
+        expected.sort(),
+      ])
     }
   })
 
@@ -115,7 +198,13 @@ describe('capability table', () => {
 
     for (const [name, create] of providers.filter(([name]) => name.endsWith('token'))) {
       const provider = create()
-      expect([name, kinds.map(kind => provider.can('threads.events', kind))]).toEqual([name, kinds.map(kind => provider.can('threads.get', kind))])
+      expect([
+        name,
+        kinds.map(kind => provider.can('threads.events', kind)),
+      ]).toEqual([
+        name,
+        kinds.map(kind => provider.can('threads.get', kind)),
+      ])
     }
   })
 
@@ -126,7 +215,13 @@ describe('capability table', () => {
   })
 
   it('types verbs from the table, including the derived ones', () => {
-    const verbs: ForgeVerb[] = ['repos.labels', 'repos.labels', 'threads.react', 'threads.events', 'installations.providers']
+    const verbs: ForgeVerb[] = [
+      'repos.labels',
+      'repos.labels',
+      'threads.react',
+      'threads.events',
+      'installations.providers',
+    ]
     // @ts-expect-error a capability group is not a verb
     const capability: ForgeVerb = 'writes.createComment'
 
@@ -143,7 +238,9 @@ describe('capability table', () => {
   it('builds exactly the provider methods the table names', () => {
     const verbs = table.flatMap(entry => entry.verbs ?? []).sort()
     const provider = github({ auth }) as unknown as Record<string, Record<string, unknown>>
-    const groups = [...new Set(verbs.map(verb => verb.split('.')[0]!))]
+    const groups = [
+      ...new Set(verbs.map(verb => verb.split('.')[0]!)),
+    ]
     const methods = groups.flatMap(group => Object.entries(provider[group]!).filter(([, value]) => typeof value === 'function').map(([name]) => `${group}.${name}`))
 
     expect(methods.sort()).toEqual(verbs)
@@ -168,10 +265,18 @@ describe('capability table', () => {
     expect(provider.capabilities.notifications.list).toBe('not_applicable')
     expect(provider.can('releases.list')).toBe(false)
     expect(bitbucket({}).support('releases.list')).toBe('not_applicable')
-    await expect(provider.releases.list({ forge: 'bitbucket', instance: 'bitbucket.org', owner: 'acme', name: 'widgets' }).page()).rejects.toThrow('bitbucket has no releases.list')
+    await expect(provider.releases.list({
+      forge: 'bitbucket',
+      instance: 'bitbucket.org',
+      owner: 'acme',
+      name: 'widgets',
+    }).page()).rejects.toThrow('bitbucket has no releases.list')
 
     // A per-kind capability the forge lacks is `not_applicable` for every kind.
-    const tangledProvider = tangled({ auth: { type: 'app_password', identifier: 'h', password: 'p' }, notificationsUrl: 'https://notifications.example' })
+    const tangledProvider = tangled({
+      auth: { type: 'app_password', identifier: 'h', password: 'p' },
+      notificationsUrl: 'https://notifications.example',
+    })
     expect(tangledProvider.capabilities.threads.checks).toEqual({ issue: 'not_applicable', pull_request: 'not_applicable', discussion: 'not_applicable' })
 
     // Derived capabilities (`threads.getReview`, `threads.approve`) inherit `not_applicable` from their parts.
@@ -195,8 +300,14 @@ describe('capability table', () => {
       entire({ auth }),
       gitbucket({ baseUrl: 'https://gitbucket.example.com' }),
     ]) {
-      expect([provider.forge, provider.support('users.sponsorable')]).toEqual([provider.forge, 'not_applicable'])
-      expect([provider.forge, provider.support('users.sponsorableMany')]).toEqual([provider.forge, 'not_applicable'])
+      expect([
+        provider.forge,
+        provider.support('users.sponsorable'),
+      ]).toEqual([provider.forge, 'not_applicable'])
+      expect([
+        provider.forge,
+        provider.support('users.sponsorableMany'),
+      ]).toEqual([provider.forge, 'not_applicable'])
     }
   })
 

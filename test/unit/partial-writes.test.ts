@@ -10,22 +10,52 @@ import { canReplay } from '../../scripts/stabilise-recordings.ts'
 const api = 'https://api.github.com/repos/bot/forges-fixtures'
 
 function patch(issue: number): Fixture {
-  return { request: { method: 'PATCH', url: `${api}/issues/${issue}`, body: { state: 'closed' } }, response: { status: 200, body: { number: issue, state: 'closed' } } }
+  return {
+    request: {
+      method: 'PATCH',
+      url: `${api}/issues/${issue}`,
+      body: { state: 'closed' },
+    },
+    response: {
+      status: 200,
+      body: { number: issue, state: 'closed' },
+    },
+  }
 }
 
 describe('planning which steps of a partial write run to save', () => {
   const ancestors = new Set(['author', 'create issue', 'issue update to closed'])
 
   it('writes the selected steps that changed, and the steps they read from that changed', () => {
-    const plan = planSplice({ selected: ['issue update to closed'], ancestors, rewritten: ['create issue', 'issue update to closed'], skipped: new Map(), steps: new Map() })
+    const plan = planSplice({
+      selected: ['issue update to closed'],
+      ancestors,
+      rewritten: ['create issue', 'issue update to closed'],
+      skipped: new Map(),
+      steps: new Map(),
+    })
 
-    expect(plan).toEqual({ write: ['create issue', 'issue update to closed'], extra: ['create issue'], unchanged: [], unrenamed: [] })
+    expect(plan).toEqual({
+      write: ['create issue', 'issue update to closed'],
+      extra: ['create issue'],
+      unchanged: [],
+      unrenamed: [],
+    })
   })
 
   it('leaves selected steps whose responses are the same apart from timestamps', () => {
-    const plan = planSplice({ selected: ['issue update to closed'], ancestors, rewritten: [], skipped: new Map(), steps: new Map() })
+    const plan = planSplice({
+      selected: ['issue update to closed'],
+      ancestors,
+      rewritten: [],
+      skipped: new Map(),
+      steps: new Map(),
+    })
 
-    expect(plan).toMatchObject({ write: [], unchanged: ['issue update to closed'] })
+    expect(plan).toMatchObject({
+      write: [],
+      unchanged: ['issue update to closed'],
+    })
   })
 
   it('finds identifiers that could not be renamed in the steps it writes', () => {
@@ -33,8 +63,24 @@ describe('planning which steps of a partial write run to save', () => {
       selected: ['issue update to closed'],
       ancestors,
       rewritten: ['issue update to closed'],
-      skipped: new Map([['86', 'pairs with 2 identifiers of the previous run'], ['91', 'pairs with 2 identifiers of the previous run']]),
-      steps: new Map([['issue update to closed', [patch(86)]], ['issue comment', [patch(91)]]]),
+      skipped: new Map([
+        ['86', 'pairs with 2 identifiers of the previous run'],
+        ['91', 'pairs with 2 identifiers of the previous run'],
+      ]),
+      steps: new Map([
+        [
+          'issue update to closed',
+          [
+            patch(86),
+          ],
+        ],
+        [
+          'issue comment',
+          [
+            patch(91),
+          ],
+        ],
+      ]),
     })
 
     expect(plan.unrenamed).toEqual(['issue update to closed: 86 pairs with 2 identifiers of the previous run'])
@@ -66,7 +112,17 @@ describe('splicing steps into a recording', () => {
     writeFileSync(`${committed}steps/create-issue/02-get-issues-N.json`, 'stale')
     spliceSteps(stabilised, committed, ['create issue', 'issue update to closed'])
 
-    expect(['create-issue', 'issue-update-to-closed', 'issue-update', 'issue-close'].map(slug => readFileSync(`${committed}steps/${slug}/golden.json`, 'utf8'))).toEqual(['stabilised', 'stabilised', 'committed', 'committed'])
+    expect([
+      'create-issue',
+      'issue-update-to-closed',
+      'issue-update',
+      'issue-close',
+    ].map(slug => readFileSync(`${committed}steps/${slug}/golden.json`, 'utf8'))).toEqual([
+      'stabilised',
+      'stabilised',
+      'committed',
+      'committed',
+    ])
     expect(existsSync(`${committed}steps/create-issue/02-get-issues-N.json`)).toBe(false)
   })
 
@@ -95,17 +151,48 @@ describe('checking whether a recording can be replayed', () => {
 })
 
 describe('reading a saved write run', () => {
-  const saved = (overrides: Record<string, unknown> = {}) => JSON.stringify({ manifest: {}, steps: [{ name: 'commit comment', recordedAt: '', fixtures: [] }], setup: [], only: ['commit comment'], remove: [], ...overrides })
+  const saved = (overrides: Record<string, unknown> = {}) => JSON.stringify({
+    manifest: {},
+    steps: [
+      { name: 'commit comment', recordedAt: '', fixtures: [] },
+    ],
+    setup: [],
+    only: ['commit comment'],
+    remove: [],
+    ...overrides,
+  })
 
   it('reads a run of write steps', () => {
     expect(parsePendingSplice(saved()).only).toEqual(['commit comment'])
   })
 
   it.each([
-    ['a step that is not a write step', { steps: [{ name: '../../package', fixtures: [] }] }],
-    ['a selection that is not a write step', { only: ['repo'] }],
-    ['a step without fixtures', { steps: [{ name: 'commit comment' }] }],
-    ['no selection', { only: undefined }],
+    [
+      'a step that is not a write step',
+      {
+        steps: [
+          { name: '../../package', fixtures: [] },
+        ],
+      },
+    ],
+    [
+      'a selection that is not a write step',
+      {
+        only: ['repo'],
+      },
+    ],
+    [
+      'a step without fixtures',
+      {
+        steps: [
+          { name: 'commit comment' },
+        ],
+      },
+    ],
+    [
+      'no selection',
+      { only: undefined },
+    ],
   ])('refuses %s', (_, overrides) => {
     expect(() => parsePendingSplice(saved(overrides))).toThrow(/partial\.json/)
   })
@@ -114,8 +201,15 @@ describe('reading a saved write run', () => {
 describe('comparing manifests', () => {
   it('lists the keys whose values differ, whatever the order of their keys', () => {
     expect(differingKeys(
-      { repo: { owner: 'bot', name: 'forges-fixtures' }, run: { id: '1', salt: 'a' } },
-      { repo: { name: 'forges-fixtures', owner: 'bot' }, run: { id: '1', salt: 'b' }, transfer: {} },
+      {
+        repo: { owner: 'bot', name: 'forges-fixtures' },
+        run: { id: '1', salt: 'a' },
+      },
+      {
+        repo: { name: 'forges-fixtures', owner: 'bot' },
+        run: { id: '1', salt: 'b' },
+        transfer: {},
+      },
     )).toEqual(['run', 'transfer'])
   })
 })

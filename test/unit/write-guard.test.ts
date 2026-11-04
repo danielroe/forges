@@ -2,17 +2,37 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { guardedFetch } from '../../scripts/write-guard.ts'
 import { writeHarness } from '../../scripts/write-harness.ts'
 
-const scratch = { forge: 'github', instance: 'github.com', owner: 'bot', name: 'forges-fixtures' }
+const scratch = {
+  forge: 'github',
+  instance: 'github.com',
+  owner: 'bot',
+  name: 'forges-fixtures',
+}
 const api = 'https://api.github.com'
 
 function guarded() {
   const sent: string[] = []
   const fetch = guardedFetch(async (input, init) => {
     sent.push(`${init?.method ?? 'GET'} ${input}`)
-    const body = new URL(input).pathname.endsWith('/graphql') ? { data: { repository: { issue: { id: 'I_kwDOscratch1' } } } } : { node_id: 'I_kwDOscratch2' }
+    const body = new URL(input).pathname.endsWith('/graphql')
+      ? {
+          data: {
+            repository: {
+              issue: { id: 'I_kwDOscratch1' },
+            },
+          },
+        }
+      : { node_id: 'I_kwDOscratch2' }
     return new Response(JSON.stringify(body))
-  }, { scope: [`${api}/repos/bot/forges-fixtures`], account: [`${api}/notifications`], repos: [scratch] })
-  const graphql = (query: string, variables: Record<string, unknown>) => fetch(`${api}/graphql`, { method: 'POST', body: JSON.stringify({ query, variables }) })
+  }, {
+    scope: [`${api}/repos/bot/forges-fixtures`],
+    account: [`${api}/notifications`],
+    repos: [scratch],
+  })
+  const graphql = (query: string, variables: Record<string, unknown>) => fetch(`${api}/graphql`, {
+    method: 'POST',
+    body: JSON.stringify({ query, variables }),
+  })
   return { fetch, graphql, sent }
 }
 
@@ -46,25 +66,63 @@ describe('write recording guard', () => {
   it('allows a GraphQL commit only on a branch of the scratch repository', async () => {
     const { fetch, graphql, sent } = guarded()
     await fetch(`${api}/repos/bot/forges-fixtures/issues/1`)
-    const commit = (repositoryNameWithOwner: string) => graphql('mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) { x }', { input: { branch: { repositoryNameWithOwner, branchName: 'main' }, expectedHeadOid: 'I_kwDOscratch2' } })
+    const commit = (repositoryNameWithOwner: string) => graphql('mutation CreateCommitOnBranch($input: CreateCommitOnBranchInput!) { x }', {
+      input: {
+        branch: { repositoryNameWithOwner, branchName: 'main' },
+        expectedHeadOid: 'I_kwDOscratch2',
+      },
+    })
     await commit('bot/forges-fixtures')
-    await graphql('mutation UpdateRefs($input: UpdateRefsInput!) { x }', { input: { repositoryId: 'I_kwDOscratch2', refUpdates: [{ name: 'refs/heads/new', beforeOid: '0'.repeat(40), afterOid: 'I_kwDOscratch2' }] } })
+    await graphql('mutation UpdateRefs($input: UpdateRefsInput!) { x }', {
+      input: {
+        repositoryId: 'I_kwDOscratch2',
+        refUpdates: [
+          {
+            name: 'refs/heads/new',
+            beforeOid: '0'.repeat(40),
+            afterOid: 'I_kwDOscratch2',
+          },
+        ],
+      },
+    })
 
     await expect(commit('nuxt/nuxt')).rejects.toThrow(/other than the scratch repositories/)
     expect(sent).toHaveLength(3)
   })
 
   it('allows a Tangled record only when it names the scratch repository or the account itself', () => {
-    const harness = writeHarness({ forge: 'tangled', baseUrl: 'https://tangled.org', authorization: '', scratch: { forge: 'tangled', instance: 'tangled.org', owner: 'did:plc:bot', name: 'forges-fixtures' } })!
+    const harness = writeHarness({
+      forge: 'tangled',
+      baseUrl: 'https://tangled.org',
+      authorization: '',
+      scratch: {
+        forge: 'tangled',
+        instance: 'tangled.org',
+        owner: 'did:plc:bot',
+        name: 'forges-fixtures',
+      },
+    })!
     const write = (method: string, body: unknown) => harness.allows!(`https://pds.example/xrpc/com.atproto.repo.${method}`, body)
     const create = (record: unknown) => write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.feed.comment', record })
 
-    expect(create({ subject: { uri: 'at://did:plc:bot/sh.tangled.repo.issue/1' } })).toBe(true)
-    expect(create({ subject: { uri: 'at://did:plc:someone/sh.tangled.repo.issue/1' } })).toBe(false)
+    expect(create({
+      subject: { uri: 'at://did:plc:bot/sh.tangled.repo.issue/1' },
+    })).toBe(true)
+    expect(create({
+      subject: { uri: 'at://did:plc:someone/sh.tangled.repo.issue/1' },
+    })).toBe(false)
     expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.feed.comment', rkey: 'created' })).toBe(true)
     expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'app.bsky.feed.post', rkey: 'post' })).toBe(false)
-    expect(write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.label.definition', record: { name: 'forges-fixture-1' } })).toBe(true)
-    expect(write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.label.definition', record: { name: 'bug' } })).toBe(false)
+    expect(write('createRecord', {
+      repo: 'did:plc:bot',
+      collection: 'sh.tangled.label.definition',
+      record: { name: 'forges-fixture-1' },
+    })).toBe(true)
+    expect(write('createRecord', {
+      repo: 'did:plc:bot',
+      collection: 'sh.tangled.label.definition',
+      record: { name: 'bug' },
+    })).toBe(false)
     expect(harness.allows!('https://knot.example/xrpc/sh.tangled.repo.merge', { repo: 'did:plc:otherrepo' })).toBe(false)
   })
 
@@ -91,22 +149,57 @@ describe('write recording cleanup', () => {
   const tag = 'forges-fixture-20261010120000'
 
   it.each([
-    ['github', 'https://api.github.com', '/repos/bot/forges-fixtures', [`/releases/2`, `/git/refs/tags/${tag}`]],
-    ['forgejo', 'https://codeberg.org/api/v1', '/repos/bot/forges-fixtures', [`/releases/2`, `/tags/${tag}`]],
-    ['gitlab', 'https://gitlab.com/api/v4', '/projects/bot%2Fforges-fixtures', [`/releases/${tag}`, `/repository/tags/${tag}`]],
+    [
+      'github',
+      'https://api.github.com',
+      '/repos/bot/forges-fixtures',
+      [`/releases/2`, `/git/refs/tags/${tag}`],
+    ],
+    [
+      'forgejo',
+      'https://codeberg.org/api/v1',
+      '/repos/bot/forges-fixtures',
+      [`/releases/2`, `/tags/${tag}`],
+    ],
+    [
+      'gitlab',
+      'https://gitlab.com/api/v4',
+      '/projects/bot%2Fforges-fixtures',
+      [`/releases/${tag}`, `/repository/tags/${tag}`],
+    ],
   ])('deletes only the fixture releases and tags on %s, releases first', async (forge, baseUrl, repo, deleted) => {
     const sent: string[] = []
     vi.stubGlobal('fetch', async (input: string, init?: RequestInit) => {
       sent.push(`${init?.method ?? 'GET'} ${input}`)
       const path = new URL(input).pathname
       const body = path.endsWith('/releases')
-        ? [{ id: 1, tag_name: 'v0.0.1' }, { id: 2, tag_name: tag }]
+        ? [
+            { id: 1, tag_name: 'v0.0.1' },
+            { id: 2, tag_name: tag },
+          ]
         : path.endsWith('/tags')
-          ? [{ name: 'v0.0.1' }, { name: tag }]
-          : path.includes('/matching-refs/') ? [{ ref: `refs/tags/${tag}` }] : []
+          ? [
+              { name: 'v0.0.1' },
+              { name: tag },
+            ]
+          : path.includes('/matching-refs/')
+            ? [
+                { ref: `refs/tags/${tag}` },
+              ]
+            : []
       return new Response(JSON.stringify(body))
     })
-    const harness = writeHarness({ forge, baseUrl, authorization: '', scratch: { forge, instance: new URL(baseUrl).host, owner: 'bot', name: 'forges-fixtures' } })!
+    const harness = writeHarness({
+      forge,
+      baseUrl,
+      authorization: '',
+      scratch: {
+        forge,
+        instance: new URL(baseUrl).host,
+        owner: 'bot',
+        name: 'forges-fixtures',
+      },
+    })!
 
     await harness.cleanUp([], undefined, [])
 

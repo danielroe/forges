@@ -28,13 +28,25 @@ function feedLevel(instance: string, raw: GiteeEvent, repo: RepoRef | undefined,
         after: payload.after,
         created: payload.created,
         deleted: payload.deleted,
-        commits: payload.commits?.map(commit => ({ sha: commit.sha, message: commit.message, author: commit.author?.name, url: commit.url })),
+        commits: payload.commits?.map(commit => ({
+          sha: commit.sha,
+          message: commit.message,
+          author: commit.author?.name,
+          url: commit.url,
+        })),
         commitCount: payload.size,
       })
     case 'CreateEvent':
     case 'DeleteEvent': {
-      const action = type === 'CreateEvent' ? 'created' : 'deleted'
-      return { kind: 'ref', action, detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' }, summary: `${who} ${action} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim() }
+      const action = type === 'CreateEvent'
+        ? 'created'
+        : 'deleted'
+      return {
+        kind: 'ref',
+        action,
+        detail: { type: 'ref', ref: payload.ref ?? '', refType: payload.ref_type ?? 'branch' },
+        summary: `${who} ${action} ${payload.ref_type ?? 'ref'} ${payload.ref ?? ''}`.trim(),
+      }
     }
     case 'StarEvent':
       return { kind: 'star', action: 'created', summary: `${who} starred the repository` }
@@ -43,22 +55,70 @@ function feedLevel(instance: string, raw: GiteeEvent, repo: RepoRef | undefined,
     case 'MemberEvent':
       return {
         kind: 'membership',
-        action: payload.action === 'deleted' ? 'removed' : eventAction(payload.action) ?? 'other',
-        detail: { type: 'membership', actionRaw: payload.action ?? 'member', member: payload.login ? toActor(instance, { id: payload.id ?? 0, login: payload.login, name: payload.name }) : undefined },
+        action: payload.action === 'deleted'
+          ? 'removed'
+          : eventAction(payload.action) ?? 'other',
+        detail: {
+          type: 'membership',
+          actionRaw: payload.action ?? 'member',
+          member: payload.login
+            ? toActor(instance, { id: payload.id ?? 0, login: payload.login, name: payload.name })
+            : undefined,
+        },
         summary: `${who} ${payload.action ?? 'changed'} member ${payload.login ?? ''}`.trim(),
       }
   }
   const kind = THREAD_TYPES[type]
-  const number = type === 'IssueEvent' || type === 'PullRequestEvent' ? payload.number : (payload.pull_request ?? payload.issue)?.number
-  const thread: ThreadRef | undefined = repo && kind && number !== undefined ? { forge: FORGE, instance, repo, kind, number: String(number) } : undefined
-  const mention = thread ? ` ${kind === 'issue' ? '' : '!'}${thread.number}` : ''
+  const number = type === 'IssueEvent' || type === 'PullRequestEvent'
+    ? payload.number
+    : (payload.pull_request ?? payload.issue)?.number
+  const thread: ThreadRef | undefined = repo && kind && number !== undefined
+    ? {
+        forge: FORGE,
+        instance,
+        repo,
+        kind,
+        number: String(number),
+      }
+    : undefined
+  const mention = thread
+    ? ` ${kind === 'issue'
+      ? ''
+      : '!'}${thread.number}`
+    : ''
   if (type === 'IssueCommentEvent' || type === 'PullRequestCommentEvent') {
-    const comment = thread && payload.comment ? { forge: FORGE, instance, thread, id: String(payload.comment.id) } : undefined
-    return { kind: 'comment', action: 'created', thread, detail: { type: 'comment', comment, body: payload.comment?.body }, summary: `${who} commented${mention && ` on${mention}`}` }
+    const comment = thread && payload.comment
+      ? {
+          forge: FORGE,
+          instance,
+          thread,
+          id: String(payload.comment.id),
+        }
+      : undefined
+    return {
+      kind: 'comment',
+      action: 'created',
+      thread,
+      detail: { type: 'comment', comment, body: payload.comment?.body },
+      summary: `${who} commented${mention && ` on${mention}`}`,
+    }
   }
   const action = eventAction(payload.action)
   if (thread && (action === 'opened' || action === 'closed' || action === 'reopened' || action === 'merged')) {
-    return { kind: 'state_change', action, thread, detail: { type: 'state_change', state: action === 'merged' ? 'merged' : action === 'closed' ? 'closed' : 'open' }, summary: `${who} ${payload.action}${mention}` }
+    return {
+      kind: 'state_change',
+      action,
+      thread,
+      detail: {
+        type: 'state_change',
+        state: action === 'merged'
+          ? 'merged'
+          : action === 'closed'
+            ? 'closed'
+            : 'open',
+      },
+      summary: `${who} ${payload.action}${mention}`,
+    }
   }
   return { kind: 'other', thread, summary: `${who} ${FEED_SUMMARIES[type] ?? `${payload.action ?? ''} ${type}`.trim()}${mention}` }
 }
@@ -66,14 +126,18 @@ function feedLevel(instance: string, raw: GiteeEvent, repo: RepoRef | undefined,
 /** Normalises an item of a repository's or a user's activity feed. */
 export function toFeedEvent(instance: string, raw: GiteeEvent): ForgeEventInput {
   const actor = toActor(instance, raw.actor)
-  const repo = raw.repo ? toRepoRef(instance, raw.repo) : undefined
+  const repo = raw.repo
+    ? toRepoRef(instance, raw.repo)
+    : undefined
   const type = raw.type ?? 'Event'
   const action = raw.payload?.action
   return {
     forge: FORGE,
     instance,
     id: raw.id ?? '',
-    kindRaw: action ? `${type}.${action}` : type,
+    kindRaw: action
+      ? `${type}.${action}`
+      : type,
     actionRaw: action,
     ...feedLevel(instance, raw, repo, actor?.login ?? 'someone'),
     ...eventTime(toDate(raw.created_at)),

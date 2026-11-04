@@ -509,7 +509,16 @@ export interface LabelInput {
 }
 
 /** Every name {@link ReactionContent} covers. */
-export const REACTION_CONTENTS = ['+1', '-1', 'laugh', 'confused', 'heart', 'hooray', 'rocket', 'eyes'] as const
+export const REACTION_CONTENTS = [
+  '+1',
+  '-1',
+  'laugh',
+  'confused',
+  'heart',
+  'hooray',
+  'rocket',
+  'eyes',
+] as const
 
 /**
  * The reactions every forge with reactions has in common, named as GitHub
@@ -520,7 +529,9 @@ export type ReactionContent = (typeof REACTION_CONTENTS)[number]
 
 /** The normalised name for a forge-native reaction name, or `'other'` where there is none. */
 export function reactionContent(raw: string): ReactionContent | 'other' {
-  return (REACTION_CONTENTS as readonly string[]).includes(raw) ? raw as ReactionContent : 'other'
+  return (REACTION_CONTENTS as readonly string[]).includes(raw)
+    ? raw as ReactionContent
+    : 'other'
 }
 
 /** One reaction left on a thread or a comment, as `threads.reactions()` lists them. */
@@ -1915,7 +1926,15 @@ export interface TextLimits {
   labelLength?: number
 }
 
-const CASE_INSENSITIVE = new Set<ForgeKind>(['github', 'gitlab', 'forgejo', 'gitea', 'bitbucket', 'gitee', 'azure-devops'])
+const CASE_INSENSITIVE = new Set<ForgeKind>([
+  'github',
+  'gitlab',
+  'forgejo',
+  'gitea',
+  'bitbucket',
+  'gitee',
+  'azure-devops',
+])
 
 /** Whether `forge` treats owner and repository names case-insensitively. Unknown forges are assumed not to. */
 export function namesAreCaseInsensitive(forge: ForgeKind): boolean {
@@ -1924,7 +1943,13 @@ export function namesAreCaseInsensitive(forge: ForgeKind): boolean {
 
 /** `repo` with `owner` and `name` lowercased where the forge ignores case, so equal repositories compare equal. */
 export function normaliseRepoName(repo: RepoRef): RepoRef {
-  return namesAreCaseInsensitive(repo.forge) ? { ...repo, owner: repo.owner.toLowerCase(), name: repo.name.toLowerCase() } : repo
+  return namesAreCaseInsensitive(repo.forge)
+    ? {
+        ...repo,
+        owner: repo.owner.toLowerCase(),
+        name: repo.name.toLowerCase(),
+      }
+    : repo
 }
 
 /** Whether `ref` addresses an organisation, group or workspace rather than a repository, by its `kind`. */
@@ -1940,7 +1965,9 @@ export function isNamespaceRef(ref: RepoRef): boolean {
  */
 export function repoKey(repo: RepoRef): string {
   if (repo.externalId) {
-    return `${repo.forge}:${repo.instance}/@${isNamespaceRef(repo) ? 'namespace:' : ''}${repo.externalId}`
+    return `${repo.forge}:${repo.instance}/@${isNamespaceRef(repo)
+      ? 'namespace:'
+      : ''}${repo.externalId}`
   }
   const { owner, name } = normaliseRepoName(repo)
   return isNamespaceRef(repo)
@@ -1958,23 +1985,43 @@ export function parseRepoKey(key: string): RepoRef | undefined {
   if (colon <= 0 || slash <= colon + 1) {
     return undefined
   }
-  const origin = { forge: key.slice(0, colon), instance: key.slice(colon + 1, slash) }
+  const origin = {
+    forge: key.slice(0, colon),
+    instance: key.slice(colon + 1, slash),
+  }
   const path = key.slice(slash + 1)
   if (path.startsWith('@')) {
     const namespace = path.startsWith('@namespace:')
     const externalId = path.slice(namespace ? '@namespace:'.length : 1)
-    return externalId ? { ...namespace ? namespaceRef(origin, '') : { ...origin, owner: '', name: '' }, externalId } : undefined
+    return externalId
+      ? {
+          ...namespace
+            ? namespaceRef(origin, '')
+            : { ...origin, owner: '', name: '' },
+          externalId,
+        }
+      : undefined
   }
   if (path.endsWith('/')) {
-    return path.length > 1 ? namespaceRef(origin, path.slice(0, -1)) : undefined
+    return path.length > 1
+      ? namespaceRef(origin, path.slice(0, -1))
+      : undefined
   }
   const last = path.lastIndexOf('/')
-  return last > 0 && last < path.length - 1 ? { ...origin, owner: path.slice(0, last), name: path.slice(last + 1) } : undefined
+  return last > 0 && last < path.length - 1
+    ? {
+        ...origin,
+        owner: path.slice(0, last),
+        name: path.slice(last + 1),
+      }
+    : undefined
 }
 
 /** The `owner/name` people read and type; the owner alone for a namespace. */
 export function repoSlug(repo: RepoRef): string {
-  return isNamespaceRef(repo) ? repo.owner : `${repo.owner}/${repo.name}`
+  return isNamespaceRef(repo)
+    ? repo.owner
+    : `${repo.owner}/${repo.name}`
 }
 
 /**
@@ -1993,7 +2040,12 @@ export function repoRef(origin: ForgeOrigin, slug: string): RepoRef {
   if (last <= 0 || last === slug.length - 1) {
     throw new TypeError(`Repository ${JSON.stringify(slug)} is not in the form owner/name`)
   }
-  return { forge: origin.forge, instance: origin.instance, owner: slug.slice(0, last), name: slug.slice(last + 1) }
+  return {
+    forge: origin.forge,
+    instance: origin.instance,
+    owner: slug.slice(0, last),
+    name: slug.slice(last + 1),
+  }
 }
 
 /**
@@ -2007,7 +2059,13 @@ export function repoRef(origin: ForgeOrigin, slug: string): RepoRef {
  * ```
  */
 export function namespaceRef(origin: ForgeOrigin, owner: string): RepoRef {
-  return { forge: origin.forge, instance: origin.instance, owner, name: '', kind: 'namespace' }
+  return {
+    forge: origin.forge,
+    instance: origin.instance,
+    owner,
+    name: '',
+    kind: 'namespace',
+  }
 }
 
 /**
@@ -2042,9 +2100,18 @@ export function commitKey(ref: CommitRef): string {
 /** Reads a {@link commitKey} back. */
 export function parseCommitKey(key: string): CommitRef | undefined {
   const hash = key.indexOf('#')
-  const repo = hash > 0 && key.startsWith('#commit/', hash) ? parseRepoKey(key.slice(0, hash)) : undefined
+  const repo = hash > 0 && key.startsWith('#commit/', hash)
+    ? parseRepoKey(key.slice(0, hash))
+    : undefined
   const sha = key.slice(hash + '#commit/'.length)
-  return repo && sha && !sha.includes('#') ? { forge: repo.forge, instance: repo.instance, repo, sha } : undefined
+  return repo && sha && !sha.includes('#')
+    ? {
+        forge: repo.forge,
+        instance: repo.instance,
+        repo,
+        sha,
+      }
+    : undefined
 }
 
 /** A string that identifies a notification, for use as a key in a map or a store. */
@@ -2057,7 +2124,9 @@ const THREAD_KINDS = new Set<string>(['issue', 'pull_request', 'discussion'])
 /** Reads a {@link threadKey} back. */
 export function parseThreadKey(key: string): ResolvedThreadRef | undefined {
   const hash = key.indexOf('#')
-  const repo = hash > 0 ? parseRepoKey(key.slice(0, hash)) : undefined
+  const repo = hash > 0
+    ? parseRepoKey(key.slice(0, hash))
+    : undefined
   const rest = key.slice(hash + 1)
   const slash = rest.indexOf('/')
   if (!repo || slash <= 0 || slash === rest.length - 1) {
@@ -2068,7 +2137,15 @@ export function parseThreadKey(key: string): ResolvedThreadRef | undefined {
   if (number.includes('#')) {
     return undefined
   }
-  return THREAD_KINDS.has(kindText) ? { forge: repo.forge, instance: repo.instance, repo, kind: kindText as ThreadKind, number } : undefined
+  return THREAD_KINDS.has(kindText)
+    ? {
+        forge: repo.forge,
+        instance: repo.instance,
+        repo,
+        kind: kindText as ThreadKind,
+        number,
+      }
+    : undefined
 }
 
 /** Reads a {@link notificationKey} back. */
@@ -2079,7 +2156,13 @@ export function parseNotificationKey(key: string): NotificationRef | undefined {
     return undefined
   }
   const id = key.slice(marker + ':notification/'.length)
-  return id ? { forge: key.slice(0, colon), instance: key.slice(colon + 1, marker), id } : undefined
+  return id
+    ? {
+        forge: key.slice(0, colon),
+        instance: key.slice(colon + 1, marker),
+        id,
+      }
+    : undefined
 }
 
 /** `acme/widgets#42`; uses the display number where the forge has one. */
@@ -2089,7 +2172,9 @@ export function threadSlug(ref: ThreadRef): string {
 
 /** The thread a notification concerns, or `undefined` for repo, actor and other subjects. */
 export function notificationThread(notification: Notification): ThreadRef | undefined {
-  return notification.subject.type === 'thread' ? notification.subject.thread : undefined
+  return notification.subject.type === 'thread'
+    ? notification.subject.thread
+    : undefined
 }
 
 /** Stable identity key for a comment: the {@link threadKey} of its thread and the comment's forge-native id. */
@@ -2100,9 +2185,18 @@ export function commentKey(ref: ResolvedCommentRef): string {
 /** Reads a {@link commentKey} back. */
 export function parseCommentKey(key: string): ResolvedCommentRef | undefined {
   const marker = key.indexOf('#', key.indexOf('#') + 1)
-  const thread = marker > 0 && key.startsWith('#comment/', marker) ? parseThreadKey(key.slice(0, marker)) : undefined
+  const thread = marker > 0 && key.startsWith('#comment/', marker)
+    ? parseThreadKey(key.slice(0, marker))
+    : undefined
   const id = key.slice(marker + '#comment/'.length)
-  return thread && id ? { forge: thread.forge, instance: thread.instance, thread, id } : undefined
+  return thread && id
+    ? {
+        forge: thread.forge,
+        instance: thread.instance,
+        thread,
+        id,
+      }
+    : undefined
 }
 
 /** Stable identity key for a commit comment: the {@link commitKey} of its commit and the comment's forge-native id. */
@@ -2113,9 +2207,18 @@ export function commitCommentKey(ref: CommitCommentRef): string {
 /** Reads a {@link commitCommentKey} back. */
 export function parseCommitCommentKey(key: string): CommitCommentRef | undefined {
   const marker = key.indexOf('#', key.indexOf('#') + 1)
-  const commit = marker > 0 && key.startsWith('#comment/', marker) ? parseCommitKey(key.slice(0, marker)) : undefined
+  const commit = marker > 0 && key.startsWith('#comment/', marker)
+    ? parseCommitKey(key.slice(0, marker))
+    : undefined
   const id = key.slice(marker + '#comment/'.length)
-  return commit && id ? { forge: commit.forge, instance: commit.instance, commit, id } : undefined
+  return commit && id
+    ? {
+        forge: commit.forge,
+        instance: commit.instance,
+        commit,
+        id,
+      }
+    : undefined
 }
 
 /** Stable identity key for a release: the {@link repoKey} of its repository and the release's forge-native id. */
@@ -2126,9 +2229,18 @@ export function releaseKey(ref: ReleaseRef): string {
 /** Reads a {@link releaseKey} back. The key carries no `tag`. */
 export function parseReleaseKey(key: string): ReleaseRef | undefined {
   const hash = key.indexOf('#')
-  const repo = hash > 0 && key.startsWith('#release/', hash) ? parseRepoKey(key.slice(0, hash)) : undefined
+  const repo = hash > 0 && key.startsWith('#release/', hash)
+    ? parseRepoKey(key.slice(0, hash))
+    : undefined
   const id = key.slice(hash + '#release/'.length)
-  return repo && id ? { forge: repo.forge, instance: repo.instance, repo, id } : undefined
+  return repo && id
+    ? {
+        forge: repo.forge,
+        instance: repo.instance,
+        repo,
+        id,
+      }
+    : undefined
 }
 
 /**
@@ -2186,7 +2298,12 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
   const releases = new Set<string>()
   const unresolved = new Map<string, ThreadRef>()
   const repo = (ref: RepoRef | undefined) => ref && repos.add(repoKey(ref))
-  const path = (ref: RepoRef, owner: string | undefined, name: string) => owner && name && repos.add(repoKey({ forge: ref.forge, instance: ref.instance, owner, name }))
+  const path = (ref: RepoRef, owner: string | undefined, name: string) => owner && name && repos.add(repoKey({
+    forge: ref.forge,
+    instance: ref.instance,
+    owner,
+    name,
+  }))
   const thread = (ref: ThreadRef | undefined) => {
     if (!ref) {
       return
@@ -2196,7 +2313,13 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
       threads.add(threadKey(ref))
     }
     else {
-      unresolved.set(JSON.stringify([repoKey(ref.repo), ref.kind, ref.typeRaw, ref.displayNumber, ref.externalId]), ref)
+      unresolved.set(JSON.stringify([
+        repoKey(ref.repo),
+        ref.kind,
+        ref.typeRaw,
+        ref.displayNumber,
+        ref.externalId,
+      ]), ref)
     }
   }
   const release = (ref: ReleaseRef) => {
@@ -2267,7 +2390,9 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
           }
           else {
             const slash = detail.from.lastIndexOf('/')
-            path(item.repo, slash > 0 ? detail.from.slice(0, slash) : item.repo.owner, detail.from.slice(slash + 1))
+            path(item.repo, slash > 0
+              ? detail.from.slice(0, slash)
+              : item.repo.owner, detail.from.slice(slash + 1))
           }
         }
         break
@@ -2302,8 +2427,14 @@ export function affectedKeys(item: ForgeEvent | Notification): AffectedKeys {
     comments: [...comments],
     commitComments: [...commitComments],
     releases: [...releases],
-    notifications: 'subject' in item ? [notificationKey(item.ref)] : [],
-    unresolved: [...unresolved.values()],
+    notifications: 'subject' in item
+      ? [
+          notificationKey(item.ref),
+        ]
+      : [],
+    unresolved: [
+      ...unresolved.values(),
+    ],
   }
 }
 
@@ -2382,7 +2513,29 @@ export interface Installation extends ForgeOrigin {
 }
 
 /** Every `Date` field in the model, by name. */
-export const DATE_FIELDS: ReadonlySet<string> = new Set(['closedAt', 'completedAt', 'createdAt', 'date', 'deliveredAt', 'dismissedAt', 'dueOn', 'expiresAt', 'lastActivityAt', 'lastReadAt', 'mergedAt', 'nextPollAt', 'occurredAt', 'publishedAt', 'pushedAt', 'requestedAt', 'resetAt', 'startedAt', 'submittedAt', 'updatedAt', 'week'])
+export const DATE_FIELDS: ReadonlySet<string> = new Set([
+  'closedAt',
+  'completedAt',
+  'createdAt',
+  'date',
+  'deliveredAt',
+  'dismissedAt',
+  'dueOn',
+  'expiresAt',
+  'lastActivityAt',
+  'lastReadAt',
+  'mergedAt',
+  'nextPollAt',
+  'occurredAt',
+  'publishedAt',
+  'pushedAt',
+  'requestedAt',
+  'resetAt',
+  'startedAt',
+  'submittedAt',
+  'updatedAt',
+  'week',
+])
 
 const UNNORMALISED_FIELDS: ReadonlySet<string> = new Set(['payload', 'raw'])
 
@@ -2398,7 +2551,10 @@ export function reviveDates<T>(value: T): T {
   if (!value || typeof value !== 'object' || value instanceof Date) {
     return value
   }
-  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, reviveField(key, item)])) as T
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    reviveField(key, item),
+  ])) as T
 }
 
 function reviveField(key: string, item: unknown): unknown {

@@ -37,8 +37,22 @@ thread.stateRaw  // '${stateRaw}'`
 // Values follow each provider's normaliser for a merged pull request. Cursor Origin
 // has no web URLs to parse, and a Tangled URL carries a display number rather than the record key.
 const forges: Forge[] = [
-  { name: 'GitHub', factory: 'github', module: 'github', options: token('GITHUB_TOKEN'), notificationType: 'PullRequest', read: readUrl('https://github.com/acme/api/pull/42', 'closed') },
-  { name: 'GitLab', factory: 'gitlab', module: 'gitlab', options: token('GITLAB_TOKEN'), notificationType: 'MergeRequest', read: readUrl('https://gitlab.com/acme/api/-/merge_requests/42', 'merged') },
+  {
+    name: 'GitHub',
+    factory: 'github',
+    module: 'github',
+    options: token('GITHUB_TOKEN'),
+    notificationType: 'PullRequest',
+    read: readUrl('https://github.com/acme/api/pull/42', 'closed'),
+  },
+  {
+    name: 'GitLab',
+    factory: 'gitlab',
+    module: 'gitlab',
+    options: token('GITLAB_TOKEN'),
+    notificationType: 'MergeRequest',
+    read: readUrl('https://gitlab.com/acme/api/-/merge_requests/42', 'merged'),
+  },
   {
     name: 'Bitbucket',
     factory: 'bitbucket',
@@ -52,9 +66,30 @@ const forges: Forge[] = [
 }`,
     read: readUrl('https://bitbucket.org/acme/api/pull-requests/42', 'MERGED'),
   },
-  { name: 'Codeberg', factory: 'forgejo', module: 'forgejo', options: token('CODEBERG_TOKEN'), notificationType: 'Pull', read: readUrl('https://codeberg.org/acme/api/pulls/42', 'closed') },
-  { name: 'Gitea', factory: 'gitea', module: 'gitea', options: token('GITEA_TOKEN'), notificationType: 'Pull', read: readUrl('https://gitea.com/acme/api/pulls/42', 'closed') },
-  { name: 'Gitee', factory: 'gitee', module: 'gitee', options: token('GITEE_TOKEN'), notificationType: 'PullRequest', read: readUrl('https://gitee.com/acme/api/pulls/42', 'merged') },
+  {
+    name: 'Codeberg',
+    factory: 'forgejo',
+    module: 'forgejo',
+    options: token('CODEBERG_TOKEN'),
+    notificationType: 'Pull',
+    read: readUrl('https://codeberg.org/acme/api/pulls/42', 'closed'),
+  },
+  {
+    name: 'Gitea',
+    factory: 'gitea',
+    module: 'gitea',
+    options: token('GITEA_TOKEN'),
+    notificationType: 'Pull',
+    read: readUrl('https://gitea.com/acme/api/pulls/42', 'closed'),
+  },
+  {
+    name: 'Gitee',
+    factory: 'gitee',
+    module: 'gitee',
+    options: token('GITEE_TOKEN'),
+    notificationType: 'PullRequest',
+    read: readUrl('https://gitee.com/acme/api/pulls/42', 'merged'),
+  },
   {
     name: 'Azure DevOps',
     factory: 'azureDevOps',
@@ -89,7 +124,14 @@ thread.kind      // 'pull_request'
 thread.state     // 'merged'
 thread.stateRaw  // 'merged'`,
   },
-  { name: 'Pushin.eu', factory: 'pushin', module: 'pushin', options: token('PUSHIN_TOKEN'), notificationType: 'PullRequest', read: readUrl('https://pushin.eu/acme/api/pulls/42', 'merged') },
+  {
+    name: 'Pushin.eu',
+    factory: 'pushin',
+    module: 'pushin',
+    options: token('PUSHIN_TOKEN'),
+    notificationType: 'PullRequest',
+    read: readUrl('https://pushin.eu/acme/api/pulls/42', 'merged'),
+  },
   {
     name: 'Tangled',
     factory: 'tangled',
@@ -128,5 +170,9 @@ function single(forge: Forge): string {
 
 export const forgeExamples = [
   { name: 'Unified', slug: 'unified', code: unified },
-  ...forges.map(forge => ({ name: forge.name, slug: forge.module, code: single(forge) })),
+  ...forges.map(forge => ({
+    name: forge.name,
+    slug: forge.module,
+    code: single(forge),
+  })),
 ]

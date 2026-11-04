@@ -11,8 +11,14 @@ function setup() {
     },
   })
   const forges = createForges([
-    github({ auth: { type: 'token', token: 'ghp_test' }, fetch }),
-    bitbucket({ auth: { type: 'basic', username: 'tester', password: 'app-password' }, fetch }),
+    github({
+      auth: { type: 'token', token: 'ghp_test' },
+      fetch,
+    }),
+    bitbucket({
+      auth: { type: 'basic', username: 'tester', password: 'app-password' },
+      fetch,
+    }),
   ])
   return { forges, calls }
 }
@@ -28,7 +34,9 @@ describe('inbox', () => {
   it('should merge notifications and thread listings into one time-sorted list', async () => {
     const { forges } = setup()
 
-    const { rows } = await collectInbox(forges, { repos: [bitbucketRepo] })
+    const { rows } = await collectInbox(forges, {
+      repos: [bitbucketRepo],
+    })
 
     expect(rows.map(row => `${row.forge} ${row.repo} ${row.kind} ${row.reason}`)).toMatchInlineSnapshot(`
       [
@@ -38,13 +46,17 @@ describe('inbox', () => {
         "github acme/widgets discussion author",
       ]
     `)
-    expect(rows.map(row => row.at.getTime())).toEqual([...rows.map(row => row.at.getTime())].sort((a, b) => b - a))
+    expect(rows.map(row => row.at.getTime())).toEqual([
+      ...rows.map(row => row.at.getTime()),
+    ].sort((a, b) => b - a))
   })
 
   it('should list threads for a forge that has no notifications', async () => {
     const { forges } = setup()
 
-    const { rows } = await collectInbox(forges, { repos: [bitbucketRepo] })
+    const { rows } = await collectInbox(forges, {
+      repos: [bitbucketRepo],
+    })
 
     const bitbucketRows = rows.filter(row => row.forge === 'bitbucket')
     expect(bitbucketRows.length).toBeGreaterThan(0)
@@ -62,7 +74,9 @@ describe('inbox', () => {
   it('should format a row with forge, repo, kind, reason and title', async () => {
     const { forges } = setup()
 
-    const { rows } = await collectInbox(forges, { repos: [bitbucketRepo] })
+    const { rows } = await collectInbox(forges, {
+      repos: [bitbucketRepo],
+    })
     const row = rows.find(candidate => candidate.notification !== undefined)
 
     expect(row && formatRow(row)).toMatchInlineSnapshot(`"2025-09-18 09:12  github  acme/widgets  pull_request  review_requested  Add retry handling to the uploader"`)
@@ -71,13 +85,17 @@ describe('inbox', () => {
   it('should mark a notification done through the forge that owns it', async () => {
     const { forges, calls } = setup()
 
-    const { rows } = await collectInbox(forges, { repos: [bitbucketRepo] })
+    const { rows } = await collectInbox(forges, {
+      repos: [bitbucketRepo],
+    })
     const [row] = rows.filter(candidate => candidate.notification !== undefined)
     if (!row) {
       throw new Error('expected a notification row')
     }
 
-    const result = await markDone(forges, row.key, { repos: [bitbucketRepo] })
+    const result = await markDone(forges, row.key, {
+      repos: [bitbucketRepo],
+    })
 
     expect(result.verb).toBe('markDone')
     expect(calls.some(call => call.method === 'DELETE' && call.url.includes('/notifications/threads/'))).toBe(true)

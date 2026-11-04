@@ -4,7 +4,9 @@ import { codeThemes } from './shared/code-theme.ts'
 // magic comment to trigger deployment until repo is public - abracadabra 👀
 
 // Vercel previews and branch deployments point at themselves.
-const previewUrl = process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined
+const previewUrl = process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : undefined
 const url = previewUrl ?? 'https://forges.link'
 
 // CI builds only to run the docs tests, so drop server source maps and the
@@ -14,14 +16,19 @@ const isTestBuild = process.env.DOCS_TEST_ONLY_BUILD === '1'
 export default defineNuxtConfig({
   extends: ['docus'],
   nitro: {
-    ...isTestBuild && { sourceMap: false, externals: { trace: false } },
+    ...isTestBuild && {
+      sourceMap: false,
+      externals: { trace: false },
+    },
     vercel: {
       config: {
         routes: [
           // nitropack's route type omits `has`, `status` and arbitrary headers.
           {
             src: '/(.*)',
-            has: [{ type: 'host', value: 'chat.forges.link' }],
+            has: [
+              { type: 'host', value: 'chat.forges.link' },
+            ],
             status: 307,
             headers: { Location: 'https://discord.gg/XCfTcxDsUE' },
           } as { src: string },
@@ -45,7 +52,18 @@ export default defineNuxtConfig({
   agentDiscovery: {
     // Narrower than the default `/_`, so a missing `/__*` page still gets a markdown 404.
     excludePrefixes: {
-      replace: ['/_nuxt/', '/__nuxt', '/_og', '/_ipx/', '/_fonts/', '/_vercel/', '/__sitemap__/', '/api/', '/mcp', '/.well-known/'],
+      replace: [
+        '/_nuxt/',
+        '/__nuxt',
+        '/_og',
+        '/_ipx/',
+        '/_fonts/',
+        '/_vercel/',
+        '/__sitemap__/',
+        '/api/',
+        '/mcp',
+        '/.well-known/',
+      ],
     },
   },
   mcp: {
@@ -76,7 +94,9 @@ export default defineNuxtConfig({
         styles: ['normal', 'italic'],
       },
     ],
-    defaults: { subsets: ['latin'] },
+    defaults: {
+      subsets: ['latin'],
+    },
   },
   site: {
     name: 'forges',

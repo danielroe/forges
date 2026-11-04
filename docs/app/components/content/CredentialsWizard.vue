@@ -14,7 +14,12 @@ interface Option {
 }
 
 const rows = new Map(groups.flatMap(group => group.rows.map(row => [row.capability, row])))
-const taskGroups = [...new Set(tasks.map(task => task.group))].map(name => ({ name, tasks: tasks.filter(task => task.group === name) }))
+const taskGroups = [
+  ...new Set(tasks.map(task => task.group)),
+].map(name => ({
+  name,
+  tasks: tasks.filter(task => task.group === name),
+}))
 
 const id = useId()
 const slug = ref('github')
@@ -45,9 +50,22 @@ const selectedTasks = computed(() => tasks.filter(task => selected.value.include
 const capabilities = computed(() => selectedTasks.value.flatMap(task => task.capabilities))
 
 const options = computed<Option[]>(() => [
-  ...forge.value.credentials.map(set => ({ id: set.fields[0]!.toLowerCase(), label: credentialLabel(set.fields), ...set })),
+  ...forge.value.credentials.map(set => ({
+    id: set.fields[0]!.toLowerCase(),
+    label: credentialLabel(set.fields),
+    ...set,
+  })),
   ...forge.value.anonymous.with.includes('ENABLED')
-    ? [{ id: 'anonymous', label: 'Anonymous', fields: [], optional: [], unavailable: forge.value.anonymous.unavailable, anonymous: true }]
+    ? [
+        {
+          id: 'anonymous',
+          label: 'Anonymous',
+          fields: [],
+          optional: [],
+          unavailable: forge.value.anonymous.unavailable,
+          anonymous: true,
+        },
+      ]
     : [],
 ])
 
@@ -71,19 +89,41 @@ function placeholder(field: string) {
   if (field === 'PRIVATE_KEY') {
     return '"-----BEGIN PRIVATE KEY-----\\n..."'
   }
-  return field === 'PDS' || field.endsWith('_URL') ? 'https://...' : '...'
+  return field === 'PDS' || field.endsWith('_URL')
+    ? 'https://...'
+    : '...'
 }
 
 const lines = computed(() => {
   const current = option.value
   const writes = capabilities.value.some(capability => rows.get(capability)?.write)
   const entries: Array<{ field: string, value: string, optional?: boolean }> = [
-    ...forge.value.required.map(field => ({ field, value: placeholder(field) })),
-    ...current.fields.map(field => ({ field, value: placeholder(field) })),
-    ...current.optional.map(({ field, unlocks }) => ({ field, value: placeholder(field), optional: !unlocks.some(capability => capabilities.value.includes(capability)) })),
-    ...current.anonymous ? [{ field: 'ENABLED', value: '1' }] : [],
-    ...[...new Set(selectedTasks.value.flatMap(task => task.fields ?? []))].map(field => ({ field, value: '...' })),
-    ...!current.anonymous && selectedTasks.value.length && !writes ? [{ field: 'READ_ONLY', value: '1' }] : [],
+    ...forge.value.required.map(field => ({
+      field,
+      value: placeholder(field),
+    })),
+    ...current.fields.map(field => ({
+      field,
+      value: placeholder(field),
+    })),
+    ...current.optional.map(({ field, unlocks }) => ({
+      field,
+      value: placeholder(field),
+      optional: !unlocks.some(capability => capabilities.value.includes(capability)),
+    })),
+    ...current.anonymous
+      ? [
+          { field: 'ENABLED', value: '1' },
+        ]
+      : [],
+    ...[
+      ...new Set(selectedTasks.value.flatMap(task => task.fields ?? [])),
+    ].map(field => ({ field, value: '...' })),
+    ...!current.anonymous && selectedTasks.value.length && !writes
+      ? [
+          { field: 'READ_ONLY', value: '1' },
+        ]
+      : [],
   ]
   return entries.map(entry => ({ ...entry, name: `FORGES_${forge.value.kind}_${entry.field}` }))
 })
@@ -97,9 +137,20 @@ const support = computed(() => selectedTasks.value
   .map(task => ({
     ...task,
     levels: taskLevel(task.capabilities) === 'none'
-      ? [{ level: 'none' as Level, capabilities: [] }]
-      : (['unverified', 'experimental', 'emulated', 'not_applicable', 'none'] as const)
-          .map(level => ({ level, capabilities: task.capabilities.filter(capability => cellOf(capability).level === level) }))
+      ? [
+          { level: 'none' as Level, capabilities: [] },
+        ]
+      : ([
+          'unverified',
+          'experimental',
+          'emulated',
+          'not_applicable',
+          'none',
+        ] as const)
+          .map(level => ({
+            level,
+            capabilities: task.capabilities.filter(capability => cellOf(capability).level === level),
+          }))
           .filter(entry => entry.capabilities.length),
   }))
   .filter(task => task.levels.length))
@@ -112,7 +163,10 @@ const kindGaps = computed(() => {
     ...kind,
     gaps: capabilities.value.filter(capability => isAvailable(cellOf(capability).level) && !missing.value.includes(capability) && !isAvailable(cellOf(capability).byCredential?.[kind.id]?.level ?? 'native')),
   }))
-  return lacking.filter(kind => kind.gaps.length).map(kind => ({ ...kind, instead: lacking.filter(other => !other.gaps.length) }))
+  return lacking.filter(kind => kind.gaps.length).map(kind => ({
+    ...kind,
+    instead: lacking.filter(other => !other.gaps.length),
+  }))
 })
 const alternatives = computed(() => options.value.filter(other => other !== option.value && !other.anonymous && !gaps(other).length))
 
@@ -120,7 +174,9 @@ const steps = computed(() => [
   ...option.value.anonymous
     ? [anonymousStep]
     : credentialSteps[slug.value]?.[option.value.fields.join('+')] ?? [],
-  ...forgeSteps[slug.value] ? [forgeSteps[slug.value]!] : [],
+  ...forgeSteps[slug.value]
+    ? [forgeSteps[slug.value]!]
+    : [],
   envStep,
 ])
 

@@ -3,10 +3,19 @@ import { fake } from '../../src/fake/index.ts'
 import { commentMarker, hasCommentMarker, upsertComment, waitForChecks, withCommentMarker } from '../../src/helpers.ts'
 
 const seed = {
-  repos: [{ repo: 'acme/widgets' }],
-  threads: [{ repo: 'acme/widgets', kind: 'issue' as const, title: 'Crash on start' }],
+  repos: [
+    { repo: 'acme/widgets' },
+  ],
+  threads: [
+    { repo: 'acme/widgets', kind: 'issue' as const, title: 'Crash on start' },
+  ],
 }
-const repo = { forge: 'fake', instance: 'fake.test', owner: 'acme', name: 'widgets' }
+const repo = {
+  forge: 'fake',
+  instance: 'fake.test',
+  owner: 'acme',
+  name: 'widgets',
+}
 
 describe('comment markers', () => {
   it('refuses a comment key that would end the hidden marker', () => {
@@ -44,18 +53,43 @@ describe('upsertComment', () => {
 
   it('upserts a keyed comment on a commit', async () => {
     const forge = fake({ seed })
-    const commit = { forge: 'fake', instance: 'fake.test', repo, sha: 'abc1234def' }
+    const commit = {
+      forge: 'fake',
+      instance: 'fake.test',
+      repo,
+      sha: 'abc1234def',
+    }
     forge.store.repos.get('acme/widgets')!.commitComments.set(commit.sha, [
-      { ref: { forge: 'fake', instance: 'fake.test', commit, id: 'old' }, body: `Deploying\n\n${commentMarker('deploy')}`, createdAt: new Date('2026-02-01T00:00:00Z'), raw: {} },
+      {
+        ref: {
+          forge: 'fake',
+          instance: 'fake.test',
+          commit,
+          id: 'old',
+        },
+        body: `Deploying\n\n${commentMarker('deploy')}`,
+        createdAt: new Date('2026-02-01T00:00:00Z'),
+        raw: {},
+      },
     ])
 
-    const recent = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed', since: new Date('2026-03-01T00:00:00Z') })
+    const recent = await upsertComment(forge, commit, {
+      key: 'deploy',
+      body: 'Deployed',
+      since: new Date('2026-03-01T00:00:00Z'),
+    })
     const edited = await upsertComment(forge, commit, { key: 'deploy', body: 'Deployed again' })
     const comments = await Array.fromAsync(forge.commits.comments(commit))
 
     expect(recent.created).toBe(true)
     expect(recent.comment.ref.commit).toEqual(commit)
-    expect(edited).toMatchObject({ created: false, comment: { ref: { id: recent.comment.ref.id }, body: `Deployed again\n\n${commentMarker('deploy')}` } })
+    expect(edited).toMatchObject({
+      created: false,
+      comment: {
+        ref: { id: recent.comment.ref.id },
+        body: `Deployed again\n\n${commentMarker('deploy')}`,
+      },
+    })
     expect(comments).toHaveLength(2)
   })
 
@@ -66,7 +100,17 @@ describe('upsertComment', () => {
       const forge = fake({ seed })
       const state = forge.store.repos.get('acme/widgets')!.threads.get('1')!
       const ref = state.thread.ref
-      const comment = (id: string, body: string, createdAt: Date) => ({ ref: { forge: 'fake', instance: 'fake.test', thread: ref, id }, body, createdAt, raw: {} })
+      const comment = (id: string, body: string, createdAt: Date) => ({
+        ref: {
+          forge: 'fake',
+          instance: 'fake.test',
+          thread: ref,
+          id,
+        },
+        body,
+        createdAt,
+        raw: {},
+      })
       return { forge, state, ref, comment }
     }
 
@@ -86,7 +130,12 @@ describe('upsertComment', () => {
 
       const retry = await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
-      expect(retry).toMatchObject({ created: false, comment: { ref: { id: '1-1' } } })
+      expect(retry).toMatchObject({
+        created: false,
+        comment: {
+          ref: { id: '1-1' },
+        },
+      })
       expect(state.comments).toHaveLength(1)
       expect(updateComment).not.toHaveBeenCalled()
     })
@@ -97,7 +146,10 @@ describe('upsertComment', () => {
 
       const retry = await upsertComment(forge, ref, { key: 'mutation-1', body: 'Deployed', since: firstAttemptAt })
 
-      expect(retry).toMatchObject({ created: false, comment: { body: `Deployed\n\n${commentMarker('mutation-1')}` } })
+      expect(retry).toMatchObject({
+        created: false,
+        comment: { body: `Deployed\n\n${commentMarker('mutation-1')}` },
+      })
       expect(state.comments[0]!.body).toBe(`Deployed\n\n${commentMarker('mutation-1')}`)
     })
 
@@ -138,7 +190,10 @@ describe('waitForChecks', () => {
 
     expect(list).toHaveBeenCalledTimes(3)
     expect(result).toMatchObject({ timedOut: false, state: 'failure', pending: [] })
-    expect(result.checks.map(check => [check.name, check.state])).toEqual([['lint', 'success'], ['test', 'failure']])
+    expect(result.checks.map(check => [check.name, check.state])).toEqual([
+      ['lint', 'success'],
+      ['test', 'failure'],
+    ])
   })
 
   it('keeps waiting while the commit has no checks yet', async () => {
@@ -149,7 +204,13 @@ describe('waitForChecks', () => {
     await forge.checks.report(repo, sha, { name: 'build', state: 'success' })
     await vi.advanceTimersByTimeAsync(1000)
 
-    await expect(wait).resolves.toMatchObject({ timedOut: false, state: 'success', checks: [{ name: 'build' }] })
+    await expect(wait).resolves.toMatchObject({
+      timedOut: false,
+      state: 'success',
+      checks: [
+        { name: 'build' },
+      ],
+    })
   })
 
   it('times out with an unknown state when the commit gets no checks', async () => {
@@ -158,7 +219,12 @@ describe('waitForChecks', () => {
     const wait = waitForChecks(forge, repo, sha, { timeout: 2000, interval: 1000 })
     await vi.advanceTimersByTimeAsync(2000)
 
-    await expect(wait).resolves.toEqual({ timedOut: true, state: 'unknown', checks: [], pending: [] })
+    await expect(wait).resolves.toEqual({
+      timedOut: true,
+      state: 'unknown',
+      checks: [],
+      pending: [],
+    })
   })
 
   it('resolves with the pending checks when the timeout runs out', async () => {
@@ -172,7 +238,13 @@ describe('waitForChecks', () => {
     const result = await wait
 
     expect(list).toHaveBeenCalledTimes(4)
-    expect(result).toMatchObject({ timedOut: true, state: 'failure', pending: [{ name: 'deploy' }] })
+    expect(result).toMatchObject({
+      timedOut: true,
+      state: 'failure',
+      pending: [
+        { name: 'deploy' },
+      ],
+    })
   })
 
   it('passes on the warnings of the last read', async () => {
@@ -180,9 +252,16 @@ describe('waitForChecks', () => {
     await forge.checks.report(repo, sha, { name: 'dco', state: 'success' })
     const warning = { code: 'checks_unreadable' as const, message: 'Resource not accessible by integration', subject: 'check-runs' }
     const list = forge.checks.list
-    vi.spyOn(forge.checks, 'list').mockImplementation(async (...args) => ({ ...await list(...args), warnings: [warning] }))
+    vi.spyOn(forge.checks, 'list').mockImplementation(async (...args) => ({
+      ...await list(...args),
+      warnings: [warning],
+    }))
 
-    await expect(waitForChecks(forge, repo, sha)).resolves.toMatchObject({ timedOut: false, state: 'success', warnings: [warning] })
+    await expect(waitForChecks(forge, repo, sha)).resolves.toMatchObject({
+      timedOut: false,
+      state: 'success',
+      warnings: [warning],
+    })
   })
 
   it('waits past the default timeout when the timeout is infinite', async () => {

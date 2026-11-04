@@ -63,7 +63,9 @@ export function toActor(instance: string, user: GitLabUser | undefined | null): 
     name: user.name,
     avatarUrl: user.avatar_url ?? undefined,
     url: user.web_url,
-    typeRaw: user.bot === undefined ? undefined : user.bot ? 'bot' : 'user',
+    typeRaw: user.bot === undefined
+      ? undefined
+      : user.bot ? 'bot' : 'user',
     isBotHint: user.bot === true || /^(?:project|group)_\d+_bot(?:_|$)/.test(user.username),
   }
 }
@@ -76,14 +78,18 @@ export function toRepoRef(instance: string, pathWithNamespace: string, id?: numb
     instance,
     owner: pathWithNamespace.slice(0, index),
     name: pathWithNamespace.slice(index + 1),
-    externalId: id === undefined ? undefined : String(id),
+    externalId: id === undefined
+      ? undefined
+      : String(id),
   }
 }
 
 /** Reads the project path out of a `/-/`-style web URL, which cross-project listings carry instead of a project path. */
 export function repoRefFromWebUrl(instance: string, webUrl: string | undefined, id?: number | string): RepoRef | undefined {
   const path = webUrl?.match(/^https?:\/\/[^/]+\/(.+?)\/-\//)?.[1]
-  return path ? toRepoRef(instance, path, id) : undefined
+  return path
+    ? toRepoRef(instance, path, id)
+    : undefined
 }
 
 export function toNamespaceRef(instance: string, fullPath: string, id?: number): RepoRef {
@@ -93,20 +99,40 @@ export function toNamespaceRef(instance: string, fullPath: string, id?: number):
     kind: 'namespace',
     owner: fullPath,
     name: '',
-    externalId: id === undefined ? undefined : String(id),
+    externalId: id === undefined
+      ? undefined
+      : String(id),
   }
 }
 
 /** GitLab has no teams of its own; a subgroup stands in for one, with its path below `org` as the slug. */
 export function toTeam(instance: string, org: RepoRef, raw: GitLabGroup): Team {
   const slug = raw.full_path.slice(org.owner.length + 1)
-  const parent = slug.includes('/') ? slug.slice(0, slug.lastIndexOf('/')) : undefined
+  const parent = slug.includes('/')
+    ? slug.slice(0, slug.lastIndexOf('/'))
+    : undefined
   return {
-    ref: { forge: FORGE, instance, org, id: String(raw.id), slug },
+    ref: {
+      forge: FORGE,
+      instance,
+      org,
+      id: String(raw.id),
+      slug,
+    },
     name: raw.name ?? raw.path ?? slug,
     description: raw.description || undefined,
     visibilityRaw: raw.visibility,
-    parent: parent === undefined ? undefined : { forge: FORGE, instance, org, id: raw.parent_id == null ? undefined : String(raw.parent_id), slug: parent },
+    parent: parent === undefined
+      ? undefined
+      : {
+          forge: FORGE,
+          instance,
+          org,
+          id: raw.parent_id == null
+            ? undefined
+            : String(raw.parent_id),
+          slug: parent,
+        },
     url: raw.web_url,
     raw,
   }
@@ -168,26 +194,64 @@ export function toNotification(instance: string, raw: GitLabTodo): Notification 
   const kind = toThreadKind(raw.target_type)
   const target = raw.target ?? undefined
   const number = target?.iid === undefined
-    ? target?.id === undefined ? undefined : String(target.id)
+    ? target?.id === undefined
+      ? undefined
+      : String(target.id)
     : String(target.iid)
   let subject: NotificationSubject
   if (raw.target_type === 'Vulnerability') {
-    subject = { type: 'security_alert', alert: { forge: FORGE, instance, repo, id: number ?? String(raw.id) } }
+    subject = {
+      type: 'security_alert',
+      alert: {
+        forge: FORGE,
+        instance,
+        repo,
+        id: number ?? String(raw.id),
+      },
+    }
   }
   else if (raw.target_type === 'Project' || raw.target_type === 'Namespace') {
     subject = { type: 'repo', repo }
   }
   else if (raw.target_type === 'Commit' && number) {
-    subject = { type: 'commit', commit: { forge: FORGE, instance, repo, sha: number } }
+    subject = {
+      type: 'commit',
+      commit: {
+        forge: FORGE,
+        instance,
+        repo,
+        sha: number,
+      },
+    }
   }
   else if (!kind) {
-    subject = { type: 'other', typeRaw: raw.target_type, repo, id: number, url: raw.target_url }
+    subject = {
+      type: 'other',
+      typeRaw: raw.target_type,
+      repo,
+      id: number,
+      url: raw.target_url,
+    }
   }
   else {
-    subject = { type: 'thread', thread: { forge: FORGE, instance, repo, kind, typeRaw: raw.target_type, number } }
+    subject = {
+      type: 'thread',
+      thread: {
+        forge: FORGE,
+        instance,
+        repo,
+        kind,
+        typeRaw: raw.target_type,
+        number,
+      },
+    }
   }
   return {
-    ref: { forge: FORGE, instance, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance,
+      id: String(raw.id),
+    },
     subject,
     subjectTypeRaw: raw.target_type,
     reason: toReason(raw.action_name),
@@ -202,15 +266,35 @@ export function toNotification(instance: string, raw: GitLabTodo): Notification 
   }
 }
 
-const ACCESS_LEVELS = { admin: 50, maintain: 40, push: 30, triage: 20, pull: 10 } as const
+const ACCESS_LEVELS = {
+  admin: 50,
+  maintain: 40,
+  push: 30,
+  triage: 20,
+  pull: 10,
+} as const
 
 /** GitLab access levels: 50 owner, 40 maintainer, 30 developer, 20 reporter, 10 guest. */
 export function toRole(level: number): RepoRole {
-  return level >= 50 ? 'admin' : level >= 40 ? 'maintain' : level >= 30 ? 'write' : level >= 20 ? 'triage' : level >= 10 ? 'read' : 'none'
+  return level >= 50
+    ? 'admin'
+    : level >= 40
+      ? 'maintain'
+      : level >= 30
+        ? 'write'
+        : level >= 20
+          ? 'triage'
+          : level >= 10
+            ? 'read'
+            : 'none'
 }
 
 export function toLabel(raw: GitLabLabel): Label {
-  return { name: raw.name, colour: raw.color?.replace(/^#/, ''), description: raw.description ?? undefined }
+  return {
+    name: raw.name,
+    colour: raw.color?.replace(/^#/, ''),
+    description: raw.description ?? undefined,
+  }
 }
 
 export function toMilestone(raw: GitLabMilestone | null | undefined): Milestone | undefined {
@@ -218,7 +302,9 @@ export function toMilestone(raw: GitLabMilestone | null | undefined): Milestone 
     ? {
         id: String(raw.id),
         title: raw.title,
-        state: raw.state === 'closed' ? 'closed' : 'open',
+        state: raw.state === 'closed'
+          ? 'closed'
+          : 'open',
         description: raw.description ?? undefined,
         dueOn: toDate(raw.due_date),
         url: raw.web_url,
@@ -234,7 +320,14 @@ export function toVoteReactions(raw: { upvotes?: number, downvotes?: number }): 
   }
   return {
     total: (raw.upvotes ?? 0) + (raw.downvotes ?? 0),
-    counts: { ...raw.upvotes ? { '+1': raw.upvotes } : {}, ...raw.downvotes ? { '-1': raw.downvotes } : {} },
+    counts: {
+      ...raw.upvotes
+        ? { '+1': raw.upvotes }
+        : {},
+      ...raw.downvotes
+        ? { '-1': raw.downvotes }
+        : {},
+    },
   }
 }
 
@@ -246,9 +339,17 @@ export const BASE_METHODS: Record<NonNullable<GitLabProjectDetail['merge_method'
 
 export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
   const level = Math.max(raw.permissions?.project_access?.access_level ?? 0, raw.permissions?.group_access?.access_level ?? 0)
-  const visibility = raw.visibility === 'internal' ? 'internal' : raw.visibility === 'private' ? 'private' : 'public'
-  const merge = raw.merge_commit_template?.trim() ? { template: raw.merge_commit_template } : undefined
-  const squash = raw.squash_commit_template?.trim() ? { template: raw.squash_commit_template } : undefined
+  const visibility = raw.visibility === 'internal'
+    ? 'internal'
+    : raw.visibility === 'private'
+      ? 'private'
+      : 'public'
+  const merge = raw.merge_commit_template?.trim()
+    ? { template: raw.merge_commit_template }
+    : undefined
+  const squash = raw.squash_commit_template?.trim()
+    ? { template: raw.squash_commit_template }
+    : undefined
   return {
     ref: toRepoRef(instance, raw.path_with_namespace, raw.id),
     description: raw.description ?? undefined,
@@ -257,30 +358,48 @@ export function toRepo(instance: string, raw: GitLabProjectDetail): Repo {
     visibilityRaw: raw.visibility,
     isFork: Boolean(raw.forked_from_project),
     isArchived: raw.archived ?? false,
-    parent: raw.forked_from_project ? toRepoRef(instance, raw.forked_from_project.path_with_namespace, raw.forked_from_project.id) : undefined,
+    parent: raw.forked_from_project
+      ? toRepoRef(instance, raw.forked_from_project.path_with_namespace, raw.forked_from_project.id)
+      : undefined,
     topics: raw.topics ?? [],
     url: raw.web_url,
-    cloneUrls: raw.http_url_to_repo || raw.ssh_url_to_repo ? { https: raw.http_url_to_repo, ssh: raw.ssh_url_to_repo } : undefined,
+    cloneUrls: raw.http_url_to_repo || raw.ssh_url_to_repo
+      ? { https: raw.http_url_to_repo, ssh: raw.ssh_url_to_repo }
+      : undefined,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.last_activity_at),
     openIssueCount: raw.open_issues_count,
     owner: toActor(instance, raw.owner),
-    licence: raw.license?.key && raw.license.key !== 'other' ? raw.license.key : undefined,
+    licence: raw.license?.key && raw.license.key !== 'other'
+      ? raw.license.key
+      : undefined,
     stars: raw.star_count,
     forks: raw.forks_count,
     mergeMethods: raw.merge_method === undefined
       ? undefined
       : [
-          ...raw.merge_method === 'merge' ? ['merge' as const] : [],
-          ...raw.merge_method === 'rebase_merge' ? ['rebase_merge' as const] : [],
-          ...raw.merge_method === 'ff' ? ['fast_forward_only' as const] : [],
-          ...raw.squash_option && raw.squash_option !== 'never' ? ['squash' as const] : [],
+          ...raw.merge_method === 'merge'
+            ? ['merge' as const]
+            : [],
+          ...raw.merge_method === 'rebase_merge'
+            ? ['rebase_merge' as const]
+            : [],
+          ...raw.merge_method === 'ff'
+            ? ['fast_forward_only' as const]
+            : [],
+          ...raw.squash_option && raw.squash_option !== 'never'
+            ? ['squash' as const]
+            : [],
         ],
     defaultMergeMethod: raw.merge_method === undefined
       ? undefined
-      : raw.squash_option === 'always' || raw.squash_option === 'default_on' ? 'squash' : BASE_METHODS[raw.merge_method],
+      : raw.squash_option === 'always' || raw.squash_option === 'default_on'
+        ? 'squash'
+        : BASE_METHODS[raw.merge_method],
     deleteBranchOnMerge: raw.remove_source_branch_after_merge ?? undefined,
-    mergeCommit: merge || squash ? { merge, squash } : undefined,
+    mergeCommit: merge || squash
+      ? { merge, squash }
+      : undefined,
     features: raw.issues_access_level === undefined && raw.issues_enabled === undefined
       ? undefined
       : {
@@ -308,10 +427,19 @@ export function toThread(ref: ResolvedThreadRef, raw: GitLabIssue): Thread {
   const isMerge = ref.kind === 'pull_request'
   const reviewers: Reviewer[] = (raw.reviewers ?? []).flatMap((user) => {
     const actor = toActor(ref.instance, user)
-    return actor ? [{ actor, state: 'unknown' as const }] : []
+    return actor
+      ? [
+          { actor, state: 'unknown' as const },
+        ]
+      : []
   })
   return {
-    ref: { ...ref, externalId: raw.id === undefined ? ref.externalId : String(raw.id) },
+    ref: {
+      ...ref,
+      externalId: raw.id === undefined
+        ? ref.externalId
+        : String(raw.id),
+    },
     kind: ref.kind,
     title: raw.title,
     body: raw.description ?? undefined,
@@ -326,20 +454,30 @@ export function toThread(ref: ResolvedThreadRef, raw: GitLabIssue): Thread {
           head: {
             ref: raw.source_branch,
             sha: raw.diff_refs?.head_sha ?? raw.sha,
-            repo: raw.source_project_id !== undefined && raw.source_project_id === raw.target_project_id ? ref.repo : undefined,
+            repo: raw.source_project_id !== undefined && raw.source_project_id === raw.target_project_id
+              ? ref.repo
+              : undefined,
           },
           base: { ref: raw.target_branch, sha: raw.diff_refs?.base_sha },
           mergeCommitSha: raw.merge_commit_sha ?? raw.squash_commit_sha ?? undefined,
         }
       : undefined,
-    stats: isMerge && raw.changes_count && /^\d+$/.test(raw.changes_count) ? { changedFileCount: Number(raw.changes_count) } : undefined,
+    stats: isMerge && raw.changes_count && /^\d+$/.test(raw.changes_count)
+      ? {
+          changedFileCount: Number(raw.changes_count),
+        }
+      : undefined,
     author: toActor(ref.instance, raw.author),
     url: raw.web_url,
     createdAt: toDate(raw.created_at),
     updatedAt: toDate(raw.updated_at),
     closedAt: toDate(raw.closed_at),
-    mergedAt: isMerge ? toDate(raw.merged_at) : undefined,
-    mergedBy: isMerge ? toActor(ref.instance, raw.merge_user ?? raw.merged_by) : undefined,
+    mergedAt: isMerge
+      ? toDate(raw.merged_at)
+      : undefined,
+    mergedBy: isMerge
+      ? toActor(ref.instance, raw.merge_user ?? raw.merged_by)
+      : undefined,
     labels: (raw.labels ?? []).map(label => typeof label === 'string'
       ? { name: label }
       : { name: label.name, colour: label.color, description: label.description ?? undefined }),
@@ -363,7 +501,9 @@ const SYSTEM_NOTE_KINDS: Array<[RegExp, EventKind]> = [
 
 export function toNoteKind(note: GitLabNote): EventKind {
   if (!note.system) {
-    return note.type === 'DiffNote' ? 'review_comment' : 'comment'
+    return note.type === 'DiffNote'
+      ? 'review_comment'
+      : 'comment'
   }
   return SYSTEM_NOTE_KINDS.find(([pattern]) => pattern.test(note.body))?.[1] ?? 'other'
 }
@@ -382,16 +522,36 @@ function crossReference(ref: ResolvedThreadRef, body: string): EventDetail {
   }
   const thread = text.match(/^(?:([^!#]+)([!#]))?[!#]?(\d+)$/)
   if (thread) {
-    const repo = thread[1] ? toRepoRef(ref.instance, thread[1]) : ref.repo
+    const repo = thread[1]
+      ? toRepoRef(ref.instance, thread[1])
+      : ref.repo
     return {
       type: 'referenced',
-      from: { forge: FORGE, instance: ref.instance, repo, kind: text.includes('!') ? 'pull_request' : 'issue', number: thread[3]! },
+      from: {
+        forge: FORGE,
+        instance: ref.instance,
+        repo,
+        kind: text.includes('!')
+          ? 'pull_request'
+          : 'issue',
+        number: thread[3]!,
+      },
       fromRepo: repo,
       text,
     }
   }
   return /^[0-9a-f]{7,40}$/i.test(text)
-    ? { type: 'referenced', from: { forge: FORGE, instance: ref.instance, repo: ref.repo, sha: text }, fromRepo: ref.repo, text }
+    ? {
+        type: 'referenced',
+        from: {
+          forge: FORGE,
+          instance: ref.instance,
+          repo: ref.repo,
+          sha: text,
+        },
+        fromRepo: ref.repo,
+        text,
+      }
     : { type: 'referenced', text }
 }
 
@@ -404,9 +564,28 @@ function noteDetail(ref: ResolvedThreadRef, note: GitLabNote, kind: EventKind): 
   switch (kind) {
     case 'comment':
     case 'review_comment':
-      return { type: kind, comment: { forge: FORGE, instance: ref.instance, thread: ref, id: String(note.id) }, body: note.body }
+      return {
+        type: kind,
+        comment: {
+          forge: FORGE,
+          instance: ref.instance,
+          thread: ref,
+          id: String(note.id),
+        },
+        body: note.body,
+      }
     case 'review':
-      return { type: 'review', state: 'approved', stateRaw: 'approved', review: { forge: FORGE, instance: ref.instance, thread: ref, id: approvalId(note.author) } }
+      return {
+        type: 'review',
+        state: 'approved',
+        stateRaw: 'approved',
+        review: {
+          forge: FORGE,
+          instance: ref.instance,
+          thread: ref,
+          id: approvalId(note.author),
+        },
+      }
     case 'referenced':
       return crossReference(ref, note.body)
     default:
@@ -423,10 +602,14 @@ export function toNoteEvent(ref: ResolvedThreadRef, note: GitLabNote): ForgeEven
     instance: ref.instance,
     id: String(note.id),
     kind,
-    kindRaw: note.system ? 'system' : note.type ?? 'Note',
+    kindRaw: note.system
+      ? 'system'
+      : note.type ?? 'Note',
     summary: note.system
       ? `${who} ${note.body.split('\n')[0]}`
-      : `${who} ${kind === 'review_comment' ? 'commented on a line' : 'commented'}`,
+      : `${who} ${kind === 'review_comment'
+        ? 'commented on a line'
+        : 'commented'}`,
     ...eventTime(toDate(note.created_at), new Date(0)),
     actor,
     repo: ref.repo,
@@ -444,12 +627,22 @@ function commitCommentId(comment: GitLabCommitComment): string {
 
 export function toNoteComment(thread: ResolvedThreadRef, note: GitLabNoteDetail, discussion?: GitLabDiscussion): Comment {
   return {
-    ref: { forge: FORGE, instance: thread.instance, thread, id: String(note.id) },
+    ref: {
+      forge: FORGE,
+      instance: thread.instance,
+      thread,
+      id: String(note.id),
+    },
     body: note.body,
     author: toActor(thread.instance, note.author),
     createdAt: toDate(note.created_at),
     updatedAt: toDate(note.updated_at),
-    ...discussion && note.resolvable && { thread: { id: discussion.id, resolved: Boolean(note.resolved) } },
+    ...discussion && note.resolvable && {
+      thread: {
+        id: discussion.id,
+        resolved: Boolean(note.resolved),
+      },
+    },
     raw: note,
   }
 }
@@ -459,7 +652,9 @@ function notedLine(position: { old_line?: number | null, new_line?: number | nul
   if (typeof position?.new_line === 'number') {
     return { line: position.new_line, side: 'right' }
   }
-  return typeof position?.old_line === 'number' ? { line: position.old_line, side: 'left' } : {}
+  return typeof position?.old_line === 'number'
+    ? { line: position.old_line, side: 'left' }
+    : {}
 }
 
 /** A resolvable discussion, read as a review conversation. GitLab doesn't say whether one is outdated. */
@@ -475,13 +670,23 @@ export function toDiscussionThread(thread: ResolvedThreadRef, discussion: GitLab
     resolved,
     path,
     line,
-    startLine: start !== undefined && start !== line ? start : undefined,
+    startLine: start !== undefined && start !== line
+      ? start
+      : undefined,
     side,
     comments: notes.map(note => ({
-      ref: { forge: FORGE, instance: thread.instance, thread, id: String(note.id) },
+      ref: {
+        forge: FORGE,
+        instance: thread.instance,
+        thread,
+        id: String(note.id),
+      },
       body: note.body,
       author: toActor(thread.instance, note.author),
-      ...note.position && { path: note.position.new_path ?? note.position.old_path ?? undefined, ...notedLine(note.position) },
+      ...note.position && {
+        path: note.position.new_path ?? note.position.old_path ?? undefined,
+        ...notedLine(note.position),
+      },
       thread: { id: discussion.id, resolved },
       createdAt: toDate(note.created_at),
       raw: note,
@@ -492,7 +697,12 @@ export function toDiscussionThread(thread: ResolvedThreadRef, discussion: GitLab
 
 export function toCommitComment(commit: CommitRef, comment: GitLabCommitComment): CommitComment {
   return {
-    ref: { forge: FORGE, instance: commit.instance, commit, id: commitCommentId(comment) },
+    ref: {
+      forge: FORGE,
+      instance: commit.instance,
+      commit,
+      id: commitCommentId(comment),
+    },
     body: comment.note,
     author: toActor(commit.instance, comment.author),
     createdAt: toDate(comment.created_at),
@@ -526,27 +736,53 @@ export function pipelineState(status: string): CheckState {
 /** The merge request's head pipeline, which GitLab reports as one combined status. */
 export function toPipelineSummary(pipeline: GitLabPipeline): ChecksSummary {
   const state = pipelineState(pipeline.status)
-  return { state: state === 'neutral' ? 'pending' : state, stateRaw: pipeline.status, ...pipeline.web_url ? { url: pipeline.web_url } : {} }
+  return {
+    state: state === 'neutral'
+      ? 'pending'
+      : state,
+    stateRaw: pipeline.status,
+    ...pipeline.web_url
+      ? { url: pipeline.web_url }
+      : {},
+  }
 }
 
 export function toJobCheck(repo: RepoRef, job: GitLabJob, run?: CiRunRef): Check {
   const state = pipelineState(job.status)
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(job.id), type: 'job' },
-    name: job.stage ? `${job.stage}: ${job.name}` : job.name,
-    state: state === 'failure' && job.allow_failure ? 'neutral' : state,
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(job.id),
+      type: 'job',
+    },
+    name: job.stage
+      ? `${job.stage}: ${job.name}`
+      : job.name,
+    state: state === 'failure' && job.allow_failure
+      ? 'neutral'
+      : state,
     stateRaw: job.status,
     url: job.web_url,
     startedAt: toDate(job.started_at),
     completedAt: toDate(job.finished_at),
-    ...run ? { run } : {},
+    ...run
+      ? { run }
+      : {},
     raw: job,
   }
 }
 
 /** GitLab keys releases by tag and has no drafts or prereleases. */
 export function toRelease(repo: RepoRef, raw: GitLabRelease): Release {
-  const ref = { forge: FORGE, instance: repo.instance, repo, id: raw.tag_name, tag: raw.tag_name }
+  const ref = {
+    forge: FORGE,
+    instance: repo.instance,
+    repo,
+    id: raw.tag_name,
+    tag: raw.tag_name,
+  }
   return {
     ref,
     name: raw.name ?? undefined,
@@ -555,7 +791,9 @@ export function toRelease(repo: RepoRef, raw: GitLabRelease): Release {
     isDraft: false,
     isPrerelease: false,
     author: toActor(repo.instance, raw.author),
-    publishedAt: raw.upcoming_release ? undefined : toDate(raw.released_at),
+    publishedAt: raw.upcoming_release
+      ? undefined
+      : toDate(raw.released_at),
     createdAt: toDate(raw.created_at),
     url: raw._links?.self,
     assets: raw.assets?.links?.map(link => ({ name: link.name, url: link.direct_asset_url ?? link.url })),
@@ -581,15 +819,30 @@ export const REPORT_TYPES: Record<Exclude<SecurityAlert['kind'], 'other'>, strin
 /** `INFO` findings are informational and carry no severity. */
 function toSeverity(raw: string): SecuritySeverity {
   const severity = raw.toLowerCase()
-  return severity === 'critical' || severity === 'high' || severity === 'medium' || severity === 'low' ? severity : 'unknown'
+  return severity === 'critical' || severity === 'high' || severity === 'medium' || severity === 'low'
+    ? severity
+    : 'unknown'
 }
 
 export function toVulnerability(repo: RepoRef, raw: GitLabVulnerability): SecurityAlert {
   const kind = REPORT_KINDS[raw.reportType] ?? 'other'
-  const state = raw.state === 'DETECTED' || raw.state === 'CONFIRMED' ? 'open' : raw.state === 'RESOLVED' ? 'fixed' : raw.state === 'DISMISSED' ? 'dismissed' : 'unknown'
+  const state = raw.state === 'DETECTED' || raw.state === 'CONFIRMED'
+    ? 'open'
+    : raw.state === 'RESOLVED'
+      ? 'fixed'
+      : raw.state === 'DISMISSED'
+        ? 'dismissed'
+        : 'unknown'
   const id = raw.id.replace(/^gid:\/\/gitlab\/Vulnerability\//, '')
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id, kind, severityRaw: raw.severity.toLowerCase() },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id,
+      kind,
+      severityRaw: raw.severity.toLowerCase(),
+    },
     kind,
     kindRaw: raw.reportType.toLowerCase(),
     severity: toSeverity(raw.severity),
@@ -608,9 +861,17 @@ export function toVulnerability(repo: RepoRef, raw: GitLabVulnerability): Securi
 export function toStatusCheck(repo: RepoRef, raw: GitLabCommitStatus): Check {
   const state = pipelineState(raw.status)
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id), type: 'status' },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+      type: 'status',
+    },
     name: raw.name ?? String(raw.id),
-    state: state === 'failure' && raw.allow_failure ? 'neutral' : state,
+    state: state === 'failure' && raw.allow_failure
+      ? 'neutral'
+      : state,
     stateRaw: raw.status,
     url: raw.target_url ?? undefined,
     startedAt: toDate(raw.created_at),
@@ -621,11 +882,18 @@ export function toStatusCheck(repo: RepoRef, raw: GitLabCommitStatus): Check {
 
 export function toPipeline(repo: RepoRef, raw: GitLabPipeline): CiRun {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      id: String(raw.id),
+    },
     name: raw.name || raw.source || `pipeline ${raw.id}`,
     state: pipelineState(raw.status),
     stateRaw: raw.status,
-    number: raw.iid === undefined ? undefined : String(raw.iid),
+    number: raw.iid === undefined
+      ? undefined
+      : String(raw.iid),
     eventRaw: raw.source,
     branch: raw.ref,
     sha: raw.sha,
@@ -641,9 +909,17 @@ export function toPipeline(repo: RepoRef, raw: GitLabPipeline): CiRun {
 export function toCiJob(run: CiRunRef, raw: GitLabJob): CiJob {
   const state = pipelineState(raw.status)
   return {
-    ref: { forge: FORGE, instance: run.instance, repo: run.repo, id: String(raw.id), run },
+    ref: {
+      forge: FORGE,
+      instance: run.instance,
+      repo: run.repo,
+      id: String(raw.id),
+      run,
+    },
     name: raw.name,
-    state: state === 'failure' && raw.allow_failure ? 'neutral' : state,
+    state: state === 'failure' && raw.allow_failure
+      ? 'neutral'
+      : state,
     stateRaw: raw.status,
     stage: raw.stage,
     url: raw.web_url,
@@ -655,15 +931,34 @@ export function toCiJob(run: CiRunRef, raw: GitLabJob): CiJob {
 
 export function toCommit(repo: RepoRef, raw: GitLabCommitDetail, files?: ChangedFile[]): Commit {
   return {
-    ref: { forge: FORGE, instance: repo.instance, repo, sha: raw.id },
+    ref: {
+      forge: FORGE,
+      instance: repo.instance,
+      repo,
+      sha: raw.id,
+    },
     sha: raw.id,
     message: raw.message ?? raw.title,
-    author: { name: raw.author_name, email: raw.author_email, date: toDate(raw.authored_date ?? raw.created_at) },
-    committer: { name: raw.committer_name, email: raw.committer_email, date: toDate(raw.committed_date) },
+    author: {
+      name: raw.author_name,
+      email: raw.author_email,
+      date: toDate(raw.authored_date ?? raw.created_at),
+    },
+    committer: {
+      name: raw.committer_name,
+      email: raw.committer_email,
+      date: toDate(raw.committed_date),
+    },
     parents: raw.parent_ids ?? [],
     url: raw.web_url,
-    ...raw.stats ? { stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total } } : {},
-    ...files ? { files } : {},
+    ...raw.stats
+      ? {
+          stats: { additions: raw.stats.additions ?? 0, deletions: raw.stats.deletions ?? 0, total: raw.stats.total },
+        }
+      : {},
+    ...files
+      ? { files }
+      : {},
     raw,
   }
 }
@@ -671,7 +966,11 @@ export function toCommit(repo: RepoRef, raw: GitLabCommitDetail, files?: Changed
 /** GitLab reports a change by three booleans and a unified diff, with no counts. */
 export function toChangedFile(raw: GitLabDiff): ChangedFile {
   const path = raw.new_path ?? raw.old_path ?? ''
-  const status = raw.new_file ? 'added' : raw.deleted_file ? 'removed' : raw.renamed_file ? 'renamed' : 'modified'
+  const status = raw.new_file
+    ? 'added'
+    : raw.deleted_file
+      ? 'removed'
+      : raw.renamed_file ? 'renamed' : 'modified'
   return {
     path,
     previousPath: raw.renamed_file ? raw.old_path : undefined,
@@ -710,7 +1009,9 @@ export function toBranchRules(branch: GitLabBranch, project: GitLabProjectDetail
     requiredChecks: [],
     requiresAllChecks: project.only_allow_merge_if_pipeline_succeeds ?? undefined,
     requiredApprovals: approvals && Math.max(0, ...approvals),
-    ...warnings.length ? { warnings } : {},
+    ...warnings.length
+      ? { warnings }
+      : {},
     raw: { branch, project, rules },
   }
 }
@@ -722,7 +1023,13 @@ export function toTag(raw: GitLabTag): Tag {
 export function toTreeEntry(raw: GitLabTreeEntry): TreeEntry {
   return {
     path: raw.path,
-    type: raw.mode === '120000' ? 'symlink' : raw.type === 'tree' ? 'directory' : raw.type === 'commit' ? 'submodule' : 'file',
+    type: raw.mode === '120000'
+      ? 'symlink'
+      : raw.type === 'tree'
+        ? 'directory'
+        : raw.type === 'commit'
+          ? 'submodule'
+          : 'file',
     sha: raw.id,
     mode: raw.mode,
   }
@@ -731,7 +1038,12 @@ export function toTreeEntry(raw: GitLabTreeEntry): TreeEntry {
 export function toWebhook(target: RepoRef, raw: GitLabHook): Webhook {
   const nativeEvents = Object.entries(raw).filter(([key, value]) => key.endsWith('_events') && value === true).map(([key]) => key)
   return {
-    ref: { forge: FORGE, instance: target.instance, target, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: target.instance,
+      target,
+      id: String(raw.id),
+    },
     url: raw.url,
     events: eventKindsOf(GITLAB_NATIVE_EVENTS, nativeEvents),
     nativeEvents,
@@ -744,12 +1056,19 @@ export function toWebhook(target: RepoRef, raw: GitLabHook): Webhook {
 export function toWebhookDelivery(hook: WebhookRef, raw: GitLabHookEvent): WebhookDeliveryRecord {
   const status = Number(raw.response_status) || 0
   return {
-    ref: { forge: FORGE, instance: hook.instance, hook, id: String(raw.id) },
+    ref: {
+      forge: FORGE,
+      instance: hook.instance,
+      hook,
+      id: String(raw.id),
+    },
     event: raw.trigger ?? '',
     status,
     ok: status >= 200 && status < 300,
     deliveredAt: toDate(raw.created_at),
-    duration: raw.execution_duration === undefined ? undefined : Math.round(raw.execution_duration * 1000),
+    duration: raw.execution_duration === undefined
+      ? undefined
+      : Math.round(raw.execution_duration * 1000),
     raw,
   }
 }

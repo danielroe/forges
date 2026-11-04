@@ -11,12 +11,24 @@ interface CapabilityCellProps {
 
 // Functional, as the matrices render hundreds of cells.
 const CapabilityCell: FunctionalComponent<CapabilityCellProps> = ({ level, kinds, credentials }) => {
-  const marked = credentials?.length ? { 'data-credentials': '' } : {}
+  const marked = credentials?.length
+    ? { 'data-credentials': '' }
+    : {}
   return kinds
     ? h('span', { 'class': 'capability-cell capability-kinds', 'aria-hidden': 'true', ...marked }, kinds.map(kind => h('span', { 'key': kind.kind, 'class': 'capability-swatch', 'data-level': kind.level })))
-    : h('span', { 'class': 'capability-cell capability-swatch', 'data-level': level, 'aria-hidden': 'true', ...marked })
+    : h('span', {
+        'class': 'capability-cell capability-swatch',
+        'data-level': level,
+        'aria-hidden': 'true',
+        ...marked,
+      })
 }
 
-CapabilityCell.props = ['level', 'kinds', 'credentials', 'byCredential']
+CapabilityCell.props = [
+  'level',
+  'kinds',
+  'credentials',
+  'byCredential',
+]
 
 export default CapabilityCell

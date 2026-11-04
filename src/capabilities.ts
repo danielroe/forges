@@ -4,7 +4,12 @@ import type { ThreadKind } from './model.ts'
 import type { ForgeCapabilities, ForgeProvider } from './provider.ts'
 import { CAPABILITY_TABLE } from './capability-table.ts'
 
-export const ALERT_KINDS: AlertKind[] = ['dependency', 'code_scanning', 'secret', 'advisory']
+export const ALERT_KINDS: AlertKind[] = [
+  'dependency',
+  'code_scanning',
+  'secret',
+  'advisory',
+]
 
 export const KINDS: ThreadKind[] = ['issue', 'pull_request', 'discussion']
 
@@ -26,24 +31,42 @@ const NOT_APPLICABLE_ALERTS: Record<AlertKind, DeclaredSupport> = {
  * `'unverified'` resolve to `true`, as `capabilities` reports them.
  */
 export function resolve(support: SupportInput | undefined, env: CapabilityEnv, declared = false): DeclaredSupport {
-  const level = typeof support === 'function' ? support(env) : support ?? false
-  return declared || (level !== 'experimental' && level !== 'unverified') ? level : true
+  const level = typeof support === 'function'
+    ? support(env)
+    : support ?? false
+  return declared || (level !== 'experimental' && level !== 'unverified')
+    ? level
+    : true
 }
 
 export function resolveKinds(kinds: Partial<Record<ThreadKind, SupportInput>> | undefined, env: CapabilityEnv, declared = false) {
-  return Object.fromEntries(KINDS.map(kind => [kind, resolve(kinds?.[kind], env, declared)])) as Record<ThreadKind, DeclaredSupport>
+  return Object.fromEntries(KINDS.map(kind => [
+    kind,
+    resolve(kinds?.[kind], env, declared),
+  ])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** A capability composed of `parts` is `'not_applicable'` when any part is, else `false`, else `'unverified'`. */
 function composed(parts: DeclaredSupport[], level: DeclaredSupport): DeclaredSupport {
-  return parts.includes('not_applicable') ? 'not_applicable' : parts.includes(false) ? false : parts.includes('unverified') ? 'unverified' : level
+  return parts.includes('not_applicable')
+    ? 'not_applicable'
+    : parts.includes(false)
+      ? false
+      : parts.includes('unverified')
+        ? 'unverified'
+        : level
 }
 
 /** A thread's events are read for each kind the provider reads threads of, at the weaker of the two levels. */
 export function threadEventKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<ThreadKind, DeclaredSupport> {
   const events = resolve(spec.threads.eventsPage.support, env, declared)
   const threads = resolveKinds(spec.threads.get.kinds, env, declared)
-  return Object.fromEntries(KINDS.map(kind => [kind, composed([events, threads[kind]], events === true ? threads[kind] : events)])) as Record<ThreadKind, DeclaredSupport>
+  return Object.fromEntries(KINDS.map(kind => [
+    kind,
+    composed([events, threads[kind]], events === true
+      ? threads[kind]
+      : events),
+  ])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** A single-item read the spec does not declare is emulated by walking its listing. */
@@ -51,15 +74,22 @@ function readOrEmulated(read: DeclaredSupport, listing: DeclaredSupport, emulate
   if (read !== false) {
     return read
   }
-  const level = emulated === undefined ? 'emulated' : resolve(emulated, env, declared)
-  return composed([listing], level === true ? 'emulated' : level)
+  const level = emulated === undefined
+    ? 'emulated'
+    : resolve(emulated, env, declared)
+  return composed([listing], level === true
+    ? 'emulated'
+    : level)
 }
 
 /** `threads.getComment`, per kind: declared, or emulated from `threads.comments`. */
 export function getCommentKinds(spec: ProviderSpec, env: CapabilityEnv, declared = false): Record<ThreadKind, DeclaredSupport> {
   const read = resolveKinds(spec.threads.getComment?.kinds, env, declared)
   const listing = resolveKinds(spec.threads.commentsPage.kinds, env, declared)
-  return Object.fromEntries(KINDS.map(kind => [kind, readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env, declared)])) as Record<ThreadKind, DeclaredSupport>
+  return Object.fromEntries(KINDS.map(kind => [
+    kind,
+    readOrEmulated(read[kind], listing[kind], spec.emulated?.getComment?.[kind], env, declared),
+  ])) as Record<ThreadKind, DeclaredSupport>
 }
 
 /** `threads.getReview`: declared, or emulated from `threads.reviews`. */
@@ -91,7 +121,9 @@ function write(target: Record<string, unknown>, path: string, value: unknown): v
 function unsupported(declared: unknown) {
   return declared && {
     ...declared as object,
-    support: (declared as { support?: unknown }).support === 'not_applicable' ? 'not_applicable' : false,
+    support: (declared as { support?: unknown }).support === 'not_applicable'
+      ? 'not_applicable'
+      : false,
   }
 }
 
@@ -110,7 +142,9 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
       return undefined
     case 'webhook':
       // The handler flag, not a declared verb, so `applyNotApplicable` cannot mark it.
-      return flags.webhook || (spec.notApplicable?.includes('webhooks.ingest') ? 'not_applicable' : false)
+      return flags.webhook || (spec.notApplicable?.includes('webhooks.ingest')
+        ? 'not_applicable'
+        : false)
     case 'threadEvents':
       return threadEventKinds(spec, env, declared)
     case 'getComment':
@@ -122,11 +156,16 @@ function valueFor(entry: CapabilityEntry, spec: ProviderSpec, env: CapabilityEnv
     case 'commitComment':
       return commitCommentSupport(spec, env, declared)
     case 'subscriptionSet':
-      return resolveKinds((flags.readOnly ? unsupportedKinds(spec.threads.subscriptions) as KindVerb<unknown> | undefined : spec.threads.subscriptions)?.kinds, env, declared)
+      return resolveKinds((flags.readOnly
+        ? unsupportedKinds(spec.threads.subscriptions) as KindVerb<unknown> | undefined
+        : spec.threads.subscriptions)?.kinds, env, declared)
     case 'approve':
       return resolve((spec.threads.approve ?? spec.threads.createReview)?.support, env, declared)
     case 'alertKinds':
-      return Object.fromEntries(ALERT_KINDS.map(kind => [kind, resolve(spec.securityAlerts?.kinds[kind], env, declared)]))
+      return Object.fromEntries(ALERT_KINDS.map(kind => [
+        kind,
+        resolve(spec.securityAlerts?.kinds[kind], env, declared),
+      ]))
     case 'eventKinds':
       return spec.traits.eventKinds
     case 'authKinds':
@@ -155,14 +194,18 @@ export function capabilitiesOf(spec: ProviderSpec, env: CapabilityEnv, flags: Ca
   const resolved = applyNotApplicable(spec)
   const capabilities: Record<string, unknown> = {
     version: env.version,
-    ...flags.experimental ? { experimental: true as const } : {},
+    ...flags.experimental
+      ? { experimental: true as const }
+      : {},
   }
   for (const entry of CAPABILITY_TABLE) {
     const value = valueFor(entry, resolved, env, flags, declared)
     if (value === undefined) {
       continue
     }
-    for (const key of entry.verbs?.length ? entry.verbs : [entry.capability]) {
+    for (const key of entry.verbs?.length
+      ? entry.verbs
+      : [entry.capability]) {
       write(capabilities, key, value)
     }
   }
@@ -187,7 +230,9 @@ export function declaredCapabilities(provider: ForgeProvider): ForgeCapabilities
 }
 
 /** Verbs `readOnly` blocks, by their {@link ForgeVerb} name. */
-export const WRITE_VERBS: Set<string> = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.write ? entry.verbs ?? [] : []))
+export const WRITE_VERBS: Set<string> = new Set<string>(CAPABILITY_TABLE.flatMap(entry => entry.write
+  ? entry.verbs ?? []
+  : []))
 
 function update(target: unknown, path: string, change: (value: unknown) => unknown, create = false): unknown {
   const [key, ...rest] = path.split('.')
@@ -198,7 +243,10 @@ function update(target: unknown, path: string, change: (value: unknown) => unkno
   if (!create && node?.[key] === undefined) {
     return target
   }
-  return { ...node, [key]: update(node?.[key], rest.join('.'), change, create) }
+  return {
+    ...node,
+    [key]: update(node?.[key], rest.join('.'), change, create),
+  }
 }
 
 const notApplicable = (declared: unknown) => ({ ...declared as object, support: 'not_applicable' as const })
@@ -234,7 +282,9 @@ export function restrict(spec: ProviderSpec, anonymous: boolean, webhooksOnly = 
     }
   }
   const result = restricted as ProviderSpec
-  return anonymous && webhooksOnly ? update(result, 'securityAlerts', unsupportedKinds) as ProviderSpec : result
+  return anonymous && webhooksOnly
+    ? update(result, 'securityAlerts', unsupportedKinds) as ProviderSpec
+    : result
 }
 
 /**
@@ -255,7 +305,9 @@ export function supportOnly<T extends ProviderSpec>(spec: T, keep: readonly stri
       restricted = update(restricted, entry.spec, entry.perKind ? unsupportedKinds : unsupported)
     }
   }
-  return (kept('securityAlerts') ? restricted : update(restricted, 'securityAlerts', unsupportedKinds)) as T
+  return (kept('securityAlerts')
+    ? restricted
+    : update(restricted, 'securityAlerts', unsupportedKinds)) as T
 }
 
 /** A level for one capability, or one per thread kind for a capability declared per kind. */
@@ -272,7 +324,13 @@ export type RedeclaredSupport = DeclaredSupport | Partial<Record<ThreadKind, Dec
  */
 export function redeclare<T extends ProviderSpec>(spec: T, levels: Readonly<Record<string, RedeclaredSupport>>): T {
   const absent = Object.keys(levels).filter(capability => levels[capability] === 'not_applicable')
-  let updated: unknown = applyNotApplicable({ ...spec, notApplicable: [...spec.notApplicable ?? [], ...absent] })
+  let updated: unknown = applyNotApplicable({
+    ...spec,
+    notApplicable: [
+      ...spec.notApplicable ?? [],
+      ...absent,
+    ],
+  })
   for (const entry of CAPABILITY_TABLE) {
     const level = levels[entry.capability]
     if (!entry.spec || level === undefined || level === 'not_applicable') {
@@ -284,7 +342,20 @@ export function redeclare<T extends ProviderSpec>(spec: T, levels: Readonly<Reco
       }
       const kinds = (declared as KindVerb<unknown>).kinds
       // One level for every kind leaves the kinds that are `'not_applicable'` as they are.
-      return { ...declared as object, kinds: typeof level === 'object' ? { ...kinds, ...level } : Object.fromEntries(Object.entries(kinds).map(([kind, value]) => [kind, value === 'not_applicable' ? value : level])) }
+      return {
+        ...declared as object,
+        kinds: typeof level === 'object'
+          ? {
+              ...kinds,
+              ...level,
+            }
+          : Object.fromEntries(Object.entries(kinds).map(([kind, value]) => [
+              kind,
+              value === 'not_applicable'
+                ? value
+                : level,
+            ])),
+      }
     })
   }
   return updated as T

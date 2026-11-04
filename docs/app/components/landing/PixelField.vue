@@ -45,7 +45,10 @@ function cellAt(clientX: number, clientY: number) {
   if (!rect || clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
     return undefined
   }
-  return { x: Math.floor((clientX - rect.left) / rect.width * cols), y: Math.floor((clientY - rect.top) / rect.height * rows) }
+  return {
+    x: Math.floor((clientX - rect.left) / rect.width * cols),
+    y: Math.floor((clientY - rect.top) / rect.height * rows),
+  }
 }
 
 /** Thins pixels out towards the bottom of the hero. */
@@ -55,7 +58,10 @@ function survives(y: number) {
 }
 
 function add(added: Pixel[]) {
-  pixels = [...pixels, ...added.filter(pixel => survives(pixel.y))].slice(-MAX_PIXELS)
+  pixels = [
+    ...pixels,
+    ...added.filter(pixel => survives(pixel.y)),
+  ].slice(-MAX_PIXELS)
   if (!frame) {
     frame = requestAnimationFrame(draw)
   }
@@ -69,7 +75,14 @@ function trail(x: number, y: number) {
     for (let dx = -3; dx <= 3; dx++) {
       const reach = 1 - Math.hypot(dx, dy) / 3.6
       if (reach > 0 && Math.random() < reach * 0.16) {
-        added.push({ x: x + dx, y: y + dy, born: now, life: 500 + Math.random() * 600, alpha: 0.12 + Math.random() * 0.14, color: 0 })
+        added.push({
+          x: x + dx,
+          y: y + dy,
+          born: now,
+          life: 500 + Math.random() * 600,
+          alpha: 0.12 + Math.random() * 0.14,
+          color: 0,
+        })
       }
     }
   }
@@ -121,7 +134,9 @@ function draw(now: number) {
   }
 
   ctx.globalAlpha = 1
-  frame = pixels.length ? requestAnimationFrame(draw) : 0
+  frame = pixels.length
+    ? requestAnimationFrame(draw)
+    : 0
 }
 
 function onMove(event: PointerEvent) {

@@ -46,7 +46,19 @@ function withoutUnattachedUploads(assets: unknown[]): unknown[] {
   const uuid = '00000000-0000-0000-0000-000000000000'
   return [
     ...assets.filter(asset => !isUpload(asset)),
-    ...upload ? [{ ...upload, id: 0, name: 'redacted', uuid, size: 0, download_count: 0, browser_download_url: String(upload.browser_download_url).replace(UNATTACHED_UPLOAD, `/attachments/${uuid}`) }] : [],
+    ...upload
+      ? [
+          {
+            ...upload,
+            id: 0,
+            name: 'redacted',
+            uuid,
+            size: 0,
+            download_count: 0,
+            browser_download_url: String(upload.browser_download_url).replace(UNATTACHED_UPLOAD, `/attachments/${uuid}`),
+          },
+        ]
+      : [],
   ]
 }
 

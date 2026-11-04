@@ -32,7 +32,9 @@ export interface DigestResult {
 }
 
 function repoName(repo: RepoRef): string {
-  return repo.name ? `${repo.owner}/${repo.name}` : repo.owner
+  return repo.name
+    ? `${repo.owner}/${repo.name}`
+    : repo.owner
 }
 
 async function openPulls(provider: ForgeProvider, repo: RepoRef, warnings: ForgeWarning[], limit: number): Promise<Thread[]> {
@@ -66,12 +68,18 @@ async function checkFailures(provider: ForgeProvider, ref: ResolvedThreadRef, wa
     const page = await provider.threads.checks(ref)
     warnings.push(...page.warnings ?? [])
     const failing = page.items.filter(check => check.state === 'failure')
-    return { checks: failing.map(check => check.name), failed: failing.length, total: page.items.length }
+    return {
+      checks: failing.map(check => check.name),
+      failed: failing.length,
+      total: page.items.length,
+    }
   }
   catch (error) {
     warnings.push({
       code: 'checks_unreadable',
-      message: error instanceof Error ? error.message : 'could not read checks',
+      message: error instanceof Error
+        ? error.message
+        : 'could not read checks',
       subject: `${repoName(ref.repo)}#${ref.number}`,
     })
     return undefined
@@ -132,7 +140,13 @@ export async function buildDigest(forges: Forges, repos: readonly RepoRef[], opt
       })
     }
 
-    entries.push({ forge: provider.forge, repo: repoName(repo), release, failing, warnings: entryWarnings })
+    entries.push({
+      forge: provider.forge,
+      repo: repoName(repo),
+      release,
+      failing,
+      warnings: entryWarnings,
+    })
     warnings.push(...entryWarnings)
   }
 
@@ -143,12 +157,18 @@ export function formatDigest(result: DigestResult): string {
   const lines: string[] = []
   for (const entry of result.entries) {
     const release = entry.release
-      ? `${entry.release.tag}${entry.release.publishedAt ? ` (${entry.release.publishedAt.toISOString().slice(0, 10)})` : ''}`
+      ? `${entry.release.tag}${entry.release.publishedAt
+        ? ` (${entry.release.publishedAt.toISOString().slice(0, 10)})`
+        : ''}`
       : 'no release'
     lines.push(`${entry.forge}  ${entry.repo}  ${release}`)
     for (const pull of entry.failing) {
-      const counts = pull.failed !== undefined && pull.total !== undefined ? ` ${pull.failed}/${pull.total} failed` : ''
-      lines.push(`  #${pull.number}  ${pull.title}${counts}${pull.checks.length ? `  [${pull.checks.join(', ')}]` : ''}`)
+      const counts = pull.failed !== undefined && pull.total !== undefined
+        ? ` ${pull.failed}/${pull.total} failed`
+        : ''
+      lines.push(`  #${pull.number}  ${pull.title}${counts}${pull.checks.length
+        ? `  [${pull.checks.join(', ')}]`
+        : ''}`)
     }
     if (entry.failing.length === 0) {
       lines.push('  no open pull requests with failing checks')

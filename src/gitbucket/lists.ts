@@ -15,8 +15,14 @@ const COMMIT_PAGE_LIMIT = 100
 
 /** Orders a page as `sort` and `direction` ask, since GitBucket returns each page in no particular order. */
 function compareBy(sort: NonNullable<ThreadQuery['sort']>, direction: 'asc' | 'desc'): (a: GitHubIssue, b: GitHubIssue) => number {
-  const key = (raw: GitHubIssue) => sort === 'comments' ? raw.comments ?? 0 : Date.parse((sort === 'updated' ? raw.updated_at : raw.created_at) ?? '') || 0
-  const sign = direction === 'asc' ? 1 : -1
+  const key = (raw: GitHubIssue) => sort === 'comments'
+    ? raw.comments ?? 0
+    : Date.parse((sort === 'updated'
+      ? raw.updated_at
+      : raw.created_at) ?? '') || 0
+  const sign = direction === 'asc'
+    ? 1
+    : -1
   return (a, b) => sign * ((key(a) - key(b)) || (a.number - b.number))
 }
 
@@ -24,7 +30,9 @@ function compareBy(sort: NonNullable<ThreadQuery['sort']>, direction: 'asc' | 'd
 export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
   return async (repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> => {
     const first = isFirstPage(query.cursor)
-    const kind = query.kind === 'pull_request' ? 'pull_request' : 'issue'
+    const kind = query.kind === 'pull_request'
+      ? 'pull_request'
+      : 'issue'
     const warnings: ForgeWarning[] = []
     if (first && !query.kind) {
       warnings.push({ code: 'kind_unsupported', message: 'GitBucket lists issues and pull requests apart, so this lists issues; pass `kind` to list pull requests' })
@@ -35,13 +43,19 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
     const merged = query.state === 'merged'
     const sort = query.sort ?? 'created'
     const direction = query.direction ?? 'desc'
-    const page = query.cursor?.token === undefined ? 1 : Number(query.cursor.token)
+    const page = query.cursor?.token === undefined
+      ? 1
+      : Number(query.cursor.token)
     if (!Number.isSafeInteger(page) || page < 1) {
       throw new TypeError(`A GitBucket thread cursor is a page number, not ${JSON.stringify(query.cursor?.token)}`)
     }
-    const { data } = await fetcher.json<GitHubIssue[]>(`/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/${kind === 'pull_request' ? 'pulls' : 'issues'}`, {
+    const { data } = await fetcher.json<GitHubIssue[]>(`/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/${kind === 'pull_request'
+      ? 'pulls'
+      : 'issues'}`, {
       query: {
-        state: merged ? 'closed' : query.state ?? 'open',
+        state: merged
+          ? 'closed'
+          : query.state ?? 'open',
         labels: query.labels?.join(','),
         author: query.author,
         assigned: query.assignee,
@@ -50,7 +64,9 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
         milestone: query.milestone,
         sort,
         direction,
-        page: page > 1 ? String(page) : undefined,
+        page: page > 1
+          ? String(page)
+          : undefined,
       },
       signal: query.signal,
     })
@@ -58,14 +74,22 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
     const older = (raw: GitHubIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
     const listed = data.filter(raw => (!merged || raw.merged) && !older(raw)).sort(compareBy(sort, direction))
     const items = await Promise.all(listed.map(async (raw) => {
-      const thread = toThread({ ...origin, repo, kind, number: String(raw.number) }, raw)
+      const thread = toThread({
+        ...origin,
+        repo,
+        kind,
+        number: String(raw.number),
+      }, raw)
       const sha = raw.head?.sha
       if (kind !== 'pull_request' || !sha) {
         return thread
       }
       // The listing already names the head, so one read of its statuses gives the checks.
       try {
-        const { data: status } = await fetcher.json<GitHubCombinedStatus>(`/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/commits/${sha}/status`, { query: { per_page: 100 }, signal: query.signal })
+        const { data: status } = await fetcher.json<GitHubCombinedStatus>(`/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/commits/${sha}/status`, {
+          query: { per_page: 100 },
+          signal: query.signal,
+        })
         thread.checks = summariseChecks(status.statuses.map(entry => toStatusCheck(repo, entry).state), raw.html_url)
       }
       catch (error) {
@@ -80,8 +104,14 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
     const past = sort === 'created' && direction === 'desc' && data.some(older)
     return {
       items,
-      cursor: data.length >= THREAD_PAGE_SIZE && !past ? { token: String(page + 1) } : undefined,
-      ...warnings.length ? { warnings } : {},
+      cursor: data.length >= THREAD_PAGE_SIZE && !past
+        ? {
+            token: String(page + 1),
+          }
+        : undefined,
+      ...warnings.length
+        ? { warnings }
+        : {},
     }
   }
 }
@@ -93,6 +123,13 @@ export function commitsPage(listPage: (repo: RepoRef, query?: CommitQuery) => Pr
     if (page.items.length < Math.min(query.perPage || COMMIT_PAGE_SIZE, COMMIT_PAGE_LIMIT)) {
       return page
     }
-    return { ...page, cursor: undefined, warnings: [...page.warnings ?? [], { code: 'commits_truncated', message: `GitBucket pages commits past the first ${page.items.length} wrongly, so the listing stops there; narrow it with \`since\`, \`until\` or \`path\`` }] }
+    return {
+      ...page,
+      cursor: undefined,
+      warnings: [
+        ...page.warnings ?? [],
+        { code: 'commits_truncated', message: `GitBucket pages commits past the first ${page.items.length} wrongly, so the listing stops there; narrow it with \`since\`, \`until\` or \`path\`` },
+      ],
+    }
   }
 }

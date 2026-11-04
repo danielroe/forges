@@ -14,22 +14,53 @@ function recorder(answer: (url: string, init?: RequestInit) => unknown): { fetch
   return {
     calls,
     fetch: async (url, init) => {
-      const body = typeof init?.body === 'string' ? JSON.parse(init.body) as { operationName?: string, variables?: Record<string, unknown> } : undefined
-      calls.push(`${init?.method ?? 'GET'} ${url}${body?.operationName ? ` ${body.operationName} ${JSON.stringify(body.variables)}` : ''}`)
-      return new Response(JSON.stringify(answer(url, init) ?? {}), { status: 200, headers: { 'content-type': 'application/json' } })
+      const body = typeof init?.body === 'string'
+        ? JSON.parse(init.body) as { operationName?: string, variables?: Record<string, unknown> }
+        : undefined
+      calls.push(`${init?.method ?? 'GET'} ${url}${body?.operationName
+        ? ` ${body.operationName} ${JSON.stringify(body.variables)}`
+        : ''}`)
+      return new Response(JSON.stringify(answer(url, init) ?? {}), {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      })
     },
   }
 }
 
 function ref(forge: string, instance: string, kind: ThreadKind): ThreadRef {
-  return { forge, instance, repo: { forge, instance, owner: 'acme', name: 'widgets' }, kind, number: '7' }
+  return {
+    forge,
+    instance,
+    repo: {
+      forge,
+      instance,
+      owner: 'acme',
+      name: 'widgets',
+    },
+    kind,
+    number: '7',
+  }
 }
 
 function graphqlAnswers(url: string, init?: RequestInit) {
   const { operationName } = JSON.parse(String(init?.body)) as { operationName: string }
   return operationName === 'SubscriptionState'
-    ? { data: { repository: { issueOrPullRequest: { id: 'I_1', viewerSubscription: 'UNSUBSCRIBED' }, discussion: { id: 'D_1', viewerSubscription: 'UNSUBSCRIBED' } } } }
-    : { data: { updateSubscription: { subscribable: { viewerSubscription: 'SUBSCRIBED' } } } }
+    ? {
+        data: {
+          repository: {
+            issueOrPullRequest: { id: 'I_1', viewerSubscription: 'UNSUBSCRIBED' },
+            discussion: { id: 'D_1', viewerSubscription: 'UNSUBSCRIBED' },
+          },
+        },
+      }
+    : {
+        data: {
+          updateSubscription: {
+            subscribable: { viewerSubscription: 'SUBSCRIBED' },
+          },
+        },
+      }
 }
 
 describe('thread subscriptions', () => {
@@ -41,7 +72,9 @@ describe('thread subscriptions', () => {
     await provider.threads.subscribe(thread)
     await provider.threads.unsubscribe(thread)
 
-    const id = kind === 'discussion' ? 'D_1' : 'I_1'
+    const id = kind === 'discussion'
+      ? 'D_1'
+      : 'I_1'
     expect(calls.filter(call => call.includes('UpdateSubscription'))).toEqual([
       `POST https://api.github.com/graphql UpdateSubscription {"id":"${id}","state":"SUBSCRIBED"}`,
       `POST https://api.github.com/graphql UpdateSubscription {"id":"${id}","state":"UNSUBSCRIBED"}`,
@@ -56,7 +89,9 @@ describe('thread subscriptions', () => {
     await provider.threads.subscribe(thread)
     await provider.threads.unsubscribe(thread)
 
-    const resource = kind === 'issue' ? 'issues' : 'merge_requests'
+    const resource = kind === 'issue'
+      ? 'issues'
+      : 'merge_requests'
     expect(calls).toEqual([
       `POST https://gitlab.com/api/v4/projects/acme%2Fwidgets/${resource}/7/subscribe`,
       `POST https://gitlab.com/api/v4/projects/acme%2Fwidgets/${resource}/7/unsubscribe`,
@@ -64,10 +99,20 @@ describe('thread subscriptions', () => {
   })
 
   it.each([
-    ['forgejo', 'codeberg.org', (fetch: FetchLike): ForgeProvider => forgejo({ auth, fetch })],
-    ['gitea', 'gitea.com', (fetch: FetchLike): ForgeProvider => gitea({ auth, fetch })],
+    [
+      'forgejo',
+      'codeberg.org',
+      (fetch: FetchLike): ForgeProvider => forgejo({ auth, fetch }),
+    ],
+    [
+      'gitea',
+      'gitea.com',
+      (fetch: FetchLike): ForgeProvider => gitea({ auth, fetch }),
+    ],
   ])('%s puts and deletes the current user\'s subscription', async (forge, instance, create) => {
-    const { fetch, calls } = recorder(url => url.endsWith('/user') ? { login: 'ada', id: 1 } : {})
+    const { fetch, calls } = recorder(url => url.endsWith('/user')
+      ? { login: 'ada', id: 1 }
+      : {})
     const provider = create(fetch)
 
     for (const kind of ['issue', 'pull_request'] as const) {

@@ -24,13 +24,19 @@ export async function rateLimitWait(response: Response, now = Date.now()): Promi
   if (retryAfter !== null) {
     const seconds = Number(retryAfter)
     const date = Date.parse(retryAfter)
-    return Number.isFinite(seconds) ? seconds * 1000 : Number.isNaN(date) ? Number.NaN : Math.max(0, date - now)
+    return Number.isFinite(seconds)
+      ? seconds * 1000
+      : Number.isNaN(date)
+        ? Number.NaN
+        : Math.max(0, date - now)
   }
   if (exhausted && rateLimit.resetAt) {
     return Math.max(0, rateLimit.resetAt.getTime() - now)
   }
   const window = WINDOW_MESSAGE.exec(body)
-  return window ? Number(window[1]) * 60_000 : Number.NaN
+  return window
+    ? Number(window[1]) * 60_000
+    : Number.NaN
 }
 
 export interface PatientFetchOptions {
@@ -71,9 +77,16 @@ export function patientFetch(fetch: FetchLike, options: PatientFetchOptions = {}
     let unnamed = false
     for (let attempt = 1; ; attempt++) {
       init?.signal?.throwIfAborted()
-      const deadline = timeout === undefined ? undefined : AbortSignal.timeout(timeout)
+      const deadline = timeout === undefined
+        ? undefined
+        : AbortSignal.timeout(timeout)
       const signals = [init?.signal, deadline].filter(signal => !!signal)
-      const response = await fetch(input, signals.length ? { ...init, signal: AbortSignal.any(signals) } : init).catch((error: unknown) => {
+      const response = await fetch(input, signals.length
+        ? {
+            ...init,
+            signal: AbortSignal.any(signals),
+          }
+        : init).catch((error: unknown) => {
         if (deadline?.aborted && !init?.signal?.aborted) {
           log(`timed out after ${timeout}ms: ${method} ${input}`)
         }
@@ -84,16 +97,25 @@ export function patientFetch(fetch: FetchLike, options: PatientFetchOptions = {}
         return response
       }
       const named = !Number.isNaN(wait)
-      if (resendable && attempt < attempts && (named ? wait <= maxWait : !unnamed)) {
+      if (resendable && attempt < attempts && (named
+        ? wait <= maxWait
+        : !unnamed)) {
         unnamed ||= !named
-        const delay = named ? wait + 1000 : unnamedWait
+        const delay = named
+          ? wait + 1000
+          : unnamedWait
         log(`rate limited ${response.status} ${method} ${input}; retrying in ${Math.ceil(delay / 1000)}s`)
         await sleep(delay)
         continue
       }
-      limited ??= named ? `${method} ${input} was rate limited for ${Math.ceil(wait / 60_000)} minute(s)` : `${method} ${input} was rate limited with no wait named`
+      limited ??= named
+        ? `${method} ${input} was rate limited for ${Math.ceil(wait / 60_000)} minute(s)`
+        : `${method} ${input} was rate limited with no wait named`
       return response
     }
   }
-  return { fetch: patient, limited: () => limited }
+  return {
+    fetch: patient,
+    limited: () => limited,
+  }
 }

@@ -9,7 +9,9 @@ import { headerValue } from '../crypto.ts'
 export const SRHT_WEBHOOK_PUBLIC_KEY = 'uX7KWyyDNMaBma4aVbJ/cbUQpdjqczuCyK/HxzV/u+4='
 
 function bytes(value: string | Uint8Array): Uint8Array {
-  return typeof value === 'string' ? new TextEncoder().encode(value) : value
+  return typeof value === 'string'
+    ? new TextEncoder().encode(value)
+    : value
 }
 
 async function verifyEd25519(publicKey: string, signature: string, message: Uint8Array<ArrayBuffer>): Promise<boolean> {

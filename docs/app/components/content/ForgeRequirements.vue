@@ -2,8 +2,16 @@
 import { providers } from '#capabilities'
 import { requirements } from '#credentials'
 
-const headings = ['Forge', 'Credentials', 'Optional', 'Anonymous reads']
-const rows = requirements.map(forge => ({ ...forge, provider: providers.find(({ slug }) => slug === forge.slug)! }))
+const headings = [
+  'Forge',
+  'Credentials',
+  'Optional',
+  'Anonymous reads',
+]
+const rows = requirements.map(forge => ({
+  ...forge,
+  provider: providers.find(({ slug }) => slug === forge.slug)!,
+}))
 </script>
 
 <template>
