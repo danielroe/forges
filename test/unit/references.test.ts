@@ -56,8 +56,8 @@ describe('parseReferences', () => {
   describe('commit references', () => {
     const shas = {
       'mixed': sha,
-      'letters before the first digit': 'deadbeef1234567890abcdef1234567890abcdef',
-      'digits before the first letter': '12345678a0b1c2d3e4f5061728394a5b6c7d8e9f',
+      'letters before the first digit': 'deadbeefcafebabe1234567890abcdef12345678',
+      'digits before the first letter': '12345678901234a0b1c2d3e4f5061728394a5b6c',
       'only digits': '1234567890'.repeat(4),
       'only letters': 'abcdef'.repeat(7).slice(0, 40),
     }
@@ -68,10 +68,7 @@ describe('parseReferences', () => {
       const from = repoOn(provider, owner, 'widgets')
       for (const repo of [from, repoOn(provider, owner, 'tools')]) {
         const ref = { forge: provider.forge, instance: provider.instance, repo, sha: value }
-        const text = provider.referenceFor(ref, { from })
-        if (text === undefined) {
-          continue
-        }
+        const text = provider.referenceFor(ref, { from })!
         if (text.startsWith('https://')) {
           expect(provider.parseUrl(text)).toMatchObject({ commit: { repo: { owner: repo.owner, name: repo.name }, sha: value } })
           continue
@@ -89,9 +86,22 @@ describe('parseReferences', () => {
       const at = (value: string) => gh.referenceFor({ forge: 'github', instance: 'github.com', repo: from, sha: value }, { from })
 
       expect(at(sha)).toBe('a1b2c3d')
-      expect(at(shas['letters before the first digit'])).toBe('deadbeef1')
-      expect(at(shas['digits before the first letter'])).toBe('12345678a')
-      expect(gitlab().referenceFor({ forge: 'gitlab', instance: 'gitlab.com', repo: repoOn(gitlab(), 'acme', 'widgets'), sha: shas['letters before the first digit'] }, { from: repoOn(gitlab(), 'acme', 'widgets') })).toBe('deadbeef1')
+      expect(at(shas['letters before the first digit'])).toBe('deadbeefcafebabe1')
+      expect(at(shas['digits before the first letter'])).toBe('12345678901234a')
+      for (const provider of [gitlab(), bitbucket()]) {
+        const from = repoOn(provider, 'acme', 'widgets')
+
+        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: shas['letters before the first digit'] }, { from })).toBe('deadbeefcafebabe1')
+        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: shas['digits before the first letter'] }, { from })).toBe('12345678901234a')
+      }
+    })
+
+    it('writes a sha shorter than the forge\'s length as it is', () => {
+      for (const provider of [github(), gitlab(), bitbucket()]) {
+        const from = repoOn(provider, 'acme', 'widgets')
+
+        expect(provider.referenceFor({ forge: provider.forge, instance: provider.instance, repo: from, sha: 'a1b2c3d' }, { from })).toBe('a1b2c3d')
+      }
     })
 
     it('qualifies a sha with no bare prefix by its repository, or links it where the forge has no such syntax', () => {

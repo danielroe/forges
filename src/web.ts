@@ -286,7 +286,7 @@ function isBareSha(value: string): boolean {
  * or `undefined` when no prefix does, as for a sha of only digits or only letters.
  */
 export function bareSha(sha: string, length: number): string | undefined {
-  for (let end = length; end <= sha.length; end++) {
+  for (let end = Math.min(length, sha.length); end <= sha.length; end++) {
     if (isBareSha(sha.slice(0, end))) {
       return sha.slice(0, end)
     }
