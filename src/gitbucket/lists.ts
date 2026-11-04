@@ -10,6 +10,16 @@ const THREAD_PAGE_SIZE = 25
 /** GitHub's default, which GitBucket keeps for commits. */
 const COMMIT_PAGE_SIZE = 30
 
+/** The most commits GitBucket returns in a page. */
+const COMMIT_PAGE_LIMIT = 100
+
+/** Orders a page as `sort` and `direction` ask, since GitBucket returns each page in no particular order. */
+function compareBy(sort: NonNullable<ThreadQuery['sort']>, direction: 'asc' | 'desc'): (a: GitHubIssue, b: GitHubIssue) => number {
+  const key = (raw: GitHubIssue) => sort === 'comments' ? raw.comments ?? 0 : Date.parse((sort === 'updated' ? raw.updated_at : raw.created_at) ?? '') || 0
+  const sign = direction === 'asc' ? 1 : -1
+  return (a, b) => sign * ((key(a) - key(b)) || (a.number - b.number))
+}
+
 /** Lists issues or pull requests by page number and with GitBucket's filter names, since it sends no `Link` header and ignores GitHub's. */
 export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
   return async (repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> => {
@@ -19,12 +29,12 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
     if (first && !query.kind) {
       warnings.push({ code: 'kind_unsupported', message: 'GitBucket lists issues and pull requests apart, so this lists issues; pass `kind` to list pull requests' })
     }
-    for (const filter of ['since', 'involves'] as const) {
-      if (first && query[filter]) {
-        warnings.push({ code: 'filter_unsupported', message: `GitBucket lists issues and pull requests without a ${filter} filter; it was ignored` })
-      }
+    if (first && query.since) {
+      warnings.push({ code: 'filter_unsupported', message: 'GitBucket lists issues and pull requests without a since filter; it was ignored' })
     }
     const merged = query.state === 'merged'
+    const sort = query.sort ?? 'created'
+    const direction = query.direction ?? 'desc'
     const page = query.cursor?.token === undefined ? 1 : Number(query.cursor.token)
     if (!Number.isSafeInteger(page) || page < 1) {
       throw new TypeError(`A GitBucket thread cursor is a page number, not ${JSON.stringify(query.cursor?.token)}`)
@@ -38,15 +48,15 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
         mentioned: query.mentions,
         // GitBucket filters milestones by title, not by number.
         milestone: query.milestone,
-        sort: query.sort ?? 'created',
-        direction: query.direction ?? 'desc',
+        sort,
+        direction,
         page: page > 1 ? String(page) : undefined,
       },
       signal: query.signal,
     })
     const createdAfter = query.createdAfter?.getTime()
     const older = (raw: GitHubIssue) => createdAfter !== undefined && (Date.parse(raw.created_at ?? '') || 0) < createdAfter
-    const listed = data.filter(raw => (!merged || raw.merged) && !older(raw))
+    const listed = data.filter(raw => (!merged || raw.merged) && !older(raw)).sort(compareBy(sort, direction))
     const items = await Promise.all(listed.map(async (raw) => {
       const thread = toThread({ ...origin, repo, kind, number: String(raw.number) }, raw)
       const sha = raw.head?.sha
@@ -67,10 +77,10 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
       return thread
     }))
     // Sorted newest first, an item older than `createdAfter` means every later page is older too.
-    const past = (query.sort ?? 'created') === 'created' && (query.direction ?? 'desc') === 'desc' && data.some(older)
+    const past = sort === 'created' && direction === 'desc' && data.some(older)
     return {
       items,
-      cursor: data.length === THREAD_PAGE_SIZE && !past ? { token: String(page + 1) } : undefined,
+      cursor: data.length >= THREAD_PAGE_SIZE && !past ? { token: String(page + 1) } : undefined,
       ...warnings.length ? { warnings } : {},
     }
   }
@@ -80,7 +90,7 @@ export function threadsPage(fetcher: Fetcher, origin: ForgeOrigin) {
 export function commitsPage(listPage: (repo: RepoRef, query?: CommitQuery) => Promise<Page<Commit>>) {
   return async (repo: RepoRef, query: CommitQuery = {}): Promise<Page<Commit>> => {
     const page = await listPage(repo, query)
-    if (page.items.length < (query.perPage ?? COMMIT_PAGE_SIZE)) {
+    if (page.items.length < Math.min(query.perPage || COMMIT_PAGE_SIZE, COMMIT_PAGE_LIMIT)) {
       return page
     }
     return { ...page, cursor: undefined, warnings: [...page.warnings ?? [], { code: 'commits_truncated', message: `GitBucket pages commits past the first ${page.items.length} wrongly, so the listing stops there; narrow it with \`since\`, \`until\` or \`path\`` }] }

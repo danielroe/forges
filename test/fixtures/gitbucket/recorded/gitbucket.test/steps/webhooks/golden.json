@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "target": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures-scratch"
+        },
+        "id": "1"
+      },
+      "url": "https://example.com/seeded-hook",
+      "events": [
+        "comment",
+        "state_change",
+        "label",
+        "assignment",
+        "push",
+        "issue_type"
+      ],
+      "nativeEvents": [
+        "issue_comment",
+        "issues",
+        "push"
+      ],
+      "active": true,
+      "contentType": "json"
+    }
+  ]
+}

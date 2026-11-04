@@ -1,7 +1,10 @@
 # GitBucket fixtures
 
-GitBucket has no public instance, so there is no recording yet. These fixtures are the responses of a local GitBucket 4.48.0 server to the requests the provider sent, taken on 2026-10-31 from a `root/widgets` repository with one issue, one pull request with a commit status, and a `v1.0.0` release. The host is rewritten to `gitbucket.example.com` and the email addresses to `example.com`; everything else is as GitBucket sent it, including the fields it leaves out, such as release ids.
+GitBucket has no public instance, so `recorded/` holds recordings of a GitBucket server that [`scripts/gitbucket-server.ts`](../../../scripts/gitbucket-server.ts) starts in Docker and seeds for each run. Record them again with:
 
-The reads were taken after the writes in `writes/`, so the pull request is already merged and the commit has two statuses. `writes/` holds the writes, taken in one run against the same repository. Its two `get-issues-1-labels-*.json` reads are written by hand, in the shape of GitBucket's `ApiLabel`, for the labels of issue 1 after `addLabels()` and after `removeLabels()`; the tests serve them in that order.
+```bash
+node scripts/record-forge.ts gitbucket --kind reads
+node scripts/record-forge.ts gitbucket --kind writes
+```
 
-`webhooks/` holds two deliveries exactly as GitBucket sent them, signed with the secret `tops3cret`, so their hosts stay `localhost:8090`.
+The writes run also records webhook deliveries, through a relay on your machine that the container reaches as `host.docker.internal`. The server listens on `127.0.0.1:8080`, and the recordings name it `gitbucket.test` in refs. To record a server you already run, set `GITBUCKET_BASE_URL` to its root; it must be empty, with GitBucket's default `root` account.

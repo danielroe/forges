@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures-scratch/issues/comments/7",
+    "body": {
+      "body": "An edited comment from run 20261104173742."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": 7,
+      "user": {
+        "id": 3,
+        "login": "forges-bot",
+        "email": "redacted@example.invalid",
+        "type": "User",
+        "site_admin": false,
+        "created_at": "2026-11-04T17:37:40Z",
+        "url": "http://127.0.0.1:8080/api/v3/users/forges-bot",
+        "html_url": "http://127.0.0.1:8080/forges-bot",
+        "avatar_url": "http://127.0.0.1:8080/forges-bot/_avatar"
+      },
+      "body": "An edited comment from run 20261104173742.",
+      "created_at": "2026-11-04T17:37:44Z",
+      "updated_at": "2026-11-04T17:37:46Z",
+      "html_url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/issues/1#comment-7"
+    }
+  }
+}

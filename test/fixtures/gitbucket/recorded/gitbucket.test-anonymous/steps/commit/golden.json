@@ -1,0 +1,44 @@
+{
+  "ref": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "sha": "895ca080c86639ce06468171c43514a6af818b6e"
+  },
+  "sha": "895ca080c86639ce06468171c43514a6af818b6e",
+  "message": "docs: write feature.md",
+  "author": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "committer": {
+    "name": "forges fixtures",
+    "email": "redacted@example.invalid",
+    "date": "<now>"
+  },
+  "parents": [
+    "4de241e86e230f5aea18c6cdc2339ffecc5ba585"
+  ],
+  "url": "http://127.0.0.1:8080/forges/forges-fixtures/commit/895ca080c86639ce06468171c43514a6af818b6e",
+  "stats": {
+    "additions": 1,
+    "deletions": 1,
+    "total": 2
+  },
+  "files": [
+    {
+      "path": "feature.md",
+      "status": "modified",
+      "statusRaw": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "patch": "@@ -1 +1 @@\n-Added on feature.\n+Added on feature, then edited."
+    }
+  ]
+}

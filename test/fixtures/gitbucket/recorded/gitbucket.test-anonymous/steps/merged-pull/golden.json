@@ -1,0 +1,144 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "3"
+    },
+    "kind": "pull_request",
+    "title": "forges seed: merged pull",
+    "body": "A pull request that is merged.",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "login": "forges-bot",
+      "id": "3",
+      "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+      "url": "http://127.0.0.1:8080/forges-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/3",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "mergedAt": "<now>",
+    "mergedBy": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "login": "forges-bot",
+      "id": "3",
+      "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+      "url": "http://127.0.0.1:8080/forges-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "<now>",
+    "branches": {
+      "head": {
+        "ref": "merged",
+        "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures",
+          "externalId": "1"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+      }
+    },
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0,
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/3"
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "3"
+    },
+    "kind": "pull_request",
+    "title": "forges seed: merged pull",
+    "body": "A pull request that is merged.",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "login": "forges-bot",
+      "id": "3",
+      "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+      "url": "http://127.0.0.1:8080/forges-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "assignees": [],
+    "reviewers": [],
+    "labels": [],
+    "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/3",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "mergedAt": "<now>",
+    "mergedBy": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "login": "forges-bot",
+      "id": "3",
+      "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+      "url": "http://127.0.0.1:8080/forges-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "<now>",
+    "branches": {
+      "head": {
+        "ref": "merged",
+        "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures",
+          "externalId": "1"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "5429b633986167882ccd67b0ab6c31bdc90fd042"
+      }
+    },
+    "checks": {
+      "state": "unknown",
+      "total": 0,
+      "failed": 0,
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/pull/3"
+    }
+  }
+}

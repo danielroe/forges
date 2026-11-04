@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "thread": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "repo": {
+            "forge": "gitbucket",
+            "instance": "gitbucket.test",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "1"
+        },
+        "id": "1"
+      },
+      "body": "A seeded comment.",
+      "author": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-bot",
+        "id": "3",
+        "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+        "url": "http://127.0.0.1:8080/forges-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/issues/1#comment-1"
+    },
+    {
+      "ref": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "thread": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "repo": {
+            "forge": "gitbucket",
+            "instance": "gitbucket.test",
+            "owner": "forges",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "1"
+        },
+        "id": "2"
+      },
+      "body": "A seeded comment from the reviewer.",
+      "author": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-reader",
+        "id": "2",
+        "avatarUrl": "http://127.0.0.1:8080/forges-reader/_avatar",
+        "url": "http://127.0.0.1:8080/forges-reader",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/issues/1#comment-2"
+    }
+  ]
+}

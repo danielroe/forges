@@ -5,7 +5,6 @@ const RESERVED_PATHS = ['admin', 'api', 'assets', 'dashboard', 'groups', 'new', 
 
 export const GITBUCKET_WEB: WebDefinition<'gitbucket'> = {
   forge: 'gitbucket',
-  // GitBucket has no public instance, so every provider names its own server.
   baseUrl: '',
   apiPath: '/api/v3',
   links: ({ baseUrl }) => {

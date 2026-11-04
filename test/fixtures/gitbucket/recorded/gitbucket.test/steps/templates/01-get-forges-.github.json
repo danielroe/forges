@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/.github"
+  },
+  "response": {
+    "status": 404,
+    "headers": {},
+    "body": {
+      "message": "Not Found"
+    }
+  }
+}

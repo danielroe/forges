@@ -1,0 +1,198 @@
+{
+  "01-push": [
+    {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "id": "ce53facb-7e03-40a8-8ac0-7fad66ae5ec0",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push",
+      "summary": "forges-bot pushed 1 commit(s) to forges-fixtures/20261104173808-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-bot",
+        "id": "3",
+        "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+        "url": "http://127.0.0.1:8080/forges-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch",
+        "externalId": "2"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261104173808-webhooks",
+        "before": "b14d5ea7651a3487012f9ab148b5dd85dcef66e0",
+        "after": "48d5e626af7daea4597a34ffffcfe165190c6067",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "48d5e626af7daea4597a34ffffcfe165190c6067",
+            "message": "test: add forges-fixtures/20261104173808-webhooks.md",
+            "author": "forges bot",
+            "url": "http://127.0.0.1:8080/api/v3/forges/forges-fixtures-scratch/commits/48d5e626af7daea4597a34ffffcfe165190c6067"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-issues": [
+    {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "id": "94243e23-48fe-460b-82a8-293f69d5cdce",
+      "kind": "state_change",
+      "kindRaw": "issues.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "forges-bot opened issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-bot",
+        "id": "3",
+        "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+        "url": "http://127.0.0.1:8080/forges-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch",
+        "externalId": "2"
+      },
+      "thread": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures-scratch",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261104173808: webhooks",
+        "body": "Opened by run 20261104173808.",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "login": "forges-bot",
+          "id": "3",
+          "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+          "url": "http://127.0.0.1:8080/forges-bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/issues/6"
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issue_comment": [
+    {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "id": "e84cc9f4-5408-41b4-a43e-90de05c9490c",
+      "kind": "comment",
+      "kindRaw": "issue_comment.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "thread": {
+            "forge": "gitbucket",
+            "instance": "gitbucket.test",
+            "repo": {
+              "forge": "gitbucket",
+              "instance": "gitbucket.test",
+              "owner": "forges",
+              "name": "forges-fixtures-scratch",
+              "externalId": "2"
+            },
+            "kind": "issue",
+            "number": "6"
+          },
+          "id": "23"
+        },
+        "body": "A comment from run 20261104173808."
+      },
+      "summary": "forges-bot created a comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "login": "forges-bot",
+        "id": "3",
+        "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+        "url": "http://127.0.0.1:8080/forges-bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch",
+        "externalId": "2"
+      },
+      "thread": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "repo": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "owner": "forges",
+          "name": "forges-fixtures-scratch",
+          "externalId": "2"
+        },
+        "kind": "issue",
+        "number": "6"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261104173808: webhooks",
+        "body": "Opened by run 20261104173808.",
+        "state": "open",
+        "stateRaw": "open",
+        "author": {
+          "forge": "gitbucket",
+          "instance": "gitbucket.test",
+          "login": "forges-bot",
+          "id": "3",
+          "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+          "url": "http://127.0.0.1:8080/forges-bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/issues/6"
+      },
+      "source": "webhook"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "baseUrl": "http://127.0.0.1:8080/api/v3",
+  "instance": "gitbucket.test",
+  "repo": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures-scratch"
+  },
+  "scratch": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "owner": "forges",
+    "name": "forges-fixtures-scratch"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-11-04T17:39:10.722Z",
+  "steps": [],
+  "deliveries": [
+    "01-push",
+    "02-issues",
+    "03-issue_comment"
+  ]
+}

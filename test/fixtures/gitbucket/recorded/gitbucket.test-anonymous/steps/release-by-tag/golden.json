@@ -1,0 +1,34 @@
+{
+  "ref": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "id": "v1.0.0",
+    "tag": "v1.0.0"
+  },
+  "name": "v1.0.0",
+  "tag": "v1.0.0",
+  "body": "The first release.",
+  "author": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "login": "forges-bot",
+    "id": "3",
+    "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+    "url": "http://127.0.0.1:8080/forges-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assets": [
+    {
+      "name": "notes.txt",
+      "url": "http://127.0.0.1:8080/forges/forges-fixtures/releases/v1.0.0/assets/1793813566552AMeBjktQ0C",
+      "size": 15
+    }
+  ]
+}

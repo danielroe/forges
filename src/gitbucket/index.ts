@@ -9,6 +9,7 @@ import { UnsupportedOperationError } from '../errors.ts'
 import { githubDefinition } from '../github/definition.ts'
 import { labelWrites } from './labels.ts'
 import { commitsPage, threadsPage } from './lists.ts'
+import { mergePull } from './merge.ts'
 import { GITBUCKET_WEB } from './web.ts'
 import { GITBUCKET_NATIVE_EVENTS, GITBUCKET_WEBHOOK_EVENTS } from './webhook-events.ts'
 
@@ -26,7 +27,7 @@ export interface GitBucketOptions extends ForgeOptionsBase {
   baseUrl: string
 }
 
-/** Where GitBucket 4.48 parts ways with GitHub: no such feature (`'not_applicable'`), no endpoint for it (`false`), or no fixture yet (`'unverified'`). */
+/** Where GitBucket 4.48 parts ways with GitHub: no such feature (`'not_applicable'`), no endpoint for it (`false`), or verified where GitHub's is not (`true`). */
 const LEVELS: Record<string, RedeclaredSupport> = {
   'users.sponsorable': 'not_applicable',
   'users.sponsorableMany': 'not_applicable',
@@ -52,16 +53,10 @@ const LEVELS: Record<string, RedeclaredSupport> = {
   'ci.log': 'not_applicable',
   'ci.rerunFailed': 'not_applicable',
   'securityAlerts.list': 'not_applicable',
-  // A pull request shares the issue endpoints for these, but no fixture covers that yet.
-  'threads.comments': { pull_request: 'unverified' },
-  'threads.getComment': { pull_request: 'unverified' },
-  'threads.createComment': { pull_request: 'unverified' },
-  'threads.updateComment': { pull_request: 'unverified' },
-  'threads.create': { pull_request: 'unverified' },
-  'threads.setLabels': { pull_request: 'unverified' },
-  'threads.addLabels': { pull_request: 'unverified' },
-  'threads.removeLabels': { pull_request: 'unverified' },
-  // `GET /user/repos` is shadowed by `GET /user/:id`, so it answers 404.
+  'threads.requestReview': 'not_applicable',
+  'repos.reviewerCandidates': 'not_applicable',
+  'threads.getComment': { issue: true },
+  // `GET /user/repos` is shadowed by `GET /user/:id`, so it responds with a 404.
   'repos.list': false,
   // Collaborators come back without a role, and the roles GitHub has beyond read, write and admin fail with a 500.
   'repos.collaborators': false,
@@ -78,13 +73,12 @@ const LEVELS: Record<string, RedeclaredSupport> = {
   'threads.events': false,
   // The deletion goes through, but the response carries the comment id as its status code.
   'threads.deleteComment': false,
-  // An issue has no edit endpoint; a pull request does, and it works, but no fixture covers it yet.
-  'threads.update': { issue: false, pull_request: 'unverified' },
-  'threads.close': { issue: false, pull_request: 'unverified' },
-  'threads.reopen': { issue: false, pull_request: 'unverified' },
+  // An issue has no edit endpoint; a pull request does.
+  'threads.update': { issue: false },
+  'threads.close': { issue: false },
+  'threads.reopen': { issue: false },
   'threads.setMilestone': false,
   'threads.setAssignees': false,
-  'threads.requestReview': false,
   'threads.updateBranch': false,
   'threads.subscription': false,
   'threads.files': false,
@@ -131,23 +125,25 @@ const NO_DISCUSSIONS: Record<string, RedeclaredSupport> = Object.fromEntries(CAP
 /** Swaps in the verbs that GitBucket needs done its own way. */
 function forGitBucket(spec: GitHubSpec, { fetcher, origin }: GitHubContext): GitHubSpec {
   const { threads, commits } = spec
-  const { merge, update, addLabels, removeLabels } = threads
+  const { merge, create, update, setLabels, addLabels, removeLabels } = threads
   const labels = labelWrites(fetcher, origin)
   return {
     ...spec,
     threads: {
       ...threads,
       listPage: { ...threads.listPage, run: threadsPage(fetcher, origin) },
+      listFilters: ['mentions', 'milestone'],
+      setLabels: setLabels && { ...setLabels, run: labels.setLabels },
       addLabels: addLabels && { ...addLabels, run: labels.addLabels },
       removeLabels: removeLabels && { ...removeLabels, run: labels.removeLabels },
-      // Labels or assignees send a pull request's update to the issue endpoint, which GitBucket lacks.
+      // Labels or assignees on a pull request go through the issue edit endpoint, which GitBucket lacks.
+      create: create && { ...create, run: (repo, input, options) => input.kind === 'pull_request' && (input.labels?.length || input.assignees?.length)
+        ? Promise.reject(new UnsupportedOperationError('GitBucket opens a pull request without labels or assignees; set labels with `setLabels()` once it is open', origin))
+        : create.run(repo, input, options) },
       update: update && { ...update, run: (ref, input, options) => input.labels || input.assignees
         ? Promise.reject(new UnsupportedOperationError('GitBucket edits a pull request\'s title, body and state only; set labels with `setLabels()`', origin))
         : update.run(ref, input, options) },
-      // GitBucket ignores the head a merge expects, so it would merge a branch that has moved.
-      merge: merge && { ...merge, run: (ref, options) => options?.sha
-        ? Promise.reject(new UnsupportedOperationError('GitBucket ignores the head a merge expects, so `sha` is unsupported; read the pull request first if it matters', origin))
-        : merge.run(ref, options) },
+      merge: merge && { ...merge, run: mergePull(fetcher, origin) },
     },
     commits: commits?.listPage && { ...commits, listPage: { ...commits.listPage, run: commitsPage(commits.listPage.run) } },
   }

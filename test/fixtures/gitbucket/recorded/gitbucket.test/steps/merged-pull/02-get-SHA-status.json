@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/1c86e61427f37755a40a39e61136fb05a9d7e58a/status?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "state": "pending",
+      "sha": "1c86e61427f37755a40a39e61136fb05a9d7e58a",
+      "total_count": 0,
+      "statuses": [],
+      "repository": {
+        "id": 1,
+        "name": "forges-fixtures",
+        "full_name": "forges/forges-fixtures",
+        "description": "The repository the forges read recordings read.",
+        "fork": false,
+        "watchers": 0,
+        "forks": 0,
+        "private": false,
+        "default_branch": "main",
+        "owner": {
+          "id": 4,
+          "login": "forges",
+          "email": "redacted@example.invalid",
+          "type": "Organization",
+          "site_admin": false,
+          "created_at": "2026-11-04T17:32:45Z",
+          "url": "http://127.0.0.1:8080/api/v3/users/forges",
+          "html_url": "http://127.0.0.1:8080/forges",
+          "avatar_url": "http://127.0.0.1:8080/forges/_avatar"
+        },
+        "has_issues": true,
+        "forks_count": 0,
+        "watchers_count": 0,
+        "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures",
+        "clone_url": "http://127.0.0.1:8080/git/forges/forges-fixtures.git",
+        "html_url": "http://127.0.0.1:8080/forges/forges-fixtures"
+      },
+      "url": "http://127.0.0.1:8080/api/v3/repos/forges/forges-fixtures/commits/1c86e61427f37755a40a39e61136fb05a9d7e58a/status"
+    }
+  }
+}

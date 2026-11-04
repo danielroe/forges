@@ -461,7 +461,7 @@ export interface WebOptions {
 /** A forge's website without its API: its public instance, and its web links on an instance. */
 export interface WebDefinition<Forge extends ForgeKind = ForgeKind> {
   forge: Forge
-  /** The API base URL of the public instance. */
+  /** The API base URL of the public instance, or `''` for a forge without one. */
   baseUrl: string
   /** The path that a `baseUrl` given without it gets, such as `/api/v4`. */
   apiPath?: string
@@ -473,6 +473,9 @@ export interface WebDefinition<Forge extends ForgeKind = ForgeKind> {
 
 /** The API base URL and the instance that `options` select. */
 export function resolveInstance(definition: Omit<WebDefinition, 'links'>, options: WebOptions): { baseUrl: string, instance: ForgeInstance } {
+  if (!options.baseUrl && !definition.baseUrl) {
+    throw new TypeError(`${definition.forge} has no public instance, so it needs the baseUrl of your server`)
+  }
   const root = (options.baseUrl ?? definition.baseUrl).replace(/\/$/, '')
   const baseUrl = definition.apiPath && !root.endsWith(definition.apiPath) ? `${root}${definition.apiPath}` : root
   let host: string

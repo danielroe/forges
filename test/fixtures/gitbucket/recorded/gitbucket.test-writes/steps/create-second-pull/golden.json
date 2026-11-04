@@ -1,0 +1,54 @@
+{
+  "ref": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures-scratch"
+    },
+    "kind": "pull_request",
+    "number": "4"
+  },
+  "kind": "pull_request",
+  "title": "forges fixture 20261104173742: pull 2",
+  "body": "Opened by run 20261104173742.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "login": "forges-bot",
+    "id": "3",
+    "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+    "url": "http://127.0.0.1:8080/forges-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [],
+  "reviewers": [],
+  "labels": [],
+  "url": "http://127.0.0.1:8080/forges/forges-fixtures-scratch/pull/4",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "branches": {
+    "head": {
+      "ref": "forges-fixtures/20261104173742-2",
+      "sha": "b002f8338df5d593e67724a1e0cbc927f854386f",
+      "repo": {
+        "forge": "gitbucket",
+        "instance": "gitbucket.test",
+        "owner": "forges",
+        "name": "forges-fixtures-scratch",
+        "externalId": "2"
+      }
+    },
+    "base": {
+      "ref": "main",
+      "sha": "4a1fe455fd55ae4a2ffcd34cea3869477b8a98d7"
+    }
+  }
+}

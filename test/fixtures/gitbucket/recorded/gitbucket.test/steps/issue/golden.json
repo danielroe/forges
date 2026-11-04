@@ -1,0 +1,64 @@
+{
+  "ref": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "repo": {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "owner": "forges",
+      "name": "forges-fixtures"
+    },
+    "kind": "issue",
+    "number": "1"
+  },
+  "kind": "issue",
+  "title": "forges seed: issue",
+  "body": "An issue that read recordings read, for @forges-reader.",
+  "state": "open",
+  "stateRaw": "open",
+  "isDraft": false,
+  "author": {
+    "forge": "gitbucket",
+    "instance": "gitbucket.test",
+    "login": "forges-bot",
+    "id": "3",
+    "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+    "url": "http://127.0.0.1:8080/forges-bot",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "assignees": [
+    {
+      "forge": "gitbucket",
+      "instance": "gitbucket.test",
+      "login": "forges-bot",
+      "id": "3",
+      "avatarUrl": "http://127.0.0.1:8080/forges-bot/_avatar",
+      "url": "http://127.0.0.1:8080/forges-bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    }
+  ],
+  "reviewers": [],
+  "labels": [
+    {
+      "name": "bug",
+      "colour": "fc2929"
+    },
+    {
+      "name": "forges-seed",
+      "colour": "8b5cf6"
+    }
+  ],
+  "url": "http://127.0.0.1:8080/forges/forges-fixtures/issues/1",
+  "createdAt": "<now>",
+  "updatedAt": "<now>",
+  "lastActivityAt": "<now>",
+  "milestone": {
+    "id": "1",
+    "title": "v1.0",
+    "state": "open",
+    "description": "The first release.",
+    "url": "http://127.0.0.1:8080/forges/forges-fixtures/milestone/1"
+  }
+}
