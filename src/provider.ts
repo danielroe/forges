@@ -168,7 +168,7 @@ export interface ForgeOptionsBase {
   /** Shared secret used to verify inbound webhook deliveries. */
   webhookSecret?: string
   /**
-   * The `user-agent` header. Defaults to `forges`, except in a browser, which sends its own.
+   * The `user-agent` header. Defaults to `forges`, except in a browser, which sends its own. Cloudflare Workers send none, so they get the default.
    * Setting it in a browser can trigger a CORS preflight that some forges reject.
    */
   userAgent?: string

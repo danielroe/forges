@@ -539,7 +539,8 @@ function createProvider<TOptions extends ForgeOptionsBase, TState, HasWeb extend
   const { baseUrl, instance } = resolveInstance(definition, options)
   const origin = { forge: definition.forge, instance }
   // Browsers send their own user agent, and setting one can trigger a CORS preflight that some forges reject.
-  const browser = 'document' in globalThis || 'WorkerGlobalScope' in globalThis
+  // Cloudflare Workers also define `WorkerGlobalScope`, but send no user agent, and GitHub rejects requests without one.
+  const browser = 'document' in globalThis || ('WorkerGlobalScope' in globalThis && globalThis.navigator?.userAgent !== 'Cloudflare-Workers')
   const userAgent = options.userAgent ?? (browser ? undefined : 'forges')
   const headers = {
     ...definition.headers,

@@ -1055,4 +1055,11 @@ describe('user agent', () => {
     expect(await sentUserAgent()).toBeNull()
     expect(await sentUserAgent('my-app')).toBe('my-app')
   })
+
+  it('identifies the library in Cloudflare Workers, which send no user agent', async () => {
+    vi.stubGlobal('WorkerGlobalScope', class {})
+    vi.stubGlobal('navigator', { userAgent: 'Cloudflare-Workers' })
+
+    expect(await sentUserAgent()).toBe('forges')
+  })
 })
