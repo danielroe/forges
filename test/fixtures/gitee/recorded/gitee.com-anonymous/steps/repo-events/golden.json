@@ -3,6 +3,35 @@
     {
       "forge": "gitee",
       "instance": "gitee.com",
+      "id": "1568575300652789760",
+      "kindRaw": "StarEvent.starred",
+      "actionRaw": "starred",
+      "kind": "star",
+      "action": "created",
+      "summary": "everfu starred the repository",
+      "occurredAt": "2026-11-07T02:38:14.000Z",
+      "actor": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "login": "everfu",
+        "id": "8141270",
+        "name": "伍拾柒",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1713752300209907219/8141270_efuo_1713752300.png",
+        "url": "https://gitee.com/everfu",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitee",
+        "instance": "gitee.com",
+        "owner": "cmcc-oneos",
+        "name": "OneOS",
+        "externalId": "11463759"
+      },
+      "source": "poll"
+    },
+    {
+      "forge": "gitee",
+      "instance": "gitee.com",
       "id": "1561404003921477632",
       "kindRaw": "StarEvent.starred",
       "actionRaw": "starred",
@@ -131,8 +160,8 @@
         "instance": "gitee.com",
         "login": "PJpipi",
         "id": "17497657",
-        "name": "PJ",
-        "avatarUrl": "https://foruda.gitee.com/avatar/1787987877020594256/17497657_pjpipi_1787987876.png",
+        "name": "山禾壹零",
+        "avatarUrl": "https://foruda.gitee.com/avatar/1792827277761411240/17497657_pjpipi_1792827277.png",
         "url": "https://gitee.com/PJpipi",
         "isBotHint": false
       },
@@ -259,43 +288,14 @@
         "externalId": "11463759"
       },
       "source": "poll"
-    },
-    {
-      "forge": "gitee",
-      "instance": "gitee.com",
-      "id": "1520126494446006272",
-      "kindRaw": "StarEvent.starred",
-      "actionRaw": "starred",
-      "kind": "star",
-      "action": "created",
-      "summary": "suyuanbaiyin starred the repository",
-      "occurredAt": "2026-06-26T09:59:58.000Z",
-      "actor": {
-        "forge": "gitee",
-        "instance": "gitee.com",
-        "login": "suyuanbaiyin",
-        "id": "11049660",
-        "name": "苏元白音",
-        "avatarUrl": "https://gitee.com/assets/no_portrait.png",
-        "url": "https://gitee.com/suyuanbaiyin",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitee",
-        "instance": "gitee.com",
-        "owner": "cmcc-oneos",
-        "name": "OneOS",
-        "externalId": "11463759"
-      },
-      "source": "poll"
     }
   ],
   "cursor": {
-    "token": "1520126494446006272"
+    "token": "1533244639683584000"
   },
   "rateLimit": {
     "limit": 60,
     "remaining": 30
   },
-  "etag": "W/\"067c1fe738ed41e817e0db46d5c5763e\""
+  "etag": "W/\"8ca11fdb83926d404fae78e8b5e2ed47\""
 }

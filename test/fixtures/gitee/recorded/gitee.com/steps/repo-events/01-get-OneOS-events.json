@@ -6,9 +6,48 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"067c1fe738ed41e817e0db46d5c5763e\""
+      "etag": "W/\"8ca11fdb83926d404fae78e8b5e2ed47\""
     },
     "body": [
+      {
+        "id": "1568575300652789760",
+        "type": "StarEvent",
+        "actor": {
+          "id": 8141270,
+          "login": "everfu",
+          "name": "伍拾柒",
+          "avatar_url": "https://foruda.gitee.com/avatar/1713752300209907219/8141270_efuo_1713752300.png",
+          "url": "https://gitee.com/api/v5/users/everfu",
+          "html_url": "https://gitee.com/everfu",
+          "remark": ""
+        },
+        "repo": {
+          "id": 11463759,
+          "full_name": "cmcc-oneos/OneOS",
+          "human_name": "OneOS/OneOS",
+          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS",
+          "namespace": {
+            "id": 9636600,
+            "type": "group",
+            "name": "OneOS",
+            "path": "cmcc-oneos",
+            "enterprise_id": 6797625,
+            "html_url": "https://gitee.com/cmcc-oneos"
+          }
+        },
+        "org": {
+          "id": 9636600,
+          "login": "cmcc-oneos",
+          "name": "OneOS",
+          "url": "https://gitee.com/api/v5/orgs/cmcc-oneos",
+          "avatar_url": "https://foruda.gitee.com/avatar/1670467047532535040/9636600_cmcc-oneos_1670467046.png"
+        },
+        "public": false,
+        "created_at": "2026-11-07T10:38:14+08:00",
+        "payload": {
+          "action": "starred"
+        }
+      },
       {
         "id": "1561404003921477632",
         "type": "StarEvent",
@@ -171,8 +210,8 @@
         "actor": {
           "id": 17497657,
           "login": "PJpipi",
-          "name": "PJ",
-          "avatar_url": "https://foruda.gitee.com/avatar/1787987877020594256/17497657_pjpipi_1787987876.png",
+          "name": "山禾壹零",
+          "avatar_url": "https://foruda.gitee.com/avatar/1792827277761411240/17497657_pjpipi_1792827277.png",
           "url": "https://gitee.com/api/v5/users/PJpipi",
           "html_url": "https://gitee.com/PJpipi",
           "remark": ""
@@ -354,45 +393,6 @@
         },
         "public": false,
         "created_at": "2026-08-01T22:46:48+08:00",
-        "payload": {
-          "action": "starred"
-        }
-      },
-      {
-        "id": "1520126494446006272",
-        "type": "StarEvent",
-        "actor": {
-          "id": 11049660,
-          "login": "suyuanbaiyin",
-          "name": "苏元白音",
-          "avatar_url": "https://gitee.com/assets/no_portrait.png",
-          "url": "https://gitee.com/api/v5/users/suyuanbaiyin",
-          "html_url": "https://gitee.com/suyuanbaiyin",
-          "remark": ""
-        },
-        "repo": {
-          "id": 11463759,
-          "full_name": "cmcc-oneos/OneOS",
-          "human_name": "OneOS/OneOS",
-          "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS",
-          "namespace": {
-            "id": 9636600,
-            "type": "group",
-            "name": "OneOS",
-            "path": "cmcc-oneos",
-            "enterprise_id": 6797625,
-            "html_url": "https://gitee.com/cmcc-oneos"
-          }
-        },
-        "org": {
-          "id": 9636600,
-          "login": "cmcc-oneos",
-          "name": "OneOS",
-          "url": "https://gitee.com/api/v5/orgs/cmcc-oneos",
-          "avatar_url": "https://foruda.gitee.com/avatar/1670467047532535040/9636600_cmcc-oneos_1670467046.png"
-        },
-        "public": false,
-        "created_at": "2026-06-26T17:59:58+08:00",
         "payload": {
           "action": "starred"
         }
