@@ -8,11 +8,11 @@
       "owner": "pjullrich",
       "name": "pushin-cli"
     },
-    "id": "4",
-    "tag": "v0.3.2"
+    "id": "19",
+    "tag": "v0.3.3"
   },
-  "name": "Pushin CLI v0.3.2",
-  "tag": "v0.3.2",
+  "name": "Pushin CLI v0.3.3",
+  "tag": "v0.3.3",
   "author": {
     "forge": "pushin",
     "instance": "pushin.eu",
@@ -23,12 +23,12 @@
     "typeRaw": "User",
     "isBotHint": false
   },
-  "body": "\n### Added\n\n- `pun release` commands to list, view, create, edit, and delete releases, upload\n  assets, and download assets with size and SHA-256 verification.\n- Automatic publication of platform archives, checksums, and changelog notes\n  from `scripts/release`, with resumable uploads through `scripts/publish-release`.\n\n",
-  "url": "https://pushin.eu/pjullrich/pushin-cli/releases/tag/v0.3.2",
+  "body": "\n### Added\n\n- `pun pr edit` replaces a pull request description using `--body` or\n  `--body-file`, including stdin with `--body-file -`.\n- Automated tests on pull requests and pushes to `main`, followed by a release\n  build when the package version has not been published on Pushin.\n\n",
+  "url": "https://pushin.eu/pjullrich/pushin-cli/releases/tag/v0.3.3",
   "isDraft": false,
   "isPrerelease": false,
-  "createdAt": "2026-10-13T18:21:13.398Z",
-  "publishedAt": "2026-10-13T18:22:02.268Z",
+  "createdAt": "2026-11-03T14:45:25.828Z",
+  "publishedAt": "2026-11-03T14:45:32.091Z",
   "immutable": false,
   "assets": [
     {
@@ -50,16 +50,16 @@
             "owner": "pjullrich",
             "name": "pushin-cli"
           },
-          "id": "4",
-          "tag": "v0.3.2"
+          "id": "19",
+          "tag": "v0.3.3"
         },
-        "id": "16"
+        "id": "155"
       },
-      "name": "pun-v0.3.2-linux-arm64.tar.gz",
-      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-linux-arm64.tar.gz",
+      "name": "pun-v0.3.3-linux-arm64.tar.gz",
+      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.3/pun-v0.3.3-linux-arm64.tar.gz",
       "contentType": "application/gzip",
-      "downloadCount": 0,
-      "size": 1754353
+      "downloadCount": 2,
+      "size": 1756815
     },
     {
       "ref": {
@@ -80,16 +80,16 @@
             "owner": "pjullrich",
             "name": "pushin-cli"
           },
-          "id": "4",
-          "tag": "v0.3.2"
+          "id": "19",
+          "tag": "v0.3.3"
         },
-        "id": "17"
+        "id": "156"
       },
-      "name": "pun-v0.3.2-linux-x86_64.tar.gz",
-      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-linux-x86_64.tar.gz",
+      "name": "pun-v0.3.3-linux-x86_64.tar.gz",
+      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.3/pun-v0.3.3-linux-x86_64.tar.gz",
       "contentType": "application/gzip",
-      "downloadCount": 0,
-      "size": 1856635
+      "downloadCount": 2,
+      "size": 1862418
     },
     {
       "ref": {
@@ -110,46 +110,16 @@
             "owner": "pjullrich",
             "name": "pushin-cli"
           },
-          "id": "4",
-          "tag": "v0.3.2"
+          "id": "19",
+          "tag": "v0.3.3"
         },
-        "id": "18"
+        "id": "158"
       },
-      "name": "pun-v0.3.2-macos-universal.tar.gz",
-      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-macos-universal.tar.gz",
-      "contentType": "application/gzip",
-      "downloadCount": 0,
-      "size": 3461559
-    },
-    {
-      "ref": {
-        "forge": "pushin",
-        "instance": "pushin.eu",
-        "repo": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "owner": "pjullrich",
-          "name": "pushin-cli"
-        },
-        "release": {
-          "forge": "pushin",
-          "instance": "pushin.eu",
-          "repo": {
-            "forge": "pushin",
-            "instance": "pushin.eu",
-            "owner": "pjullrich",
-            "name": "pushin-cli"
-          },
-          "id": "4",
-          "tag": "v0.3.2"
-        },
-        "id": "19"
-      },
-      "name": "pun-v0.3.2-windows-x86_64.zip",
-      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/pun-v0.3.2-windows-x86_64.zip",
+      "name": "pun-v0.3.3-windows-x86_64.zip",
+      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.3/pun-v0.3.3-windows-x86_64.zip",
       "contentType": "application/zip",
-      "downloadCount": 0,
-      "size": 1809782
+      "downloadCount": 2,
+      "size": 1802331
     },
     {
       "ref": {
@@ -170,15 +140,45 @@
             "owner": "pjullrich",
             "name": "pushin-cli"
           },
-          "id": "4",
-          "tag": "v0.3.2"
+          "id": "19",
+          "tag": "v0.3.3"
         },
-        "id": "20"
+        "id": "157"
+      },
+      "name": "pun-v0.3.3-macos-universal.tar.gz",
+      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.3/pun-v0.3.3-macos-universal.tar.gz",
+      "contentType": "application/gzip",
+      "downloadCount": 3,
+      "size": 3453277
+    },
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "repo": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "owner": "pjullrich",
+          "name": "pushin-cli"
+        },
+        "release": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "pjullrich",
+            "name": "pushin-cli"
+          },
+          "id": "19",
+          "tag": "v0.3.3"
+        },
+        "id": "159"
       },
       "name": "checksums.txt",
-      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.2/checksums.txt",
+      "url": "https://pushin.eu/pjullrich/pushin-cli/releases/download/v0.3.3/checksums.txt",
       "contentType": "text/plain",
-      "downloadCount": 20,
+      "downloadCount": 4,
       "size": 389
     }
   ]

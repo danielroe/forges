@@ -7,8 +7,9 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4959",
-      "x-ratelimit-reset": "1791723600"
+      "x-ratelimit-remaining": "4980",
+      "x-ratelimit-reset": "1794200400",
+      "x-ratelimit-resource": "core"
     },
     "body": {
       "id": 5153,
@@ -16,9 +17,9 @@
       "user": {
         "id": 28,
         "type": "User",
-        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
         "html_url": "https://pushin.eu/runlevel0",
         "login": "runlevel0",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034HkSDylEuQn7QC6cObik/29407ab1",
         "node_id": "REDACTED"
       },
       "number": 2,
