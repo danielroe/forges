@@ -6,13 +6,13 @@
     "variables": {
       "o0": "h3js",
       "n0": "h3",
-      "k0": 1585,
+      "k0": 1638,
       "o1": "h3js",
       "n1": "h3",
-      "k1": 1583,
+      "k1": 1637,
       "o2": "h3js",
       "n2": "h3",
-      "k2": 1579
+      "k2": 1636
     }
   },
   "response": {
@@ -20,7 +20,7 @@
     "headers": {
       "x-ratelimit-limit": "5000",
       "x-ratelimit-remaining": "4999",
-      "x-ratelimit-reset": "1792388363",
+      "x-ratelimit-reset": "1794202140",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -28,27 +28,395 @@
         "t0": {
           "issueOrPullRequest": {
             "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABH0aNdg",
-            "number": 1585,
-            "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-            "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "id": "PR_kwDOErHI988AAAABNlV3VQ",
+            "number": 1638,
+            "title": "fix(query): validate media type tokens in requireContentType",
+            "body": "Resolves #1633\n\n### Summary of Changes\n\n- **Media Type Token Validation:** Per [RFC 9110 §8.3.1 and §5.6.2](https://www.rfc-editor.org/rfc/rfc9110.html#name-media-type), a media type consists of `<type>/<subtype>` where `type` and `subtype` must each be a valid HTTP `token` (`1*tchar`).\n  - Previously, `requireContentType` only verified `slash <= 0 || slash === mediaType.length - 1`, allowing malformed Content-Type values with multiple slashes (e.g. `application/json/extra`), whitespace (e.g. `application/json junk`), or delimiters (e.g. `application/(json)`) to erroneously match when wildcard acceptance (e.g. `application/*`) was used.\n  - Replaced the simple slash index check with `MEDIA_TYPE_RE = /^[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+\\/[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+$/`, ensuring malformed media types consistently throw `422 Unprocessable Content` regardless of whether exact or wildcard matching is configured.\n- **Tests:**\n  - Added unit test in `test/query.test.ts` verifying that extra slashes, embedded whitespace, and invalid delimiter characters reject with 422 under wildcard acceptance.\n  - All 3,120 tests pass across the entire suite.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n- **Bug Fixes**\n  - Malformed `Content-Type` values are now rejected with a 422 response, including values with extra slashes, trailing characters, or invalid punctuation.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
             "state": "OPEN",
             "isDraft": false,
-            "createdAt": "2026-10-11T14:13:38Z",
-            "updatedAt": "2026-10-17T12:36:56Z",
+            "createdAt": "2026-11-07T22:43:47Z",
+            "updatedAt": "2026-11-07T22:49:14Z",
             "closedAt": null,
             "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1585",
+            "url": "https://github.com/h3js/h3/pull/1638",
             "locked": false,
             "author": {
               "__typename": "User",
-              "login": "TalhaHunter101",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-              "url": "https://github.com/TalhaHunter101",
-              "databaseId": 51529912,
-              "name": "Talha Shafeeq"
+              "login": "EnesKartal",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?u=5ae3fab28ff3e27d1b2a91ade724e4c47cb246f5&v=4",
+              "url": "https://github.com/EnesKartal",
+              "databaseId": 43950508,
+              "name": "Enes Kartal"
             },
             "authorAssociation": "NONE",
+            "mergedBy": null,
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "EnesKartal",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?u=5ae3fab28ff3e27d1b2a91ade724e4c47cb246f5&v=4",
+                  "url": "https://github.com/EnesKartal",
+                  "databaseId": 43950508,
+                  "name": "Enes Kartal"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/require-content-type-validation-1633",
+            "headRefOid": "5d5922ef5e55b75b65c13f71215c8d0f5a4e1805",
+            "baseRefName": "main",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
+            "headRepository": {
+              "databaseId": 1449793196,
+              "name": "h3",
+              "owner": {
+                "login": "EnesKartal"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 30,
+            "deletions": 2,
+            "changedFiles": 2,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 3
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-11-07T22:43:48Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t1": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABNlU9-Q",
+            "number": 1637,
+            "title": "fix: return 412 for non-safe methods on matching If-None-Match",
+            "body": "Resolves #1623\n\n### Summary of Changes\n\n- **RFC 9110 §13.1.2 Compliance:** When evaluating conditional requests with `If-None-Match`:\n  - For safe methods (`GET`, `HEAD`, and `QUERY` per RFC 10008), a matching entity tag resolves to `304 Not Modified`.\n  - For other methods (such as `POST`, `PUT`, `DELETE`, `PATCH`), [RFC 9110 §13.1.2](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.2) specifies that the recipient MUST NOT perform the requested method and SHOULD generate a `412 (Precondition Failed)` response. Previously, `handleCacheHeaders` unconditionally emitted `304`.\n- **RFC 9110 §13.1.3 Compliance:** `If-Modified-Since` MUST be ignored if the request method is neither `GET` nor `HEAD` (or `QUERY`). For non-safe methods (like `POST`), `If-Modified-Since` without `If-None-Match` no longer halts execution or returns `304`/`412`.\n- **RFC 9110 §13.2.1 Compliance:** Conditional headers are ignored for `OPTIONS`, `TRACE`, and `CONNECT`.\n- **Tests:**\n  - Added unit tests in `test/utils.test.ts` verifying `412` for `POST`/`PUT` with matching `If-None-Match`, `304` for `GET`, ignoring `If-Modified-Since` for `POST`, and ignoring conditional headers for `OPTIONS`.\n  - All 3,118 tests pass across the repository.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Conditional cache requests now return the appropriate status for different request methods: matching validators return 304 for GET, HEAD, and QUERY, and 412 for other methods.\n  * `If-Modified-Since` is applied only to GET, HEAD, and QUERY. Conditional cache headers are ignored for OPTIONS, TRACE, and CONNECT.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-11-07T22:41:39Z",
+            "updatedAt": "2026-11-07T22:45:08Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1637",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "EnesKartal",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?u=5ae3fab28ff3e27d1b2a91ade724e4c47cb246f5&v=4",
+              "url": "https://github.com/EnesKartal",
+              "databaseId": 43950508,
+              "name": "Enes Kartal"
+            },
+            "authorAssociation": "NONE",
+            "mergedBy": null,
+            "assignees": {
+              "nodes": []
+            },
+            "labels": {
+              "nodes": []
+            },
+            "comments": {
+              "totalCount": 1
+            },
+            "participants": {
+              "nodes": [
+                {
+                  "__typename": "User",
+                  "login": "EnesKartal",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?u=5ae3fab28ff3e27d1b2a91ade724e4c47cb246f5&v=4",
+                  "url": "https://github.com/EnesKartal",
+                  "databaseId": 43950508,
+                  "name": "Enes Kartal"
+                }
+              ]
+            },
+            "milestone": null,
+            "viewerSubscription": "UNSUBSCRIBED",
+            "headRefName": "fix/handle-cache-headers-412-1623",
+            "headRefOid": "fba91d9e917ac5033951189475113dced6eba648",
+            "baseRefName": "main",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
+            "headRepository": {
+              "databaseId": 1449793196,
+              "name": "h3",
+              "owner": {
+                "login": "EnesKartal"
+              }
+            },
+            "mergeCommit": null,
+            "additions": 93,
+            "deletions": 9,
+            "changedFiles": 3,
+            "commits": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "commit": {
+                    "statusCheckRollup": {
+                      "state": "SUCCESS",
+                      "contexts": {
+                        "totalCount": 3,
+                        "checkRunCountsByState": [
+                          {
+                            "state": "ACTION_REQUIRED",
+                            "count": 0
+                          },
+                          {
+                            "state": "CANCELLED",
+                            "count": 0
+                          },
+                          {
+                            "state": "COMPLETED",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "IN_PROGRESS",
+                            "count": 0
+                          },
+                          {
+                            "state": "NEUTRAL",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "QUEUED",
+                            "count": 0
+                          },
+                          {
+                            "state": "SKIPPED",
+                            "count": 0
+                          },
+                          {
+                            "state": "STALE",
+                            "count": 0
+                          },
+                          {
+                            "state": "STARTUP_FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 3
+                          },
+                          {
+                            "state": "TIMED_OUT",
+                            "count": 0
+                          },
+                          {
+                            "state": "WAITING",
+                            "count": 0
+                          }
+                        ],
+                        "statusContextCountsByState": [
+                          {
+                            "state": "EXPECTED",
+                            "count": 0
+                          },
+                          {
+                            "state": "ERROR",
+                            "count": 0
+                          },
+                          {
+                            "state": "FAILURE",
+                            "count": 0
+                          },
+                          {
+                            "state": "PENDING",
+                            "count": 0
+                          },
+                          {
+                            "state": "SUCCESS",
+                            "count": 0
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "reviewRequests": {
+              "nodes": [
+                {
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0",
+                    "databaseId": 5158436,
+                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
+                    "url": "https://github.com/pi0"
+                  }
+                }
+              ]
+            },
+            "timelineItems": {
+              "nodes": [
+                {
+                  "createdAt": "2026-11-07T22:41:39Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "t2": {
+          "issueOrPullRequest": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOErHI988AAAABNg5hMg",
+            "number": 1636,
+            "title": "types(handler): drop `as any` casts in `defineValidatedHandler`",
+            "body": "Tweaks type def to remove `as any` casts. Depends/Stacked on https://github.com/h3js/h3/pull/1635.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **TypeScript**\n  * Standardized generic type parameter names across handler, request, validation, streaming, error, routing, and schema APIs for more consistent type declarations.\n  * Updated validated-handler typings to reflect the response type and validated request data more precisely.\n  * Runtime behavior remains unchanged.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+            "state": "OPEN",
+            "isDraft": false,
+            "createdAt": "2026-11-07T13:04:35Z",
+            "updatedAt": "2026-11-07T13:17:19Z",
+            "closedAt": null,
+            "mergedAt": null,
+            "url": "https://github.com/h3js/h3/pull/1636",
+            "locked": false,
+            "author": {
+              "__typename": "User",
+              "login": "DamianGlowala",
+              "avatarUrl": "https://avatars.githubusercontent.com/u/48835293?u=35e90ee7a0b11b84c26484c178bcecee8e77daa8&v=4",
+              "url": "https://github.com/DamianGlowala",
+              "databaseId": 48835293,
+              "name": "Damian Głowala"
+            },
+            "authorAssociation": "CONTRIBUTOR",
             "mergedBy": null,
             "assignees": {
               "nodes": []
@@ -63,430 +431,38 @@
               "nodes": [
                 {
                   "__typename": "User",
-                  "login": "TalhaHunter101",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?u=7c266ae6e8c832b5ccd3516d8f71264107f3056c&v=4",
-                  "url": "https://github.com/TalhaHunter101",
-                  "databaseId": 51529912,
-                  "name": "Talha Shafeeq"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
+                  "login": "DamianGlowala",
+                  "avatarUrl": "https://avatars.githubusercontent.com/u/48835293?u=35e90ee7a0b11b84c26484c178bcecee8e77daa8&v=4",
+                  "url": "https://github.com/DamianGlowala",
+                  "databaseId": 48835293,
+                  "name": "Damian Głowala"
                 }
               ]
             },
             "milestone": null,
             "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "fix/serve-static-index-paths",
-            "headRefOid": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+            "headRefName": "types/validated-handler-return",
+            "headRefOid": "4bb6883c1844042ec6fc3f633940288e22a6b056",
             "baseRefName": "main",
-            "baseRefOid": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9",
+            "baseRefOid": "f0e17808ac2439b6434bb10609a961067f4d555b",
             "headRepository": {
-              "databaseId": 1414411073,
+              "databaseId": 713540757,
               "name": "h3",
               "owner": {
-                "login": "TalhaHunter101"
+                "login": "DamianGlowala"
               }
             },
             "mergeCommit": null,
-            "additions": 46,
-            "deletions": 1,
-            "changedFiles": 2,
+            "additions": 198,
+            "deletions": 191,
+            "changedFiles": 18,
             "commits": {
               "totalCount": 3,
               "nodes": [
                 {
                   "commit": {
                     "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 3,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            },
-            "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-11T14:13:39Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t1": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHzAV3Q",
-            "number": 1583,
-            "title": "docs: fix file paths in static assets example",
-            "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-11T09:57:49Z",
-            "updatedAt": "2026-10-16T19:22:11Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1583",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "aaronanish-t",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-              "url": "https://github.com/aaronanish-t",
-              "databaseId": 217176403,
-              "name": "Aaron Anish Thadathil"
-            },
-            "authorAssociation": "NONE",
-            "mergedBy": null,
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 2
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "aaronanish-t",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-                  "url": "https://github.com/aaronanish-t",
-                  "databaseId": 217176403,
-                  "name": "Aaron Anish Thadathil"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/fix-static-assets-example",
-            "headRefOid": "36270b8a285744ad4dc5af707112523676ebb9f6",
-            "baseRefName": "main",
-            "baseRefOid": "66cfb8a357b6285451bad498c2c40002601fae98",
-            "headRepository": {
-              "databaseId": 1414188488,
-              "name": "h3",
-              "owner": {
-                "login": "aaronanish-t"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 8,
-            "deletions": 3,
-            "changedFiles": 1,
-            "commits": {
-              "totalCount": 2,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
-                      "contexts": {
-                        "totalCount": 3,
-                        "checkRunCountsByState": [
-                          {
-                            "state": "ACTION_REQUIRED",
-                            "count": 0
-                          },
-                          {
-                            "state": "CANCELLED",
-                            "count": 0
-                          },
-                          {
-                            "state": "COMPLETED",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "IN_PROGRESS",
-                            "count": 0
-                          },
-                          {
-                            "state": "NEUTRAL",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "QUEUED",
-                            "count": 0
-                          },
-                          {
-                            "state": "SKIPPED",
-                            "count": 0
-                          },
-                          {
-                            "state": "STALE",
-                            "count": 0
-                          },
-                          {
-                            "state": "STARTUP_FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 2
-                          },
-                          {
-                            "state": "TIMED_OUT",
-                            "count": 0
-                          },
-                          {
-                            "state": "WAITING",
-                            "count": 0
-                          }
-                        ],
-                        "statusContextCountsByState": [
-                          {
-                            "state": "EXPECTED",
-                            "count": 0
-                          },
-                          {
-                            "state": "ERROR",
-                            "count": 0
-                          },
-                          {
-                            "state": "FAILURE",
-                            "count": 0
-                          },
-                          {
-                            "state": "PENDING",
-                            "count": 0
-                          },
-                          {
-                            "state": "SUCCESS",
-                            "count": 1
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "reviewRequests": {
-              "nodes": [
-                {
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0",
-                    "databaseId": 5158436,
-                    "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                    "url": "https://github.com/pi0"
-                  }
-                }
-              ]
-            },
-            "timelineItems": {
-              "nodes": [
-                {
-                  "createdAt": "2026-10-11T09:57:50Z",
-                  "requestedReviewer": {
-                    "__typename": "User",
-                    "login": "pi0"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "t2": {
-          "issueOrPullRequest": {
-            "__typename": "PullRequest",
-            "id": "PR_kwDOErHI988AAAABHvErmg",
-            "number": 1579,
-            "title": "docs(static): mount serveStatic example at the root",
-            "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
-            "state": "OPEN",
-            "isDraft": false,
-            "createdAt": "2026-10-10T20:06:27Z",
-            "updatedAt": "2026-10-17T12:00:47Z",
-            "closedAt": null,
-            "mergedAt": null,
-            "url": "https://github.com/h3js/h3/pull/1579",
-            "locked": false,
-            "author": {
-              "__typename": "User",
-              "login": "harshit-d3v",
-              "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-              "url": "https://github.com/harshit-d3v",
-              "databaseId": 106448130,
-              "name": "Harshit Prakash"
-            },
-            "authorAssociation": "CONTRIBUTOR",
-            "mergedBy": null,
-            "assignees": {
-              "nodes": []
-            },
-            "labels": {
-              "nodes": []
-            },
-            "comments": {
-              "totalCount": 4
-            },
-            "participants": {
-              "nodes": [
-                {
-                  "__typename": "User",
-                  "login": "harshit-d3v",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?u=d2482b6352c4e136f3cb863718857fda6dc6575b&v=4",
-                  "url": "https://github.com/harshit-d3v",
-                  "databaseId": 106448130,
-                  "name": "Harshit Prakash"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0x",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?u=880c7e98a9e910cc2184cf6ed383350bed41cb08&v=4",
-                  "url": "https://github.com/pi0x",
-                  "databaseId": 286783767,
-                  "name": "pi0x"
-                },
-                {
-                  "__typename": "User",
-                  "login": "pi0",
-                  "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?u=3609b2822870b982f2b93c432569ee017e970148&v=4",
-                  "url": "https://github.com/pi0",
-                  "databaseId": 5158436,
-                  "name": "Pooya Parsa"
-                }
-              ]
-            },
-            "milestone": null,
-            "viewerSubscription": "UNSUBSCRIBED",
-            "headRefName": "docs/serve-static-root",
-            "headRefOid": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
-            "baseRefName": "main",
-            "baseRefOid": "927fe98fc477720e91cdb7f96b239956d55b10c6",
-            "headRepository": {
-              "databaseId": 1413617363,
-              "name": "h3",
-              "owner": {
-                "login": "harshit-d3v"
-              }
-            },
-            "mergeCommit": null,
-            "additions": 9,
-            "deletions": 2,
-            "changedFiles": 1,
-            "commits": {
-              "totalCount": 1,
-              "nodes": [
-                {
-                  "commit": {
-                    "statusCheckRollup": {
-                      "state": "SUCCESS",
+                      "state": "FAILURE",
                       "contexts": {
                         "totalCount": 8,
                         "checkRunCountsByState": [
@@ -504,7 +480,7 @@
                           },
                           {
                             "state": "FAILURE",
-                            "count": 0
+                            "count": 1
                           },
                           {
                             "state": "IN_PROGRESS",
@@ -566,7 +542,7 @@
                           },
                           {
                             "state": "SUCCESS",
-                            "count": 1
+                            "count": 0
                           }
                         ]
                       }
@@ -589,7 +565,15 @@
               ]
             },
             "timelineItems": {
-              "nodes": []
+              "nodes": [
+                {
+                  "createdAt": "2026-11-07T13:04:36Z",
+                  "requestedReviewer": {
+                    "__typename": "User",
+                    "login": "pi0"
+                  }
+                }
+              ]
             }
           }
         }

@@ -21,8 +21,8 @@
         "ssh": "git@github.com:h3js/srvx.git"
       },
       "createdAt": "2024-09-16T20:20:41.000Z",
-      "updatedAt": "2026-10-18T22:25:46.000Z",
-      "pushedAt": "2026-10-17T13:17:57.000Z",
+      "updatedAt": "2026-11-09T00:33:16.000Z",
+      "pushedAt": "2026-10-27T01:49:49.000Z",
       "owner": {
         "forge": "github",
         "instance": "github.com",
@@ -36,8 +36,8 @@
       "language": "TypeScript",
       "homepage": "https://srvx.h3.dev",
       "licence": "MIT",
-      "stars": 876,
-      "forks": 62,
+      "stars": 890,
+      "forks": 68,
       "features": {
         "issues": true,
         "pullRequests": true,
@@ -68,8 +68,8 @@
         "ssh": "git@github.com:h3js/h3.git"
       },
       "createdAt": "2020-11-17T14:15:44.000Z",
-      "updatedAt": "2026-10-18T15:38:13.000Z",
-      "pushedAt": "2026-10-18T14:00:07.000Z",
+      "updatedAt": "2026-11-08T14:25:11.000Z",
+      "pushedAt": "2026-10-22T05:51:10.000Z",
       "owner": {
         "forge": "github",
         "instance": "github.com",
@@ -83,8 +83,8 @@
       "language": "TypeScript",
       "homepage": "https://h3.dev",
       "licence": "MIT",
-      "stars": 5465,
-      "forks": 378,
+      "stars": 5520,
+      "forks": 396,
       "features": {
         "issues": true,
         "pullRequests": true,
@@ -99,24 +99,24 @@
         "forge": "github",
         "instance": "github.com",
         "owner": "h3js",
-        "name": "crossws",
-        "externalId": "728445691"
+        "name": "rou3",
+        "externalId": "431651080"
       },
-      "description": "🔌   Cross-platform WebSocket Servers for Node.js, Deno, Bun and Cloudflare Workers.",
+      "description": "🌳 Lightweight and fast rou(ter) for JavaScript",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://github.com/h3js/crossws",
+      "url": "https://github.com/h3js/rou3",
       "cloneUrls": {
-        "https": "https://github.com/h3js/crossws.git",
-        "ssh": "git@github.com:h3js/crossws.git"
+        "https": "https://github.com/h3js/rou3.git",
+        "ssh": "git@github.com:h3js/rou3.git"
       },
-      "createdAt": "2023-12-07T00:41:31.000Z",
-      "updatedAt": "2026-10-18T02:21:47.000Z",
-      "pushedAt": "2026-10-18T02:21:44.000Z",
+      "createdAt": "2021-11-24T23:02:09.000Z",
+      "updatedAt": "2026-11-03T10:45:58.000Z",
+      "pushedAt": "2026-10-03T10:07:23.000Z",
       "owner": {
         "forge": "github",
         "instance": "github.com",
@@ -128,14 +128,14 @@
         "isBotHint": false
       },
       "language": "TypeScript",
-      "homepage": "https://crossws.h3.dev",
-      "stars": 735,
-      "forks": 44,
+      "licence": "MIT",
+      "stars": 762,
+      "forks": 46,
       "features": {
         "issues": true,
         "pullRequests": true,
         "discussions": false,
-        "wiki": false,
+        "wiki": true,
         "projects": true,
         "releases": true
       }
@@ -144,12 +144,12 @@
   "total": 9,
   "cursor": {
     "nextUrl": "https://api.github.com/user/208435796/repos?type=owner&sort=updated&per_page=3&page=2",
-    "etag": "W/\"1139c0d0875702bb9ecf5489b8d2603f865a16a2b0507c25e0176f8b6510596e\""
+    "etag": "W/\"bfbc67cf9c84b60ec5c9b18d2f4debfc79c6fb09d9a7af22f0f4073d5146dfb0\""
   },
-  "etag": "W/\"1139c0d0875702bb9ecf5489b8d2603f865a16a2b0507c25e0176f8b6510596e\"",
+  "etag": "W/\"bfbc67cf9c84b60ec5c9b18d2f4debfc79c6fb09d9a7af22f0f4073d5146dfb0\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 12,
+    "remaining": 28,
     "resetAt": "<now>",
     "resource": "core"
   }

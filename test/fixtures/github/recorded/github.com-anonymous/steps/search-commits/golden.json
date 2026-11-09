@@ -10,24 +10,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+        "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
       },
-      "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-      "message": "docs: fix code example (#1587)",
+      "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+      "message": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors (#1613)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "otowa1",
-          "id": "90172742",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
-          "url": "https://github.com/otowa1",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "otowa1",
+        "name": "pi0x",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:49:51.000Z"
+        "date": "2026-10-22T05:50:05.000Z"
       },
       "committer": {
         "actor": {
@@ -42,12 +42,12 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:49:51.000Z"
+        "date": "2026-10-22T05:50:05.000Z"
       },
       "parents": [
-        "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
+        "9d70cf30099281668929e097d1fd0a18778af5d3"
       ],
-      "url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+      "url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
     },
     {
       "ref": {
@@ -59,73 +59,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+        "sha": "1326e74d55696758b87274d84d133b4944495afc"
       },
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+      "sha": "1326e74d55696758b87274d84d133b4944495afc",
+      "message": "fix: keep middleware-staged headers out of handler-level caches (#1608)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "pi0x",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:53:32.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "name": "Pooya Parsa",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:59:46.000Z"
-      },
-      "parents": [
-        "b64166ae78a68dd15c41e5bdf21af4d235804876"
-      ],
-      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d"
-      },
-      "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d",
-      "message": "docs: fix broken section anchors (#1577)",
-      "author": {
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "SatvikMishra08",
-          "id": "89024979",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/89024979?v=4",
-          "url": "https://github.com/SatvikMishra08",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "name": "Satvik Mishra",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:50:19.000Z"
+        "date": "2026-10-20T15:40:08.000Z"
       },
       "committer": {
         "actor": {
@@ -140,15 +91,64 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:50:19.000Z"
+        "date": "2026-10-20T15:40:08.000Z"
       },
       "parents": [
-        "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+        "31062a07254e61a2826bd87b0a7ed63fe89ff283"
       ],
-      "url": "https://github.com/h3js/h3/commit/ef38da99d4e3b9f837725e2b398ce73a173d007d"
+      "url": "https://github.com/h3js/h3/commit/1326e74d55696758b87274d84d133b4944495afc"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "sha": "d658815890cce9dc10927564b9b2231c34af513b"
+      },
+      "sha": "d658815890cce9dc10927564b9b2231c34af513b",
+      "message": "fix(rules): keep middleware-staged headers out of `cache` entries (#1606)",
+      "author": {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "pi0x",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-20T13:57:23.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "web-flow",
+          "id": "19864447",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "url": "https://github.com/web-flow",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "GitHub",
+        "email": "redacted@example.invalid",
+        "date": "2026-10-20T13:57:23.000Z"
+      },
+      "parents": [
+        "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+      ],
+      "url": "https://github.com/h3js/h3/commit/d658815890cce9dc10927564b9b2231c34af513b"
     }
   ],
-  "total": 448,
+  "total": 451,
   "cursor": {
     "nextUrl": "https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2"
   },
