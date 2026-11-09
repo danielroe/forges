@@ -9,7 +9,7 @@
     {
       "path": ".gitlab",
       "type": "directory",
-      "sha": "90c7b799cd4ef2ada1ae9bc8427f2c80adad31ed",
+      "sha": "7026e9e3238b3891bcc658619e6806d7339d956a",
       "mode": "040000"
     },
     {
@@ -19,16 +19,16 @@
       "mode": "040000"
     }
   ],
-  "total": 30,
+  "total": 31,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tree?id=gitlab-org%2Fcli&page=2&pagination=legacy&per_page=3&recursive=false&with_last_commit=false",
-    "etag": "W/\"8cd4fedf9a2aba5f701ff6c81a054efd\""
+    "etag": "W/\"6e2fd3f487674400afa33a3ea65c1460\""
   },
-  "etag": "W/\"8cd4fedf9a2aba5f701ff6c81a054efd\"",
+  "etag": "W/\"6e2fd3f487674400afa33a3ea65c1460\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1923,
+    "limit": 100,
+    "remaining": 17,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

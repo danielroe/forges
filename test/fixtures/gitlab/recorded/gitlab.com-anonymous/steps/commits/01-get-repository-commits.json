@@ -7,74 +7,74 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=3&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=3&trailers=false>; rel=\"first\"",
-      "etag": "W/\"d5898b8c6eb2fcaa1108ea3bb7605002\"",
-      "ratelimit-limit": "1",
-      "ratelimit-remaining": "38",
-      "ratelimit-reset": "1792386000",
-      "ratelimit-name": "unauthenticated_traffic_per_ip",
+      "etag": "W/\"73f1c5a55cc4dd91f4a50b58fc3a478a\"",
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "439",
+      "ratelimit-reset": "1794198660",
+      "ratelimit-name": "throttle_unauthenticated_api",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-        "short_id": "e74ebf81",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+        "short_id": "53d272b8",
+        "created_at": "2026-11-09T13:57:43.000+10:00",
         "parent_ids": [
-          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+          "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+          "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
         ],
-        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+        "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T12:02:22.000+10:00",
+        "authored_date": "2026-11-09T13:57:43.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-09T13:57:43.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
       },
       {
-        "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-        "short_id": "d5034f13",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9",
+        "short_id": "6bfeca37",
+        "created_at": "2026-11-09T13:57:43.000+10:00",
         "parent_ids": [
-          "a300719a2aac26acb25eee65fe08398188c99a0e"
+          "c298159b72a6d1d888a635a8c1e5fc4952d12983"
         ],
-        "title": "feat(issue): add date filters to issue list",
-        "message": "feat(issue): add date filters to issue list\n",
-        "author_name": "Hamza Hassanain",
+        "title": "fix(note): keep a piped body when --attach is set",
+        "message": "fix(note): keep a piped body when --attach is set\n",
+        "author_name": "Andrei Zubov",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T05:02:22.000+03:00",
+        "authored_date": "2026-11-09T04:57:43.000+01:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-09T13:57:43.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
       },
       {
-        "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "short_id": "5573de7d",
-        "created_at": "2026-10-19T11:56:01.000+10:00",
+        "id": "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+        "short_id": "c298159b",
+        "created_at": "2026-11-06T15:30:41.000+10:00",
         "parent_ids": [
-          "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-          "74931758500a9c66e56ca2c443a0c2a987c5923f"
+          "1ab692e5cfc809947e1852c77e0692e09b2eacde",
+          "9f834e27f4f3f25fb8a8045351807aee9d2769d0"
         ],
-        "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
-        "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+        "title": "Merge branch '8568-share-local-config-across-worktrees' into 'main'",
+        "message": "Merge branch '8568-share-local-config-across-worktrees' into 'main'\n\nfix(config): share local config across git worktrees\n\nCloses #8568\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4002\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Jeston Singh <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T11:56:01.000+10:00",
+        "authored_date": "2026-11-06T15:30:41.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T11:56:01.000+10:00",
+        "committed_date": "2026-11-06T15:30:41.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c298159b72a6d1d888a635a8c1e5fc4952d12983"
       }
     ]
   }

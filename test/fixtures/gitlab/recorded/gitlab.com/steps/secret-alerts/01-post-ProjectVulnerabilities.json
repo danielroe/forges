@@ -16,10 +16,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"217b492f8977b8ef43f540480e00df92\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1923",
-      "ratelimit-reset": "1791734760"
+      "etag": "W/\"5246fb8242370442d1309ea76c9fc096\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "92",
+      "ratelimit-reset": "1794198660",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
       "data": {
@@ -27,7 +28,7 @@
           "vulnerabilities": {
             "pageInfo": {
               "hasNextPage": true,
-              "endCursor": "eyJzZXZlcml0eSI6ImNyaXRpY2FsIiwidnVsbmVyYWJpbGl0eV9pZCI6IjI3OTIyMzkxNSJ9"
+              "endCursor": "eyJzZXZlcml0eSI6ImNyaXRpY2FsIiwidnVsbmVyYWJpbGl0eV9pZCI6IjQzMTQ1NjIzOCJ9"
             },
             "nodes": []
           }

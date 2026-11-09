@@ -10,12 +10,12 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "v1.123.0",
-        "tag": "v1.123.0"
+        "id": "v1.128.0",
+        "tag": "v1.128.0"
       },
-      "name": "v1.123.0",
-      "tag": "v1.123.0",
-      "body": "## Changelog   \n### ✨ Features   \n* 13ee9952: feat(df): fail closed on unparseable in-scope proxy traffic (Michael Eddington <redacted@example.invalid>)   \n* 2d427c3f: feat(repo): add --exclude-subgroup to group clone (Radek Antoniuk <redacted@example.invalid>)   \n* dcd1c99c: feat(skills): install remote orbit skill from the self-updating wrapper (Dmitry Gruzd <redacted@example.invalid>)   \n* c3151df7: feat(ssh-key): add --replace flag to ssh-key add (Radek Antoniuk <redacted@example.invalid>)   \n* 75a80123: feat: time tracking support on issue update (Giannis Kepas <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 1925cb6c: fix(api): send --input bodies as JSON unless a Content-Type is given (ANBUCHELVAN GANESAN CSE <redacted@example.invalid>)   \n* ba969f53: fix(auth): persist registry domains for token logins (Himanshu Jha <redacted@example.invalid>)   \n* 5d6ca7d5: fix(duo): keep missing binary versions empty (Himanshu Jha <redacted@example.invalid>)   \n* b06b06a9: fix(glrepo): skip fork candidates without local remotes (Himanshu Jha <redacted@example.invalid>)   \n* c80f417f: fix(issue): show the real total in the list header (unstable-code <redacted@example.invalid>)   \n* bb4e8108: fix(repo): correct default visibility in repo create help (Anish Kumar <redacted@example.invalid>)   \n### 📝 Documentation   \n* 8358d316: docs(contributing): update squash and merge link (sai krishna chowdary <redacted@example.invalid>)   \n* 6f1ec84c: docs: fix dead handbook and docs links in contributor docs (Anish Kumar <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 372ed845: chore(deps): replace mgutz/ansi with local SGR codes (Radek Antoniuk <redacted@example.invalid>)   \n* dd610822: chore(deps): update module charm.land/bubbletea/v2 to v2.0.10 (GitLab Renovate Bot <redacted@example.invalid>)   \n* f758eb8e: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.18.0 (GitLab Dependency Bot <redacted@example.invalid>)   \n* 65f7619a: chore(deps): update module golang.org/x/sync to v0.24.0 (GitLab Dependency Bot <redacted@example.invalid>)   \n* f2a00e54: chore(deps): update module k8s.io/client-go to v0.37.1 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 392ad277: chore: remove redundant \"make fix\" tools (Ville Skyttä <redacted@example.invalid>)\n\n",
+      "name": "v1.128.0",
+      "tag": "v1.128.0",
+      "body": "## Changelog   \n### ✨ Features   \n* **feat(deploy-token):** Add the delete command ([171edc5a](https://gitlab.com/gitlab-org/cli/-/commit/171edc5a)) by Paweł Farys<!--community-->   \n* **feat(df):** fetch Go modules through the user's own GOPROXY ([a8b66b25](https://gitlab.com/gitlab-org/cli/-/commit/a8b66b25)) by Arpit Gogia<!--community-->   \n* **feat(df):** support registries behind an upstream proxy ([199f034a](https://gitlab.com/gitlab-org/cli/-/commit/199f034a)) by Ryan Wells<!--team-->   \n* **feat(govern):** redact common secret formats before uploading sessions ([e79373a1](https://gitlab.com/gitlab-org/cli/-/commit/e79373a1)) by Jean van der Walt<!--team-->   \n### 🐛 Bug Fixes   \n* **fix(api):** offer only HTTP/1.1 to HTTPS proxies ([2ca9e118](https://gitlab.com/gitlab-org/cli/-/commit/2ca9e118)) by Arpit Gogia<!--community-->   \n* **fix(config):** keep glab-managed keys in the global config ([289f000f](https://gitlab.com/gitlab-org/cli/-/commit/289f000f)) by Jeston Singh<!--community-->   \n* **fix(df):** warn once per registry when a registry request fails ([02d9f1ce](https://gitlab.com/gitlab-org/cli/-/commit/02d9f1ce)) by Arpit Gogia<!--community-->   \n* **fix(git):** keep the first HostName for an SSH host alias ([5ce7dc9b](https://gitlab.com/gitlab-org/cli/-/commit/5ce7dc9b)) by José M. Requena Plens<!--community-->   \n* **fix(govern):** don't skip a Claude Code transcript entry still being written ([055141e1](https://gitlab.com/gitlab-org/cli/-/commit/055141e1)) by Jean van der Walt<!--team-->   \n* **fix(markdown):** preserve hard line breaks ([dc2ea409](https://gitlab.com/gitlab-org/cli/-/commit/dc2ea409)) by Zaygal<!--community-->   \n* **fix(project):** show the real total in the contributors list header ([a7bb4af9](https://gitlab.com/gitlab-org/cli/-/commit/a7bb4af9)) by Jay McCure<!--team-->   \n* **fix(release):** preserve description and name when omitted on update ([6a3bcf71](https://gitlab.com/gitlab-org/cli/-/commit/6a3bcf71)) by Abdelrahman Megahed<!--community-->   \n* **fix(user):** show the real total in the user events header ([0de5b6f8](https://gitlab.com/gitlab-org/cli/-/commit/0de5b6f8)) by unstable-code<!--community-->   \n### 📝 Documentation   \n* **docs(skills):** use --description-file and stdin instead of nested heredocs ([ca3e4aea](https://gitlab.com/gitlab-org/cli/-/commit/ca3e4aea)) by Andrei Zubov<!--team-->   \n### 🔧 Maintenance   \n* **refactor(packages):** deprecate the rm alias of delete in favour of del ([9f7f7a3e](https://gitlab.com/gitlab-org/cli/-/commit/9f7f7a3e)) by Tomas Vik<!--team-->   \n### 📦 Dependencies   \n* **chore(deps):** update module gitlab.com/gitlab-org/api/client-go/v3 to v3.42.0 ([2350dad6](https://gitlab.com/gitlab-org/cli/-/commit/2350dad6)) by GitLab Dependency Bot<!--team-->\n\n",
       "isDraft": false,
       "isPrerelease": false,
       "author": {
@@ -28,153 +28,153 @@
         "url": "https://gitlab.com/service-code-review-glab",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-13T12:25:25.860Z",
-      "createdAt": "2026-10-13T12:25:25.860Z",
-      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0",
+      "publishedAt": "2026-11-03T12:18:50.742Z",
+      "createdAt": "2026-11-03T12:18:50.742Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0",
       "assets": [
         {
-          "name": "glab_1.123.0_freebsd_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_freebsd_amd64.tar.gz"
+          "name": "glab_1.128.0_Windows_arm64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_Windows_arm64_installer.exe"
         },
         {
-          "name": "glab_1.123.0_Windows_x86_64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_Windows_x86_64_installer.exe"
+          "name": "glab_1.128.0_linux_amd64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_amd64.deb"
         },
         {
-          "name": "glab_1.123.0_linux_s390x.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_s390x.tar.gz"
+          "name": "glab_1.128.0_windows_arm64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_windows_arm64.zip"
         },
         {
-          "name": "glab_1.123.0_linux_amd64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_amd64.deb"
+          "name": "glab_1.128.0_Windows_x86_64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_Windows_x86_64_installer.exe"
         },
         {
-          "name": "glab_1.123.0_linux_ppc64le.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_ppc64le.tar.gz"
+          "name": "glab_1.128.0_linux_armv6.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_armv6.deb"
         },
         {
-          "name": "glab_1.123.0_Windows_arm64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_Windows_arm64_installer.exe"
+          "name": "glab_1.128.0_source.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_source.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_amd64.tar.gz"
+          "name": "glab_1.128.0_linux_amd64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_amd64.rpm"
         },
         {
-          "name": "glab_1.123.0_linux_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_armv6.tar.gz"
+          "name": "glab_1.128.0_freebsd_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_freebsd_armv6.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_s390x.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_s390x.rpm"
+          "name": "glab_1.128.0_linux_386.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_386.deb"
         },
         {
-          "name": "glab_1.123.0_darwin_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_darwin_amd64.tar.gz"
+          "name": "glab_1.128.0_linux_s390x.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_s390x.rpm"
         },
         {
-          "name": "glab_1.123.0_linux_ppc64le.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_ppc64le.deb"
-        },
-        {
-          "name": "glab_1.123.0_linux_amd64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_amd64.apk"
-        },
-        {
-          "name": "glab_1.123.0_linux_amd64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_amd64.rpm"
-        },
-        {
-          "name": "glab_1.123.0_linux_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_arm64.tar.gz"
-        },
-        {
-          "name": "glab_1.123.0_linux_386.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_386.rpm"
-        },
-        {
-          "name": "glab_1.123.0_source.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_source.tar.gz"
-        },
-        {
-          "name": "glab_1.123.0_linux_s390x.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_s390x.apk"
+          "name": "glab_1.128.0_linux_ppc64le.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_ppc64le.rpm"
         },
         {
           "name": "checksums.txt",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/checksums.txt"
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/checksums.txt"
         },
         {
-          "name": "glab_1.123.0_linux_386.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_386.apk"
+          "name": "glab_1.128.0_freebsd_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_freebsd_amd64.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_arm64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_arm64.deb"
+          "name": "glab_1.128.0_darwin_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_darwin_arm64.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_arm64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_arm64.apk"
+          "name": "glab_1.128.0_linux_386.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_386.rpm"
         },
         {
-          "name": "glab_1.123.0_windows_arm64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_windows_arm64.zip"
+          "name": "glab_1.128.0_linux_armv6.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_armv6.rpm"
         },
         {
-          "name": "glab_1.123.0_linux_arm64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_arm64.rpm"
+          "name": "glab_1.128.0_linux_s390x.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_s390x.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_ppc64le.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_ppc64le.apk"
+          "name": "glab_1.128.0_linux_arm64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_arm64.deb"
         },
         {
-          "name": "glab_1.123.0_linux_386.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_386.deb"
+          "name": "glab_1.128.0_darwin_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_darwin_amd64.tar.gz"
         },
         {
-          "name": "glab_1.123.0_windows_amd64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_windows_amd64.zip"
+          "name": "glab_1.128.0_linux_arm64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_arm64.rpm"
         },
         {
-          "name": "glab_1.123.0_linux_s390x.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_s390x.deb"
+          "name": "glab_1.128.0_linux_ppc64le.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_ppc64le.apk"
         },
         {
-          "name": "glab_1.123.0_linux_armv6.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_armv6.apk"
+          "name": "glab_1.128.0_linux_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_amd64.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_armv6.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_armv6.deb"
+          "name": "glab_1.128.0_linux_386.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_386.apk"
         },
         {
-          "name": "glab_1.123.0_linux_ppc64le.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_ppc64le.rpm"
+          "name": "glab_1.128.0_windows_386.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_windows_386.zip"
         },
         {
-          "name": "glab_1.123.0_freebsd_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_freebsd_386.tar.gz"
+          "name": "glab_1.128.0_linux_ppc64le.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_ppc64le.tar.gz"
         },
         {
-          "name": "glab_1.123.0_linux_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_386.tar.gz"
+          "name": "glab_1.128.0_linux_arm64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_arm64.apk"
         },
         {
-          "name": "glab_1.123.0_freebsd_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_freebsd_armv6.tar.gz"
+          "name": "glab_1.128.0_windows_amd64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_windows_amd64.zip"
         },
         {
-          "name": "glab_1.123.0_windows_386.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_windows_386.zip"
+          "name": "glab_1.128.0_linux_amd64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_amd64.apk"
         },
         {
-          "name": "glab_1.123.0_linux_armv6.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_linux_armv6.rpm"
+          "name": "glab_1.128.0_freebsd_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_freebsd_386.tar.gz"
         },
         {
-          "name": "glab_1.123.0_darwin_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.123.0/downloads/glab_1.123.0_darwin_arm64.tar.gz"
+          "name": "glab_1.128.0_linux_armv6.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_armv6.apk"
+        },
+        {
+          "name": "glab_1.128.0_linux_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_arm64.tar.gz"
+        },
+        {
+          "name": "glab_1.128.0_linux_s390x.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_s390x.apk"
+        },
+        {
+          "name": "glab_1.128.0_linux_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_386.tar.gz"
+        },
+        {
+          "name": "glab_1.128.0_linux_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_armv6.tar.gz"
+        },
+        {
+          "name": "glab_1.128.0_linux_ppc64le.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_ppc64le.deb"
+        },
+        {
+          "name": "glab_1.128.0_linux_s390x.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.128.0/downloads/glab_1.128.0_linux_s390x.deb"
         }
       ]
     },
@@ -188,12 +188,12 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "v1.122.0",
-        "tag": "v1.122.0"
+        "id": "v1.127.0",
+        "tag": "v1.127.0"
       },
-      "name": "v1.122.0",
-      "tag": "v1.122.0",
-      "body": "## Changelog   \n### ✨ Features   \n* 107b35dc: feat(api): detect Kiro terminal sessions (Himanshu Jha <redacted@example.invalid>)   \n* daecf6fc: feat(api): support custom placeholder values (Radek Antoniuk <redacted@example.invalid>)   \n* b479524a: feat(auth): add JSON output to auth status (Radek Antoniuk <redacted@example.invalid>)   \n* 172280be: feat(govern): sync Codex and Cursor sessions through the fallback job (Jean van der Walt <redacted@example.invalid>)   \n* 2568d1e5: feat(mr): move mr note create --draft and mr note publish to mr note draft (Andrei Zubov <redacted@example.invalid>)   \n* ea2f2cfb: feat: add fallback periodic sync via launchd/systemd (Jean van der Walt <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* 16e2204b: fix(deps): bump Go to 1.27.2 and golang.org/x/net to v0.60.0 (Jay McCure <redacted@example.invalid>)   \n* bb929857: fix(git): validate API-supplied repository URLs before running git (Kai Armstrong <redacted@example.invalid>)   \n* 3d82843c: fix(govern): address review and testing follow-ups for fallback sync (Jean van der Walt <redacted@example.invalid>)   \n* 6acd6ea9: fix(iteration): show the real total in list header (unstable-code <redacted@example.invalid>)   \n* bf5757bd: fix(snippet): keep create usage on a single line (Kai Armstrong <redacted@example.invalid>)   \n### 📝 Documentation   \n* c96c824f: docs: update Code of Conduct link in README (Ahmed Anwar <redacted@example.invalid>)   \n* 36694fb3: docs: update `glab stack` docs to clarify concepts and unify terminology (Uma Chandran <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 2b7b1b5c: chore(deps): bump golangci-lint to v2.14.0 and fix new findings (Ahmed Hemdan <redacted@example.invalid>)   \n* 3b299de3: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.16.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* 12d0ec13: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.16.1 (GitLab Dependency Bot <redacted@example.invalid>)   \n* 9e934cea: chore(deps): update module gitlab.com/gitlab-org/api/client-go/v3 to v3.17.0 (GitLab Dependency Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* 688befec: ci: show the docs review environment only when docs change (Jay McCure <redacted@example.invalid>)\n\n",
+      "name": "v1.127.0",
+      "tag": "v1.127.0",
+      "body": "## Changelog   \n### ✨ Features   \n* **feat(commands):** config shell completion ([b0a2a85c](https://gitlab.com/gitlab-org/cli/-/commit/b0a2a85c)) by Ville Skyttä<!--community-->   \n* **feat(commands):** ssh-key shell completion ([29d7a05c](https://gitlab.com/gitlab-org/cli/-/commit/29d7a05c)) by Ville Skyttä<!--community-->   \n* **feat(credential-helper):** add error code and host to error responses ([b846e1ee](https://gitlab.com/gitlab-org/cli/-/commit/b846e1ee)) by Hamza Hassanain<!--community-->   \n* **feat(deploy-token):** Add the create command ([d0bb4dc1](https://gitlab.com/gitlab-org/cli/-/commit/d0bb4dc1)) by Paweł Farys<!--community-->   \n* **feat(deploy-token):** Add the get command ([4df8498a](https://gitlab.com/gitlab-org/cli/-/commit/4df8498a)) by Paweł Farys<!--community-->   \n* **feat(duo):** support Duo CLI v10 auto-updates ([735c92fe](https://gitlab.com/gitlab-org/cli/-/commit/735c92fe)) by Tomas Vik<!--team-->   \n* **feat(govern):** choose which agents glab govern setup sets up ([6488ba9d](https://gitlab.com/gitlab-org/cli/-/commit/6488ba9d)) by Jean van der Walt<!--team-->   \n* **feat(issue):** read note body from piped stdin ([2ae77b41](https://gitlab.com/gitlab-org/cli/-/commit/2ae77b41)) by Karel Kahula<!--community-->   \n* **feat(work-items):** add --parent flag to create and update ([557881b4](https://gitlab.com/gitlab-org/cli/-/commit/557881b4)) by Jay McCure<!--team-->   \n* **feat(work-items):** add date filters to list ([0d65c92c](https://gitlab.com/gitlab-org/cli/-/commit/0d65c92c)) by Radek Antoniuk<!--community-->   \n* **feat:** added the Software Factory configuration file ([3c4a9a4f](https://gitlab.com/gitlab-org/cli/-/commit/3c4a9a4f)) by Denys Mishunov<!--team-->   \n### 🐛 Bug Fixes   \n* fix(mr issue): limit concurrent lookups in bulk commands ([20807603](https://gitlab.com/gitlab-org/cli/-/commit/20807603)) by Jay McCure<!--team-->   \n* **fix(mr):** show the real total in the mr issues header ([d0d530cc](https://gitlab.com/gitlab-org/cli/-/commit/d0d530cc)) by unstable-code<!--community-->   \n* **fix(release):** report a failed close and remove a partial asset ([02fd67e6](https://gitlab.com/gitlab-org/cli/-/commit/02fd67e6)) by Kai Armstrong<!--team-->   \n* **fix:** aligned non-TTY output without being truncated ([a5ae8a5a](https://gitlab.com/gitlab-org/cli/-/commit/a5ae8a5a)) by Syed Saif Ali Alvi<!--community-->   \n### 📝 Documentation   \n* **docs(auth):** correct OAuth client ID requirements for the Git credential helper ([6292eb1b](https://gitlab.com/gitlab-org/cli/-/commit/6292eb1b)) by Jay McCure<!--team-->   \n* **docs(auth):** recommend glab as Git credential helper on OAuth-only instances ([88a9afeb](https://gitlab.com/gitlab-org/cli/-/commit/88a9afeb)) by Abdelrahman Megahed<!--community-->   \n### 🔧 Maintenance   \n* **chore(lint):** report every issue instead of a truncated sample ([0f19cc0b](https://gitlab.com/gitlab-org/cli/-/commit/0f19cc0b)) by Cian<!--community-->   \n* **chore:** let gitlab-bot approve docs changes ([08ffbf67](https://gitlab.com/gitlab-org/cli/-/commit/08ffbf67)) by Jay McCure<!--team-->   \n### 📦 Dependencies   \n* **chore(deps):** update module gitlab.com/gitlab-org/api/client-go/v3 to v3.39.2 ([acd63fe4](https://gitlab.com/gitlab-org/cli/-/commit/acd63fe4)) by GitLab Dependency Bot<!--team-->   \n* **chore(deps):** update module gitlab.com/gitlab-org/api/client-go/v3 to v3.40.0 ([2e38182b](https://gitlab.com/gitlab-org/cli/-/commit/2e38182b)) by GitLab Dependency Bot<!--team-->   \n* **chore(deps):** update module gitlab.com/gitlab-org/api/client-go/v3 to v3.40.2 ([f48ea2bc](https://gitlab.com/gitlab-org/cli/-/commit/f48ea2bc)) by GitLab Dependency Bot<!--team-->   \n* **chore(deps):** update module go.yaml.in/yaml/v3 to v3.0.6 ([7b012455](https://gitlab.com/gitlab-org/cli/-/commit/7b012455)) by GitLab Dependency Bot<!--team-->   \n### 🔀 Others   \n* perf(mr view): skip fields and approval state the output doesn't use ([661eb14a](https://gitlab.com/gitlab-org/cli/-/commit/661eb14a)) by Jay McCure<!--team-->   \n* **test(govern):** widen timing margin in OpenCode child process test ([3206215f](https://gitlab.com/gitlab-org/cli/-/commit/3206215f)) by Jay McCure<!--team-->   \n* **test(telemetry):** cover a leading repo override in command attribution ([2ba3f40d](https://gitlab.com/gitlab-org/cli/-/commit/2ba3f40d)) by Jay McCure<!--team-->\n\n",
       "isDraft": false,
       "isPrerelease": false,
       "author": {
@@ -206,153 +206,153 @@
         "url": "https://gitlab.com/service-code-review-glab",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-09T06:40:31.189Z",
-      "createdAt": "2026-10-09T06:40:31.189Z",
-      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0",
+      "publishedAt": "2026-11-02T12:56:55.029Z",
+      "createdAt": "2026-11-02T12:56:55.029Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0",
       "assets": [
         {
-          "name": "glab_1.122.0_darwin_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_darwin_amd64.tar.gz"
+          "name": "glab_1.127.0_windows_arm64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_windows_arm64.zip"
         },
         {
-          "name": "glab_1.122.0_linux_s390x.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_s390x.rpm"
+          "name": "glab_1.127.0_source.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_source.tar.gz"
         },
         {
-          "name": "glab_1.122.0_windows_arm64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_windows_arm64.zip"
+          "name": "glab_1.127.0_Windows_x86_64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_Windows_x86_64_installer.exe"
         },
         {
-          "name": "glab_1.122.0_Windows_arm64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_Windows_arm64_installer.exe"
+          "name": "glab_1.127.0_windows_amd64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_windows_amd64.zip"
         },
         {
-          "name": "glab_1.122.0_Windows_x86_64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_Windows_x86_64_installer.exe"
+          "name": "glab_1.127.0_darwin_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_darwin_amd64.tar.gz"
         },
         {
-          "name": "glab_1.122.0_linux_amd64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_amd64.deb"
+          "name": "glab_1.127.0_linux_amd64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_amd64.deb"
         },
         {
-          "name": "glab_1.122.0_linux_386.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_386.apk"
+          "name": "glab_1.127.0_Windows_arm64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_Windows_arm64_installer.exe"
         },
         {
-          "name": "glab_1.122.0_source.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_source.tar.gz"
+          "name": "glab_1.127.0_linux_arm64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_arm64.apk"
         },
         {
-          "name": "glab_1.122.0_linux_386.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_386.rpm"
+          "name": "glab_1.127.0_linux_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_amd64.tar.gz"
+        },
+        {
+          "name": "glab_1.127.0_linux_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_armv6.tar.gz"
         },
         {
           "name": "checksums.txt",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/checksums.txt"
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/checksums.txt"
         },
         {
-          "name": "glab_1.122.0_linux_armv6.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_armv6.rpm"
+          "name": "glab_1.127.0_linux_arm64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_arm64.deb"
         },
         {
-          "name": "glab_1.122.0_linux_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_amd64.tar.gz"
+          "name": "glab_1.127.0_linux_arm64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_arm64.rpm"
         },
         {
-          "name": "glab_1.122.0_linux_armv6.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_armv6.apk"
+          "name": "glab_1.127.0_linux_386.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_386.deb"
         },
         {
-          "name": "glab_1.122.0_linux_s390x.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_s390x.apk"
+          "name": "glab_1.127.0_linux_armv6.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_armv6.rpm"
         },
         {
-          "name": "glab_1.122.0_linux_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_arm64.tar.gz"
+          "name": "glab_1.127.0_freebsd_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_freebsd_armv6.tar.gz"
         },
         {
-          "name": "glab_1.122.0_linux_amd64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_amd64.apk"
+          "name": "glab_1.127.0_linux_ppc64le.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_ppc64le.rpm"
         },
         {
-          "name": "glab_1.122.0_linux_s390x.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_s390x.deb"
+          "name": "glab_1.127.0_linux_s390x.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_s390x.rpm"
         },
         {
-          "name": "glab_1.122.0_freebsd_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_freebsd_386.tar.gz"
+          "name": "glab_1.127.0_linux_armv6.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_armv6.deb"
         },
         {
-          "name": "glab_1.122.0_linux_arm64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_arm64.rpm"
+          "name": "glab_1.127.0_linux_386.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_386.rpm"
         },
         {
-          "name": "glab_1.122.0_linux_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_386.tar.gz"
+          "name": "glab_1.127.0_freebsd_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_freebsd_amd64.tar.gz"
         },
         {
-          "name": "glab_1.122.0_windows_amd64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_windows_amd64.zip"
+          "name": "glab_1.127.0_linux_amd64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_amd64.apk"
         },
         {
-          "name": "glab_1.122.0_linux_s390x.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_s390x.tar.gz"
+          "name": "glab_1.127.0_linux_amd64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_amd64.rpm"
         },
         {
-          "name": "glab_1.122.0_freebsd_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_freebsd_armv6.tar.gz"
+          "name": "glab_1.127.0_linux_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_386.tar.gz"
         },
         {
-          "name": "glab_1.122.0_windows_386.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_windows_386.zip"
+          "name": "glab_1.127.0_linux_ppc64le.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_ppc64le.apk"
         },
         {
-          "name": "glab_1.122.0_linux_386.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_386.deb"
+          "name": "glab_1.127.0_linux_386.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_386.apk"
         },
         {
-          "name": "glab_1.122.0_linux_ppc64le.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_ppc64le.tar.gz"
+          "name": "glab_1.127.0_windows_386.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_windows_386.zip"
         },
         {
-          "name": "glab_1.122.0_linux_ppc64le.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_ppc64le.apk"
+          "name": "glab_1.127.0_linux_s390x.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_s390x.apk"
         },
         {
-          "name": "glab_1.122.0_linux_ppc64le.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_ppc64le.rpm"
+          "name": "glab_1.127.0_darwin_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_darwin_arm64.tar.gz"
         },
         {
-          "name": "glab_1.122.0_freebsd_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_freebsd_amd64.tar.gz"
+          "name": "glab_1.127.0_freebsd_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_freebsd_386.tar.gz"
         },
         {
-          "name": "glab_1.122.0_linux_armv6.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_armv6.deb"
+          "name": "glab_1.127.0_linux_ppc64le.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_ppc64le.tar.gz"
         },
         {
-          "name": "glab_1.122.0_linux_ppc64le.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_ppc64le.deb"
+          "name": "glab_1.127.0_linux_s390x.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_s390x.deb"
         },
         {
-          "name": "glab_1.122.0_linux_arm64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_arm64.apk"
+          "name": "glab_1.127.0_linux_ppc64le.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_ppc64le.deb"
         },
         {
-          "name": "glab_1.122.0_linux_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_armv6.tar.gz"
+          "name": "glab_1.127.0_linux_s390x.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_s390x.tar.gz"
         },
         {
-          "name": "glab_1.122.0_linux_arm64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_arm64.deb"
+          "name": "glab_1.127.0_linux_armv6.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_armv6.apk"
         },
         {
-          "name": "glab_1.122.0_darwin_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_darwin_arm64.tar.gz"
-        },
-        {
-          "name": "glab_1.122.0_linux_amd64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.122.0/downloads/glab_1.122.0_linux_amd64.rpm"
+          "name": "glab_1.127.0_linux_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.127.0/downloads/glab_1.127.0_linux_arm64.tar.gz"
         }
       ]
     },
@@ -366,12 +366,12 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "v1.121.0",
-        "tag": "v1.121.0"
+        "id": "v1.126.0",
+        "tag": "v1.126.0"
       },
-      "name": "v1.121.0",
-      "tag": "v1.121.0",
-      "body": "## Changelog   \n### ✨ Features   \n* c5fece4b: feat(stack): add --skip-push for local stack synchronization (Ahmed Anwar <redacted@example.invalid>)   \n* e924cf16: feat: add update subcommand for managed binaries (Kai Armstrong <redacted@example.invalid>)   \n### 🐛 Bug Fixes   \n* a70f5c8c: fix(ci): scroll and reveal truncated job names (Aleksandr Sheikin <redacted@example.invalid>)   \n* dc4a00ea: fix(commands): do not offer filename completions if no args taken (Ville Skyttä <redacted@example.invalid>)   \n* 68b06896: fix(df): stream large binary downloads safely (Michael Eddington <redacted@example.invalid>)   \n* 6c11bf31: fix(label): show the real total in the list header (unstable-code <redacted@example.invalid>)   \n* 6853ff19: fix(mr): warn when publishing --reviewer-state on your own merge request (Andrei Zubov <redacted@example.invalid>)   \n### 📦 Dependencies   \n* 37ea25e1: chore(deps): bump golangci-lint to v2.14.0 (GitLab Renovate Bot <redacted@example.invalid>)   \n* ba3f9187: chore(deps): update module github.com/docker/cli to v29.8.2+incompatible (GitLab Renovate Bot <redacted@example.invalid>)   \n* 048eec04: chore(deps): update module github.com/tidwall/pretty to v1.2.2 (GitLab Renovate Bot <redacted@example.invalid>)   \n### 🔧 Maintenance   \n* a722b341: chore: combine the integration test coverage with the unit test coverage (Swapnaneel Patra <redacted@example.invalid>)   \n### 🔀 Others   \n* ab082413: perf(mr-note): improving note lookup using early exit searching (Parth Sharma <redacted@example.invalid>)   \n* e1c33d76: test: mock the OS keyring in every test binary (Kai Armstrong <redacted@example.invalid>)\n\n",
+      "name": "v1.126.0",
+      "tag": "v1.126.0",
+      "body": "## Changelog   \n### ✨ Features   \n* **feat(api):** detect GitHub Copilot CLI as coding agent ([a6652278](https://gitlab.com/gitlab-org/cli/-/commit/a6652278)) by Srikanth Srinivas<!--community-->   \n* **feat(df):** add glab df go ([a32c7988](https://gitlab.com/gitlab-org/cli/-/commit/a32c7988)) by Arpit Gogia<!--community-->   \n* **feat(govern):** send glab and agent versions with new sessions ([1bea3af3](https://gitlab.com/gitlab-org/cli/-/commit/1bea3af3)) by Jean van der Walt<!--team-->   \n* **feat(govern):** send the Codex tool namespace with tool call events ([9be88b25](https://gitlab.com/gitlab-org/cli/-/commit/9be88b25)) by Dheeraj Joshi<!--team-->   \n* **feat(release):** explain why CI_JOB_TOKEN can't close milestones ([8eb5e17c](https://gitlab.com/gitlab-org/cli/-/commit/8eb5e17c)) by Jay McCure<!--team-->   \n### 🐛 Bug Fixes   \n* **fix(api):** do not retry POST or PATCH on server errors ([f7503dc0](https://gitlab.com/gitlab-org/cli/-/commit/f7503dc0)) by Jay McCure<!--team-->   \n* **fix(cluster):** show the real total in the list header ([e24e4adf](https://gitlab.com/gitlab-org/cli/-/commit/e24e4adf)) by unstable-code<!--community-->   \n* **fix(config):** send environment credentials only to trusted hosts ([6ab4be4d](https://gitlab.com/gitlab-org/cli/-/commit/6ab4be4d)) by Dinesh Bolkensteyn<!--team-->   \n* **fix(deps):** bump golang.org/x/net to v0.62.0 for GO-2026-6860 ([3454f28e](https://gitlab.com/gitlab-org/cli/-/commit/3454f28e)) by Jay McCure<!--team-->   \n* **fix(orbit):** require GitLab Orbit CLI 0.163.0 or later ([a1910803](https://gitlab.com/gitlab-org/cli/-/commit/a1910803)) by Aaron Algutifan<!--team-->   \n* **fix(snap):** rename kubeconfig plug to dot-kube-config ([a9dfffbb](https://gitlab.com/gitlab-org/cli/-/commit/a9dfffbb)) by Jay McCure<!--team-->   \n### 📝 Documentation   \n* **docs(df):** Update DFW docs ([887df4a8](https://gitlab.com/gitlab-org/cli/-/commit/887df4a8)) by Isaac Durham<!--team-->   \n* **docs(security):** list profile identifiers in config help ([9d7364ef](https://gitlab.com/gitlab-org/cli/-/commit/9d7364ef)) by Isaac Durham<!--team-->   \n* **docs:** fix contributor and maintainer doc gaps ([31d08322](https://gitlab.com/gitlab-org/cli/-/commit/31d08322)) by Khaled Adel<!--community-->   \n### 🔧 Maintenance   \n* **chore:** Add gitlab-bot to CODEOWNERS so automated approvals of MRs satisfy requirements ([edf45cc2](https://gitlab.com/gitlab-org/cli/-/commit/edf45cc2)) by Matt Nohr<!--team-->   \n### 📦 Dependencies   \n* **chore(deps):** update module github.com/docker/cli to v29.9.2+incompatible ([97b69284](https://gitlab.com/gitlab-org/cli/-/commit/97b69284)) by GitLab Dependency Bot<!--team-->   \n* **chore(deps):** update module github.com/docker/docker-credential-helpers to v0.9.12 ([bca2413e](https://gitlab.com/gitlab-org/cli/-/commit/bca2413e)) by GitLab Dependency Bot<!--team-->   \n* **chore(deps):** update module gitlab.com/gitlab-org/api/client-go/v3 to v3.39.1 ([b690423b](https://gitlab.com/gitlab-org/cli/-/commit/b690423b)) by GitLab Dependency Bot<!--team-->   \n### 🔀 Others   \n* **build:** use patch version 0 for the go directive ([7f554826](https://gitlab.com/gitlab-org/cli/-/commit/7f554826)) by Jay McCure<!--team-->\n\n",
       "isDraft": false,
       "isPrerelease": false,
       "author": {
@@ -384,167 +384,167 @@
         "url": "https://gitlab.com/service-code-review-glab",
         "isBotHint": false
       },
-      "publishedAt": "2026-10-06T12:17:32.971Z",
-      "createdAt": "2026-10-06T12:17:32.971Z",
-      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0",
+      "publishedAt": "2026-10-28T21:42:40.023Z",
+      "createdAt": "2026-10-28T21:42:40.023Z",
+      "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0",
       "assets": [
         {
-          "name": "glab_1.121.0_Windows_x86_64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_Windows_x86_64_installer.exe"
+          "name": "glab_1.126.0_linux_s390x.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_s390x.deb"
         },
         {
-          "name": "glab_1.121.0_linux_amd64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_amd64.deb"
+          "name": "glab_1.126.0_linux_s390x.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_s390x.tar.gz"
         },
         {
-          "name": "glab_1.121.0_Windows_arm64_installer.exe",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_Windows_arm64_installer.exe"
+          "name": "glab_1.126.0_Windows_x86_64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_Windows_x86_64_installer.exe"
         },
         {
-          "name": "glab_1.121.0_freebsd_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_freebsd_armv6.tar.gz"
+          "name": "glab_1.126.0_linux_amd64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_amd64.deb"
         },
         {
-          "name": "glab_1.121.0_source.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_source.tar.gz"
+          "name": "glab_1.126.0_Windows_arm64_installer.exe",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_Windows_arm64_installer.exe"
         },
         {
-          "name": "glab_1.121.0_linux_armv6.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_armv6.tar.gz"
+          "name": "glab_1.126.0_linux_armv6.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_armv6.apk"
         },
         {
-          "name": "glab_1.121.0_linux_armv6.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_armv6.deb"
+          "name": "glab_1.126.0_linux_amd64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_amd64.rpm"
         },
         {
-          "name": "glab_1.121.0_darwin_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_darwin_amd64.tar.gz"
+          "name": "glab_1.126.0_source.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_source.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_ppc64le.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_ppc64le.deb"
+          "name": "glab_1.126.0_linux_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_amd64.tar.gz"
         },
         {
-          "name": "glab_1.121.0_freebsd_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_freebsd_amd64.tar.gz"
+          "name": "glab_1.126.0_linux_arm64.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_arm64.deb"
         },
         {
-          "name": "glab_1.121.0_linux_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_386.tar.gz"
+          "name": "glab_1.126.0_linux_armv6.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_armv6.deb"
+        },
+        {
+          "name": "glab_1.126.0_linux_armv6.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_armv6.rpm"
+        },
+        {
+          "name": "glab_1.126.0_linux_386.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_386.apk"
+        },
+        {
+          "name": "glab_1.126.0_freebsd_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_freebsd_armv6.tar.gz"
         },
         {
           "name": "checksums.txt",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/checksums.txt"
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/checksums.txt"
         },
         {
-          "name": "glab_1.121.0_linux_386.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_386.deb"
+          "name": "glab_1.126.0_linux_s390x.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_s390x.rpm"
         },
         {
-          "name": "glab_1.121.0_linux_arm64.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_arm64.deb"
+          "name": "glab_1.126.0_windows_amd64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_windows_amd64.zip"
         },
         {
-          "name": "glab_1.121.0_linux_amd64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_amd64.tar.gz"
+          "name": "glab_1.126.0_linux_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_386.tar.gz"
         },
         {
-          "name": "glab_1.121.0_windows_amd64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_windows_amd64.zip"
+          "name": "glab_1.126.0_linux_amd64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_amd64.apk"
         },
         {
-          "name": "glab_1.121.0_linux_amd64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_amd64.rpm"
+          "name": "glab_1.126.0_linux_armv6.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_armv6.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_ppc64le.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_ppc64le.tar.gz"
+          "name": "glab_1.126.0_linux_386.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_386.rpm"
         },
         {
-          "name": "glab_1.121.0_linux_armv6.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_armv6.apk"
+          "name": "glab_1.126.0_windows_386.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_windows_386.zip"
         },
         {
-          "name": "glab_1.121.0_linux_s390x.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_s390x.tar.gz"
+          "name": "glab_1.126.0_linux_ppc64le.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_ppc64le.deb"
         },
         {
-          "name": "glab_1.121.0_linux_ppc64le.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_ppc64le.rpm"
+          "name": "glab_1.126.0_linux_arm64.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_arm64.apk"
         },
         {
-          "name": "glab_1.121.0_linux_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_arm64.tar.gz"
+          "name": "glab_1.126.0_linux_ppc64le.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_ppc64le.rpm"
         },
         {
-          "name": "glab_1.121.0_linux_386.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_386.rpm"
+          "name": "glab_1.126.0_freebsd_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_freebsd_amd64.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_s390x.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_s390x.rpm"
+          "name": "glab_1.126.0_freebsd_386.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_freebsd_386.tar.gz"
         },
         {
-          "name": "glab_1.121.0_darwin_arm64.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_darwin_arm64.tar.gz"
+          "name": "glab_1.126.0_linux_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_arm64.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_ppc64le.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_ppc64le.apk"
+          "name": "glab_1.126.0_linux_ppc64le.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_ppc64le.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_arm64.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_arm64.rpm"
+          "name": "glab_1.126.0_linux_arm64.rpm",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_arm64.rpm"
         },
         {
-          "name": "glab_1.121.0_linux_s390x.deb",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_s390x.deb"
+          "name": "glab_1.126.0_windows_arm64.zip",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_windows_arm64.zip"
         },
         {
-          "name": "glab_1.121.0_windows_arm64.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_windows_arm64.zip"
+          "name": "glab_1.126.0_linux_s390x.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_s390x.apk"
         },
         {
-          "name": "glab_1.121.0_linux_amd64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_amd64.apk"
+          "name": "glab_1.126.0_darwin_arm64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_darwin_arm64.tar.gz"
         },
         {
-          "name": "glab_1.121.0_linux_arm64.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_arm64.apk"
+          "name": "glab_1.126.0_darwin_amd64.tar.gz",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_darwin_amd64.tar.gz"
         },
         {
-          "name": "glab_1.121.0_freebsd_386.tar.gz",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_freebsd_386.tar.gz"
+          "name": "glab_1.126.0_linux_386.deb",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_386.deb"
         },
         {
-          "name": "glab_1.121.0_linux_s390x.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_s390x.apk"
-        },
-        {
-          "name": "glab_1.121.0_linux_armv6.rpm",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_armv6.rpm"
-        },
-        {
-          "name": "glab_1.121.0_windows_386.zip",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_windows_386.zip"
-        },
-        {
-          "name": "glab_1.121.0_linux_386.apk",
-          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.121.0/downloads/glab_1.121.0_linux_386.apk"
+          "name": "glab_1.126.0_linux_ppc64le.apk",
+          "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.126.0/downloads/glab_1.126.0_linux_ppc64le.apk"
         }
       ]
     }
   ],
-  "total": 162,
+  "total": 167,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases?id=gitlab-org%2Fcli&order_by=released_at&page=2&per_page=3&sort=desc",
-    "etag": "W/\"f917abd01270b8b5886b64076db4d568\""
+    "etag": "W/\"625588e849c61790d86129b3cb25d27a\""
   },
-  "etag": "W/\"f917abd01270b8b5886b64076db4d568\"",
+  "etag": "W/\"625588e849c61790d86129b3cb25d27a\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1913,
+    "limit": 100,
+    "remaining": 7,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

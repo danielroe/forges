@@ -1,18 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3043277958/jobs"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=20&pipeline_id=2961499559>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=20&pipeline_id=2961499559>; rel=\"last\"",
-      "etag": "W/\"4d0480eb0b56f2c6b7e1014c81765922\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3043277958/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=20&pipeline_id=3043277958>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3043277958/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=20&pipeline_id=3043277958>; rel=\"last\"",
+      "etag": "W/\"0958196fdabc1a8be85cbffdfeb29b7f\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "448",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "447",
+      "ratelimit-reset": "1794198660",
       "ratelimit-name": "throttle_unauthenticated_api",
-      "x-total": "1",
+      "x-total": "19",
       "x-total-pages": "1",
       "x-next-page": "",
       "x-page": "1",
@@ -20,93 +20,93 @@
     },
     "body": [
       {
-        "id": 17272413278,
+        "id": 17849942669,
         "status": "success",
-        "stage": "build",
-        "name": "workload",
-        "ref": "refs/workloads/86279be7d1a",
+        "stage": "release",
+        "name": "snapcraft_release_edge",
+        "ref": "main",
         "tag": false,
         "coverage": null,
         "allow_failure": false,
-        "created_at": "2026-10-19T03:47:24.028Z",
-        "started_at": "2026-10-19T03:47:24.425Z",
-        "finished_at": "2026-10-19T03:48:30.898Z",
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T04:03:42.929Z",
+        "finished_at": "2026-11-09T04:04:54.159Z",
         "erased_at": null,
-        "duration": 66.473253,
-        "queued_duration": 0.127501,
+        "duration": 71.229786,
+        "queued_duration": 0.280881,
         "user": {
-          "id": 32742181,
-          "username": "duo-code-review-gitlab-org",
-          "public_email": null,
-          "name": "Duo Code Review",
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
-          "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
-          "created_at": "2026-01-07T09:48:25.291Z",
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
           "bio": "",
-          "location": "",
-          "linkedin": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
           "twitter": "",
           "discord": "",
           "website_url": "",
           "github": "",
-          "job_title": "",
-          "pronouns": null,
-          "organization": "",
-          "bot": true,
-          "work_information": null,
-          "followers": 0,
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
           "following": 0,
-          "local_time": null
+          "local_time": "2:30 PM"
         },
         "commit": {
-          "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "short_id": "e74ebf81",
-          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
           "parent_ids": [
-            "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-            "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
           ],
-          "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-          "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
           "author_name": "Jay McCure",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T12:02:22.000+10:00",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T12:02:22.000+10:00",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
         },
         "pipeline": {
-          "id": 2961499559,
-          "iid": 15548,
+          "id": 3043277958,
+          "iid": 17059,
           "project_id": 34675721,
-          "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "ref": "refs/workloads/86279be7d1a",
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
           "status": "success",
-          "source": "duo_workflow",
-          "created_at": "2026-10-19T03:47:23.987Z",
-          "updated_at": "2026-10-19T03:48:32.298Z",
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559"
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
         },
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942669",
         "project": {
           "ci_job_token_scope_enabled": false
         },
         "artifacts": [
           {
             "file_type": "trace",
-            "size": 116390,
+            "size": 10361,
             "filename": "job.log",
             "file_format": null
           }
         ],
         "runner": {
-          "id": 54907241,
-          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
           "ip_address": null,
           "active": true,
           "paused": false,
@@ -115,28 +115,28 @@
           "name": null,
           "online": true,
           "created_by": {
-            "id": 6515150,
-            "username": "rhassanein-admin",
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
             "public_email": "",
-            "name": "Rehab Hassanein",
+            "name": "Igor Wiedler",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
-            "web_url": "https://gitlab.com/rhassanein-admin"
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
           },
-          "created_at": "2026-08-06T11:12:30.404Z",
+          "created_at": "2026-08-19T15:31:33.905Z",
           "status": "online",
           "job_execution_status": "active"
         },
         "runner_manager": {
-          "id": 163225755,
-          "system_id": "r_0pGmWpFnG2XF",
-          "version": "19.6.0~pre.2336.g77694893",
-          "revision": "77694893",
+          "id": 167980432,
+          "system_id": "r_k8nxF1SI7Ubq",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
           "platform": "linux",
           "architecture": "amd64",
-          "created_at": "2026-10-16T16:25:32.520Z",
-          "contacted_at": "2026-10-19T04:40:15.841Z",
+          "created_at": "2026-11-05T09:49:06.517Z",
+          "contacted_at": "2026-11-09T04:30:16.112Z",
           "ip_address": "10.218.11.3",
           "status": "online",
           "job_execution_status": "active"
@@ -144,7 +144,2583 @@
         "artifacts_expire_at": null,
         "archived": false,
         "tag_list": [
-          "gitlab--duo"
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942668,
+        "status": "success",
+        "stage": "build",
+        "name": "snapcraft_build_edge",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T04:00:55.940Z",
+        "finished_at": "2026-11-09T04:03:41.202Z",
+        "erased_at": null,
+        "duration": 165.261352,
+        "queued_duration": 0.240455,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942668",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 34805387
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 34805387,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 204,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 55546,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980587,
+          "system_id": "r_rwbcoK5tUUoJ",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:07.223Z",
+          "contacted_at": "2026-11-09T04:30:17.850Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T04:03:39.256Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942667,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [arm64]",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:49.164Z",
+        "finished_at": "2026-11-09T03:58:52.871Z",
+        "erased_at": null,
+        "duration": 63.706846,
+        "queued_duration": 0.289855,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942667",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 17751008
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 17751008,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 187,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10663,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980425,
+          "system_id": "r_XqqW49Y4ZsRU",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:05.844Z",
+          "contacted_at": "2026-11-09T04:30:16.175Z",
+          "ip_address": "10.218.11.18",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:58:51.861Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942666,
+        "status": "success",
+        "stage": "build",
+        "name": "build_windows: [amd64]",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:49.138Z",
+        "finished_at": "2026-11-09T03:58:54.712Z",
+        "erased_at": null,
+        "duration": 65.574362,
+        "queued_duration": 0.325206,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942666",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 19639752
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 19639752,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 190,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 10663,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980658,
+          "system_id": "r_uaamD0zmf4vX",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:20.082Z",
+          "contacted_at": "2026-11-09T04:30:14.194Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:58:53.752Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942665,
+        "status": "success",
+        "stage": "build",
+        "name": "windows_installer: [arm64, arm64]",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:58:56.510Z",
+        "finished_at": "2026-11-09T03:59:28.478Z",
+        "erased_at": null,
+        "duration": 31.968152,
+        "queued_duration": 0.342137,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942665",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 14321637
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 14321637,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 203,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 26730,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980655,
+          "system_id": "r_ZcZeUV0nf1gw",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:19.984Z",
+          "contacted_at": "2026-11-09T04:30:18.400Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:59:27.530Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942664,
+        "status": "success",
+        "stage": "build",
+        "name": "windows_installer: [amd64, x86_64]",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:58:56.326Z",
+        "finished_at": "2026-11-09T03:59:33.638Z",
+        "erased_at": null,
+        "duration": 37.311575,
+        "queued_duration": 0.232129,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942664",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 15787064
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 15787064,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 203,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 26665,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980589,
+          "system_id": "r_J16e8uQKC8j2",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:07.254Z",
+          "contacted_at": "2026-11-09T04:30:18.224Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:59:32.697Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942663,
+        "status": "success",
+        "stage": "build",
+        "name": "build_test",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T04:00:55.898Z",
+        "finished_at": "2026-11-09T04:05:56.541Z",
+        "erased_at": null,
+        "duration": 300.642646,
+        "queued_duration": 0.287805,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942663",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "goreleaser-artifacts.zip",
+          "size": 867855555
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 867855555,
+            "filename": "goreleaser-artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 1731,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 31280,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314183,
+          "description": "k8s.saas-linux-2xlarge-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:33:39.241Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980010,
+          "system_id": "r_HJpTlzOj8btU",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:46:42.425Z",
+          "contacted_at": "2026-11-09T04:29:43.983Z",
+          "ip_address": "10.218.11.18",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T04:05:54.671Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-2xlarge-amd64"
+        ]
+      },
+      {
+        "id": 17849942662,
+        "status": "success",
+        "stage": "test",
+        "name": "tests:coverage",
+        "ref": "main",
+        "tag": false,
+        "coverage": 75.5,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T04:00:55.884Z",
+        "finished_at": "2026-11-09T04:01:42.671Z",
+        "erased_at": null,
+        "duration": 46.786621,
+        "queued_duration": 0.389711,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942662",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 214938
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 214938,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 178,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 425737,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980432,
+          "system_id": "r_k8nxF1SI7Ubq",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:06.517Z",
+          "contacted_at": "2026-11-09T04:30:16.112Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T04:01:41.627Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942661,
+        "status": "success",
+        "stage": "test",
+        "name": "tests:integration",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:49.100Z",
+        "finished_at": "2026-11-09T03:59:14.276Z",
+        "erased_at": null,
+        "duration": 85.176025,
+        "queued_duration": 0.364753,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942661",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 9980
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 9980,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 187,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 13291,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "junit",
+            "size": 1085,
+            "filename": "junit.xml.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980423,
+          "system_id": "r_fxPBqt6gfe8O",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:05.740Z",
+          "contacted_at": "2026-11-09T04:30:18.145Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:59:13.408Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942660,
+        "status": "success",
+        "stage": "test",
+        "name": "tests:unit",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:49.100Z",
+        "finished_at": "2026-11-09T04:00:53.923Z",
+        "erased_at": null,
+        "duration": 184.822953,
+        "queued_duration": 0.418083,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942660",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 205155
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 205155,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 183,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 49914,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "junit",
+            "size": 108229,
+            "filename": "junit.xml.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980427,
+          "system_id": "r_kUgZCA0UfQXw",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:06.006Z",
+          "contacted_at": "2026-11-09T04:30:16.322Z",
+          "ip_address": "10.218.11.18",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T04:00:52.999Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942659,
+        "status": "success",
+        "stage": "test",
+        "name": "lint",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.960Z",
+        "finished_at": "2026-11-09T03:59:06.402Z",
+        "erased_at": null,
+        "duration": 77.441621,
+        "queued_duration": 0.329499,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942659",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 226
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 226,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 183,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 11017,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "codequality",
+            "size": 3,
+            "filename": "gl-code-quality-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980588,
+          "system_id": "r_5ZnjNyckteEt",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:07.241Z",
+          "contacted_at": "2026-11-09T04:30:16.162Z",
+          "ip_address": "10.218.11.18",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:59:05.520Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942658,
+        "status": "success",
+        "stage": "test",
+        "name": "lint:comments",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.934Z",
+        "finished_at": "2026-11-09T03:58:16.607Z",
+        "erased_at": null,
+        "duration": 27.672984,
+        "queued_duration": 0.356295,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942658",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 9830,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980560,
+          "system_id": "r_yuW1vk9SM1ju",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:54.919Z",
+          "contacted_at": "2026-11-09T04:30:16.307Z",
+          "ip_address": "10.218.11.18",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942657,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_args",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.815Z",
+        "finished_at": "2026-11-09T03:57:58.913Z",
+        "erased_at": null,
+        "duration": 10.098645,
+        "queued_duration": 0.328235,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942657",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 7717,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980587,
+          "system_id": "r_rwbcoK5tUUoJ",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:07.223Z",
+          "contacted_at": "2026-11-09T04:30:17.850Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942656,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_embed",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.618Z",
+        "finished_at": "2026-11-09T03:57:58.830Z",
+        "erased_at": null,
+        "duration": 10.212612,
+        "queued_duration": 0.192531,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942656",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 7718,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980432,
+          "system_id": "r_k8nxF1SI7Ubq",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:06.517Z",
+          "contacted_at": "2026-11-09T04:30:16.112Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942655,
+        "status": "success",
+        "stage": "checks",
+        "name": "check_go_generated_code",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.618Z",
+        "finished_at": "2026-11-09T03:58:42.050Z",
+        "erased_at": null,
+        "duration": 53.431349,
+        "queued_duration": 0.258336,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942655",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts": [
+          {
+            "file_type": "trace",
+            "size": 9925,
+            "filename": "job.log",
+            "file_format": null
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980661,
+          "system_id": "r_KwvFFTUBUWcf",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:50:20.149Z",
+          "contacted_at": "2026-11-09T04:30:18.585Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": null,
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942654,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "dependency-scanning-profile-0",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.558Z",
+        "finished_at": "2026-11-09T03:58:07.321Z",
+        "erased_at": null,
+        "duration": 18.763462,
+        "queued_duration": 0.277763,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942654",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 12976
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 12976,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 296,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 20678,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "dependency_scanning",
+            "size": 21130,
+            "filename": "gl-dependency-scanning-report.json",
+            "file_format": "raw"
+          },
+          {
+            "file_type": "cyclonedx",
+            "size": 8090,
+            "filename": "gl-sbom.cdx.json.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980429,
+          "system_id": "r_ylPcSK8fdcej",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:06.111Z",
+          "contacted_at": "2026-11-09T04:30:18.540Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-12-09T03:58:06.549Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942653,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "govulncheck",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": false,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.535Z",
+        "finished_at": "2026-11-09T03:58:56.074Z",
+        "erased_at": null,
+        "duration": 67.53965,
+        "queued_duration": 0.309035,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942653",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 111050
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 111050,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 181,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 11400,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "dependency_scanning",
+            "size": 652,
+            "filename": "gl-dependency-scanning-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980557,
+          "system_id": "r_bT0Xz67aCRHg",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:54.761Z",
+          "contacted_at": "2026-11-09T04:30:18.725Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-11-16T03:58:55.357Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942652,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "secret_detection",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.501Z",
+        "finished_at": "2026-11-09T03:57:59.576Z",
+        "erased_at": null,
+        "duration": 11.075353,
+        "queued_duration": 0.334973,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942652",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 725
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 725,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 190,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 11125,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "secret_detection",
+            "size": 1321,
+            "filename": "gl-secret-detection-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980431,
+          "system_id": "r_av6z0n6NYniL",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:06.207Z",
+          "contacted_at": "2026-11-09T04:30:18.537Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-12-09T03:57:58.883Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
+        ]
+      },
+      {
+        "id": 17849942651,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "gitlab-advanced-sast",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-11-09T03:57:47.663Z",
+        "started_at": "2026-11-09T03:57:48.409Z",
+        "finished_at": "2026-11-09T04:00:37.480Z",
+        "erased_at": null,
+        "duration": 169.070852,
+        "queued_duration": 0.312334,
+        "user": {
+          "id": 11809982,
+          "username": "jay_mccure",
+          "public_email": "",
+          "name": "Jay McCure",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
+          "web_url": "https://gitlab.com/jay_mccure",
+          "created_at": "2022-06-12T22:51:50.999Z",
+          "bio": "",
+          "location": "Brisbane, Australia",
+          "linkedin": "jmccure",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "Senior Backend Engineer",
+          "pronouns": "He/Him",
+          "organization": "GitLab",
+          "bot": false,
+          "work_information": "Senior Backend Engineer at GitLab",
+          "followers": 14,
+          "following": 0,
+          "local_time": "2:30 PM"
+        },
+        "commit": {
+          "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "short_id": "53d272b8",
+          "created_at": "2026-11-09T13:57:43.000+10:00",
+          "parent_ids": [
+            "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+            "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
+          ],
+          "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+          "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
+          "author_name": "Jay McCure",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-09T13:57:43.000+10:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-09T13:57:43.000+10:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
+        },
+        "pipeline": {
+          "id": 3043277958,
+          "iid": 17059,
+          "project_id": 34675721,
+          "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
+          "ref": "main",
+          "status": "success",
+          "source": "push",
+          "created_at": "2026-11-09T03:57:47.605Z",
+          "updated_at": "2026-11-09T04:05:58.054Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17849942651",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 11433
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 11433,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 183,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 79599,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "sast",
+            "size": 147455,
+            "filename": "gl-sast-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 55314121,
+          "description": "k8s.saas-linux-medium-amd64.runners-manager.gitlab.com/default",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 5372863,
+            "username": "igorwwwwwwwwwwwwwwwwwwww-admin",
+            "public_email": "",
+            "name": "Igor Wiedler",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/509321df9ad78093586110676a0f3e0517e2744bce4c1963fac9ad5acd19f4f0?s=80&d=identicon",
+            "web_url": "https://gitlab.com/igorwwwwwwwwwwwwwwwwwwww-admin"
+          },
+          "created_at": "2026-08-19T15:31:33.905Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 167980559,
+          "system_id": "r_RrqA8D1eAt9p",
+          "version": "19.6.0~pre.2461.g7a0f1264",
+          "revision": "7a0f1264",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-05T09:49:54.909Z",
+          "contacted_at": "2026-11-09T04:30:16.592Z",
+          "ip_address": "10.218.11.3",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-12-09T04:00:36.768Z",
+        "archived": false,
+        "tag_list": [
+          "saas-linux-medium-amd64"
         ]
       }
     ]
