@@ -35,22 +35,22 @@
       {
         "name": "cascading-release-end-to-end",
         "path": ".forgejo/cascading-release-end-to-end",
-        "sha": "f78c3aeedb1a0d450b5df34ecb61a54c50890e56",
-        "last_commit_sha": "42114d262701c65c3b012b7b2d6141359fdcfa06",
-        "last_commit_when": "2025-12-30T02:31:23+01:00",
+        "sha": "7e4c2c00a2b6be209228644175267fb16a61c81c",
+        "last_commit_sha": "ab4f2db94d5b104ecebe2636bafecd7e9f520511",
+        "last_commit_when": "2026-10-26T14:47:49+01:00",
         "type": "file",
-        "size": 636,
+        "size": 745,
         "encoding": null,
         "content": null,
         "target": null,
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/cascading-release-end-to-end?ref=forgejo",
         "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/cascading-release-end-to-end",
-        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/f78c3aeedb1a0d450b5df34ecb61a54c50890e56",
+        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/7e4c2c00a2b6be209228644175267fb16a61c81c",
         "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/cascading-release-end-to-end",
         "submodule_git_url": null,
         "_links": {
           "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/cascading-release-end-to-end?ref=forgejo",
-          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/f78c3aeedb1a0d450b5df34ecb61a54c50890e56",
+          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/7e4c2c00a2b6be209228644175267fb16a61c81c",
           "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/cascading-release-end-to-end"
         }
       },
@@ -101,22 +101,22 @@
       {
         "name": "renovate.json",
         "path": ".forgejo/renovate.json",
-        "sha": "d285aadf82e4a2e8024a16b7dcef23f7206181b2",
-        "last_commit_sha": "994e539b556f7908d1390b1f0992743621ec0944",
-        "last_commit_when": "2026-09-24T22:46:49+02:00",
+        "sha": "e7091e6c7ec788712675f2ffb204f13ef3f37d6a",
+        "last_commit_sha": "4c9fb58a0f8e1bfadbac28e515fbe20b158aca38",
+        "last_commit_when": "2026-11-04T13:13:05+01:00",
         "type": "file",
-        "size": 6428,
+        "size": 6622,
         "encoding": null,
         "content": null,
         "target": null,
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/renovate.json?ref=forgejo",
         "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/renovate.json",
-        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/d285aadf82e4a2e8024a16b7dcef23f7206181b2",
+        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e7091e6c7ec788712675f2ffb204f13ef3f37d6a",
         "download_url": "https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/.forgejo/renovate.json",
         "submodule_git_url": null,
         "_links": {
           "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/renovate.json?ref=forgejo",
-          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/d285aadf82e4a2e8024a16b7dcef23f7206181b2",
+          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/e7091e6c7ec788712675f2ffb204f13ef3f37d6a",
           "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/renovate.json"
         }
       },
@@ -167,9 +167,9 @@
       {
         "name": "workflows",
         "path": ".forgejo/workflows",
-        "sha": "14a02120b2b25cece68374dcdfb71b56d590e522",
-        "last_commit_sha": "56435ef6374da77d37acfb283130b87764614a03",
-        "last_commit_when": "2026-10-17T16:29:20+02:00",
+        "sha": "9ae68c5ebca2c2f93557279053df4bdd3ca09bb2",
+        "last_commit_sha": "32a1363f7989799b412636297a89f843c08c6c6c",
+        "last_commit_when": "2026-11-05T19:52:15+01:00",
         "type": "dir",
         "size": 0,
         "encoding": null,
@@ -177,12 +177,12 @@
         "target": null,
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/workflows?ref=forgejo",
         "html_url": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows",
-        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/14a02120b2b25cece68374dcdfb71b56d590e522",
+        "git_url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/9ae68c5ebca2c2f93557279053df4bdd3ca09bb2",
         "download_url": null,
         "submodule_git_url": null,
         "_links": {
           "self": "https://codeberg.org/api/v1/repos/forgejo/forgejo/contents/.forgejo/workflows?ref=forgejo",
-          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/14a02120b2b25cece68374dcdfb71b56d590e522",
+          "git": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/9ae68c5ebca2c2f93557279053df4bdd3ca09bb2",
           "html": "https://codeberg.org/forgejo/forgejo/src/branch/forgejo/.forgejo/workflows"
         }
       }

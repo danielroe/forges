@@ -93,9 +93,9 @@
         "ssh": "ssh://git@codeberg.org/forgejo/forgejo.git"
       },
       "createdAt": "2022-11-06T06:24:57.000Z",
-      "updatedAt": "2026-10-19T01:09:57.000Z",
-      "openIssueCount": 1572,
-      "openPullCount": 154,
+      "updatedAt": "2026-11-09T00:15:59.000Z",
+      "openIssueCount": 1619,
+      "openPullCount": 177,
       "owner": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -108,9 +108,9 @@
       },
       "language": "Go",
       "homepage": "https://forgejo.org",
-      "stars": 5673,
-      "forks": 1000,
-      "watchers": 335,
+      "stars": 5801,
+      "forks": 1026,
+      "watchers": 384,
       "mergeMethods": [
         "merge",
         "squash",
@@ -156,7 +156,7 @@
         "ssh": "ssh://git@codeberg.org/forgejo/website.git"
       },
       "createdAt": "2022-11-06T09:52:25.000Z",
-      "updatedAt": "2026-10-18T22:22:30.000Z",
+      "updatedAt": "2026-11-08T23:11:39.000Z",
       "openIssueCount": 26,
       "openPullCount": 6,
       "owner": {
@@ -171,9 +171,9 @@
       },
       "language": "Astro",
       "homepage": "https://forgejo.org",
-      "stars": 44,
+      "stars": 45,
       "forks": 56,
-      "watchers": 25,
+      "watchers": 26,
       "mergeMethods": [
         "merge",
         "squash",
@@ -212,7 +212,7 @@
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1882,
+    "remaining": 1877,
     "resetAt": "<now>",
     "resource": "baseline"
   }

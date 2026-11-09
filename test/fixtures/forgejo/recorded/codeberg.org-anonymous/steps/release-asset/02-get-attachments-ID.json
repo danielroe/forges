@@ -1,15 +1,15 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://codeberg.org/attachments/47aea5a8-c42b-421f-957c-4ba7a294cfec"
+    "url": "https://codeberg.org/attachments/42c3fc99-b675-4c22-b42f-49190bc334ef"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "\"47aea5a8-c42b-421f-957c-4ba7a294cfec\"",
-      "ratelimit": "\"baseline\";r=1860;t=600",
+      "etag": "\"42c3fc99-b675-4c22-b42f-49190bc334ef\"",
+      "ratelimit": "\"baseline\";r=1854;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
-    "body": "e89c58b872b05b451b630a7ae55a35e79c42cbdfdfd091376e06754ca203526d  forgejo-src-17.0.0.tar.gz\n"
+    "body": "d6b32ac77e71af0737f30613d985a0dc335b694b8b989d609a0cc88972f2fd4d  forgejo-src-17.0.1.tar.gz\n"
   }
 }

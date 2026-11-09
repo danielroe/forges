@@ -258,16 +258,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "henrycatalinismith",
-      "id": "274419",
-      "name": "Henry Catalini Smith",
-      "avatarUrl": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-      "url": "https://codeberg.org/henrycatalinismith",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "iamyaash",
       "id": "258926",
       "name": "Yashwanth Rathakrishnan",
@@ -553,11 +543,21 @@
       "avatarUrl": "https://codeberg.org/avatars/4ae5f3b5ee96ffc6b5bea077ab2b7ad8",
       "url": "https://codeberg.org/xtex",
       "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "zoe",
+      "id": "491131",
+      "name": "Zoë Finja Emilia Kron",
+      "avatarUrl": "https://codeberg.org/avatars/e3298315250201c467e8e74cf7d562c7e0f3a672792ebdcd5671de3bed8a3a71",
+      "url": "https://codeberg.org/zoe",
+      "isBotHint": false
     }
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1986,
+    "remaining": 1985,
     "resetAt": "<now>",
     "resource": "baseline"
   }

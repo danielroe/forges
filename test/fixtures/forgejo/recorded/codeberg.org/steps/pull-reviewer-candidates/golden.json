@@ -54,7 +54,7 @@
       "login": "ajensen-dev",
       "id": "740570",
       "name": "Aaron Jensen",
-      "avatarUrl": "https://codeberg.org/avatars/70d07e79159dc100840b42619cfe6122fa95b24f9b22c413b24903e6567340b8",
+      "avatarUrl": "https://codeberg.org/avatars/a352551a4025ffc6a5021a636fb9069f25396ea18e419ba476687a9d99865938",
       "url": "https://codeberg.org/ajensen-dev",
       "isBotHint": false
     },
@@ -82,7 +82,7 @@
       "login": "amadaluzia",
       "id": "199341",
       "name": "Artur Manuel",
-      "avatarUrl": "https://codeberg.org/avatars/a8eac2f88ca6baf54188a3c0621c8df9",
+      "avatarUrl": "https://codeberg.org/avatars/7f39c2c78f86a4f9b663cb85d10755c84233f419823a4fe0965d2a5b7ebce657",
       "url": "https://codeberg.org/amadaluzia",
       "isBotHint": false
     },
@@ -310,15 +310,6 @@
       "id": "138123",
       "avatarUrl": "https://codeberg.org/avatars/c934d358702f805c62912cff3ca8273a",
       "url": "https://codeberg.org/DeniableReply",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "login": "dfi",
-      "id": "190177",
-      "avatarUrl": "https://codeberg.org/avatars/b57de73aa417c0c9658f01d7c487f64c",
-      "url": "https://codeberg.org/dfi",
       "isBotHint": false
     },
     {
@@ -595,16 +586,6 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "henrycatalinismith",
-      "id": "274419",
-      "name": "Henry Catalini Smith",
-      "avatarUrl": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-      "url": "https://codeberg.org/henrycatalinismith",
-      "isBotHint": false
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
       "login": "herfai",
       "id": "176915",
       "name": "Omid golkari",
@@ -867,6 +848,16 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
+      "login": "matmyfta",
+      "id": "1483459",
+      "name": "Mateo",
+      "avatarUrl": "https://codeberg.org/avatars/6bd77a3e785c662ef450c4a1e5653cb834ec4883c9cec390df5ce280d99662dd",
+      "url": "https://codeberg.org/matmyfta",
+      "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
       "login": "mattie_sanz",
       "id": "267714",
       "avatarUrl": "https://codeberg.org/avatars/42658cdbd365935771715d08f8d90ab0",
@@ -919,6 +910,15 @@
       "name": "Matej Kovac",
       "avatarUrl": "https://codeberg.org/avatars/af84301db3f06605f1e7a13f12fd6892",
       "url": "https://codeberg.org/multicast",
+      "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "mverkleij-dlx",
+      "id": "1567940",
+      "avatarUrl": "https://codeberg.org/avatars/3e26323281e20242edb0800196f35d04",
+      "url": "https://codeberg.org/mverkleij-dlx",
       "isBotHint": false
     },
     {
@@ -1225,10 +1225,11 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "login": "sgbvmr",
+      "login": "sgbv",
       "id": "787845",
+      "name": "Osaigbovo O.",
       "avatarUrl": "https://codeberg.org/avatars/4a14708c394e324320c3cbc13eed08c3f4198b1dcbf1cb8b00d64a7893855cff",
-      "url": "https://codeberg.org/sgbvmr",
+      "url": "https://codeberg.org/sgbv",
       "isBotHint": false
     },
     {
@@ -1484,11 +1485,21 @@
       "avatarUrl": "https://codeberg.org/avatars/8250bdb732fc012356450b39d7036b9c",
       "url": "https://codeberg.org/ynb925",
       "isBotHint": false
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "login": "zoe",
+      "id": "491131",
+      "name": "Zoë Finja Emilia Kron",
+      "avatarUrl": "https://codeberg.org/avatars/e3298315250201c467e8e74cf7d562c7e0f3a672792ebdcd5671de3bed8a3a71",
+      "url": "https://codeberg.org/zoe",
+      "isBotHint": false
     }
   ],
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1968,
+    "remaining": 1966,
     "resetAt": "<now>",
     "resource": "baseline"
   }

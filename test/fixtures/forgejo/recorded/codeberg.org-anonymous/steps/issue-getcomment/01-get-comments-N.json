@@ -5,7 +5,10 @@
   },
   "response": {
     "status": 200,
-    "headers": {},
+    "headers": {
+      "ratelimit": "\"baseline\";r=1882;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600"
+    },
     "body": {
       "id": 24317943,
       "html_url": "https://codeberg.org/forgejo/forgejo/issues/14613#issuecomment-24317943",
@@ -24,7 +27,7 @@
         "pronouns": "he/him",
         "website": "https://mathieu.fenniak.net/",
         "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-        "followers_count": 20,
+        "followers_count": 21,
         "following_count": 0,
         "starred_repos_count": 4,
         "username": "mfenniak"

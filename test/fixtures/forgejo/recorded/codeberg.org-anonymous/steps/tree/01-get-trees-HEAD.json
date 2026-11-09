@@ -6,13 +6,13 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1875;t=600",
+      "ratelimit": "\"baseline\";r=1869;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "68"
     },
     "body": {
-      "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+      "sha": "92d5abd016b692a9ce2b419d4f883934b44d03d8",
+      "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/92d5abd016b692a9ce2b419d4f883934b44d03d8",
       "tree": [
         {
           "path": ".air.toml",
@@ -26,9 +26,9 @@
           "path": ".deadcode-out",
           "mode": "100644",
           "type": "blob",
-          "size": 6003,
-          "sha": "5fb50cd42bd779b0419b3ad21ce61520e245c663",
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/5fb50cd42bd779b0419b3ad21ce61520e245c663"
+          "size": 6000,
+          "sha": "7bd0b555ef30bbfe32f06bdc0604f0907da8f07d",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/blobs/7bd0b555ef30bbfe32f06bdc0604f0907da8f07d"
         },
         {
           "path": ".devcontainer",
