@@ -1,0 +1,11 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://dev.azure.com/forges/forges-fixtures/_apis/git/repositories/forges-fixtures/items?path=README.md&download=true&%24format=octetStream&api-version=7.1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": "An automated fixture target for [`forges`](https://github.com/danielroe/forges). Issues and pull requests here aren't monitored.\r\n"
+  }
+}
