@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:zlpfp5xn43tpzre5icmeuhcu"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"232-BG6zS6jACpOS2oWFbodIBBiltF4\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:zlpfp5xn43tpzre5icmeuhcu",
+      "alsoKnownAs": [
+        "at://jazztap.bsky.social"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:zlpfp5xn43tpzre5icmeuhcu#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:zlpfp5xn43tpzre5icmeuhcu",
+          "publicKeyMultibase": "zQ3shdtJLiazex2n1qjtqTSecrtiQLLVbi22zKnnX33anAMty"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://magic.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

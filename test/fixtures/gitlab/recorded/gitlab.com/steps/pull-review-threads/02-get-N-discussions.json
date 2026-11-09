@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=2&per_page=3>; rel=\"prev\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=1&per_page=3>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/merge_requests/3988/discussions?id=gitlab-org%2Fcli&noteable_id=3988&page=3&per_page=3>; rel=\"last\"",
-      "etag": "W/\"93254aff9eaf0654911f36ee52f03a1a\"",
+      "etag": "W/\"8f2bcf25df0af60ab26ef00f2f948776\"",
       "ratelimit-limit": "100",
-      "ratelimit-remaining": "63",
-      "ratelimit-reset": "1792700940",
+      "ratelimit-remaining": "64",
+      "ratelimit-reset": "1794198540",
       "ratelimit-name": "burst_traffic_per_user_free_plan",
       "x-total": "7",
       "x-total-pages": "3",
@@ -35,7 +35,7 @@
               "name": "Jay McCure",
               "state": "active",
               "locked": false,
-              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792651706",
+              "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1794196179",
               "web_url": "https://gitlab.com/jay_mccure"
             },
             "created_at": "2026-10-02T05:09:31.094Z",

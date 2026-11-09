@@ -1,9 +1,9 @@
 {
-  "base": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+  "base": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
   "head": "main",
   "aheadBy": 4,
   "behindBy": 0,
-  "mergeBaseSha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+  "mergeBaseSha": "31062a07254e61a2826bd87b0a7ed63fe89ff283",
   "commits": [
     {
       "ref": {
@@ -15,10 +15,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+        "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
       },
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+      "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
+      "message": "chore(release): v2.0.8",
       "author": {
         "actor": {
           "forge": "github",
@@ -32,7 +32,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:53:32.000Z"
+        "date": "2026-10-22T05:50:58.000Z"
       },
       "committer": {
         "actor": {
@@ -47,12 +47,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:59:46.000Z"
+        "date": "2026-10-22T05:50:58.000Z"
       },
       "parents": [
-        "b64166ae78a68dd15c41e5bdf21af4d235804876"
+        "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
       ],
-      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+      "url": "https://github.com/h3js/h3/commit/f0e17808ac2439b6434bb10609a961067f4d555b"
     },
     {
       "ref": {
@@ -64,44 +64,44 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
+        "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
       },
-      "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-      "message": "chore(release): v2.0.5",
+      "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
+      "message": "fix(rules): let `HTTPError.headers` opt out of `headers` rule on errors (#1613)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "pi0x",
+          "id": "286783767",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
+          "url": "https://github.com/pi0x",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "pi0x",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T02:39:39.000Z"
+        "date": "2026-10-22T05:50:05.000Z"
       },
       "committer": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "web-flow",
+          "id": "19864447",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "url": "https://github.com/web-flow",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T02:39:39.000Z"
+        "date": "2026-10-22T05:50:05.000Z"
       },
       "parents": [
-        "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
+        "9d70cf30099281668929e097d1fd0a18778af5d3"
       ],
-      "url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
+      "url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
     }
   ],
   "files": []

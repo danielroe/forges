@@ -1,27 +1,27 @@
 {
   "items": [
     {
-      "name": "v1.123.0",
-      "sha": "5686d7484e65cb08b6e3b92f86d2ccffb415bdc0"
+      "name": "v1.128.0",
+      "sha": "519ea19f7d3e9c701a4063f277ae27254bbafdad"
     },
     {
-      "name": "v1.122.0",
-      "sha": "89d0008af1df78a62f5b446fb9b1bfc479771279"
+      "name": "v1.127.0",
+      "sha": "2e352a17e7e00bef420b0f38e0ce9ab4e1a38e5d"
     },
     {
-      "name": "v1.121.0",
-      "sha": "4d447cc6c19858928884626d802c8f7b7c5f799e"
+      "name": "v1.126.0",
+      "sha": "4dd0d32d18361db6c1c668eb4ac691c0d6edf255"
     }
   ],
-  "total": 167,
+  "total": 172,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/tags?id=gitlab-org%2Fcli&order_by=updated&page=2&per_page=3&sort=desc",
-    "etag": "W/\"60dc712b4e700bf3b12baf2988b8a25a\""
+    "etag": "W/\"9f1220d1d17e6c187cc373b6253c305f\""
   },
-  "etag": "W/\"60dc712b4e700bf3b12baf2988b8a25a\"",
+  "etag": "W/\"9f1220d1d17e6c187cc373b6253c305f\"",
   "rateLimit": {
     "limit": 500,
-    "remaining": 443,
+    "remaining": 441,
     "resetAt": "<now>",
     "resource": "throttle_unauthenticated_api"
   }

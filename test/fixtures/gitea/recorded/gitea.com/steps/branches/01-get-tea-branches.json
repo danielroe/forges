@@ -13,9 +13,9 @@
       {
         "name": "main",
         "commit": {
-          "id": "c5f674111ab7a61418829c66b240573400d46ae4",
-          "message": "revert: tea 1.0 rewrite (#1122–#1126) (#1146)\n\nReverts #1126, #1125, #1124, #1123 and #1122.\n\n`go.mod` keeps the Go 1.26 line with toolchain `go1.26.9` (instead of the original `go1.26.6`) so the security fix from #1131 isn't lost.\n\nreopens #69\nreopens #141\nreopens #162\nreopens #172\nreopens #197\nreopens #232\nreopens #240\nreopens #246\nreopens #323\nreopens #325\nreopens #326\nreopens #328\nreopens #344\nreopens #351\nreopens #373\nreopens #403\nreopens #406\nreopens #417\nreopens #430\nreopens #457\nreopens #480\nreopens #482\nreopens #489\nreopens #490\nreopens #498\nreopens #500\nreopens #504\nreopens #510\nreopens #516\nreopens #523\nreopens #556\nreopens #560\nreopens #569\nreopens #571\nreopens #602\nreopens #632\nreopens #633\nreopens #643\nreopens #666\nreopens #670\nreopens #672\nreopens #677\nreopens #683\nreopens #697\nreopens #726\nreopens #737\nreopens #770\nreopens #779\nreopens #804\nreopens #817\nreopens #831\nreopens #833\nreopens #834\nreopens #908\nreopens #966\nreopens #1023\nreopens #1029\nreopens #1032\nreopens #1050\nreopens #1052\nreopens #1069\nreopens #1073\nreopens #1087\nreopens #1091\nreopens #1094\nreopens #1110\nreopens #1115\nreopens #1116\nreopens #1118\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1146\nReviewed-by: TheFox0x7 <redacted@example.invalid>\n",
-          "url": "https://gitea.com/gitea/tea/commit/c5f674111ab7a61418829c66b240573400d46ae4",
+          "id": "397e6300ec93937b7745ebcc19b95ca9cb30568b",
+          "message": "docs: announce that tea is replaced by gt (#1155)\n\ntea is replaced by gt (https://gitea.com/gitea/cli). This adds a notice to the README that points users to the new repository and the migration guide before this repository is archived.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1155\nReviewed-by: delvh <redacted@example.invalid>\nReviewed-by: Lunny Xiao <redacted@example.invalid>\n",
+          "url": "https://gitea.com/gitea/tea/commit/397e6300ec93937b7745ebcc19b95ca9cb30568b",
           "author": {
             "name": "bircni",
             "email": "redacted@example.invalid",
@@ -33,7 +33,7 @@
             "signer": null,
             "payload": ""
           },
-          "timestamp": "2026-10-18T20:56:33Z",
+          "timestamp": "2026-10-29T21:06:25Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -44,6 +44,42 @@
         "status_check_contexts": [
           "check-and-test / **"
         ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "renovate/dependencies",
+        "commit": {
+          "id": "56588676b562bb039b93f0158160da5a762ec4ef",
+          "message": "chore(deps): update dependencies\n",
+          "url": "https://gitea.com/gitea/tea/commit/56588676b562bb039b93f0158160da5a762ec4ef",
+          "author": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "committer": {
+            "name": "Renovate Bot",
+            "email": "redacted@example.invalid",
+            "username": "renovate-bot"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-10-28T18:09:15Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
         "user_can_push": false,
         "user_can_merge": false,
         "effective_branch_protection_name": ""
@@ -76,42 +112,6 @@
             "payload": "tree 9d094fb5dbddfda58f629ea10c3c399d37a3f9ce\nparent 757b5fa1b97bb1a880958a5ffec30fc867ba5c3e\nauthor bircni <redacted@example.invalid> 1792352209 +0200\ncommitter bircni <redacted@example.invalid> 1792352209 +0200\n\nchore(deps): fold in the dependency and action updates of #1104; import long non-ASCII descriptions\n\nSigned-off-by: bircni <redacted@example.invalid>\n"
           },
           "timestamp": "2026-10-18T21:36:49+02:00",
-          "added": null,
-          "removed": null,
-          "modified": null
-        },
-        "protected": false,
-        "required_approvals": 0,
-        "enable_status_check": false,
-        "status_check_contexts": [],
-        "user_can_push": false,
-        "user_can_merge": false,
-        "effective_branch_protection_name": ""
-      },
-      {
-        "name": "renovate/dependencies",
-        "commit": {
-          "id": "609afec71a073227dc0f98bbf4db83005980c290",
-          "message": "chore(deps): update dependencies\n",
-          "url": "https://gitea.com/gitea/tea/commit/609afec71a073227dc0f98bbf4db83005980c290",
-          "author": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "renovate-bot"
-          },
-          "committer": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "username": "renovate-bot"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          },
-          "timestamp": "2026-10-15T00:09:55Z",
           "added": null,
           "removed": null,
           "modified": null

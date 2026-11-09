@@ -1,33 +1,33 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100?stat=true&files=true"
+    "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/397e6300ec93937b7745ebcc19b95ca9cb30568b?stat=true&files=true"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-      "created": "2026-09-30T17:40:41Z",
-      "html_url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/397e6300ec93937b7745ebcc19b95ca9cb30568b",
+      "sha": "397e6300ec93937b7745ebcc19b95ca9cb30568b",
+      "created": "2026-10-29T21:06:25Z",
+      "html_url": "https://gitea.com/gitea/tea/commit/397e6300ec93937b7745ebcc19b95ca9cb30568b",
       "commit": {
-        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/397e6300ec93937b7745ebcc19b95ca9cb30568b",
         "author": {
-          "name": "Lunny Xiao",
+          "name": "bircni",
           "email": "redacted@example.invalid",
-          "date": "2026-09-30T17:40:41Z"
+          "date": "2026-10-29T21:06:25Z"
         },
         "committer": {
-          "name": "Lunny Xiao",
+          "name": "bircni",
           "email": "redacted@example.invalid",
-          "date": "2026-09-30T17:40:41Z"
+          "date": "2026-10-29T21:06:25Z"
         },
-        "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+        "message": "docs: announce that tea is replaced by gt (#1155)\n\ntea is replaced by gt (https://gitea.com/gitea/cli). This adds a notice to the README that points users to the new repository and the migration guide before this repository is archived.\n\nReviewed-on: https://gitea.com/gitea/tea/pulls/1155\nReviewed-by: delvh <redacted@example.invalid>\nReviewed-by: Lunny Xiao <redacted@example.invalid>\n",
         "tree": {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/aa2df782d55bceabf2e37d323166325fb051bfb0",
-          "sha": "aa2df782d55bceabf2e37d323166325fb051bfb0",
-          "created": "2026-09-30T17:40:41Z"
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/trees/03600fcbc57941e49b7adc98455400620afb5c1b",
+          "sha": "03600fcbc57941e49b7adc98455400620afb5c1b",
+          "created": "2026-10-29T21:06:25Z"
         },
         "verification": {
           "verified": false,
@@ -38,111 +38,58 @@
         }
       },
       "author": {
-        "id": 1,
-        "login": "lunny",
+        "id": 173651,
+        "login": "bircni",
         "type": "User",
         "source_id": 0,
-        "full_name": "Lunny Xiao",
+        "full_name": "bircni",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-        "html_url": "https://gitea.com/lunny",
+        "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+        "html_url": "https://gitea.com/bircni",
         "active": false,
-        "location": "Silicon Valley",
-        "website": "https://gitea.com",
+        "location": "",
+        "website": "",
         "description": "",
-        "followers_count": 115,
-        "following_count": 95,
-        "starred_repos_count": 367,
-        "username": "lunny"
+        "followers_count": 0,
+        "following_count": 2,
+        "starred_repos_count": 2,
+        "username": "bircni"
       },
       "committer": {
-        "id": 1,
-        "login": "lunny",
+        "id": 173651,
+        "login": "bircni",
         "type": "User",
         "source_id": 0,
-        "full_name": "Lunny Xiao",
+        "full_name": "bircni",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-        "html_url": "https://gitea.com/lunny",
+        "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+        "html_url": "https://gitea.com/bircni",
         "active": false,
-        "location": "Silicon Valley",
-        "website": "https://gitea.com",
+        "location": "",
+        "website": "",
         "description": "",
-        "followers_count": 115,
-        "following_count": 95,
-        "starred_repos_count": 367,
-        "username": "lunny"
+        "followers_count": 0,
+        "following_count": 2,
+        "starred_repos_count": 2,
+        "username": "bircni"
       },
       "parents": [
         {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
-          "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
-          "created": "0001-01-01T00:00:00Z"
-        },
-        {
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/9c12138d6273ba8feb6e7578833cc330c0cd6461",
-          "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
+          "url": "https://gitea.com/api/v1/repos/gitea/tea/git/commits/2727270931cad7b28189dd155eaad706d29705e0",
+          "sha": "2727270931cad7b28189dd155eaad706d29705e0",
           "created": "0001-01-01T00:00:00Z"
         }
       ],
       "files": [
         {
-          "filename": "cmd/issues/create.go",
+          "filename": "README.md",
           "status": "modified"
-        },
-        {
-          "filename": "cmd/pulls/create.go",
-          "status": "modified"
-        },
-        {
-          "filename": "go.mod",
-          "status": "modified"
-        },
-        {
-          "filename": "go.sum",
-          "status": "modified"
-        },
-        {
-          "filename": "modules/interact/issue_create.go",
-          "status": "modified"
-        },
-        {
-          "filename": "modules/interact/pull_create.go",
-          "status": "modified"
-        },
-        {
-          "filename": "modules/task/issue_create.go",
-          "status": "modified"
-        },
-        {
-          "filename": "modules/task/pull_create.go",
-          "status": "modified"
-        },
-        {
-          "filename": "modules/task/pull_merge.go",
-          "status": "modified"
-        },
-        {
-          "filename": "cmd/issues/create_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "cmd/pulls/create_app_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "cmd/pulls/create_test.go",
-          "status": "added"
-        },
-        {
-          "filename": "modules/task/pull_merge_test.go",
-          "status": "added"
         }
       ],
       "stats": {
-        "total": 500,
-        "additions": 454,
-        "deletions": 46
+        "total": 5,
+        "additions": 5,
+        "deletions": 0
       }
     }
   }

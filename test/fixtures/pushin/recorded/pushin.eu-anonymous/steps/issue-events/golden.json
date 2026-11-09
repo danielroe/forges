@@ -186,7 +186,8 @@
   },
   "rateLimit": {
     "limit": 90,
-    "remaining": 77,
-    "resetAt": "<now>"
+    "remaining": 71,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }

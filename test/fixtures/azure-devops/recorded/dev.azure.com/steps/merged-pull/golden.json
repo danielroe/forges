@@ -11,11 +11,11 @@
         "externalId": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
       },
       "kind": "pull_request",
-      "number": "35"
+      "number": "41"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261012114218: pull, edited",
-    "body": "Edited by run 20261012114218.",
+    "title": "forges fixture 20261020100832: pull, edited",
+    "body": "Edited by run 20261020100832.",
     "state": "merged",
     "stateRaw": "completed",
     "isDraft": false,
@@ -48,23 +48,23 @@
     ],
     "labels": [
       {
-        "name": "forges-fixture-20261012114218"
+        "name": "forges-fixture-20261020100832"
       }
     ],
-    "createdAt": "2026-10-12T11:42:25.656Z",
-    "closedAt": "2026-10-12T11:42:29.043Z",
-    "mergedAt": "2026-10-12T11:42:29.043Z",
-    "lastActivityAt": "2026-10-12T11:42:29.043Z",
+    "createdAt": "2026-10-20T10:09:01.761Z",
+    "closedAt": "2026-10-20T10:09:18.905Z",
+    "mergedAt": "2026-10-20T10:09:18.905Z",
+    "lastActivityAt": "2026-10-20T10:09:18.905Z",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261012114218-1",
-        "sha": "bf3a8babc5124c0900994d84d3e8f790655ee1cf"
+        "ref": "forges-fixtures/20261020100832-1",
+        "sha": "93fb898b1b0fc85d133a6d1572af176a2a06c5c5"
       },
       "base": {
         "ref": "main",
-        "sha": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+        "sha": "654171c15f146e2f7b6ef555b395b1f9e265a941"
       },
-      "mergeCommitSha": "79dc1c065d5654772318dc4bfa5288a221bb5998"
+      "mergeCommitSha": "fe11545edba6188305928b710b7bd960c4a6e75f"
     }
   },
   "read": {
@@ -79,12 +79,12 @@
         "externalId": "c67c02dd-cbca-45aa-a679-021bd4d2c4a7"
       },
       "kind": "pull_request",
-      "number": "35",
-      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f35"
+      "number": "41",
+      "externalId": "vstfs:///Git/PullRequestId/b2332e32-1afe-4c85-9407-12e7af2bf24c%2fc67c02dd-cbca-45aa-a679-021bd4d2c4a7%2f41"
     },
     "kind": "pull_request",
-    "title": "forges fixture 20261012114218: pull, edited",
-    "body": "Edited by run 20261012114218.",
+    "title": "forges fixture 20261020100832: pull, edited",
+    "body": "Edited by run 20261020100832.",
     "state": "merged",
     "stateRaw": "completed",
     "isDraft": false,
@@ -116,9 +116,9 @@
       }
     ],
     "labels": [],
-    "createdAt": "2026-10-12T11:42:25.656Z",
-    "closedAt": "2026-10-12T11:42:29.043Z",
-    "mergedAt": "2026-10-12T11:42:29.043Z",
+    "createdAt": "2026-10-20T10:09:01.761Z",
+    "closedAt": "2026-10-20T10:09:18.905Z",
+    "mergedAt": "2026-10-20T10:09:18.905Z",
     "mergedBy": {
       "forge": "azure-devops",
       "instance": "dev.azure.com",
@@ -129,17 +129,17 @@
       "typeRaw": "user",
       "isBotHint": false
     },
-    "lastActivityAt": "2026-10-12T11:42:29.043Z",
+    "lastActivityAt": "2026-10-20T10:09:18.905Z",
     "branches": {
       "head": {
-        "ref": "forges-fixtures/20261012114218-1",
-        "sha": "bf3a8babc5124c0900994d84d3e8f790655ee1cf"
+        "ref": "forges-fixtures/20261020100832-1",
+        "sha": "93fb898b1b0fc85d133a6d1572af176a2a06c5c5"
       },
       "base": {
         "ref": "main",
-        "sha": "254a409567a9d8b9817dc70eab65fed5e7fcd5fe"
+        "sha": "654171c15f146e2f7b6ef555b395b1f9e265a941"
       },
-      "mergeCommitSha": "79dc1c065d5654772318dc4bfa5288a221bb5998"
+      "mergeCommitSha": "fe11545edba6188305928b710b7bd960c4a6e75f"
     },
     "checks": {
       "state": "unknown",

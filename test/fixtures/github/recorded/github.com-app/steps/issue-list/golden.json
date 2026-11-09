@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "number": "1633",
+        "externalId": "I_kwDOErHI988AAAABdORJyg"
       },
       "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "title": "requireContentType accepts malformed type/subtype tokens under wildcards",
+      "body": "`requireContentType()` documents a 422 response for malformed Content-Type values, but only checks whether the type has a nonempty substring on either side of its first slash. Wildcard acceptance therefore lets malformed media types through.\n\nReproduced on current main, Node 24:\n\n```ts\nimport { H3, requireContentType } from 'h3'\n\nconst app = new H3()\napp.post('/', event => ({\n  mediaType: requireContentType(event, ['application/*']),\n}))\n\nconst response = await app.fetch(new Request('http://localhost/', {\n  method: 'POST',\n  headers: { 'content-type': 'application/json/extra' },\n}))\nconsole.log(response.status) // 200; expected 422\n```\n\n`application/json junk` and `application/(json)` are also accepted by that wildcard. With an exact accepted type, malformed values reach the unsupported-type branch instead of the documented malformed-type branch.\n\nThe type and subtype must each be an HTTP token ([RFC 9110, sections 8.3.1 and 5.6.2](https://www.rfc-editor.org/rfc/rfc9110.html#name-media-type)). I plan to add complete type/subtype token validation before matching accepted types, with regression tests in both web and Node modes plus valid punctuation/parameter/wildcard controls. No parameter-parsing or API changes are intended. This work is AI-assisted.\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "henricop",
+        "id": "54844857",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/54844857?v=4",
+        "url": "https://github.com/henricop",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -35,10 +35,10 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "url": "https://github.com/h3js/h3/issues/1633",
+      "createdAt": "2026-11-07T06:36:16.000Z",
+      "updatedAt": "2026-11-07T06:36:16.000Z",
+      "lastActivityAt": "2026-11-07T06:36:16.000Z",
       "locked": false,
       "commentCount": 0,
       "reactions": {
@@ -48,13 +48,12 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-    "etag": "W/\"80161965a64fd84ed1fa9c60e8f84d745a33b4271b7b0a86228c4d7726204298\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABobS42wDPAAAAAXTkSco%3D&page=3",
+    "etag": "W/\"dfe64669991f0eb996aa8b440aa76a77ba6753ce1c2378aaf3ddd6e31a1f44e3\""
   },
-  "etag": "W/\"80161965a64fd84ed1fa9c60e8f84d745a33b4271b7b0a86228c4d7726204298\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4981,
+    "remaining": 4971,
     "resetAt": "<now>",
     "resource": "core"
   }

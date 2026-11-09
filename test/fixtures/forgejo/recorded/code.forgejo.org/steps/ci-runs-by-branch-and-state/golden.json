@@ -10,16 +10,16 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "197058"
+        "id": "199733"
       },
       "name": "test-multi-platform.yml",
       "state": "failure",
       "stateRaw": "failure",
-      "number": "23991",
+      "number": "24071",
       "eventRaw": "schedule",
       "branch": "main",
-      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23991",
+      "sha": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24071",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
@@ -30,9 +30,9 @@
         "url": "https://code.forgejo.org/forgejo-actions",
         "isBotHint": true
       },
-      "createdAt": "2026-10-16T12:00:43.000Z",
-      "startedAt": "2026-10-16T12:00:48.000Z",
-      "completedAt": "2026-10-16T12:59:30.000Z"
+      "createdAt": "2026-11-06T12:00:32.000Z",
+      "startedAt": "2026-11-06T12:00:33.000Z",
+      "completedAt": "2026-11-06T12:58:49.000Z"
     },
     {
       "ref": {
@@ -44,16 +44,16 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "196211"
+        "id": "199072"
       },
       "name": "test-multi-platform.yml",
       "state": "failure",
       "stateRaw": "failure",
-      "number": "23966",
+      "number": "24054",
       "eventRaw": "schedule",
       "branch": "main",
       "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24054",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
@@ -64,8 +64,9 @@
         "url": "https://code.forgejo.org/forgejo-actions",
         "isBotHint": true
       },
-      "createdAt": "2026-10-09T12:00:15.000Z",
-      "completedAt": "2026-10-09T13:20:24.000Z"
+      "createdAt": "2026-10-30T12:00:32.000Z",
+      "startedAt": "2026-10-30T12:00:33.000Z",
+      "completedAt": "2026-10-30T13:00:48.000Z"
     },
     {
       "ref": {
@@ -77,31 +78,32 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "195207"
+        "id": "198059"
       },
-      "name": "example-lxc-systemd.yml",
+      "name": "test-multi-platform.yml",
       "state": "failure",
       "stateRaw": "failure",
-      "number": "23909",
-      "eventRaw": "push",
+      "number": "24017",
+      "eventRaw": "schedule",
       "branch": "main",
-      "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23909",
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24017",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
-        "login": "mfenniak",
-        "id": "1324",
-        "name": "Mathieu Fenniak",
-        "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-        "url": "https://code.forgejo.org/mfenniak",
-        "isBotHint": false
+        "login": "forgejo-actions",
+        "id": "-2",
+        "name": "Forgejo Actions",
+        "avatarUrl": "https://code.forgejo.org/assets/img/avatar_default.png",
+        "url": "https://code.forgejo.org/forgejo-actions",
+        "isBotHint": true
       },
-      "createdAt": "2026-10-01T00:45:35.000Z",
-      "completedAt": "2026-10-01T00:54:55.000Z"
+      "createdAt": "2026-10-23T12:00:43.000Z",
+      "startedAt": "2026-10-23T12:00:48.000Z",
+      "completedAt": "2026-10-23T13:03:31.000Z"
     }
   ],
-  "total": 962,
+  "total": 965,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=2&limit=3"
   }

@@ -6,12 +6,98 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=5&page=2&sha=main>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=5&page=499&sha=main>; rel=\"last\"",
-      "x-total": "2495",
-      "x-total-count": "2495",
+      "link": "<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=5&page=2&sha=main>; rel=\"next\",<https://code.forgejo.org/api/v1/repos/forgejo/runner/commits?limit=5&page=500&sha=main>; rel=\"last\"",
+      "x-total": "2496",
+      "x-total-count": "2496",
       "x-page": "1"
     },
     "body": [
+      {
+        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c07a9b3669dc64d498273d47ce0e6974718792f1",
+        "sha": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+        "created": "2026-10-31T09:23:38Z",
+        "html_url": "https://code.forgejo.org/forgejo/runner/commit/c07a9b3669dc64d498273d47ce0e6974718792f1",
+        "commit": {
+          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c07a9b3669dc64d498273d47ce0e6974718792f1",
+          "author": {
+            "name": "Clouds",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-31T09:23:38Z"
+          },
+          "committer": {
+            "name": "Andreas Ahlenstorf",
+            "email": "redacted@example.invalid",
+            "date": "2026-10-31T09:23:38Z"
+          },
+          "message": "fix(ci): install pre-commit via apt (#1786)\n\nI noticed that the CI job checking pre-commit has some trouble installing the pre-commit command (https://code.forgejo.org/forgejo/runner/actions/runs/24035/jobs/7/attempt/1).\n\n## Checklist\n\n### Compliance\n\n- [x] I confirm that I make this contribution in accordance with [Forgejo's AI Agreement](https://codeberg.org/forgejo/governance/src/commit/9084720dc6a7fbf1d3f358919d46bd6adfb55287/AIAgreement.md).\n\n<!--start release-notes-assistant-->\n<!--URL:https://code.forgejo.org/forgejo/runner-->\n- bug fixes\n  - [PR](https://code.forgejo.org/forgejo/runner/pulls/1786): <!--number 1786 --><!--line 0 --><!--description Zml4KGNpKTogaW5zdGFsbCBwcmUtY29tbWl0IHZpYSBhcHQ=-->fix(ci): install pre-commit via apt<!--description-->\n<!--end release-notes-assistant-->\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1786\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\nReviewed-by: Michael Kriese <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/c07a9b3669dc64d498273d47ce0e6974718792f1",
+            "sha": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+            "created": "2026-10-31T09:23:38Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 2606,
+          "login": "clouds666",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/d8ab7a0caddc8610cd8daadfa322236b186e9849931336e32a31e994faae81db",
+          "html_url": "https://code.forgejo.org/clouds666",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 2,
+          "username": "clouds666"
+        },
+        "committer": {
+          "id": 1580,
+          "login": "aahlenst",
+          "source_id": 0,
+          "full_name": "Andreas Ahlenstorf",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://code.forgejo.org/avatars/5d71ade99e3af4a5a8754763e636be96c46044cd6bad6d1a16762e3116ec1542",
+          "html_url": "https://code.forgejo.org/aahlenst",
+          "active": false,
+          "location": "Switzerland",
+          "pronouns": "he/him",
+          "website": "https://aahlenst.dev/",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "aahlenst"
+        },
+        "parents": [
+          {
+            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+            "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": ".forgejo/workflows/test.yml",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 5,
+          "additions": 2,
+          "deletions": 3
+        }
+      },
       {
         "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
         "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
@@ -362,96 +448,6 @@
           "total": 2,
           "additions": 1,
           "deletions": 1
-        }
-      },
-      {
-        "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/caec46af7fb80474c03cc1811216b014a05ae760",
-        "sha": "caec46af7fb80474c03cc1811216b014a05ae760",
-        "created": "2026-09-28T20:25:33Z",
-        "html_url": "https://code.forgejo.org/forgejo/runner/commit/caec46af7fb80474c03cc1811216b014a05ae760",
-        "commit": {
-          "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/caec46af7fb80474c03cc1811216b014a05ae760",
-          "author": {
-            "name": "Mathieu Fenniak",
-            "email": "redacted@example.invalid",
-            "date": "2026-09-28T20:25:33Z"
-          },
-          "committer": {
-            "name": "Mathieu Fenniak",
-            "email": "redacted@example.invalid",
-            "date": "2026-09-28T20:25:33Z"
-          },
-          "message": "chore: workaround intermittent docker error on multiplatform tests (#1763)\n\nAttempting to workaround intermittent failures in the `shells/default` test in the multiplatform run by disabling containerd-snapshotter, referenced in an upstream bug report (https://github.com/moby/moby/issues/52411).  The bug report is not an exact match for our configuration, but so far I haven't seen a failure with this change in-place.\n\nThe failure occurring is:\n```\nrunner_test.go:225: Error Trace: /home/runner/.cache/act/d3be43f9a1663dbf/hostexecutor/act/runner/runner_test.go:225\nfailed to create container: Error response from daemon: apply layer error for \"\": failed to extract layer sha256:1b349a3334531b575b01d409540dd8aca14ef29abddacd50f36643d7c949db4b: NotFound: failed to get reader from content store: content digest sha256:a9986cd6f37dbddae7862a6d4be71683472e7c2ea708e87db14f8a6393c00f00: not found\nTest: TestRunner_RunEvent/shells/defaults\nMessages: /home/runner/.cache/act/d3be43f9a1663dbf/hostexecutor/act/runner/testdata/shells/defaults\n```\n\nIncidentally, fix that opening a PR with run-multi-platform-tests doesn't run the tests.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1763\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/trees/caec46af7fb80474c03cc1811216b014a05ae760",
-            "sha": "caec46af7fb80474c03cc1811216b014a05ae760",
-            "created": "2026-09-28T20:25:33Z"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 1324,
-          "login": "mfenniak",
-          "source_id": 0,
-          "full_name": "Mathieu Fenniak",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-          "html_url": "https://code.forgejo.org/mfenniak",
-          "active": false,
-          "location": "Calgary, Alberta, Canada",
-          "pronouns": "he/him",
-          "website": "https://mathieu.fenniak.net/",
-          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 0,
-          "following_count": 0,
-          "starred_repos_count": 0,
-          "username": "mfenniak"
-        },
-        "committer": {
-          "id": 1324,
-          "login": "mfenniak",
-          "source_id": 0,
-          "full_name": "Mathieu Fenniak",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-          "html_url": "https://code.forgejo.org/mfenniak",
-          "active": false,
-          "location": "Calgary, Alberta, Canada",
-          "pronouns": "he/him",
-          "website": "https://mathieu.fenniak.net/",
-          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 0,
-          "following_count": 0,
-          "starred_repos_count": 0,
-          "username": "mfenniak"
-        },
-        "parents": [
-          {
-            "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/commits/025fd29a1937e14739e8eca108310ddb001f137b",
-            "sha": "025fd29a1937e14739e8eca108310ddb001f137b",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": ".forgejo/workflows/test-multi-platform.yml",
-            "status": "modified"
-          },
-          {
-            "filename": ".forgejo/workflows/test.yml",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 7,
-          "additions": 5,
-          "deletions": 2
         }
       }
     ]

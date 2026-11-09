@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/forges-fixtures/forges-fixtures/stats/contributors"
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "36",
+      "x-ratelimit-reset": "1794202103",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {}
+  }
+}

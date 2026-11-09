@@ -19,15 +19,15 @@
           "url": "https://example.com/hook"
         },
         "events": [
-          "issue_label",
-          "issues",
-          "issue_milestone",
           "issue_assign",
-          "issue_comment"
+          "issue_label",
+          "issue_milestone",
+          "issue_comment",
+          "issues"
         ],
         "authorization_header": "",
         "active": true,
-        "updated_at": "2026-10-17T15:18:43Z",
+        "updated_at": "2026-10-22T20:30:24Z",
         "created_at": "2026-10-09T11:48:36Z"
       }
     ]

@@ -10,17 +10,17 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "2959414599"
+        "id": "2997018483"
       },
       "name": "schedule",
       "state": "failure",
       "stateRaw": "failed",
-      "number": "15512",
+      "number": "16146",
       "eventRaw": "schedule",
       "branch": "main",
-      "sha": "a300719a2aac26acb25eee65fe08398188c99a0e",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2959414599",
-      "createdAt": "2026-10-18T01:15:00.959Z"
+      "sha": "97b67255f1ce8cac227c621db9df164d1b929635",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2997018483",
+      "createdAt": "2026-10-28T01:13:07.832Z"
     },
     {
       "ref": {
@@ -32,51 +32,51 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "2957572690"
-      },
-      "name": "schedule",
-      "state": "failure",
-      "stateRaw": "failed",
-      "number": "15505",
-      "eventRaw": "schedule",
-      "branch": "main",
-      "sha": "a300719a2aac26acb25eee65fe08398188c99a0e",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2957572690",
-      "createdAt": "2026-10-17T01:13:51.806Z"
-    },
-    {
-      "ref": {
-        "forge": "gitlab",
-        "instance": "gitlab.com",
-        "repo": {
-          "forge": "gitlab",
-          "instance": "gitlab.com",
-          "owner": "gitlab-org",
-          "name": "cli"
-        },
-        "id": "2955967848"
+        "id": "2996946053"
       },
       "name": "push",
       "state": "failure",
       "stateRaw": "failed",
-      "number": "15496",
+      "number": "16145",
       "eventRaw": "push",
       "branch": "main",
-      "sha": "a300719a2aac26acb25eee65fe08398188c99a0e",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2955967848",
-      "createdAt": "2026-10-16T15:11:45.678Z"
+      "sha": "97b67255f1ce8cac227c621db9df164d1b929635",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2996946053",
+      "createdAt": "2026-10-28T00:39:45.662Z"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "2996856360"
+      },
+      "name": "push",
+      "state": "failure",
+      "stateRaw": "failed",
+      "number": "16139",
+      "eventRaw": "push",
+      "branch": "main",
+      "sha": "7b45f23ce2a54347be102c541fc8b72169d2e735",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2996856360",
+      "createdAt": "2026-10-28T00:02:42.070Z"
     }
   ],
-  "total": 123,
+  "total": 131,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&ref=main&sort=desc&status=failed",
-    "etag": "W/\"3c6937863225531a7d917df19e0700a7\""
+    "etag": "W/\"fbccf63c736bc5d5c8015c0633ea9ba3\""
   },
-  "etag": "W/\"3c6937863225531a7d917df19e0700a7\"",
+  "etag": "W/\"fbccf63c736bc5d5c8015c0633ea9ba3\"",
   "rateLimit": {
-    "limit": 1,
-    "remaining": 40,
+    "limit": 500,
+    "remaining": 450,
     "resetAt": "<now>",
-    "resource": "unauthenticated_traffic_per_ip"
+    "resource": "throttle_unauthenticated_api"
   }
 }

@@ -21,7 +21,7 @@
         "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures-transfer.git"
       },
       "createdAt": "2026-10-09T11:33:45.319Z",
-      "updatedAt": "2026-10-17T14:37:32.315Z",
+      "updatedAt": "2026-10-22T20:30:00.349Z",
       "openIssueCount": 0,
       "stars": 0,
       "forks": 0,
@@ -67,7 +67,7 @@
         "ssh": "git@gitlab.com:forges-fixtures/forges-fixtures.git"
       },
       "createdAt": "2026-10-09T11:31:15.397Z",
-      "updatedAt": "2026-10-17T14:36:52.817Z",
+      "updatedAt": "2026-10-22T20:29:20.097Z",
       "openIssueCount": 1,
       "stars": 0,
       "forks": 1,
@@ -161,13 +161,13 @@
   "total": 6,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects?imported=false&include_hidden=false&membership=true&order_by=created_at&owned=false&page=2&per_page=3&repository_checksum_failed=false&simple=false&sort=desc&starred=false&statistics=false&wiki_checksum_failed=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false",
-    "etag": "W/\"dcfa42ec9a460e43e386859ea70f1afa\""
+    "etag": "W/\"b4ab9d2f40084b42b1816c914630beea\""
   },
-  "etag": "W/\"dcfa42ec9a460e43e386859ea70f1afa\"",
+  "etag": "W/\"b4ab9d2f40084b42b1816c914630beea\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1943,
+    "limit": 100,
+    "remaining": 35,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

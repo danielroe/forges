@@ -7,17 +7,17 @@
     "status": 200,
     "headers": {
       "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/branches?limit=3&page=11>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1938;t=600",
+      "ratelimit": "\"baseline\";r=1935;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total-count": "33"
+      "x-total-count": "31"
     },
     "body": [
       {
-        "name": "renovate/forgejo-idiomorph-0.x",
+        "name": "renovate/forgejo-major-actionsgit-backporting",
         "commit": {
-          "id": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-          "message": "Update dependency idiomorph to v0.8.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+          "id": "be39afb2bac12510ecf4ee8aa42eccc1bfd276cf",
+          "message": "Update https://data.forgejo.org/actions/git-backporting action to v5\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/be39afb2bac12510ecf4ee8aa42eccc1bfd276cf",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -31,15 +31,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHQEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVt3wAKCRCKxL7rWQD5\ndl+9APdbdeh0S4ElwD96kw/M7HlFbcXPTT5ZZ7tds3QPABDxAQCdEEYomFRQDLNM\nZTusUuQf1MsqjA52djWwdKBhubCwAA==\n=VVeq\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCavEQsgAKCRCKxL7rWQD5\ndnyYAQCaEMUSBMhMmmBRI96Sxdk2UT9oKw1tvLBdbMl8zza+tgD+MOS7t0qGOBgc\nQlaSF2CNzazlmUt58u2Vl3wd4IqoEgI=\n=yQAG\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 660407ea8ef5fd51bd6caa95dffc5e2b586c1a85\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372191 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372191 +0000\n\nUpdate dependency idiomorph to v0.8.0\n"
+            "payload": "tree 8a4ab4a449b018a994d551c92758d9b77fa1582f\nparent 92d5abd016b692a9ce2b419d4f883934b44d03d8\nauthor Renovate Bot <redacted@example.invalid> 1794183346 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1794183346 +0000\n\nUpdate https://data.forgejo.org/actions/git-backporting action to v5\n"
           },
-          "timestamp": "2026-10-19T01:09:51Z",
+          "timestamp": "2026-11-09T00:15:46Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -53,11 +53,11 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-renovate",
+        "name": "renovate/forgejo-github.com-redis-go-redis-v9-9.x",
         "commit": {
-          "id": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-          "message": "Update renovate Docker tag to v44.167.5\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/29bf51bb67b183078911a446fe0baaeccdf182c0",
+          "id": "55724d25488ab4484e45f841831a0b311343798b",
+          "message": "Update module github.com/redis/go-redis/v9 to v9.23.0\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/55724d25488ab4484e45f841831a0b311343798b",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -71,15 +71,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVtxAAKCRCKxL7rWQD5\ndiDRAP0S7YlydUCAaqmqbA4rm1QZcz9KfX+sSX9Bb3BGq2khZwD9HzhYuiCVwjgj\nCPTEDCsQnVB9v4E/06myZ/3Cg64Wegk=\n=xwmf\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCavEQrAAKCRCKxL7rWQD5\ndnWQAQDfO3QE/xZJl1q4fpgHxtEMh7fh990I4ORTAVgPFFLHQQD/elbVARUEWUCB\nQEcXMBQ5UAAHop03XxJg0UuNmwFkBAA=\n=RUdR\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree df4bad2583f2327ef47ac502f0e5ecc11e2b98d1\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792372164 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792372164 +0000\n\nUpdate renovate Docker tag to v44.167.5\n"
+            "payload": "tree 7e85aa65b2cbb47541a9e0a4af5ba15339d474cd\nparent 92d5abd016b692a9ce2b419d4f883934b44d03d8\nauthor Renovate Bot <redacted@example.invalid> 1794183340 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1794183340 +0000\n\nUpdate module github.com/redis/go-redis/v9 to v9.23.0\n"
           },
-          "timestamp": "2026-10-19T01:09:24Z",
+          "timestamp": "2026-11-09T00:15:40Z",
           "added": null,
           "removed": null,
           "modified": null
@@ -93,11 +93,11 @@
         "effective_branch_protection_name": ""
       },
       {
-        "name": "renovate/forgejo-globals-17.x",
+        "name": "renovate/forgejo-github.com-protonmail-go-crypto-1.x",
         "commit": {
-          "id": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-          "message": "Update dependency globals to v17.13.0\n",
-          "url": "https://codeberg.org/forgejo/forgejo/commit/9964cef67d28cab0ad6714a2cf726be65d45a7a9",
+          "id": "6f46b9ee9e47f962a1b26ccae18f41975ce03f42",
+          "message": "Update module github.com/ProtonMail/go-crypto to v1.5.2\n",
+          "url": "https://codeberg.org/forgejo/forgejo/commit/6f46b9ee9e47f962a1b26ccae18f41975ce03f42",
           "author": {
             "name": "Renovate Bot",
             "email": "redacted@example.invalid",
@@ -111,15 +111,15 @@
           "verification": {
             "verified": true,
             "reason": "viceice-bot / 8AC4BEEB5900F976",
-            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCatVgQgAKCRCKxL7rWQD5\ndjUDAQDEWurD9xoq/JDd2DF6TfeNYWXsoK1tNY+glQwOCljzxAD9EPv6gAX/srNC\nuvNv1m2KyZMF1FQMc7GW6IrBST1VNQ0=\n=YGja\n-----END PGP SIGNATURE-----\n",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niHUEABYKAB0WIQT3nQW3uNw+hzJoFlCKxL7rWQD5dgUCavEQogAKCRCKxL7rWQD5\ndo5VAPsGE1w+1ilxn5lDGm5dbFekPffP8oYTGsk8DJCZWH3mFwD/W1WC8olq7jP0\nDNAy1/lXJfNwMRYvXx1i1Fdbc8nzMQ8=\n=KSA+\n-----END PGP SIGNATURE-----\n",
             "signer": {
               "name": "viceice-bot",
               "email": "redacted@example.invalid",
               "username": ""
             },
-            "payload": "tree 79e37338577044c7729704c54258725962c8a742\nparent 0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10\nauthor Renovate Bot <redacted@example.invalid> 1792368706 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1792368706 +0000\n\nUpdate dependency globals to v17.13.0\n"
+            "payload": "tree bafa4abae325a0b1729d2bedd191f217c7dd513c\nparent 92d5abd016b692a9ce2b419d4f883934b44d03d8\nauthor Renovate Bot <redacted@example.invalid> 1794183330 +0000\ncommitter Renovate Bot <redacted@example.invalid> 1794183330 +0000\n\nUpdate module github.com/ProtonMail/go-crypto to v1.5.2\n"
           },
-          "timestamp": "2026-10-19T00:11:46Z",
+          "timestamp": "2026-11-09T00:15:30Z",
           "added": null,
           "removed": null,
           "modified": null

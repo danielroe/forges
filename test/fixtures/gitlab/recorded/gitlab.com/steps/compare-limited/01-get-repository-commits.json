@@ -7,114 +7,113 @@
     "status": 200,
     "headers": {
       "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=2&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/commits?id=gitlab-org%2Fcli&order=default&page=1&pagination=legacy&per_page=5&ref_name=main&trailers=false>; rel=\"first\"",
-      "etag": "W/\"e39b5d685e0c52fc0399bbec46da5bf2\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1915",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
+      "etag": "W/\"9afbfff7e413dd811ab4691a6b810254\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "9",
+      "ratelimit-reset": "1794198540",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "5"
     },
     "body": [
       {
-        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-        "short_id": "e74ebf81",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+        "short_id": "53d272b8",
+        "created_at": "2026-11-09T13:57:43.000+10:00",
         "parent_ids": [
-          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+          "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+          "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
         ],
-        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+        "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+        "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T12:02:22.000+10:00",
+        "authored_date": "2026-11-09T13:57:43.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-09T13:57:43.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e"
       },
       {
-        "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-        "short_id": "d5034f13",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9",
+        "short_id": "6bfeca37",
+        "created_at": "2026-11-09T13:57:43.000+10:00",
         "parent_ids": [
-          "a300719a2aac26acb25eee65fe08398188c99a0e"
+          "c298159b72a6d1d888a635a8c1e5fc4952d12983"
         ],
-        "title": "feat(issue): add date filters to issue list",
-        "message": "feat(issue): add date filters to issue list\n",
-        "author_name": "Hamza Hassanain",
+        "title": "fix(note): keep a piped body when --attach is set",
+        "message": "fix(note): keep a piped body when --attach is set\n",
+        "author_name": "Andrei Zubov",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T05:02:22.000+03:00",
+        "authored_date": "2026-11-09T04:57:43.000+01:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-09T13:57:43.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
       },
       {
-        "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "short_id": "5573de7d",
-        "created_at": "2026-10-19T11:56:01.000+10:00",
+        "id": "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+        "short_id": "c298159b",
+        "created_at": "2026-11-06T15:30:41.000+10:00",
         "parent_ids": [
-          "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-          "74931758500a9c66e56ca2c443a0c2a987c5923f"
+          "1ab692e5cfc809947e1852c77e0692e09b2eacde",
+          "9f834e27f4f3f25fb8a8045351807aee9d2769d0"
         ],
-        "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
-        "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
+        "title": "Merge branch '8568-share-local-config-across-worktrees' into 'main'",
+        "message": "Merge branch '8568-share-local-config-across-worktrees' into 'main'\n\nfix(config): share local config across git worktrees\n\nCloses #8568\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4002\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Jeston Singh <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T11:56:01.000+10:00",
+        "authored_date": "2026-11-06T15:30:41.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T11:56:01.000+10:00",
+        "committed_date": "2026-11-06T15:30:41.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/c298159b72a6d1d888a635a8c1e5fc4952d12983"
       },
       {
-        "id": "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-        "short_id": "6f512fe3",
-        "created_at": "2026-10-19T11:14:45.000+10:00",
+        "id": "9f834e27f4f3f25fb8a8045351807aee9d2769d0",
+        "short_id": "9f834e27",
+        "created_at": "2026-11-06T15:30:40.000+10:00",
         "parent_ids": [
-          "0c70d17a21abdb54ba58828aca394a582d0b3f79",
-          "fab36a75f5e21664548604036d395bf6d52276df"
+          "1ab692e5cfc809947e1852c77e0692e09b2eacde"
         ],
-        "title": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'",
-        "message": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'\n\nchore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4133\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
-        "author_name": "Jay McCure",
+        "title": "fix(config): share local config across git worktrees",
+        "message": "fix(config): share local config across git worktrees\n",
+        "author_name": "Jeston Singh",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T11:14:45.000+10:00",
+        "authored_date": "2026-11-06T05:30:40.000+00:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T11:14:45.000+10:00",
+        "committed_date": "2026-11-06T15:30:40.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6f512fe3ef14c70281a68b1d9518be54ad8bf4e7"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9f834e27f4f3f25fb8a8045351807aee9d2769d0"
       },
       {
-        "id": "0c70d17a21abdb54ba58828aca394a582d0b3f79",
-        "short_id": "0c70d17a",
-        "created_at": "2026-10-19T11:13:03.000+10:00",
+        "id": "1ab692e5cfc809947e1852c77e0692e09b2eacde",
+        "short_id": "1ab692e5",
+        "created_at": "2026-11-06T14:26:30.000+10:00",
         "parent_ids": [
-          "8ef1da7226ac68f855a6a5d883d51799ed02d5e4",
-          "7fae9b8f5d2b701367d71297faf83b80e7daa69e"
+          "9c5e1db0359e228b52322a64816d5e3f0781b4fa",
+          "4b8f993a0b7072060ffb4e758c7a7a6769db60bc"
         ],
-        "title": "Merge branch 'renovate/golang.org-x-crypto-0.x' into 'main'",
-        "message": "Merge branch 'renovate/golang.org-x-crypto-0.x' into 'main'\n\nchore(deps): update module golang.org/x/crypto to v0.58.0\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4135\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+        "title": "Merge branch '8616-docs-client-id-ignored-gitlab-com' into 'main'",
+        "message": "Merge branch '8616-docs-client-id-ignored-gitlab-com' into 'main'\n\ndocs(auth): say client_id is ignored on GitLab.com\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4293\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
         "author_name": "Jay McCure",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T11:13:03.000+10:00",
+        "authored_date": "2026-11-06T14:26:30.000+10:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T11:13:03.000+10:00",
+        "committed_date": "2026-11-06T14:26:30.000+10:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0c70d17a21abdb54ba58828aca394a582d0b3f79"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/1ab692e5cfc809947e1852c77e0692e09b2eacde"
       }
     ]
   }

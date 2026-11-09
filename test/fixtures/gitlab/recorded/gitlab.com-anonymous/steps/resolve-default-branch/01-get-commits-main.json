@@ -6,49 +6,49 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3101d590e62ac7a5749b053fc24d58ae\"",
+      "etag": "W/\"95e54ec543782ea707af9adae86cdfff\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "442",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "440",
+      "ratelimit-reset": "1794198660",
       "ratelimit-name": "throttle_unauthenticated_api"
     },
     "body": {
-      "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "short_id": "e74ebf81",
-      "created_at": "2026-10-19T12:02:22.000+10:00",
+      "id": "53d272b8ea7a448c5051102022a268b65c27de1e",
+      "short_id": "53d272b8",
+      "created_at": "2026-11-09T13:57:43.000+10:00",
       "parent_ids": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "c298159b72a6d1d888a635a8c1e5fc4952d12983",
+        "6bfeca3724c5a40ab892a3365883f87dcd7c4ba9"
       ],
-      "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
+      "title": "Merge branch '8720-attach-stdin-body' into 'main'",
+      "message": "Merge branch '8720-attach-stdin-body' into 'main'\n\nfix(note): keep a piped body when --attach is set\n\nCloses #8720\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4329\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Jay McCure <redacted@example.invalid>\nReviewed-by: Andrei Zubov <redacted@example.invalid>\nCo-authored-by: Andrei Zubov <redacted@example.invalid>",
       "author_name": "Jay McCure",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-19T12:02:22.000+10:00",
+      "authored_date": "2026-11-09T13:57:43.000+10:00",
       "committer_name": "GitLab",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-19T12:02:22.000+10:00",
+      "committed_date": "2026-11-09T13:57:43.000+10:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/53d272b8ea7a448c5051102022a268b65c27de1e",
       "stats": {
-        "additions": 203,
-        "deletions": 1,
-        "total": 204
+        "additions": 290,
+        "deletions": 31,
+        "total": 321
       },
       "status": "success",
       "project_id": 34675721,
       "last_pipeline": {
-        "id": 2961304567,
-        "iid": 15538,
+        "id": 3043277958,
+        "iid": 17059,
         "project_id": 34675721,
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "sha": "53d272b8ea7a448c5051102022a268b65c27de1e",
         "ref": "main",
         "status": "success",
         "source": "push",
-        "created_at": "2026-10-19T02:02:25.218Z",
-        "updated_at": "2026-10-19T02:21:35.568Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961304567"
+        "created_at": "2026-11-09T03:57:47.605Z",
+        "updated_at": "2026-11-09T04:05:58.054Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3043277958"
       }
     }
   }

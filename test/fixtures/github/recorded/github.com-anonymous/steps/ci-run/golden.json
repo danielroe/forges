@@ -8,27 +8,27 @@
       "owner": "h3js",
       "name": "h3"
     },
-    "id": "39134083187"
+    "id": "42421966825"
   },
-  "name": "publish",
+  "name": "autofix.ci",
   "state": "failure",
   "stateRaw": "completed",
-  "number": "95",
-  "eventRaw": "workflow_run",
-  "branch": "main",
-  "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-  "url": "https://github.com/h3js/h3/actions/runs/39134083187",
+  "number": "4346",
+  "eventRaw": "pull_request",
+  "branch": "fix/require-content-type-validation-1633",
+  "sha": "5d5922ef5e55b75b65c13f71215c8d0f5a4e1805",
+  "url": "https://github.com/h3js/h3/actions/runs/42421966825",
   "actor": {
     "forge": "github",
     "instance": "github.com",
-    "login": "pi0x",
-    "id": "286783767",
-    "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-    "url": "https://github.com/pi0x",
+    "login": "EnesKartal",
+    "id": "43950508",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?v=4",
+    "url": "https://github.com/EnesKartal",
     "typeRaw": "User",
     "isBotHint": false
   },
-  "createdAt": "2026-10-18T14:00:56.000Z",
-  "startedAt": "2026-10-18T14:00:56.000Z",
-  "completedAt": "2026-10-18T14:01:18.000Z"
+  "createdAt": "2026-11-07T22:43:50.000Z",
+  "startedAt": "2026-11-07T22:43:50.000Z",
+  "completedAt": "2026-11-07T22:43:50.000Z"
 }

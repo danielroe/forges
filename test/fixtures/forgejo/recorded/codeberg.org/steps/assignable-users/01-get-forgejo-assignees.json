@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1986;t=600",
+      "ratelimit": "\"baseline\";r=1985;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": [
@@ -24,8 +24,8 @@
         "website": "",
         "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
         "followers_count": 37,
-        "following_count": 27,
-        "starred_repos_count": 30,
+        "following_count": 28,
+        "starred_repos_count": 31,
         "username": "0ko"
       },
       {
@@ -41,7 +41,7 @@
         "pronouns": "",
         "website": "https://weathered-steel.dev",
         "description": "",
-        "followers_count": 3,
+        "followers_count": 4,
         "following_count": 0,
         "starred_repos_count": 3,
         "username": "0xllx0"
@@ -97,7 +97,7 @@
         "description": "Uses\r\n- Debian GNU/Linux\r\n- COSMIC Desktop\r\n\r\nLikes\r\n- Fanless silent hardware\r\n- Efficient software\r\n- C and PHP, yes PHP\r\n\r\nFounder of\r\n- Gadgetbridge\r\n- Codeberg e.V.",
         "followers_count": 53,
         "following_count": 4,
-        "starred_repos_count": 138,
+        "starred_repos_count": 139,
         "username": "ashimokawa"
       },
       {
@@ -131,7 +131,7 @@
         "pronouns": "any pronouns",
         "website": "",
         "description": "<a rel=\"me\" href=\"https://beosocial.de/@beowulf\"></a>Just hacking on fun things...",
-        "followers_count": 20,
+        "followers_count": 21,
         "following_count": 2,
         "starred_repos_count": 7,
         "username": "Beowulf"
@@ -204,8 +204,8 @@
         "website": "https://cloudsftp.de",
         "description": "I like computers.",
         "followers_count": 2,
-        "following_count": 3,
-        "starred_repos_count": 6,
+        "following_count": 4,
+        "starred_repos_count": 7,
         "username": "clouds666"
       },
       {
@@ -221,9 +221,9 @@
         "pronouns": "she/her",
         "website": "https://hachyderm.io/@crystal",
         "description": "[🔗 nyxal.net](https://www.nyxal.net/)\r\n<br>\r\n[:forgejo:&nbsp; code.forgejo.org/crystal](https://code.forgejo.org/crystal)",
-        "followers_count": 52,
-        "following_count": 12,
-        "starred_repos_count": 18,
+        "followers_count": 54,
+        "following_count": 15,
+        "starred_repos_count": 19,
         "username": "crystal"
       },
       {
@@ -239,7 +239,7 @@
         "pronouns": "",
         "website": "https://cyborus.xyz/",
         "description": "",
-        "followers_count": 19,
+        "followers_count": 20,
         "following_count": 19,
         "starred_repos_count": 25,
         "username": "Cyborus"
@@ -293,7 +293,7 @@
         "pronouns": "",
         "website": "",
         "description": "",
-        "followers_count": 1,
+        "followers_count": 2,
         "following_count": 0,
         "starred_repos_count": 0,
         "username": "famfo-cb"
@@ -329,7 +329,7 @@
         "pronouns": "any pronouns",
         "website": "",
         "description": "Load: 5.6\r\n\r\nI am working on:\r\n\r\n- Codeberg (executive board)\r\n- [Forgejo](/forgejo)\r\n- [events](/eventbike) (promoting FLOSS)\r\n\r\nMatrix: @otto_richter:matrix.tu-berlin.de  \r\nXMPP: fnetx@anoxinon.me",
-        "followers_count": 169,
+        "followers_count": 170,
         "following_count": 17,
         "starred_repos_count": 162,
         "username": "fnetX"
@@ -344,12 +344,12 @@
         "html_url": "https://codeberg.org/fogti",
         "active": false,
         "location": "",
-        "pronouns": "she/they",
+        "pronouns": "she/her",
         "website": "",
         "description": "mostly Rust programmer; using mostly Gentoo Linux and a few others; formerly math student at RWTH Aachen and TUC (mostly researching discrete mathematics); make more infra.",
         "followers_count": 9,
         "following_count": 13,
-        "starred_repos_count": 34,
+        "starred_repos_count": 36,
         "username": "fogti"
       },
       {
@@ -491,28 +491,10 @@
         "pronouns": "",
         "website": "https://gusted.xyz",
         "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-        "followers_count": 162,
+        "followers_count": 164,
         "following_count": 30,
-        "starred_repos_count": 103,
+        "starred_repos_count": 104,
         "username": "Gusted"
-      },
-      {
-        "id": 274419,
-        "login": "henrycatalinismith",
-        "source_id": 0,
-        "full_name": "Henry Catalini Smith",
-        "email": "redacted@example.invalid",
-        "avatar_url": "https://codeberg.org/avatars/755ccbcf999b6f70c586be544fe41ebc9689f9cd728d88342aab34ab7c65baec",
-        "html_url": "https://codeberg.org/henrycatalinismith",
-        "active": false,
-        "location": "Malmö",
-        "pronouns": "",
-        "website": "https://henry.catalinismith.se",
-        "description": "",
-        "followers_count": 5,
-        "following_count": 8,
-        "starred_repos_count": 8,
-        "username": "henrycatalinismith"
       },
       {
         "id": 258926,
@@ -547,7 +529,7 @@
         "description": "",
         "followers_count": 22,
         "following_count": 0,
-        "starred_repos_count": 17,
+        "starred_repos_count": 18,
         "username": "JakobDev"
       },
       {
@@ -689,9 +671,9 @@
         "pronouns": "",
         "website": "",
         "description": "[⁂](https://symbol.fediverse.info) <a rel=\"me\" href=\"https://nerdculture.de/@mahlzahn\">@mahlzahn@nerdculture.de</a>",
-        "followers_count": 23,
+        "followers_count": 25,
         "following_count": 3,
-        "starred_repos_count": 43,
+        "starred_repos_count": 44,
         "username": "mahlzahn"
       },
       {
@@ -708,8 +690,8 @@
         "website": "https://info.lapyst.dev",
         "description": "On other forges: [:github:](https://github.lapyst.dev) [:forgejo:](https://codearq.net/mai-lapyst) :3",
         "followers_count": 2,
-        "following_count": 0,
-        "starred_repos_count": 4,
+        "following_count": 1,
+        "starred_repos_count": 5,
         "username": "Mai-Lapyst"
       },
       {
@@ -743,7 +725,7 @@
         "pronouns": "he/him",
         "website": "https://mathieu.fenniak.net/",
         "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-        "followers_count": 20,
+        "followers_count": 21,
         "following_count": 0,
         "starred_repos_count": 4,
         "username": "mfenniak"
@@ -777,10 +759,10 @@
         "active": false,
         "location": "",
         "pronouns": "he/him",
-        "website": "https://nirmalkumarr.org",
+        "website": "https://nirm.al",
         "description": "",
         "followers_count": 0,
-        "following_count": 7,
+        "following_count": 8,
         "starred_repos_count": 2,
         "username": "mysticmode"
       },
@@ -797,9 +779,9 @@
         "pronouns": "",
         "website": "",
         "description": "tinkerer, g(r)eek, (fl)oss dev, musician, student. likes operating systems.\r\n\r\n@codeberg core team & ex-presidium member (2025-2026) :codeberg: & @forgejo contributor :forgejo:",
-        "followers_count": 109,
-        "following_count": 128,
-        "starred_repos_count": 147,
+        "followers_count": 110,
+        "following_count": 126,
+        "starred_repos_count": 148,
         "username": "n0toose"
       },
       {
@@ -833,7 +815,7 @@
         "pronouns": "he/him",
         "website": "https://code.pfad.fr",
         "description": "French software developer living in the German Alps.",
-        "followers_count": 12,
+        "followers_count": 13,
         "following_count": 0,
         "starred_repos_count": 6,
         "username": "oliverpool"
@@ -959,7 +941,7 @@
         "pronouns": "he/him",
         "website": "https://spiffyk.cz/",
         "description": "",
-        "followers_count": 2,
+        "followers_count": 1,
         "following_count": 3,
         "starred_repos_count": 1,
         "username": "spiffyk"
@@ -979,7 +961,7 @@
         "description": "[:github:](https://github.com/viceice)&nbsp;[:forgejo:](https://code.forgejo.org/viceice)",
         "followers_count": 8,
         "following_count": 14,
-        "starred_repos_count": 20,
+        "starred_repos_count": 19,
         "username": "viceice"
       },
       {
@@ -1015,7 +997,7 @@
         "description": "",
         "followers_count": 15,
         "following_count": 3,
-        "starred_repos_count": 27,
+        "starred_repos_count": 28,
         "username": "wetneb"
       },
       {
@@ -1053,6 +1035,24 @@
         "following_count": 80,
         "starred_repos_count": 55,
         "username": "xtex"
+      },
+      {
+        "id": 491131,
+        "login": "zoe",
+        "source_id": 0,
+        "full_name": "Zoë Finja Emilia Kron",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://codeberg.org/avatars/e3298315250201c467e8e74cf7d562c7e0f3a672792ebdcd5671de3bed8a3a71",
+        "html_url": "https://codeberg.org/zoe",
+        "active": false,
+        "location": "Nordrhein-Westfalen",
+        "pronouns": "sie/ihr",
+        "website": "",
+        "description": "Matrix @zoefinja:tchncs.de",
+        "followers_count": 9,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "zoe"
       }
     ]
   }

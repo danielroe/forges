@@ -10,23 +10,23 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "kind": "pull_request",
+        "number": "1634",
+        "externalId": "PR_kwDOErHI988AAAABNeV-Ng"
       },
-      "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "kind": "pull_request",
+      "title": "fix(query): reject malformed Content-Type tokens",
+      "body": "`requireContentType()` accepted malformed values such as `application/json/extra`, `application/json junk`, and `application/(json)` when a wildcard matched. Exact accepted types sent these malformed values to the 415 branch instead of the documented 422 branch.\n\nValidate the complete type/subtype as HTTP tokens before matching accepted types, following [RFC 9110 sections 8.3.1 and 5.6.2](https://www.rfc-editor.org/rfc/rfc9110.html#name-media-type). Existing wildcard matching, parameter handling, case normalization, and valid token punctuation are preserved. No API or dependency changes.\n\nFixes #1633.\n\nValidation with Node 24:\n\n- New matrix cases: 36 failures on main across web/Node and exact/subtype/full wildcards; eight valid-token controls pass before and after. All 82 query tests pass with the fix.\n- `pnpm test`: lint, TypeScript, and all 73 test files pass; **3,174 tests passed, 51 skipped**, with no type errors. Statement coverage: 96.25%.\n- `pnpm build` passes. Built Node and generic entry points return 422 for the malformed examples and 200 for a valid type.\n\nThis contribution is AI-assisted.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Requests with malformed content types are now rejected with a 422 response, including values with missing type or subtype, invalid token characters, or extra slashes.\n  * Valid content types continue to be accepted, including uppercase values, parameters, structured suffixes, and digit-leading types. Accepted values are normalized for matching.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "henricop",
+        "id": "54844857",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/54844857?v=4",
+        "url": "https://github.com/henricop",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -35,12 +35,12 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "url": "https://github.com/h3js/h3/pull/1634",
+      "createdAt": "2026-11-07T06:41:22.000Z",
+      "updatedAt": "2026-11-07T06:43:12.000Z",
+      "lastActivityAt": "2026-11-07T06:43:12.000Z",
       "locked": false,
-      "commentCount": 0,
+      "commentCount": 1,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -57,22 +57,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+        "number": "1627",
+        "externalId": "PR_kwDOErHI988AAAABMiypiw"
       },
       "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(body): clean up cancelled request streams",
+      "body": "`getRequestWebStream()`'s Node fallback adds `data`/`end`/`error` listeners to `event.node.req` when the stream is created and never removes them. If the stream is cancelled while the client is still sending, the next chunk calls `controller.enqueue()` on a closed stream and throws `TypeError [ERR_INVALID_STATE]: Invalid state: Controller is already closed` outside any handler. It also enqueues every chunk regardless of demand, so a fast upload is buffered in memory while the handler is busy.\n\nThis makes the bridge lazy and pull-based. The stream uses `highWaterMark: 0`; a Web stream that is never read doesn't touch the request, so Node's own drain and `readRawBody()` behave as before. No new imports.\n\n- The first `pull()` checks the request first: an errored request rejects with its error; if the response already finished while the upload was incomplete, it rejects with `Response already finished`; an ended request closes; a destroyed one rejects with an `aborted` error (`ECONNRESET`). Otherwise it attaches the listeners and resumes the request. A request that closes later without `end` or `error` rejects a pending read with the same `aborted` error.\n- Each chunk is enqueued and the request is paused again unless another read is already waiting (`enqueue()` can call `pull()` synchronously for it).\n- `cancel()` removes the listeners and resumes the request, so the rest of the upload drains and the handler can still respond (e.g. 413).\n- When the response finishes, the listeners are removed and the request is resumed, so a handler that read part of the body and returned without cancelling doesn't leave the upload paused on a keep-alive socket. A read still pending at that point, or any later one, rejects with `Response already finished` rather than hanging or ending as if the upload were complete.\n\nTests (`test/body.test.ts`): cancel then keep sending, then respond (no uncaught error, listeners released, response delivered), also with the upload still open; an unread 8 MiB body stays bounded after one read; two concurrent reads; a request that ended or was aborted before the first read; a first read after the response finished; a request closed without an error while a read is pending; a pending read when the response finishes; keep-alive reuse after an unused Web body, after `toWebRequest()` + `readRawBody()`, and after a partial Web body read. `pnpm test` (369) and `pnpm build` pass.\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
+        "login": "realies",
+        "id": "5107843",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/5107843?v=4",
+        "url": "https://github.com/realies",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -81,12 +81,12 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
+      "url": "https://github.com/h3js/h3/pull/1627",
+      "createdAt": "2026-11-03T11:52:51.000Z",
+      "updatedAt": "2026-11-03T11:53:01.000Z",
+      "lastActivityAt": "2026-11-03T11:53:01.000Z",
       "locked": false,
-      "commentCount": 2,
+      "commentCount": 1,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -103,22 +103,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1638",
+        "externalId": "PR_kwDOErHI988AAAABNlV3VQ"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(query): validate media type tokens in requireContentType",
+      "body": "Resolves #1633\n\n### Summary of Changes\n\n- **Media Type Token Validation:** Per [RFC 9110 §8.3.1 and §5.6.2](https://www.rfc-editor.org/rfc/rfc9110.html#name-media-type), a media type consists of `<type>/<subtype>` where `type` and `subtype` must each be a valid HTTP `token` (`1*tchar`).\n  - Previously, `requireContentType` only verified `slash <= 0 || slash === mediaType.length - 1`, allowing malformed Content-Type values with multiple slashes (e.g. `application/json/extra`), whitespace (e.g. `application/json junk`), or delimiters (e.g. `application/(json)`) to erroneously match when wildcard acceptance (e.g. `application/*`) was used.\n  - Replaced the simple slash index check with `MEDIA_TYPE_RE = /^[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+\\/[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+$/`, ensuring malformed media types consistently throw `422 Unprocessable Content` regardless of whether exact or wildcard matching is configured.\n- **Tests:**\n  - Added unit test in `test/query.test.ts` verifying that extra slashes, embedded whitespace, and invalid delimiter characters reject with 422 under wildcard acceptance.\n  - All 3,120 tests pass across the entire suite.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n- **Bug Fixes**\n  - Malformed `Content-Type` values are now rejected with a 422 response, including values with extra slashes, trailing characters, or invalid punctuation.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "EnesKartal",
+        "id": "43950508",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?v=4",
+        "url": "https://github.com/EnesKartal",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -127,25 +127,25 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
+      "url": "https://github.com/h3js/h3/pull/1638",
+      "createdAt": "2026-11-07T22:43:47.000Z",
+      "updatedAt": "2026-11-07T22:49:14.000Z",
+      "lastActivityAt": "2026-11-07T22:49:14.000Z",
       "locked": false,
-      "commentCount": 3,
+      "commentCount": 1,
       "reactions": {
         "total": 0,
         "counts": {}
       }
     }
   ],
-  "total": 841,
+  "total": 867,
   "cursor": {
     "nextUrl": "https://api.github.com/search/issues?q=%28fix%29+repo%3Ah3js%2Fh3+%28is%3Aissue+OR+is%3Apr%29&advanced_search=true&per_page=3&page=2"
   },
   "rateLimit": {
     "limit": 10,
-    "remaining": 8,
+    "remaining": 6,
     "resetAt": "<now>",
     "resource": "search"
   }

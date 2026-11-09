@@ -1,5 +1,5 @@
 {
-  "base": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+  "base": "21ec71ef38b32f998386bd8b4865d43befd058b6",
   "head": "forgejo",
   "aheadBy": 4,
   "commits": [
@@ -13,62 +13,10 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10"
+        "sha": "92d5abd016b692a9ce2b419d4f883934b44d03d8"
       },
-      "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "login": "AverageHelper",
-          "id": "135189",
-          "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "url": "https://codeberg.org/AverageHelper",
-          "isBotHint": false
-        },
-        "name": "AverageHelper",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
-          "isBotHint": false
-        },
-        "name": "Gusted",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
-      },
-      "parents": [
-        "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
-      ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "stats": {
-        "additions": 41,
-        "deletions": 27,
-        "total": 68
-      }
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo"
-        },
-        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
-      },
-      "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-      "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "92d5abd016b692a9ce2b419d4f883934b44d03d8",
+      "message": "migration(forgejo): migrate reactions and reviews (#15194)\n\n- Forgejo advertises pre-release version (eg [`17.0.0-26-363f3dc30b+gitea-1.22.0`](https://code.forgejo.org/api/v1/version)).\n- Such pre-releases version never fullfix the `hashicorp/go-version.Constraints.Check` used by `gitea_sdk.Client.CheckServerVersionConstraint`.\n\nHence migration from a Forgejo host (like codeberg) would wrongly skip reactions and reviews (and use a weaker pagination)\n\nThis fixes this, by using `Version.GreaterThanOrEqual` instead.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15194\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
@@ -81,30 +29,85 @@
         },
         "name": "oliverpool",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-11-08T22:57:22.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-11-08T22:57:22.000Z"
       },
       "parents": [
-        "27ae2d7b675d2a4b3589cc7f2489b105b628275e"
+        "6c2b8b9d726a44abbaf7bc07d293cb10e93829a7"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/92d5abd016b692a9ce2b419d4f883934b44d03d8",
       "stats": {
-        "additions": 53,
-        "deletions": 11,
-        "total": 64
+        "additions": 48,
+        "deletions": 15,
+        "total": 63
+      }
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo"
+        },
+        "sha": "6c2b8b9d726a44abbaf7bc07d293cb10e93829a7"
+      },
+      "sha": "6c2b8b9d726a44abbaf7bc07d293cb10e93829a7",
+      "message": "feat: preserve force-push commits on PRs through `git gc` (#15162)\n\nImplements #8279.\n\nWhenever a force push occurs on an open PR (via branch or AGit), an additional reference is created in the base git in the form of `refs/pull/N/comment/M/{old,new}`.  `N` is the pull request index, `M` is the internal ID of the timeline comment on the PR, and `old` or `new` are used for either the commit previous to the force push, or the commit after the force push.  The new references are read-only and cannot be modified or deleted by external `git push` operations.  The references are removed if the pull request is deleted (but not if the pull request is closed).\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15162\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+      "author": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-08T20:13:15.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
+          "isBotHint": false
+        },
+        "name": "Mathieu Fenniak",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-08T20:13:15.000Z"
+      },
+      "parents": [
+        "85d181dcf6170f8831f7fffd6835f5352c88b0bc"
+      ],
+      "url": "https://codeberg.org/forgejo/forgejo/commit/6c2b8b9d726a44abbaf7bc07d293cb10e93829a7",
+      "stats": {
+        "additions": 474,
+        "deletions": 5,
+        "total": 479
       }
     }
   ],

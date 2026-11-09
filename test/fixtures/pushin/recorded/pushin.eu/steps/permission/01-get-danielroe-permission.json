@@ -7,17 +7,17 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4944",
-      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-remaining": "4974",
+      "x-ratelimit-reset": "1794200400",
       "x-ratelimit-resource": "core"
     },
     "body": {
       "user": {
         "id": 277,
         "type": "User",
-        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
         "html_url": "https://pushin.eu/danielroe",
         "login": "danielroe",
+        "avatar_url": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
         "node_id": "REDACTED"
       },
       "permission": "read",

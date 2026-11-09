@@ -7,8 +7,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4989",
-      "x-ratelimit-reset": "1792443600",
+      "x-ratelimit-remaining": "4994",
+      "x-ratelimit-reset": "1794200400",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -19,9 +19,9 @@
         "organization": {
           "id": 114,
           "type": "Organization",
-          "avatar_url": "https://cdn.pushin.eu/-/avatars/org/org_034inZxTJz5IwIMioANbmp",
           "html_url": "https://pushin.eu/forges-fixtures",
           "login": "forges-fixtures",
+          "avatar_url": "https://cdn.pushin.eu/-/avatars/org/org_034inZxTJz5IwIMioANbmp",
           "node_id": "REDACTED"
         },
         "node_id": "team_034ioFXpKvhKmJdSF7mwiA"

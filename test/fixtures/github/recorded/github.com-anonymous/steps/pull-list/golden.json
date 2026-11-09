@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1638",
+        "externalId": "PR_kwDOErHI988AAAABNlV3VQ"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(query): validate media type tokens in requireContentType",
+      "body": "Resolves #1633\n\n### Summary of Changes\n\n- **Media Type Token Validation:** Per [RFC 9110 §8.3.1 and §5.6.2](https://www.rfc-editor.org/rfc/rfc9110.html#name-media-type), a media type consists of `<type>/<subtype>` where `type` and `subtype` must each be a valid HTTP `token` (`1*tchar`).\n  - Previously, `requireContentType` only verified `slash <= 0 || slash === mediaType.length - 1`, allowing malformed Content-Type values with multiple slashes (e.g. `application/json/extra`), whitespace (e.g. `application/json junk`), or delimiters (e.g. `application/(json)`) to erroneously match when wildcard acceptance (e.g. `application/*`) was used.\n  - Replaced the simple slash index check with `MEDIA_TYPE_RE = /^[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+\\/[!#$%&'*+\\-.^_`|~0-9a-zA-Z]+$/`, ensuring malformed media types consistently throw `422 Unprocessable Content` regardless of whether exact or wildcard matching is configured.\n- **Tests:**\n  - Added unit test in `test/query.test.ts` verifying that extra slashes, embedded whitespace, and invalid delimiter characters reject with 422 under wildcard acceptance.\n  - All 3,120 tests pass across the entire suite.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n- **Bug Fixes**\n  - Malformed `Content-Type` values are now rejected with a 422 response, including values with extra slashes, trailing characters, or invalid punctuation.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "EnesKartal",
+        "id": "43950508",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?v=4",
+        "url": "https://github.com/EnesKartal",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -50,28 +50,28 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
+      "url": "https://github.com/h3js/h3/pull/1638",
+      "createdAt": "2026-11-07T22:43:47.000Z",
+      "updatedAt": "2026-11-07T22:49:14.000Z",
+      "lastActivityAt": "2026-11-07T22:49:14.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "fix/serve-static-index-paths",
-          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+          "ref": "fix/require-content-type-validation-1633",
+          "sha": "5d5922ef5e55b75b65c13f71215c8d0f5a4e1805",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "TalhaHunter101",
+            "owner": "EnesKartal",
             "name": "h3",
-            "externalId": "1414411073"
+            "externalId": "1449793196"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
         },
-        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
+        "mergeCommitSha": "3bc6776caf47a7054507c89d5ebdf54f499672fe"
       }
     },
     {
@@ -85,22 +85,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+        "number": "1637",
+        "externalId": "PR_kwDOErHI988AAAABNlU9-Q"
       },
       "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix: return 412 for non-safe methods on matching If-None-Match",
+      "body": "Resolves #1623\n\n### Summary of Changes\n\n- **RFC 9110 §13.1.2 Compliance:** When evaluating conditional requests with `If-None-Match`:\n  - For safe methods (`GET`, `HEAD`, and `QUERY` per RFC 10008), a matching entity tag resolves to `304 Not Modified`.\n  - For other methods (such as `POST`, `PUT`, `DELETE`, `PATCH`), [RFC 9110 §13.1.2](https://www.rfc-editor.org/rfc/rfc9110#section-13.1.2) specifies that the recipient MUST NOT perform the requested method and SHOULD generate a `412 (Precondition Failed)` response. Previously, `handleCacheHeaders` unconditionally emitted `304`.\n- **RFC 9110 §13.1.3 Compliance:** `If-Modified-Since` MUST be ignored if the request method is neither `GET` nor `HEAD` (or `QUERY`). For non-safe methods (like `POST`), `If-Modified-Since` without `If-None-Match` no longer halts execution or returns `304`/`412`.\n- **RFC 9110 §13.2.1 Compliance:** Conditional headers are ignored for `OPTIONS`, `TRACE`, and `CONNECT`.\n- **Tests:**\n  - Added unit tests in `test/utils.test.ts` verifying `412` for `POST`/`PUT` with matching `If-None-Match`, `304` for `GET`, ignoring `If-Modified-Since` for `POST`, and ignoring conditional headers for `OPTIONS`.\n  - All 3,118 tests pass across the repository.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Conditional cache requests now return the appropriate status for different request methods: matching validators return 304 for GET, HEAD, and QUERY, and 412 for other methods.\n  * `If-Modified-Since` is applied only to GET, HEAD, and QUERY. Conditional cache headers are ignored for OPTIONS, TRACE, and CONNECT.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
+        "login": "EnesKartal",
+        "id": "43950508",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/43950508?v=4",
+        "url": "https://github.com/EnesKartal",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -124,28 +124,28 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
+      "url": "https://github.com/h3js/h3/pull/1637",
+      "createdAt": "2026-11-07T22:41:39.000Z",
+      "updatedAt": "2026-11-07T22:45:08.000Z",
+      "lastActivityAt": "2026-11-07T22:45:08.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "docs/fix-static-assets-example",
-          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
+          "ref": "fix/handle-cache-headers-412-1623",
+          "sha": "fba91d9e917ac5033951189475113dced6eba648",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "aaronanish-t",
+            "owner": "EnesKartal",
             "name": "h3",
-            "externalId": "1414188488"
+            "externalId": "1449793196"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
         },
-        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
+        "mergeCommitSha": "5c4d9699ea58729c339b23c26cb3cf31cf5df6ff"
       }
     },
     {
@@ -159,22 +159,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1579",
-        "externalId": "PR_kwDOErHI988AAAABHvErmg"
+        "number": "1636",
+        "externalId": "PR_kwDOErHI988AAAABNg5hMg"
       },
       "kind": "pull_request",
-      "title": "docs(static): mount serveStatic example at the root",
-      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "types(handler): drop `as any` casts in `defineValidatedHandler`",
+      "body": "Tweaks type def to remove `as any` casts. Depends/Stacked on https://github.com/h3js/h3/pull/1635.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **TypeScript**\n  * Standardized generic type parameter names across handler, request, validation, streaming, error, routing, and schema APIs for more consistent type declarations.\n  * Updated validated-handler typings to reflect the response type and validated request data more precisely.\n  * Runtime behavior remains unchanged.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "harshit-d3v",
-        "id": "106448130",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-        "url": "https://github.com/harshit-d3v",
+        "login": "DamianGlowala",
+        "id": "48835293",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/48835293?v=4",
+        "url": "https://github.com/DamianGlowala",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -198,40 +198,40 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1579",
-      "createdAt": "2026-10-10T20:06:27.000Z",
-      "updatedAt": "2026-10-17T12:00:47.000Z",
-      "lastActivityAt": "2026-10-17T12:00:47.000Z",
+      "url": "https://github.com/h3js/h3/pull/1636",
+      "createdAt": "2026-11-07T13:04:35.000Z",
+      "updatedAt": "2026-11-07T13:17:19.000Z",
+      "lastActivityAt": "2026-11-07T13:17:19.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "docs/serve-static-root",
-          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+          "ref": "types/validated-handler-return",
+          "sha": "4bb6883c1844042ec6fc3f633940288e22a6b056",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "harshit-d3v",
+            "owner": "DamianGlowala",
             "name": "h3",
-            "externalId": "1413617363"
+            "externalId": "713540757"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
+          "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
         },
-        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
+        "mergeCommitSha": "96609770c0a07aca2a2427a3c6d6fe6fbb839631"
       }
     }
   ],
-  "total": 21,
+  "total": 42,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\""
+    "etag": "W/\"3c25641c9fa67661b7e9fd8473ca3fba714751d533ef79d73b6d756d70862075\""
   },
-  "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\"",
+  "etag": "W/\"3c25641c9fa67661b7e9fd8473ca3fba714751d533ef79d73b6d756d70862075\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 37,
+    "remaining": 54,
     "resetAt": "<now>",
     "resource": "core"
   }
