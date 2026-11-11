@@ -4,7 +4,7 @@ import { BaseType as Base, Context, createFormatter, createParser, DEFAULT_CONFI
 import ts from 'typescript'
 import { BYTES_SCHEMA, STREAM_SCHEMA } from './json.ts'
 
-/** The listing and page declarations the wire maps a listing to. */
+/** Symbols the wire maps: listings, their page, and the live provider. */
 export interface ForgesTypes {
   iterable: ts.Symbol
   listing: ts.Symbol
@@ -33,7 +33,7 @@ class WireType extends Base {
   }
 }
 
-/** Types as the wire carries them: bytes as `{ $bytes }`, a byte stream as the response, `ForgeIterable` as its page. */
+/** The wire forms of bytes, streams, listings and live providers. */
 class WireTypes implements SubNodeParser, SubTypeFormatter {
   chain!: ChainNodeParser
   private readonly program: ts.Program

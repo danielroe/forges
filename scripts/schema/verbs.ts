@@ -78,7 +78,7 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
     provider: providerSymbol,
   })
 
-  // Components are the model types, the public options types and the few provider data types; helpers are inlined.
+  // Keep model, options and provider data types named; inline helpers and live APIs.
   const model = program.getSourceFile(`${root}src/model.ts`)!
   const names = new Set([
     ...checker.getExportsOfModule(checker.getSymbolAtLocation(model)!).map(symbol => symbol.name),
