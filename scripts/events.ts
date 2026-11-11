@@ -7,7 +7,7 @@ import { GITEE_NATIVE_EVENTS } from '../src/gitee/webhook-events.ts'
 import { GITHUB_NATIVE_EVENTS } from '../src/github/webhook-events.ts'
 import { GITLAB_NATIVE_EVENTS } from '../src/gitlab/webhook-events.ts'
 import { isUnsupported } from '../src/model.ts'
-import { schemas } from '../src/schema/index.ts'
+import { models } from '../src/schema/index.ts'
 import { matrixProviders } from './capabilities.ts'
 
 /** The native event map each provider's `webhooks.create()` translates `events` with, by docs slug. */
@@ -95,7 +95,7 @@ function typeName(schema: Schema): string {
 /** The `EventDetail` variants, from the generated JSON Schema, keyed by the kind they belong to. */
 function detailShapes(kinds: string[]): Map<string, EventDetailShape[]> {
   const shapes = new Map<string, EventDetailShape[]>()
-  for (const variant of (schemas.EventDetail as Schema).anyOf ?? []) {
+  for (const variant of (models.EventDetail as Schema).anyOf ?? []) {
     const type = variant.properties?.type?.const
     if (!type) {
       continue
@@ -123,7 +123,7 @@ function detailShapes(kinds: string[]): Map<string, EventDetailShape[]> {
 export function eventData(forges: typeof Forges): { providers: EventProvider[], kinds: EventKindRow[], withoutWebhooks: string[] } {
   const all = matrixProviders(forges)
   const entries = all.filter(({ provider }) => !isUnsupported(provider.capabilities.webhooks.ingest))
-  const kinds = (schemas.EventKind as Schema).enum ?? []
+  const kinds = (models.EventKind as Schema).enum ?? []
   const shapes = detailShapes(kinds)
   const unmapped = entries.find(({ slug, provider }) => !isUnsupported(provider.capabilities.webhooks.create) && !(slug in SUBSCRIPTIONS))
   if (unmapped) {

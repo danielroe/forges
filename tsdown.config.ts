@@ -37,9 +37,9 @@ export default defineConfig({
     {
       name: 'forges:schema-files',
       generateBundle() {
-        const schemas = JSON.parse(readFileSync(new URL('./src/schema/schemas.json', import.meta.url), 'utf8'))
-        for (const name of Object.keys(schemas)) {
-          this.emitFile({ type: 'asset', fileName: `schema/${name}.json`, source: `${JSON.stringify(standaloneSchema(name, schemas), null, 2)}\n` })
+        const { models } = JSON.parse(readFileSync(new URL('./src/schema/schema.json', import.meta.url), 'utf8'))
+        for (const name of Object.keys(models)) {
+          this.emitFile({ type: 'asset', fileName: `schema/${name}.json`, source: `${JSON.stringify(standaloneSchema(name, models), null, 2)}\n` })
         }
       },
     },

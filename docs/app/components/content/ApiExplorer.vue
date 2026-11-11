@@ -435,7 +435,7 @@ watch([result, view, pageMembers], async () => {
       : { $ref: `#/components/schemas/${returns}` }
   const { text, keys } = raw
     ? annotateJson(rawOf(result.value.value), undefined, {}, false)
-    : annotateJson(result.value.value, schema, await explorerSchemas(), true)
+    : annotateJson(result.value.value, schema, await explorerModels(), true)
   const decorations = keys.map(({ start, end }, index) => ({
     start,
     end,
