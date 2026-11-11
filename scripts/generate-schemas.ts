@@ -60,6 +60,7 @@ export const ROOT_TYPES = [
   'User',
   'Webhook',
   'WebhookDeliveryRecord',
+  'WebhookEventType',
 ]
 
 const root = fileURLToPath(new URL('..', import.meta.url))

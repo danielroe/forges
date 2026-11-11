@@ -9,17 +9,27 @@ export interface ForgesTypes {
   iterable: ts.Symbol
   listing: ts.Symbol
   page: ts.Declaration
+  provider: ts.Symbol
 }
 
-class BytesType extends Base {
-  getId(): string {
-    return 'forges-bytes'
+const WIRE_SCHEMAS = {
+  bytes: BYTES_SCHEMA,
+  opaque: { type: 'object' } as Schema,
+  stream: STREAM_SCHEMA,
+}
+
+type WireKind = keyof typeof WIRE_SCHEMAS
+
+class WireType extends Base {
+  readonly kind: WireKind
+
+  constructor(kind: WireKind) {
+    super()
+    this.kind = kind
   }
-}
 
-class StreamType extends Base {
   getId(): string {
-    return 'forges-stream'
+    return `forges-${this.kind}`
   }
 }
 
@@ -35,10 +45,13 @@ class WireTypes implements SubNodeParser, SubTypeFormatter {
   }
 
   supportsNode(node: ts.Node): boolean {
-    return !!this.lib(node) || this.isListing(node)
+    return !!this.lib(node) || this.isListing(node) || this.isOpaque(node)
   }
 
   createType(node: ts.Node, context: Context): BaseType {
+    if (this.isOpaque(node)) {
+      return new WireType('opaque')
+    }
     if (this.isListing(node)) {
       const page = new Context(node as never)
       for (const argument of (node as ts.TypeReferenceNode).typeArguments ?? []) {
@@ -48,20 +61,18 @@ class WireTypes implements SubNodeParser, SubTypeFormatter {
     }
     const name = this.lib(node)
     return name === 'Uint8Array'
-      ? new BytesType()
+      ? new WireType('bytes')
       : name === 'ReadableStream'
-        ? new StreamType()
+        ? new WireType('stream')
         : new NeverType()
   }
 
   supportsType(type: BaseType): boolean {
-    return type instanceof BytesType || type instanceof StreamType
+    return type instanceof WireType
   }
 
   getDefinition(type: BaseType): Definition {
-    return type instanceof BytesType
-      ? BYTES_SCHEMA as Definition
-      : STREAM_SCHEMA as Definition
+    return WIRE_SCHEMAS[(type as WireType).kind] as Definition
   }
 
   getChildren(): BaseType[] {
@@ -74,6 +85,11 @@ class WireTypes implements SubNodeParser, SubTypeFormatter {
     }
     const symbol = resolvedSymbol(this.program, node.typeName)
     return symbol === this.forges.iterable || symbol === this.forges.listing
+  }
+
+  private isOpaque(node: ts.Node): boolean {
+    return ts.isTypeReferenceNode(node)
+      && (resolvedSymbol(this.program, node.typeName) === this.forges.provider || isLib(this.program, node, 'AsyncIterable'))
   }
 
   private lib(node: ts.Node): string | undefined {
