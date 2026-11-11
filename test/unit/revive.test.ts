@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { github } from '../../src/github/index.ts'
 import { DATE_FIELDS, reviveDates } from '../../src/index.ts'
-import { schemas } from '../../src/schema/index.ts'
+import { models } from '../../src/schema/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
 describe('serialisation helpers', () => {
@@ -67,7 +67,7 @@ describe('serialisation helpers', () => {
         visit(value)
       }
     }
-    visit(schemas)
+    visit(models)
 
     expect([...found].filter(name => !DATE_FIELDS.has(name))).toEqual([])
   })

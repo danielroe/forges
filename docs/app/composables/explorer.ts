@@ -156,12 +156,12 @@ export function useExplorerCredentials() {
   return { credentials, remember }
 }
 
-let schemas: Promise<Record<string, Record<string, any>>> | undefined
+let models: Promise<Record<string, Record<string, any>>> | undefined
 
 /** The published JSON Schemas of the model, loaded on first use. */
-export function explorerSchemas() {
-  schemas ??= import('forges/schema').then(module => module.schemas)
-  return schemas
+export function explorerModels() {
+  models ??= import('forges/schema').then(module => module.models)
+  return models
 }
 
 let highlighter: Promise<HighlighterCore> | undefined

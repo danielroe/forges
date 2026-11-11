@@ -2514,9 +2514,11 @@ export interface Installation extends ForgeOrigin {
 
 /** Every `Date` field in the model, by name. */
 export const DATE_FIELDS: ReadonlySet<string> = new Set([
+  'before',
   'closedAt',
   'completedAt',
   'createdAt',
+  'createdAfter',
   'date',
   'deliveredAt',
   'dismissedAt',
@@ -2531,8 +2533,10 @@ export const DATE_FIELDS: ReadonlySet<string> = new Set([
   'pushedAt',
   'requestedAt',
   'resetAt',
+  'since',
   'startedAt',
   'submittedAt',
+  'until',
   'updatedAt',
   'week',
 ])

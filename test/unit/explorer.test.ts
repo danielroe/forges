@@ -25,7 +25,7 @@ import { generateApiDocs } from '../../scripts/api-docs/generate.ts'
 import { matrixProviders } from '../../scripts/capabilities.ts'
 import { github } from '../../src/github/index.ts'
 import * as forges from '../../src/index.ts'
-import { schemas } from '../../src/schema/index.ts'
+import { models } from '../../src/schema/index.ts'
 
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const model = extractApi({ root, entries: ENTRIES })
@@ -321,7 +321,7 @@ describe('explorer results', () => {
   }
 
   it('prints a result as JSON.stringify does, with the payload left out', () => {
-    const { text } = annotateJson(thread, { $ref: '#/components/schemas/Thread' }, schemas, true)
+    const { text } = annotateJson(thread, { $ref: '#/components/schemas/Thread' }, models, true)
     expect(text).toBe(JSON.stringify({ ...thread, raw: '…' }, null, 2))
   })
 
@@ -329,7 +329,7 @@ describe('explorer results', () => {
     const { text, keys } = annotateJson(
       thread,
       { $ref: '#/components/schemas/Thread' },
-      schemas,
+      models,
       true,
     )
     const info = (name: string) =>
@@ -349,7 +349,7 @@ describe('explorer results', () => {
           subject: { $ref: '#/components/schemas/NotificationSubject' },
         },
       },
-      schemas,
+      models,
       true,
     )
     expect(keys.find(key => key.info.name === 'repo')?.info).toMatchObject({
