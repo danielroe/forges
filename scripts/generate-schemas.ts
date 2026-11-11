@@ -1,13 +1,17 @@
 /**
- * Generates JSON Schemas for the public model types.
+ * Generates the JSON Schema types and provider verb signatures, as one document.
  *
- *   node scripts/generate-schemas.ts          writes src/schema/schemas.json
- *   node scripts/generate-schemas.ts --check  exits 1 when src/schema/schemas.json is stale
+ *   node scripts/generate-schemas.ts          writes src/schema/schema.json
+ *   node scripts/generate-schemas.ts --check  exits 1 when src/schema/schema.json is stale
  */
+import type { Json, Schema } from './schema/json.ts'
+import type { VerbSignature } from './schema/verbs.ts'
 import { readFileSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createGenerator } from 'ts-json-schema-generator'
+import { BYTES_SCHEMA, isRecord, refs, sortByKey, tidyDescriptions } from './schema/json.ts'
+import { generateVerbSignatures } from './schema/verbs.ts'
 
 /** Model types a schema is generated for; their dependencies are included. */
 export const ROOT_TYPES = [
@@ -56,6 +60,7 @@ export const ROOT_TYPES = [
   'User',
   'Webhook',
   'WebhookDeliveryRecord',
+  'WebhookEventType',
 ]
 
 const root = fileURLToPath(new URL('..', import.meta.url))
@@ -64,28 +69,26 @@ function rewriteRefs(value: Json, prefix: string): Json {
   if (Array.isArray(value)) {
     return value.map(item => rewriteRefs(item, prefix))
   }
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([key, item]) => [
-      key,
-      key === '$ref' && typeof item === 'string'
-        ? item.replace(/^#\/(?:definitions|components\/schemas)\//, prefix)
-        : rewriteRefs(item, prefix),
-    ]))
+  if (!isRecord(value)) {
+    return value
   }
-  return value
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    key === '$ref' && typeof item === 'string'
+      ? item.replace(/^#\/(?:definitions|components\/schemas)\//, prefix)
+      : rewriteRefs(item, prefix),
+  ]))
 }
-
-const BYTES_SCHEMA: Schema = { 'description': 'Bytes, as a `Uint8Array`. JSON cannot carry them.', 'x-forges-type': 'Uint8Array' }
 
 function replaceByteArrays(value: Json): Json {
   if (Array.isArray(value)) {
     return value.map(replaceByteArrays)
   }
-  if (!value || typeof value !== 'object') {
+  if (!isRecord(value)) {
     return value
   }
-  const { properties } = value as Schema
-  if (properties && typeof properties === 'object' && 'BYTES_PER_ELEMENT' in properties) {
+  const { properties } = value
+  if (isRecord(properties) && 'BYTES_PER_ELEMENT' in properties) {
     return BYTES_SCHEMA
   }
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [
@@ -94,30 +97,14 @@ function replaceByteArrays(value: Json): Json {
   ]))
 }
 
-/** ts-json-schema-generator pads `{@link X}` with spaces and keeps the indentation of wrapped doc lines. */
-function tidyDescriptions(value: Json): Json {
-  if (Array.isArray(value)) {
-    return value.map(tidyDescriptions)
-  }
-  if (!value || typeof value !== 'object') {
-    return value
-  }
-  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
-    key,
-    key === 'description' && typeof item === 'string'
-      ? item.replace(/\{@link\s+([^\s}]+)\s*\}/g, '{@link $1}').replace(/ {2,}/g, ' ').replace(/(\{@link [^}]+\}) ([.,:;])/g, '$1$2')
-      : tidyDescriptions(item),
-  ]))
-}
-
-/** `name` and every schema it references, directly or through another. */
-function dependenciesOf(name: string, schemas: Record<string, Schema>): string[] {
+/** `name` and its transitive dependencies. */
+function dependenciesOf(name: string, models: Record<string, Schema>): string[] {
   const found = new Set<string>()
   const visit = (current: string) => {
-    for (const [, ref] of JSON.stringify(schemas[current]).matchAll(/"\$ref":"#\/components\/schemas\/([^"]+)"/g)) {
-      if (!found.has(ref!)) {
-        found.add(ref!)
-        visit(ref!)
+    for (const ref of refs(models[current]!)) {
+      if (!found.has(ref)) {
+        found.add(ref)
+        visit(ref)
       }
     }
   }
@@ -125,8 +112,8 @@ function dependenciesOf(name: string, schemas: Record<string, Schema>): string[]
   return [...found].sort()
 }
 
-/** Every root type and its dependencies, keyed by type name, with refs pointing at OpenAPI components. */
-export function generateSchemas(): Record<string, Schema> {
+/** Every model root and its dependencies, keyed by model name, with refs pointing at OpenAPI components. */
+function generateModels(): Record<string, Schema> {
   const generator = createGenerator({
     path: `${root}src/index.ts`,
     tsconfig: `${root}tsconfig.json`,
@@ -142,33 +129,51 @@ export function generateSchemas(): Record<string, Schema> {
     const { definitions: found = {}, $schema: _, ...schema } = generator.createSchema(type) as Schema & { definitions?: Record<string, Schema> }
     Object.assign(definitions, found, { [type]: schema })
   }
-  return Object.fromEntries(Object.keys(definitions).sort().map(name => [
+  return sortByKey(Object.fromEntries(Object.entries(definitions).map(([name, definition]) => [
     name,
     {
-      ...rewriteRefs(tidyDescriptions(replaceByteArrays(definitions[name]!)), '#/components/schemas/') as Schema,
+      ...rewriteRefs(tidyDescriptions(replaceByteArrays(definition)), '#/components/schemas/') as Schema,
       'x-forges-type': name,
     },
-  ]))
+  ])))
+}
+
+export interface SchemaBundle {
+  models: Record<string, Schema>
+  verbs: Record<string, VerbSignature>
+}
+
+/** All published models and verb signatures. */
+export function generateSchemaBundle(): SchemaBundle {
+  const { components, verbs } = generateVerbSignatures()
+  return {
+    models: sortByKey({
+      ...components,
+      ...generateModels(),
+    }),
+    verbs,
+  }
 }
 
 /** `name` as a self-contained draft-07 document, carrying only the definitions it references. */
-export function standaloneSchema(name: string, schemas: Record<string, Schema>): Schema {
+export function standaloneSchema(name: string, models: Record<string, Schema>): Schema {
   return {
     $schema: 'http://json-schema.org/draft-07/schema#',
-    ...rewriteRefs(schemas[name]!, '#/definitions/') as Schema,
-    definitions: Object.fromEntries(dependenciesOf(name, schemas).map(other => [
+    ...rewriteRefs(models[name]!, '#/definitions/') as Schema,
+    definitions: Object.fromEntries(dependenciesOf(name, models).map(other => [
       other,
-      rewriteRefs(schemas[other]!, '#/definitions/'),
+      rewriteRefs(models[other]!, '#/definitions/'),
     ])),
   }
 }
 
 function main(): void {
-  const target = `${root}src/schema/schemas.json`
-  const output = `${JSON.stringify(generateSchemas(), null, 2)}\n`
+  const { models, verbs } = generateSchemaBundle()
+  const target = `${root}src/schema/schema.json`
+  const output = `${JSON.stringify({ verbs, models }, null, 2)}\n`
   if (process.argv.includes('--check')) {
     if (readFileSync(target, 'utf8') !== output) {
-      console.error('src/schema/schemas.json is stale; run node scripts/generate-schemas.ts')
+      console.error('src/schema/schema.json is stale; run node scripts/generate-schemas.ts')
       process.exitCode = 1
     }
     return
@@ -179,9 +184,3 @@ function main(): void {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main()
 }
-
-interface Schema {
-  [key: string]: Json
-}
-
-type Json = null | boolean | number | string | Json[] | Schema
