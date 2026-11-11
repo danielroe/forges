@@ -1,4 +1,3 @@
-/** A JSON Schema object. */
 export interface Schema {
   [key: string]: Json
 }
@@ -65,7 +64,7 @@ export function componentName(name: string): string {
   return name.replace(/<(.+)>$/, 'Of$1').replace(/[^\w.-]/g, '_')
 }
 
-/** Draft-07 as the generator writes it, with refs pointing at OpenAPI components and no `never` properties. */
+/** Rewrites generated refs to OpenAPI components and drops `never` properties. */
 export function clean(value: Json): Json {
   if (Array.isArray(value)) {
     return value.map(clean)

@@ -26,7 +26,7 @@ export interface VerbSignature {
   result: Schema
 }
 
-/** A JSON Schema for each public model the verbs use, keyed by model name. */
+/** A JSON Schema for each published model, keyed by model name. */
 export const models: Record<string, Schema> = generated.models
 
 /** The signature of every provider verb on `ForgeProvider`, keyed by its path. */

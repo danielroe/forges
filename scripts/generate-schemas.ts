@@ -97,7 +97,7 @@ function replaceByteArrays(value: Json): Json {
   ]))
 }
 
-/** `name` and every model it references, directly or through another. */
+/** `name` and its transitive dependencies. */
 function dependenciesOf(name: string, models: Record<string, Schema>): string[] {
   const found = new Set<string>()
   const visit = (current: string) => {
