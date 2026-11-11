@@ -90,11 +90,6 @@ export function clean(value: Json): Json {
       result[key] = clean(item)
     }
   }
-  // A required function never reaches the wire, so it has no property either.
-  const properties = result.properties
-  if (isRecord(properties) && Array.isArray(result.required)) {
-    result.required = result.required.filter(name => typeof name === 'string' && name in properties)
-  }
   return result
 }
 

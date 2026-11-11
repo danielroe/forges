@@ -48,8 +48,7 @@ function docOf(declaration: ts.ParameterDeclaration, tags: readonly ts.JSDocTag[
 
 /** Every provider verb and the components its schemas reference. */
 export function generateVerbSignatures(): { components: Record<string, Schema>, verbs: Record<string, VerbSignature> } {
-  const config = ts.readConfigFile(`${root}tsconfig.json`, ts.sys.readFile)
-  const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, root)
+  const parsed = ts.getParsedCommandLineOfConfigFile(`${root}tsconfig.json`, {}, ts.sys as never)!
   const program = ts.createProgram([`${root}src/index.ts`], parsed.options)
   const checker = program.getTypeChecker()
   const index = program.getSourceFile(`${root}src/index.ts`)!
@@ -70,8 +69,14 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
   if (!page) {
     throw new Error('Page has no declaration')
   }
-  const provider = checker.getDeclaredTypeOfSymbol(exported('ForgeProvider'))
-  const generator = schemaGenerator(program, { iterable, listing, page })
+  const providerSymbol = exported('ForgeProvider')
+  const provider = checker.getDeclaredTypeOfSymbol(providerSymbol)
+  const generator = schemaGenerator(program, {
+    iterable,
+    listing,
+    page,
+    provider: providerSymbol,
+  })
 
   // Components are the model types, the public options types and the few provider data types; helpers are inlined.
   const model = program.getSourceFile(`${root}src/model.ts`)!
