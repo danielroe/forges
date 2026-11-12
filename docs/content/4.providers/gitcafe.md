@@ -1,7 +1,7 @@
 ---
 title: GitCafe
 description: "Use GitCafe: repositories, issues, pull requests, reviews, checks, files and signed webhooks."
-icon: i-custom-gitcafe
+icon: i-lucide-coffee
 ---
 
 The GitCafe provider works with [GitCafe](https://git.cafe), a forge with an API of its own rather than one modelled on GitHub's. It can read repositories, labels, milestones, issues, pull requests, comments, reactions, reviews, checks, files, branches, tags and commits. It can also create and change issues and pull requests, comment, react, review and merge, report commit statuses, and manage webhooks and verify their deliveries. The [OpenAPI specification](https://git.cafe/api/openapi/json) of the API documents its endpoints.
