@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/webhooks/?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "whep_01m77vej8geh6by4jes96592rb",
+          "url": "https://example.com/hook",
+          "events": [
+            "issue.comment_created",
+            "git.push"
+          ],
+          "active": true,
+          "version": 1,
+          "signingKeyVersion": 1,
+          "pinnedApiVersion": null,
+          "consecutiveFailures": 2,
+          "lastFailureAt": "2026-11-12T12:34:55.555Z",
+          "createdAt": "2026-11-12T12:24:17.939Z",
+          "updatedAt": "2026-11-12T12:34:55.570Z",
+          "disabledAt": null,
+          "disableReason": null,
+          "orgId": null,
+          "repoId": "repo_01m77v6ctsf7hr9pbfma3k2m0j"
+        }
+      ],
+      "next": null
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "thread": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "repo": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "owner": "oritwoen",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "3"
+        },
+        "id": "prcomment_01m77w5hrseh6by4phqg7dh0hj"
+      },
+      "body": "A comment on the pull request, so the recordings have one to read.",
+      "author": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    }
+  ]
+}
