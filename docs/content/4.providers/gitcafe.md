@@ -75,7 +75,7 @@ GitCafe merges in the background. `threads.merge()` usually resolves with `statu
 
 `checks.list()` and `threads.checks()` read the checks of a commit, which include the commit statuses reported for it. `checks.report()` writes a commit status, whose state is `pending`, `success` or `failure`.
 
-`ci.runs()` lists the workflow runs of a repository. GitCafe runs the workflows in `.github/workflows`, but its hosted runners are in beta and not yet open to every repository, so the provider doesn't read a single run or its jobs yet.
+`ci.runs()` lists the workflow runs of a repository. GitCafe filters runs by whether they have finished, so the provider applies `state` to each page after reading it, and a filtered page can hold fewer runs than `perPage`. GitCafe runs the workflows in `.github/workflows`, but its hosted runners are in beta and not yet open to every repository, so the provider doesn't read a single run or its jobs yet.
 
 ## Files and revisions
 
