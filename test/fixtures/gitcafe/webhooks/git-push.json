@@ -1,0 +1,40 @@
+{
+  "id": "evt_01m77vf0push0000000000000a",
+  "type": "git.push",
+  "version": "1",
+  "createdAt": "2026-11-12T12:30:00.000Z",
+  "actor": {
+    "id": "act_01m77tsdh0fbytmstyew2n3x7f"
+  },
+  "repository": {
+    "id": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+    "orgId": "org_01m77tsdhge0e85929eh1wf7z0",
+    "owner": "oritwoen",
+    "name": "forges-fixtures"
+  },
+  "git": {
+    "operationId": "gitop_01m77vf0push0000000000000a",
+    "source": "push",
+    "authorityOrdinal": 7,
+    "refUpdates": [
+      {
+        "ref": "refs/heads/main",
+        "beforeOid": "ee27a73933a3461c76a163e552677fff74df20b0",
+        "afterOid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+        "created": false,
+        "deleted": false,
+        "forced": false
+      },
+      {
+        "ref": "refs/tags/v0.1.0",
+        "beforeOid": "0000000000000000000000000000000000000000",
+        "afterOid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+        "created": true,
+        "deleted": false,
+        "forced": false
+      }
+    ],
+    "refUpdatesCount": 2,
+    "refUpdatesTruncated": false
+  }
+}

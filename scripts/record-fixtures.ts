@@ -15,7 +15,7 @@ import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -57,10 +57,11 @@ const TOKEN_VARIABLES: Record<string, string> = {
   'sourcehut': 'SOURCEHUT_TOKEN',
   'entire': 'ENTIRE_TOKEN',
   'gitbucket': 'GITBUCKET_TOKEN',
+  'gitcafe': 'GITCAFE_TOKEN',
 }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket|gitcafe> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -810,6 +811,24 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         },
       }
     }
+    case 'gitcafe': {
+      const provider = gitcafe({
+        baseUrl: env.GITCAFE_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
+      const slug = env.FIXTURE_GITCAFE_REPO ?? 'oritwoen/forges-fixtures'
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('gitcafe', provider.instance, slug),
+          issue: ref('gitcafe', provider.instance, slug, 'issue', env.FIXTURE_GITCAFE_ISSUE ?? '1'),
+          pull: ref('gitcafe', provider.instance, slug, 'pull_request', env.FIXTURE_GITCAFE_PULL ?? '3'),
+          ...setupRepos('GITCAFE', slug => repoRef('gitcafe', provider.instance, slug)),
+        },
+      }
+    }
     case 'pushin': {
       const provider = pushin({
         baseUrl: env.PUSHIN_BASE_URL,
@@ -935,6 +954,7 @@ function authorizationFor(token: string): string {
     case 'sourcehut':
     case 'entire':
     case 'cursor-origin':
+    case 'gitcafe':
       return `Bearer ${token}`
     case 'azure-devops':
       return `Basic ${btoa(`:${token}`)}`

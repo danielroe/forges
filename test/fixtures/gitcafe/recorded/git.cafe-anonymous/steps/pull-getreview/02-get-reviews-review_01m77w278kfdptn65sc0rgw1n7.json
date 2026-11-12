@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/reviews/review_01m77w278kfdptn65sc0rgw1n7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "author": {
+        "kind": "local",
+        "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "handle": "oritwoen",
+        "displayName": "oritwoen",
+        "avatarUrl": null
+      },
+      "id": "review_01m77w278kfdptn65sc0rgw1n7",
+      "commitOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+      "verdict": "comment",
+      "submittedPullVersion": 2,
+      "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "authorDelegatorActorId": null,
+      "authorViaInstallationId": null,
+      "body": "One question inline.",
+      "version": 0,
+      "dismissedAt": null,
+      "dismissedReason": null,
+      "dismissedByActorId": null,
+      "dismissedByDelegatorActorId": null,
+      "dismissedByViaInstallationId": null,
+      "createdAt": "2026-11-12T12:35:02.035Z",
+      "updatedAt": "2026-11-12T12:35:02.035Z"
+    }
+  }
+}

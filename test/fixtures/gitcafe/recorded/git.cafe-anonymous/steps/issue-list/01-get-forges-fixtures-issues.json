@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/issues/?statuses=open&sort=created&direction=desc&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [],
+      "next": null,
+      "total": 0
+    }
+  }
+}

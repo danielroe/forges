@@ -1,0 +1,77 @@
+[
+  {
+    "ok": true,
+    "ref": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "repo": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "owner": "oritwoen",
+        "name": "forges-fixtures"
+      },
+      "kind": "issue",
+      "number": "1"
+    },
+    "thread": {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "repo": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "1",
+        "externalId": "issue_01m77v7ch7fn0ad2d2vsn3b0r2"
+      },
+      "kind": "issue",
+      "title": "forges probe issue, edited",
+      "body": "Edited body.",
+      "state": "closed",
+      "stateRaw": "completed",
+      "isDraft": false,
+      "author": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      },
+      "assignees": [
+        {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "login": "oritwoen",
+          "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "name": "oritwoen",
+          "url": "https://git.cafe/oritwoen",
+          "typeRaw": "local",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "forges-fixture-mwdin7lw",
+          "colour": "0e8a16"
+        }
+      ],
+      "url": "https://git.cafe/oritwoen/forges-fixtures/issues/1",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "closedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    }
+  }
+]

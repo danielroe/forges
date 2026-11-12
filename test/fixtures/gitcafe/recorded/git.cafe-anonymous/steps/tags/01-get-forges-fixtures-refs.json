@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/refs?kind=tags&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [
+        {
+          "name": "v0.1.0",
+          "oid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+          "isHead": false,
+          "annotated": false,
+          "targetCommit": {
+            "oid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+            "summary": "chore: initial commit",
+            "committedAt": 1794485994,
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid"
+            }
+          },
+          "verification": null
+        }
+      ],
+      "next": null
+    }
+  }
+}

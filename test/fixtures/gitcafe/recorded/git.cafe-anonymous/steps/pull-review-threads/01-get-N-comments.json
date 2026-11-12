@@ -1,0 +1,89 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/comments/?filter=inline&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "prcomment_01m77w2pksfamberprvnmw9br7",
+          "threadId": "prcomment_01m77w2pksfamberprvnmw9br7",
+          "reviewId": null,
+          "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "author": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "body": "Should this trim first?",
+          "version": 2,
+          "createdAt": "2026-11-12T12:35:17.746Z",
+          "updatedAt": "2026-11-12T12:35:40.893Z",
+          "path": "whisper.ts",
+          "line": 1,
+          "side": "right",
+          "commitOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+          "startLine": null,
+          "startSide": null,
+          "providerAnchor": null,
+          "resolvedAt": null,
+          "hiddenAt": null,
+          "deletedAt": null,
+          "resolvedBy": null,
+          "capabilities": {
+            "edit": false,
+            "hide": false,
+            "unhide": false,
+            "delete": false,
+            "resolve": false,
+            "unresolve": false
+          }
+        },
+        {
+          "id": "prcomment_01m77w3bsneh6by4nmxw18bg21",
+          "threadId": "prcomment_01m77w2pksfamberprvnmw9br7",
+          "reviewId": null,
+          "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "author": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "body": "It should, yes.",
+          "version": 0,
+          "createdAt": "2026-11-12T12:35:39.437Z",
+          "updatedAt": "2026-11-12T12:35:39.437Z",
+          "path": "whisper.ts",
+          "line": 1,
+          "side": "right",
+          "commitOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+          "startLine": null,
+          "startSide": null,
+          "providerAnchor": null,
+          "resolvedAt": null,
+          "hiddenAt": null,
+          "deletedAt": null,
+          "resolvedBy": null,
+          "capabilities": {
+            "edit": false,
+            "hide": false,
+            "unhide": false,
+            "delete": false,
+            "resolve": false,
+            "unresolve": false
+          }
+        }
+      ],
+      "next": null
+    }
+  }
+}

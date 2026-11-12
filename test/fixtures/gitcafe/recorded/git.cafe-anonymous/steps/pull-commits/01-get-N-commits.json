@@ -1,0 +1,79 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "id": "pr_01m77w23wzenw9q9da0rrj2wmh",
+      "version": 2,
+      "headOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+      "baseOid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "comparisonBaseOid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+      "items": [
+        {
+          "oid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+          "tree": "222fb2e4b5f302ad03627c00dbe97ac40d5466ac",
+          "parents": [
+            "0fc89e9615acb01dfa5b1f4c87f8ce279b5bfde5"
+          ],
+          "parentCount": 1,
+          "message": "feat: add a pixel\n",
+          "summary": "feat: add a pixel",
+          "time": 1794486894,
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "timestamp": 1794486894,
+            "timezoneOffsetMinutes": 60
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "timestamp": 1794486894,
+            "timezoneOffsetMinutes": 60
+          },
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signer": null
+          }
+        },
+        {
+          "oid": "0fc89e9615acb01dfa5b1f4c87f8ce279b5bfde5",
+          "tree": "fb94e44d60fd334c47dcd88c94151358e09f1050",
+          "parents": [
+            "a0ac4199db6451399b7bc261cbbac67bead2d9e8"
+          ],
+          "parentCount": 1,
+          "message": "feat: whisper\n",
+          "summary": "feat: whisper",
+          "time": 1794485994,
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "timestamp": 1794485994,
+            "timezoneOffsetMinutes": 60
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid",
+            "timestamp": 1794485994,
+            "timezoneOffsetMinutes": 60
+          },
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signer": null
+          }
+        }
+      ],
+      "truncated": false,
+      "next": null
+    }
+  }
+}

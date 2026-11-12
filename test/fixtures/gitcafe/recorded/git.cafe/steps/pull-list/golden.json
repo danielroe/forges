@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "repo": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "kind": "pull_request",
+        "number": "3",
+        "externalId": "pr_01m77w23wzenw9q9da0rrj2wmh"
+      },
+      "kind": "pull_request",
+      "title": "Add a whisper",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      },
+      "assignees": [
+        {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "login": "oritwoen",
+          "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "name": "oritwoen",
+          "url": "https://git.cafe/oritwoen",
+          "typeRaw": "local",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://git.cafe/oritwoen/forges-fixtures/pull/3",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "milestone": {
+        "id": "milestone_01m77vcyctfsxa6mpqt8tavs55",
+        "title": "v1.0",
+        "state": "open"
+      },
+      "branches": {
+        "head": {
+          "ref": "feature/whisper",
+          "sha": "1790af8849634b6ee18ede8c649433b0f39f8178"
+        },
+        "base": {
+          "ref": "main"
+        }
+      },
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "changedFileCount": 2
+      }
+    }
+  ]
+}

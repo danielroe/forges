@@ -1,0 +1,53 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/comments/?filter=general&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "prcomment_01m77w5hrseh6by4phqg7dh0hj",
+          "threadId": "prcomment_01m77w5hrseh6by4phqg7dh0hj",
+          "reviewId": null,
+          "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "author": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "body": "A comment on the pull request, so the recordings have one to read.",
+          "version": 0,
+          "createdAt": "2026-11-12T12:36:51.090Z",
+          "updatedAt": "2026-11-12T12:36:51.090Z",
+          "path": null,
+          "line": null,
+          "side": null,
+          "commitOid": null,
+          "startLine": null,
+          "startSide": null,
+          "providerAnchor": null,
+          "resolvedAt": null,
+          "hiddenAt": null,
+          "deletedAt": null,
+          "resolvedBy": null,
+          "capabilities": {
+            "edit": false,
+            "hide": false,
+            "unhide": false,
+            "delete": false,
+            "resolve": false,
+            "unresolve": false
+          }
+        }
+      ],
+      "next": null
+    }
+  }
+}

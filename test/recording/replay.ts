@@ -9,6 +9,7 @@ import { cursorOrigin } from '../../src/cursor-origin/index.ts'
 import { entire } from '../../src/entire/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitbucket } from '../../src/gitbucket/index.ts'
+import { gitcafe } from '../../src/gitcafe/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
@@ -75,6 +76,14 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
       baseUrl: manifest.baseUrl!,
       instance: manifest.instance,
       webhookSecret: manifest.webhookSecret,
+      fetch,
+    }),
+  },
+  {
+    name: 'gitcafe',
+    create: (fetch, manifest) => gitcafe({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
       fetch,
     }),
   },

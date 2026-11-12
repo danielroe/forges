@@ -202,6 +202,15 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'gitcafe': {
+    TOKEN: [
+      {
+        text: 'Create a personal access token under **Settings > Tokens** on GitCafe, and choose the permissions it needs. Tokens start with `gct_` and always expire.',
+        sources: ['https://git.cafe/docs/account/personal-access-tokens.md'],
+        verified: '2026-11-12',
+      },
+    ],
+  },
   'cloudflare-artifacts': {
     TOKEN: [
       {

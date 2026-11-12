@@ -1,0 +1,90 @@
+{
+  "items": [
+    {
+      "id": "prcomment_01m77w2pksfamberprvnmw9br7",
+      "resolved": false,
+      "path": "whisper.ts",
+      "line": 1,
+      "side": "right",
+      "comments": [
+        {
+          "ref": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "thread": {
+              "forge": "gitcafe",
+              "instance": "git.cafe",
+              "repo": {
+                "forge": "gitcafe",
+                "instance": "git.cafe",
+                "owner": "oritwoen",
+                "name": "forges-fixtures"
+              },
+              "kind": "pull_request",
+              "number": "3"
+            },
+            "id": "prcomment_01m77w2pksfamberprvnmw9br7"
+          },
+          "body": "Should this trim first?",
+          "author": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "login": "oritwoen",
+            "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "name": "oritwoen",
+            "url": "https://git.cafe/oritwoen",
+            "typeRaw": "local",
+            "isBotHint": false
+          },
+          "path": "whisper.ts",
+          "line": 1,
+          "side": "right",
+          "thread": {
+            "id": "prcomment_01m77w2pksfamberprvnmw9br7",
+            "resolved": false
+          },
+          "createdAt": "<now>"
+        },
+        {
+          "ref": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "thread": {
+              "forge": "gitcafe",
+              "instance": "git.cafe",
+              "repo": {
+                "forge": "gitcafe",
+                "instance": "git.cafe",
+                "owner": "oritwoen",
+                "name": "forges-fixtures"
+              },
+              "kind": "pull_request",
+              "number": "3"
+            },
+            "id": "prcomment_01m77w3bsneh6by4nmxw18bg21"
+          },
+          "body": "It should, yes.",
+          "author": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "login": "oritwoen",
+            "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "name": "oritwoen",
+            "url": "https://git.cafe/oritwoen",
+            "typeRaw": "local",
+            "isBotHint": false
+          },
+          "path": "whisper.ts",
+          "line": 1,
+          "side": "right",
+          "inReplyTo": "prcomment_01m77w2pksfamberprvnmw9br7",
+          "thread": {
+            "id": "prcomment_01m77w2pksfamberprvnmw9br7",
+            "resolved": false
+          },
+          "createdAt": "<now>"
+        }
+      ]
+    }
+  ]
+}

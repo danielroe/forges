@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/webhooks/whep_01m77vej8geh6by4jes96592rb/deliveries?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "whdlv_01m77w20qhfjwvh5grgz6yg914",
+          "endpointId": "whep_01m77vej8geh6by4jes96592rb",
+          "eventId": "evt_01m77w20pxfesb6p7abt687aps",
+          "eventCreatedAt": "2026-11-12T12:34:55.333Z",
+          "eventType": "git.push",
+          "deliveryOrdinal": 0,
+          "state": "failed",
+          "attempts": 1,
+          "nextAttemptAt": "2026-11-12T12:34:55.304Z",
+          "lastHttpStatus": 405,
+          "deliveredAt": null,
+          "lastErrorCategory": "receiver-rejected",
+          "createdAt": "2026-11-12T12:34:55.304Z",
+          "updatedAt": "2026-11-12T12:34:55.560Z"
+        },
+        {
+          "id": "whdlv_01m77vek3fens99r8djwmgz9jr",
+          "endpointId": "whep_01m77vej8geh6by4jes96592rb",
+          "eventId": "evt_01m77vek38eh6by4jp7gcgzxrs",
+          "eventCreatedAt": "2026-11-12T12:24:18.792Z",
+          "eventType": "issue.comment_created",
+          "deliveryOrdinal": 0,
+          "state": "failed",
+          "attempts": 1,
+          "nextAttemptAt": "2026-11-12T12:24:18.697Z",
+          "lastHttpStatus": 405,
+          "deliveredAt": null,
+          "lastErrorCategory": "receiver-rejected",
+          "createdAt": "2026-11-12T12:24:18.697Z",
+          "updatedAt": "2026-11-12T12:24:19.427Z"
+        }
+      ],
+      "next": null
+    }
+  }
+}

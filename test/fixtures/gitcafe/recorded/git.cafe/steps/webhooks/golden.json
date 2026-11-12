@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "target": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "id": "whep_01m77vej8geh6by4jes96592rb"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "comment",
+        "push"
+      ],
+      "nativeEvents": [
+        "issue.comment_created",
+        "git.push"
+      ],
+      "active": true,
+      "contentType": "json",
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    }
+  ]
+}

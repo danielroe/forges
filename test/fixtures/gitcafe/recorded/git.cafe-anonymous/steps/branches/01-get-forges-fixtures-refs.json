@@ -1,0 +1,65 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/refs?kind=branches&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [
+        {
+          "name": "feature/shout",
+          "oid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+          "isHead": false,
+          "annotated": false,
+          "targetCommit": {
+            "oid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+            "summary": "feat: shout",
+            "committedAt": 1794485994,
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid"
+            }
+          },
+          "verification": null
+        },
+        {
+          "name": "feature/whisper",
+          "oid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+          "isHead": false,
+          "annotated": false,
+          "targetCommit": {
+            "oid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+            "summary": "feat: add a pixel",
+            "committedAt": 1794486894,
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid"
+            }
+          },
+          "verification": null
+        },
+        {
+          "name": "main",
+          "oid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+          "isHead": true,
+          "annotated": false,
+          "targetCommit": {
+            "oid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+            "summary": "ci: add a workflow",
+            "committedAt": 1794486256,
+            "author": {
+              "name": "forges fixtures",
+              "email": "redacted@example.invalid"
+            }
+          },
+          "verification": null
+        }
+      ],
+      "next": null
+    }
+  }
+}

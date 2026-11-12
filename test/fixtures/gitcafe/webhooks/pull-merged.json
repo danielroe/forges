@@ -1,0 +1,37 @@
+{
+  "id": "evt_01m77vf0merge000000000000a",
+  "type": "pull.merged",
+  "version": "1",
+  "createdAt": "2026-11-12T12:21:22.046Z",
+  "actor": {
+    "id": "act_01m77tsdh0fbytmstyew2n3x7f"
+  },
+  "repository": {
+    "id": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+    "orgId": "org_01m77tsdhge0e85929eh1wf7z0",
+    "owner": "oritwoen",
+    "name": "forges-fixtures"
+  },
+  "pull": {
+    "id": "pr_01m77v8rbyfmzt9st98j96php9",
+    "number": 2,
+    "title": "forges probe pull",
+    "state": "merged",
+    "draft": false,
+    "description": "Opened by the forges probe.",
+    "version": 7,
+    "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+    "sourceRepoId": null,
+    "sourceBranch": "feature/shout",
+    "targetBranch": "main",
+    "headOid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+    "observedBaseOid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+    "lockReason": null
+  },
+  "merge": {
+    "strategy": "squash",
+    "sourceOid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+    "targetOidBefore": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+    "resultOid": "ee27a73933a3461c76a163e552677fff74df20b0"
+  }
+}
