@@ -498,6 +498,79 @@ describe('gitcafe reads', () => {
     })
   })
 
+  it('matches the outcome of a run on the page, since the forge filters only by completion', async () => {
+    const run = (id: string, status: string, conclusion: string | null) => ({
+      id,
+      runNumber: 1,
+      workflowName: 'ci',
+      event: 'push',
+      ref: 'refs/heads/main',
+      headOid: 'a'.repeat(40),
+      status,
+      conclusion,
+      actor: null,
+      createdAt: '2026-11-12T12:00:00.000Z',
+      startedAt: null,
+      completedAt: null,
+    })
+    const { forge, calls } = provider({
+      [`GET ${base}/actions/runs?status=completed`]: {
+        status: 200,
+        body: {
+          items: [
+            run('run_1', 'completed', 'success'),
+            run('run_2', 'completed', 'failure'),
+          ],
+          next: null,
+        },
+      },
+      [`GET ${base}/actions/runs`]: {
+        status: 200,
+        body: {
+          items: [
+            run('run_3', 'running', null),
+            run('run_1', 'completed', 'success'),
+          ],
+          next: null,
+        },
+      },
+    })
+    const failed = await forge.ci.runs(repo, { state: 'failure' }).page()
+    const pending = await forge.ci.runs(repo, { state: 'pending' }).page()
+
+    expect(failed.items.map(item => [item.ref.id, item.state, item.branch])).toEqual([
+      ['run_2', 'failure', 'main'],
+    ])
+    expect(pending.items.map(item => item.ref.id)).toEqual(['run_3'])
+    expect(calls.map(call => new URL(call.url).search)).toEqual(['?status=completed', ''])
+  })
+
+  it('reports a commit status with the link in `target_url`', async () => {
+    const { forge, calls } = provider({
+      [`POST ${base}/statuses/${'a'.repeat(40)}`]: {
+        status: 201,
+        body: {
+          id: 'cstatus_1',
+          context: 'ci/test',
+          state: 'success',
+          description: null,
+          targetUrl: 'https://example.com/run',
+          createdAt: '2026-11-12T12:00:00.000Z',
+          updatedAt: '2026-11-12T12:00:00.000Z',
+        },
+      },
+    })
+    const check = await forge.checks.report(repo, 'a'.repeat(40), { name: 'ci/test', state: 'success', url: 'https://example.com/run' })
+
+    expect(JSON.parse(calls[0]!.body!)).toEqual({ context: 'ci/test', state: 'success', target_url: 'https://example.com/run' })
+    expect(check).toMatchObject({
+      name: 'ci/test',
+      state: 'success',
+      url: 'https://example.com/run',
+      ref: { type: 'status' },
+    })
+  })
+
   it('tries a bare revision as a branch first and as a tag second', async () => {
     const missing = {
       status: 404,

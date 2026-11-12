@@ -194,13 +194,13 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
     }))
   }
 
-  function pullsPage(repo: RepoRef, query: ThreadQuery, state: string | undefined, cursor?: Cursor): Promise<Page<Thread>> {
-    return listed(`${repoPath(repo)}/pulls/`, { ...query, cursor }, (raw: GitCafePull) => wanted(query)(toPullThread(site, threadRef(repo, 'pull_request', raw.number), raw)), {
+  async function pullsPage(repo: RepoRef, query: ThreadQuery, state: string | undefined, cursor?: Cursor): Promise<Page<Thread>> {
+    return withoutTotal(query, await listed(`${repoPath(repo)}/pulls/`, { ...query, cursor }, (raw: GitCafePull) => wanted(query)(toPullThread(site, threadRef(repo, 'pull_request', raw.number), raw)), {
       state,
       sort: query.direction === 'asc'
         ? 'oldest'
         : 'newest',
-    })
+    }))
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
@@ -798,6 +798,7 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
             context: input.name,
             state: input.state,
             description: input.description,
+            // The one field that this API spells in snake case; the response has it as `targetUrl`.
             target_url: input.url,
           },
           signal: writeOptions?.signal,
@@ -806,11 +807,17 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
       }),
     },
     ci: {
-      runsPage: verb(true, (repo, query = {}) => listed(`${repoPath(repo)}/actions/runs`, query, (raw: GitCafeRun) => toRun(site, repo, raw), {
+      // GitCafe filters runs by whether they finished, not by how, so the outcome is matched on the page.
+      runsPage: verb(true, (repo, query = {}) => listed(`${repoPath(repo)}/actions/runs`, query, (raw: GitCafeRun) => {
+        const run = toRun(site, repo, raw)
+        return !query.state || run.state === query.state
+          ? run
+          : undefined
+      }, {
         branch: query.branch,
-        status: query.state === 'pending'
-          ? undefined
-          : query.state && 'completed',
+        status: query.state && query.state !== 'pending'
+          ? 'completed'
+          : undefined,
       })),
     },
     contents: {
