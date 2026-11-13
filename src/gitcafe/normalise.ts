@@ -43,8 +43,8 @@ const REVIEW_STATES: Record<GitCafeReview['verdict'], ReviewState> = {
 }
 
 /** A heart arrives with or without its variation selector, and both are the same reaction. */
-function stripVariation(emoji: string): string {
-  return emoji.replaceAll('️', '')
+export function stripVariation(emoji: string): string {
+  return emoji.replaceAll('\uFE0F', '')
 }
 
 function absolute(site: Site, path: string | null | undefined): string | undefined {
