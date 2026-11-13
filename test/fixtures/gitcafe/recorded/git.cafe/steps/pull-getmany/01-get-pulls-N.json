@@ -1,0 +1,75 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"pr1-0d1358336617a6913ab29353fe49373f\"",
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "id": "pr_01m77w23wzenw9q9da0rrj2wmh",
+      "number": 3,
+      "title": "Add a whisper",
+      "state": "open",
+      "draft": false,
+      "createdAt": "2026-11-12T12:34:58.462Z",
+      "author": {
+        "kind": "local",
+        "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "handle": "oritwoen",
+        "displayName": "oritwoen",
+        "avatarUrl": null
+      },
+      "sourceBranch": "feature/whisper",
+      "targetBranch": "main",
+      "headOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+      "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "updatedAt": "2026-11-12T12:35:00.426Z",
+      "version": 2,
+      "additions": 1,
+      "deletions": 0,
+      "changedFiles": 2,
+      "description": "A pull request that stays open, so the recordings have one to read.",
+      "repoId": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+      "sourceRepoId": null,
+      "sourceRepo": null,
+      "isCrossFork": false,
+      "observedBaseOid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "mergeSourceOid": null,
+      "mergeTargetOidBefore": null,
+      "mergeResultOid": null,
+      "providerMerge": null,
+      "authorDelegatorActorId": null,
+      "authorViaInstallationId": null,
+      "closedByViaInstallationId": null,
+      "mergedByDelegatorActorId": null,
+      "mergedByViaInstallationId": null,
+      "lockedByActorId": null,
+      "milestoneId": "milestone_01m77vcyctfsxa6mpqt8tavs55",
+      "closedAt": null,
+      "mergedAt": null,
+      "lockedAt": null,
+      "lockReason": null,
+      "closedByActorId": null,
+      "closedByDelegatorActorId": null,
+      "mergedByActorId": null,
+      "github": null,
+      "capabilities": {
+        "edit": true,
+        "moderate": true,
+        "review": true,
+        "requestReviewers": true,
+        "manageAssignees": true,
+        "manageLabels": true,
+        "manageMilestone": true,
+        "merge": true,
+        "comment": true
+      },
+      "mergeRoute": "native",
+      "viewerActorId": "act_01m77tsdh0fbytmstyew2n3x7f"
+    }
+  }
+}

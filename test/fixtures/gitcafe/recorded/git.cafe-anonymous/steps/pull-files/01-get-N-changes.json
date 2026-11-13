@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/changes?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"pc1-b67a8ba664a8313544c265462322f7dd\"",
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "id": "pr_01m77w23wzenw9q9da0rrj2wmh",
+      "version": 2,
+      "headOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+      "baseOid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "comparisonBaseOid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+      "items": [
+        {
+          "path": "pixel.png",
+          "oldPath": null,
+          "status": "added"
+        },
+        {
+          "path": "whisper.ts",
+          "oldPath": null,
+          "status": "added"
+        }
+      ],
+      "next": null
+    }
+  }
+}

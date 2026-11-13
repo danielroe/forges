@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/reactions/?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "subject": {
+            "kind": "pull_request",
+            "id": "pr_01m77w23wzenw9q9da0rrj2wmh"
+          },
+          "emoji": {
+            "kind": "unicode",
+            "value": "👀"
+          },
+          "count": 1,
+          "viewerReactionId": "reaction_01m77w2859ehgbm0vtw8gtvc7y",
+          "reactors": [
+            {
+              "kind": "local",
+              "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+              "handle": "oritwoen",
+              "displayName": "oritwoen",
+              "avatarUrl": null
+            }
+          ]
+        }
+      ],
+      "next": null
+    }
+  }
+}

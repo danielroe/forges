@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "id": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+      "name": "forges-fixtures",
+      "visibility": "public",
+      "owner": "oritwoen",
+      "canReadSettings": false,
+      "description": "Scratch repository for the forges provider tests",
+      "homepage": null,
+      "topics": [],
+      "defaultBranch": "main",
+      "version": 0,
+      "archivedAt": null,
+      "createdAt": "2026-11-12T12:19:50.319Z",
+      "updatedAt": "2026-11-12T12:36:51.190Z",
+      "parent": null
+    }
+  }
+}

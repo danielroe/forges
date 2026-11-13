@@ -7,6 +7,7 @@ import { cursorOrigin } from './cursor-origin/index.ts'
 import { entire } from './entire/index.ts'
 import { forgejo } from './forgejo/index.ts'
 import { gitbucket } from './gitbucket/index.ts'
+import { gitcafe } from './gitcafe/index.ts'
 import { gitea } from './gitea/index.ts'
 import { gitee } from './gitee/index.ts'
 import { github } from './github/index.ts'
@@ -31,6 +32,7 @@ const KINDS = [
   'SOURCEHUT',
   'ENTIRE',
   'GITBUCKET',
+  'GITCAFE',
 ] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
@@ -346,6 +348,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
       const create = {
         GITLAB: gitlab,
         FORGEJO: forgejo,
+        GITCAFE: gitcafe,
         GITEA: gitea,
         GITEE: gitee,
         PUSHIN: pushin,

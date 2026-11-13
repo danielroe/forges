@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/milestone?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "milestone_01m77vcyctfsxa6mpqt8tavs55",
+          "number": 1,
+          "title": "v1.0",
+          "state": "open"
+        }
+      ],
+      "next": null
+    }
+  }
+}

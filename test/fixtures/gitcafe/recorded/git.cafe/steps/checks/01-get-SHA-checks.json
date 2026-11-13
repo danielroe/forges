@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/commits/1790af8849634b6ee18ede8c649433b0f39f8178/checks?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "commitOid": "1790af8849634b6ee18ede8c649433b0f39f8178",
+      "items": [],
+      "next": null,
+      "summary": {
+        "state": "none",
+        "total": 0,
+        "pending": 0,
+        "failing": 0,
+        "successful": 0
+      }
+    }
+  }
+}

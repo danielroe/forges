@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/3/assignees?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "actor": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "handle": "oritwoen",
+          "displayName": "oritwoen",
+          "avatarUrl": null,
+          "assignedBy": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "assignedAt": "2026-11-12T12:34:59.208152+00:00",
+          "available": true
+        }
+      ],
+      "next": null
+    }
+  }
+}

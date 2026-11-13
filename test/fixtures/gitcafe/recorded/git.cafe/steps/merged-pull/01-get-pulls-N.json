@@ -1,0 +1,75 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"pr1-43a67b099d9b6cbf246e4f3ec620b8d9\"",
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "id": "pr_01m77v8rbyfmzt9st98j96php9",
+      "number": 2,
+      "title": "forges probe pull",
+      "state": "merged",
+      "draft": false,
+      "createdAt": "2026-11-12T12:21:07.446Z",
+      "author": {
+        "kind": "local",
+        "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "handle": "oritwoen",
+        "displayName": "oritwoen",
+        "avatarUrl": null
+      },
+      "sourceBranch": "feature/shout",
+      "targetBranch": "main",
+      "headOid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+      "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "updatedAt": "2026-11-12T12:21:22.046Z",
+      "version": 7,
+      "additions": 1,
+      "deletions": 0,
+      "changedFiles": 1,
+      "description": "Opened by the forges probe.",
+      "repoId": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+      "sourceRepoId": null,
+      "sourceRepo": null,
+      "isCrossFork": false,
+      "observedBaseOid": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+      "mergeSourceOid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+      "mergeTargetOidBefore": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+      "mergeResultOid": "ee27a73933a3461c76a163e552677fff74df20b0",
+      "providerMerge": null,
+      "authorDelegatorActorId": null,
+      "authorViaInstallationId": null,
+      "closedByViaInstallationId": null,
+      "mergedByDelegatorActorId": null,
+      "mergedByViaInstallationId": null,
+      "lockedByActorId": null,
+      "milestoneId": null,
+      "closedAt": null,
+      "mergedAt": "2026-11-12T12:21:22.046Z",
+      "lockedAt": null,
+      "lockReason": null,
+      "closedByActorId": null,
+      "closedByDelegatorActorId": null,
+      "mergedByActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "github": null,
+      "capabilities": {
+        "edit": true,
+        "moderate": true,
+        "review": true,
+        "requestReviewers": true,
+        "manageAssignees": true,
+        "manageLabels": true,
+        "manageMilestone": true,
+        "merge": true,
+        "comment": true
+      },
+      "mergeRoute": "native",
+      "viewerActorId": "act_01m77tsdh0fbytmstyew2n3x7f"
+    }
+  }
+}

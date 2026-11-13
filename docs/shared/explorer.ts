@@ -653,6 +653,28 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
       head: 'fix-empty-config',
     }),
   },
+  {
+    name: 'GitCafe',
+    factory: 'gitcafe',
+    module: 'gitcafe',
+    load: () => import('forges/gitcafe'),
+    forge: 'gitcafe',
+    instance: 'git.cafe',
+    credentials: [
+      token('GITCAFE_TOKEN'),
+    ],
+    // The scratch repository the recordings read.
+    sample: sample({
+      owner: 'oritwoen',
+      name: 'forges-fixtures',
+      number: '2',
+      login: 'oritwoen',
+      sha: 'f9ded61df8c3a2957a7d0ea47e9172e3f4e39460',
+      tag: 'v0.1.0',
+      base: 'main',
+      head: 'feature/whisper',
+    }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */
