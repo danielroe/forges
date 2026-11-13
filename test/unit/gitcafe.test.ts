@@ -110,6 +110,42 @@ describe('gitcafe webhooks', () => {
     expect(await verifyGitCafeSignature(stale, SECRET)).toBe(false)
   })
 
+  it('refuses a delivery dated in the future', async () => {
+    const early = await signed('{}', Date.now() + 360_000)
+
+    expect(await verifyGitCafeSignature(early, SECRET)).toBe(false)
+  })
+
+  it('refuses a delivery whose timestamp is not whole seconds', async () => {
+    const delivery = await signed('{}')
+
+    expect(await verifyGitCafeSignature({
+      ...delivery,
+      headers: { ...delivery.headers, 'x-gitcafe-timestamp': `${delivery.headers['x-gitcafe-timestamp']}.5` },
+    }, SECRET)).toBe(false)
+  })
+
+  it('refuses a delivery that carries a timestamp but no signature', async () => {
+    const { headers, body } = await signed('{}')
+
+    expect(await verifyGitCafeSignature({
+      headers: { 'x-gitcafe-timestamp': headers['x-gitcafe-timestamp'] },
+      body,
+    }, SECRET)).toBe(false)
+  })
+
+  it('refuses a signature that is not a sha256 digest', async () => {
+    const { headers, body } = await signed('{}')
+
+    expect(await verifyGitCafeSignature({
+      headers: {
+        ...headers,
+        'x-gitcafe-signature': headers['x-gitcafe-signature'].replace('sha256=', ''),
+      },
+      body,
+    }, SECRET)).toBe(false)
+  })
+
   it('translates a comment that git.cafe delivered', async () => {
     const { forge } = provider({})
     const [event, ...rest] = await forge.webhooks.ingest(await signed(payloadFixture('gitcafe', 'webhooks/issue-comment-created')))
@@ -423,6 +459,15 @@ describe('gitcafe writes', () => {
   })
 })
 
+describe('gitcafe webhook management', () => {
+  it('refuses to rotate the secret of a webhook', async () => {
+    const { forge, calls } = provider({})
+
+    await expect(forge.webhooks.update({ ...origin, target: repo, id: 'hook_1' }, { secret: 'rotated' })).rejects.toBeInstanceOf(UnsupportedOperationError)
+    expect(calls).toEqual([])
+  })
+})
+
 describe('gitcafe reads', () => {
   it('lists merged pull requests after the closed ones', async () => {
     const page = (number: number, state: string) => ({
@@ -455,6 +500,16 @@ describe('gitcafe reads', () => {
       ['2', 'merged'],
     ])
     expect(calls).toHaveLength(2)
+  })
+
+  it('warns that pull requests cannot be sorted by their last update', async () => {
+    const { forge, calls } = provider({
+      [`GET ${base}/pulls/?state=open&sort=newest`]: empty,
+    })
+    const page = await forge.threads.list(repo, { kind: 'pull_request', sort: 'updated' }).page()
+
+    expect(page.warnings?.map(warning => warning.code)).toEqual(['sort_unsupported'])
+    expect(calls.map(call => new URL(call.url).search)).toEqual(['?state=open&sort=newest'])
   })
 
   it('matches labels on the page and leaves the forge\'s total out', async () => {

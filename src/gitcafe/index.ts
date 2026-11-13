@@ -11,7 +11,7 @@ import { MergeBlockedError, MergeConflictError, NotFoundError, UnsupportedOperat
 import { eventTime } from '../events.ts'
 import { getManyConcurrently, hasEveryLabel, phased, rateLimitPart, requireIssueOrPull, resolveToken } from '../utils.ts'
 import { nativeEventsFor } from '../webhooks.ts'
-import { FORGE, REACTION_EMOJI, toBranch, toChangedFile, toCheck, toCollaborator, toCommit, toDelivery, toIssueComment, toIssueThread, toLabel, toMembers, toMilestone, toPullComment, toPullThread, toReactions, toRepo, toReview, toReviewComment, toReviewThreads, toRun, toStatusCheck, toTag, toTreeEntry, toUser, toWebhook } from './normalise.ts'
+import { FORGE, REACTION_EMOJI, stripVariation, toBranch, toChangedFile, toCheck, toCollaborator, toCommit, toDelivery, toIssueComment, toIssueThread, toLabel, toMembers, toMilestone, toPullComment, toPullThread, toReactions, toRepo, toReview, toReviewComment, toReviewThreads, toRun, toStatusCheck, toTag, toTreeEntry, toUser, toWebhook } from './normalise.ts'
 import { GITCAFE_WEB } from './web.ts'
 import { GITCAFE_NATIVE_EVENTS } from './webhook-events.ts'
 import { gitcafeWebhooks } from './webhooks.ts'
@@ -195,12 +195,22 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
   }
 
   async function pullsPage(repo: RepoRef, query: ThreadQuery, state: string | undefined, cursor?: Cursor): Promise<Page<Thread>> {
-    return withoutTotal(query, await listed(`${repoPath(repo)}/pulls/`, { ...query, cursor }, (raw: GitCafePull) => wanted(query)(toPullThread(site, threadRef(repo, 'pull_request', raw.number), raw)), {
+    const page = withoutTotal(query, await listed(`${repoPath(repo)}/pulls/`, { ...query, cursor }, (raw: GitCafePull) => wanted(query)(toPullThread(site, threadRef(repo, 'pull_request', raw.number), raw)), {
       state,
       sort: query.direction === 'asc'
         ? 'oldest'
         : 'newest',
     }))
+    // Pull requests are only ordered by when they were opened; `updated` is refused by the forge.
+    return query.sort === 'updated'
+      ? {
+          ...page,
+          warnings: [
+            ...page.warnings ?? [],
+            { code: 'sort_unsupported', message: 'GitCafe orders pull requests by when they were opened; the sort was ignored' },
+          ],
+        }
+      : page
   }
 
   async function listPage(repo: RepoRef, query: ThreadQuery = {}): Promise<Page<Thread>> {
@@ -682,8 +692,8 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
         },
         unreact: async (target, reaction: ReactionContent, writeOptions) => {
           const { ref, groups } = await reactionGroups(target, writeOptions?.signal)
-          const emoji = REACTION_EMOJI[reaction].replaceAll('️', '')
-          const mine = groups.find(group => group.emoji.kind === 'unicode' && group.emoji.value.replaceAll('️', '') === emoji)?.viewerReactionId
+          const emoji = stripVariation(REACTION_EMOJI[reaction])
+          const mine = groups.find(group => group.emoji.kind === 'unicode' && stripVariation(group.emoji.value) === emoji)?.viewerReactionId
           if (mine) {
             await fetcher.raw(`${threadPath(ref)}/reactions/${encodeURIComponent(mine)}`, { method: 'DELETE', signal: writeOptions?.signal })
           }
@@ -884,18 +894,23 @@ function setupGitCafe({ options, instance, origin: context, fetcher, baseUrl }: 
         },
         signal: writeOptions?.signal,
       })).data.endpoint)),
-      update: verb('unverified', async (ref, update, writeOptions) => toWebhook(ref.target, (await fetcher.json<GitCafeWebhook>(`${hookPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
-        method: 'PATCH',
-        json: {
-          expectedVersion: await hookVersion(ref, writeOptions?.signal),
-          url: update.url,
-          events: update.events || update.nativeEvents
-            ? nativeEventsFor(GITCAFE_NATIVE_EVENTS, update.events, update.nativeEvents)
-            : undefined,
-          active: update.active,
-        },
-        signal: writeOptions?.signal,
-      })).data)),
+      update: verb('unverified', async (ref, update, writeOptions) => {
+        if (update.secret !== undefined) {
+          throw new UnsupportedOperationError('GitCafe webhook secrets cannot be rotated; delete the webhook and create it again with the new secret', context)
+        }
+        return toWebhook(ref.target, (await fetcher.json<GitCafeWebhook>(`${hookPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
+          method: 'PATCH',
+          json: {
+            expectedVersion: await hookVersion(ref, writeOptions?.signal),
+            url: update.url,
+            events: update.events || update.nativeEvents
+              ? nativeEventsFor(GITCAFE_NATIVE_EVENTS, update.events, update.nativeEvents)
+              : undefined,
+            active: update.active,
+          },
+          signal: writeOptions?.signal,
+        })).data)
+      }),
       delete: verb('unverified', async (ref, writeOptions) => {
         await fetcher.raw(`${hookPath(ref.target)}/${encodeURIComponent(ref.id)}`, {
           method: 'DELETE',
