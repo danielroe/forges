@@ -146,10 +146,6 @@ const DATA_MODEL_SECTIONS: SectionConfig[] = [
     title: 'Notifications and events',
     names: [/^(?:Notification|BulkNotification|ForgeEvent|Event|PushCommit|SourceKind|StreamOptions|StreamItem)/],
   },
-  {
-    title: 'Dates',
-    names: ['reviveDates', 'DATE_FIELDS'],
-  },
 ]
 
 export const OVERVIEW_INTRO = '`forges` is one client for every forge. You create a provider for each forge that you use, call the same operations on all of them, such as `provider.threads.merge()`, and get the same objects back.'

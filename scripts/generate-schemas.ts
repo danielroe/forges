@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createGenerator } from 'ts-json-schema-generator'
-import { BYTES_SCHEMA, isRecord, refs, sortByKey, tidyDescriptions } from './schema/json.ts'
+import { isRecord, refs, sortByKey, tidyDescriptions, wireSchema } from './schema/json.ts'
 import { generateVerbSignatures } from './schema/verbs.ts'
 
 /** Model types a schema is generated for; their dependencies are included. */
@@ -80,23 +80,6 @@ function rewriteRefs(value: Json, prefix: string): Json {
   ]))
 }
 
-function replaceByteArrays(value: Json): Json {
-  if (Array.isArray(value)) {
-    return value.map(replaceByteArrays)
-  }
-  if (!isRecord(value)) {
-    return value
-  }
-  const { properties } = value
-  if (isRecord(properties) && 'BYTES_PER_ELEMENT' in properties) {
-    return BYTES_SCHEMA
-  }
-  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
-    key,
-    replaceByteArrays(item),
-  ]))
-}
-
 /** `name` and its transitive dependencies. */
 function dependenciesOf(name: string, models: Record<string, Schema>): string[] {
   const found = new Set<string>()
@@ -132,7 +115,7 @@ function generateModels(): Record<string, Schema> {
   return sortByKey(Object.fromEntries(Object.entries(definitions).map(([name, definition]) => [
     name,
     {
-      ...rewriteRefs(tidyDescriptions(replaceByteArrays(definition)), '#/components/schemas/') as Schema,
+      ...rewriteRefs(tidyDescriptions(wireSchema(definition)), '#/components/schemas/') as Schema,
       'x-forges-type': name,
     },
   ])))

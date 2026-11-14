@@ -22,8 +22,44 @@ export const STREAM_SCHEMA: Schema = {
   description: 'The bytes, as `application/octet-stream`.',
 }
 
+export const DATE_SCHEMA: Schema = {
+  type: 'object',
+  properties: {
+    $date: { type: 'string', format: 'date-time' },
+  },
+  required: ['$date'],
+  additionalProperties: false,
+  description: 'Date, as `{ "$date": "<ISO 8601>" }`.',
+}
+
 export function isRecord(value: Json | undefined): value is Schema {
   return !!value && typeof value === 'object' && !Array.isArray(value)
+}
+
+/** Replaces the generator's `Date` and `Uint8Array` schemas with their wire tags. */
+export function wireSchema(value: Json): Json {
+  if (Array.isArray(value)) {
+    return value.map(wireSchema)
+  }
+  if (!isRecord(value)) {
+    return value
+  }
+  if (value.type === 'string' && value.format === 'date-time') {
+    return {
+      ...DATE_SCHEMA,
+      ...(typeof value.description === 'string'
+        ? { description: value.description }
+        : {}),
+    }
+  }
+  const { properties } = value
+  if (isRecord(properties) && 'BYTES_PER_ELEMENT' in properties) {
+    return BYTES_SCHEMA
+  }
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    wireSchema(item),
+  ]))
 }
 
 /** Every OpenAPI component a schema references. */

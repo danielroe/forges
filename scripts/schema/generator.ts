@@ -2,7 +2,7 @@ import type { BaseType, ChainNodeParser, Definition, SubNodeParser, SubTypeForma
 import type { Schema } from './json.ts'
 import { BaseType as Base, Context, createFormatter, createParser, DEFAULT_CONFIG, NeverType, SchemaGenerator } from 'ts-json-schema-generator'
 import ts from 'typescript'
-import { BYTES_SCHEMA, STREAM_SCHEMA } from './json.ts'
+import { STREAM_SCHEMA } from './json.ts'
 
 /** Symbols the wire maps: listings, their page, and the live provider. */
 export interface ForgesTypes {
@@ -13,7 +13,6 @@ export interface ForgesTypes {
 }
 
 const WIRE_SCHEMAS = {
-  bytes: BYTES_SCHEMA,
   opaque: { type: 'object' } as Schema,
   stream: STREAM_SCHEMA,
 }
@@ -60,11 +59,9 @@ class WireTypes implements SubNodeParser, SubTypeFormatter {
       return this.chain.createType(this.forges.page as never, page)
     }
     const name = this.lib(node)
-    return name === 'Uint8Array'
-      ? new WireType('bytes')
-      : name === 'ReadableStream'
-        ? new WireType('stream')
-        : new NeverType()
+    return name === 'ReadableStream'
+      ? new WireType('stream')
+      : new NeverType()
   }
 
   supportsType(type: BaseType): boolean {
@@ -94,7 +91,10 @@ class WireTypes implements SubNodeParser, SubTypeFormatter {
 
   private lib(node: ts.Node): string | undefined {
     return ts.isTypeReferenceNode(node)
-      ? ['Uint8Array', 'ReadableStream', 'AbortSignal'].find(name => isLib(this.program, node, name))
+      ? [
+          'ReadableStream',
+          'AbortSignal',
+        ].find(name => isLib(this.program, node, name))
       : undefined
   }
 }
