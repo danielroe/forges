@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a2ad3e8fdbecc30778f577eae9d2201fdbe667f4\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999826",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "type": "file",
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+      "size": 104,
+      "encoding": "base64",
+      "content": "IyBmb3JnZXMtZml4dHVyZXMKCkEgc2NyYXRjaCByZXBvc2l0b3J5IGZvciB0\naGUgcmVjb3JkaW5ncyBvZiB0aGUgZm9yZ2VzIGxpYnJhcnkgKGh0dHBzOi8v\nZm9yZ2VzLmxpbmspLgo=\n",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/README.md?ref=main",
+      "git_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/README.md",
+      "download_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/README.md?ref=main",
+      "_links": {
+        "self": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/README.md?ref=main",
+        "git": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+        "html": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/README.md"
+      }
+    }
+  }
+}

@@ -653,6 +653,29 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
       head: 'fix-empty-config',
     }),
   },
+  {
+    name: 'Upstream',
+    factory: 'upstream',
+    module: 'upstream',
+    load: () => import('forges/upstream'),
+    forge: 'upstream',
+    instance: 'upstream.codes',
+    credentials: [
+      token('UPSTREAM_TOKEN'),
+    ],
+    // The scratch repository the recordings read, as Upstream's public repositories have no change requests yet.
+    sample: sample({
+      owner: 'upstream_forges_bot',
+      name: 'forges-fixtures',
+      number: '2',
+      login: 'upstream_forges_bot',
+      tag: 'forges-seed-v1',
+      releaseId: '2624562683860212',
+      sha: '9fcb176dae722fffca2a17c8951296f6ac946856',
+      base: '5688494516e0dfcc4fb2ed031e0b84979326f0e1',
+      head: 'main',
+    }),
+  },
 ]
 
 /** The refs a call takes, built from the form. */

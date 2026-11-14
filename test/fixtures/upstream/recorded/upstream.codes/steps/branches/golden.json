@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "name": "forges-seed",
+      "sha": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+      "isProtected": null
+    },
+    {
+      "name": "main",
+      "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "isProtected": null
+    }
+  ],
+  "etag": "W/\"7ed650240912cfbe95270b5b9cda974435f1aa20\"",
+  "rateLimit": {
+    "limit": 1000000,
+    "remaining": 999937,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

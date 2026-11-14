@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1e65ea0654af2eb5162ff754723825c7b893ba12\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999837",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+      "html_url": "https://upstream.codes/upstream_forges_bot",
+      "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+      "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+      "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+      "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+      "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+      "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+      "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+      "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+      "login": "upstream_forges_bot",
+      "id": 526873422199188,
+      "node_id": "REDACTED",
+      "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+      "gravatar_id": "",
+      "type": "User",
+      "site_admin": false,
+      "name": "Upstream forges bot",
+      "company": null,
+      "blog": null,
+      "location": null,
+      "email": "redacted@example.invalid",
+      "hireable": null,
+      "bio": null,
+      "twitter_username": null,
+      "public_repos": 1,
+      "public_gists": 0,
+      "followers": 0,
+      "following": 0,
+      "created_at": "2026-11-14T22:24:44.638Z",
+      "updated_at": "2026-11-14T22:24:46.604Z"
+    }
+  }
+}

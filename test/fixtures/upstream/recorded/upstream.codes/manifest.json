@@ -1,0 +1,39 @@
+{
+  "baseUrl": "https://upstream.codes/api/v3",
+  "repo": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "owner": "upstream_forges_bot",
+    "name": "forges-fixtures"
+  },
+  "pull": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "repo": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "owner": "upstream_forges_bot",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "5"
+  },
+  "issue": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "repo": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "owner": "upstream_forges_bot",
+      "name": "forges-fixtures"
+    },
+    "kind": "issue",
+    "number": "4"
+  },
+  "scratch": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "owner": "upstream_forges_bot",
+    "name": "forges-fixtures"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "base": "a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+  "head": "main",
+  "aheadBy": 4,
+  "behindBy": 0,
+  "mergeBaseSha": "a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+  "commits": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e"
+      },
+      "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "message": "Merge run 20261114224418\n\nMerged by run 20261114224418",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "9fcb176dae722fffca2a17c8951296f6ac946856",
+        "967748163cfb5ed7b525f7724a2f783ea867e59b"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/828d5bff28fde2dde44e2ab43f42baf91a805b8e"
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "967748163cfb5ed7b525f7724a2f783ea867e59b"
+      },
+      "sha": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+      "message": "test: add forges-fixtures/20261114224418-1.md",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "9fcb176dae722fffca2a17c8951296f6ac946856"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/967748163cfb5ed7b525f7724a2f783ea867e59b"
+    }
+  ],
+  "files": []
+}

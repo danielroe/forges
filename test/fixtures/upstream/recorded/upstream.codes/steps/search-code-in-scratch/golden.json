@@ -1,0 +1,42 @@
+{
+  "items": [
+    {
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "path": "forges-fixtures/20261114224418-1.md",
+      "ref": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "fragments": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/828d5bff28fde2dde44e2ab43f42baf91a805b8e/forges-fixtures/20261114224418-1.md?rp=1#L1"
+    },
+    {
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "path": "README.md",
+      "ref": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "fragments": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/828d5bff28fde2dde44e2ab43f42baf91a805b8e/README.md?rp=1#L1"
+    }
+  ],
+  "total": 2,
+  "etag": "W/\"d55250b5b6a9279dca387067ccb2a65f101dbbff\"",
+  "warnings": [
+    {
+      "code": "search_incomplete",
+      "message": "GitHub stopped the search before it finished; the page may be missing matches"
+    }
+  ],
+  "rateLimit": {
+    "limit": 120,
+    "remaining": 114,
+    "resetAt": "<now>",
+    "resource": "search"
+  }
+}

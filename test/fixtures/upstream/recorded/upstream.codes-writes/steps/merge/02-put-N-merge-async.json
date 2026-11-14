@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/16/merge-async",
+    "body": {
+      "merge_method": "merge",
+      "commit_title": "Merge run 20261114224418",
+      "commit_message": "Merged by run 20261114224418",
+      "merge_action": "direct_merge"
+    }
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999720",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "message": "Not Found",
+      "documentation_url": "https://upstream.codes/docs/api"
+    }
+  }
+}

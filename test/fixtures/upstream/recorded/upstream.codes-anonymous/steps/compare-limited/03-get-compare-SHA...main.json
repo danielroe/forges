@@ -1,0 +1,204 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main?per_page=2&page=2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main?per_page=2&page=1&cursor=Y29tcGFyZTowOjI>; rel=\"first\", <https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main?per_page=2&page=1&cursor=Y29tcGFyZTowOjI>; rel=\"prev\"",
+      "etag": "W/\"a1f4261aa98899fce9be4203510572b561371495\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "805",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "status": "ahead",
+      "ahead_by": 4,
+      "behind_by": 0,
+      "total_commits": 4,
+      "base_commit": {
+        "sha": "a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "node_id": "Q29tbWl0OmE5ZTc0OGUxYmFjY2QyN2I1ZWEwZDQyZTdlZmQyOTBmZTZmOThmMTg",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18/comments",
+        "commit": {
+          "author": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:27:47.000Z"
+          },
+          "committer": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:27:47.000Z"
+          },
+          "message": "Add cli.txt",
+          "tree": {
+            "sha": "6a44c203ab9601d556a17e8b6da417833a1549c9",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/6a44c203ab9601d556a17e8b6da417833a1549c9"
+          },
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unknown_signature_type",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "sha": "7ec1b1513caa13abdca9e22172a440933f44e410",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/7ec1b1513caa13abdca9e22172a440933f44e410",
+            "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/7ec1b1513caa13abdca9e22172a440933f44e410"
+          }
+        ]
+      },
+      "merge_base_commit": {
+        "sha": "a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "node_id": "Q29tbWl0OmE5ZTc0OGUxYmFjY2QyN2I1ZWEwZDQyZTdlZmQyOTBmZTZmOThmMTg",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+        "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18/comments",
+        "commit": {
+          "author": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:27:47.000Z"
+          },
+          "committer": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:27:47.000Z"
+          },
+          "message": "Add cli.txt",
+          "tree": {
+            "sha": "6a44c203ab9601d556a17e8b6da417833a1549c9",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/6a44c203ab9601d556a17e8b6da417833a1549c9"
+          },
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unknown_signature_type",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "sha": "7ec1b1513caa13abdca9e22172a440933f44e410",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/7ec1b1513caa13abdca9e22172a440933f44e410",
+            "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/7ec1b1513caa13abdca9e22172a440933f44e410"
+          }
+        ]
+      },
+      "commits": [
+        {
+          "sha": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+          "node_id": "Q29tbWl0Ojk2Nzc0ODE2M2NmYjVlZDdiNTI1Zjc3MjRhMmY3ODNlYTg2N2U1OWI",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/967748163cfb5ed7b525f7724a2f783ea867e59b",
+          "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/967748163cfb5ed7b525f7724a2f783ea867e59b",
+          "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/967748163cfb5ed7b525f7724a2f783ea867e59b/comments",
+          "commit": {
+            "author": {
+              "name": "Upstream forges bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-14T22:44:24.000Z"
+            },
+            "committer": {
+              "name": "Upstream forges bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-14T22:44:24.000Z"
+            },
+            "message": "test: add forges-fixtures/20261114224418-1.md",
+            "tree": {
+              "sha": "dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c",
+              "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c"
+            },
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/967748163cfb5ed7b525f7724a2f783ea867e59b",
+            "comment_count": 0,
+            "verification": {
+              "verified": false,
+              "reason": "unknown_signature_type",
+              "signature": null,
+              "payload": null,
+              "verified_at": null
+            }
+          },
+          "author": null,
+          "committer": null,
+          "parents": [
+            {
+              "sha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+              "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/9fcb176dae722fffca2a17c8951296f6ac946856",
+              "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/9fcb176dae722fffca2a17c8951296f6ac946856"
+            }
+          ]
+        },
+        {
+          "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+          "node_id": "Q29tbWl0OjgyOGQ1YmZmMjhmZGUyZGRlNDRlMmFiNDNmNDJiYWY5MWE4MDViOGU",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+          "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+          "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e/comments",
+          "commit": {
+            "author": {
+              "name": "Upstream forges bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-14T22:46:55.000Z"
+            },
+            "committer": {
+              "name": "Upstream forges bot",
+              "email": "redacted@example.invalid",
+              "date": "2026-11-14T22:46:55.000Z"
+            },
+            "message": "Merge run 20261114224418\n\nMerged by run 20261114224418",
+            "tree": {
+              "sha": "dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c",
+              "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c"
+            },
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+            "comment_count": 0,
+            "verification": {
+              "verified": false,
+              "reason": "unknown_signature_type",
+              "signature": null,
+              "payload": null,
+              "verified_at": null
+            }
+          },
+          "author": null,
+          "committer": null,
+          "parents": [
+            {
+              "sha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+              "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/9fcb176dae722fffca2a17c8951296f6ac946856",
+              "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/9fcb176dae722fffca2a17c8951296f6ac946856"
+            },
+            {
+              "sha": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+              "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/967748163cfb5ed7b525f7724a2f783ea867e59b",
+              "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/967748163cfb5ed7b525f7724a2f783ea867e59b"
+            }
+          ]
+        }
+      ],
+      "files": [],
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main",
+      "permalink_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main",
+      "diff_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main",
+      "patch_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/compare/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18...main"
+    }
+  }
+}

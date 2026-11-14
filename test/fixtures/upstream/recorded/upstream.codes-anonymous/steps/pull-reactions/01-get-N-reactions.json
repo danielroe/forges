@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5/reactions?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1609c7f35528035c32a98689f97e73aea8f0744d\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "847",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 3193184160486238,
+        "node_id": "UmVhY3Rpb246OGVhZjE4NjMtN2Q5Yi00YTk5LWJmNzUtNmNhY2MwZGJjNGNm",
+        "content": "rocket",
+        "user": {
+          "url": "https://api.upstream.codes/api/v3/users/nora",
+          "html_url": "https://upstream.codes/nora",
+          "followers_url": "https://api.upstream.codes/api/v3/users/nora/followers",
+          "following_url": "https://api.upstream.codes/api/v3/users/nora/following{/other_user}",
+          "gists_url": "https://api.upstream.codes/api/v3/users/nora/gists{/gist_id}",
+          "starred_url": "https://api.upstream.codes/api/v3/users/nora/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.upstream.codes/api/v3/users/nora/subscriptions",
+          "organizations_url": "https://api.upstream.codes/api/v3/users/nora/orgs",
+          "repos_url": "https://api.upstream.codes/api/v3/users/nora/repos",
+          "events_url": "https://api.upstream.codes/api/v3/users/nora/events{/privacy}",
+          "received_events_url": "https://api.upstream.codes/api/v3/users/nora/received_events",
+          "login": "nora",
+          "id": 55511423519801,
+          "node_id": "REDACTED",
+          "avatar_url": "https://coline.app/api/public/default-avatar/65cc31a7f1dcb064c4b0b0cd34d2db70",
+          "gravatar_id": "",
+          "type": "User",
+          "site_admin": false
+        },
+        "created_at": "2026-11-14T22:39:05.568Z"
+      }
+    ]
+  }
+}

@@ -1215,7 +1215,7 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
   /** Resolvable conversations, by the id of each comment in them; empty when GraphQL is unreachable. */
   async function reviewThreadsByComment(ref: ResolvedThreadRef, options?: BaseOptions): Promise<Map<string, { id: string, resolved: boolean }>> {
     const byComment = new Map<string, { id: string, resolved: boolean }>()
-    if (anonymous) {
+    if (anonymous || !profile.graphql) {
       return byComment
     }
     let after: string | null = null
@@ -3189,8 +3189,8 @@ function setupGitHub(ctx: GitHubContext, profile: GitHubProfile): GitHubSpec {
 
 /** How a forge that serves GitHub's REST API differs from GitHub, so one implementation covers both. */
 export interface GitHubProfile {
-  forge: 'github' | 'gitbucket'
-  web: WebDefinition<'github' | 'gitbucket'>
+  forge: 'github' | 'gitbucket' | 'upstream'
+  web: WebDefinition<'github' | 'gitbucket' | 'upstream'>
   authKinds: AuthKind[]
   /** The native event names behind each normalised kind, for hook subscriptions. */
   nativeEvents: NativeEventMap

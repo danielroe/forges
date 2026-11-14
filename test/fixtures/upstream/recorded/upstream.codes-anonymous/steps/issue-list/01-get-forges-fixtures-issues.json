@@ -1,0 +1,203 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues?state=open&sort=created&direction=desc&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"610e5c21281749b12b880d2b911463fd40305059\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "833",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 1228521026574301,
+        "node_id": "UHVsbFJlcXVlc3Q6NjZjMGIxODUtNDhiMy00YTE2LWE5M2ItZTEzZGM5MDI5ZGM2",
+        "number": 5,
+        "title": "forges seed: pull request",
+        "body": "A change request the forges recordings read. Leave it open.",
+        "state": "open",
+        "state_reason": null,
+        "user": {
+          "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+          "html_url": "https://upstream.codes/upstream_forges_bot",
+          "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+          "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+          "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+          "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+          "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+          "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+          "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+          "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+          "login": "upstream_forges_bot",
+          "id": 526873422199188,
+          "node_id": "REDACTED",
+          "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "gravatar_id": "",
+          "type": "User",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 1266590679372673,
+            "node_id": "TGFiZWw6ZTE2MGQ0NmUtZjZmMS00ZmJjLTgwODQtNTk3Njg4Y2VmMDYw",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels/forges-seed",
+            "name": "forges-seed",
+            "color": "0e8a16",
+            "description": "Seeded for the forges recordings",
+            "default": false
+          }
+        ],
+        "assignee": null,
+        "assignees": [],
+        "milestone": null,
+        "locked": false,
+        "active_lock_reason": null,
+        "comments": 1,
+        "closed_at": null,
+        "closed_by": null,
+        "created_at": "2026-11-14T22:38:51.754Z",
+        "updated_at": "2026-11-14T22:39:02.570Z",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/5",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5",
+        "repository_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures",
+        "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5/comments",
+        "events_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5/events",
+        "labels_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5/labels{/name}",
+        "author_association": "NONE",
+        "reactions": {
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 1,
+          "eyes": 0,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/5/reactions",
+          "total_count": 1
+        },
+        "pull_request": {
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5",
+          "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/5",
+          "diff_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5.diff",
+          "patch_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5.patch",
+          "merged_at": null
+        }
+      },
+      {
+        "id": 628247888878241,
+        "node_id": "SXNzdWU6NmQxZWI2NzktMzI5Ni00OGQ1LTg1NWYtYWUxNjJlN2I5NDQ0",
+        "number": 4,
+        "title": "forges seed: issue",
+        "body": "An issue the forges recordings read. Leave it open.",
+        "state": "open",
+        "state_reason": null,
+        "user": {
+          "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+          "html_url": "https://upstream.codes/upstream_forges_bot",
+          "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+          "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+          "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+          "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+          "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+          "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+          "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+          "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+          "login": "upstream_forges_bot",
+          "id": 526873422199188,
+          "node_id": "REDACTED",
+          "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "gravatar_id": "",
+          "type": "User",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 1266590679372673,
+            "node_id": "TGFiZWw6ZTE2MGQ0NmUtZjZmMS00ZmJjLTgwODQtNTk3Njg4Y2VmMDYw",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels/forges-seed",
+            "name": "forges-seed",
+            "color": "0e8a16",
+            "description": "Seeded for the forges recordings",
+            "default": false
+          }
+        ],
+        "assignee": {
+          "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+          "html_url": "https://upstream.codes/upstream_forges_bot",
+          "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+          "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+          "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+          "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+          "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+          "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+          "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+          "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+          "login": "upstream_forges_bot",
+          "id": 526873422199188,
+          "node_id": "REDACTED",
+          "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "gravatar_id": "",
+          "type": "User",
+          "site_admin": false
+        },
+        "assignees": [
+          {
+            "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+            "html_url": "https://upstream.codes/upstream_forges_bot",
+            "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+            "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+            "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+            "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+            "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+            "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+            "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+            "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+            "login": "upstream_forges_bot",
+            "id": 526873422199188,
+            "node_id": "REDACTED",
+            "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+            "gravatar_id": "",
+            "type": "User",
+            "site_admin": false
+          }
+        ],
+        "milestone": null,
+        "locked": false,
+        "active_lock_reason": null,
+        "comments": 2,
+        "closed_at": null,
+        "closed_by": null,
+        "created_at": "2026-11-14T22:38:17.744Z",
+        "updated_at": "2026-11-14T22:38:31.397Z",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/4",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/4",
+        "repository_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures",
+        "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/4/comments",
+        "events_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/4/events",
+        "labels_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/4/labels{/name}",
+        "author_association": "NONE",
+        "reactions": {
+          "+1": 1,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/4/reactions",
+          "total_count": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "id": "3679474893636326"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures",
+            "externalId": "4467465046780140"
+          },
+          "kind": "issue",
+          "typeRaw": "Issue",
+          "number": "6"
+        }
+      },
+      "subjectTypeRaw": "Issue",
+      "reason": "subscribed",
+      "reasonRaw": "subscribed",
+      "unread": true,
+      "title": "New comment on #6",
+      "subjectState": "unknown",
+      "updatedAt": "2026-11-14T22:47:26.703Z",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/6"
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "id": "3200888835781360"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures",
+            "externalId": "4467465046780140"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "5"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
+      "unread": true,
+      "title": "CR #5 reviewed",
+      "subjectState": "unknown",
+      "updatedAt": "2026-11-14T22:39:02.960Z",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5"
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "id": "1057241548111293"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures",
+            "externalId": "4467465046780140"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "5"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "subscribed",
+      "reasonRaw": "subscribed",
+      "unread": true,
+      "title": "upstream_forges_bot/forges-fixtures #5: forges seed: pull request",
+      "subjectState": "unknown",
+      "updatedAt": "2026-11-14T22:39:02.713Z",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.upstream.codes/api/v3/notifications?all=false&per_page=3&page=2&cursor=b2Zmc2V0OjM",
+    "etag": "W/\"1b266f2d85afd536d35e3ef7ce0fc3897fdfa548\""
+  },
+  "etag": "W/\"1b266f2d85afd536d35e3ef7ce0fc3897fdfa548\"",
+  "notModified": false,
+  "rateLimit": {
+    "limit": 1000000,
+    "remaining": 999946,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"ea488ee46eba720b59b6bfe31b0ee04179f0fdd6\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999935",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "node_id": "Q29tbWl0OjgyOGQ1YmZmMjhmZGUyZGRlNDRlMmFiNDNmNDJiYWY5MWE4MDViOGU",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+      "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e/comments",
+      "commit": {
+        "author": {
+          "name": "Upstream forges bot",
+          "email": "redacted@example.invalid",
+          "date": "2026-11-14T22:46:55.000Z"
+        },
+        "committer": {
+          "name": "Upstream forges bot",
+          "email": "redacted@example.invalid",
+          "date": "2026-11-14T22:46:55.000Z"
+        },
+        "message": "Merge run 20261114224418\n\nMerged by run 20261114224418",
+        "tree": {
+          "sha": "dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c"
+        },
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unknown_signature_type",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/9fcb176dae722fffca2a17c8951296f6ac946856",
+          "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/9fcb176dae722fffca2a17c8951296f6ac946856"
+        },
+        {
+          "sha": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/commits/967748163cfb5ed7b525f7724a2f783ea867e59b",
+          "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/967748163cfb5ed7b525f7724a2f783ea867e59b"
+        }
+      ],
+      "files": [
+        {
+          "filename": "forges-fixtures/20261114224418-1.md",
+          "status": "added",
+          "additions": 1,
+          "deletions": 0,
+          "changes": 1,
+          "patch": "diff --git a/forges-fixtures/20261114224418-1.md b/forges-fixtures/20261114224418-1.md\nnew file mode 100644\nindex 0000000..31f31ce\n--- /dev/null\n+++ b/forges-fixtures/20261114224418-1.md\n@@ -0,0 +1 @@\n+Added by the forges write recording on forges-fixtures/20261114224418-1.",
+          "sha": "31f31ce8564973228c4861ccfa11ceac2ffaf235",
+          "blob_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/828d5bff28fde2dde44e2ab43f42baf91a805b8e/forges-fixtures/20261114224418-1.md",
+          "raw_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/forges-fixtures/20261114224418-1.md?ref=828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+          "contents_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/forges-fixtures/20261114224418-1.md?ref=828d5bff28fde2dde44e2ab43f42baf91a805b8e"
+        }
+      ],
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
+      }
+    }
+  }
+}

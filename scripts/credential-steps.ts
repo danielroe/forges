@@ -228,6 +228,15 @@ export const credentialSteps: Record<string, Record<string, CredentialStep[]>> =
       },
     ],
   },
+  'upstream': {
+    TOKEN: [
+      {
+        text: 'Create a personal access token under [**Settings > API tokens**](https://upstream.codes/settings/tokens) on upstream.codes. Grant it the scopes for what you call, such as `issues:write` and `changes:write` to write issues and change requests.',
+        sources: ['https://upstream.codes/docs/api', 'docs/content/4.providers/upstream.md'],
+        verified: '2026-11-14',
+      },
+    ],
+  },
   'sourcehut': {
     TOKEN: [
       {

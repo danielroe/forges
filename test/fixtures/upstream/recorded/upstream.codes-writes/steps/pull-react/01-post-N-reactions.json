@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/16/reactions",
+    "body": {
+      "content": "+1"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"f12c4b7a856618bf64ca079de57f61a8bf5be3d6\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999743",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 3497068843720635,
+      "node_id": "UmVhY3Rpb246ZTY1NjliMWQtNTA0MC00NmQzLTgxNjktZDAyZWNmZTZkYWFh",
+      "content": "+1",
+      "user": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "created_at": "2026-11-15T00:36:21.918Z"
+    }
+  }
+}

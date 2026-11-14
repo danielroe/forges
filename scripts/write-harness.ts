@@ -218,6 +218,26 @@ function gitbucket(options: HarnessOptions): WriteHarness {
   }
 }
 
+/**
+ * Upstream serves GitHub's API, but creates no tag for a release, so the
+ * recorder creates the tag through the git refs API first.
+ */
+function upstream(options: HarnessOptions): WriteHarness {
+  const { baseUrl, authorization, scratch } = options
+  const call = client(baseUrl, authorization)
+  const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
+  return {
+    ...github({ ...options, transfer: undefined }),
+    async createTag(base, tag) {
+      const { object } = await call<{ object: { sha: string } }>(`${repo}/git/ref/heads/${enc(base)}`)
+      await call(`${repo}/git/refs`, {
+        method: 'POST',
+        json: { ref: `refs/tags/${tag}`, sha: object.sha },
+      })
+    },
+  }
+}
+
 function forgejo({ baseUrl, authorization, scratch }: HarnessOptions): WriteHarness {
   const call = client(baseUrl, authorization)
   const repo = `/repos/${enc(scratch.owner)}/${enc(scratch.name)}`
@@ -1085,6 +1105,7 @@ const HARNESSES: Record<string, (options: HarnessOptions) => WriteHarness> = {
   'forgejo': forgejo,
   'gitea': forgejo,
   'gitbucket': gitbucket,
+  'upstream': upstream,
   'gitlab': gitlab,
   'bitbucket': bitbucket,
   'gitee': gitee,

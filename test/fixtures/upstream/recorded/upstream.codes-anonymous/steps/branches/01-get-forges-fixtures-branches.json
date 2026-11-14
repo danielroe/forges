@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/branches?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"7ed650240912cfbe95270b5b9cda974435f1aa20\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "952",
+      "x-ratelimit-reset": "1794706390",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": "forges-seed",
+        "commit": {
+          "sha": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0"
+        },
+        "protected": null
+      },
+      {
+        "name": "main",
+        "commit": {
+          "sha": "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/828d5bff28fde2dde44e2ab43f42baf91a805b8e"
+        },
+        "protected": null
+      }
+    ]
+  }
+}
