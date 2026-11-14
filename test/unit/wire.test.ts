@@ -33,6 +33,16 @@ describe('wire', () => {
     expect(decode(encode(value))).toEqual(value)
   })
 
+  it('leaves the forge\'s own JSON alone', () => {
+    const value = {
+      createdAt: new Date('2026-11-14T10:00:00.000Z'),
+      payload: { $date: 'not a date' },
+      raw: { $bytes: 'not base64' },
+    }
+
+    expect(decode(JSON.parse(JSON.stringify(encode(value))))).toEqual(value)
+  })
+
   it('rejects malformed tags', () => {
     expect(() => decode({ $date: 'not a date' })).toThrow('Invalid $date')
     expect(() => decode({ $bytes: 'not base64' })).toThrow('Invalid $bytes')

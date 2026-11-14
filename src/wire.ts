@@ -1,6 +1,9 @@
 import { fromBase64 } from './contents.ts'
 import { toBase64 } from './crypto.ts'
 
+/** Fields that hold the forge's own JSON, which the codec keeps as-is. */
+const OPAQUE_FIELDS = new Set(['raw', 'payload'])
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value)
 }
@@ -35,7 +38,9 @@ export function encode(value: unknown): unknown {
   }
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [
     key,
-    encode(item),
+    OPAQUE_FIELDS.has(key)
+      ? item
+      : encode(item),
   ]))
 }
 
@@ -69,6 +74,8 @@ export function decode(value: unknown): unknown {
   }
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [
     key,
-    decode(item),
+    OPAQUE_FIELDS.has(key)
+      ? item
+      : decode(item),
   ]))
 }
