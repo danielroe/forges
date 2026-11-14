@@ -1,0 +1,26 @@
+{
+  "ref": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "target": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "owner": "upstream_forges_bot",
+      "name": "forges-fixtures"
+    },
+    "id": "359167106493374"
+  },
+  "url": "https://example.com/hook",
+  "events": [
+    "comment",
+    "push"
+  ],
+  "nativeEvents": [
+    "issue_comment",
+    "push"
+  ],
+  "active": true,
+  "contentType": "json",
+  "createdAt": "<now>",
+  "updatedAt": "<now>"
+}

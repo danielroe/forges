@@ -7352,7 +7352,8 @@
         "sourcehut",
         "entire",
         "gitbucket",
-        "gitcafe"
+        "gitcafe",
+        "upstream"
       ],
       "description": "The forges this package ships providers for.",
       "x-forges-type": "KnownForgeKind"

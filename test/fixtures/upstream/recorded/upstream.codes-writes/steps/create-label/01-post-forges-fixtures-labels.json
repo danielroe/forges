@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels",
+    "body": {
+      "name": "forges-fixture-20261114224418",
+      "color": "0e8a16",
+      "description": "Created by run 20261114224418"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999789",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 2761045633779321,
+      "node_id": "TGFiZWw6Mzk0ZTU0OTQtN2EzMS00ODFjLTk0ZWMtY2ZmZTQ5YjA5MDgz",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels/forges-fixture-20261114224418",
+      "name": "forges-fixture-20261114224418",
+      "color": "0e8a16",
+      "description": "Created by run 20261114224418",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/statuses/967748163cfb5ed7b525f7724a2f783ea867e59b",
+    "body": {
+      "state": "success",
+      "context": "forges fixture",
+      "description": "Reported by run 20261114224418"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"ba99578d2bdd45e87fcfa04d7efab1f3799d3103\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999721",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 3629733375208856,
+      "node_id": "U3RhdHVzOjZkOThiOTk1LTFkOGEtNGQyZC1iZGNlLWY3YzA3MmU4NDJlYQ",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/statuses/967748163cfb5ed7b525f7724a2f783ea867e59b",
+      "context": "forges fixture",
+      "state": "success",
+      "description": "Reported by run 20261114224418",
+      "target_url": null,
+      "created_at": "2026-11-14T22:46:44.840Z",
+      "updated_at": "2026-11-14T22:46:44.834Z",
+      "creator": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"b5a681d962340642b9456cd800ffd30895218dbb\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "865",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 1266590679372673,
+        "node_id": "TGFiZWw6ZTE2MGQ0NmUtZjZmMS00ZmJjLTgwODQtNTk3Njg4Y2VmMDYw",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/labels/forges-seed",
+        "name": "forges-seed",
+        "color": "0e8a16",
+        "description": "Seeded for the forges recordings",
+        "default": false
+      }
+    ]
+  }
+}

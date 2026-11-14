@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/orgs/upstream_forges_bot/repos?per_page=3"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "822",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "message": "Not Found",
+      "documentation_url": "https://upstream.codes/docs/api"
+    }
+  }
+}

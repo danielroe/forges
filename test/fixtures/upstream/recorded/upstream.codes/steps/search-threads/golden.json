@@ -1,0 +1,160 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "29",
+        "externalId": "SXNzdWU6M2U5OTQyYjYtYTU3OS00NTlhLTk2MjgtNWQwMzliYTNiNGFj"
+      },
+      "kind": "issue",
+      "title": "forges fixture 20261121182003: webhooks",
+      "body": "Opened by run 20261121182003.",
+      "state": "closed",
+      "stateRaw": "closed",
+      "stateReason": "completed",
+      "isDraft": false,
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/29",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "closedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 1,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "28",
+        "externalId": "SXNzdWU6MmU5MzBhZjAtZTAzYy00ZWYwLWFiMTQtNzA4MGQ3ZDFmMGQ1"
+      },
+      "kind": "issue",
+      "title": "forges fixture 20261121181813: webhooks",
+      "body": "Opened by run 20261121181813.",
+      "state": "closed",
+      "stateRaw": "closed",
+      "stateReason": "completed",
+      "isDraft": false,
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/28",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "closedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 1,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "22",
+        "externalId": "SXNzdWU6YzhjNTlkODYtM2I1Mi00NWI0LWJhODUtYTNhN2Y4NjJhNDQ1"
+      },
+      "kind": "issue",
+      "title": "forges fixture 20261121181438: issue, edited",
+      "body": "Edited by run 20261121181438.",
+      "state": "closed",
+      "stateRaw": "closed",
+      "stateReason": "completed",
+      "isDraft": false,
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/22",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "closedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 2,
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    }
+  ],
+  "total": 13,
+  "cursor": {
+    "nextUrl": "https://api.upstream.codes/api/v3/search/issues?q=fix+repo%3Aupstream_forges_bot%2Fforges-fixtures+is%3Aissue&per_page=3&page=2&cursor=b2Zmc2V0OjM",
+    "etag": "W/\"ec705ca39df581acf868ca5ce9e6413052913502\"",
+    "token": "0:"
+  },
+  "rateLimit": {
+    "limit": 120,
+    "remaining": 118,
+    "resetAt": "<now>",
+    "resource": "search"
+  }
+}

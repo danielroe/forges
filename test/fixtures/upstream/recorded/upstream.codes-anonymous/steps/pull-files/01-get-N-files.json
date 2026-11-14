@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/21/files?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"d265433529f63a5c02c56ae0d8172629c8dc15a1\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "968",
+      "x-ratelimit-reset": "1795288348",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "sha": "b4f8afb21dd40cbffe0dbfc43e08c9e2d456bb65",
+        "filename": "seed.md",
+        "status": "added",
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "patch": "@@ -0,0 +1,3 @@\n+# Seed\n+\n+A file the forges recordings read on a change request.",
+        "blob_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0/seed.md",
+        "raw_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/seed.md?ref=8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+        "contents_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/seed.md?ref=8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0"
+      }
+    ]
+  }
+}

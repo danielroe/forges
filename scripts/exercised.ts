@@ -1,7 +1,7 @@
 import type { ForgeCapabilities, ForgeProvider } from '../src/index.ts'
 import type { VerbRun } from '../test/setup/verbs-directory.ts'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitcafe, gitea, gitee, github, gitlab, pushin, sourcehut, tangled, upstream } from '../src/index.ts'
 import { VERB_RUN } from '../test/setup/verbs-directory.ts'
 import { withDeclared } from './capabilities.ts'
 
@@ -124,6 +124,10 @@ const checked: Array<[string, ForgeProvider]> = [
     gitbucket({ auth, baseUrl: 'https://gitbucket.example.com' }),
   ],
   [
+    'upstream',
+    upstream({ auth }),
+  ],
+  [
     'gitcafe',
     gitcafe({ auth }),
   ],
@@ -174,6 +178,10 @@ const checked: Array<[string, ForgeProvider]> = [
   [
     'gitcafe:anonymous',
     gitcafe({}),
+  ],
+  [
+    'upstream:anonymous',
+    upstream({}),
   ],
 ]
 

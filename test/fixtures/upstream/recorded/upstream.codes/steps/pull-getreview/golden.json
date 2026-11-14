@@ -1,0 +1,35 @@
+{
+  "ref": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "thread": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "21"
+    },
+    "id": "4445570323921000"
+  },
+  "author": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "login": "upstream_forges_reviewer",
+    "id": "917401898755705",
+    "avatarUrl": "https://coline.app/api/public/default-avatar/c25dd56503785c567855b0756cfa7f27",
+    "url": "https://upstream.codes/upstream_forges_reviewer",
+    "typeRaw": "User",
+    "isBotHint": false
+  },
+  "state": "commented",
+  "stateRaw": "COMMENTED",
+  "body": "A review from the reviewer.",
+  "submittedAt": "<now>",
+  "comments": [],
+  "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/21#review-91e1dce6-aa3c-4890-bc8f-7cd79991c3b3"
+}

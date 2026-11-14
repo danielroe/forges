@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "id": "1273765966004076"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures",
+            "externalId": "4467465046780140"
+          },
+          "kind": "pull_request",
+          "typeRaw": "PullRequest",
+          "number": "25"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "review_requested",
+      "reasonRaw": "review_requested",
+      "unread": true,
+      "title": "Review requested: CR #25 in upstream-forgess-workspace",
+      "subjectState": "unknown",
+      "updatedAt": "<now>",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/25"
+    }
+  ],
+  "etag": "W/\"5ff5059ea81998bb3550bfe73869c8a0125ffbaa\"",
+  "notModified": false,
+  "rateLimit": {
+    "limit": 1000000,
+    "remaining": 999926,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

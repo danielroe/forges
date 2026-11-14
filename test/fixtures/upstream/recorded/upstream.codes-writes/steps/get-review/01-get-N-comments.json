@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/27/comments?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"97d170e1550eee4afc0af065b78cda302a97674c\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999854",
+      "x-ratelimit-reset": "1795288389",
+      "x-ratelimit-resource": "core"
+    },
+    "body": []
+  }
+}

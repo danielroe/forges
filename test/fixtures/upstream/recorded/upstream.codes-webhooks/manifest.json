@@ -1,0 +1,25 @@
+{
+  "baseUrl": "https://upstream.codes/api/v3",
+  "repo": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "owner": "upstream_forges_bot",
+    "name": "forges-fixtures"
+  },
+  "scratch": {
+    "forge": "upstream",
+    "instance": "upstream.codes",
+    "owner": "upstream_forges_bot",
+    "name": "forges-fixtures"
+  },
+  "webhookSecret": "forges-fixture-secret",
+  "recordedAt": "2026-11-21T18:21:02.069Z",
+  "steps": [],
+  "deliveries": [
+    "01-push",
+    "02-issue_comment",
+    "03-issues",
+    "04-issues",
+    "05-push"
+  ]
+}

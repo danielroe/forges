@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/25/reviews",
+    "body": {
+      "event": "COMMENT",
+      "body": "A review comment from run 20261114224418."
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"9ba348ed44a7a0287f33f8b60eb54c507ddafe02\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999998",
+      "x-ratelimit-reset": "1795288387",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 3829786656365781,
+      "node_id": "UHVsbFJlcXVlc3RSZXZpZXc6NTRmMDRkMzUtNzgwNy00ODg4LTk3ZjYtOGY5M2U2OGNjZWJl",
+      "user": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer",
+        "html_url": "https://upstream.codes/upstream_forges_reviewer",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/received_events",
+        "login": "upstream_forges_reviewer",
+        "id": 55511423519801,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/65cc31a7f1dcb064c4b0b0cd34d2db70",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "A review comment from run 20261114224418.",
+      "state": "COMMENTED",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25#review-54f04d35-7807-4888-97f6-8f93e68ccebe",
+      "pull_request_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/25",
+      "submitted_at": "2026-11-21T18:16:59.704Z",
+      "commit_id": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+      "author_association": "NONE"
+    }
+  }
+}
