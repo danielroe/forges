@@ -1376,7 +1376,7 @@
             "$ref": "#/components/schemas/Release"
           },
           {
-            "not": {}
+            "type": "null"
           }
         ]
       }
@@ -3098,7 +3098,7 @@
                 "type": "string"
               },
               {
-                "not": {}
+                "type": "null"
               }
             ]
           }
@@ -3118,7 +3118,7 @@
             "$ref": "#/components/schemas/IssueType"
           },
           {
-            "not": {}
+            "type": "null"
           }
         ]
       }
@@ -3185,7 +3185,7 @@
                 "type": "string"
               },
               {
-                "not": {}
+                "type": "null"
               }
             ]
           }
@@ -3205,7 +3205,7 @@
             "$ref": "#/components/schemas/Milestone"
           },
           {
-            "not": {}
+            "type": "null"
           }
         ]
       }

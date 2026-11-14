@@ -166,6 +166,11 @@ export function awaited(program: ts.Program, node: ts.TypeNode): ts.TypeNode {
     : node
 }
 
+/** Whether `node` is a `ReadableStream` from TypeScript's lib. */
+export function isStreamType(program: ts.Program, node: ts.TypeNode): boolean {
+  return ts.isTypeReferenceNode(node) && isLib(program, node, 'ReadableStream')
+}
+
 /** `node` names the global `name` from TypeScript's lib, not a `forges` type that happens to share it. */
 function isLib(program: ts.Program, node: ts.TypeReferenceNode, name: string): boolean {
   if (!ts.isIdentifier(node.typeName) || node.typeName.text !== name) {

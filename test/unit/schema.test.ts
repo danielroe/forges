@@ -75,4 +75,13 @@ describe('verb signatures', () => {
     expect(JSON.stringify(models)).not.toContain('BYTES_PER_ELEMENT')
     expect(JSON.stringify(models)).not.toContain('x-forges-type":"Uint8Array"')
   })
+
+  it('represents undefined as null, not never', () => {
+    expect(JSON.stringify(verbs)).not.toContain('"not":{}')
+    expect(verbs['releases.latest']?.result).toMatchObject({
+      anyOf: expect.arrayContaining([
+        { type: 'null' },
+      ]),
+    })
+  })
 })

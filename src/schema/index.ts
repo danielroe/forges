@@ -21,7 +21,7 @@ export interface VerbSignature {
   /** Answers with one `Page` of a listing. */
   listing?: boolean
   params: VerbParam[]
-  /** The result is a byte stream. */
+  /** One possible result is a byte stream. */
   stream?: boolean
   result: Schema
 }

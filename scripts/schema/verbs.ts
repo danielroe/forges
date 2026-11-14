@@ -2,8 +2,8 @@ import type { Json, Schema } from './json.ts'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
-import { awaited, schemaGenerator } from './generator.ts'
-import { clean, componentName, isRecord, refs, sortByKey, STREAM_SCHEMA, tidyDescriptions } from './json.ts'
+import { awaited, isStreamType, schemaGenerator } from './generator.ts'
+import { clean, componentName, isRecord, refs, sortByKey, tidyDescriptions } from './json.ts'
 
 const root = fileURLToPath(new URL('../..', import.meta.url))
 
@@ -25,7 +25,7 @@ export interface VerbSignature {
   /** Answers with one `Page` of a listing. */
   listing?: true
   params: VerbParam[]
-  /** The result is a byte stream. */
+  /** One possible result is a byte stream. */
   stream?: true
   result: Schema
 }
@@ -83,8 +83,6 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
   const names = new Set([
     ...checker.getExportsOfModule(checker.getSymbolAtLocation(model)!).map(symbol => symbol.name),
     ...exports.map(symbol => symbol.name).filter(name => /Options$|Query$/.test(name)),
-    'ForgeCapabilities',
-    'SubscriptionItem',
     'WebhookDelivery',
   ])
   const isComponent = (definition: string) => names.has(definition.replace(/<[\s\S]*$/, ''))
@@ -151,27 +149,45 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
     const params: ParamDraft[] = []
     for (const overload of overloads) {
       overload.parameters.forEach((declaration, index) => {
+        if (declaration.dotDotDotToken) {
+          throw new Error(`${name} has a rest parameter, which forges/schema does not support`)
+        }
+        if (!declaration.type) {
+          throw new Error(`${name} has an untyped parameter`)
+        }
+        const paramName = declaration.name.getText()
+        const options = !!checker.getNonNullableType(checker.getTypeAtLocation(declaration)).getProperty('signal')
         const param = (params[index] ??= {
-          name: declaration.name.getText(),
+          name: paramName,
           optional: false,
-          ...(declaration.type && checker.getNonNullableType(checker.getTypeAtLocation(declaration)).getProperty('signal')
+          ...(options
             ? { options: true as const }
             : {}),
           ...docOf(declaration, tags),
           types: [],
         })
-        param.optional ||= !!declaration.questionToken || !!declaration.initializer
-        if (declaration.type) {
-          param.types.push(declaration.type)
+        if (param.name !== paramName) {
+          throw new Error(`${name} names parameter ${index} differently across overloads`)
         }
+        if (!!param.options !== options) {
+          throw new Error(`${name} marks parameter ${index} as options in only some overloads`)
+        }
+        param.optional ||= !!declaration.questionToken || !!declaration.initializer
+        param.types.push(declaration.type)
       })
     }
     // A parameter missing from some overloads is optional in all of them.
     for (const param of params.slice(Math.min(...overloads.map(overload => overload.parameters.length)))) {
       param.optional = true
     }
-    const resultTypes = overloads.map(overload => awaited(program, overload.type!))
+    const resultTypes = overloads.map((overload) => {
+      if (!overload.type) {
+        throw new Error(`${name} has an unannotated return type`)
+      }
+      return awaited(program, overload.type)
+    })
     const result = cleanInline(generator.of(resultTypes))
+    const stream = resultTypes.some(node => isStreamType(program, node))
     const summary = ts.displayPartsToString(member.getDocumentationComment(checker))
     verbs[name] = {
       ...(summary
@@ -186,7 +202,7 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
         ...param,
         schema: cleanInline(generator.of(types)),
       })),
-      ...(JSON.stringify(result).includes(JSON.stringify(STREAM_SCHEMA))
+      ...(stream
         ? { stream: true as const }
         : {}),
       result,

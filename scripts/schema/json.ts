@@ -72,6 +72,9 @@ export function clean(value: Json): Json {
   if (!isRecord(value)) {
     return value
   }
+  if (isNeverSchema(value)) {
+    return { type: 'null' }
+  }
   const result: Schema = {}
   for (const [key, item] of Object.entries(value)) {
     if (key === '$ref' && typeof item === 'string') {
@@ -79,7 +82,7 @@ export function clean(value: Json): Json {
     }
     else if (key === 'properties' && isRecord(item)) {
       result[key] = Object.fromEntries(Object.entries(item)
-        .filter(([, property]) => !isNever(property))
+        .filter(([, property]) => !isNeverSchema(property))
         .map(([name, property]) => [
           name,
           clean(property),
@@ -93,7 +96,7 @@ export function clean(value: Json): Json {
 }
 
 /** The `never` the generator emits for `AbortSignal` and other hidden types. */
-function isNever(value: Json): boolean {
+export function isNeverSchema(value: Json): boolean {
   return isRecord(value) && isRecord(value.not) && Object.keys(value.not).length === 0
 }
 
