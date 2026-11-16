@@ -1,19 +1,19 @@
 {
   "items": [
     {
+      "name": "v13.2.1",
+      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7"
+    },
+    {
       "name": "v13.2.0",
       "sha": "df6b843fb929bb04b933b09c6bf208774d42480b"
     },
     {
       "name": "v13.1.0",
       "sha": "6095cb17bfdbded5aa4ea84c18a4b69fd9574cca"
-    },
-    {
-      "name": "v13.0.0",
-      "sha": "1a633ad51320631293dfcac99755b13659efe784"
     }
   ],
-  "total": 109,
+  "total": 110,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/tags?limit=3&page=2"
   }

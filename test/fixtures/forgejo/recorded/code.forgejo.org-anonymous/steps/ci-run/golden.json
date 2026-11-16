@@ -8,25 +8,25 @@
       "owner": "forgejo",
       "name": "runner"
     },
-    "id": "197466"
+    "id": "200663"
   },
-  "name": "test.yml",
-  "state": "failure",
-  "stateRaw": "failure",
-  "number": "24006",
+  "name": "test-multi-platform.yml",
+  "state": "neutral",
+  "stateRaw": "skipped",
+  "number": "24121",
   "eventRaw": "pull_request",
-  "sha": "f0d739b7ad9b886d11ba6540845872355ec2936f",
-  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24006",
+  "sha": "cdee12b44d1b13322002a2c0c46c46089e17252f",
+  "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24121",
   "actor": {
     "forge": "forgejo",
     "instance": "code.forgejo.org",
-    "login": "eleboucher",
-    "id": "2226",
-    "avatarUrl": "https://code.forgejo.org/avatars/fa961f95a1382909cca2eca507274a486b89a92a9c47635feab353ff60e10492",
-    "url": "https://code.forgejo.org/eleboucher",
+    "login": "aahlenst",
+    "id": "1580",
+    "name": "Andreas Ahlenstorf",
+    "avatarUrl": "https://code.forgejo.org/avatars/5d71ade99e3af4a5a8754763e636be96c46044cd6bad6d1a16762e3116ec1542",
+    "url": "https://code.forgejo.org/aahlenst",
     "isBotHint": false
   },
-  "createdAt": "2026-10-18T17:32:43.000Z",
-  "startedAt": "2026-10-18T17:32:44.000Z",
-  "completedAt": "2026-10-18T17:57:04.000Z"
+  "createdAt": "2026-11-15T11:27:13.000Z",
+  "completedAt": "2026-11-15T11:27:13.000Z"
 }

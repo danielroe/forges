@@ -9,13 +9,13 @@
     "body": {
       "name": "main",
       "commit": {
-        "id": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-        "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-        "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "id": "80c990d7b734abe6f09fbf31f81afd6aa6ec8473",
+        "message": "test: make linuxBind tests pass on machines with SELinux (#1791)\n\nSimilar to https://code.forgejo.org/forgejo/runner/src/commit/c07a9b3669dc64d498273d47ce0e6974718792f1/act/runner/action.go#L507, add the :z modifier when SELinux is enabled. I am on openSUSE and the `linuxBind` tests only pass with this modifier.\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1791\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+        "url": "https://code.forgejo.org/forgejo/runner/commit/80c990d7b734abe6f09fbf31f81afd6aa6ec8473",
         "author": {
-          "name": "Renovate Bot",
+          "name": "Clouds",
           "email": "redacted@example.invalid",
-          "username": "viceice-bot"
+          "username": "clouds666"
         },
         "committer": {
           "name": "Mathieu Fenniak",
@@ -29,7 +29,7 @@
           "signer": null,
           "payload": ""
         },
-        "timestamp": "2026-10-02T02:59:29Z",
+        "timestamp": "2026-11-10T14:42:35Z",
         "added": null,
         "removed": null,
         "modified": null

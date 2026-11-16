@@ -3,58 +3,10 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231390470",
-      "kindRaw": "create_issue",
+      "id": "250692379",
+      "kindRaw": "merge_pull_request",
       "kind": "state_change",
-      "action": "opened",
-      "thread": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "codeberg.org",
-          "owner": "forgejo",
-          "name": "forgejo",
-          "externalId": "73144"
-        },
-        "kind": "issue",
-        "number": "14922"
-      },
-      "threadSnapshot": {
-        "title": "Inconsistency: A repository admin can manage Actions secrets in the web UI but gets 403 from the API"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "open"
-      },
-      "summary": "jahredhope opened issue 14922",
-      "occurredAt": "2026-10-19T03:04:25.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "jahredhope",
-        "id": "1567625",
-        "avatarUrl": "https://codeberg.org/avatars/7338fa221dbcbf0c192bd0ca383cdf54",
-        "url": "https://codeberg.org/jahredhope",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "231361799",
-      "kindRaw": "create_pull_request",
-      "kind": "state_change",
-      "action": "opened",
+      "action": "merged",
       "thread": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -66,24 +18,25 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "14921"
+        "number": "13960"
       },
       "threadSnapshot": {
-        "title": "Update dependency idiomorph to v0.8.0 (forgejo)"
+        "title": "breaking: make pagination mandatory - default to first page"
       },
       "detail": {
         "type": "state_change",
-        "state": "open"
+        "state": "merged"
       },
-      "summary": "viceice-bot opened pull request 14921",
-      "occurredAt": "2026-10-19T01:10:00.000Z",
+      "summary": "mfenniak merged pull request 13960",
+      "occurredAt": "<now>",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
+        "login": "mfenniak",
+        "id": "222642",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+        "url": "https://codeberg.org/mfenniak",
         "isBotHint": false
       },
       "repo": {
@@ -99,33 +52,34 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231360788",
+      "id": "250692373",
       "kindRaw": "commit_repo",
       "kind": "push",
       "detail": {
         "type": "push",
-        "ref": "refs/heads/renovate/forgejo-idiomorph-0.x",
-        "before": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "after": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+        "ref": "refs/heads/forgejo",
+        "before": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+        "after": "10615cce5019acefd625c1300cba85d228b045cc",
         "commitCount": 1,
         "forced": false,
         "commits": [
           {
-            "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
-            "message": "Update dependency idiomorph to v0.8.0",
-            "author": "Renovate Bot"
+            "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+            "message": "breaking: make pagination mandatory - default to first page (#13960)",
+            "author": "cdvv7788"
           }
         ]
       },
-      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-idiomorph-0.x",
-      "occurredAt": "2026-10-19T01:09:57.000Z",
+      "summary": "mfenniak pushed 1 commit(s) to forgejo",
+      "occurredAt": "<now>",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
+        "login": "mfenniak",
+        "id": "222642",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+        "url": "https://codeberg.org/mfenniak",
         "isBotHint": false
       },
       "repo": {
@@ -142,24 +96,55 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231359777",
-      "kindRaw": "commit_repo",
-      "kind": "push",
+      "id": "250669579",
+      "kindRaw": "comment_issue",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "issue",
+        "number": "5357"
+      },
       "detail": {
-        "type": "push",
-        "ref": "refs/heads/renovate/forgejo-idiomorph-0.x",
-        "forced": false,
-        "commits": []
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "issue",
+            "number": "5357"
+          },
+          "id": "27887482"
+        },
+        "body": "The first two PRs to implement this feature (of a planned 3) are open for reviews:\r\n- https://codeberg.org/forgejo/forgejo/pulls/15252\r\n- https://codeberg.org/forgejo/forgejo/pulls/15271\r\n\r\nThe major remaining chunk after those is displaying the diff-of-diff with the \"changed\" commits.  The core challenge of computing the diff is complete in the [web-range-diff-w-patch](https://codeberg.org/forgejo/forgejo/compare/forgejo...mfenniak:web-range-diff-w-patch) branch; the UI requires a few passes of refinement, and integration tests are required, but it should be complete in a few days.\r\n\r\nOut-of-scope for the initial implementation would be any interactivity with the diff, such as creating review comments from it."
       },
-      "summary": "viceice-bot pushed to renovate/forgejo-idiomorph-0.x",
-      "occurredAt": "2026-10-19T01:09:55.000Z",
+      "summary": "mfenniak commented on issue 5357",
+      "occurredAt": "2026-11-16T02:19:32.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
+        "login": "mfenniak",
+        "id": "222642",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+        "url": "https://codeberg.org/mfenniak",
         "isBotHint": false
       },
       "repo": {
@@ -170,56 +155,12 @@
         "externalId": "73144"
       },
       "isPublic": true,
-      "source": "poll",
-      "action": "other"
+      "source": "poll"
     },
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231358595",
-      "kindRaw": "commit_repo",
-      "kind": "push",
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/renovate/forgejo-renovate",
-        "before": "c6ec983f4a0a9c8c9389a0a94d5d80256236730c",
-        "after": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-        "commitCount": 1,
-        "forced": false,
-        "commits": [
-          {
-            "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-            "message": "Update renovate Docker tag to v44.167.5",
-            "author": "Renovate Bot"
-          }
-        ]
-      },
-      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-renovate",
-      "occurredAt": "2026-10-19T01:09:29.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll",
-      "action": "other"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "231345122",
+      "id": "250638262",
       "kindRaw": "comment_pull",
       "kind": "comment",
       "action": "created",
@@ -234,7 +175,7 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "14905"
+        "number": "13960"
       },
       "detail": {
         "type": "comment",
@@ -252,21 +193,21 @@
               "externalId": "73144"
             },
             "kind": "pull_request",
-            "number": "14905"
+            "number": "13960"
           },
-          "id": "25616207"
+          "id": "27884485"
         },
-        "body": "this could probably do with one of the `bug` labels too, but I figure the reporter usually shouldn't be the one to mark their report as `confirmed`, lol"
+        "body": "cascading-pr updated at https://code.forgejo.org/forgejo/end-to-end/pulls/2650"
       },
-      "summary": "AverageHelper commented on pull request 14905",
-      "occurredAt": "2026-10-19T00:18:49.000Z",
+      "summary": "forgejo-end-to-end commented on pull request 13960",
+      "occurredAt": "2026-11-16T00:57:23.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "AverageHelper",
-        "id": "135189",
-        "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-        "url": "https://codeberg.org/AverageHelper",
+        "login": "forgejo-end-to-end",
+        "id": "132796",
+        "avatarUrl": "https://codeberg.org/avatars/c58c99781709ab20e3fdc30e513602f5",
+        "url": "https://codeberg.org/forgejo-end-to-end",
         "isBotHint": false
       },
       "repo": {
@@ -282,10 +223,10 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231341915",
-      "kindRaw": "create_pull_request",
-      "kind": "state_change",
-      "action": "opened",
+      "id": "250635064",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
       "thread": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -297,24 +238,24 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "14920"
-      },
-      "threadSnapshot": {
-        "title": "Update dependency globals to v17.13.0 (forgejo)"
+        "number": "13960"
       },
       "detail": {
-        "type": "state_change",
-        "state": "open"
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request",
+        "body": "I'm concerned about the impact of this change, but still agree that it needs to occur.  I've pushed an update to include the release notes.\r"
       },
-      "summary": "viceice-bot opened pull request 14920",
-      "occurredAt": "2026-10-19T00:12:00.000Z",
+      "summary": "mfenniak reviewed pull request 13960 (approved)",
+      "occurredAt": "2026-11-16T00:48:58.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
+        "login": "mfenniak",
+        "id": "222642",
+        "name": "Mathieu Fenniak",
+        "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+        "url": "https://codeberg.org/mfenniak",
         "isBotHint": false
       },
       "repo": {
@@ -330,87 +271,10 @@
     {
       "forge": "forgejo",
       "instance": "codeberg.org",
-      "id": "231339902",
-      "kindRaw": "commit_repo",
-      "kind": "push",
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/renovate/forgejo-globals-17.x",
-        "before": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "after": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-        "commitCount": 1,
-        "forced": false,
-        "commits": [
-          {
-            "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-            "message": "Update dependency globals to v17.13.0",
-            "author": "Renovate Bot"
-          }
-        ]
-      },
-      "summary": "viceice-bot pushed 1 commit(s) to renovate/forgejo-globals-17.x",
-      "occurredAt": "2026-10-19T00:11:52.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll",
-      "action": "other"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "231339896",
-      "kindRaw": "commit_repo",
-      "kind": "push",
-      "detail": {
-        "type": "push",
-        "ref": "refs/heads/renovate/forgejo-globals-17.x",
-        "forced": false,
-        "commits": []
-      },
-      "summary": "viceice-bot pushed to renovate/forgejo-globals-17.x",
-      "occurredAt": "2026-10-19T00:11:51.000Z",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "forgejo",
-        "instance": "codeberg.org",
-        "owner": "forgejo",
-        "name": "forgejo",
-        "externalId": "73144"
-      },
-      "isPublic": true,
-      "source": "poll",
-      "action": "other"
-    },
-    {
-      "forge": "forgejo",
-      "instance": "codeberg.org",
-      "id": "231339365",
-      "kindRaw": "create_pull_request",
-      "kind": "state_change",
-      "action": "opened",
+      "id": "250634266",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
       "thread": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -422,24 +286,293 @@
           "externalId": "73144"
         },
         "kind": "pull_request",
-        "number": "14919"
-      },
-      "threadSnapshot": {
-        "title": "Update dependency dropzone to v6.3.5 (forgejo)"
+        "number": "13960"
       },
       "detail": {
-        "type": "state_change",
-        "state": "open"
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "13960"
+          },
+          "id": "27884239"
+        },
+        "body": "cascading-pr updated at https://code.forgejo.org/forgejo/end-to-end/pulls/2650"
       },
-      "summary": "viceice-bot opened pull request 14919",
-      "occurredAt": "2026-10-19T00:11:38.000Z",
+      "summary": "forgejo-end-to-end commented on pull request 13960",
+      "occurredAt": "2026-11-16T00:47:46.000Z",
       "actor": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "login": "viceice-bot",
-        "id": "141082",
-        "avatarUrl": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-        "url": "https://codeberg.org/viceice-bot",
+        "login": "forgejo-end-to-end",
+        "id": "132796",
+        "avatarUrl": "https://codeberg.org/avatars/c58c99781709ab20e3fdc30e513602f5",
+        "url": "https://codeberg.org/forgejo-end-to-end",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "250633831",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "13960"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "13960"
+          },
+          "id": "27884236"
+        },
+        "body": "<details>\n<summary>Where does that come from?</summary>\nThe following is a preview of the release notes for this pull request, as they will appear in the upcoming release. They are derived from the content of the `release-notes/13960.md` file, if it exists, or the title of the pull request. They were also added at the bottom of the description of this pull request for easier reference.\n\nThis message and the release notes originate from a call to the [release-notes-assistant](https://code.forgejo.org/forgejo/release-notes-assistant).\n\n```diff\n@@ -109,2 +109,10 @@\n \n The content of the `release-notes/<pull request number>.md` file will serve as the basis for the release notes. If the file does not exist, the title of the pull request will be used instead.\n+\n+<!--start release-notes-assistant-->\n+\n+## Release notes\n+<!--URL:https://codeberg.org/forgejo/forgejo-->\n+- Breaking bug fixes\n+  - [PR](https://codeberg.org/forgejo/forgejo/pulls/13960): <!--number 13960 --><!--line 0 --><!--description bWFrZSBwYWdpbmF0aW9uIG1hbmRhdG9yeSBvbiBhbGwgQVBJcy4gVGhlIGBwYWdlYCBhbmQgYGxpbWl0YCBwYXJhbWV0ZXJzIHRvIHNvbWUgRm9yZ2VqbyBBUElzIGhhdmUgcHJldmlvdXNseSBiZWVuIG9wdGlvbmFsLCBhbmQgaWYgbm90IHByb3ZpZGVkIGhhdmUgYmVlbiBpbnRlcnByZXRlZCBhcyAicmV0cmlldmUgYWxsIGRhdGEiLiBGb3JnZWpvIHdpbGwgbm93IGRlZmF1bHQgYHBhZ2VgIHRvIGAxYCwgYW5kIGRlZmF1bHQgYGxpbWl0YCB0byBgW2FwaV0uREVGQVVMVF9QQUdJTkdfTlVNYCAoZGVmYXVsdDogMzApIG9uIHRoZXNlIEFQSXMuIEZvciB0aGUgYWZmZWN0ZWQgbGlzdCBvZiBBUElzLCBwbGVhc2UgcmV2aWV3IGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZm9yZ2Vqby9wdWxscy8xMzk2MC4=-->make pagination mandatory on all APIs. The `page` and `limit` parameters to some Forgejo APIs have previously been optional, and if not provided have been interpreted as \"retrieve all data\". Forgejo will now default `page` to `1`, and default `limit` to `[api].DEFAULT_PAGING_NUM` (default: 30) on these APIs. For the affected list of APIs, please review https://codeberg.org/forgejo/forgejo/pulls/13960.<!--description-->\n+<!--end release-notes-assistant-->\n\n```\n\n</details>\n\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Breaking bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/13960): <!--number 13960 --><!--line 0 --><!--description bWFrZSBwYWdpbmF0aW9uIG1hbmRhdG9yeSBvbiBhbGwgQVBJcy4gVGhlIGBwYWdlYCBhbmQgYGxpbWl0YCBwYXJhbWV0ZXJzIHRvIHNvbWUgRm9yZ2VqbyBBUElzIGhhdmUgcHJldmlvdXNseSBiZWVuIG9wdGlvbmFsLCBhbmQgaWYgbm90IHByb3ZpZGVkIGhhdmUgYmVlbiBpbnRlcnByZXRlZCBhcyAicmV0cmlldmUgYWxsIGRhdGEiLiBGb3JnZWpvIHdpbGwgbm93IGRlZmF1bHQgYHBhZ2VgIHRvIGAxYCwgYW5kIGRlZmF1bHQgYGxpbWl0YCB0byBgW2FwaV0uREVGQVVMVF9QQUdJTkdfTlVNYCAoZGVmYXVsdDogMzApIG9uIHRoZXNlIEFQSXMuIEZvciB0aGUgYWZmZWN0ZWQgbGlzdCBvZiBBUElzLCBwbGVhc2UgcmV2aWV3IGh0dHBzOi8vY29kZWJlcmcub3JnL2Zvcmdlam8vZm9yZ2Vqby9wdWxscy8xMzk2MC4=-->make pagination mandatory on all APIs. The `page` and `limit` parameters to some Forgejo APIs have previously been optional, and if not provided have been interpreted as \"retrieve all data\". Forgejo will now default `page` to `1`, and default `limit` to `[api].DEFAULT_PAGING_NUM` (default: 30) on these APIs. For the affected list of APIs, please review https://codeberg.org/forgejo/forgejo/pulls/13960.<!--description-->\n<!--end release-notes-assistant-->\n\n"
+      },
+      "summary": "forgejo-release-notes-assistant commented on pull request 13960",
+      "occurredAt": "2026-11-16T00:47:36.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-release-notes-assistant",
+        "id": "194062",
+        "avatarUrl": "https://codeberg.org/avatars/5148e0e8238d55952a9bcdb6437f879f95ab9843357a21c08ef9857bfe31e156",
+        "url": "https://codeberg.org/forgejo-release-notes-assistant",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "250630327",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "13960"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "13960"
+          },
+          "id": "27884014"
+        },
+        "body": "cascading-pr updated at https://code.forgejo.org/forgejo/end-to-end/pulls/2650"
+      },
+      "summary": "forgejo-end-to-end commented on pull request 13960",
+      "occurredAt": "2026-11-16T00:36:55.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "forgejo-end-to-end",
+        "id": "132796",
+        "avatarUrl": "https://codeberg.org/avatars/c58c99781709ab20e3fdc30e513602f5",
+        "url": "https://codeberg.org/forgejo-end-to-end",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "250569088",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "15205"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "15205"
+          },
+          "id": "27879109"
+        },
+        "body": "> I haven't found an option to validate the mocks without writing to the working directory. I don't know whether that's desirable.\r\n\r\nAs far as I know there are already circumstances under which `make pr-go` writes to the working directory, for instance when the swagger-generated files are out of sync, but I might be wrong."
+      },
+      "summary": "wetneb commented on pull request 15205",
+      "occurredAt": "2026-11-15T22:31:28.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "wetneb",
+        "id": "94198",
+        "name": "Antonin Delpeuch",
+        "avatarUrl": "https://codeberg.org/avatars/8b9c1b2ec136ec83b4be87a6b670a68906b4e6cb516194ed6127cc1cda1f4c56",
+        "url": "https://codeberg.org/wetneb",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "owner": "forgejo",
+        "name": "forgejo",
+        "externalId": "73144"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "codeberg.org",
+      "id": "250504423",
+      "kindRaw": "comment_pull",
+      "kind": "comment",
+      "action": "created",
+      "thread": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "owner": "forgejo",
+          "name": "forgejo",
+          "externalId": "73144"
+        },
+        "kind": "pull_request",
+        "number": "15205"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "thread": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "repo": {
+              "forge": "forgejo",
+              "instance": "codeberg.org",
+              "owner": "forgejo",
+              "name": "forgejo",
+              "externalId": "73144"
+            },
+            "kind": "pull_request",
+            "number": "15205"
+          },
+          "id": "27876070"
+        },
+        "body": "Is `generate-mockery` not a fit for `make pr-go` because it requires `make fmt` to be run after it?\r\n\r\nI wonder if this PR is of much value, I'm inclined to close it as it's perhaps fine to leave those files as not generated. No strong feelings."
+      },
+      "summary": "wetneb commented on pull request 15205",
+      "occurredAt": "2026-11-15T21:16:36.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "login": "wetneb",
+        "id": "94198",
+        "name": "Antonin Delpeuch",
+        "avatarUrl": "https://codeberg.org/avatars/8b9c1b2ec136ec83b4be87a6b670a68906b4e6cb516194ed6127cc1cda1f4c56",
+        "url": "https://codeberg.org/wetneb",
         "isBotHint": false
       },
       "repo": {
@@ -453,13 +586,13 @@
       "source": "poll"
     }
   ],
-  "total": 101738,
+  "total": 103576,
   "cursor": {
     "nextUrl": "https://codeberg.org/api/v1/repos/forgejo/forgejo/activities/feeds?limit=10&page=2"
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1952,
+    "remaining": 1950,
     "resetAt": "<now>",
     "resource": "baseline"
   }

@@ -6,36 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8670>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1870;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=3&page=8712>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1864;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total": "26009",
-      "x-total-count": "26009",
+      "x-total": "26136",
+      "x-total-count": "26136",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "created": "2026-10-18T20:14:06+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/10615cce5019acefd625c1300cba85d228b045cc",
+        "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+        "created": "2026-11-16T05:10:18+01:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/10615cce5019acefd625c1300cba85d228b045cc",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/10615cce5019acefd625c1300cba85d228b045cc",
           "author": {
-            "name": "AverageHelper",
+            "name": "cdvv7788",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-16T05:10:18+01:00"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-16T05:10:18+01:00"
           },
-          "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "breaking: make pagination mandatory - default to first page (#13960)\n\nThe page and limit parameters to many Forgejo APIs have previously been optional, and if not provided have been interpreted as \"retrieve all data\". Forgejo will now default page to 1, and default limit to [api].DEFAULT_PAGING_NUM (default: 30).\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/13960\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "created": "2026-10-18T20:14:06+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/10615cce5019acefd625c1300cba85d228b045cc",
+            "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+            "created": "2026-11-16T05:10:18+01:00"
           },
           "verification": {
             "verified": false,
@@ -46,334 +46,567 @@
           }
         },
         "author": {
-          "id": 135189,
-          "login": "AverageHelper",
+          "id": 1402058,
+          "login": "cdvv7788",
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "html_url": "https://codeberg.org/AverageHelper",
-          "active": false,
-          "location": "on your left",
-          "pronouns": "she/her",
-          "website": "https://average.name",
-          "description": "",
-          "followers_count": 2,
-          "following_count": 2,
-          "starred_repos_count": 32,
-          "username": "AverageHelper"
-        },
-        "committer": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
-        },
-        "parents": [
-          {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "web_src/js/modules/toast.test.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/modules/toast.test.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.js",
-            "status": "removed"
-          },
-          {
-            "filename": "package-lock.json",
-            "status": "modified"
-          },
-          {
-            "filename": "package.json",
-            "status": "modified"
-          },
-          {
-            "filename": "tailwind.config.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoActionView.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/common-global.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-common.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-diff.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-home.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-content.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-list.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-legacy.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-suggestion.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/htmx.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/markup/tasklist.js",
-            "status": "modified"
-          },
-          {
-            "filename": "webpack.config.ts",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 68,
-          "additions": 41,
-          "deletions": 27
-        }
-      },
-      {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-        "created": "2026-10-18T18:39:16+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-        "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-          "author": {
-            "name": "oliverpool",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-18T18:39:16+02:00"
-          },
-          "committer": {
-            "name": "Gusted",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-18T18:39:16+02:00"
-          },
-          "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "created": "2026-10-18T18:39:16+02:00"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 32636,
-          "login": "oliverpool",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
-          "html_url": "https://codeberg.org/oliverpool",
-          "active": false,
-          "location": "Bad Tölz, Bavaria, Germany",
-          "pronouns": "he/him",
-          "website": "https://code.pfad.fr",
-          "description": "French software developer living in the German Alps.",
-          "followers_count": 12,
-          "following_count": 0,
-          "starred_repos_count": 6,
-          "username": "oliverpool"
-        },
-        "committer": {
-          "id": 26734,
-          "login": "Gusted",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
-          "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
-        },
-        "parents": [
-          {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-            "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-            "created": "0001-01-01T00:00:00Z"
-          }
-        ],
-        "files": [
-          {
-            "filename": "routers/private/hook_pre_receive.go",
-            "status": "modified"
-          },
-          {
-            "filename": "tests/integration/git_push_test.go",
-            "status": "modified"
-          },
-          {
-            "filename": "tests/integration/git_test.go",
-            "status": "modified"
-          }
-        ],
-        "stats": {
-          "total": 64,
-          "additions": 53,
-          "deletions": 11
-        }
-      },
-      {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-        "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-        "created": "2026-10-18T18:32:57+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-        "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-          "author": {
-            "name": "Renovate Bot",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-18T18:32:57+02:00"
-          },
-          "committer": {
-            "name": "Gusted",
-            "email": "redacted@example.invalid",
-            "date": "2026-10-18T18:32:57+02:00"
-          },
-          "message": "Update module github.com/go-ldap/ldap/v3 to v3.4.15 (forgejo) (#14894)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14894\nReviewed-by: Gusted <redacted@example.invalid>\n",
-          "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-            "sha": "27ae2d7b675d2a4b3589cc7f2489b105b628275e",
-            "created": "2026-10-18T18:32:57+02:00"
-          },
-          "verification": {
-            "verified": false,
-            "reason": "gpg.error.not_signed_commit",
-            "signature": "",
-            "signer": null,
-            "payload": ""
-          }
-        },
-        "author": {
-          "id": 141082,
-          "login": "viceice-bot",
-          "source_id": 0,
-          "full_name": "",
-          "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/b25a3a294c6f5514eb9f56b9c808425d05578e5f414b0d36ac88ade50e166d02",
-          "html_url": "https://codeberg.org/viceice-bot",
+          "avatar_url": "https://codeberg.org/avatars/015f856758daafce908add958c78831c",
+          "html_url": "https://codeberg.org/cdvv7788",
           "active": false,
           "location": "",
           "pronouns": "",
           "website": "",
-          "description": "I'm a bot from @viceice",
-          "followers_count": 6,
-          "following_count": 1,
-          "starred_repos_count": 2,
-          "username": "viceice-bot"
+          "description": "",
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "cdvv7788"
         },
         "committer": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 222642,
+          "login": "mfenniak",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Mathieu Fenniak",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 21,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
-            "sha": "3652d8f54ac7e0b9ab97b4f1eb849f311e7c2e59",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+            "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "go.mod",
+            "filename": "routers/api/v1/utils/page.go",
             "status": "modified"
           },
           {
-            "filename": "go.sum",
+            "filename": "tests/integration/api_comment_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/repo_commits_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "release-notes/13960.md",
+            "status": "added"
+          },
+          {
+            "filename": "routers/api/v1/utils/page_test.go",
+            "status": "added"
+          }
+        ],
+        "stats": {
+          "total": 150,
+          "additions": 145,
+          "deletions": 5
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+        "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+        "created": "2026-11-15T10:08:20+01:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+          "author": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-15T10:08:20+01:00"
+          },
+          "committer": {
+            "name": "0ko",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-15T10:08:20+01:00"
+          },
+          "message": "merge commit: i18n: translations update from Codeberg Translate (#14777)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14777\nReviewed-by: 0ko <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+            "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+            "created": "2026-11-15T10:08:20+01:00"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 28,
+          "starred_repos_count": 31,
+          "username": "0ko"
+        },
+        "committer": {
+          "id": 35856,
+          "login": "0ko",
+          "source_id": 0,
+          "full_name": "",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "html_url": "https://codeberg.org/0ko",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "",
+          "description": "Hi! I do things related to Forgejo<br><button><p>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<img src=\"0ko/me/raw/f\" height=\"128\"/><pre class=\"code-block is-loading\"></pre>![](0ko/me/raw/g \"Gopher (has ur IP)\")</button><br>[**Contact**](0ko/me/src/c.md) ◦ [**Donate**](0ko/me/src/d.md)",
+          "followers_count": 37,
+          "following_count": 28,
+          "starred_repos_count": 31,
+          "username": "0ko"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/68932ee9bdf734d5f78b21a21e713d92ab1243e0",
+            "sha": "68932ee9bdf734d5f78b21a21e713d92ab1243e0",
+            "created": "0001-01-01T00:00:00Z"
+          },
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7fb822065758cb34c624be56125610d61c639881",
+            "sha": "7fb822065758cb34c624be56125610d61c639881",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale/locale_ca.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_cs-CZ.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_de-DE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_el-GR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_fil.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ga-IE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_id-ID.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ko-KR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ml-IN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_nds.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_nl-NL.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pt-PT.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ru-RU.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_sv-SE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_tok.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_tr-TR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_uk-UA.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-CN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-TW.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
             "status": "modified"
           }
         ],
         "stats": {
-          "total": 6,
-          "additions": 3,
-          "deletions": 3
+          "total": 0,
+          "additions": 0,
+          "deletions": 0
+        }
+      },
+      {
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7fb822065758cb34c624be56125610d61c639881",
+        "sha": "7fb822065758cb34c624be56125610d61c639881",
+        "created": "2026-11-15T07:36:28Z",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/7fb822065758cb34c624be56125610d61c639881",
+        "commit": {
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/7fb822065758cb34c624be56125610d61c639881",
+          "author": {
+            "name": "Codeberg Translate",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-15T07:36:28Z"
+          },
+          "committer": {
+            "name": "Codeberg Translate",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-15T07:36:28Z"
+          },
+          "message": "i18n: update of translations from Codeberg Translate\n\nCo-authored-by: 0ko <redacted@example.invalid>\nCo-authored-by: Aindriú Mac Giolla Eoin <redacted@example.invalid>\nCo-authored-by: Andrei Stepanov <redacted@example.invalid>\nCo-authored-by: Atalanttore <redacted@example.invalid>\nCo-authored-by: BJLdeVet <redacted@example.invalid>\nCo-authored-by: Benedikt Straub <redacted@example.invalid>\nCo-authored-by: Blaze <redacted@example.invalid>\nCo-authored-by: Codeberg Translate <redacted@example.invalid>\nCo-authored-by: Cyborus <redacted@example.invalid>\nCo-authored-by: Dirk <redacted@example.invalid>\nCo-authored-by: EnekoDev <redacted@example.invalid>\nCo-authored-by: ErenayDev <redacted@example.invalid>\nCo-authored-by: Fjuro <redacted@example.invalid>\nCo-authored-by: LiteApplication <redacted@example.invalid>\nCo-authored-by: SomeTr <redacted@example.invalid>\nCo-authored-by: Steven Felix <redacted@example.invalid>\nCo-authored-by: Vyxie <redacted@example.invalid>\nCo-authored-by: Wuzzy <redacted@example.invalid>\nCo-authored-by: artnay <redacted@example.invalid>\nCo-authored-by: bittin <redacted@example.invalid>\nCo-authored-by: fga_fulvio <redacted@example.invalid>\nCo-authored-by: frju365 <redacted@example.invalid>\nCo-authored-by: gallegonovato <redacted@example.invalid>\nCo-authored-by: guillemtorne <redacted@example.invalid>\nCo-authored-by: itsxiaobai <redacted@example.invalid>\nCo-authored-by: jimkats <redacted@example.invalid>\nCo-authored-by: jrp2026 <redacted@example.invalid>\nCo-authored-by: jsyoon <redacted@example.invalid>\nCo-authored-by: lnxgr <redacted@example.invalid>\nCo-authored-by: mverkleij <redacted@example.invalid>\nCo-authored-by: pbajoit <redacted@example.invalid>\nCo-authored-by: pswsm <redacted@example.invalid>\nCo-authored-by: ricardosimoes <redacted@example.invalid>\nCo-authored-by: satase <redacted@example.invalid>\nCo-authored-by: stevenfelix505 <redacted@example.invalid>\nCo-authored-by: synabler <redacted@example.invalid>\nCo-authored-by: thibaultmeyer <redacted@example.invalid>\nCo-authored-by: thodorisl <redacted@example.invalid>\nCo-authored-by: vmtj <redacted@example.invalid>\nCo-authored-by: xtex <redacted@example.invalid>\nCo-authored-by: yeager <redacted@example.invalid>\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/el/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/eu/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fil/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/id/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_BR/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hant/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/el/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/fil/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/id/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ml/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/nl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/tok/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/tr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hant/\nTranslation: Forgejo/forgejo\nTranslation: Forgejo/forgejo-next\n",
+          "tree": {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/7fb822065758cb34c624be56125610d61c639881",
+            "sha": "7fb822065758cb34c624be56125610d61c639881",
+            "created": "2026-11-15T07:36:28Z"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "translate / E21F1D62EE3AAC1C",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niQGzBAABCgAdFiEEISK0V2BEKQIf09dd4h8dYu46rBwFAmr5YPwACgkQ4h8dYu46\nrBxV4wv/YZQFtYg5p4NlwtIVHIstc71RxDnA8Yd25U1YwpsV79ESA2G5AG9ozdt3\nZld5SSwgGD2+1ZUfuaqc2rHK+6kbAcGwnVReCcq8bEtTaIpbwLRLLjmgmxHQ3eww\njNXIiVJYjl4G+NfZyNvofZLGBe/BXVyujegfXI8Ul673XqMMv6jZQzJMhvw6+2DU\nI56MJmRq6tIJmtm7+2+YI0gzXG8m40Yv9eeTio6v1W4tPsYN+VVjfEFMt4RclLg3\n4Y/v5Es0jaNSfasIdo9PSfYqNu+/zQDTpiTNVPkbcGpqBSvIglTMO3YLx0CB11Kq\nNVAsvKrCmMwcShLsPmRffkgyRxAmTV2AVx+4Pxy/fuOozjhkoRfH78W/CTtemcxU\nYwTc4F9niC7C29exF+7hijj/Akovpo4Vfsg4iPdHDeJut0U+6csB8ieuTBwYvwl4\nCoI7fgcHXzIlNY0FVnJjbi0aEI8j5qQquwtaSK10t+E+d5bOYbRjtXUyA/C9Bw9k\nnfntFqEs\n=L/0N\n-----END PGP SIGNATURE-----\n",
+            "signer": {
+              "name": "translate",
+              "email": "redacted@example.invalid",
+              "username": ""
+            },
+            "payload": "tree cceaab372daf35900cb51d9350c496e556b02048\nparent 68932ee9bdf734d5f78b21a21e713d92ab1243e0\nauthor Codeberg Translate <redacted@example.invalid> 1794728188 +0000\ncommitter Codeberg Translate <redacted@example.invalid> 1794728188 +0000\n\ni18n: update of translations from Codeberg Translate\n\nCo-authored-by: 0ko <redacted@example.invalid>\nCo-authored-by: Aindriú Mac Giolla Eoin <redacted@example.invalid>\nCo-authored-by: Andrei Stepanov <redacted@example.invalid>\nCo-authored-by: Atalanttore <redacted@example.invalid>\nCo-authored-by: BJLdeVet <redacted@example.invalid>\nCo-authored-by: Benedikt Straub <redacted@example.invalid>\nCo-authored-by: Blaze <redacted@example.invalid>\nCo-authored-by: Codeberg Translate <redacted@example.invalid>\nCo-authored-by: Cyborus <redacted@example.invalid>\nCo-authored-by: Dirk <redacted@example.invalid>\nCo-authored-by: EnekoDev <redacted@example.invalid>\nCo-authored-by: ErenayDev <redacted@example.invalid>\nCo-authored-by: Fjuro <redacted@example.invalid>\nCo-authored-by: LiteApplication <redacted@example.invalid>\nCo-authored-by: SomeTr <redacted@example.invalid>\nCo-authored-by: Steven Felix <redacted@example.invalid>\nCo-authored-by: Vyxie <redacted@example.invalid>\nCo-authored-by: Wuzzy <redacted@example.invalid>\nCo-authored-by: artnay <redacted@example.invalid>\nCo-authored-by: bittin <redacted@example.invalid>\nCo-authored-by: fga_fulvio <redacted@example.invalid>\nCo-authored-by: frju365 <redacted@example.invalid>\nCo-authored-by: gallegonovato <redacted@example.invalid>\nCo-authored-by: guillemtorne <redacted@example.invalid>\nCo-authored-by: itsxiaobai <redacted@example.invalid>\nCo-authored-by: jimkats <redacted@example.invalid>\nCo-authored-by: jrp2026 <redacted@example.invalid>\nCo-authored-by: jsyoon <redacted@example.invalid>\nCo-authored-by: lnxgr <redacted@example.invalid>\nCo-authored-by: mverkleij <redacted@example.invalid>\nCo-authored-by: pbajoit <redacted@example.invalid>\nCo-authored-by: pswsm <redacted@example.invalid>\nCo-authored-by: ricardosimoes <redacted@example.invalid>\nCo-authored-by: satase <redacted@example.invalid>\nCo-authored-by: stevenfelix505 <redacted@example.invalid>\nCo-authored-by: synabler <redacted@example.invalid>\nCo-authored-by: thibaultmeyer <redacted@example.invalid>\nCo-authored-by: thodorisl <redacted@example.invalid>\nCo-authored-by: vmtj <redacted@example.invalid>\nCo-authored-by: xtex <redacted@example.invalid>\nCo-authored-by: yeager <redacted@example.invalid>\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/el/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/es/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/eu/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fi/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fil/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/fr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/id/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/nl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_BR/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo-next/zh_Hant/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ca/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/cs/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/de/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/el/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/fil/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ga/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/id/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ko/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ml/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/nds/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/nl/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/pt_PT/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/ru/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/sv/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/tok/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/tr/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/uk/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hans/\nTranslate-URL: https://translate.codeberg.org/projects/forgejo/forgejo/zh_Hant/\nTranslation: Forgejo/forgejo\nTranslation: Forgejo/forgejo-next\n"
+          }
+        },
+        "author": {
+          "id": 67160,
+          "login": "translate",
+          "source_id": 0,
+          "full_name": "Codeberg Translate",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f598c7ce35150033dbfd52a44af76c8b",
+          "html_url": "https://codeberg.org/translate",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://translate.codeberg.org",
+          "description": "I'm a bot opening PR's with translation changes from https://translate.codeberg.org",
+          "followers_count": 12,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "translate"
+        },
+        "committer": {
+          "id": 67160,
+          "login": "translate",
+          "source_id": 0,
+          "full_name": "Codeberg Translate",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://codeberg.org/avatars/f598c7ce35150033dbfd52a44af76c8b",
+          "html_url": "https://codeberg.org/translate",
+          "active": false,
+          "location": "",
+          "pronouns": "",
+          "website": "https://translate.codeberg.org",
+          "description": "I'm a bot opening PR's with translation changes from https://translate.codeberg.org",
+          "followers_count": 12,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "translate"
+        },
+        "parents": [
+          {
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/68932ee9bdf734d5f78b21a21e713d92ab1243e0",
+            "sha": "68932ee9bdf734d5f78b21a21e713d92ab1243e0",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "options/locale/locale_ca.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_cs-CZ.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_de-DE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_el-GR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_fil.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ga-IE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_id-ID.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ko-KR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ml-IN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_nds.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_nl-NL.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_pt-PT.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_ru-RU.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_sv-SE.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_tok.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_tr-TR.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_uk-UA.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-CN.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale/locale_zh-TW.ini",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ca.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_cs-CZ.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_de-DE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_el-GR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_es-ES.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_eu.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fi-FI.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fil.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_fr-FR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ga.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_id-ID.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ko-KR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nds.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_nl-NL.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-BR.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_pt-PT.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_ru-RU.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_sv-SE.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_uk-UA.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-CN.json",
+            "status": "modified"
+          },
+          {
+            "filename": "options/locale_next/locale_zh-TW.json",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 2094,
+          "additions": 1725,
+          "deletions": 369
         }
       }
     ]

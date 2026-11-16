@@ -6,6 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
+      "ratelimit": "\"baseline\";r=1883;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "1"
     },
     "body": [
@@ -27,7 +29,7 @@
           "pronouns": "he/him",
           "website": "https://mathieu.fenniak.net/",
           "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
-          "followers_count": 20,
+          "followers_count": 21,
           "following_count": 0,
           "starred_repos_count": 4,
           "username": "mfenniak"

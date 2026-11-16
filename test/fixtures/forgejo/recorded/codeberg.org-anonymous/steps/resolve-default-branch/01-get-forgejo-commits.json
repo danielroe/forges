@@ -6,36 +6,36 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26009&sha=forgejo&stat=false>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1871;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=2&sha=forgejo&stat=false>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/commits?limit=1&page=26136&sha=forgejo&stat=false>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1865;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total": "26009",
-      "x-total-count": "26009",
+      "x-total": "26136",
+      "x-total-count": "26136",
       "x-page": "1"
     },
     "body": [
       {
-        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-        "created": "2026-10-18T20:14:06+02:00",
-        "html_url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+        "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/10615cce5019acefd625c1300cba85d228b045cc",
+        "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+        "created": "2026-11-16T05:10:18+01:00",
+        "html_url": "https://codeberg.org/forgejo/forgejo/commit/10615cce5019acefd625c1300cba85d228b045cc",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/10615cce5019acefd625c1300cba85d228b045cc",
           "author": {
-            "name": "AverageHelper",
+            "name": "cdvv7788",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-16T05:10:18+01:00"
           },
           "committer": {
-            "name": "Gusted",
+            "name": "Mathieu Fenniak",
             "email": "redacted@example.invalid",
-            "date": "2026-10-18T20:14:06+02:00"
+            "date": "2026-11-16T05:10:18+01:00"
           },
-          "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+          "message": "breaking: make pagination mandatory - default to first page (#13960)\n\nThe page and limit parameters to many Forgejo APIs have previously been optional, and if not provided have been interpreted as \"retrieve all data\". Forgejo will now default page to 1, and default limit to [api].DEFAULT_PAGING_NUM (default: 30).\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/13960\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
           "tree": {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-            "created": "2026-10-18T20:14:06+02:00"
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/trees/10615cce5019acefd625c1300cba85d228b045cc",
+            "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+            "created": "2026-11-16T05:10:18+01:00"
           },
           "verification": {
             "verified": false,
@@ -46,144 +46,68 @@
           }
         },
         "author": {
-          "id": 135189,
-          "login": "AverageHelper",
+          "id": 1402058,
+          "login": "cdvv7788",
           "source_id": 0,
           "full_name": "",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "html_url": "https://codeberg.org/AverageHelper",
+          "avatar_url": "https://codeberg.org/avatars/015f856758daafce908add958c78831c",
+          "html_url": "https://codeberg.org/cdvv7788",
           "active": false,
-          "location": "on your left",
-          "pronouns": "she/her",
-          "website": "https://average.name",
+          "location": "",
+          "pronouns": "",
+          "website": "",
           "description": "",
-          "followers_count": 2,
-          "following_count": 2,
-          "starred_repos_count": 32,
-          "username": "AverageHelper"
+          "followers_count": 0,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "cdvv7788"
         },
         "committer": {
-          "id": 26734,
-          "login": "Gusted",
+          "id": 222642,
+          "login": "mfenniak",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "Mathieu Fenniak",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "html_url": "https://codeberg.org/Gusted",
+          "avatar_url": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "html_url": "https://codeberg.org/mfenniak",
           "active": false,
-          "location": "Error 451",
-          "pronouns": "",
-          "website": "https://gusted.xyz",
-          "description": "I’m aware (and the NSA is), that I’m pretty 🌈.\r\n\r\nForgejo contributor  \r\nCodeberg executive board member 2025-2026  \r\nCodeberg presidium member 2025-2027  \r\n\r\nFor more interesting repositories: https://git.gusted.xyz/Gusted",
-          "followers_count": 162,
-          "following_count": 30,
-          "starred_repos_count": 103,
-          "username": "Gusted"
+          "location": "Calgary, Alberta, Canada",
+          "pronouns": "he/him",
+          "website": "https://mathieu.fenniak.net/",
+          "description": "Open Source Software Developer. My hobbies include poorly maintaining too many bicycles, running distances that are too far, GM-ing TTRPGs, and, well, more software development obviously.",
+          "followers_count": 21,
+          "following_count": 0,
+          "starred_repos_count": 4,
+          "username": "mfenniak"
         },
         "parents": [
           {
-            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-            "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+            "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+            "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
             "created": "0001-01-01T00:00:00Z"
           }
         ],
         "files": [
           {
-            "filename": "web_src/js/modules/toast.test.ts",
+            "filename": "routers/api/v1/utils/page.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/api_comment_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "tests/integration/repo_commits_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "release-notes/13960.md",
             "status": "added"
           },
           {
-            "filename": "web_src/js/modules/toast.ts",
+            "filename": "routers/api/v1/utils/page_test.go",
             "status": "added"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.ts",
-            "status": "added"
-          },
-          {
-            "filename": "web_src/js/modules/toast.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/modules/toast.test.js",
-            "status": "removed"
-          },
-          {
-            "filename": "web_src/js/standalone/demo.js",
-            "status": "removed"
-          },
-          {
-            "filename": "package-lock.json",
-            "status": "modified"
-          },
-          {
-            "filename": "package.json",
-            "status": "modified"
-          },
-          {
-            "filename": "tailwind.config.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoActionView.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/components/RepoBranchTagSelector.vue",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/common-global.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/comp/ComboMarkdownEditor.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-common.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-diff.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-home.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-content.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue-list.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-issue.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-legacy.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/features/repo-suggestion.js",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/htmx.ts",
-            "status": "modified"
-          },
-          {
-            "filename": "web_src/js/markup/tasklist.js",
-            "status": "modified"
-          },
-          {
-            "filename": "webpack.config.ts",
-            "status": "modified"
           }
         ],
         "stats": null
