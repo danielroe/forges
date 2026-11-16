@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540/comments?number=540&owner=cmcc-oneos&page=2&per_page=3&repo=OneOS>; rel='next', <https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540/comments?number=540&owner=cmcc-oneos&page=2&per_page=3&repo=OneOS>; rel='last'",
-      "etag": "W/\"6f815c539a13e8bd194d06d010b5087d\"",
+      "etag": "W/\"bf4a9f617ddd42e5c7a4ea298088b00a\"",
       "total_page": "2",
       "total_count": "5"
     },
@@ -56,7 +56,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/31012682",
@@ -102,7 +104,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       },
       {
         "url": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/comments/33257524",
@@ -148,7 +152,9 @@
             "href": "https://gitee.com/api/v5/repos/cmcc-oneos/OneOS/pulls/540"
           }
         },
-        "comment_type": "pr_comment"
+        "comment_type": "pr_comment",
+        "diff_position_id": null,
+        "resolved": null
       }
     ]
   }
