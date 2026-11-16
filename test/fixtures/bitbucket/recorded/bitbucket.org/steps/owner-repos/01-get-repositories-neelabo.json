@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"184812bf7719141030d77f035bfa3f9f\""
+      "etag": "W/\"a526047888841cdf45619399efade49d\""
     },
     "body": {
       "values": [
@@ -54,7 +54,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/neeview.git"
+                "href": "git@ssh.bitbucket.org:neelabo/neeview.git"
               }
             ],
             "issues": {
@@ -184,7 +184,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/iconmaker.git"
+                "href": "git@ssh.bitbucket.org:neelabo/iconmaker.git"
               }
             ],
             "issues": {
@@ -314,7 +314,7 @@
               },
               {
                 "name": "ssh",
-                "href": "git@bitbucket.org:neelabo/resxxlsxconv.git"
+                "href": "git@ssh.bitbucket.org:neelabo/resxxlsxconv.git"
               }
             ],
             "hooks": {
