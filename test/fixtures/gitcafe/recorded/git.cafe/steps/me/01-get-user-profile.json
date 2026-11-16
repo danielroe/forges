@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/user/profile"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "handle": "oritwoen",
+      "version": 0,
+      "displayName": "oritwoen",
+      "bio": null,
+      "location": null,
+      "company": null,
+      "websiteUrl": null,
+      "avatarUrl": null
+    }
+  }
+}

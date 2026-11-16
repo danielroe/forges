@@ -1,0 +1,145 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "repo": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "owner": "oritwoen",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "2",
+      "externalId": "pr_01m77v8rbyfmzt9st98j96php9"
+    },
+    "kind": "pull_request",
+    "title": "forges probe pull",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "login": "oritwoen",
+      "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "name": "oritwoen",
+      "url": "https://git.cafe/oritwoen",
+      "typeRaw": "local",
+      "isBotHint": false
+    },
+    "assignees": [
+      {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [
+      {
+        "name": "forges-fixture-mwdin7lw",
+        "colour": "0e8a16"
+      }
+    ],
+    "url": "https://git.cafe/oritwoen/forges-fixtures/pull/2",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "closedAt": "<now>",
+    "mergedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "branches": {
+      "head": {
+        "ref": "feature/shout",
+        "sha": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460"
+      },
+      "base": {
+        "ref": "main"
+      }
+    },
+    "stats": {
+      "additions": 1,
+      "deletions": 0,
+      "changedFileCount": 1
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "repo": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "owner": "oritwoen",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "2",
+      "externalId": "pr_01m77v8rbyfmzt9st98j96php9"
+    },
+    "kind": "pull_request",
+    "title": "forges probe pull",
+    "body": "Opened by the forges probe.",
+    "state": "merged",
+    "stateRaw": "merged",
+    "isDraft": false,
+    "author": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "login": "oritwoen",
+      "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "name": "oritwoen",
+      "url": "https://git.cafe/oritwoen",
+      "typeRaw": "local",
+      "isBotHint": false
+    },
+    "assignees": [
+      {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [
+      {
+        "name": "forges-fixture-mwdin7lw",
+        "colour": "0e8a16",
+        "description": "A label the probe made"
+      }
+    ],
+    "url": "https://git.cafe/oritwoen/forges-fixtures/pull/2",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "closedAt": "<now>",
+    "mergedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "branches": {
+      "head": {
+        "ref": "feature/shout",
+        "sha": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460"
+      },
+      "base": {
+        "ref": "main",
+        "sha": "a0ac4199db6451399b7bc261cbbac67bead2d9e8"
+      },
+      "mergeCommitSha": "ee27a73933a3461c76a163e552677fff74df20b0"
+    },
+    "stats": {
+      "additions": 1,
+      "deletions": 0,
+      "changedFileCount": 1
+    }
+  }
+}

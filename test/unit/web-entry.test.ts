@@ -78,6 +78,11 @@ const cases: Array<[keyof typeof web & keyof typeof providers, WebOptions, strin
     ['https://example.com/gitbucket/acme/widgets/pull/2', 'https://example.com/gitbucket/acme/widgets/releases/v1.0.0', 'https://example.com/gitbucket/git/acme/widgets.git'],
   ],
   [
+    'gitcafe',
+    {},
+    ['https://git.cafe/acme/widgets/pull/2', 'https://git.cafe/acme/widgets/issues/4#icomment_01m6kj9jhkee3acc99w4ep8kvz'],
+  ],
+  [
     'tangled',
     {},
     ['https://tangled.sh/@acme.dev/core/issues/4', 'https://tangled.sh/@acme.dev/core/compare/main...feat'],

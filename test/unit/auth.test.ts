@@ -8,6 +8,7 @@ import { cursorOrigin } from '../../src/cursor-origin/index.ts'
 import { entire } from '../../src/entire/index.ts'
 import { forgejo } from '../../src/forgejo/index.ts'
 import { gitbucket } from '../../src/gitbucket/index.ts'
+import { gitcafe } from '../../src/gitcafe/index.ts'
 import { gitea } from '../../src/gitea/index.ts'
 import { gitee } from '../../src/gitee/index.ts'
 import { github } from '../../src/github/index.ts'
@@ -71,6 +72,10 @@ const FACTORIES: Record<string, TokenFactory> = {
   }),
   'gitbucket': (token, fetch) => gitbucket({
     baseUrl: 'https://gitbucket.example.com',
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'gitcafe': (token, fetch) => gitcafe({
     auth: { type: 'token', token },
     fetch,
   }),

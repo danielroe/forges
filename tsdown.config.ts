@@ -18,6 +18,7 @@ export default defineConfig({
     'src/cloudflare-artifacts/index.ts',
     'src/sourcehut/index.ts',
     'src/gitbucket/index.ts',
+    'src/gitcafe/index.ts',
     'src/entire/index.ts',
     'src/env.ts',
     'src/helpers.ts',

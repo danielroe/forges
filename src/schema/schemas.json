@@ -2756,7 +2756,8 @@
       "cloudflare-artifacts",
       "sourcehut",
       "entire",
-      "gitbucket"
+      "gitbucket",
+      "gitcafe"
     ],
     "description": "The forges this package ships providers for.",
     "x-forges-type": "KnownForgeKind"

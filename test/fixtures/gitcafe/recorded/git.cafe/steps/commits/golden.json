@@ -1,0 +1,89 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "repo": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "sha": "4efff95668743e5b77cc09a8b26cad2abdedee5f"
+      },
+      "sha": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "message": "ci: add a workflow\n",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "ee27a73933a3461c76a163e552677fff74df20b0"
+      ],
+      "url": "https://git.cafe/oritwoen/forges-fixtures/commit/4efff95668743e5b77cc09a8b26cad2abdedee5f"
+    },
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "repo": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "sha": "ee27a73933a3461c76a163e552677fff74df20b0"
+      },
+      "sha": "ee27a73933a3461c76a163e552677fff74df20b0",
+      "message": "forges probe pull (#2)\n\n* feat: shout\n",
+      "author": {
+        "name": "gitcafe",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "gitcafe",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "a0ac4199db6451399b7bc261cbbac67bead2d9e8"
+      ],
+      "url": "https://git.cafe/oritwoen/forges-fixtures/commit/ee27a73933a3461c76a163e552677fff74df20b0"
+    },
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "repo": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "owner": "oritwoen",
+          "name": "forges-fixtures"
+        },
+        "sha": "a0ac4199db6451399b7bc261cbbac67bead2d9e8"
+      },
+      "sha": "a0ac4199db6451399b7bc261cbbac67bead2d9e8",
+      "message": "chore: initial commit\n",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [],
+      "url": "https://git.cafe/oritwoen/forges-fixtures/commit/a0ac4199db6451399b7bc261cbbac67bead2d9e8"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/blob?path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"sb1-e99d758eb9891a95d7af4e224d20b427\"",
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "commit": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "oid": "0322b8576a0369429e4e49d9bf57bbbb43d02e04",
+      "path": "README.md",
+      "size": 71,
+      "binary": false,
+      "content": "# forges-fixtures\n\nA scratch repository for the forges provider tests.\n"
+    }
+  }
+}

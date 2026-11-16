@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/tree?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"st1-874034443ff212ffd312dc23ea455c82\"",
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "oid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "items": [
+        {
+          "name": ".github",
+          "path": ".github",
+          "oid": "fd61dde2debee887267051ac09b5ece413254477",
+          "mode": 16384,
+          "kind": "tree"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "oid": "0322b8576a0369429e4e49d9bf57bbbb43d02e04",
+          "mode": 33188,
+          "kind": "blob"
+        },
+        {
+          "name": "shout.ts",
+          "path": "shout.ts",
+          "oid": "2dbb70cb1351714923d9fe52a65c8b442fe3c99c",
+          "mode": 33188,
+          "kind": "blob"
+        }
+      ],
+      "next": null
+    }
+  }
+}
