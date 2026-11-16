@@ -10,24 +10,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+        "sha": "fb2a9943b5e91c03ea0b457f60650d080e96afc7"
       },
-      "sha": "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8",
-      "message": "docs: fix code example (#1587)",
+      "sha": "fb2a9943b5e91c03ea0b457f60650d080e96afc7",
+      "message": "fix(proxy): preserve content-length for unencoded responses (#1643)\n\n* fix(proxy): preserve content-length for unencoded responses\n\nThe proxy strips Content-Length from every upstream response even when fetch returns the body unchanged. This discards valid framing metadata for full and partial media responses, as well as HEAD and empty responses. Stripping the header is still necessary when fetch transparently decompresses a response.\n\nMove Content-Length out of the unconditional response-header denylist and preserve it when Content-Encoding is absent or identity. Keep dropping it for encoded or CORS-filtered responses and respect Connection-nominated hop-by-hop fields. Add regression coverage for full and partial binary responses, identity encoding, empty responses, HEAD, real HTTP gzip/deflate/Brotli decompression, and the header-filtering safeguards.\n\n* fix(proxy): handle head method overrides when forwarding length\n\nA GET request proxied with fetchOptions.method set to HEAD could forward the upstream representation length despite having no response body. Clients would wait for bytes that never arrived.\n\nOnly preserve a nonzero length without a body when the downstream request is HEAD or the response is 304. Add regression tests for the GET-to-HEAD override and for retaining valid 304 metadata, using both internal requests and real HTTP connections.\n\n* fix(proxy): drop conflicting and prohibited content lengths\n\nPreserving upstream Content-Length could retain a stale length when an internal handler also supplied Transfer-Encoding, causing clients to wait for bytes that were never sent. The zero-length and HEAD exceptions could also forward Content-Length on a 204 response, where the header is prohibited.\n\nExclude responses with Transfer-Encoding and status 204 before applying the length-preservation exceptions. Add regression coverage for conflicting internal response headers and for zero-length GET and positive-length HEAD responses with status 204, exercising both web and Node transports.\n\n* refactor(proxy): drop content-length guards unreachable over HTTP\n\nA real upstream cannot send both transfer-encoding and content-length (the\nHTTP parser rejects it), and a bodyless zero length only arises from synthetic\ninternal responses; dropping it there matches the previous behavior.\n\n* fix(proxy): keep dropping content-length alongside transfer-encoding\n\nInternal targets bypass the HTTP parser, so a handler response carrying both\nheaders would otherwise forward a length the body may not match (hang or\nsilent truncation instead of the direct-access framing error).\n\n---------\n\nCo-authored-by: Pooya Parsa <redacted@example.invalid>",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "otowa1",
-          "id": "90172742",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/90172742?v=4",
-          "url": "https://github.com/otowa1",
+          "login": "caiquecastro",
+          "id": "3316550",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/3316550?v=4",
+          "url": "https://github.com/caiquecastro",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "otowa1",
+        "name": "Caíque de Castro Soares da Silva",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:49:51.000Z"
+        "date": "2026-11-10T15:10:04.000Z"
       },
       "committer": {
         "actor": {
@@ -42,12 +42,12 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:49:51.000Z"
+        "date": "2026-11-10T15:10:04.000Z"
       },
       "parents": [
-        "0835b7da1348ce02c736dc0c1d6f195ecba4d32c"
+        "e379a329df994022f2a9924ae55bb8a8c485f91f"
       ],
-      "url": "https://github.com/h3js/h3/commit/f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+      "url": "https://github.com/h3js/h3/commit/fb2a9943b5e91c03ea0b457f60650d080e96afc7"
     },
     {
       "ref": {
@@ -59,73 +59,24 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+        "sha": "e379a329df994022f2a9924ae55bb8a8c485f91f"
       },
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+      "sha": "e379a329df994022f2a9924ae55bb8a8c485f91f",
+      "message": "fix(query): reject malformed Content-Type tokens (#1634)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "henricop",
+          "id": "54844857",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/54844857?v=4",
+          "url": "https://github.com/henricop",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "Henrico Piubello",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:53:32.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "name": "Pooya Parsa",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:59:46.000Z"
-      },
-      "parents": [
-        "b64166ae78a68dd15c41e5bdf21af4d235804876"
-      ],
-      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d"
-      },
-      "sha": "ef38da99d4e3b9f837725e2b398ce73a173d007d",
-      "message": "docs: fix broken section anchors (#1577)",
-      "author": {
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "SatvikMishra08",
-          "id": "89024979",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/89024979?v=4",
-          "url": "https://github.com/SatvikMishra08",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "name": "Satvik Mishra",
-        "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:50:19.000Z"
+        "date": "2026-11-10T14:20:13.000Z"
       },
       "committer": {
         "actor": {
@@ -140,15 +91,64 @@
         },
         "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-17T11:50:19.000Z"
+        "date": "2026-11-10T14:20:13.000Z"
       },
       "parents": [
-        "f4ebd4e9ab4de1d0694265896e41e7d2a2dd42d8"
+        "ef941511f41e22a9c9bfdef0750b5fea0c28c6a7"
       ],
-      "url": "https://github.com/h3js/h3/commit/ef38da99d4e3b9f837725e2b398ce73a173d007d"
+      "url": "https://github.com/h3js/h3/commit/e379a329df994022f2a9924ae55bb8a8c485f91f"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "sha": "d252549ca9f39690a3547fe440f42db6b7c4f612"
+      },
+      "sha": "d252549ca9f39690a3547fe440f42db6b7c4f612",
+      "message": "fix(response): keep `iterable` streaming past skipped values (#1615)",
+      "author": {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "NgoQuocViet2001",
+          "id": "123613986",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/123613986?v=4",
+          "url": "https://github.com/NgoQuocViet2001",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "Ngo Quoc Viet",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-10T15:45:14.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "github",
+          "instance": "github.com",
+          "login": "web-flow",
+          "id": "19864447",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "url": "https://github.com/web-flow",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "name": "GitHub",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-10T15:45:14.000Z"
+      },
+      "parents": [
+        "2ce0e5f660589b841c1abce2942c27dd46c5d3a0"
+      ],
+      "url": "https://github.com/h3js/h3/commit/d252549ca9f39690a3547fe440f42db6b7c4f612"
     }
   ],
-  "total": 448,
+  "total": 458,
   "cursor": {
     "nextUrl": "https://api.github.com/search/commits?q=fix+repo%3Ah3js%2Fh3&per_page=3&page=2"
   },

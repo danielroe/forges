@@ -41,7 +41,7 @@
           "owner": "forges-fixtures",
           "name": "forges-fixtures"
         },
-        "id": "5",
+        "id": "4",
         "kind": "dependency",
         "severityRaw": "medium"
       },
@@ -51,16 +51,16 @@
       "severityRaw": "medium",
       "state": "open",
       "stateRaw": "open",
-      "title": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+      "title": "Lodash has Prototype Pollution Vulnerability in `_.unset`, `_.omit`, and `_.pullAt` functions",
       "package": {
         "ecosystem": "npm",
         "name": "lodash",
-        "vulnerableRange": "<= 4.17.23",
-        "fixedIn": "4.18.0"
+        "vulnerableRange": ">= 4.0.0, <= 4.17.22",
+        "fixedIn": "4.17.23"
       },
-      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/5",
-      "createdAt": "2026-10-09T11:16:40.000Z",
-      "updatedAt": "2026-10-09T11:16:40.000Z"
+      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/4",
+      "createdAt": "2026-10-09T11:16:39.000Z",
+      "updatedAt": "2026-10-09T11:16:39.000Z"
     },
     {
       "ref": {
@@ -72,7 +72,7 @@
           "owner": "forges-fixtures",
           "name": "forges-fixtures"
         },
-        "id": "4",
+        "id": "3",
         "kind": "dependency",
         "severityRaw": "medium"
       },
@@ -82,28 +82,28 @@
       "severityRaw": "medium",
       "state": "open",
       "stateRaw": "open",
-      "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
+      "title": "Regular Expression Denial of Service (ReDoS) in lodash",
       "package": {
         "ecosystem": "npm",
         "name": "lodash",
-        "vulnerableRange": ">= 4.0.0, <= 4.17.22",
-        "fixedIn": "4.17.23"
+        "vulnerableRange": ">= 4.0.0, < 4.17.21",
+        "fixedIn": "4.17.21"
       },
-      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/4",
+      "url": "https://github.com/forges-fixtures/forges-fixtures/security/dependabot/3",
       "createdAt": "2026-10-09T11:16:39.000Z",
       "updatedAt": "2026-10-09T11:16:39.000Z"
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJR7LQAFyLQ5WBBnPAAAAAc59BOc%3D",
-    "etag": "W/\"b67a57bf4bb377c184829b3db33acebabd5ecf44d49c167e555a988318a882ef\"",
+    "nextUrl": "https://api.github.com/repositories/1411702196/dependabot/alerts?per_page=3&after=Y3Vyc29yOnYyOpPPAAABoSBhJADLP_eTX8O09hbPAAAAAc59BMo%3D",
+    "etag": "W/\"c310027b0ea241790ea08b2179454b52c4b318c3691dca4eb7fa3c08fc9348a7\"",
     "token": "0:"
   },
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4966,
+    "remaining": 4971,
     "resetAt": "<now>",
     "resource": "core"
   },
-  "etag": "W/\"b67a57bf4bb377c184829b3db33acebabd5ecf44d49c167e555a988318a882ef\""
+  "etag": "W/\"c310027b0ea241790ea08b2179454b52c4b318c3691dca4eb7fa3c08fc9348a7\""
 }

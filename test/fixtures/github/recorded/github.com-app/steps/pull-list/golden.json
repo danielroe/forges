@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1654",
+        "externalId": "PR_kwDOErHI988AAAABPbjZsQ"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "docs: add medicus to community section",
+      "body": "Adds `medicus` to the community list.\n\nMedicus is a health check library, not a hosted service. Its H3 handler (`medicus/h3`) runs custom checkers and responds with a JSON status. It works with H3 v1 and v2 and can be exported from a Nitro route file. MIT licensed, about 48k npm downloads a month.\n\n- npm: https://www.npmjs.com/package/medicus\n- repo: https://github.com/arthurfiorette/medicus\n- docs: https://medicus.js.org\n\nI'm the author.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Added a community utility listing with details on its health checks, status responses, framework support, and repository link.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "arthurfiorette",
+        "id": "47537704",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/47537704?v=4",
+        "url": "https://github.com/arthurfiorette",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -50,36 +50,36 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
+      "url": "https://github.com/h3js/h3/pull/1654",
+      "createdAt": "2026-11-16T03:25:40.000Z",
+      "updatedAt": "2026-11-16T03:32:20.000Z",
+      "lastActivityAt": "2026-11-16T03:32:20.000Z",
       "locked": false,
       "commentCount": 3,
       "branches": {
         "head": {
-          "ref": "fix/serve-static-index-paths",
-          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+          "ref": "docs/community-add-medicus",
+          "sha": "232c441976caf16da84f9e259f81ae6a13b9dfbd",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "TalhaHunter101",
+            "owner": "arthurfiorette",
             "name": "h3",
-            "externalId": "1414411073"
+            "externalId": "1459494638"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
+        "mergeCommitSha": "7739f53f1ca481f9f28dd711577bd6f2e4abb64e"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
         "total": 3,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1585/checks"
+        "url": "https://github.com/h3js/h3/pull/1654/checks"
       }
     },
     {
@@ -93,22 +93,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+        "number": "1653",
+        "externalId": "PR_kwDOErHI988AAAABPIpifw"
       },
       "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(response): run sync onResponse before returning the response",
+      "body": "Resolves #1647\n\n## Summary\n\nInvoke `config.onResponse` synchronously inside `toResponse()` once `prepareResponse()` has produced a resolved `Response`, and only allocate the promise chain when `onResponse` returns a thenable. Dispose observation is extracted to a module-level `observeDispose()` helper so neither the no-hook path nor the sync-hook path allocates per-request closures.\n\n```diff\n toResponse(val, event, config)\n   prepareResponse(val, event, config) -> Response\n   if config.onResponse\n-    Promise.resolve()\n-      .then(() => onResponse(response, event))\n-      .catch(logError)\n-      .then(() => dispose?.observe(response, val) ?? response)\n+    try\n+      hookRes = onResponse(response, event)\n+      if typeof hookRes?.then === \"function\"\n+        return Promise.resolve(hookRes)\n+          .catch(logError)\n+          .then(() => observeDispose(event, response, val))\n+    catch (error)\n+      logError(error)\n+  return observeDispose(event, response, val)\n```\n\n- Reading `hookRes?.then` inside the `try` block ensures a custom object with a throwing `.then` getter is absorbed and logged the same way as a synchronous throw, while `Promise.resolve(hookRes)` adopts custom thenables whose `.then` throws on invocation or second read.\n- Adjusts bundle ceilings in `test/bench/bundle.test.ts` to match measured sizes (`H3Core`: `7952 B` / `3170 B gzip`, `defineHandler`: `7144 B` / `2903 B gzip`; `defineHandler` on `main` was already `7045 B` / `2872 B gzip` over the prior `7040` / `2870` budget).\n\n## Evidence\n\n- **Before:** With a synchronous handler and synchronous `onResponse`, `app.fetch()` returned a `Promise<Response>` and queued three promise reactions per request; `onResponse` ran a microtask after `fetch()` returned.\n- **After:** `app.fetch()` returns a plain `Response` synchronously (`0` `PROMISE` allocations on warmup `fetch` loops), `onResponse` runs before `fetch()` returns, sync throws and throwing/rejecting thenables are absorbed without invoking `onError` or skipping `onDispose`, and `pnpm lint`, `pnpm typecheck`, `pnpm build`, and `pnpm vitest --run` pass (`75` files, `3355` passed).\n\n## Merge Danger\n\n**Door:** Two-way\n\nIsolated to `toResponse()` in `src/response.ts` plus unit tests and bundle ceilings.\n\n**Blast Radius:** Narrow\n\n`toResponse()` and `app.fetch()` are already typed `Response | Promise<Response>` (and already returned a plain `Response` when `onResponse` was unset). Direct JS callers chaining `app.fetch(...).then(...)` without `await` or `Promise.resolve(...)` when both the handler and `onResponse` are synchronous now receive a `Response` directly, as noted in #1647.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Responses can now be returned synchronously when the response hook completes synchronously, avoiding unnecessary asynchronous behavior.\n  * When the response hook is asynchronous, the response waits for it to settle before cleanup runs.\n  * Errors from response hooks are logged unless silent mode is enabled, and do not trigger the request error handler.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
+        "login": "eisen0419",
+        "id": "215163742",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/215163742?v=4",
+        "url": "https://github.com/eisen0419",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -132,36 +132,36 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
+      "url": "https://github.com/h3js/h3/pull/1653",
+      "createdAt": "2026-11-14T11:20:18.000Z",
+      "updatedAt": "2026-11-14T11:25:02.000Z",
+      "lastActivityAt": "2026-11-14T11:25:02.000Z",
       "locked": false,
-      "commentCount": 2,
+      "commentCount": 1,
       "branches": {
         "head": {
-          "ref": "docs/fix-static-assets-example",
-          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
+          "ref": "fix/sync-on-response",
+          "sha": "9e1207b792c4ea50e0436ecaf34e1dac3bc19908",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "aaronanish-t",
+            "owner": "eisen0419",
             "name": "h3",
-            "externalId": "1414188488"
+            "externalId": "1457676665"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
+        "mergeCommitSha": "957c03c33b28d4dc175108d9cfc08686f381f836"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
         "total": 3,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1583/checks"
+        "url": "https://github.com/h3js/h3/pull/1653/checks"
       }
     },
     {
@@ -175,27 +175,27 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1579",
-        "externalId": "PR_kwDOErHI988AAAABHvErmg"
+        "number": "1652",
+        "externalId": "PR_kwDOErHI988AAAABO88zIg"
       },
       "kind": "pull_request",
-      "title": "docs(static): mount serveStatic example at the root",
-      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(static): evaluate `If-Match` and `If-Unmodified-Since` preconditions",
+      "body": "Resolves #1639.\n\n`serveStatic` now evaluates `If-Match` and `If-Unmodified-Since` before the existing `If-None-Match` / `If-Modified-Since` check, as RFC 9110 §13.2.2 orders them, and responds `412 Precondition Failed` when they fail:\n\n- `If-Match` uses strong comparison: `*` passes, a weak ETag never matches, and a missing ETag fails.\n- `If-Unmodified-Since` is only evaluated when `If-Match` is absent; an invalid date is ignored.\n\nThe check lives next to `isCacheMatch` in `src/utils/internal/cache.ts` as `isPreconditionFailed()`. Tests in `test/static.test.ts` (node and web) cover each case; they fail on main and pass with the change. `pnpm lint` and `pnpm typecheck` pass. In the full `pnpm vitest run`, only `test/bench/bundle.test.ts` (defineHandler bundle 7045 > 7040) fails, and it fails the same way on main locally.\n\nNot included: the `cache-control: no-store` header nitro adds on its 412, since h3 error responses don't carry headers set on `event.res`.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Static file requests now return a precondition failure when `If-Match` or `If-Unmodified-Since` conditions are not met, rather than returning a cached response. When both conditions are provided, `If-Match` takes precedence. Invalid date values are ignored.\n* **Tests**\n  * Added coverage for ETag and date-based preconditions, including wildcard and list matching, condition precedence, supported date formats, and invalid dates.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "harshit-d3v",
-        "id": "106448130",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-        "url": "https://github.com/harshit-d3v",
+        "login": "vudigapranav",
+        "id": "235345735",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/235345735?v=4",
+        "url": "https://github.com/vudigapranav",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [
         {
@@ -214,48 +214,48 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1579",
-      "createdAt": "2026-10-10T20:06:27.000Z",
-      "updatedAt": "2026-10-17T12:00:47.000Z",
-      "lastActivityAt": "2026-10-17T12:00:47.000Z",
+      "url": "https://github.com/h3js/h3/pull/1652",
+      "createdAt": "2026-11-13T15:41:12.000Z",
+      "updatedAt": "2026-11-14T11:39:21.000Z",
+      "lastActivityAt": "2026-11-14T11:39:21.000Z",
       "locked": false,
-      "commentCount": 4,
+      "commentCount": 1,
       "branches": {
         "head": {
-          "ref": "docs/serve-static-root",
-          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+          "ref": "fix/serve-static-preconditions",
+          "sha": "78afe899eabfcdf0b9dcbc71f5ce7c3c2c3d262c",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "harshit-d3v",
+            "owner": "vudigapranav",
             "name": "h3",
-            "externalId": "1413617363"
+            "externalId": "1456719375"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
+        "mergeCommitSha": "638e38952daad460c8679b950181b7b2d4237ddb"
       },
       "checks": {
         "state": "success",
         "stateRaw": "success",
-        "total": 8,
+        "total": 3,
         "failed": 0,
-        "url": "https://github.com/h3js/h3/pull/1579/checks"
+        "url": "https://github.com/h3js/h3/pull/1652/checks"
       }
     }
   ],
-  "total": 21,
+  "total": 30,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"bee4d67d2dfb7b9542d370dfa30eda00825054e76baba64e5ff72bb2b969a598\""
+    "etag": "W/\"90bfa7caa83705bd3b77df3b339cfbafeb014e64dd43526f4188698fa1ff3920\""
   },
-  "etag": "W/\"bee4d67d2dfb7b9542d370dfa30eda00825054e76baba64e5ff72bb2b969a598\"",
+  "etag": "W/\"90bfa7caa83705bd3b77df3b339cfbafeb014e64dd43526f4188698fa1ff3920\"",
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4997,
+    "remaining": 4988,
     "resetAt": "<now>",
     "resource": "core"
   }

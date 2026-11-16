@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "number": "1650",
+        "externalId": "I_kwDOErHI988AAAABekbnSA"
       },
       "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "title": "Session responses carry nothing that keeps a shared cache from storing them",
+      "body": "Right now when a handler reads a session and answers with something that depends on it, the response goes out without any caching directive. The docs do mention CDNs in the idle timeout note, saying that a response with `Set-Cookie` is usually not stored and that requests that only read the session set no cookie at all, but that second case is exactly the one where nothing stops a cache keyed by URL from keeping one user's response and serving it to the next one.\n\nI went through what other frameworks do here and most of them don't leave it to the app:\n\n- Django's [session middleware](https://github.com/django/django/blob/main/django/contrib/sessions/middleware.py) adds `Vary: Cookie` whenever the session was accessed, modified or not.\n- Symfony's [session listener](https://github.com/symfony/symfony/blob/7.4/src/Symfony/Component/HttpKernel/EventListener/AbstractSessionListener.php) makes the response private as soon as the session is started, with a header to opt out, and its responses default to `no-cache, private` anyway, which Laravel inherits.\n- Rails [defaults every response](https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/http/cache.rb) to `max-age=0, private, must-revalidate`.\n- PHP's default [session cache limiter](https://www.php.net/manual/en/function.session-cache-limiter.php) is `nocache`, which sends `no-store, no-cache, must-revalidate`.\n- Spring Security [adds](https://docs.spring.io/spring-security/reference/features/exploits/headers.html) `no-cache, no-store, max-age=0, must-revalidate` by default and backs off when the app sets its own.\n- express-session does nothing, same as h3 today.\n\nWe could either do:\n\n1. Add a warning in the session docs next to that note, telling people that a response built from session data should be sent as private and not storable.\n2. Appending `Vary: Cookie` when a session is read from the cookie, like Django does, or going the Symfony way and marking the response private with a way to opt out.\n\nI can send a PR for either of them, I just wanted to check first which direction you'd prefer.\n",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "gnugomez",
+        "id": "31970428",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/31970428?v=4",
+        "url": "https://github.com/gnugomez",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -35,10 +35,10 @@
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "url": "https://github.com/h3js/h3/issues/1650",
+      "createdAt": "2026-11-12T09:02:40.000Z",
+      "updatedAt": "2026-11-12T09:03:50.000Z",
+      "lastActivityAt": "2026-11-12T09:03:50.000Z",
       "locked": false,
       "commentCount": 0,
       "reactions": {
@@ -48,13 +48,12 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-    "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoc0vRrDPAAAAAXnjkpM%3D&page=3",
+    "etag": "W/\"8f3bd5fa89f566daa94d1905e32d3242b11c2d5607276b7874eb710b7295e86c\""
   },
-  "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 21,
+    "remaining": 3,
     "resetAt": "<now>",
     "resource": "core"
   }

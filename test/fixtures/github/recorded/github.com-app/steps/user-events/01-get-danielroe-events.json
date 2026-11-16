@@ -7,146 +7,16 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/user/28706372/events?per_page=10&page=2>; rel=\"next\", <https://api.github.com/user/28706372/events?per_page=10&page=30>; rel=\"last\"",
-      "etag": "W/\"3b416bbae297128c5fbce3203d6dc1d480fe53b44a9a6ac3e89586601ae7b023\"",
+      "etag": "W/\"c8ab4182fd19f71062e2cdfb787258eac47a6eb8a67c7003a06ea3f42f8ec60e\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4970",
-      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-remaining": "4960",
+      "x-ratelimit-reset": "1794807308",
       "x-ratelimit-resource": "core",
       "x-poll-interval": "60"
     },
     "body": [
       {
-        "id": "17571094293",
-        "type": "IssuesEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 878458624,
-          "name": "danielroe/beasties",
-          "url": "https://api.github.com/repos/danielroe/beasties"
-        },
-        "payload": {
-          "action": "labeled",
-          "issue": {
-            "url": "https://api.github.com/repos/danielroe/beasties/issues/460",
-            "repository_url": "https://api.github.com/repos/danielroe/beasties",
-            "labels_url": "https://api.github.com/repos/danielroe/beasties/issues/460/labels{/name}",
-            "comments_url": "https://api.github.com/repos/danielroe/beasties/issues/460/comments",
-            "events_url": "https://api.github.com/repos/danielroe/beasties/issues/460/events",
-            "html_url": "https://github.com/danielroe/beasties/issues/460",
-            "id": 5833789176,
-            "node_id": "I_kwDONFw3AM8AAAABW7iO-A",
-            "number": 460,
-            "title": "inlineFonts drops @font-face when font-family is set through a custom property",
-            "user": {
-              "login": "gildas-refacto",
-              "id": 88440299,
-              "node_id": "REDACTED",
-              "avatar_url": "https://avatars.githubusercontent.com/u/88440299?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/gildas-refacto",
-              "html_url": "https://github.com/gildas-refacto",
-              "followers_url": "https://api.github.com/users/gildas-refacto/followers",
-              "following_url": "https://api.github.com/users/gildas-refacto/following{/other_user}",
-              "gists_url": "https://api.github.com/users/gildas-refacto/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/gildas-refacto/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/gildas-refacto/subscriptions",
-              "organizations_url": "https://api.github.com/users/gildas-refacto/orgs",
-              "repos_url": "https://api.github.com/users/gildas-refacto/repos",
-              "events_url": "https://api.github.com/users/gildas-refacto/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/gildas-refacto/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 7656286124,
-                "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
-                "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
-                "name": "bug",
-                "color": "d73a4a",
-                "default": true,
-                "description": "Something isn't working",
-                "archived_at": null,
-                "archived_by": null
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignees": [],
-            "milestone": null,
-            "comments": 0,
-            "created_at": "2026-10-13T16:16:27Z",
-            "updated_at": "2026-10-19T04:24:18Z",
-            "closed_at": null,
-            "assignee": null,
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "issue_dependencies_summary": {
-              "blocked_by": 0,
-              "total_blocked_by": 0,
-              "blocking": 0,
-              "total_blocking": 0
-            },
-            "body": "With `inlineFonts: true` (and `preloadFonts: true`), beasties keeps only the `@font-face` rules whose family appears in a critical `font-family` / `font` declaration. A family written through a custom property is never resolved, so its `@font-face` rules are dropped from the inlined CSS. Tailwind v4 always sets the base font this way (`font-family: var(--default-font-family, ...)` in its preflight), so a Tailwind v4 site loses all its `@font-face` rules.\n\nThis is a regression from #422, released in 0.5.4: 0.4.3 to 0.5.3 inline the rule in the reproduction below, 0.5.4 and 0.5.5 drop it, with the classic and the compiled paths alike. `main` still collects the families with `parseFontFamilies(decl.prop, decl.value)`.\n\nReproduction:\n\n```css\n@font-face { font-family: Gotham; src: url(/fonts/g.woff2) format(\"woff2\") }\n:root { --font-secondary: Gotham, sans-serif }\nbody { font-family: var(--font-secondary) }\n```\n\n```html\n<html><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><p>text</p></body></html>\n```\n\nExpected: the `@font-face` rule is inlined, as it is with `body { font-family: Gotham, sans-serif }`. Actual: it is dropped, because `parseFontFamilies('font-family', 'var(--font-secondary)')` returns `[\"var(--font-secondary)\"]`.\n\n#452 fixed the same case for `@keyframes` named through a custom property. Following `var()` the same way for `font-family` and `font` would cover this one.\n\nSeen through Angular 22.2 (`@angular/build` and `@angular/ssr` 22.2.x depend on beasties 0.5.4): in a headless Chrome holding only the inlined critical CSS, our server-rendered page loads Gotham with beasties 0.4.3 and no font at all with 0.5.4, so its text renders in the system fallback until the full stylesheet loads.\n",
-            "reactions": {
-              "url": "https://api.github.com/repos/danielroe/beasties/issues/460/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/danielroe/beasties/issues/460/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null,
-            "pinned_comment": null
-          },
-          "label": {
-            "id": 7656286124,
-            "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
-            "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working",
-            "archived_at": null,
-            "archived_by": null
-          },
-          "labels": [
-            {
-              "id": 7656286124,
-              "node_id": "LA_kwDONFw3AM8AAAAByFmnrA",
-              "url": "https://api.github.com/repos/danielroe/beasties/labels/bug",
-              "name": "bug",
-              "color": "d73a4a",
-              "default": true,
-              "description": "Something isn't working",
-              "archived_at": null,
-              "archived_by": null
-            }
-          ]
-        },
-        "public": true,
-        "created_at": "2026-10-19T04:24:19Z"
-      },
-      {
-        "id": "24489799401",
+        "id": "27304820352",
         "type": "DeleteEvent",
         "actor": {
           "id": 28706372,
@@ -157,150 +27,28 @@
           "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
         },
         "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
         },
         "payload": {
-          "ref": "feat/event-detail",
+          "ref": "fix-schema-watcher",
           "ref_type": "branch",
-          "full_ref": "refs/heads/feat/event-detail",
+          "full_ref": "refs/heads/fix-schema-watcher",
           "pusher_type": "user"
         },
         "public": true,
-        "created_at": "2026-10-17T08:30:33Z"
-      },
-      {
-        "id": "24489465703",
-        "type": "CreateEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
+        "created_at": "2026-11-14T21:47:28Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
-        },
-        "payload": {
-          "ref": "fix/read-state",
-          "ref_type": "branch",
-          "full_ref": "refs/heads/fix/read-state",
-          "master_branch": "main",
-          "description": "One API for every code forge.",
-          "pusher_type": "user"
-        },
-        "public": true,
-        "created_at": "2026-10-17T07:02:53Z"
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
       },
       {
-        "id": "24488903749",
-        "type": "PushEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
-        },
-        "payload": {
-          "repository_id": 1403631860,
-          "push_id": 46922192492,
-          "ref": "refs/heads/feat/simplify-names",
-          "head": "726b5447453b248e8e4a2e1a6921aae59f5c7f4b",
-          "before": "18f6fac8dd018a11537c22d19a33539be7cfe252"
-        },
-        "public": true,
-        "created_at": "2026-10-18T17:31:19Z"
-      },
-      {
-        "id": "24484731981",
-        "type": "PushEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
-        },
-        "payload": {
-          "repository_id": 1403631860,
-          "push_id": 46798084041,
-          "ref": "refs/heads/main",
-          "head": "77eb7e2e50ef17004580b164074cd09818f1025b",
-          "before": "24f3e71ab8b58c93bcb5869c9290efd59a4611dd"
-        },
-        "public": true,
-        "created_at": "2026-10-17T07:16:45Z"
-      },
-      {
-        "id": "24484731680",
-        "type": "DeleteEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
-        },
-        "payload": {
-          "ref": "feat/scope-assoc",
-          "ref_type": "branch",
-          "full_ref": "refs/heads/feat/scope-assoc",
-          "pusher_type": "user"
-        },
-        "public": true,
-        "created_at": "2026-10-17T07:16:45Z"
-      },
-      {
-        "id": "24483433086",
-        "type": "DeleteEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1403631860,
-          "name": "danielroe/forges",
-          "url": "https://api.github.com/repos/danielroe/forges"
-        },
-        "payload": {
-          "ref": "feat/on-rate-limit",
-          "ref_type": "branch",
-          "full_ref": "refs/heads/feat/on-rate-limit",
-          "pusher_type": "user"
-        },
-        "public": true,
-        "created_at": "2026-10-17T06:57:49Z"
-      },
-      {
-        "id": "17562591374",
+        "id": "20223793510",
         "type": "PullRequestEvent",
         "actor": {
           "id": 28706372,
@@ -311,83 +59,49 @@
           "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
         },
         "repo": {
-          "id": 420050565,
-          "name": "nuxt/devtools",
-          "url": "https://api.github.com/repos/nuxt/devtools"
+          "id": 693187866,
+          "name": "rolldown/rolldown",
+          "url": "https://api.github.com/repos/rolldown/rolldown"
         },
         "payload": {
           "action": "merged",
-          "number": 1123,
+          "number": 11687,
           "pull_request": {
-            "url": "https://api.github.com/repos/nuxt/devtools/pulls/1123",
-            "id": 4850416527,
-            "number": 1123,
+            "url": "https://api.github.com/repos/rolldown/rolldown/pulls/11687",
+            "id": 5292513955,
+            "number": 11687,
             "head": {
-              "ref": "fix/vite-config-retriever",
-              "sha": "6a3edefca875fd519908a002a7d2b4dbd89c2abb",
+              "ref": "fix/import-order",
+              "sha": "44ae7e2c769316b9eb318b4ccaebb6b7432600c2",
               "repo": {
-                "id": 420050565,
-                "url": "https://api.github.com/repos/nuxt/devtools",
-                "name": "devtools"
+                "id": 1435086892,
+                "url": "https://api.github.com/repos/danielroe/rolldown",
+                "name": "rolldown"
               }
             },
             "base": {
-              "ref": "v3",
-              "sha": "be9a4cdd26a45489d37374f540e1b0c9e8176b5a",
+              "ref": "main",
+              "sha": "72d55eec4fddb5a2ac320bca63a532b9754a52a6",
               "repo": {
-                "id": 420050565,
-                "url": "https://api.github.com/repos/nuxt/devtools",
-                "name": "devtools"
+                "id": 693187866,
+                "url": "https://api.github.com/repos/rolldown/rolldown",
+                "name": "rolldown"
               }
             }
           }
         },
         "public": true,
-        "created_at": "2026-10-19T01:13:54Z",
+        "created_at": "2026-11-16T03:23:06Z",
         "org": {
-          "id": 23360933,
-          "login": "nuxt",
+          "id": 94954945,
+          "login": "rolldown",
           "gravatar_id": "",
-          "url": "https://api.github.com/orgs/nuxt",
-          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+          "url": "https://api.github.com/orgs/rolldown",
+          "avatar_url": "https://avatars.githubusercontent.com/u/94954945?"
         }
       },
       {
-        "id": "24480187089",
-        "type": "CreateEvent",
-        "actor": {
-          "id": 28706372,
-          "login": "danielroe",
-          "display_login": "danielroe",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/danielroe",
-          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
-        },
-        "repo": {
-          "id": 1424177640,
-          "name": "maintainers-dev-sandbox/maintainers-dev-e2e-transfer-to",
-          "url": "https://api.github.com/repos/maintainers-dev-sandbox/maintainers-dev-e2e-transfer-to"
-        },
-        "payload": {
-          "ref": "main",
-          "ref_type": "branch",
-          "full_ref": "refs/heads/main",
-          "master_branch": "main",
-          "description": "Throwaway issues for the maintainers.dev write path e2e test",
-          "pusher_type": "user"
-        },
-        "public": true,
-        "created_at": "2026-10-18T08:57:27Z",
-        "org": {
-          "id": 344123353,
-          "login": "maintainers-dev-sandbox",
-          "gravatar_id": "",
-          "url": "https://api.github.com/orgs/maintainers-dev-sandbox",
-          "avatar_url": "https://avatars.githubusercontent.com/u/344123353?"
-        }
-      },
-      {
-        "id": "24480103292",
+        "id": "27302467428",
         "type": "PushEvent",
         "actor": {
           "id": 28706372,
@@ -404,13 +118,13 @@
         },
         "payload": {
           "repository_id": 71995937,
-          "push_id": 46889599969,
-          "ref": "refs/heads/feat/renderer-hooks",
-          "head": "68d4b0513b1ea71c0eaab0ab9c61499d91535ace",
-          "before": "36a2157dcbc3790780476787ea0a0ec48c326fcf"
+          "push_id": 50328228548,
+          "ref": "refs/heads/server-head-client-noop",
+          "head": "7222a74e73958442f7168ad4114bbcd9edbe2b17",
+          "before": "04d1c0f38c827a3f858110c143611799c284ca52"
         },
         "public": true,
-        "created_at": "2026-10-18T09:16:08Z",
+        "created_at": "2026-11-14T21:19:49Z",
         "org": {
           "id": 23360933,
           "login": "nuxt",
@@ -418,6 +132,261 @@
           "url": "https://api.github.com/orgs/nuxt",
           "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
         }
+      },
+      {
+        "id": "27301021836",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 434558841,
+          "name": "nuxt/module-builder",
+          "url": "https://api.github.com/repos/nuxt/module-builder"
+        },
+        "payload": {
+          "ref": "types-value-exports",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/types-value-exports",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-11-13T18:54:50Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "27299952372",
+        "type": "DeleteEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 71995937,
+          "name": "nuxt/nuxt",
+          "url": "https://api.github.com/repos/nuxt/nuxt"
+        },
+        "payload": {
+          "ref": "eval-36798",
+          "ref_type": "branch",
+          "full_ref": "refs/heads/eval-36798",
+          "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2026-11-14T19:06:57Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "20220591993",
+        "type": "PullRequestEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 459141315,
+          "name": "unjs/unimport",
+          "url": "https://api.github.com/repos/unjs/unimport"
+        },
+        "payload": {
+          "action": "merged",
+          "number": 584,
+          "pull_request": {
+            "url": "https://api.github.com/repos/unjs/unimport/pulls/584",
+            "id": 5321528360,
+            "number": 584,
+            "head": {
+              "ref": "inject-imports-perf",
+              "sha": "85ffe4595bce50cfeba0aee36cefccad40d39baa",
+              "repo": {
+                "id": 459141315,
+                "url": "https://api.github.com/repos/unjs/unimport",
+                "name": "unimport"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "bbd07768ddb4919205bcb5a3cbc06c3a2791981a",
+              "repo": {
+                "id": 459141315,
+                "url": "https://api.github.com/repos/unjs/unimport",
+                "name": "unimport"
+              }
+            }
+          }
+        },
+        "public": true,
+        "created_at": "2026-11-16T02:25:55Z",
+        "org": {
+          "id": 80154025,
+          "login": "unjs",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/unjs",
+          "avatar_url": "https://avatars.githubusercontent.com/u/80154025?"
+        }
+      },
+      {
+        "id": "20220576312",
+        "type": "PullRequestEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 459141315,
+          "name": "unjs/unimport",
+          "url": "https://api.github.com/repos/unjs/unimport"
+        },
+        "payload": {
+          "action": "merged",
+          "number": 577,
+          "pull_request": {
+            "url": "https://api.github.com/repos/unjs/unimport/pulls/577",
+            "id": 4829968959,
+            "number": 577,
+            "head": {
+              "ref": "fix/strip-file-extension",
+              "sha": "3599c1232d4087e4eb86fdc6fa8c17a4edeafa7a",
+              "repo": {
+                "id": 459141315,
+                "url": "https://api.github.com/repos/unjs/unimport",
+                "name": "unimport"
+              }
+            },
+            "base": {
+              "ref": "main",
+              "sha": "bbd07768ddb4919205bcb5a3cbc06c3a2791981a",
+              "repo": {
+                "id": 459141315,
+                "url": "https://api.github.com/repos/unjs/unimport",
+                "name": "unimport"
+              }
+            }
+          }
+        },
+        "public": true,
+        "created_at": "2026-11-16T02:25:37Z",
+        "org": {
+          "id": 80154025,
+          "login": "unjs",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/unjs",
+          "avatar_url": "https://avatars.githubusercontent.com/u/80154025?"
+        }
+      },
+      {
+        "id": "27297740827",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 434558841,
+          "name": "nuxt/module-builder",
+          "url": "https://api.github.com/repos/nuxt/module-builder"
+        },
+        "payload": {
+          "repository_id": 434558841,
+          "push_id": 50172723631,
+          "ref": "refs/heads/main",
+          "head": "f9f93675ade5d8518d1b92cbfb1c445fa373bda6",
+          "before": "dcda3c496918015910a6ca17ca43ac2f45920f7e"
+        },
+        "public": true,
+        "created_at": "2026-11-13T15:00:07Z",
+        "org": {
+          "id": 23360933,
+          "login": "nuxt",
+          "gravatar_id": "",
+          "url": "https://api.github.com/orgs/nuxt",
+          "avatar_url": "https://avatars.githubusercontent.com/u/23360933?"
+        }
+      },
+      {
+        "id": "27295968690",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 918917450,
+          "name": "onmax/nuxt",
+          "url": "https://api.github.com/repos/onmax/nuxt"
+        },
+        "payload": {
+          "repository_id": 918917450,
+          "push_id": 50322573953,
+          "ref": "refs/heads/fix/perf-plugin-timings",
+          "head": "36d5843090fe2f1a283f15159b7752d310788e0d",
+          "before": "ac580931bd9a08e82327d8c4a621eca083abc8c3"
+        },
+        "public": true,
+        "created_at": "2026-11-14T20:08:57Z"
+      },
+      {
+        "id": "27295336392",
+        "type": "PushEvent",
+        "actor": {
+          "id": 28706372,
+          "login": "danielroe",
+          "display_login": "danielroe",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/danielroe",
+          "avatar_url": "https://avatars.githubusercontent.com/u/28706372?"
+        },
+        "repo": {
+          "id": 918917450,
+          "name": "onmax/nuxt",
+          "url": "https://api.github.com/repos/onmax/nuxt"
+        },
+        "payload": {
+          "repository_id": 918917450,
+          "push_id": 50312935439,
+          "ref": "refs/heads/perf/nitro-compat-skip-walk-stacked",
+          "head": "22964a1eaabc8d3359df36f00c486b705841eb5e",
+          "before": "516332e4fe79d50531ac9054dbcd898281bf1568"
+        },
+        "public": true,
+        "created_at": "2026-11-14T18:11:53Z"
       }
     ]
   }
