@@ -10,16 +10,16 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "2961499559"
+        "id": "3072010572"
       },
       "name": "duo_workflow",
       "state": "success",
       "stateRaw": "success",
-      "number": "15548",
+      "number": "17778",
       "eventRaw": "duo_workflow",
-      "branch": "refs/workloads/86279be7d1a",
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559",
+      "branch": "refs/workloads/91f1b611b3c",
+      "sha": "d8d1e57e25ebb64693232614d7e90f0462ca0a19",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3072010572",
       "createdAt": "<now>"
     },
     {
@@ -32,17 +32,17 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "2961445461"
+        "id": "3071983935"
       },
       "name": "duo_workflow",
       "state": "success",
       "stateRaw": "success",
-      "number": "15547",
+      "number": "17777",
       "eventRaw": "duo_workflow",
-      "branch": "refs/workloads/04487499b60",
-      "sha": "88ee9a03e40e09a6d3aec5058968d02b76109703",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961445461",
-      "createdAt": "2026-10-19T03:21:54.927Z"
+      "branch": "refs/workloads/b5aee9e5d51",
+      "sha": "1a6dce8b2b065191aadd198d7af94975cc739657",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3071983935",
+      "createdAt": "<now>"
     },
     {
       "ref": {
@@ -54,27 +54,27 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "2961445383"
+        "id": "3071983799"
       },
       "name": "merge_request_event",
       "state": "success",
       "stateRaw": "success",
-      "number": "15546",
+      "number": "17776",
       "eventRaw": "merge_request_event",
-      "branch": "refs/merge-requests/4148/merge",
-      "sha": "f0b6ab3497dd52ce5c0beb8ff2824c18b11a1637",
-      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961445383",
-      "createdAt": "2026-10-19T03:21:52.892Z"
+      "branch": "refs/merge-requests/4374/merge",
+      "sha": "261057d566efe969292131184163b75db2f3d2f9",
+      "url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3071983799",
+      "createdAt": "<now>"
     }
   ],
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines?id=gitlab-org%2Fcli&order_by=id&page=2&per_page=3&sort=desc",
-    "etag": "W/\"308fb9538ea9fad64f03746733c35c6a\""
+    "etag": "W/\"f74c5925a922b2576ed089c9342e2c08\""
   },
-  "etag": "W/\"308fb9538ea9fad64f03746733c35c6a\"",
+  "etag": "W/\"f74c5925a922b2576ed089c9342e2c08\"",
   "rateLimit": {
     "limit": 500,
-    "remaining": 452,
+    "remaining": 451,
     "resetAt": "<now>",
     "resource": "throttle_unauthenticated_api"
   }

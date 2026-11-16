@@ -1,45 +1,45 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3072010572"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"77873312663ecccf836278d5c4fc3198\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1934",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"d2adf8660fbb1fe19b9f1942643108fa\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "25",
+      "ratelimit-reset": "1794803760",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
-      "id": 2961499559,
-      "iid": 15548,
+      "id": 3072010572,
+      "iid": 17778,
       "project_id": 34675721,
-      "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "ref": "refs/workloads/86279be7d1a",
+      "sha": "d8d1e57e25ebb64693232614d7e90f0462ca0a19",
+      "ref": "refs/workloads/91f1b611b3c",
       "status": "success",
       "source": "duo_workflow",
-      "created_at": "2026-10-19T03:47:23.987Z",
-      "updated_at": "2026-10-19T03:48:32.298Z",
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559",
+      "created_at": "2026-11-16T04:29:56.298Z",
+      "updated_at": "2026-11-16T04:34:02.019Z",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3072010572",
       "before_sha": "0000000000000000000000000000000000000000",
       "tag": false,
       "yaml_errors": null,
       "user": {
-        "id": 32742181,
-        "username": "duo-code-review-gitlab-org",
+        "id": 42711807,
+        "username": "duo-generate-workplan-gitlab-org",
         "public_email": null,
-        "name": "Duo Code Review",
+        "name": "Duo Generate Workplan",
         "state": "active",
         "locked": false,
-        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
-        "web_url": "https://gitlab.com/duo-code-review-gitlab-org"
+        "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/42711807/gitlab-duo-flow.png?v=1794803403",
+        "web_url": "https://gitlab.com/duo-generate-workplan-gitlab-org"
       },
-      "started_at": "2026-10-19T03:47:24.578Z",
-      "finished_at": "2026-10-19T03:48:32.286Z",
+      "started_at": "2026-11-16T04:29:56.963Z",
+      "finished_at": "2026-11-16T04:34:02.006Z",
       "committed_at": null,
-      "duration": 66,
+      "duration": 243,
       "queued_duration": null,
       "coverage": null,
       "detailed_status": {
@@ -49,7 +49,7 @@
         "group": "success",
         "tooltip": "passed",
         "has_details": true,
-        "details_path": "/gitlab-org/cli/-/pipelines/2961499559",
+        "details_path": "/gitlab-org/cli/-/pipelines/3072010572",
         "illustration": null,
         "favicon": "/assets/ci_favicons/favicon_status_success-8451333011eee8ce9f2ab25dc487fe24a8758c694827a582f17f42b0a90446a2.png"
       },

@@ -4,25 +4,26 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org",
-        "name": "gitlab-rebased",
-        "externalId": "85606680"
+        "owner": "gitlab-org/embody-team/experimental-observability",
+        "name": "gitlab_o11y",
+        "externalId": "69663206"
       },
+      "description": "GitLab Observability is a fully featured (metrics, traces, logs) observability solution within GitLab.",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/gitlab-org/gitlab-rebased",
+      "url": "https://gitlab.com/gitlab-org/embody-team/experimental-observability/gitlab_o11y",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/gitlab-rebased.git",
-        "ssh": "git@gitlab.com:gitlab-org/gitlab-rebased.git"
+        "https": "https://gitlab.com/gitlab-org/embody-team/experimental-observability/gitlab_o11y.git",
+        "ssh": "git@gitlab.com:gitlab-org/embody-team/experimental-observability/gitlab_o11y.git"
       },
-      "createdAt": "2026-08-20T21:08:27.169Z",
+      "createdAt": "2025-05-07T21:37:50.282Z",
       "updatedAt": "<now>",
-      "openIssueCount": 48,
-      "stars": 2,
+      "openIssueCount": 36,
+      "stars": 4,
       "forks": 4,
       "mergeMethods": [
         "merge",
@@ -43,27 +44,27 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/developer-relations/contributor-success",
-        "name": "team-task",
-        "externalId": "39971471"
+        "owner": "gitlab-org/release",
+        "name": "tasks",
+        "externalId": "5064907"
       },
-      "description": "",
-      "defaultBranch": "main",
+      "description": "GitLab release tasks project, release managers issue tracker",
+      "defaultBranch": "master",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task",
+      "url": "https://gitlab.com/gitlab-org/release/tasks",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/developer-relations/contributor-success/team-task.git",
-        "ssh": "git@gitlab.com:gitlab-org/developer-relations/contributor-success/team-task.git"
+        "https": "https://gitlab.com/gitlab-org/release/tasks.git",
+        "ssh": "git@gitlab.com:gitlab-org/release/tasks.git"
       },
-      "createdAt": "2022-10-05T10:35:45.116Z",
+      "createdAt": "2018-01-05T11:51:22.955Z",
       "updatedAt": "<now>",
-      "openIssueCount": 277,
-      "stars": 5,
-      "forks": 3,
+      "openIssueCount": 14,
+      "stars": 67,
+      "forks": 305,
       "mergeMethods": [
         "merge",
         "squash"
@@ -74,7 +75,7 @@
         "issues": true,
         "pullRequests": true,
         "discussions": false,
-        "wiki": true,
+        "wiki": false,
         "projects": false,
         "releases": true
       }
@@ -83,61 +84,52 @@
       "ref": {
         "forge": "gitlab",
         "instance": "gitlab.com",
-        "owner": "gitlab-org/technical-writing",
-        "name": "docs-gitlab-com",
-        "externalId": "51970333"
+        "owner": "gitlab-org/cells",
+        "name": "http-router",
+        "externalId": "54957577"
       },
-      "description": "The GitLab Docs website, built on Hugo.\r\n\r\nhttps://docs.gitlab.com",
+      "description": "HTTP Router for Cells - https://handbook.gitlab.com/handbook/engineering/architecture/design-documents/cells/http_routing_service",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
       "isArchived": false,
       "topics": [],
-      "url": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com",
+      "url": "https://gitlab.com/gitlab-org/cells/http-router",
       "cloneUrls": {
-        "https": "https://gitlab.com/gitlab-org/technical-writing/docs-gitlab-com.git",
-        "ssh": "git@gitlab.com:gitlab-org/technical-writing/docs-gitlab-com.git"
+        "https": "https://gitlab.com/gitlab-org/cells/http-router.git",
+        "ssh": "git@gitlab.com:gitlab-org/cells/http-router.git"
       },
-      "createdAt": "2023-11-07T18:07:49.139Z",
+      "createdAt": "2024-02-15T01:18:47.667Z",
       "updatedAt": "<now>",
-      "openIssueCount": 91,
-      "stars": 56,
-      "forks": 128,
+      "stars": 5,
+      "forks": 14,
       "mergeMethods": [
         "merge",
         "squash"
       ],
       "defaultMergeMethod": "squash",
       "deleteBranchOnMerge": true,
-      "mergeCommit": {
-        "merge": {
-          "template": "Merge branch '%{source_branch}' into '%{target_branch}'\r\n\r\n%{title}\r\n\r\n%{issues}\r\n\r\nSee merge request %{url}\r\n\r\nMerged-by: %{merged_by}\r\n%{approved_by}\r\n%{reviewed_by}\r\n%{co_authored_by}"
-        },
-        "squash": {
-          "template": "%{first_commit}"
-        }
-      },
       "features": {
-        "issues": true,
+        "issues": false,
         "pullRequests": true,
         "discussions": false,
-        "wiki": true,
+        "wiki": false,
         "projects": false,
         "releases": true
       }
     }
   ],
-  "total": 3762,
+  "total": 3796,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/groups/gitlab-org/projects?id=gitlab-org&include_ancestor_groups=false&include_subgroups=true&order_by=updated_at&owned=false&page=2&per_page=3&simple=false&sort=desc&starred=false&visibility=public&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=false",
-    "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\""
+    "etag": "W/\"52e55e8e7ddfec88ed73238d343e31f6\""
   },
-  "etag": "W/\"134a51fd76d72bbbcfa57d76f0063ca8\"",
+  "etag": "W/\"52e55e8e7ddfec88ed73238d343e31f6\"",
   "rateLimit": {
-    "limit": 1,
-    "remaining": 41,
+    "limit": 500,
+    "remaining": 454,
     "resetAt": "<now>",
-    "resource": "unauthenticated_traffic_per_ip"
+    "resource": "throttle_unauthenticated_api"
   }
 }

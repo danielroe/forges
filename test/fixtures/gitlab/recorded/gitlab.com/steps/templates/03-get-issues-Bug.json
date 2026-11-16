@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "etag": "W/\"1b42e89cac22f2298ac9450ea61dbf5b\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1989",
-      "ratelimit-reset": "1792384740",
-      "ratelimit-name": "throttle_authenticated_api"
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "85",
+      "ratelimit-reset": "1794803700",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
       "name": "Bug",
