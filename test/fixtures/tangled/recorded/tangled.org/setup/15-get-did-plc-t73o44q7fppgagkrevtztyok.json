@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:t73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"282-7peV6j57S6KYh5dFw8Fg0I89f1o\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:t73o44q7fppgagkrevtztyok",
+      "alsoKnownAs": [],
+      "verificationMethod": [
+        {
+          "id": "did:plc:t73o44q7fppgagkrevtztyok#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:t73o44q7fppgagkrevtztyok",
+          "publicKeyMultibase": "zQ3shUgNX5gvZMqe4ZCmhoRXXY2nwFkgmWnouTaAjExM8AViT"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://knot1.tangled.sh"
+        },
+        {
+          "id": "#tangled_knot",
+          "type": "TangledKnot",
+          "serviceEndpoint": "https://knot1.tangled.sh/repo/7vjxktcthtc22f6kioxezmt62a"
+        }
+      ]
+    }
+  }
+}

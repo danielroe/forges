@@ -45,6 +45,49 @@
         "forge": "tangled",
         "instance": "tangled.org",
         "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "name": "3myhjineg2kcw",
+        "ownerHandle": "danielroe.dev",
+        "externalId": "did:plc:utwfbvfzfwhluy73kprj777q"
+      },
+      "displayName": "beasties",
+      "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest.",
+      "visibility": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [
+        "critical-css",
+        "css",
+        "inlining-critical-fonts",
+        "vite",
+        "vite-plugin",
+        "webpack",
+        "webpack-plugin"
+      ],
+      "owner": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "danielroe.dev",
+        "id": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+        "url": "https://tangled.org/danielroe.dev",
+        "isBotHint": false
+      },
+      "url": "https://tangled.org/danielroe.dev/3myhjineg2kcw",
+      "cloneUrls": {
+        "https": "https://tangled.org/danielroe.dev/3myhjineg2kcw",
+        "ssh": "ssh://git@tangled.org/danielroe.dev/3myhjineg2kcw"
+      },
+      "createdAt": "2026-10-22T11:07:10.130Z",
+      "homepage": "https://npmx.dev/beasties",
+      "mergeMethods": [
+        "rebase"
+      ],
+      "defaultMergeMethod": "rebase"
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
         "name": "3mruor4aiisqe",
         "ownerHandle": "danielroe.dev",
         "externalId": "did:plc:ma5dtiiirjtu7kbdtgz2jipn"
