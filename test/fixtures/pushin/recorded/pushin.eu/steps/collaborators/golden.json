@@ -20,11 +20,32 @@
         "triage": true,
         "pull": true
       }
+    },
+    {
+      "actor": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "login": "danielroe",
+        "id": "277",
+        "avatarUrl": "https://cdn.pushin.eu/-/avatars/u_034KGcbXmCJviF1JfQCAWY/0a945a3b",
+        "url": "https://pushin.eu/danielroe",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "role": "write",
+      "roleRaw": "write",
+      "permissions": {
+        "admin": false,
+        "maintain": false,
+        "push": true,
+        "triage": true,
+        "pull": true
+      }
     }
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4985,
+    "remaining": 4995,
     "resetAt": "<now>",
     "resource": "core"
   }

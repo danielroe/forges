@@ -1,8 +1,106 @@
 {
-  "items": [],
+  "items": [
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "249"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "repo_034inZxoNEB2PrNvbqCpU1"
+          },
+          "kind": "pull_request",
+          "number": "1"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "comment",
+      "reasonRaw": "comment",
+      "unread": true,
+      "title": "Review fixture",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-19T20:47:28.270Z",
+      "url": "https://pushin.eu/notifications/not_034ioPRdfTIXeDlcDWL85I"
+    },
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "256"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "repo_034inZxoNEB2PrNvbqCpU1"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "subscribed",
+      "reasonRaw": "subscribed",
+      "unread": true,
+      "title": "forges fixture 20261019204741: pull 1",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-19T20:47:26.246Z",
+      "url": "https://pushin.eu/notifications/not_034ios8Ey1gwSpwfqW9Fj5"
+    },
+    {
+      "ref": {
+        "forge": "pushin",
+        "instance": "pushin.eu",
+        "id": "258"
+      },
+      "subject": {
+        "type": "thread",
+        "thread": {
+          "forge": "pushin",
+          "instance": "pushin.eu",
+          "repo": {
+            "forge": "pushin",
+            "instance": "pushin.eu",
+            "owner": "forges-fixtures",
+            "name": "forges-fixtures",
+            "externalId": "repo_034inZxoNEB2PrNvbqCpU1"
+          },
+          "kind": "pull_request",
+          "number": "7"
+        }
+      },
+      "subjectTypeRaw": "PullRequest",
+      "reason": "subscribed",
+      "reasonRaw": "subscribed",
+      "unread": true,
+      "title": "forges fixture 20261019204741: pull 3",
+      "subjectState": "unknown",
+      "updatedAt": "2026-10-19T20:47:25.290Z",
+      "url": "https://pushin.eu/notifications/not_034iosBOPgtXsKX2TxFPQW"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://pushin.eu/api/v1/notifications?page=2&per_page=3"
+  },
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4951,
-    "resetAt": "<now>"
+    "remaining": 4971,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }
