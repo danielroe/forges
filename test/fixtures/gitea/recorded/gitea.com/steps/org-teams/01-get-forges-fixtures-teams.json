@@ -17,28 +17,28 @@
         "includes_all_repositories": true,
         "permission": "owner",
         "units": [
-          "repo.ext_wiki",
-          "repo.ext_issues",
           "repo.packages",
           "repo.code",
-          "repo.issues",
-          "repo.releases",
+          "repo.pulls",
           "repo.wiki",
           "repo.projects",
           "repo.actions",
-          "repo.pulls"
+          "repo.issues",
+          "repo.releases",
+          "repo.ext_wiki",
+          "repo.ext_issues"
         ],
         "units_map": {
-          "repo.ext_issues": "read",
-          "repo.projects": "owner",
-          "repo.code": "owner",
           "repo.issues": "owner",
           "repo.releases": "owner",
+          "repo.ext_issues": "read",
+          "repo.projects": "owner",
           "repo.packages": "owner",
-          "repo.actions": "owner",
+          "repo.code": "owner",
           "repo.pulls": "owner",
           "repo.wiki": "owner",
-          "repo.ext_wiki": "read"
+          "repo.ext_wiki": "read",
+          "repo.actions": "owner"
         },
         "can_create_org_repo": true,
         "visibility": "limited"

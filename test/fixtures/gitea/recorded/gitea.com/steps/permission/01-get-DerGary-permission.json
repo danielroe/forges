@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/forges-fixtures/forges-fixtures/collaborators/DerGary/permission"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "permission": "read",
+      "role_name": "read",
+      "user": {
+        "id": 233120,
+        "login": "DerGary",
+        "type": "User",
+        "source_id": 0,
+        "full_name": "",
+        "email": "redacted@example.invalid",
+        "avatar_url": "https://gitea.com/avatars/7c3ab8d0e2634630ee5ba54052bf59a3ae0552dd0a6e1e9ceb7fb4855cc750d8",
+        "html_url": "https://gitea.com/DerGary",
+        "active": false,
+        "location": "",
+        "website": "",
+        "description": "",
+        "followers_count": 0,
+        "following_count": 0,
+        "starred_repos_count": 0,
+        "username": "DerGary"
+      }
+    }
+  }
+}
