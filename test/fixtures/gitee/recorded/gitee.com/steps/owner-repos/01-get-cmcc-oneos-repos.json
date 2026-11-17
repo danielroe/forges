@@ -7,7 +7,7 @@
     "status": 200,
     "headers": {
       "link": "<https://gitee.com/api/v5/orgs/cmcc-oneos/repos?org=cmcc-oneos&page=2&per_page=3&type=public>; rel='next', <https://gitee.com/api/v5/orgs/cmcc-oneos/repos?org=cmcc-oneos&page=2&per_page=3&type=public>; rel='last'",
-      "etag": "W/\"4203f0b6cbc0bf901eb4249928d72dfa\"",
+      "etag": "W/\"7b56687dcd4a2a0d747ce96bc1cb8ccb\"",
       "total_page": "2",
       "total_count": "4"
     },
@@ -109,8 +109,8 @@
         "outsourced": false,
         "project_creator": "cmcc-oneos-admin",
         "members": [
-          "cmcc-oneos-admin",
-          "yinning-123"
+          "yinning-123",
+          "cmcc-oneos-admin"
         ],
         "pushed_at": "2023-11-08T12:26:01+08:00",
         "created_at": "2022-07-14T10:45:55+08:00",
@@ -257,8 +257,8 @@
         "homepage": "https://gitee.com/cmcc-oneos/OneOS-Metis",
         "language": "C",
         "forks_count": 58,
-        "stargazers_count": 128,
-        "watchers_count": 38,
+        "stargazers_count": 129,
+        "watchers_count": 39,
         "default_branch": "dev",
         "open_issues_count": 0,
         "has_issues": false,
@@ -278,7 +278,7 @@
         ],
         "pushed_at": "2023-09-20T10:31:11+08:00",
         "created_at": "2021-09-02T15:48:31+08:00",
-        "updated_at": "2026-09-01T17:02:25+08:00",
+        "updated_at": "2026-10-25T10:04:27+08:00",
         "parent": null,
         "paas": null,
         "assignees_number": 1,

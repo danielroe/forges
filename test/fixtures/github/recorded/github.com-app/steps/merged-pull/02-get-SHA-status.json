@@ -1,35 +1,22 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.github.com/repos/h3js/h3/commits/52a3c190a54c0bf7ea153012ffb86dde734cf084/status?per_page=100"
+    "url": "https://api.github.com/repos/h3js/h3/commits/86af9e2cb659eafebebfa5b07c56e65852082e21/status?per_page=100"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"011e880b6e854281361db1e4141ad1c08d833901b2e2e6670bd139e65ea3676d\"",
+      "etag": "W/\"887101390efd2e32a051fac0f359377c11ea1527731c920d809b80ad0b29019a\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4983",
-      "x-ratelimit-reset": "1792388362",
+      "x-ratelimit-remaining": "4975",
+      "x-ratelimit-reset": "1794807308",
       "x-ratelimit-resource": "core"
     },
     "body": {
       "state": "pending",
-      "statuses": [
-        {
-          "url": "https://api.github.com/repos/h3js/h3/statuses/52a3c190a54c0bf7ea153012ffb86dde734cf084",
-          "avatar_url": "https://avatars.githubusercontent.com/in/347564?v=4",
-          "id": 56615087014,
-          "node_id": "SC_kwDOErHI988AAAANLoWrpg",
-          "state": "pending",
-          "description": "Review in progress",
-          "target_url": null,
-          "context": "CodeRabbit",
-          "created_at": "2026-10-18T02:15:00Z",
-          "updated_at": "2026-10-18T02:15:00Z"
-        }
-      ],
-      "sha": "52a3c190a54c0bf7ea153012ffb86dde734cf084",
-      "total_count": 1,
+      "statuses": [],
+      "sha": "86af9e2cb659eafebebfa5b07c56e65852082e21",
+      "total_count": 0,
       "repository": {
         "id": 313641207,
         "node_id": "MDEwOlJlcG9zaXRvcnkzMTM2NDEyMDc=",
@@ -98,8 +85,8 @@
         "releases_url": "https://api.github.com/repos/h3js/h3/releases{/id}",
         "deployments_url": "https://api.github.com/repos/h3js/h3/deployments"
       },
-      "commit_url": "https://api.github.com/repos/h3js/h3/commits/52a3c190a54c0bf7ea153012ffb86dde734cf084",
-      "url": "https://api.github.com/repos/h3js/h3/commits/52a3c190a54c0bf7ea153012ffb86dde734cf084/status"
+      "commit_url": "https://api.github.com/repos/h3js/h3/commits/86af9e2cb659eafebebfa5b07c56e65852082e21",
+      "url": "https://api.github.com/repos/h3js/h3/commits/86af9e2cb659eafebebfa5b07c56e65852082e21/status"
     }
   }
 }

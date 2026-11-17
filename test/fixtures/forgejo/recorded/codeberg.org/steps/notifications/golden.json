@@ -4,7 +4,7 @@
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19950688"
+        "id": "20728310"
       },
       "subject": {
         "type": "thread",
@@ -14,23 +14,23 @@
           "repo": {
             "forge": "forgejo",
             "instance": "codeberg.org",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "2702328"
+            "owner": "stewardshiplab",
+            "name": "bindep",
+            "externalId": "2316886"
           },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "89"
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "3"
         }
       },
-      "subjectTypeRaw": "Issue",
+      "subjectTypeRaw": "Pull",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261017151708: issue, edited",
-      "subjectState": "closed",
-      "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-17T15:23:56.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/89",
+      "title": "Migrate data storage from SQLite to Parquet",
+      "subjectState": "open",
+      "subjectStateRaw": "open",
+      "updatedAt": "2026-11-15T22:55:03.000Z",
+      "url": "https://codeberg.org/api/v1/repos/stewardshiplab/bindep/pulls/3",
       "latestComment": {
         "forge": "forgejo",
         "instance": "codeberg.org",
@@ -40,22 +40,22 @@
           "repo": {
             "forge": "forgejo",
             "instance": "codeberg.org",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "2702328"
+            "owner": "stewardshiplab",
+            "name": "bindep",
+            "externalId": "2316886"
           },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "89"
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "3"
         },
-        "id": "25515535"
+        "id": "27879988"
       }
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19950694"
+        "id": "20728001"
       },
       "subject": {
         "type": "thread",
@@ -65,29 +65,48 @@
           "repo": {
             "forge": "forgejo",
             "instance": "codeberg.org",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "2702328"
+            "owner": "stewardshiplab",
+            "name": "bindep",
+            "externalId": "2316886"
           },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "90"
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "2"
         }
       },
-      "subjectTypeRaw": "Issue",
+      "subjectTypeRaw": "Pull",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261017151708: labelled issue ZL2yEuLoMhaOiy456SFy0pOufQnOfEBZs1O04gtkVDxycsV8jY3wp_3SBtj8H6YQ",
-      "subjectState": "closed",
-      "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-17T15:23:56.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/90"
+      "title": "Add docs/symbol-patterns.md:string patterns for binary detection",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-11-10T20:38:49.000Z",
+      "url": "https://codeberg.org/api/v1/repos/stewardshiplab/bindep/pulls/2",
+      "latestComment": {
+        "forge": "forgejo",
+        "instance": "codeberg.org",
+        "thread": {
+          "forge": "forgejo",
+          "instance": "codeberg.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "codeberg.org",
+            "owner": "stewardshiplab",
+            "name": "bindep",
+            "externalId": "2316886"
+          },
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "2"
+        },
+        "id": "27578532"
+      }
     },
     {
       "ref": {
         "forge": "forgejo",
         "instance": "codeberg.org",
-        "id": "19950697"
+        "id": "20938269"
       },
       "subject": {
         "type": "thread",
@@ -97,29 +116,29 @@
           "repo": {
             "forge": "forgejo",
             "instance": "codeberg.org",
-            "owner": "forges-fixtures",
-            "name": "forges-fixtures",
-            "externalId": "2702328"
+            "owner": "stewardshiplab",
+            "name": "stewardshiplab.org",
+            "externalId": "1417597"
           },
-          "kind": "issue",
-          "typeRaw": "Issue",
-          "number": "91"
+          "kind": "pull_request",
+          "typeRaw": "Pull",
+          "number": "40"
         }
       },
-      "subjectTypeRaw": "Issue",
+      "subjectTypeRaw": "Pull",
       "reason": "unknown",
       "unread": true,
-      "title": "forges fixture 20261017151708: duplicate NJ4uzJJxvDnMLAcBZOiVsWQLMzGY7O1awWvP5XOFLpaSExq9oUF6M4Yn7DNl12dK",
-      "subjectState": "closed",
-      "subjectStateRaw": "closed",
-      "updatedAt": "2026-10-17T15:23:56.000Z",
-      "url": "https://codeberg.org/api/v1/repos/forges-fixtures/forges-fixtures/issues/91"
+      "title": "Migrate to Astro",
+      "subjectState": "merged",
+      "subjectStateRaw": "merged",
+      "updatedAt": "2026-11-06T20:34:09.000Z",
+      "url": "https://codeberg.org/api/v1/repos/stewardshiplab/stewardshiplab.org/pulls/40"
     }
   ],
   "notModified": false,
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1947,
+    "remaining": 1945,
     "resetAt": "<now>",
     "resource": "baseline"
   }

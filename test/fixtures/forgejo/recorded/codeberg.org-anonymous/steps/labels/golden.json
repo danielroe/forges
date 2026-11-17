@@ -531,5 +531,11 @@
       "description": "Add this PR to the release notes"
     }
   ],
-  "total": 107
+  "total": 107,
+  "rateLimit": {
+    "limit": 2000,
+    "remaining": 1916,
+    "resetAt": "<now>",
+    "resource": "baseline"
+  }
 }

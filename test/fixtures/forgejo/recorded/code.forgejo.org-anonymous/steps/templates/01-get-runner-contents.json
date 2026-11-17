@@ -54,9 +54,9 @@
       {
         "name": ".forgejo",
         "path": ".forgejo",
-        "sha": "8323245fbcb269725ba0c287d195556c4eb01ec1",
-        "last_commit_sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-        "last_commit_when": "2026-10-02T02:59:29Z",
+        "sha": "c3dc35771ec4209eaf19cbcbd4662b18dd197946",
+        "last_commit_sha": "c07a9b3669dc64d498273d47ce0e6974718792f1",
+        "last_commit_when": "2026-10-31T09:23:38Z",
         "type": "dir",
         "size": 0,
         "encoding": null,
@@ -64,12 +64,12 @@
         "target": null,
         "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo?ref=main",
         "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo",
-        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/8323245fbcb269725ba0c287d195556c4eb01ec1",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/c3dc35771ec4209eaf19cbcbd4662b18dd197946",
         "download_url": null,
         "submodule_git_url": null,
         "_links": {
           "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/.forgejo?ref=main",
-          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/8323245fbcb269725ba0c287d195556c4eb01ec1",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/c3dc35771ec4209eaf19cbcbd4662b18dd197946",
           "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/.forgejo"
         }
       },
@@ -318,9 +318,9 @@
       {
         "name": "act",
         "path": "act",
-        "sha": "b97f0cdea925f49dbe645b4a20ed626a65a00223",
-        "last_commit_sha": "d86d3195ac851bcfed165e692c76e5c44d47b4a9",
-        "last_commit_when": "2026-09-19T02:58:39Z",
+        "sha": "f9234590946d617853b85b8a85ea3bffe4a774b8",
+        "last_commit_sha": "80c990d7b734abe6f09fbf31f81afd6aa6ec8473",
+        "last_commit_when": "2026-11-10T14:42:35Z",
         "type": "dir",
         "size": 0,
         "encoding": null,
@@ -328,12 +328,12 @@
         "target": null,
         "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/act?ref=main",
         "html_url": "https://code.forgejo.org/forgejo/runner/src/branch/main/act",
-        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/b97f0cdea925f49dbe645b4a20ed626a65a00223",
+        "git_url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/f9234590946d617853b85b8a85ea3bffe4a774b8",
         "download_url": null,
         "submodule_git_url": null,
         "_links": {
           "self": "https://code.forgejo.org/api/v1/repos/forgejo/runner/contents/act?ref=main",
-          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/b97f0cdea925f49dbe645b4a20ed626a65a00223",
+          "git": "https://code.forgejo.org/api/v1/repos/forgejo/runner/git/blobs/f9234590946d617853b85b8a85ea3bffe4a774b8",
           "html": "https://code.forgejo.org/forgejo/runner/src/branch/main/act"
         }
       },

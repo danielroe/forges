@@ -4,11 +4,7 @@
     "url": "https://api.tangled.org/xrpc/sh.tangled.feed.countStars?subject=did%3Aplc%3At73o44q7fppgagkrevtztyok"
   },
   "response": {
-    "status": 200,
-    "headers": {},
-    "body": {
-      "count": 1,
-      "distinctAuthors": 1
-    }
+    "status": 404,
+    "headers": {}
   }
 }

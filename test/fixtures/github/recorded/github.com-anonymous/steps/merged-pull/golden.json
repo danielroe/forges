@@ -10,22 +10,22 @@
         "name": "h3"
       },
       "kind": "pull_request",
-      "number": "1602",
-      "externalId": "PR_kwDOErHI988AAAABJGbs6g"
+      "number": "1643",
+      "externalId": "PR_kwDOErHI988AAAABOHDmtQ"
     },
     "kind": "pull_request",
-    "title": "build: remove bundled docs and open h3.dev from `h3 docs`",
-    "body": "Stops shipping the docs inside the npm package to make it smaller.\n\n- `build.config.ts`: removed the `end()` hook that exported `./docs` into `dist/docs` with mdzilla.\n- `package.json` / lockfile: removed the `mdzilla` dev dependency.\n- `bin/h3.mjs`: `h3 docs [page]` now opens `https://h3.dev/<page>` with the system's open command (`open` / `xdg-open` / `cmd /c start`). If no browser can be launched, it prints the URL instead.\n- `test/unit/cli.test.ts`: replaced the old tests for the bundled docs folder with a test that checks the CLI points at h3.dev.\n\nNote: mdzilla's `--page <path>` flag is gone; use a plain page argument instead (`h3 docs /guide`).\n\nVerified: `pnpm build` produces no `dist/docs`; the CLI test, lint and typecheck pass.\n\n🤖 Generated with AI assistant",
+    "title": "fix(proxy): preserve content-length for unencoded responses",
+    "body": "`proxy` / `proxyRequest` always stripped `Content-Length` from upstream responses. Byte-range responses (e.g. MP4 `206` through Nitro) lost their length even though the body was relayed unchanged. Related to #891.\n\nThis PR forwards the upstream `Content-Length` only when it still describes the body the client receives. It stays dropped when:\n\n- **The body may have been decoded.** `Content-Encoding` is anything other than `identity`. Node, Bun and Deno decompress in `fetch` but keep the compressed length.\n- **The response is CORS-filtered** (`response.type === \"cors\"`). Browsers expose `Content-Length` but can hide `Content-Encoding`.\n- **`Transfer-Encoding` is present.** Internal (`/path`) targets skip the HTTP parser that rejects this combination. Forwarding the length there could hang or silently truncate the response.\n- **The status is `204`.** RFC 9110 forbids a length on 204.\n- **There is no body,** unless the downstream request is `HEAD` or the status is `304`. For those, the representation length is meaningful. This stops a GET proxied upstream as HEAD from promising bytes it never sends.\n\n`content-length` moves out of the static `ignoredResponseHeaders` set. It is still stripped when the upstream `Connection` header nominates it.\n\n> [!NOTE]\n> Proxied responses can now carry `Content-Length`. Code that rewrites a proxied body (a proxy `onResponse` hook or middleware that copies the headers) must drop `content-length` itself.\n\n<details>\n<summary>Minimal reproduction</summary>\n\nSave as `repro.mjs`, then run `npm install h3@2.0.8 && node repro.mjs` with Node.js 24. To check a local build, run `pnpm build`, then `node repro.mjs file:///path/to/h3/dist/_entries/node.mjs`.\n\n```js\nimport assert from \"node:assert/strict\";\nimport { createServer } from \"node:http\";\n\nconst { H3, proxyRequest, toNodeHandler } = await import(process.argv[2] || \"h3\");\nconst app = new H3();\nconst server = createServer(toNodeHandler(app));\nawait new Promise((resolve) => server.listen(0, \"127.0.0.1\", resolve));\nconst origin = `http://127.0.0.1:${server.address().port}`;\n\napp.get(\"/upstream\", () => new Response(new Uint8Array([0, 255]), {\n  status: 206,\n  headers: {\n    \"content-type\": \"video/mp4\",\n    \"content-length\": \"2\",\n    \"content-range\": \"bytes 0-1/100\",\n    \"accept-ranges\": \"bytes\",\n  },\n}));\napp.get(\"/proxy\", (event) => proxyRequest(event, `${origin}/upstream`));\n\ntry {\n  const results = [];\n  for (const path of [\"/upstream\", \"/proxy\"]) {\n    const response = await fetch(`${origin}${path}`, { headers: { range: \"bytes=0-1\" } });\n    results.push({\n      path,\n      status: response.status,\n      contentLength: response.headers.get(\"content-length\"),\n      bytes: Array.from(new Uint8Array(await response.arrayBuffer())),\n    });\n  }\n  console.table(results);\n  assert.equal(results[1].contentLength, results[0].contentLength);\n  assert.deepEqual(results[1].bytes, results[0].bytes);\n} finally {\n  await new Promise((resolve) => server.close(resolve));\n}\n```\n\nOn 2.0.8 the proxied response has no `Content-Length`, so the assertion fails.\n\n</details>\n\n## Tests\n\n`test/proxy-response.test.ts` runs in both web and node modes. It covers:\n\n- 200/206 ranges and `identity` encoding\n- HEAD and 304 lengths\n- a HEAD fetch serving a GET\n- 204 for GET and HEAD\n- `Transfer-Encoding` conflicts\n- gzip, deflate and br decompression\n- `Connection`-nominated stripping\n- CORS-filtered responses\n\n`pnpm test` passes (3,136 tests).\n\n🤖 Generated with AI assistant\n",
     "state": "merged",
     "stateRaw": "closed",
     "isDraft": false,
     "author": {
       "forge": "github",
       "instance": "github.com",
-      "login": "pi0x",
-      "id": "286783767",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-      "url": "https://github.com/pi0x",
+      "login": "caiquecastro",
+      "id": "3316550",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/3316550?v=4",
+      "url": "https://github.com/caiquecastro",
       "typeRaw": "User",
       "isBotHint": false
     },
@@ -34,14 +34,14 @@
     "assignees": [],
     "reviewers": [],
     "labels": [],
-    "url": "https://github.com/h3js/h3/pull/1602",
-    "createdAt": "2026-10-18T02:14:52.000Z",
-    "updatedAt": "2026-10-18T02:16:20.000Z",
-    "closedAt": "2026-10-18T02:16:18.000Z",
-    "mergedAt": "2026-10-18T02:16:18.000Z",
-    "lastActivityAt": "2026-10-18T02:16:20.000Z",
+    "url": "https://github.com/h3js/h3/pull/1643",
+    "createdAt": "2026-11-10T13:13:21.000Z",
+    "updatedAt": "2026-11-10T15:10:24.000Z",
+    "closedAt": "2026-11-10T15:10:05.000Z",
+    "mergedAt": "2026-11-10T15:10:04.000Z",
+    "lastActivityAt": "2026-11-10T15:10:24.000Z",
     "locked": false,
-    "commentCount": 3,
+    "commentCount": 1,
     "reactions": {
       "total": 0,
       "counts": {}
@@ -58,50 +58,35 @@
         "name": "h3"
       },
       "kind": "pull_request",
-      "number": "1602",
-      "externalId": "PR_kwDOErHI988AAAABJGbs6g"
+      "number": "1643",
+      "externalId": "PR_kwDOErHI988AAAABOHDmtQ"
     },
     "kind": "pull_request",
-    "title": "build: remove bundled docs and open h3.dev from `h3 docs`",
-    "body": "Stops shipping the docs inside the npm package to make it smaller.\n\n- `build.config.ts`: removed the `end()` hook that exported `./docs` into `dist/docs` with mdzilla.\n- `package.json` / lockfile: removed the `mdzilla` dev dependency.\n- `bin/h3.mjs`: `h3 docs [page]` now opens `https://h3.dev/<page>` with the system's open command (`open` / `xdg-open` / `cmd /c start`). If no browser can be launched, it prints the URL instead.\n- `test/unit/cli.test.ts`: replaced the old tests for the bundled docs folder with a test that checks the CLI points at h3.dev.\n\nNote: mdzilla's `--page <path>` flag is gone; use a plain page argument instead (`h3 docs /guide`).\n\nVerified: `pnpm build` produces no `dist/docs`; the CLI test, lint and typecheck pass.\n\n🤖 Generated with AI assistant",
+    "title": "fix(proxy): preserve content-length for unencoded responses",
+    "body": "`proxy` / `proxyRequest` always stripped `Content-Length` from upstream responses. Byte-range responses (e.g. MP4 `206` through Nitro) lost their length even though the body was relayed unchanged. Related to #891.\n\nThis PR forwards the upstream `Content-Length` only when it still describes the body the client receives. It stays dropped when:\n\n- **The body may have been decoded.** `Content-Encoding` is anything other than `identity`. Node, Bun and Deno decompress in `fetch` but keep the compressed length.\n- **The response is CORS-filtered** (`response.type === \"cors\"`). Browsers expose `Content-Length` but can hide `Content-Encoding`.\n- **`Transfer-Encoding` is present.** Internal (`/path`) targets skip the HTTP parser that rejects this combination. Forwarding the length there could hang or silently truncate the response.\n- **The status is `204`.** RFC 9110 forbids a length on 204.\n- **There is no body,** unless the downstream request is `HEAD` or the status is `304`. For those, the representation length is meaningful. This stops a GET proxied upstream as HEAD from promising bytes it never sends.\n\n`content-length` moves out of the static `ignoredResponseHeaders` set. It is still stripped when the upstream `Connection` header nominates it.\n\n> [!NOTE]\n> Proxied responses can now carry `Content-Length`. Code that rewrites a proxied body (a proxy `onResponse` hook or middleware that copies the headers) must drop `content-length` itself.\n\n<details>\n<summary>Minimal reproduction</summary>\n\nSave as `repro.mjs`, then run `npm install h3@2.0.8 && node repro.mjs` with Node.js 24. To check a local build, run `pnpm build`, then `node repro.mjs file:///path/to/h3/dist/_entries/node.mjs`.\n\n```js\nimport assert from \"node:assert/strict\";\nimport { createServer } from \"node:http\";\n\nconst { H3, proxyRequest, toNodeHandler } = await import(process.argv[2] || \"h3\");\nconst app = new H3();\nconst server = createServer(toNodeHandler(app));\nawait new Promise((resolve) => server.listen(0, \"127.0.0.1\", resolve));\nconst origin = `http://127.0.0.1:${server.address().port}`;\n\napp.get(\"/upstream\", () => new Response(new Uint8Array([0, 255]), {\n  status: 206,\n  headers: {\n    \"content-type\": \"video/mp4\",\n    \"content-length\": \"2\",\n    \"content-range\": \"bytes 0-1/100\",\n    \"accept-ranges\": \"bytes\",\n  },\n}));\napp.get(\"/proxy\", (event) => proxyRequest(event, `${origin}/upstream`));\n\ntry {\n  const results = [];\n  for (const path of [\"/upstream\", \"/proxy\"]) {\n    const response = await fetch(`${origin}${path}`, { headers: { range: \"bytes=0-1\" } });\n    results.push({\n      path,\n      status: response.status,\n      contentLength: response.headers.get(\"content-length\"),\n      bytes: Array.from(new Uint8Array(await response.arrayBuffer())),\n    });\n  }\n  console.table(results);\n  assert.equal(results[1].contentLength, results[0].contentLength);\n  assert.deepEqual(results[1].bytes, results[0].bytes);\n} finally {\n  await new Promise((resolve) => server.close(resolve));\n}\n```\n\nOn 2.0.8 the proxied response has no `Content-Length`, so the assertion fails.\n\n</details>\n\n## Tests\n\n`test/proxy-response.test.ts` runs in both web and node modes. It covers:\n\n- 200/206 ranges and `identity` encoding\n- HEAD and 304 lengths\n- a HEAD fetch serving a GET\n- 204 for GET and HEAD\n- `Transfer-Encoding` conflicts\n- gzip, deflate and br decompression\n- `Connection`-nominated stripping\n- CORS-filtered responses\n\n`pnpm test` passes (3,136 tests).\n\n🤖 Generated with AI assistant\n",
     "state": "merged",
     "stateRaw": "closed",
     "isDraft": false,
     "author": {
       "forge": "github",
       "instance": "github.com",
-      "login": "pi0x",
-      "id": "286783767",
-      "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-      "url": "https://github.com/pi0x",
+      "login": "caiquecastro",
+      "id": "3316550",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/3316550?v=4",
+      "url": "https://github.com/caiquecastro",
       "typeRaw": "User",
       "isBotHint": false
     },
     "authorAssociation": "contributor",
     "authorAssociationRaw": "CONTRIBUTOR",
     "assignees": [],
-    "reviewers": [
-      {
-        "actor": {
-          "forge": "github",
-          "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
-          "typeRaw": "User",
-          "isBotHint": false
-        },
-        "state": "pending",
-        "stateRaw": "requested"
-      }
-    ],
+    "reviewers": [],
     "labels": [],
-    "url": "https://github.com/h3js/h3/pull/1602",
-    "createdAt": "2026-10-18T02:14:52.000Z",
-    "updatedAt": "2026-10-18T02:16:20.000Z",
-    "closedAt": "2026-10-18T02:16:18.000Z",
-    "mergedAt": "2026-10-18T02:16:18.000Z",
+    "url": "https://github.com/h3js/h3/pull/1643",
+    "createdAt": "2026-11-10T13:13:21.000Z",
+    "updatedAt": "2026-11-10T15:10:24.000Z",
+    "closedAt": "2026-11-10T15:10:05.000Z",
+    "mergedAt": "2026-11-10T15:10:04.000Z",
     "mergedBy": {
       "forge": "github",
       "instance": "github.com",
@@ -112,38 +97,38 @@
       "typeRaw": "User",
       "isBotHint": false
     },
-    "lastActivityAt": "2026-10-18T02:16:20.000Z",
+    "lastActivityAt": "2026-11-10T15:10:24.000Z",
     "locked": false,
-    "commentCount": 3,
+    "commentCount": 1,
     "branches": {
       "head": {
-        "ref": "build/no-docs",
-        "sha": "52a3c190a54c0bf7ea153012ffb86dde734cf084",
+        "ref": "codex/fix-proxy-content-length",
+        "sha": "86af9e2cb659eafebebfa5b07c56e65852082e21",
         "repo": {
           "forge": "github",
           "instance": "github.com",
-          "owner": "h3js",
+          "owner": "caiquecastro",
           "name": "h3",
-          "externalId": "313641207"
+          "externalId": "1452681372"
         }
       },
       "base": {
         "ref": "main",
-        "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+        "sha": "f0e17808ac2439b6434bb10609a961067f4d555b"
       },
-      "mergeCommitSha": "b48b480030becd6507485429dada6d6612fb1084"
+      "mergeCommitSha": "fb2a9943b5e91c03ea0b457f60650d080e96afc7"
     },
     "stats": {
-      "additions": 27,
-      "deletions": 87,
-      "changedFileCount": 5,
-      "commitCount": 1
+      "additions": 211,
+      "deletions": 7,
+      "changedFileCount": 4,
+      "commitCount": 5
     },
     "checks": {
-      "state": "pending",
-      "total": 8,
-      "failed": 0,
-      "url": "https://github.com/h3js/h3/pull/1602/checks"
+      "state": "failure",
+      "total": 3,
+      "failed": 1,
+      "url": "https://github.com/h3js/h3/pull/1643/checks"
     }
   }
 }

@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3eb8a156ffd7c212316fc0d6bfc97549\""
+      "etag": "W/\"a77e6a0db99c02163d9c2efa07cc2153\""
     },
     "body": {
       "type": "repository",
@@ -52,7 +52,7 @@
           },
           {
             "name": "ssh",
-            "href": "git@bitbucket.org:neelabo/neeview.git"
+            "href": "git@ssh.bitbucket.org:neelabo/neeview.git"
           }
         ],
         "issues": {

@@ -1,5 +1,5 @@
 {
-  "base": "162ee1d34a10cc5e2b5802c5ff9e832052a511df",
+  "base": "065d2112574d206126c86c8902e1200c138fa903",
   "head": "forgejo",
   "aheadBy": 4,
   "commits": [
@@ -13,46 +13,47 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10"
+        "sha": "10615cce5019acefd625c1300cba85d228b045cc"
       },
-      "sha": "0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
-      "message": "chore: migrate toast module to Typescript (#14890)\n\nThis PR converts our `toast` module to Typescript, adding appropriate types along the way. This continues !14508's scoped approach to tightening our frontend type-checks, in line with the feedback in https://codeberg.org/forgejo/forgejo/pulls/5859#issuecomment-2560264.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14890\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "10615cce5019acefd625c1300cba85d228b045cc",
+      "message": "breaking: make pagination mandatory - default to first page (#13960)\n\nThe page and limit parameters to many Forgejo APIs have previously been optional, and if not provided have been interpreted as \"retrieve all data\". Forgejo will now default page to 1, and default limit to [api].DEFAULT_PAGING_NUM (default: 30).\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/13960\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "AverageHelper",
-          "id": "135189",
-          "avatarUrl": "https://codeberg.org/avatars/7e98b9e83fc5cb7de518d81b4143260fa6a042913e28e59342e9debe55293189",
-          "url": "https://codeberg.org/AverageHelper",
+          "login": "cdvv7788",
+          "id": "1402058",
+          "avatarUrl": "https://codeberg.org/avatars/015f856758daafce908add958c78831c",
+          "url": "https://codeberg.org/cdvv7788",
           "isBotHint": false
         },
-        "name": "AverageHelper",
+        "name": "cdvv7788",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "<now>"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "mfenniak",
+          "id": "222642",
+          "name": "Mathieu Fenniak",
+          "avatarUrl": "https://codeberg.org/avatars/561ee781e72bbbfd2865db7b4ba4fbf50f64da3d3cb0f4e1897b6da25224a2a7",
+          "url": "https://codeberg.org/mfenniak",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T18:14:06.000Z"
+        "date": "<now>"
       },
       "parents": [
-        "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
+        "a633cdb941ebc38b42dbe97a469342f8d3a77df3"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/0475ce4868b9110dd69c7e4a4f24d37ff5fd1e10",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/10615cce5019acefd625c1300cba85d228b045cc",
       "stats": {
-        "additions": 41,
-        "deletions": 27,
-        "total": 68
+        "additions": 145,
+        "deletions": 5,
+        "total": 150
       }
     },
     {
@@ -65,46 +66,47 @@
           "owner": "forgejo",
           "name": "forgejo"
         },
-        "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae"
+        "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3"
       },
-      "sha": "b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
-      "message": "git(mirror): silently ignore non-agit PR deletion instead of failing (#14901)\n\nOversight of #13661, discovered will working on !14885.\n\nA `git push --mirror` will try to delete all `refs/pull/.../head` references, not only the Agit ones.\nAdjust the code to silently ignore all PR deletion attempts.\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14901\nReviewed-by: Gusted <redacted@example.invalid>\n",
+      "sha": "a633cdb941ebc38b42dbe97a469342f8d3a77df3",
+      "message": "merge commit: i18n: translations update from Codeberg Translate (#14777)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14777\nReviewed-by: 0ko <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "oliverpool",
-          "id": "32636",
-          "avatarUrl": "https://codeberg.org/avatars/85a61c808f10b51542b6639704b97f26",
-          "url": "https://codeberg.org/oliverpool",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
           "isBotHint": false
         },
-        "name": "oliverpool",
+        "name": "0ko",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-11-15T09:08:20.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "codeberg.org",
-          "login": "Gusted",
-          "id": "26734",
-          "avatarUrl": "https://codeberg.org/avatars/44a59264e976fa585ed9f0a92abad9d7",
-          "url": "https://codeberg.org/Gusted",
+          "login": "0ko",
+          "id": "35856",
+          "avatarUrl": "https://codeberg.org/avatars/679e72b1ca263a192b488b84af24e10c4f32e2c3f46eb2baa7928c986ba460ef",
+          "url": "https://codeberg.org/0ko",
           "isBotHint": false
         },
-        "name": "Gusted",
+        "name": "0ko",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T16:39:16.000Z"
+        "date": "2026-11-15T09:08:20.000Z"
       },
       "parents": [
-        "27ae2d7b675d2a4b3589cc7f2489b105b628275e"
+        "68932ee9bdf734d5f78b21a21e713d92ab1243e0",
+        "7fb822065758cb34c624be56125610d61c639881"
       ],
-      "url": "https://codeberg.org/forgejo/forgejo/commit/b00a6fc9a7f158b978b5c78f0ab6f1998f3482ae",
+      "url": "https://codeberg.org/forgejo/forgejo/commit/a633cdb941ebc38b42dbe97a469342f8d3a77df3",
       "stats": {
-        "additions": 53,
-        "deletions": 11,
-        "total": 64
+        "additions": 0,
+        "deletions": 0,
+        "total": 0
       }
     }
   ],

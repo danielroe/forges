@@ -509,6 +509,128 @@
       },
       "source": "poll",
       "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "105954",
+      "kind": "referenced",
+      "kindRaw": "pull_ref",
+      "summary": "viceice-bot referenced this from #71",
+      "occurredAt": "2026-10-29T22:01:12.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1765"
+      },
+      "detail": {
+        "type": "referenced",
+        "from": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "owner": "forgejo-helm",
+            "name": "forgejo-runner",
+            "externalId": "1537"
+          },
+          "kind": "pull_request",
+          "number": "71"
+        },
+        "fromRepo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo-helm",
+          "name": "forgejo-runner",
+          "externalId": "1537"
+        }
+      },
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "forgejo",
+      "instance": "code.forgejo.org",
+      "id": "105969",
+      "kind": "referenced",
+      "kindRaw": "pull_ref",
+      "summary": "viceice-bot referenced this from #1137",
+      "occurredAt": "2026-10-29T23:00:53.000Z",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice-bot",
+        "id": "163",
+        "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
+        "url": "https://code.forgejo.org/viceice-bot",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "owner": "forgejo",
+        "name": "runner"
+      },
+      "thread": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "kind": "pull_request",
+        "number": "1765"
+      },
+      "detail": {
+        "type": "referenced",
+        "from": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "repo": {
+            "forge": "forgejo",
+            "instance": "code.forgejo.org",
+            "owner": "actions",
+            "name": "setup-forgejo",
+            "externalId": "21"
+          },
+          "kind": "pull_request",
+          "number": "1137"
+        },
+        "fromRepo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "actions",
+          "name": "setup-forgejo",
+          "externalId": "21"
+        }
+      },
+      "source": "poll",
+      "action": "other"
     }
   ]
 }

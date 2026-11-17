@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://npmx.social/xrpc/com.atproto.sync.getLatestCommit?did=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"5b-HJLlLtMn9FhMOXJFAVDxS8gluQI\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2996",
+      "ratelimit-reset": "1794803991",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "cid": "bafyreig3jrrurwxnzizotkbvzur3xino4b7kg4ny2hkksg6hctunl5mm3e",
+      "rev": "3n2epxjhdbr25"
+    }
+  }
+}

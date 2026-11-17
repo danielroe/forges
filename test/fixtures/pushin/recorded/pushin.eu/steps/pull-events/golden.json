@@ -7,7 +7,7 @@
       "kind": "comment",
       "kindRaw": "comment",
       "summary": "danielroe commented",
-      "occurredAt": "<now>",
+      "occurredAt": "2026-10-11T12:35:07.502Z",
       "actor": {
         "forge": "pushin",
         "instance": "pushin.eu",
@@ -63,7 +63,8 @@
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4962,
-    "resetAt": "<now>"
+    "remaining": 4989,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }
