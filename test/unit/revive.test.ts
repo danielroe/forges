@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { github } from '../../src/github/index.ts'
 import { DATE_FIELDS, reviveDates } from '../../src/index.ts'
-import { schemas } from '../../src/schema/index.ts'
+import { models } from '../../src/schema/index.ts'
 import { fixtureFetch } from '../../src/testing/index.ts'
 
 describe('serialisation helpers', () => {
@@ -50,8 +50,17 @@ describe('serialisation helpers', () => {
     expect(revived.payload[0]!.updatedAt).toBe('2020-01-01T00:00:00Z')
   })
 
-  it('lists every date-time field the model schemas declare', () => {
+  it('does not revive a push sha named `before`', () => {
+    const value = {
+      detail: { type: 'push', before: '0000000000000000000000000000000000000000' },
+    }
+
+    expect(reviveDates(value)).toEqual(value)
+  })
+
+  it('scopes date revival to the model schemas', () => {
     const found = new Set<string>()
+    const conflicts = new Set<string>()
     const visit = (node: unknown): void => {
       if (!node || typeof node !== 'object') {
         return
@@ -62,14 +71,22 @@ describe('serialisation helpers', () => {
             if ((property as { format?: string }).format === 'date-time') {
               found.add(name)
             }
+            else if (DATE_FIELDS.has(name) && (property as { type?: string }).type === 'string') {
+              conflicts.add(name)
+            }
           }
         }
         visit(value)
       }
     }
-    visit(schemas)
+    for (const [name, model] of Object.entries(models)) {
+      if (!/Options$|Query$/.test(name)) {
+        visit(model)
+      }
+    }
 
     expect([...found].filter(name => !DATE_FIELDS.has(name))).toEqual([])
+    expect([...conflicts]).toEqual([])
   })
 
   it('reports the request budget on pages and raw responses', async () => {
