@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 import { CAPABILITY_TABLE } from '../../src/capability-table.ts'
 import { awaited, isStreamType, schemaGenerator } from './generator.ts'
-import { clean, componentName, isRecord, refs, sortByKey, tidyDescriptions } from './json.ts'
+import { clean, componentName, isRecord, refs, sortByKey, tidyDescriptions, wireSchema } from './json.ts'
 
 const root = fileURLToPath(new URL('../..', import.meta.url))
 
@@ -111,7 +111,7 @@ export function generateVerbSignatures(): { components: Record<string, Schema>, 
       inline(item, stack),
     ]))
   }
-  const cleanInline = (value: Json): Schema => clean(tidyDescriptions(inline(value))) as Schema
+  const cleanInline = (value: Json): Schema => clean(tidyDescriptions(wireSchema(inline(value)))) as Schema
 
   const classes = new Map<string, Pick<VerbSignature, 'write' | 'account'> & { listing: boolean }>()
   for (const capability of CAPABILITY_TABLE) {

@@ -76,6 +76,35 @@ describe('verb signatures', () => {
     expect(JSON.stringify(models)).not.toContain('x-forges-type":"Uint8Array"')
   })
 
+  it('describes dates as $date tags', () => {
+    const plain = new Set<string>()
+    let tags = 0
+    const visit = (node: unknown): void => {
+      if (!node || typeof node !== 'object') {
+        return
+      }
+      for (const [key, value] of Object.entries(node)) {
+        if (key === 'properties' && value && typeof value === 'object') {
+          for (const [name, property] of Object.entries(value)) {
+            if ((property as { format?: string }).format === 'date-time') {
+              if (name === '$date') {
+                tags++
+              }
+              else {
+                plain.add(name)
+              }
+            }
+          }
+        }
+        visit(value)
+      }
+    }
+    visit(models)
+
+    expect([...plain]).toEqual([])
+    expect(tags).toBeGreaterThan(0)
+  })
+
   it('represents undefined as null, not never', () => {
     expect(JSON.stringify(verbs)).not.toContain('"not":{}')
     expect(verbs['releases.latest']?.result).toMatchObject({

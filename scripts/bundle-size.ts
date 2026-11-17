@@ -65,6 +65,11 @@ const BUNDLES: Array<{ name: string, source: string, imports: string, absent?: s
     absent: 'x-github-api-version',
     budget: 10_000,
   },
+  {
+    name: 'forges/wire',
+    source: 'wire.mjs',
+    imports: 'decode, encode',
+  },
 ]
 
 interface Size {

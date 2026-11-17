@@ -26,6 +26,7 @@ export default defineConfig({
     'src/testing/index.ts',
     'src/fake/index.ts',
     'src/web/index.ts',
+    'src/wire.ts',
   ],
   dts: { generator: 'oxc' },
   exports: {

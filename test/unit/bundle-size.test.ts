@@ -25,6 +25,7 @@ beforeEach(() => {
   }
   mkdirSync(join(directory, 'web'))
   writeFileSync(join(directory, 'web', 'index.mjs'), `export const github = 'links'`)
+  writeFileSync(join(directory, 'wire.mjs'), 'export const decode = 1\nexport const encode = 2')
 })
 
 afterEach(() => {
@@ -42,7 +43,7 @@ describe('browser bundle measurements', () => {
     expect(result.stderr).toBe('')
     expect(result.status).toBe(0)
     const snapshot = parseBundleSnapshot(readFileSync(out, 'utf8'))
-    expect(snapshot.bundles).toHaveLength(7)
+    expect(snapshot.bundles).toHaveLength(8)
     expect(snapshot.bundles[0]!.minified).toBeGreaterThan(4_000)
     expect(snapshot.bundles.every(bundle => bundle.gzipped > 0)).toBe(true)
   })
@@ -81,7 +82,7 @@ describe('browser bundle measurements', () => {
     const out = join(directory, 'base.json')
     const result = measure('--report', '--out', out)
     expect(result.status).toBe(0)
-    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(7)
+    expect(parseBundleSnapshot(readFileSync(out, 'utf8')).bundles).toHaveLength(8)
     expect(result.stdout).toContain('forges/github')
   })
 
@@ -97,6 +98,7 @@ describe('browser bundle measurements', () => {
       'forges/gitea',
       'forges/bitbucket',
       'forges/web',
+      'forges/wire',
     ])
   })
 

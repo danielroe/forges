@@ -62,6 +62,7 @@
     "./tangled": "./src/tangled/index.ts",
     "./testing": "./src/testing/index.ts",
     "./web": "./src/web/index.ts",
+    "./wire": "./src/wire.ts",
     "./package.json": "./package.json",
     "./schema/*.json": "./dist/schema/*.json"
   },
@@ -90,6 +91,7 @@
       "./tangled": "./dist/tangled/index.mjs",
       "./testing": "./dist/testing/index.mjs",
       "./web": "./dist/web/index.mjs",
+      "./wire": "./dist/wire.mjs",
       "./package.json": "./package.json",
       "./schema/*.json": "./dist/schema/*.json"
     }

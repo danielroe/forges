@@ -4196,8 +4196,17 @@
           "description": "Limit to one repository."
         },
         "before": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Only notifications updated before this time."
         }
       },
@@ -4270,12 +4279,32 @@
           "type": "string"
         },
         "startedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "completedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "run": {
           "$ref": "#/components/schemas/CiRunRef",
@@ -4438,12 +4467,32 @@
           "type": "string"
         },
         "startedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "completedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "raw": {}
       },
@@ -4523,16 +4572,46 @@
           "$ref": "#/components/schemas/Actor"
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "startedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "completedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "raw": {}
       },
@@ -4750,12 +4829,32 @@
           "description": "Forge-native association the normalised `authorAssociation` was derived from."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -4901,12 +5000,32 @@
           "description": "Forge-native association the normalised `authorAssociation` was derived from."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -5021,13 +5140,31 @@
           "description": "Branch, tag or sha to walk back from."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Only commits at or after this time."
         },
         "until": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Only commits at or before this time."
         },
         "path": {
@@ -5101,13 +5238,31 @@
           "description": "Commits whose committer is this login."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Authored or committed at or after."
         },
         "until": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Authored or committed at or before."
         },
         "sort": {
@@ -5144,8 +5299,17 @@
           "type": "string"
         },
         "date": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "When the commit was authored or committed."
         }
       },
@@ -5296,8 +5460,17 @@
       "type": "object",
       "properties": {
         "week": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Start of the week."
         },
         "additions": {
@@ -6880,8 +7053,17 @@
           "description": "Single line describing the event, suitable for a list row."
         },
         "occurredAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "When the event happened, from the forge's own timestamp unless `undated` is set."
         },
         "undated": {
@@ -7090,8 +7272,18 @@
           "type": "string"
         },
         "expiresAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "permissions": {
           "type": "object",
@@ -7216,8 +7408,17 @@
           "description": "Resume after the page that returned this cursor."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Only items updated at or after this time."
         }
       },
@@ -7364,8 +7565,18 @@
           "type": "string"
         },
         "dueOn": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -7440,12 +7651,32 @@
           "type": "string"
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "lastReadAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -7490,8 +7721,17 @@
           "description": "Resume after the page that returned this cursor."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Only items updated at or after this time."
         },
         "all": {
@@ -7779,8 +8019,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -7831,8 +8080,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -7883,8 +8141,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -7935,8 +8202,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -7987,8 +8263,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8039,8 +8324,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8091,8 +8385,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8143,8 +8446,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8195,8 +8507,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8247,8 +8568,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8299,8 +8629,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8351,8 +8690,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8403,8 +8751,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8455,8 +8812,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8507,8 +8873,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8559,8 +8934,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8611,8 +8995,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8663,8 +9056,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8715,8 +9117,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8767,8 +9178,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8819,8 +9239,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8871,8 +9300,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8923,8 +9361,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -8975,8 +9422,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9027,8 +9483,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9079,8 +9544,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9131,8 +9605,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9183,8 +9666,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9235,8 +9727,17 @@
           "description": "True when the provider sent no request, because the forge asked to wait longer between reads of this feed. The page has no items and a `feed_throttled` warning; read it again later, or pass `force: true`."
         },
         "nextPollAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "The earliest time the forge allows the first page to be read again, as GitHub sets with `X-Poll-Interval`. Until then, a read of the first page returns a `throttled` page unless it passes `force: true`."
         },
         "warnings": {
@@ -9394,8 +9895,17 @@
           "description": "The number of requests left in the budget."
         },
         "resetAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "When `remaining` resets."
         },
         "resource": {
@@ -9429,8 +9939,18 @@
           "$ref": "#/components/schemas/Actor"
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "raw": {}
       },
@@ -9540,12 +10060,32 @@
           "$ref": "#/components/schemas/Actor"
         },
         "publishedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -9780,16 +10320,45 @@
           "description": "Git remotes. Tangled maps the hosting knot to its SSH host."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "pushedAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Last push, where the listing endpoint reports it."
         },
         "openIssueCount": {
@@ -10373,8 +10942,18 @@
           "type": "string"
         },
         "submittedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "comments": {
           "anyOf": [
@@ -10453,8 +11032,18 @@
           "description": "The resolvable conversation the comment belongs to, where the forge has one."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "url": {
           "type": "string"
@@ -10663,8 +11252,17 @@
           "description": "True when the reviewer is a team rather than an account."
         },
         "requestedAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "When the pending review was last requested. Absent where the forge doesn't report it; on GitHub, `threads.getMany()` reports it."
         }
       },
@@ -10734,16 +11332,46 @@
           "type": "string"
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "dismissedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "raw": {}
       },
@@ -11118,20 +11746,59 @@
           "type": "string"
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "closedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "mergedAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "When the pull request was merged, where the forge reports it."
         },
         "mergedBy": {
@@ -11139,8 +11806,17 @@
           "description": "The account that merged the pull request, where the forge reports it."
         },
         "lastActivityAt": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Latest activity the forge reports for the thread."
         },
         "locked": {
@@ -11342,13 +12018,31 @@
           "description": "Milestone title, or `'none'` for threads with no milestone."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Updated at or after."
         },
         "createdAfter": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Created at or after."
         },
         "sort": {
@@ -11476,8 +12170,17 @@
           "description": "Threads carrying every one of these labels."
         },
         "since": {
-          "type": "string",
-          "format": "date-time",
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
           "description": "Updated at or after."
         },
         "sort": {
@@ -11803,8 +12506,18 @@
           "type": "string"
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "followers": {
           "type": "number"
@@ -11863,12 +12576,32 @@
           "description": "`'json'` or `'form'` where the forge offers a choice."
         },
         "createdAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "updatedAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "secret": {
           "not": {},
@@ -11957,8 +12690,18 @@
           "description": "`true` when the forge considered the delivery successful."
         },
         "deliveredAt": {
-          "type": "string",
-          "format": "date-time"
+          "type": "object",
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "$date"
+          ],
+          "additionalProperties": false,
+          "description": "Date, as `{ \"$date\": \"<ISO 8601>\" }`."
         },
         "duration": {
           "type": "number",
