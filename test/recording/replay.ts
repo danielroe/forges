@@ -16,6 +16,7 @@ import { gitlab } from '../../src/gitlab/index.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { sourcehut } from '../../src/sourcehut/index.ts'
 import { tangled } from '../../src/tangled/index.ts'
+import { upstream } from '../../src/upstream/index.ts'
 import { FakeWebSocket } from '../utils/websocket.ts'
 
 type Create = (fetch: FetchLike, manifest: RecordingManifest, messages?: unknown[]) => ForgeProvider
@@ -155,6 +156,15 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
         notificationsUrl: manifest.notificationsUrl,
       },
       webSocket: url => new FakeWebSocket(url, messages),
+    }),
+  },
+  {
+    name: 'upstream',
+    create: (fetch, manifest) => upstream({
+      auth: authFor(manifest),
+      baseUrl: manifest.baseUrl,
+      webhookSecret: manifest.webhookSecret,
+      fetch,
     }),
   },
 ]

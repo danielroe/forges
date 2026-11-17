@@ -1,0 +1,90 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/2624562683860212"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"9211b5737ee62fab35e0491bd3680ca6350acd41\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "802",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 2624562683860212,
+      "node_id": "UmVsZWFzZTo1M2Y4ODQzMS0yZjgwLTQwNmItOWQ3ZC00MmRlM2FiYTA2YzE",
+      "tag_name": "forges-seed-v1",
+      "target_commitish": "9fcb176dae722fffca2a17c8951296f6ac946856",
+      "name": "forges seed release",
+      "body": "A release the forges recordings read.",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-11-14T22:39:20.882Z",
+      "published_at": "2026-11-14T22:39:20.890Z",
+      "author": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/releases",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/2624562683860212",
+      "assets_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/2624562683860212/assets",
+      "upload_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/2624562683860212/assets{?name,label}",
+      "tarball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/tarball/forges-seed-v1",
+      "zipball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/zipball/forges-seed-v1",
+      "assets": [
+        {
+          "id": 1336393085645828,
+          "node_id": "UmVsZWFzZUFzc2V0OmMxZTljZWY0LWIwNzEtNGRmMS1hMGVjLTliYmU3OTA0YjU5OQ",
+          "name": "seed.txt",
+          "label": null,
+          "state": "uploaded",
+          "content_type": "application/octet-stream",
+          "size": 11,
+          "download_count": 0,
+          "browser_download_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/assets/1336393085645828?download=1",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/assets/1336393085645828",
+          "uploader": {
+            "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+            "html_url": "https://upstream.codes/upstream_forges_bot",
+            "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+            "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+            "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+            "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+            "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+            "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+            "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+            "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+            "login": "upstream_forges_bot",
+            "id": 526873422199188,
+            "node_id": "REDACTED",
+            "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+            "gravatar_id": "",
+            "type": "User",
+            "site_admin": false
+          },
+          "created_at": "2026-11-14T22:39:21.786Z",
+          "updated_at": "2026-11-14T22:39:21.786Z"
+        }
+      ]
+    }
+  }
+}

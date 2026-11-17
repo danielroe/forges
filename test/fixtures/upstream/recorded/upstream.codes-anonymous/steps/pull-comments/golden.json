@@ -1,0 +1,50 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures"
+          },
+          "kind": "pull_request",
+          "number": "5"
+        },
+        "id": "8676508731309219"
+      },
+      "body": "A comment on the change request from the bot.",
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/5#comment-926e32f9-7c0b-46af-894c-59c10300a990",
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    }
+  ],
+  "etag": "W/\"71728d9884f16e9e30f71128406e4d6e0923df95\"",
+  "rateLimit": {
+    "limit": 1000,
+    "remaining": 849,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

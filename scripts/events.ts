@@ -8,6 +8,7 @@ import { GITHUB_NATIVE_EVENTS } from '../src/github/webhook-events.ts'
 import { GITLAB_NATIVE_EVENTS } from '../src/gitlab/webhook-events.ts'
 import { isUnsupported } from '../src/model.ts'
 import { models } from '../src/schema/index.ts'
+import { UPSTREAM_NATIVE_EVENTS } from '../src/upstream/webhook-events.ts'
 import { matrixProviders } from './capabilities.ts'
 
 /** The native event map each provider's `webhooks.create()` translates `events` with, by docs slug. */
@@ -19,6 +20,7 @@ const SUBSCRIPTIONS: Record<string, NativeEventMap> = {
   gitea: FORGEJO_NATIVE_EVENTS,
   gitee: GITEE_NATIVE_EVENTS,
   gitbucket: GITBUCKET_NATIVE_EVENTS,
+  upstream: UPSTREAM_NATIVE_EVENTS,
 }
 
 export interface EventProvider {

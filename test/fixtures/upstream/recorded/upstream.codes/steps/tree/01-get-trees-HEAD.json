@@ -1,0 +1,55 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/HEAD"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"dcfbf076506bcf460db7db82b5aec5fcc8aefcb1\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999939",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "sha": "dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c",
+      "truncated": false,
+      "tree": [
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+          "size": null,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/399c13f4dbf9058e2cec7fa6c38f779d226c4807"
+        },
+        {
+          "path": "cli.txt",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "10b03d81dd3cd631ad961ba9741c947feb5089f0",
+          "size": null,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/10b03d81dd3cd631ad961ba9741c947feb5089f0"
+        },
+        {
+          "path": "forges-fixtures",
+          "mode": "040000",
+          "type": "tree",
+          "sha": "760c7aadcef6bc7dd59262625852e7d1136114b2",
+          "size": null,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/760c7aadcef6bc7dd59262625852e7d1136114b2"
+        },
+        {
+          "path": "two.txt",
+          "mode": "100644",
+          "type": "blob",
+          "sha": "f719efd430d52bcfc8566a43b2eb655688d38871",
+          "size": null,
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/f719efd430d52bcfc8566a43b2eb655688d38871"
+        }
+      ],
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/dbb2c9a61f85423e89fde5ac0a4d5bff18e9365c"
+    }
+  }
+}

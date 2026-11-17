@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5/reviews"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"3294a2d8af1af1535efe6c0b403444fd931f8dda\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999624",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "id": 1516803862233779,
+        "node_id": "UHVsbFJlcXVlc3RSZXZpZXc6NTVmOWM1YjctNjc5Mi00ZGU1LTk2YTAtN2IzNzdmY2JhY2E3",
+        "user": {
+          "url": "https://api.upstream.codes/api/v3/users/nora",
+          "html_url": "https://upstream.codes/nora",
+          "followers_url": "https://api.upstream.codes/api/v3/users/nora/followers",
+          "following_url": "https://api.upstream.codes/api/v3/users/nora/following{/other_user}",
+          "gists_url": "https://api.upstream.codes/api/v3/users/nora/gists{/gist_id}",
+          "starred_url": "https://api.upstream.codes/api/v3/users/nora/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.upstream.codes/api/v3/users/nora/subscriptions",
+          "organizations_url": "https://api.upstream.codes/api/v3/users/nora/orgs",
+          "repos_url": "https://api.upstream.codes/api/v3/users/nora/repos",
+          "events_url": "https://api.upstream.codes/api/v3/users/nora/events{/privacy}",
+          "received_events_url": "https://api.upstream.codes/api/v3/users/nora/received_events",
+          "login": "nora",
+          "id": 55511423519801,
+          "node_id": "REDACTED",
+          "avatar_url": "https://coline.app/api/public/default-avatar/65cc31a7f1dcb064c4b0b0cd34d2db70",
+          "gravatar_id": "",
+          "type": "User",
+          "site_admin": false
+        },
+        "body": "A review from the reviewer.",
+        "state": "COMMENTED",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/5#review-55f9c5b7-6792-4de5-96a0-7b377fcbaca7",
+        "pull_request_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5",
+        "submitted_at": "2026-11-14T22:39:02.503Z",
+        "commit_id": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+        "author_association": "NONE"
+      }
+    ]
+  }
+}

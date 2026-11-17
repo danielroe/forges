@@ -19,6 +19,7 @@ export default defineConfig({
     'src/sourcehut/index.ts',
     'src/gitbucket/index.ts',
     'src/entire/index.ts',
+    'src/upstream/index.ts',
     'src/env.ts',
     'src/helpers.ts',
     'src/kit.ts',

@@ -1,0 +1,320 @@
+{
+  "01-push": [
+    {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "id": "fe720f5e-ae44-4762-ae52-315f1de65933",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push.push",
+      "actionRaw": "push",
+      "summary": "upstream_forges_bot pushed 1 commit(s) to forges-fixtures/20261115004547-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261115004547-webhooks",
+        "before": "0000000000000000000000000000000000000000",
+        "after": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5",
+            "message": "Merge run 20261115003433\n\nMerged by run 20261115003433",
+            "author": "Upstream forges bot",
+            "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/8f15d32ee1f430cd3f99c22904e861a2df96e8f5"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ],
+  "02-push": [
+    {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "id": "7d3bcd9e-102c-400c-a18d-fbb58513d8aa",
+      "kind": "push",
+      "action": "other",
+      "kindRaw": "push.push",
+      "actionRaw": "push",
+      "summary": "upstream_forges_bot pushed 1 commit(s) to forges-fixtures/20261115004547-webhooks",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/forges-fixtures/20261115004547-webhooks",
+        "before": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5",
+        "after": "6bba29396417e1b5d5db80a148aaa0b71eb03069",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "6bba29396417e1b5d5db80a148aaa0b71eb03069",
+            "message": "test: add forges-fixtures/20261115004547-webhooks.md",
+            "author": "Upstream forges bot",
+            "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/6bba29396417e1b5d5db80a148aaa0b71eb03069"
+          }
+        ]
+      },
+      "source": "webhook"
+    }
+  ],
+  "03-issue_comment": [
+    {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "id": "91058d4f-8fc7-48e9-a78f-4027d31ee342",
+      "kind": "comment",
+      "kindRaw": "issue_comment.created",
+      "action": "created",
+      "actionRaw": "created",
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "thread": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "repo": {
+              "forge": "upstream",
+              "instance": "upstream.codes",
+              "owner": "upstream_forges_bot",
+              "name": "forges-fixtures",
+              "externalId": "4467465046780140"
+            },
+            "kind": "issue",
+            "number": "19",
+            "externalId": "SXNzdWU6OWFiNjY4NWEtZWFmYy00NmRjLWE4MDYtM2U1MzY5M2MyNWEz"
+          },
+          "id": "408636338337720"
+        },
+        "body": "A comment from run 20261115004547."
+      },
+      "summary": "upstream_forges_bot created a comment",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "thread": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures",
+          "externalId": "4467465046780140"
+        },
+        "kind": "issue",
+        "number": "19",
+        "externalId": "SXNzdWU6OWFiNjY4NWEtZWFmYy00NmRjLWE4MDYtM2U1MzY5M2MyNWEz"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261115004547: webhooks",
+        "body": "Opened by run 20261115004547.",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "login": "upstream_forges_bot",
+          "id": "526873422199188",
+          "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "url": "https://upstream.codes/upstream_forges_bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/19"
+      },
+      "source": "webhook"
+    }
+  ],
+  "04-issues": [
+    {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "id": "afd76581-8b80-4506-bb83-78c8fce8476a",
+      "kind": "state_change",
+      "kindRaw": "issues.opened",
+      "action": "opened",
+      "actionRaw": "opened",
+      "detail": {
+        "type": "state_change",
+        "state": "open"
+      },
+      "summary": "upstream_forges_bot opened issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "thread": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures",
+          "externalId": "4467465046780140"
+        },
+        "kind": "issue",
+        "number": "19",
+        "externalId": "SXNzdWU6OWFiNjY4NWEtZWFmYy00NmRjLWE4MDYtM2U1MzY5M2MyNWEz"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261115004547: webhooks",
+        "body": "Opened by run 20261115004547.",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "login": "upstream_forges_bot",
+          "id": "526873422199188",
+          "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "url": "https://upstream.codes/upstream_forges_bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/19"
+      },
+      "source": "webhook"
+    }
+  ],
+  "05-issues": [
+    {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "id": "c086aeb9-1f5a-4fa7-96d6-aac2aec06060",
+      "kind": "state_change",
+      "kindRaw": "issues.closed",
+      "action": "closed",
+      "actionRaw": "closed",
+      "detail": {
+        "type": "state_change",
+        "state": "closed",
+        "reason": "completed"
+      },
+      "summary": "upstream_forges_bot closed issues",
+      "occurredAt": "<now>",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "thread": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures",
+          "externalId": "4467465046780140"
+        },
+        "kind": "issue",
+        "number": "19",
+        "externalId": "SXNzdWU6OWFiNjY4NWEtZWFmYy00NmRjLWE4MDYtM2U1MzY5M2MyNWEz"
+      },
+      "threadSnapshot": {
+        "title": "forges fixture 20261115004547: webhooks",
+        "body": "Opened by run 20261115004547.",
+        "state": "closed",
+        "stateRaw": "closed",
+        "stateReason": "completed",
+        "author": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "login": "upstream_forges_bot",
+          "id": "526873422199188",
+          "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "url": "https://upstream.codes/upstream_forges_bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        },
+        "labels": [],
+        "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/19"
+      },
+      "source": "webhook"
+    }
+  ]
+}

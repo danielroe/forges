@@ -34,6 +34,7 @@ const PREFIXES: Record<string, string[]> = {
   'sourcehut': ['SOURCEHUT_', 'FIXTURE_SOURCEHUT_'],
   'entire': ['ENTIRE_', 'FIXTURE_ENTIRE_'],
   'cursor-origin': ['CURSOR_', 'FIXTURE_CURSOR_ORIGIN_'],
+  'upstream': ['UPSTREAM_', 'FIXTURE_UPSTREAM_'],
 }
 
 /** Variables only write recordings and seeding use: the bot accounts and the Tangled reviewer. */

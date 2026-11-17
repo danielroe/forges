@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/16/lock",
+    "body": {
+      "lock_reason": "resolved"
+    }
+  },
+  "response": {
+    "status": 204,
+    "headers": {
+      "etag": "W/\"2be88ca4242c76e8253ac62474851065032d6833\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999731",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    }
+  }
+}

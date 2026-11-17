@@ -15,7 +15,7 @@ import process, { env, exit } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { ForgeApiError } from '../src/errors.ts'
-import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled } from '../src/index.ts'
+import { azureDevOps, bitbucket, cloudflareArtifacts, cursorOrigin, entire, forgejo, gitbucket, gitea, gitee, github, gitlab, pushin, sourcehut, tangled, upstream } from '../src/index.ts'
 import { recordingFetch, signDelivery } from '../src/testing/index.ts'
 import { recordedSteps, stepSlug } from '../test/recording/layout.ts'
 import { redact } from '../test/recording/redact.ts'
@@ -57,10 +57,11 @@ const TOKEN_VARIABLES: Record<string, string> = {
   'sourcehut': 'SOURCEHUT_TOKEN',
   'entire': 'ENTIRE_TOKEN',
   'gitbucket': 'GITBUCKET_TOKEN',
+  'upstream': 'UPSTREAM_TOKEN',
 }
 
 if (!target || !(target in TOKEN_VARIABLES)) {
-  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
+  console.error('Usage: pnpm record-fixtures <github|forgejo|gitlab|bitbucket|tangled|cursor-origin|gitee|azure-devops|gitea|pushin|cloudflare-artifacts|sourcehut|entire|gitbucket|upstream> [--anonymous | --app | --writes [--allow-fewer] [--defer-splice] | --webhooks | --seed] [--only <step>]...')
   exit(1)
 }
 
@@ -807,6 +808,26 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           issue: ref('gitbucket', provider.instance, slug, 'issue', env.FIXTURE_GITBUCKET_ISSUE ?? '1'),
           feedUser: env.FIXTURE_GITBUCKET_FEED_USER,
           ...setupRepos('GITBUCKET', slug => repoRef('gitbucket', provider.instance, slug)),
+        },
+      }
+    }
+    case 'upstream': {
+      const provider = upstream({
+        baseUrl: env.UPSTREAM_BASE_URL,
+        auth: tokenAuth,
+        fetch,
+        timeout,
+      })
+      // Upstream's public repositories have no issues or change requests yet, so reads go to the threads seeded in the scratch repository.
+      const slug = env.FIXTURE_UPSTREAM_REPO ?? 'upstream_forges_bot/forges-fixtures'
+      return {
+        provider,
+        manifest: {
+          repo: repoRef('upstream', provider.instance, slug),
+          pull: ref('upstream', provider.instance, slug, 'pull_request', env.FIXTURE_UPSTREAM_PULL ?? '5'),
+          issue: ref('upstream', provider.instance, slug, 'issue', env.FIXTURE_UPSTREAM_ISSUE ?? '4'),
+          feedUser: env.FIXTURE_UPSTREAM_FEED_USER,
+          ...setupRepos('UPSTREAM', slug => repoRef('upstream', provider.instance, slug)),
         },
       }
     }

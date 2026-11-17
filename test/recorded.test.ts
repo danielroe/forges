@@ -55,6 +55,7 @@ const FORGE_NAMES: Record<string, string> = {
   'sourcehut': 'Sourcehut',
   'entire': 'Entire',
   'gitbucket': 'GitBucket',
+  'upstream': 'Upstream',
 }
 
 function sameRequest(a: string, b: string): boolean {

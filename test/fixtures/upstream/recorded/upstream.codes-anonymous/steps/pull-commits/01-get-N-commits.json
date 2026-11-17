@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/5/commits?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"57f8015b9c76b3d45f5a0ea59210670dfc8fbf31\"",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "838",
+      "x-ratelimit-reset": "1794698428",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "sha": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+        "node_id": "Q29tbWl0OjgwNzlmNmZkNTk5NTc4NWQ2YzJmNDMxNmIyZThkYzVkNDIwZmU3ZDA",
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commits/8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+        "commit": {
+          "author": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:38:41.000Z"
+          },
+          "committer": {
+            "name": "Upstream forges bot",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-14T22:38:41.000Z"
+          },
+          "message": "docs: add seed.md",
+          "tree": {
+            "sha": null,
+            "url": null
+          },
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null
+          }
+        },
+        "author": null,
+        "committer": null,
+        "parents": [
+          {
+            "sha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+            "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/9fcb176dae722fffca2a17c8951296f6ac946856",
+            "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commits/9fcb176dae722fffca2a17c8951296f6ac946856"
+          }
+        ]
+      }
+    ]
+  }
+}

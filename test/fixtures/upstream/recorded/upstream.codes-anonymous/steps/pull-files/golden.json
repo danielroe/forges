@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "path": "seed.md",
+      "status": "added",
+      "statusRaw": "added",
+      "additions": 3,
+      "deletions": 0,
+      "patch": "diff --git a/seed.md b/seed.md\nnew file mode 100644\nindex 0000000..b4f8afb\n--- /dev/null\n+++ b/seed.md\n@@ -0,0 +1,3 @@\n+# Seed\n+\n+A file the forges recordings read on a change request.",
+      "sha": "b4f8afb21dd40cbffe0dbfc43e08c9e2d456bb65"
+    }
+  ],
+  "etag": "W/\"11f574d6d71014cb33de4d89abb499a0048018aa\"",
+  "rateLimit": {
+    "limit": 1000,
+    "remaining": 839,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

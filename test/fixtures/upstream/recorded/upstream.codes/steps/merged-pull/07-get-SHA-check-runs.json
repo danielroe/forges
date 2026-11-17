@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/a9e748e1baccd27b5ea0d42e7efd290fe6f98f18/check-runs?per_page=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"308f07725412cd96c0255976c716eb1b096bdafa\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999965",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "total_count": 0,
+      "check_runs": []
+    }
+  }
+}

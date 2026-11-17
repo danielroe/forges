@@ -1,0 +1,26 @@
+{
+  "items": [
+    {
+      "content": "+1",
+      "contentRaw": "+1",
+      "actor": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "nora",
+        "id": "55511423519801",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/65cc31a7f1dcb064c4b0b0cd34d2db70",
+        "url": "https://upstream.codes/nora",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "<now>"
+    }
+  ],
+  "etag": "W/\"bbdeb0532738f7013160396df2505ecbe244de91\"",
+  "rateLimit": {
+    "limit": 1000000,
+    "remaining": 999844,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}
