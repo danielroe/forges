@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.review.submitPatch",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "patch": {
+        "ticket": "128",
+        "base": {
+          "oid": "00111a8c9099b56b5e8e4492373de72e4940112f"
+        },
+        "head": {
+          "oid": "54107fc168646e9b0e30173ba43a1e60ce13a85a"
+        },
+        "sourceRepo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "sourceBranch": "forges-fixtures/20261121112236-3"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreie7lzlmshr2k5tposzvdpqa2dsfdbybuzxuqd4z7eq26hzhsmuulu",
+      "cid": "bafyreie7lzlmshr2k5tposzvdpqa2dsfdbybuzxuqd4z7eq26hzhsmuulu",
+      "commit": {
+        "cid": "bafyreievqm2ck2jqy56s57q5vnej32dwepmjwrw552ooguzvcgfqaq3i7e",
+        "rev": "3n2syg6c77d22"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "bfac00bdf9610a7ccf126940c0d4c54460364bf7"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.listCollaborators?subject=did%3Aplc%3Awidgetsrepo2222222222222&order=asc&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "subject": "did:plc:gracecollab2222222222222",
+          "addedBy": "did:plc:acmeowner222222222222222",
+          "createdAt": "2026-01-02T00:00:00Z",
+          "effectiveSince": "2026-01-02T00:00:00Z"
+        }
+      ],
+      "total": 1
+    }
+  }
+}

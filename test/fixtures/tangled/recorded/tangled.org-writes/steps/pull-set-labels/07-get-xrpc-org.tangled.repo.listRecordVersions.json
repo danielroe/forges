@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F126&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/126",
+      "total": 2,
+      "versions": [
+        {
+          "cid": "bafyreicjsnncf2fz2f6cvqftpcotqx5l4nzxratfc3yasrlhlhwqrvkydu",
+          "changeId": "8c898a458b5227631d2fd7c535e15928f2733a68",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "createdAt": "2026-11-21T11:23:39.000000Z"
+        },
+        {
+          "cid": "bafyreie6dpduk5teeippjiakzjpv2pbuhuqevh3iarcsn5nz3x7vgr7pae",
+          "changeId": "0ddb7ca886ec78ba66a3857172452380ab6cb419",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "createdAt": "2026-11-21T11:24:01.000000Z"
+        }
+      ]
+    }
+  }
+}

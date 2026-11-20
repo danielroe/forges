@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://pds.example.com/xrpc/com.atproto.repo.createRecord"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:acmeowner222222222222222/org.tangled.graph.attestation/3m0000000099",
+      "cid": "bafyreiatttestation0000000000000000000000000000000000000000000001"
+    }
+  }
+}

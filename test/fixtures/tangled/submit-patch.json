@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.review.submitPatch"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.review.patch/bafyreipatch000000000000000000000000000000000000000000000099",
+      "cid": "bafyreipatch000000000000000000000000000000000000000000000099",
+      "x-tngl-change": "5555555555555555555555555555555555555555"
+    }
+  }
+}

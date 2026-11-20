@@ -1,0 +1,87 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.search.query?author=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&nsid=org.tangled.track.ticket&sort=created-desc&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "hits": [
+        {
+          "author": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "cid": "bafyreibvbqj2pebspsxuiyzhr4pklq334ylnahjbv46rpkunj72vmzl2gi",
+          "commentCount": 0,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "completed",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/34",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "createdAt": "2026-08-01T17:48:36Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "ci: add test workflows"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "author": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "cid": "bafyreigha7yoxetxjwnldntndg3jytcvddrrdnn2ccd4wr65ewxn5qoc7a",
+          "commentCount": 5,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "closed",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/5",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard "
+            },
+            "createdAt": "2026-07-06T13:41:27Z",
+            "state": "closed",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "handle duplicate names "
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "author": "did:plc:jbeaa5kdaladzwq3r7f5xgwe",
+          "cid": "bafyreicnzz6phlrjjisedevxdy7srvk5e3gxckdapflopjb63qrbtqs7bu",
+          "commentCount": 0,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "completed",
+          "uri": "at://did:plc:yr5tuei4ai5ccujxevyydmuh/org.tangled.track.ticket/17",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "this adds the https://npmx.dev logomark\n\nfeel free to close if you don't want this 🙏"
+            },
+            "createdAt": "2026-05-07T15:00:49Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "add npmx logomark"
+            },
+            "x-tngl-editor": "did:plc:kydzcmnywraao2srchqgwj5c"
+          }
+        }
+      ],
+      "total": 3,
+      "stateCounts": {
+        "open": 0,
+        "closed": 1,
+        "completed": 2
+      }
+    }
+  }
+}

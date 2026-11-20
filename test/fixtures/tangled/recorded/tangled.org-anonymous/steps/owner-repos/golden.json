@@ -6,9 +6,10 @@
         "instance": "tangled.org",
         "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
         "name": "forges-fixtures",
-        "ownerHandle": "roebot.tngl.sh",
-        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+        "ownerHandle": "roebot.tngl.sh"
       },
+      "defaultBranch": "main",
       "visibility": "public",
       "isFork": false,
       "isArchived": false,
@@ -28,15 +29,13 @@
       },
       "createdAt": "2026-10-09T17:02:20.000Z",
       "mergeMethods": [
+        "merge",
         "rebase"
       ],
-      "defaultMergeMethod": "rebase"
+      "defaultMergeMethod": "merge",
+      "stars": 1,
+      "forks": 0
     }
   ],
-  "warnings": [
-    {
-      "code": "sort_unsupported",
-      "message": "Tangled lists repositories in the order of their records"
-    }
-  ]
+  "total": 1
 }

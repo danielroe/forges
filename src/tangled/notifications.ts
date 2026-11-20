@@ -2,13 +2,12 @@ import type { ProviderSpec } from '../define.ts'
 import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher, RequestOptions } from '../fetch.ts'
 import type { Actor, Notification, NotificationListOptions, NotificationSubject, Page, RepoRef } from '../model.ts'
-import type { AtprotoClient } from './atproto.ts'
-import type { IssueRecord, PullRecord } from './types.ts'
+import type { XrpcParams } from './records.ts'
 import { verb } from '../define.ts'
 import { UnsupportedOperationError } from '../errors.ts'
 import { toDate } from '../utils.ts'
 import { parseAtUri } from './atproto.ts'
-import { FORGE, toNotificationReason, toThreadRef } from './normalise.ts'
+import { COLLECTIONS, FORGE, toNotificationReason, toThreadRef } from './normalise.ts'
 
 const NOTIFICATION_NSID = {
   list: 'org.tangled.temp.notification.listNotifications',
@@ -33,8 +32,9 @@ interface NotificationDeps {
   instance: string
   context: ForgeErrorContext
   fetcher: Fetcher
-  atproto: AtprotoClient
   pdsCall: <T>(nsid: string, init?: RequestOptions) => Promise<T>
+  /** A query against the index, which reports a missing record as a 404. */
+  query: <T>(nsid: string, params: XrpcParams, signal?: AbortSignal) => Promise<T>
   resolveRepo: (did: string) => Promise<RepoRef>
   actorFor: (did: string) => Promise<Actor>
 }
@@ -44,7 +44,7 @@ interface NotificationDeps {
  * authenticates callers with atproto service-auth tokens minted by their
  * PDS for audience `did:web:<host>`.
  */
-export function createTangledNotifications(url: string, { instance, context, fetcher, atproto, pdsCall, resolveRepo, actorFor }: NotificationDeps): NonNullable<ProviderSpec['notifications']> {
+export function createTangledNotifications(url: string, { instance, context, fetcher, pdsCall, query, resolveRepo, actorFor }: NotificationDeps): NonNullable<ProviderSpec['notifications']> {
   const audience = `did:web:${new URL(url).host}`
   const titles = new Map<string, Promise<string | undefined>>()
 
@@ -63,7 +63,7 @@ export function createTangledNotifications(url: string, { instance, context, fet
   function titleOf(subject: string): Promise<string | undefined> {
     let title = titles.get(subject)
     if (!title) {
-      title = atproto.getRecord<IssueRecord | PullRecord>(subject).then(({ value }) => value.title, () => undefined)
+      title = query<{ title?: { text?: string } }>('org.tangled.track.getTicketView', { uri: subject }).then(view => view.title?.text, () => undefined)
       titles.set(subject, title)
     }
     return title
@@ -74,7 +74,7 @@ export function createTangledNotifications(url: string, { instance, context, fet
     const parsed = subject
       ? parseAtUri(subject)
       : undefined
-    const repo = item.repoDid
+    const repo = item.repoDid && (parsed?.did === item.repoDid || !parsed)
       ? await resolveRepo(item.repoDid).catch((): RepoRef => ({
           forge: FORGE,
           instance,
@@ -84,10 +84,10 @@ export function createTangledNotifications(url: string, { instance, context, fet
         }))
       : undefined
     let notificationSubject: NotificationSubject
-    if (parsed && repo) {
+    if (parsed && parsed.collection === COLLECTIONS.ticket && repo) {
       notificationSubject = {
         type: 'thread',
-        thread: toThreadRef(instance, repo, parsed),
+        thread: toThreadRef(instance, repo, parsed.rkey, item.pullAt ? 'pull_request' : 'issue'),
       }
     }
     else if (item.type === 'followed') {
@@ -132,7 +132,7 @@ export function createTangledNotifications(url: string, { instance, context, fet
 
   return {
     listPage: verb('experimental', page),
-    markRead: verb('experimental', async (ref, options) => {
+    markRead: verb('unverified', async (ref, options) => {
       await call(NOTIFICATION_NSID.updateSeen, {
         method: 'POST',
         json: { uri: ref.id, read: true },
@@ -145,6 +145,6 @@ export function createTangledNotifications(url: string, { instance, context, fet
       }
       await call(NOTIFICATION_NSID.markAllRead, { method: 'POST', signal: bulk.signal })
     }),
-    unreadCount: verb('unverified', async () => (await call<{ count: number }>(NOTIFICATION_NSID.unreadCount)).count),
+    unreadCount: verb('experimental', async () => (await call<{ count: number }>(NOTIFICATION_NSID.unreadCount)).count),
   }
 }

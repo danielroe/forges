@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.track.ticket%2F8&cid=bafyreiticket00000000000000000000000000000000000000000000000008"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "status": "indexed",
+      "cid": "bafyreiticket00000000000000000000000000000000000000000000000008"
+    }
+  }
+}

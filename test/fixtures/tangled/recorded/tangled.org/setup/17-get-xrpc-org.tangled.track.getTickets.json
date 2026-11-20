@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Axer24egskgvsxk2pwfvn5m37%2Forg.tangled.track.ticket%2F73"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreie3g67ljjdi2tx3gbbhqt7aym3dtvrmzpq4srhwffg42wxbwej6i4",
+          "uri": "at://did:plc:xer24egskgvsxk2pwfvn5m37/org.tangled.track.ticket/73",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "An integrator found that airlift can check and update apps but can't roll them back. This adds `airlift rollback <name>`.\n\n- **Previous version**: switching to a new tree writes the replaced lockfile entry to `apps/<name>/previous.json`. It's kept outside the lockfile, so releases that predate rollback can still read the lockfile. Rollback activates it the way an install does, with the same command checks and airlift's `--version` check. Rolling back again rolls forward.\n- **Hold**: rolling back to an older version leaves `apps/<name>/held`. `airlift update` without a name skips a held app, and `check --json` reports `\"held\": true` so apps that check for their own updates can stay quiet. Updating the app by name lifts the hold.\n- **Layout version**: the lockfile now has `\"layout\": 1`, and an airlift refuses a newer layout than it reads. airlift 0.1.8 can't read layout 1, so rollback won't move airlift below `Lockfile.FirstAirlift` (0.1.9), which assumes this ships in the next release.\n\ndocs/design.md has a new Rollback section and documents the layout version and `held`.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n"
+            },
+            "createdAt": "2026-11-21T07:21:08Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Add airlift rollback, and a layout version for the root"
+            },
+            "x-tngl-editor": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+          }
+        }
+      ]
+    }
+  }
+}

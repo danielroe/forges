@@ -13,14 +13,53 @@
           "ownerHandle": "roebot.tngl.sh"
         },
         "kind": "issue",
-        "typeRaw": "sh.tangled.repo.issue",
-        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
-        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y",
-        "displayNumber": "17"
+        "typeRaw": "org.tangled.track.ticket",
+        "number": "101",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/101"
       },
       "kind": "issue",
-      "title": "forges seed: issue",
-      "body": "An issue that read recordings read.",
+      "title": "forges fixture 20261121094301: duplicate",
+      "body": "Opened by run 20261121094301.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "labels": [],
+      "commentCount": 0,
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/101"
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
+        "kind": "issue",
+        "typeRaw": "org.tangled.track.ticket",
+        "number": "100",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/100"
+      },
+      "kind": "issue",
+      "title": "forges fixture 20261121094301: labelled issue",
+      "body": "Opened by run 20261121094301.",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
@@ -48,16 +87,56 @@
       "lastActivityAt": "<now>",
       "labels": [
         {
-          "name": "wontfix",
-          "colour": "64748b"
-        },
-        {
-          "name": "forges-seed",
-          "colour": "8b5cf6"
+          "name": "forges-fixture-20261121094301",
+          "colour": "0E8A16"
         }
       ],
-      "commentCount": 3,
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/17"
+      "commentCount": 0,
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/100"
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
+        "kind": "issue",
+        "typeRaw": "org.tangled.track.ticket",
+        "number": "99",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/99"
+      },
+      "kind": "issue",
+      "title": "forges fixture 20261121094301: issue, edited",
+      "body": "Edited by run 20261121094301.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "login": "roebot.tngl.sh",
+        "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "url": "https://tangled.org/roebot.tngl.sh",
+        "isBotHint": false
+      },
+      "assignees": [],
+      "reviewers": [],
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "labels": [],
+      "commentCount": 0,
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/99"
     }
-  ]
+  ],
+  "total": 26,
+  "cursor": {
+    "token": "k000000006b0167bcmf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6ojz"
+  }
 }

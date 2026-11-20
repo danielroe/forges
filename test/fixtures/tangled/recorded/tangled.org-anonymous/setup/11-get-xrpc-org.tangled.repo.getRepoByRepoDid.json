@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Axer24egskgvsxk2pwfvn5m37"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreihqvtea3ueyjjxoz4pddqgpgfg6iexvee6n3qd5q56jjmekbk3a6y",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:xer24egskgvsxk2pwfvn5m37/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-10-28T16:07:22Z",
+        "declaration": {
+          "name": "airlift",
+          "owner": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+        },
+        "description": "a universal package manager",
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+      }
+    }
+  }
+}

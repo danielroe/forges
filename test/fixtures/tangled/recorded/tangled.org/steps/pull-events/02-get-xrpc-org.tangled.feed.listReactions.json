@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listReactions?subject=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F54&order=asc&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreibp266hkgfshpx6bn5rrk3xan6nik5mkoiv5xycow5cd5ziv56cyq",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.reaction/3mycfeeueqr2y",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-10-20T10:09:48.621000Z",
+            "reaction": "🚀",
+            "subject": {
+              "cid": "bafyreibxes5se5d2eihveeilnhnnyk75slrjirspoqbawhe4p53dz3d2m4",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+            },
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        },
+        {
+          "cid": "bafyreigkao2g5mrpvymgamjbwxdy5ksoh43yekjjfo4c6funizlpbrbgu4",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.reaction/3mycfeft45j2y",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-10-20T10:09:49.609000Z",
+            "reaction": "👍",
+            "subject": {
+              "cid": "bafyreibxes5se5d2eihveeilnhnnyk75slrjirspoqbawhe4p53dz3d2m4",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+            },
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        }
+      ],
+      "total": 2
+    }
+  }
+}

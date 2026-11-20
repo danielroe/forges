@@ -9,6 +9,7 @@ import { GITHUB_NATIVE_EVENTS } from '../src/github/webhook-events.ts'
 import { GITLAB_NATIVE_EVENTS } from '../src/gitlab/webhook-events.ts'
 import { isUnsupported } from '../src/model.ts'
 import { models } from '../src/schema/index.ts'
+import { NATIVE_EVENTS as TANGLED_NATIVE_EVENTS } from '../src/tangled/webhooks.ts'
 import { matrixProviders } from './capabilities.ts'
 
 /** The native event map each provider's `webhooks.create()` translates `events` with, by docs slug. */
@@ -21,6 +22,7 @@ const SUBSCRIPTIONS: Record<string, NativeEventMap> = {
   gitee: GITEE_NATIVE_EVENTS,
   gitbucket: GITBUCKET_NATIVE_EVENTS,
   gitcafe: GITCAFE_NATIVE_EVENTS,
+  tangled: TANGLED_NATIVE_EVENTS,
 }
 
 export interface EventProvider {

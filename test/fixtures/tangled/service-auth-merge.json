@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pds.example.com/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aweb%3Aknot1.tangled.sh&lxm=org.tangled.git.receivePack"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "token": "token-merge"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g&collection=org.tangled.feed.comment&rkey=3mqwriyvmu722"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreiam6r5gkzu2obgiiziqp4plfz24qcuqw6iksaocujbnzddnvnoyyu",
+      "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqwriyvmu722",
+      "value": {
+        "$type": "org.tangled.feed.comment",
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "I'll try to setup the repo locally with my nix-darwin config 😅"
+        },
+        "createdAt": "2026-07-18T17:18:51Z",
+        "replyTo": {
+          "cid": "bafyreiehrrj7eq7tyvngtjfurblirqkh5irmdupaslfxc62wr3cwwb63cm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqwo2z5l7z22"
+        },
+        "subject": {
+          "cid": "bafyreihinbxseirmirbaexzy7evon2gknooe6wple654x74emddhnvic3a",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/10"
+        },
+        "x-tngl-editor": "did:plc:pbjvqaziagcyv2vqodldn5op"
+      }
+    }
+  }
+}

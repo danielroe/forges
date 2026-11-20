@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.deleteRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.feed.comment",
+      "rkey": "3n2syeu4t5krw",
+      "swapRecord": "bafyreiglysxtum476zyt4iujgslq4kzlfpnqsg572amryvuioi7fomc3bm"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commit": {
+        "cid": "bafyreie3zjgz2u5ilgaa6n6t7byt53gk5pnkk2lpkaendbojzuzmxwdmne",
+        "rev": "3n2syezu6qu22"
+      }
+    }
+  }
+}

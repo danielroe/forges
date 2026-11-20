@@ -7,6 +7,7 @@
     "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
     "ownerHandle": "roebot.tngl.sh"
   },
+  "defaultBranch": "main",
   "visibility": "public",
   "isFork": false,
   "isArchived": false,
@@ -26,10 +27,10 @@
   },
   "createdAt": "2026-10-09T17:02:20.000Z",
   "mergeMethods": [
+    "merge",
     "rebase"
   ],
-  "defaultMergeMethod": "rebase",
+  "defaultMergeMethod": "merge",
   "stars": 1,
-  "forks": 0,
-  "defaultBranch": "main"
+  "forks": 0
 }

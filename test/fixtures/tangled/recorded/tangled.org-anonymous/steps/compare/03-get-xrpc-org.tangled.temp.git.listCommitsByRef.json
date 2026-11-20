@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ranges=3d45c8062c15a3e747e20cbd14e6092a98aca072&limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commits": [
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "Daniel Roe",
+            "when": "2026-10-09T19:29:21.000000+01:00"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Daniel Roe",
+            "when": "2026-10-09T19:29:21.000000+01:00"
+          },
+          "extraHeaders": [
+            {
+              "key": "gpgsig",
+              "value": "-----BEGIN PGP SIGNATURE-----\n\niJEEABYKADkWIQRfSomZE4k/rYDtTKpHxO49RqOifAUCaskygRsUgAAAAAAEAA5t\nYW51MiwyLjUrMS4xMiwwLDMACgkQR8TuPUajonyEpgEA69qbFIUmfOQjAJcwOXYU\nF3gyMEMWpys9U9yvBOlv9EMA/3Mlv3/dthLJHh7k8+WjOE6a0ckgvWtTS+xYITMe\n71kC\n=yQ/S\n-----END PGP SIGNATURE-----\n"
+            }
+          ],
+          "message": "chore: edit\n",
+          "oid": "3d45c8062c15a3e747e20cbd14e6092a98aca072",
+          "parents": [
+            "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0"
+          ],
+          "tree": "c3b27af25241edfaf65d6562e5c73912f2355598"
+        }
+      ]
+    }
+  }
+}

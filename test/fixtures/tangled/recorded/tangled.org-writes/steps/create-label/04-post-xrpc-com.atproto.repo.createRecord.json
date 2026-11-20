@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.label.definition",
+      "rkey": "forges-fixture-20261121112236",
+      "record": {
+        "$type": "org.tangled.label.definition",
+        "name": "forges-fixture-20261121112236",
+        "color": "#0e8a16",
+        "createdAt": "2026-11-21T11:23:00.108Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.label.definition/forges-fixture-20261121112236",
+      "cid": "bafyreidnubfjvnojgkdhk7kdk7zzeqsfxij256jssay4i5p2zqxivkjg6m",
+      "commit": {
+        "cid": "bafyreihn5sniiwvsp5b3mxix6uereqldn7xmaiaq62ack4opsdhf5cwc3q",
+        "rev": "3n2syepkh6q22"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "32c345f57a7eb0877347cf3b68f3640b642ac57b"
+    }
+  }
+}

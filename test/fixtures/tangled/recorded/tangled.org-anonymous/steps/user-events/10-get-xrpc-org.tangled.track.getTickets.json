@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F30"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreifd4itfbviwysr4qre4nfigqmxdq6jwsik54lnw5gvpcodgosrisi",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/30",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "The per-repo job aggregation filtered on the three `github.*` ref kinds,\nomitting `tangled.create-repo` -- the kind enrollment and resync actually\nenqueue. A create-repo job that was retrying or sitting at `failed` could\ntherefore never move a repo to `behind` or `error`.\n\nOne line plus a comment in `dashboard.get.ts`. The kind already carries\nthe same `installationId`/`githubRepoId` payload shape, so the existing\ngrouping is unchanged. No dependency on any other fix.\n\nTests: full unit suite passes. No tests added: the change is a kind\nstring inside the raw `sql` filter in the `dashboard.get.ts` route\nhandler, and no route handler in this repo has unit coverage -- the suite\ntargets utils and pure functions. The consumer of that query's output,\n`repoHealth()`, is already covered directly."
+            },
+            "createdAt": "2026-07-30T12:12:02Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "fix: count tangled.create-repo jobs in the dashboard aggregation"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=acme.example.com"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "did": "did:plc:acmeowner222222222222222"
+    }
+  }
+}

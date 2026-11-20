@@ -546,21 +546,19 @@ export const EXPLORER_FORGES: ExplorerForge[] = [
       {
         kind: 'app_password',
         fields: [
-          { field: 'IDENTIFIER', value: 'alice.example.com' },
+          { field: 'IDENTIFIER', value: 'roebot.tngl.sh' },
           { field: 'PASSWORD', env: 'TANGLED_APP_PASSWORD' },
           { field: 'PDS', env: 'TANGLED_PDS', optional: true },
         ],
         runnable: false,
       },
     ],
-    // Reading through the index and a records cache takes a few requests, rather than one to each author's server.
-    options: () => ({ listSource: 'index', recordsUrl: 'https://slingshot.microcosm.blue' }),
-    // A Tangled thread's number is the AT-URI of its record.
+    // A Tangled thread's number is the key of its ticket record.
     sample: sample({
-      owner: 'tangled.org',
-      name: 'core',
-      number: 'at://did:plc:xasnlahkri4ewmbuzly2rlc5/sh.tangled.repo.pull/3mwqc5pt6dc5d',
-      login: 'boltless.me',
+      owner: 'roebot.tngl.sh',
+      name: 'forges-fixtures',
+      number: '54',
+      login: 'roebot.tngl.sh',
     }),
   },
   {

@@ -345,23 +345,19 @@ describe('merge details', () => {
     }).mergedAt).toEqual(new Date('2026-01-02T00:00:00Z'))
   })
 
-  it('dates a Tangled merge by its state record', () => {
+  it('dates a Tangled merge by when the ticket left the open state', () => {
     const ref = pullRef('tangled', 'tangled.org')
     const record = {
-      title: 'Fix',
-      target: { repo: 'did:plc:repo', branch: 'main' },
+      title: { $type: 'org.tangled.markup.markdown#inline' as const, text: 'Fix' },
+      targetBranch: 'main',
       createdAt: '2026-01-01T00:00:00Z',
     }
-    const author = {
-      forge: 'tangled',
-      instance: 'tangled.org',
-      login: 'alice',
-      id: 'did:plc:alice',
-      isBotHint: false,
+    const parts = {
+      closedAt: new Date('2026-01-02T00:00:00Z'),
     }
 
-    expect(toTangledThread(ref, record, author, { token: 'merged', at: '2026-01-02T00:00:00Z' }, 0).mergedAt).toEqual(new Date('2026-01-02T00:00:00Z'))
-    expect(toTangledThread(ref, record, author, { token: 'closed', at: '2026-01-02T00:00:00Z' }, 0).mergedAt).toBeUndefined()
+    expect(toTangledThread(ref, { ...record, state: 'completed' }, parts).mergedAt).toEqual(new Date('2026-01-02T00:00:00Z'))
+    expect(toTangledThread(ref, { ...record, state: 'closed' }, parts).mergedAt).toBeUndefined()
   })
 
   it('records the merge on the fake forge', async () => {

@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://spindle.tangled.network/xrpc/org.tangled.webhook.listWebhooks?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "webhooks": [
+        {
+          "active": true,
+          "createdAt": "2026-11-21T08:28:24Z",
+          "events": [
+            "push"
+          ],
+          "id": "21",
+          "updatedAt": "2026-11-21T08:28:25Z",
+          "url": "https://example.com/hook"
+        }
+      ]
+    }
+  }
+}
