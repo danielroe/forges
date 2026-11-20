@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aweb%3Anotifs.tangled.network&lxm=org.tangled.temp.notification.listNotifications"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"1a5-suPyAaRVtMNiWAjZlxc1DSaK1No\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2726",
+      "ratelimit-reset": "1795255884",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "token": "REDACTED"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:6p6flnao3djlzqjhup2rh5vl"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"230-wNe41rj6WA1iQ7nPNWBIVdnE/jU\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:6p6flnao3djlzqjhup2rh5vl",
+      "alsoKnownAs": [
+        "at://protokill.sh"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:6p6flnao3djlzqjhup2rh5vl#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:6p6flnao3djlzqjhup2rh5vl",
+          "publicKeyMultibase": "zQ3shdS3kiqJnqK9fYaqVZCTvbFLtNjm2EnkJeqei8gbkGL7z"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://stropharia.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.track.ticket",
+      "record": {
+        "title": {
+          "$type": "org.tangled.markup.markdown#inline",
+          "text": "forges fixture 20261121112236: issue"
+        },
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "Opened by run 20261121112236."
+        },
+        "state": "open",
+        "createdAt": "2026-11-21T11:23:02.510Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/123",
+      "cid": "bafyreigpaefvq76pp5czjnmqgjggegiox5y7c2bowm2aj6nqidgvukinbq",
+      "commit": {
+        "cid": "bafyreiftsd3i2obh3ioyhm7gh24zpyssa6hmtccyvaq2fghnuop4yjxqj4",
+        "rev": "3n2syesaq5y22"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "9e07c1ccb4f92b77b093557df43b20d90894d770"
+    }
+  }
+}

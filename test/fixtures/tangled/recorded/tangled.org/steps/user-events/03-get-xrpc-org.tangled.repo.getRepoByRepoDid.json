@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreie4pw4wpqxibighyflht7qnbmj6v4tbg3lxfhq3wq4q2uw227svvy",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-06-25T17:27:03.000000Z",
+        "declaration": {
+          "name": "synchub.to",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+        },
+        "description": "mirror your GitHub repos to tangled.org automatically",
+        "spindle": "did:web:spindle.tangled.network",
+        "topics": [
+          "mirror",
+          "sync",
+          "tangled",
+          "github",
+          "git"
+        ],
+        "website": "https://synchub.to",
+        "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+      }
+    }
+  }
+}

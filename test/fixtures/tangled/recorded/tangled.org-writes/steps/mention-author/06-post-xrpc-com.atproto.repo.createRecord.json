@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.feed.comment",
+      "record": {
+        "$type": "org.tangled.feed.comment",
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "@roebot.tngl.sh a mention from run 20261121112236."
+        },
+        "subject": {
+          "$type": "com.atproto.repo.strongRef",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/123",
+          "cid": "bafyreigipnpiylp2bw22fgho7qgzgaksuoqjm7znjrk3f7dvoicp6emegq"
+        },
+        "createdAt": "2026-11-21T11:24:25.833Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2syhazduerw",
+      "cid": "bafyreibxgnnx5m5uyxqqm3rugjtftkxq5ga6cp76it4snskcziqu62p7cu",
+      "commit": {
+        "cid": "bafyreicmmdgxamogvcobjvyjm644h2hytbxhlzt25vvx3sg4c4epuimcum",
+        "rev": "3n2syhazziw22"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "f19085675a50229d0dbc51bb07a164505107b084"
+    }
+  }
+}

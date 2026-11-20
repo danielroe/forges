@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listTags?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "tags": [],
+      "total": 0
+    }
+  }
+}

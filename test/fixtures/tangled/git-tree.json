@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getTree?repo=did%3Aplc%3Awidgetsrepo2222222222222&ref=main"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "entries": [
+        {
+          "name": "README.md",
+          "mode": "0100644",
+          "size": 130,
+          "lastCommit": {
+            "hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "message": "Add templates\n",
+            "when": "2026-09-01T09:00:00Z",
+            "author": {
+              "name": "Ada",
+              "email": "ada@example.com",
+              "when": "2026-09-01T09:00:00Z"
+            }
+          }
+        },
+        {
+          "name": "src",
+          "mode": "0040000",
+          "size": 0,
+          "lastCommit": {
+            "hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "message": "Add templates\n",
+            "when": "2026-09-01T09:00:00Z",
+            "author": {
+              "name": "Ada",
+              "email": "ada@example.com",
+              "when": "2026-09-01T09:00:00Z"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.search.query?nsid=org.tangled.repo.manifest&q=widgets&sort=relevance&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "hits": [
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.repo.manifest/self",
+          "cid": "bafyreimanifest00000000000000000000000000000000000000000000000001",
+          "nsid": "org.tangled.repo.manifest",
+          "score": 1,
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "createdAt": "2026-01-01T00:00:00Z",
+            "description": "Widgets",
+            "declaration": {
+              "owner": "did:plc:acmeowner222222222222222",
+              "name": "widgets"
+            },
+            "topics": [
+              "widgets"
+            ]
+          }
+        }
+      ],
+      "cursor": "k3",
+      "total": 1
+    }
+  }
+}

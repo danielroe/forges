@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "org.tangled.graph.attestation",
+      "record": {
+        "$type": "org.tangled.graph.attestation",
+        "subject": {
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.label.definition/forges-fixture-20261121112236",
+          "cid": "bafyreidnubfjvnojgkdhk7kdk7zzeqsfxij256jssay4i5p2zqxivkjg6m"
+        },
+        "change": "32c345f57a7eb0877347cf3b68f3640b642ac57b",
+        "createdAt": "2026-11-21T11:23:00.652Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"121-wTZERHHDqyZACXg2DgiaRX4DH2Q\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2917",
+      "ratelimit-reset": "1795260458",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2syeqdcaw2r",
+      "cid": "bafyreibdv2kqpenjdsgdcujrkcpg4foa2hfc6uktolyukkdyywoukilzua",
+      "commit": {
+        "cid": "bafyreihtcxy7ydwprz52wocywopp2d43ozzg2gjgncmkfo2vxunt2koodi",
+        "rev": "3n2syeqdsu62r"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

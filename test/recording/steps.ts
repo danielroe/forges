@@ -33,7 +33,6 @@ export interface RecordingManifest {
   webhookSecret?: string
   /** Names of the recorded webhook deliveries, each in `<name>.delivery.json`. */
   deliveries?: string[]
-  recordsUrl?: string
   /** The Tangled account the recording signed in as, a handle or DID. */
   account?: string
   /** The account's PDS, when the recording named it rather than resolving it from the account. */
@@ -594,6 +593,8 @@ export const STEPS: Step[] = [
     name: 'merged pull',
     verb: 'threads.get',
     kind: 'pull_request',
+    // Tangled's fixture repository has no merged pull request; write recordings merge one.
+    when: provider => provider.forge !== 'tangled',
     run: async (provider, manifest) => {
       const listed = (await provider.threads.list(manifest.repo, { kind: 'pull_request', state: 'merged', perPage: 10 }).page()).items[0]
       return { listed, read: await provider.threads.get(need(listed, 'a merged pull request').ref) }
@@ -968,7 +969,8 @@ export const STEPS: Step[] = [
   {
     name: 'webhooks',
     verb: 'webhooks.list',
-    when: (_provider, manifest) => !!manifest.scratch,
+    // Tangled webhooks are served by the repository's spindle, which needs a signed-in account.
+    when: (provider, manifest) => !!manifest.scratch && !(provider.forge === 'tangled' && manifest.anonymous),
     run: async (provider, manifest, context) => {
       const result = await provider.webhooks.list(manifest.scratch!, page).page()
       context.webhook = result.items[0]
@@ -978,6 +980,7 @@ export const STEPS: Step[] = [
   {
     name: 'webhook deliveries',
     verb: 'webhooks.deliveries',
+    when: (provider, manifest) => !(provider.forge === 'tangled' && manifest.anonymous),
     run: (provider, _manifest, context) => provider.webhooks.deliveries(need(context.webhook, 'a webhook').ref, page).page(),
   },
   ...([

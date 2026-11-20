@@ -17,9 +17,18 @@ interface TangledWebhookPayload {
   ref?: string
   before?: string
   after?: string
+  old_name?: string
+  new_name?: string
   pusher?: { did: string }
   sender?: { did: string }
-  repository?: { name: string, full_name?: string, owner?: { did: string }, updated_at?: string }
+  repository?: {
+    name: string
+    full_name?: string
+    owner?: { did: string }
+    created_at?: string
+    updated_at?: string
+    html_url?: string
+  }
   pull_request?: {
     number: number
     title?: string
@@ -70,14 +79,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
     : undefined
   const actorDid = payload.sender?.did ?? payload.pusher?.did
   const actor = actorDid
-    ? {
-        forge: FORGE,
-        instance,
-        login: actorDid,
-        id: actorDid,
-        url: `${webUrl}/${actorDid}`,
-        isBotHint: false,
-      }
+    ? toActor(instance, { did: actorDid }, webUrl)
     : undefined
   const who = actor?.login ?? 'someone'
 
@@ -87,6 +89,7 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
     const state = pull.state === 'open' || pull.state === 'closed' || pull.state === 'merged'
       ? pull.state
       : undefined
+    // The spindle sends every pull request with `number: 0`, so its record is not identifiable; the event carries its snapshot alone.
     return [
       {
         forge: FORGE,
@@ -103,22 +106,12 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
         actionRaw: action,
         summary: `${who} ${action === 'resubmitted'
           ? 'pushed a new round to'
-          : action} pull request #${payload.pull_request.number}`,
+          : action} a pull request`,
         ...eventTime(action === 'created'
-          ? toDate(payload.pull_request.created_at)
+          ? toDate(pull.created_at)
           : undefined),
         actor,
         repo,
-        thread: repo
-          ? {
-              forge: FORGE,
-              instance,
-              repo,
-              kind: 'pull_request',
-              typeRaw: 'sh.tangled.repo.pull',
-              displayNumber: String(payload.pull_request.number),
-            }
-          : undefined,
         threadSnapshot: threadSnapshot({
           title: pull.title,
           body: pull.body,
@@ -168,6 +161,20 @@ export function translateTangledWebhook(instance: string, delivery: WebhookDeliv
             author: commit.author?.did ?? commit.author?.name,
           })),
         }),
+      },
+    ]
+  }
+
+  if (event === 'repository:renamed') {
+    return [
+      {
+        ...base,
+        kind: 'other',
+        action: 'renamed',
+        summary: `${who} renamed the repository to ${payload.new_name}`,
+        detail: payload.old_name && payload.new_name
+          ? { type: 'repo_renamed', from: payload.old_name, to: payload.new_name }
+          : undefined,
       },
     ]
   }

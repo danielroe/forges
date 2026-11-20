@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pds.example.com/xrpc/com.atproto.repo.listRecords?repo=did:plc:acmeowner222222222222222&collection=org.tangled.feed.subscription&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "records": []
+    }
+  }
+}

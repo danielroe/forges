@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.feed.comment%2F3m0000000099&cid=bafyreicomment000000000000000000000000000000000000000000000099"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "status": "indexed",
+      "cid": "bafyreicomment000000000000000000000000000000000000000000000099"
+    }
+  }
+}

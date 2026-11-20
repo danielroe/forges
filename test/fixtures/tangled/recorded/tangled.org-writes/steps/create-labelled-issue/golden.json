@@ -7,17 +7,17 @@
       "instance": "tangled.org",
       "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "name": "forges-fixtures",
-      "ownerHandle": "roebot.tngl.sh",
-      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+      "ownerHandle": "roebot.tngl.sh"
     },
     "kind": "issue",
-    "typeRaw": "sh.tangled.repo.issue",
-    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfcvzdyr2y",
-    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfcvzdyr2y"
+    "typeRaw": "org.tangled.track.ticket",
+    "number": "124",
+    "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/124"
   },
   "kind": "issue",
-  "title": "forges fixture 20261020100831: labelled issue",
-  "body": "Opened by run 20261020100831.",
+  "title": "forges fixture 20261121112236: labelled issue",
+  "body": "Opened by run 20261121112236.",
   "state": "open",
   "stateRaw": "open",
   "isDraft": false,
@@ -45,8 +45,10 @@
   "lastActivityAt": "<now>",
   "labels": [
     {
-      "name": "forges-fixture-20261020100831"
+      "name": "forges-fixture-20261121112236",
+      "colour": "0E8A16"
     }
   ],
-  "commentCount": 0
+  "commentCount": 0,
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/124"
 }

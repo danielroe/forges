@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "org.tangled.graph.attestation",
+      "record": {
+        "$type": "org.tangled.graph.attestation",
+        "subject": {},
+        "createdAt": "2026-11-21T11:23:11.456Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"121-wE3/SANcUqrPGs3RpmrOOeRFeC4\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2906",
+      "ratelimit-reset": "1795260458",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2syf2svj62r",
+      "cid": "bafyreigu74uf5oa73oc6fffdmb2xqaihadeeu4okutrqes6drgzs4srbsu",
+      "commit": {
+        "cid": "bafyreid4g6fnfyzxfeohf46gapliwujkxwc64huwevtgfvgj75g35pvmj4",
+        "rev": "3n2syf2t7bo2r"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

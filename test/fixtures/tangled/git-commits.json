@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3Awidgetsrepo2222222222222&ranges=main&includeStats=true&limit=30"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commits": [
+        {
+          "oid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "parents": [],
+          "tree": "bbbb",
+          "author": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-01T09:00:00Z"
+          },
+          "committer": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-01T09:00:00Z"
+          },
+          "message": "Add templates\n",
+          "stat": {
+            "insertions": 10,
+            "deletions": 0,
+            "filesChanged": 1
+          }
+        }
+      ]
+    }
+  }
+}

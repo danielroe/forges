@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:qokwkqtezyfuctbnkqxh7swf"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"232-5QvYd5F8HjQmrijq4kqQIss0nus\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:qokwkqtezyfuctbnkqxh7swf",
+      "alsoKnownAs": [
+        "at://agocke.bsky.social"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:qokwkqtezyfuctbnkqxh7swf#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:qokwkqtezyfuctbnkqxh7swf",
+          "publicKeyMultibase": "zQ3shT9h9HGDGxHKQwmtXwjJL5EwrtSSu7Qm8usXGLgUo7ZCa"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://hydnum.us-west.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

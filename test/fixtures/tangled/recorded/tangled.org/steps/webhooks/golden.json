@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "target": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "roebot.tngl.sh",
+          "name": "forges-fixtures"
+        },
+        "id": "21"
+      },
+      "url": "https://example.com/hook",
+      "events": [
+        "push"
+      ],
+      "nativeEvents": [
+        "push"
+      ],
+      "active": true,
+      "createdAt": "2026-11-21T08:28:24.000Z",
+      "updatedAt": "2026-11-21T08:28:25.000Z"
+    }
+  ]
+}

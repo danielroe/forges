@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listComments?subject=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.track.ticket%2F7&order=asc&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.feed.comment/3m0000000001",
+          "cid": "bafyreicomment000000000000000000000000000000000000000000000001",
+          "subject": {
+            "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7",
+            "cid": "bafyreiticket00000000000000000000000000000000000000000000000001"
+          },
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "First comment."
+          },
+          "createdAt": "2026-09-02T11:00:00Z",
+          "editor": "did:plc:adaauthor222222222222222"
+        },
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.feed.comment/3m0000000002",
+          "cid": "bafyreicomment000000000000000000000000000000000000000000000002",
+          "subject": {
+            "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7",
+            "cid": "bafyreiticket00000000000000000000000000000000000000000000000001"
+          },
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Second comment."
+          },
+          "createdAt": "2026-09-02T12:00:00Z",
+          "editor": "did:plc:gracecollab2222222222222"
+        }
+      ],
+      "total": 2
+    }
+  }
+}

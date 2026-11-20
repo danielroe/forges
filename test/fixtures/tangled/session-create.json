@@ -1,5 +1,4 @@
 {
-  "handAuthored": true,
   "request": {
     "method": "POST",
     "url": "https://pds.example.com/xrpc/com.atproto.server.createSession"
@@ -9,10 +8,9 @@
     "headers": {},
     "body": {
       "did": "did:plc:acmeowner222222222222222",
-      "handle": "acme.example.com",
-      "accessJwt": "fixture-access-jwt",
-      "refreshJwt": "fixture-refresh-jwt",
-      "active": true
+      "accessJwt": "access",
+      "refreshJwt": "refresh",
+      "handle": "acme.example.com"
     }
   }
 }

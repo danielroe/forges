@@ -3,28 +3,6 @@ export interface StrongRef {
   cid: string
 }
 
-export interface IssueRecord {
-  $type?: 'sh.tangled.repo.issue'
-  title: string
-  body?: string
-  /** Repo DID, or in older records the `sh.tangled.repo` AT-URI. */
-  repo: string
-  mentions?: string[]
-  createdAt: string
-}
-
-export interface PullRecord {
-  $type?: 'sh.tangled.repo.pull'
-  title: string
-  body?: string
-  target: { repo: string, branch: string }
-  source?: { repo?: string, branch: string }
-  rounds?: Array<{ createdAt: string, patchBlob?: BlobRef }>
-  /** The patch, inline, in records written before `rounds` carried blobs. */
-  patch?: string
-  createdAt: string
-}
-
 export interface BlobRef {
   $type?: 'blob'
   ref: { $link: string }
@@ -32,50 +10,63 @@ export interface BlobRef {
   size?: number
 }
 
-export interface FeedCommentRecord {
-  $type?: 'sh.tangled.feed.comment'
-  body: { $type?: string, text?: string, original?: string } | string
-  subject: StrongRef
+/** Fields a knot adds to the records it hosts. */
+export interface KnotStamped {
+  /** The account that wrote this version of the record. */
+  'x-tngl-editor'?: string
+}
+
+export interface Markdown {
+  $type?: 'org.tangled.markup.markdown'
+  text: string
+  blobs?: unknown[]
+}
+
+export type TicketState = 'open' | 'closed' | 'completed'
+
+/** An issue, or with `targetBranch` a pull request. */
+export interface TicketRecord extends KnotStamped {
+  $type?: 'org.tangled.track.ticket'
+  title: { $type?: 'org.tangled.markup.markdown#inline', text: string }
+  body?: Markdown
+  state: TicketState | (string & {})
+  /** The keys of the repo's label definitions. */
+  tangledLabels?: Array<{ $type?: 'org.tangled.label.defs#labelToken', key: string }>
+  assignees?: string[]
+  targetBranch?: string
+  createdAt: string
+}
+
+/** One round of a pull request: the commits `head` has and `base` lacks. */
+export interface PatchRecord extends KnotStamped {
+  $type?: 'org.tangled.review.patch'
+  /** The record key of the ticket. */
+  ticket: string
+  base: { oid: string }
+  head: { oid: string }
+  source?: { repo: string, branch: string }
+  createdAt: string
+}
+
+export interface CommentRecord extends KnotStamped {
+  $type?: 'org.tangled.feed.comment'
+  body: Markdown
+  subject: StrongRef & { $type?: 'com.atproto.repo.strongRef' }
   replyTo?: StrongRef
   createdAt: string
 }
 
-export interface LegacyCommentRecord {
-  body: string
-  issue?: string
-  pull?: string
-  replyTo?: string
-  createdAt: string
-}
-
-export interface StateRecord {
-  issue?: string
-  pull?: string
-  state?: string
-  status?: string
-  createdAt: string
-}
-
-export interface ReactionRecord {
-  subject: string
+export interface ReactionRecord extends KnotStamped {
+  $type?: 'org.tangled.feed.reaction'
+  subject: StrongRef
   reaction: string
   createdAt: string
 }
 
-export interface LabelOpRecord {
-  subject: string
-  add: Array<{ key: string, value: string }>
-  delete: Array<{ key: string, value: string }>
-  performedAt: string
-}
-
-export interface LabelDefinitionRecord {
+export interface LabelDefinitionRecord extends KnotStamped {
+  $type?: 'org.tangled.label.definition'
   name: string
-  valueType?: { type: 'null' | 'boolean' | 'integer' | 'string', format?: 'any' | 'did' | 'nsid', enum?: string[] }
-  /** Collections the label applies to; every collection when empty. */
-  scope?: string[]
   color?: string
-  multiple?: boolean
   createdAt?: string
 }
 
@@ -87,16 +78,43 @@ export interface ProfileRecord {
   createdAt?: string
 }
 
+export interface SubscriptionRecord {
+  $type?: 'org.tangled.feed.subscription'
+  subject: { $type?: string, uri?: string, did?: string }
+  /** Mutes the subject. */
+  ignore?: boolean
+  createdAt: string
+}
+
+export interface RepoManifest extends KnotStamped {
+  $type?: 'org.tangled.repo.manifest'
+  declaration: { owner: string, name: string }
+  description?: string
+  website?: string
+  topics?: string[]
+  source?: { did?: string, uri?: string }
+  contributionPolicy?: string
+  /** The DID of the spindle that runs the repo's pipelines and webhooks. */
+  spindle?: string
+  createdAt: string
+}
+
+export interface RepoDeclaration extends KnotStamped {
+  $type?: 'org.tangled.repo.declaration'
+  repo: string
+  createdAt: string
+}
+
 export type TangledRecord
-  = | IssueRecord
-    | PullRecord
-    | FeedCommentRecord
-    | LegacyCommentRecord
-    | StateRecord
+  = | TicketRecord
+    | PatchRecord
+    | CommentRecord
     | ReactionRecord
-    | LabelOpRecord
     | LabelDefinitionRecord
     | ProfileRecord
+    | SubscriptionRecord
+    | RepoManifest
+    | RepoDeclaration
 
 export interface RecordResponse<T = TangledRecord> {
   uri: string
@@ -104,16 +122,45 @@ export interface RecordResponse<T = TangledRecord> {
   value: T
 }
 
+/** A repo manifest as the index returns it, with the knot that hosts the repo. */
+export interface RepoView extends RecordResponse<RepoManifest> {
+  /** The knot's hostname. */
+  knot?: string
+  defaultBranch?: string
+}
+
+/** A ticket as the index lists it. */
+export interface TicketItem extends RecordResponse<TicketRecord> {
+  /** The account that opened the ticket. */
+  author?: string
+  state?: string
+  commentCount?: number
+}
+
+/** A comment as the index lists it. */
+export interface CommentView {
+  uri: string
+  cid: string
+  subject: StrongRef
+  body: Markdown
+  replyTo?: StrongRef
+  /** The account that wrote this version of the comment. */
+  editor?: string
+  createdAt: string
+}
+
+/** One version of a record a knot hosts. */
+export interface RecordVersion {
+  cid: string
+  changeId?: string
+  editor?: string
+  createdAt: string
+}
+
 export interface DidDocument {
   id: string
   alsoKnownAs?: string[]
   service?: Array<{ id: string, type: string, serviceEndpoint: string }>
-}
-
-export interface BacklinksResponse {
-  total?: number
-  linking_records: Array<{ did: string, collection: string, rkey: string }>
-  cursor?: string | null
 }
 
 export interface JetstreamCommitEvent {
@@ -142,122 +189,4 @@ export interface Session {
   did: string
   accessJwt: string
   refreshJwt: string
-}
-
-export interface RepoRecord {
-  $type?: 'sh.tangled.repo'
-  knot: string
-  name?: string
-  description?: string
-  topics?: string[]
-  source?: string
-  website?: string
-  repoDid?: string
-  /** The label definitions the repo uses, as AT-URIs. */
-  labels?: string[]
-  createdAt: string
-}
-
-/** A go-git signature, as knots serialise it. */
-export interface KnotSignature {
-  Name: string
-  Email: string
-  When: string
-}
-
-/** A go-git hash: 20 bytes as a JSON array, or hex. */
-export type KnotHash = number[] | string
-
-export interface KnotCommit {
-  hash: KnotHash
-  /** The full sha, in hex. */
-  this?: string
-  author?: KnotSignature
-  committer?: KnotSignature
-  message: string
-  parent_hashes?: KnotHash[]
-}
-
-export interface KnotTextFragment {
-  Comment?: string
-  OldPosition: number
-  OldLines: number
-  NewPosition: number
-  NewLines: number
-  LinesAdded: number
-  LinesDeleted: number
-  /** `Op` is 0 for context, 1 for a deletion and 2 for an addition. */
-  Lines?: Array<{ Op: number, Line: string }>
-}
-
-/** A file of a `sh.tangled.repo.diff` response. */
-export interface KnotDiffFile {
-  name: { old: string, new: string }
-  text_fragments?: KnotTextFragment[] | null
-  is_binary: boolean
-  is_new: boolean
-  is_delete: boolean
-  is_copy: boolean
-  is_rename: boolean
-}
-
-/** A file of a `sh.tangled.repo.compare` response, as go-gitdiff serialises it. */
-export interface KnotPatchFile {
-  OldName: string
-  NewName: string
-  IsNew: boolean
-  IsDelete: boolean
-  IsCopy: boolean
-  IsRename: boolean
-  IsBinary: boolean
-  NewOIDPrefix?: string
-  TextFragments?: KnotTextFragment[] | null
-}
-
-export interface KnotPatchHeader {
-  SHA: string
-  Author?: { Name: string, Email: string } | null
-  AuthorDate?: string
-  Committer?: { Name: string, Email: string } | null
-  CommitterDate?: string
-  Title: string
-  Body?: string
-  Files?: KnotPatchFile[] | null
-}
-
-export interface KnotTreeEntry {
-  name: string
-  /** Octal, for example `0100644` or `0040000`. */
-  mode: string
-  size: number
-  last_commit?: { hash: string, message: string, when: string }
-}
-
-export interface KnotBlob {
-  ref: string
-  path: string
-  content?: string
-  encoding?: 'utf-8' | 'base64'
-  size?: number
-  isBinary?: boolean
-  submodule?: { name: string, url: string, branch?: string }
-}
-
-export interface KnotBranch {
-  reference: { name: string, hash: string }
-  commit?: unknown
-  is_default?: boolean
-}
-
-export interface KnotTag {
-  name: string
-  /** The tag object for an annotated tag, else the commit. */
-  hash: string
-  tag?: { Target: KnotHash, Message?: string } | null
-  message?: string
-}
-
-export interface SubscriptionRecord {
-  subject: { $type?: string, uri?: string, did?: string }
-  createdAt: string
 }

@@ -1,0 +1,57 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listComments?subject=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F17&order=asc&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "A seeded comment."
+          },
+          "cid": "bafyreibki6q2lrde56smfxv5hsiprq3jehc3m3ckr6rxzhhoghpkskdley",
+          "createdAt": "2026-10-11T21:19:28Z",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "subject": {
+            "cid": "bafyreiad5s5uuod57qo6a62t2h4e4hmxi2y2md7fgxursp2wuirqlqtahy",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mxmwljizgu2y"
+        },
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Another seeded comment, with a reaction."
+          },
+          "cid": "bafyreiegrfm5oasvi7nh5eovq7w2jdo6f6ja3ghcta2hxajym3lw5eypte",
+          "createdAt": "2026-10-11T21:19:28Z",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "subject": {
+            "cid": "bafyreiad5s5uuod57qo6a62t2h4e4hmxi2y2md7fgxursp2wuirqlqtahy",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mxmwljnnuu2y"
+        },
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "A seeded comment from the reviewer."
+          },
+          "cid": "bafyreiblg5y6gn3zhnlzt6luofygsyt5fiptrpilt3fa2pz3mcazrms744",
+          "createdAt": "2026-10-11T21:42:36Z",
+          "editor": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+          "subject": {
+            "cid": "bafyreigyvvbqibcipm3a3ovqcdmtcqakqce4hg4xhgix7wapuo6sb4paia",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mxmxuvo6tu2y"
+        }
+      ],
+      "total": 3
+    }
+  }
+}

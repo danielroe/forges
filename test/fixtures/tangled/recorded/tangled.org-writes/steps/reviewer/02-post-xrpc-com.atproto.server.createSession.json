@@ -10,10 +10,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2fc-Abvg7oNyUpentd10wrSIZ2+WpOU\"",
+      "etag": "W/\"314-JYTpyapSb21Je9ZgC5E0+HLzZmM\"",
       "ratelimit-limit": "30",
-      "ratelimit-remaining": "29",
-      "ratelimit-reset": "1791756652"
+      "ratelimit-remaining": "28",
+      "ratelimit-reset": "1795214382",
+      "ratelimit-policy": "30;w=300"
     },
     "body": {
       "accessJwt": "REDACTED",
@@ -22,6 +23,7 @@
       "handle": "forges-fixtures.tngl.sh",
       "email": "redacted@example.invalid",
       "emailConfirmed": false,
+      "emailAuthFactor": false,
       "active": true
     }
   }

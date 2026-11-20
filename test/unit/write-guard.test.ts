@@ -90,7 +90,7 @@ describe('write recording guard', () => {
     expect(sent).toHaveLength(3)
   })
 
-  it('allows a Tangled record only when it names the scratch repository or the account itself', () => {
+  it('allows a Tangled write only to the scratch repository, or to an account\'s own record that names it', () => {
     const harness = writeHarness({
       forge: 'tangled',
       baseUrl: 'https://tangled.org',
@@ -100,30 +100,54 @@ describe('write recording guard', () => {
         instance: 'tangled.org',
         owner: 'did:plc:bot',
         name: 'forges-fixtures',
+        externalId: 'did:plc:scratch',
       },
     })!
-    const write = (method: string, body: unknown) => harness.allows!(`https://pds.example/xrpc/com.atproto.repo.${method}`, body)
-    const create = (record: unknown) => write('createRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.feed.comment', record })
+    const knot = (method: string, body: unknown) => harness.allows!(`https://knot.example/xrpc/${method}`, body)
+    const ticket = { uri: 'at://did:plc:scratch/org.tangled.track.ticket/7', cid: 'bafy' }
 
-    expect(create({
-      subject: { uri: 'at://did:plc:bot/sh.tangled.repo.issue/1' },
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:scratch',
+      collection: 'org.tangled.feed.comment',
+      record: { subject: ticket },
     })).toBe(true)
-    expect(create({
-      subject: { uri: 'at://did:plc:someone/sh.tangled.repo.issue/1' },
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:elsewhere',
+      collection: 'org.tangled.feed.comment',
+      record: { subject: ticket },
     })).toBe(false)
-    expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'sh.tangled.feed.comment', rkey: 'created' })).toBe(true)
-    expect(write('deleteRecord', { repo: 'did:plc:bot', collection: 'app.bsky.feed.post', rkey: 'post' })).toBe(false)
-    expect(write('createRecord', {
-      repo: 'did:plc:bot',
-      collection: 'sh.tangled.label.definition',
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:reviewer',
+      collection: 'org.tangled.graph.attestation',
+      record: { subject: ticket },
+    })).toBe(true)
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:reviewer',
+      collection: 'org.tangled.graph.attestation',
+      record: {
+        subject: { uri: 'at://did:plc:elsewhere/org.tangled.track.ticket/1' },
+      },
+    })).toBe(false)
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:scratch',
+      collection: 'org.tangled.label.definition',
       record: { name: 'forges-fixture-1' },
     })).toBe(true)
-    expect(write('createRecord', {
-      repo: 'did:plc:bot',
-      collection: 'sh.tangled.label.definition',
+    expect(knot('com.atproto.repo.createRecord', {
+      repo: 'did:plc:scratch',
+      collection: 'org.tangled.label.definition',
       record: { name: 'bug' },
     })).toBe(false)
-    expect(harness.allows!('https://knot.example/xrpc/sh.tangled.repo.merge', { repo: 'did:plc:otherrepo' })).toBe(false)
+    expect(knot('com.atproto.repo.deleteRecord', { repo: 'did:plc:scratch', collection: 'org.tangled.feed.comment', rkey: '1' })).toBe(true)
+    expect(knot('com.atproto.repo.deleteRecord', { repo: 'did:plc:elsewhere', collection: 'org.tangled.feed.comment', rkey: '1' })).toBe(false)
+    expect(knot('com.atproto.repo.deleteRecord', { repo: 'did:plc:scratch', collection: 'app.bsky.feed.post', rkey: '1' })).toBe(false)
+    expect(knot('org.tangled.review.submitPatch', { repo: 'did:plc:elsewhere', patch: {} })).toBe(false)
+    expect(harness.allows!('https://api.example/xrpc/sh.tangled.git.mergeCommit', {
+      target: { repo: 'did:plc:elsewhere' },
+    })).toBe(false)
+    expect(harness.allows!('https://api.example/xrpc/sh.tangled.git.mergeCommit', {
+      target: { repo: 'did:plc:scratch' },
+    })).toBe(true)
   })
 
   it('never trusts ids from a GraphQL read of another repository', async () => {

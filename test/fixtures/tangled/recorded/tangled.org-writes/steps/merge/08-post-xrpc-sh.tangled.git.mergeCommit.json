@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.tangled.org/xrpc/sh.tangled.git.mergeCommit",
+    "body": {
+      "target": {
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "branch": "main",
+        "commit": "00111a8c9099b56b5e8e4492373de72e4940112f"
+      },
+      "source": {
+        "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+        "commit": "987364fb60c08f4febe86358d536856a32b8dff5"
+      },
+      "style": "rebase"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": null
+  }
+}

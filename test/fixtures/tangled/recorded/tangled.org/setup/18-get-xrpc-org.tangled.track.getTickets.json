@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Axer24egskgvsxk2pwfvn5m37%2Forg.tangled.track.ticket%2F74"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreih7wxdivrg2cl2yucr7mgntw7hjdq752mfrn4o757dgn3gvhnixd4",
+          "uri": "at://did:plc:xer24egskgvsxk2pwfvn5m37/org.tangled.track.ticket/74",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Old airlift releases don't need to keep working against a newer root, so rollback no longer refuses to move airlift below 0.1.9. This is the follow-up commit from PR 73, which was merged without it.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+            },
+            "createdAt": "2026-11-21T07:34:42Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Let rollback move airlift to any older release"
+            },
+            "x-tngl-editor": "did:plc:qokwkqtezyfuctbnkqxh7swf"
+          }
+        }
+      ]
+    }
+  }
+}

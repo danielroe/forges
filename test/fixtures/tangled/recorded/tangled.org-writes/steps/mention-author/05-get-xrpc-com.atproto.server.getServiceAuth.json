@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aplc%3At73o44q7fppgagkrevtztyok&lxm=com.atproto.repo.createRecord"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"190-EYxe0ou6Y9oUa4lQ7dr7TYx8egs\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2822",
+      "ratelimit-reset": "1795260458",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "token": "REDACTED"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.review.listPatches?ticket=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F54&order=asc&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreigk54uehbfugejqv67luqmokl6dd3ttufxuk4sx63gbekkqurlt7a",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreigk54uehbfugejqv67luqmokl6dd3ttufxuk4sx63gbekkqurlt7a",
+          "value": {
+            "$type": "org.tangled.review.patch",
+            "base": {
+              "oid": "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0"
+            },
+            "createdAt": "2026-10-09T18:29:38Z",
+            "head": {
+              "oid": "3d45c8062c15a3e747e20cbd14e6092a98aca072"
+            },
+            "source": {
+              "branch": "bo",
+              "repo": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "ticket": "54",
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        }
+      ],
+      "total": 1
+    }
+  }
+}

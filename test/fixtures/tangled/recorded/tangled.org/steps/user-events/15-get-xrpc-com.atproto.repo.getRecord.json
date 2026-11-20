@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g&collection=org.tangled.feed.comment&rkey=3mru2zd34jh22"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreicbjy5ba6wyymfvzxblnfwiocsbzgz5ii5oousw4ldpivjdpbwwiy",
+      "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mru2zd34jh22",
+      "value": {
+        "$type": "org.tangled.feed.comment",
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "Tangled bug confirmed: https://discord.com/channels/1361963801993285692/1361963802848919676/1532308235455827968\n\nWill close this once I confirm their fix."
+        },
+        "createdAt": "2026-07-30T08:56:14Z",
+        "subject": {
+          "cid": "bafyreib7zhekuyi5avuwy435tsac6u2ytm4s3v4uwoibgihrwathnoycsm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/11"
+        },
+        "x-tngl-editor": "did:plc:7r5c5jhtphcpkg3y55xu2y64"
+      }
+    }
+  }
+}

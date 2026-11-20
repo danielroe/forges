@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getEntry?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "lastCommit": {
+        "author": {
+          "email": "redacted@example.invalid",
+          "name": "Daniel Roe",
+          "when": "2026-10-09T18:04:18.000000+01:00"
+        },
+        "committer": {
+          "email": "redacted@example.invalid",
+          "name": "Daniel Roe",
+          "when": "2026-10-09T18:04:18.000000+01:00"
+        },
+        "hash": "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0",
+        "message": "chore: add readme\n",
+        "tree": "a045e604e5da79f0a609cd0f0c36859687189fb5"
+      },
+      "mode": "0100644",
+      "name": "README.md",
+      "oid": "656a19c7aa3ea0f3d65c5e6ea906915780d657ab",
+      "size": 130
+    }
+  }
+}

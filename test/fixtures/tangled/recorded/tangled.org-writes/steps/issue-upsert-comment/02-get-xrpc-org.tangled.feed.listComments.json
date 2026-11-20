@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listComments?subject=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F123&order=asc&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "An edited comment from run 20261121112236."
+          },
+          "cid": "bafyreiglysxtum476zyt4iujgslq4kzlfpnqsg572amryvuioi7fomc3bm",
+          "createdAt": "2026-11-21T11:23:05Z",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "subject": {
+            "cid": "bafyreigpaefvq76pp5czjnmqgjggegiox5y7c2bowm2aj6nqidgvukinbq",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/123"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2syeu4t5krw"
+        }
+      ],
+      "total": 1
+    }
+  }
+}

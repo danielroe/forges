@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.track.ticket%2F7&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7",
+      "versions": []
+    }
+  }
+}

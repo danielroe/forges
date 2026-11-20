@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getRef?repo=did%3Aplc%3Awidgetsrepo2222222222222&ref=refs%2Fheads%2Fmain"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": "refs/heads/main",
+      "oid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "message": "Add templates\n",
+      "author": {
+        "name": "Ada",
+        "email": "ada@example.com",
+        "when": "2026-09-01T09:00:00Z"
+      },
+      "totalCommits": 1
+    }
+  }
+}

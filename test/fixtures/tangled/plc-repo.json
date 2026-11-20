@@ -1,5 +1,4 @@
 {
-  "handAuthored": true,
   "request": {
     "method": "GET",
     "url": "https://plc.directory/did:plc:widgetsrepo2222222222222"
@@ -8,16 +7,12 @@
     "status": 200,
     "headers": {},
     "body": {
-      "@context": [
-        "https://www.w3.org/ns/did/v1"
-      ],
       "id": "did:plc:widgetsrepo2222222222222",
-      "alsoKnownAs": [],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://knot.example.com"
+          "serviceEndpoint": "https://knot1.tangled.sh"
         }
       ]
     }
