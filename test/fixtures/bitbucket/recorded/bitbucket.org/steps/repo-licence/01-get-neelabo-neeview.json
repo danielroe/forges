@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3eb8a156ffd7c212316fc0d6bfc97549\""
+      "etag": "W/\"a659b2d6fcd59e589552ef87c5ebd204\""
     },
     "body": {
       "type": "repository",
@@ -52,7 +52,7 @@
           },
           {
             "name": "ssh",
-            "href": "git@bitbucket.org:neelabo/neeview.git"
+            "href": "git@ssh.bitbucket.org:neelabo/neeview.git"
           }
         ],
         "issues": {
@@ -134,7 +134,7 @@
         "branching_model": false
       },
       "parent": null,
-      "enforced_signed_commits": null,
+      "enforced_signed_commits": false,
       "has_issues": true,
       "has_wiki": true
     }
