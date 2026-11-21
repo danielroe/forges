@@ -1,0 +1,471 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/commits?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=3&page=281>; rel=\"last\"",
+      "x-total": "841",
+      "x-total-count": "841",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "sha": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "created": "2026-11-20T17:50:38Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+          "author": {
+            "name": "Matěj Cepl",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "message": "fix(auth): shut down the OAuth callback server gracefully (#130)\n\nWait for callback responses before closing connections to avoid\nintermittent browser EOF errors. Bound shutdown to one second\nand cover active responses, forced closure after cancellation,\nand the complete browser response.\n\nAssisted-by: pi:gpt-6.1-sol\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/cli/pulls/130\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Matěj Cepl <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "sha": "98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "created": "2026-11-20T17:50:38Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 71724,
+          "login": "mcepl",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Matěj Cepl",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+          "html_url": "https://gitea.com/mcepl",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mcepl"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/auth_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 42,
+          "additions": 40,
+          "deletions": 2
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "created": "2026-11-18T20:14:31Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:14:31Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:14:31Z"
+          },
+          "message": "fix: fix issue, pull request, commit and status edge cases (#120)\n\n`gt issue create --blocked-by/--blocking` created the issue and then failed on a missing dependency; missing issues are now refused first. Pin, unpin and unlock acted again on items already in that state; like lock and gh, they now report it and change nothing, and issue and pull request JSON gains `locked` (and `pinned` for pull requests). Merging a pull request blocked by an open dependency surfaced a bare server error; it now names the blocking issues, and `gt pr view` tells a deleted head branch or open blockers apart from conflicts. `gt pr checks --required` named the head branch instead of the base branch. `gt commit pr` printed nothing without `--json` and failed on abbreviated SHAs. `gt status --json` printed `mentions: null`. `gt pr review --pending` named the wrong flag in its body error, `gt pr review reply` checked an empty body only after a request, and `gt time cancel` asked to discard a stopwatch that was not running.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/120\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/a3258b91738509ba04083dffdd74180b09f0d278c882319fc55f77d1be6b9ba7",
+            "sha": "a3258b91738509ba04083dffdd74180b09f0d278c882319fc55f77d1be6b9ba7",
+            "created": "2026-11-18T20:14:31Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+            "sha": "b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/commits_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_writes_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_edit.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/list_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/list_options_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_mutations.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_mutations_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_options_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_review.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/testdata/schema.json.txt",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time_stopwatch_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/checks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issue_dependencies.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/raw.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/status.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/status_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/time.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 513,
+          "additions": 352,
+          "deletions": 161
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "sha": "b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "created": "2026-11-18T20:13:13Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:13:13Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:13:13Z"
+          },
+          "message": "fix: harden extensions, debug output, artifact names and Actions values (#119)\n\nLocal extensions ran whatever was at their recorded path. gt now follows links and refuses the target unless it is a regular file owned by the user or root that not every user can write to or replace. Group-writable files stay allowed for user-private groups. A missing one points to `gt extension remove`, and `gt extension list` marks it.\n\nThe commit an extension install resolves was printed and passed to git unchecked. It must now be a full commit ID.\n\n`--debug` printed transport errors, which can quote server text, unfiltered.\n\n`gt run download` used artifact names as directory names with weaker checks than `--zip`, and stopped on a bad name only after writing earlier artifacts. All names are now checked first.\n\n`secret set` and `variable set` silently changed values that were not UTF-8. They now refuse them.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/119\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/788d564bbf317b27f1a05847c9a354130a761e7420e45878cefc8180876ece41",
+            "sha": "788d564bbf317b27f1a05847c9a354130a761e7420e45878cefc8180876ece41",
+            "created": "2026-11-18T20:13:13Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+            "sha": "b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/action_values.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/artifacts.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/artifacts_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extension_commands.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extension_install.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/testdata/schema.json.txt",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/run_unix.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/run_windows.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/verify.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/transport/client_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/transport/debug.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 227,
+          "additions": 194,
+          "deletions": 33
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:e7rftrdyz5e2rw4y6ocszew2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"316-kAAZ0zP/gFae2iInzs8kdXHS0Tk\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1",
+        "https://w3id.org/security/suites/ecdsa-2019/v1"
+      ],
+      "id": "did:plc:e7rftrdyz5e2rw4y6ocszew2",
+      "alsoKnownAs": [
+        "at://grain.social"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:e7rftrdyz5e2rw4y6ocszew2#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:e7rftrdyz5e2rw4y6ocszew2",
+          "publicKeyMultibase": "zQ3shgrxPR7Ny5z7RLCGYM4qtVeBcDjnToBZP6FKYEDqBMJSY"
+        },
+        {
+          "id": "did:plc:e7rftrdyz5e2rw4y6ocszew2#atproto_kem",
+          "type": "Multikey",
+          "controller": "did:plc:e7rftrdyz5e2rw4y6ocszew2",
+          "publicKeyMultibase": "zDnaeRr5DNbUx8Pyir3vpitPmHPyjaBk7e8ow5AgTS8tUwPYu"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://monolith.chadtmiller.com"
+        }
+      ]
+    }
+  }
+}

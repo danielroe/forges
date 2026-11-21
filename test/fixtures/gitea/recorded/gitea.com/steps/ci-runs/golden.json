@@ -8,31 +8,31 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "1094474"
+        "id": "1287616"
       },
       "name": "release-nightly.yml",
       "state": "success",
       "stateRaw": "completed",
-      "number": "1761",
+      "number": "660",
       "eventRaw": "push",
       "branch": "main",
-      "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
-      "url": "https://gitea.com/gitea/tea/actions/runs/1094474",
+      "sha": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+      "url": "https://gitea.com/gitea/cli/actions/runs/1287616",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
         "login": "bircni",
         "id": "173651",
         "name": "bircni",
-        "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+        "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
         "url": "https://gitea.com/bircni",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T20:56:36.000Z",
-      "startedAt": "2026-10-18T20:56:37.000Z",
-      "completedAt": "2026-10-18T21:01:09.000Z"
+      "createdAt": "2026-11-20T17:50:40.000Z",
+      "startedAt": "2026-11-20T17:51:45.000Z",
+      "completedAt": "2026-11-20T17:56:40.000Z"
     },
     {
       "ref": {
@@ -42,30 +42,30 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "1094117"
+        "id": "1287463"
       },
       "name": "test-pr.yml",
       "state": "success",
       "stateRaw": "completed",
-      "number": "1760",
+      "number": "659",
       "eventRaw": "pull_request",
-      "sha": "ee5a08c5b3263c1d10193f715124961aaff4f9cb",
-      "url": "https://gitea.com/gitea/tea/actions/runs/1094117",
+      "sha": "ce89dfd3d16616ea48e76f41131c36f772e7b4800b7be7480a44b422a0d76c1e",
+      "url": "https://gitea.com/gitea/cli/actions/runs/1287463",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
         "login": "bircni",
         "id": "173651",
         "name": "bircni",
-        "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+        "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
         "url": "https://gitea.com/bircni",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T19:36:52.000Z",
-      "startedAt": "2026-10-18T19:36:53.000Z",
-      "completedAt": "2026-10-18T19:39:15.000Z"
+      "createdAt": "2026-11-20T17:12:54.000Z",
+      "startedAt": "2026-11-20T17:15:13.000Z",
+      "completedAt": "2026-11-20T17:23:06.000Z"
     },
     {
       "ref": {
@@ -75,34 +75,34 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "1094087"
+        "id": "1287462"
       },
-      "name": "test-pr.yml",
+      "name": "pull-pr-title.yml",
       "state": "success",
       "stateRaw": "completed",
-      "number": "1759",
+      "number": "658",
       "eventRaw": "pull_request",
-      "sha": "757b5fa1b97bb1a880958a5ffec30fc867ba5c3e",
-      "url": "https://gitea.com/gitea/tea/actions/runs/1094087",
+      "sha": "ce89dfd3d16616ea48e76f41131c36f772e7b4800b7be7480a44b422a0d76c1e",
+      "url": "https://gitea.com/gitea/cli/actions/runs/1287462",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
         "login": "bircni",
         "id": "173651",
         "name": "bircni",
-        "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+        "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
         "url": "https://gitea.com/bircni",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T19:30:24.000Z",
-      "startedAt": "2026-10-18T19:30:50.000Z",
-      "completedAt": "2026-10-18T19:32:22.000Z"
+      "createdAt": "2026-11-20T17:12:54.000Z",
+      "startedAt": "2026-11-20T17:15:19.000Z",
+      "completedAt": "2026-11-20T17:15:30.000Z"
     }
   ],
-  "total": 859,
+  "total": 660,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/actions/runs?limit=3&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/actions/runs?limit=3&page=2"
   }
 }

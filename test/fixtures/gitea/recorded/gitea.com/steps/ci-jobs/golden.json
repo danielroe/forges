@@ -8,9 +8,9 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "1483750",
+        "id": "1847474",
         "run": {
           "forge": "gitea",
           "instance": "gitea.com",
@@ -18,17 +18,17 @@
             "forge": "gitea",
             "instance": "gitea.com",
             "owner": "gitea",
-            "name": "tea"
+            "name": "cli"
           },
-          "id": "1094474"
+          "id": "1287616"
         }
       },
       "name": "goreleaser",
       "state": "success",
       "stateRaw": "completed",
-      "url": "https://gitea.com/gitea/tea/actions/runs/1094474/jobs/1483750",
-      "startedAt": "2026-10-18T20:56:37.000Z",
-      "completedAt": "2026-10-18T20:58:22.000Z"
+      "url": "https://gitea.com/gitea/cli/actions/runs/1287616/jobs/1847474",
+      "startedAt": "2026-11-20T17:51:45.000Z",
+      "completedAt": "2026-11-20T17:53:53.000Z"
     },
     {
       "ref": {
@@ -38,9 +38,9 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "1483751",
+        "id": "1847475",
         "run": {
           "forge": "gitea",
           "instance": "gitea.com",
@@ -48,17 +48,17 @@
             "forge": "gitea",
             "instance": "gitea.com",
             "owner": "gitea",
-            "name": "tea"
+            "name": "cli"
           },
-          "id": "1094474"
+          "id": "1287616"
         }
       },
       "name": "release-image",
       "state": "success",
       "stateRaw": "completed",
-      "url": "https://gitea.com/gitea/tea/actions/runs/1094474/jobs/1483751",
-      "startedAt": "2026-10-18T20:56:38.000Z",
-      "completedAt": "2026-10-18T21:01:09.000Z"
+      "url": "https://gitea.com/gitea/cli/actions/runs/1287616/jobs/1847475",
+      "startedAt": "2026-11-20T17:51:46.000Z",
+      "completedAt": "2026-11-20T17:56:40.000Z"
     }
   ],
   "total": 2

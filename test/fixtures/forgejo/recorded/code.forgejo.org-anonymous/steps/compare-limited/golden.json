@@ -1,5 +1,5 @@
 {
-  "base": "caec46af7fb80474c03cc1811216b014a05ae760",
+  "base": "c07a9b3669dc64d498273d47ce0e6974718792f1",
   "head": "main",
   "aheadBy": 4,
   "commits": [
@@ -13,23 +13,23 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7"
+        "sha": "dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb"
       },
-      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-      "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "sha": "dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb",
+      "message": "fix: set container daemon socket to \"-\" if the default socket is not available (#1784)\n\nFixes https://code.forgejo.org/forgejo/runner/issues/1073\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1784\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
-          "login": "viceice-bot",
-          "id": "163",
-          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
-          "url": "https://code.forgejo.org/viceice-bot",
+          "login": "clouds666",
+          "id": "2606",
+          "avatarUrl": "https://code.forgejo.org/avatars/d8ab7a0caddc8610cd8daadfa322236b186e9849931336e32a31e994faae81db",
+          "url": "https://code.forgejo.org/clouds666",
           "isBotHint": false
         },
-        "name": "Renovate Bot",
+        "name": "Clouds",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T02:59:29.000Z"
+        "date": "2026-11-20T01:54:03.000Z"
       },
       "committer": {
         "actor": {
@@ -44,16 +44,16 @@
         },
         "name": "Mathieu Fenniak",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T02:59:29.000Z"
+        "date": "2026-11-20T01:54:03.000Z"
       },
       "parents": [
-        "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558"
+        "0e61343d1cb98d2a381d0d18f34aea408e66e4d2"
       ],
-      "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+      "url": "https://code.forgejo.org/forgejo/runner/commit/dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb",
       "stats": {
-        "additions": 1,
+        "additions": 24,
         "deletions": 1,
-        "total": 2
+        "total": 25
       }
     },
     {
@@ -66,47 +66,48 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558"
+        "sha": "0e61343d1cb98d2a381d0d18f34aea408e66e4d2"
       },
-      "sha": "7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
-      "message": "Update module github.com/moby/moby/client to v0.6.1 (#1768)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1768\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
+      "sha": "0e61343d1cb98d2a381d0d18f34aea408e66e4d2",
+      "message": "fix: update lxc-helpers to v1.1.4 (#1800)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1800\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
       "author": {
         "actor": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
-          "login": "viceice-bot",
-          "id": "163",
-          "avatarUrl": "https://code.forgejo.org/avatars/75f41dd71d2dc37a9932ce7c713016d30823076e66b85f6e3a8a8c0a68fc979b",
-          "url": "https://code.forgejo.org/viceice-bot",
+          "login": "viceice",
+          "id": "8",
+          "name": "Michael Kriese",
+          "avatarUrl": "https://code.forgejo.org/avatars/3da6c3c7dde0a4bb3db897f012f99e64684eaebeefbe49621b0ac43c18702c9b",
+          "url": "https://code.forgejo.org/viceice",
           "isBotHint": false
         },
-        "name": "Renovate Bot",
+        "name": "Michael Kriese",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T00:51:16.000Z"
+        "date": "2026-11-19T13:18:07.000Z"
       },
       "committer": {
         "actor": {
           "forge": "forgejo",
           "instance": "code.forgejo.org",
-          "login": "mfenniak",
-          "id": "1324",
-          "name": "Mathieu Fenniak",
-          "avatarUrl": "https://code.forgejo.org/avatars/02690dbc4a237b1617d46226d6132729cd0a2534d161edd6f7788708b68654c8",
-          "url": "https://code.forgejo.org/mfenniak",
+          "login": "viceice",
+          "id": "8",
+          "name": "Michael Kriese",
+          "avatarUrl": "https://code.forgejo.org/avatars/3da6c3c7dde0a4bb3db897f012f99e64684eaebeefbe49621b0ac43c18702c9b",
+          "url": "https://code.forgejo.org/viceice",
           "isBotHint": false
         },
-        "name": "Mathieu Fenniak",
+        "name": "Michael Kriese",
         "email": "redacted@example.invalid",
-        "date": "2026-10-02T00:51:16.000Z"
+        "date": "2026-11-19T13:18:07.000Z"
       },
       "parents": [
-        "67b065da410fa56d3c803b8bc7b460ace8ebd256"
+        "649b2e5eba37f03e14e7dbbbc2079fbad2e3e03e"
       ],
-      "url": "https://code.forgejo.org/forgejo/runner/commit/7529f1e2e451aa09cfa7721d0a4d0f0cae2a0558",
+      "url": "https://code.forgejo.org/forgejo/runner/commit/0e61343d1cb98d2a381d0d18f34aea408e66e4d2",
       "stats": {
-        "additions": 6,
-        "deletions": 6,
-        "total": 12
+        "additions": 25,
+        "deletions": 2,
+        "total": 27
       }
     }
   ],

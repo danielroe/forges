@@ -1,7 +1,7 @@
 import type { Branch, Check, CiJob, CiRun, Comment, CommitComment, CommitRef, Page, Release, Repo, RepoRef, Review, SecurityAlertKind, Team, Thread, ThreadRef, TreeEntry, Webhook } from '../../src/model.ts'
 import type { ForgeProvider, ForgeVerb } from '../../src/provider.ts'
 import { sha256Hex } from '../../src/crypto.ts'
-import { ForbiddenError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
+import { ForbiddenError, ForgeApiError, InsufficientScopeError, NotFoundError } from '../../src/errors.ts'
 
 /** What one recording covers: the repository and the threads read from it. */
 export interface RecordingManifest {
@@ -55,6 +55,7 @@ export interface StepContext {
   tree?: TreeEntry[]
   releases?: Release[]
   runs?: CiRun[]
+  jobs?: CiJob[]
   job?: CiJob
   webhook?: Webhook
   comment?: Comment
@@ -138,6 +139,21 @@ async function firstWithJobs(provider: ForgeProvider, runs: CiRun[]): Promise<Pa
     }
   }
   return result
+}
+
+/** Reads the log of the next job that the forge serves one for, as a job that never started can have none. */
+async function readAnother(jobs: CiJob[], read: (job: CiJob) => Promise<string>, error: unknown): Promise<string> {
+  for (const job of jobs.slice(1)) {
+    try {
+      return await read(job)
+    }
+    catch (next) {
+      if (!(next instanceof ForgeApiError && next.status >= 500)) {
+        throw next
+      }
+    }
+  }
+  throw error
 }
 
 async function text(stream: ReadableStream<Uint8Array>): Promise<string> {
@@ -786,6 +802,7 @@ export const STEPS: Step[] = [
       if (!result?.items.length && manifest.scratch) {
         result = await firstWithJobs(provider, (await provider.ci.runs(manifest.scratch, page).page()).items)
       }
+      context.jobs = result?.items
       context.job = result?.items[0]
       return result
     },
@@ -815,10 +832,15 @@ export const STEPS: Step[] = [
         log = await read(context.job)
       }
       catch (error) {
-        if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError)) {
+        if (error instanceof ForgeApiError && error.status >= 500) {
+          log = await readAnother(context.jobs ?? [], read, error)
+        }
+        else if (!manifest.scratch || !(error instanceof ForbiddenError || error instanceof InsufficientScopeError)) {
           throw error
         }
-        log = await read((await firstWithJobs(provider, (await provider.ci.runs(manifest.scratch, page).page()).items))?.items[0])
+        else {
+          log = await read((await firstWithJobs(provider, (await provider.ci.runs(manifest.scratch, page).page()).items))?.items[0])
+        }
       }
       return {
         length: log.length,

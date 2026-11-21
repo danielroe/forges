@@ -1,19 +1,19 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/releases/1075119/assets/6707"
+    "url": "https://code.forgejo.org/api/v1/repos/forgejo/runner/releases/1078580/assets/7094"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 6707,
-      "name": "forgejo-runner-13.2.0-linux-amd64.sha256",
+      "id": 7094,
+      "name": "forgejo-runner-13.2.2-linux-amd64.sha256",
       "size": 100,
-      "download_count": 7481,
-      "created_at": "2026-09-18T21:26:27Z",
-      "uuid": "078734c2-5057-4e7e-881a-835cec02b812",
-      "browser_download_url": "https://code.forgejo.org/attachments/078734c2-5057-4e7e-881a-835cec02b812",
+      "download_count": 2077,
+      "created_at": "2026-11-19T14:41:46Z",
+      "uuid": "8765dede-ee16-4133-ade4-c0da2b19f270",
+      "browser_download_url": "https://code.forgejo.org/attachments/8765dede-ee16-4133-ade4-c0da2b19f270",
       "type": "attachment"
     }
   }

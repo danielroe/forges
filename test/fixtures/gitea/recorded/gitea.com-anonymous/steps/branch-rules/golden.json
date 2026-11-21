@@ -2,8 +2,17 @@
   "branch": "main",
   "requiredChecks": [
     {
-      "name": "check-and-test / **"
+      "name": "Test / Lint Build And Unit Coverage (pull_request)"
+    },
+    {
+      "name": "Test / Integration Test (pull_request)"
+    },
+    {
+      "name": "Test / Unit Test On Windows (pull_request)"
+    },
+    {
+      "name": "pr-title / lint-pr-title (pull_request)"
     }
   ],
-  "requiredApprovals": 1
+  "requiredApprovals": 0
 }

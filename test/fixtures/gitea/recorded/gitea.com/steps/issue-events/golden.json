@@ -3,26 +3,26 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "1482273",
-      "kind": "referenced",
-      "kindRaw": "pull_ref",
-      "summary": "lunny referenced this from #1096",
-      "occurredAt": "2026-08-21T16:50:28.000Z",
+      "id": "1846295",
+      "kind": "comment",
+      "kindRaw": "comment",
+      "summary": "mcepl commented",
+      "occurredAt": "2026-11-05T20:08:04.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "lunny",
-        "id": "1",
-        "name": "Lunny Xiao",
-        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-        "url": "https://gitea.com/lunny",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
         "isBotHint": false
       },
       "repo": {
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea"
+        "name": "cli"
       },
       "thread": {
         "forge": "gitea",
@@ -31,10 +31,70 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "issue",
-        "number": "1095"
+        "number": "91"
+      },
+      "detail": {
+        "type": "comment",
+        "comment": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "thread": {
+            "forge": "gitea",
+            "instance": "gitea.com",
+            "repo": {
+              "forge": "gitea",
+              "instance": "gitea.com",
+              "owner": "gitea",
+              "name": "cli"
+            },
+            "kind": "issue",
+            "number": "91"
+          },
+          "id": "1846295"
+        },
+        "body": "I've retested with gt 1.1.0, which is the same commit as main (44915d2), and updated the description with its output. Both problems remain: `gt run view`, `gt run jobs` and `gt run logs` fail on the bare-array job listing, and run URLs from `gt pr checks` resolve to the wrong run. I also added the version message from `gt project workflow list`, which calls Forgejo 17.0.1 \"Gitea 17.0.1\"."
+      },
+      "source": "poll",
+      "action": "created"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "1859390",
+      "kind": "referenced",
+      "kindRaw": "pull_ref",
+      "summary": "bircni referenced this from #113",
+      "occurredAt": "2026-11-12T07:58:20.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "bircni",
+        "id": "173651",
+        "name": "bircni",
+        "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+        "url": "https://gitea.com/bircni",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli"
+      },
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "91"
       },
       "detail": {
         "type": "referenced",
@@ -45,18 +105,18 @@
             "forge": "gitea",
             "instance": "gitea.com",
             "owner": "gitea",
-            "name": "tea",
-            "externalId": "550"
+            "name": "cli",
+            "externalId": "148011"
           },
           "kind": "pull_request",
-          "number": "1096"
+          "number": "113"
         },
         "fromRepo": {
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
+          "name": "cli",
+          "externalId": "148011"
         }
       },
       "source": "poll",
@@ -65,57 +125,18 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "1483713",
-      "kind": "state_change",
-      "kindRaw": "close",
-      "summary": "bircni close",
-      "occurredAt": "2026-08-23T12:46:23.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "bircni",
-        "id": "173651",
-        "name": "bircni",
-        "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
-        "url": "https://gitea.com/bircni",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea"
-      },
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "kind": "issue",
-        "number": "1095"
-      },
-      "source": "poll",
-      "action": "closed"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "1483714",
+      "id": "1859392",
       "kind": "commit",
       "kindRaw": "commit_ref",
-      "summary": "bircni referenced bfda25b",
-      "occurredAt": "2026-08-23T12:46:24.000Z",
+      "summary": "bircni referenced 8f04a8b",
+      "occurredAt": "2026-11-12T07:58:21.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
         "login": "bircni",
         "id": "173651",
         "name": "bircni",
-        "avatarUrl": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+        "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
         "url": "https://gitea.com/bircni",
         "isBotHint": false
       },
@@ -123,7 +144,7 @@
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea"
+        "name": "cli"
       },
       "thread": {
         "forge": "gitea",
@@ -132,16 +153,16 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "issue",
-        "number": "1095"
+        "number": "91"
       },
       "source": "poll",
       "action": "other"
     }
   ],
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues/1095/timeline?limit=3&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/issues/91/timeline?limit=3&page=2"
   }
 }

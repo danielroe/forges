@@ -1,22 +1,22 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases/12930115/assets/2055244"
+    "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/releases/13788204/assets/2251332"
   },
   "response": {
     "status": 200,
     "headers": {
-      "ratelimit": "\"baseline\";r=1861;t=600",
+      "ratelimit": "\"baseline\";r=1854;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600"
     },
     "body": {
-      "id": 2055244,
-      "name": "forgejo-src-17.0.0.tar.gz.sha256",
+      "id": 2251332,
+      "name": "forgejo-src-17.0.2.tar.gz.sha256",
       "size": 92,
-      "download_count": 15,
-      "created_at": "2026-10-15T18:37:02+02:00",
-      "uuid": "47aea5a8-c42b-421f-957c-4ba7a294cfec",
-      "browser_download_url": "https://codeberg.org/attachments/47aea5a8-c42b-421f-957c-4ba7a294cfec",
+      "download_count": 28,
+      "created_at": "2026-11-18T19:33:38+01:00",
+      "uuid": "c8f2518f-576f-4666-9387-8cf7c5c45cc8",
+      "browser_download_url": "https://codeberg.org/attachments/c8f2518f-576f-4666-9387-8cf7c5c45cc8",
       "type": "attachment"
     }
   }

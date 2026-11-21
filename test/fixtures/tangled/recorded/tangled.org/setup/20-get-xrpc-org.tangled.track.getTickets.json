@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Acwoq3xqggpzpb27kmuyknqcn%2Forg.tangled.track.ticket%2F48"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Axg3dbdjtnxc6thalphhgpmul%2Forg.tangled.track.ticket%2F17"
   },
   "response": {
     "status": 200,
@@ -9,18 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreia6myzopmh2qqf3zrgdllmxlfadpkq6ojtbtdcy4enpgonb7iz73y",
-          "uri": "at://did:plc:cwoq3xqggpzpb27kmuyknqcn/org.tangled.track.ticket/48",
+          "cid": "bafyreiak6uutisr6hz2suxcofotuaq54vn4q5iz6ummiiilwvkp32konoq",
+          "uri": "at://did:plc:xg3dbdjtnxc6thalphhgpmul/org.tangled.track.ticket/17",
           "value": {
             "$type": "org.tangled.track.ticket",
-            "createdAt": "2026-11-21T11:51:54Z",
-            "state": "completed",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Keep file-backed login as the default. Add per-account OAuth keyring storage, migration, fresh access tokens for pushes and verified refresh-credential revocation on logout. Linux uses Secret Service and macOS uses Keychain. Runtime and independent review are pending."
+            },
+            "createdAt": "2026-11-21T14:08:43Z",
+            "state": "open",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "chore: align TypeScript tooling with Node 24"
+              "text": "Opt standalone OAuth accounts into the OS keyring"
             },
-            "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
           }
         }
       ]

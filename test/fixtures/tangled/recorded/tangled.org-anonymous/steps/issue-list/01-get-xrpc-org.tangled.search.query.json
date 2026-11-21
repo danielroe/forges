@@ -10,35 +10,35 @@
       "hits": [
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreid7efjwxm3cjdnn2sqcg76yddpn5ehslw2i6lsup6jrf2cgry5bra",
+          "cid": "bafyreiex7ua4iwi6b5nbr4jwf3pmvzv6drbp3mjtmpeh654ele6jvgp6su",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/137",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/143",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Opened by run 20261121143017."
+              "text": "Opened by run 20261121143343."
             },
-            "createdAt": "2026-11-21T14:31:11Z",
+            "createdAt": "2026-11-21T14:34:40Z",
             "state": "open",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121143017: duplicate"
+              "text": "forges fixture 20261121143343: duplicate"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreigyl2rlvsnamfsbbmu6h3dypmv4bazqby35e3l7tdopyb3cwchjxa",
+          "cid": "bafyreibsu7gpzl7epxin7rjis6mxpfksmxs6qossxgdmgpdlicj47ivrpu",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/136",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/142",
           "value": {
             "$type": "org.tangled.track.ticket",
             "assignees": [
@@ -46,52 +46,52 @@
             ],
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Opened by run 20261121143017."
+              "text": "Opened by run 20261121143343."
             },
-            "createdAt": "2026-11-21T14:31:09Z",
+            "createdAt": "2026-11-21T14:34:38Z",
             "state": "open",
             "tangledLabels": [
               {
                 "$type": "org.tangled.label.defs#labelToken",
-                "key": "forges-fixture-20261121143017"
+                "key": "forges-fixture-20261121143343"
               }
             ],
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121143017: labelled issue"
+              "text": "forges fixture 20261121143343: labelled issue"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         },
         {
           "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "cid": "bafyreifzjy6h5mrre7boorcq25mzyzziy37ek2xyuzr2w46avuwgqct4zi",
+          "cid": "bafyreibldtqgfrx64cv24ewhqd2xeopeh6u5zgev5iwuayym6ifdgkl3ym",
           "commentCount": 0,
           "nsid": "org.tangled.track.ticket",
           "score": 0,
           "state": "open",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/135",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/141",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Edited by run 20261121143017."
+              "text": "Edited by run 20261121143343."
             },
-            "createdAt": "2026-11-21T14:30:43Z",
+            "createdAt": "2026-11-21T14:34:11Z",
             "state": "open",
             "tangledLabels": [],
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "forges fixture 20261121143017: issue, edited"
+              "text": "forges fixture 20261121143343: issue, edited"
             },
             "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
           }
         }
       ],
-      "cursor": "k000000006b01ab13mf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6mjtgu",
-      "total": 44,
+      "cursor": "k000000006b01abe3mf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6mjuge",
+      "total": 47,
       "stateCounts": {
-        "open": 44,
+        "open": 47,
         "closed": 0,
         "completed": 0
       }

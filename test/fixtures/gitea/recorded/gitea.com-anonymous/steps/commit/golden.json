@@ -6,115 +6,104 @@
       "forge": "gitea",
       "instance": "gitea.com",
       "owner": "gitea",
-      "name": "tea"
+      "name": "cli"
     },
-    "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+    "sha": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc"
   },
-  "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-  "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+  "sha": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+  "message": "fix: resolve refs for commit diff and read every status for commit status\n\ngt commit diff failed for tags with dots and branches with slashes: the\ndiff route reads the dot as its extension. The ref is resolved to its SHA\nfirst.\n\ngt commit status read the combined status, which covers only the first\npage of contexts, so a failure further back still exited 0. It now reads\nevery status and shares its output and exit status with gt pr checks.\n",
   "author": {
     "actor": {
       "forge": "gitea",
       "instance": "gitea.com",
-      "login": "lunny",
-      "id": "1",
-      "name": "Lunny Xiao",
-      "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-      "url": "https://gitea.com/lunny",
+      "login": "bircni",
+      "id": "173651",
+      "name": "bircni",
+      "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+      "url": "https://gitea.com/bircni",
       "isBotHint": false
     },
-    "name": "Lunny Xiao",
+    "name": "bircni",
     "email": "redacted@example.invalid",
-    "date": "2026-09-30T17:40:41.000Z"
+    "date": "2026-11-09T20:50:20.000Z"
   },
   "committer": {
     "actor": {
       "forge": "gitea",
       "instance": "gitea.com",
-      "login": "lunny",
-      "id": "1",
-      "name": "Lunny Xiao",
-      "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-      "url": "https://gitea.com/lunny",
+      "login": "bircni",
+      "id": "173651",
+      "name": "bircni",
+      "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+      "url": "https://gitea.com/bircni",
       "isBotHint": false
     },
-    "name": "Lunny Xiao",
+    "name": "bircni",
     "email": "redacted@example.invalid",
-    "date": "2026-09-30T17:40:41.000Z"
+    "date": "2026-11-09T20:50:20.000Z"
   },
   "parents": [
-    "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
-    "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+    "d44eda80521447f2c771c1affe4c2e12573d60fa4d023c6b65a161ca8915ff99"
   ],
-  "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+  "url": "https://gitea.com/gitea/cli/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
   "stats": {
-    "additions": 454,
-    "deletions": 46,
-    "total": 500
+    "additions": 156,
+    "deletions": 187,
+    "total": 343
   },
   "files": [
     {
-      "path": "cmd/issues/create_test.go",
-      "status": "added",
-      "statusRaw": "added"
-    },
-    {
-      "path": "cmd/pulls/create_app_test.go",
-      "status": "added",
-      "statusRaw": "added"
-    },
-    {
-      "path": "cmd/pulls/create_test.go",
-      "status": "added",
-      "statusRaw": "added"
-    },
-    {
-      "path": "modules/task/pull_merge_test.go",
-      "status": "added",
-      "statusRaw": "added"
-    },
-    {
-      "path": "cmd/issues/create.go",
+      "path": "internal/app/commits.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "cmd/pulls/create.go",
+      "path": "internal/app/commits_integration_test.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "go.mod",
+      "path": "internal/app/commits_test.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "go.sum",
+      "path": "internal/app/diff_filter.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "modules/interact/issue_create.go",
+      "path": "internal/app/diff_filter_test.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "modules/interact/pull_create.go",
+      "path": "internal/app/diff_review.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "modules/task/issue_create.go",
+      "path": "internal/app/pull_mutations.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "modules/task/pull_create.go",
+      "path": "internal/app/tags.go",
       "status": "modified",
       "statusRaw": "modified"
     },
     {
-      "path": "modules/task/pull_merge.go",
+      "path": "internal/app/testdata/schema.json.txt",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "internal/services/commits.go",
+      "status": "modified",
+      "statusRaw": "modified"
+    },
+    {
+      "path": "skills/gt/references/resources.md",
       "status": "modified",
       "statusRaw": "modified"
     }

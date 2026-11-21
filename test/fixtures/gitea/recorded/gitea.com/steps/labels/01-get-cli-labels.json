@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/labels?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "9"
+    },
+    "body": [
+      {
+        "id": 64076,
+        "name": "bug",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "ee0701",
+        "description": "Something is not working",
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/labels/64076"
+      },
+      {
+        "id": 64077,
+        "name": "duplicate",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "cccccc",
+        "description": "This issue or pull request already exists",
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/labels/64077"
+      },
+      {
+        "id": 64078,
+        "name": "enhancement",
+        "exclusive": false,
+        "is_archived": false,
+        "color": "84b6eb",
+        "description": "New feature",
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/labels/64078"
+      }
+    ]
+  }
+}

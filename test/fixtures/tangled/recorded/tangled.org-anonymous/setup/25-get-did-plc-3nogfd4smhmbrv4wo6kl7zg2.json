@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:3nogfd4smhmbrv4wo6kl7zg2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"22c-EiJKN7SWfLJh1w/kEoshzy8q5VU\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:3nogfd4smhmbrv4wo6kl7zg2",
+      "alsoKnownAs": [
+        "at://notplants.net"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:3nogfd4smhmbrv4wo6kl7zg2#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:3nogfd4smhmbrv4wo6kl7zg2",
+          "publicKeyMultibase": "zQ3shbefMip463dxZaihpnqVUBYEpckjmxSgcyW7deUnV4u9w"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://morel.us-east.host.bsky.network"
+        }
+      ]
+    }
+  }
+}

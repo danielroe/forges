@@ -3,28 +3,29 @@
     "forge": "gitea",
     "instance": "gitea.com",
     "owner": "gitea",
-    "name": "tea",
-    "externalId": "550"
+    "name": "cli",
+    "externalId": "148011"
   },
-  "description": "A command line tool to interact with Gitea servers",
+  "description": "Official Gitea CLI",
   "defaultBranch": "main",
   "visibility": "public",
   "visibilityRaw": "public",
   "isFork": false,
   "isArchived": false,
   "topics": [
-    "gitea",
-    "cli"
+    "cli",
+    "git",
+    "gitea"
   ],
-  "url": "https://gitea.com/gitea/tea",
+  "url": "https://gitea.com/gitea/cli",
   "cloneUrls": {
-    "https": "https://gitea.com/gitea/tea.git",
-    "ssh": "git@gitea.com:gitea/tea.git"
+    "https": "https://gitea.com/gitea/cli.git",
+    "ssh": "git@gitea.com:gitea/cli.git"
   },
-  "createdAt": "2019-05-19T11:37:14.000Z",
-  "updatedAt": "2026-10-18T20:56:36.000Z",
-  "openIssueCount": 104,
-  "openPullCount": 16,
+  "createdAt": "2026-10-18T18:45:00.000Z",
+  "updatedAt": "2026-11-20T17:50:40.000Z",
+  "openIssueCount": 6,
+  "openPullCount": 1,
   "owner": {
     "forge": "gitea",
     "instance": "gitea.com",
@@ -36,11 +37,12 @@
   },
   "language": "Go",
   "licence": "MIT",
-  "stars": 277,
-  "forks": 147,
-  "watchers": 76,
+  "stars": 25,
+  "forks": 9,
+  "watchers": 61,
   "mergeMethods": [
-    "squash"
+    "squash",
+    "rebase"
   ],
   "defaultMergeMethod": "squash",
   "deleteBranchOnMerge": true,
@@ -48,7 +50,7 @@
     "issues": true,
     "pullRequests": true,
     "discussions": false,
-    "wiki": true,
+    "wiki": false,
     "projects": false,
     "releases": true
   },

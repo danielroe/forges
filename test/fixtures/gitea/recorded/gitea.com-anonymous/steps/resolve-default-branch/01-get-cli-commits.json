@@ -1,0 +1,107 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/commits?sha=main&limit=1&stat=false"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=1&page=2&sha=main&stat=false>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=1&page=841&sha=main&stat=false>; rel=\"last\"",
+      "x-total": "841",
+      "x-total-count": "841",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "sha": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "created": "2026-11-20T17:50:38Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+          "author": {
+            "name": "Matěj Cepl",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "message": "fix(auth): shut down the OAuth callback server gracefully (#130)\n\nWait for callback responses before closing connections to avoid\nintermittent browser EOF errors. Bound shutdown to one second\nand cover active responses, forced closure after cancellation,\nand the complete browser response.\n\nAssisted-by: pi:gpt-6.1-sol\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/cli/pulls/130\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Matěj Cepl <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "sha": "98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "created": "2026-11-20T17:50:38Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 71724,
+          "login": "mcepl",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Matěj Cepl",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+          "html_url": "https://gitea.com/mcepl",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mcepl"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/auth_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": null
+      }
+    ]
+  }
+}

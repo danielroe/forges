@@ -1,0 +1,71 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/issues?state=open&type=pulls&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "1"
+    },
+    "body": [
+      {
+        "id": 518346,
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/issues/59",
+        "html_url": "https://gitea.com/gitea/cli/pulls/59",
+        "number": 59,
+        "user": {
+          "id": 1,
+          "login": "lunny",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Lunny Xiao",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+          "html_url": "https://gitea.com/lunny",
+          "active": false,
+          "location": "Silicon Valley",
+          "website": "https://gitea.com",
+          "description": "",
+          "followers_count": 117,
+          "following_count": 95,
+          "starred_repos_count": 364,
+          "username": "lunny"
+        },
+        "original_author": "",
+        "original_author_id": 0,
+        "title": "WIP: feat: add gt skill to install agent skills from repositories",
+        "body": "`gt` had no way to hand its agent skill (`skills/gt`) or any other skill to a coding agent. `gt skill` follows `gh skill`:\n\n- `install <repository> [<skill>]` copies skills, or all with `--all`, to the skills directory of `--agent` (default `universal`, i.e. `.agents/skills`) at `--scope project|user`, or to `--dir`. `--from-local` reads a local directory, `--pin REF` installs a tag or commit that `update` leaves alone.\n- `list`, `preview` and `update [--dry-run|--force|--unpin]` show what is installed, print a skill before installing it, and replace skills whose tree changed.\n- The repository is on any Gitea instance gt has an account for (`HOST/OWNER/NAME` or a URL), or a public `https://github.com/OWNER/NAME`, read anonymously with no credentials sent. The source and tree SHA go into the `metadata` of the installed `SKILL.md`, which `update` compares.\n\nSkills are read at one commit, limited in size and file count, and a name that is not a plain skill name is refused so nothing is written outside the skills directory.\n\nAgent directories were checked against what `gh skill install` writes; other directories work with `--dir`. `search` and `publish` are not included.\n",
+        "ref": "",
+        "assets": [],
+        "labels": [],
+        "milestone": null,
+        "projects": null,
+        "assignee": null,
+        "assignees": null,
+        "state": "open",
+        "is_locked": false,
+        "comments": 1,
+        "created_at": "2026-11-01T05:27:39Z",
+        "updated_at": "2026-11-05T20:48:16Z",
+        "closed_at": null,
+        "due_date": null,
+        "time_estimate": 0,
+        "pull_request": {
+          "merged": false,
+          "merged_at": null,
+          "draft": true,
+          "html_url": "https://gitea.com/gitea/cli/pulls/59"
+        },
+        "repository": {
+          "id": 148011,
+          "name": "cli",
+          "owner": "gitea",
+          "full_name": "gitea/cli"
+        },
+        "pin_order": 0,
+        "content_version": 1
+      }
+    ]
+  }
+}

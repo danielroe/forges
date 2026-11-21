@@ -1,19 +1,29 @@
 {
   "items": [
     {
-      "path": "modules/git/cli_backend.go",
+      "path": "internal/app/app.go",
       "status": "changed",
       "statusRaw": "changed",
-      "additions": 16,
+      "additions": 1,
       "deletions": 1
     },
     {
-      "path": "modules/git/cli_backend_test.go",
+      "path": "internal/app/commits.go",
       "status": "added",
       "statusRaw": "added",
-      "additions": 40,
+      "additions": 326,
+      "deletions": 0
+    },
+    {
+      "path": "internal/app/commits_integration_test.go",
+      "status": "added",
+      "statusRaw": "added",
+      "additions": 171,
       "deletions": 0
     }
   ],
-  "total": 2
+  "total": 14,
+  "cursor": {
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/pulls/92/files?limit=3&page=2"
+  }
 }

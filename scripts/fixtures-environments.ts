@@ -8,8 +8,9 @@
  * and, where it records writes, `fixtures-<forge>-writes`, which holds the
  * bot and reviewer credentials instead of the GitHub App and waits for
  * `--reviewer` (you, by default) to approve each run. Both deploy from
- * `main` only. The variables of each forge are stored as one `FIXTURES_ENV`
- * secret, in `.env` format.
+ * `main` only. Tangled's read environment also holds its bot, which owns the
+ * scratch repository whose webhooks the reads record. The variables of each
+ * forge are stored as one `FIXTURES_ENV` secret, in `.env` format.
  * Forges that record only locally get no environment.
  * `--forge`, which repeats, limits the run to the environments of those forges.
  * `--dry-run` prints the environments and the names of their variables.
@@ -38,8 +39,8 @@ const PREFIXES: Record<string, string[]> = {
   'upstream': ['UPSTREAM_', 'FIXTURE_UPSTREAM_'],
 }
 
-/** Variables only write recordings and seeding use: the bot accounts and the Tangled reviewer. */
-const WRITE_ONLY = /_BOT_|^TANGLED_REVIEWER_/
+/** Variables only write recordings and seeding use: the bot accounts, apart from Tangled's, and the Tangled reviewer. */
+const WRITE_ONLY = /^(?!TANGLED_BOT_)\w*_BOT_|^TANGLED_REVIEWER_/
 /** Variables only read recordings use: the GitHub App. */
 const READ_ONLY = /^GITHUB_APP_/
 

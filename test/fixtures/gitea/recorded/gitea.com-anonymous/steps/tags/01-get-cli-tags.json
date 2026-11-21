@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/tags?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-total-count": "7"
+    },
+    "body": [
+      {
+        "name": "v2.0.0",
+        "message": "fix: fix issue, pull request, commit and status edge cases (#120)\n\n`gt issue create --blocked-by/--blocking` created the issue and then failed on a missing dependency; missing issues are now refused first. Pin, unpin and unlock acted again on items already in that state; like lock and gh, they now report it and change nothing, and issue and pull request JSON gains `locked` (and `pinned` for pull requests). Merging a pull request blocked by an open dependency surfaced a bare server error; it now names the blocking issues, and `gt pr view` tells a deleted head branch or open blockers apart from conflicts. `gt pr checks --required` named the head branch instead of the base branch. `gt commit pr` printed nothing without `--json` and failed on abbreviated SHAs. `gt status --json` printed `mentions: null`. `gt pr review --pending` named the wrong flag in its body error, `gt pr review reply` checked an empty body only after a request, and `gt time cancel` asked to discard a stopwatch that was not running.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/120\n",
+        "id": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+          "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+          "created": "2026-11-18T20:14:31Z"
+        },
+        "zipball_url": "https://gitea.com/gitea/cli/archive/v2.0.0.zip",
+        "tarball_url": "https://gitea.com/gitea/cli/archive/v2.0.0.tar.gz"
+      },
+      {
+        "name": "v1.2.0",
+        "message": "feat: add --admin, --match-head-commit, --disable-auto, --required and --fill-first/--fill-verbose to the pr commands (#97)\n\n`gh pr merge`, `checks` and `create` have options that `gt pr` lacked:\n\n- `gt pr merge --admin` merges past the branch protection (Gitea's `force_merge`, for those who administer the repository). `--match-head-commit SHA` merges only while the head is still that commit and fails with the `head_mismatch` exit status otherwise, so a push after the review is not merged unseen. `--disable-auto` cancels the merge that `--auto` scheduled and merges nothing; with none scheduled it says so.\n- `gt pr checks --required` shows and awaits only the checks that the protection rule of the base branch requires (`effective_branch_protection_name`, then its `status_check_contexts`, where `*` and `?` match). A flaky optional check no longer holds `--watch` back, and a branch that requires none has nothing to show.\n- `gt pr create --fill-first` takes the title and body from the first commit of the branch whatever their number; `--fill-verbose` takes the body from the full message of every commit, oldest first. `--fill` is unchanged. `--fill`, `--fill-first` and `--fill-verbose` cannot be combined, like gh.\n\n`gh pr checks --fail-fast` is not added: `gt pr checks --watch` already stops at the first failure.\n\nTested against fake servers, and on the disposable Gitea 28 instance by three integration tests: a merge with a moved head, an administrator merging past a protection that wants an approval, a scheduled merge that is canceled and then does not happen, required against optional checks with `--watch`, and `--fill-first` and `--fill-verbose` from a real clone. The test of the cancel showed that Gitea answers a cancel with nothing scheduled with the same bare 404 as for a missing pull request, which the code now reads as \"nothing scheduled\".\n\n---------\n\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/cli/pulls/97\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Lunny Xiao <redacted@example.invalid>\n",
+        "id": "44a4491137259f2bae2be355137e5118749f3bd74e3bc74066cdfb65d85f390d",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/44a4491137259f2bae2be355137e5118749f3bd74e3bc74066cdfb65d85f390d",
+          "sha": "44a4491137259f2bae2be355137e5118749f3bd74e3bc74066cdfb65d85f390d",
+          "created": "2026-11-09T22:17:44Z"
+        },
+        "zipball_url": "https://gitea.com/gitea/cli/archive/v1.2.0.zip",
+        "tarball_url": "https://gitea.com/gitea/cli/archive/v1.2.0.tar.gz"
+      },
+      {
+        "name": "v1.1.0",
+        "message": "feat: add pull request dependencies and --add-blocks to issue edit (#90)\n\nCo-authored-by: Lunny Xiao <redacted@example.invalid>\n",
+        "id": "44915d28a19d0504ace8b21b6eb5439c02cea16f9e493971a38c0aa35358f6ca",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/44915d28a19d0504ace8b21b6eb5439c02cea16f9e493971a38c0aa35358f6ca",
+          "sha": "44915d28a19d0504ace8b21b6eb5439c02cea16f9e493971a38c0aa35358f6ca",
+          "created": "2026-11-05T17:05:26Z"
+        },
+        "zipball_url": "https://gitea.com/gitea/cli/archive/v1.1.0.zip",
+        "tarball_url": "https://gitea.com/gitea/cli/archive/v1.1.0.tar.gz"
+      }
+    ]
+  }
+}

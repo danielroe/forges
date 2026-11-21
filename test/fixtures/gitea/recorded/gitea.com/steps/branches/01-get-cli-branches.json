@@ -1,0 +1,132 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/branches?limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/cli/branches?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/cli/branches?limit=3&page=2>; rel=\"last\"",
+      "x-total-count": "5"
+    },
+    "body": [
+      {
+        "name": "main",
+        "commit": {
+          "id": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+          "message": "fix(auth): shut down the OAuth callback server gracefully (#130)\n\nWait for callback responses before closing connections to avoid\nintermittent browser EOF errors. Bound shutdown to one second\nand cover active responses, forced closure after cancellation,\nand the complete browser response.\n\nAssisted-by: pi:gpt-6.1-sol\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/cli/pulls/130\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Matěj Cepl <redacted@example.invalid>\n",
+          "url": "https://gitea.com/gitea/cli/commit/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+          "author": {
+            "name": "Matěj Cepl",
+            "email": "redacted@example.invalid",
+            "username": "mcepl"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "username": "bircni"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-11-20T17:50:38Z",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": true,
+        "required_approvals": 0,
+        "enable_status_check": true,
+        "status_check_contexts": [
+          "Test / Lint Build And Unit Coverage (pull_request)",
+          "Test / Integration Test (pull_request)",
+          "Test / Unit Test On Windows (pull_request)",
+          "pr-title / lint-pr-title (pull_request)"
+        ],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "build/go-1.27.4",
+        "commit": {
+          "id": "abe3788c2105090a59e04c6938fbf75d436b9e393817f142b248d5d267cc42ff",
+          "message": "build: update Go toolchain to 1.27.4\n\nAssisted-by: Claude Code:claude-opus-5-5\n",
+          "url": "https://gitea.com/gitea/cli/commit/abe3788c2105090a59e04c6938fbf75d436b9e393817f142b248d5d267cc42ff",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "username": "bircni"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "username": "bircni"
+          },
+          "verification": {
+            "verified": true,
+            "reason": "bircni / 9BA6A5FDF1283D78",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\niQHPBAABCAA5FiEEQmEm+vLCz6G+6pICm6al/fEoPXgFAmrzXUMbFIAAAAAABAAO\nbWFudTIsMi41KzEuMTIsMCwzAAoJEJumpf3xKD14j04L/Rror+lAyH5ssqQEt9vF\nAjKc4/zsS5UFWJ82tOEqHz48fvnSpG23CLArSPzw6x3I8cNo/kllLT+9iGq2ASPa\nyA8d0mjGrbiks+yFuY/xcv1pCBq1/9CQb0FdaMwRtIjKhiTbNSbtd+WGBxECeQtj\nPYImKl2oPqzhGkv5JEla2wLYsKpF9Ecm+QHlAJLeSrvhVJ0udwXhR06OpOtWHfnx\nrUago9VzoQtJlmvjRzbwElLaPz9Bq2Ft2SImCoX4LNDVyD/Xl7fWtfJ0IMwGNxnC\n7RCAZRuqwDr+awTHRhBO7j8iludrb4zuO4cq1VvDhjLQp1vChxXmk7e3T1Vc/ep1\nvw226Ov5OvdZKFB45/K5FUbRqDXjdlr7n79LF8bP0ALMc4NN7gtUdwfPFtcGflQm\nTRLFhDXyXagA7RZpbmeIzbCgtCjBXlj9DVGkaTV3rg0E+mhLtmObjBrnh1P3pL/a\nL+z3puuQVcukSo91/DAzX171/XnxHs2laost0K+zKq2BCg==\n=KCU2\n-----END PGP SIGNATURE-----",
+            "signer": {
+              "name": "bircni",
+              "email": "redacted@example.invalid",
+              "username": "bircni"
+            },
+            "payload": "tree e61fb76a50d86bf1cb3d0dbeee3fe36757096ad8925af680280031d45a48f14f\nparent 44a4491137259f2bae2be355137e5118749f3bd74e3bc74066cdfb65d85f390d\nauthor bircni <redacted@example.invalid> 1794334019 +0100\ncommitter bircni <redacted@example.invalid> 1794334019 +0100\n\nbuild: update Go toolchain to 1.27.4\n\nAssisted-by: Claude Code:claude-opus-5-5\n"
+          },
+          "timestamp": "2026-11-10T19:06:59+01:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      },
+      {
+        "name": "feat/skill-command",
+        "commit": {
+          "id": "e34b66903fa2db878f62833d547be2c18721888d164c69c11e1fd7213db2821f",
+          "message": "test: cover gt skill on a real Gitea\n\nThe integration test installs, previews, lists and updates skills of a\nrepository on the disposable Gitea 28 instance: one skill and all of\nthem, the refusal of a skill whose name does not match its directory,\nupdate with --dry-run, --pin and --unpin, the user and project scopes of\nan agent, and a skill read from a local directory.\n\nAssisted-by: Codet:agent\n",
+          "url": "https://gitea.com/gitea/cli/commit/e34b66903fa2db878f62833d547be2c18721888d164c69c11e1fd7213db2821f",
+          "author": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "committer": {
+            "name": "Lunny Xiao",
+            "email": "redacted@example.invalid",
+            "username": "lunny"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          },
+          "timestamp": "2026-11-05T12:46:27-08:00",
+          "added": null,
+          "removed": null,
+          "modified": null
+        },
+        "protected": false,
+        "required_approvals": 0,
+        "enable_status_check": false,
+        "status_check_contexts": [],
+        "user_can_push": false,
+        "user_can_merge": false,
+        "effective_branch_protection_name": ""
+      }
+    ]
+  }
+}

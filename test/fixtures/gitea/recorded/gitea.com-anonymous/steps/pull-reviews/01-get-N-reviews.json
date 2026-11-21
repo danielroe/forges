@@ -1,46 +1,79 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/reviews?limit=3"
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/pulls/92/reviews?limit=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "1"
+      "x-total-count": "2"
     },
     "body": [
       {
-        "id": 383047,
+        "id": 385973,
         "user": {
-          "id": 39446,
-          "login": "Zettat123",
+          "id": 173651,
+          "login": "bircni",
           "type": "User",
           "source_id": 0,
-          "full_name": "",
+          "full_name": "bircni",
           "email": "redacted@example.invalid",
-          "avatar_url": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
-          "html_url": "https://gitea.com/Zettat123",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
           "active": false,
           "location": "",
           "website": "",
           "description": "",
-          "followers_count": 3,
-          "following_count": 0,
-          "starred_repos_count": 0,
-          "username": "Zettat123"
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "team": null,
+        "state": "REQUEST_CHANGES",
+        "body": "See https://gitea.com/gitea/cli/pulls/92#issuecomment-1848263",
+        "commit_id": "e262f0c9fb1ab6ebd7ee071ab665b337bb0b38a1b280b1537bee8c1d90802f34",
+        "stale": true,
+        "official": false,
+        "dismissed": true,
+        "comments_count": 0,
+        "submitted_at": "2026-11-06T19:53:32Z",
+        "updated_at": "2026-11-09T22:00:14Z",
+        "html_url": "https://gitea.com/gitea/cli/pulls/92#pullrequestreview-385973",
+        "pull_request_url": "https://gitea.com/gitea/cli/pulls/92"
+      },
+      {
+        "id": 386118,
+        "user": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
         },
         "team": null,
         "state": "APPROVED",
         "body": "",
-        "commit_id": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+        "commit_id": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
         "stale": false,
         "official": true,
         "dismissed": false,
         "comments_count": 0,
-        "submitted_at": "2026-09-30T17:42:34Z",
-        "updated_at": "2026-09-30T17:42:34Z",
-        "html_url": "https://gitea.com/gitea/tea/pulls/1099#pullrequestreview-383047",
-        "pull_request_url": "https://gitea.com/gitea/tea/pulls/1099"
+        "submitted_at": "2026-11-09T22:00:14Z",
+        "updated_at": "2026-11-09T22:00:14Z",
+        "html_url": "https://gitea.com/gitea/cli/pulls/92#pullrequestreview-386118",
+        "pull_request_url": "https://gitea.com/gitea/cli/pulls/92"
       }
     ]
   }
