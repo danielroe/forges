@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/commit?ref=refs%2Fheads%2Fmain"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "oid": "4efff95668743e5b77cc09a8b26cad2abdedee5f",
+      "tree": "4ebfac37dd774ba8db193a7eee428bdace0e51ad",
+      "parents": [
+        "ee27a73933a3461c76a163e552677fff74df20b0"
+      ],
+      "parentCount": 1,
+      "message": "ci: add a workflow\n",
+      "summary": "ci: add a workflow",
+      "time": 1794486256,
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "timestamp": 1794486256,
+        "timezoneOffsetMinutes": 60
+      },
+      "committer": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "timestamp": 1794486256,
+        "timezoneOffsetMinutes": 60
+      },
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signer": null
+      }
+    }
+  }
+}

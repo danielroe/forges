@@ -242,6 +242,17 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[], lo
     local: true,
     server: 'gitbucket-server.ts',
   },
+  'gitcafe': {
+    reads: [
+      { label: 'git.cafe', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [],
+    local: true,
+  },
 }
 
 /** Starts the server of `script` and returns the variables it wrote, with a function that removes the server. */

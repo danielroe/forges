@@ -1,0 +1,86 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/issues/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "author": {
+        "kind": "local",
+        "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "handle": "oritwoen",
+        "displayName": "oritwoen",
+        "avatarUrl": null
+      },
+      "id": "issue_01m77v7ch7fn0ad2d2vsn3b0r2",
+      "repoId": "repo_01m77v6ctsf7hr9pbfma3k2m0j",
+      "number": 1,
+      "title": "forges probe issue, edited",
+      "description": "Edited body.",
+      "version": 12,
+      "stateType": "completed",
+      "priority": 0,
+      "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "authorDelegatorActorId": null,
+      "authorViaInstallationId": null,
+      "dueDate": null,
+      "closedAt": "2026-11-12T12:20:34.037Z",
+      "closedByActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+      "closedByDelegatorActorId": null,
+      "closedByViaInstallationId": null,
+      "closedReason": null,
+      "milestoneId": null,
+      "lockedAt": null,
+      "lockedByActorId": null,
+      "lockReason": null,
+      "pinnedAt": null,
+      "pinnedByActorId": null,
+      "pinSlot": null,
+      "createdAt": "2026-11-12T12:20:22.634Z",
+      "updatedAt": "2026-11-12T12:34:57.763Z",
+      "labels": [
+        {
+          "id": "label_01m77v7bt7f8hay1g319mf59qk",
+          "name": "forges-fixture-mwdin7lw",
+          "color": "#0e8a16"
+        }
+      ],
+      "assignees": [
+        {
+          "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "actor": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "handle": "oritwoen",
+          "displayName": "oritwoen",
+          "avatarUrl": null
+        }
+      ],
+      "milestone": null,
+      "reactionCounts": {
+        "items": [],
+        "truncated": false
+      },
+      "capabilities": {
+        "edit": true,
+        "comment": true,
+        "close": false,
+        "reopen": true,
+        "manageAssignees": true,
+        "manageLabels": true,
+        "manageMilestone": true,
+        "manageLinks": true,
+        "lock": true,
+        "pin": true
+      }
+    }
+  }
+}

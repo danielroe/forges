@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "thread": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "repo": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "owner": "oritwoen",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "1"
+        },
+        "id": "icomment_01m77vcz7qffprq90440hezv13"
+      },
+      "body": "A comment that stays, so the recordings have one to read.",
+      "author": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "thread": {
+          "forge": "gitcafe",
+          "instance": "git.cafe",
+          "repo": {
+            "forge": "gitcafe",
+            "instance": "git.cafe",
+            "owner": "oritwoen",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "1"
+        },
+        "id": "icomment_01m77vek2tera8hsz6hgszk9qz"
+      },
+      "body": "A second comment, to make the webhook deliver something.",
+      "author": {
+        "forge": "gitcafe",
+        "instance": "git.cafe",
+        "login": "oritwoen",
+        "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+        "name": "oritwoen",
+        "url": "https://git.cafe/oritwoen",
+        "typeRaw": "local",
+        "isBotHint": false
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>"
+    }
+  ]
+}

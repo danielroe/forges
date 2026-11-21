@@ -1,0 +1,39 @@
+{
+  "baseUrl": "https://git.cafe/api",
+  "repo": {
+    "forge": "gitcafe",
+    "instance": "git.cafe",
+    "owner": "oritwoen",
+    "name": "forges-fixtures"
+  },
+  "issue": {
+    "forge": "gitcafe",
+    "instance": "git.cafe",
+    "repo": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "owner": "oritwoen",
+      "name": "forges-fixtures"
+    },
+    "kind": "issue",
+    "number": "1"
+  },
+  "pull": {
+    "forge": "gitcafe",
+    "instance": "git.cafe",
+    "repo": {
+      "forge": "gitcafe",
+      "instance": "git.cafe",
+      "owner": "oritwoen",
+      "name": "forges-fixtures"
+    },
+    "kind": "pull_request",
+    "number": "3"
+  },
+  "scratch": {
+    "forge": "gitcafe",
+    "instance": "git.cafe",
+    "owner": "oritwoen",
+    "name": "forges-fixtures"
+  }
+}

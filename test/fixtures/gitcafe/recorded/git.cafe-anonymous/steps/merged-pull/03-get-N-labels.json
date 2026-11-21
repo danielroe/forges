@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/2/labels?limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api-anon\";q=1200;w=3600"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "label_01m77v7bt7f8hay1g319mf59qk",
+          "name": "forges-fixture-mwdin7lw",
+          "color": "#0e8a16",
+          "description": "A label the probe made"
+        }
+      ],
+      "next": null
+    }
+  }
+}

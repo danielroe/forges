@@ -1,0 +1,72 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://git.cafe/api/repos/oritwoen/forges-fixtures/pulls/?state=merged&sort=newest&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "ratelimit-policy": "\"api\";q=1000;w=60"
+    },
+    "body": {
+      "items": [
+        {
+          "id": "pr_01m77v8rbyfmzt9st98j96php9",
+          "number": 2,
+          "title": "forges probe pull",
+          "state": "merged",
+          "draft": false,
+          "createdAt": "2026-11-12T12:21:07.446Z",
+          "author": {
+            "kind": "local",
+            "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+            "handle": "oritwoen",
+            "displayName": "oritwoen",
+            "avatarUrl": null
+          },
+          "sourceBranch": "feature/shout",
+          "targetBranch": "main",
+          "headOid": "f9ded61df8c3a2957a7d0ea47e9172e3f4e39460",
+          "authorActorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+          "updatedAt": "2026-11-12T12:21:22.046Z",
+          "version": 7,
+          "additions": 1,
+          "deletions": 0,
+          "changedFiles": 1,
+          "mergedAt": "2026-11-12T12:21:22.046Z",
+          "labels": [
+            {
+              "id": "label_01m77v7bt7f8hay1g319mf59qk",
+              "name": "forges-fixture-mwdin7lw",
+              "color": "#0e8a16"
+            }
+          ],
+          "assignees": [
+            {
+              "id": "act_01m77tsdh0fbytmstyew2n3x7f",
+              "actor": {
+                "kind": "local",
+                "actorId": "act_01m77tsdh0fbytmstyew2n3x7f",
+                "handle": "oritwoen",
+                "displayName": "oritwoen",
+                "avatarUrl": null
+              },
+              "handle": "oritwoen",
+              "displayName": "oritwoen",
+              "avatarUrl": null
+            }
+          ],
+          "reviewers": [],
+          "reviewVerdicts": {
+            "items": [],
+            "truncated": false
+          },
+          "milestone": null,
+          "stack": null,
+          "providerConflictCheck": null
+        }
+      ],
+      "next": null
+    }
+  }
+}

@@ -28,6 +28,7 @@ A provider is what connects `forges` to one particular forge. It translates the 
 | [Sourcehut](/providers/sourcehut) | `forges/sourcehut` | `sourcehut()` |
 | [Entire](/providers/entire) | `forges/entire` | `entire()` |
 | [GitBucket](/providers/gitbucket) | `forges/gitbucket` | `gitbucket()` |
+| [GitCafe](/providers/gitcafe) | `forges/gitcafe` | `gitcafe()` |
 ::
 <!-- capabilities:end -->
 

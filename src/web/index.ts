@@ -9,6 +9,7 @@ import { BITBUCKET_WEB } from '../bitbucket/web.ts'
 import { ENTIRE_WEB } from '../entire/web.ts'
 import { FORGEJO_WEB, GITEA_WEB } from '../forgejo/web.ts'
 import { GITBUCKET_WEB } from '../gitbucket/web.ts'
+import { GITCAFE_WEB } from '../gitcafe/web.ts'
 import { GITEE_WEB } from '../gitee/web.ts'
 import { GITHUB_WEB } from '../github/web.ts'
 import { GITLAB_WEB } from '../gitlab/web.ts'
@@ -30,6 +31,8 @@ export const entire: (options?: WebOptions) => ForgeWeb<'entire'> = /* @__PURE__
 export const forgejo: (options?: WebOptions) => ForgeWeb<'forgejo'> = /* @__PURE__ */ defineForgeWeb(FORGEJO_WEB)
 /** The web links of a GitBucket server, which has no public instance, so pass its `baseUrl`. */
 export const gitbucket: (options: WebOptions & { baseUrl: string }) => ForgeWeb<'gitbucket'> = /* @__PURE__ */ defineForgeWeb(GITBUCKET_WEB)
+/** The web links of GitCafe. */
+export const gitcafe: (options?: WebOptions) => ForgeWeb<'gitcafe'> = /* @__PURE__ */ defineForgeWeb(GITCAFE_WEB)
 /** The web links of gitea.com or another Gitea instance. */
 export const gitea: (options?: WebOptions) => ForgeWeb<'gitea'> = /* @__PURE__ */ defineForgeWeb(GITEA_WEB)
 /** The web links of Gitee. */
