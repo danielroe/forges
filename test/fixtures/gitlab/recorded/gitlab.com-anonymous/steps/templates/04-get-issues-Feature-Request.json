@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "etag": "W/\"99aa62fe54ddf81ccc65694faf81d40d\"",
-      "ratelimit-limit": "1",
-      "ratelimit-remaining": "49",
-      "ratelimit-reset": "1792105200",
-      "ratelimit-name": "unauthenticated_traffic_per_ip"
+      "ratelimit-limit": "500",
+      "ratelimit-remaining": "488",
+      "ratelimit-reset": "1795289400",
+      "ratelimit-name": "throttle_unauthenticated_api"
     },
     "body": {
       "name": "Feature Request",

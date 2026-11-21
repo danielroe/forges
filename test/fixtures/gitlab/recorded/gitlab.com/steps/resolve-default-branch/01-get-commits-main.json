@@ -6,49 +6,49 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"3101d590e62ac7a5749b053fc24d58ae\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1920",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api"
+      "etag": "W/\"72cda25e8030dae8ae08dbe91df0ef3c\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "15",
+      "ratelimit-reset": "1795289280",
+      "ratelimit-name": "burst_traffic_per_user_free_plan"
     },
     "body": {
-      "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-      "short_id": "e74ebf81",
-      "created_at": "2026-10-19T12:02:22.000+10:00",
+      "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+      "short_id": "0dd7574d",
+      "created_at": "2026-11-20T09:10:22.000-06:00",
       "parent_ids": [
-        "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-        "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+        "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+        "e67e160f5ed26ea4356be1a66589c4e7169e955c"
       ],
-      "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-      "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
-      "author_name": "Jay McCure",
+      "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+      "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+      "author_name": "Kai Armstrong",
       "author_email": "redacted@example.invalid",
-      "authored_date": "2026-10-19T12:02:22.000+10:00",
+      "authored_date": "2026-11-20T09:10:22.000-06:00",
       "committer_name": "GitLab",
       "committer_email": "redacted@example.invalid",
-      "committed_date": "2026-10-19T12:02:22.000+10:00",
+      "committed_date": "2026-11-20T09:10:22.000-06:00",
       "trailers": {},
       "extended_trailers": {},
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9",
       "stats": {
-        "additions": 203,
-        "deletions": 1,
-        "total": 204
+        "additions": 5,
+        "deletions": 10,
+        "total": 15
       },
       "status": "success",
       "project_id": 34675721,
       "last_pipeline": {
-        "id": 2961304567,
-        "iid": 15538,
+        "id": 3096438652,
+        "iid": 18364,
         "project_id": 34675721,
-        "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
+        "sha": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
         "ref": "main",
         "status": "success",
-        "source": "push",
-        "created_at": "2026-10-19T02:02:25.218Z",
-        "updated_at": "2026-10-19T02:21:35.568Z",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961304567"
+        "source": "schedule",
+        "created_at": "2026-11-21T01:13:06.638Z",
+        "updated_at": "2026-11-21T01:22:32.469Z",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3096438652"
       }
     }
   }

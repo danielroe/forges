@@ -10,7 +10,7 @@
           "owner": "gitlab-org",
           "name": "cli"
         },
-        "id": "17272413278",
+        "id": "18249232099",
         "run": {
           "forge": "gitlab",
           "instance": "gitlab.com",
@@ -20,23 +20,85 @@
             "owner": "gitlab-org",
             "name": "cli"
           },
-          "id": "2961499559"
+          "id": "3098052813"
         }
       },
-      "name": "workload",
+      "name": "secret-detection-1",
       "state": "success",
       "stateRaw": "success",
-      "stage": "build",
-      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+      "stage": "test",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232099",
+      "startedAt": "<now>",
+      "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "18249232098",
+        "run": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "3098052813"
+        }
+      },
+      "name": "gitlab-advanced-sast-0",
+      "state": "success",
+      "stateRaw": "success",
+      "stage": "test",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232098",
+      "startedAt": "<now>",
+      "completedAt": "<now>"
+    },
+    {
+      "ref": {
+        "forge": "gitlab",
+        "instance": "gitlab.com",
+        "repo": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "owner": "gitlab-org",
+          "name": "cli"
+        },
+        "id": "18249232097",
+        "run": {
+          "forge": "gitlab",
+          "instance": "gitlab.com",
+          "repo": {
+            "forge": "gitlab",
+            "instance": "gitlab.com",
+            "owner": "gitlab-org",
+            "name": "cli"
+          },
+          "id": "3098052813"
+        }
+      },
+      "name": "dependency-scanning-profile-0",
+      "state": "success",
+      "stateRaw": "success",
+      "stage": "application-security-testing",
+      "url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232097",
       "startedAt": "<now>",
       "completedAt": "<now>"
     }
   ],
-  "total": 1,
-  "etag": "W/\"365699f5227458944a772de9dfbb56b1\"",
+  "total": 3,
+  "etag": "W/\"edb5f99bd17f3e598b0f119b3bfc51aa\"",
   "rateLimit": {
     "limit": 500,
-    "remaining": 449,
+    "remaining": 448,
     "resetAt": "<now>",
     "resource": "throttle_unauthenticated_api"
   }

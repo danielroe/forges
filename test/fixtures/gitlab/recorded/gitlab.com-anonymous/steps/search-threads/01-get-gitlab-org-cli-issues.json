@@ -6,75 +6,76 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=220&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
-      "etag": "W/\"dd426729a025ea3118b6a47f80d55fcf\"",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=2&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"next\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=1&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/issues?id=gitlab-org%2Fcli&in=title%2Cdescription&order_by=updated_at&page=234&per_page=3&search=fix&sort=desc&state=all&with_labels_details=false>; rel=\"last\"",
+      "etag": "W/\"60206853c414d50d65ac1673bae6ecc5\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "431",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "429",
+      "ratelimit-reset": "1795289400",
       "ratelimit-name": "throttle_unauthenticated_api",
-      "x-total": "660",
-      "x-total-pages": "220",
+      "x-total": "702",
+      "x-total-pages": "234",
       "x-next-page": "2",
       "x-page": "1",
       "x-per-page": "3"
     },
     "body": [
       {
-        "id": 207091602,
-        "iid": 8626,
+        "id": 157938673,
+        "iid": 7699,
         "project_id": 34675721,
-        "title": "Telemetry send blocks every command's exit for up to 2s",
-        "description": "## Summary\n\nglab sends its usage event (`POST /usage_data/track_event`) synchronously at exit on every command (`cmd/glab/telemetry.go`, `cobra.OnFinalize`, capped by `telemetrySendTimeout = 2s`). The user waits for this round trip after the command's own work is done. It is sent even when no token is configured, in which case it falls back to `gitlab.Unauthenticated{}` and gitlab.com returns 401.\n\nCommit 1ce119cae (`fix(telemetry): deliver the usage event reliably and cheaply`) made the send synchronous so events are actually delivered. Any fix must keep delivery reliable.\n\n## Measurements\n\nAt 50ms RTT against a mock GitLab (from the discussion on https://gitlab.com/gitlab-org/cli/-/merge_requests/4139):\n\n| Command     | Telemetry off | Telemetry on |\n|-------------|---------------|--------------|\n| `version`   | 14ms          | 153ms        |\n| `mr list`   | 158ms         | 284ms        |\n| `api user`  | 156ms         | 294ms        |\n| `mr view 1` | 290ms         | 413ms        |\n\nAgainst gitlab.com (about 10ms TCP / 33ms TLS connect), median of 20 runs, built from the https://gitlab.com/gitlab-org/cli/-/merge_requests/4139 branch:\n\n| Command        | Telemetry on | Telemetry off | Cost            |\n|----------------|--------------|---------------|-----------------|\n| `mr view 4139` | 1491ms       | 1146ms        | +346ms (23%)    |\n| `mr list`      | 1035ms       | 731ms         | +304ms (29%)    |\n\nThe on/off runs were not interleaved, so treat these as approximate. On slow networks, every command can wait the full 2s.\n\nhttps://gitlab.com/gitlab-org/cli/-/merge_requests/4139 lets telemetry reuse the command's warm connection. Commands that make no API request of their own (`version`, `config`, and similar) still open a dedicated TLS connection just for telemetry.\n\n## Proposal\n\nIn order of cost:\n\n1. **Skip the event when there is no token.** Unauthenticated events are rejected with 401, so sending them only adds latency.\n2. **Start the POST in a goroutine when the command starts**, and at exit wait only for what remains (still capped). With shared transports, it overlaps the command's own requests on the same connection, so the wait at exit is usually close to zero. Limitation: the event is sent before the command's outcome is known, which the current event doesn't report anyway.\n3. **Optional: spool events to a file.** Network-free commands only append to it (sub-millisecond). Commands that already use the API flush the spool concurrently with their own requests, batch events into one request, and never block at exit (unsent events stay spooled for the next run). Needs: file locking for concurrent glab processes, grouping events by host, timestamps taken from the spool, a cap on file size, and respect for opt-out on events already spooled.\n\nSteps 1 and 2 should recover most of the cost. Consider step 3 only if network-free commands or high-latency users still need it.\n\n## Acceptance criteria\n\n- No usage request when no credentials are configured.\n- Telemetry adds no measurable exit latency to commands that make API requests (compare `GLAB_SEND_TELEMETRY=false` vs `true`).\n- Events are still delivered (no regression of 1ce119cae).",
+        "title": "Follow-up: Validate spec for components",
+        "description": "https://gitlab.com/gitlab-org/cli/-/merge_requests/1745#note_2225729944\n\n> We would need to modify the following struct;\n> \n> ```go\n> type specDef struct {\n> \tSpec map[string]interface{} `yaml:\"spec\"`\n> }\n> ```\n> \n> to have the value `Spec` be another struct.\n> \n> The question here is, how flexible can `spec` be? If we accept any kind of structure then we can leave it as it is. But if it's a well-defined spec, it makes sense to define every field.\n\n> we have a strict `spec` definition; https://gitlab.com/gitlab-org/gitlab/-/blob/f89ee11b1f4649cd9c069728353c57f1008c971c/app/validators/json_schemas/catalog_resource_component_spec.json\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nAll work is in `internal/commands/project/publish/catalog/`.\n\n1. **Model the spec.** In `publish.go`, replace the `Spec map[string]any` field on `specDef` ([publish.go:265](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/project/publish/catalog/publish.go#L265)) with `Spec *componentSpec`. Define `componentSpec` to mirror [`catalog_resource_component_spec.json`](https://gitlab.com/gitlab-org/gitlab/-/blob/master/app/validators/json_schemas/catalog_resource_component_spec.json): `Inputs map[string]*componentInput` (`yaml:\"inputs\"`), `InputsOrder []string` (`yaml:\"inputs_order\"`), `Component []string` (`yaml:\"component\"`), `Description string` (`yaml:\"description\"`). Give `componentInput` `Default any`, `Regex string`, `Type string`, plus a catch-all for other keys: the schema closes only the top level, the per-input object is open.\n\n2. **Add `validateSpec`.** Add `func validateSpec(componentName string, spec *componentSpec) error` and call it from `extractSpec` ([publish.go:270](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/project/publish/catalog/publish.go#L270)) after the YAML unmarshal. Check what the server schema can actually reject: `description` at most 256 characters, every `component` entry in `name`, `sha`, `version`, `reference` and unique, every `inputs_order` entry naming a key that exists in `inputs`. Wrap failures with `cmdutils.WrapError` and name the component and the offending field so the message points at the file.\n\n3. **Keep unknown top-level keys non-fatal.** Decode unrecognised top-level keys into a catch-all map and report them as a warning through `iostreams`, not as an error. The schema is `additionalProperties: false` today but gained `inputs_order` after this issue was filed, so a hard rejection makes the CLI refuse specs the server accepts. This is the review point that stalled [!3648](https://gitlab.com/gitlab-org/cli/-/merge_requests/3648). Thread `*iostreams.IOStreams` from `Publish` into `publishToCatalogRequestBody` ([publish.go:145](https://gitlab.com/gitlab-org/cli/-/blob/main/internal/commands/project/publish/catalog/publish.go#L145)) and `extractSpec` so the warning has somewhere to go.\n\n4. **Do not change the wire format.** `publishToCatalogRequestBody` copies the spec straight into the POST metadata. Use a pointer for `Spec` and `json:\"...,omitempty\"` tags on `componentSpec` so a component with no `spec:` block still serializes as `\"spec\": null` rather than `{}`, which is what the existing golden request body in `TestPublishCatalog` asserts for `component-2`.\n\n5. **Tests.** Extend `publish_test.go`. Add a `Test_validateSpec` table with: a valid spec, `description` over 256 characters, an invalid `component` entry, an `inputs_order` entry with no matching input, and an unknown top-level key that must warn and pass. Add fixtures under `testdata/test-repo/templates/` only for a case you need end to end. `TestPublishCatalog`, `Test_fetchTemplates` and `Test_extractComponentName` must keep passing unchanged.\n\n6. **Docs and checks.** No flags change, so `docs/source/repo/publish/catalog.md` needs regenerating only if you extend the `Long` text in `NewCmdPublishCatalog` to mention client-side validation. If you do, run `make gen-docs` and commit the regenerated page in the same commit. Finish with `make test` and `make lint`.",
         "state": "opened",
-        "created_at": "2026-10-19T02:23:45.411Z",
-        "updated_at": "2026-10-19T02:57:13.144Z",
+        "created_at": "2024-11-26T08:50:11.087Z",
+        "updated_at": "2026-11-21T06:20:21.906Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
-          "agent-experience",
           "category:gitlab cli",
+          "cli",
           "devops::ai clients",
           "group::developer clients",
-          "maintenance::performance",
+          "maintenance::refactor",
           "section::ai",
+          "tw::triaged",
           "type::maintenance"
         ],
         "milestone": null,
         "assignees": [
           {
-            "id": 11809982,
-            "username": "jay_mccure",
-            "public_email": "",
-            "name": "Jay McCure",
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-            "web_url": "https://gitlab.com/jay_mccure"
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
           }
         ],
         "author": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
+          "id": 514662,
+          "username": "furkanayhan",
+          "public_email": "redacted@example.invalid",
+          "name": "Furkan Ayhan",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-          "web_url": "https://gitlab.com/jay_mccure"
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/514662/avatar.png?v=1795219264",
+          "web_url": "https://gitlab.com/furkanayhan"
         },
         "type": "ISSUE",
         "assignee": {
-          "id": 11809982,
-          "username": "jay_mccure",
-          "public_email": "",
-          "name": "Jay McCure",
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11809982/avatar.png?v=1792376207",
-          "web_url": "https://gitlab.com/jay_mccure"
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
         },
-        "user_notes_count": 1,
-        "merge_requests_count": 0,
+        "user_notes_count": 2,
+        "merge_requests_count": 3,
         "upvotes": 0,
         "downvotes": 0,
         "start_date": null,
@@ -82,7 +83,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8626",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/7699",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -93,21 +94,21 @@
           "count": 0,
           "completed_count": 0
         },
-        "weight": null,
+        "weight": 2,
         "blocking_issues_count": 0,
         "has_tasks": true,
         "task_status": "0 of 0 checklist items completed",
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8626",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8626/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8626/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/7699",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/7699/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/7699/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8626",
-          "relative": "#8626",
-          "full": "gitlab-org/cli#8626"
+          "short": "#7699",
+          "relative": "#7699",
+          "full": "gitlab-org/cli#7699"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -120,152 +121,61 @@
         "health_status": null
       },
       {
-        "id": 203186756,
-        "iid": 8553,
+        "id": 172508016,
+        "iid": 7975,
         "project_id": 34675721,
-        "title": "macOS: OAuth token exchange and API calls time out resolving gitlab.com while curl/browser access succeeds",
-        "description": "### Checklist\n\n- [ ] Tested the latest release. Reproduced on glab 1.117.0 (44790937b), installed via Homebrew. v1.118.0 is now available but has not yet been tested.\n- [x] Operating system: macOS 15.7.7 (24G720), Apple Silicon / arm64.\n- [x] Instance: GitLab.com.\n- [x] Ran `glab auth status`.\n- [x] Collected resolver diagnostics using `GODEBUG=netdns=cgo+2` and `GODEBUG=netdns=go+2` (relevant output below; full GLAB_DEBUG HTTP logging was not collected).\n\n### Summary\n\nI cannot reliably authenticate glab or make API calls from macOS while connected to our required GlobalProtect VPN. Browsers and curl can reach gitlab.com on the same connection.\n\nWith web/OAuth login, the browser opens and authorization succeeds, but the local callback page reports a DNS timeout when the CLI attempts to exchange the authorization code at https://gitlab.com/oauth/token. A colleague independently reports the same callback failure and timeouts with token authentication. They report that it worked a few weeks ago; their current and last-working versions have not yet been established.\n\nThe root cause is unconfirmed. I am reporting this to help determine whether it is a glab/Go resolver issue, an interaction with the VPN, or another network/resolver problem. I have not established a regression between CLI versions.\n\n### Environment\n\n- OS: macOS 15.7.7 (24G720), arm64\n- SHELL: zsh\n- GLAB: 1.117.0 (44790937b), Homebrew installation\n- Go version reported in the installed binary: go1.27.1\n- GlobalProtect network extension: 6.0.12-1256\n- GlobalProtect remains connected because it is required for our GitLab access. No VPN-disconnected comparison was performed.\n\n### Steps to reproduce\n\nOn the affected machine with GlobalProtect connected:\n\n1. Run `glab auth login --hostname gitlab.com --web`.\n2. Authorize the CLI in the browser.\n3. The browser redirects to the local OAuth callback. The page displays the token-exchange error below.\n4. `glab auth status --hostname gitlab.com` and diagnostic API requests also encounter DNS timeouts.\n5. Compare with `curl -I --max-time 10 https://gitlab.com`, which succeeds on the same connection.\n\n### Current behavior\n\n```text\nToken exchange failed: Post \"https://gitlab.com/oauth/token\": dial tcp: lookup gitlab.com: i/o timeout\n```\n\nThe browser reaching the callback does not result in a successful CLI login. API requests can fail with the same hostname-lookup timeout or with a context deadline exceeded error.\n\n### Expected behavior\n\nOAuth token exchange and subsequent API requests complete successfully on a connection where GitLab is reachable, or diagnostics identify the resolver failure more precisely.\n\n### Relevant diagnostics\n\nA credential-free reproduction using an intentionally invalid token (to test connectivity without disclosing credentials):\n\n```sh\nGITLAB_TOKEN=diagnostic-invalid-token GODEBUG=netdns=cgo+2 glab api user --hostname gitlab.com\n```\n\n```text\ngo package net: confVal.netCgo = true  netGo = false\ngo package net: GODEBUG setting forcing use of the cgo resolver\ngo package net: hostLookupOrder(gitlab.com) = cgo\nGet \"https://gitlab.com/api/v4/user\": dial tcp: lookup gitlab.com: i/o timeout.\n```\n\nForcing `GODEBUG=netdns=go+2` also timed out (lookup order: files,dns).\n\nAdditional observations during troubleshooting:\n\n- macOS registers the VPN DNS server through GlobalProtect's DNS configuration.\n- Direct queries to the VPN DNS server returned A records over UDP, but AAAA queries for gitlab.com and example.com timed out with a 2-second timeout and one attempt.\n- Both A and AAAA queries succeeded over TCP, in roughly 30–35 ms.\n- Queries addressed to the local router showed the same UDP AAAA timeout while the VPN was connected. We have not determined whether the VPN intercepted these requests or where they were dropped.\n- Ordinary native Python lookups returned promptly. A lookup with `AI_CANONNAME | AI_V4MAPPED | AI_ALL` eventually returned an IPv4 result after approximately 5 seconds.\n- Adding process-local `RES_OPTIONS=usevc` did not resolve the glab timeout.\n- A temporary per-domain TCP DNS configuration did not reliably help. A temporary hosts-file entry also did not resolve the reported OAuth failure; we did not establish whether the failing OAuth process consumed the new entry or retained prior resolver state. Both workarounds have been removed.\n\nOne API attempt reached GitLab and returned a revoked-token 401 (the old credential had deliberately been revoked). That is a separate credential issue; fresh OAuth attempts and requests using the diagnostic invalid token fail during DNS resolution before authentication completes.\n\n### Possible fixes / investigation\n\nNo confirmed fix. Guidance on capturing useful resolver diagnostics, or comparing resolver behavior across glab/Go versions, would be appreciated. The UDP/TCP AAAA difference is an observation, not a confirmed explanation for all failures. No packet capture or controlled older/newer-version comparison has been performed yet.",
+        "title": "Follow-up from \"fix(commands): fixes to commands and env vars\"",
+        "description": "The following discussion from !2317 should be addressed:\n\n- [ ] @hacks4oats started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/2317#note_2713626408): \n\n    > If we want to log to the `iostreams.IOStreams.StdOut`, we need to inject this new dependency here just for that. I suspect that checking env vars this deep inside of the program setup might be the wrong approach. Instead, the debug http setting should be parsed further up and propagated to the client.\n\n/cc @faleksic\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nGoal: read `GLAB_DEBUG_HTTP` once during program setup and propagate the resulting writer into the API client, instead of reading the env var inside `internal/api/client.go` and writing to `os.Stderr`. Merge request !3647 is a closed reference implementation for steps 1, 2, 4 and 5; it can be reused, with the review feedback on it applied and the gap in step 3 filled.\n\n1. `internal/api/client.go`: add an exported `HTTPDebugConfig{Enabled bool; Writer io.Writer}` and a `WithHTTPDebug(HTTPDebugConfig) ClientOption` alongside the existing options (`WithProxy` at line 232 and neighbours), store it on `Client`, and replace the env lookup at line 214 with `if c.httpDebug.Enabled { rt = &debugTransport{rt: rt, w: c.httpDebug.Writer} }`. Give `NewClientFromConfig` (line 341) a trailing `options ...ClientOption` and append them after the config-derived options. Drop the now unused `utils` import.\n\n2. `internal/cmdutils/factory.go`: read `GLAB_DEBUG_HTTP` in `NewFactory` (line 54), store the config on `DefaultFactory` with `Writer: io.StdErr`, expose it as `HTTPDebug() api.HTTPDebugConfig` on the `Factory` interface (line 23), and pass `api.WithHTTPDebug(f.httpDebug)` at the three `NewClientFromConfig` calls (lines 107, 136, 172). Do not add a `Writer != nil` guard: `IOStreams.StdErr` is always set for a properly constructed `IOStreams`, and the redundant check was a review point on !3647.\n\n3. Cover the client construction sites that live outside the factory, or `GLAB_DEBUG_HTTP` silently stops working for them: `internal/commands/update/check_update.go:104`, `internal/commands/whatsnew/whatsnew.go:118` (both go through `CreateUnauthenticatedClient`), `internal/commands/artifactregistry/login/login.go:110`, and `internal/commands/auth/docker/artifact_registry.go:42` (the `Helper` already holds an `io` field). !3647 handled only the first two.\n\n4. Update the other `Factory` implementations for the new interface method: `internal/testing/cmdtest/factory.go` (add an `HTTPDebugStub` field and getter) and the local `factory` in `cmd/gen-docs/docs.go`.\n\n5. Tests: rework `TestDebugTransportIncludesCustomHeaders` in `internal/api/client_headers_test.go:152` to pass a `bytes.Buffer` through `WithHTTPDebug` instead of `t.Setenv` plus reaching into `debug.w`, and add a case asserting no `debugTransport` is installed when the config is disabled. Add a `NewFactory` test in `internal/cmdutils/factory_test.go` that sets the env var and asserts the resulting client writes request traces to the factory's stderr buffer. Assert observable behaviour, not `HTTPDebug()` field values: asserting on the config struct was the second review point on !3647.\n\n6. No `cobra` help text changes, so `make gen-docs` is not needed; `GLAB_DEBUG_HTTP` stays registered in `internal/config/envvars.go:41` and documented in `docs/source/configuration.md`. Verify with `go test ./internal/api/... ./internal/cmdutils/... ./internal/commands/update/... ./internal/commands/whatsnew/...` and `make lint`.",
         "state": "opened",
-        "created_at": "2026-09-15T17:59:15.878Z",
-        "updated_at": "2026-10-19T02:37:11.037Z",
+        "created_at": "2025-08-27T18:23:18.373Z",
+        "updated_at": "2026-11-21T06:19:54.797Z",
         "closed_at": null,
         "closed_by": null,
         "labels": [
-          "automation:ml",
-          "backend",
-          "bug::functional",
           "category:gitlab cli",
           "devops::ai clients",
           "group::developer clients",
+          "maintenance::refactor",
           "section::ai",
-          "type::bug"
-        ],
-        "milestone": null,
-        "assignees": [],
-        "author": {
-          "id": 28251233,
-          "username": "yashb4",
-          "public_email": "",
-          "name": "Yash Baleri",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/28251233/avatar.png?v=1792096462",
-          "web_url": "https://gitlab.com/yashb4"
-        },
-        "type": "ISSUE",
-        "assignee": null,
-        "user_notes_count": 5,
-        "merge_requests_count": 0,
-        "upvotes": 0,
-        "downvotes": 0,
-        "start_date": null,
-        "due_date": null,
-        "confidential": false,
-        "discussion_locked": null,
-        "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8553",
-        "time_stats": {
-          "time_estimate": 0,
-          "total_time_spent": 0,
-          "human_time_estimate": null,
-          "human_total_time_spent": null
-        },
-        "task_completion_status": {
-          "count": 5,
-          "completed_count": 4
-        },
-        "weight": null,
-        "blocking_issues_count": 0,
-        "has_tasks": false,
-        "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8553",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8553/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8553/award_emoji",
-          "project": "https://gitlab.com/api/v4/projects/34675721",
-          "closed_as_duplicate_of": null
-        },
-        "references": {
-          "short": "#8553",
-          "relative": "#8553",
-          "full": "gitlab-org/cli#8553"
-        },
-        "severity": "UNKNOWN",
-        "moved_to_id": null,
-        "imported": false,
-        "imported_from": "none",
-        "service_desk_reply_to": null,
-        "epic_iid": null,
-        "epic": null,
-        "iteration": null,
-        "health_status": null
-      },
-      {
-        "id": 189982774,
-        "iid": 8304,
-        "project_id": 34675721,
-        "title": "snap version of `cluster agent update-kubeconfig` can't write to kubeconfig",
-        "description": "### Checklist\n\n- [x] I'm using the latest version of the extension (Run `glab --version`)\n  - Extension version: 1.95.0\n- [x] Operating system and version: Ubuntu 24.04.3\n- [x] Gitlab.com or self-managed instance? both\n- [x] GitLab version (if self-managed) 18.8.9-ee\n- [x] I have performed `glab auth status` to check for authentication issues\n- [x] Run the command in debug mode (like `DEBUG=true glab mr list`) and attach any useful output\n\n### Summary\n\nThe snap confinement, lacking the [personal-files write permission](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/), doesn't allow `glab cluster agent update-kubeconfig` to write to the default kubeconfig location (`~/.kube/config`), resulting in silent failure to update anything.\n\n### Environment\n\n- OS: Linux 6.8.0-111-generic x86_64\n- SHELL: /bin/bash\n- TERM: xterm-256color\n- GLAB: glab 1.95.0 (6a2f207)\n\nOther:\n\n### Steps to reproduce\n\ne.g.\n`glab cluster agent update-kubeconfig --agent 6 -u` in a repo with a valid glab agent config.\n\n### What is the current _bug_ behavior?\n\n```\n[git remote -v]\n[git config --get-regexp ^remote\\..*\\.glab-resolved(-base|-head)?$]\nUpdated context gitlab_some_host-my_group_k8s_cluster-dev.\nUsing context gitlab_some_host-my_group_k8s_cluster-dev.\n```\nbut `cat ~/.kube/config` is still blank.\n\n### What is the expected _correct_ behavior?\n\nFill in `~/.kube/config` with the relevant context.\n\n### Possible fixes\n\nCan workaround by setting `$KUBECONFIG` to a non-hidden location e.g. \n```\nexport KUBECONFIG=~/kubeconfig\nglab cluster agent update-kubeconfig --agent 6 -u\n```\nsince this is included in the [home interface](https://snapcraft.io/docs/reference/interfaces/home-interface/) that the snap does have.\n\nActual fix is IMO to add the [personal-files interface](https://snapcraft.io/docs/reference/interfaces/personal-files-interface/) with a write permssions for `~/.kube/config` to the snap.",
-        "state": "closed",
-        "created_at": "2026-05-11T10:35:31.045Z",
-        "updated_at": "2026-10-18T21:15:17.529Z",
-        "closed_at": "2026-10-16T02:02:12.404Z",
-        "closed_by": {
-          "id": 12294975,
-          "username": "jhebden",
-          "public_email": "",
-          "name": "James Hebden",
-          "state": "active",
-          "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/12294975/avatar.png?v=1792368010",
-          "web_url": "https://gitlab.com/jhebden"
-        },
-        "labels": [
-          "automation:ml",
-          "bug::functional",
-          "category:code review workflow",
-          "category:gitlab cli",
-          "devops::ai clients",
-          "group::developer clients",
-          "section::ai",
-          "type::bug",
-          "workflow::complete"
+          "tw::triaged",
+          "type::maintenance"
         ],
         "milestone": null,
         "assignees": [
           {
-            "id": 241647,
-            "username": "rantoniuk",
-            "public_email": "",
-            "name": "Radek Antoniuk",
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
             "state": "active",
             "locked": false,
-            "avatar_url": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
-            "web_url": "https://gitlab.com/rantoniuk"
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
           }
         ],
         "author": {
-          "id": 2046022,
-          "username": "PointyShinyBurning",
+          "id": 11279441,
+          "username": "hacks4oats",
           "public_email": "",
-          "name": "Daniel Key",
-          "state": "active",
+          "name": "Oscar Tovar",
+          "state": "blocked",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/55b09e638496440f571ce3a83db934420e018af607cf3c3dbc2138e3c8b86811?s=80&d=identicon",
-          "web_url": "https://gitlab.com/PointyShinyBurning"
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/11279441/avatar.png?v=1789087001",
+          "web_url": "https://gitlab.com/hacks4oats"
         },
         "type": "ISSUE",
         "assignee": {
-          "id": 241647,
-          "username": "rantoniuk",
-          "public_email": "",
-          "name": "Radek Antoniuk",
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://secure.gravatar.com/avatar/6038a5e5dcb22639c7b07f7fb3515bb99b1a7d699ac2376f16d96b2fdb0094f1?s=80&d=identicon",
-          "web_url": "https://gitlab.com/rantoniuk"
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
         },
-        "user_notes_count": 3,
-        "merge_requests_count": 1,
+        "user_notes_count": 2,
+        "merge_requests_count": 2,
         "upvotes": 0,
         "downvotes": 0,
         "start_date": null,
@@ -273,7 +183,7 @@
         "confidential": false,
         "discussion_locked": null,
         "issue_type": "issue",
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/8304",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/7975",
         "time_stats": {
           "time_estimate": 0,
           "total_time_spent": 0,
@@ -281,23 +191,23 @@
           "human_total_time_spent": null
         },
         "task_completion_status": {
-          "count": 6,
-          "completed_count": 6
+          "count": 1,
+          "completed_count": 0
         },
         "weight": null,
         "blocking_issues_count": 0,
         "has_tasks": false,
         "_links": {
-          "self": "https://gitlab.com/api/v4/projects/34675721/issues/8304",
-          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/8304/notes",
-          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/8304/award_emoji",
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/7975",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/7975/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/7975/award_emoji",
           "project": "https://gitlab.com/api/v4/projects/34675721",
           "closed_as_duplicate_of": null
         },
         "references": {
-          "short": "#8304",
-          "relative": "#8304",
-          "full": "gitlab-org/cli#8304"
+          "short": "#7975",
+          "relative": "#7975",
+          "full": "gitlab-org/cli#7975"
         },
         "severity": "UNKNOWN",
         "moved_to_id": null,
@@ -306,6 +216,111 @@
         "service_desk_reply_to": null,
         "epic_iid": null,
         "epic": null,
+        "iteration": null,
+        "health_status": null
+      },
+      {
+        "id": 161736676,
+        "iid": 7760,
+        "project_id": 34675721,
+        "title": "Add tests for \"fix: make SilentError exit with code 1 as documented\"",
+        "description": "The following discussion from !1859 should be addressed:\n\n- [ ] @michaelangeloio started a [discussion](https://gitlab.com/gitlab-org/cli/-/merge_requests/1859#note_2316190416):  (+1 comment)\n\n    > **non-blocking**: Curious if we should add a check for the exit with the new logic?\n\nAdd tests for:\n\n1. returning from cmd with `SilentError` results in exit code 1 with no message\n2. returning nil from cmd results in error code 0\n3. returning any other error from cmd results in printing the error and error code 1\n\n<!-- implementation plan added during 2026-09 backlog triage -->\n\n## Implementation plan\n\n> **Note:** This plan was drafted during an AI-assisted triage of the backlog and has not been validated by a maintainer. Treat it as a starting point: file paths, line numbers, and the approach may need adjusting.\n\nThe exit-code mapping is three lines of `main()`, so split the work: make the mapping\ntestable in-process, then pin the end-to-end behavior with one subprocess test.\n\n1. In `cmd/glab/main.go`, extract the exit-code decision from the `if err := fang.Execute(...)`\n   block (currently `cmd/glab/main.go:167-180`) into a package-level helper,\n   `func exitCodeForError(err error) int`: return `exitError.Code` when `errors.As(err, &exitError)`\n   matches `*cmdutils.ExitError`, and `1` otherwise. Replace the inline branch with\n   `os.Exit(exitCodeForError(err))`. Behavior is unchanged, this only creates a seam.\n2. Add `TestExitCodeForError` to `cmd/glab/main_test.go` as a table test covering ask 1 and\n   ask 3 at the mapping level: `cmdutils.SilentError` returns 1, `fmt.Errorf(\"x: %w\", cmdutils.SilentError)`\n   returns 1, a plain `errors.New` returns 1, `cmdutils.WrapErrorWithCode(err, 2, \"\")` returns 2,\n   and `cmdutils.CancelError()` returns 2.\n3. Add `TestMain_ExitCodes` to `cmd/glab/main_test.go` for the process-level behavior, following\n   the re-exec precedent already in the repo at `internal/config/flock_test.go:22-50` rather than\n   building a binary from inside the test. Gate the child branch on an env var (for example\n   `GLAB_TEST_MAIN_ARGS`): when it is set, the test sets `os.Args = append([]string{os.Args[0]}, strings.Fields(...)...)`,\n   calls `main()`, and then calls `os.Exit(0)` explicitly so the child's status comes from `main()`\n   and not from goleak's verification in `TestMain`. The parent runs\n   `exec.Command(os.Args[0], \"-test.run\", \"^TestMain_ExitCodes$\")` per case with separate stdout and\n   stderr buffers, and reads the status through `errors.As(err, &exitErr)` plus `exitErr.ExitCode()`.\n4. Give the child a hermetic environment: `GLAB_CONFIG_DIR=<t.TempDir()>`, `GLAB_CHECK_UPDATE=false`,\n   `GLAB_SEND_TELEMETRY=false`, `GLAB_NO_PROMPT=true`, `NO_COLOR=1`, and no `GITLAB_TOKEN`, so the\n   run does not touch the developer's config, the network, or the update check.\n5. Cover the three asks with commands that need no API call:\n   `auth git-credential store` returns `cmdutils.SilentError` from\n   `internal/commands/auth/login/helper.go:71`, so expect exit 1 with both streams empty;\n   `version` returns nil, so expect exit 0; `config get` with no argument fails cobra's\n   `ExactArgs`, so expect exit 1 with the arg-count message on stderr.\n6. Verify with `go test ./cmd/glab/... -run 'TestExitCodeForError|TestMain_ExitCodes' -count=5` and\n   `make test-changed`. No help text, flags, or command descriptions change, so `make gen-docs`\n   is not needed.\n\nNote for whoever picks this up: !3658 already targets the same three asks, but builds a `glab`\nbinary with `go build` from inside the test and adds roughly 230 lines of environment scrubbing.\nReviewing that MR down toward the lighter shape above is likely faster than starting over.",
+        "state": "opened",
+        "created_at": "2025-02-04T16:15:26.203Z",
+        "updated_at": "2026-11-21T05:58:38.436Z",
+        "closed_at": null,
+        "closed_by": null,
+        "labels": [
+          "category:gitlab cli",
+          "devops::ai clients",
+          "group::developer clients",
+          "maintenance::test-gap",
+          "section::ai",
+          "tw::triaged",
+          "type::maintenance"
+        ],
+        "milestone": null,
+        "assignees": [
+          {
+            "id": 39330700,
+            "username": "jhahimanshu653",
+            "public_email": null,
+            "name": "Himanshu Jha",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+            "web_url": "https://gitlab.com/jhahimanshu653"
+          }
+        ],
+        "author": {
+          "id": 907418,
+          "username": "abitrolly",
+          "public_email": "redacted@example.invalid",
+          "name": "Anatoli Babenia",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/907418/avatar.png?v=1795245505",
+          "web_url": "https://gitlab.com/abitrolly"
+        },
+        "type": "ISSUE",
+        "assignee": {
+          "id": 39330700,
+          "username": "jhahimanshu653",
+          "public_email": null,
+          "name": "Himanshu Jha",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://secure.gravatar.com/avatar/7256804a9e07d4093a122ab52809413f75645caf9a676ecb9c6a5bd7cf8e3ba3?s=80&d=identicon",
+          "web_url": "https://gitlab.com/jhahimanshu653"
+        },
+        "user_notes_count": 3,
+        "merge_requests_count": 2,
+        "upvotes": 0,
+        "downvotes": 0,
+        "start_date": null,
+        "due_date": null,
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/work_items/7760",
+        "time_stats": {
+          "time_estimate": 0,
+          "total_time_spent": 0,
+          "human_time_estimate": null,
+          "human_total_time_spent": null
+        },
+        "task_completion_status": {
+          "count": 1,
+          "completed_count": 0
+        },
+        "weight": null,
+        "blocking_issues_count": 0,
+        "has_tasks": false,
+        "_links": {
+          "self": "https://gitlab.com/api/v4/projects/34675721/issues/7760",
+          "notes": "https://gitlab.com/api/v4/projects/34675721/issues/7760/notes",
+          "award_emoji": "https://gitlab.com/api/v4/projects/34675721/issues/7760/award_emoji",
+          "project": "https://gitlab.com/api/v4/projects/34675721",
+          "closed_as_duplicate_of": null
+        },
+        "references": {
+          "short": "#7760",
+          "relative": "#7760",
+          "full": "gitlab-org/cli#7760"
+        },
+        "severity": "UNKNOWN",
+        "moved_to_id": null,
+        "imported": false,
+        "imported_from": "none",
+        "service_desk_reply_to": null,
+        "epic_iid": 24141,
+        "epic": {
+          "id": 5362550,
+          "iid": 24141,
+          "title": "glab test coverage: close unit, integration and platform test gaps",
+          "url": "/groups/gitlab-org/-/epics/24141",
+          "group_id": 9970
+        },
         "iteration": null,
         "health_status": null
       }

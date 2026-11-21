@@ -8,7 +8,7 @@
       "owner": "gitlab-org",
       "name": "cli"
     },
-    "id": "17272413278",
+    "id": "18249232099",
     "run": {
       "forge": "gitlab",
       "instance": "gitlab.com",
@@ -18,14 +18,14 @@
         "owner": "gitlab-org",
         "name": "cli"
       },
-      "id": "2961499559"
+      "id": "3098052813"
     }
   },
-  "name": "workload",
+  "name": "secret-detection-1",
   "state": "success",
   "stateRaw": "success",
-  "stage": "build",
-  "url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+  "stage": "test",
+  "url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232099",
   "startedAt": "<now>",
   "completedAt": "<now>"
 }

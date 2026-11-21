@@ -341,16 +341,16 @@
       "url": "https://gitlab.com/forges-fixtures/forges-fixtures/-/blob/main/forges-fixtures/20261011145203-2.md#L1"
     }
   ],
-  "total": 72,
+  "total": 74,
   "cursor": {
     "nextUrl": "https://gitlab.com/api/v4/projects/forges-fixtures%2Fforges-fixtures/search?id=forges-fixtures%2Fforges-fixtures&page=2&per_page=20&scope=blobs&search=forges-fixtures",
     "etag": "W/\"36a9bb7339e4e9cb716eefee35372d6a\""
   },
   "etag": "W/\"36a9bb7339e4e9cb716eefee35372d6a\"",
   "rateLimit": {
-    "limit": 2000,
-    "remaining": 1998,
+    "limit": 100,
+    "remaining": 97,
     "resetAt": "<now>",
-    "resource": "throttle_authenticated_api"
+    "resource": "burst_traffic_per_user_free_plan"
   }
 }

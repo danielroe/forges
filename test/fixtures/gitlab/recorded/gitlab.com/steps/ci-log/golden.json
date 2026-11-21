@@ -1,18 +1,18 @@
 {
-  "length": 6656,
+  "length": 16384,
   "head": [
-    "2026-10-17T15:18:40.874314Z 00O \u001b[0KRunning with gitlab-runner 19.6.0~pre.2336.g77694893 (77694893)\u001b[0;m",
-    "2026-10-17T15:18:40.874343Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_EazlvAk3from\u001b[0;m",
-    "2026-10-17T15:18:40.874346Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
-    "2026-10-17T15:18:40.874355Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_USE_JOB_ROUTER:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
-    "2026-10-17T15:18:40.874437Z 00O section_start:1792250320:prepare_executor\r\u001b[0K",
-    "2026-10-17T15:18:40.874444Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
-    "2026-10-17T15:18:40.963730Z 00O \u001b[0KUsing Docker executor with image alpine:latest ...\u001b[0;m",
-    "2026-10-17T15:18:40.963801Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-77694893  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.6.0 )\u001b[0;m",
-    "2026-10-17T15:18:40.963815Z 00O \u001b[0KUsing effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-77694893\u001b[0;m",
-    "2026-10-17T15:18:40.964492Z 00O \u001b[0KAuthenticating with credentials from job payload (GitLab Registry)\u001b[0;m",
-    "2026-10-17T15:18:40.964506Z 00O \u001b[0KPulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-77694893 ...\u001b[0;m",
-    "2026-10-17T15:18:42.791473Z 00O \u001b[0KUsing docker image sha256:4cf9a813803cfc19ab4a7f9b53b33fbe779a534e6377cfa58a59631d43305fe0 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-77694893 with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:bbd561f968a58d7d020be43d872b907ce7f7cfab05430fa462a41093a793ed70 ...\u001b[0;m",
-    "2026-10-17T15:18:44.565852Z 00O \u001b[0KUsing helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86"
+    "2026-11-21T19:11:45.391578Z 00O \u001b[0KRunning with gitlab-runner 19.6.0~pre.2678.gd22d8753 (d22d8753)\u001b[0;m",
+    "2026-11-21T19:11:45.391603Z 00O \u001b[0K  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_uUd4irMhde1o\u001b[0;m",
+    "2026-11-21T19:11:45.391606Z 00O \u001b[0K  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387\u001b[0;m",
+    "2026-11-21T19:11:45.391616Z 00O \u001b[0K  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_USE_JOB_ROUTER:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true\u001b[0;m",
+    "2026-11-21T19:11:45.391660Z 00O \u001b[0K\u001b[36;1mResolving secrets\u001b[0;m\u001b[0;m",
+    "2026-11-21T19:11:45.391907Z 00O section_start:1795288305:prepare_executor\r\u001b[0K",
+    "2026-11-21T19:11:45.391912Z 00O+\u001b[0K\u001b[36;1mPreparing the \"docker+machine\" executor\u001b[0;m\u001b[0;m",
+    "2026-11-21T19:11:45.479550Z 00O \u001b[0KUsing Docker executor with image registry.gitlab.com/security-products/gitlab-advanced-secrets:edge ...\u001b[0;m",
+    "2026-11-21T19:11:45.479601Z 00O \u001b[0KUsing helper image:  us-east1-docker.pkg.dev/gitlab-com-artifact-registry/containers-public/gitlab-runner-helper:d22d8753  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.6.0 )\u001b[0;m",
+    "2026-11-21T19:11:45.479612Z 00O \u001b[0KUsing effective pull policy of [always] for container us-east1-docker.pkg.dev/gitlab-com-artifact-registry/containers-public/gitlab-runner-helper:d22d8753\u001b[0;m",
+    "2026-11-21T19:11:45.480205Z 00O \u001b[0KPulling docker image us-east1-docker.pkg.dev/gitlab-com-artifact-registry/containers-public/gitlab-runner-helper:d22d8753 ...\u001b[0;m",
+    "2026-11-21T19:11:46.731679Z 00O \u001b[0KUsing docker image sha256:ea7a461bccb1b352892e9fbbf7430a63c0b9ffacd7b28ae6ca2e786ba4d34de2 for us-east1-docker.pkg.dev/gitlab-com-artifact-registry/containers-public/gitlab-runner-helper:d22d8753 with digest us-east1-docker.pkg.dev/gitlab-com-artifact-registry/containers-public/gitlab-runner-helper@sha256:6fa6131930f0200667b536f3269fa038c09338763e864b80153b7bf0591d5bc8 ...\u001b[0;m",
+    "2026-11-"
   ]
 }

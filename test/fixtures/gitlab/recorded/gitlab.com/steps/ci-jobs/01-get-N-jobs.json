@@ -1,18 +1,18 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?per_page=3"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3098052813/jobs?per_page=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2961499559>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/2961499559/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=2961499559>; rel=\"last\"",
-      "etag": "W/\"dc3a19b7939576947c537d861efe28e4\"",
-      "ratelimit-limit": "2000",
-      "ratelimit-remaining": "1933",
-      "ratelimit-reset": "1792384800",
-      "ratelimit-name": "throttle_authenticated_api",
-      "x-total": "1",
+      "link": "<https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3098052813/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=3098052813>; rel=\"first\", <https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/pipelines/3098052813/jobs?id=gitlab-org%2Fcli&include_retried=false&page=1&per_page=3&pipeline_id=3098052813>; rel=\"last\"",
+      "etag": "W/\"88c0c85997e12c5cb6486f15a1f3ef28\"",
+      "ratelimit-limit": "100",
+      "ratelimit-remaining": "25",
+      "ratelimit-reset": "1795289280",
+      "ratelimit-name": "burst_traffic_per_user_free_plan",
+      "x-total": "3",
       "x-total-pages": "1",
       "x-next-page": "",
       "x-page": "1",
@@ -20,30 +20,29 @@
     },
     "body": [
       {
-        "id": 17272413278,
+        "id": 18249232099,
         "status": "success",
-        "stage": "build",
-        "name": "workload",
-        "ref": "refs/workloads/86279be7d1a",
+        "stage": "test",
+        "name": "secret-detection-1",
+        "ref": "main",
         "tag": false,
         "coverage": null,
-        "allow_failure": false,
-        "created_at": "2026-10-19T03:47:24.028Z",
-        "started_at": "2026-10-19T03:47:24.425Z",
-        "finished_at": "2026-10-19T03:48:30.898Z",
+        "allow_failure": true,
+        "created_at": "2026-11-21T19:11:09.766Z",
+        "started_at": "2026-11-21T19:11:45.050Z",
+        "finished_at": "2026-11-21T19:12:10.179Z",
         "erased_at": null,
-        "duration": 66.473253,
-        "queued_duration": 0.127501,
+        "duration": 25.128552,
+        "queued_duration": 0.054721,
         "user": {
-          "id": 32742181,
-          "username": "duo-code-review-gitlab-org",
+          "id": 21454402,
+          "username": "gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
           "public_email": null,
-          "name": "Duo Code Review",
+          "name": "GitLab Security Policy Bot",
           "state": "active",
           "locked": false,
-          "avatar_url": "https://gitlab.com/uploads/-/system/user/avatar/32742181/code-review-flow.png?v=1792368196",
-          "web_url": "https://gitlab.com/duo-code-review-gitlab-org",
-          "created_at": "2026-01-07T09:48:25.291Z",
+          "avatar_url": "https://gitlab.com/assets/bot_avatars/security-bot-241a265e7365350494d16b6bbd4d753a65cb491734a250786a801a504e123773.png",
+          "web_url": "https://gitlab.com/gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
           "bio": "",
           "location": "",
           "linkedin": "",
@@ -56,52 +55,72 @@
           "organization": "",
           "bot": true,
           "work_information": null,
-          "followers": 0,
-          "following": 0,
           "local_time": null
         },
         "commit": {
-          "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "short_id": "e74ebf81",
-          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "short_id": "0dd7574d",
+          "created_at": "2026-11-20T09:10:22.000-06:00",
           "parent_ids": [
-            "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-            "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+            "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+            "e67e160f5ed26ea4356be1a66589c4e7169e955c"
           ],
-          "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-          "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
-          "author_name": "Jay McCure",
+          "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+          "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T12:02:22.000+10:00",
+          "authored_date": "2026-11-20T09:10:22.000-06:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T12:02:22.000+10:00",
+          "committed_date": "2026-11-20T09:10:22.000-06:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9"
         },
         "pipeline": {
-          "id": 2961499559,
-          "iid": 15548,
+          "id": 3098052813,
+          "iid": 18372,
           "project_id": 34675721,
-          "sha": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "ref": "refs/workloads/86279be7d1a",
+          "sha": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "ref": "main",
           "status": "success",
-          "source": "duo_workflow",
-          "created_at": "2026-10-19T03:47:23.987Z",
-          "updated_at": "2026-10-19T03:48:32.298Z",
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/2961499559"
+          "source": "security_orchestration_policy",
+          "created_at": "2026-11-21T19:11:09.570Z",
+          "updated_at": "2026-11-21T19:17:38.304Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3098052813"
         },
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/17272413278",
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232099",
         "project": {
           "ci_job_token_scope_enabled": false
         },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 784
+        },
         "artifacts": [
           {
+            "file_type": "archive",
+            "size": 784,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 191,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
             "file_type": "trace",
-            "size": 116390,
+            "size": 17036,
             "filename": "job.log",
             "file_format": null
+          },
+          {
+            "file_type": "secret_detection",
+            "size": 1386,
+            "filename": "gl-secret-detection-report.json",
+            "file_format": "raw"
           }
         ],
         "runner": {
@@ -129,23 +148,317 @@
           "job_execution_status": "active"
         },
         "runner_manager": {
-          "id": 163225755,
-          "system_id": "r_0pGmWpFnG2XF",
-          "version": "19.6.0~pre.2336.g77694893",
-          "revision": "77694893",
+          "id": 172101881,
+          "system_id": "r_uUd4irMhde1o",
+          "version": "19.6.0~pre.2678.gd22d8753",
+          "revision": "d22d8753",
           "platform": "linux",
           "architecture": "amd64",
-          "created_at": "2026-10-16T16:25:32.520Z",
-          "contacted_at": "2026-10-19T04:39:18.537Z",
-          "ip_address": "10.218.11.3",
+          "created_at": "2026-11-19T11:51:54.505Z",
+          "contacted_at": "2026-11-21T19:27:38.684Z",
+          "ip_address": "10.218.11.35",
           "status": "online",
           "job_execution_status": "active"
         },
-        "artifacts_expire_at": null,
+        "artifacts_expire_at": "2026-12-21T19:12:09.422Z",
         "archived": false,
-        "tag_list": [
-          "gitlab--duo"
-        ]
+        "tag_list": []
+      },
+      {
+        "id": 18249232098,
+        "status": "success",
+        "stage": "test",
+        "name": "gitlab-advanced-sast-0",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-11-21T19:11:09.766Z",
+        "started_at": "2026-11-21T19:11:45.004Z",
+        "finished_at": "2026-11-21T19:17:36.961Z",
+        "erased_at": null,
+        "duration": 351.95716,
+        "queued_duration": 0.066836,
+        "user": {
+          "id": 21454402,
+          "username": "gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
+          "public_email": null,
+          "name": "GitLab Security Policy Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/assets/bot_avatars/security-bot-241a265e7365350494d16b6bbd4d753a65cb491734a250786a801a504e123773.png",
+          "web_url": "https://gitlab.com/gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
+          "bio": "",
+          "location": "",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "",
+          "pronouns": null,
+          "organization": "",
+          "bot": true,
+          "work_information": null,
+          "local_time": null
+        },
+        "commit": {
+          "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "short_id": "0dd7574d",
+          "created_at": "2026-11-20T09:10:22.000-06:00",
+          "parent_ids": [
+            "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+            "e67e160f5ed26ea4356be1a66589c4e7169e955c"
+          ],
+          "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+          "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T09:10:22.000-06:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T09:10:22.000-06:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9"
+        },
+        "pipeline": {
+          "id": 3098052813,
+          "iid": 18372,
+          "project_id": 34675721,
+          "sha": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "ref": "main",
+          "status": "success",
+          "source": "security_orchestration_policy",
+          "created_at": "2026-11-21T19:11:09.570Z",
+          "updated_at": "2026-11-21T19:17:38.304Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3098052813"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232098",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 12351
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 12351,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 181,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 39712,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "sast",
+            "size": 171433,
+            "filename": "gl-sast-report.json",
+            "file_format": "raw"
+          }
+        ],
+        "runner": {
+          "id": 54907241,
+          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 6515150,
+            "username": "rhassanein-admin",
+            "public_email": "",
+            "name": "Rehab Hassanein",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+            "web_url": "https://gitlab.com/rhassanein-admin"
+          },
+          "created_at": "2026-08-06T11:12:30.404Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 172100876,
+          "system_id": "r_h3JeX110BtPg",
+          "version": "19.6.0~pre.2678.gd22d8753",
+          "revision": "d22d8753",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-19T11:47:33.828Z",
+          "contacted_at": "2026-11-21T19:27:38.642Z",
+          "ip_address": "10.218.11.35",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-12-21T19:17:36.209Z",
+        "archived": false,
+        "tag_list": []
+      },
+      {
+        "id": 18249232097,
+        "status": "success",
+        "stage": "application-security-testing",
+        "name": "dependency-scanning-profile-0",
+        "ref": "main",
+        "tag": false,
+        "coverage": null,
+        "allow_failure": true,
+        "created_at": "2026-11-21T19:11:09.766Z",
+        "started_at": "2026-11-21T19:11:10.270Z",
+        "finished_at": "2026-11-21T19:11:43.680Z",
+        "erased_at": null,
+        "duration": 33.409961,
+        "queued_duration": 0.075905,
+        "user": {
+          "id": 21454402,
+          "username": "gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
+          "public_email": null,
+          "name": "GitLab Security Policy Bot",
+          "state": "active",
+          "locked": false,
+          "avatar_url": "https://gitlab.com/assets/bot_avatars/security-bot-241a265e7365350494d16b6bbd4d753a65cb491734a250786a801a504e123773.png",
+          "web_url": "https://gitlab.com/gitlab_security_policy_project_34675721_bot_266b7ee6cc0d6bc7dcac2eb5483644a5",
+          "bio": "",
+          "location": "",
+          "linkedin": "",
+          "twitter": "",
+          "discord": "",
+          "website_url": "",
+          "github": "",
+          "job_title": "",
+          "pronouns": null,
+          "organization": "",
+          "bot": true,
+          "work_information": null,
+          "local_time": null
+        },
+        "commit": {
+          "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "short_id": "0dd7574d",
+          "created_at": "2026-11-20T09:10:22.000-06:00",
+          "parent_ids": [
+            "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+            "e67e160f5ed26ea4356be1a66589c4e7169e955c"
+          ],
+          "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+          "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T09:10:22.000-06:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T09:10:22.000-06:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9"
+        },
+        "pipeline": {
+          "id": 3098052813,
+          "iid": 18372,
+          "project_id": 34675721,
+          "sha": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "ref": "main",
+          "status": "success",
+          "source": "security_orchestration_policy",
+          "created_at": "2026-11-21T19:11:09.570Z",
+          "updated_at": "2026-11-21T19:17:38.304Z",
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/pipelines/3098052813"
+        },
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/jobs/18249232097",
+        "project": {
+          "ci_job_token_scope_enabled": false
+        },
+        "artifacts_file": {
+          "filename": "artifacts.zip",
+          "size": 13173
+        },
+        "artifacts": [
+          {
+            "file_type": "archive",
+            "size": 13173,
+            "filename": "artifacts.zip",
+            "file_format": "zip"
+          },
+          {
+            "file_type": "metadata",
+            "size": 300,
+            "filename": "metadata.gz",
+            "file_format": "gzip"
+          },
+          {
+            "file_type": "trace",
+            "size": 20956,
+            "filename": "job.log",
+            "file_format": null
+          },
+          {
+            "file_type": "dependency_scanning",
+            "size": 21135,
+            "filename": "gl-dependency-scanning-report.json",
+            "file_format": "raw"
+          },
+          {
+            "file_type": "cyclonedx",
+            "size": 8263,
+            "filename": "gl-sbom.cdx.json.gz",
+            "file_format": "gzip"
+          }
+        ],
+        "runner": {
+          "id": 54907241,
+          "description": "k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default ",
+          "ip_address": null,
+          "active": true,
+          "paused": false,
+          "is_shared": true,
+          "runner_type": "instance_type",
+          "name": null,
+          "online": true,
+          "created_by": {
+            "id": 6515150,
+            "username": "rhassanein-admin",
+            "public_email": "",
+            "name": "Rehab Hassanein",
+            "state": "active",
+            "locked": false,
+            "avatar_url": "https://secure.gravatar.com/avatar/f666d7b03304319b77d3e0eef49a7ea0f3f97f813536109786338b6468d7d34f?s=80&d=identicon",
+            "web_url": "https://gitlab.com/rhassanein-admin"
+          },
+          "created_at": "2026-08-06T11:12:30.404Z",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "runner_manager": {
+          "id": 172101879,
+          "system_id": "r_fXQhnLgacGcs",
+          "version": "19.6.0~pre.2678.gd22d8753",
+          "revision": "d22d8753",
+          "platform": "linux",
+          "architecture": "amd64",
+          "created_at": "2026-11-19T11:51:53.559Z",
+          "contacted_at": "2026-11-21T19:27:38.867Z",
+          "ip_address": "10.218.11.50",
+          "status": "online",
+          "job_execution_status": "active"
+        },
+        "artifacts_expire_at": "2026-12-21T19:11:42.868Z",
+        "archived": false,
+        "tag_list": []
       }
     ]
   }

@@ -1,183 +1,262 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/compare?from=0c70d17a21abdb54ba58828aca394a582d0b3f79&to=main"
+    "url": "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/repository/compare?from=80ead1ab1696b9974b3a903e67ee1b9d0eda9e7a&to=main"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"198c0e57f6aba3d0f5905efb8f36919d\"",
+      "etag": "W/\"3ce3ebb8227f60221cb66dac312e21f6\"",
       "ratelimit-limit": "500",
-      "ratelimit-remaining": "436",
-      "ratelimit-reset": "1792384860",
+      "ratelimit-remaining": "434",
+      "ratelimit-reset": "1795289400",
       "ratelimit-name": "throttle_unauthenticated_api"
     },
     "body": {
       "commit": {
-        "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-        "short_id": "e74ebf81",
-        "created_at": "2026-10-19T12:02:22.000+10:00",
+        "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+        "short_id": "0dd7574d",
+        "created_at": "2026-11-20T09:10:22.000-06:00",
         "parent_ids": [
-          "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-          "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+          "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+          "e67e160f5ed26ea4356be1a66589c4e7169e955c"
         ],
-        "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-        "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
-        "author_name": "Jay McCure",
+        "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+        "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+        "author_name": "Kai Armstrong",
         "author_email": "redacted@example.invalid",
-        "authored_date": "2026-10-19T12:02:22.000+10:00",
+        "authored_date": "2026-11-20T09:10:22.000-06:00",
         "committer_name": "GitLab",
         "committer_email": "redacted@example.invalid",
-        "committed_date": "2026-10-19T12:02:22.000+10:00",
+        "committed_date": "2026-11-20T09:10:22.000-06:00",
         "trailers": {},
         "extended_trailers": {},
-        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+        "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9"
       },
       "commits": [
         {
-          "id": "fab36a75f5e21664548604036d395bf6d52276df",
-          "short_id": "fab36a75",
-          "created_at": "2026-10-16T15:09:58.000+00:00",
+          "id": "1339650f2545dd2a1c7d920769d7cf5136d72598",
+          "short_id": "1339650f",
+          "created_at": "2026-11-20T12:05:59.000+01:00",
           "parent_ids": [
-            "ce99c24356c3599f5b5a8c1265e88facc966732a"
+            "b886e4f05dc51556f9c485843744b337b17d71a2"
           ],
-          "title": "chore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10",
-          "message": "chore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n",
+          "title": "feat(stack): support merge request description templates",
+          "message": "feat(stack): support merge request description templates\n",
+          "author_name": "Himanshu Jha",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T11:05:59.000+00:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T12:05:59.000+01:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/1339650f2545dd2a1c7d920769d7cf5136d72598"
+        },
+        {
+          "id": "421edf5d08177ca48282d4a2885a565eb703cc4a",
+          "short_id": "421edf5d",
+          "created_at": "2026-11-20T12:06:00.000+01:00",
+          "parent_ids": [
+            "1485b97fd3e9cda3a3ee579bfa348306c943c74b",
+            "1339650f2545dd2a1c7d920769d7cf5136d72598"
+          ],
+          "title": "Merge branch 'feat-8751-stack-sync-template' into 'main'",
+          "message": "Merge branch 'feat-8751-stack-sync-template' into 'main'\n\nfeat(stack): support merge request description templates\n\nCloses #8751\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4508\n\nMerged-by: Tomas Vik <redacted@example.invalid>\nApproved-by: Vitali Tatarintev <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Tomas Vik <redacted@example.invalid>\nReviewed-by: Tomas Vik <redacted@example.invalid>\nReviewed-by: Vitali Tatarintev <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Himanshu Jha <redacted@example.invalid>",
+          "author_name": "Tomas Vik",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T12:06:00.000+01:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T12:06:00.000+01:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/421edf5d08177ca48282d4a2885a565eb703cc4a"
+        },
+        {
+          "id": "f407f204311916e4829f513c9a4d3efdbc4acb8c",
+          "short_id": "f407f204",
+          "created_at": "2026-11-20T11:32:33.000+00:00",
+          "parent_ids": [
+            "13cbf18ebe956a6d0b392b6221c213c818892d56"
+          ],
+          "title": "fix(df): harden the proxy's policy checks and shutdown",
+          "message": "fix(df): harden the proxy's policy checks and shutdown\n",
+          "author_name": "Hannah Baker",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T11:32:33.000+00:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T11:32:33.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/f407f204311916e4829f513c9a4d3efdbc4acb8c"
+        },
+        {
+          "id": "b923f6be9a6d73112ca53e7a6b7b34153dfd2a16",
+          "short_id": "b923f6be",
+          "created_at": "2026-11-20T11:32:33.000+00:00",
+          "parent_ids": [
+            "421edf5d08177ca48282d4a2885a565eb703cc4a",
+            "f407f204311916e4829f513c9a4d3efdbc4acb8c"
+          ],
+          "title": "Merge branch '637331-df-proxy-hardening' into 'main'",
+          "message": "Merge branch '637331-df-proxy-hardening' into 'main'\n\nfix(df): harden the proxy's policy checks and shutdown\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4449\n\nMerged-by: Hannah Baker <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Arpit Gogia <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nReviewed-by: Hannah Baker <redacted@example.invalid>\n",
+          "author_name": "Hannah Baker",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T11:32:33.000+00:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T11:32:33.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/b923f6be9a6d73112ca53e7a6b7b34153dfd2a16"
+        },
+        {
+          "id": "f0242b18bf71323b8a25c16e35a9f94dec81d9e6",
+          "short_id": "f0242b18",
+          "created_at": "2026-11-20T13:58:50.000+00:00",
+          "parent_ids": [
+            "b923f6be9a6d73112ca53e7a6b7b34153dfd2a16"
+          ],
+          "title": "fix(df): keep the system CAs in the proxy CA bundle",
+          "message": "fix(df): keep the system CAs in the proxy CA bundle\n",
+          "author_name": "Arpit Gogia",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T19:28:50.000+05:30",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T13:58:50.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/f0242b18bf71323b8a25c16e35a9f94dec81d9e6"
+        },
+        {
+          "id": "7ea9c2ebc41c0e78d226a85e8c8bb029fc746a1b",
+          "short_id": "7ea9c2eb",
+          "created_at": "2026-11-20T13:58:52.000+00:00",
+          "parent_ids": [
+            "b923f6be9a6d73112ca53e7a6b7b34153dfd2a16",
+            "f0242b18bf71323b8a25c16e35a9f94dec81d9e6"
+          ],
+          "title": "Merge branch 'df-ca-bundle-system-roots' into 'main'",
+          "message": "Merge branch 'df-ca-bundle-system-roots' into 'main'\n\nfix(df): keep the system CAs in the proxy CA bundle\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4514\n\nMerged-by: Hannah Baker <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Hannah Baker <redacted@example.invalid>\nReviewed-by: Hannah Baker <redacted@example.invalid>\nCo-authored-by: Arpit Gogia <redacted@example.invalid>",
+          "author_name": "Hannah Baker",
+          "author_email": "redacted@example.invalid",
+          "authored_date": "2026-11-20T13:58:52.000+00:00",
+          "committer_name": "GitLab",
+          "committer_email": "redacted@example.invalid",
+          "committed_date": "2026-11-20T13:58:52.000+00:00",
+          "trailers": {},
+          "extended_trailers": {},
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/7ea9c2ebc41c0e78d226a85e8c8bb029fc746a1b"
+        },
+        {
+          "id": "f9a5071b070a2e21e71449d5d59dc1e7d07c1ed5",
+          "short_id": "f9a5071b",
+          "created_at": "2026-11-20T14:13:24.000+00:00",
+          "parent_ids": [
+            "b923f6be9a6d73112ca53e7a6b7b34153dfd2a16"
+          ],
+          "title": "chore(deps): update module gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow to v0.1.17",
+          "message": "chore(deps): update module gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow to v0.1.17\n",
           "author_name": "GitLab Dependency Bot",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-16T15:09:58.000+00:00",
+          "authored_date": "2026-11-20T14:13:24.000+00:00",
           "committer_name": "GitLab Dependency Bot",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-16T15:09:58.000+00:00",
+          "committed_date": "2026-11-20T14:13:24.000+00:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/fab36a75f5e21664548604036d395bf6d52276df"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/f9a5071b070a2e21e71449d5d59dc1e7d07c1ed5"
         },
         {
-          "id": "9c9cfb84395dd355c0d71448d16f97e9d8edd671",
-          "short_id": "9c9cfb84",
-          "created_at": "2026-10-17T12:43:36.000+11:00",
+          "id": "ebd2b68342ba7c9cf1dd4f1463aa8ef519482b30",
+          "short_id": "ebd2b683",
+          "created_at": "2026-11-20T15:24:55.000+01:00",
           "parent_ids": [
-            "a300719a2aac26acb25eee65fe08398188c99a0e"
+            "7ea9c2ebc41c0e78d226a85e8c8bb029fc746a1b",
+            "80ead1ab1696b9974b3a903e67ee1b9d0eda9e7a"
           ],
-          "title": "perf(api): reuse connections across API clients",
-          "message": "perf(api): reuse connections across API clients\n\nEvery api.NewClient call built its own http.Transport, so each\nFactory.GitLabClient() / Factory.ApiClient() call paid for a new TCP and\nTLS handshake. `glab mr view 1` used three connections for its three\nrequests (MR lookup, approvals, telemetry).\n\nThe factory now owns an api.TransportCache, and clients it builds share\none transport whenever their transport settings (proxy, CA, client\ncertificate, skip_tls_verify, gitlab.com cipher suites) match. A\nper-client wrapper hides CloseIdleConnections, which go-retryablehttp\ncalls after failed requests, so one client cannot drain the shared pool.\nClients built outside the factory keep a private transport.\n\nAt 50ms RTT against a mock GitLab: mr view 399ms -> 275ms,\nmr list 276ms -> 214ms.\n",
-          "author_name": "Mikhail Mazurskiy",
+          "title": "Merge branch '8776-sync-from-setup' into 'main'",
+          "message": "Merge branch '8776-sync-from-setup' into 'main'\n\nfeat(minder): upload only agent activity from after setup\n\nCloses #8776\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4512\n\nMerged-by: Tomas Vik <redacted@example.invalid>\nApproved-by: Tomas Vik <redacted@example.invalid>\nReviewed-by: Tomas Vik <redacted@example.invalid>\nCo-authored-by: Jean van der Walt <redacted@example.invalid>",
+          "author_name": "Tomas Vik",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-17T12:07:17.000+11:00",
-          "committer_name": "Mikhail Mazurskiy",
-          "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-17T12:43:36.000+11:00",
-          "trailers": {},
-          "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/9c9cfb84395dd355c0d71448d16f97e9d8edd671"
-        },
-        {
-          "id": "74931758500a9c66e56ca2c443a0c2a987c5923f",
-          "short_id": "74931758",
-          "created_at": "2026-10-17T12:43:36.000+11:00",
-          "parent_ids": [
-            "9c9cfb84395dd355c0d71448d16f97e9d8edd671"
-          ],
-          "title": "perf(api): keep up to 25 idle connections per host",
-          "message": "perf(api): keep up to 25 idle connections per host\n\nClients from one factory now share a transport, so concurrent fan-out\n(MRsFromArgs, IssuesFromArgs) draws on a single pool. Go's default of\ntwo idle connections per host closed the rest after each round and made\nthe next round dial again over HTTP/1.1. 25 matches client-go's shared\nTLS transport cache.\n",
-          "author_name": "Mikhail Mazurskiy",
-          "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-17T12:07:54.000+11:00",
-          "committer_name": "Mikhail Mazurskiy",
-          "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-17T12:43:36.000+11:00",
-          "trailers": {},
-          "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/74931758500a9c66e56ca2c443a0c2a987c5923f"
-        },
-        {
-          "id": "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-          "short_id": "6f512fe3",
-          "created_at": "2026-10-19T11:14:45.000+10:00",
-          "parent_ids": [
-            "0c70d17a21abdb54ba58828aca394a582d0b3f79",
-            "fab36a75f5e21664548604036d395bf6d52276df"
-          ],
-          "title": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'",
-          "message": "Merge branch 'renovate/github.com-docker-docker-credential-helpers-0.x' into 'main'\n\nchore(deps): update module github.com/docker/docker-credential-helpers to v0.9.10\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4133\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
-          "author_name": "Jay McCure",
-          "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T11:14:45.000+10:00",
+          "authored_date": "2026-11-20T15:24:55.000+01:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T11:14:45.000+10:00",
+          "committed_date": "2026-11-20T15:24:55.000+01:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/6f512fe3ef14c70281a68b1d9518be54ad8bf4e7"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/ebd2b68342ba7c9cf1dd4f1463aa8ef519482b30"
         },
         {
-          "id": "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-          "short_id": "5573de7d",
-          "created_at": "2026-10-19T11:56:01.000+10:00",
+          "id": "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+          "short_id": "2ccaf14a",
+          "created_at": "2026-11-20T15:44:37.000+01:00",
           "parent_ids": [
-            "6f512fe3ef14c70281a68b1d9518be54ad8bf4e7",
-            "74931758500a9c66e56ca2c443a0c2a987c5923f"
+            "ebd2b68342ba7c9cf1dd4f1463aa8ef519482b30",
+            "f9a5071b070a2e21e71449d5d59dc1e7d07c1ed5"
           ],
-          "title": "Merge branch 'ash2k/perf-share-http-transport' into 'main'",
-          "message": "Merge branch 'ash2k/perf-share-http-transport' into 'main'\n\nperf(api): reuse connections across API clients\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4139\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Mikhail Mazurskiy <redacted@example.invalid>",
-          "author_name": "Jay McCure",
+          "title": "Merge branch 'renovate/gitlab.com-gitlab-org-protos-gen-go-gitlab-autoflow-0.x' into 'main'",
+          "message": "Merge branch 'renovate/gitlab.com-gitlab-org-protos-gen-go-gitlab-autoflow-0.x' into 'main'\n\nchore(deps): update module gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow to v0.1.17\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4516\n\nMerged-by: Timo Furrer <redacted@example.invalid>\nApproved-by: Timo Furrer <redacted@example.invalid>\nCo-authored-by: GitLab Dependency Bot <redacted@example.invalid>",
+          "author_name": "Timo Furrer",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T11:56:01.000+10:00",
+          "authored_date": "2026-11-20T15:44:37.000+01:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T11:56:01.000+10:00",
+          "committed_date": "2026-11-20T15:44:37.000+01:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/5573de7d6e2fcca141eacf6052ec746bf245bf0a"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d"
         },
         {
-          "id": "d5034f1360ab44a22989cd0d4c97f1bf97214759",
-          "short_id": "d5034f13",
-          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "id": "e67e160f5ed26ea4356be1a66589c4e7169e955c",
+          "short_id": "e67e160f",
+          "created_at": "2026-11-20T09:10:17.000-06:00",
           "parent_ids": [
-            "a300719a2aac26acb25eee65fe08398188c99a0e"
+            "2b5d4bcb95432a7502d413b96ad78efa47e037f9"
           ],
-          "title": "feat(issue): add date filters to issue list",
-          "message": "feat(issue): add date filters to issue list\n",
-          "author_name": "Hamza Hassanain",
+          "title": "chore: Remove gitlab-bot approvals",
+          "message": "chore: Remove gitlab-bot approvals\n",
+          "author_name": "Matt Nohr",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T05:02:22.000+03:00",
+          "authored_date": "2026-11-20T09:10:17.000-06:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T12:02:22.000+10:00",
+          "committed_date": "2026-11-20T09:10:17.000-06:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/d5034f1360ab44a22989cd0d4c97f1bf97214759"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e67e160f5ed26ea4356be1a66589c4e7169e955c"
         },
         {
-          "id": "e74ebf81debb9e3d1eec70a7e4a82a15031315ad",
-          "short_id": "e74ebf81",
-          "created_at": "2026-10-19T12:02:22.000+10:00",
+          "id": "0dd7574dce9e385c5c30540e6c15657adc6bdce9",
+          "short_id": "0dd7574d",
+          "created_at": "2026-11-20T09:10:22.000-06:00",
           "parent_ids": [
-            "5573de7d6e2fcca141eacf6052ec746bf245bf0a",
-            "d5034f1360ab44a22989cd0d4c97f1bf97214759"
+            "2ccaf14a5288bd71ac33ee03442cf1c0a6a2426d",
+            "e67e160f5ed26ea4356be1a66589c4e7169e955c"
           ],
-          "title": "Merge branch '8593-issue-list-date-filters' into 'main'",
-          "message": "Merge branch '8593-issue-list-date-filters' into 'main'\n\nfeat(issue): add date filters to issue list\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4063\n\nMerged-by: Jay McCure <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Jay McCure <redacted@example.invalid>\nReviewed-by: GitLab Duo <redacted@example.invalid>\nCo-authored-by: Hamza Hassanain <redacted@example.invalid>",
-          "author_name": "Jay McCure",
+          "title": "Merge branch 'mnohr-main-patch-edf1' into 'main'",
+          "message": "Merge branch 'mnohr-main-patch-edf1' into 'main'\n\nchore: Remove gitlab-bot approvals\n\nSee merge request https://gitlab.com/gitlab-org/cli/-/merge_requests/4489\n\nMerged-by: Kai Armstrong <redacted@example.invalid>\nApproved-by: GitLab Duo <redacted@example.invalid>\nApproved-by: Kai Armstrong <redacted@example.invalid>\nCo-authored-by: Matt Nohr <redacted@example.invalid>",
+          "author_name": "Kai Armstrong",
           "author_email": "redacted@example.invalid",
-          "authored_date": "2026-10-19T12:02:22.000+10:00",
+          "authored_date": "2026-11-20T09:10:22.000-06:00",
           "committer_name": "GitLab",
           "committer_email": "redacted@example.invalid",
-          "committed_date": "2026-10-19T12:02:22.000+10:00",
+          "committed_date": "2026-11-20T09:10:22.000-06:00",
           "trailers": {},
           "extended_trailers": {},
-          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+          "web_url": "https://gitlab.com/gitlab-org/cli/-/commit/0dd7574dce9e385c5c30540e6c15657adc6bdce9"
         }
       ],
       "diffs": [
         {
-          "diff": "@@ -34,6 +34,7 @@ glab incident list --all\n glab incident ls --all\n glab incident list --assignee=@me\n glab incident list --milestone release-2.0.0 --opened\n+glab incident list --updated-after 2026-10-01T00:00:00Z\n ```\n \n ## Options\n@@ -44,6 +45,8 @@ glab incident list --milestone release-2.0.0 --opened\n       --author string          Filter incident by author <username>.\n   -c, --closed                 Get only closed incidents.\n   -C, --confidential           Filter by confidential incidents.\n+      --created-after time     Filter incidents created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --created-before time    Filter incidents created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n   -e, --epic int               List issues belonging to a given epic (requires --group, no pagination support).\n   -g, --group string           Select a group or subgroup. Ignored if a repo argument is set.\n       --in string              Search in: title, description. (default \"title,description\")\n@@ -61,6 +64,8 @@ glab incident list --milestone release-2.0.0 --opened\n   -R, --repo string            Select another repository. You can use either OWNER/REPO or GROUP/NAMESPACE/REPO. The full URL or Git URL is also accepted.\n       --search string          Search <string> in the fields defined by '--in'.\n   -s, --sort string            Sort direction for --order field: asc or desc. (default \"desc\")\n+      --updated-after time     Filter incidents updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --updated-before time    Filter incidents updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n ```\n \n ## Options inherited from parent commands\n",
+          "diff": "@@ -5,11 +5,6 @@\n # a later pattern replaces the owners of an earlier one rather than adding to\n # them.\n #\n-# @gitlab-bot approves on Duo Code Review's behalf (triage-ops), so it owns\n-# only the code paths. Everything else, including governance, agent, CI,\n-# release and dependency files, needs a maintainer. It also owns docs/ and\n-# README.md, much of which `make gen-docs` generates from code.\n-#\n # Documentation is owned jointly so technical writing can approve a docs-only\n # change without a maintainer.\n #\n@@ -18,12 +13,12 @@\n # The CLI maintainers are co-owners only so they can unblock a release.\n \n * @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers\n-/cmd/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-bot\n-/internal/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-bot\n-/test/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-bot\n-/README.md @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gl-docsteam @gitlab-bot\n+/cmd/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers\n+/internal/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers\n+/test/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers\n+/README.md @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gl-docsteam\n /CONTRIBUTING.md @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gl-docsteam\n-/docs/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gl-docsteam @gitlab-bot\n+/docs/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gl-docsteam\n .markdownlint-cli2.yaml @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-org/technical-writing/tw-docops @gitlab-org/tw-leadership\n /docs/.vale/ @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-org/technical-writing/tw-docops @gitlab-org/tw-leadership\n /docs/.rumdl/rumdl.toml @gitlab-com/ai-engineering/ai-coding/teams/gitlab-cli-maintainers @gitlab-org/technical-writing/tw-docops @gitlab-org/tw-leadership\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "docs/source/incident/list.md",
-          "old_path": "docs/source/incident/list.md",
+          "new_path": ".gitlab/CODEOWNERS",
+          "old_path": ".gitlab/CODEOWNERS",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -186,11 +265,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -34,6 +34,7 @@ glab issue list --all\n glab issue ls --all\n glab issue list --assignee=@me\n glab issue list --milestone release-2.0.0 --opened\n+glab issue list --updated-after 2026-10-01T00:00:00Z\n ```\n \n ## Options\n@@ -44,6 +45,8 @@ glab issue list --milestone release-2.0.0 --opened\n       --author string          Filter issue by author <username>.\n   -c, --closed                 Get only closed issues.\n   -C, --confidential           Filter by confidential issues.\n+      --created-after time     Filter issues created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --created-before time    Filter issues created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n   -e, --epic int               List issues belonging to a given epic (requires --group, no pagination support).\n   -g, --group string           Select a group or subgroup. Ignored if a repo argument is set.\n       --in string              Search in: title, description. (default \"title,description\")\n@@ -63,6 +66,8 @@ glab issue list --milestone release-2.0.0 --opened\n   -R, --repo string            Select another repository. You can use either OWNER/REPO or GROUP/NAMESPACE/REPO. The full URL or Git URL is also accepted.\n       --search string          Search <string> in the fields defined by '--in'.\n   -s, --sort string            Sort direction for --order field: asc or desc. (default \"desc\")\n+      --updated-after time     Filter issues updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n+      --updated-before time    Filter issues updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\n ```\n \n ## Options inherited from parent commands\n",
+          "diff": "@@ -32,7 +32,9 @@ Evaluation results are cached for the length of a run, so a package that appears\n \n If GitLab can't evaluate a package, the command blocks it. If the Dependency Firewall isn't evaluating the project, the command allows every package.\n \n-The command does not change your registry configuration. For the length of the run, it sets environment variables that route the package manager's traffic through the proxy and make the package manager trust the proxy certificate. Your existing CA bundles stay trusted.\n+The proxy checks only the requests it recognizes as package downloads and uploads. It forwards every other request to the host the package manager asked for, so it is not an egress filter and does not limit which hosts the package manager can reach.\n+\n+The command does not change your registry configuration. For the length of the run, it sets environment variables that route the package manager's traffic through the proxy and make the package manager trust the proxy certificate. Your existing CA bundles stay trusted. The CA bundle the command gives the package manager also holds your system's trusted certificates.\n \n To reach package registries, the proxy uses the outbound proxy in `HTTPS_PROXY`, including any credentials in its URL. For plain-HTTP registries it uses `HTTP_PROXY` instead, when that's set. For npm and pnpm, `HTTPS_PROXY` takes precedence over `HTTP_PROXY` for plain-HTTP registries too, matching those tools. It connects directly to the hosts listed in `NO_PROXY`. The `proxy` setting in your glab configuration applies only to GitLab API calls.\n \n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "docs/source/issue/list.md",
-          "old_path": "docs/source/issue/list.md",
+          "new_path": "docs/source/dependency-firewall/_index.md",
+          "old_path": "docs/source/dependency-firewall/_index.md",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -199,7 +278,20 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -18,7 +18,7 @@ require (\n \tgithub.com/d2lang/d2 v0.9.0\n \tgithub.com/denisbrodbeck/machineid v1.0.1\n \tgithub.com/docker/cli v29.9.0+incompatible\n-\tgithub.com/docker/docker-credential-helpers v0.9.9\n+\tgithub.com/docker/docker-credential-helpers v0.9.10\n \tgithub.com/dustin/go-humanize v1.1.0\n \tgithub.com/gdamore/tcell/v2 v2.13.10\n \tgithub.com/golang-jwt/jwt/v5 v5.3.1\n",
+          "diff": "@@ -17,6 +17,7 @@ Push the stack to GitLab, and create or update its merge requests. (EXPERIMENTAL\n Updates GitLab to match your local stack:\n \n - Creates a merge request for each diff without one, unless `--skip-mr-creation` or `--skip-push` is set. Each merge request targets the branch of the previous diff, or the base branch for the first diff.\n+- With `--template`, uses the template for each new merge request and appends that diff's commit message body. Ignores the template when `--skip-push` or `--skip-mr-creation` is set.\n - Pulls changes made on GitLab, such as applied suggestions, into any diff whose branch is behind its remote.\n - If you amended a diff since the last sync, rebases the diffs after it. Then, unless `--skip-push` is set, force-pushes the stack's branches.\n - Removes diffs with merged merge requests and deletes their local branches. Keeps diffs with closed merge requests.\n@@ -42,6 +43,7 @@ glab stack sync --skip-push\n glab stack sync --skip-mr-creation\n glab stack sync --assignee user1,user2\n glab stack sync --label bug,priority::high\n+glab stack sync --template Review\n glab stack sync --reviewer user1 --reviewer user2\n ```\n \n@@ -54,6 +56,7 @@ glab stack sync --reviewer user1 --reviewer user2\n       --reviewer usernames   Request review from users by their usernames. Multiple usernames can be comma-separated or specified by repeating the flag.\n       --skip-mr-creation     Skip creating merge requests for branches that don't have one yet.\n       --skip-push            Rebase the stack locally without pushing branches or creating merge requests. Still fetches from the remote and calls the GitLab API.\n+      --template name        Template for new merge requests. A name is looked up in '.gitlab/merge_request_templates/' of the local repository, and the '.md' extension is optional. A value that is absolute or contains a path separator is read as a file path.\n       --update-base          Rebase the stack onto the latest version of the base branch.\n ```\n \n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "docs/source/stack/sync.md",
+          "old_path": "docs/source/stack/sync.md",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -50,7 +50,7 @@ require (\n \tgithub.com/yuin/goldmark/v2 v2.1.15\n \tgithub.com/zalando/go-keyring v0.2.8\n \tgitlab.com/gitlab-org/api/client-go/v3 v3.52.0\n-\tgitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.16\n+\tgitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.17\n \tgitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow/rpc v0.1.10\n \tgo.uber.org/goleak v1.3.0\n \tgo.uber.org/mock v0.6.0\n",
           "collapsed": false,
           "too_large": false,
           "new_path": "go.mod",
@@ -212,7 +304,7 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -110,8 +110,8 @@ github.com/dlclark/regexp2/v2 v2.6.0 h1:KugbSrpXcRpziHIcqqFEXwKwi09LbPkTzvLRItf2\n github.com/dlclark/regexp2/v2 v2.6.0/go.mod h1:avUrQvPaLz2DrFNHJF0taWAFFX2C1GMSSoeiqFjcBmU=\n github.com/docker/cli v29.9.0+incompatible h1:Cw9x50ioSGgGwXJ4eO+hIBry/w3LLbyF8GPAEKz1fnE=\n github.com/docker/cli v29.9.0+incompatible/go.mod h1:JLrzqnKDaYBop7H2jaqPtU4hHvMKP+vjCwu2uszcLI8=\n-github.com/docker/docker-credential-helpers v0.9.9 h1:BkydjIgZ46JnDbqyM2p2fc63KMw6y+KHL3Em/2AGJ7w=\n-github.com/docker/docker-credential-helpers v0.9.9/go.mod h1:v1S+hepowrQXITkEfw6o4+BMbGot02wiKpzWhGUZK6c=\n+github.com/docker/docker-credential-helpers v0.9.10 h1:LCWwv7UmS7fQVmdKDWeMuureOeY5kkbC5kZfkzxkS6k=\n+github.com/docker/docker-credential-helpers v0.9.10/go.mod h1:v1S+hepowrQXITkEfw6o4+BMbGot02wiKpzWhGUZK6c=\n github.com/dustin/go-humanize v1.1.0 h1:dbKTrvD0klcbBV/h4AWJdMuZogJACoMlvWIWZ5b2xWg=\n github.com/dustin/go-humanize v1.1.0/go.mod h1:hc1CvRkJMsgxqjmjMQF3QNRAZBwY8AXBAzKYoSX9sFI=\n github.com/emicklei/go-restful/v3 v3.13.0 h1:C4Bl2xDndpU6nJ4bc1jXd+uTmYPVUwkD6bFY/oTyCes=\n",
+          "diff": "@@ -323,8 +323,8 @@ github.com/zalando/go-keyring v0.2.8 h1:6sD/Ucpl7jNq10rM2pgqTs0sZ9V3qMrqfIIy5YPc\n github.com/zalando/go-keyring v0.2.8/go.mod h1:tsMo+VpRq5NGyKfxoBVjCuMrG47yj8cmakZDO5QGii0=\n gitlab.com/gitlab-org/api/client-go/v3 v3.52.0 h1:B3JDz8cl4Zp7Bc5ekm8AfekwM7axAL2NHfrOl57xJqA=\n gitlab.com/gitlab-org/api/client-go/v3 v3.52.0/go.mod h1:8cuzgeUJzkVvaRvw57iZ8foGmL5q8GZXi4lHTiF5edY=\n-gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.16 h1:7fc+BNkt3kHuw1bmazzCif/6XzW+Jot8sjYZLAFj+rQ=\n-gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.16/go.mod h1:xPvL1xgmRH7iDJ+DDs9aPWkUu/MFNBi9S2aXi/4CuX8=\n+gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.17 h1:Mnk0FHRLkScHLES0Q8qo/RdUNJ72/rJDsa89/ITcSWo=\n+gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow v0.1.17/go.mod h1:xPvL1xgmRH7iDJ+DDs9aPWkUu/MFNBi9S2aXi/4CuX8=\n gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow/rpc v0.1.10 h1:SDil0T/cwXNyImiYpwiH++6YAinmM/HQTLkFAbloxNM=\n gitlab.com/gitlab-org/protos/gen/go/gitlab/autoflow/rpc v0.1.10/go.mod h1:IKVxLt8pBrnGWewrzlyEpsr8764TKtGD0H6Gx3pjlWQ=\n gitlab.com/gitlab-org/protos/gen/go/gitlab/constraint v0.1.1 h1:6xUCP0wsgo3SOFLywXVPh6PCHp5ZEtD2p9ih1YQeSeM=\n",
           "collapsed": false,
           "too_large": false,
           "new_path": "go.sum",
@@ -225,11 +317,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -3,11 +3,9 @@ package api\n import (\n \t\"context\"\n \t\"crypto/tls\"\n-\t\"crypto/x509\"\n \t\"errors\"\n \t\"fmt\"\n \t\"io\"\n-\t\"net\"\n \t\"net/http\"\n \t\"net/url\"\n \t\"os\"\n@@ -62,7 +60,9 @@ type Client struct {\n \n \tcustomHeaders          map[string]string\n \tcustomHeaderExtraHosts map[string]struct{}\n-\tproxy                  func(*http.Request) (*url.URL, error)\n+\t// proxyURL is nil when the proxy comes from the environment.\n+\tproxyURL   *url.URL\n+\ttransports *TransportCache\n }\n \n func (c *Client) HTTPClient() *http.Client {\n@@ -96,9 +96,7 @@ type newAuthSource func(c *http.Client) (authSource gitlab.AuthSource, err error\n // NewClient initializes a api client for use throughout glab.\n func NewClient(newAuthSource newAuthSource, options ...ClientOption) (*Client, error) {\n \t// 0. initialize empty Client\n-\tclient := &Client{\n-\t\tproxy: http.ProxyFromEnvironment,\n-\t}\n+\tclient := &Client{}\n \n \t// 1. apply provided option functions to populate client\n \tfor _, option := range options {\n@@ -149,67 +147,35 @@ func (c *Client) initializeHTTPClient() error {\n \t\treturn nil\n \t}\n \n-\t// Create TLS configuration based on client settings\n-\ttlsConfig := &tls.Config{\n-\t\tMinVersion:         tls.VersionTLS12,\n-\t\tInsecureSkipVerify: c.allowInsecure,\n-\t}\n-\n-\t// Set secure cipher suites for gitlab.com\n \tu, err := url.Parse(c.baseURL)\n \tif err != nil {\n \t\treturn err\n \t}\n-\tif !glinstance.IsSelfHosted(u.Hostname()) {\n-\t\ttlsConfig.CipherSuites = secureCipherSuites\n+\n+\tkey := transportKey{\n+\t\tcaFile:         c.caFile,\n+\t\tclientCertFile: c.clientCertFile,\n+\t\tclientKeyFile:  c.clientKeyFile,\n+\t\tinsecure:       c.allowInsecure,\n+\t\tgitlabCom:      !glinstance.IsSelfHosted(u.Hostname()),\n+\t}\n+\tif c.proxyURL != nil {\n+\t\tkey.proxyURL = c.proxyURL.String()\n \t}\n \n-\t// Configure custom CA if provided\n-\tif c.caFile != \"\" {\n-\t\tcaCert, err := os.ReadFile(c.caFile)\n-\t\tif err != nil {\n-\t\t\treturn fmt.Errorf(\"error reading cert file: %w\", err)\n-\t\t}\n-\t\t// use system cert pool as a baseline\n-\t\tcaCertPool, err := x509.SystemCertPool()\n+\tvar rt http.RoundTripper\n+\tif c.transports != nil {\n+\t\tt, err := c.transports.transport(key)\n \t\tif err != nil {\n \t\t\treturn err\n \t\t}\n-\t\tcaCertPool.AppendCertsFromPEM(caCert)\n-\t\ttlsConfig.RootCAs = caCertPool\n-\t}\n-\n-\t// Configure client certificates if provided\n-\tif c.clientCertFile != \"\" && c.clientKeyFile != \"\" {\n-\t\tclientCert, err := tls.LoadX509KeyPair(c.clientCertFile, c.clientKeyFile)\n+\t\trt = &pooledTransport{rt: t}\n+\t} else {\n+\t\tt, err := newTransport(key)\n \t\tif err != nil {\n \t\t\treturn err\n \t\t}\n-\t\ttlsConfig.Certificates = []tls.Certificate{clientCert}\n-\t}\n-\n-\t// Set appropriate timeouts based on whether custom CA is used\n-\tdialTimeout := 5 * time.Second\n-\tkeepAlive := 5 * time.Second\n-\tidleTimeout := 30 * time.Second\n-\tif c.caFile != \"\" {\n-\t\tdialTimeout = 30 * time.Second\n-\t\tkeepAlive = 30 * time.Second\n-\t\tidleTimeout = 90 * time.Second\n-\t}\n-\n-\tvar rt http.RoundTripper = &http.Transport{\n-\t\tProxy: c.proxy,\n-\t\tDialContext: (&net.Dialer{\n-\t\t\tTimeout:   dialTimeout,\n-\t\t\tKeepAlive: keepAlive,\n-\t\t}).DialContext,\n-\t\tForceAttemptHTTP2:     true,\n-\t\tMaxIdleConns:          100,\n-\t\tIdleConnTimeout:       idleTimeout,\n-\t\tTLSHandshakeTimeout:   10 * time.Second,\n-\t\tExpectContinueTimeout: 1 * time.Second,\n-\t\tTLSClientConfig:       tlsConfig,\n+\t\trt = t\n \t}\n \n \tif enabled, found := utils.IsEnvVarEnabled(\"GLAB_DEBUG_HTTP\"); found && enabled {\n@@ -229,10 +195,11 @@ func (c *Client) initializeHTTPClient() error {\n \treturn nil\n }\n \n-// WithProxy allows overriding the proxy function for the transport\n-func WithProxy(proxy func(*http.Request) (*url.URL, error)) ClientOption {\n+// WithProxy routes requests through proxyURL. A nil proxyURL uses the proxy\n+// from the environment.\n+func WithProxy(proxyURL *url.URL) ClientOption {\n \treturn func(c *Client) error {\n-\t\tc.proxy = proxy\n+\t\tc.proxyURL = proxyURL\n \t\treturn nil\n \t}\n }\n@@ -309,9 +276,9 @@ func WithUserAgent(userAgent string) ClientOption {\n }\n \n // FromConfigOption customizes how NewClientFromConfig resolves credentials\n-// out of config. Distinct from ClientOption, which configures the client\n-// that has already been built: this affects resolution that happens before\n-// a Client exists.\n+// out of config and how it builds the client. Distinct from ClientOption,\n+// which configures the client that has already been built: this affects\n+// resolution that happens before a Client exists.\n type FromConfigOption func(*fromConfigOptions)\n \n type fromConfigOptions struct {\n@@ -323,6 +290,8 @@ type fromConfigOptions struct {\n \tsearchEnvForIdentity bool\n \n \twithoutAuthentication bool\n+\n+\ttransports *TransportCache\n }\n \n // WithoutTokenFromEnvironment resolves the access token and the is_oauth2\n@@ -356,6 +325,14 @@ func WithoutAuthentication() FromConfigOption {\n \t}\n }\n \n+// WithTransportCache makes the client share its connection pool with other\n+// clients built with the same cache and the same transport settings.\n+func WithTransportCache(cache *TransportCache) FromConfigOption {\n+\treturn func(o *fromConfigOptions) {\n+\t\to.transports = cache\n+\t}\n+}\n+\n // NewClientFromConfig initializes the global api with the config data\n func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, userAgent string, opts ...FromConfigOption) (*Client, error) {\n \tfromCfg := fromConfigOptions{searchEnvForIdentity: true}\n@@ -405,15 +382,19 @@ func NewClientFromConfig(repoHost string, cfg config.Config, isGraphQL bool, use\n \tcaCert, _ := cfg.Get(repoHost, \"ca_cert\")\n \tclientCert, _ := cfg.Get(repoHost, \"client_cert\")\n \tkeyFile, _ := cfg.Get(repoHost, \"client_key\")\n-\tproxy, err := ProxyFromConfig(cfg, repoHost)\n+\tproxyURL, err := config.ResolveHostProxy(cfg, repoHost)\n \tif err != nil {\n-\t\treturn nil, fmt.Errorf(\"failed to resolve proxy function: %w\", err)\n+\t\treturn nil, fmt.Errorf(\"failed to resolve proxy: %w\", err)\n \t}\n \n \t// Build options based on configuration\n \toptions := []ClientOption{\n \t\tWithUserAgent(userAgent),\n-\t\tWithProxy(proxy),\n+\t\tWithProxy(proxyURL),\n+\t\tfunc(c *Client) error {\n+\t\t\tc.transports = fromCfg.transports\n+\t\t\treturn nil\n+\t\t},\n \t}\n \n \theaders, err := config.ResolveCustomHeaders(cfg, repoHost)\n",
+          "diff": "@@ -49,7 +49,9 @@ func NewCmd(f cmdutils.Factory) *cobra.Command {\n \n \t\t\tIf GitLab can't evaluate a package, the command blocks it. If the Dependency Firewall isn't evaluating the project, the command allows every package.\n \n-\t\t\tThe command does not change your registry configuration. For the length of the run, it sets environment variables that route the package manager's traffic through the proxy and make the package manager trust the proxy certificate. Your existing CA bundles stay trusted.\n+\t\t\tThe proxy checks only the requests it recognizes as package downloads and uploads. It forwards every other request to the host the package manager asked for, so it is not an egress filter and does not limit which hosts the package manager can reach.\n+\n+\t\t\tThe command does not change your registry configuration. For the length of the run, it sets environment variables that route the package manager's traffic through the proxy and make the package manager trust the proxy certificate. Your existing CA bundles stay trusted. The CA bundle the command gives the package manager also holds your system's trusted certificates.\n \n \t\t\tTo reach package registries, the proxy uses the outbound proxy in %[1]sHTTPS_PROXY%[1]s, including any credentials in its URL. For plain-HTTP registries it uses %[1]sHTTP_PROXY%[1]s instead, when that's set. For npm and pnpm, %[1]sHTTPS_PROXY%[1]s takes precedence over %[1]sHTTP_PROXY%[1]s for plain-HTTP registries too, matching those tools. It connects directly to the hosts listed in %[1]sNO_PROXY%[1]s. The %[1]sproxy%[1]s setting in your glab configuration applies only to GitLab API calls.\n \n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/api/client.go",
-          "old_path": "internal/api/client.go",
+          "new_path": "internal/commands/df/df.go",
+          "old_path": "internal/commands/df/df.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -238,11 +330,219 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -12,45 +12,40 @@ import (\n \t\"gitlab.com/gitlab-org/cli/internal/config\"\n )\n \n-func TestProxyFromConfig(t *testing.T) {\n-\tcfg := config.NewBlankConfig()\n-\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"proxy\", \"https://proxy.local:8443\"))\n-\n-\tproxy, err := ProxyFromConfig(cfg, \"gitlab.example.com\")\n-\trequire.NoError(t, err)\n-\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://gitlab.example.com/api/v4\", http.NoBody)\n-\trequire.NoError(t, err)\n-\n-\tproxyURL, err := proxy(req)\n-\trequire.NoError(t, err)\n-\trequire.NotNil(t, proxyURL)\n-\tassert.Equal(t, \"https://proxy.local:8443\", proxyURL.String())\n-}\n+func TestNewClientFromConfigProxy(t *testing.T) {\n+\tt.Run(\"configured proxy\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"token\", \"glpat-test\"))\n+\t\trequire.NoError(t, cfg.Set(\"gitlab.example.com\", \"proxy\", \"https://proxy.local:8443\"))\n \n-func TestProxyFromConfigFallbacks(t *testing.T) {\n-\tcfg := config.NewBlankConfig()\n+\t\tclient, err := NewClientFromConfig(\"gitlab.example.com\", cfg, false, \"glab-test\")\n+\t\trequire.NoError(t, err)\n+\t\ttransport, ok := client.HTTPClient().Transport.(*http.Transport)\n+\t\trequire.True(t, ok)\n+\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://gitlab.example.com/api/v4\", http.NoBody)\n+\t\trequire.NoError(t, err)\n \n-\tt.Run(\"empty host\", func(t *testing.T) {\n-\t\tproxy, err := ProxyFromConfig(cfg, \"\")\n+\t\tproxyURL, err := transport.Proxy(req)\n \t\trequire.NoError(t, err)\n-\t\trequire.NotNil(t, proxy)\n+\t\trequire.NotNil(t, proxyURL)\n+\t\tassert.Equal(t, \"https://proxy.local:8443\", proxyURL.String())\n \t})\n \n-\tt.Run(\"missing host\", func(t *testing.T) {\n-\t\tproxy, err := ProxyFromConfig(cfg, \"missing.example.com\")\n-\t\trequire.NoError(t, err)\n-\t\trequire.NotNil(t, proxy)\n-\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, \"https://missing.example.com\", http.NoBody)\n-\t\trequire.NoError(t, err)\n-\t\tgot, err := proxy(req)\n+\tt.Run(\"missing host uses the environment\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"missing.example.com\", \"token\", \"glpat-test\"))\n+\n+\t\tclient, err := NewClientFromConfig(\"missing.example.com\", cfg, false, \"glab-test\")\n \t\trequire.NoError(t, err)\n-\t\tassert.Nil(t, got)\n+\t\tassert.Nil(t, client.proxyURL)\n \t})\n \n \tt.Run(\"invalid configured proxy\", func(t *testing.T) {\n+\t\tcfg := config.NewBlankConfig()\n+\t\trequire.NoError(t, cfg.Set(\"bad.example.com\", \"token\", \"glpat-test\"))\n \t\trequire.NoError(t, cfg.Set(\"bad.example.com\", \"proxy\", \"://bad-url\"))\n-\t\tproxy, err := ProxyFromConfig(cfg, \"bad.example.com\")\n-\t\trequire.Error(t, err)\n-\t\tassert.Nil(t, proxy)\n+\n+\t\t_, err := NewClientFromConfig(\"bad.example.com\", cfg, false, \"glab-test\")\n+\t\trequire.ErrorContains(t, err, \"failed to resolve proxy\")\n \t})\n }\n",
+          "diff": "@@ -43,6 +43,8 @@ type options struct {\n \tlabels         []string\n \treviewers      []string\n \treviewerIDs    *[]int64\n+\ttemplate       string\n+\ttemplateBody   string\n }\n \n // max string size for MR title is ~255, but we'll add a \"...\"\n@@ -70,6 +72,7 @@ func NewCmdSyncStack(f cmdutils.Factory, gr git.GitRunner) *cobra.Command {\n \t\t\tUpdates GitLab to match your local stack:\n \n \t\t\t- Creates a merge request for each diff without one, unless %[1]s--skip-mr-creation%[1]s or %[1]s--skip-push%[1]s is set. Each merge request targets the branch of the previous diff, or the base branch for the first diff.\n+\t\t\t- With %[1]s--template%[1]s, uses the template for each new merge request and appends that diff's commit message body. Ignores the template when %[1]s--skip-push%[1]s or %[1]s--skip-mr-creation%[1]s is set.\n \t\t\t- Pulls changes made on GitLab, such as applied suggestions, into any diff whose branch is behind its remote.\n \t\t\t- If you amended a diff since the last sync, rebases the diffs after it. Then, unless %[1]s--skip-push%[1]s is set, force-pushes the stack's branches.\n \t\t\t- Removes diffs with merged merge requests and deletes their local branches. Keeps diffs with closed merge requests.\n@@ -84,6 +87,7 @@ func NewCmdSyncStack(f cmdutils.Factory, gr git.GitRunner) *cobra.Command {\n \t\t\tglab stack sync --skip-mr-creation\n \t\t\tglab stack sync --assignee user1,user2\n \t\t\tglab stack sync --label bug,priority::high\n+\t\t\tglab stack sync --template Review\n \t\t\tglab stack sync --reviewer user1 --reviewer user2`),\n \t\tArgs:              cobra.NoArgs,\n \t\tValidArgsFunction: cobra.NoFileCompletions,\n@@ -108,6 +112,7 @@ func NewCmdSyncStack(f cmdutils.Factory, gr git.GitRunner) *cobra.Command {\n \tfl.StringSliceVarP(&opts.assignees, \"assignee\", \"a\", []string{}, \"Assign merge request to people by their `usernames`. Multiple usernames can be comma-separated or specified by repeating the flag.\")\n \tfl.StringSliceVarP(&opts.labels, \"label\", \"l\", []string{}, \"Add label by `name`. Multiple labels can be comma-separated or specified by repeating the flag.\")\n \tfl.StringSliceVar(&opts.reviewers, \"reviewer\", []string{}, \"Request review from users by their `usernames`. Multiple usernames can be comma-separated or specified by repeating the flag.\")\n+\tfl.StringVar(&opts.template, \"template\", \"\", \"Template for new merge requests. A `name` is looked up in '.gitlab/merge_request_templates/' of the local repository, and the '.md' extension is optional. A value that is absolute or contains a path separator is read as a file path.\")\n \n \treturn stackSaveCmd\n }\n@@ -117,6 +122,20 @@ func (o *options) run(ctx context.Context, f cmdutils.Factory, gr git.GitRunner)\n \t\treturn err\n \t}\n \n+\tswitch {\n+\tcase o.template != \"\" && (o.skipPush || o.skipMRCreation):\n+\t\to.io.LogError(\"[Warning] --template is ignored with --skip-push or --skip-mr-creation.\")\n+\tcase o.template != \"\":\n+\t\ttemplateBody, err := cmdutils.LoadGitLabTemplate(cmdutils.MergeRequestTemplate, o.template)\n+\t\tif err != nil {\n+\t\t\treturn err\n+\t\t}\n+\t\tif templateBody == \"\" {\n+\t\t\treturn fmt.Errorf(\"template %q not found in .gitlab/merge_request_templates/\", o.template)\n+\t\t}\n+\t\to.templateBody = templateBody\n+\t}\n+\n \tclient, err := auth.GetAuthenticatedClient(f.Config(), f.GitLabClient, f.IO())\n \tif err != nil {\n \t\treturn fmt.Errorf(\"error authorizing with GitLab: %w\", err)\n@@ -472,6 +491,9 @@ func createMR(client *gitlab.Client, opts *options, ref *git.StackRef, gr git.Gi\n \t\ttitle = title[:maxMRTitleSize-3] + \"...\"\n \t}\n \tdescription := ref.Body()\n+\tif opts.templateBody != \"\" {\n+\t\tdescription = strings.TrimSpace(opts.templateBody + \"\\n\\n\" + description)\n+\t}\n \n \tl := &gitlab.CreateMergeRequestOptions{\n \t\tTitle:              new(title),\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/api/client_proxy_test.go",
-          "old_path": "internal/api/default_proxy_test.go",
+          "new_path": "internal/commands/stack/sync/stack_sync.go",
+          "old_path": "internal/commands/stack/sync/stack_sync.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -8,6 +8,8 @@ import (\n \t\"fmt\"\n \t\"io\"\n \t\"net/http\"\n+\t\"os\"\n+\t\"path/filepath\"\n \t\"strings\"\n \t\"testing\"\n \n@@ -40,6 +42,8 @@ type SyncScenario struct {\n \tassignees           []string\n \tlabels              []string\n \treviewers           []string\n+\ttemplate            string\n+\ttemplateContents    string\n \twantSkippedBranches []string\n }\n \n@@ -151,6 +155,15 @@ func TestNewCmdSyncStack_Flags(t *testing.T) {\n \tassert.Contains(t, skipPushFlag.Usage, \"pushing\")\n }\n \n+func TestNewCmdSyncStack_MissingTemplate(t *testing.T) {\n+\tgit.InitGitRepoWithCommit(t)\n+\tios, _, _, _ := cmdtest.TestIOStreams()\n+\tcmd := NewCmdSyncStack(cmdtest.NewTestFactory(ios), git.StandardGitCommand{})\n+\tcmd.SetArgs([]string{\"--template\", \"missing\"})\n+\n+\trequire.ErrorContains(t, cmd.Execute(), `template \"missing\" not found`)\n+}\n+\n func Test_stackSync(t *testing.T) {\n \ttype args struct {\n \t\tstack SyncScenario\n@@ -158,13 +171,101 @@ func Test_stackSync(t *testing.T) {\n \n \tforcePushErr := errors.New(\"pre-push hook rejected force push\")\n \n+\ttwoNewBranches := func(template, templateContents string) args {\n+\t\treturn args{stack: SyncScenario{\n+\t\t\ttitle:            \"my cool stack\",\n+\t\t\ttemplate:         template,\n+\t\t\ttemplateContents: templateContents,\n+\t\t\trefs: map[string]TestRef{\n+\t\t\t\t\"1\": {\n+\t\t\t\t\tref:   git.StackRef{SHA: \"1\", Next: \"2\", Branch: \"Branch1\", Description: \"first branch\\n\\nFirst diff details\"},\n+\t\t\t\t\tstate: NothingToCommit,\n+\t\t\t\t},\n+\t\t\t\t\"2\": {\n+\t\t\t\t\tref:   git.StackRef{SHA: \"2\", Prev: \"1\", Branch: \"Branch2\", Description: \"second branch\"},\n+\t\t\t\t\tstate: NothingToCommit,\n+\t\t\t\t},\n+\t\t\t},\n+\t\t}}\n+\t}\n+\tmockTwoNewMergeRequests := func(firstDescription, secondDescription string) func(*testing.T, *gitlabtesting.TestClient) {\n+\t\treturn func(t *testing.T, testClient *gitlabtesting.TestClient) {\n+\t\t\tt.Helper()\n+\t\t\ttestClient.MockUsers.EXPECT().CurrentUser(gomock.Any()).Return(&gitlab.User{Username: \"stack_guy\"}, nil, nil)\n+\n+\t\t\trequests := []gitlab.BasicMergeRequest{\n+\t\t\t\t{IID: 43, SourceBranch: \"Branch1\", TargetBranch: \"main\", Title: \"first branch\", Description: firstDescription},\n+\t\t\t\t{IID: 44, SourceBranch: \"Branch2\", TargetBranch: \"Branch1\", Title: \"second branch\", Description: secondDescription},\n+\t\t\t}\n+\t\t\tfor _, want := range requests {\n+\t\t\t\ttestClient.MockMergeRequests.EXPECT().CreateMergeRequest(\"stack_guy/stackproject\", gomock.Any()).\n+\t\t\t\t\tDoAndReturn(func(_ any, opts *gitlab.CreateMergeRequestOptions, _ ...gitlab.RequestOptionFunc) (*gitlab.MergeRequest, *gitlab.Response, error) {\n+\t\t\t\t\t\trequire.Equal(t, want.SourceBranch, *opts.SourceBranch)\n+\t\t\t\t\t\trequire.Equal(t, want.TargetBranch, *opts.TargetBranch)\n+\t\t\t\t\t\trequire.Equal(t, want.Title, *opts.Title)\n+\t\t\t\t\t\trequire.Equal(t, want.Description, *opts.Description)\n+\t\t\t\t\t\treturn &gitlab.MergeRequest{BasicMergeRequest: want}, nil, nil\n+\t\t\t\t\t})\n+\t\t\t}\n+\t\t}\n+\t}\n+\n+\tmockCurrentUser := func(t *testing.T, client *gitlabtesting.TestClient) {\n+\t\tt.Helper()\n+\t\tclient.MockUsers.EXPECT().CurrentUser(gomock.Any()).\n+\t\t\tReturn(&gitlab.User{Username: \"stack_guy\"}, nil, nil)\n+\t}\n+\tskipMRCreationArgs := func(template string) args {\n+\t\treturn args{\n+\t\t\tstack: SyncScenario{\n+\t\t\t\ttitle:          \"skip mr stack\",\n+\t\t\t\tskipMRCreation: true,\n+\t\t\t\ttemplate:       template,\n+\t\t\t\trefs: map[string]TestRef{\n+\t\t\t\t\t\"1\": {\n+\t\t\t\t\t\tref:   git.StackRef{SHA: \"1\", Prev: \"\", Next: \"2\", Branch: \"Branch1\", MR: \"\", Description: \"first branch\"},\n+\t\t\t\t\t\tstate: NothingToCommit,\n+\t\t\t\t\t},\n+\t\t\t\t\t\"2\": {\n+\t\t\t\t\t\tref:   git.StackRef{SHA: \"2\", Prev: \"1\", Next: \"\", Branch: \"Branch2\", MR: \"\", Description: \"second branch\"},\n+\t\t\t\t\t\tstate: NothingToCommit,\n+\t\t\t\t\t},\n+\t\t\t\t},\n+\t\t\t},\n+\t\t}\n+\t}\n+\n+\tskipPushArgs := func(template string) args {\n+\t\treturn args{\n+\t\t\tstack: SyncScenario{\n+\t\t\t\ttitle:    \"skip push no mr\",\n+\t\t\t\tskipPush: true,\n+\t\t\t\ttemplate: template,\n+\t\t\t\trefs: map[string]TestRef{\n+\t\t\t\t\t\"1\": {\n+\t\t\t\t\t\tref: git.StackRef{\n+\t\t\t\t\t\t\tSHA:         \"1\",\n+\t\t\t\t\t\t\tPrev:        \"\",\n+\t\t\t\t\t\t\tNext:        \"\",\n+\t\t\t\t\t\t\tBranch:      \"Branch1\",\n+\t\t\t\t\t\t\tMR:          \"\",\n+\t\t\t\t\t\t\tDescription: \"test branch\",\n+\t\t\t\t\t\t},\n+\t\t\t\t\t\tstate: NothingToCommit,\n+\t\t\t\t\t},\n+\t\t\t\t},\n+\t\t\t},\n+\t\t}\n+\t}\n+\n \ttests := []struct {\n-\t\tname       string\n-\t\targs       args\n-\t\tsetupMocks func(t *testing.T, testClient *gitlabtesting.TestClient)\n-\t\twantErr    bool\n-\t\twantErrMsg string\n-\t\twantErrIs  error\n+\t\tname                string\n+\t\targs                args\n+\t\tsetupMocks          func(t *testing.T, testClient *gitlabtesting.TestClient)\n+\t\twantErr             bool\n+\t\twantErrMsg          string\n+\t\twantErrIs           error\n+\t\twantTemplateWarning bool\n \t}{\n \t\t{\n \t\t\tname: \"two branches, 1st branch has MR, 2nd branch behind, stacks are named\",\n@@ -251,61 +352,14 @@ func Test_stackSync(t *testing.T) {\n \t\t},\n \n \t\t{\n-\t\t\tname: \"two branches, no MRs, nothing to commit\",\n-\t\t\targs: args{\n-\t\t\t\tstack: SyncScenario{\n-\t\t\t\t\ttitle: \"my cool stack\",\n-\t\t\t\t\trefs: map[string]TestRef{\n-\t\t\t\t\t\t\"1\": {\n-\t\t\t\t\t\t\tref:   git.StackRef{SHA: \"1\", Prev: \"\", Next: \"2\", Branch: \"Branch1\", MR: \"\", Description: \"some description\"},\n-\t\t\t\t\t\t\tstate: NothingToCommit,\n-\t\t\t\t\t\t},\n-\t\t\t\t\t\t\"2\": {\n-\t\t\t\t\t\t\tref:   git.StackRef{SHA: \"2\", Prev: \"1\", Next: \"\", Branch: \"Branch2\", MR: \"\"},\n-\t\t\t\t\t\t\tstate: NothingToCommit,\n-\t\t\t\t\t\t},\n-\t\t\t\t\t},\n-\t\t\t\t},\n-\t\t\t},\n-\t\t\tsetupMocks: func(t *testing.T, testClient *gitlabtesting.TestClient) {\n-\t\t\t\tt.Helper()\n-\t\t\t\t// MockStackUser\n-\t\t\t\ttestClient.MockUsers.EXPECT().\n-\t\t\t\t\tCurrentUser(gomock.Any()).\n-\t\t\t\t\tReturn(&gitlab.User{Username: \"stack_guy\"}, nil, nil)\n-\n-\t\t\t\t// MockPostStackMR(Source: \"Branch1\", Target: \"main\", Title: \"some description\")\n-\t\t\t\ttestClient.MockMergeRequests.EXPECT().\n-\t\t\t\t\tCreateMergeRequest(\"stack_guy/stackproject\", gomock.Any()).\n-\t\t\t\t\tDoAndReturn(func(pid any, opts *gitlab.CreateMergeRequestOptions, options ...gitlab.RequestOptionFunc) (*gitlab.MergeRequest, *gitlab.Response, error) {\n-\t\t\t\t\t\tassert.Equal(t, \"Branch1\", *opts.SourceBranch)\n-\t\t\t\t\t\tassert.Equal(t, \"main\", *opts.TargetBranch)\n-\t\t\t\t\t\tassert.Equal(t, \"some description\", *opts.Title)\n-\t\t\t\t\t\treturn &gitlab.MergeRequest{\n-\t\t\t\t\t\t\tBasicMergeRequest: gitlab.BasicMergeRequest{\n-\t\t\t\t\t\t\t\tIID:          43,\n-\t\t\t\t\t\t\t\tSourceBranch: \"Branch1\",\n-\t\t\t\t\t\t\t\tTargetBranch: \"main\",\n-\t\t\t\t\t\t\t\tTitle:        \"some description\",\n-\t\t\t\t\t\t\t},\n-\t\t\t\t\t\t}, nil, nil\n-\t\t\t\t\t})\n-\n-\t\t\t\t// MockPostStackMR(Source: \"Branch2\", Target: \"Branch1\")\n-\t\t\t\ttestClient.MockMergeRequests.EXPECT().\n-\t\t\t\t\tCreateMergeRequest(\"stack_guy/stackproject\", gomock.Any()).\n-\t\t\t\t\tDoAndReturn(func(pid any, opts *gitlab.CreateMergeRequestOptions, options ...gitlab.RequestOptionFunc) (*gitlab.MergeRequest, *gitlab.Response, error) {\n-\t\t\t\t\t\tassert.Equal(t, \"Branch2\", *opts.SourceBranch)\n-\t\t\t\t\t\tassert.Equal(t, \"Branch1\", *opts.TargetBranch)\n-\t\t\t\t\t\treturn &gitlab.MergeRequest{\n-\t\t\t\t\t\t\tBasicMergeRequest: gitlab.BasicMergeRequest{\n-\t\t\t\t\t\t\t\tIID:          44,\n-\t\t\t\t\t\t\t\tSourceBranch: \"Branch2\",\n-\t\t\t\t\t\t\t\tTargetBranch: \"Branch1\",\n-\t\t\t\t\t\t\t},\n-\t\t\t\t\t\t}, nil, nil\n-\t\t\t\t\t})\n-\t\t\t},\n+\t\t\tname:       \"two branches, no MRs, nothing to commit\",\n+\t\t\targs:       twoNewBranches(\"\", \"\"),\n+\t\t\tsetupMocks: mockTwoNewMergeRequests(\"First diff details\", \"\"),\n+\t\t},\n+\t\t{\n+\t\t\tname:       \"two new merge requests use the template and preserve their commit message bodies\",\n+\t\t\targs:       twoNewBranches(\"Review\", \"## Review\\n\"),\n+\t\t\tsetupMocks: mockTwoNewMergeRequests(\"## Review\\n\\nFirst diff details\", \"## Review\"),\n \t\t},\n \n \t\t{\n@@ -932,29 +986,15 @@ func Test_stackSync(t *testing.T) {\n \t\t},\n \n \t\t{\n-\t\t\tname: \"skip-mr-creation skips MR creation for branches without MRs\",\n-\t\t\targs: args{\n-\t\t\t\tstack: SyncScenario{\n-\t\t\t\t\ttitle:          \"skip mr stack\",\n-\t\t\t\t\tskipMRCreation: true,\n-\t\t\t\t\trefs: map[string]TestRef{\n-\t\t\t\t\t\t\"1\": {\n-\t\t\t\t\t\t\tref:   git.StackRef{SHA: \"1\", Prev: \"\", Next: \"2\", Branch: \"Branch1\", MR: \"\", Description: \"first branch\"},\n-\t\t\t\t\t\t\tstate: NothingToCommit,\n-\t\t\t\t\t\t},\n-\t\t\t\t\t\t\"2\": {\n-\t\t\t\t\t\t\tref:   git.StackRef{SHA: \"2\", Prev: \"1\", Next: \"\", Branch: \"Branch2\", MR: \"\", Description: \"second branch\"},\n-\t\t\t\t\t\t\tstate: NothingToCommit,\n-\t\t\t\t\t\t},\n-\t\t\t\t\t},\n-\t\t\t\t},\n-\t\t\t},\n-\t\t\tsetupMocks: func(t *testing.T, testClient *gitlabtesting.TestClient) {\n-\t\t\t\tt.Helper()\n-\t\t\t\ttestClient.MockUsers.EXPECT().\n-\t\t\t\t\tCurrentUser(gomock.Any()).\n-\t\t\t\t\tReturn(&gitlab.User{Username: \"stack_guy\"}, nil, nil)\n-\t\t\t},\n+\t\t\tname:       \"skip-mr-creation skips MR creation for branches without MRs\",\n+\t\t\targs:       skipMRCreationArgs(\"\"),\n+\t\t\tsetupMocks: mockCurrentUser,\n+\t\t},\n+\t\t{\n+\t\t\tname:                \"skip-mr-creation warns and ignores a missing template for branches without MRs\",\n+\t\t\targs:                skipMRCreationArgs(\"missing\"),\n+\t\t\tsetupMocks:          mockCurrentUser,\n+\t\t\twantTemplateWarning: true,\n \t\t},\n \n \t\t{\n@@ -1082,33 +1122,15 @@ func Test_stackSync(t *testing.T) {\n \t\t},\n \n \t\t{\n-\t\t\tname: \"skip-push skips MR creation for branches without MRs\",\n-\t\t\targs: args{\n-\t\t\t\tstack: SyncScenario{\n-\t\t\t\t\ttitle:    \"skip push no mr\",\n-\t\t\t\t\tskipPush: true,\n-\t\t\t\t\trefs: map[string]TestRef{\n-\t\t\t\t\t\t\"1\": {\n-\t\t\t\t\t\t\tref: git.StackRef{\n-\t\t\t\t\t\t\t\tSHA:         \"1\",\n-\t\t\t\t\t\t\t\tPrev:        \"\",\n-\t\t\t\t\t\t\t\tNext:        \"\",\n-\t\t\t\t\t\t\t\tBranch:      \"Branch1\",\n-\t\t\t\t\t\t\t\tMR:          \"\",\n-\t\t\t\t\t\t\t\tDescription: \"test branch\",\n-\t\t\t\t\t\t\t},\n-\t\t\t\t\t\t\tstate: NothingToCommit,\n-\t\t\t\t\t\t},\n-\t\t\t\t\t},\n-\t\t\t\t},\n-\t\t\t},\n-\t\t\tsetupMocks: func(t *testing.T, testClient *gitlabtesting.TestClient) {\n-\t\t\t\tt.Helper()\n-\n-\t\t\t\ttestClient.MockUsers.EXPECT().\n-\t\t\t\t\tCurrentUser(gomock.Any()).\n-\t\t\t\t\tReturn(&gitlab.User{Username: \"stack_guy\"}, nil, nil)\n-\t\t\t},\n+\t\t\tname:       \"skip-push skips MR creation for branches without MRs\",\n+\t\t\targs:       skipPushArgs(\"\"),\n+\t\t\tsetupMocks: mockCurrentUser,\n+\t\t},\n+\t\t{\n+\t\t\tname:                \"skip-push warns and ignores a missing template for branches without MRs\",\n+\t\t\targs:                skipPushArgs(\"missing\"),\n+\t\t\tsetupMocks:          mockCurrentUser,\n+\t\t\twantTemplateWarning: true,\n \t\t},\n \n \t\t{\n@@ -1273,7 +1295,9 @@ func Test_stackSync(t *testing.T) {\n \t\t\tf, opts := setupTestFactory(t, testClient)\n \n \t\t\tstdout := &bytes.Buffer{}\n+\t\t\tstderr := &bytes.Buffer{}\n \t\t\topts.io.StdOut = stdout\n+\t\t\topts.io.StdErr = stderr\n \n \t\t\t// Set options from test case\n \t\t\topts.noVerify = tc.args.stack.noVerify\n@@ -1283,6 +1307,12 @@ func Test_stackSync(t *testing.T) {\n \t\t\topts.assignees = tc.args.stack.assignees\n \t\t\topts.labels = tc.args.stack.labels\n \t\t\topts.reviewers = tc.args.stack.reviewers\n+\t\t\topts.template = tc.args.stack.template\n+\t\t\tif tc.args.stack.templateContents != \"\" {\n+\t\t\t\ttemplateDir := filepath.Join(\".gitlab\", \"merge_request_templates\")\n+\t\t\t\trequire.NoError(t, os.MkdirAll(templateDir, 0o755))\n+\t\t\t\trequire.NoError(t, os.WriteFile(filepath.Join(templateDir, opts.template+\".md\"), []byte(tc.args.stack.templateContents), 0o600))\n+\t\t\t}\n \n \t\t\terr := git.SetCurrentStackTitle(tc.args.stack.title)\n \t\t\trequire.NoError(t, err)\n@@ -1382,6 +1412,13 @@ func Test_stackSync(t *testing.T) {\n \t\t\t\trequire.NoError(t, err)\n \t\t\t}\n \n+\t\t\tconst templateWarning = \"[Warning] --template is ignored with --skip-push or --skip-mr-creation.\"\n+\t\t\tif tc.wantTemplateWarning {\n+\t\t\t\tassert.Contains(t, stderr.String(), templateWarning)\n+\t\t\t} else {\n+\t\t\t\tassert.NotContains(t, stderr.String(), templateWarning)\n+\t\t\t}\n+\n \t\t\tif tc.args.stack.pushNeeded && tc.args.stack.skipPush {\n \t\t\t\tstdoutText := stdout.String()\n \t\t\t\tassert.Contains(t, stdoutText, \"Skipped pushing branches:\")\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/commands/stack/sync/stack_sync_test.go",
+          "old_path": "internal/commands/stack/sync/stack_sync_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -9,6 +9,7 @@ import (\n \t\"net/http\"\n \t\"net/url\"\n \t\"path\"\n+\t\"runtime/debug\"\n \t\"slices\"\n \t\"strings\"\n \t\"sync\"\n@@ -205,7 +206,11 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {\n \t\t\tStatus:    http.StatusForbidden,\n \t\t\tTimestamp: time.Now().UTC().Format(time.RFC3339),\n \t\t})\n-\t\twriteBlocked(w, req.module, req.version, res.Reason)\n+\t\treason := res.Reason\n+\t\tif res.Internal {\n+\t\t\treason = policy.InternalErrorPhrase(policy.Coordinate{Name: req.module, Version: req.version})\n+\t\t}\n+\t\twriteBlocked(w, req.module, req.version, reason)\n \t\treturn\n \tcase res.Warned():\n \t\ts.record(verdict.Entry{\n@@ -250,6 +255,14 @@ func (s *Server) check(req request) (policy.Result, bool) {\n \t}\n \tdone := make(chan outcome, 1)\n \tgo func() {\n+\t\t// This goroutine is outside net/http's recover, so a panicking checker\n+\t\t// would end glab. Block instead; the value stays out of the reason.\n+\t\tdefer func() {\n+\t\t\tif r := recover(); r != nil {\n+\t\t\t\tdbg.Debugf(\"dependency firewall policy check panicked for %s@%s: %v\\n%s\", req.module, req.version, r, debug.Stack())\n+\t\t\t\tdone <- outcome{err: policy.ErrCheckPanicked}\n+\t\t\t}\n+\t\t}()\n \t\tres, err := s.checker.Check(ctx, policy.Request{\n \t\t\tCoordinate: policy.Coordinate{\n \t\t\t\tEcosystem: \"golang\",\n@@ -272,6 +285,9 @@ func (s *Server) check(req request) (policy.Result, bool) {\n \t\treturn policy.Result{}, false\n \t}\n \ts.checked.Add(1)\n+\tif errors.Is(out.err, policy.ErrCheckPanicked) {\n+\t\treturn policy.InternalErrorResult(policy.Coordinate{Name: req.module, Version: req.version}), true\n+\t}\n \tif out.err != nil {\n \t\treturn policy.Result{\n \t\t\tVerdict: verdict.Blocked,\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/gomodproxy/gomodproxy.go",
+          "old_path": "internal/dependencyfirewall/gomodproxy/gomodproxy.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -545,3 +545,34 @@ func TestStopIsIdempotent(t *testing.T) {\n \tassert.NotPanics(t, s2.Stop)\n \tassert.NotPanics(t, s2.Stop)\n }\n+\n+type panickingChecker struct{}\n+\n+func (panickingChecker) Check(context.Context, policy.Request) (policy.Result, error) {\n+\tpanic(\"secret-token in a checker bug\")\n+}\n+\n+func TestPanickingCheckBlocksInsteadOfCrashing(t *testing.T) {\n+\tt.Parallel()\n+\tfor name, checker := range map[string]policy.Checker{\n+\t\t\"when the checker panics\":                  panickingChecker{},\n+\t\t\"when the checker panics behind the cache\": policy.NewCachingChecker(panickingChecker{}, nil),\n+\t} {\n+\t\tt.Run(name, func(t *testing.T) {\n+\t\t\tt.Parallel()\n+\t\t\tbackend := &backendStub{}\n+\t\t\ts := startServer(t, checker, backend)\n+\n+\t\t\tres := get(t, s, \"/github.com/pkg/errors/@v/v0.9.1.zip\")\n+\n+\t\t\tassert.Equal(t, http.StatusForbidden, res.status)\n+\t\t\tassert.Contains(t, res.body, \"Blocked: glab internal error while checking github.com/pkg/errors@v0.9.1\")\n+\t\t\tassert.NotContains(t, res.body, \"secret-token\", \"the panic value stays out of the response\")\n+\t\t\tassert.Zero(t, backend.count(), \"a module whose check panicked must never reach the backend\")\n+\t\t\tentries := s.Verdicts()\n+\t\t\trequire.Len(t, entries, 1)\n+\t\t\tassert.Equal(t, verdict.Blocked, entries[0].Verdict)\n+\t\t\tassert.Contains(t, entries[0].Reason, \"glab hit an internal error while checking github.com/pkg/errors@v0.9.1 and blocked it\")\n+\t\t})\n+\t}\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/gomodproxy/gomodproxy_test.go",
+          "old_path": "internal/dependencyfirewall/gomodproxy/gomodproxy_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -10,6 +10,7 @@ import (\n \t\"runtime\"\n \t\"slices\"\n \t\"strings\"\n+\t\"sync\"\n \n \t\"software.sslmate.com/src/go-pkcs12\"\n \n@@ -25,9 +26,10 @@ const jvmTrustStorePassword = \"df-truststore-not-secret\"\n // writeJVMTrustStoreAt builds a PKCS#12 truststore at path containing the\n // given CA certificates (the proxy MITM CA, plus any user CAs prepended into\n // the proxy bundle) and the host's system roots, so the JVM (Maven, Gradle)\n-// trusts the proxy while still validating public TLS dependencies. The caller\n-// ties the file's lifecycle to a known path it already cleans up. It returns\n-// the truststore password.\n+// trusts the proxy while still validating public TLS dependencies. On the Run\n+// path the proxy bundle already holds the system roots, so a root in cas is\n+// not added twice. The caller ties the file's lifecycle to a known path it\n+// already cleans up. It returns the truststore password.\n func writeJVMTrustStoreAt(path string, cas ...*x509.Certificate) (string, error) {\n \tf, err := os.Create(path)\n \tif err != nil {\n@@ -46,10 +48,12 @@ func writeJVMTrustStoreAt(path string, cas ...*x509.Certificate) (string, error)\n // truststore and writes it to w.\n func encodeJVMTrustStore(w io.Writer, cas ...*x509.Certificate) error {\n \tsysRoots := systemRoots()\n-\tif len(sysRoots) == 0 {\n-\t\tdbg.Debugf(\"dependency firewall: no system root certificates found for %s; the JVM truststore will trust only the proxy CA, so public TLS dependencies not intercepted by the proxy may fail validation\", runtime.GOOS)\n+\troots := slices.Clone(cas)\n+\tfor _, r := range sysRoots {\n+\t\tif !slices.ContainsFunc(cas, r.Equal) {\n+\t\t\troots = append(roots, r)\n+\t\t}\n \t}\n-\troots := slices.Concat(cas, sysRoots)\n \n \t// pkcs12.Modern.EncodeTrustStore marks the certs with the Java TrustStore\n \t// OID (Java 8+). The method form takes (certs, password); the package-level\n@@ -100,36 +104,46 @@ func JVMTrustOpts(caPath string) string {\n \treturn opts\n }\n \n-// systemRoots returns the host's trusted root certificates so the JVM\n-// truststore keeps validating public TLS dependencies alongside the proxy CA.\n-// The JVM's -Djavax.net.ssl.trustStore flag replaces (not augments) the\n-// default trust store, so a truststore built from the proxy CA alone would\n-// break every connection the proxy does not intercept. The Go standard\n-// library's x509.SystemCertPool does not expose the underlying certificates\n-// (only DER subjects), so the roots are sourced per platform: PEM CA-bundle\n-// files on Linux, the security(1) keychains on macOS, and the LocalMachine\n-// certificate stores on Windows. It returns nil when none can be read; the\n-// caller warns and proceeds with just the proxy CA.\n-func systemRoots() []*x509.Certificate {\n+// systemRoots returns the host's trusted root certificates, read once per\n+// process. Most CA settings glab points at its bundle, like the JVM's\n+// -Djavax.net.ssl.trustStore flag, replace (not augment) a tool's default\n+// trust, so a bundle or truststore built from the proxy CA alone would break\n+// every connection the proxy does not intercept. The Go standard library's\n+// x509.SystemCertPool does not expose the underlying certificates (only DER\n+// subjects), so the roots are sourced per platform: PEM CA-bundle files on\n+// Linux, the security(1) keychains on macOS, and the LocalMachine certificate\n+// stores on Windows. It returns nil when none can be read.\n+var systemRoots = sync.OnceValue(func() []*x509.Certificate {\n+\tvar roots []*x509.Certificate\n \tswitch runtime.GOOS {\n \tcase \"darwin\":\n-\t\treturn darwinSystemRoots()\n+\t\troots = darwinSystemRoots()\n \tcase \"windows\":\n-\t\treturn windowsSystemRoots()\n+\t\troots = windowsSystemRoots()\n \tdefault:\n-\t\treturn unixSystemRoots()\n+\t\troots = unixSystemRoots()\n+\t}\n+\tif len(roots) == 0 {\n+\t\tdbg.Debugf(\"dependency firewall: no system root certificates found for %s; tools that skip the proxy may fail to verify public hosts\", runtime.GOOS)\n \t}\n+\treturn roots\n+})\n+\n+// SystemCABundlePaths are the common locations of the OS CA bundle across\n+// Linux and BSD distributions, tried in order.\n+var SystemCABundlePaths = []string{\n+\t\"/etc/ssl/certs/ca-certificates.crt\", // Debian, Ubuntu, Alpine\n+\t\"/etc/pki/tls/certs/ca-bundle.crt\",   // Fedora, RHEL, CentOS\n+\t\"/etc/ssl/ca-bundle.pem\",             // openSUSE\n+\t\"/etc/pki/tls/cacert.pem\",\n+\t\"/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem\",\n+\t\"/etc/ssl/cert.pem\", // Alpine, some BSDs\n }\n \n-// unixSystemRoots reads the common Linux/BSD CA-bundle file locations and\n-// parses the PEM certificates directly.\n+// unixSystemRoots reads the first CA bundle in SystemCABundlePaths that holds\n+// certificates.\n func unixSystemRoots() []*x509.Certificate {\n-\tcandidates := []string{\n-\t\t\"/etc/ssl/certs/ca-certificates.crt\",\n-\t\t\"/etc/pki/tls/certs/ca-bundle.crt\",\n-\t\t\"/etc/ssl/cert.pem\",\n-\t}\n-\tfor _, p := range candidates {\n+\tfor _, p := range SystemCABundlePaths {\n \t\traw, err := os.ReadFile(p)\n \t\tif err != nil {\n \t\t\tcontinue\n@@ -141,7 +155,7 @@ func unixSystemRoots() []*x509.Certificate {\n \treturn nil\n }\n \n-// darwinSystemRoots exports the trusted roots from the macOS keychains via\n+// darwinSystemRoots exports the CA certificates in the macOS keychains via\n // security(1), which prints the certificates as concatenated PEM.\n func darwinSystemRoots() []*x509.Certificate {\n \tkeychains := []string{\n@@ -155,7 +169,11 @@ func darwinSystemRoots() []*x509.Certificate {\n \t\t\tdbg.Debugf(\"dependency firewall: security find-certificate failed for %s: %v\", kc, err)\n \t\t\tcontinue\n \t\t}\n-\t\tcerts = append(certs, parseCertsPEM(out)...)\n+\t\tfor _, c := range parseCertsPEM(out) {\n+\t\t\tif c.IsCA {\n+\t\t\t\tcerts = append(certs, c)\n+\t\t\t}\n+\t\t}\n \t}\n \treturn certs\n }\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/pm/jvmtrust.go",
+          "old_path": "internal/dependencyfirewall/pm/jvmtrust.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -171,3 +171,32 @@ func TestEncodeJVMTrustStoreIncludesSystemRoots(t *testing.T) {\n \tassert.GreaterOrEqual(t, len(certs), len(sysRoots)+1,\n \t\t\"truststore must contain the system roots plus the proxy CA\")\n }\n+\n+func TestEncodeJVMTrustStoreListsEachRootOnce(t *testing.T) {\n+\tt.Parallel()\n+\tsysRoots := systemRoots()\n+\tif len(sysRoots) == 0 {\n+\t\tt.Skipf(\"no system roots available on %s test host\", runtime.GOOS)\n+\t}\n+\tproxyCA := selfSignedTestCA(t)\n+\n+\tpath := filepath.Join(t.TempDir(), \"ts.p12\")\n+\t_, err := writeJVMTrustStoreAt(path, append([]*x509.Certificate{proxyCA}, sysRoots...)...)\n+\trequire.NoError(t, err)\n+\n+\traw, err := os.ReadFile(path)\n+\trequire.NoError(t, err)\n+\tcerts, err := pkcs12.DecodeTrustStore(raw, jvmTrustStorePassword)\n+\trequire.NoError(t, err)\n+\tassert.Len(t, certs, 1+len(sysRoots), \"a system root already in the CA bundle must not be added again\")\n+}\n+\n+func TestSystemRootsHoldOnlyCAsOnMacOS(t *testing.T) {\n+\tt.Parallel()\n+\tif runtime.GOOS != \"darwin\" {\n+\t\tt.Skip(\"only macOS reads the keychains, which also hold leaf certificates\")\n+\t}\n+\tfor _, c := range systemRoots() {\n+\t\tassert.True(t, c.IsCA, \"%s is not a CA, so it must not become a trust anchor\", c.Subject)\n+\t}\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/pm/jvmtrust_test.go",
+          "old_path": "internal/dependencyfirewall/pm/jvmtrust_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -200,7 +200,7 @@ func TestRunMergesUserCAIntoOverriddenVar(t *testing.T) {\n \n \t\t\tassert.NotEqual(t, userPath, lookupEnv(exec.env, c.key))\n \t\t\tassert.True(t, bytes.HasPrefix(bundle, userPEM), \"the child must still trust the user's CA\")\n-\t\t\tassert.Equal(t, 2, countPEMBlocks(bundle), \"the bundle must hold the user's CA and the proxy CA\")\n+\t\t\tassert.Equal(t, 2+len(systemRoots()), countPEMBlocks(bundle), \"the bundle must hold the user's CA, the proxy CA and the system roots\")\n \t\t})\n \t}\n }\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/pm/managers_test.go",
+          "old_path": "internal/dependencyfirewall/pm/managers_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -176,10 +176,11 @@ func envKeys(env []string) []string {\n // writeCABundle PEM-encodes the proxy CA into a temp file so managers can\n // trust the proxy via CATrustEnviron. For each CA-bundle variable the manager\n // names (ExistingBundleVars) that the parent env sets, those trust anchors are\n-// prepended so the user's are preserved. A file already merged (two variables\n-// pointing at the same path) is not read twice. Returns the path; the caller\n-// removes it.\n-func writeCABundle(ios *iostreams.IOStreams, parent []string, bundleVars []string, ca *x509.Certificate) (string, error) {\n+// prepended so the user's are preserved. The system roots follow the proxy CA,\n+// because most of the variables CATrustEnviron sets replace a tool's default\n+// trust instead of extending it. A file already merged (two variables pointing\n+// at the same path) is not read twice. Returns the path; the caller removes it.\n+func writeCABundle(ios *iostreams.IOStreams, parent []string, bundleVars []string, ca *x509.Certificate, roots []*x509.Certificate) (string, error) {\n \tpemBytes := pem.EncodeToMemory(&pem.Block{Type: \"CERTIFICATE\", Bytes: ca.Raw})\n \n \tvar bundle []byte\n@@ -204,6 +205,9 @@ func writeCABundle(ios *iostreams.IOStreams, parent []string, bundleVars []strin\n \t\t}\n \t}\n \tbundle = append(bundle, pemBytes...)\n+\tfor _, root := range roots {\n+\t\tbundle = append(bundle, pem.EncodeToMemory(&pem.Block{Type: \"CERTIFICATE\", Bytes: root.Raw})...)\n+\t}\n \n \tf, err := os.CreateTemp(\"\", \"glab-df-ca-*.pem\")\n \tif err != nil {\n@@ -392,7 +396,7 @@ func Run(ctx context.Context, manager PackageManager, opts RunOptions) error {\n \n \tproxyURL := \"http://\" + p.Addr()\n \n-\tcaPath, err := writeCABundle(opts.IO, os.Environ(), manager.ExistingBundleVars(), p.CACertificate())\n+\tcaPath, err := writeCABundle(opts.IO, os.Environ(), manager.ExistingBundleVars(), p.CACertificate(), systemRoots())\n \tif err != nil {\n \t\treturn fmt.Errorf(\"failed to write proxy CA bundle: %w\", err)\n \t}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/pm/pm.go",
+          "old_path": "internal/dependencyfirewall/pm/pm.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -504,7 +504,7 @@ func testCA(t *testing.T) *x509.Certificate {\n func TestWriteCABundleEmitsValidPEM(t *testing.T) {\n \tt.Parallel()\n \tios, _, _, _ := cmdtest.TestIOStreams()\n-\tpath, err := writeCABundle(ios, nil, nil, testCA(t))\n+\tpath, err := writeCABundle(ios, nil, nil, testCA(t), nil)\n \trequire.NoError(t, err)\n \tdefer func() { _ = os.Remove(path) }()\n \n@@ -540,7 +540,7 @@ func TestWriteCABundlePrependsExistingBundle(t *testing.T) {\n \n \tios, _, _, _ := cmdtest.TestIOStreams()\n \tparent := []string{\"NODE_EXTRA_CA_CERTS=\" + userPath}\n-\tpath, err := writeCABundle(ios, parent, []string{\"NODE_EXTRA_CA_CERTS\"}, testCA(t))\n+\tpath, err := writeCABundle(ios, parent, []string{\"NODE_EXTRA_CA_CERTS\"}, testCA(t), nil)\n \trequire.NoError(t, err)\n \tdefer func() { _ = os.Remove(path) }()\n \n@@ -564,7 +564,7 @@ func TestWriteCABundleMergesMultipleDeclaredVars(t *testing.T) {\n \n \tios, _, _, _ := cmdtest.TestIOStreams()\n \tparent := []string{\"PIP_CERT=\" + pathA, \"REQUESTS_CA_BUNDLE=\" + pathB}\n-\tpath, err := writeCABundle(ios, parent, []string{\"PIP_CERT\", \"REQUESTS_CA_BUNDLE\"}, testCA(t))\n+\tpath, err := writeCABundle(ios, parent, []string{\"PIP_CERT\", \"REQUESTS_CA_BUNDLE\"}, testCA(t), nil)\n \trequire.NoError(t, err)\n \tdefer func() { _ = os.Remove(path) }()\n \n@@ -582,7 +582,7 @@ func TestWriteCABundleDeduplicatesSharedPath(t *testing.T) {\n \n \tios, _, _, _ := cmdtest.TestIOStreams()\n \tparent := []string{\"SSL_CERT_FILE=\" + userPath, \"BUNDLE_SSL_CA_CERT=\" + userPath}\n-\tpath, err := writeCABundle(ios, parent, []string{\"SSL_CERT_FILE\", \"BUNDLE_SSL_CA_CERT\"}, testCA(t))\n+\tpath, err := writeCABundle(ios, parent, []string{\"SSL_CERT_FILE\", \"BUNDLE_SSL_CA_CERT\"}, testCA(t), nil)\n \trequire.NoError(t, err)\n \tdefer func() { _ = os.Remove(path) }()\n \n@@ -597,7 +597,7 @@ func TestWriteCABundleWarnsOnUnreadableExisting(t *testing.T) {\n \t// alone rather than failing the run.\n \tios, _, _, errOut := cmdtest.TestIOStreams()\n \tparent := []string{\"NODE_EXTRA_CA_CERTS=\" + filepath.Join(t.TempDir(), \"does-not-exist.pem\")}\n-\tpath, err := writeCABundle(ios, parent, []string{\"NODE_EXTRA_CA_CERTS\"}, testCA(t))\n+\tpath, err := writeCABundle(ios, parent, []string{\"NODE_EXTRA_CA_CERTS\"}, testCA(t), nil)\n \trequire.NoError(t, err)\n \tdefer func() { _ = os.Remove(path) }()\n \n@@ -608,6 +608,22 @@ func TestWriteCABundleWarnsOnUnreadableExisting(t *testing.T) {\n \trequire.NotNil(t, block, \"must still emit the proxy CA\")\n }\n \n+func TestWriteCABundleAppendsSystemRoots(t *testing.T) {\n+\tt.Parallel()\n+\tproxyCA, root := testCA(t), testCA(t)\n+\tios, _, _, _ := cmdtest.TestIOStreams()\n+\tpath, err := writeCABundle(ios, nil, nil, proxyCA, []*x509.Certificate{root})\n+\trequire.NoError(t, err)\n+\tdefer func() { _ = os.Remove(path) }()\n+\n+\traw, err := os.ReadFile(path)\n+\trequire.NoError(t, err)\n+\tcerts := parseCertsPEM(raw)\n+\trequire.Len(t, certs, 2)\n+\tassert.True(t, certs[0].Equal(proxyCA))\n+\tassert.True(t, certs[1].Equal(root), \"a tool pointed at the bundle must keep trusting the system roots\")\n+}\n+\n func TestWriteLogMergesSequentialRuns(t *testing.T) {\n \tt.Parallel()\n \t// Two firewall runs in one CI job (e.g. npm then pip) must accumulate\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/pm/pm_test.go",
+          "old_path": "internal/dependencyfirewall/pm/pm_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -4,8 +4,10 @@ import (\n \t\"context\"\n \t\"errors\"\n \t\"fmt\"\n+\t\"runtime/debug\"\n \t\"sync\"\n \n+\t\"gitlab.com/gitlab-org/cli/internal/dbg\"\n \t\"gitlab.com/gitlab-org/cli/internal/dependencyfirewall/verdict\"\n )\n \n@@ -94,6 +96,22 @@ func (c *CachingChecker) Check(ctx context.Context, r Request) (Result, error) {\n \tc.mu.Unlock()\n \n \te.once.Do(func() {\n+\t\t// A panicking inner check leaves this fail-closed result for every\n+\t\t// caller of the entry, and the entry is dropped so a retry runs again.\n+\t\te.res = InternalErrorResult(r.Coordinate)\n+\t\tdefer func() {\n+\t\t\tif v := recover(); v != nil {\n+\t\t\t\tdbg.Debugf(\"dependency firewall policy check panicked for %s: %v\\n%s\", r.Key(), v, debug.Stack())\n+\t\t\t\t// r can be one of several candidates for a request, and another\n+\t\t\t\t// candidate may decide the verdict, so the line doesn't claim one.\n+\t\t\t\tif c.log != nil {\n+\t\t\t\t\tc.log(\"warning: glab hit an internal error while checking %s. %s\\n\", internalErrorSubject(r.Coordinate), internalErrorAdvice)\n+\t\t\t\t}\n+\t\t\t\tc.mu.Lock()\n+\t\t\t\tdelete(c.cache, r)\n+\t\t\t\tc.mu.Unlock()\n+\t\t\t}\n+\t\t}()\n \t\t// The inner check is shared across every caller coalesced onto this\n \t\t// entry, so it must not inherit one caller's cancellation: WithoutCancel\n \t\t// keeps a single participant walking away from killing the shared check\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/policy/cache.go",
+          "old_path": "internal/dependencyfirewall/policy/cache.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -5,6 +5,8 @@ package policy\n import (\n \t\"context\"\n \t\"errors\"\n+\t\"fmt\"\n+\t\"strings\"\n \t\"sync\"\n \t\"sync/atomic\"\n \t\"testing\"\n@@ -346,3 +348,68 @@ func TestCacheConcurrentSameKeySingleFetch(t *testing.T) {\n \t// Coalescing collapses concurrent identical requests into one inner call.\n \tassert.Equal(t, int64(1), inner.calls.Load(), \"concurrent identical requests must coalesce into a single inner check\")\n }\n+\n+type panickingChecker struct {\n+\tcalls   atomic.Int64\n+\tentered chan<- struct{}\n+\tgate    <-chan struct{}\n+}\n+\n+func (c *panickingChecker) Check(context.Context, Request) (Result, error) {\n+\tif c.calls.Add(1) == 1 {\n+\t\tc.entered <- struct{}{}\n+\t\t<-c.gate\n+\t\tpanic(\"boom\")\n+\t}\n+\treturn Result{Verdict: verdict.Blocked, Reason: \"denied\"}, nil\n+}\n+\n+func TestCachePanicFailsClosed(t *testing.T) {\n+\tt.Parallel()\n+\tentered, gate := make(chan struct{}, 1), make(chan struct{})\n+\tinner := &panickingChecker{entered: entered, gate: gate}\n+\tvar warned strings.Builder\n+\tvar warnedMu sync.Mutex\n+\tc := NewCachingChecker(inner, func(format string, a ...any) {\n+\t\twarnedMu.Lock()\n+\t\tdefer warnedMu.Unlock()\n+\t\tfmt.Fprintf(&warned, format, a...)\n+\t})\n+\tr := req(\"maven\", \"a:b\", \"1.0\")\n+\n+\ttype outcome struct {\n+\t\tres      Result\n+\t\tpanicked any\n+\t}\n+\tfirst := make(chan outcome, 1)\n+\tgo func() {\n+\t\tvar o outcome\n+\t\tdefer func() { o.panicked = recover(); first <- o }()\n+\t\to.res, _ = c.Check(t.Context(), r)\n+\t}()\n+\t<-entered\n+\tc.mu.Lock()\n+\twaiter := c.cache[r]\n+\tc.mu.Unlock()\n+\tclose(gate)\n+\tgot := <-first\n+\trequire.Nil(t, got.panicked, \"the cache must not pass a checker's panic on to its caller\")\n+\tassert.Equal(t, verdict.Blocked, got.res.Verdict, \"the caller that ran the panicked check is blocked\")\n+\tassert.True(t, got.res.CheckFailed)\n+\tassert.True(t, got.res.Internal, \"a glab panic is told apart from a policy service failure\")\n+\tassert.Equal(t, \"glab hit an internal error while checking a:b@1.0 and blocked it. Rerun to retry, and report this with the output of GLAB_DEBUG=1.\", got.res.Reason)\n+\twarnedMu.Lock()\n+\tassert.Equal(t, \"warning: glab hit an internal error while checking a:b@1.0. Rerun to retry, and report this with the output of GLAB_DEBUG=1.\\n\", warned.String(),\n+\t\t\"the warning names only the checked package: the caller decides the verdict\")\n+\twarnedMu.Unlock()\n+\tassert.NotContains(t, got.res.Reason, \"boom\", \"the panic value stays out of the reason\")\n+\n+\twaiter.once.Do(func() {})\n+\tassert.Equal(t, verdict.Blocked, waiter.res.Verdict, \"a caller waiting on the panicked check must be blocked\")\n+\tassert.True(t, waiter.res.CheckFailed)\n+\n+\tagain, err := c.Check(t.Context(), r)\n+\trequire.NoError(t, err)\n+\tassert.Equal(t, int64(2), inner.calls.Load(), \"a panicked check must not be cached\")\n+\tassert.Equal(t, \"denied\", again.Reason)\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/policy/cache_test.go",
+          "old_path": "internal/dependencyfirewall/policy/cache_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -8,6 +8,7 @@ package policy\n \n import (\n \t\"context\"\n+\t\"errors\"\n \t\"fmt\"\n \t\"os\"\n \t\"slices\"\n@@ -17,6 +18,7 @@ import (\n \tgitlab \"gitlab.com/gitlab-org/api/client-go/v3\"\n \n \t\"gitlab.com/gitlab-org/cli/internal/dependencyfirewall/verdict\"\n+\t\"gitlab.com/gitlab-org/cli/internal/text\"\n )\n \n // CheckTimeout is the deadline every Checker.Check caller must set, shared\n@@ -86,6 +88,39 @@ type Result struct {\n \t// CheckFailed marks a block standing in for a decision the policy could\n \t// not give, as opposed to one a rule made.\n \tCheckFailed bool\n+\t// Internal marks a CheckFailed block caused by a glab panic.\n+\tInternal bool\n+}\n+\n+// ErrCheckPanicked is the error a recovered panic in a policy check becomes.\n+var ErrCheckPanicked = errors.New(\"policy check panicked\")\n+\n+// InternalErrorResult is the block for a check that glab itself broke on:\n+// failing closed means a glab bug can't let a package skip the policy check.\n+func InternalErrorResult(c Coordinate) Result {\n+\treturn Result{\n+\t\tVerdict:     verdict.Blocked,\n+\t\tReason:      fmt.Sprintf(\"glab hit an internal error while checking %s and blocked it. %s\", internalErrorSubject(c), internalErrorAdvice),\n+\t\tCheckFailed: true,\n+\t\tInternal:    true,\n+\t}\n+}\n+\n+const internalErrorAdvice = \"Rerun to retry, and report this with the output of GLAB_DEBUG=1.\"\n+\n+// InternalErrorPhrasePrefix starts InternalErrorPhrase.\n+const InternalErrorPhrasePrefix = \"Blocked: glab internal error while checking \"\n+\n+// InternalErrorPhrase is the short form of InternalErrorResult's reason, for\n+// a response status line or body.\n+func InternalErrorPhrase(c Coordinate) string {\n+\treturn InternalErrorPhrasePrefix + internalErrorSubject(c)\n+}\n+\n+// internalErrorSubject names the package for a terminal or a status line. Its\n+// name can come from a request path, so control characters are dropped.\n+func internalErrorSubject(c Coordinate) string {\n+\treturn text.SanitizeInline(c.Name + \"@\" + c.Version)\n }\n \n // Allowed reports whether the result permits the coordinate.\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/policy/policy.go",
+          "old_path": "internal/dependencyfirewall/policy/policy.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -0,0 +1,23 @@\n+//go:build !integration\n+\n+package policy\n+\n+import (\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/assert\"\n+)\n+\n+func TestInternalErrorTextIsSanitized(t *testing.T) {\n+\tt.Parallel()\n+\tc := Coordinate{Name: \"org.evil\\r\\n\\x1b[31mred:a\", Version: \"1\\n2\"}\n+\treason := InternalErrorResult(c).Reason\n+\tphrase := InternalErrorPhrase(c)\n+\n+\tassert.NotContains(t, reason, \"\\r\", \"InternalErrorResult reason\")\n+\tassert.NotContains(t, reason, \"\\n\", \"InternalErrorResult reason\")\n+\tassert.NotContains(t, reason, \"\\x1b\", \"InternalErrorResult reason\")\n+\tassert.NotContains(t, phrase, \"\\r\", \"InternalErrorPhrase\")\n+\tassert.NotContains(t, phrase, \"\\n\", \"InternalErrorPhrase\")\n+\tassert.NotContains(t, phrase, \"\\x1b\", \"InternalErrorPhrase\")\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/policy/policy_internal_test.go",
+          "old_path": "internal/dependencyfirewall/policy/policy_internal_test.go",
+          "a_mode": "0",
+          "b_mode": "100644",
+          "new_file": true,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -8,6 +8,7 @@ import (\n \t\"strings\"\n \t\"unicode/utf8\"\n \n+\t\"gitlab.com/gitlab-org/cli/internal/dependencyfirewall/policy\"\n \t\"gitlab.com/gitlab-org/cli/internal/text\"\n )\n \n@@ -47,12 +48,17 @@ func blockResponse(ecosystem, reason string, checkFailed bool) string {\n // blockReasonPhrase is a single-line reason phrase: the reason comes from the\n // policy, so a CR or LF in it must not end the status line.\n func blockReasonPhrase(reason string, checkFailed bool) string {\n-\tif checkFailed {\n-\t\treturn checkFailedReason\n-\t}\n \tphrase := \"Blocked by GitLab Dependency Firewall\"\n-\tif r := text.SanitizeInline(reason); r != \"\" {\n-\t\tphrase += \": \" + r\n+\tswitch {\n+\tcase checkFailed && strings.HasPrefix(reason, policy.InternalErrorPhrasePrefix):\n+\t\tphrase = text.SanitizeInline(reason)\n+\tcase checkFailed:\n+\t\t// A failed check's reason can be the raw API error.\n+\t\treturn checkFailedReason\n+\tdefault:\n+\t\tif r := text.SanitizeInline(reason); r != \"\" {\n+\t\t\tphrase += \": \" + r\n+\t\t}\n \t}\n \tif len(phrase) <= maxBlockReasonPhrase {\n \t\treturn phrase\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/proxy/block.go",
+          "old_path": "internal/dependencyfirewall/proxy/block.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -12,6 +12,8 @@ import (\n \n \t\"github.com/stretchr/testify/assert\"\n \t\"github.com/stretchr/testify/require\"\n+\n+\t\"gitlab.com/gitlab-org/cli/internal/dependencyfirewall/policy\"\n )\n \n func TestBlockResponseStatusLineCarriesReason(t *testing.T) {\n@@ -113,3 +115,16 @@ func TestBlockResponseNuGetIsJSON(t *testing.T) {\n \trequire.NoError(t, err)\n \tassert.Contains(t, string(body), \"blocked by policy\")\n }\n+\n+func TestInternalErrorStatusLineCannotInjectHeaders(t *testing.T) {\n+\tt.Parallel()\n+\tphrase := policy.InternalErrorPhrase(policy.Coordinate{Name: \"org.evil\\r\\nX-Injected: yes\\r\\n\\r\\nbody:a\", Version: \"1\"})\n+\tresp := parseBlock(t, blockResponse(\"maven\", phrase, true))\n+\tdefer resp.Body.Close()\n+\tassert.Equal(t, http.StatusForbidden, resp.StatusCode)\n+\tassert.Empty(t, resp.Header.Get(\"X-Injected\"))\n+\n+\tlong := parseBlock(t, blockResponse(\"maven\", policy.InternalErrorPhrase(policy.Coordinate{Name: strings.Repeat(\"a\", 2000), Version: \"1\"}), true))\n+\tdefer long.Body.Close()\n+\tassert.LessOrEqual(t, len(long.Status), len(\"403 \")+maxBlockReasonPhrase)\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/proxy/block_test.go",
+          "old_path": "internal/dependencyfirewall/proxy/block_test.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -114,6 +114,9 @@ func mavenCoordinate(path string) (string, string, mavenCoordinateResult, bool)\n \t// unmatched request bypasses the firewall that is a policy-bypass vector.\n \t// Match against the once-decoded path the origin actually receives.\n \trest := strings.Trim(path, \"/\")\n+\t// Treating maven2/ as Central is a guess: a mirror served under\n+\t// maven2/<repo>/ is read as <repo>.<group>:<artifact> with no alternates.\n+\t// A mirror named in settings.xml is matched exactly instead.\n \tcentral := strings.HasPrefix(rest, \"maven2/\")\n \tname, version, result := mavenLayoutCoordinate(strings.TrimPrefix(rest, \"maven2/\"))\n \treturn name, version, result, central && result == mavenParsed\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/proxy/mavenmatch.go",
+          "old_path": "internal/dependencyfirewall/proxy/mavenmatch.go",
+          "a_mode": "100644",
+          "b_mode": "100644",
+          "new_file": false,
+          "renamed_file": false,
+          "deleted_file": false,
+          "generated_file": null
+        },
+        {
+          "diff": "@@ -5,10 +5,13 @@ package proxy\n import (\n \t\"context\"\n \t\"errors\"\n+\t\"fmt\"\n \t\"net/http\"\n \t\"net/http/httptest\"\n \t\"slices\"\n+\t\"strings\"\n \t\"sync\"\n+\t\"sync/atomic\"\n \t\"testing\"\n \t\"time\"\n \n@@ -76,6 +79,93 @@ func (d *deadlineRecorder) Check(ctx context.Context, _ policy.Request) (policy.\n \treturn policy.Result{}, nil\n }\n \n+// panicChecker panics on one coordinate and allows the rest.\n+type panicChecker struct{ on string }\n+\n+func (c panicChecker) Check(_ context.Context, r policy.Request) (policy.Result, error) {\n+\tif r.Coordinate.Name == c.on {\n+\t\tpanic(\"checker bug\")\n+\t}\n+\treturn policy.Result{}, nil\n+}\n+\n+// lateErrChecker fails the check for slow after a delay and blocks fast at\n+// once, so a later candidate's verdict arrives before an earlier one's.\n+type lateErrChecker struct{ slow, fast string }\n+\n+func (l lateErrChecker) Check(_ context.Context, r policy.Request) (policy.Result, error) {\n+\tswitch r.Coordinate.Name {\n+\tcase l.slow:\n+\t\ttime.Sleep(50 * time.Millisecond)\n+\t\treturn policy.Result{}, errors.New(\"boom\")\n+\tcase l.fast:\n+\t\treturn policy.Result{Verdict: verdict.Blocked, Reason: \"denied\"}, nil\n+\t}\n+\treturn policy.Result{}, nil\n+}\n+\n+// overlapRecorder allows everything and records the most checks in flight at\n+// once. Each check stays in flight long enough for checks run together to overlap.\n+type overlapRecorder struct {\n+\tmu                    sync.Mutex\n+\tcalls, inFlight, most int\n+}\n+\n+func (o *overlapRecorder) Check(context.Context, policy.Request) (policy.Result, error) {\n+\to.mu.Lock()\n+\to.calls++\n+\to.inFlight++\n+\to.most = max(o.most, o.inFlight)\n+\to.mu.Unlock()\n+\ttime.Sleep(50 * time.Millisecond)\n+\to.mu.Lock()\n+\to.inFlight--\n+\to.mu.Unlock()\n+\treturn policy.Result{}, nil\n+}\n+\n+// seenErrChecker fails the check for on, allows the rest, and records every\n+// coordinate it checks.\n+type seenErrChecker struct {\n+\ton   string\n+\tmu   sync.Mutex\n+\tseen []string\n+}\n+\n+func (e *seenErrChecker) Check(_ context.Context, r policy.Request) (policy.Result, error) {\n+\te.mu.Lock()\n+\tdefer e.mu.Unlock()\n+\te.seen = append(e.seen, r.Coordinate.Name)\n+\tif r.Coordinate.Name == e.on {\n+\t\treturn policy.Result{}, errors.New(\"boom\")\n+\t}\n+\treturn policy.Result{}, nil\n+}\n+\n+// batchErrChecker allows the primary, fails the check for on and blocks every\n+// other alternate, each once a full batch of alternates is in flight.\n+type batchErrChecker struct {\n+\tprimary, on string\n+\tcalls       atomic.Int64\n+\talternates  atomic.Int64\n+\tbatchIn     chan struct{}\n+}\n+\n+func (b *batchErrChecker) Check(_ context.Context, r policy.Request) (policy.Result, error) {\n+\tb.calls.Add(1)\n+\tif r.Coordinate.Name == b.primary {\n+\t\treturn policy.Result{}, nil\n+\t}\n+\tif b.alternates.Add(1) == maxConcurrentChecks {\n+\t\tclose(b.batchIn)\n+\t}\n+\t<-b.batchIn\n+\tif r.Coordinate.Name == b.on {\n+\t\treturn policy.Result{}, errors.New(\"boom\")\n+\t}\n+\treturn policy.Result{Verdict: verdict.Blocked, Reason: \"denied\"}, nil\n+}\n+\n func candidateNames(m Match) []string {\n \tnames := []string{m.Coordinate.Name}\n \tfor _, c := range m.Alternates {\n@@ -357,6 +447,108 @@ func TestMavenMirrorPolicyMatching(t *testing.T) {\n \t\t\t\"every candidate must share one deadline\")\n \t})\n \n+\tt.Run(\"when there are more candidates than run at once\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\t// Sequential checks under the shared deadline turn a slow backend into\n+\t\t// a spurious block; a few at a time keeps the endpoint's load bounded.\n+\t\tchecker := &overlapRecorder{}\n+\t\tp, err := New(MavenMatcher{}, checker, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/nexus/content/repositories/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\trequire.Greater(t, 1+len(m.Alternates), maxConcurrentChecks)\n+\t\tres, _ := p.checkPolicy(t.Context(), m)\n+\n+\t\tassert.False(t, res.Blocked())\n+\t\tassert.Equal(t, 1+len(m.Alternates), checker.calls, \"every candidate is checked\")\n+\t\tassert.GreaterOrEqual(t, checker.most, 2, \"candidates must not wait for each other\")\n+\t\tassert.LessOrEqual(t, checker.most, maxConcurrentChecks)\n+\t})\n+\n+\tt.Run(\"when the primary coordinate is blocked\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tchecker := &denyChecker{name: \"repository.maven-central.org.slf4j:slf4j-api\"}\n+\t\tp, err := New(MavenMatcher{}, checker, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/repository/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\trequire.NotEmpty(t, m.Alternates)\n+\t\tres, _ := p.checkPolicy(t.Context(), m)\n+\n+\t\trequire.True(t, res.Blocked())\n+\t\tassert.Equal(t, []string{\"repository.maven-central.org.slf4j:slf4j-api\"}, checker.seen,\n+\t\t\t\"a decided primary costs one call, so a failing backend isn't sent every alternate\")\n+\t})\n+\n+\tt.Run(\"when the primary coordinate's check fails\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/repository/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\trequire.NotEmpty(t, m.Alternates)\n+\t\tchecker := &seenErrChecker{on: m.Coordinate.Name}\n+\t\tp, err := New(MavenMatcher{}, checker, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tres, coord := p.checkPolicy(t.Context(), m)\n+\n+\t\tassert.True(t, res.CheckFailed)\n+\t\tassert.Equal(t, m.Coordinate.Name, coord.Name)\n+\t\tassert.Equal(t, []string{m.Coordinate.Name}, checker.seen, \"a failing primary costs one call\")\n+\t})\n+\n+\tt.Run(\"when the first alternate's check fails\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/nexus/content/repositories/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\trequire.Greater(t, len(m.Alternates), maxConcurrentChecks)\n+\t\tchecker := &batchErrChecker{primary: m.Coordinate.Name, on: m.Alternates[0].Name, batchIn: make(chan struct{})}\n+\t\tp, err := New(MavenMatcher{}, checker, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tres, coord := p.checkPolicy(t.Context(), m)\n+\n+\t\tassert.True(t, res.CheckFailed, \"the first alternate's failure decides, not the later rule blocks\")\n+\t\tassert.Equal(t, m.Coordinate.Name, coord.Name)\n+\t\tassert.Equal(t, int64(1+maxConcurrentChecks), checker.calls.Load(),\n+\t\t\t\"the loop starts no alternate once it sees one has decided the verdict\")\n+\t})\n+\n+\tassertPanicBlocks := func(t *testing.T, on string) {\n+\t\tt.Helper()\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/repository/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\tp, err := New(MavenMatcher{}, panicChecker{on: on}, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tres, coord := p.checkPolicy(t.Context(), m)\n+\n+\t\tassert.True(t, res.CheckFailed, \"a panicking check fails closed instead of crashing glab\")\n+\t\tassert.True(t, res.Internal, \"a glab panic is told apart from a policy service failure\")\n+\t\tassert.Contains(t, res.Reason, \"glab hit an internal error while checking \"+m.Coordinate.Name+\"@\"+m.Coordinate.Version)\n+\t\tassert.Equal(t, m.Coordinate.Name, coord.Name)\n+\t\tassert.NotContains(t, res.Reason, \"checker bug\", \"the panic value can hold anything, so it stays out of the block reason\")\n+\t}\n+\n+\tt.Run(\"when the primary coordinate's check panics\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tassertPanicBlocks(t, \"repository.maven-central.org.slf4j:slf4j-api\")\n+\t})\n+\n+\tt.Run(\"when an alternate's check panics\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tassertPanicBlocks(t, \"org.slf4j:slf4j-api\")\n+\t})\n+\n+\tt.Run(\"when an earlier candidate's check fails after a later one is blocked\", func(t *testing.T) {\n+\t\tt.Parallel()\n+\t\tchecker := lateErrChecker{slow: \"slf4j:slf4j-api\", fast: \"org.slf4j:slf4j-api\"}\n+\t\tp, err := New(MavenMatcher{}, checker, \"group/proj\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/repository/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\t\tres, coord := p.checkPolicy(t.Context(), m)\n+\n+\t\tassert.True(t, res.CheckFailed, \"candidate order decides, not which check returns first\")\n+\t\tassert.Equal(t, m.Coordinate.Name, coord.Name)\n+\t})\n+\n \tt.Run(\"when the request is an upload to a deploy repository under a path prefix\", func(t *testing.T) {\n \t\tt.Parallel()\n \t\t// Maven applies mirrors only to resolution, so a deploy repository\n@@ -427,3 +619,42 @@ func TestMavenMirrorThroughTunnel(t *testing.T) {\n \t\t\t\"a failed check is reported under the request's own coordinate, not an invented candidate\")\n \t})\n }\n+\n+func TestPanickingCheckBlockResponseNamesTheInternalError(t *testing.T) {\n+\tt.Parallel()\n+\tp, err := New(MavenMatcher{}, panicChecker{on: \"org.slf4j:slf4j-api\"}, \"group/proj\")\n+\trequire.NoError(t, err)\n+\tr := mvn(http.MethodGet, \"/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\")\n+\n+\t_, reason, checkFailed, ok := p.admit(t.Context(), r)\n+\n+\trequire.False(t, ok)\n+\tassert.True(t, checkFailed)\n+\tassert.Equal(t, \"Blocked: glab internal error while checking org.slf4j:slf4j-api@2.0.9\", reason)\n+\tassert.Contains(t, blockResponse(\"maven\", reason, checkFailed), \"HTTP/1.1 403 Blocked: glab internal error while checking org.slf4j:slf4j-api@2.0.9\\r\\n\")\n+}\n+\n+func TestPanickingAlternateNamesTheRequest(t *testing.T) {\n+\tt.Parallel()\n+\tm := MavenMatcher{}.Match(mvn(http.MethodGet, \"/repository/maven-central/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar\", mirrorHost))\n+\trequire.NotEmpty(t, m.Alternates)\n+\tvar warned strings.Builder\n+\tvar warnedMu sync.Mutex\n+\tlogf := func(format string, a ...any) {\n+\t\twarnedMu.Lock()\n+\t\tdefer warnedMu.Unlock()\n+\t\tfmt.Fprintf(&warned, format, a...)\n+\t}\n+\tp, err := New(MavenMatcher{}, policy.NewCachingChecker(panicChecker{on: \"org.slf4j:slf4j-api\"}, logf), \"group/proj\")\n+\trequire.NoError(t, err)\n+\n+\tres, coord := p.checkPolicy(t.Context(), m)\n+\n+\tassert.True(t, res.Internal)\n+\tassert.Equal(t, m.Coordinate.Name, coord.Name)\n+\tassert.Contains(t, res.Reason, \"while checking \"+m.Coordinate.Name+\"@\"+m.Coordinate.Version, \"the reason names the same package as the CI log row\")\n+\twarnedMu.Lock()\n+\tdefer warnedMu.Unlock()\n+\tassert.Equal(t, \"warning: glab hit an internal error while checking org.slf4j:slf4j-api@2.0.9. Rerun to retry, and report this with the output of GLAB_DEBUG=1.\\n\", warned.String(),\n+\t\t\"the warning names the alternate it checked and leaves the verdict to the 403 and CI log\")\n+}\n",
+          "collapsed": false,
+          "too_large": false,
+          "new_path": "internal/dependencyfirewall/proxy/mavenmatch_prefixes_test.go",
+          "old_path": "internal/dependencyfirewall/proxy/mavenmirror_test.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -251,11 +551,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -1,12 +1,6 @@\n package api\n \n-import (\n-\t\"net/http\"\n-\t\"net/url\"\n-\t\"strings\"\n-\n-\t\"gitlab.com/gitlab-org/cli/internal/config\"\n-)\n+import \"strings\"\n \n var DefaultListLimit int64 = 30\n \n@@ -18,15 +12,3 @@ const MaxPerPage = 100\n func IsTokenConfigured(token string) bool {\n \treturn strings.TrimSpace(token) != \"\"\n }\n-\n-// ProxyFromConfig returns an http.Proxy func using a configured proxy when provided.\n-func ProxyFromConfig(cfg config.Config, repoHost string) (func(*http.Request) (*url.URL, error), error) {\n-\tproxyURL, err := config.ResolveHostProxy(cfg, repoHost)\n-\tif err != nil {\n-\t\treturn nil, err\n-\t}\n-\tif proxyURL == nil {\n-\t\treturn http.ProxyFromEnvironment, nil\n-\t}\n-\treturn http.ProxyURL(proxyURL), nil\n-}\n",
+          "diff": "@@ -846,3 +846,34 @@ func TestProxyPlainHTTPOutboundProxyFromEnvironment(t *testing.T) {\n \t\tassert.Zero(t, via.hits.Load(), \"a registry in NO_PROXY is reached directly, not through the outbound proxy\")\n \t})\n }\n+\n+// bodyReadingMatcher reads the whole upload before deciding, as upload\n+// matchers do, and fails closed a moment after the body can't be read.\n+type bodyReadingMatcher struct{ reading chan struct{} }\n+\n+func (m bodyReadingMatcher) Match(req *http.Request) Match {\n+\tclose(m.reading)\n+\tif _, err := io.ReadAll(req.Body); err != nil {\n+\t\ttime.Sleep(200 * time.Millisecond)\n+\t\treturn Match{Matched: true, Coordinate: policy.Coordinate{Name: \"stalled\"}, Reason: \"upload unreadable\"}\n+\t}\n+\treturn Match{}\n+}\n+\n+func TestProxyStopDrainsPlainHandlerBeforeVerdicts(t *testing.T) {\n+\tt.Parallel()\n+\tupstream := httptest.NewServer(http.NotFoundHandler())\n+\tt.Cleanup(upstream.Close)\n+\tmatcher := bodyReadingMatcher{reading: make(chan struct{})}\n+\tp, err := New(matcher, verdictChecker{}, \"group/proj\")\n+\trequire.NoError(t, err)\n+\trequire.NoError(t, p.Start())\n+\tsendPartialUpload(t, p, upstream)\n+\twaitFor(t, matcher.reading, \"the matcher to start reading the upload\")\n+\n+\tp.Stop()\n+\n+\tverdicts := p.Verdicts()\n+\trequire.Len(t, verdicts, 1, \"Stop must wait for a plain-HTTP handler that records after Shutdown gives up\")\n+\tassert.Equal(t, verdict.Blocked, verdicts[0].Verdict)\n+}\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/api/default.go",
-          "old_path": "internal/api/default.go",
+          "new_path": "internal/dependencyfirewall/proxy/plain_test.go",
+          "old_path": "internal/dependencyfirewall/proxy/plain_test.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -264,37 +564,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -0,0 +1,135 @@\n+package api\n+\n+import (\n+\t\"crypto/tls\"\n+\t\"crypto/x509\"\n+\t\"fmt\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/url\"\n+\t\"os\"\n+\t\"sync\"\n+\t\"time\"\n+)\n+\n+// transportKey holds every input newTransport reads, so two clients with equal\n+// keys can share one connection pool.\n+type transportKey struct {\n+\t// proxyURL is empty when the proxy comes from the environment.\n+\tproxyURL       string\n+\tcaFile         string\n+\tclientCertFile string\n+\tclientKeyFile  string\n+\tinsecure       bool\n+\tgitlabCom      bool\n+}\n+\n+// TransportCache lets API clients with identical transport settings share a\n+// connection pool, so requests to the same host reuse a warm connection\n+// instead of paying for a new TLS handshake.\n+// Safe for concurrent use.\n+type TransportCache struct {\n+\tmu    sync.Mutex\n+\tbyKey map[transportKey]*http.Transport\n+}\n+\n+func NewTransportCache() *TransportCache {\n+\treturn &TransportCache{\n+\t\tbyKey: make(map[transportKey]*http.Transport),\n+\t}\n+}\n+\n+func (tc *TransportCache) transport(key transportKey) (*http.Transport, error) {\n+\ttc.mu.Lock()\n+\tdefer tc.mu.Unlock()\n+\n+\tif t, ok := tc.byKey[key]; ok {\n+\t\treturn t, nil\n+\t}\n+\n+\tt, err := newTransport(key)\n+\tif err != nil {\n+\t\treturn nil, err\n+\t}\n+\n+\ttc.byKey[key] = t\n+\treturn t, nil\n+}\n+\n+func newTransport(key transportKey) (*http.Transport, error) {\n+\ttlsConfig := &tls.Config{\n+\t\tMinVersion:         tls.VersionTLS12,\n+\t\tInsecureSkipVerify: key.insecure,\n+\t}\n+\n+\tif key.gitlabCom {\n+\t\ttlsConfig.CipherSuites = secureCipherSuites\n+\t}\n+\n+\tif key.caFile != \"\" {\n+\t\tcaCert, err := os.ReadFile(key.caFile)\n+\t\tif err != nil {\n+\t\t\treturn nil, fmt.Errorf(\"error reading cert file: %w\", err)\n+\t\t}\n+\t\t// use system cert pool as a baseline\n+\t\tcaCertPool, err := x509.SystemCertPool()\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\tcaCertPool.AppendCertsFromPEM(caCert)\n+\t\ttlsConfig.RootCAs = caCertPool\n+\t}\n+\n+\tif key.clientCertFile != \"\" && key.clientKeyFile != \"\" {\n+\t\tclientCert, err := tls.LoadX509KeyPair(key.clientCertFile, key.clientKeyFile)\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\ttlsConfig.Certificates = []tls.Certificate{clientCert}\n+\t}\n+\n+\t// Set appropriate timeouts based on whether custom CA is used\n+\tdialTimeout := 5 * time.Second\n+\tkeepAlive := 5 * time.Second\n+\tidleTimeout := 30 * time.Second\n+\tif key.caFile != \"\" {\n+\t\tdialTimeout = 30 * time.Second\n+\t\tkeepAlive = 30 * time.Second\n+\t\tidleTimeout = 90 * time.Second\n+\t}\n+\n+\tproxy := http.ProxyFromEnvironment\n+\tif key.proxyURL != \"\" {\n+\t\tu, err := url.Parse(key.proxyURL)\n+\t\tif err != nil {\n+\t\t\treturn nil, err\n+\t\t}\n+\t\tproxy = http.ProxyURL(u)\n+\t}\n+\n+\treturn &http.Transport{\n+\t\tProxy: proxy,\n+\t\tDialContext: (&net.Dialer{\n+\t\t\tTimeout:   dialTimeout,\n+\t\t\tKeepAlive: keepAlive,\n+\t\t}).DialContext,\n+\t\tForceAttemptHTTP2:     true,\n+\t\tMaxIdleConns:          100,\n+\t\tMaxIdleConnsPerHost:   25,\n+\t\tIdleConnTimeout:       idleTimeout,\n+\t\tTLSHandshakeTimeout:   10 * time.Second,\n+\t\tExpectContinueTimeout: 1 * time.Second,\n+\t\tTLSClientConfig:       tlsConfig,\n+\t}, nil\n+}\n+\n+// pooledTransport hides CloseIdleConnections, which go-retryablehttp calls\n+// after every failed request, so that one client's failure does not drop the\n+// connections other clients share.\n+type pooledTransport struct {\n+\trt http.RoundTripper\n+}\n+\n+func (t *pooledTransport) RoundTrip(req *http.Request) (*http.Response, error) {\n+\treturn t.rt.RoundTrip(req)\n+}\n",
+          "diff": "@@ -20,6 +20,7 @@ import (\n \t\"net/http/httputil\"\n \t\"net/url\"\n \t\"os\"\n+\t\"runtime/debug\"\n \t\"strconv\"\n \t\"strings\"\n \t\"sync\"\n@@ -134,12 +135,10 @@ type Proxy struct {\n \tctx    context.Context\n \tcancel context.CancelFunc\n \n-\t// tunnels tracks in-flight hijacked MITM tunnel goroutines. http.Server\n-\t// Shutdown does not wait for hijacked connections, so Stop drains this\n-\t// (bounded) before the caller reads Verdicts(): a policy check still in\n-\t// flight when the child exits would otherwise record its verdict after the\n-\t// snapshot and a late Block would never reach the CI log.\n-\ttunnels sync.WaitGroup\n+\t// inflight tracks MITM tunnels and plain-HTTP handlers. Shutdown skips\n+\t// hijacked connections and Close waits for nothing, so Stop drains this\n+\t// (bounded) before Verdicts(), or a late Block never reaches the CI log.\n+\tinflight sync.WaitGroup\n \n \tmu       sync.Mutex\n \tverdicts []verdict.Entry\n@@ -338,20 +337,16 @@ func (p *Proxy) Stop() {\n \t\t\t_ = p.server.Close()\n \t\t}\n \t}\n-\t// Shutdown does not wait for hijacked MITM tunnels, so drain them here\n-\t// (bounded) before the caller reads Verdicts(). The cancelled context has\n-\t// already unblocked any in-flight policy check, so a well-behaved tunnel\n-\t// records its verdict and returns promptly; the timeout guards against a\n-\t// hung upstream holding shutdown open forever.\n+\t// Drain inflight (bounded) before the caller reads Verdicts().\n \tdone := make(chan struct{})\n \tgo func() {\n-\t\tp.tunnels.Wait()\n+\t\tp.inflight.Wait()\n \t\tclose(done)\n \t}()\n \tselect {\n \tcase <-done:\n \tcase <-time.After(tunnelDrainTimeout):\n-\t\tdbg.Debugf(\"dependency firewall proxy: timed out draining in-flight tunnels\")\n+\t\tdbg.Debugf(\"dependency firewall proxy: timed out draining in-flight requests\")\n \t}\n }\n \n@@ -446,6 +441,9 @@ var errUnpromptedSwitch = errors.New(\"registry switched protocols without being\n // client sends to its proxy in place of CONNECT, through the same policy\n // check as a tunnelled request.\n func (p *Proxy) handlePlain(w http.ResponseWriter, r *http.Request) {\n+\tp.inflight.Add(1)\n+\tdefer p.inflight.Done()\n+\n \t// Drop any upgrade offer rather than refuse it: libcurl offers h2c on every\n \t// request. With no Upgrade header ReverseProxy answers an upstream 101 with\n \t// 502 instead of splicing the client past the policy check.\n@@ -552,8 +550,8 @@ func (p *Proxy) handleConnect(w http.ResponseWriter, r *http.Request) {\n \t// snapshots Verdicts(): http.Server.Shutdown does not wait for hijacked\n \t// connections, so without this a policy check completing after the child\n \t// exits could record a Block that never reaches the CI log.\n-\tp.tunnels.Add(1)\n-\tdefer p.tunnels.Done()\n+\tp.inflight.Add(1)\n+\tdefer p.inflight.Done()\n \tp.serveTunnel(p.ctx, tlsConn, authority) //nolint:contextcheck // MITM tunnel is bounded by the proxy lifetime, not the CONNECT request\n }\n \n@@ -654,7 +652,10 @@ func (p *Proxy) admit(ctx context.Context, req *http.Request) (string, string, b\n \t\t\tReason:  res.Reason,\n \t\t}, res.CheckFailed)\n \t\treason := res.Reason\n-\t\tif res.CheckFailed {\n+\t\tswitch {\n+\t\tcase res.Internal:\n+\t\t\treason = policy.InternalErrorPhrase(coordinate)\n+\t\tcase res.CheckFailed:\n \t\t\treason = checkFailedReason\n \t\t}\n \t\treturn m.Coordinate.Ecosystem, reason, res.CheckFailed, false\n@@ -674,19 +675,67 @@ func (p *Proxy) admit(ctx context.Context, req *http.Request) (string, string, b\n \treturn \"\", \"\", false, true\n }\n \n+// maxConcurrentChecks bounds how many of one request's candidate coordinates\n+// are checked at once, so enumeration doesn't flood the policy endpoint.\n+const maxConcurrentChecks = 4\n+\n // checkPolicy checks every candidate coordinate m carries and returns the\n // strongest verdict, with the coordinate it belongs to; a block always wins.\n // All candidates share one overall policy.CheckTimeout deadline so a slow\n-// backend bounds total latency instead of compounding per candidate.\n+// backend bounds total latency instead of compounding per candidate. The\n+// primary coordinate goes first, so a block on it or a failing backend costs\n+// one call; the alternates then start in order, a few at a time, and the loop\n+// starts no more once it sees one blocked or failed. The verdicts are read in\n+// candidate order, so the result doesn't depend on which check returns first.\n func (p *Proxy) checkPolicy(ctx context.Context, m Match) (policy.Result, policy.Coordinate) {\n \tctx, cancel := context.WithTimeout(ctx, policy.CheckTimeout)\n \tdefer cancel()\n \n+\tcandidates := append([]policy.Coordinate{m.Coordinate}, m.Alternates...)\n+\tresults := make([]policy.Result, len(candidates))\n+\terrs := make([]error, len(candidates))\n+\tvar decided atomic.Bool\n+\tcheck := func(i int) {\n+\t\t// An alternate's goroutine is outside net/http's recover, so a panicking\n+\t\t// checker would end glab. The value stays out of the block reason.\n+\t\tdefer func() {\n+\t\t\tif r := recover(); r != nil {\n+\t\t\t\tdbg.Debugf(\"dependency firewall policy check panicked for %s: %v\\n%s\", candidates[i].Key(), r, debug.Stack())\n+\t\t\t\terrs[i] = policy.ErrCheckPanicked\n+\t\t\t}\n+\t\t\tif errs[i] != nil || results[i].Blocked() {\n+\t\t\t\tdecided.Store(true)\n+\t\t\t}\n+\t\t}()\n+\t\tresults[i], errs[i] = p.checker.Check(ctx, policy.Request{Coordinate: candidates[i], ProjectID: p.projectID, Operation: m.Operation})\n+\t}\n+\tcheck(0)\n+\tif !decided.Load() {\n+\t\tslots := make(chan struct{}, maxConcurrentChecks)\n+\t\tvar wg sync.WaitGroup\n+\t\tfor i := 1; i < len(candidates); i++ {\n+\t\t\tslots <- struct{}{}\n+\t\t\t// Candidates start in order, so a decided one is earlier than i\n+\t\t\t// and the read below returns before reaching i.\n+\t\t\tif decided.Load() {\n+\t\t\t\tbreak\n+\t\t\t}\n+\t\t\twg.Go(func() {\n+\t\t\t\tdefer func() { <-slots }()\n+\t\t\t\tcheck(i)\n+\t\t\t})\n+\t\t}\n+\t\twg.Wait()\n+\t}\n+\n \tstrongest := policy.Result{}\n \tstrongestCoordinate := m.Coordinate\n \n-\tfor _, coordinate := range append([]policy.Coordinate{m.Coordinate}, m.Alternates...) {\n-\t\tres, err := p.checker.Check(ctx, policy.Request{Coordinate: coordinate, ProjectID: p.projectID, Operation: m.Operation})\n+\tfor i, coordinate := range candidates {\n+\t\tres, err := results[i], errs[i]\n+\t\tif errors.Is(err, policy.ErrCheckPanicked) {\n+\t\t\treturn policy.InternalErrorResult(m.Coordinate), m.Coordinate\n+\t\t}\n \t\tif err != nil {\n \t\t\t// Fail closed, naming the request's own coordinate rather than the\n \t\t\t// invented candidate that errored.\n@@ -699,6 +748,9 @@ func (p *Proxy) checkPolicy(ctx context.Context, m Match) (policy.Result, policy\n \t\t}\n \t\tif res.Blocked() {\n \t\t\t// A failed check says nothing about the candidate, so name the request.\n+\t\t\tif res.Internal {\n+\t\t\t\treturn policy.InternalErrorResult(m.Coordinate), m.Coordinate\n+\t\t\t}\n \t\t\tif res.CheckFailed {\n \t\t\t\treturn res, m.Coordinate\n \t\t\t}\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/api/transport_cache.go",
-          "old_path": "internal/api/transport_cache.go",
-          "a_mode": "0",
-          "b_mode": "100644",
-          "new_file": true,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -0,0 +1,205 @@\n+//go:build !integration\n+\n+package api\n+\n+import (\n+\t\"encoding/pem\"\n+\t\"fmt\"\n+\t\"io\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/http/httptest\"\n+\t\"os\"\n+\t\"path/filepath\"\n+\t\"strings\"\n+\t\"sync/atomic\"\n+\t\"testing\"\n+\n+\t\"github.com/stretchr/testify/assert\"\n+\t\"github.com/stretchr/testify/require\"\n+\n+\t\"gitlab.com/gitlab-org/cli/internal/config\"\n+)\n+\n+// newConnCountingServer starts a TLS server and reports how many TCP\n+// connections clients have opened to it.\n+func newConnCountingServer(t *testing.T, handler http.HandlerFunc) (*httptest.Server, *atomic.Int64) {\n+\tt.Helper()\n+\n+\tvar conns atomic.Int64\n+\tsrv := httptest.NewUnstartedServer(handler)\n+\tsrv.Config.ConnState = func(_ net.Conn, state http.ConnState) {\n+\t\tif state == http.StateNew {\n+\t\t\tconns.Add(1)\n+\t\t}\n+\t}\n+\tsrv.StartTLS()\n+\tt.Cleanup(srv.Close)\n+\treturn srv, &conns\n+}\n+\n+func serverHost(srv *httptest.Server) string {\n+\treturn strings.TrimPrefix(srv.URL, \"https://\")\n+}\n+\n+// newServerConfig points host at srv and applies the extra host settings.\n+func newServerConfig(t *testing.T, srv *httptest.Server, settings map[string]string) config.Config {\n+\tt.Helper()\n+\n+\thost := serverHost(srv)\n+\tcfg := config.NewBlankConfig()\n+\trequire.NoError(t, cfg.Set(host, \"api_host\", host))\n+\trequire.NoError(t, cfg.Set(host, \"token\", \"glpat-test\"))\n+\tfor key, value := range settings {\n+\t\trequire.NoError(t, cfg.Set(host, key, value))\n+\t}\n+\treturn cfg\n+}\n+\n+func writeServerCA(t *testing.T, srv *httptest.Server, path string) {\n+\tt.Helper()\n+\n+\tpemBytes := pem.EncodeToMemory(&pem.Block{Type: \"CERTIFICATE\", Bytes: srv.Certificate().Raw})\n+\trequire.NoError(t, os.WriteFile(path, pemBytes, 0o600))\n+}\n+\n+func mustGet(t *testing.T, client *Client, url string) {\n+\tt.Helper()\n+\n+\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, url, http.NoBody)\n+\trequire.NoError(t, err)\n+\tresp, err := client.HTTPClient().Do(req)\n+\trequire.NoError(t, err)\n+\tdefer func() { require.NoError(t, resp.Body.Close()) }()\n+\t_, err = io.Copy(io.Discard, resp.Body)\n+\trequire.NoError(t, err)\n+}\n+\n+func okHandler(w http.ResponseWriter, _ *http.Request) {\n+\tw.WriteHeader(http.StatusOK)\n+}\n+\n+func TestTransportCache_SameSettingsShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcache := NewTransportCache()\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_WithoutCacheClientsDoNotShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\")\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\")\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(2), conns.Load())\n+}\n+\n+func TestTransportCache_CloseIdleConnectionsKeepsSharedPool(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcache := NewTransportCache()\n+\n+\tfirst, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tsecond, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, first, srv.URL)\n+\tfirst.HTTPClient().CloseIdleConnections()\n+\tmustGet(t, second, srv.URL)\n+\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_DifferentSettingsDoNotShareConnection(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, conns := newConnCountingServer(t, okHandler)\n+\tcache := NewTransportCache()\n+\tcaPath := filepath.Join(t.TempDir(), \"ca.pem\")\n+\twriteServerCA(t, srv, caPath)\n+\tinsecureCfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\tcaCfg := newServerConfig(t, srv, map[string]string{\"ca_cert\": caPath})\n+\n+\tinsecure, err := NewClientFromConfig(serverHost(srv), insecureCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\twithCA, err := NewClientFromConfig(serverHost(srv), caCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, insecure, srv.URL)\n+\tmustGet(t, withCA, srv.URL)\n+\n+\tassert.Equal(t, int64(2), conns.Load())\n+}\n+\n+func TestTransportCache_CustomHeadersStayPerClient(t *testing.T) {\n+\tt.Parallel()\n+\n+\theaders := make(chan string, 2)\n+\tsrv, conns := newConnCountingServer(t, func(w http.ResponseWriter, r *http.Request) {\n+\t\theaders <- r.Header.Get(\"X-Custom\")\n+\t\tw.WriteHeader(http.StatusOK)\n+\t})\n+\tcache := NewTransportCache()\n+\tplainCfg := newServerConfig(t, srv, map[string]string{\"skip_tls_verify\": \"true\"})\n+\theaderCfg := config.NewFromString(fmt.Sprintf(`hosts:\n+  %q:\n+    api_host: %q\n+    token: glpat-test\n+    skip_tls_verify: true\n+    custom_headers:\n+      - name: X-Custom\n+        value: from-config\n+`, serverHost(srv), serverHost(srv)))\n+\n+\twithHeader, err := NewClientFromConfig(serverHost(srv), headerCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tplain, err := NewClientFromConfig(serverHost(srv), plainCfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\n+\tmustGet(t, withHeader, srv.URL)\n+\tmustGet(t, plain, srv.URL)\n+\n+\tassert.Equal(t, \"from-config\", <-headers)\n+\tassert.Empty(t, <-headers)\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n+func TestTransportCache_BuildErrorIsNotCached(t *testing.T) {\n+\tt.Parallel()\n+\n+\tsrv, _ := newConnCountingServer(t, okHandler)\n+\tcaPath := filepath.Join(t.TempDir(), \"ca.pem\")\n+\tcfg := newServerConfig(t, srv, map[string]string{\"ca_cert\": caPath})\n+\tcache := NewTransportCache()\n+\n+\t_, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.ErrorContains(t, err, \"error reading cert file\")\n+\n+\twriteServerCA(t, srv, caPath)\n+\tclient, err := NewClientFromConfig(serverHost(srv), cfg, false, \"glab-test\", WithTransportCache(cache))\n+\trequire.NoError(t, err)\n+\tmustGet(t, client, srv.URL)\n+}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/api/transport_cache_test.go",
-          "old_path": "internal/api/transport_cache_test.go",
-          "a_mode": "0",
-          "b_mode": "100644",
-          "new_file": true,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -45,6 +45,7 @@ type DefaultFactory struct {\n \tbuildInfo       api.BuildInfo\n \tdefaultHostname string\n \tdefaultProtocol string\n+\ttransports      *api.TransportCache\n \n \tmu sync.Mutex // protects the fields below\n \t// cachedBaseRepo if set is the SSoT of the repository to use in BaseRepo(), GitLabClient() and other factory function that require a repository.\n@@ -60,6 +61,7 @@ func NewFactory(io *iostreams.IOStreams, resolveRepos bool, cfg config.Config, b\n \t\tbuildInfo:       buildInfo,\n \t\tdefaultHostname: glinstance.DefaultHostname,\n \t\tdefaultProtocol: glinstance.DefaultProtocol,\n+\t\ttransports:      api.NewTransportCache(),\n \t}\n \n \t// Fetch the custom host config from env vars, then local config.yml, then global config,yml.\n@@ -104,7 +106,7 @@ func (f *DefaultFactory) ApiClient(repoHost string) (*api.Client, error) {\n \tif repoHost == \"\" {\n \t\trepoHost = f.defaultHostname\n \t}\n-\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent())\n+\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n@@ -133,7 +135,7 @@ func (f *DefaultFactory) GitLabClient() (*gitlab.Client, error) {\n \t\tdbg.Debug(\"The current command request Factory.GitLabClient() without being able to resolve a base repository. The command should probably use Factory.ApiClient() instead\")\n \t}\n \n-\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent())\n+\tc, err := api.NewClientFromConfig(repoHost, f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n@@ -169,7 +171,7 @@ func (f *DefaultFactory) resolveBaseRepoFromRemotes(ctx context.Context) (glrepo\n \t\treturn remotes[0], nil\n \t}\n \n-\tac, err := api.NewClientFromConfig(remotes[0].RepoHost(), f.config, false, f.buildInfo.UserAgent())\n+\tac, err := api.NewClientFromConfig(remotes[0].RepoHost(), f.config, false, f.buildInfo.UserAgent(), api.WithTransportCache(f.transports))\n \tif err != nil {\n \t\treturn nil, err\n \t}\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/cmdutils/factory.go",
-          "old_path": "internal/cmdutils/factory.go",
+          "new_path": "internal/dependencyfirewall/proxy/proxy.go",
+          "old_path": "internal/dependencyfirewall/proxy/proxy.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -303,37 +577,11 @@
           "generated_file": null
         },
         {
-          "diff": "@@ -3,7 +3,14 @@\n package cmdutils\n \n import (\n+\t\"fmt\"\n+\t\"io\"\n+\t\"net\"\n+\t\"net/http\"\n+\t\"net/http/httptest\"\n \t\"net/url\"\n+\t\"strings\"\n+\t\"sync/atomic\"\n \t\"testing\"\n \n \t\"github.com/MakeNowJust/heredoc/v2\"\n@@ -102,6 +109,46 @@ func TestFactory_GitLabClientUsesCorrectHost(t *testing.T) {\n \t}\n }\n \n+func TestFactory_ApiClientsReuseConnection(t *testing.T) {\n+\t// GIVEN\n+\tvar conns atomic.Int64\n+\tsrv := httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {\n+\t\tw.WriteHeader(http.StatusOK)\n+\t}))\n+\tsrv.Config.ConnState = func(_ net.Conn, state http.ConnState) {\n+\t\tif state == http.StateNew {\n+\t\t\tconns.Add(1)\n+\t\t}\n+\t}\n+\tsrv.StartTLS()\n+\tdefer srv.Close()\n+\n+\thost := strings.TrimPrefix(srv.URL, \"https://\")\n+\tcfg := config.NewFromString(fmt.Sprintf(`hosts:\n+  %q:\n+    api_host: %q\n+    token: glpat-test\n+    skip_tls_verify: true\n+`, host, host))\n+\tf := NewFactory(nil, false, cfg, api.BuildInfo{})\n+\n+\t// WHEN\n+\tfor range 2 {\n+\t\tc, err := f.ApiClient(host)\n+\t\trequire.NoError(t, err)\n+\t\treq, err := http.NewRequestWithContext(t.Context(), http.MethodGet, srv.URL, http.NoBody)\n+\t\trequire.NoError(t, err)\n+\t\tresp, err := c.HTTPClient().Do(req)\n+\t\trequire.NoError(t, err)\n+\t\t_, err = io.Copy(io.Discard, resp.Body)\n+\t\trequire.NoError(t, err)\n+\t\trequire.NoError(t, resp.Body.Close())\n+\t}\n+\n+\t// THEN\n+\tassert.Equal(t, int64(1), conns.Load())\n+}\n+\n func mustURL(t *testing.T, s string) *url.URL {\n \tt.Helper()\n \n",
+          "diff": "@@ -137,17 +137,6 @@ func mergeNoProxy(callerNoProxy string) string {\n \treturn strings.Join(out, \",\")\n }\n \n-// systemCABundlePaths are the common locations of the OS CA bundle across\n-// distributions, tried in order. The first non-empty one seeds the merged\n-// bundle so tools pointed at it keep trusting the public roots.\n-var systemCABundlePaths = []string{\n-\t\"/etc/ssl/certs/ca-certificates.crt\", // Debian, Ubuntu, Alpine\n-\t\"/etc/pki/tls/certs/ca-bundle.crt\",   // Fedora, RHEL, CentOS\n-\t\"/etc/ssl/ca-bundle.pem\",             // openSUSE\n-\t\"/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem\",\n-\t\"/etc/ssl/cert.pem\", // Alpine, some BSDs\n-}\n-\n // WriteMergedBundle writes a CA bundle containing the system roots, any\n // caller-supplied CA bundles (userBundlePaths), and the proxy CA at\n // proxyCAPath, to stateDir/ca-bundle.pem, and returns its path. Tools that\n@@ -169,7 +158,7 @@ func WriteMergedBundle(stateDir, proxyCAPath string, userBundlePaths []string, l\n \t}\n \n \tfoundSystem := false\n-\tfor _, p := range systemCABundlePaths {\n+\tfor _, p := range pm.SystemCABundlePaths {\n \t\tif b, err := os.ReadFile(p); err == nil && len(b) > 0 {\n \t\t\tappendPEM(b)\n \t\t\tfoundSystem = true\n",
           "collapsed": false,
           "too_large": false,
-          "new_path": "internal/cmdutils/factory_test.go",
-          "old_path": "internal/cmdutils/factory_test.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -6,6 +6,7 @@ import (\n \t\"net/url\"\n \t\"strconv\"\n \t\"strings\"\n+\t\"time\"\n \n \t\"github.com/MakeNowJust/heredoc/v2\"\n \t\"github.com/spf13/cobra\"\n@@ -45,6 +46,12 @@ type ListOptions struct {\n \tAll          bool\n \tConfidential bool\n \n+\t// dates\n+\tCreatedAfter  time.Time\n+\tCreatedBefore time.Time\n+\tUpdatedAfter  time.Time\n+\tUpdatedBefore time.Time\n+\n \t// Pagination\n \tPage    int64\n \tPerPage int64\n@@ -87,7 +94,8 @@ func NewCmdList(f cmdutils.Factory, runE func(opts *ListOptions) error, issueTyp\n \t\t\tglab %[1]s list --all\n \t\t\tglab %[1]s ls --all\n \t\t\tglab %[1]s list --assignee=@me\n-\t\t\tglab %[1]s list --milestone release-2.0.0 --opened`, issueType)),\n+\t\t\tglab %[1]s list --milestone release-2.0.0 --opened\n+\t\t\tglab %[1]s list --updated-after 2026-10-01T00:00:00Z`, issueType)),\n \t\tArgs:              cobra.NoArgs,\n \t\tValidArgsFunction: cobra.NoFileCompletions,\n \t\tAnnotations: map[string]string{\n@@ -165,6 +173,10 @@ func NewCmdList(f cmdutils.Factory, runE func(opts *ListOptions) error, issueTyp\n \tissueListCmd.Flags().BoolVarP(&opts.All, \"all\", \"A\", false, fmt.Sprintf(\"Get all %ss.\", issueType))\n \tissueListCmd.Flags().BoolVarP(&opts.Closed, \"closed\", \"c\", false, fmt.Sprintf(\"Get only closed %ss.\", issueType))\n \tissueListCmd.Flags().BoolVarP(&opts.Confidential, \"confidential\", \"C\", false, fmt.Sprintf(\"Filter by confidential %ss.\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.CreatedAfter, \"created-after\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss created after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.CreatedBefore, \"created-before\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss created before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.UpdatedAfter, \"updated-after\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss updated after a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n+\tissueListCmd.Flags().TimeVar(&opts.UpdatedBefore, \"updated-before\", time.Time{}, []string{time.RFC3339}, fmt.Sprintf(\"Filter %ss updated before a certain date (RFC 3339, for example 2026-10-01T00:00:00Z).\", issueType))\n \tissueListCmd.Flags().VarP(cmdutils.NewEnumValue([]string{\"details\", \"ids\", \"urls\"}, \"details\", &opts.OutputFormat), \"output-format\", \"F\", \"Options: 'details', 'ids', 'urls'.\")\n \tcmdutils.EnableJSONOutputP(issueListCmd, f.IO(), &opts.Output, \"O\", \"Options: 'text' or 'json'.\")\n \tissueListCmd.Flags().Int64VarP(&opts.Page, \"page\", \"p\", 1, \"Page number.\")\n@@ -277,6 +289,22 @@ func listRun(opts *ListOptions) error {\n \t\tlistOpts.Confidential = new(opts.Confidential)\n \t\topts.ListType = \"search\"\n \t}\n+\tif !opts.CreatedAfter.IsZero() {\n+\t\tlistOpts.CreatedAfter = new(opts.CreatedAfter)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.CreatedBefore.IsZero() {\n+\t\tlistOpts.CreatedBefore = new(opts.CreatedBefore)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.UpdatedAfter.IsZero() {\n+\t\tlistOpts.UpdatedAfter = new(opts.UpdatedAfter)\n+\t\topts.ListType = \"search\"\n+\t}\n+\tif !opts.UpdatedBefore.IsZero() {\n+\t\tlistOpts.UpdatedBefore = new(opts.UpdatedBefore)\n+\t\topts.ListType = \"search\"\n+\t}\n \tif opts.Page != 0 {\n \t\tlistOpts.Page = opts.Page\n \t\topts.ListType = \"search\"\n@@ -467,6 +495,18 @@ func isMatch(issue *gitlab.Issue, opts *gitlab.ListProjectIssuesOptions) bool {\n \tif opts.Confidential != nil && *opts.Confidential != issue.Confidential {\n \t\treturn false\n \t}\n+\tif opts.CreatedAfter != nil && (issue.CreatedAt == nil || issue.CreatedAt.Before(*opts.CreatedAfter)) {\n+\t\treturn false\n+\t}\n+\tif opts.CreatedBefore != nil && (issue.CreatedAt == nil || issue.CreatedAt.After(*opts.CreatedBefore)) {\n+\t\treturn false\n+\t}\n+\tif opts.UpdatedAfter != nil && (issue.UpdatedAt == nil || issue.UpdatedAt.Before(*opts.UpdatedAfter)) {\n+\t\treturn false\n+\t}\n+\tif opts.UpdatedBefore != nil && (issue.UpdatedAt == nil || issue.UpdatedAt.After(*opts.UpdatedBefore)) {\n+\t\treturn false\n+\t}\n \n \treturn true\n }\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/issuable/list/issuable_list.go",
-          "old_path": "internal/commands/issuable/list/issuable_list.go",
-          "a_mode": "100644",
-          "b_mode": "100644",
-          "new_file": false,
-          "renamed_file": false,
-          "deleted_file": false,
-          "generated_file": null
-        },
-        {
-          "diff": "@@ -546,6 +546,129 @@ func TestIssueList_filterByIteration(t *testing.T) {\n `, output.String())\n }\n \n+func TestIssueList_filterByDates(t *testing.T) {\n+\t// NOTE: These subtests cannot run in parallel because they use cmdutils.GroupOverride()\n+\t// which modifies global viper state (SetEnvPrefix, BindEnv).\n+\tt.Run(\"project\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListProjectIssues(\"OWNER/REPO\", gomock.Any()).\n+\t\t\tDoAndReturn(func(pid any, opts *gitlab.ListProjectIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\trequire.NotNil(t, opts.CreatedAfter)\n+\t\t\t\trequire.NotNil(t, opts.CreatedBefore)\n+\t\t\t\trequire.NotNil(t, opts.UpdatedAfter)\n+\t\t\t\trequire.NotNil(t, opts.UpdatedBefore)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), *opts.CreatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC), *opts.CreatedBefore)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 3, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedBefore)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\toutput, err := exec(\"--created-after 2026-01-01T00:00:00Z --created-before 2026-02-01T00:00:00Z --updated-after 2026-03-01T00:00:00Z --updated-before 2026-04-01T00:00:00Z\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tassert.Empty(t, output.Stderr())\n+\t\tassert.Equal(t, `No open issues match your search in OWNER/REPO.\n+\n+\n+`, output.String())\n+\t})\n+\tt.Run(\"no date flags\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListProjectIssues(\"OWNER/REPO\", gomock.Any()).\n+\t\t\tDoAndReturn(func(pid any, opts *gitlab.ListProjectIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\tassert.Nil(t, opts.CreatedAfter)\n+\t\t\t\tassert.Nil(t, opts.CreatedBefore)\n+\t\t\t\tassert.Nil(t, opts.UpdatedAfter)\n+\t\t\t\tassert.Nil(t, opts.UpdatedBefore)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\t_, err = exec(\"\")\n+\t\trequire.NoError(t, err)\n+\t})\n+\tt.Run(\"group\", func(t *testing.T) {\n+\t\ttestClient := gitlabtesting.NewTestClient(t)\n+\n+\t\ttestClient.MockIssues.EXPECT().\n+\t\t\tListGroupIssues(\"GROUP\", gomock.Any()).\n+\t\t\tDoAndReturn(func(gid any, opts *gitlab.ListGroupIssuesOptions, options ...gitlab.RequestOptionFunc) ([]*gitlab.Issue, *gitlab.Response, error) {\n+\t\t\t\trequire.NotNil(t, opts.UpdatedAfter)\n+\t\t\t\tassert.Equal(t, time.Date(2026, 10, 1, 0, 0, 0, 0, time.UTC), *opts.UpdatedAfter)\n+\t\t\t\tassert.Nil(t, opts.CreatedAfter)\n+\t\t\t\treturn []*gitlab.Issue{}, nil, nil\n+\t\t\t})\n+\n+\t\tapiClient, err := api.NewClient(\n+\t\t\tfunc(*http.Client) (gitlab.AuthSource, error) {\n+\t\t\t\treturn gitlab.AccessTokenAuthSource{Token: \"test-token\"}, nil\n+\t\t\t},\n+\t\t\tapi.WithGitLabClient(testClient.Client),\n+\t\t)\n+\t\trequire.NoError(t, err)\n+\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithApiClient(apiClient),\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\toutput, err := exec(\"--group GROUP --updated-after 2026-10-01T00:00:00Z\")\n+\t\trequire.NoError(t, err)\n+\n+\t\tassert.Empty(t, output.Stderr())\n+\t\tassert.Equal(t, `No open issues match your search in GROUP.\n+\n+\n+`, output.String())\n+\t})\n+\tt.Run(\"invalid format\", func(t *testing.T) {\n+\t\texec := cmdtest.SetupCmdForTest(t, func(f cmdutils.Factory) *cobra.Command {\n+\t\t\treturn NewCmdList(f, nil, issuable.TypeIssue)\n+\t\t}, true,\n+\t\t\tcmdtest.WithBaseRepo(\"OWNER\", \"REPO\", \"\"),\n+\t\t)\n+\n+\t\t_, err := exec(\"--created-after 2026-10-01\")\n+\t\trequire.ErrorContains(t, err, \"invalid time format\")\n+\t})\n+}\n+\n func TestIssueList_tty_withIssueType(t *testing.T) {\n \t// NOTE: we need to force disable colors, otherwise we'd need ANSI sequences in our test output assertions.\n \tt.Setenv(\"NO_COLOR\", \"true\")\n@@ -975,6 +1098,8 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\t\tID: 103,\n \t\t\t},\n \t\t\tConfidential: false,\n+\t\t\tCreatedAt:    new(time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)),\n+\t\t\tUpdatedAt:    new(time.Date(2026, 3, 1, 0, 0, 0, 0, time.UTC)),\n \t\t},\n \t\t{\n \t\t\tIID:   2,\n@@ -992,6 +1117,8 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\t\tID: 203,\n \t\t\t},\n \t\t\tConfidential: true,\n+\t\t\tCreatedAt:    new(time.Date(2026, 2, 1, 0, 0, 0, 0, time.UTC)),\n+\t\t\tUpdatedAt:    new(time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC)),\n \t\t},\n \t}\n \n@@ -1079,6 +1206,31 @@ func TestIssueList_epicIssues(t *testing.T) {\n \t\t\tcommandLine: `--group testGroupID --epic 42 --all --confidential`,\n \t\t\twantIDs:     []int{2},\n \t\t},\n+\t\t{\n+\t\t\tname:        \"created-after flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-after 2026-01-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"created-before flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-before 2026-01-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{1},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"updated-after flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --updated-after 2026-03-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"updated-before flag\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --updated-before 2026-03-15T00:00:00Z`,\n+\t\t\twantIDs:     []int{1},\n+\t\t},\n+\t\t{\n+\t\t\tname:        \"date flags include the boundary\",\n+\t\t\tcommandLine: `--group testGroupID --epic 42 --all --created-after 2026-02-01T00:00:00Z --created-before 2026-02-01T00:00:00Z`,\n+\t\t\twantIDs:     []int{2},\n+\t\t},\n \t\t{\n \t\t\tname:        \"page flag\",\n \t\t\tcommandLine: `--group testGroupID --epic 42 --all --page=2`,\n",
-          "collapsed": false,
-          "too_large": false,
-          "new_path": "internal/commands/issuable/list/issuable_list_test.go",
-          "old_path": "internal/commands/issuable/list/issuable_list_test.go",
+          "new_path": "internal/dependencyfirewall/session/env.go",
+          "old_path": "internal/dependencyfirewall/session/env.go",
           "a_mode": "100644",
           "b_mode": "100644",
           "new_file": false,
@@ -344,7 +592,7 @@
       ],
       "compare_timeout": false,
       "compare_same_ref": false,
-      "web_url": "https://gitlab.com/gitlab-org/cli/-/compare/0c70d17a21abdb54ba58828aca394a582d0b3f79...e74ebf81debb9e3d1eec70a7e4a82a15031315ad"
+      "web_url": "https://gitlab.com/gitlab-org/cli/-/compare/80ead1ab1696b9974b3a903e67ee1b9d0eda9e7a...0dd7574dce9e385c5c30540e6c15657adc6bdce9"
     }
   }
 }
