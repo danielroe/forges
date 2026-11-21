@@ -6,7 +6,7 @@ import type { XrpcParams } from './records.ts'
 import { verb } from '../define.ts'
 import { UnsupportedOperationError } from '../errors.ts'
 import { toDate } from '../utils.ts'
-import { parseAtUri } from './atproto.ts'
+import { parseAtUri, serviceDidForHost } from './atproto.ts'
 import { COLLECTIONS, FORGE, toNotificationReason, toThreadRef } from './normalise.ts'
 
 const NOTIFICATION_NSID = {
@@ -45,7 +45,7 @@ interface NotificationDeps {
  * PDS for audience `did:web:<host>`.
  */
 export function createTangledNotifications(url: string, { instance, context, fetcher, pdsCall, query, resolveRepo, actorFor }: NotificationDeps): NonNullable<ProviderSpec['notifications']> {
-  const audience = `did:web:${new URL(url).host}`
+  const audience = serviceDidForHost(url)
   const titles = new Map<string, Promise<string | undefined>>()
 
   async function call<T>(nsid: string, init: RequestOptions = {}): Promise<T> {

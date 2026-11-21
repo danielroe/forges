@@ -20,6 +20,14 @@ export function atUri(did: string, collection: string, rkey: string): string {
   return `at://${did}/${collection}/${rkey}`
 }
 
+/** The DID of the service at `host`, as atproto service auth names it. */
+export function serviceDidForHost(hostOrUrl: string): string {
+  const host = new URL(/^https?:\/\//.test(hostOrUrl)
+    ? hostOrUrl
+    : `https://${hostOrUrl}`).host
+  return `did:web:${host.replace(/:/g, '%3A')}`
+}
+
 export interface Identity {
   did: string
   /** For a repo DID, the knot: a knot is the PDS of the repositories it hosts. */

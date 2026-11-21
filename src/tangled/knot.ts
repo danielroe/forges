@@ -21,18 +21,11 @@ import type { RepoHandle } from './records.ts'
 import { toFileContent } from '../contents.ts'
 import { NotFoundError } from '../errors.ts'
 import { toDate } from '../utils.ts'
+import { serviceDidForHost } from './atproto.ts'
 import { FORGE } from './normalise.ts'
 import { parsePatch, patchCommits, patchFiles } from './patch.ts'
 import { xrpcPath } from './records.ts'
 import { repoPath } from './web.ts'
-
-/** The DID of the service at `host`, as atproto service auth names it. */
-export function serviceDidForHost(hostOrUrl: string): string {
-  const host = new URL(/^https?:\/\//.test(hostOrUrl)
-    ? hostOrUrl
-    : `https://${hostOrUrl}`).host
-  return `did:web:${host.replace(/:/g, '%3A')}`
-}
 
 /** The oid of git's empty tree, for the commit whose parent would be the empty one. */
 const EMPTY_TREE_SHA1 = '4b825dc642cb6eb9a060e54bf8d69288fbee4904'

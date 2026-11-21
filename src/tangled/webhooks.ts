@@ -17,6 +17,7 @@ import { verb } from '../define.ts'
 import { NotFoundError, UnsupportedOperationError } from '../errors.ts'
 import { toDate } from '../utils.ts'
 import { eventKindsOf, nativeEventsFor, verifyHmacSignature } from '../webhooks.ts'
+import { serviceDidForHost } from './atproto.ts'
 import { FORGE } from './normalise.ts'
 import { xrpcPath } from './records.ts'
 
@@ -93,7 +94,7 @@ export function createTangledWebhooks({ instance, context, fetcher, repoFor, ser
 
   /** Calls a method of the spindle, with a service-auth token for its service DID. */
   async function call<T>(origin: string, nsid: string, init: { query?: XrpcParams, json?: unknown, signal?: AbortSignal } = {}): Promise<T> {
-    const token = await serviceAuth(`did:web:${new URL(origin).host}`, nsid, init.signal)
+    const token = await serviceAuth(serviceDidForHost(origin), nsid, init.signal)
     return (await fetcher.json<T>(`${origin}${xrpcPath(nsid, init.query)}`, {
       ...init.json === undefined
         ? {}

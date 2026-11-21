@@ -440,6 +440,49 @@ describe('tangled writes', () => {
 })
 
 describe('tangled webhooks', () => {
+  it('authenticates to a spindle on a port with its DID', async () => {
+    const { instance } = provider({
+      ...session,
+      [`GET https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=${encodeURIComponent(REPO_DID)}`]: {
+        status: 200,
+        body: {
+          uri: `at://${REPO_DID}/org.tangled.repo.manifest/self`,
+          knot: 'knot1.tangled.sh',
+          value: {
+            declaration: { owner: OWNER, name: 'widgets' },
+            spindle: 'did:web:spindle.example.com%3A8443',
+            createdAt: '2026-01-01T00:00:00Z',
+          },
+        },
+      },
+      [`GET ${PDS}/xrpc/com.atproto.server.getServiceAuth?aud=${encodeURIComponent('did:web:spindle.example.com%3A8443')}&lxm=org.tangled.webhook.listWebhooks`]: {
+        status: 200,
+        body: { token: 'token-spindle' },
+      },
+      [`GET https://spindle.example.com:8443/xrpc/org.tangled.webhook.listWebhooks?repo=${encodeURIComponent(REPO_DID)}`]: {
+        status: 200,
+        body: {
+          webhooks: [
+            {
+              id: '3',
+              url: 'https://example.com/hook',
+              active: true,
+              events: ['push'],
+            },
+          ],
+        },
+      },
+    })
+    const hooks = await instance.webhooks.list({ ...repo, externalId: REPO_DID }).page()
+
+    expect(hooks.items.map(hook => [hook.ref.id, hook.events])).toEqual([
+      [
+        '3',
+        ['push'],
+      ],
+    ])
+  })
+
   it('verifies a signed delivery with the provider secret', async () => {
     const body = (await import('../utils/fixtures.ts')).payloadFixture('tangled', 'webhooks/pull-request-created')
     const secret = 'webhook-secret'
