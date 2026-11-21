@@ -796,13 +796,13 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
         fetch,
         timeout,
       })
-      const slug = env.FIXTURE_GITEA_REPO ?? 'gitea/tea'
+      const slug = env.FIXTURE_GITEA_REPO ?? 'gitea/cli'
       return {
         provider,
         manifest: {
           repo: repoRef('gitea', provider.instance, slug),
-          pull: ref('gitea', provider.instance, slug, 'pull_request', env.FIXTURE_GITEA_PULL ?? '1099'),
-          issue: ref('gitea', provider.instance, slug, 'issue', env.FIXTURE_GITEA_ISSUE ?? '1095'),
+          pull: ref('gitea', provider.instance, slug, 'pull_request', env.FIXTURE_GITEA_PULL ?? '92'),
+          issue: ref('gitea', provider.instance, slug, 'issue', env.FIXTURE_GITEA_ISSUE ?? '91'),
           feedUser: env.FIXTURE_GITEA_FEED_USER ?? 'danielroe',
           ...setupRepos('GITEA', slug => repoRef('gitea', provider.instance, slug)),
         },
