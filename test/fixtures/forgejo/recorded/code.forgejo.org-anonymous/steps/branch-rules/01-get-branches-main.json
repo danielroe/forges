@@ -9,13 +9,13 @@
     "body": {
       "name": "main",
       "commit": {
-        "id": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-        "message": "Update dependency buildx to v0.37.2 (#1765)\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1765\nReviewed-by: Mathieu Fenniak <redacted@example.invalid>\n",
-        "url": "https://code.forgejo.org/forgejo/runner/commit/c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
+        "id": "dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb",
+        "message": "fix: set container daemon socket to \"-\" if the default socket is not available (#1784)\n\nFixes https://code.forgejo.org/forgejo/runner/issues/1073\n\nReviewed-on: https://code.forgejo.org/forgejo/runner/pulls/1784\nReviewed-by: Andreas Ahlenstorf <redacted@example.invalid>\n",
+        "url": "https://code.forgejo.org/forgejo/runner/commit/dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb",
         "author": {
-          "name": "Renovate Bot",
+          "name": "Clouds",
           "email": "redacted@example.invalid",
-          "username": "viceice-bot"
+          "username": "clouds666"
         },
         "committer": {
           "name": "Mathieu Fenniak",
@@ -29,7 +29,7 @@
           "signer": null,
           "payload": ""
         },
-        "timestamp": "2026-10-02T02:59:29Z",
+        "timestamp": "2026-11-20T01:54:03Z",
         "added": null,
         "removed": null,
         "modified": null

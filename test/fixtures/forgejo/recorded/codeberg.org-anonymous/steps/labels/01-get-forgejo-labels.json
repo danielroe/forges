@@ -6,6 +6,8 @@
   "response": {
     "status": 200,
     "headers": {
+      "ratelimit": "\"baseline\";r=1915;t=600",
+      "ratelimit-policy": "\"baseline\";q=2000;w=600",
       "x-total-count": "107"
     },
     "body": [
@@ -103,7 +105,7 @@
         "id": 1852910,
         "name": "backport/v16.0/forgejo",
         "exclusive": false,
-        "is_archived": false,
+        "is_archived": true,
         "color": "bfe5bf",
         "description": "Automated backport to v16.0",
         "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/labels/1852910"

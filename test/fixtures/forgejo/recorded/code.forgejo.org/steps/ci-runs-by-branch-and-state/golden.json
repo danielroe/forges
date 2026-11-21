@@ -10,16 +10,16 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "197058"
+        "id": "201406"
       },
       "name": "test-multi-platform.yml",
       "state": "failure",
       "stateRaw": "failure",
-      "number": "23991",
+      "number": "24188",
       "eventRaw": "schedule",
       "branch": "main",
-      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23991",
+      "sha": "dcd6b485a7ac9b96cbfbd1ef1e1d133afc31e2eb",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24188",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
@@ -30,9 +30,9 @@
         "url": "https://code.forgejo.org/forgejo-actions",
         "isBotHint": true
       },
-      "createdAt": "2026-10-16T12:00:43.000Z",
-      "startedAt": "2026-10-16T12:00:48.000Z",
-      "completedAt": "2026-10-16T12:59:30.000Z"
+      "createdAt": "2026-11-20T12:00:16.000Z",
+      "startedAt": "2026-11-20T12:00:29.000Z",
+      "completedAt": "2026-11-20T12:58:07.000Z"
     },
     {
       "ref": {
@@ -44,49 +44,50 @@
           "owner": "forgejo",
           "name": "runner"
         },
-        "id": "196211"
+        "id": "201263"
       },
-      "name": "test-multi-platform.yml",
+      "name": "test.yml",
       "state": "failure",
       "stateRaw": "failure",
-      "number": "23966",
-      "eventRaw": "schedule",
-      "branch": "main",
-      "sha": "c4a92ffa5e3a400ae7e9c40a2914e649eb338ad7",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23966",
-      "actor": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "login": "forgejo-actions",
-        "id": "-2",
-        "name": "Forgejo Actions",
-        "avatarUrl": "https://code.forgejo.org/assets/img/avatar_default.png",
-        "url": "https://code.forgejo.org/forgejo-actions",
-        "isBotHint": true
-      },
-      "createdAt": "2026-10-09T12:00:15.000Z",
-      "completedAt": "2026-10-09T13:20:24.000Z"
-    },
-    {
-      "ref": {
-        "forge": "forgejo",
-        "instance": "code.forgejo.org",
-        "repo": {
-          "forge": "forgejo",
-          "instance": "code.forgejo.org",
-          "owner": "forgejo",
-          "name": "runner"
-        },
-        "id": "195207"
-      },
-      "name": "example-lxc-systemd.yml",
-      "state": "failure",
-      "stateRaw": "failure",
-      "number": "23909",
+      "number": "24168",
       "eventRaw": "push",
       "branch": "main",
-      "sha": "67b065da410fa56d3c803b8bc7b460ace8ebd256",
-      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/23909",
+      "sha": "0e61343d1cb98d2a381d0d18f34aea408e66e4d2",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24168",
+      "actor": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "login": "viceice",
+        "id": "8",
+        "name": "Michael Kriese",
+        "avatarUrl": "https://code.forgejo.org/avatars/3da6c3c7dde0a4bb3db897f012f99e64684eaebeefbe49621b0ac43c18702c9b",
+        "url": "https://code.forgejo.org/viceice",
+        "isBotHint": false
+      },
+      "createdAt": "2026-11-19T13:18:10.000Z",
+      "startedAt": "2026-11-19T13:18:10.000Z",
+      "completedAt": "2026-11-19T13:35:26.000Z"
+    },
+    {
+      "ref": {
+        "forge": "forgejo",
+        "instance": "code.forgejo.org",
+        "repo": {
+          "forge": "forgejo",
+          "instance": "code.forgejo.org",
+          "owner": "forgejo",
+          "name": "runner"
+        },
+        "id": "200944"
+      },
+      "name": "cascade-forgejo.yml",
+      "state": "failure",
+      "stateRaw": "failure",
+      "number": "24129",
+      "eventRaw": "push",
+      "branch": "main",
+      "sha": "649b2e5eba37f03e14e7dbbbc2079fbad2e3e03e",
+      "url": "https://code.forgejo.org/forgejo/runner/actions/runs/24129",
       "actor": {
         "forge": "forgejo",
         "instance": "code.forgejo.org",
@@ -97,11 +98,12 @@
         "url": "https://code.forgejo.org/mfenniak",
         "isBotHint": false
       },
-      "createdAt": "2026-10-01T00:45:35.000Z",
-      "completedAt": "2026-10-01T00:54:55.000Z"
+      "createdAt": "2026-11-17T21:32:23.000Z",
+      "startedAt": "2026-11-17T21:32:24.000Z",
+      "completedAt": "2026-11-17T21:41:48.000Z"
     }
   ],
-  "total": 962,
+  "total": 970,
   "cursor": {
     "nextUrl": "https://code.forgejo.org/api/v1/repos/forgejo/runner/actions/runs?status=failure&status=cancelled&ref=refs%2Fheads%2Fmain&page=2&limit=3"
   }

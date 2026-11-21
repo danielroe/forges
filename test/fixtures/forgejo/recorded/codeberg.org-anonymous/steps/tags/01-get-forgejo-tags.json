@@ -6,58 +6,58 @@
   "response": {
     "status": 200,
     "headers": {
-      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=102>; rel=\"last\"",
-      "ratelimit": "\"baseline\";r=1872;t=600",
+      "link": "<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=2>; rel=\"next\",<https://codeberg.org/api/v1/repos/forgejo/forgejo/tags?limit=3&page=104>; rel=\"last\"",
+      "ratelimit": "\"baseline\";r=1865;t=600",
       "ratelimit-policy": "\"baseline\";q=2000;w=600",
-      "x-total-count": "306"
+      "x-total-count": "311"
     },
     "body": [
       {
-        "name": "v17.0.0",
-        "message": "[v17.0/forgejo] i18n: backport of translation updates from Codeberg Translate (#14798)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14798\nReviewed-by: Michael Kriese <redacted@example.invalid>\nReviewed-by: Beowulf <redacted@example.invalid>",
-        "id": "0d791421f85ca13a63b665053d81ea765fbbc571",
+        "name": "v17.0.2",
+        "message": "[v17.0/forgejo] 2026-11-18 security patches (#15298)\n\nContains these consolidated security fixes from the Forgejo Security team's private patch development and validation:\n\n- fix: search for authorized SSH public keys by exact check.  When Forgejo's internal SSH server is in-use (`[server].START_SSH_SERVER = true`), the content of public SSH keys was checked against the database with a SQL `LIKE` operation.  In SQLite installations, this `LIKE` operation is case-insensitive.  This would allow a malicious actor to retrieve the public key of a target user, craft a private key that used any public key that matched the target public key (case insensitively), and access Forgejo with that key.  Standard `ssh` access would not be possible as the private key would not pass OpenSSH's validity checks, but a crafted application could be built to access Forgejo and bypass this restriction.  The computational complexity of crafting such a public key takes less than one minute on a modern desktop.  The issue has been addressed by changing the database search to an exact fingerprint key match (a performance enhancement due to an existing DB index), and following up with an exact key content confirmation as well.\n- fix: check email activation in MakeEmailAddressPrimary.  Forgejo's web UI has a capability to mark an email address as the primary address of a user.  The UI restricted this to occurring on email addresses that were verified, but the backend POST endpoint did not validate that check.  In marking an unverified email address as the primary email for an account, it is possible to trick an external service relying on Forgejo as an authentication source into granting access to an unexpected external account.  The issue has been fixed by validating the email address is validated before marking it as a primary email.  Thanks to Jaeyong Lee <redacted@example.invalid> for reporting this risk and providing a patch.\n- fix: require tree/parent/author/committer in git object to be parsed in positional order.  Forgejo reads git commits and parses them in order to understand the structure of the commit, and its relation to other objects in the repository.  While git requires that the tree, parents, author, and committer of the commit are headers in a specific positional order, Forgejo allowed these headers to parsed in any arbitrary header.  A crafted commit could cause Forgejo to present the commit incorrectly to users, including displaying an incorrect diff.  The issue has been fixed by parsing git commits with positional awareness for these critical headers.\n- fix: require repo code reader unit for `/tree-list` and `/find` UI endpoints.  The `/tree-list` HTTP endpoint was missing a security check that prevented users without code reader access from interacting with the endpoint.  This endpoint can be used to retrieve the files that are present in a repository, leaking file presence information to users who were not authorized to read it.  The missing security check was added to the endpoint.\n- fix: implement authorization reducers in `/activities/feeds` and `/heatmap` APIs.  These APIs were accessible with repo-specific access tokens and public-only access tokens, and data from resources outside of those restrictions would be accessible.  This was fixed by implementing authorization reducers in these API calls, filtering the repositories accessible when necessary.\n\n<!--start release-notes-assistant-->\n\n## Release notes\n<!--URL:https://codeberg.org/forgejo/forgejo-->\n- Security bug fixes\n  - [PR](https://codeberg.org/forgejo/forgejo/pulls/15298): <!--number 15298 --><!--line 0 --><!--description MjAyNi0xMS0xOCBzZWN1cml0eSBwYXRjaGVz-->2026-11-18 security patches<!--description-->\n<!--end release-notes-assistant-->\n\nCo-authored-by: Jaeyong Lee <redacted@example.invalid>\nCo-authored-by: Furkan Derse <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15298\nReviewed-by: Beowulf <redacted@example.invalid>",
+        "id": "eea4b0052f24f5ee986b46c00ebf30bdbbf654cb",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/0d791421f85ca13a63b665053d81ea765fbbc571",
-          "sha": "0d791421f85ca13a63b665053d81ea765fbbc571",
-          "created": "2026-10-15T10:43:25+02:00"
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/eea4b0052f24f5ee986b46c00ebf30bdbbf654cb",
+          "sha": "eea4b0052f24f5ee986b46c00ebf30bdbbf654cb",
+          "created": "2026-11-18T06:19:17+01:00"
         },
-        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.zip",
-        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.0.tar.gz",
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.2.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.2.tar.gz",
         "archive_download_count": {
-          "zip": 9,
-          "tar_gz": 101
+          "zip": 6,
+          "tar_gz": 180
         }
       },
       {
-        "name": "v16.0.6",
-        "message": "[v16.0/forgejo] 2026-10-12 security patches (#14813)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14813\nReviewed-by: Michael Kriese <redacted@example.invalid>",
-        "id": "1aa13944143b3bc4312607239a68da23512d5ce3",
+        "name": "v15.0.12",
+        "message": "[v15.0/forgejo] 2026-11-18 security patches (#15299)\n\nContains these consolidated security fixes from the Forgejo Security team's private patch development and validation:\n\n- fix: search for authorized SSH public keys by exact check.  When Forgejo's internal SSH server is in-use (`[server].START_SSH_SERVER = true`), the content of public SSH keys was checked against the database with a SQL `LIKE` operation.  In SQLite installations, this `LIKE` operation is case-insensitive.  This would allow a malicious actor to retrieve the public key of a target user, craft a private key that used any public key that matched the target public key (case insensitively), and access Forgejo with that key.  Standard `ssh` access would not be possible as the private key would not pass OpenSSH's validity checks, but a crafted application could be built to access Forgejo and bypass this restriction.  The computational complexity of crafting such a public key takes less than one minute on a modern desktop.  The issue has been addressed by changing the database search to an exact fingerprint key match (a performance enhancement due to an existing DB index), and following up with an exact key content confirmation as well.\n- fix: check email activation in MakeEmailAddressPrimary.  Forgejo's web UI has a capability to mark an email address as the primary address of a user.  The UI restricted this to occurring on email addresses that were verified, but the backend POST endpoint did not validate that check.  In marking an unverified email address as the primary email for an account, it is possible to trick an external service relying on Forgejo as an authentication source into granting access to an unexpected external account.  The issue has been fixed by validating the email address is validated before marking it as a primary email.  Thanks to Jaeyong Lee <redacted@example.invalid> for reporting this risk and providing a patch.\n- fix: require tree/parent/author/committer in git object to be parsed in positional order.  Forgejo reads git commits and parses them in order to understand the structure of the commit, and its relation to other objects in the repository.  While git requires that the tree, parents, author, and committer of the commit are headers in a specific positional order, Forgejo allowed these headers to parsed in any arbitrary header.  A crafted commit could cause Forgejo to present the commit incorrectly to users, including displaying an incorrect diff.  The issue has been fixed by parsing git commits with positional awareness for these critical headers.\n- fix: require repo code reader unit for `/tree-list` and `/find` UI endpoints.  The `/tree-list` HTTP endpoint was missing a security check that prevented users without code reader access from interacting with the endpoint.  This endpoint can be used to retrieve the files that are present in a repository, leaking file presence information to users who were not authorized to read it.  The missing security check was added to the endpoint.\n- fix: implement authorization reducers in `/activities/feeds` and `/heatmap` APIs.  These APIs were accessible with repo-specific access tokens and public-only access tokens, and data from resources outside of those restrictions would be accessible.  This was fixed by implementing authorization reducers in these API calls, filtering the repositories accessible when necessary.\n- perf: search authorized key via fingerprint was backported from Forgejo v17 (original PR: https://codeberg.org/forgejo/forgejo/pulls/13614) for compatibility with the SSH key search changes made in this security fix.\n\nCo-authored-by: Jaeyong Lee <redacted@example.invalid>\nCo-authored-by: Gusted <redacted@example.invalid>\nCo-authored-by: Furkan Derse <redacted@example.invalid>\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15299\nReviewed-by: Beowulf <redacted@example.invalid>",
+        "id": "94c6cd65f5c25043e5c9fdb9328d1b8d3f89941a",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/1aa13944143b3bc4312607239a68da23512d5ce3",
-          "sha": "1aa13944143b3bc4312607239a68da23512d5ce3",
-          "created": "2026-10-12T08:24:42+02:00"
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/94c6cd65f5c25043e5c9fdb9328d1b8d3f89941a",
+          "sha": "94c6cd65f5c25043e5c9fdb9328d1b8d3f89941a",
+          "created": "2026-11-18T05:46:42+01:00"
         },
-        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.6.zip",
-        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v16.0.6.tar.gz",
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.12.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.12.tar.gz",
         "archive_download_count": {
-          "zip": 50,
-          "tar_gz": 156
+          "zip": 3,
+          "tar_gz": 51
         }
       },
       {
-        "name": "v15.0.10",
-        "message": "[v15.0/forgejo] 2026-10-12 security patches (#14814)\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/14814\nReviewed-by: Michael Kriese <redacted@example.invalid>",
-        "id": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
+        "name": "v17.0.1",
+        "message": "[v17.0/forgejo] ci: only run current forgejo version end-to-end tests (#15040)\n\n**Backport:** https://codeberg.org/forgejo/forgejo/pulls/15036\n\nOnly run the version specific end-to-end tests for the current release stream. this saves ci time and stops breaking other release builds failing on e2e\n\nalso needs https://code.forgejo.org/forgejo/end-to-end/pulls/2592\n\nReviewed-on: https://codeberg.org/forgejo/forgejo/pulls/15040",
+        "id": "363f3dc30beef902b187af5a5244ff7af44901e6",
         "commit": {
-          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
-          "sha": "17e1001d5e00e8ee3cbc1b6dd31be94ac38185f9",
-          "created": "2026-10-12T08:23:41+02:00"
+          "url": "https://codeberg.org/api/v1/repos/forgejo/forgejo/git/commits/363f3dc30beef902b187af5a5244ff7af44901e6",
+          "sha": "363f3dc30beef902b187af5a5244ff7af44901e6",
+          "created": "2026-10-26T15:25:55+01:00"
         },
-        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.10.zip",
-        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v15.0.10.tar.gz",
+        "zipball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.1.zip",
+        "tarball_url": "https://codeberg.org/forgejo/forgejo/archive/v17.0.1.tar.gz",
         "archive_download_count": {
-          "zip": 7,
-          "tar_gz": 99
+          "zip": 111,
+          "tar_gz": 1220
         }
       }
     ]

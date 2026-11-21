@@ -1,19 +1,19 @@
 {
   "items": [
     {
-      "name": "renovate/forgejo-idiomorph-0.x",
-      "sha": "c32ad0920b36c3c81b6e698c6ab4f0a3771419f5",
+      "name": "forgejo",
+      "sha": "9ddd410a13b7dff70f3d9f883375518420b90240",
+      "isProtected": true
+    },
+    {
+      "name": "renovate/forgejo-github.com-sourcegraph-zoekt-digest",
+      "sha": "0cef832ac142eec7bda967e4e0073df224bfe505",
       "isProtected": false
     },
     {
-      "name": "renovate/forgejo-renovate",
-      "sha": "29bf51bb67b183078911a446fe0baaeccdf182c0",
-      "isProtected": false
-    },
-    {
-      "name": "renovate/forgejo-globals-17.x",
-      "sha": "9964cef67d28cab0ad6714a2cf726be65d45a7a9",
-      "isProtected": false
+      "name": "v17.0/forgejo",
+      "sha": "0f10ccb6b9dd36ed8f0da165c3ba45e7825c36dd",
+      "isProtected": true
     }
   ],
   "total": 33,
@@ -22,7 +22,7 @@
   },
   "rateLimit": {
     "limit": 2000,
-    "remaining": 1873,
+    "remaining": 1866,
     "resetAt": "<now>",
     "resource": "baseline"
   }
