@@ -1,5 +1,5 @@
 {
-  "handAuthored": true,
+  "cursor": 1758000000000000,
   "messages": [
     {
       "did": "did:plc:strangerdid2222222222222",
@@ -13,74 +13,58 @@
       }
     },
     {
-      "did": "did:plc:gracecomment222222222222",
-      "time_us": 1758000000000001,
+      "did": "did:plc:widgetsrepo2222222222222",
+      "time_us": 1758000000000002,
       "kind": "commit",
       "commit": {
-        "rev": "3mwqrev122222",
+        "rev": "rev-1",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3mwqcomment22",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "7",
+        "cid": "bafyreiticket00000000000000000000000000000000000000000000000001",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "text": "Should the hash include the compiler version?"
-          },
-          "subject": {
-            "uri": "at://did:plc:adaauthor222222222222222/sh.tangled.repo.pull/3mwqpull22222",
-            "cid": "bafyreipullcid"
-          },
-          "createdAt": "2025-09-16T09:00:00Z"
-        },
-        "cid": "bafyreijet1"
+          "$type": "org.tangled.track.ticket",
+          "title": { "$type": "org.tangled.markup.markdown#inline", "text": "Cache compiled templates" },
+          "state": "open",
+          "targetBranch": "main",
+          "createdAt": "2026-09-01T10:00:00Z"
+        }
       }
     },
     {
-      "did": "did:plc:strangerdid2222222222222",
-      "time_us": 1758000000000002,
-      "kind": "account",
-      "account": {
-        "active": false,
-        "did": "did:plc:strangerdid2222222222222",
-        "seq": 2,
-        "status": "deleted",
-        "time": "2025-09-16T05:20:01.000Z"
-      }
-    },
-    {
-      "did": "did:plc:acmeowner222222222222222",
+      "did": "did:plc:widgetsrepo2222222222222",
       "time_us": 1758000000000003,
       "kind": "commit",
       "commit": {
-        "rev": "3mwqrev322222",
+        "rev": "rev-2",
         "operation": "create",
-        "collection": "sh.tangled.label.op",
-        "rkey": "3mwqlabel2222",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3m0000000003",
+        "cid": "bafyreireaction0000000000000000000000000000000000000000000001",
         "record": {
-          "$type": "sh.tangled.label.op",
-          "subject": "at://did:plc:adaauthor222222222222222/sh.tangled.repo.pull/3mwqpull22222",
-          "add": [
-            {
-              "key": "at://did:plc:acmeowner222222222222222/sh.tangled.label.definition/enhancement",
-              "value": "null"
-            }
-          ],
-          "delete": [],
-          "performedAt": "2025-09-16T09:01:00Z"
-        },
-        "cid": "bafyreijet3"
+          "$type": "org.tangled.feed.reaction",
+          "reaction": "👍",
+          "subject": { "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7", "cid": "bafyreiticket00000000000000000000000000000000000000000000000001" },
+          "createdAt": "2026-09-02T13:00:00Z"
+        }
       }
     },
     {
-      "did": "did:plc:gracecomment222222222222",
+      "did": "did:plc:widgetsrepo2222222222222",
       "time_us": 1758000000000004,
       "kind": "commit",
       "commit": {
-        "rev": "3mwqrev422222",
-        "operation": "delete",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3mwqgone22222"
+        "rev": "rev-3",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3m0000000001",
+        "cid": "bafyreicomment000000000000000000000000000000000000000000000001",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": { "$type": "org.tangled.markup.markdown", "text": "First comment." },
+          "subject": { "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7", "cid": "bafyreiticket00000000000000000000000000000000000000000000000001" },
+          "createdAt": "2026-09-02T11:00:00Z"
+        }
       }
     }
   ]

@@ -1,0 +1,99 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listReactionsBy?subject=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&order=desc&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreihroszxw7ygkncgp6uowkagw2cpvoebv5et6tl4ptdku6d2sos6wi",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.reaction/3mru72v6ahb22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-07-30T10:08:42.000000Z",
+            "reaction": "❤️",
+            "subject": {
+              "cid": "bafyreicbjy5ba6wyymfvzxblnfwiocsbzgz5ii5oousw4ldpivjdpbwwiy",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mru2zd34jh22"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreibznyijobzllmiav6kfcu5sf7qcmk7bzte2qzjmpnb6fihe56ujqm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.reaction/3mqzo2l4cas22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-07-19T20:55:04.000000Z",
+            "reaction": "❤️",
+            "subject": {
+              "cid": "bafyreiam6r5gkzu2obgiiziqp4plfz24qcuqw6iksaocujbnzddnvnoyyu",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqwriyvmu722"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreiefus4thxonwgcwdtfw3yziqaz3vg27xkujfzteov2wmp2kpgftza",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.reaction/3mq2ymssrwf22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-07-07T16:11:42.000000Z",
+            "reaction": "👍",
+            "subject": {
+              "cid": "bafyreietptbwoqhymni3gfwxu4yhai5cagi6phpe25nej7gbthsibfrd5a",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/7"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreiewtxboxbbiyzkq5sc562v7glf6qn3e7kfdej3udmeb7w76nd3hr4",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.reaction/3mq2d7zzkpw22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-07-07T09:48:45.000000Z",
+            "reaction": "👀",
+            "subject": {
+              "cid": "bafyreifpox5ybubl5gnpci2yujk6cacxhtrslhsr6y5jvum6rcle2zpide",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/6"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreihsvlavuszvzksxgvve2xbf6rhspqqtc3be7mbsbkkmqyde5g6k2u",
+          "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.feed.reaction/3mkzrfdrool22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-05-04T13:23:37.000000Z",
+            "reaction": "👍",
+            "subject": {
+              "cid": "bafyreibqodyq2lptez673wztdeq6yg3hbr4c5d2fo5qtb7f772ufjhayxi",
+              "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/282"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreigu7llzfeiqymtwfuqxa5zxacgi6a7obdqn2gsk3n52322erzgtve",
+          "uri": "at://did:plc:l7cjvkajopjc6uav46qgihdy/org.tangled.feed.reaction/3metavj2hrc22",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "createdAt": "2026-02-14T14:41:18.000000Z",
+            "reaction": "❤️",
+            "subject": {
+              "cid": "bafyreihsud6zw6jzzt2dgyclb36gl4espeiwfj3v2jxnipemeasr4sfgsm",
+              "uri": "at://did:plc:l7cjvkajopjc6uav46qgihdy/org.tangled.track.ticket/1"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ],
+      "total": 6
+    }
+  }
+}

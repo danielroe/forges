@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:bvraa6gajy4tfr3eh2sisdkr"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"215-dhro85xBMDyCxeD6Cpj7wCJsQSo\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:bvraa6gajy4tfr3eh2sisdkr",
+      "alsoKnownAs": [
+        "at://jola.dev"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:bvraa6gajy4tfr3eh2sisdkr#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:bvraa6gajy4tfr3eh2sisdkr",
+          "publicKeyMultibase": "zQ3shTkHUmLuS6nCWiWnRxEHXAt7XQVtpLRia2E87mm8zpUD2"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.cove.town"
+        }
+      ]
+    }
+  }
+}

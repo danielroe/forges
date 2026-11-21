@@ -11,17 +11,17 @@
           "instance": "tangled.org",
           "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
           "name": "forges-fixtures",
-          "ownerHandle": "roebot.tngl.sh",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
         },
         "kind": "issue",
-        "typeRaw": "sh.tangled.repo.issue",
-        "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y",
-        "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mycfchobkz2y"
+        "typeRaw": "org.tangled.track.ticket",
+        "number": "123",
+        "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/123"
       },
-      "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mycfckla6j2y"
+      "id": "3n2syexxdj5rw"
     },
-    "body": "An upserted comment from run 20261020100831.\n\n<!-- forges:key=forges-fixture -->",
+    "body": "An upserted comment from run 20261121112236.\n\n<!-- forges:key=forges-fixture -->",
     "author": {
       "forge": "tangled",
       "instance": "tangled.org",
@@ -30,7 +30,8 @@
       "url": "https://tangled.org/roebot.tngl.sh",
       "isBotHint": false
     },
-    "createdAt": "<now>"
+    "createdAt": "<now>",
+    "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/issues/123#comment-3n2syexxdj5rw"
   },
   "created": true
 }

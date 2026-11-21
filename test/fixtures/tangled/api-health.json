@@ -1,16 +1,14 @@
 {
-  "handAuthored": true,
   "request": {
     "method": "GET",
     "url": "https://api.tangled.org/xrpc/_health"
   },
   "response": {
     "status": 200,
-    "headers": {
-      "x-bobbin-version": "0.1.0"
-    },
+    "headers": {},
     "body": {
-      "version": "0.1.0"
+      "version": "v1",
+      "ok": true
     }
   }
 }

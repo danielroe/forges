@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getBlob?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"dfc35af0f1278e1faefabd3c697a4fd19ca2df45ef090125e3e36ca00e4e8984\""
+    },
+    "body": "An automated fixture target for [`forges`](https://github.com/danielroe/forges). Issues and pull requests here aren't monitored.\n\n"
+  }
+}

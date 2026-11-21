@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.listRepos?subject=did%3Aplc%3Aacmeowner222222222222222&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.repo.manifest/self",
+          "cid": "bafyreimanifest00000000000000000000000000000000000000000000000001",
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "createdAt": "2026-01-01T00:00:00Z",
+            "description": "Widgets",
+            "declaration": {
+              "owner": "did:plc:acmeowner222222222222222",
+              "name": "widgets"
+            },
+            "topics": [
+              "widgets"
+            ]
+          }
+        }
+      ],
+      "total": 1
+    }
+  }
+}

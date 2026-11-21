@@ -939,7 +939,7 @@ export const WRITE_STEPS: WriteStep[] = [
     as: 'reviewer',
     run: (provider, _manifest, context) => provider.threads.approve(threadOf(context, 'pull_request')),
   },
-  // Tangled applies a pull's commits onto its target branch, so it only rebases. Cursor Origin writes its own merge commit message.
+  // Cursor Origin writes its own merge commit message.
   {
     name: 'merge',
     verb: 'threads.merge',
@@ -1082,6 +1082,7 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'create webhook',
     verb: 'webhooks.create',
+    when: provider => provider.forge !== 'tangled',
     run: async (provider, manifest, context) => {
       context.webhook = await provider.webhooks.create(manifest.scratch, {
         url: FIXTURE_HOOK_URL,
@@ -1095,6 +1096,7 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'update webhook',
     verb: 'webhooks.update',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, _manifest, context) => provider.webhooks.update(need(context.webhook, 'a webhook').ref, {
       events: ['comment', 'push'],
     }),
@@ -1102,11 +1104,13 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'rotate webhook secret',
     verb: 'webhooks.rotateSecret',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, _manifest, context) => provider.webhooks.rotateSecret(need(context.webhook, 'a webhook').ref, HOOK_SECRETS[1]),
   },
   {
     name: 'new webhook deliveries',
     verb: 'webhooks.deliveries',
+    when: provider => provider.forge !== 'tangled',
     run: async (provider, _manifest, context) => {
       for (let attempt = 1; ; attempt++) {
         const result = await provider.webhooks.deliveries(need(context.webhook, 'a webhook').ref, page).page()
@@ -1121,11 +1125,13 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'redeliver',
     verb: 'webhooks.redeliver',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, _manifest, context) => provider.webhooks.redeliver(need(context.delivery, 'a delivery').ref),
   },
   {
     name: 'delete webhook',
     verb: 'webhooks.delete',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, _manifest, context) => provider.webhooks.delete(need(context.webhook, 'a webhook').ref),
   },
 
@@ -1146,6 +1152,7 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'author notifications',
     verb: 'notifications.list',
+    when: provider => provider.forge !== 'tangled',
     run: async (provider, manifest, context) => {
       for (let attempt = 1; ; attempt++) {
         const result = await provider.notifications.list({ all: true, perPage: 50 }).page()
@@ -1163,6 +1170,7 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'mark notification read',
     verb: 'notifications.markRead',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, _manifest, context) => provider.notifications.markRead(need(context.notification, 'a scratch notification').ref),
   },
   {
@@ -1182,6 +1190,7 @@ export const WRITE_STEPS: WriteStep[] = [
   {
     name: 'mark all read',
     verb: 'notifications.markAllRead',
+    when: provider => provider.forge !== 'tangled',
     run: (provider, manifest) => provider.notifications.markAllRead({ repo: manifest.scratch }),
   },
   {

@@ -2,26 +2,38 @@ import type { ForgeErrorContext } from '../errors.ts'
 import type { Fetcher, RequestOptions } from '../fetch.ts'
 import type { AtprotoClient } from './atproto.ts'
 import type { TangledAuth, TangledOptions } from './index.ts'
-import type { BlobRef, Session, TangledRecord } from './types.ts'
-import { AuthenticationRequiredError, ForgeApiError, InsufficientScopeError, TokenRevokedError } from '../errors.ts'
+import type { Session } from './types.ts'
+import { AuthenticationRequiredError, ForgeApiError, TokenRevokedError } from '../errors.ts'
 import { createFetcher } from '../fetch.ts'
+import { degradesToWarning } from '../utils.ts'
 import { parseAtUri } from './atproto.ts'
 
-/** The authenticated account: its PDS session, and writes to its own records. */
+const ATTESTATION = 'org.tangled.graph.attestation'
+
+/** What a knot returns for a record it wrote. */
+export interface KnotWrite {
+  'uri': string
+  'cid': string
+  /** The change that made this version, which the author's attestation names. */
+  'x-tngl-change'?: string
+}
+
+/** The authenticated account: its PDS session, its own records, and writes to knots on its behalf. */
 export interface TangledSession {
   writable: boolean
   viewerDid: () => Promise<string>
   /** Calls an XRPC method on the authenticated account's PDS, refreshing an expired session once. */
   pdsCall: <T>(nsid: string, init?: RequestOptions) => Promise<T>
-  createRecord: (collection: string, record: Record<string, unknown>, signal?: AbortSignal) => Promise<{ uri: string, cid: string }>
-  /** Rewrites one of the account's own records, refusing records it does not own. */
-  putOwnRecord: (uri: string, update: (record: TangledRecord) => TangledRecord, signal?: AbortSignal) => Promise<TangledRecord>
+  createOwnRecord: (collection: string, record: Record<string, unknown>, signal?: AbortSignal) => Promise<{ uri: string, cid: string }>
+  putOwnRecord: (uri: string, record: Record<string, unknown>, signal?: AbortSignal) => Promise<void>
   deleteOwnRecord: (uri: string, signal?: AbortSignal) => Promise<void>
   ownRecords: <T>(collection: string, signal?: AbortSignal) => AsyncGenerator<{ uri: string, value: T }>
-  /** A token from the PDS that lets the account call `lxm` on the service `aud`, such as a knot. */
+  /** A token from the PDS that lets the account call `lxm` on the service or repository `aud`. */
   serviceAuth: (aud: string, lxm: string, signal?: AbortSignal) => Promise<string>
-  /** Uploads bytes as a blob on the account's PDS. */
-  uploadBlob: (bytes: Uint8Array, mimeType: string, signal?: AbortSignal) => Promise<BlobRef>
+  /** Calls a procedure of the knot at `origin` for the repository `repo`, as the signed-in account. */
+  knotCall: <T>(origin: string, repo: string, nsid: string, input: Record<string, unknown>, options?: Pick<RequestOptions, 'signal' | 'mapError'>) => Promise<T>
+  /** Writes the account's claim to a record version that a knot wrote for it, where its PDS accepts one. */
+  attest: (written: KnotWrite, signal?: AbortSignal) => Promise<void>
 }
 
 export function createTangledSession({ options, fetcher, atproto, context }: { options: TangledOptions, fetcher: Fetcher, atproto: AtprotoClient, context: ForgeErrorContext }): TangledSession {
@@ -72,7 +84,6 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
       : (await currentSession()).did
   }
 
-  /** Calls an XRPC method on the authenticated account's PDS, refreshing an expired session once. */
   async function pdsCall<T>(nsid: string, init: RequestOptions = {}): Promise<T> {
     const auth = options.auth!
     if (auth.type === 'oauth') {
@@ -102,7 +113,7 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     }
   }
 
-  async function createRecord(collection: string, record: Record<string, unknown>, signal?: AbortSignal): Promise<{ uri: string, cid: string }> {
+  async function createOwnRecord(collection: string, record: Record<string, unknown>, signal?: AbortSignal): Promise<{ uri: string, cid: string }> {
     return pdsCall<{ uri: string, cid: string }>('com.atproto.repo.createRecord', {
       method: 'POST',
       json: {
@@ -114,38 +125,25 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     })
   }
 
-  /** Rewrites one of the account's own records, refusing records it does not own. */
-  async function putOwnRecord(uri: string, update: (record: TangledRecord) => TangledRecord, signal?: AbortSignal): Promise<TangledRecord> {
-    const parsed = parseAtUri(uri)
-    const viewer = await viewerDid()
-    if (!parsed || parsed.did !== viewer) {
-      throw new InsufficientScopeError('Records can only be edited by the account that wrote them', 403, '', context)
-    }
-    const current = await atproto.getRecord(uri, signal)
-    const record = update(current.value)
+  async function putOwnRecord(uri: string, record: Record<string, unknown>, signal?: AbortSignal): Promise<void> {
+    const { collection, rkey } = parseAtUri(uri)!
     await pdsCall('com.atproto.repo.putRecord', {
       method: 'POST',
       json: {
-        repo: viewer,
-        collection: parsed.collection,
-        rkey: parsed.rkey,
-        record,
-        swapRecord: current.cid,
+        repo: await viewerDid(),
+        collection,
+        rkey,
+        record: { $type: collection, ...record },
       },
       signal,
     })
-    return record
   }
 
   async function deleteOwnRecord(uri: string, signal?: AbortSignal): Promise<void> {
-    const parsed = parseAtUri(uri)
-    const viewer = await viewerDid()
-    if (!parsed || parsed.did !== viewer) {
-      throw new InsufficientScopeError('Records can only be deleted by the account that wrote them', 403, '', context)
-    }
+    const { collection, rkey } = parseAtUri(uri)!
     await pdsCall('com.atproto.repo.deleteRecord', {
       method: 'POST',
-      json: { repo: viewer, collection: parsed.collection, rkey: parsed.rkey },
+      json: { repo: await viewerDid(), collection, rkey },
       signal,
     })
   }
@@ -170,25 +168,46 @@ export function createTangledSession({ options, fetcher, atproto, context }: { o
     })).token
   }
 
-  async function uploadBlob(bytes: Uint8Array, mimeType: string, signal?: AbortSignal): Promise<BlobRef> {
-    return (await pdsCall<{ blob: BlobRef }>('com.atproto.repo.uploadBlob', {
+  async function knotCall<T>(origin: string, repo: string, nsid: string, input: Record<string, unknown>, { signal, mapError }: Pick<RequestOptions, 'signal' | 'mapError'> = {}): Promise<T> {
+    // A knot accepts a token for each repository it hosts, with the repo DID as its audience.
+    const token = await serviceAuth(repo, nsid, signal)
+    return (await fetcher.json<T>(`${origin}/xrpc/${nsid}`, {
       method: 'POST',
-      body: bytes as BodyInit,
-      headers: { 'content-type': mimeType },
+      json: { repo, ...input },
+      headers: { authorization: `Bearer ${token}` },
+      mapError,
       signal,
-    })).blob
+    })).data
+  }
+
+  async function attest(written: KnotWrite, signal?: AbortSignal): Promise<void> {
+    try {
+      await createOwnRecord(ATTESTATION, {
+        subject: { uri: written.uri, cid: written.cid },
+        ...written['x-tngl-change']
+          ? { change: written['x-tngl-change'] }
+          : {},
+        createdAt: new Date().toISOString(),
+      }, signal)
+    }
+    catch (error) {
+      if (signal?.aborted || !degradesToWarning(error)) {
+        throw error
+      }
+    }
   }
 
   return {
     writable,
     viewerDid,
     pdsCall,
-    createRecord,
+    createOwnRecord,
     putOwnRecord,
     deleteOwnRecord,
     ownRecords,
     serviceAuth,
-    uploadBlob,
+    knotCall,
+    attest,
   }
 }
 

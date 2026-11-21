@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.search.query?nsid=org.tangled.repo.manifest&q=forges-fixtures&sort=relevance&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "hits": [
+        {
+          "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
+          "nsid": "org.tangled.repo.manifest",
+          "score": 71.1618881225586,
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "contributionPolicy": "anyone",
+            "createdAt": "2026-10-09T17:02:20.000000Z",
+            "declaration": {
+              "name": "forges-fixtures",
+              "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+            },
+            "spindle": "did:web:spindle.tangled.network",
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        }
+      ],
+      "total": 1
+    }
+  }
+}

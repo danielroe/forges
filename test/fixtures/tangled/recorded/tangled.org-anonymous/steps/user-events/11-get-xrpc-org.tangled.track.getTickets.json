@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F4"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreidps2pco6rtdacid5ocym27jo2d2swiemlcssnehgm2m62ko2ftdy",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/4",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Thanks so much for creating this!\n\nI just went through the signup flow, but hit a 500 error after I'd installed the GitHub app and authenticated with my ATproto account.\n\nI think this is probably because I installed the GH app for all my repos, and there are some private ones in there? At least I managed to resolve the issue by uninstalling the app, and then re-installing but only in a select few (public) repos."
+            },
+            "createdAt": "2026-07-06T08:50:57Z",
+            "state": "closed",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "500 on first attempt"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ]
+    }
+  }
+}

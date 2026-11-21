@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:vhearieesyugq7ortfgncciv"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"221-o7C9+RMuZnjYnM9IQRWXfeneQAs\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:vhearieesyugq7ortfgncciv",
+      "alsoKnownAs": [
+        "at://hermes.pds.lassul.us"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:vhearieesyugq7ortfgncciv#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:vhearieesyugq7ortfgncciv",
+          "publicKeyMultibase": "zQ3shcaqsjaWMFzMPDhRrxxK5QWKDP5qua27m3czQjnNggCPL"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.lassul.us"
+        }
+      ]
+    }
+  }
+}

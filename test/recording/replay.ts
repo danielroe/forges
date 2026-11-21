@@ -144,7 +144,6 @@ export const REPLAYED_PROVIDERS: Array<{ name: string, create: Create }> = [
     name: 'tangled',
     create: (fetch, manifest, messages = []) => tangled({
       fetch,
-      recordsUrl: manifest.recordsUrl,
       ...manifest.account && {
         auth: {
           type: 'app_password',

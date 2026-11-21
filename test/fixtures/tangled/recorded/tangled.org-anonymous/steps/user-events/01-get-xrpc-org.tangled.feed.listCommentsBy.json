@@ -1,0 +1,208 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listCommentsBy?subject=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&order=desc&limit=10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreia3nd7or7p2uopadoyasmc66zwha6uug3keqrcbi66goz4bsoyzqe",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3myhjjdtqmf25",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "this sounds good to me - maybe allow explicitly opting in to mirroring a fork ...?\n\n<!-- forges:key=fd1ac399-5a2b-496b-b327-b3da0b1d19bc -->"
+            },
+            "createdAt": "2026-10-22T11:07:29Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreihk42gq7edomyce67ogztb2yyytlohfyvkucknvfpbrhv5u6q73je",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/14"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreidrthtvqrqf25bwwbufutk4xtbb3k43ljfzw5bg6y5h4vvculat4m",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mrzxt4w6sa22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "thank you ❤️"
+            },
+            "createdAt": "2026-08-01T17:15:04Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreifd4itfbviwysr4qre4nfigqmxdq6jwsik54lnw5gvpcodgosrisi",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/30"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreiheqvivja4z2ugpa3tzmxjdv6wuthe5drtcgjdulfdlvbfnhk6ak4",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mrzwpeomxg22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "oops, still getting to grips with tangled. I \"merged\" this in https://tangled.org/danielroe.dev/synchub.to/commit/02bf99e2224c7cc0a2f1f2363b199ec2795f9a39."
+            },
+            "createdAt": "2026-08-01T16:55:04Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreiglqmdkve7e3d7eaxwh64utkg7icd2lk6blmbaqmkp5ug52y5j7bq",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/26"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreiehrrj7eq7tyvngtjfurblirqkh5irmdupaslfxc62wr3cwwb63cm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqwo2z5l7z22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "go for it! ❤️"
+            },
+            "createdAt": "2026-07-18T16:17:20Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreihinbxseirmirbaexzy7evon2gknooe6wple654x74emddhnvic3a",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/10"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreibk52g33tnwe5lskumnilwyfxtwyedfao6usl5hvzxhzvevd5kqfu",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqn7ypcj5j22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "let me know if it comes back or you encounter any issues "
+            },
+            "createdAt": "2026-07-14T22:11:32Z",
+            "replyTo": {
+              "cid": "bafyreihii7xose7l3s7akbbglq6jxujes47gv55slsbzxw5iwcsk3piwsy",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqdjapyevu22"
+            },
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreig4bt5nxb7ricls5vvdgbgmarikasofxrohmftugunpdeftravncm",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/5"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreiezo4minttixv4mgkht2ztgqw5qk3zequ7cgxnfqljx42p2mn5pey",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqbzyj4vtx22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "fixed in https://tangled.org/danielroe.dev/synchub.to/commit/d4c4b2e400666b04f7adcd254acd0e1a9cb8fa6a"
+            },
+            "createdAt": "2026-07-10T11:24:46Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreietptbwoqhymni3gfwxu4yhai5cagi6phpe25nej7gbthsibfrd5a",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/7"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreibyjep6m4m76kicuir7qrc3ml6oe6l3mzs2mbgsyyyrdn64tcejei",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqbz7ldv5q22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "I think this should now be resolved 🙏\n\nlet me know if you encounter any other issues."
+            },
+            "createdAt": "2026-07-10T11:10:50Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreihje4bpfujz5wrbgmuocpf7hywnfbn7fl4zwidmseydetmurbmn3e",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/4"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreidne45ioautryt4rtjjefnrta2whorgor4hr6jcrrwaoznamo4an4",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mqbylzud6x22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "fixed an issue - I think this should start to sync as synchub iterates over old failed jobs 🙏"
+            },
+            "createdAt": "2026-07-10T10:59:54Z",
+            "replyTo": {
+              "cid": "bafyreihn55fj2r3ayywjmxriqhilxtlhzodmgkjzpys26jxibia4sqr24e",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mq34226keg22"
+            },
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreietptbwoqhymni3gfwxu4yhai5cagi6phpe25nej7gbthsibfrd5a",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/7"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreifo2mquqwboebdk6ftvropl7hxyphhlwn7v7mgimaqxykltg3zulu",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mq2ymohksz22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "you shouldn't need any other steps than installing the app. is it not working for you?"
+            },
+            "createdAt": "2026-07-07T16:11:37Z",
+            "replyTo": {
+              "cid": "bafyreica2cr4j56ufls57qltovm7ezcin5bogw44buvtnsplhojxke5lbe",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mq2d72cfu422"
+            },
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreietptbwoqhymni3gfwxu4yhai5cagi6phpe25nej7gbthsibfrd5a",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/7"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreicjsgnuarfgan23vf7hqy52pdpfbb2eti4dghdgx5mzi35zt5llcu",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.feed.comment/3mq2dab62yc22",
+          "value": {
+            "$type": "org.tangled.feed.comment",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "cool idea!"
+            },
+            "createdAt": "2026-07-07T09:48:52Z",
+            "subject": {
+              "$type": "com.atproto.repo.strongRef",
+              "cid": "bafyreifpox5ybubl5gnpci2yujk6cacxhtrslhsr6y5jvum6rcle2zpide",
+              "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/6"
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ],
+      "cursor": "000656024c66e900000227bd",
+      "total": 15
+    }
+  }
+}

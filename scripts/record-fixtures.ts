@@ -495,13 +495,20 @@ interface Credentials {
 }
 
 const readCredentials: Credentials = {
-  token,
+  // The read recording's webhook steps manage the scratch repository's hooks, which the fixture bot owns.
+  token: !flags.anonymous && target === 'tangled' && env.TANGLED_BOT_PASSWORD
+    ? env.TANGLED_BOT_PASSWORD
+    : token,
   ...bitbucketBasic && {
     basic: { username: env.BITBUCKET_USERNAME!, password: env.BITBUCKET_APP_PASSWORD! },
   },
   ...app && { app },
-  identifier: env.TANGLED_IDENTIFIER,
-  pds: env.TANGLED_PDS,
+  identifier: !flags.anonymous && target === 'tangled' && env.TANGLED_BOT_IDENTIFIER
+    ? env.TANGLED_BOT_IDENTIFIER
+    : env.TANGLED_IDENTIFIER,
+  pds: !flags.anonymous && target === 'tangled' && env.TANGLED_BOT_PDS
+    ? env.TANGLED_BOT_PDS
+    : env.TANGLED_PDS,
 }
 
 /** Who reviews in a write recording. A Tangled reviewer writes records into its own account, so it is a second bot rather than yours. */
@@ -574,7 +581,6 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
       const messages: unknown[] = []
       const provider = tangled({
         baseUrl: env.TANGLED_BASE_URL,
-        recordsUrl: env.TANGLED_RECORDS_URL,
         ...credentials.token && {
           auth: {
             type: 'app_password',
@@ -592,32 +598,38 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           return socket as unknown as Forges.WebSocketLike
         },
       })
-      const placeholder = {
+      const [owner = '', name = ''] = (env.FIXTURE_TANGLED_SCRATCH_REPO ?? 'roebot.tngl.sh/forges-fixtures').split('/')
+      const repoDid = env.FIXTURE_TANGLED_REPO_DID ?? 'did:plc:t73o44q7fppgagkrevtztyok'
+      const repo: Forges.RepoRef = {
         forge: 'tangled',
         instance: provider.instance,
-        owner: '',
-        name: '',
+        owner,
+        name,
+        externalId: repoDid,
       }
+      const issueNumber = env.FIXTURE_TANGLED_ISSUE ?? '17'
+      const pullNumber = env.FIXTURE_TANGLED_PULL ?? '54'
       const issue: Forges.ThreadRef = {
         forge: 'tangled',
         instance: provider.instance,
-        repo: placeholder,
+        repo,
         kind: 'issue',
-        number: env.FIXTURE_TANGLED_ISSUE ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.issue/3mxmwlijmkm2y',
+        number: issueNumber,
+        externalId: `at://${repoDid}/org.tangled.track.ticket/${issueNumber}`,
       }
       const pull: Forges.ThreadRef = {
         forge: 'tangled',
         instance: provider.instance,
-        repo: placeholder,
+        repo,
         kind: 'pull_request',
-        number: env.FIXTURE_TANGLED_PULL ?? 'at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mxhm5yldov22',
+        number: pullNumber,
+        externalId: `at://${repoDid}/org.tangled.track.ticket/${pullNumber}`,
       }
       const manifest: Target['manifest'] = {
-        repo: placeholder,
+        repo,
         pull,
         issue,
         feedUser: env.FIXTURE_TANGLED_FEED_USER ?? 'danielroe.dev',
-        recordsUrl: env.TANGLED_RECORDS_URL,
         ...credentials.token && { account: credentials.identifier, pds: credentials.pds, notificationsUrl: env.TANGLED_NOTIFICATIONS_URL },
         ...setupRepos('TANGLED', slug => repoRef('tangled', provider.instance, slug)),
       }
@@ -632,6 +644,12 @@ function targetFor(credentials: Credentials, fetch: FetchLike): Target {
           recorded.repo = pullThread.ref.repo
           recorded.pull = pullThread.ref
           recorded.issue = issueThread.ref
+          // Records the handle resolution that reading the repository from its web URL needs.
+          const url = provider.urlFor({ repo: recorded.repo })!
+          const parsed = provider.parseUrl(url)
+          if (parsed?.repo) {
+            await provider.repos.get(parsed.repo).catch(() => undefined)
+          }
         },
         after: async () => {
           await step('jetstream', async () => {
@@ -1058,7 +1076,7 @@ async function recordWrites(): Promise<void> {
     await harness.createTag!(run.base, tag)
   }
 
-  const { baseUrl, instance, instanceVersion, account, pds, notificationsUrl, recordsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
+  const { baseUrl, instance, instanceVersion, account, pds, notificationsUrl } = { baseUrl: author.provider.baseUrl, ...author.manifest }
   const manifest: WriteManifest = {
     baseUrl,
     instance,
@@ -1066,7 +1084,6 @@ async function recordWrites(): Promise<void> {
     account,
     pds,
     notificationsUrl,
-    recordsUrl,
     ...target === 'tangled' && reviewerCredentials && { reviewerAccount: reviewerCredentials.identifier, reviewerPds: reviewerCredentials.pds },
     repo: scratch,
     scratch,

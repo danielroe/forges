@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.track.ticket",
+      "record": {
+        "title": {
+          "$type": "org.tangled.markup.markdown#inline",
+          "text": "forges fixture 20261121112236: duplicate"
+        },
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "Opened by run 20261121112236."
+        },
+        "state": "open",
+        "createdAt": "2026-11-21T11:23:31.981Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/125",
+      "cid": "bafyreidvqwbegyqq4i4yu2mmerq6cbjig4xg2dmjf76abvffkn6i5nvyuy",
+      "commit": {
+        "cid": "bafyreihgo2qyb6olx44id34suhdqhznh2njbug2e4n5f2eb5mvubmrh3hi",
+        "rev": "3n2syfo3r7222"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "87599de3d25d12406390f9a8036128898162d120"
+    }
+  }
+}

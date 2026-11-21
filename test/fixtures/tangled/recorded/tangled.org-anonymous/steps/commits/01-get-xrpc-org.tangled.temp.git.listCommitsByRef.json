@@ -1,0 +1,86 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ranges=main&limit=3&includeStats=true"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commits": [
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-21T09:43:14.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Tangled",
+            "when": "2026-11-21T09:44:38.000000Z"
+          },
+          "extraHeaders": [],
+          "message": "Add forges-fixtures/20261121094301-1.md\n",
+          "oid": "cfb75cfaf8227605dcba0935ccff08fb4b5ed125",
+          "parents": [
+            "049494eeeb7a06cb8c911ba961347eacdab2f186"
+          ],
+          "stat": {
+            "deletions": 0,
+            "filesChanged": 1,
+            "insertions": 1
+          },
+          "tree": "79200d0c7bd106aa209526389af1cf9dbdde5e0d"
+        },
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-21T08:33:24.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Tangled",
+            "when": "2026-11-21T08:34:48.000000Z"
+          },
+          "extraHeaders": [],
+          "message": "Add forges-fixtures/20261121083313-1.md\n",
+          "oid": "049494eeeb7a06cb8c911ba961347eacdab2f186",
+          "parents": [
+            "b261608dbc40228caede017e0d47d5f6d427ed4a"
+          ],
+          "stat": {
+            "deletions": 0,
+            "filesChanged": 1,
+            "insertions": 1
+          },
+          "tree": "b5f98e8885e2b7cac65ced0e1126a4a41ccd87fb"
+        },
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-20T23:03:40.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Tangled",
+            "when": "2026-11-20T23:05:02.000000Z"
+          },
+          "extraHeaders": [],
+          "message": "Add forges-fixtures/20261120230333-1.md\n",
+          "oid": "b261608dbc40228caede017e0d47d5f6d427ed4a",
+          "parents": [
+            "55d981a59a880ab38d7f1abfceffe1b4ef39ea32"
+          ],
+          "stat": {
+            "deletions": 0,
+            "filesChanged": 1,
+            "insertions": 1
+          },
+          "tree": "2d1a21d1ff0acc4d0f6c37b623693520a28cfdbb"
+        }
+      ]
+    }
+  }
+}

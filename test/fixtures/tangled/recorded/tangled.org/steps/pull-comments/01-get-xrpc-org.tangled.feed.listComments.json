@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.listComments?subject=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F54&order=asc&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "A seeded comment."
+          },
+          "cid": "bafyreidq475wutjyo5nxt6b4qdoktx5vn4d7lzvyorljsolhfvi3baszam",
+          "createdAt": "2026-10-20T10:09:45Z",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "subject": {
+            "cid": "bafyreicwwdmay4vsz4jhmrd6la2u7e46ovtgq67kybal3onujhvwe3u7na",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mycfeb2cir2y"
+        },
+        {
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Another seeded comment, with a reaction."
+          },
+          "cid": "bafyreicfo7rqz3kv47wsxvggrlxgbrdrgqe4gttc6bh45plu6q7jwg6gua",
+          "createdAt": "2026-10-20T10:09:45Z",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "subject": {
+            "cid": "bafyreicwwdmay4vsz4jhmrd6la2u7e46ovtgq67kybal3onujhvwe3u7na",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+          },
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mycfebyt2r2y"
+        }
+      ],
+      "total": 2
+    }
+  }
+}

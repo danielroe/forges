@@ -1,3 +1,4 @@
+import type { FetchLike } from '../../src/fetch.ts'
 import type { ResolvedThreadRef } from '../../src/model.ts'
 import { describe, expect, it } from 'vitest'
 import { bitbucket } from '../../src/bitbucket/index.ts'
@@ -453,7 +454,7 @@ describe('bitbucket iteration', () => {
 
 describe('tangled iteration', () => {
   const OWNER = 'did:plc:acmeowner222222222222222'
-  const PULL = 'at://did:plc:adaauthor222222222222222/sh.tangled.repo.pull/3mwqpull22222'
+  const REPO_DID = 'did:plc:widgetsrepo2222222222222'
   const pull: ResolvedThreadRef = {
     forge: 'tangled',
     instance: 'tangled.org',
@@ -464,17 +465,53 @@ describe('tangled iteration', () => {
       name: 'widgets',
     },
     kind: 'pull_request',
-    number: PULL,
+    number: '7',
+    externalId: `at://${REPO_DID}/org.tangled.track.ticket/7`,
+  }
+  const MANIFEST = {
+    uri: `at://${REPO_DID}/org.tangled.repo.manifest/self`,
+    cid: 'bafy',
+    knot: 'knot1.tangled.sh',
+    defaultBranch: 'main',
+    value: {
+      $type: 'org.tangled.repo.manifest',
+      createdAt: '2025-09-01T00:00:00Z',
+      declaration: { owner: OWNER, name: 'widgets' },
+    },
+  }
+  const plc = {
+    id: OWNER,
+    alsoKnownAs: ['at://acme.example.com'],
+    service: [
+      { id: '#atproto_pds', type: 'AtprotoPersonalDataServer', serviceEndpoint: 'https://pds.example.com' },
+    ],
+  }
+  const json = (body: unknown) => new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { 'content-type': 'application/json' },
+  })
+  const baseFetch: FetchLike = async (url) => {
+    const u = String(url)
+    if (u.includes('org.tangled.repo.getRepoByRepoDid'))
+      return json(MANIFEST)
+    if (u.includes('org.tangled.feed.countStars'))
+      return json({ count: 1 })
+    if (u.includes('org.tangled.repo.countForks'))
+      return json({ count: 0 })
+    if (u.includes('org.tangled.feed.listComments') || u.includes('org.tangled.feed.listReactions') || u.includes('org.tangled.temp.review.listPatches'))
+      return json({ items: [] })
+    if (u.includes('plc.directory/'))
+      return json(plc)
+    throw new Error(`No fixture for ${u}`)
   }
 
-  it('turns an unreachable participant PDS into a warning, not a failure', async () => {
-    const { fetch: base } = fixtureFetch('tangled')
+  it('turns an unreachable record read into a warning, not a failure', async () => {
     const provider = tangled({
       fetch: async (url, init) => {
-        if (url.includes('com.atproto.repo.getRecord') && url.includes('sh.tangled.feed.reaction')) {
+        if (String(url).includes('org.tangled.repo.listRecordVersions')) {
           throw new TypeError('fetch failed')
         }
-        return base(url, init)
+        return baseFetch(url, init)
       },
     })
     const events = provider.threads.events(pull)
@@ -483,49 +520,81 @@ describe('tangled iteration', () => {
       kinds.push(event.kind)
     }
 
-    expect(kinds).toEqual(['comment', 'label'])
+    expect(kinds).toEqual([])
     expect(events.warnings).toEqual([
       expect.objectContaining({
         code: 'record_unreachable',
-        subject: expect.stringContaining('sh.tangled.feed.reaction'),
+        subject: pull.externalId,
       }),
     ])
   })
 
   it('maps the hosting knot to its SSH host for clone URLs', async () => {
-    const { fetch } = fixtureFetch('tangled')
-    const repo = await tangled({ fetch }).repos.get(pull.repo)
+    const repo = await tangled({ fetch: baseFetch }).repos.get({
+      ...pull.repo,
+      externalId: REPO_DID,
+    })
 
     expect(repo.cloneUrls).toEqual({
       https: 'https://tangled.org/acme.example.com/widgets',
       ssh: 'ssh://git@tangled.org/acme.example.com/widgets',
     })
-    expect(repo.ref.externalId).toBe('did:plc:widgetsrepo2222222222222')
+    expect(repo.ref.externalId).toBe(REPO_DID)
+    expect(repo).toMatchObject({ stars: 1, forks: 0 })
     const custom = await tangled({
-      fetch,
+      fetch: baseFetch,
       sshHosts: { 'knot1.tangled.sh': 'git.example.org' },
-    }).repos.get(pull.repo)
+    }).repos.get({ ...pull.repo, externalId: REPO_DID })
     expect(custom.cloneUrls?.ssh).toBe('ssh://git@git.example.org/acme.example.com/widgets')
   })
 
-  it('places a star on the repo subject and keeps a thread subject a thread', async () => {
+  it('keeps a repo star a repo subject and a thread subject a thread', async () => {
     const { fetch } = fixtureFetch('tangled', {
       'GET https://notifs.example.com/xrpc/org.tangled.temp.notification.listNotifications?read=unread&limit=100': {
         status: 200,
         body: {
           notifications: [
             {
-              uri: 'at://did:plc:x/sh.tangled.feed.star/1',
+              uri: 'at://did:plc:x/org.tangled.feed.star/1',
               read: false,
               type: 'repo_starred',
               actorDid: 'did:plc:x',
-              repoDid: 'did:plc:widgetsrepo2222222222222',
+              repoDid: REPO_DID,
+              createdAt: '2025-09-18T00:00:00Z',
+            },
+            {
+              uri: 'at://did:plc:x/org.tangled.feed.subscription/2',
+              read: false,
+              type: 'issue_created',
+              actorDid: 'did:plc:x',
+              repoDid: REPO_DID,
+              issueAt: `at://${REPO_DID}/org.tangled.track.ticket/7`,
               createdAt: '2025-09-18T00:00:00Z',
             },
           ],
           workUnreadCount: 0,
-          socialUnreadCount: 1,
+          socialUnreadCount: 2,
         },
+      },
+      'GET https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.track.ticket%2F7': {
+        status: 200,
+        body: {
+          uri: `at://${REPO_DID}/org.tangled.track.ticket/7`,
+          cid: 'bafy',
+          repo: {
+            did: REPO_DID,
+            owner: { did: OWNER, handle: 'acme.example.com' },
+            slug: 'widgets',
+          },
+          author: { did: OWNER, handle: 'acme.example.com' },
+          state: 'open',
+          title: { $type: 'org.tangled.markup.markdown#inline', text: 'Cache compiled templates' },
+          createdAt: '2025-09-01T00:00:00Z',
+        },
+      },
+      'GET https://pds.example.com/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aweb%3Anotifs.example.com&lxm=org.tangled.temp.notification.listNotifications': {
+        status: 200,
+        body: { token: 't' },
       },
     })
     const provider = tangled({
@@ -538,16 +607,27 @@ describe('tangled iteration', () => {
       notificationsUrl: 'https://notifs.example.com',
       fetch,
     })
-    const [star] = (await provider.notifications!.list().page()).items
+    const items = (await provider.notifications!.list().page()).items
 
-    expect(star).toMatchObject({
+    expect(items[0]).toMatchObject({
       reason: 'starred',
       subject: {
         type: 'repo',
         repo: { owner: OWNER, name: 'widgets' },
       },
     })
-    expect(notificationThread(star!)).toBeUndefined()
+    expect(notificationThread(items[0]!)).toBeUndefined()
+    expect(items[1]).toMatchObject({
+      reason: 'subscribed',
+      subject: {
+        type: 'thread',
+        thread: {
+          repo: { owner: OWNER, name: 'widgets' },
+          kind: 'issue',
+          number: '7',
+        },
+      },
+    })
   })
 })
 

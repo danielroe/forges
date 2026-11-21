@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreigha7yoxetxjwnldntndg3jytcvddrrdnn2ccd4wr65ewxn5qoc7a",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/5",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "reported by @andreijiroh.dev\n\nhttps://bsky.app/profile/andreijiroh.dev/post/3mpxy6krskk2o\n\n> I think we should not sync if there's already a repo of that name and instead should surface the error status in the dashboard "
+            },
+            "createdAt": "2026-07-06T13:41:27Z",
+            "state": "closed",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "handle duplicate names "
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ]
+    }
+  }
+}

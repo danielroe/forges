@@ -613,41 +613,40 @@ describe('gitee activity feeds', () => {
 
 describe('tangled activity feeds', () => {
   const did = 'did:plc:ada'
+  const TICKET = 'org.tangled.track.ticket'
+  const COMMENT = 'org.tangled.feed.comment'
+  const REACTION = 'org.tangled.feed.reaction'
   const records: Record<string, string[]> = {
-    'sh.tangled.repo.issue': ['3m0000000004', '3m0000000001'],
-    'sh.tangled.feed.comment': ['3m0000000005', '3m0000000003', '3m0000000002'],
-    'sh.tangled.feed.star': ['3m0000000009'],
+    [TICKET]: ['3m0000000004', '3m0000000001'],
+    [COMMENT]: ['3m0000000003', '3m0000000002'],
+    [REACTION]: ['3m0000000005'],
   }
-  const lists: Array<[string, string | undefined]> = []
-  let revision = 'rev1'
+  const lists: Array<[string, number]> = []
   const cids: Record<string, string> = {}
-  const atproto = {
-    revisionOf: async () => revision,
-    collectionsOf: async () => Object.keys(records),
-    listRecordsPage: async (_did: string, collection: string, { limit, cursor }: { limit: number, cursor?: string }) => {
-      lists.push([collection, cursor])
-      return records[collection]!.filter(rkey => !cursor || rkey < cursor).slice(0, limit).map(rkey => ({ uri: `at://${did}/${collection}/${rkey}`, cid: cids[rkey] ?? 'cid1', value: {} }))
-    },
-  } as unknown as Parameters<typeof accountFeedPage>[0]['atproto']
-  const events: string[] = []
-  const recordEvent: Parameters<typeof accountFeedPage>[0]['recordEvent'] = async (activity) => {
-    events.push(activity.uri)
-    return {
-      forge: 'tangled',
-      instance: 'tangled.org',
-      id: activity.uri,
-      kind: 'other',
-      summary: '',
-      occurredAt: new Date(0),
-      source: 'poll',
-      payload: {},
-    }
+  const listActivity: Parameters<typeof accountFeedPage>[0]['listActivity'] = async (collection, { limit, offset }) => {
+    lists.push([collection, offset])
+    return (records[collection] ?? []).slice(offset, offset + limit).map(rkey => ({
+      uri: `at://${did}/${collection}/${rkey}`,
+      cid: cids[rkey] ?? 'cid1',
+      value: { createdAt: '2026-01-01T00:00:00Z' },
+    }))
   }
+  const recordEvent: Parameters<typeof accountFeedPage>[0]['recordEvent'] = async activity => ({
+    forge: 'tangled',
+    instance: 'tangled.org',
+    id: activity.uri,
+    kind: 'other',
+    summary: '',
+    occurredAt: new Date(0),
+    source: 'poll',
+    payload: {},
+  })
 
-  it('merges the thread collections of an account newest first, across pages', async () => {
-    const first = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
-    const second = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: first.cursor })
-    const third = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2, cursor: second.cursor })
+  it('merges the collections of an account newest first, across pages', async () => {
+    lists.length = 0
+    const first = await accountFeedPage({ listActivity, recordEvent }, did, { perPage: 2 })
+    const second = await accountFeedPage({ listActivity, recordEvent }, did, { perPage: 2, cursor: first.cursor })
+    const third = await accountFeedPage({ listActivity, recordEvent }, did, { perPage: 2, cursor: second.cursor })
 
     expect([first, second, third].map(page => page.items.map(item => item.id.slice(-2)))).toEqual([
       ['05', '04'],
@@ -655,68 +654,42 @@ describe('tangled activity feeds', () => {
       ['01'],
     ])
     expect(third.cursor).toBeUndefined()
-    expect(first.etag).toMatch(/^rev1:[\da-f]{16}$/)
-    expect(lists.map(([collection]) => collection)).not.toContain('sh.tangled.feed.star')
+    expect(first.etag).toMatch(/^[\da-f]{16}$/)
+    expect(lists.filter(([collection]) => collection === REACTION)).toEqual([
+      [REACTION, 0],
+    ])
   })
 
-  it('reports an unchanged revision as not modified without listing records', async () => {
-    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
-    lists.length = 0
-    const page = await accountFeedPage({ atproto, recordEvent }, did, {
+  it('reports a first page whose records did not change as not modified', async () => {
+    const first = await accountFeedPage({ listActivity, recordEvent }, did, { perPage: 2 })
+    const page = await accountFeedPage({ listActivity, recordEvent }, did, {
       perPage: 2,
-      cursor: { etag },
+      cursor: { etag: first.etag },
     })
 
-    expect(page).toEqual({ items: [], notModified: true, etag })
-    expect(lists).toEqual([])
+    expect(page).toEqual({ items: [], notModified: true, etag: first.etag })
   })
 
-  it('reports a page whose records did not change as not modified, even after other writes', async () => {
-    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
-    revision = 'rev2'
-    events.length = 0
-    const page = await accountFeedPage({ atproto, recordEvent }, did, {
-      perPage: 2,
-      cursor: { etag },
-    })
-    revision = 'rev1'
-
-    expect(page).toEqual({ items: [], notModified: true, etag: `rev2:${etag!.split(':')[1]}` })
-    expect(events).toEqual([])
-  })
-
-  it('reads the page again when a record on it was edited', async () => {
-    const { etag } = await accountFeedPage({ atproto, recordEvent }, did, { perPage: 2 })
-    revision = 'rev2'
+  it('reads the page again when a record on it changed', async () => {
+    const first = await accountFeedPage({ listActivity, recordEvent }, did, { perPage: 2 })
     cids['3m0000000004'] = 'cid2'
-    const page = await accountFeedPage({ atproto, recordEvent }, did, {
+    const page = await accountFeedPage({ listActivity, recordEvent }, did, {
       perPage: 2,
-      cursor: { etag },
+      cursor: { etag: first.etag },
     })
-    revision = 'rev1'
     delete cids['3m0000000004']
 
     expect(page.notModified).toBeUndefined()
     expect(page.items.map(item => item.id.slice(-2))).toEqual(['05', '04'])
-    expect(page.etag).not.toBe(etag)
-  })
-
-  it('still knows an `etag` that holds only the revision', async () => {
-    lists.length = 0
-    const page = await accountFeedPage({ atproto, recordEvent }, did, {
-      cursor: { etag: 'rev1' },
-    })
-
-    expect(page).toEqual({ items: [], notModified: true, etag: 'rev1' })
-    expect(lists).toEqual([])
+    expect(page.etag).not.toBe(first.etag)
   })
 
   it('dates a record without `createdAt` by when it was read, not 1970', async () => {
     const before = Date.now()
     const page = await accountFeedPage({
-      atproto,
-      recordEvent: async (activity, source, fallbackTime, threads, signal) => ({
-        ...await recordEvent(activity, source, fallbackTime, threads, signal),
+      listActivity: async (collection, options) => (await listActivity(collection, options)).map(record => ({ ...record, value: {} })),
+      recordEvent: async (activity, source, fallbackTime, signal) => ({
+        ...await recordEvent(activity, source, fallbackTime, signal),
         occurredAt: fallbackTime,
       }),
     }, did, { perPage: 2 })

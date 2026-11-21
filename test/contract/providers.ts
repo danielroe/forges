@@ -30,8 +30,6 @@ export interface ProviderContract {
   probe?: (instance: ForgeProvider) => Promise<unknown>
   /** `probe` and `request()` send no credential, so a 401 is `AuthenticationRequiredError`. */
   anonymousReads?: boolean
-  /** `updateComment()` reads the thread from the comment, so it accepts a comment ref whose thread has no number. */
-  editsCommentWithoutThreadNumber?: boolean
   thread: { number: string, title: string, label?: string, eventKinds: EventKind[], botActor: boolean, stats?: PullStats }
   /** A raw path for `request()`, relative to the provider's API base, and a field its body must have. */
   request: { path: string, field: string }
@@ -72,7 +70,7 @@ export interface ProviderContract {
     headers: (signature: string) => Record<string, string>
     sign: (body: string, secret: string) => Promise<string>
     /** `comment` is the id that `threads.comments()` gives the delivered comment, where the delivery carries it. */
-    expect: { kind: string, action: string, threadKind: string, threadNumber?: string, displayNumber?: string, actor: string, comment?: string, detail: Record<string, unknown>, title: string }
+    expect: { kind: string, action: string, threadKind?: string, threadNumber?: string, displayNumber?: string, actor: string, comment?: string, detail: Record<string, unknown>, title: string }
   }
   /** Present when the forge reports checks on pull requests. */
   checks?: { summary: { state: string, total?: number, failed?: number }, names: string[] }
@@ -105,7 +103,8 @@ async function signOrigin(body: string, secret: string): Promise<string> {
 
 const hmac = async (body: string, secret: string) => (await signDelivery('github', body, secret))['x-hub-signature-256']!
 
-const TANGLED_PULL = 'at://did:plc:adaauthor222222222222222/sh.tangled.repo.pull/3mwqpull22222'
+const TANGLED_PULL = '7'
+const TANGLED_REPO_DID = 'did:plc:widgetsrepo2222222222222'
 
 export const contracts: ProviderContract[] = [
   {
@@ -442,7 +441,6 @@ export const contracts: ProviderContract[] = [
     name: 'tangled',
     fixtures: 'tangled',
     instance: 'tangled.org',
-    editsCommentWithoutThreadNumber: true,
     repo: { owner: 'did:plc:acmeowner222222222222222', name: 'widgets' },
     create: (fetch, options) => tangled({
       auth: {
@@ -467,20 +465,22 @@ export const contracts: ProviderContract[] = [
       },
       kind: 'pull_request',
       number: TANGLED_PULL,
+      externalId: `at://${TANGLED_REPO_DID}/org.tangled.track.ticket/7`,
     }),
     anonymousReads: true,
     request: { path: '/xrpc/_health', field: 'version' },
     thread: {
       number: TANGLED_PULL,
       title: 'Cache compiled templates',
-      eventKinds: ['comment', 'label', 'reaction'],
+      eventKinds: ['comment', 'comment', 'reaction'],
       botActor: false,
     },
     writes: {
-      comment: { method: 'POST', url: 'https://pds.example.com/xrpc/com.atproto.repo.createRecord' },
-      close: { method: 'POST', url: 'https://pds.example.com/xrpc/com.atproto.repo.createRecord', bodyContains: 'sh.tangled.repo.pull.status.closed' },
-      reopen: { method: 'POST', url: 'https://pds.example.com/xrpc/com.atproto.repo.createRecord', bodyContains: 'sh.tangled.repo.pull.status.open' },
-      ignore: /createSession$/,
+      comment: { method: 'POST', url: 'https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord' },
+      close: { method: 'POST', url: 'https://knot1.tangled.sh/xrpc/com.atproto.repo.putRecord', bodyContains: '"state":"closed"' },
+      reopen: { method: 'POST', url: 'https://knot1.tangled.sh/xrpc/com.atproto.repo.putRecord', bodyContains: '"state":"open"' },
+      // The account's session, service tokens and attestations go to its own PDS.
+      ignore: /pds\.example\.com/,
     },
     webhook: {
       body: fixture('tangled', 'webhooks/pull-request-created'),
@@ -494,8 +494,6 @@ export const contracts: ProviderContract[] = [
       expect: {
         kind: 'state_change',
         action: 'opened',
-        threadKind: 'pull_request',
-        displayNumber: '4',
         actor: 'did:plc:adaauthor222222222222222',
         detail: { type: 'state_change', state: 'open' },
         title: 'Cache compiled templates',
@@ -503,7 +501,7 @@ export const contracts: ProviderContract[] = [
     },
     stream: {
       messages: (JSON.parse(fixture('tangled', 'jetstream/thread-activity')) as { messages: unknown[] }).messages,
-      kinds: ['comment', 'label', 'other'],
+      kinds: ['state_change', 'reaction', 'comment'],
       lastCursor: '1758000000000004',
     },
   },

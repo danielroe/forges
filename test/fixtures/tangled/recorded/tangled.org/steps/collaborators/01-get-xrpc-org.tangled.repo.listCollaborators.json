@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.listCollaborators?subject=did%3Aplc%3At73o44q7fppgagkrevtztyok&order=asc&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "addedBy": "did:plc:t73o44q7fppgagkrevtztyok",
+          "cid": "bafyreigaiy3elukdguvygz46sb34i6nh2ummzmuca6ii7dvuwppfjg5trq",
+          "createdAt": "2026-10-11T21:41:10Z",
+          "effectiveSince": "2026-10-11T21:41:10Z",
+          "subject": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.graph.collaborator/did:plc:uxfnwnz5wfwl6tfgqwyfrqyv"
+        }
+      ],
+      "total": 1
+    }
+  }
+}

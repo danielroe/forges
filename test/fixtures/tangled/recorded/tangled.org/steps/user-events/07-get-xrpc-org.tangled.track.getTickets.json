@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F11"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreib7zhekuyi5avuwy435tsac6u2ytm4s3v4uwoibgihrwathnoycsm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/11",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Github: autonome https://github.com/autonome\nTangled: burrito.space https://tangled.org/burrito.space\n\n- I connected both accounts earlier today\n- It says all repos synced, and each repo has a green \"ok\" box\n- Tangled shows zero new repos synced\n\nI had one repo with a name collision, which was correctly detected and disabled.\n\nI tried disabling and re-enabling some of the other repos. I get the \"queued\" message, but still no actual syncing."
+            },
+            "createdAt": "2026-07-29T20:49:12Z",
+            "state": "open",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Says all repos synced but no repos are synced"
+            },
+            "x-tngl-editor": "did:plc:7r5c5jhtphcpkg3y55xu2y64"
+          }
+        }
+      ]
+    }
+  }
+}

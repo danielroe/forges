@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getTree?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "entries": [
+        {
+          "lastCommit": {
+            "author": {
+              "email": "redacted@example.invalid",
+              "name": "Daniel Roe",
+              "when": "2026-10-09T18:04:18.000000+01:00"
+            },
+            "committer": {
+              "email": "redacted@example.invalid",
+              "name": "Daniel Roe",
+              "when": "2026-10-09T18:04:18.000000+01:00"
+            },
+            "hash": "1cd76a776cc09a1acc55e0bfe498b39a5bb76bd0",
+            "message": "chore: add readme\n",
+            "tree": "a045e604e5da79f0a609cd0f0c36859687189fb5"
+          },
+          "mode": "0100644",
+          "name": "README.md",
+          "size": 130
+        },
+        {
+          "lastCommit": {
+            "author": {
+              "email": "redacted@example.invalid",
+              "name": "forges fixtures",
+              "when": "2026-11-21T09:43:14.000000Z"
+            },
+            "committer": {
+              "email": "redacted@example.invalid",
+              "name": "Tangled",
+              "when": "2026-11-21T09:44:38.000000Z"
+            },
+            "hash": "cfb75cfaf8227605dcba0935ccff08fb4b5ed125",
+            "message": "Add forges-fixtures/20261121094301-1.md\n",
+            "tree": "79200d0c7bd106aa209526389af1cf9dbdde5e0d"
+          },
+          "mode": "0040000",
+          "name": "forges-fixtures",
+          "size": 0
+        }
+      ]
+    }
+  }
+}

@@ -272,7 +272,7 @@ describe('parseReferences', () => {
     })
   })
 
-  it('reads Tangled references back from their display number, short, cross-repo and by DID owner', () => {
+  it('reads Tangled references back from their number, short, cross-repo and by DID owner', () => {
     const tg = tangled()
     const from = repoOn(tg, 'acme.dev', 'widgets')
     const other = repoOn(tg, 'vueuse', 'vueuse')
@@ -283,21 +283,21 @@ describe('parseReferences', () => {
         instance: 'tangled.org',
         repo: from,
         kind: 'issue',
-        displayNumber: '4195',
+        number: '4195',
       },
       {
         forge: 'tangled',
         instance: 'tangled.org',
         repo: other,
         kind: 'issue',
-        displayNumber: '4195',
+        number: '4195',
       },
       {
         forge: 'tangled',
         instance: 'tangled.org',
         repo: did,
         kind: 'issue',
-        displayNumber: '7',
+        number: '7',
       },
     ] as const
 
@@ -308,7 +308,7 @@ describe('parseReferences', () => {
       const text = tg.referenceFor(ref, { from })!
       const [parsed] = tg.parseReferences(`See ${text}.`, { from })
 
-      expect(parsed?.ref).toMatchObject({ repo: ref.repo, kind: 'issue', displayNumber: ref.displayNumber })
+      expect(parsed?.ref).toMatchObject({ repo: ref.repo, kind: 'issue', number: ref.number })
     }
   })
 
@@ -532,7 +532,7 @@ describe('parseReferences', () => {
     ])
   })
 
-  it('reads Tangled issues by their display number, and commits', () => {
+  it('reads Tangled issues by their number, and commits', () => {
     const tg = tangled()
     const from = repoOn(tg, 'acme.dev', 'widgets')
 
@@ -544,7 +544,7 @@ describe('parseReferences', () => {
           instance: 'tangled.org',
           repo: from,
           kind: 'issue',
-          displayNumber: '1',
+          number: '1',
         },
       },
       {

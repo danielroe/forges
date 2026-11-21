@@ -1,19 +1,99 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.feed.reaction&limit=100&cursor=3mxmwlkg34u2y"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.listRecords?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=org.tangled.feed.reaction&limit=100"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"e-Ie9BMcnPw/lLTv0zffrNa5YPoAs\"",
+      "etag": "W/\"9ee-bon7pDCTZ2nk8X9FMAk19szsFow\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2894",
-      "ratelimit-reset": "1792491212",
+      "ratelimit-remaining": "2854",
+      "ratelimit-reset": "1795260458",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "records": []
+      "records": [
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqtscaj2r",
+          "cid": "bafyreih4chgkuazlnembqtjq4kr6mlr4pg5lmv7jgfxva6smmtk5i6egtu",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreicfo7rqz3kv47wsxvggrlxgbrdrgqe4gttc6bh45plu6q7jwg6gua",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mycfebyt2r2y"
+            },
+            "reaction": "❤️",
+            "createdAt": "2026-11-20T22:40:16.067Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqsseqz2r",
+          "cid": "bafyreiez7pfsbrj24x4kbingloampvbf4ftsswb4md2fhapi3mnyldc4cu",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreibxes5se5d2eihveeilnhnnyk75slrjirspoqbawhe4p53dz3d2m4",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+            },
+            "reaction": "👍",
+            "createdAt": "2026-11-20T22:40:15.084Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqrswvj2r",
+          "cid": "bafyreih3jnzdf5ffybyvepl2qhrawjz3ttysgsakckgeq2sv45k3rq7g5m",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreibxes5se5d2eihveeilnhnnyk75slrjirspoqbawhe4p53dz3d2m4",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/54"
+            },
+            "reaction": "🚀",
+            "createdAt": "2026-11-20T22:40:14.697Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqq76nj2r",
+          "cid": "bafyreie6ota7gixleecdzwrelsrqhrdcfslj3koiajlau23mlrw22wuw7e",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreiegrfm5oasvi7nh5eovq7w2jdo6f6ja3ghcta2hxajym3lw5eypte",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mxmwljnnuu2y"
+            },
+            "reaction": "❤️",
+            "createdAt": "2026-11-20T22:40:12.617Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqp4efb2r",
+          "cid": "bafyreihahe2fkkkccdpxkvhxr4beunyl474iexgc5idym3osi477dzn6v4",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreibzauzprp23fgtrsowg6spoh76ucdgm4qpbqukfflbbxix7crqbmi",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+            },
+            "reaction": "👍",
+            "createdAt": "2026-11-20T22:40:11.419Z"
+          }
+        },
+        {
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2rnqo4poz2r",
+          "cid": "bafyreifpk7tmolgvgsxfp3p7ou4yv53ehweuikt3bbbrtnkwcdzehyf23q",
+          "value": {
+            "$type": "org.tangled.feed.reaction",
+            "subject": {
+              "cid": "bafyreibzauzprp23fgtrsowg6spoh76ucdgm4qpbqukfflbbxix7crqbmi",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+            },
+            "reaction": "🚀",
+            "createdAt": "2026-11-20T22:40:10.824Z"
+          }
+        }
+      ],
+      "cursor": "3n2rnqo4poz2r"
     }
   }
 }

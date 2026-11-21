@@ -198,11 +198,7 @@ describe.each(contracts)('contract: $name', (contract) => {
     }
     const reads = {
       'threads.getComment': () => instance.threads.getComment(ref),
-      ...contract.editsCommentWithoutThreadNumber
-        ? {}
-        : {
-            'threads.updateComment': () => instance.threads.updateComment(ref, 'Edited'),
-          },
+      'threads.updateComment': () => instance.threads.updateComment(ref, 'Edited'),
     }
     const supported = Object.entries(reads).filter(([verb]) => instance.can(verb as ForgeVerb, 'pull_request'))
 
@@ -376,14 +372,16 @@ describe.each(contracts)('contract: $name', (contract) => {
     expect(events).toHaveLength(1)
     expect(events[0]!.kind).toBe(contract.webhook.expect.kind)
     expect(events[0]!.action).toBe(contract.webhook.expect.action)
-    expect(events[0]!.thread?.kind).toBe(contract.webhook.expect.threadKind)
     expect(events[0]!.source).toBe('webhook')
     expect(events[0]!.actor?.login).toBe(contract.webhook.expect.actor)
-    expect(events[0]!.thread?.number).toBe(contract.webhook.expect.threadNumber)
-    expect(events[0]!.thread?.displayNumber).toBe(contract.webhook.expect.displayNumber)
+    if (contract.webhook.expect.threadKind) {
+      expect(events[0]!.thread?.kind).toBe(contract.webhook.expect.threadKind)
+      expect(events[0]!.thread?.number).toBe(contract.webhook.expect.threadNumber)
+      expect(events[0]!.thread?.displayNumber).toBe(contract.webhook.expect.displayNumber)
+      expect(events[0]!.thread?.repo.name).toBe('widgets')
+    }
     expect(events[0]!.detail).toMatchObject(contract.webhook.expect.detail)
     expect(events[0]!.threadSnapshot?.title).toBe(contract.webhook.expect.title)
-    expect(events[0]!.thread?.repo.name).toBe('widgets')
     expect(events[0]!.occurredAt).toBeInstanceOf(Date)
     expect(events[0]!.detail?.type === 'comment'
       ? events[0]!.detail.comment?.id

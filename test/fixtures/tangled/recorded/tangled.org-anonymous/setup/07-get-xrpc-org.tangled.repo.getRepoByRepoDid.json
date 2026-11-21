@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreicjgjxic6nsp2ccm6thruh3auaifgvyjz5p4ef2qbsobrw657zlru",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-07-08T16:55:56.000000Z",
+        "declaration": {
+          "name": "agent-orchestrator",
+          "owner": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+      }
+    }
+  }
+}

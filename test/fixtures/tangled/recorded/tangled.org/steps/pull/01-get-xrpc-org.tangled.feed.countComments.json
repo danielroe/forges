@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.countComments?subject=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F54"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 2,
+      "distinctAuthors": 1
+    }
+  }
+}

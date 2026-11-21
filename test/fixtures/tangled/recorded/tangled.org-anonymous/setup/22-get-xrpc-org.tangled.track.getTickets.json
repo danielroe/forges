@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ae3kzdezk5gsirzh7eoqplc64%2Forg.tangled.track.ticket%2F54"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreigpcnc66talzhroyaegeixm7vngtzyfxdruuyow5mdbujmpp2n3ni",
+          "uri": "at://did:plc:e3kzdezk5gsirzh7eoqplc64/org.tangled.track.ticket/54",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "As seamark.dev is down at the moment, and atcr.io doesn't allow public/anonymous access to its images there's no way to anonymously get the images from my self-hosted hold. This seemed like a solvable issue for a decentralised container system!\n\nThis is a proposal for allowing the hold to act _directly_ as a (read-only!) OCI v2 API  (if the  setting is specifically enabled or ). The hold still requires the image owner's PDS to be up (to get the manifests).\n\nThis is only available when:\n- the `server.registry_pull` setting is on, or `HOLD_SERVER_REGISTRY_PULL=true`\n- The hold is `public: true`\n- The requested image is owned by the captain or crew member\n\nBlobs are redirected to presigned URLs, direct from the bucket.\n\n---\n\nPlease let me know what you think @evan.jarrett.net—this may not be a direction you're interested in, I shan't be offended if that's the case 😊"
+            },
+            "createdAt": "2026-11-20T20:43:04Z",
+            "state": "open",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Allow holds to act as an OCI v2 (read only) API"
+            },
+            "x-tngl-editor": "did:plc:ephkzpinhaqcabtkugtbzrwu"
+          }
+        }
+      ]
+    }
+  }
+}

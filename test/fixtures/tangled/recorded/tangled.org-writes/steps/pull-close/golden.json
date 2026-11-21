@@ -11,14 +11,13 @@
       "ownerHandle": "roebot.tngl.sh"
     },
     "kind": "pull_request",
-    "typeRaw": "sh.tangled.repo.pull",
-    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfdaneub2y",
-    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfdaneub2y",
-    "displayNumber": "28"
+    "typeRaw": "org.tangled.track.ticket",
+    "number": "128",
+    "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/128"
   },
   "kind": "pull_request",
-  "title": "forges fixture 20261020100831: pull 3",
-  "body": "Opened by run 20261020100831.",
+  "title": "forges fixture 20261121112236: pull 3",
+  "body": "Opened by run 20261121112236.",
   "state": "closed",
   "stateRaw": "closed",
   "isDraft": false,
@@ -30,35 +29,23 @@
     "url": "https://tangled.org/roebot.tngl.sh",
     "isBotHint": false
   },
-  "assignees": [
-    {
-      "forge": "tangled",
-      "instance": "tangled.org",
-      "login": "roebot.tngl.sh",
-      "id": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-      "url": "https://tangled.org/roebot.tngl.sh",
-      "isBotHint": false
-    }
-  ],
+  "assignees": [],
   "reviewers": [],
   "createdAt": "<now>",
   "updatedAt": "<now>",
   "closedAt": "<now>",
   "lastActivityAt": "<now>",
-  "labels": [
-    {
-      "name": "forges-fixture-20261020100831",
-      "colour": "0e8a16"
-    }
-  ],
+  "labels": [],
   "commentCount": 0,
-  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/28",
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/128",
   "branches": {
     "head": {
-      "ref": "forges-fixtures/20261020100831-3"
+      "ref": "forges-fixtures/20261121112236-3",
+      "sha": "54107fc168646e9b0e30173ba43a1e60ce13a85a"
     },
     "base": {
-      "ref": "main"
+      "ref": "main",
+      "sha": "00111a8c9099b56b5e8e4492373de72e4940112f"
     }
   }
 }

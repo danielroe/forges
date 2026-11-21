@@ -10,17 +10,17 @@
         "instance": "tangled.org",
         "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
         "name": "forges-fixtures",
-        "ownerHandle": "roebot.tngl.sh",
-        "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+        "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+        "ownerHandle": "roebot.tngl.sh"
       },
       "kind": "pull_request",
-      "typeRaw": "sh.tangled.repo.pull",
-      "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y",
-      "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y"
+      "typeRaw": "org.tangled.track.ticket",
+      "number": "126",
+      "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/126"
     },
-    "id": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.feed.comment/3mycfdblugz2y"
+    "id": "3n2syga5ygarw"
   },
-  "body": "An edited comment from run 20261020100831.",
+  "body": "An edited comment from run 20261121112236.",
   "author": {
     "forge": "tangled",
     "instance": "tangled.org",
@@ -29,5 +29,6 @@
     "url": "https://tangled.org/roebot.tngl.sh",
     "isBotHint": false
   },
-  "createdAt": "<now>"
+  "createdAt": "<now>",
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/126#comment-3n2syga5ygarw"
 }

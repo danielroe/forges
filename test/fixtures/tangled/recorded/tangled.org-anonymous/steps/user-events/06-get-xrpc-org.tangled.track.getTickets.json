@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreihinbxseirmirbaexzy7evon2gknooe6wple654x74emddhnvic3a",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/10",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "> Disclaimer: My situation might be rare and opinionated.\n\nI propose to enhance the dashboard with support for multiple GitHub users/orgs which synchronize to the same ATproto account. Currently, when I want to activate synchub for multiple GitHub users/orgs, the dashboard only shows the last authorized account and its repositories. This confused me a little bit as I was unsure if the GitHub app would continue syncing the previous account. \n\nMy suggestion is to show all GitHub users/orgs the currently logged in account has permissions on, which have the GitHub app installed. Repository grouping would be nice for clarity.\n\nThe reason is that I have a personal GitHub account for projects I do for myself (personal portfolio, blog, ...) and a dedicated GitHub organization for OS projects I maintain. But since I only have one ATproto account, I would like to sync repositories from both accounts to the same tangled account."
+            },
+            "createdAt": "2026-07-18T08:04:27Z",
+            "state": "open",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Add support for multiple GitHub accounts"
+            },
+            "x-tngl-editor": "did:plc:pbjvqaziagcyv2vqodldn5op"
+          }
+        }
+      ]
+    }
+  }
+}

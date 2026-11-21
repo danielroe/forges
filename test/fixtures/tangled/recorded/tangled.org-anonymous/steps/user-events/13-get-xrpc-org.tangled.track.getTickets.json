@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreid5pptf6tzfdky4b2vjadmmjpfqhd6vyroclsj5dlgv5d3xwrcxzm",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/7",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "The homepage of synchub, implies you can install the github app via gh cli but that doesn't seem to be valid?\n\nhttps://tangled.org/danielroe.dev/synchub.to/blob/c053c4a3d0676629f5b16b4f3730347f107e969f/app/pages/index.vue#L40\n\n```\n❯ gh app install synchub-to\nunknown command \"app\" for \"gh\"\n\nDid you mean this?\n        api\n        pr\n\nUsage:  gh <command> <subcommand> [flags]\n...\n```\n\n```\n❯ gh --version\ngh version 2.96.0 (2026-07-02)\nhttps://github.com/cli/cli/releases/tag/v2.96.0\n```"
+            },
+            "createdAt": "2026-07-07T01:00:56Z",
+            "state": "closed",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Invalid installation instructions "
+            },
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ]
+    }
+  }
+}

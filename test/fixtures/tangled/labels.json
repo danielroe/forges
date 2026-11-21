@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.label.listDefinitions?subject=did%3Aplc%3Awidgetsrepo2222222222222&order=asc&limit=100"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.label.definition/bug",
+          "cid": "bafyreibug0000000000000000000000000000000000000000000000000001",
+          "value": {
+            "$type": "org.tangled.label.definition",
+            "name": "bug",
+            "color": "#ff0000",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        }
+      ],
+      "total": 1
+    }
+  }
+}

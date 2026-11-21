@@ -758,17 +758,27 @@ function cursorOrigin({ baseUrl, authorization, scratch }: HarnessOptions): Writ
   }
 }
 
+/** Collections the provider writes to the signed-in account's own repository. */
+const OWN_COLLECTIONS = [
+  'org.tangled.feed.reaction',
+  'org.tangled.feed.subscription',
+  'org.tangled.feed.star',
+  'org.tangled.graph.attestation',
+]
+
 /**
- * Tangled writes are records in the signed-in account's own repository on its
- * PDS. A new record may only name the scratch repository, a record of that
- * account, or one of `threads`, apart from the definition of a fixture or
- * seed label, which names nothing. The account is the bot's, so any of its Tangled
- * records may be changed or deleted.
+ * Tangled writes are records on the scratch repository's knot, under its repo
+ * DID, and records in each account's own repository on its PDS. A knot write
+ * must name the scratch repository as its `repo`, and a PDS record must name
+ * the scratch repository in its body. The account is the bot's, so any of its
+ * Tangled records may be changed or deleted.
  */
-function tangled({ scratch, read, threads = [], account }: HarnessOptions): WriteHarness {
-  const names = [...threads]
-  let pds: Promise<{ call: <T>(nsid: string, init?: { query?: Record<string, string>, json?: unknown }) => Promise<T>, did: string }> | undefined
-  const session = () => pds ??= (async () => {
+function tangled({ scratch, read, account }: HarnessOptions): WriteHarness {
+  const names = scratch.externalId
+    ? [scratch.externalId]
+    : []
+  let session_: Promise<{ call: <T>(nsid: string, init?: { query?: Record<string, string>, json?: unknown }) => Promise<T>, did: string }> | undefined
+  const session = () => session_ ??= (async () => {
     const host = account!.pds ?? await resolvePds(account!.identifier)
     const created = await (await fetch(`${host}/xrpc/com.atproto.server.createSession`, {
       method: 'POST',
@@ -798,31 +808,27 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       }
       return await response.json() as T
     }
+    await call('com.atproto.repo.putRecord', {
+      json: {
+        repo: created.did,
+        collection: 'org.tangled.actor.profile',
+        rkey: 'self',
+        record: {
+          $type: 'org.tangled.actor.profile',
+          description: 'The account forges records its Tangled fixtures with.',
+          location: 'The scratch repository',
+          links: ['https://forges.link'],
+          createdAt: new Date().toISOString(),
+        },
+      },
+    })
     return { call, did: created.did }
   })()
-  async function* records<T>(collection: string) {
-    const { call, did } = await session()
-    let cursor: string | undefined
-    do {
-      const page = await call<{ records: Array<{ uri: string, cid: string, value: T }>, cursor?: string }>('com.atproto.repo.listRecords', {
-        query: {
-          repo: did,
-          collection,
-          limit: '100',
-          ...cursor
-            ? { cursor }
-            : {},
-        },
-      })
-      yield* page.records
-      cursor = page.records.length ? page.cursor : undefined
-    } while (cursor)
-  }
   const rkeyOf = (uri: string) => uri.split('/').at(-1)!
 
   let repoKnot: Promise<{ origin: string, repoDid: string }> | undefined
   const knot = () => repoKnot ??= read!.repos.get(scratch).then(({ ref, raw }) => {
-    const host = (raw as { value: { knot: string } }).value.knot
+    const host = (raw as { knot?: string, value?: { knot?: string } }).knot ?? (raw as { value: { knot: string } }).value.knot
     return {
       origin: /^https?:\/\//.test(host)
         ? host.replace(/\/$/, '')
@@ -830,14 +836,15 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       repoDid: ref.externalId!,
     }
   })
+  /** A token the repository's knot accepts, minted with the repository as its audience. */
   async function serviceToken(lxm: string): Promise<string> {
     const { call } = await session()
-    const { origin } = await knot()
+    const { repoDid } = await knot()
     return (await call<{ token: string }>('com.atproto.server.getServiceAuth', {
-      query: { aud: `did:web:${encodeURIComponent(new URL(origin).host)}`, lxm },
+      query: { aud: repoDid, lxm },
     })).token
   }
-  async function knotPost(nsid: string, json: unknown): Promise<void> {
+  async function knotCall(nsid: string, json: unknown): Promise<{ status: number, body: unknown }> {
     const { origin } = await knot()
     const response = await fetch(`${origin}/xrpc/${nsid}`, {
       method: 'POST',
@@ -845,19 +852,44 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       body: JSON.stringify(json),
       signal: AbortSignal.timeout(30_000),
     })
+    const text = await response.text()
+    let body: unknown
+    try {
+      body = JSON.parse(text)
+    }
+    catch {
+      body = text
+    }
+    if (!response.ok) {
+      throw new Error(`${nsid} failed with ${response.status}: ${text}`)
+    }
+    return { status: response.status, body }
+  }
+  /** A query of the index's mirror, which lists records the knot cannot. */
+  async function mirrorList(nsid: string, params: Record<string, string>): Promise<{ items: Array<{ uri: string, cid?: string }>, total?: number }> {
+    const query = new URLSearchParams(params)
+    const response = await fetch(`https://api.tangled.org/xrpc/${nsid}?${query}`, {
+      signal: AbortSignal.timeout(30_000),
+    })
     if (!response.ok) {
       throw new Error(`${nsid} failed with ${response.status}: ${await response.text()}`)
     }
+    return await response.json() as { items: Array<{ uri: string, cid?: string }>, total?: number }
   }
   /** Pushes `refspecs` to the knot over HTTPS, with the token in the environment rather than the command line. */
   async function push(directory: string, ...refspecs: string[]): Promise<void> {
     const { origin, repoDid } = await knot()
+    // The knot's receive-pack takes the token as a Basic password, addressed to the knot's own service DID.
+    const { call } = await session()
+    const token = (await call<{ token: string }>('com.atproto.server.getServiceAuth', {
+      query: { aud: `did:web:${new URL(origin).host}`, lxm: 'org.tangled.git.receivePack' },
+    })).token
     git(directory, [
       'push',
       '-q',
       `${origin}/${repoDid}`,
       ...refspecs,
-    ], extraHeader(`Authorization: Bearer ${await serviceToken('sh.tangled.repo.push')}`))
+    ], extraHeader(`Authorization: Basic ${Buffer.from(`x:${token}`).toString('base64')}`))
   }
   let clone: Promise<string> | undefined
   const checkout = (base: string) => clone ??= knot().then(({ origin, repoDid }) => {
@@ -875,69 +907,64 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
     return directory
   })
 
-  return {
-    scope: [],
-    allows: (url, body) => {
-      const path = new URL(url).pathname
-      if (/\/xrpc\/com\.atproto\.server\.(?:createSession|refreshSession)$/.test(path)) {
-        return true
-      }
-      if (path.endsWith('/xrpc/com.atproto.repo.uploadBlob')) {
-        return true
-      }
-      const { repo, collection, rkey, record } = (body ?? {}) as { repo?: string, collection?: string, rkey?: string, record?: unknown }
-      if (/\/xrpc\/sh\.tangled\.repo\.(?:merge|addCollaborator)$/.test(path)) {
-        return Boolean(repo && names.includes(repo))
-      }
-      if (repo && path.endsWith('/xrpc/com.atproto.repo.createRecord')) {
-        if (collection === 'sh.tangled.label.definition') {
-          const name = (record as { name?: string } | undefined)?.name
-          return Boolean(name?.startsWith(FIXTURE_LABEL) || name === SEED_LABEL)
-        }
-        return [...names, `at://${repo}/`].some(name => JSON.stringify(record).includes(name))
-      }
-      return Boolean(repo && rkey) && /\/xrpc\/com\.atproto\.repo\.(?:putRecord|deleteRecord)$/.test(path) && Boolean(collection?.startsWith('sh.tangled.'))
-    },
-    async seed() {
-      const { call, did } = await session()
-      await call('com.atproto.repo.putRecord', {
-        json: {
-          repo: did,
-          collection: 'sh.tangled.actor.profile',
-          rkey: 'self',
-          record: {
-            $type: 'sh.tangled.actor.profile',
-            description: 'The account forges records its Tangled fixtures with.',
-            location: 'The scratch repository',
-            links: ['https://forges.link'],
-            bluesky: false,
-          },
-        },
-      })
-      const { repoDid } = await knot()
-      for await (const star of records<{ subject?: { did?: string } }>('sh.tangled.feed.star')) {
-        if (star.value.subject?.did === repoDid) {
-          return
-        }
-      }
+  /** The profile and a star on the scratch repository, which no provider verb writes. */
+  async function ensureProfileAndStar() {
+    const { call, did } = await session()
+    const repo = await read!.repos.get(scratch)
+    const stars = await call<{ records: Array<{ uri: string, value: { subject?: { identity?: string } } }> }>('com.atproto.repo.listRecords', {
+      query: { repo: did, collection: 'org.tangled.feed.star', limit: '100' },
+    })
+    if (!stars.records.some(record => record.value.subject?.identity === repo.ref.externalId)) {
       await call('com.atproto.repo.createRecord', {
         json: {
           repo: did,
-          collection: 'sh.tangled.feed.star',
+          collection: 'org.tangled.feed.star',
           record: {
-            $type: 'sh.tangled.feed.star',
-            subject: { $type: 'sh.tangled.feed.star#repo', did: repoDid },
+            $type: 'org.tangled.feed.star',
+            subject: { $type: 'org.tangled.feed.star#repo', identity: repo.ref.externalId },
             createdAt: new Date().toISOString(),
           },
         },
       })
+    }
+  }
+
+  return {
+    scope: [],
+    allows: (url, body) => {
+      const path = new URL(url).pathname
+      if (/\/xrpc\/com\.atproto\.server\.(?:createSession|refreshSession|getServiceAuth)$/.test(path)) {
+        return true
+      }
+      const { repo = '', collection = '', record, patch, target } = (body ?? {}) as { repo?: string, collection?: string, record?: unknown, patch?: unknown, target?: { repo?: string } }
+      if (path.endsWith('/xrpc/com.atproto.repo.createRecord')) {
+        if (collection.endsWith('.label.definition')) {
+          const name = (record as { name?: string } | undefined)?.name
+          return names.includes(repo) && Boolean(name?.startsWith(FIXTURE_LABEL) || name === SEED_LABEL)
+        }
+        // A reviewer's own records, such as attestations, live in its repository and name the scratch repository instead.
+        return names.includes(repo) || (OWN_COLLECTIONS.includes(collection) && names.some(name => JSON.stringify(record).includes(name)))
+      }
+      if (path.endsWith('/xrpc/com.atproto.repo.putRecord') || path.endsWith('/xrpc/com.atproto.repo.deleteRecord')) {
+        return names.includes(repo) && collection.startsWith('org.tangled.')
+      }
+      if (path.endsWith('/xrpc/org.tangled.review.submitPatch')) {
+        return names.includes(repo) && Boolean(patch)
+      }
+      if (path.endsWith('/xrpc/sh.tangled.git.mergeCommit')) {
+        return names.includes(target?.repo ?? '')
+      }
+      return false
+    },
+    async seed() {
+      await ensureProfileAndStar()
     },
     async prepare() {
       const repo = await read!.repos.get(scratch)
-      names.push(`at://${repo.ref.owner}/`)
-      if (repo.ref.externalId) {
-        names.push(repo.ref.externalId)
-      }
+      names.push(repo.ref.externalId!)
+      const { did } = await session()
+      names.push(did, `at://${did}/`)
+      await ensureProfileAndStar()
       return repo.defaultBranch ?? 'main'
     },
     async createBranch(base, branch, path) {
@@ -956,85 +983,109 @@ function tangled({ scratch, read, threads = [], account }: HarnessOptions): Writ
       await push(directory, branch)
     },
     async removeCollaborator(_repo, id) {
-      await knotPost('sh.tangled.repo.removeCollaborator', { repo: (await knot()).repoDid, subject: id })
+      const { repoDid } = await knot()
+      const { body } = await knotCall('com.atproto.repo.getRecord', { collection: 'org.tangled.graph.collaborator', rkey: id, repo: repoDid })
+      try {
+        await knotCall('com.atproto.repo.deleteRecord', {
+          collection: 'org.tangled.graph.collaborator',
+          rkey: id,
+          repo: repoDid,
+          swapRecord: (body as { cid?: string }).cid,
+        })
+      }
+      catch {
+        // A grant without a cid is deleted without a swap.
+        await knotCall('com.atproto.repo.deleteRecord', { collection: 'org.tangled.graph.collaborator', rkey: id, repo: repoDid })
+      }
     },
     /**
-     * Deletes `branches` and the fixture branches earlier runs left, the issues
-     * and pull requests earlier runs opened, the account's comments, states,
-     * labels and reactions on those and on `threads`, and fixture label
-     * definitions with their entries in the repo record.
+     * Deletes `branches` and the fixture branches earlier runs left, the
+     * fixture-titled tickets and their rounds and comments, and the bot's PDS
+     * reactions, subscriptions and attestations for those.
      */
     async cleanUp(branches) {
       if (!account) {
         return
       }
       const { call, did } = await session()
-      const { ref } = await read!.repos.get(scratch)
-      const stale = (await read!.contents.branches(ref, { perPage: 100 }).page()).items.map(branch => branch.name).filter(name => branches.includes(name) || name.startsWith('forges-fixtures/'))
+      const { origin, repoDid } = await knot()
+      const stale = (await read!.contents.branches(scratch, { perPage: 100 }).page()).items.map(branch => branch.name).filter(name => branches.includes(name) || name.startsWith('forges-fixtures/'))
       if (stale.length) {
-        const directory = mkdtempSync(join(tmpdir(), 'forges-tangled-'))
-        git(directory, ['init', '-q'])
-        await push(directory, ...stale.map(name => `:${name}`))
+        const token = (await call<{ token: string }>('com.atproto.server.getServiceAuth', {
+          query: { aud: `did:web:${new URL(origin).host}`, lxm: 'org.tangled.git.receivePack' },
+        })).token
+        for (const name of stale) {
+          await fetch(`https://api.tangled.org/xrpc/org.tangled.temp.git.deleteBranch`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', 'authorization': `Bearer ${token}` },
+            body: JSON.stringify({ repo: repoDid, branch: name }),
+            signal: AbortSignal.timeout(30_000),
+          }).catch(() => undefined)
+        }
       }
-      const remove = (collection: string, uri: string) => call('com.atproto.repo.deleteRecord', {
-        json: {
-          repo: did,
+      const knotDelete = async (collection: string, rkey: string, cid?: string) => {
+        if (!cid) {
+          const { body } = await knotCall('com.atproto.repo.getRecord', { collection, rkey, repo: repoDid })
+          cid = (body as { cid?: string }).cid
+        }
+        return knotCall('com.atproto.repo.deleteRecord', {
           collection,
-          rkey: rkeyOf(uri),
-        },
-      })
-      const labels: string[] = []
-      for await (const definition of records<{ name?: string }>('sh.tangled.label.definition')) {
-        if (definition.value.name?.startsWith(FIXTURE_LABEL)) {
-          labels.push(definition.uri)
+          rkey,
+          repo: repoDid,
+          ...cid
+            ? { swapRecord: cid }
+            : {},
+        }).catch(() => undefined)
+      }
+      const subjects = new Set<string>()
+      for (const kind of ['issue', 'pull_request'] as const) {
+        const page = await read!.threads.list(scratch, { kind, state: 'all', perPage: 100 }).page()
+        for (const thread of page.items) {
+          if (thread.title.startsWith(FIXTURE_TITLE)) {
+            subjects.add(thread.ref.externalId!)
+          }
         }
       }
-      if (labels.length) {
-        const current = await call<{ cid: string, value: { labels?: string[] } }>('com.atproto.repo.getRecord', {
-          query: { repo: did, collection: 'sh.tangled.repo', rkey: ref.name },
-        })
-        await call('com.atproto.repo.putRecord', {
-          json: {
-            repo: did,
-            collection: 'sh.tangled.repo',
-            rkey: ref.name,
-            record: {
-              ...current.value,
-              labels: (current.value.labels ?? []).filter(uri => !labels.includes(uri)),
+      for (const subject of subjects) {
+        for (const [nsid, listing, key] of [
+          ['org.tangled.feed.listComments', 'org.tangled.feed.comment', 'subject'],
+          ['org.tangled.temp.review.listPatches', 'org.tangled.review.patch', 'ticket'],
+        ] as const) {
+          const page = await mirrorList(nsid, { [key]: subject, limit: '100' })
+          for (const item of page.items) {
+            await knotDelete(listing, rkeyOf(item.uri), item.cid)
+          }
+        }
+      }
+      await Promise.allSettled([...subjects].map(subject => knotDelete('org.tangled.track.ticket', rkeyOf(subject))))
+      for (const collection of ['org.tangled.feed.reaction', 'org.tangled.feed.subscription', 'org.tangled.graph.attestation']) {
+        let cursor: string | undefined
+        do {
+          const page = await call<{ records: Array<{ uri: string, value: unknown }>, cursor?: string }>('com.atproto.repo.listRecords', {
+            query: {
+              repo: did,
+              collection,
+              limit: '100',
+              ...cursor
+                ? { cursor }
+                : {},
             },
-            swapRecord: current.cid,
-          },
-        })
-        await Promise.allSettled(labels.map(uri => remove('sh.tangled.label.definition', uri)))
-      }
-      const threadsToDelete: Array<[string, string]> = []
-      for (const collection of ['sh.tangled.repo.issue', 'sh.tangled.repo.pull']) {
-        for await (const thread of records<{ title?: string, repo?: string, target?: { repo?: string } }>(collection)) {
-          if (thread.value.title?.startsWith(FIXTURE_TITLE) && (thread.value.repo ?? thread.value.target?.repo) === ref.externalId && !threads.includes(thread.uri)) {
-            threadsToDelete.push([collection, thread.uri])
+          })
+          for (const record of page.records) {
+            const text = JSON.stringify(record.value)
+            if ([...subjects].some(subject => text.includes(subject))) {
+              await call('com.atproto.repo.deleteRecord', {
+                json: {
+                  repo: did,
+                  collection,
+                  rkey: rkeyOf(record.uri),
+                },
+              }).catch(() => undefined)
+            }
           }
-        }
+          cursor = page.records.length ? page.cursor : undefined
+        } while (cursor)
       }
-      await Promise.allSettled(threadsToDelete.map(([collection, uri]) => remove(collection, uri)))
-      const activity: Array<[string, string]> = []
-      const subjects = [
-        ...threads,
-        ...threadsToDelete.map(([, uri]) => uri),
-      ]
-      for (const collection of [
-        'sh.tangled.feed.comment',
-        'sh.tangled.repo.pull.status',
-        'sh.tangled.label.op',
-        'sh.tangled.feed.reaction',
-      ]) {
-        for await (const record of records(collection)) {
-          if (subjects.some(subject => JSON.stringify(record.value).includes(subject))) {
-            activity.push([collection, record.uri])
-            subjects.push(record.uri)
-          }
-        }
-      }
-      await Promise.allSettled(activity.map(([collection, uri]) => remove(collection, uri)))
     },
   }
 }

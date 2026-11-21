@@ -24,10 +24,10 @@ const repoSlug = (repo: RepoRef) => `${repo.ownerHandle ?? repo.owner}/${repo.na
  */
 export const repoPath = (repo: RepoRef) => `/${encodeURIComponent(repo.ownerHandle ?? repo.owner).replaceAll('%3A', ':')}/${encodeURIComponent(repo.name)}`
 
-/** The path of a thread's page, which Tangled addresses by the number it shows the thread as. */
+/** The path of a thread's page, which Tangled addresses by the key of the thread's record. */
 export function threadPath(ref: ThreadRef) {
-  return SECTIONS[ref.kind] && ref.displayNumber
-    ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.displayNumber)}`
+  return SECTIONS[ref.kind] && ref.number
+    ? `${repoPath(ref.repo)}/${SECTIONS[ref.kind]}/${encodeURIComponent(ref.number)}`
     : undefined
 }
 
@@ -35,11 +35,11 @@ export function threadPath(ref: ThreadRef) {
 export function commentPath(ref: ResolvedCommentRef) {
   const path = threadPath(ref.thread)
   return path && ref.id
-    ? `${path}#comment-${encodeURIComponent(ref.id.split('/').pop()!)}`
+    ? `${path}#comment-${encodeURIComponent(ref.id)}`
     : undefined
 }
 
-/** The page of a thread, where the appview numbers it. */
+/** The page of a thread. */
 export function threadUrl(baseUrl: string, ref: ResolvedThreadRef) {
   const path = threadPath(ref)
   return path === undefined
@@ -61,7 +61,6 @@ export const TANGLED_WEB: WebDefinition<'tangled'> = {
   links: ({ baseUrl }) => tangledWeb(baseUrl),
 }
 
-/** Tangled pages address threads by their display number, so parsed refs carry `displayNumber` and need resolving. */
 function tangledWeb(baseUrl: string): WebLinks {
   return {
     baseUrl,
@@ -131,7 +130,7 @@ function tangledWeb(baseUrl: string): WebLinks {
               ...from,
               repo,
               kind,
-              displayNumber: id,
+              number: id,
             },
           }
         : { repo }
@@ -142,17 +141,15 @@ function tangledWeb(baseUrl: string): WebLinks {
           ? bareSha(ref.sha, 7)
           : undefined) ?? `${repoSlug(ref.repo)}@${ref.sha.slice(0, 7)}`
       }
-      // Only the display number gives a short form; `number` is the record's AT-URI.
-      return ref.displayNumber
+      return ref.number
         ? `${same
           ? ''
-          : repoSlug(ref.repo)}#${ref.displayNumber}`
+          : repoSlug(ref.repo)}#${ref.number}`
         : undefined
     },
-    // A `#<n>` written in text is the display number: the record's AT-URI is not known from text alone.
     references: {
       threads: [
-        { prefix: '#', kind: 'issue', displayNumber: true },
+        { prefix: '#', kind: 'issue' },
       ],
       repo: REFERENCE_REPO,
       commits: true,
