@@ -1,0 +1,86 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.listRepos?subject=did%3Aplc%3Ajbeaa5kdaladzwq3r7f5xgwe&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreiha2hks6u7um7sq6fzovabdqsj5k7musujghrqjffbfa5cototrji",
+          "uri": "at://did:plc:utwfbvfzfwhluy73kprj777q/org.tangled.repo.manifest/self",
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "contributionPolicy": "anyone",
+            "createdAt": "2026-10-22T11:07:10.130000Z",
+            "declaration": {
+              "name": "beasties",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+            },
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest.",
+            "spindle": "did:web:spindle.tangled.network",
+            "topics": [
+              "critical-css",
+              "css",
+              "inlining-critical-fonts",
+              "vite",
+              "vite-plugin",
+              "webpack",
+              "webpack-plugin"
+            ],
+            "website": "https://npmx.dev/beasties",
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreidhtfy6gjmp7la3hwf37huo5djhdyikvzcogxpobkl4evqlmojyxu",
+          "uri": "at://did:plc:vglgfdr3j2sqjdwgb5uvsyff/org.tangled.repo.manifest/self",
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "contributionPolicy": "anyone",
+            "createdAt": "2026-07-26T15:26:04.680000Z",
+            "declaration": {
+              "name": "clickable-path",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+            },
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/clickable-path. Zero-dependency package to print paths as OSC 8 hyperlinks.",
+            "spindle": "did:web:spindle.tangled.network",
+            "topics": [
+              "cli",
+              "osc8"
+            ],
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        },
+        {
+          "cid": "bafyreibxzcqr7puxrgs2e6vdsmhdgl4ni67engrgnimb5vqcpfzvbs54va",
+          "uri": "at://did:plc:zpw5i3bh2ytz7flu7wsgiwtx/org.tangled.repo.manifest/self",
+          "value": {
+            "$type": "org.tangled.repo.manifest",
+            "contributionPolicy": "anyone",
+            "createdAt": "2026-07-15T10:50:16.628000Z",
+            "declaration": {
+              "name": "fnv1a-64",
+              "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+            },
+            "description": "[READ-ONLY] Mirror of https://github.com/danielroe/fnv1a-64. Tiny, fast, dependency-free 64-bit FNV-1a string hash for Node and the browser.",
+            "spindle": "did:web:spindle.tangled.network",
+            "topics": [
+              "64-bit",
+              "fnv",
+              "fnv-1a",
+              "fnv1a",
+              "hash",
+              "non-cryptographic"
+            ],
+            "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+          }
+        }
+      ],
+      "cursor": "000656a416c0df20000286d9",
+      "total": 164
+    }
+  }
+}

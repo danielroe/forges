@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.countForks?subject=did%3Aplc%3Avglgfdr3j2sqjdwgb5uvsyff"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 0,
+      "distinctAuthors": 0
+    }
+  }
+}

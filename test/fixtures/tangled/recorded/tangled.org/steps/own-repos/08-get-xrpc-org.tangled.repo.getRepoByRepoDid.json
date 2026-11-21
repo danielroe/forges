@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Avglgfdr3j2sqjdwgb5uvsyff"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreidhtfy6gjmp7la3hwf37huo5djhdyikvzcogxpobkl4evqlmojyxu",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:vglgfdr3j2sqjdwgb5uvsyff/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-07-26T15:26:04.680000Z",
+        "declaration": {
+          "name": "clickable-path",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+        },
+        "description": "[READ-ONLY] Mirror of https://github.com/danielroe/clickable-path. Zero-dependency package to print paths as OSC 8 hyperlinks.",
+        "spindle": "did:web:spindle.tangled.network",
+        "topics": [
+          "cli",
+          "osc8"
+        ],
+        "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+      }
+    }
+  }
+}

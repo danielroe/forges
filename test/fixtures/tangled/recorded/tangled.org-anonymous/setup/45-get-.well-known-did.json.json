@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tranquil.tranquil.farm/.well-known/did.json"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "\"ef01eeaeb40146f49fe8946904c0489c17912021acfa49b079bc4856df842678\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "alsoKnownAs": [
+        "at://tranquil.farm"
+      ],
+      "id": "did:web:tranquil.tranquil.farm",
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "serviceEndpoint": "https://tranquil.farm",
+          "type": "AtprotoPersonalDataServer"
+        }
+      ],
+      "verificationMethod": [
+        {
+          "controller": "did:web:tranquil.tranquil.farm",
+          "id": "did:web:tranquil.tranquil.farm#atproto",
+          "publicKeyMultibase": "zQ3shaW5UmY9YxyRXqtz6eM1KRpyTM38KSVxbfGjG7M5pvG7g",
+          "type": "Multikey"
+        }
+      ]
+    }
+  }
+}

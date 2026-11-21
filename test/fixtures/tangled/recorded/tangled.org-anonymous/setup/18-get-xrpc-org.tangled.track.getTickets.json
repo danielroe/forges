@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A4gz5bnlcchmi22lwgkvraofj%2Forg.tangled.track.ticket%2F10"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreidalypzpmyaae4rnmwnkherwsl6ginjdkboozf4m4oyafqccqrzbu",
+          "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.track.ticket/10",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Implements an Android version of Audio Stamper under `android/` (resolving #8).\n\n### Architecture\n- **`:stamper-core`** (pure Kotlin/JVM): Ports `StamperCore` with `fm.teal.feed.play` record encoding, grapheme-safe 256-byte UTF-8 clamping, `ATProtoClient` (handle/DID resolution, App Password, and OAuth PKCE/PAR + ES256 DPoP with `DPoP-Nonce` handling and coalesced 401 refresh), `MusicBrainzClient` (1.1s rate-limited ISRC + release enrichment), `Deduplicator`, and `PlayPublisher` (per-account disk-backed retry queue).\n- **`:app`** (Jetpack Compose + Material 3):\n  - Dark + teal UI (`SignInScreen`, `ListeningScreen`, `SettingsScreen`)\n  - Chrome Custom Tabs Atmosphere OAuth (`net.mmatt.audiostamper:/callback`) + App Password + manual PDS fallback\n  - Android Keystore AES-256-GCM session storage (`SessionStore`)\n  - Foreground microphone service (`ListeningService`, `foregroundServiceType=\"microphone\"`) capturing 44.1 kHz mono PCM chunks with a pluggable `TrackRecognizer` (`AudDTrackRecognizer` configurable in Settings)\n\n### Verification\n- `./gradlew :stamper-core:test :app:assembleDebug` — all 17 unit tests pass and debug APK builds cleanly.\n- Verified on Android 15.0 emulator (`webslicer_android35`): Atmosphere OAuth sign-in, callback deep-link handling, Settings, and active foreground microphone listening.\n"
+            },
+            "createdAt": "2026-11-21T16:51:21Z",
+            "state": "open",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Add Android port (#8)"
+            },
+            "x-tngl-editor": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
+          }
+        }
+      ]
+    }
+  }
+}

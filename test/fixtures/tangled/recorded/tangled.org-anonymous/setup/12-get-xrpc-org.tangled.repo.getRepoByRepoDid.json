@@ -1,28 +1,36 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Aj5hmlfdrwkvtxm7cjmu7j2is"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ajj6ajj6duxnlthwtnob4qyuv"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreifre5mcp6gnppyd35b4yvki7ci4yppew3ry5flpgr4il73xocssvi",
-      "defaultBranch": "master",
+      "cid": "bafyreib3kjqyivi2zd5gty5yeufebdys77rr6yisvvps56vszahw4egk7q",
+      "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:jj6ajj6duxnlthwtnob4qyuv/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2025-02-23T18:43:18.000000Z",
+        "createdAt": "2026-10-28T15:08:00Z",
         "declaration": {
-          "name": "core",
-          "owner": "did:plc:wshs7t2adsemcrrd4snkeqli"
+          "name": "tranquil-pds",
+          "owner": "did:web:tranquil.tranquil.farm"
         },
-        "description": "Monorepo for Tangled",
+        "description": "Our Personal Data Server from scratch!",
         "spindle": "did:web:spindle.tangled.network",
-        "website": "https://tangled.org",
-        "x-tngl-editor": "did:plc:wshs7t2adsemcrrd4snkeqli"
+        "topics": [
+          "pds",
+          "rust",
+          "database",
+          "fun",
+          "oauth",
+          "atproto"
+        ],
+        "website": "https://tranquil.farm/",
+        "x-tngl-editor": "did:web:tranquil.tranquil.farm"
       }
     }
   }

@@ -1,28 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Al7hhzcbqqvpcquau5waryzdu"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3At73o44q7fppgagkrevtztyok"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreiahyz6jqrtqhc2qacrzejwj3bzaxldwkx7v7wnj37cwmp2grlpy5y",
+      "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:l7hhzcbqqvpcquau5waryzdu/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-09-21T07:35:55.000000Z",
+        "createdAt": "2026-10-09T17:02:20.000000Z",
         "declaration": {
-          "name": "albedo",
-          "owner": "did:plc:3rwz3xfw2crswgifqgc3g7zh"
+          "name": "forges-fixtures",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
         },
-        "description": "small gleam coding and persistent agent daemon with a detachable cli and a canvas ui",
-        "spindle": "did:web:ci.klbr.net",
-        "website": "https://albedo.sh",
-        "x-tngl-editor": "did:plc:3rwz3xfw2crswgifqgc3g7zh"
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }
     }
   }

@@ -12,6 +12,30 @@
           "author": {
             "email": "redacted@example.invalid",
             "name": "forges fixtures",
+            "when": "2026-11-21T14:33:58.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Tangled",
+            "when": "2026-11-21T14:35:24.000000Z"
+          },
+          "extraHeaders": [],
+          "message": "Add forges-fixtures/20261121143343-1.md\n",
+          "oid": "37dc16047335d56fccdb49e3ae30f1f1670a9e35",
+          "parents": [
+            "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+          ],
+          "stat": {
+            "deletions": 0,
+            "filesChanged": 1,
+            "insertions": 1
+          },
+          "tree": "26b1d8e834372a5b1cc7159499da022cabb3359c"
+        },
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
             "when": "2026-11-21T14:30:32.000000Z"
           },
           "committer": {
@@ -103,30 +127,6 @@
             "insertions": 1
           },
           "tree": "46b7e288afe20b76bb0c76b32cbf94154648d5bb"
-        },
-        {
-          "author": {
-            "email": "redacted@example.invalid",
-            "name": "forges fixtures",
-            "when": "2026-11-21T10:06:35.000000Z"
-          },
-          "committer": {
-            "email": "redacted@example.invalid",
-            "name": "Tangled",
-            "when": "2026-11-21T10:07:57.000000Z"
-          },
-          "extraHeaders": [],
-          "message": "Add forges-fixtures/20261121100622-1.md\n",
-          "oid": "2b44876cb06e6332601b48b358f27b473c84d9d2",
-          "parents": [
-            "345c9802dbc67c479d038e79745824e605907a99"
-          ],
-          "stat": {
-            "deletions": 0,
-            "filesChanged": 1,
-            "insertions": 1
-          },
-          "tree": "cfac36d032ae70a15643884ad8e7dbb91e1f7c01"
         }
       ]
     }

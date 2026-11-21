@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Azpw5i3bh2ytz7flu7wsgiwtx"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreibxzcqr7puxrgs2e6vdsmhdgl4ni67engrgnimb5vqcpfzvbs54va",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:zpw5i3bh2ytz7flu7wsgiwtx/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-07-15T10:50:16.628000Z",
+        "declaration": {
+          "name": "fnv1a-64",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+        },
+        "description": "[READ-ONLY] Mirror of https://github.com/danielroe/fnv1a-64. Tiny, fast, dependency-free 64-bit FNV-1a string hash for Node and the browser.",
+        "spindle": "did:web:spindle.tangled.network",
+        "topics": [
+          "64-bit",
+          "fnv",
+          "fnv-1a",
+          "fnv1a",
+          "hash",
+          "non-cryptographic"
+        ],
+        "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Acwoq3xqggpzpb27kmuyknqcn%2Forg.tangled.track.ticket%2F48"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3A4gz5bnlcchmi22lwgkvraofj%2Forg.tangled.track.ticket%2F11"
   },
   "response": {
     "status": 200,
@@ -9,18 +9,22 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreia6myzopmh2qqf3zrgdllmxlfadpkq6ojtbtdcy4enpgonb7iz73y",
-          "uri": "at://did:plc:cwoq3xqggpzpb27kmuyknqcn/org.tangled.track.ticket/48",
+          "cid": "bafyreihf7m67l6nwntfnqt4q6ejstoh2jvvobqdn63pyjtxesikn6katdi",
+          "uri": "at://did:plc:4gz5bnlcchmi22lwgkvraofj/org.tangled.track.ticket/11",
           "value": {
             "$type": "org.tangled.track.ticket",
-            "createdAt": "2026-11-21T11:51:54Z",
-            "state": "completed",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Implements iPhone Duo (foldable / dual-panel) support (resolving #9).\n\n### Changes\n- **Orientation support** (`project.yml`, `Resources/Info.plist`): Added `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` alongside `UIInterfaceOrientationPortrait` so the unfolded inner display (`951×669pt`) and landscape orientation are supported.\n- **Hinge pose observation** (`Support/HingeObserver.swift`): Added `HingeObserver` and `HingeReaderView` using `UIHingeInteraction` (`iOS 27.1+`, guarded with `#available(iOS 27.1, *)`) to track `.closed`, `.partiallyOpen`, and `.fullyOpen` hinge states.\n- **Adaptive layouts** (`ListeningView.swift`, `SignInView.swift`):\n  - `ListeningView` switches to a two-column `insetGrouped` layout on wide/unfolded displays (`width >= 600`, `.regular` horizontal size class, or unfolded hinge posture), placing the listening control and `Just heard` on the left and `Heard recently` on the right, while preserving the single-column layout on the closed outer display (`466×678pt`).\n  - `SignInView` constrains the form to `maxWidth: 560` centered on wide/unfolded displays so fields and buttons do not stretch edge-to-edge.\n- **Active-scene OAuth anchor** (`Auth/OAuthBrowser.swift`): `presentationAnchor(for:)` prefers the `.foregroundActive` `UIWindowScene`'s key window.\n\n### Verification\n- `swift test` in `StamperCore/` — all 90 tests pass.\n- Built and verified on the `iPhone Duo` simulator (`iOS 27.2`, `iPhone19,4`) across `closed` (`466×678pt`, `1398×2034 @3x`), `open` (`951×669pt`, `2853×2007 @3x`), and `half-open` (`132.5°`) poses:\n  - Atmosphere OAuth sign-in (`chromextensiontest.bsky.social`) and callback redirect into `ListeningView`.\n  - Microphone permission prompt and active listening state.\n  - `Settings` sheet presentation and dismissal in unfolded mode."
+            },
+            "createdAt": "2026-11-21T17:22:32Z",
+            "state": "open",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "chore: align TypeScript tooling with Node 24"
+              "text": "Add iPhone Duo support (#9)"
             },
-            "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+            "x-tngl-editor": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
           }
         }
       ]

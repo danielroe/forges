@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:h5wsnqetncv6lu2weom35lg2"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"212-FH/eOfaApz/ZtmXf0WO9M5Knyhg\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:h5wsnqetncv6lu2weom35lg2",
+      "alsoKnownAs": [
+        "at://nel.pet"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:h5wsnqetncv6lu2weom35lg2#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:h5wsnqetncv6lu2weom35lg2",
+          "publicKeyMultibase": "zQ3shTg26EL5eLGxhriRbz3KsZd6kDZQHkMw7BiR6e9zwyRyu"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.nel.pet"
+        }
+      ]
+    }
+  }
+}

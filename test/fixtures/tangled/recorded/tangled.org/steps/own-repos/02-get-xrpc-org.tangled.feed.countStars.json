@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.countStars?subject=did%3Aplc%3Avglgfdr3j2sqjdwgb5uvsyff"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 1,
+      "distinctAuthors": 1
+    }
+  }
+}

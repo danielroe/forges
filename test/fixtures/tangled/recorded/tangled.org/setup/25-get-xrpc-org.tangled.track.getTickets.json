@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Awj53zt2oo653zr3wgnvn4llg%2Forg.tangled.track.ticket%2F4208"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ajj6ajj6duxnlthwtnob4qyuv%2Forg.tangled.track.ticket%2F129"
   },
   "response": {
     "status": 200,
@@ -9,22 +9,21 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreigamheo4hyf7rf4j3ximv2w3zx4shekrhjuvzqaktik666d3h6474",
-          "uri": "at://did:plc:wj53zt2oo653zr3wgnvn4llg/org.tangled.track.ticket/4208",
+          "cid": "bafyreiba2oi5vm45eh6l3dm4ym7oyas77gyzftclvoeixejfkjm6nx3wvi",
+          "uri": "at://did:plc:jj6ajj6duxnlthwtnob4qyuv/org.tangled.track.ticket/129",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Adds coverage for destination readback and grantless owner refusals, and updates the test server pin to the reviewed T3 integration. CI cb6e61af passed 199 tests including dashboard contract test 37. Part of the combined phase-standard repair."
+              "text": "title basically.\n\nA simple way to use an S3 compatible bucket (be it aws s3, cloudflare r2, seaweedfs, rustfs, ...) to host blobs, completely bypassing the local filesystem.\n\nIn addition to that, also a way to periodically backup the data store (file system and postgres) to an S3 bucket (encrypted)"
             },
-            "createdAt": "2026-11-21T12:13:16Z",
+            "createdAt": "2026-08-17T17:28:51Z",
             "state": "open",
-            "targetBranch": "unit/tangled-closing-counter-tests",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "Exercise the Tangled dashboard routes against their reviewed server"
+              "text": "request: S3 blob storage & block/postgres backups"
             },
-            "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+            "x-tngl-editor": "did:plc:irs2tcoeuvuwj3m4yampbuco"
           }
         }
       ]

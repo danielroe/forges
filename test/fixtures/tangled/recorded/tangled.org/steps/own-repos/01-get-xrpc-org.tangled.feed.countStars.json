@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.feed.countStars?subject=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+    "url": "https://api.tangled.org/xrpc/org.tangled.feed.countStars?subject=did%3Aplc%3Autwfbvfzfwhluy73kprj777q"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "count": 1,
-      "distinctAuthors": 1
+      "count": 0,
+      "distinctAuthors": 0
     }
   }
 }

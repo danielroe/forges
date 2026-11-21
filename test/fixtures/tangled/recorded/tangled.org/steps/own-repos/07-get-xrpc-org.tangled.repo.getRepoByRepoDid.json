@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Autwfbvfzfwhluy73kprj777q"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreiha2hks6u7um7sq6fzovabdqsj5k7musujghrqjffbfa5cototrji",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:utwfbvfzfwhluy73kprj777q/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-10-22T11:07:10.130000Z",
+        "declaration": {
+          "name": "beasties",
+          "owner": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+        },
+        "description": "[READ-ONLY] Mirror of https://github.com/danielroe/beasties. A library to inline your app's critical CSS and lazy-load the rest.",
+        "spindle": "did:web:spindle.tangled.network",
+        "topics": [
+          "critical-css",
+          "css",
+          "inlining-critical-fonts",
+          "vite",
+          "vite-plugin",
+          "webpack",
+          "webpack-plugin"
+        ],
+        "website": "https://npmx.dev/beasties",
+        "x-tngl-editor": "did:plc:jbeaa5kdaladzwq3r7f5xgwe"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Afuqndzh4wx67xqwi7ziqfwjr%2Forg.tangled.track.ticket%2F63"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ab3nregwt745h6xytpqmmavpi%2Forg.tangled.track.ticket%2F176"
   },
   "response": {
     "status": 200,
@@ -9,20 +9,20 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreibfgm7emnvtiqx23ardiqxnnl5zmeovsmmgl3le5plo4ruq5zdcsq",
-          "uri": "at://did:plc:fuqndzh4wx67xqwi7ziqfwjr/org.tangled.track.ticket/63",
+          "cid": "bafyreihqo4cuboq2oiv77ennbi2gcxssmpfyasgpc4q7z5fgocjt44472u",
+          "uri": "at://did:plc:b3nregwt745h6xytpqmmavpi/org.tangled.track.ticket/176",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Embeds the `internal` template as a generated string constant (`make codegen-template`) instead of reading it from `priv`, and drops `gleam_erlang`, so the CLI runs on JavaScript as well as Erlang. This is step 1 of the TypeScript target plan. Generated output is byte-identical; a bun bundle of the CLI was checked against the Erlang output locally but is not part of this change."
+              "text": "The microvm workflows resolved `github:nixos/nixpkgs/nixos-unstable` during spindle setup, which calls api.github.com anonymously from the shared runner IP and fails with 403 once that quota is gone; deploy-microvm has not published an image since. Floating via `https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz` keeps unstable without touching GitHub. test-postgres.yml runs on this PR on the same engine, so a green run proves the ref."
             },
-            "createdAt": "2026-11-21T11:35:06Z",
-            "state": "open",
+            "createdAt": "2026-11-21T17:43:37Z",
+            "state": "completed",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "feat(atproto_codegen): run the CLI on the JavaScript target"
+              "text": "ci: float nixpkgs via the channel tarball to dodge github api rate limits"
             },
             "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
           }

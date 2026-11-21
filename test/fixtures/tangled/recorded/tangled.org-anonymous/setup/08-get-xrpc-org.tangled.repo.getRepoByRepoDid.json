@@ -1,28 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Acwoq3xqggpzpb27kmuyknqcn"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3A6z743ym5lwe7k6m6dqd6yjha"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreihxnh46by6v27ueda5chnmihtnhdzhj355xurrw7w7xi4xkvppk3q",
+      "cid": "bafyreig6tybsmj3m3jwlq2dfehvzialsyvmwiueyz34cubajlvvtg462hm",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:cwoq3xqggpzpb27kmuyknqcn/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:6z743ym5lwe7k6m6dqd6yjha/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-02-27T19:33:39.000000Z",
+        "createdAt": "2026-10-28T15:52:41Z",
         "declaration": {
-          "name": "life-series",
-          "owner": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+          "name": "bedrock",
+          "owner": "did:plc:f5ba4vjiqujbl3s6hm4yy2lh"
         },
-        "description": "Non-official site for The Life Series Minecraft hardcore survival multiplayer series housing every video",
-        "spindle": "did:web:spindle.tangled.network",
-        "website": "https://www.life-series.online",
-        "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+        "description": "The (aspirational) foundation of CS at WCU!",
+        "x-tngl-editor": "did:plc:f5ba4vjiqujbl3s6hm4yy2lh"
       }
     }
   }
