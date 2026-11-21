@@ -202,18 +202,26 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
       })
     }
 
-    /** Whether the signed-in account may change the record: its author, or a moderator of the repository. */
-    async function mayEdit(handle: RepoHandle, author: string | undefined, signal?: AbortSignal): Promise<boolean> {
+    /**
+     * Whether the signed-in account may change the ticket: its author, or a moderator of the repository.
+     * `editor` wrote the latest version, which is the author only until a moderator edits it, so the
+     * author is read from the index when the editor and the role don't settle it.
+     */
+    async function mayEdit(handle: RepoHandle, uri: string, editor: string | undefined, signal?: AbortSignal): Promise<boolean> {
       const viewer = await viewerDid()
       const role = await permissionFor(handle.ref, viewer, { signal }).catch(() => 'read' as const)
-      return viewer === author || role !== 'read'
+      if (viewer === editor || role !== 'read') {
+        return true
+      }
+      const view = await query<{ author?: { did: string } }>('org.tangled.track.getTicketView', { uri }, signal)
+      return view.author?.did === viewer
     }
 
     /** Puts a new version of a ticket, checking the author-or-moderator rule. */
     async function putTicket(thread: ThreadRef, mutate: (record: TicketRecord) => TicketRecord, signal?: AbortSignal): Promise<void> {
-      const { repo, rkey } = await ticketFor(thread, signal)
+      const { repo, rkey, uri } = await ticketFor(thread, signal)
       const current = await knotRecord<TicketRecord>(repo, COLLECTIONS.ticket, rkey, signal)
-      if (!await mayEdit(repo, current.value['x-tngl-editor'], signal)) {
+      if (!await mayEdit(repo, uri, current.value['x-tngl-editor'], signal)) {
         throw new InsufficientScopeError('Only the author, the repo owner or a collaborator can change this record; the knot would refuse the write', 403, '', context)
       }
       const { 'x-tngl-editor': _editor, ...stored } = current.value
