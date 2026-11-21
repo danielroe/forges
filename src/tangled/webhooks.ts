@@ -163,6 +163,9 @@ export function createTangledWebhooks({ instance, context, fetcher, repoFor, ser
 
   return {
     listPage: verb(true, async (target, listOptions = {}) => {
+      if (!(await repoFor(target, listOptions.signal)).view.value.spindle) {
+        return { items: [] }
+      }
       const { origin, did } = await spindleOf(target, listOptions.signal)
       return {
         items: (await listHooks(origin, did, listOptions.signal)).map(raw => toWebhook(target, raw)),

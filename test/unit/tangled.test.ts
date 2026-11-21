@@ -510,6 +510,14 @@ describe('tangled writes', () => {
 })
 
 describe('tangled webhooks', () => {
+  it('lists no webhooks for a repository without a spindle', async () => {
+    const { instance, calls } = provider(session)
+    const hooks = await instance.webhooks.list({ ...repo, externalId: REPO_DID }).page()
+
+    expect(hooks.items).toEqual([])
+    expect(calls.some(call => call.url.includes('webhook'))).toBe(false)
+  })
+
   it('authenticates to a spindle on a port with its DID', async () => {
     const { instance } = provider({
       ...session,
