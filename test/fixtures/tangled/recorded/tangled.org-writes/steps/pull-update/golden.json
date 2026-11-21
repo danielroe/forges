@@ -12,12 +12,12 @@
     },
     "kind": "pull_request",
     "typeRaw": "org.tangled.track.ticket",
-    "number": "132",
-    "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+    "number": "138",
+    "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138"
   },
   "kind": "pull_request",
-  "title": "forges fixture 20261121122101: pull, edited",
-  "body": "Edited by run 20261121122101.",
+  "title": "forges fixture 20261121143017: pull, edited",
+  "body": "Edited by run 20261121143017.",
   "state": "open",
   "stateRaw": "open",
   "isDraft": false,
@@ -45,20 +45,20 @@
   "lastActivityAt": "<now>",
   "labels": [
     {
-      "name": "forges-fixture-20261121122101",
+      "name": "forges-fixture-20261121143017",
       "colour": "0E8A16"
     }
   ],
   "commentCount": 1,
-  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/132",
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/138",
   "branches": {
     "head": {
-      "ref": "forges-fixtures/20261121122101-1",
-      "sha": "204c618d5ac7b8f866101e533b95282326dd02ff"
+      "ref": "forges-fixtures/20261121143017-1",
+      "sha": "1fd2ac5342b27e0a8947bb337fc492fdbc0d2f61"
     },
     "base": {
       "ref": "main",
-      "sha": "62df6282010d7425d2c5cee70b0edf58aded5476"
+      "sha": "66c23565892f29bb0c0a3b1bb362e249fa5e9223"
     }
   }
 }

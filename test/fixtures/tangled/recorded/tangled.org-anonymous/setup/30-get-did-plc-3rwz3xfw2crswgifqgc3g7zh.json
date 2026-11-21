@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:3rwz3xfw2crswgifqgc3g7zh"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"216-x6nr/nX2b5zL/mCrk8PlmKOuzjc\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+      "alsoKnownAs": [
+        "at://okami.mom"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:3rwz3xfw2crswgifqgc3g7zh#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:3rwz3xfw2crswgifqgc3g7zh",
+          "publicKeyMultibase": "zQ3shid4ShFqZ1P4rW2JdAK72hwz7Sr6qrxnen7xgiSzspogi"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://sharkgirl.pet"
+        }
+      ]
+    }
+  }
+}

@@ -1,26 +1,34 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3At73o44q7fppgagkrevtztyok"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Afuqndzh4wx67xqwi7ziqfwjr"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreidwqp7izr2rl2odhtkx3xnzl7gbd2hnvh727dnkpwlyvbdekitpqq",
+      "cid": "bafyreigl36upkik5kax3vidnjln7tjbrqmlzvu2phuwxnyvvprzbbumade",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:fuqndzh4wx67xqwi7ziqfwjr/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-10-09T17:02:20.000000Z",
+        "createdAt": "2026-07-06T20:23:35.000000Z",
         "declaration": {
-          "name": "forges-fixtures",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          "name": "gleam-atproto",
+          "owner": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
+        "description": "infra stuff in gleam",
         "spindle": "did:web:spindle.tangled.network",
-        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        "topics": [
+          "gleam",
+          "atproto",
+          "lexicon",
+          "codegen",
+          "oauth"
+        ],
+        "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
       }
     }
   }

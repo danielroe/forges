@@ -5,8 +5,8 @@
     "body": {
       "repo": "did:plc:t73o44q7fppgagkrevtztyok",
       "collection": "org.tangled.track.ticket",
-      "rkey": "132",
-      "swapRecord": "bafyreidfv4askyemdlax4yl6hich2e3fd3hqovajc6g5lknsznsougfdtq",
+      "rkey": "138",
+      "swapRecord": "bafyreicspido2xw6vka6bq3mz23uukccdmgsnoh2cj7n5nnygzd3agbc6u",
       "record": {
         "$type": "org.tangled.track.ticket",
         "assignees": [
@@ -14,19 +14,19 @@
         ],
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "Edited by run 20261121122101."
+          "text": "Edited by run 20261121143017."
         },
-        "createdAt": "2026-11-21T12:22:00Z",
+        "createdAt": "2026-11-21T14:31:17Z",
         "state": "completed",
         "tangledLabels": [
           {
-            "key": "forges-fixture-20261121122101"
+            "key": "forges-fixture-20261121143017"
           }
         ],
         "targetBranch": "main",
         "title": {
           "$type": "org.tangled.markup.markdown#inline",
-          "text": "forges fixture 20261121122101: pull, edited"
+          "text": "forges fixture 20261121143017: pull, edited"
         }
       }
     }
@@ -35,14 +35,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132",
-      "cid": "bafyreico6qzachsckrxzxwddyzbvlejgvnlymlergttlezsvl4rbz2x5te",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138",
+      "cid": "bafyreifc5ikaadia7m7kvgnsc2izavyuanvitrjoaajsnfenqwbhzvcbaq",
       "commit": {
-        "cid": "bafyreicdtxzs7u236pgr72beqxblpcjb5simemxifn45mki5ryizjlxanq",
-        "rev": "3n2t3pdvb4h22"
+        "cid": "bafyreigc5gchbvx5b2sz7sw23pjvu2ytduxrxg7ipzcldppbu6zz2qhky4",
+        "rev": "3n2tcwkeyli22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "6da14a74e52019fd0ac7bcd6dd5fedc9403546da"
+      "x-tngl-change": "b7c75c430e0b5fb35332ca571c43da249ed78651"
     }
   }
 }

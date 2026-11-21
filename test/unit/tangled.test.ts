@@ -143,6 +143,24 @@ describe('tangled reads', () => {
     expect(comments[0]!.url).toBe(`${'https://tangled.org/acme.example.com/widgets/pulls/7'}#comment-3m0000000001`)
   })
 
+  it('attributes a comment a moderator edited to the account that wrote it', async () => {
+    const comment = `at://${REPO_DID}/org.tangled.feed.comment/3m0000000002`
+    const { instance } = provider({
+      [`GET https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=${encodeURIComponent(comment)}&limit=1&order=asc`]: {
+        status: 200,
+        body: {
+          uri: comment,
+          versions: [
+            { cid: 'bafy', editor: ADA, createdAt: '2026-09-02T12:00:00Z' },
+          ],
+        },
+      },
+    })
+    const comments = await Array.fromAsync(instance.threads.comments(pull))
+
+    expect(comments[1]!.author?.login).toBe('ada.example.com')
+  })
+
   it('lists reactions with the account that made them', async () => {
     const { instance } = provider()
     const reactions = await Array.fromAsync(instance.threads.reactions(pull))

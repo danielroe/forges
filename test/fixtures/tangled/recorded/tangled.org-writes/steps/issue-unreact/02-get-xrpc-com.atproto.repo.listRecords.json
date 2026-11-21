@@ -6,25 +6,25 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"b8c-kEbnUBTayq0sm+tX+RIWfQKCAr0\"",
+      "etag": "W/\"b8c-7snzIR4knPBAhOqtqTMQ9l8S/4M\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2896",
-      "ratelimit-reset": "1795263963",
+      "ratelimit-remaining": "2890",
+      "ratelimit-reset": "1795271720",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
         {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2t3nhc3yo2r",
-          "cid": "bafyreihmnnxihsqbc2ncb6ihurintw6s7y675czuizsgo2pisv3tbllzdi",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.reaction/3n2tcunqbu62r",
+          "cid": "bafyreienc4kjulsgos7w3e7hacuajp6dvdroxwgjnayarbgmkivgsw4uz4",
           "value": {
             "$type": "org.tangled.feed.reaction",
             "subject": {
-              "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
-              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+              "cid": "bafyreiahsw4aeqmw6dbxfywmjt4z2fl7lcupx3fuepz2sfh52h4cswdtkq",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/135"
             },
             "reaction": "👍",
-            "createdAt": "2026-11-21T12:21:34.422Z"
+            "createdAt": "2026-11-21T14:30:52.270Z"
           }
         },
         {

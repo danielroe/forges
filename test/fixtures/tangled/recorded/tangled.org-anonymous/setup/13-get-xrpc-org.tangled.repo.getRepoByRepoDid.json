@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Al7hhzcbqqvpcquau5waryzdu"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreiahyz6jqrtqhc2qacrzejwj3bzaxldwkx7v7wnj37cwmp2grlpy5y",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:l7hhzcbqqvpcquau5waryzdu/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-09-21T07:35:55.000000Z",
+        "declaration": {
+          "name": "albedo",
+          "owner": "did:plc:3rwz3xfw2crswgifqgc3g7zh"
+        },
+        "description": "small gleam coding and persistent agent daemon with a detachable cli and a canvas ui",
+        "spindle": "did:web:ci.klbr.net",
+        "website": "https://albedo.sh",
+        "x-tngl-editor": "did:plc:3rwz3xfw2crswgifqgc3g7zh"
+      }
+    }
+  }
+}

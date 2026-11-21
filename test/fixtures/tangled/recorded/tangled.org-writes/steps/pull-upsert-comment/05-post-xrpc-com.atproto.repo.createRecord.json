@@ -9,14 +9,14 @@
         "$type": "org.tangled.feed.comment",
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "An upserted comment from run 20261121122101.\n\n<!-- forges:key=forges-fixture -->"
+          "text": "An upserted comment from run 20261121143017.\n\n<!-- forges:key=forges-fixture -->"
         },
         "subject": {
           "$type": "com.atproto.repo.strongRef",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132",
-          "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q"
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138",
+          "cid": "bafyreifh5bg26wb6ucrs3srre7gyh7leporizoc4l5jrj4tvo3ygnbjfs4"
         },
-        "createdAt": "2026-11-21T12:22:15.419Z"
+        "createdAt": "2026-11-21T14:31:33.363Z"
       }
     }
   },
@@ -24,14 +24,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2t3ooey5trw",
-      "cid": "bafyreihxay2gh52l446sg563u57gthduwh5okcoyolaqm662en5sf7egpq",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcvuta2vrw",
+      "cid": "bafyreifyc7o57kdbu4on3qflzovs3dtze73fjozvinxhcsvottuxkl6zgm",
       "commit": {
-        "cid": "bafyreibq2fmrhhauaatahxknzwfws5a7ouujd7xuygbwuundm42szgk6di",
-        "rev": "3n2t3oofgrm22"
+        "cid": "bafyreiamdniipskvd3m7t2zl6qbzlkb3wtsllfob4eo4msbdfllpiwzyp4",
+        "rev": "3n2tcvutp7d22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "9adf3a391b8fd7e945469e826fcb0ebde9070727"
+      "x-tngl-change": "c276bc7497fc405d0c8a792845a363798f87dac3"
     }
   }
 }

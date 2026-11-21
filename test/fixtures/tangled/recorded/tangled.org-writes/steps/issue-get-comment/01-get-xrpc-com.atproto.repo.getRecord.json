@@ -1,24 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.feed.comment&rkey=3n2t3n7odlprw"
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.feed.comment&rkey=3n2tcug42vrrw"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreifq5nco2q6tujxtpnodszwz2gmo44u7t6aqurnkyjqe2fhf5aw4pm",
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2t3n7odlprw",
+      "cid": "bafyreieuvfq7i6t4z73zdvib2talnf54m3rb2q7ctjnzpc474db7reehse",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcug42vrrw",
       "value": {
         "$type": "org.tangled.feed.comment",
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "An edited comment from run 20261121122101."
+          "text": "An edited comment from run 20261121143017."
         },
-        "createdAt": "2026-11-21T12:21:27Z",
+        "createdAt": "2026-11-21T14:30:44Z",
         "subject": {
-          "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+          "cid": "bafyreiahsw4aeqmw6dbxfywmjt4z2fl7lcupx3fuepz2sfh52h4cswdtkq",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/135"
         },
         "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }

@@ -1,24 +1,24 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.feed.comment&rkey=3n2t3okkwvbrw"
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.feed.comment&rkey=3n2tcvqzaokrw"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreicrmgm4k2hi54f64ha7zpmunxo65parfwezeckjia63d2cqes63ga",
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2t3okkwvbrw",
+      "cid": "bafyreihtot7xi4tatsmv5mlfvmdryms4fc6iq5gaxn5l3cvw34owxfm3ey",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcvqzaokrw",
       "value": {
         "$type": "org.tangled.feed.comment",
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "A comment from run 20261121122101."
+          "text": "A comment from run 20261121143017."
         },
-        "createdAt": "2026-11-21T12:22:12Z",
+        "createdAt": "2026-11-21T14:31:29Z",
         "subject": {
-          "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          "cid": "bafyreifh5bg26wb6ucrs3srre7gyh7leporizoc4l5jrj4tvo3ygnbjfs4",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138"
         },
         "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
       }

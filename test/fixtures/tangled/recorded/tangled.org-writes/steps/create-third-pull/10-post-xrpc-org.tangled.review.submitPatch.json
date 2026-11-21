@@ -5,15 +5,15 @@
     "body": {
       "repo": "did:plc:t73o44q7fppgagkrevtztyok",
       "patch": {
-        "ticket": "134",
+        "ticket": "140",
         "base": {
-          "oid": "62df6282010d7425d2c5cee70b0edf58aded5476"
+          "oid": "66c23565892f29bb0c0a3b1bb362e249fa5e9223"
         },
         "head": {
-          "oid": "d454cd2e56dfdc1d291756262710184b32c30efb"
+          "oid": "4e7f7d995d034b39b603558b20231e4e9c92647e"
         },
         "sourceRepo": "did:plc:t73o44q7fppgagkrevtztyok",
-        "sourceBranch": "forges-fixtures/20261121122101-3"
+        "sourceBranch": "forges-fixtures/20261121143017-3"
       }
     }
   },
@@ -21,14 +21,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm",
-      "cid": "bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreigo6oxsuks7lsto5ogqn7qdkvwihv2r2u4xqpkkjbgowuqopfb6qe",
+      "cid": "bafyreigo6oxsuks7lsto5ogqn7qdkvwihv2r2u4xqpkkjbgowuqopfb6qe",
       "commit": {
-        "cid": "bafyreiaqtaig7kq4y6cvainll7e74k6oaegot47bek3mmcjkoi7e64uofu",
-        "rev": "3n2t3oiogun22"
+        "cid": "bafyreih77muso74y527behht7jom34fns43lm774g73lhiqf6ym5njscx4",
+        "rev": "3n2tcvp4wjt22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "920f6d558a665ea91f06641397860eb32fa0592f"
+      "x-tngl-change": "d0a0354b2e21004c495c92c50bf49063c133dbad"
     }
   }
 }

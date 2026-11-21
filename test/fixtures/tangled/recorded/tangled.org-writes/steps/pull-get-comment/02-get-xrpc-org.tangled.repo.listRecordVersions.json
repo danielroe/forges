@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.feed.comment%2F3n2tcvqzaokrw&limit=1&order=asc"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcvqzaokrw",
+      "cursor": "1",
+      "total": 2,
+      "versions": [
+        {
+          "cid": "bafyreihtot7xi4tatsmv5mlfvmdryms4fc6iq5gaxn5l3cvw34owxfm3ey",
+          "changeId": "97278c76ab7595d87b0a783fe448c2e3761c04b8",
+          "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "createdAt": "2026-11-21T14:31:29.000000Z"
+        }
+      ]
+    }
+  }
+}

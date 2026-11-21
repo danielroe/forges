@@ -722,6 +722,35 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
     return toComment(thread, parseAtUri(view.uri)!.rkey, view, author, webUrl, view)
   }
 
+  const authors = new Map<string, Promise<string | undefined>>()
+
+  /**
+   * The account that wrote the first version of a record the knot hosts. A
+   * moderator can edit someone else's comment, so the latest editor is not
+   * always its author. Falls back to `editor` where the history can't be read.
+   */
+  function authorOf(repo: RepoHandle, uri: string, editor: string | undefined, signal?: AbortSignal): Promise<string | undefined> {
+    let author = authors.get(uri)
+    if (!author) {
+      author = knotQuery<{ versions: RecordVersion[] }>(repo.knot, 'org.tangled.repo.listRecordVersions', { uri, limit: 1, order: 'asc' }, signal)
+        .then(data => data.versions[0]?.editor ?? editor, (error: unknown) => {
+          if (signal?.aborted || !degradesToWarning(error)) {
+            throw error
+          }
+          return editor
+        })
+      author.catch(() => authors.delete(uri))
+      authors.set(uri, author)
+    }
+    return author
+  }
+
+  async function actorOrNone(did: string | undefined, signal?: AbortSignal): Promise<Actor | undefined> {
+    return did
+      ? actorFor(did, signal)
+      : undefined
+  }
+
   async function commentsPage(thread: ThreadRef, listOptions: ListOptions = {}): Promise<Page<Comment>> {
     const { repo, rkey, uri } = await ticketFor(thread, listOptions.signal)
     const ref = toThreadRef(instance, repo.ref, rkey, thread.kind === 'pull_request'
@@ -732,9 +761,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
       if (since !== undefined && (toDate(view.createdAt)?.getTime() ?? 0) < since) {
         return undefined
       }
-      return commentOf(ref, view, view.editor
-        ? await actorFor(view.editor, listOptions.signal)
-        : undefined)
+      return commentOf(ref, view, await actorOrNone(await authorOf(repo, view.uri, view.editor, listOptions.signal), listOptions.signal))
     })
   }
 
@@ -746,16 +773,14 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
   async function getComment(ref: CommentRef, readOptions?: BaseOptions): Promise<Comment> {
     const signal = readOptions?.signal
     const { repo } = await ticketFor(ref.thread, signal)
-    const { value } = await knotRecord<CommentRecord>(repo, COLLECTIONS.comment, ref.id, signal)
+    const { uri, value } = await knotRecord<CommentRecord>(repo, COLLECTIONS.comment, ref.id, signal)
     const subject = parseAtUri(value.subject.uri)
     const thread = subject?.collection === COLLECTIONS.ticket
       ? toThreadRef(instance, repo.ref, subject.rkey, ref.thread.kind === 'pull_request'
           ? 'pull_request'
           : 'issue')
       : requireThread(ref.thread, context)
-    return toComment(thread, ref.id, value, value['x-tngl-editor']
-      ? await actorFor(value['x-tngl-editor'], signal)
-      : undefined, webUrl)
+    return toComment(thread, ref.id, value, await actorOrNone(await authorOf(repo, uri, value['x-tngl-editor'], signal), signal), webUrl)
   }
 
   async function toReaction(record: ReactionRecord, signal?: AbortSignal): Promise<Reaction | undefined> {
@@ -886,7 +911,7 @@ export function createTangledRecords({ options, instance, webUrl, context, atpro
         uri: comment.uri,
         collection: COLLECTIONS.comment,
         record: { body: comment.body, subject: comment.subject, createdAt: comment.createdAt },
-      }, await actorOf(comment.editor ?? parseAtUri(comment.uri)!.did), latest))
+      }, await actorOf(await authorOf(repo, comment.uri, comment.editor, signal) ?? parseAtUri(comment.uri)!.did), latest))
     }
     for (const reaction of reactions ?? []) {
       events.push(created({ uri: reaction.uri, collection: COLLECTIONS.reaction, record: reaction.value }, await actorOf(reaction.value['x-tngl-editor'] ?? parseAtUri(reaction.uri)!.did), latest))

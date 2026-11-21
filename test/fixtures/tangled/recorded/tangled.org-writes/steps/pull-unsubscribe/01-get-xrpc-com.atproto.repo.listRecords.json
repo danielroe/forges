@@ -6,28 +6,28 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"1a5-R+y1jounvOIq1J+ST9CpTI3Ouaw\"",
+      "etag": "W/\"1a5-yqjoCarGmlQd6ANcC/c609bXRY0\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2834",
-      "ratelimit-reset": "1795263963",
+      "ratelimit-remaining": "2828",
+      "ratelimit-reset": "1795271720",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
       "records": [
         {
-          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.subscription/3n2t3nqtang2r",
-          "cid": "bafyreifwtdpqpdwmwvhgebkdjfjm34jsifppcrcvffhao2zin2fhiegufm",
+          "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.subscription/3n2tcuxbdl62r",
+          "cid": "bafyreifmt6yihz3etw6dwzvocpxfwtdyzsneaun7leshgtbxakc5mf3esm",
           "value": {
             "$type": "org.tangled.feed.subscription",
             "subject": {
-              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129",
+              "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/135",
               "$type": "org.tangled.feed.subscription#record"
             },
-            "createdAt": "2026-11-21T12:21:44.394Z"
+            "createdAt": "2026-11-21T14:31:02.205Z"
           }
         }
       ],
-      "cursor": "3n2t3nqtang2r"
+      "cursor": "3n2tcuxbdl62r"
     }
   }
 }

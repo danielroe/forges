@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ranges=refs%2Fheads%2Fforges-fixtures%2F20261121122101-3&limit=1"
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ranges=refs%2Fheads%2Fforges-fixtures%2F20261121143017-3&limit=1"
   },
   "response": {
     "status": 200,
@@ -12,20 +12,20 @@
           "author": {
             "email": "redacted@example.invalid",
             "name": "forges fixtures",
-            "when": "2026-11-21T12:21:18.000000Z"
+            "when": "2026-11-21T14:30:36.000000Z"
           },
           "committer": {
             "email": "redacted@example.invalid",
             "name": "forges fixtures",
-            "when": "2026-11-21T12:21:18.000000Z"
+            "when": "2026-11-21T14:30:36.000000Z"
           },
           "extraHeaders": [],
-          "message": "Add forges-fixtures/20261121122101-3.md\n",
-          "oid": "d454cd2e56dfdc1d291756262710184b32c30efb",
+          "message": "Add forges-fixtures/20261121143017-3.md\n",
+          "oid": "4e7f7d995d034b39b603558b20231e4e9c92647e",
           "parents": [
-            "62df6282010d7425d2c5cee70b0edf58aded5476"
+            "66c23565892f29bb0c0a3b1bb362e249fa5e9223"
           ],
-          "tree": "d897deed77733307e8ae6877dbdfdda2e2a9b4c3"
+          "tree": "751c5edce89f75158439e623c4f364b9191cde59"
         }
       ]
     }

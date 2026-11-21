@@ -9,27 +9,27 @@
         "$type": "org.tangled.feed.subscription",
         "subject": {
           "$type": "org.tangled.feed.subscription#record",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138"
         },
-        "createdAt": "2026-11-21T12:22:29.481Z"
+        "createdAt": "2026-11-21T14:31:47.349Z"
       }
     }
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"121-tgy2HjCg93QvjAWme/QSwZOm1xc\"",
+      "etag": "W/\"121-h/VjQQ7RQ+G7iTUCGkMgy56OH0k\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2830",
-      "ratelimit-reset": "1795263963",
+      "ratelimit-remaining": "2824",
+      "ratelimit-reset": "1795271720",
       "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.subscription/3n2t3p3qlvw2r",
-      "cid": "bafyreigvdpgnegkbk4flhcibaleduzhldlvvriqe6axjawxsl53vwxrziu",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.feed.subscription/3n2tcwc6lvw2r",
+      "cid": "bafyreicap75lw6htagc23uq74bc5eukewhvdcdbn7lyedugwvekbdzwaxe",
       "commit": {
-        "cid": "bafyreibl3hyu2jr3imchgy4o553qwph46c4k7zpn3mjqqrwwmbm5ln6jei",
-        "rev": "3n2t3p3qup62r"
+        "cid": "bafyreidopay677m3uknowu5oozflvdnoqlyrpm5oc4k3i4zt2uxf6fxhie",
+        "rev": "3n2tcwc6ym62r"
       },
       "validationStatus": "unknown"
     }

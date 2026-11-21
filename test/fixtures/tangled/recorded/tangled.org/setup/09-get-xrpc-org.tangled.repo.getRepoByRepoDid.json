@@ -1,30 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Adhwjwpl7fp23j5jnzcnrztwb"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ada6gxbuiv7kooty5t3tkh2n7"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreiarsbg63j6yivurdsle5ubi4mua7vzuprvgnlvticrbrtevt4k2bq",
+      "cid": "bafyreicjgjxic6nsp2ccm6thruh3auaifgvyjz5p4ef2qbsobrw657zlru",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:dhwjwpl7fp23j5jnzcnrztwb/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:da6gxbuiv7kooty5t3tkh2n7/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-11-20T10:46:38Z",
+        "createdAt": "2026-07-08T16:55:56.000000Z",
         "declaration": {
-          "name": "getael",
-          "owner": "did:plc:lp2lwdajhchgtga2hcrros26"
+          "name": "agent-orchestrator",
+          "owner": "did:plc:qfngkejlw4ghji2myc73hbdh"
         },
-        "description": "Getǣl — Read-only macOS home directory disk usage cartography & APFS telemetry service",
-        "source": {
-          "$type": "org.tangled.repo.defs#sourceExternal",
-          "uri": "https://migrator.tangled.network/git/sJzTHQpApPfanlf1Eh-IDuhPINW5TXYUJ_QjriipHDU/getael.git"
-        },
-        "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
       }
     }
   }

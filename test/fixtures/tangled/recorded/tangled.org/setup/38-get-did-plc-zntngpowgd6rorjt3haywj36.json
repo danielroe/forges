@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:zntngpowgd6rorjt3haywj36"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"213-MHxisrTXUe6m7vthtSmQerhUxGw\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:zntngpowgd6rorjt3haywj36",
+      "alsoKnownAs": [
+        "at://aly.codes"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:zntngpowgd6rorjt3haywj36#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:zntngpowgd6rorjt3haywj36",
+          "publicKeyMultibase": "zQ3shdSE5sXrrQibtbqR3YPPVxvMY8mGcQCST8CsaJDzJ7Sb7"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://aly.social"
+        }
+      ]
+    }
+  }
+}

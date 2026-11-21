@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.label.definition%2Fforges-fixture-20261121122101&cid=bafyreifrz6t6gj2kf2ntwwc7ugo7kekvpzlm426p7yzdodxjl32iy6dsve"
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.label.definition%2Fforges-fixture-20261121143017&cid=bafyreieuegw5vxfiwrwfrv2rhjstt3q5eial2c6npalxadq6a3legp4a7i"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
       "status": "indexed",
-      "cid": "bafyreifrz6t6gj2kf2ntwwc7ugo7kekvpzlm426p7yzdodxjl32iy6dsve"
+      "cid": "bafyreieuegw5vxfiwrwfrv2rhjstt3q5eial2c6npalxadq6a3legp4a7i"
     }
   }
 }
