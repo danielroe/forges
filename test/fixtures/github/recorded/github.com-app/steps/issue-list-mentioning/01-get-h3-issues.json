@@ -7,10 +7,10 @@
     "status": 200,
     "headers": {
       "link": "<https://api.github.com/repositories/313641207/issues?state=all&mentioned=danielroe&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABmdG6G7jO0O19Dw%3D%3D&page=2>; rel=\"next\"",
-      "etag": "W/\"62267c3f206f915e867fc53c825f473f108ffdddd866cc47e7f2fbc5c26a61e1\"",
+      "etag": "W/\"a653df79a509f58382e491db8f4c18138336f27fd6e24b77c7ef714b22d2be07\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4973",
-      "x-ratelimit-reset": "1792217938",
+      "x-ratelimit-remaining": "4970",
+      "x-ratelimit-reset": "1795292852",
       "x-ratelimit-resource": "core"
     },
     "body": [
@@ -63,9 +63,9 @@
         "locked": false,
         "assignees": [],
         "milestone": null,
-        "comments": 5,
+        "comments": 6,
         "created_at": "2026-07-05T12:15:57Z",
-        "updated_at": "2026-09-07T08:46:14Z",
+        "updated_at": "2026-11-19T10:08:32Z",
         "closed_at": null,
         "assignee": null,
         "author_association": "MEMBER",
@@ -160,13 +160,13 @@
         "closed_by": null,
         "reactions": {
           "url": "https://api.github.com/repos/h3js/h3/issues/1237/reactions",
-          "total_count": 8,
+          "total_count": 9,
           "+1": 0,
           "-1": 0,
           "laugh": 0,
           "hooray": 0,
           "confused": 0,
-          "heart": 8,
+          "heart": 9,
           "rocket": 0,
           "eyes": 0
         },

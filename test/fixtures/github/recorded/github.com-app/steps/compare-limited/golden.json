@@ -1,9 +1,9 @@
 {
-  "base": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+  "base": "060121a0ad76b2d9b50f23f0530b7129f2446662",
   "head": "main",
   "aheadBy": 4,
   "behindBy": 0,
-  "mergeBaseSha": "1a1f4881def62b3a58e940b3db9d21854996bd06",
+  "mergeBaseSha": "060121a0ad76b2d9b50f23f0530b7129f2446662",
   "commits": [
     {
       "ref": {
@@ -15,44 +15,44 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+        "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
       },
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "message": "fix(rules): fill target `**` for named catch-all keys (`/**:name`)\n\nResolves #1603",
+      "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1",
+      "message": "fix(static): join `indexNames` on a single `/` while keeping extension fallbacks (#1585)",
       "author": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "TalhaHunter101",
+          "id": "51529912",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
+          "url": "https://github.com/TalhaHunter101",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "Talha Shafeeq",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:53:32.000Z"
+        "date": "2026-11-10T17:53:00.000Z"
       },
       "committer": {
         "actor": {
           "forge": "github",
           "instance": "github.com",
-          "login": "pi0",
-          "id": "5158436",
-          "avatarUrl": "https://avatars.githubusercontent.com/u/5158436?v=4",
-          "url": "https://github.com/pi0",
+          "login": "web-flow",
+          "id": "19864447",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/19864447?v=4",
+          "url": "https://github.com/web-flow",
           "typeRaw": "User",
           "isBotHint": false
         },
-        "name": "Pooya Parsa",
+        "name": "GitHub",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T13:59:46.000Z"
+        "date": "2026-11-10T17:53:00.000Z"
       },
       "parents": [
-        "b64166ae78a68dd15c41e5bdf21af4d235804876"
+        "3a7ed0e7ca674247e314faae36bfef62763b3060"
       ],
-      "url": "https://github.com/h3js/h3/commit/48d650be89422cd5d06f4cd7a02fcbf4300d96df"
+      "url": "https://github.com/h3js/h3/commit/2f29b875617e8daf39d25118f7474fd4c24fbfe1"
     },
     {
       "ref": {
@@ -64,10 +64,10 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876"
+        "sha": "3a7ed0e7ca674247e314faae36bfef62763b3060"
       },
-      "sha": "b64166ae78a68dd15c41e5bdf21af4d235804876",
-      "message": "chore(release): v2.0.5",
+      "sha": "3a7ed0e7ca674247e314faae36bfef62763b3060",
+      "message": "fix(response): absorb rejected `iterator.return()` when `iterable` is cancelled\n\nResolves #1645",
       "author": {
         "actor": {
           "forge": "github",
@@ -81,7 +81,7 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T02:39:39.000Z"
+        "date": "2026-11-10T15:47:32.000Z"
       },
       "committer": {
         "actor": {
@@ -96,12 +96,12 @@
         },
         "name": "Pooya Parsa",
         "email": "redacted@example.invalid",
-        "date": "2026-10-18T02:39:39.000Z"
+        "date": "2026-11-10T15:47:32.000Z"
       },
       "parents": [
-        "7150b0e1476a63daeae2abdff0040a34cc5ff4ae"
+        "d252549ca9f39690a3547fe440f42db6b7c4f612"
       ],
-      "url": "https://github.com/h3js/h3/commit/b64166ae78a68dd15c41e5bdf21af4d235804876"
+      "url": "https://github.com/h3js/h3/commit/3a7ed0e7ca674247e314faae36bfef62763b3060"
     }
   ],
   "files": []

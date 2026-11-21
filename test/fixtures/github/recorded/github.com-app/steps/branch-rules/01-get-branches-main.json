@@ -6,93 +6,93 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"ca884349969c2818d748ec6a7649f2b6827a77436133550950b5e18134e5cd64\"",
+      "etag": "W/\"804f4f3ad7340ae5125610d7c1f6545b4a656d2d0d7f4177d586274ce863e82c\"",
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4987",
-      "x-ratelimit-reset": "1792700020",
+      "x-ratelimit-remaining": "4999",
+      "x-ratelimit-reset": "1795292852",
       "x-ratelimit-resource": "core"
     },
     "body": {
       "name": "main",
       "commit": {
-        "sha": "f0e17808ac2439b6434bb10609a961067f4d555b",
-        "node_id": "C_kwDOErHI99oAKGYwZTE3ODA4YWMyNDM5YjY0MzRiYjEwNjA5YTk2MTA2N2Y0ZDU1NWI",
+        "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1",
+        "node_id": "C_kwDOErHI99oAKDJmMjliODc1NjE3ZThkYWYzOWQyNTExOGY3NDc0ZmQ0YzI0ZmJmZTE",
         "commit": {
           "author": {
-            "name": "Pooya Parsa",
+            "name": "Talha Shafeeq",
             "email": "redacted@example.invalid",
-            "date": "2026-10-22T05:50:58Z"
+            "date": "2026-11-10T17:53:00Z"
           },
           "committer": {
-            "name": "Pooya Parsa",
+            "name": "GitHub",
             "email": "redacted@example.invalid",
-            "date": "2026-10-22T05:50:58Z"
+            "date": "2026-11-10T17:53:00Z"
           },
-          "message": "chore(release): v2.0.8",
+          "message": "fix(static): join `indexNames` on a single `/` while keeping extension fallbacks (#1585)",
           "tree": {
-            "sha": "98312ca04cf112f6f2eb4e2b8534d12ddfe79150",
-            "url": "https://api.github.com/repos/h3js/h3/git/trees/98312ca04cf112f6f2eb4e2b8534d12ddfe79150"
+            "sha": "d182d568d137d5dd33326824bb30891ae4e8a635",
+            "url": "https://api.github.com/repos/h3js/h3/git/trees/d182d568d137d5dd33326824bb30891ae4e8a635"
           },
-          "url": "https://api.github.com/repos/h3js/h3/git/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
+          "url": "https://api.github.com/repos/h3js/h3/git/commits/2f29b875617e8daf39d25118f7474fd4c24fbfe1",
           "comment_count": 0,
           "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
+            "verified": true,
+            "reason": "valid",
+            "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJq81n8CRC1aQ7uu5UhlAAAz7YQALEjAmL0WQsL6KFQffjFY4cS\n3EyhI9pKe7Fbh5tvEz2G33SmamxkWGrUSni283yog1x51Slj9LDVds3nyapTr1wR\nHsEk00eHgJethsxlGDur+NJWL3anVl2FEH6MRinKDpd9BA1hAnZASVwSDMSCEk1S\ntd0whXuZ/mChSJIEAt5PdW8b/TzaD2TYiG3nMiA2bBkeMo7lywMy/mX2HFXMO6Mr\nruTZZiAGOBFZgd82u/Oqafm0z4Y9xEB6FffaGs1mLInuhUXh8ud4vWY8ocIACX+K\n50X4QGmh4GAU6p3QDjWOzk7rEiA8xk8is1BGzzba7eIQZ2aJWWUWN2LjKmB981vu\nYEHLlULVu0NDLZ+UAre9hPcxg9XyTk9tT33onngdGOYveZsP//1gnFIwGX88CV4V\nIYxoKNGZr57VOcTP5Wre1ZCyywnF/ZUhA+0RDFCLWK4EvOIcj3rCz+NIbdxHGWN7\n0A9EBOmUExNlSe8cTxenJdF0SpKw90Qq5xvkOF/LHFkrixccm4RSQ9+b48/wZhBH\nwXCAY2fUwfP8ZKwHjB5O/314XPsA5FNuSlPUCXxo24UlOtvXZO6fCRuM7wrw8UD1\nQ6k0P2e2GWGJc14JfCVQVHr1fjnYYzkePI7HDcylVrW1ZcBNe8+oCCBYOOPqOJ/w\nRvMHN+f/ms7elNokaUcM\n=tTBT\n-----END PGP SIGNATURE-----\n",
+            "payload": "tree d182d568d137d5dd33326824bb30891ae4e8a635\nparent 3a7ed0e7ca674247e314faae36bfef62763b3060\nauthor Talha Shafeeq <redacted@example.invalid> 1794333180 +0500\ncommitter GitHub <redacted@example.invalid> 1794333180 +0100\n\nfix(static): join `indexNames` on a single `/` while keeping extension fallbacks (#1585)",
+            "verified_at": "2026-11-10T17:53:00Z"
           }
         },
-        "url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b",
-        "html_url": "https://github.com/h3js/h3/commit/f0e17808ac2439b6434bb10609a961067f4d555b",
-        "comments_url": "https://api.github.com/repos/h3js/h3/commits/f0e17808ac2439b6434bb10609a961067f4d555b/comments",
+        "url": "https://api.github.com/repos/h3js/h3/commits/2f29b875617e8daf39d25118f7474fd4c24fbfe1",
+        "html_url": "https://github.com/h3js/h3/commit/2f29b875617e8daf39d25118f7474fd4c24fbfe1",
+        "comments_url": "https://api.github.com/repos/h3js/h3/commits/2f29b875617e8daf39d25118f7474fd4c24fbfe1/comments",
         "author": {
-          "login": "pi0",
-          "id": 5158436,
+          "login": "TalhaHunter101",
+          "id": 51529912,
           "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "avatar_url": "https://avatars.githubusercontent.com/u/51529912?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "html_url": "https://github.com/pi0",
-          "followers_url": "https://api.github.com/users/pi0/followers",
-          "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-          "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-          "organizations_url": "https://api.github.com/users/pi0/orgs",
-          "repos_url": "https://api.github.com/users/pi0/repos",
-          "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/pi0/received_events",
+          "url": "https://api.github.com/users/TalhaHunter101",
+          "html_url": "https://github.com/TalhaHunter101",
+          "followers_url": "https://api.github.com/users/TalhaHunter101/followers",
+          "following_url": "https://api.github.com/users/TalhaHunter101/following{/other_user}",
+          "gists_url": "https://api.github.com/users/TalhaHunter101/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/TalhaHunter101/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/TalhaHunter101/subscriptions",
+          "organizations_url": "https://api.github.com/users/TalhaHunter101/orgs",
+          "repos_url": "https://api.github.com/users/TalhaHunter101/repos",
+          "events_url": "https://api.github.com/users/TalhaHunter101/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/TalhaHunter101/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
         "committer": {
-          "login": "pi0",
-          "id": 5158436,
+          "login": "web-flow",
+          "id": 19864447,
           "node_id": "REDACTED",
-          "avatar_url": "https://avatars.githubusercontent.com/u/5158436?v=4",
+          "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
           "gravatar_id": "",
-          "url": "https://api.github.com/users/pi0",
-          "html_url": "https://github.com/pi0",
-          "followers_url": "https://api.github.com/users/pi0/followers",
-          "following_url": "https://api.github.com/users/pi0/following{/other_user}",
-          "gists_url": "https://api.github.com/users/pi0/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/pi0/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/pi0/subscriptions",
-          "organizations_url": "https://api.github.com/users/pi0/orgs",
-          "repos_url": "https://api.github.com/users/pi0/repos",
-          "events_url": "https://api.github.com/users/pi0/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/pi0/received_events",
+          "url": "https://api.github.com/users/web-flow",
+          "html_url": "https://github.com/web-flow",
+          "followers_url": "https://api.github.com/users/web-flow/followers",
+          "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+          "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+          "organizations_url": "https://api.github.com/users/web-flow/orgs",
+          "repos_url": "https://api.github.com/users/web-flow/repos",
+          "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/web-flow/received_events",
           "type": "User",
           "user_view_type": "public",
           "site_admin": false
         },
         "parents": [
           {
-            "sha": "f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
-            "url": "https://api.github.com/repos/h3js/h3/commits/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5",
-            "html_url": "https://github.com/h3js/h3/commit/f90f4c8e4d80ee54dd2845c933b47a53c2de5fa5"
+            "sha": "3a7ed0e7ca674247e314faae36bfef62763b3060",
+            "url": "https://api.github.com/repos/h3js/h3/commits/3a7ed0e7ca674247e314faae36bfef62763b3060",
+            "html_url": "https://github.com/h3js/h3/commit/3a7ed0e7ca674247e314faae36bfef62763b3060"
           }
         ]
       },

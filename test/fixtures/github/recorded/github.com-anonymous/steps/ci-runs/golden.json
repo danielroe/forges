@@ -10,63 +10,29 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "39134083187"
-      },
-      "name": "publish",
-      "state": "failure",
-      "stateRaw": "completed",
-      "number": "95",
-      "eventRaw": "workflow_run",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134083187",
-      "actor": {
-        "forge": "github",
-        "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
-        "typeRaw": "User",
-        "isBotHint": false
-      },
-      "createdAt": "2026-10-18T14:00:56.000Z",
-      "startedAt": "2026-10-18T14:00:56.000Z",
-      "completedAt": "2026-10-18T14:01:18.000Z"
-    },
-    {
-      "ref": {
-        "forge": "github",
-        "instance": "github.com",
-        "repo": {
-          "forge": "github",
-          "instance": "github.com",
-          "owner": "h3js",
-          "name": "h3"
-        },
-        "id": "39134017969"
+        "id": "44883404612"
       },
       "name": "ci",
-      "state": "success",
+      "state": "failure",
       "stateRaw": "completed",
-      "number": "4797",
-      "eventRaw": "push",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134017969",
+      "number": "4889",
+      "eventRaw": "pull_request",
+      "branch": "fix/clear-response-headers",
+      "sha": "6e8eaeb2196f520d9e49167180c09a74d8a8c183",
+      "url": "https://github.com/h3js/h3/actions/runs/44883404612",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
+        "login": "itisrmk",
+        "id": "30754662",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/30754662?v=4",
+        "url": "https://github.com/itisrmk",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T14:00:09.000Z",
-      "startedAt": "2026-10-18T14:00:09.000Z",
-      "completedAt": "2026-10-18T14:00:54.000Z"
+      "createdAt": "2026-11-21T08:07:46.000Z",
+      "startedAt": "2026-11-21T08:07:46.000Z",
+      "completedAt": "2026-11-21T08:07:46.000Z"
     },
     {
       "ref": {
@@ -78,40 +44,74 @@
           "owner": "h3js",
           "name": "h3"
         },
-        "id": "39134017655"
+        "id": "44883404605"
       },
       "name": "autofix.ci",
-      "state": "success",
+      "state": "failure",
       "stateRaw": "completed",
-      "number": "4304",
-      "eventRaw": "push",
-      "branch": "main",
-      "sha": "48d650be89422cd5d06f4cd7a02fcbf4300d96df",
-      "url": "https://github.com/h3js/h3/actions/runs/39134017655",
+      "number": "4396",
+      "eventRaw": "pull_request",
+      "branch": "fix/clear-response-headers",
+      "sha": "6e8eaeb2196f520d9e49167180c09a74d8a8c183",
+      "url": "https://github.com/h3js/h3/actions/runs/44883404605",
       "actor": {
         "forge": "github",
         "instance": "github.com",
-        "login": "pi0x",
-        "id": "286783767",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/286783767?v=4",
-        "url": "https://github.com/pi0x",
+        "login": "itisrmk",
+        "id": "30754662",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/30754662?v=4",
+        "url": "https://github.com/itisrmk",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "createdAt": "2026-10-18T14:00:09.000Z",
-      "startedAt": "2026-10-18T14:00:09.000Z",
-      "completedAt": "2026-10-18T14:00:26.000Z"
+      "createdAt": "2026-11-21T08:07:46.000Z",
+      "startedAt": "2026-11-21T08:07:46.000Z",
+      "completedAt": "2026-11-21T08:07:46.000Z"
+    },
+    {
+      "ref": {
+        "forge": "github",
+        "instance": "github.com",
+        "repo": {
+          "forge": "github",
+          "instance": "github.com",
+          "owner": "h3js",
+          "name": "h3"
+        },
+        "id": "44747921266"
+      },
+      "name": "autofix.ci",
+      "state": "failure",
+      "stateRaw": "completed",
+      "number": "4395",
+      "eventRaw": "pull_request",
+      "branch": "fix/cache-isolation-type",
+      "sha": "5c207b079af278fd717f3f9ba0e5925ae3c0a4eb",
+      "url": "https://github.com/h3js/h3/actions/runs/44747921266",
+      "actor": {
+        "forge": "github",
+        "instance": "github.com",
+        "login": "mateuscmtropical",
+        "id": "88845521",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/88845521?v=4",
+        "url": "https://github.com/mateuscmtropical",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "createdAt": "2026-11-20T13:50:55.000Z",
+      "startedAt": "2026-11-20T13:50:55.000Z",
+      "completedAt": "2026-11-20T13:50:55.000Z"
     }
   ],
-  "total": 3106,
+  "total": 2806,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/actions/runs?per_page=3&page=2",
-    "etag": "W/\"3a80fbcdce5f215b159068b02880e75bbdd617f5b5eea944b7d81090afd42bc5\""
+    "etag": "W/\"e19221ef13f3f5716e39ed41c1ca807c78b56c8b672337ff6463f6c124fe942b\""
   },
-  "etag": "W/\"3a80fbcdce5f215b159068b02880e75bbdd617f5b5eea944b7d81090afd42bc5\"",
+  "etag": "W/\"e19221ef13f3f5716e39ed41c1ca807c78b56c8b672337ff6463f6c124fe942b\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 7,
+    "remaining": 3,
     "resetAt": "<now>",
     "resource": "core"
   }

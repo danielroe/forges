@@ -16,8 +16,8 @@
     "status": 200,
     "headers": {
       "x-ratelimit-limit": "5000",
-      "x-ratelimit-remaining": "4988",
-      "x-ratelimit-reset": "1792388363",
+      "x-ratelimit-remaining": "4996",
+      "x-ratelimit-reset": "1795292856",
       "x-ratelimit-resource": "graphql"
     },
     "body": {
@@ -94,7 +94,7 @@
                 "stateReason": null,
                 "url": "https://github.com/orgs/h3js/discussions/1373",
                 "createdAt": "2026-04-22T15:24:06Z",
-                "updatedAt": "2026-04-23T06:47:56Z",
+                "updatedAt": "2026-11-18T21:08:48Z",
                 "closedAt": null,
                 "locked": false,
                 "author": {
@@ -110,7 +110,7 @@
                   "nodes": []
                 },
                 "comments": {
-                  "totalCount": 1
+                  "totalCount": 2
                 }
               }
             ]

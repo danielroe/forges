@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "issue",
-        "number": "1584",
-        "externalId": "I_kwDOErHI988AAAABWdEgsQ"
+        "number": "1670",
+        "externalId": "I_kwDOErHI988AAAABhC9DMQ"
       },
       "kind": "issue",
-      "title": "fix(static): serveStatic generates invalid double-slash root index path (//index.html) and concatenates subfolder paths without slash when relative indexNames are used",
-      "body": "### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` generates the candidate paths by directly concatenating `id` and `suffix`:\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = `${id}${suffix}`;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```\n\nBecause `originalId` for root `GET /` is normalized by `withoutTrailingSlash(\"/\")` which returns `\"/\"`:\n\n1. **Root double slash with default `indexNames: [\"/index.html\"]`: **\n   When requesting root `GET /`, `id` is `\"/\"` and `suffix` is `\"/index.html\"`. The resulting candidate asset ID is:\n   ```\n   \"//index.html\"\n   ```\n   This is a non-canonical leading separator run (which `isCanonicalPath(\"//index.html\")` flags as `false`). For backends keyed by canonical asset paths (such as in-memory stores, maps, or storage drivers expecting `\"/index.html\"`), looking up `\"//index.html\"` fails and returns `404`.\n\n2. **Missing separator for subdirectories when `indexNames` entries lack a leading slash (e.g. `[\"index.html\"]`)**:\n   If an application configures relative index names such as `indexNames: [\"index.html\"]`:\n   - For root `GET /`, `id` is `\"/\"` + `\"index.html\"` = `\"/index.html\"`\n   - For subdirectories like `GET /docs`, `id` is `\"/docs\"` + `\"index.html\"` = `\"/docsindex.html\"`!\n   \nAs a result, there is no configuration of `indexNames` that works for both root and subdirectories.\n\n### Reproduction\n\n```ts\nimport { H3, serveStatic } from \"h3\";\n\nconst app = new H3();\nconst assets = {\n  \"/index.html\": { size: 10, mtime: Date.now() },\n};\n\napp.all(\"/**\", (event) => {\n  return serveStatic(event, {\n    getMeta: (id) => assets[id],\n    getContents: (id) => \"hello\",\n    indexNames: [\"/index.html\"],\n  });\n});\n\nconst res = await app.fetch(new Request(\"http://localhost/\"));\nconsole.log(res.status); // 404 (getMeta was called with \"//index.html\")\n```\n\n### Expected Behavior\n\n`idSearchPaths` should normalize the directory-index join on a single slash boundary regardless of whether `id` is root `\"/\"` or a subdirectory, and regardless of whether `indexNames` entries have a leading slash:\n\n- `GET /` with `\"/index.html\"` or `\"index.html\"` -> `\"/index.html\"`\n- `GET /docs` with `\"/index.html\"` or `\"index.html\"` -> `\"/docs/index.html\"`\n\n### Proposed Fix\n\n```ts\nfunction idSearchPaths(id: string, encodings: string[], indexNames: string[]) {\n  const ids: { id: string; assetId: string }[] = [];\n\n  for (const suffix of [\"\", ...indexNames]) {\n    const assetId = suffix\n      ? `${id === \"/\" ? \"\" : id}/${suffix.replace(/^\\/+/, \"\")}`\n      : id;\n    for (const encoding of [...encodings, \"\"]) {\n      ids.push({ id: `${assetId}${encoding}`, assetId });\n    }\n  }\n\n  return ids;\n}\n```",
+      "title": "withCacheIsolation declares a synchronous result but always returns a Promise",
+      "body": "Hullo folks,\n\nI’m doing some research for Tessl Code Review and ran it against your repo. It flagged a potential issue, and I figured it made sense to share it with you:\n\n## Describe the bug\n\n`withCacheIsolation` is exported with return type `T`, but its implementation is always async. For a synchronous handler returning `Response`, the public type therefore permits `result.status` and `result.headers.get(...)`, while the actual result is a Promise. The first access returns undefined and the second throws.\n\nExpected: the wrapper’s call signature exposes `Promise<Awaited<ReturnType<T>>>` (while retaining applicable copied properties), so TypeScript requires awaiting this result. Normal H3 route dispatch already awaits handlers; this report concerns direct consumers of the public helper.\n\n## Environment\n\nCurrent main: 2f29b875617e8daf39d25118f7474fd4c24fbfe1 (package.json: h3 2.0.8), Node.js 25.2.0, macOS 27.2 arm64. Executed the current source with srvx 1.0.6; no HTTP server or external service required.\n\n## Reproduction\n\nIn a checkout of the commit above, with its runtime dependencies installed, save this as `repro.ts` at the repository root and run `node repro.ts`:\n\n```ts\nimport { withCacheIsolation } from \"./src/utils/cache.ts\";\nimport { H3Event } from \"./src/event.ts\";\n\nconst event = new H3Event(new Request(\"https://example.test/\"));\nconst result = withCacheIsolation(() => new Response(\"ok\"))(event);\nconsole.log(result instanceof Promise, result.status);\nconsole.log((await result).status);\nconsole.log(result.headers.get(\"content-type\"));\n```\n\nThe unwrapped handler returns a Response; awaiting the wrapped result also gives status 200. Direct access through the declared synchronous result fails.\n\n## Logs\n\n```text\ntrue undefined\n200\nTypeError: Cannot read properties of undefined (reading 'get')\n```\n\n## Additional context\n\nThis finding comes from [Simon’s retrospective Tessl review of merged PR #1608](https://github.com/sjmaple/cr-h3/pull/10#discussion_r4327620094), followed by the current-source reproduction above. It was also [flagged in the original upstream review](https://github.com/h3js/h3/pull/1608#discussion_r4326313968); I did not find a separate tracking issue or subsequent fix. This is a reproducible follow-up to that unresolved point, not a claim that it was first discovered here.\n\nValidation was limited to the current helper and its actual event/dependencies under Node; I have not run the whole test matrix or proposed an implementation change.\n\nFull transparency: I work at Tessl, and we've spotted that using Tessl Code Review -  using repository-level context and specific review lenses that improve over time through feedback. That’s how this finding surfaced.\n\nWe’re just getting started and want to offer the tool free to open-source projects. If this is useful, happy to give you access.\n\nBap",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "fernandezbaptiste",
+        "id": "83458751",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/83458751?v=4",
+        "url": "https://github.com/fernandezbaptiste",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -34,13 +34,19 @@
       "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [],
-      "labels": [],
-      "url": "https://github.com/h3js/h3/issues/1584",
-      "createdAt": "2026-10-11T14:13:28.000Z",
-      "updatedAt": "2026-10-11T14:13:28.000Z",
-      "lastActivityAt": "2026-10-11T14:13:28.000Z",
+      "labels": [
+        {
+          "name": "bug",
+          "colour": "d73a4a",
+          "description": "Something isn't working"
+        }
+      ],
+      "url": "https://github.com/h3js/h3/issues/1670",
+      "createdAt": "2026-11-20T13:46:40.000Z",
+      "updatedAt": "2026-11-20T14:00:11.000Z",
+      "lastActivityAt": "2026-11-20T14:00:11.000Z",
       "locked": false,
-      "commentCount": 0,
+      "commentCount": 2,
       "reactions": {
         "total": 0,
         "counts": {}
@@ -48,13 +54,13 @@
     }
   ],
   "cursor": {
-    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABoSplrUjPAAAAAVm1EII%3D&page=2",
-    "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\""
+    "nextUrl": "https://api.github.com/repositories/313641207/issues?state=open&sort=created&direction=desc&per_page=3&after=Y3Vyc29yOnYyOpLPAAABofk1kgDPAAAAAYQvQzE%3D&page=2",
+    "etag": "W/\"735a11c7ded4b392bf5a7167ca237a158e2011709f352dcf6db90b24590e9517\""
   },
-  "etag": "W/\"2aadd66e260687baf9ad73939e4a4b4fbe21a980809a51fdc71fa3ae92d87efc\"",
+  "etag": "W/\"735a11c7ded4b392bf5a7167ca237a158e2011709f352dcf6db90b24590e9517\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 21,
+    "remaining": 17,
     "resetAt": "<now>",
     "resource": "core"
   }

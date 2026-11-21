@@ -11,22 +11,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1585",
-        "externalId": "PR_kwDOErHI988AAAABH0aNdg"
+        "number": "1672",
+        "externalId": "PR_kwDOErHI988AAAABQ2eiZA"
       },
       "kind": "pull_request",
-      "title": "fix(static): normalize indexNames joining to prevent double slash at root",
-      "body": "Resolves #1584\n\n### Description\n\nIn `src/utils/static.ts`, `idSearchPaths` currently builds candidate asset IDs with `${id}${suffix}`.\n\nBecause `originalId` for root `GET /` is `\"/\"`:\n- Default `indexNames: [\"/index.html\"]`: Requesting root `GET /` produces candidate ID `\"//index.html\"` (an invalid double-slash path that fails lookups against canonical asset maps or storage systems).\n- Relative `indexNames: [\"index.html\"]`: Requesting a subfolder like `GET /docs` produces `\"/docsindex.html\"` (missing the path separator).\n\nThis patch normalizes the join boundary in `idSearchPaths` so that:\n- Any leading slashes on index names are stripped before joining.\n- If `id` is `\"/\"`, the root index becomes `\"/index.html\"`.\n- If `id` is a subpath like `\"/docs\"`, the directory index becomes `\"/docs/index.html\"`.\n\n### Checklist\n- [x] Code passes `pnpm lint`\n- [x] Code passes `pnpm test`\n- [x] Automated tests added covering root `/`, subpaths, and both leading/non-leading slash `indexNames`\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Fixed static index-file resolution when the configured index path begins with `/`, including requests to the site root and subdirectories with or without a trailing slash.\n  * Static file requests can resolve `/about` to `/about.html` when `.html` is configured as an extension fallback.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(deprecated): clear every header in `clearResponseHeaders`",
+      "body": "## Summary\n\n`clearResponseHeaders(event)` with no name list should remove every response header. Right now it deletes from `event.res.headers` while looping over its live `keys()` iterator. Each delete shifts the remaining entries, so the header after each deleted one gets skipped and about half the headers are left behind.\n\n```js\napp.get(\"/\", (event) => {\n  event.res.headers.set(\"x-a\", \"1\");\n  event.res.headers.set(\"x-b\", \"2\");\n  event.res.headers.set(\"x-c\", \"3\");\n  event.res.headers.set(\"x-d\", \"4\");\n  clearResponseHeaders(event);\n  return [...event.res.headers.keys()]; // [\"x-b\", \"x-d\"] on main\n});\n```\n\nThe fix copies the header names into an array before deleting. The `headerNames` path already worked.\n\nTests: new `clearResponseHeaders` cases in `test/utils.test.ts` (web + node matrix) cover clearing all headers, including multiple `set-cookie` entries, and clearing only named ones. The first case fails on `main` and passes with this change. `pnpm vitest run test/utils.test.ts` and `pnpm lint` pass.\n\n_Found and fixed with help from an AI coding assistant. I reviewed the change and tests._\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Clearing response headers without specifying names now removes all headers reliably, including multiple cookie headers. Specifying a header name continues to remove only that header, leaving other response headers unchanged. This makes header-clearing behavior more consistent across responses and preserves unrelated headers when clearing a specific one.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "TalhaHunter101",
-        "id": "51529912",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/51529912?v=4",
-        "url": "https://github.com/TalhaHunter101",
+        "login": "itisrmk",
+        "id": "30754662",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/30754662?v=4",
+        "url": "https://github.com/itisrmk",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -50,28 +50,28 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1585",
-      "createdAt": "2026-10-11T14:13:38.000Z",
-      "updatedAt": "2026-10-17T12:36:56.000Z",
-      "lastActivityAt": "2026-10-17T12:36:56.000Z",
+      "url": "https://github.com/h3js/h3/pull/1672",
+      "createdAt": "2026-11-21T08:07:42.000Z",
+      "updatedAt": "2026-11-21T08:09:50.000Z",
+      "lastActivityAt": "2026-11-21T08:09:50.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "fix/serve-static-index-paths",
-          "sha": "1f015e42ba1d94d728192f09b6358bcb3bfb4149",
+          "ref": "fix/clear-response-headers",
+          "sha": "6e8eaeb2196f520d9e49167180c09a74d8a8c183",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "TalhaHunter101",
+            "owner": "itisrmk",
             "name": "h3",
-            "externalId": "1414411073"
+            "externalId": "1466324043"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "d8d726f065b60b6d9fbb5c2799c9251c647ffda9"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "6e3c41dde57bcd6585a3ae6b8bf2b0fb640d31f0"
+        "mergeCommitSha": "8fb616d906f22d5af1b2a7e6f2aa6988c1689968"
       }
     },
     {
@@ -85,22 +85,22 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1583",
-        "externalId": "PR_kwDOErHI988AAAABHzAV3Q"
+        "number": "1671",
+        "externalId": "PR_kwDOErHI988AAAABQrnCdg"
       },
       "kind": "pull_request",
-      "title": "docs: fix file paths in static assets example",
-      "body": "Resolves #1578\n\nThe \"Read files\" example mounts the handler at `/public/**`, but `serveStatic` passes the full request path as `id` (e.g. `/public/index.html`). So `join(\"public\", id)` looks for `public/public/index.html` and every request returns 404. The text also says to open `http://localhost:3000`, which isn't matched by `/public/**`.\n\nChanges:\n- Strip the `/public` prefix from `id` before joining it with the directory.\n- Point readers to `http://localhost:3000/public/`, after the full example.\n\nI checked both versions against h3 2.0.2 with a `public/index.html` file:\n\n| Path | Before | After |\n| --- | --- | --- |\n| `/` | 404 | 404 (outside the mount, expected) |\n| `/public/` | 404 | 200 |\n| `/public/index.html` | 404 | 200 |\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated the static assets example to show creating `public/index.html` before opening `/public/` in a browser.\n  * Clarified that `/public` is removed from request paths before they’re used to read files or look up file metadata.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(cache): type the `withCacheIsolation` result as a promise",
+      "body": "Resolves #1670\n\n`withCacheIsolation` was typed to return `T`, but the wrapper is async, so a synchronous handler's result came back as a Promise while the type said otherwise.\n\nThe returned handler is now typed as `(event: H3Event) => Promise<Awaited<ReturnType<T>>>`, and keeps the properties of the wrapped handler (such as ocache's `invalidate`) through `Pick<T, keyof T>`. No runtime change.\n\nAdded type tests for a sync and an async handler and for a copied property. `pnpm typecheck`, the type tests, the cache and route rules tests, `pnpm lint` and `pnpm build` pass.\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Updated the `withCacheIsolation` type to reflect that wrapped handlers return a promise, making the result type clearer for callers.\n  * Preserved the wrapped handler’s properties and their original types in the returned type.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "aaronanish-t",
-        "id": "217176403",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/217176403?v=4",
-        "url": "https://github.com/aaronanish-t",
+        "login": "mateuscmtropical",
+        "id": "88845521",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/88845521?v=4",
+        "url": "https://github.com/mateuscmtropical",
         "typeRaw": "User",
         "isBotHint": false
       },
@@ -124,28 +124,28 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1583",
-      "createdAt": "2026-10-11T09:57:49.000Z",
-      "updatedAt": "2026-10-16T19:22:11.000Z",
-      "lastActivityAt": "2026-10-16T19:22:11.000Z",
+      "url": "https://github.com/h3js/h3/pull/1671",
+      "createdAt": "2026-11-20T13:50:49.000Z",
+      "updatedAt": "2026-11-20T13:54:13.000Z",
+      "lastActivityAt": "2026-11-20T13:54:13.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "docs/fix-static-assets-example",
-          "sha": "36270b8a285744ad4dc5af707112523676ebb9f6",
+          "ref": "fix/cache-isolation-type",
+          "sha": "5c207b079af278fd717f3f9ba0e5925ae3c0a4eb",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "aaronanish-t",
+            "owner": "mateuscmtropical",
             "name": "h3",
-            "externalId": "1414188488"
+            "externalId": "1465486294"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "66cfb8a357b6285451bad498c2c40002601fae98"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "f7117cc0b35ce750123a8ea888f259cca90489a4"
+        "mergeCommitSha": "33ae4b95b7b72f83f9fb3d6712440009e8f6cf72"
       }
     },
     {
@@ -159,27 +159,27 @@
           "name": "h3"
         },
         "kind": "pull_request",
-        "number": "1579",
-        "externalId": "PR_kwDOErHI988AAAABHvErmg"
+        "number": "1669",
+        "externalId": "PR_kwDOErHI988AAAABQlcGMg"
       },
       "kind": "pull_request",
-      "title": "docs(static): mount serveStatic example at the root",
-      "body": "Fixes #1578\n\n`serveStatic` passes the full request path as `id`, so with `app.use(\"/public/**\")` a request to `/public/index.html` reads `public/public/index.html`, and `/` never matches the route at all. the example 404s on every path, while the text says to open http://localhost:3000.\n\nmounted it at `/**` so it serves `public/` at the root like the text says, and added a tip with `withBase` for serving under a prefix.\n\nran the example against main:\n\n```\napp.use(\"/public/**\")   / -> 404 | /index.html -> 404 | /public/index.html -> 404\napp.use(\"/**\")          / -> 200 | /index.html -> 200\nwithBase(\"/public\")     /public/ -> 200 | /public/index.html -> 200 | /public/nope.txt -> 404\n```\n\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n\n## Summary by CodeRabbit\n\n* **Documentation**\n  * Updated static asset examples to match all request paths.\n  * Added guidance on using the full request path and removing the `/public` prefix when serving files from that directory.\n\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
+      "title": "fix(types): emit declarations that typecheck with skipLibCheck: false",
+      "body": "Fixes #1657\n\n### Summary\n\nDownstream TypeScript projects importing `h3` with `skipLibCheck: false` failed `tsc --noEmit` unless they targeted `ESNext` and installed the optional peer dependency `crossws`:\n\n1. `dist/h3.d.mts` emitted `static override isError` on `HTTPError`. Because `Error.isError` only exists in the `ESNext` lib, consumers targeting `ES2022` (or any pre-`ESNext` lib) got `TS4113`.\n2. `dist/index.d.mts` imported `Hooks`, `Peer`, and `Message` from the optional peer `crossws`, producing `TS2307` when `crossws` is not installed.\n\n### Changes\n\n- Updated `build.config.ts` (`hooks.end`) to post-process emitted `dist/**/*.d.mts`:\n  - Strip `override` from `static override isError` in published declarations while keeping `static override isError` in `src/error.ts` so this repo's own `noImplicitOverride` + `ESNext` typecheck continues to pass (`override` on `name` and `cause` stays intact because both exist in `ES2022`).\n  - Prepend `// @ts-ignore optional peer dependency` above the `from \"crossws\"` import in `dist/index.d.mts`, suppressing `TS2307` when `crossws` is absent while preserving exact nominal types (`Peer`, `Message`, `Hooks`) when `crossws` is installed.\n- Added a real `tsc --noEmit` consumer regression suite in `test/dts-consumer.test.ts` testing `skipLibCheck: false` + `noImplicitOverride: true` across `ES2022` and `ESNext`, both with and without `crossws` installed (and asserting nominal equality when `crossws` is present).\n\n### Verification\n\n- **Red before fix:** `pnpm exec vitest --run test/dts-consumer.test.ts` reproduced both `TS4113` (`h3.d.mts`) and `TS2307` (`index.d.mts`) on `ES2022` without `crossws`.\n- **Green after fix:**\n  - `pnpm build`\n  - `pnpm lint` (`oxlint` + `oxfmt --check`)\n  - `pnpm typecheck` (`tsc --noEmit`)\n  - `pnpm exec vitest --run test/dts-consumer.test.ts` — 4/4 passed.\n\n<!-- This is an auto-generated comment: release notes by coderabbit.ai -->\n<!-- coderabbit-ai-generated:v1 -->\n\n## Summary by CodeRabbit\n\n* **Bug Fixes**\n  * Improved TypeScript compatibility for package declarations in downstream projects using ES2022 or ESNext, including setups with or without optional WebSocket support.\n  * Corrected declaration compatibility for `HTTPError.isError`, helping consumers compile with strict library checking enabled.\n  * These updates make it easier to use the package’s public types across different TypeScript configurations and optional dependency setups.\n<!-- end of auto-generated comment: release notes by coderabbit.ai -->",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "github",
         "instance": "github.com",
-        "login": "harshit-d3v",
-        "id": "106448130",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/106448130?v=4",
-        "url": "https://github.com/harshit-d3v",
+        "login": "eisen0419",
+        "id": "215163742",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/215163742?v=4",
+        "url": "https://github.com/eisen0419",
         "typeRaw": "User",
         "isBotHint": false
       },
-      "authorAssociation": "contributor",
-      "authorAssociationRaw": "CONTRIBUTOR",
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
       "assignees": [],
       "reviewers": [
         {
@@ -198,40 +198,40 @@
         }
       ],
       "labels": [],
-      "url": "https://github.com/h3js/h3/pull/1579",
-      "createdAt": "2026-10-10T20:06:27.000Z",
-      "updatedAt": "2026-10-17T12:00:47.000Z",
-      "lastActivityAt": "2026-10-17T12:00:47.000Z",
+      "url": "https://github.com/h3js/h3/pull/1669",
+      "createdAt": "2026-11-20T04:52:59.000Z",
+      "updatedAt": "2026-11-20T07:10:25.000Z",
+      "lastActivityAt": "2026-11-20T07:10:25.000Z",
       "locked": false,
       "branches": {
         "head": {
-          "ref": "docs/serve-static-root",
-          "sha": "09b5e0d12fe54e085febe2d634627bf2ed4395e4",
+          "ref": "fix/1657-dts-skiplibcheck",
+          "sha": "3db0219095fe03506759c84e7edb3c9a5fad4c7b",
           "repo": {
             "forge": "github",
             "instance": "github.com",
-            "owner": "harshit-d3v",
+            "owner": "eisen0419",
             "name": "h3",
-            "externalId": "1413617363"
+            "externalId": "1457676665"
           }
         },
         "base": {
           "ref": "main",
-          "sha": "927fe98fc477720e91cdb7f96b239956d55b10c6"
+          "sha": "2f29b875617e8daf39d25118f7474fd4c24fbfe1"
         },
-        "mergeCommitSha": "1029012d24c7e2762354fe903ca3f76503e0176f"
+        "mergeCommitSha": "e5daeddb5076be0a648b40c189b395f733f2459f"
       }
     }
   ],
-  "total": 21,
+  "total": 42,
   "cursor": {
     "nextUrl": "https://api.github.com/repositories/313641207/pulls?state=open&sort=created&direction=desc&per_page=3&page=2",
-    "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\""
+    "etag": "\"e2b8eee717a2ff83dd19bd52f26b867413c67b59a8e225b36924a5bd613fb67f\""
   },
-  "etag": "W/\"7728157a47d9808e5a60c535b2ca8c39ef7145689a9ea2111ae9855f04f39fe5\"",
+  "etag": "\"e2b8eee717a2ff83dd19bd52f26b867413c67b59a8e225b36924a5bd613fb67f\"",
   "rateLimit": {
     "limit": 60,
-    "remaining": 37,
+    "remaining": 33,
     "resetAt": "<now>",
     "resource": "core"
   }
