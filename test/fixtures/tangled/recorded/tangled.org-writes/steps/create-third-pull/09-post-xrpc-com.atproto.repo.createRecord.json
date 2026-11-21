@@ -1,0 +1,37 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:t73o44q7fppgagkrevtztyok",
+      "collection": "org.tangled.track.ticket",
+      "record": {
+        "title": {
+          "$type": "org.tangled.markup.markdown#inline",
+          "text": "forges fixture 20261121143343: pull 3"
+        },
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "Opened by run 20261121143343."
+        },
+        "state": "open",
+        "targetBranch": "main",
+        "createdAt": "2026-11-21T14:34:54.045Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/146",
+      "cid": "bafyreifq24b5ci6qkgbnambfjuep5e4qwdlt2mu7a2vw2gihnuqkuycfle",
+      "commit": {
+        "cid": "bafyreie6rzoizvl65olyh5htktdyxbhirencznqz57cezvobzjzmvn6z4a",
+        "rev": "3n2td3ufbdi22"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "232d69da6f017c51644eb30c0ef9bda4ff1ce31c"
+    }
+  }
+}

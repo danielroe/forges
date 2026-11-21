@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getMergeBase?repos=did%3Aplc%3Awidgetsrepo2222222222222&base=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&head=2222222222222222222222222222222222222222"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  }
+}

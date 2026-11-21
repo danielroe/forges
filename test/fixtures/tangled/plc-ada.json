@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:adaauthor222222222222222"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "id": "did:plc:adaauthor222222222222222",
+      "alsoKnownAs": [
+        "at://ada.example.com"
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://pds.example.com"
+        }
+      ]
+    }
+  }
+}

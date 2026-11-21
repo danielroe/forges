@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getBlob?repo=did%3Aplc%3Awidgetsrepo2222222222222&ref=main&path=README.md"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain"
+    },
+    "body": "README: an automated fixture target.\n"
+  }
+}

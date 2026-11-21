@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.track.ticket&rkey=146"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreifq24b5ci6qkgbnambfjuep5e4qwdlt2mu7a2vw2gihnuqkuycfle",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/146",
+      "value": {
+        "$type": "org.tangled.track.ticket",
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "Opened by run 20261121143343."
+        },
+        "createdAt": "2026-11-21T14:34:54Z",
+        "state": "open",
+        "targetBranch": "main",
+        "title": {
+          "$type": "org.tangled.markup.markdown#inline",
+          "text": "forges fixture 20261121143343: pull 3"
+        },
+        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+      }
+    }
+  }
+}

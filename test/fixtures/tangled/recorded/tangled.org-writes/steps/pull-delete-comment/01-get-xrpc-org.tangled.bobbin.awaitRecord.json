@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord"
+  },
+  "response": {
+    "status": 400,
+    "headers": {},
+    "body": {
+      "error": "InvalidRequest",
+      "message": "invalid request: Failed to deserialize query string: missing field `uri`"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import type { Fetcher } from '../fetch.ts'
-import type { BacklinksResponse, DidDocument, RecordResponse, TangledRecord } from './types.ts'
-import { ForgeApiError, ForgeError, NotFoundError } from '../errors.ts'
+import type { DidDocument } from './types.ts'
+import { NotFoundError } from '../errors.ts'
 import { abortable } from '../fetch.ts'
 
 export interface AtUri {
@@ -20,96 +20,36 @@ export function atUri(did: string, collection: string, rkey: string): string {
   return `at://${did}/${collection}/${rkey}`
 }
 
-/** The alphabet a record key sorts and encodes by. */
-const TID_ALPHABET = '234567abcdefghijklmnopqrstuvwxyz'
-
-/**
- * The moment a record was created. The timestamp its key carries is the one
- * the server that wrote it stamped, so it is preferred over the moment the
- * record claims, which its author chose.
- */
-export function createdAtOf(rkey: string, createdAt: Date | undefined): Date | undefined {
-  const stamped = tidTime(rkey)
-  if (!stamped || !createdAt) {
-    return createdAt ?? stamped
-  }
-  return Math.abs(stamped.getTime() - createdAt.getTime()) <= 24 * 60 * 60 * 1000
-    ? stamped
-    : createdAt
-}
-/** The moment a record was created, from the timestamp its key carries. */
-function tidTime(rkey: string): Date | undefined {
-  if (rkey.length !== 13) {
-    return undefined
-  }
-  let value = 0n
-  for (const character of rkey) {
-    const digit = TID_ALPHABET.indexOf(character)
-    if (digit < 0) {
-      return undefined
-    }
-    value = (value << 5n) | BigInt(digit)
-  }
-  const time = new Date(Number((value >> 10n) / 1000n))
-  return Number.isNaN(time.getTime())
-    ? undefined
-    : time
+/** The DID of the service at `host`, as atproto service auth names it. */
+export function serviceDidForHost(hostOrUrl: string): string {
+  const host = new URL(/^https?:\/\//.test(hostOrUrl)
+    ? hostOrUrl
+    : `https://${hostOrUrl}`).host
+  return `did:web:${host.replace(/:/g, '%3A')}`
 }
 
 export interface Identity {
   did: string
+  /** For a repo DID, the knot: a knot is the PDS of the repositories it hosts. */
   pds?: string
-  /** For a repo DID, the origin of the knot that hosts the repo. */
-  knot?: string
   handle?: string
-}
-
-function knotOrigin(endpoint: string | undefined): string | undefined {
-  try {
-    return endpoint
-      ? new URL(endpoint).origin
-      : undefined
-  }
-  catch {
-    return undefined
-  }
 }
 
 export interface AtprotoClient {
   resolveDid: (did: string, signal?: AbortSignal) => Promise<Identity>
   /** The DID a handle names, checked against the handle the DID document claims. */
   resolveHandle: (handle: string, signal?: AbortSignal) => Promise<string>
-  getRecord: <T extends TangledRecord = TangledRecord>(uri: string, signal?: AbortSignal) => Promise<RecordResponse<T>>
-  /** Every record in one collection of an account's repository, from its PDS. */
-  listRecords: <T extends TangledRecord = TangledRecord>(did: string, collection: string, signal?: AbortSignal) => AsyncGenerator<RecordResponse<T>>
-  /** One page of a collection, newest first, continuing after the record key in `cursor`. */
-  listRecordsPage: <T extends TangledRecord = TangledRecord>(did: string, collection: string, page: { limit: number, cursor?: string, signal?: AbortSignal }) => Promise<Array<RecordResponse<T>>>
-  /** The collections an account's repository holds records in. */
-  collectionsOf: (did: string, signal?: AbortSignal) => Promise<string[]>
-  /** The revision of an account's repository, which changes with every write to it. */
-  revisionOf: (did: string, signal?: AbortSignal) => Promise<string>
-  /** A blob's bytes, from its account's PDS. */
-  getBlob: (did: string, cid: string, signal?: AbortSignal) => Promise<Uint8Array>
-  /** Every record in `collection` whose `path` field points at `target`. */
-  backlinks: (target: string, collection: string, path: string, signal?: AbortSignal) => AsyncGenerator<AtUri>
 }
 
 export interface AtprotoClientOptions {
   fetcher: Fetcher
   plcUrl: string
-  backlinksUrl: string
   /** Serves `com.atproto.identity.resolveHandle`. */
   handleResolverUrl: string
-  /** Slingshot-compatible record cache. When absent, records are read from each author's PDS. */
-  recordsUrl?: string
   context: { forge: string, instance: string }
 }
 
-/**
- * Resolves identities and reads records straight from each author's PDS.
- * Backlinks come from a Constellation-compatible index, since no PDS can
- * list the records that point at a given one.
- */
+/** Resolves identities from DID documents. */
 export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClient {
   const identities = new Map<string, Promise<Identity>>()
 
@@ -121,8 +61,7 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
         : `${options.plcUrl}/${did}`
       identity = options.fetcher.json<DidDocument>(url).then(({ data }) => ({
         did,
-        pds: data.service?.find(service => service.id.endsWith('#atproto_pds'))?.serviceEndpoint,
-        knot: knotOrigin(data.service?.find(service => service.id.endsWith('#tangled_knot'))?.serviceEndpoint),
+        pds: data.service?.find(service => service.id.endsWith('#atproto_pds'))?.serviceEndpoint.replace(/\/$/, ''),
         handle: data.alsoKnownAs?.find(alias => alias.startsWith('at://'))?.slice('at://'.length),
       }))
       identity.catch(() => identities.delete(did))
@@ -152,116 +91,5 @@ export function createAtprotoClient(options: AtprotoClientOptions): AtprotoClien
     return abortable(did, signal)
   }
 
-  async function pdsOf(did: string, signal?: AbortSignal): Promise<string> {
-    const host = (await resolveDid(did, signal)).pds
-    if (!host) {
-      throw new ForgeError(`No PDS in the DID document for ${did}`, options.context)
-    }
-    return host.replace(/\/$/, '')
-  }
-
-  async function* listRecords<T extends TangledRecord>(did: string, collection: string, signal?: AbortSignal): AsyncGenerator<RecordResponse<T>> {
-    const host = await pdsOf(did, signal)
-    let cursor: string | undefined
-    do {
-      const { data }: { data: { records: Array<RecordResponse<T>>, cursor?: string } } = await options.fetcher.json(`${host}/xrpc/com.atproto.repo.listRecords`, {
-        query: {
-          repo: did,
-          collection,
-          limit: 100,
-          cursor,
-        },
-        signal,
-      })
-      yield* data.records
-      cursor = data.records.length ? data.cursor : undefined
-    } while (cursor)
-  }
-
-  async function listRecordsPage<T extends TangledRecord>(did: string, collection: string, page: { limit: number, cursor?: string, signal?: AbortSignal }): Promise<Array<RecordResponse<T>>> {
-    const { data } = await options.fetcher.json<{ records: Array<RecordResponse<T>> }>(`${await pdsOf(did, page.signal)}/xrpc/com.atproto.repo.listRecords`, {
-      query: {
-        repo: did,
-        collection,
-        limit: page.limit,
-        cursor: page.cursor,
-      },
-      signal: page.signal,
-    })
-    return data.records
-  }
-
-  async function collectionsOf(did: string, signal?: AbortSignal): Promise<string[]> {
-    const { data } = await options.fetcher.json<{ collections?: string[] }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.repo.describeRepo`, {
-      query: { repo: did },
-      signal,
-    })
-    return data.collections ?? []
-  }
-
-  async function revisionOf(did: string, signal?: AbortSignal): Promise<string> {
-    const { data } = await options.fetcher.json<{ rev: string }>(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getLatestCommit`, {
-      query: { did },
-      signal,
-    })
-    return data.rev
-  }
-
-  async function getRecord<T extends TangledRecord>(uri: string, signal?: AbortSignal): Promise<RecordResponse<T>> {
-    const parsed = parseAtUri(uri)
-    if (!parsed) {
-      throw new ForgeError(`Not an AT-URI: ${uri}`, options.context)
-    }
-    const host = options.recordsUrl ?? await pdsOf(parsed.did, signal)
-    const { data } = await options.fetcher.json<RecordResponse<T>>(`${host.replace(/\/$/, '')}/xrpc/com.atproto.repo.getRecord`, {
-      query: { repo: parsed.did, collection: parsed.collection, rkey: parsed.rkey },
-      // A PDS responds 400 `RecordNotFound` for a missing record.
-      mapError: error => error instanceof ForgeApiError && error.status === 400
-        ? new NotFoundError(`No record at ${uri}`, 400, error.body, options.context)
-        : error,
-      signal,
-    })
-    return data
-  }
-
-  async function getBlob(did: string, cid: string, signal?: AbortSignal): Promise<Uint8Array> {
-    const response = await options.fetcher.raw(`${await pdsOf(did, signal)}/xrpc/com.atproto.sync.getBlob`, {
-      query: { did, cid },
-      signal,
-    })
-    return new Uint8Array(await response.arrayBuffer())
-  }
-
-  async function* backlinks(target: string, collection: string, path: string, signal?: AbortSignal): AsyncGenerator<AtUri> {
-    let cursor: string | undefined
-    do {
-      const { data }: { data: BacklinksResponse } = await options.fetcher.json<BacklinksResponse>(`${options.backlinksUrl}/links`, {
-        query: {
-          target,
-          collection,
-          path,
-          limit: 100,
-          cursor,
-        },
-        headers: { accept: 'application/json' },
-        signal,
-      })
-      for (const link of data.linking_records) {
-        yield { did: link.did, collection: link.collection, rkey: link.rkey }
-      }
-      cursor = data.cursor ?? undefined
-    } while (cursor)
-  }
-
-  return {
-    resolveDid,
-    resolveHandle,
-    getRecord,
-    listRecords,
-    listRecordsPage,
-    collectionsOf,
-    revisionOf,
-    getBlob,
-    backlinks,
-  }
+  return { resolveDid, resolveHandle }
 }

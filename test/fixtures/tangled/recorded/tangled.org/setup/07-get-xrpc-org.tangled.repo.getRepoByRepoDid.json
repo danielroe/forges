@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ab3nregwt745h6xytpqmmavpi"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreicjd2zyz6toerxcdumljhefxxtzcbwguij2267h42wyaefdgmup3i",
+      "defaultBranch": "main",
+      "knot": "knot1.tangled.sh",
+      "uri": "at://did:plc:b3nregwt745h6xytpqmmavpi/org.tangled.repo.manifest/self",
+      "value": {
+        "$type": "org.tangled.repo.manifest",
+        "contributionPolicy": "anyone",
+        "createdAt": "2026-06-26T20:51:37.000000Z",
+        "declaration": {
+          "name": "at-record",
+          "owner": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "description": "gotta store my records",
+        "spindle": "did:web:spindle.tangled.network",
+        "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+      }
+    }
+  }
+}

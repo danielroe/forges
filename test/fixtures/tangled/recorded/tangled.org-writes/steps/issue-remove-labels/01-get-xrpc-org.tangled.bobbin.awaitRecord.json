@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F141&cid=bafyreifc5kyxhvdmcse3h3wt5n2hj5w7n2ii6tohpobuh4gm4xnywtaexi"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "status": "indexed",
+      "cid": "bafyreifc5kyxhvdmcse3h3wt5n2hj5w7n2ii6tohpobuh4gm4xnywtaexi"
+    }
+  }
+}

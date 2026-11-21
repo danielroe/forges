@@ -1,0 +1,95 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.search.query?nsid=org.tangled.track.ticket&repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&q=is%3Aopen&kind=pull&sort=created-desc&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "hits": [
+        {
+          "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "cid": "bafyreic5v5yxxmrbfjxri3tberwuhjd7xsekfvamxkkwj444pfzss3ix5y",
+          "commentCount": 0,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "open",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/140",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Opened by run 20261121143017."
+            },
+            "createdAt": "2026-11-21T14:31:25Z",
+            "state": "open",
+            "tangledLabels": [],
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "forges fixture 20261121143017: pull 3"
+            },
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        },
+        {
+          "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "cid": "bafyreigboj7rdkkf6nes5lr2ze4mnhvxg6qhhne6plmg2m7x3fkgovinne",
+          "commentCount": 0,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "open",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/139",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Opened by run 20261121143017."
+            },
+            "createdAt": "2026-11-21T14:31:21Z",
+            "state": "open",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "forges fixture 20261121143017: pull 2"
+            },
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        },
+        {
+          "author": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "cid": "bafyreihm547exhn424gvlaxe7zk3hzbhemvbjdlkryyqvi2fc6y5hix6bi",
+          "commentCount": 0,
+          "nsid": "org.tangled.track.ticket",
+          "score": 0,
+          "state": "open",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/134",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Opened by run 20261121122101."
+            },
+            "createdAt": "2026-11-21T12:22:08Z",
+            "state": "open",
+            "tangledLabels": [],
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "forges fixture 20261121122101: pull 3"
+            },
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        }
+      ],
+      "cursor": "k000000006b018cf0mf2dulzpmruwiotqnrrtu5bxgnxtindrg5tha4dhmftww4tfoz2hu5dzn5vs633sm4xhiylom5wgkzboorzgcy3lfz2gsy3lmv2c6mjtgq",
+      "total": 31,
+      "stateCounts": {
+        "open": 31,
+        "closed": 0,
+        "completed": 12
+      }
+    }
+  }
+}

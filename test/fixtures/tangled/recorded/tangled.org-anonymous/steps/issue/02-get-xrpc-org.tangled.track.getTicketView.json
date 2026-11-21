@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F17"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "assignees": [
+        "did:plc:7qksav5io2s4qfg67pe7iqqk"
+      ],
+      "author": {
+        "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "handle": "roebot.tngl.sh"
+      },
+      "body": {
+        "$type": "org.tangled.markup.markdown",
+        "text": "An issue that read recordings read."
+      },
+      "cid": "bafyreibzauzprp23fgtrsowg6spoh76ucdgm4qpbqukfflbbxix7crqbmi",
+      "createdAt": "2026-10-11T21:19:26Z",
+      "repo": {
+        "createdAt": "2026-10-09T17:02:20.000000Z",
+        "did": "did:plc:t73o44q7fppgagkrevtztyok",
+        "forkCount": 0,
+        "openIssueCount": 44,
+        "openPullCount": 31,
+        "owner": {
+          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "handle": "roebot.tngl.sh"
+        },
+        "slug": "forges-fixtures",
+        "starCount": 1
+      },
+      "state": "open",
+      "tangledLabels": [
+        {
+          "$type": "org.tangled.label.defs#labelToken",
+          "key": "documentation"
+        },
+        {
+          "$type": "org.tangled.label.defs#labelToken",
+          "key": "forges-seed"
+        }
+      ],
+      "title": {
+        "$type": "org.tangled.markup.markdown#inline",
+        "text": "forges seed: issue"
+      },
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+    }
+  }
+}

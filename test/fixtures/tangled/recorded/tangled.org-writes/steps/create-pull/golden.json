@@ -7,17 +7,17 @@
       "instance": "tangled.org",
       "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
       "name": "forges-fixtures",
-      "ownerHandle": "roebot.tngl.sh",
-      "externalId": "did:plc:t73o44q7fppgagkrevtztyok"
+      "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+      "ownerHandle": "roebot.tngl.sh"
     },
     "kind": "pull_request",
-    "typeRaw": "sh.tangled.repo.pull",
-    "number": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y",
-    "externalId": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.repo.pull/3mycfd4tcmb2y"
+    "typeRaw": "org.tangled.track.ticket",
+    "number": "144",
+    "externalId": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/144"
   },
   "kind": "pull_request",
-  "title": "forges fixture 20261020100831: pull 1",
-  "body": "Opened by run 20261020100831.",
+  "title": "forges fixture 20261121143343: pull 1",
+  "body": "Opened by run 20261121143343.",
   "state": "open",
   "stateRaw": "open",
   "isDraft": false,
@@ -36,12 +36,15 @@
   "lastActivityAt": "<now>",
   "labels": [],
   "commentCount": 0,
+  "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/pulls/144",
   "branches": {
     "head": {
-      "ref": "forges-fixtures/20261020100831-1"
+      "ref": "forges-fixtures/20261121143343-1",
+      "sha": "22434a8ebaec88f6d2ef5fca51ab0a5c7bb020a7"
     },
     "base": {
-      "ref": "main"
+      "ref": "main",
+      "sha": "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
     }
   }
 }

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://notifs.tangled.network/xrpc/org.tangled.temp.notification.getUnreadCount"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "count": 0
+    }
+  }
+}

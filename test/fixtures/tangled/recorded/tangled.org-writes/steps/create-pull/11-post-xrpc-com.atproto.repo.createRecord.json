@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.createRecord",
+    "body": {
+      "repo": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "collection": "org.tangled.graph.attestation",
+      "record": {
+        "$type": "org.tangled.graph.attestation",
+        "subject": {
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/144",
+          "cid": "bafyreicfoaohupcyppxmbcuks72j2qqtvwusjkxx6aflw3l524e5i5toii"
+        },
+        "change": "a6bfcd6f5f639baf11d089a629d7e4c05e4f8779",
+        "createdAt": "2026-11-21T14:34:46.891Z"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"121-CuvVfaqBHLGKvRAAffZTUOyTN98\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2509",
+      "ratelimit-reset": "1795271720",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.graph.attestation/3n2td3npjg62r",
+      "cid": "bafyreifpxriocw2stnpfomuti5pnnzhkt646puz3y7sygdrifuu4g6kehe",
+      "commit": {
+        "cid": "bafyreievt3qpxbouzah3o3nc4rmdqtbhceok5du7wohuswqjxlf35prwai",
+        "rev": "3n2td3npt6o2r"
+      },
+      "validationStatus": "unknown"
+    }
+  }
+}

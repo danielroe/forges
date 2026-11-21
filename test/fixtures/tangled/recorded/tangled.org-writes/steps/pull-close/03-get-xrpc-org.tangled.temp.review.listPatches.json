@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.review.listPatches?ticket=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F146&order=desc&limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreigaw7eyx5t3ctn23pxbjcz3qy4qciy3wsqbmuyvdx3emridqomkby",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.review.patch/bafyreigaw7eyx5t3ctn23pxbjcz3qy4qciy3wsqbmuyvdx3emridqomkby",
+          "value": {
+            "$type": "org.tangled.review.patch",
+            "base": {
+              "oid": "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+            },
+            "createdAt": "2026-11-21T14:34:56Z",
+            "head": {
+              "oid": "57050e5d55018e0465402baef2f20c335733024b"
+            },
+            "source": {
+              "branch": "forges-fixtures/20261121143343-3",
+              "repo": "did:plc:t73o44q7fppgagkrevtztyok"
+            },
+            "ticket": "146",
+            "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          }
+        }
+      ],
+      "total": 1
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Acwoq3xqggpzpb27kmuyknqcn%2Forg.tangled.track.ticket%2F48"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreia6myzopmh2qqf3zrgdllmxlfadpkq6ojtbtdcy4enpgonb7iz73y",
+          "uri": "at://did:plc:cwoq3xqggpzpb27kmuyknqcn/org.tangled.track.ticket/48",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "createdAt": "2026-11-21T11:51:54Z",
+            "state": "completed",
+            "targetBranch": "main",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "chore: align TypeScript tooling with Node 24"
+            },
+            "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+          }
+        }
+      ]
+    }
+  }
+}

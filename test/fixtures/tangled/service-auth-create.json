@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pds.example.com/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aplc%3Awidgetsrepo2222222222222&lxm=com.atproto.repo.createRecord"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "token": "token-create"
+    }
+  }
+}

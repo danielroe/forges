@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://tngl.sh/xrpc/com.atproto.server.getServiceAuth?aud=did%3Aweb%3Aspindle.tangled.network&lxm=org.tangled.webhook.listWebhookDeliveries"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"19e-g1/koTMh3J7NG3MFOalOh/guIwo\"",
+      "ratelimit-limit": "3000",
+      "ratelimit-remaining": "2655",
+      "ratelimit-reset": "1795271720",
+      "ratelimit-policy": "3000;w=300"
+    },
+    "body": {
+      "token": "REDACTED"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3Awidgetsrepo2222222222222%2Forg.tangled.track.ticket%2F7"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7",
+      "cid": "bafyreiticket00000000000000000000000000000000000000000000000001",
+      "repo": {
+        "did": "did:plc:widgetsrepo2222222222222",
+        "owner": {
+          "did": "did:plc:acmeowner222222222222222",
+          "handle": "acme.example.com"
+        },
+        "slug": "widgets",
+        "forkCount": 0,
+        "openIssueCount": 1,
+        "openPullCount": 1,
+        "starCount": 1
+      },
+      "author": {
+        "did": "did:plc:adaauthor222222222222222",
+        "handle": "ada.example.com"
+      },
+      "state": "open",
+      "title": {
+        "$type": "org.tangled.markup.markdown#inline",
+        "text": "Cache compiled templates"
+      },
+      "body": {
+        "$type": "org.tangled.markup.markdown",
+        "text": "Use the cache."
+      },
+      "tangledLabels": [
+        {
+          "$type": "org.tangled.label.defs#labelToken",
+          "key": "bug"
+        }
+      ],
+      "assignees": [
+        "did:plc:acmeowner222222222222222"
+      ],
+      "targetBranch": "main",
+      "createdAt": "2026-09-01T10:00:00Z"
+    }
+  }
+}

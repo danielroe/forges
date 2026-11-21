@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F141"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "author": {
+        "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+        "handle": "roebot.tngl.sh"
+      },
+      "body": {
+        "$type": "org.tangled.markup.markdown",
+        "text": "Opened by run 20261121143343."
+      },
+      "cid": "bafyreifc5kyxhvdmcse3h3wt5n2hj5w7n2ii6tohpobuh4gm4xnywtaexi",
+      "createdAt": "2026-11-21T14:34:11Z",
+      "repo": {
+        "createdAt": "2026-10-09T17:02:20.000000Z",
+        "did": "did:plc:t73o44q7fppgagkrevtztyok",
+        "forkCount": 0,
+        "openIssueCount": 45,
+        "openPullCount": 31,
+        "owner": {
+          "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "handle": "roebot.tngl.sh"
+        },
+        "slug": "forges-fixtures",
+        "starCount": 1
+      },
+      "state": "open",
+      "tangledLabels": [],
+      "title": {
+        "$type": "org.tangled.markup.markdown#inline",
+        "text": "forges fixture 20261121143343: issue"
+      },
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/141"
+    }
+  }
+}

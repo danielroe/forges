@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ag4lh56ouiwlcyhukzkjvy75g%2Forg.tangled.track.ticket%2F14"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "items": [
+        {
+          "cid": "bafyreihk42gq7edomyce67ogztb2yyytlohfyvkucknvfpbrhv5u6q73je",
+          "uri": "at://did:plc:g4lh56ouiwlcyhukzkjvy75g/org.tangled.track.ticket/14",
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "I would like to mirror a forked repository into Tangled, where I've been hosting discussion. Tangled lets me avoid confusion with the upstream, and also probe where the barrier to AtProto signup is at in gamedev communities.\n\nI would love to take advantage of this tool, and I don't see any likelihood of namespace collision, since repositories are prefixed by their owner. Solutions based on GitHub Actions seem like my next fallback."
+            },
+            "createdAt": "2026-10-21T00:02:01Z",
+            "state": "open",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Allow syncing a forked GitHub repository"
+            },
+            "x-tngl-editor": "did:plc:zlpfp5xn43tpzre5icmeuhcu"
+          }
+        }
+      ]
+    }
+  }
+}

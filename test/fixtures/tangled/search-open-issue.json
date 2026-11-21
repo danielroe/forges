@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.search.query?repo=did%3Aplc%3Awidgetsrepo2222222222222&nsid=org.tangled.track.ticket&q=is%3Aopen&kind=issue&sort=created-desc&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "hits": [
+        {
+          "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/7",
+          "cid": "bafyreiticket00000000000000000000000000000000000000000000000001",
+          "nsid": "org.tangled.track.ticket",
+          "score": 1,
+          "value": {
+            "$type": "org.tangled.track.ticket",
+            "title": {
+              "$type": "org.tangled.markup.markdown#inline",
+              "text": "Cache compiled templates"
+            },
+            "body": {
+              "$type": "org.tangled.markup.markdown",
+              "text": "Use the cache."
+            },
+            "state": "open",
+            "tangledLabels": [
+              {
+                "key": "bug"
+              }
+            ],
+            "assignees": [
+              "did:plc:acmeowner222222222222222"
+            ],
+            "targetBranch": "main",
+            "createdAt": "2026-09-01T10:00:00Z"
+          },
+          "author": "did:plc:adaauthor222222222222222",
+          "state": "open",
+          "commentCount": 2
+        }
+      ],
+      "total": 1,
+      "stateCounts": {
+        "open": 1,
+        "closed": 0,
+        "completed": 0
+      }
+    }
+  }
+}

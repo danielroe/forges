@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.getMergeBase?repos=did%3Aplc%3At73o44q7fppgagkrevtztyok&base=2b44876cb06e6332601b48b358f27b473c84d9d2&head=2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commit": "2b44876cb06e6332601b48b358f27b473c84d9d2"
+    }
+  }
+}

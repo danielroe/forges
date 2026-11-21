@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listBranches?repo=did%3Aplc%3Awidgetsrepo2222222222222&limit=50"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "branches": [
+        {
+          "name": "main",
+          "oid": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "message": "Add templates\n",
+          "author": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-01T09:00:00Z"
+          },
+          "committer": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-01T09:00:00Z"
+          }
+        },
+        {
+          "name": "template-cache",
+          "oid": "2222222222222222222222222222222222222222",
+          "message": "Cache\n",
+          "author": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-02T09:00:00Z"
+          },
+          "committer": {
+            "name": "Ada",
+            "email": "ada@example.com",
+            "when": "2026-09-02T09:00:00Z"
+          }
+        }
+      ],
+      "total": 2,
+      "defaultBranch": "main"
+    }
+  }
+}

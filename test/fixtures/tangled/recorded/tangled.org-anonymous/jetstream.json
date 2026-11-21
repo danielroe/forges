@@ -1,604 +1,3428 @@
 {
-  "cursor": "1792373951950000",
+  "cursor": "1795260782264000",
   "messages": [
     {
-      "did": "did:plc:mj7t3muai7ledwg6azce7n4b",
-      "time_us": 1792373967490072,
-      "cursor": 26183169233,
-      "kind": "account",
-      "account": {
-        "active": false,
-        "did": "did:plc:mj7t3muai7ledwg6azce7n4b",
-        "seq": 34622881866,
-        "status": "deactivated",
-        "time": "2026-10-19T01:39:27.327Z"
+      "did": "did:plc:wdpmnppnynx64752vtgg4p4j",
+      "time_us": 1795260786053296,
+      "cursor": 27425718780,
+      "kind": "identity",
+      "identity": {
+        "did": "did:plc:wdpmnppnynx64752vtgg4p4j",
+        "seq": 35751587625,
+        "time": "2026-11-21T11:33:05.926Z"
       }
     },
     {
-      "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-      "time_us": 1792373969087903,
-      "cursor": 26183169754,
+      "did": "did:plc:wdpmnppnynx64752vtgg4p4j",
+      "time_us": 1795260786073181,
+      "cursor": 27425718784,
       "kind": "account",
       "account": {
         "active": true,
-        "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-        "seq": 34622882408,
-        "time": "2026-10-19T01:39:28.915Z"
+        "did": "did:plc:wdpmnppnynx64752vtgg4p4j",
+        "seq": 35751587626,
+        "time": "2026-11-21T11:33:05.926Z"
       }
     },
     {
-      "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-      "time_us": 1792373969116776,
-      "cursor": 26183169755,
+      "did": "did:plc:snbhiugdznog4l4mdspmnygx",
+      "time_us": 1795260789952287,
+      "cursor": 27425719816,
       "kind": "identity",
       "identity": {
-        "did": "did:plc:ylv3eq5cmlgqhtcdxsstf75b",
-        "seq": 34622882414,
-        "time": "2026-10-19T01:39:28.915Z"
+        "did": "did:plc:snbhiugdznog4l4mdspmnygx",
+        "seq": 35751588629,
+        "time": "2026-11-21T11:33:09.777Z"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792373989373057,
-      "cursor": 26183177513,
+      "did": "did:plc:b3nregwt745h6xytpqmmavpi",
+      "time_us": 1795260900753934,
+      "cursor": 27425750028,
       "kind": "commit",
       "commit": {
-        "rev": "3my6yfiyl4s22",
+        "rev": "3n2sz267pku22",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6yfidrkn22",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "173",
         "record": {
-          "$type": "sh.tangled.feed.comment",
+          "$type": "org.tangled.track.ticket",
           "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too",
-            "text": "[`pkgs/rs-lti/routes.rs:39`](/ellis.rocks/bedrock/pulls/26/round/4#pkgs%2frs-lti%2froutes.rs-N39) I believe it is binding `x` to one of those three err values. Seems like a succinct way to do something specific to those three values\n\nLGTM too"
+            "$type": "org.tangled.markup.markdown",
+            "text": "Adds a `catalog.album` record (the work-level grouping of pressings, keyed by Discogs master and MusicBrainz release group), an optional `release.album` ref, and an adopt-or-mint path that creates the album whenever a release with a Discogs master id is minted. `release.master` is deprecated rather than renamed, so `lexicon-check` reports the change as non-breaking. Implements the proposal in ADR 4."
           },
-          "createdAt": "2026-10-19T04:39:48+03:00",
-          "pullRoundIdx": 5,
-          "subject": {
-            "cid": "bafyreifrtq7ci4futqqfgpvlyphvwtuk2hlvzgmd2tt4vtcheovkmqdmcy",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j3q22"
-          }
+          "createdAt": "2026-11-21T11:35:00Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat: add catalog.album, mint it from Discogs masters, and deprecate release.master"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
-        "cid": "bafyreiephebqjs65ygr7mvhodpa2tyn7ud64lyi6bm7unr7u25borwtb2e"
+        "cid": "bafyreig5f2jyb7jlu7wylriydv63ufmchjpr2q324v7zfis7wvlczvqksy"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792374302572640,
-      "cursor": 26183349477,
+      "did": "did:plc:b3nregwt745h6xytpqmmavpi",
+      "time_us": 1795260901353544,
+      "cursor": 27425750215,
       "kind": "commit",
       "commit": {
-        "rev": "3my6yotpdco22",
+        "rev": "3n2sz26slfl22",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6yot2pev22",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreiesxuvnjsowjihkcidpp7vi66bwqcu4nk2ym7mlhfhuhthnqqtu3q",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "LGTM",
-            "text": "LGTM"
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "7648bcb3b6eaaa789a211b8056cc2750fa21bf4c"
           },
-          "createdAt": "2026-10-19T04:45:01+03:00",
-          "pullRoundIdx": 5,
-          "subject": {
-            "cid": "bafyreibfzxcpnrew5g73dljlcpofu2znjgq64jeu5ddubfihk6ykfip6ie",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4j7322"
-          }
+          "createdAt": "2026-11-21T11:35:01Z",
+          "head": {
+            "oid": "9bf9d6dd28d378e9a04ae5bb6646f02da16d1d7b"
+          },
+          "source": {
+            "branch": "feat/album-entity",
+            "repo": "did:plc:b3nregwt745h6xytpqmmavpi"
+          },
+          "ticket": "173",
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
-        "cid": "bafyreigm2ydtlchoo6lioaeowf2u4zbqjjxxg44cglwliwy63i3xi3ogl4"
+        "cid": "bafyreiesxuvnjsowjihkcidpp7vi66bwqcu4nk2ym7mlhfhuhthnqqtu3q"
       }
     },
     {
-      "did": "did:plc:mefcltb4brt5b7nqvnntbyie",
-      "time_us": 1792375053606557,
-      "cursor": 26183636368,
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795260906655126,
+      "cursor": 27425751738,
       "kind": "commit",
       "commit": {
-        "rev": "3my6zf72f4c2y",
+        "rev": "3n2sz2dtx4i22",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6zf6pwhc22",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "63",
         "record": {
-          "$type": "sh.tangled.feed.comment",
+          "$type": "org.tangled.track.ticket",
           "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird.",
-            "text": "Oh you're right! Just tried in Safari and indeed there is an X button. Firefox not though. Weird."
+            "$type": "org.tangled.markup.markdown",
+            "text": "Embeds the `internal` template as a generated string constant (`make codegen-template`) instead of reading it from `priv`, and drops `gleam_erlang`, so the CLI runs on JavaScript as well as Erlang. This is step 1 of the TypeScript target plan. Generated output is byte-identical; a bun bundle of the CLI was checked against the Erlang output locally but is not part of this change."
           },
-          "createdAt": "2026-10-19T04:57:32+03:00",
-          "subject": {
-            "cid": "bafyreiaaeabiw7liusi67urvebnarhyeouih6px4m5kqucafqo7vkh3dje",
-            "uri": "at://did:plc:mefcltb4brt5b7nqvnntbyie/sh.tangled.repo.issue/3my5e7w3wr422"
-          }
+          "createdAt": "2026-11-21T11:35:06Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat(atproto_codegen): run the CLI on the JavaScript target"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
-        "cid": "bafyreifl5qecth3fkznybuov66ukggaj4q7ngrnfqc7c34tl4qdqs2c2q4"
+        "cid": "bafyreibfgm7emnvtiqx23ardiqxnnl5zmeovsmmgl3le5plo4ruq5zdcsq"
       }
     },
     {
-      "did": "did:plc:dcwysi2gloq547s35ts72rle",
-      "time_us": 1792375454273711,
-      "cursor": 26183791172,
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795260907252839,
+      "cursor": 27425751902,
       "kind": "commit",
       "commit": {
-        "rev": "3my6zr63dof22",
+        "rev": "3n2sz2eh62722",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my6zr5eiel22",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreifxvkygixruuohsb3slvzvxexqeoybkaeui7b4yzbt5jw76s4jiei",
         "record": {
-          "$type": "sh.tangled.feed.comment",
-          "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM",
-            "text": "The `body` in the block tag is just a label to be used. I think Ben labels his block tags based on the HTML tag containing it i.e. [`templates/_layout.jinja:6-8`](/ellis.rocks/bedrock/pulls/28/round/5#templates%2f_layout.jinja-N6~templates%2f_layout.jinja-N8). \n\nMy understanding comes from [the Jinja docs](https://jinja.palletsprojects.com/en/stable/templates/#base-template): \"all the block tag does is tell the template engine that a child template may override those placeholders in the template.\"\n\nLGTM"
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "4aac1e1ec028e8f67a557f92068d9bfa6d39ed98"
           },
-          "createdAt": "2026-10-19T05:04:13+03:00",
-          "pullRoundIdx": 5,
-          "subject": {
-            "cid": "bafyreid2rcunb4b275wyh6qabnwhlqfgwhl2iwv42zdeknqlfnxdcva36a",
-            "uri": "at://did:plc:x7tlupbnqot7nu6udnffnv4h/sh.tangled.repo.pull/3mx64pa4jci22"
-          }
+          "createdAt": "2026-11-21T11:35:07Z",
+          "head": {
+            "oid": "efb91a118e9cf6da08f7236bc155dccd2be250c0"
+          },
+          "source": {
+            "branch": "feat/codegen-js-cli",
+            "repo": "did:plc:fuqndzh4wx67xqwi7ziqfwjr"
+          },
+          "ticket": "63",
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
-        "cid": "bafyreies3xp36qz4zvz7cb3jagosbmmsfg4wuvtmwptlj53ywsc26qwphi"
+        "cid": "bafyreifxvkygixruuohsb3slvzvxexqeoybkaeui7b4yzbt5jw76s4jiei"
       }
     },
     {
-      "did": "did:plc:hzwlp26go2vwwgu3zsgcciuc",
-      "time_us": 1792375713173758,
-      "cursor": 26183902218,
+      "did": "did:plc:dhwjwpl7fp23j5jnzcnrztwb",
+      "time_us": 1795261251353375,
+      "cursor": 27425899400,
       "kind": "commit",
       "commit": {
-        "rev": "3my6zyuzl6b2d",
+        "rev": "3n2szeml4kw22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "21",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Fixes `x86_64-pc-windows-msvc` compilation and `clippy -D warnings` verified via `cargo-xwin`:\n\n- Add `Win32_Security` to `windows-sys` features in `Cargo.toml` so `CreateFileW` resolves.\n- Gate Unix-only imports in `src/service/mod.rs` and `SF_DATALESS` in `src/scanner/mod.rs`.\n- Box `toml::de::Error` in `ConfigError::ParseToml` (`src/config.rs`) to fix `clippy::result_large_err` on Windows.\n- Simplify `is_watch_limit_error` in `src/watcher/mod.rs` to fix `clippy::needless_bool` on non-Unix targets.\n- Mark fallback `read_nsurl_volume_capacity` in `src/macos/mod.rs` with `#[allow(clippy::unnecessary_wraps)]`.\n\n### Verification\n- `GETAEL_SKIP_WEB_BUILD=1 cargo xwin clippy --all-targets --all-features --target x86_64-pc-windows-msvc -- -D warnings` (passed)\n- `GETAEL_SKIP_WEB_BUILD=1 RUSTFLAGS=\"-C target-feature=+crt-static\" cargo xwin build --release --target x86_64-pc-windows-msvc` (produced `getael.exe`, 6.8 MB)\n- `cargo fmt --check`, `cargo clippy --all-targets --all-features -- -D warnings`, `cargo test` (37 unit + 2 E2E passed on macOS)\n"
+          },
+          "createdAt": "2026-11-21T11:40:51Z",
+          "state": "open",
+          "targetBranch": "dev",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Fix Windows build (Win32_Security feature) and Windows clippy lints"
+          },
+          "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
+        },
+        "cid": "bafyreibgj7ds657ikgr6xig7uywykca26gs3ncj44uwicvl3vlikky3avu"
+      }
+    },
+    {
+      "did": "did:plc:dhwjwpl7fp23j5jnzcnrztwb",
+      "time_us": 1795261251753380,
+      "cursor": 27425899516,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2szemx5pg22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreidpusofv76rneplrm56j5tanakuckf4r6tdb4t7eqqgp5i4u7t3oi",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "071653f6f847fd7b6aba5f46a3f460613caff84a"
+          },
+          "createdAt": "2026-11-21T11:40:51Z",
+          "head": {
+            "oid": "69896e21fab5c46d700d602d9e67e8d731c052b3"
+          },
+          "source": {
+            "branch": "fix/windows-createfilew",
+            "repo": "did:plc:dhwjwpl7fp23j5jnzcnrztwb"
+          },
+          "ticket": "21",
+          "x-tngl-editor": "did:plc:lp2lwdajhchgtga2hcrros26"
+        },
+        "cid": "bafyreidpusofv76rneplrm56j5tanakuckf4r6tdb4t7eqqgp5i4u7t3oi"
+      }
+    },
+    {
+      "did": "did:plc:cwoq3xqggpzpb27kmuyknqcn",
+      "time_us": 1795261914953432,
+      "cursor": 27426084283,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2szyfhiqs22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigfx3eomsfzygiougkbldikyyh55gvtk7wphus7xdqrpjhsq7o3eq",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "eb6bf76b02ff2fa53b0a6ba4d5658003e883f434"
+          },
+          "createdAt": "2026-11-21T11:51:54Z",
+          "head": {
+            "oid": "3ce0dc10cc37f7f67024d391f4201d16395cbf64"
+          },
+          "source": {
+            "branch": "align-typescript-tooling-with-node-24",
+            "repo": "did:plc:cwoq3xqggpzpb27kmuyknqcn"
+          },
+          "ticket": "48",
+          "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+        },
+        "cid": "bafyreigfx3eomsfzygiougkbldikyyh55gvtk7wphus7xdqrpjhsq7o3eq"
+      }
+    },
+    {
+      "did": "did:plc:cwoq3xqggpzpb27kmuyknqcn",
+      "time_us": 1795261929653423,
+      "cursor": 27426088446,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2szytguab22",
         "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my6z4scb5g22",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "48",
         "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "Phase A of plan 004 (workout-data platform): the data foundation only — no ingest yet.\n\n## What landed\n- **Lexicons** (`lexicons/`, instance-local `internal.btlt.*`): `internal.btlt.workouts.space` — a `space` declaration, one per user at the conventional skey `workouts`, created owner-only (memberListPolicy on both policies) — plus the record collections `internal.btlt.workout` (source/sourceRef dedup join, sport kept in touch with treeline's knownValues, summary, set-level strength on the FIT Set model, ~50 MiB rawBlob), `internal.btlt.workout.stream` (strongRef-anchored sample chunks), and `internal.btlt.source.connection` (per-source snapshot at a literal rkey).\n- **Provisioner**: uploads/updates every lexicon into the HappyView admin API (canonicalize-based idempotency) and enables `feature.spaces_enabled = true` (spaces are opt-in per instance on the pinned 2.16.0 — verified in source, answering the plan's open probe).\n- **Scope chain**: bare `atproto` → `atproto repo:*` + the two wildcard space grants (scr@ps vocabulary), moved as ONE change across the four synced locations; smoke sweep extended, plus a vitest scope-chain test pinning the two metadata emitters against client.js's exported SCOPES.\n- **HappyView patch series adoption** (flips the 2026-10-17 APP.md decision — recorded as a dated entry): 0001 (instance declares wildcard space scopes — stock 2.16.0 rejects them at authorize otherwise), 0002 (app-session migration hook; no-op until the PDS-migration knob exists), 0004 (skips the `space:` scope gate for polyfill-hosted repos — without it space reads/writes fail even after re-login). Verbatim scr@ps series at the same pin (cmp-verified), applied to the IN-TREE submodule checkout by `scripts/patch-happyview.sh` from `scripts/setup.sh` and the deploy pipeline's \"Apply happyview patches\" step. 0005 intentionally not carried (native-mode only). Drop trigger documented in `patches/README.md`.\n- **SPA**: `web/src/lib/spaces.js` space bootstrap (ensure-workouts-space via listSpaces; never a constructed authority URI; 409-conflict verifies, never suffixed-slug retries), a `RequireAuth` gate on `/workouts` `/upload` `/sync` with home `/` staying public; `/workouts` is a real space-backed listing (sport filter, newest first); `/upload` + `/sync` are honest gated stubs for the queued increments.\n- **`lexicon-lint`** in both CI lists (`mise run ci`, tangled ci.yml) + smoke assertions so the stage can't be silently dropped.\n\n## Validation\n- AC.1: `mise run ci` green (lint --max-warnings 0, fmt, tsc, vitest 44 tests, shellcheck, hadolint ×2, lexicon-lint 4 files).\n- `mise run smoke` 89 pass / 0 fail / 2 skip against the live dev stack (HappyView :3202, web :5302) — includes the dev-stack provisioning round trip (lexicons created, API client created with the expanded grant set, `feature.spaces_enabled=true`).\n- Docker image build + serve verified (hadolint-clean; the container serves client-metadata.json with the expanded grant set).\n- Scope-chain sync verified 4/4 (smoke fixed-string sweep + vitest).\n\n## Operator-assisted (flagged, not automated)\n- AC.7: the browser space round trip (consent → createSpace → record I/O) needs a real signed-in session on the dev stack (https://btlt-data-front-door.dev.shypan.st) — recorded as the human item in TASKS.md; no browser OAuth harness exists in either project (same gap as the sign-in increment).\n\n## Docs\nAPP.md (purpose, components, Phase A capability, dated decisions), AGENTS.md (architecture, scope invariant, file structure), README (provisioning steps + patch-series section), TASKS.md (Phase A section + the full workout-data roadmap so Phases B/C/D are claimable one at a time).\n",
-          "createdAt": "2026-10-19T01:52:50Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T01:52:50Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreibjr3aqi3ar5uzgtrl42qy7hfznqzcwt2nfi7z4xbt7vzxzyh5jxu"
-                },
-                "size": 47703
-              }
-            },
-            {
-              "createdAt": "2026-10-19T02:08:25Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
-                },
-                "size": 48133
-              }
-            },
-            {
-              "createdAt": "2026-10-19T02:08:33Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiapyvp7jcjvtz4tg5qhcaji2pmdhemcmvce5upii3axra5znw4q2y"
-                },
-                "size": 48133
-              }
-            }
-          ],
-          "source": {
-            "branch": "feature/data-front-door",
-            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
+          "$type": "org.tangled.track.ticket",
+          "createdAt": "2026-11-21T11:51:54Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "chore: align TypeScript tooling with Node 24"
           },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:dfaqfqwza5z4rujtj2fwlcrx"
-          },
-          "title": "feat: workout-data platform foundations (Phase A)"
+          "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
         },
-        "cid": "bafyreibbh7obbd2htf6o6423uqymbieaz5kcetkl3vnfhrt7sa7c6hl5uu"
+        "cid": "bafyreia6myzopmh2qqf3zrgdllmxlfadpkq6ojtbtdcy4enpgonb7iz73y"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380544704089,
-      "cursor": 26187316698,
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795262481953162,
+      "cursor": 27426247115,
       "kind": "commit",
       "commit": {
-        "rev": "3my76iu3jl72p",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper even under a restricted service PATH. Preserve the trusted helper snapshot, reservation checks and terminal failure propagation. Update the top-level factual position to the latest failed closing standard and its remaining repair gates.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nParent main: 163b0527dadf606d403dc0b0ea92df5a2ef85010\nTarget: 7b5d791419e79b50d213af581e44b20d62c02012\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: old PATH-sudo control owning RED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Final tip adds only factual PLAN.md position; code/tests byte-identical to measured snapshot.\nReal0128 publication/push succeeded, but watcher launch picked non-setuid Nix sudo. Operational recovery used the preserved exact snapshot with /run/wrappers/bin/sudo; watcher bound pipeline3my6xr5jaga22, observed failed terminal, ran fresh clear preflight and released reservation03:22:14Z, serviceexit1. No host config/credential/limit change. Other Rust fixture/census and reaping repairs plus a fresh combined standard remain; no phase FINAL. Tests use isolated dispatcher/service fixtures and real source records, no duplicate live standard.\n",
-          "createdAt": "2026-10-19T06:29:03+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:29:03+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
-            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreifflmvcn2nxaklq4ki5j2fgkhkrwpc5w33t3huolmxtxgptdjj6c4"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380653874098,
-      "cursor": 26187357661,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76m4rqk52m",
+        "rev": "3n2t2jc6ue422",
         "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4805",
         "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
-          "createdAt": "2026-10-19T03:29:04Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:29:04Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreidgroorfwzjnbi3r7dik5nf6ubthbhlxs5a4g4ucb32mimzrkhdmi"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380656673286,
-      "cursor": 26187358729,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76m6txcs2g",
-        "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76irye6u22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nLaunch the detached observer with the system sudo wrapper under a restricted service PATH. Preserve trusted snapshot, reservation and terminal failure behavior. Refresh the factual closing-standard position while retaining the operator queue, including the later CI-DOCKER-IN-JOBS plan.\n\n---\ninfo:\nDASHBOARD-REACT closing watcher recovery.\nNamed parent main / merged base: 86e7adbccfdcf579bbc06c01278573773e07901b\nOriginal cut: 163b0527dadf606d403dc0b0ea92df5a2ef85010; merged main86e7adbcc without rebasing pushed history to preserve its new operator queue.\nTarget: 9fb6ca12f51feb01c80190a242d65e81fe5c7954\nCI notify020beae1a86648e88531b4438a6d0336 at code c2922aee: oldPATHsudoowningRED/restored42methods6subtestsGREEN9.95s/syntax/restoration/diffempty. Subsequent commits only update factual PLAN position/merge inherited main; both code/test files byte-identical to measured snapshot.\nActual0128 publication/push succeeded, watcher launch selected non-setuid Nix sudo. Operational recovery ran the preserved snapshot via system wrapper; exact3my6xr5jaga22 observed failed terminal and released reservation03:22:14Z/serviceexit1. No host config/credential/process-limit change. Census/fixture/reaping repairs and fresh combined standard remain; no phase FINAL or early companion removal. RestrictedPATH regression uses isolated service fixture.\n",
-          "createdAt": "2026-10-19T03:29:04Z",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:29:04Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreifm3fvfer3ie5ru34hmhcymyo4fybfp2pihwqpp6mado232v32wjq"
-                },
-                "size": 2135
-              }
-            },
-            {
-              "createdAt": "2026-10-19T06:30:55+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreicst2ak7b7oom5kh6ihdmfykikdyaudu5laiacicnrg3esj5hnlz4"
-                },
-                "size": 2315
-              }
-            }
-          ],
-          "source": {
-            "branch": "unit/dashboard-ci-watcher-launch"
-          },
-          "target": {
-            "branch": "main",
-            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
-            "repoDid": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
-          },
-          "title": "product: use system wrapper for detached CI observation"
-        },
-        "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380884073733,
-      "cursor": 26187438670,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76sy3rn72r",
-        "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my76sxlgnn22",
-        "record": {
-          "$type": "sh.tangled.feed.comment",
+          "$type": "org.tangled.track.ticket",
           "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9.",
-            "text": "REVIEW STOPPED — operator amendment 2026-10-19 at coordination36afb4e5a stops Docker companion work, including watcher/admission/status machinery and unfinished PRs. No SATISFIED verdict at9fb6ca12f51feb01c80190a242d65e81fe5c7954. Independent queued run notify-6c642d3a3e53408397b8b7e81e609a85 was terminated by exact verified run/worker identity before test execution, final143; no test credit. Author should close this unfinished companion PR. Current closing runs instead require explicit named and counted Docker SKIPPED entries with operator-specified reason; all non-Docker failures remain blocking. Durable decision80806b5b9."
+            "$type": "org.tangled.markup.markdown",
+            "text": "There are many cases (for example, if using a tool that generates\nchangelogs from git history) where a full clone is desired, but until\nnow you had to specify a clone depth large enough to ensure you get\neverything. ~~This is a shortcut for that, translating a negative clone\ndepth to the git magic number for infinite depth of `math.MaxInt32`.~~\nThis PR now allows `depth` to be `full` (case- and whitespace- insensitive)\n\nOmitted from the commit message accidentally, I also changed the\ntype of the `depth` key to `int32` everywhere, since it is the largest\nvalue that `git` allows.\n\nSigned-off-by: Josh Ghiloni <tangled@joshghiloni.me>"
           },
-          "createdAt": "2026-10-19T06:34:43+03:00",
-          "pullRoundIdx": 0,
-          "subject": {
-            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
-          }
+          "createdAt": "2026-11-19T16:30:12Z",
+          "state": "completed",
+          "targetBranch": "master",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "spindle: allow full clone without guessing the depth"
+          },
+          "x-tngl-editor": "did:plc:dfl62fgb7wtjj3fcbb72naae"
         },
-        "cid": "bafyreih66w7lodp6s4hy3bn3r6vnznjjyidooedb7xiwndumfv6nrlf5cy"
+        "cid": "bafyreia7urxrjf6efn6cysmab53vtaqjsvdb7m3iipum36pkuyq6ru7mem"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380890475839,
-      "cursor": 26187440758,
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795262491053560,
+      "cursor": 27426249969,
       "kind": "commit",
       "commit": {
-        "rev": "3my76t6g3bh2r",
+        "rev": "3n2t2jktcal22",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my76t6cwpj22",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t2jksrj3rw",
         "record": {
-          "$type": "sh.tangled.feed.comment",
+          "$type": "org.tangled.feed.comment",
           "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n",
-            "text": "Closed under the operator amendment relayed at coordination36afb4e5a (2026-10-19): stop Docker companion work until CI-DOCKER-IN-JOBS. This unfinished watcher-launch/position PR is withdrawn. Already reviewed stack work remains in place and unused; later closing runs will explicitly name and count Docker tests as skipped. Other dashboard closing failures still block completion. The future replacement/removal is tracked in machine-docs/plans/CI-DOCKER-IN-JOBS-2026-10-19.md.\n"
+            "$type": "org.tangled.markup.markdown",
+            "text": "thank you!"
           },
-          "createdAt": "2026-10-19T06:34:50+03:00",
-          "pullRoundIdx": 0,
+          "createdAt": "2026-11-21T12:01:30Z",
           "subject": {
-            "cid": "bafyreigpz5f3cbgt4lphiauols52keq3ev3avtym7bpcwfqdcistyioj2q",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22"
-          }
+            "cid": "bafyreia7urxrjf6efn6cysmab53vtaqjsvdb7m3iipum36pkuyq6ru7mem",
+            "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4805"
+          },
+          "x-tngl-editor": "did:plc:dfl62fgb7wtjj3fcbb72naae"
         },
-        "cid": "bafyreiek35ux4zwre5b2l5dplemhropshlwoldrc45vs6dkdhhbjbwdrqq"
+        "cid": "bafyreid3ur7bhibjjwelxq3564ypkpj2xzhf7kbiwkykpu6nvbmk7oukxe"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792380890974182,
-      "cursor": 26187440917,
+      "did": "did:plc:l7hhzcbqqvpcquau5waryzdu",
+      "time_us": 1795262935753178,
+      "cursor": 27426381845,
       "kind": "commit",
       "commit": {
-        "rev": "3my76t6rncv2m",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull.status",
-        "rkey": "3my76t6octy22",
-        "record": {
-          "$type": "sh.tangled.repo.pull.status",
-          "createdAt": "2026-10-19T03:34:50.653Z",
-          "pull": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76irye6u22",
-          "status": "sh.tangled.repo.pull.status.closed"
-        },
-        "cid": "bafyreiglrwkvixb5s5ioephb4lqn7hmimw65dxp244yw2vg22igt2zse5i"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381024080998,
-      "cursor": 26187485683,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my76x4chhz2r",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my76x34upj22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nRefresh the exact sandbox-reader census for the existing eight fsops readers. Keep the full file/count equality assertion so an additional or relocated reader still fails.\n\n---\ninfo:\nDASHBOARD-REACT closing standard non-Docker repair; tests-only bookkeeping, no product change or deleted assertion.\nParent s/539-docker-consumer-tests: 162e862a928a922b21eea018b63383ca182cbd58\nTarget: 099c82f429f7fa8267273b70c8270b05077b8f43\nActual standard3my6xr5jaga22 found expected7/actual8 at workspace_structure.rs692. Targeted notifyfa2aa8c7a3664f57bae16a374dc982e5 proves old7expectationRED, an actual added fsops readerRED, restored full9structuretestsGREEN0.19s/exactrestore/diffempty with server-qualified canonical features. Independent quick once remains reviewer work. No crate move or confinement-limit change. This is separate from the operator-stopped Docker companion; no Docker invocation. Use reviewed precompanion CI helper revision35b18ad101d6a66b0368f98cdb9be80aecc792b3 while later Docker work is deferred.\n",
-          "createdAt": "2026-10-19T06:37:02+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:37:02+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreid547of33vacrqfiawu35wpvgfqjf7dehusopql73verl6gj47kjy"
-                },
-                "size": 566
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/541-closing-sandbox-census-tests"
-          },
-          "target": {
-            "branch": "s/539-docker-consumer-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: refresh the exact sandbox reader census"
-        },
-        "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381492873790,
-      "cursor": 26187644194,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77f4inhk2x",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77f3kh5222",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.",
-          "createdAt": "2026-10-19T06:44:52+03:00",
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:44:52+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
-                },
-                "size": 3521
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/542-docker-deferral-product"
-          },
-          "target": {
-            "branch": "s/541-closing-sandbox-census-tests",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "product: defer the named Docker checks until job support lands"
-        },
-        "cid": "bafyreicqno2a2ecn2lr542azgxfprdazrjxpqzkritevt5xzpuxkfqffta"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381517474297,
-      "cursor": 26187653427,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77ftso4j2s",
-        "operation": "create",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77ft32lw22",
-        "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nVerify the explicit Docker deferral across gate, standard and full, including an explicit request. Assert all 71 named SKIPPED lines and the counted reason, refuse invalid inventories before any group runs, and keep non-Docker failures blocking while later groups execute.\n\n---\n\ninfo:\nParent: s/542-docker-deferral-product at a2015c0d02b0cfe61352820f0fef168802af0042.\nTests: e9d09d6330426b8a2417412dc236af179cdc3fdd.\nProduct PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1490\nExisting selection and accounting tests are unchanged. Three new owning methods cover the operator-directed deferral.\nCI notify-4a107cc953934eb381974aa4971b2249 PASS: actual parent runner RED (Docker command attempted and malformed inventories accepted), restored owning file 44/44 GREEN in 18.133s, exact restoration and clean diff. Artifact docker-deferral-SmdVkS. Earlier notify-9f39e44a24f547fbbee0fa06f5c2e69f failed because a test supplied unsupported options to full; corrected in a new commit, with the failed receipt retained.",
-          "createdAt": "2026-10-19T06:45:16+03:00",
-          "references": [
-            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77f3kh5222"
-          ],
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T06:45:16+03:00",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiasa7bcodu2wptp2ndnpivebia4x3ujtng5m3pcbopojqpis64c7m"
-                },
-                "size": 1702
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/543-docker-deferral-tests"
-          },
-          "target": {
-            "branch": "s/542-docker-deferral-product",
-            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg",
-            "repoDid": "did:plc:wj53zt2oo653zr3wgnvn4llg"
-          },
-          "title": "tests: verify named Docker skips and non-Docker failure propagation"
-        },
-        "cid": "bafyreig2e47txfucp24f6zj5qrupwyki5eh2dsjre3ajpguzpvhi74kj5a"
-      }
-    },
-    {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381524773767,
-      "cursor": 26187655940,
-      "kind": "commit",
-      "commit": {
-        "rev": "3my77g2vcwh2d",
+        "rev": "3n2t2wsxxrv22",
         "operation": "update",
-        "collection": "sh.tangled.repo.pull",
-        "rkey": "3my77f3kh5222",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "306",
         "record": {
-          "$type": "sh.tangled.repo.pull",
-          "body": "description:\nDefer the 71 explicitly named Docker checks until CI-DOCKER-IN-JOBS, as directed by the operator on 2026-10-19. Selected Docker checks print SKIPPED with the exact reason and count; every other selected group still runs and failures still fail the command. Invalid inventories refuse before execution.\n\n---\n\ninfo:\nParent: s/541-closing-sandbox-census-tests at 099c82f429f7fa8267273b70c8270b05077b8f43.\nProduct: a2015c0d02b0cfe61352820f0fef168802af0042.\nTests PR: https://tangled.org/notplants-bot.bsky.social/lichen.page.review/pulls/1491\nTests child: s/543-docker-deferral-tests at e9d09d6330426b8a2417412dc236af179cdc3fdd.\nInventory: 67 cases enumerated with actual test executable --list, plus four script checks. No Docker execution. Existing companion modules are unchanged and unused by the selected group.\nCI notify-4a107cc953934eb381974aa4971b2249: parent runner RED, restored owning test file 44/44 GREEN in 18.133s, exact restoration and clean diff. Tests cover gate/standard/full, explicit request, malformed inventory refusal, and blocking non-Docker failure propagation.\n",
-          "createdAt": "2026-10-19T03:44:52Z",
-          "references": [
-            "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my77ft32lw22"
-          ],
-          "rounds": [
-            {
-              "createdAt": "2026-10-19T03:44:52Z",
-              "patchBlob": {
-                "$type": "blob",
-                "mimeType": "application/gzip",
-                "ref": {
-                  "$link": "bafkreiajxavx5mkdmvs4bs4dfsujsdpr67ytlhwatwtvvycdl65a32uana"
-                },
-                "size": 3521
-              }
-            }
-          ],
-          "source": {
-            "branch": "s/542-docker-deferral-product"
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Why have just one provider when you can have 2? Why have just two when you can have 3? This harness can fit so many Google providers in it!\n\nSo, turns out another Google provider exists and there are even reasons to use it: Google AI Pro/Ultra subscriptions provide monthly credit towards AI Studio and it comes without the risks of Antigravity usage.\n\nThis is a relatively simple extension, since the auth method here is an API key. Mostly complicated by using Google's APIs.\n\nTechnically Albedo could already work with AI Studio with openai compat, but this feels a bit more native and seems like it would be the better when potentially adding e.g. Google's decision API support in the future.\n\nI'm currently actively using it and it seems to work just fine."
           },
-          "target": {
-            "branch": "s/541-closing-sandbox-census-tests",
+          "createdAt": "2026-11-20T00:24:46Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat(extensions): add a native Google AI Studio provider"
+          },
+          "x-tngl-editor": "did:plc:zntngpowgd6rorjt3haywj36"
+        },
+        "cid": "bafyreihzxjta32eepfonnt5yuohgcdx4raxisrsfguk2cm3ocmqxqmxjti"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795263196153622,
+      "cursor": 27426459515,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t36lcetx22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4208",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Adds coverage for destination readback and grantless owner refusals, and updates the test server pin to the reviewed T3 integration. CI cb6e61af passed 199 tests including dashboard contract test 37. Part of the combined phase-standard repair."
+          },
+          "createdAt": "2026-11-21T12:13:16Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-closing-counter-tests",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Exercise the Tangled dashboard routes against their reviewed server"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigamheo4hyf7rf4j3ximv2w3zx4shekrhjuvzqaktik666d3h6474"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795263197352776,
+      "cursor": 27426459822,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t36mf65q22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreih5wy3wx56qrguuowo4gtpvdcsejuhh7mt7q6jrcb673spo5qeg64",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "36b8508e10986325a6e3b9f9a2851df669bded0d"
+          },
+          "createdAt": "2026-11-21T12:13:17Z",
+          "head": {
+            "oid": "3d72296148cffe97ef73e588035f8d7d293a5c4d"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-dashboard-tests",
             "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
           },
-          "title": "product: defer the named Docker checks until job support lands"
+          "ticket": "4208",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
         },
-        "cid": "bafyreib72f64336oourfiezf4h35zlleinz6rxdafdu5cyegq3tw5nd5r4"
+        "cid": "bafyreih5wy3wx56qrguuowo4gtpvdcsejuhh7mt7q6jrcb673spo5qeg64"
       }
     },
     {
-      "did": "did:plc:qfngkejlw4ghji2myc73hbdh",
-      "time_us": 1792381688073640,
-      "cursor": 26187711849,
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263446353450,
+      "cursor": 27426547425,
       "kind": "commit",
       "commit": {
-        "rev": "3my77kwyge32m",
+        "rev": "3n2t3fzuxp322",
         "operation": "create",
-        "collection": "sh.tangled.feed.comment",
-        "rkey": "3my77kwhn2222",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "144",
         "record": {
-          "$type": "sh.tangled.feed.comment",
+          "$type": "org.tangled.track.ticket",
           "body": {
-            "$type": "sh.tangled.markup.markdown",
-            "original": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n",
-            "text": "# DASHBOARD-REACT closing sandbox census review — 2026-10-19\n\nSATISFIED: tests-only PR1489 at099c82f429f7fa8267273b70c8270b05077b8f43, named parent s/539-docker-consumer-tests162e862a928a922b21eea018b63383ca182cbd58.\n\nWhole one-line diff, actual eight fsops readers, exact full-map equality assertion, PR metadata and commit identity reviewed; remote tip reverified unchanged. No findings. Expected count changes7→8 for existing readers; no assertion deletion, product change, confinement relaxation or crate move.\n\nAll five pre-companion helper files verified byte-equal coordination35b18ad101d6a66b0368f98cdb9be80aecc792b3 before use. Own quick notify-e2a8f67b65ab48b4b84acc76d53f673b exact099c82f4: PASSED277of277/SKIPPED203(diff not reaching), BUILD1m27s/TEST2m01s/exit0; raw failure search clean, run once at named parent.\n\nIndependent notify-30aa1d3bf4a049c1b2e2b4e86da3cac0 uses canonical workspace features. Actual parent expectation7 fails owning equality at workspace_structure.rs:692 (found8/expected7). Actual planted ninth fsops reader compiles and fails the same equality (found9/expected8). Restoration passes all9workspace_structure tests in0.15s, no ignored/filtered cases; exact restoration/Git diff empty/exit0/stabletargetkept. Evidence /home/ci-agent/lpr/dashboard-parity/closing-census-adversary-uUUfd4. No Docker invocation or companion machinery used.\n\nPR remains open for the operator. Other Rust/E2E failures and the operator-directed named/countable Docker deferral still require their own accepted repairs and closing standard. No phase FINAL acceptance.\n"
+            "$type": "org.tangled.markup.markdown",
+            "text": "AGENT-MESSAGE-SUBMIT U16. On a full disk one os.write returned a short count, and the next row was spliced onto the partial row (shared log line 5092).\n\nWriter: record() now appends under an exclusive flock. It terminates an unterminated tail first, writes the row in a loop, and truncates back to the row's start on any failure, fsync included. True means a whole row; False means none.\n\nReaders: log_rows() returns rows, bad lines by absolute offset with the row heads inside each, and an unterminated tail, which is not counted. deferred_index reports bad lines, --redeliver warns about them, and the new --check-log lists them.\n\nTests are in the stacked PR test/msg-u16-log-rows. Evidence: coordination machine-docs/reports/agent-message-submit/u16/."
           },
-          "createdAt": "2026-10-19T06:48:07+03:00",
-          "pullRoundIdx": 0,
+          "createdAt": "2026-11-21T12:17:26Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16: never leave a message-log row partial; readers skip and count bad lines"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigba6ijgyhy4atdrbstwkfmfhfy5jr3xbwpsbn25eet3qvj4t3bwe"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263447453126,
+      "cursor": 27426547780,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3g2xhgz22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreig3s4bw6iv7v5nctx3lhbtacin22viecch5ty4ysmxzlkp5ppnbce",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "67aca6de84b67aae2032110b21cccea82d9473cd"
+          },
+          "createdAt": "2026-11-21T12:17:27Z",
+          "head": {
+            "oid": "fa1647fef9d25a504250bd0946fe64a5ed7671f5"
+          },
+          "source": {
+            "branch": "unit/msg-u16-log-rows-product",
+            "repo": "did:plc:da6gxbuiv7kooty5t3tkh2n7"
+          },
+          "ticket": "144",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreig3s4bw6iv7v5nctx3lhbtacin22viecch5ty4ysmxzlkp5ppnbce"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263455753295,
+      "cursor": 27426550299,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3gcu7js22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "145",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Stacked on PR 144 (unit/msg-u16-log-rows-product). tests/test_message_log_u16.py has 13 tests; 12 fail on 67aca6d, and all 13 pass on this tip. Full discover: 654 tests, with only the 3 failures that were already there before U16 (test_message_receipts x2, test_model_fix permitted_only)."
+          },
+          "createdAt": "2026-11-21T12:17:35Z",
+          "state": "open",
+          "targetBranch": "unit/msg-u16-log-rows-product",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16 tests: message-log short writes, splices, tails and readers"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreia2ffuncts7mmgc57jta2m56kdtkgskgli3xfjaggkiddyeybkzvy"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263456854897,
+      "cursor": 27426550673,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3gdwhlk22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigcetngyor22nix33ldngf4ucu32mwd7ibzf4umnx7gc6bryd3rpe",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "fa1647fef9d25a504250bd0946fe64a5ed7671f5"
+          },
+          "createdAt": "2026-11-21T12:17:36Z",
+          "head": {
+            "oid": "5b731b2eaeef954d67467e818c7f1cb35c92a6a8"
+          },
+          "source": {
+            "branch": "test/msg-u16-log-rows",
+            "repo": "did:plc:da6gxbuiv7kooty5t3tkh2n7"
+          },
+          "ticket": "145",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigcetngyor22nix33ldngf4ucu32mwd7ibzf4umnx7gc6bryd3rpe"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795263556653547,
+      "cursor": 27426581306,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3jd4ktl22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4815",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Close and Merge used to live at the bottom of the comment sidebar, so you had to find them there. They now sit next to the pull request title.\n\nWhen you scroll past them, a thin bar sticks to the top of the page with the state, title, Close, Merge and the more menu, so they're always in reach. You can turn the bar off with \"Show header when scrolling\" in the more menu.\n\nOther changes:\n- When merging is blocked (conflicts, or the pull isn't prepared yet), Rebase & merge and Merge are disabled in the menu, with a short reason under each. Manually mark as merged stays available.\n- The pull request and issue more menus share one component. Delete now sits alone at the end.\n- The gaps between the action buttons use spacing tokens, so they're even.\n- The loading skeletons for the pull and issue pages are regenerated to match.\n\n| | Before | After |\n| --- | --- | --- |\n| Top of the page | <img alt=\"Top of the page before\" src=\"https://x.eti.tf/f33c1c4.png\" width=\"720\" height=\"450\"> | <img alt=\"Top of the page after\" src=\"https://x.eti.tf/94d410c.png\" width=\"720\" height=\"450\"> |\n| Scrolled down | <img alt=\"Scrolled down before\" src=\"https://x.eti.tf/ac5ffa4.png\" width=\"720\" height=\"130\"> | <img alt=\"Scrolled down after\" src=\"https://x.eti.tf/f1a8bdc.png\" width=\"720\" height=\"130\"> |\n| Merge menu, with conflicts | <img alt=\"Merge menu, with conflicts before\" src=\"https://x.eti.tf/28a1db7.png\" width=\"271\" height=\"175\"> | <img alt=\"Merge menu, with conflicts after\" src=\"https://x.eti.tf/cc10744.png\" width=\"368\" height=\"240\"> |\n| More menu | <img alt=\"More menu before\" src=\"https://x.eti.tf/a1b4fe1.png\" width=\"272\" height=\"201\"> | <img alt=\"More menu after\" src=\"https://x.eti.tf/87f08df.png\" width=\"311\" height=\"233\"> |\n\nPart 4 of 4, stacked on the third:\n\n1. #4812 hide pull actions from signed-out viewers\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar (this one)\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
+          },
+          "createdAt": "2026-11-20T18:15:47Z",
+          "state": "completed",
+          "targetBranch": "master",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "web/pulls: move pull actions next to the title and add a sticky bar"
+          },
+          "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
+        },
+        "cid": "bafyreiakxccfn2f7p5snma3o6jbef2ys2zge2hkbzli66ccekimlynqidm"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795263583553595,
+      "cursor": 27426642393,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3k4pmqj22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4812",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "If you were signed out but the server still had your account cookie (say, you signed out without reloading, or your session expired), the pull request page kept showing Close, Rebase & merge, Approve CI and Delete branch. Clicking them couldn't work.\n\nNow the page treats you as having no access whenever you're not signed in, so those buttons stay hidden. The comment sidebar shows the sign-up prompt instead of a disabled comment box, and the prompt shrinks to fit the narrow sidebar.\n\n| | Before | After |\n| --- | --- | --- |\n| Signed out, with a stale cookie | <img alt=\"Signed out, with a stale cookie before\" src=\"https://x.eti.tf/d66947d.png\" width=\"352\" height=\"863\"> | <img alt=\"Signed out, with a stale cookie after\" src=\"https://x.eti.tf/c040b6b.png\" width=\"352\" height=\"863\"> |\n\nThis is the first of four stacked pull requests for the pull request page:\n\n1. #4812 hide pull actions from signed-out viewers (this one)\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
+          },
+          "createdAt": "2026-11-20T18:15:37Z",
+          "state": "completed",
+          "targetBranch": "master",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "web/pulls: hide pull actions from signed-out viewers"
+          },
+          "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
+        },
+        "cid": "bafyreib3tadilgaaoykcfyjqr4aicp3gendb5zoaj3raq62wqxmfyig6em"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795263588753769,
+      "cursor": 27426643993,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3kbpy4e22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4813",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "This continues #4791, which I took over from its original author. Their three commits are kept as they wrote them. Closes #4693.\n\n**Markdown editor for pull comments.** New pull comments use the shared markdown editor. It gets a toolbar that appears when you select text (bold, italic, strikethrough, code, links, lists and quotes), slash commands, and the typeahead keeps the highlighted suggestion in view.\n\n**A simpler comment form.** The bottom row now has, from left to right:\n- Preview, as a toggle button\n- Attach images\n- Pin to the current commit, as a toggle button (it replaces the checkbox in a separate card)\n- A square send button with an arrow. Its tooltip shows the action and the shortcut (⌘/Ctrl + Enter).\n\nThe toggles turn indigo with a filled icon when they're on. To keep that readable in dark mode, the dark info background colors are a little lighter.\n\n**Wrap in the diff toolbar** is now a toggle button that matches the others, instead of a switch.\n\n**Tooltips fade out where they are.** Before, Firefox could make a tooltip jump sideways or up while it faded out.\n\n| | Before | After |\n| --- | --- | --- |\n| Empty | <img alt=\"Empty before\" src=\"https://x.eti.tf/24feec8.png\" width=\"300\" height=\"189\"> | <img alt=\"Empty after\" src=\"https://x.eti.tf/ab62f09.png\" width=\"300\" height=\"160\"> |\n| With text | <img alt=\"With text before\" src=\"https://x.eti.tf/8870718.png\" width=\"300\" height=\"189\"> | <img alt=\"With text after\" src=\"https://x.eti.tf/be50215.png\" width=\"300\" height=\"160\"> |\n| Pinned to a commit | <img alt=\"Pinned to a commit before\" src=\"https://x.eti.tf/38053f1.png\" width=\"300\" height=\"189\"> | <img alt=\"Pinned to a commit after\" src=\"https://x.eti.tf/32d7712.png\" width=\"300\" height=\"160\"> |\n| Send tooltip | — | <img alt=\"Send tooltip after\" src=\"https://x.eti.tf/152aa5c.png\" width=\"356\" height=\"160\"> |\n| Selection toolbar | <img alt=\"Selection toolbar before\" src=\"https://x.eti.tf/dbcd7d0.png\" width=\"705\" height=\"289\"> | <img alt=\"Selection toolbar after\" src=\"https://x.eti.tf/f21e150.png\" width=\"705\" height=\"126\"> |\n| Slash commands | <img alt=\"Slash commands before\" src=\"https://x.eti.tf/c0ee0b8.png\" width=\"705\" height=\"289\"> | <img alt=\"Slash commands after\" src=\"https://x.eti.tf/6da3f72.png\" width=\"705\" height=\"361\"> |\n| Wrap off | <img alt=\"Wrap off before\" src=\"https://x.eti.tf/12668e1.png\" width=\"728\" height=\"68\"> | <img alt=\"Wrap off after\" src=\"https://x.eti.tf/4be30f6.png\" width=\"682\" height=\"68\"> |\n| Wrap on | <img alt=\"Wrap on before\" src=\"https://x.eti.tf/6b6d80f.png\" width=\"728\" height=\"68\"> | <img alt=\"Wrap on after\" src=\"https://x.eti.tf/976854c.png\" width=\"682\" height=\"68\"> |\n\nPart 2 of 4, stacked on the first:\n\n1. #4812 hide pull actions from signed-out viewers\n2. #4813 markdown editor and comment form (this one)\n3. #4814 keep the scroll position when switching versions\n4. #4815 pull actions next to the title, with a sticky bar\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
+          },
+          "createdAt": "2026-11-20T18:15:40Z",
+          "state": "completed",
+          "targetBranch": "master",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "web/pulls: use the markdown editor and rework the comment form"
+          },
+          "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
+        },
+        "cid": "bafyreibb3lv57qmjh2ppbuv37ggfjgxqtpmajmuhwhylbzrxnhojgailga"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795263595853485,
+      "cursor": 27426646214,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3kihel222",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4814",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Switching to another version of a pull request sometimes threw you back near the top of the page, or to a spot halfway between sections.\n\nNow the page stays exactly where you were. The new version loads underneath, and the page holds your position until you scroll yourself. Closing the version menu no longer jumps either. Back and forward still use the browser's own scroll restore.\n\nThere's nothing to see in a screenshot here. The new story \"Version switch keeps the scroll position\" switches versions from three scroll positions and checks the page doesn't move.\n\nPart 3 of 4, stacked on the second:\n\n1. #4812 hide pull actions from signed-out viewers\n2. #4813 markdown editor and comment form\n3. #4814 keep the scroll position when switching versions (this one)\n4. #4815 pull actions next to the title, with a sticky bar\n\nMerge them in order. Each one also contains the commits of the ones before it, until those are merged."
+          },
+          "createdAt": "2026-11-20T18:15:43Z",
+          "state": "completed",
+          "targetBranch": "master",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "web/pulls: keep the scroll position when switching versions"
+          },
+          "x-tngl-editor": "did:plc:qfpnj4og54vl56wngdriaxug"
+        },
+        "cid": "bafyreidausruhwjeiyjgfxd6p3u5kcezbm3ye3zljq6ysnhzcfx5nnqb2q"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263685256042,
+      "cursor": 27426674773,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3n5rit622",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263687353392,
+      "cursor": 27426675448,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3n7oqnb22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3n7odlprw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "A comment from run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:27Z",
           "subject": {
-            "cid": "bafyreia23atvojqwrxhlqz27qaugxbhj6rn74aojwcg25kc4ok3gcxsn4y",
-            "uri": "at://did:plc:qfngkejlw4ghji2myc73hbdh/sh.tangled.repo.pull/3my76x34upj22"
+            "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreibbomjo2d5g7wwye7w5nynpg6qba2nmm6yabk3gn5i77gp3advnbq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263689253628,
+      "cursor": 27426676062,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nbkybw22",
+        "operation": "update",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3n7odlprw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "An edited comment from run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:27Z",
+          "subject": {
+            "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreifq5nco2q6tujxtpnodszwz2gmo44u7t6aqurnkyjqe2fhf5aw4pm"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263691253101,
+      "cursor": 27426676697,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ndiksx22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3ndiabnrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "An upserted comment from run 20261121122101.\n\n<!-- forges:key=forges-fixture -->"
+          },
+          "createdAt": "2026-11-21T12:21:31Z",
+          "subject": {
+            "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreibes6it7ch7vpb55ktx3aseehnxvfen4k3yf2aj7ootyu5qa5rrtm"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263693253872,
+      "cursor": 27426677324,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nffour22",
+        "operation": "delete",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3n7odlprw"
+      }
+    },
+    {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "time_us": 1795263695552885,
+      "cursor": 27426678049,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nhcdso2r",
+        "operation": "create",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t3nhc3yo2r",
+        "record": {
+          "$type": "org.tangled.feed.reaction",
+          "createdAt": "2026-11-21T12:21:34.422Z",
+          "reaction": "👍",
+          "subject": {
+            "cid": "bafyreibd2pwgtjf5rcvpjkondjb3uphpushuokq6as5ljl74rwv2g3mqsq",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
           }
         },
-        "cid": "bafyreignymkp4pdqbbkvqen7u4wb5zgpxdslpsdvlbdktp75r257rwlqu4"
+        "cid": "bafyreihmnnxihsqbc2ncb6ihurintw6s7y675czuizsgo2pisv3tbllzdi"
+      }
+    },
+    {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "time_us": 1795263696553723,
+      "cursor": 27426678383,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3niavdw2r",
+        "operation": "delete",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t3nhc3yo2r"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263697274053,
+      "cursor": 27426678598,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nj7dno22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiel5y3jx34asrnemnwvhpnraxszlfxzm7alxhvrp6el7x2hcrmb7i"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263699253685,
+      "cursor": 27426679192,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nl4dny22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreif2tkuyl7varnob4i5lo4h37pfinqayyfoa2g57h77licwbkg7luy"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263701253499,
+      "cursor": 27426679811,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nmze6n22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiel5y3jx34asrnemnwvhpnraxszlfxzm7alxhvrp6el7x2hcrmb7i"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263703254736,
+      "cursor": 27426680427,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nowrdu22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreicuivsqaqzfbj25555jtilpwftq24ytj3sq7chbfbpga7ucmmu43i"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263706253661,
+      "cursor": 27426681319,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nrrpmk22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreih4ono6s5nbq4o7js4p3xcbj3vesfdrofcuv5sf5qzs7x2r2l5fza"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263708254382,
+      "cursor": 27426681941,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ntp6hx22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "closed",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiho2qvfxp5mnosyn5napexafisepig5r35rgzlyq2tajsmfdxqame"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263710254882,
+      "cursor": 27426682544,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nvlwrt22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreidwndueeoneqzhdgv7vu4xpgxf2qevvhdxsohyri44filic4jukse"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263712353596,
+      "cursor": 27426683151,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nxjwdl22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "130",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:52Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: labelled issue"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiaauwmjxwae7pjz7derhhkjgiqrfocqxct6b6xqihvivgese4llye"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263714354222,
+      "cursor": 27426683761,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3nzh22p22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "131",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:54Z",
+          "state": "open",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: duplicate"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreic5amls6ulxhavcd4firvuyvcqdmlzjc6mndpdq46vrbpl6coig7m"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263716353450,
+      "cursor": 27426684362,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3o3dqap22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "completed",
+          "tangledLabels": [],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiewte4v6motew6znzzmc36vtamdleu5njti3dl5yho3ppau6ypjpi"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263718254055,
+      "cursor": 27426685026,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3o57xhu22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "129",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:21:25Z",
+          "state": "open",
+          "tangledLabels": [],
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: issue, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreidwndueeoneqzhdgv7vu4xpgxf2qevvhdxsohyri44filic4jukse"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263720254111,
+      "cursor": 27426685647,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3o755u622",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 1"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263722254050,
+      "cursor": 27426686301,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ob2jcd22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreibfpgkdinl55233j3fhahaz5lcqgg46vnyscb55lopztbasosg3ke",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "62df6282010d7425d2c5cee70b0edf58aded5476"
+          },
+          "createdAt": "2026-11-21T12:22:02Z",
+          "head": {
+            "oid": "204c618d5ac7b8f866101e533b95282326dd02ff"
+          },
+          "source": {
+            "branch": "forges-fixtures/20261121122101-1",
+            "repo": "did:plc:t73o44q7fppgagkrevtztyok"
+          },
+          "ticket": "132",
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreibfpgkdinl55233j3fhahaz5lcqgg46vnyscb55lopztbasosg3ke"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263724253583,
+      "cursor": 27426686959,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ocxcqm22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "133",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:04Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 2"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihjto5gaikaxnsrjzbrqup7x7oxrtmpy3i7lvc4u35p43rumy3ryu"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263726352533,
+      "cursor": 27426687584,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oeuqvz22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigzurekh2bodacp2yrcju4h7yr5mffapc7tcddhqm3po6nbg5wjxq",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "62df6282010d7425d2c5cee70b0edf58aded5476"
+          },
+          "createdAt": "2026-11-21T12:22:06Z",
+          "head": {
+            "oid": "3f8e0a6aca78ef9bd44f8bd497a7444585dbdd1f"
+          },
+          "source": {
+            "branch": "forges-fixtures/20261121122101-2",
+            "repo": "did:plc:t73o44q7fppgagkrevtztyok"
+          },
+          "ticket": "133",
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreigzurekh2bodacp2yrcju4h7yr5mffapc7tcddhqm3po6nbg5wjxq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263728253909,
+      "cursor": 27426688206,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ogr73d22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "134",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:08Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 3"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihvwb5krlaefyxciv62rzpghxe5livl2bq3lz6xv6hncq7xahvhna"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263730254247,
+      "cursor": 27426688817,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oiogun22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "62df6282010d7425d2c5cee70b0edf58aded5476"
+          },
+          "createdAt": "2026-11-21T12:22:10Z",
+          "head": {
+            "oid": "d454cd2e56dfdc1d291756262710184b32c30efb"
+          },
+          "source": {
+            "branch": "forges-fixtures/20261121122101-3",
+            "repo": "did:plc:t73o44q7fppgagkrevtztyok"
+          },
+          "ticket": "134",
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263732254441,
+      "cursor": 27426689457,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oklmfr22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3okkwvbrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "A comment from run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:12Z",
+          "subject": {
+            "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreicrmgm4k2hi54f64ha7zpmunxo65parfwezeckjia63d2cqes63ga"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263734253447,
+      "cursor": 27426690068,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3omibka22",
+        "operation": "update",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3okkwvbrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "An edited comment from run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:12Z",
+          "subject": {
+            "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreifbpi2mqbwse53kqthodzvs6ninxlnapzffmj2nj37yqcp5doxs3a"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263736254007,
+      "cursor": 27426690680,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oofgrm22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3ooey5trw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "An upserted comment from run 20261121122101.\n\n<!-- forges:key=forges-fixture -->"
+          },
+          "createdAt": "2026-11-21T12:22:16Z",
+          "subject": {
+            "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihxay2gh52l446sg563u57gthduwh5okcoyolaqm662en5sf7egpq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263738253508,
+      "cursor": 27426691294,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oqcwkg22",
+        "operation": "delete",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3okkwvbrw"
+      }
+    },
+    {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "time_us": 1795263740454558,
+      "cursor": 27426691991,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3os7ryw2r",
+        "operation": "create",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t3os7fco2r",
+        "record": {
+          "$type": "org.tangled.feed.reaction",
+          "createdAt": "2026-11-21T12:22:19.466Z",
+          "reaction": "👍",
+          "subject": {
+            "cid": "bafyreifpiwi2drn4adgovdhpyhew5oqaawnws4m2q7xmvimukmpbuzzr5q",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/132"
+          }
+        },
+        "cid": "bafyreibm3ch56kku25uttwl6ql3zeark6fte7oweugiyym6adjtc54vxli"
+      }
+    },
+    {
+      "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+      "time_us": 1795263741553642,
+      "cursor": 27426692333,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ot67n62r",
+        "operation": "delete",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t3os7fco2r"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263742353426,
+      "cursor": 27426692595,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ou52yw22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 1"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreie6izbbrjdkqjlstgdvk6yjzwefszz3ss5ontdtpzoy2v5jymrejy"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263744253845,
+      "cursor": 27426693194,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ovzoed22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "tangledLabels": [],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 1"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreidsavc6v6a5gid44iojbppy25uh5h3w3wts4qgulbv36znorhazfe"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263746254251,
+      "cursor": 27426693804,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3oxwmcc22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 1"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreie6izbbrjdkqjlstgdvk6yjzwefszz3ss5ontdtpzoy2v5jymrejy"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263748253447,
+      "cursor": 27426694388,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ozttqv22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 1"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreialfp2c4sstbr7f7rzt3s6nah3fbrbjsguzr3woe2yuzhrca6qoze"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263751255746,
+      "cursor": 27426695353,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3p4p2xk22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "open",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreidfv4askyemdlax4yl6hich2e3fd3hqovajc6g5lknsznsougfdtq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263753253590,
+      "cursor": 27426696059,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3p6mdy422",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "134",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:08Z",
+          "state": "closed",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 3"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreign47qvfmx7r5nd2uewratobmv6tdp3q6ooy6iz53vc4y5pkirzkq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263755253641,
+      "cursor": 27426696723,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3paj3go22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "134",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:08Z",
+          "state": "open",
+          "tangledLabels": [],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 3"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihm547exhn424gvlaxe7zk3hzbhemvbjdlkryyqvi2fc6y5hix6bi"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263758853079,
+      "cursor": 27426697772,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pdvb4h22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "132",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "assignees": [
+            "did:plc:7qksav5io2s4qfg67pe7iqqk"
+          ],
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Edited by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:00Z",
+          "state": "completed",
+          "tangledLabels": [
+            {
+              "key": "forges-fixture-20261121122101"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull, edited"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreico6qzachsckrxzxwddyzbvlejgvnlymlergttlezsvl4rbz2x5te"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263760853736,
+      "cursor": 27426698372,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pfs72j22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "134",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:08Z",
+          "state": "closed",
+          "tangledLabels": [],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 3"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreiaz7yyutjdureudvght5fylpq7zagqhnwfgdyoptfmibtzf73zm7q"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263762852884,
+      "cursor": 27426699020,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3phputm22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "134",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Opened by run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:08Z",
+          "state": "open",
+          "tangledLabels": [],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "forges fixture 20261121122101: pull 3"
+          },
+          "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+        },
+        "cid": "bafyreihm547exhn424gvlaxe7zk3hzbhemvbjdlkryyqvi2fc6y5hix6bi"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263764952770,
+      "cursor": 27426699665,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pjppoh22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3pjpca3rw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "@roebot.tngl.sh a mention from run 20261121122101."
+          },
+          "createdAt": "2026-11-21T12:22:44Z",
+          "subject": {
+            "cid": "bafyreidwndueeoneqzhdgv7vu4xpgxf2qevvhdxsohyri44filic4jukse",
+            "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/129"
+          },
+          "x-tngl-editor": "did:plc:uxfnwnz5wfwl6tfgqwyfrqyv"
+        },
+        "cid": "bafyreicn22jjlchp225wpbaivn6nw2uvnnww4jljwvs2jffdmyakt6lpvq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263769452649,
+      "cursor": 27426701110,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3po2fpy22",
+        "operation": "delete",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3pjpca3rw"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263769652871,
+      "cursor": 27426701149,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3po675l22",
+        "operation": "delete",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3ndiabnrw"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263774453122,
+      "cursor": 27426702805,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3psruow22",
+        "operation": "delete",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreihslm766n4wpfurvb32v2y24qg44yth4jxrlmf5b437g7zrxmz3tm"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263774653993,
+      "cursor": 27426702887,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pszcmv22",
+        "operation": "delete",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigzurekh2bodacp2yrcju4h7yr5mffapc7tcddhqm3po6nbg5wjxq"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263774953241,
+      "cursor": 27426702968,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pta23m22",
+        "operation": "delete",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t3ooey5trw"
+      }
+    },
+    {
+      "did": "did:plc:t73o44q7fppgagkrevtztyok",
+      "time_us": 1795263775154143,
+      "cursor": 27426703047,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3pthldc22",
+        "operation": "delete",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreibfpgkdinl55233j3fhahaz5lcqgg46vnyscb55lopztbasosg3ke"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263795553604,
+      "cursor": 27426720535,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3qgufbn22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreih56y3xhlwu4aeo6vgnplwuxokc3ym2645lrhbqmzrxmtjv2ydqry",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "67aca6de84b67aae2032110b21cccea82d9473cd"
+          },
+          "createdAt": "2026-11-21T12:23:15Z",
+          "head": {
+            "oid": "969e7a525e889690ca0ee62aaa56ebd6bfbfa71b"
+          },
+          "source": {
+            "branch": "unit/msg-u16-log-rows-product",
+            "repo": "did:plc:da6gxbuiv7kooty5t3tkh2n7"
+          },
+          "ticket": "144",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreih56y3xhlwu4aeo6vgnplwuxokc3ym2645lrhbqmzrxmtjv2ydqry"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795263798053217,
+      "cursor": 27426721355,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3qjbjbj22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreiduvzlo4qhajcy6azcsilipzqqc27hol23pskuhcysobskzvo4dr4",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "969e7a525e889690ca0ee62aaa56ebd6bfbfa71b"
+          },
+          "createdAt": "2026-11-21T12:23:17Z",
+          "head": {
+            "oid": "17049328add252789207c7e7434b38a60b126c1c"
+          },
+          "source": {
+            "branch": "test/msg-u16-log-rows",
+            "repo": "did:plc:da6gxbuiv7kooty5t3tkh2n7"
+          },
+          "ticket": "145",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiduvzlo4qhajcy6azcsilipzqqc27hol23pskuhcysobskzvo4dr4"
+      }
+    },
+    {
+      "did": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+      "time_us": 1795263856454556,
+      "cursor": 27426739262,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3sax66c22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "1062",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "AGENT-MESSAGE-SUBMIT U16 coordination side. Engine PRs: agent-orchestrator 144 (product, 969e7a52) and 145 (tests, 17049328).\n\n- message_records reads through the engine's log_rows and identifies bad lines by absolute byte offset. The seek remnant, blank lines and an unterminated tail are not bad.\n- alert_bad_lines alerts composer_alert_agent once per path and offset. It reserves in state before sending and never retries, and a file that shrank starts over. Line 5092 alerts once at rollout; it is not seeded.\n- print_send_stderr: every captured send prints a non-empty stderr even on exit 0.\n- The plan's two U16 sections are folded into the orchestrator's.\n- Evidence: machine-docs/reports/agent-message-submit/u16/ (implementation.md, repro red and green, readers-grep, explain-live)."
+          },
+          "createdAt": "2026-11-21T12:24:16Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16: auto-nudge alerts once per unreadable message-log line; stderr on exit 0; engine to 1704932"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiet4646eighahvacj46krtjewddxyfwvk34wrxxrnakdjikyhrio4"
+      }
+    },
+    {
+      "did": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+      "time_us": 1795263857752787,
+      "cursor": 27426739682,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3sc5h2522",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreicvulnpeatpq5m77m246umtu6mz3wn3gg2y7ha64hnl7pwrjrziyq",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "42159240ad1a5eef72569fdcb10ae4eac8f9458b"
+          },
+          "createdAt": "2026-11-21T12:24:17Z",
+          "head": {
+            "oid": "7f8c1546059bf76363025537078e2a2d6b25e3ba"
+          },
+          "source": {
+            "branch": "unit/msg-u16-log-rows",
+            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          },
+          "ticket": "1062",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreicvulnpeatpq5m77m246umtu6mz3wn3gg2y7ha64hnl7pwrjrziyq"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795263922553621,
+      "cursor": 27426759515,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3u7xlg722",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4209",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Uses the reviewed phase base as predecessor and lowers the ceiling to the measured 19047. Classifies three Tangled files under their existing crate owners. Focused CI: canonical count 19047/19047, settings Clippy, plugin serialization round trip 1/1. Part of the combined closing repair."
+          },
+          "createdAt": "2026-11-21T12:25:22Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-dashboard-tests",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Close Tangled core accounting and simplify plugin serialization"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreifqzw24cejra5pfm5ifmzg7ytldfm3ktf4j564r5jetadc4jrkieq"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795263923654291,
+      "cursor": 27426759884,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t3ub43v722",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigqy4s3rqb2yfc6sisvsfselddowy3ha33lpiqprd4gfxrojkne4y",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "3d72296148cffe97ef73e588035f8d7d293a5c4d"
+          },
+          "createdAt": "2026-11-21T12:25:23Z",
+          "head": {
+            "oid": "38bafc2f84bc4f740997c3d4dca65f480e79c033"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-plugin-json",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4209",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigqy4s3rqb2yfc6sisvsfselddowy3ha33lpiqprd4gfxrojkne4y"
+      }
+    },
+    {
+      "did": "did:plc:zvrrvtiai6mdz2p7nvvhlxmu",
+      "time_us": 1795264212088725,
+      "cursor": 27426848908,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t44u55eb22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreify5fdvqery2ihidnqwcyqq6wge5a6rviwst6q7r47g3eoypb4jhi",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "67f8db3d25816367694e276ccbdb814d9ac2de4d"
+          },
+          "createdAt": "2026-11-21T12:30:11Z",
+          "head": {
+            "oid": "cf841803c84021497c6c7f2e0c2bcac466cbb9ff"
+          },
+          "source": {
+            "branch": "main",
+            "repo": "did:plc:amcwwn42nnt2yts5ustmbmdh"
+          },
+          "ticket": "21",
+          "x-tngl-editor": "did:plc:nqgr5pc7ljcipk6gq73yecd3"
+        },
+        "cid": "bafyreify5fdvqery2ihidnqwcyqq6wge5a6rviwst6q7r47g3eoypb4jhi"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264281952934,
+      "cursor": 27426871312,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t46wqb5o22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4210",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Linked product and fixture branches unit/tangled-standard-deploy-marker and unit/tangled-standard-deploy-marker-tests. Exact test tip 02b472523ccf: CI c420f757 ran the pages-ref readback and hub-boundary tests, each 1/1. Part of combined closing repair."
+          },
+          "createdAt": "2026-11-21T12:31:21Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-plugin-json",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Keep marked deployment commits in the hub deployment module"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreih5oca37tphlqe7yrhg5gaczxy2nurfj7s5ub3qpb5hf6itjdho3e"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264282353595,
+      "cursor": 27426871472,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t46x6loj22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4211",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Linked product and fixture branches unit/tangled-standard-deploy-marker and unit/tangled-standard-deploy-marker-tests. Exact test tip 02b472523ccf: CI c420f757 ran the pages-ref readback and hub-boundary tests, each 1/1. Part of combined closing repair."
+          },
+          "createdAt": "2026-11-21T12:31:22Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-deploy-marker",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Verify marked deployment readback through the fixture hub"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreibigzt6xesxhxb7j3mrldqiyyiqozau7edrngrsyhhwcdzaqw74om"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264283053472,
+      "cursor": 27426871692,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t46xtidy22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreifmkznlawbf3l4pzgpjnwieh54wycq26t5q7ahafmxkjghpzktkze",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "38bafc2f84bc4f740997c3d4dca65f480e79c033"
+          },
+          "createdAt": "2026-11-21T12:31:22Z",
+          "head": {
+            "oid": "a5801630bc0db1f0bf21810142cf5ad1bf3242b0"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-deploy-marker",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4210",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreifmkznlawbf3l4pzgpjnwieh54wycq26t5q7ahafmxkjghpzktkze"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264283554074,
+      "cursor": 27426871840,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t46ybx2v22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreibofdtkakp6fjslsvuolu3sliqjnhh6fhbia7a6spqywkuuwzrlsu",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "a5801630bc0db1f0bf21810142cf5ad1bf3242b0"
+          },
+          "createdAt": "2026-11-21T12:31:23Z",
+          "head": {
+            "oid": "02b472523ccf60be150566d1da1dcbe49fb0dc7a"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-deploy-marker-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4211",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreibofdtkakp6fjslsvuolu3sliqjnhh6fhbia7a6spqywkuuwzrlsu"
+      }
+    },
+    {
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795264291153999,
+      "cursor": 27426874342,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t477lav522",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "64",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "The codegen CLI now runs on JavaScript as well as Erlang. The internal template is embedded as a generated string constant (checked against priv/internal.gleam by a test), gleam_erlang is dropped, and the CLI can be bundled for Node with make bundle-codegen. A new CI step checks the Erlang run and the bundle emit identical files.\n\nResolves: none (no tracker)."
+          },
+          "createdAt": "2026-11-21T12:31:31Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat(atproto_codegen): run the CLI on the JavaScript target"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreiabv4chz2ofdqxxhned25mrsirrebyuxjy7iww4aurg5vrysvmamq"
+      }
+    },
+    {
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795264291752707,
+      "cursor": 27426874520,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t47a3y6f22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreidbid2kftsrccwb4lm5i4qowq6kp4633pdwvdt5frtgfxe4w4cm5m",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "4aac1e1ec028e8f67a557f92068d9bfa6d39ed98"
+          },
+          "createdAt": "2026-11-21T12:31:31Z",
+          "head": {
+            "oid": "40d2e585a2ae2c0acc14e51340c0da631b261622"
+          },
+          "source": {
+            "branch": "feat/codegen-js-cli",
+            "repo": "did:plc:fuqndzh4wx67xqwi7ziqfwjr"
+          },
+          "ticket": "64",
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreidbid2kftsrccwb4lm5i4qowq6kp4633pdwvdt5frtgfxe4w4cm5m"
+      }
+    },
+    {
+      "did": "did:plc:zvrrvtiai6mdz2p7nvvhlxmu",
+      "time_us": 1795264348153089,
+      "cursor": 27426892520,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4avuzec22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreig5v3pnua6uxcp7ft753xlj7zn2vxtaqlfc2j45ps6kd52ikgqzom",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "67f8db3d25816367694e276ccbdb814d9ac2de4d"
+          },
+          "createdAt": "2026-11-21T12:32:27Z",
+          "head": {
+            "oid": "f201b67fd8262159e8ef56116fc300df790798e7"
+          },
+          "source": {
+            "branch": "main",
+            "repo": "did:plc:amcwwn42nnt2yts5ustmbmdh"
+          },
+          "ticket": "21",
+          "x-tngl-editor": "did:plc:nqgr5pc7ljcipk6gq73yecd3"
+        },
+        "cid": "bafyreig5v3pnua6uxcp7ft753xlj7zn2vxtaqlfc2j45ps6kd52ikgqzom"
+      }
+    },
+    {
+      "did": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+      "time_us": 1795264449753058,
+      "cursor": 27426924436,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4dwqsl222",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreiaznwnktiwmalo3jajey4dl2bsrsd2m4maxmxf4y6dllm4tcqwoza",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "42159240ad1a5eef72569fdcb10ae4eac8f9458b"
+          },
+          "createdAt": "2026-11-21T12:34:09Z",
+          "head": {
+            "oid": "edb9e0533a592ea24b81ffa417ebe6fcf2449ef1"
+          },
+          "source": {
+            "branch": "unit/msg-u16-log-rows",
+            "repo": "did:plc:6o2jgfoosrff52lbhs4pk3g4"
+          },
+          "ticket": "1062",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiaznwnktiwmalo3jajey4dl2bsrsd2m4maxmxf4y6dllm4tcqwoza"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795264495290656,
+      "cursor": 27426938620,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4fc7la622",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t4fc75tlrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "good points. the Vulkan triangle is a classic though :D"
+          },
+          "createdAt": "2026-11-21T12:34:55Z",
+          "replyTo": {
+            "cid": "bafyreicjlybfoh6qj2d2hwysi72qfmx52uqnvpigk3s4tfhncacnktizim",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.feed.comment/3n2scuipfwtrw"
+          },
+          "subject": {
+            "cid": "bafyreib557dsrgbwu3x3kpucrrs3iext7cym3gyrjtbmqblli74j4j2rqi",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.track.ticket/3"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreibbowbi2cudaux2p4334rdgf4gl4k6rbebi3fpbe3icpe3g3gafae"
+      }
+    },
+    {
+      "did": "did:plc:l7hhzcbqqvpcquau5waryzdu",
+      "time_us": 1795264527953721,
+      "cursor": 27426948929,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4gbevaw22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t4gbehgbrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "ty!"
+          },
+          "createdAt": "2026-11-21T12:35:27Z",
+          "subject": {
+            "cid": "bafyreihzxjta32eepfonnt5yuohgcdx4raxisrsfguk2cm3ocmqxqmxjti",
+            "uri": "at://did:plc:l7hhzcbqqvpcquau5waryzdu/org.tangled.track.ticket/306"
+          },
+          "x-tngl-editor": "did:plc:zntngpowgd6rorjt3haywj36"
+        },
+        "cid": "bafyreig3xlhjyu7r45yl6da2r3y3vjwf3dl7oowutdwnowmtjb4e6jgdli"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795264558454459,
+      "cursor": 27427011065,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4h6jlms22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t4h6j5xgrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "> we should feature-gate experimental extensions\n\ndo you mean provisional extensions? I already implemented that"
+          },
+          "createdAt": "2026-11-21T12:35:58Z",
+          "replyTo": {
+            "cid": "bafyreidagnc4gze2z4d6hmcfxlpnebambepbfwubiasb4uzqfergpydw7a",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.feed.comment/3n2scoumhiwrw"
+          },
+          "subject": {
+            "cid": "bafyreidsbqnf66e72hvq62hmrelpqqvfflz5nankqe7yjxgpxrxnbk55qq",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.track.ticket/4"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreieamldqq5kbjhysmy4czsiz4q53yjltyrye2sxuxmcxjbogqyizoq"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795264588853598,
+      "cursor": 27427020692,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4i3i6ty22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "144",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "AGENT-MESSAGE-SUBMIT U16. On a full disk one os.write returned a short count, and the next row was spliced onto the partial row (shared log line 5092).\n\nWriter: record() now appends under an exclusive flock. It terminates an unterminated tail first, writes the row in a loop, and truncates back to the row's start on any failure, fsync included. True means a whole row; False means none.\n\nReaders: log_rows() returns rows, bad lines by absolute offset with the row heads inside each, and an unterminated tail, which is not counted. deferred_index reports bad lines, --redeliver warns about them, and the new --check-log lists them.\n\nTests are in the stacked PR test/msg-u16-log-rows. Evidence: coordination machine-docs/reports/agent-message-submit/u16/."
+          },
+          "createdAt": "2026-11-21T12:17:26Z",
+          "state": "closed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16: never leave a message-log row partial; readers skip and count bad lines"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreif2rpybq2vy4hdysdrbghcanmoaaij5i2dvthsmhaeb33lisrjoyu"
+      }
+    },
+    {
+      "did": "did:plc:da6gxbuiv7kooty5t3tkh2n7",
+      "time_us": 1795264592552986,
+      "cursor": 27427021827,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4i6y5dz22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "145",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Stacked on PR 144 (unit/msg-u16-log-rows-product). tests/test_message_log_u16.py has 13 tests; 12 fail on 67aca6d, and all 13 pass on this tip. Full discover: 654 tests, with only the 3 failures that were already there before U16 (test_message_receipts x2, test_model_fix permitted_only)."
+          },
+          "createdAt": "2026-11-21T12:17:35Z",
+          "state": "closed",
+          "targetBranch": "unit/msg-u16-log-rows-product",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16 tests: message-log short writes, splices, tails and readers"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreic62o5gmmszuvckw5zvw5mp3fbx26ob22ckbzr4ybdw7yke2d4mcy"
+      }
+    },
+    {
+      "did": "did:plc:6o2jgfoosrff52lbhs4pk3g4",
+      "time_us": 1795264621153501,
+      "cursor": 27427030714,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4j27xc322",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "1062",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "AGENT-MESSAGE-SUBMIT U16 coordination side. Engine PRs: agent-orchestrator 144 (product, 969e7a52) and 145 (tests, 17049328).\n\n- message_records reads through the engine's log_rows and identifies bad lines by absolute byte offset. The seek remnant, blank lines and an unterminated tail are not bad.\n- alert_bad_lines alerts composer_alert_agent once per path and offset. It reserves in state before sending and never retries, and a file that shrank starts over. Line 5092 alerts once at rollout; it is not seeded.\n- print_send_stderr: every captured send prints a non-empty stderr even on exit 0.\n- The plan's two U16 sections are folded into the orchestrator's.\n- Evidence: machine-docs/reports/agent-message-submit/u16/ (implementation.md, repro red and green, readers-grep, explain-live)."
+          },
+          "createdAt": "2026-11-21T12:24:16Z",
+          "state": "closed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "U16: auto-nudge alerts once per unreadable message-log line; stderr on exit 0; engine to 1704932"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreig6qrd3vga477t43vftfujjnpzxfwe3wue62ikjnico2kffcx7yom"
+      }
+    },
+    {
+      "did": "did:plc:qpti65fucy622kqpwvl7rbcy",
+      "time_us": 1795264642390796,
+      "cursor": 27427037425,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4johmt622",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t4jogycsrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Ballright"
+          },
+          "createdAt": "2026-11-21T12:37:22Z",
+          "subject": {
+            "cid": "bafyreibbwgnrdnnijlpm4fqle4akowsycukhxdoln4xunmv3fgugdqitqi",
+            "uri": "at://did:plc:qpti65fucy622kqpwvl7rbcy/org.tangled.track.ticket/1"
+          },
+          "x-tngl-editor": "did:plc:ztdusaq2etachctxfoqthhxa"
+        },
+        "cid": "bafyreic7fao3qvkqdfthnjy33kvvxyjz4ua76lfvhnd6pdxju6viok7fxa"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264922453706,
+      "cursor": 27427125534,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4rzn3wm22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4212",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Part of the combined closing repair. Generated permission counts from 33d9f797, route bindings from 9d42877f, CLI constructor inventory verified at db70fbfcc729 by 197c0d59."
+          },
+          "createdAt": "2026-11-21T12:42:02Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-git-inventory",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Record six compiled Tangled route bindings"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreidlbtso3mapvcpgmrdycaus2osutf4xe4i65uxpktlicsez4yllhu"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264922753800,
+      "cursor": 27427125601,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4rztizf22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4213",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Part of the combined closing repair. Generated permission counts from 33d9f797, route bindings from 9d42877f, CLI constructor inventory verified at db70fbfcc729 by 197c0d59."
+          },
+          "createdAt": "2026-11-21T12:42:02Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-route-inventory",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Correct the CLI clone constructor inventory"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreibnd5ip5zrthm35jtxizrr7oophv2hze25mst2ny5bds6l7b6z5mq"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264922953102,
+      "cursor": 27427125649,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4s22l3522",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4214",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Part of the combined closing repair. Generated permission counts from 33d9f797, route bindings from 9d42877f, CLI constructor inventory verified at db70fbfcc729 by 197c0d59."
+          },
+          "createdAt": "2026-11-21T12:42:02Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-deploy-marker-tests",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Refresh the generated permission counts for Tangled routes"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreibh65aunnpjzy6vcjn2f7cjlyhrqbq5z2glg74ugoftdpfzfuoyoy"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264923753842,
+      "cursor": 27427125929,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4s2tk4c22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigiquiewiarhd2esrsxszjayeavujy4wxuj7audwr42obblad3ntq",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "db70fbfcc729b00b8be2b4cce63db618cfc1df81"
+          },
+          "createdAt": "2026-11-21T12:42:03Z",
+          "head": {
+            "oid": "1b394c4b863f9d219938565967ecf1e06bdb68ae"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-route-tests",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4212",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigiquiewiarhd2esrsxszjayeavujy4wxuj7audwr42obblad3ntq"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264923953552,
+      "cursor": 27427125981,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4s2xvwz22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreicf42eijphmzzcskzzevppwcqrirevk3zs7fhuuxtdvbcdbfc5bo4",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "6559a681376fdd41d861fa959772b38c8ba79689"
+          },
+          "createdAt": "2026-11-21T12:42:03Z",
+          "head": {
+            "oid": "db70fbfcc729b00b8be2b4cce63db618cfc1df81"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-git-inventory",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4213",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreicf42eijphmzzcskzzevppwcqrirevk3zs7fhuuxtdvbcdbfc5bo4"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795264924153916,
+      "cursor": 27427126035,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4s36oy422",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreigr27w7iygwtaars2bceyvxwzihts5e7s2xqz3nfw3ylc3nlg64lq",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "02b472523ccf60be150566d1da1dcbe49fb0dc7a"
+          },
+          "createdAt": "2026-11-21T12:42:03Z",
+          "head": {
+            "oid": "6559a681376fdd41d861fa959772b38c8ba79689"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-route-inventory",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4214",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreigr27w7iygwtaars2bceyvxwzihts5e7s2xqz3nfw3ylc3nlg64lq"
+      }
+    },
+    {
+      "did": "did:plc:l7hhzcbqqvpcquau5waryzdu",
+      "time_us": 1795264940052919,
+      "cursor": 27427131155,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4skedyw22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "304",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Maeve’s intent: “ensure channel names are updated when they change.” This fixes [#296](https://tangled.org/okami.mom/albedo/issues/296), reported by Viria.\n\nAfter a rename, listing or looking up a channel could restore its old name from the subscription settings. Now a name observed on a Discord message or reaction takes precedence, and the subscription label only fills in a missing name. Handles stay the same, and genuinely duplicate names still require a handle.\n\n**Testing:** The rename regression failed before the fix and passed with it. All 12 Discord tests and all 42 selected end-to-end tests passed on `3e9ea350`. The full local gate still failed on a timezone test, Lix shim checks, and a mocked repair that could not find `uv`. Each failure reproduced on the same base without this patch.\n\nTechnical summary and test notes by Tansy.\n"
+          },
+          "createdAt": "2026-11-19T20:53:26Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "fix(discord): keep channel names current after a rename"
+          },
+          "x-tngl-editor": "did:plc:zntngpowgd6rorjt3haywj36"
+        },
+        "cid": "bafyreie2c2kftiazifzx34evquisjz22kf4363pim4izsxjj4pwxcrp4eu"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265054453365,
+      "cursor": 27427167485,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4vxhavj22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4215",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Exact f5309ba8e82a. Run e82033c8 passed the add-on dependency and feature-gate assertion with both controls."
+          },
+          "createdAt": "2026-11-21T12:44:14Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-route-tests",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Bind the add-on inventory to the Tangled publish gates"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiduqgjuexs3sikhhzsbqn6pcdnyfmtgr6oy54oew27giasjy4qvum"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265055553469,
+      "cursor": 27427167827,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4vyjikg22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreidj6qlxhwvfhrg7i4cxnt6apx5mstlyjginayicfs3r3ndevo2gam",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "1b394c4b863f9d219938565967ecf1e06bdb68ae"
+          },
+          "createdAt": "2026-11-21T12:44:15Z",
+          "head": {
+            "oid": "f5309ba8e82a7aa26ddc49796684b845a206f75c"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-addon-gates",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4215",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreidj6qlxhwvfhrg7i4cxnt6apx5mstlyjginayicfs3r3ndevo2gam"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265076553518,
+      "cursor": 27427174683,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4wmg2hw22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4216",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Preserves checks for branch validation, prepared refspec, work lifetime, child output, and propagation of object-write errors. The standard concurrency contract check passed; its Python suite ran 250 tests."
+          },
+          "createdAt": "2026-11-21T12:44:36Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-addon-gates",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Follow the prepared commit through the shared push helper in concurrency checks"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreidkzmsl7xcttse3eqi67udu5wyli3p7uhd6jlkgf6747c2a5m232q"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265077553475,
+      "cursor": 27427174995,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4wnj2is22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreifnobquznqhhwan2u5rniqeuaq57gz536mqgqvdz7ojjnfwugq6i4",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "f5309ba8e82a7aa26ddc49796684b845a206f75c"
+          },
+          "createdAt": "2026-11-21T12:44:37Z",
+          "head": {
+            "oid": "2b185db34554bce456aad7f1782f85fbbc959933"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-concurrency",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4216",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreifnobquznqhhwan2u5rniqeuaq57gz536mqgqvdz7ojjnfwugq6i4"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265179455420,
+      "cursor": 27427208470,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4zooyeb22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4217",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Generated on CI and inspected against the handlers; all 20 dashboard boundary checks passed, including refusal controls. Final part of the combined closing repair for standard 3d997782."
+          },
+          "createdAt": "2026-11-21T12:46:19Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-concurrency",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Document verified dashboard access owners and drop obsolete inventory entries"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiaulssk2zye55wohuxj3iwjovl5en5k42xlgmlcisah4jm3olacze"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795265180652593,
+      "cursor": 27427208831,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t4zpsfz622",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreidmucrwd3ak2drj4fs6xe62ead7olf77uahgelvak5stsip4nxgly",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "2b185db34554bce456aad7f1782f85fbbc959933"
+          },
+          "createdAt": "2026-11-21T12:46:20Z",
+          "head": {
+            "oid": "08f1d93d318dc99f8332544d211eff523391ade8"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-access-inventory",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4217",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreidmucrwd3ak2drj4fs6xe62ead7olf77uahgelvak5stsip4nxgly"
+      }
+    },
+    {
+      "did": "did:plc:b3nregwt745h6xytpqmmavpi",
+      "time_us": 1795265358197558,
+      "cursor": 27427268763,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t56z4yyy22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "174",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Covers are served at full size today. The lexicon allows cover blobs up to 2,000,000 bytes, and the catalog replicas work (ADR 7) now captures and serves them as-is. Grids and feed strips on the planned iOS app would load the full blob where a thumbnail of roughly 30 KB would do, which matters on mobile data.\n\nProposal: a side worker that produces derived thumbnails (for example 600px and 200px WebP) for captured and proxied covers, cached by the original blob's CID, served by the existing cover proxy with an immutable cache lifetime.\n\nConstraints:\n\n- Never replace or re-encode the captured blob. A replica's proof depends on byte identity: the cover CID is in the signed record, and adopters re-upload identical bytes. Thumbnails are derived serving artifacts only.\n- Erlang/OTP has no image codecs. The likely engine is `vix` (Elixir NIF binding to libvips, believed to ship precompiled NIFs with libvips bundled) behind a thin Gleam FFI module. That needs an Elixir/Mix toolchain at build time (Dockerfile change). Alternatives: `eimp` (needs libgd/libjpeg/libpng/libwebp in the image), `mogrify` (ImageMagick binary).\n- A NIF crash takes the VM down. vix uses dirty schedulers, but consider running the worker as a separate release or sidecar so a bad image can't take ingest with it.\n\nTrigger: build when the iOS grid shows the bandwidth or latency cost in practice, not before.\n\nQuestions to settle:\n\n- Sizes and format (WebP vs AVIF) for grid, list row, and detail hero.\n- In-process worker vs sidecar.\n- Cache storage and eviction (disk volume vs object storage).\n"
+          },
+          "createdAt": "2026-11-21T12:49:18Z",
+          "state": "open",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Serve resized cover thumbnails from a side worker"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreifxzlykkj4574nt2vkmfjwskvqudblrte7otfnsrshaneq23bp72i"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795265597353966,
+      "cursor": 27427350358,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5g56iis22",
+        "operation": "create",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t5g54yudrw",
+        "record": {
+          "$type": "org.tangled.feed.reaction",
+          "createdAt": "2026-11-21T12:53:17Z",
+          "reaction": "👍",
+          "subject": {
+            "cid": "bafyreid2j44ph5q54igtrx3yqc2zc5omde4eek5ys6c32arb3c6xow3fha",
+            "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4816"
+          },
+          "x-tngl-editor": "did:plc:ctdtqdudrxwhlrdnb6t54y46"
+        },
+        "cid": "bafyreiaaa7wv74f7ihbfv2mvivyxoupqh425yk3fto6ybmu2wkcle6xfgy"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266051854100,
+      "cursor": 27427553710,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5topghl22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "2",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "createdAt": "2026-11-19T23:34:05Z",
+          "state": "completed",
+          "tangledLabels": [
+            {
+              "key": "fix"
+            },
+            {
+              "key": "release-blocker"
+            },
+            {
+              "key": "enhancement"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Tangled CI"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreiaw6n5sxndkx4rtjx337fwlrb4wqnsn5ids2ne4nktuapf7ujagzm"
+      }
+    },
+    {
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795266140554661,
+      "cursor": 27427584867,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5wdcxvs22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "65",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Adds atproto_repo, a sans-io, dual-target package that verifies a record's inclusion in an account's repository from a com.atproto.sync.getRecord CAR: strict DAG-CBOR, CIDv1, CAR v1 with default size limits, MST inclusion walk, and P-256/secp256k1 commit signature checks (low-S enforced), plus did:key, Multikey and legacy verification-method key parsing. Tested against the bluesky atproto-interop-tests vectors and a real profile CAR on both Erlang and JavaScript. The branch carries the release commit, so merging publishes atproto_repo 0.1.0."
+          },
+          "createdAt": "2026-11-21T13:02:20Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat(atproto_repo): repo record proofs, released as 0.1.0"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreiaha464xhjdbm55pw3kfciz2r2jhcrbddfbtp3zq4c3qtvpb32kei"
+      }
+    },
+    {
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795266141054223,
+      "cursor": 27427584994,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5wdrxo622",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreig6fqflsaoqbdxxtqc3ocr4myzux5u4rp6whsca437yq7zplrsuae",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "4aac1e1ec028e8f67a557f92068d9bfa6d39ed98"
+          },
+          "createdAt": "2026-11-21T13:02:20Z",
+          "head": {
+            "oid": "2e0d693c512d52f84cba10c50cdd0c9f96b036c1"
+          },
+          "source": {
+            "branch": "feat/repo-proof",
+            "repo": "did:plc:fuqndzh4wx67xqwi7ziqfwjr"
+          },
+          "ticket": "65",
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreig6fqflsaoqbdxxtqc3ocr4myzux5u4rp6whsca437yq7zplrsuae"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266206453474,
+      "cursor": 27427607270,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5yc4s3t22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreifnnttgwdmocablpu67erq5z5pg67yjwckagk5tqiue3dxqwogq2m",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "3d81fd6ec38014d9697a31624c7dab9dba16d5ca"
+          },
+          "createdAt": "2026-11-21T13:03:26Z",
+          "head": {
+            "oid": "204f3fa35732fa00bec9b359b03ed1f07770fcbb"
+          },
+          "source": {
+            "branch": "doc-alias",
+            "repo": "did:plc:g4tlms7umfxt45xxyiwpj3s3"
+          },
+          "ticket": "8",
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreifnnttgwdmocablpu67erq5z5pg67yjwckagk5tqiue3dxqwogq2m"
+      }
+    },
+    {
+      "did": "did:plc:fuqndzh4wx67xqwi7ziqfwjr",
+      "time_us": 1795266255553578,
+      "cursor": 27427624478,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t5zqxl6d22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "65",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Adds atproto_repo, a sans-io, dual-target package that verifies a record's inclusion in an account's repository from a com.atproto.sync.getRecord CAR: strict DAG-CBOR, CIDv1, CAR v1 with default size limits, MST inclusion walk, and P-256/secp256k1 commit signature checks (low-S enforced), plus did:key, Multikey and legacy verification-method key parsing. Tested against the bluesky atproto-interop-tests vectors and a real profile CAR on both Erlang and JavaScript. The branch carries the release commit, so merging publishes atproto_repo 0.1.0."
+          },
+          "createdAt": "2026-11-21T13:02:20Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "feat(atproto_repo): repo record proofs, released as 0.1.0"
+          },
+          "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
+        },
+        "cid": "bafyreicj6trz4le2t3xo4gklyxncgjictbk2wce433v6hgezsbnd4qznei"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266337554405,
+      "cursor": 27427653966,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t64766u422",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreie7oqupp3mngo3c4iffy2lzuopyn2v6mzkqgli5vagfl2myj7to2a",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "3d81fd6ec38014d9697a31624c7dab9dba16d5ca"
+          },
+          "createdAt": "2026-11-21T13:05:37Z",
+          "head": {
+            "oid": "7de6f831c754d7a90457f001bac2c81654f9c79d"
+          },
+          "source": {
+            "branch": "doc-alias",
+            "repo": "did:plc:g4tlms7umfxt45xxyiwpj3s3"
+          },
+          "ticket": "8",
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreie7oqupp3mngo3c4iffy2lzuopyn2v6mzkqgli5vagfl2myj7to2a"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266408553386,
+      "cursor": 27427678711,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t66ctglx22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t66csucyrw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "> Should we be generating aliases for function pointer types?\n\nno we shouldn't. good catch"
+          },
+          "createdAt": "2026-11-21T13:06:48Z",
+          "subject": {
+            "cid": "bafyreicl5c6fsxalcljozkfwgryrr4ucnaeyue2xlkybhwntpujkcxgqvy",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.track.ticket/8"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreie7wtn2scth7hedoorsttqqygeu6ahtxuruvhtadewn2pgo6x5dyq"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266592421360,
+      "cursor": 27427793957,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t6drjvya22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2t6drin4drw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "cool"
+          },
+          "createdAt": "2026-11-21T13:09:51Z",
+          "subject": {
+            "cid": "bafyreiaaxodhmw6mmv6l4aa5zu6ilr7nyhd4i47cb6sxkrwoiobx2b5beu",
+            "uri": "at://did:plc:g4tlms7umfxt45xxyiwpj3s3/org.tangled.track.ticket/9"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreiabbv3mw4zkmed2jh3ug2pgz4milijkpibbbipbqbba36qotnmuzi"
+      }
+    },
+    {
+      "did": "did:plc:g4tlms7umfxt45xxyiwpj3s3",
+      "time_us": 1795266595954143,
+      "cursor": 27427795379,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t6dvlhpn22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "9",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Ported from https://github.com/ash-rs/ash/pull/1061."
+          },
+          "createdAt": "2026-11-21T05:04:22Z",
+          "state": "completed",
+          "tangledLabels": [
+            {
+              "key": "fix"
+            },
+            {
+              "key": "release-blocker"
+            }
+          ],
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Account for new Vulkan SDK loader path"
+          },
+          "x-tngl-editor": "did:plc:rhylasioghvvvcltrtnkmkw4"
+        },
+        "cid": "bafyreibo5buy5dvepfb7643mnfxbnykbka5cpwizwpgskhnbnxkmtmohtq"
+      }
+    },
+    {
+      "did": "did:plc:zvrrvtiai6mdz2p7nvvhlxmu",
+      "time_us": 1795266607452913,
+      "cursor": 27427799335,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t6eagozb22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "21",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Added my little webpage thingy! I think it would be good to also add an article linking to it - if that sounds reasonable I'll provide the text for the article and author page :3"
+          },
+          "createdAt": "2026-11-19T22:12:44Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "i am a ..."
+          },
+          "x-tngl-editor": "did:plc:tvzu5qjkjlu4ryv5rpch7sbr"
+        },
+        "cid": "bafyreihixo3s3lxjacx466n4vhvw7p7krcyu4rwayxexual4wgoc74oq4a"
+      }
+    },
+    {
+      "did": "did:plc:eb5uu5b3cnzyjjeh2gvb2i2v",
+      "time_us": 1795267535652911,
+      "cursor": 27428205801,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t77vqtia22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "6",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "The Edit Image node (used by the eBay workflow to resize photos) shells out to `gm` and fails with 'Could not execute GraphicsMagick/ImageMagick ... binaries can't be found'. Adds pkgs.graphicsmagick to systemd.services.n8n.path. The nixpkgs build includes libheif, so iPhone HEIC uploads work too (checked: gm lists HEIC on dma).\n\nBuilt on dma. Restarts n8n once on deploy."
+          },
+          "createdAt": "2026-11-21T13:25:35Z",
+          "state": "open",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "n8n: add graphicsmagick to PATH for the Edit Image node"
+          },
+          "x-tngl-editor": "did:plc:ymih6wg3phel2wfd2ynfsvex"
+        },
+        "cid": "bafyreic5xckkuijszaaiyn5sm3ggberj3hgkweiyohkkynm2igjkrkv75q"
+      }
+    },
+    {
+      "did": "did:plc:eb5uu5b3cnzyjjeh2gvb2i2v",
+      "time_us": 1795267536053500,
+      "cursor": 27428205958,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t77w3xha22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreicepi5aiqajqvreznbmihzncjark7662peatxr2lr23xlywgz2w64",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "$type": "org.tangled.git.oid",
+            "oid": "a9519f4af231c6fe6cdf18aed1c40b87eb53f692"
+          },
+          "createdAt": "2026-11-21T13:25:35Z",
+          "head": {
+            "$type": "org.tangled.git.oid",
+            "oid": "55cedce134ab67e39445781afc39b9a4bd441cf3"
+          },
+          "source": {
+            "$type": "org.tangled.review.patch#source",
+            "branch": "n8n-graphicsmagick",
+            "repo": "did:plc:eb5uu5b3cnzyjjeh2gvb2i2v"
+          },
+          "ticket": "6",
+          "x-tngl-editor": "did:plc:ymih6wg3phel2wfd2ynfsvex"
+        },
+        "cid": "bafyreicepi5aiqajqvreznbmihzncjark7662peatxr2lr23xlywgz2w64"
+      }
+    },
+    {
+      "did": "did:plc:eb5uu5b3cnzyjjeh2gvb2i2v",
+      "time_us": 1795267647553692,
+      "cursor": 27428245053,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t7daiyrk22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "6",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "The Edit Image node (used by the eBay workflow to resize photos) shells out to `gm` and fails with 'Could not execute GraphicsMagick/ImageMagick ... binaries can't be found'. Adds pkgs.graphicsmagick to systemd.services.n8n.path. The nixpkgs build includes libheif, so iPhone HEIC uploads work too (checked: gm lists HEIC on dma).\n\nBuilt on dma. Restarts n8n once on deploy."
+          },
+          "createdAt": "2026-11-21T13:25:35Z",
+          "state": "completed",
+          "targetBranch": "main",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "n8n: add graphicsmagick to PATH for the Edit Image node"
+          },
+          "x-tngl-editor": "did:plc:6nk6tk76up7254wawocoekjr"
+        },
+        "cid": "bafyreiaoijlouw4wdyyunu3phmg3kylcn6yfppdnhefpjichsjt2mueq2u"
+      }
+    },
+    {
+      "did": "did:plc:j5hmlfdrwkvtxm7cjmu7j2is",
+      "time_us": 1795268267270382,
+      "cursor": 27428472244,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2t7vphch522",
+        "operation": "create",
+        "collection": "org.tangled.feed.reaction",
+        "rkey": "3n2t7vpgcg7rw",
+        "record": {
+          "$type": "org.tangled.feed.reaction",
+          "createdAt": "2026-11-21T13:37:47Z",
+          "reaction": "👀",
+          "subject": {
+            "cid": "bafyreidhqnpeyqpnjmqor6crwpsdpzo2gcem7viv2kjfn2wz6poowh6dfm",
+            "uri": "at://did:plc:j5hmlfdrwkvtxm7cjmu7j2is/org.tangled.track.ticket/4741"
+          },
+          "x-tngl-editor": "did:plc:p3ew6lzatra44vqvb354whrp"
+        },
+        "cid": "bafyreifc5buc5miwgheenqpanqo2uobjc2qln2qzzolrabhuv6t5wu53mm"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795268656474616,
+      "cursor": 27428626736,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2tabcnf7m22",
+        "operation": "create",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "4218",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Binds the three Tangled dashboard methods to ConfigureSite in the fuzz completeness inventory. The GET methods are owner-session-only in the effective snapshot. The POST snapshot uses a bodyless request, while the existing valid-body permission test covers the owner gate. Exact fuzz self-test queued on 276d6c2b8."
+          },
+          "createdAt": "2026-11-21T13:44:16Z",
+          "state": "open",
+          "targetBranch": "unit/tangled-standard-access-inventory",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "Account for Tangled owner routes in C2 refusal checks"
+          },
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreibwzvtnmguapx5kqsdrx6v2rftruiqneq4vk5avpdmvvfuqm6q22e"
+      }
+    },
+    {
+      "did": "did:plc:wj53zt2oo653zr3wgnvn4llg",
+      "time_us": 1795268657852682,
+      "cursor": 27428627260,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2tabdvv4o22",
+        "operation": "create",
+        "collection": "org.tangled.review.patch",
+        "rkey": "bafyreiagmenxnae2oal5de64dobdcao5qq4cdg5ty562swlb4f3qpeg2aa",
+        "record": {
+          "$type": "org.tangled.review.patch",
+          "base": {
+            "oid": "fd9a9d4ae4a97dd7a3366a43530373bebb6c9fad"
+          },
+          "createdAt": "2026-11-21T13:44:17Z",
+          "head": {
+            "oid": "276d6c2b88fda883200cba8cee573d666c38a009"
+          },
+          "source": {
+            "branch": "unit/tangled-standard-fuzz-inventory",
+            "repo": "did:plc:wj53zt2oo653zr3wgnvn4llg"
+          },
+          "ticket": "4218",
+          "x-tngl-editor": "did:plc:qfngkejlw4ghji2myc73hbdh"
+        },
+        "cid": "bafyreiagmenxnae2oal5de64dobdcao5qq4cdg5ty562swlb4f3qpeg2aa"
+      }
+    },
+    {
+      "did": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+      "time_us": 1795268943953737,
+      "cursor": 27428805213,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2tajust5g22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "492",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "`cmd/kukicha-relay/promote.kuki` does not check a report's queue status before creating a tracker record, and `MarkPromoted` updates by id without requiring `status = 'queued'`.\n\nThis has two user-visible consequences:\n\n1. Running `kukicha-relay --promote <id>` twice can create duplicate tracker records even when the row is already promoted.\n2. If ticket creation succeeds but `MarkPromoted` fails, the command still exits successfully while the row remains queued. A natural operator retry creates another ticket.\n\nThe new Knot2 path in `relay-cob-tickets` preserves this pre-existing behavior. Its tests cover ordinary success, knot failure, and best-effort attestation failure, but not repeated promotion or a forced bookkeeping failure after a successful write.\n\nSuggested follow-up:\n\n- Reject promotion when the row is not queued, or make promotion stateful by storing the created ticket URI before retrying.\n- Make `MarkPromoted` update only queued rows and surface the affected-row count.\n- Add regression tests for both duplicate invocation and a successful write followed by failed bookkeeping.\n\nPre-change repro shape:\n\n```text\nqueue a report\npromote it once\npromote the same id again\n```\n\nThe second invocation files another tracker record rather than returning the existing one.\n"
+          },
+          "createdAt": "2026-11-20T11:56:30Z",
+          "state": "closed",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "kukicha-relay: promote is not idempotent and can duplicate tickets after bookkeeping failure"
+          },
+          "x-tngl-editor": "did:plc:woheeqjgxgrab33jlluffosg"
+        },
+        "cid": "bafyreidpywxij2wt6zknxa7kigqgc3yffzkubneuc2pgxauowlyj57sqny"
+      }
+    },
+    {
+      "did": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+      "time_us": 1795268975354540,
+      "cursor": 27428818694,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2taksroex22",
+        "operation": "update",
+        "collection": "org.tangled.track.ticket",
+        "rkey": "499",
+        "record": {
+          "$type": "org.tangled.track.ticket",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "## Summary\n\n`stdlib/sqlite.Open` can fail when two pools open the same database concurrently because the default pragma DSN is built from a Go map:\n\n```text\nsqlite3: invalid _pragma: sqlite3: database is locked\n```\n\n`openDefaults` contains both `journal_mode = WAL` and `busy_timeout = 5000`, but `openWithPragmas` iterates the map. Map iteration is unordered, so a connection can attempt the write-mode `journal_mode` pragma before installing its busy timeout. If another connection briefly holds the database lock, the first pragma fails instead of waiting.\n\n## Reproducer\n\nThis was exposed reliably enough under the race suite by `cmd/kukicha-relay`’s concurrent schema migration test:\n\n```text\ngo test -race ./cmd/kukicha-relay/ -run TestInitBugSchemaMigratesLegacyTables -count=...\n```\n\nObserved under `make test`:\n\n```text\n--- FAIL: TestInitBugSchemaMigratesLegacyTables (0.13s)\n    main_test.go:762: concurrent migration: sqlite3: invalid _pragma: sqlite3: database is locked\n```\n\nThe test opens two `OpenRelayQueue` pools concurrently against the same SQLite file. Either pool can lose the unordered-pragma race during `sqlite.Open`.\n\n## Expected\n\nA default `sqlite.Open` should install `busy_timeout` before any potentially locking write pragma, so concurrent first opens wait rather than fail.\n\n## Actual\n\n`openWithPragmas` emits pragmas in Go map order. `journal_mode=WAL` may run before `busy_timeout=5000`, producing an immediate lock failure.\n\n## Proposed fix\n\nMake DSN pragma emission deterministic and put `busy_timeout` first when present. Add a stdlib regression test that concurrently opens two default pools against one file and asserts both opens succeed.\n\n## Notes\n\n- The relay migration transaction is already serialized; this failure occurs earlier, during pool construction.\n- The relay test exposed the bug because it deliberately exercises two simultaneous first opens after upgrade.\n"
+          },
+          "createdAt": "2026-11-21T00:48:10Z",
+          "state": "closed",
+          "title": {
+            "$type": "org.tangled.markup.markdown#inline",
+            "text": "stdlib/sqlite: concurrent Open can run journal_mode before busy_timeout and fail with database is locked"
+          },
+          "x-tngl-editor": "did:plc:woheeqjgxgrab33jlluffosg"
+        },
+        "cid": "bafyreigcmoag2g3ioisd5aodyfxpj5ipzb2krjcswgbeycxkzj2d5d7dzq"
+      }
+    },
+    {
+      "did": "did:plc:wq67r5lwdn4el5ifmrlk7bpc",
+      "time_us": 1795269203654833,
+      "cursor": 27428919703,
+      "kind": "commit",
+      "commit": {
+        "rev": "3n2tarmhkwx22",
+        "operation": "create",
+        "collection": "org.tangled.feed.comment",
+        "rkey": "3n2tarmgosorw",
+        "record": {
+          "$type": "org.tangled.feed.comment",
+          "body": {
+            "$type": "org.tangled.markup.markdown",
+            "text": "Status check (2026-11-21): still an upstream issue.\n\n- `https://tangled.org/.../info/refs?service=git-upload-pack` still returns a cross-host `307` to the knot1 DID URL.\n- knot1 still advertises the endpoint over HTTP/2 by default (`curl --http2` → `HTTP/2 200`), although forcing HTTP/1.1 also works.\n- The deployed kukicha.org mirror workaround still works: `proxy.golang.org/kukicha.org/kukicha/@latest` returns `v0.86.11`, and the corresponding `sum.golang.org` lookup returns `200`.\n\nSo public Go installs remain healthy through the mirror, but the underlying Tangled redirect/protocol behavior has not been resolved."
+          },
+          "createdAt": "2026-11-21T13:53:23Z",
+          "subject": {
+            "cid": "bafyreiew3cnjnpc4j5ckus4rgrxrevjp25ebf76uzrwpguvsbxccdvpgii",
+            "uri": "at://did:plc:wq67r5lwdn4el5ifmrlk7bpc/org.tangled.track.ticket/4"
+          },
+          "x-tngl-editor": "did:plc:woheeqjgxgrab33jlluffosg"
+        },
+        "cid": "bafyreic2u76nnkg6664snldcu3knq2aeqgxmd7mvv75tu5vru7akouhwc4"
       }
     }
   ]

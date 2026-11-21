@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listBranches?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "branches": [
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-21T14:30:32.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Tangled",
+            "when": "2026-11-21T14:31:55.000000Z"
+          },
+          "message": "Add forges-fixtures/20261121143017-1.md\n",
+          "name": "main",
+          "oid": "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+        },
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "Daniel Roe",
+            "when": "2026-10-09T19:29:21.000000+01:00"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "Daniel Roe",
+            "when": "2026-10-09T19:29:21.000000+01:00"
+          },
+          "message": "chore: edit\n",
+          "name": "bo",
+          "oid": "3d45c8062c15a3e747e20cbd14e6092a98aca072"
+        }
+      ],
+      "defaultBranch": "main",
+      "total": 2
+    }
+  }
+}

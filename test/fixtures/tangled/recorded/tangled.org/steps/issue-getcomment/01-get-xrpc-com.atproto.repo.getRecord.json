@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.feed.comment&rkey=3mxmwljizgu2y"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreibki6q2lrde56smfxv5hsiprq3jehc3m3ckr6rxzhhoghpkskdley",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3mxmwljizgu2y",
+      "value": {
+        "$type": "org.tangled.feed.comment",
+        "body": {
+          "$type": "org.tangled.markup.markdown",
+          "text": "A seeded comment."
+        },
+        "createdAt": "2026-10-11T21:19:28Z",
+        "subject": {
+          "cid": "bafyreiad5s5uuod57qo6a62t2h4e4hmxi2y2md7fgxursp2wuirqlqtahy",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/17"
+        },
+        "x-tngl-editor": "did:plc:7qksav5io2s4qfg67pe7iqqk"
+      }
+    }
+  }
+}

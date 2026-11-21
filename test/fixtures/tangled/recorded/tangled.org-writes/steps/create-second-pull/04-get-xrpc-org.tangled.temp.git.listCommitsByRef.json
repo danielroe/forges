@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.temp.git.listCommitsByRef?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&ranges=refs%2Fheads%2Fforges-fixtures%2F20261121143343-2&limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "commits": [
+        {
+          "author": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-21T14:33:59.000000Z"
+          },
+          "committer": {
+            "email": "redacted@example.invalid",
+            "name": "forges fixtures",
+            "when": "2026-11-21T14:33:59.000000Z"
+          },
+          "extraHeaders": [],
+          "message": "Add forges-fixtures/20261121143343-2.md\n",
+          "oid": "3fec147c3fada2cdaae3e5990d903903535e2582",
+          "parents": [
+            "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+          ],
+          "tree": "30e04529f94f35c880109f650f270558339b6e15"
+        }
+      ]
+    }
+  }
+}

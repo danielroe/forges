@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://notifs.tangled.network/xrpc/org.tangled.temp.notification.listNotifications?read=unread&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "notifications": [],
+      "socialUnreadCount": 0,
+      "workUnreadCount": 0
+    }
+  }
+}

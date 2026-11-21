@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://plc.directory/did:plc:dfl62fgb7wtjj3fcbb72naae"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"20f-rkClXoo5qbY/yZTiqJX34aB+318\""
+    },
+    "body": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1",
+        "https://w3id.org/security/suites/secp256k1-2019/v1"
+      ],
+      "id": "did:plc:dfl62fgb7wtjj3fcbb72naae",
+      "alsoKnownAs": [
+        "at://ptr.pet"
+      ],
+      "verificationMethod": [
+        {
+          "id": "did:plc:dfl62fgb7wtjj3fcbb72naae#atproto",
+          "type": "Multikey",
+          "controller": "did:plc:dfl62fgb7wtjj3fcbb72naae",
+          "publicKeyMultibase": "zQ3shvZSPBhJSWMLMfxSt7Z8F6b4KuGAtf1HeAwtiET5zPX7r"
+        }
+      ],
+      "service": [
+        {
+          "id": "#atproto_pds",
+          "type": "AtprotoPersonalDataServer",
+          "serviceEndpoint": "https://zwsp.xyz"
+        }
+      ]
+    }
+  }
+}

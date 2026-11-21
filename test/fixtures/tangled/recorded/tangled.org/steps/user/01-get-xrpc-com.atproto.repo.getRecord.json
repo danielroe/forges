@@ -1,26 +1,27 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3A7qksav5io2s4qfg67pe7iqqk&collection=sh.tangled.actor.profile&rkey=self"
+    "url": "https://tngl.sh/xrpc/com.atproto.repo.getRecord?repo=did:plc:7qksav5io2s4qfg67pe7iqqk&collection=org.tangled.actor.profile&rkey=self"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"158-wAK3DKvoW7RwczoOrqmCCEPSYCM\"",
+      "etag": "W/\"171-D9ZP28vjsYt4JZRISBBWvwWnIF0\"",
       "ratelimit-limit": "3000",
-      "ratelimit-remaining": "2712",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-remaining": "2659",
+      "ratelimit-reset": "1795271720",
+      "ratelimit-policy": "3000;w=300"
     },
     "body": {
-      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/sh.tangled.actor.profile/self",
-      "cid": "bafyreieqiv5d236acb6ykclvihz2ipddsp3ocxlwe7kt3lmwesvyxtxtci",
+      "uri": "at://did:plc:7qksav5io2s4qfg67pe7iqqk/org.tangled.actor.profile/self",
+      "cid": "bafyreibcr247nhdr5zr2q7mh7hrvion3d6rca6pghrnbjfyvttf7e2wvnq",
       "value": {
-        "$type": "sh.tangled.actor.profile",
+        "$type": "org.tangled.actor.profile",
         "links": [
           "https://forges.link"
         ],
-        "bluesky": false,
         "location": "The scratch repository",
+        "createdAt": "2026-11-21T14:32:28.548Z",
         "description": "The account forges records its Tangled fixtures with."
       }
     }

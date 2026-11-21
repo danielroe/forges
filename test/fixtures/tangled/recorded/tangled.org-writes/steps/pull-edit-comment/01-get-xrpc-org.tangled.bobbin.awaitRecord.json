@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.feed.comment%2F3n2td3y6th4rw&cid=bafyreifspiyrth3fdw3hehrw2dvjtgm6llcpknwhiuf42dg7yrowj3dhca"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "status": "indexed",
+      "cid": "bafyreifspiyrth3fdw3hehrw2dvjtgm6llcpknwhiuf42dg7yrowj3dhca"
+    }
+  }
+}

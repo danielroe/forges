@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.createRecord"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "uri": "at://did:plc:widgetsrepo2222222222222/org.tangled.track.ticket/8",
+      "cid": "bafyreiticket00000000000000000000000000000000000000000000000008",
+      "commit": {
+        "cid": "c",
+        "rev": "r"
+      },
+      "validationStatus": "valid",
+      "x-tngl-change": "6666666666666666666666666666666666666666"
+    }
+  }
+}

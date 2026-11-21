@@ -10,10 +10,11 @@
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"2f3-OCE86BVxeYErvExUVgWtcIrFNKA\"",
+      "etag": "W/\"30b-JdIFUO30P5glPk12oKkeIw2THQ0\"",
       "ratelimit-limit": "30",
-      "ratelimit-remaining": "28",
-      "ratelimit-reset": "1791756647"
+      "ratelimit-remaining": "18",
+      "ratelimit-reset": "1795214257",
+      "ratelimit-policy": "30;w=300"
     },
     "body": {
       "accessJwt": "REDACTED",
@@ -22,6 +23,7 @@
       "handle": "roebot.tngl.sh",
       "email": "redacted@example.invalid",
       "emailConfirmed": false,
+      "emailAuthFactor": false,
       "active": true
     }
   }

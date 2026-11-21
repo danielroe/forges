@@ -544,7 +544,7 @@ describe('web links', () => {
     })).toBe('https://tangled.org/did:plc:abc/core')
   })
 
-  it('links a Tangled thread from its display number and writes it back as a reference', () => {
+  it('links a Tangled thread from its number and writes it back as a reference', () => {
     const target = {
       ...repo,
       forge: 'tangled',
@@ -556,7 +556,7 @@ describe('web links', () => {
       instance: 'tangled.org',
       repo: target,
       kind: 'issue',
-      displayNumber: '12',
+      number: '12',
     } as const
 
     expect(tg.urlFor({ thread: parsed })).toBe('https://tangled.org/acme.dev/widgets/issues/12')
@@ -564,12 +564,10 @@ describe('web links', () => {
     expect(tg.referenceFor(parsed, {
       from: { ...target, name: 'other' },
     })).toBe('acme.dev/widgets#12')
-    // A number with no display number is not linkable, because Tangled pages address threads by display number.
     expect(tg.urlFor({
-      thread: { ...parsed, displayNumber: undefined, number: '12' },
+      thread: { ...parsed, number: '' },
     })).toBeUndefined()
-    // An API ref carries the AT-URI as `number`; without a display number it has no short form either.
-    expect(tg.referenceFor({ ...parsed, displayNumber: undefined, number: 'at://did:plc:abc/sh.tangled.repo.issue/3k' }, { from: target })).toBeUndefined()
+    expect(tg.referenceFor({ ...parsed, number: '' }, { from: target })).toBeUndefined()
   })
 
   it.each([
@@ -877,7 +875,7 @@ describe('web links', () => {
     })
     expect(tg.parseUrl('https://tangled.org/@acme.dev/core/issues/4')).toMatchObject({
       repo: { owner: 'acme.dev', name: 'core' },
-      thread: { kind: 'issue', displayNumber: '4' },
+      thread: { kind: 'issue', number: '4' },
     })
     expect(gh.parseUrl('https://gitlab.com/acme/widgets')).toBeUndefined()
   })
@@ -885,7 +883,7 @@ describe('web links', () => {
   it('reads a Tangled URL on tangled.sh as tangled.org', () => {
     expect(tg.parseUrl('https://tangled.sh/@acme.dev/core/issues/4')).toMatchObject({
       repo: { instance: 'tangled.org', owner: 'acme.dev', name: 'core' },
-      thread: { kind: 'issue', displayNumber: '4' },
+      thread: { kind: 'issue', number: '4' },
     })
     expect(tangled({ baseUrl: 'https://knot.example.com' }).parseUrl('https://tangled.sh/@acme.dev/core')).toBeUndefined()
   })

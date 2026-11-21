@@ -1,0 +1,59 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://spindle.tangled.network/xrpc/org.tangled.webhook.listWebhookDeliveries?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&webhooks=21&limit=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "deliveries": [
+        {
+          "createdAt": "2026-11-21T14:31:55Z",
+          "event": "push",
+          "id": "7a525e3e-0af8-42f5-a806-c059df3fd474",
+          "requestBody": {
+            "$bytes": "eyJyZWYiOiJyZWZzL2hlYWRzL21haW4iLCJiZWZvcmUiOiI2NmMyMzU2NTg5MmYyOWJiMGMwYTNiMWJiMzYyZTI0OWZhNWU5MjIzIiwiYWZ0ZXIiOiIyYjVjYjk3NmE1NGE0YjVkOWY1ZTkxMmU5YTBlMDhmMDdjYTJmZTZjIiwicmVwb3NpdG9yeSI6eyJuYW1lIjoiZm9yZ2VzLWZpeHR1cmVzIiwiZnVsbF9uYW1lIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiZGVzY3JpcHRpb24iOiIiLCJmb3JrIjpmYWxzZSwiaHRtbF91cmwiOiJodHRwczovL2tub3QxLnRhbmdsZWQuc2gvZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiY2xvbmVfdXJsIjoiaHR0cHM6Ly9rbm90MS50YW5nbGVkLnNoL2RpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrL2Zvcmdlcy1maXh0dXJlcyIsInNzaF91cmwiOiJzc2g6Ly9naXRAa25vdDEudGFuZ2xlZC5zaC9kaWQ6cGxjOjdxa3NhdjVpbzJzNHFmZzY3cGU3aXFxay9mb3JnZXMtZml4dHVyZXMiLCJjcmVhdGVkX2F0IjoiIiwidXBkYXRlZF9hdCI6IiIsIm93bmVyIjp7ImRpZCI6ImRpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrIn19LCJwdXNoZXIiOnsiZGlkIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsifX0"
+          },
+          "responseBody": {
+            "$bytes": "PCFkb2N0eXBlIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjx0aXRsZT5FeGFtcGxlIERvbWFpbjwvdGl0bGU+PGxpbmsgcmVsPSJpY29uIiBocmVmPSJkYXRhOiwiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+PHN0eWxlPmJvZHl7YmFja2dyb3VuZDojZWVlO3dpZHRoOjYwdnc7bWFyZ2luOjE1dmggYXV0bztmb250LWZhbWlseTpzeXN0ZW0tdWksc2Fucy1zZXJpZn1oMXtmb250LXNpemU6MS41ZW19ZGl2e29wYWNpdHk6MC44fWE6bGluayxhOnZpc2l0ZWR7Y29sb3I6IzM0OH08L3N0eWxlPjwvaGVhZD48Ym9keT48ZGl2PjxoMT5FeGFtcGxlIERvbWFpbjwvaDE+PHA+VGhpcyBkb21haW4gaXMgZm9yIHVzZSBpbiBkb2N1bWVudGF0aW9uIGV4YW1wbGVzIHdpdGhvdXQgbmVlZGluZyBwZXJtaXNzaW9uLiBBdm9pZCB1c2UgaW4gb3BlcmF0aW9ucy48L3A+PHA+PGEgaHJlZj0iaHR0cHM6Ly9pYW5hLm9yZy9kb21haW5zL2V4YW1wbGUiPkxlYXJuIG1vcmU8L2E+PC9wPjwvZGl2PjwvYm9keT48L2h0bWw+"
+          },
+          "responseCode": 405,
+          "success": false,
+          "url": "https://example.com/hook",
+          "webhook": "21"
+        },
+        {
+          "createdAt": "2026-11-21T14:30:36Z",
+          "event": "push",
+          "id": "3c7a2770-5a11-4bc8-bd04-152c10ff691e",
+          "requestBody": {
+            "$bytes": "eyJyZWYiOiJyZWZzL2hlYWRzL2Zvcmdlcy1maXh0dXJlcy8yMDI2MTEyMTE0MzAxNy0zIiwiYmVmb3JlIjoiIiwiYWZ0ZXIiOiI0ZTdmN2Q5OTVkMDM0YjM5YjYwMzU1OGIyMDIzMWU0ZTljOTI2NDdlIiwicmVwb3NpdG9yeSI6eyJuYW1lIjoiZm9yZ2VzLWZpeHR1cmVzIiwiZnVsbF9uYW1lIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiZGVzY3JpcHRpb24iOiIiLCJmb3JrIjpmYWxzZSwiaHRtbF91cmwiOiJodHRwczovL2tub3QxLnRhbmdsZWQuc2gvZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiY2xvbmVfdXJsIjoiaHR0cHM6Ly9rbm90MS50YW5nbGVkLnNoL2RpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrL2Zvcmdlcy1maXh0dXJlcyIsInNzaF91cmwiOiJzc2g6Ly9naXRAa25vdDEudGFuZ2xlZC5zaC9kaWQ6cGxjOjdxa3NhdjVpbzJzNHFmZzY3cGU3aXFxay9mb3JnZXMtZml4dHVyZXMiLCJjcmVhdGVkX2F0IjoiIiwidXBkYXRlZF9hdCI6IiIsIm93bmVyIjp7ImRpZCI6ImRpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrIn19LCJwdXNoZXIiOnsiZGlkIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsifX0"
+          },
+          "responseBody": {
+            "$bytes": "PCFkb2N0eXBlIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjx0aXRsZT5FeGFtcGxlIERvbWFpbjwvdGl0bGU+PGxpbmsgcmVsPSJpY29uIiBocmVmPSJkYXRhOiwiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+PHN0eWxlPmJvZHl7YmFja2dyb3VuZDojZWVlO3dpZHRoOjYwdnc7bWFyZ2luOjE1dmggYXV0bztmb250LWZhbWlseTpzeXN0ZW0tdWksc2Fucy1zZXJpZn1oMXtmb250LXNpemU6MS41ZW19ZGl2e29wYWNpdHk6MC44fWE6bGluayxhOnZpc2l0ZWR7Y29sb3I6IzM0OH08L3N0eWxlPjwvaGVhZD48Ym9keT48ZGl2PjxoMT5FeGFtcGxlIERvbWFpbjwvaDE+PHA+VGhpcyBkb21haW4gaXMgZm9yIHVzZSBpbiBkb2N1bWVudGF0aW9uIGV4YW1wbGVzIHdpdGhvdXQgbmVlZGluZyBwZXJtaXNzaW9uLiBBdm9pZCB1c2UgaW4gb3BlcmF0aW9ucy48L3A+PHA+PGEgaHJlZj0iaHR0cHM6Ly9pYW5hLm9yZy9kb21haW5zL2V4YW1wbGUiPkxlYXJuIG1vcmU8L2E+PC9wPjwvZGl2PjwvYm9keT48L2h0bWw+"
+          },
+          "responseCode": 405,
+          "success": false,
+          "url": "https://example.com/hook",
+          "webhook": "21"
+        },
+        {
+          "createdAt": "2026-11-21T14:30:35Z",
+          "event": "push",
+          "id": "49b059ac-1363-47f5-9816-f9195a7e1018",
+          "requestBody": {
+            "$bytes": "eyJyZWYiOiJyZWZzL2hlYWRzL2Zvcmdlcy1maXh0dXJlcy8yMDI2MTEyMTE0MzAxNy0yIiwiYmVmb3JlIjoiIiwiYWZ0ZXIiOiI2ODcwMWQyN2EwZjM5ZGM2NjAwZWZjODM0OWM5YmRkZDBjZTdhMzM3IiwicmVwb3NpdG9yeSI6eyJuYW1lIjoiZm9yZ2VzLWZpeHR1cmVzIiwiZnVsbF9uYW1lIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiZGVzY3JpcHRpb24iOiIiLCJmb3JrIjpmYWxzZSwiaHRtbF91cmwiOiJodHRwczovL2tub3QxLnRhbmdsZWQuc2gvZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsvZm9yZ2VzLWZpeHR1cmVzIiwiY2xvbmVfdXJsIjoiaHR0cHM6Ly9rbm90MS50YW5nbGVkLnNoL2RpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrL2Zvcmdlcy1maXh0dXJlcyIsInNzaF91cmwiOiJzc2g6Ly9naXRAa25vdDEudGFuZ2xlZC5zaC9kaWQ6cGxjOjdxa3NhdjVpbzJzNHFmZzY3cGU3aXFxay9mb3JnZXMtZml4dHVyZXMiLCJjcmVhdGVkX2F0IjoiIiwidXBkYXRlZF9hdCI6IiIsIm93bmVyIjp7ImRpZCI6ImRpZDpwbGM6N3Frc2F2NWlvMnM0cWZnNjdwZTdpcXFrIn19LCJwdXNoZXIiOnsiZGlkIjoiZGlkOnBsYzo3cWtzYXY1aW8yczRxZmc2N3BlN2lxcWsifX0"
+          },
+          "responseBody": {
+            "$bytes": "PCFkb2N0eXBlIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjx0aXRsZT5FeGFtcGxlIERvbWFpbjwvdGl0bGU+PGxpbmsgcmVsPSJpY29uIiBocmVmPSJkYXRhOiwiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MSI+PHN0eWxlPmJvZHl7YmFja2dyb3VuZDojZWVlO3dpZHRoOjYwdnc7bWFyZ2luOjE1dmggYXV0bztmb250LWZhbWlseTpzeXN0ZW0tdWksc2Fucy1zZXJpZn1oMXtmb250LXNpemU6MS41ZW19ZGl2e29wYWNpdHk6MC44fWE6bGluayxhOnZpc2l0ZWR7Y29sb3I6IzM0OH08L3N0eWxlPjwvaGVhZD48Ym9keT48ZGl2PjxoMT5FeGFtcGxlIERvbWFpbjwvaDE+PHA+VGhpcyBkb21haW4gaXMgZm9yIHVzZSBpbiBkb2N1bWVudGF0aW9uIGV4YW1wbGVzIHdpdGhvdXQgbmVlZGluZyBwZXJtaXNzaW9uLiBBdm9pZCB1c2UgaW4gb3BlcmF0aW9ucy48L3A+PHA+PGEgaHJlZj0iaHR0cHM6Ly9pYW5hLm9yZy9kb21haW5zL2V4YW1wbGUiPkxlYXJuIG1vcmU8L2E+PC9wPjwvZGl2PjwvYm9keT48L2h0bWw+"
+          },
+          "responseCode": 405,
+          "success": false,
+          "url": "https://example.com/hook",
+          "webhook": "21"
+        }
+      ]
+    }
+  }
+}
