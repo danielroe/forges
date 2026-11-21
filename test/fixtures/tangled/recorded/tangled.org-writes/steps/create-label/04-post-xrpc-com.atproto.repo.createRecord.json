@@ -5,12 +5,12 @@
     "body": {
       "repo": "did:plc:t73o44q7fppgagkrevtztyok",
       "collection": "org.tangled.label.definition",
-      "rkey": "forges-fixture-20261121143017",
+      "rkey": "forges-fixture-20261121143343",
       "record": {
         "$type": "org.tangled.label.definition",
-        "name": "forges-fixture-20261121143017",
+        "name": "forges-fixture-20261121143343",
         "color": "#0e8a16",
-        "createdAt": "2026-11-21T14:30:39.575Z"
+        "createdAt": "2026-11-21T14:34:04.124Z"
       }
     }
   },
@@ -18,14 +18,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.label.definition/forges-fixture-20261121143017",
-      "cid": "bafyreieuegw5vxfiwrwfrv2rhjstt3q5eial2c6npalxadq6a3legp4a7i",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.label.definition/forges-fixture-20261121143343",
+      "cid": "bafyreib5q4uqyd33l4rz5aqe532jcqfwlg7oglxr52lrut4e4nsdcrag4q",
       "commit": {
-        "cid": "bafyreiem5svxpi3nmejawrcektfxrtrtaiyr7sluputthrxnbaqk4r27ty",
-        "rev": "3n2tcubg3ci22"
+        "cid": "bafyreid2sc52huhsqp47txykhazdixccduy6q3p3jz6bjz6wyu4pb4e3bq",
+        "rev": "3n2td2eh6iz22"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "f66b6316c1f98395a60142e6c1903096810cf6f4"
+      "x-tngl-change": "40de462bdc1f53f0c248a316c8e2101948e10768"
     }
   }
 }

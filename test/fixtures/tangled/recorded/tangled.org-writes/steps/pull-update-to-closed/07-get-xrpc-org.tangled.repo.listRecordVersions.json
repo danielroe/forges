@@ -1,26 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F140&limit=100"
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F146&limit=100"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/140",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/146",
       "total": 2,
       "versions": [
         {
-          "cid": "bafyreifrlqx3te5xibc5go6ywxgyn3x7wzsirb4ff7u6yg4njki3jzcfpq",
-          "changeId": "8c3bc4394572ae7ed808d65524c4106db26c0e4a",
+          "cid": "bafyreifq24b5ci6qkgbnambfjuep5e4qwdlt2mu7a2vw2gihnuqkuycfle",
+          "changeId": "232d69da6f017c51644eb30c0ef9bda4ff1ce31c",
           "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "createdAt": "2026-11-21T14:31:25.000000Z"
+          "createdAt": "2026-11-21T14:34:54.000000Z"
         },
         {
-          "cid": "bafyreifsh4cjzs2bqku6ykzqrktwkldtywxvujymyjxq3qn5nbp4qiayna",
-          "changeId": "ee9021b14d63f0fe52cd2cc12c376f3689cc6531",
+          "cid": "bafyreiacjy64hdatdtyjze53gslsiujrh6k7j7fpwbuuhvljpc42uou7wy",
+          "changeId": "06124d77ef9d653c9db750287c41ec1c73ae1f3f",
           "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "createdAt": "2026-11-21T14:31:50.000000Z"
+          "createdAt": "2026-11-21T14:35:19.000000Z"
         }
       ]
     }

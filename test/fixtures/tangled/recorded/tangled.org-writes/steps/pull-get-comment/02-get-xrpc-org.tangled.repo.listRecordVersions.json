@@ -1,21 +1,21 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.feed.comment%2F3n2tcvqzaokrw&limit=1&order=asc"
+    "url": "https://knot1.tangled.sh/xrpc/org.tangled.repo.listRecordVersions?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.feed.comment%2F3n2td3y6th4rw&limit=1&order=asc"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcvqzaokrw",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2td3y6th4rw",
       "cursor": "1",
       "total": 2,
       "versions": [
         {
-          "cid": "bafyreihtot7xi4tatsmv5mlfvmdryms4fc6iq5gaxn5l3cvw34owxfm3ey",
-          "changeId": "97278c76ab7595d87b0a783fe448c2e3761c04b8",
+          "cid": "bafyreieb7bodgda2ayf2whmkmnis3irg2rpz7qvdufj7igf5aaoa3tfsuu",
+          "changeId": "f960f4fb3b18d998ed9e872b40397180cc31c2c0",
           "editor": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "createdAt": "2026-11-21T14:31:29.000000Z"
+          "createdAt": "2026-11-21T14:34:58.000000Z"
         }
       ]
     }

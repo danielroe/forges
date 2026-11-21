@@ -494,6 +494,29 @@ describe('tangled writes', () => {
     })
   })
 
+  it('waits for the index to list a new collaborator', async () => {
+    const GRACE = 'did:plc:gracecollab2222222222222'
+    const grant = `at://${REPO_DID}/org.tangled.graph.collaborator/${GRACE}`
+    const { instance, calls } = provider({
+      ...session,
+      [`GET https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=${encodeURIComponent(REPO_DID)}&collection=org.tangled.graph.collaborator&rkey=${encodeURIComponent(GRACE)}`]: {
+        status: 200,
+        body: {
+          uri: grant,
+          cid: 'bafyreigrant',
+          value: { createdAt: '2026-09-01T00:00:00Z' },
+        },
+      },
+      [`GET https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=${encodeURIComponent(grant)}&cid=bafyreigrant`]: {
+        status: 200,
+        body: { status: 'indexed', cid: 'bafyreigrant' },
+      },
+    })
+    await instance.repos.addCollaborator({ ...repo, externalId: REPO_DID }, GRACE, 'write')
+
+    expect(calls.at(-1)!.url).toContain('org.tangled.bobbin.awaitRecord')
+  })
+
   it('refuses fork pulls and drafts', async () => {
     const { instance } = provider(session)
     await expect(instance.threads.create(repo, {

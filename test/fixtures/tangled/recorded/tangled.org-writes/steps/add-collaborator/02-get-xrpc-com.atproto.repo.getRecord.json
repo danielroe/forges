@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://knot1.tangled.sh/xrpc/com.atproto.repo.getRecord?repo=did%3Aplc%3At73o44q7fppgagkrevtztyok&collection=org.tangled.graph.collaborator&rkey=did%3Aplc%3Auxfnwnz5wfwl6tfgqwyfrqyv"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "cid": "bafyreigaiy3elukdguvygz46sb34i6nh2ummzmuca6ii7dvuwppfjg5trq",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.graph.collaborator/did:plc:uxfnwnz5wfwl6tfgqwyfrqyv",
+      "value": {
+        "$type": "org.tangled.graph.collaborator",
+        "createdAt": "2026-10-11T21:41:10Z"
+      }
+    }
+  }
+}

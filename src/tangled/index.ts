@@ -725,7 +725,12 @@ const TANGLED: ProviderDefinition<TangledOptions, undefined, true> = {
           if (role !== 'write') {
             throw new UnsupportedOperationError('Tangled collaborators can push; `write` is the only role', context)
           }
-          await (await knot()).addCollaborator(repo, await didOf(actor, options?.signal), options?.signal)
+          const subject = await didOf(actor, options?.signal)
+          await (await knot()).addCollaborator(repo, subject, options?.signal)
+          // The knot responds to a grant with no body, so the cid to wait for comes from the knot's copy.
+          const handle = await repoFor(repo, options?.signal)
+          const grant = await knotRecord(handle, COLLECTIONS.collaborator, subject, options?.signal)
+          await awaitIndexed(grant.uri, grant.cid, options?.signal)
           return { status: 'added' }
         }),
         permissionFor: verb(true, (repo, actor, options) => permissionFor(repo, actor, options)),

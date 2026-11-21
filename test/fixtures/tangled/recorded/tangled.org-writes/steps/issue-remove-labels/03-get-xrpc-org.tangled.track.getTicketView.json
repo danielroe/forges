@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F135"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTicketView?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F141"
   },
   "response": {
     "status": 200,
@@ -13,16 +13,16 @@
       },
       "body": {
         "$type": "org.tangled.markup.markdown",
-        "text": "Opened by run 20261121143017."
+        "text": "Opened by run 20261121143343."
       },
-      "cid": "bafyreig7zdmpx6ese34iz65gz2baaphxuema2vbob6sbd2jmfthhblf4h4",
-      "createdAt": "2026-11-21T14:30:43Z",
+      "cid": "bafyreifc5kyxhvdmcse3h3wt5n2hj5w7n2ii6tohpobuh4gm4xnywtaexi",
+      "createdAt": "2026-11-21T14:34:11Z",
       "repo": {
         "createdAt": "2026-10-09T17:02:20.000000Z",
         "did": "did:plc:t73o44q7fppgagkrevtztyok",
         "forkCount": 0,
-        "openIssueCount": 42,
-        "openPullCount": 29,
+        "openIssueCount": 45,
+        "openPullCount": 31,
         "owner": {
           "did": "did:plc:7qksav5io2s4qfg67pe7iqqk",
           "handle": "roebot.tngl.sh"
@@ -34,9 +34,9 @@
       "tangledLabels": [],
       "title": {
         "$type": "org.tangled.markup.markdown#inline",
-        "text": "forges fixture 20261121143017: issue"
+        "text": "forges fixture 20261121143343: issue"
       },
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/135"
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/141"
     }
   }
 }

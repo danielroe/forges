@@ -5,18 +5,18 @@
     "body": {
       "repo": "did:plc:t73o44q7fppgagkrevtztyok",
       "collection": "org.tangled.feed.comment",
-      "rkey": "3n2tcvqzaokrw",
-      "swapRecord": "bafyreihtot7xi4tatsmv5mlfvmdryms4fc6iq5gaxn5l3cvw34owxfm3ey",
+      "rkey": "3n2td3y6th4rw",
+      "swapRecord": "bafyreieb7bodgda2ayf2whmkmnis3irg2rpz7qvdufj7igf5aaoa3tfsuu",
       "record": {
         "$type": "org.tangled.feed.comment",
         "body": {
           "$type": "org.tangled.markup.markdown",
-          "text": "An edited comment from run 20261121143017."
+          "text": "An edited comment from run 20261121143343."
         },
-        "createdAt": "2026-11-21T14:31:29Z",
+        "createdAt": "2026-11-21T14:34:58Z",
         "subject": {
-          "cid": "bafyreifh5bg26wb6ucrs3srre7gyh7leporizoc4l5jrj4tvo3ygnbjfs4",
-          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/138"
+          "cid": "bafyreicfoaohupcyppxmbcuks72j2qqtvwusjkxx6aflw3l524e5i5toii",
+          "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.track.ticket/144"
         }
       }
     }
@@ -25,14 +25,14 @@
     "status": 200,
     "headers": {},
     "body": {
-      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2tcvqzaokrw",
-      "cid": "bafyreiam4qss44uwukubtlfvcu74khcvzn5gwxqgqifqzjte6iom2jda5u",
+      "uri": "at://did:plc:t73o44q7fppgagkrevtztyok/org.tangled.feed.comment/3n2td3y6th4rw",
+      "cid": "bafyreifspiyrth3fdw3hehrw2dvjtgm6llcpknwhiuf42dg7yrowj3dhca",
       "commit": {
-        "cid": "bafyreiffkrb5yyob5eq2234fxvlfsngcnmymvhevh5wvdutioyeqbvbhku",
-        "rev": "3n2tcvswyr422"
+        "cid": "bafyreicoub3cy37yxwonavm2spnyqmzvvazwz7da56oavrgvj4zsloy52i",
+        "rev": "3n2td4245n422"
       },
       "validationStatus": "valid",
-      "x-tngl-change": "73ab0be97435831fee0bcf625d206553ec1cd5d6"
+      "x-tngl-change": "4ab76d7a4c33e8e090f669acf800594e59af1668"
     }
   }
 }

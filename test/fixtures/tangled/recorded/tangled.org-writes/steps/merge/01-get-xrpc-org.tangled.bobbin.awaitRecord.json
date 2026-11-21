@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F138&cid=bafyreifc5ikaadia7m7kvgnsc2izavyuanvitrjoaajsnfenqwbhzvcbaq"
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.track.ticket%2F144&cid=bafyreigys2yidzmijynyoffgtj5csrr2zsmi6wsdvbtewyq7j3a3hbkgu4"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
       "status": "indexed",
-      "cid": "bafyreifc5ikaadia7m7kvgnsc2izavyuanvitrjoaajsnfenqwbhzvcbaq"
+      "cid": "bafyreigys2yidzmijynyoffgtj5csrr2zsmi6wsdvbtewyq7j3a3hbkgu4"
     }
   }
 }

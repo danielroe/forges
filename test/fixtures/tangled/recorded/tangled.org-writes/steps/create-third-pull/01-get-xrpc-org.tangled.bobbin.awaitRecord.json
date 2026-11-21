@@ -1,14 +1,14 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.review.patch%2Fbafyreigo6oxsuks7lsto5ogqn7qdkvwihv2r2u4xqpkkjbgowuqopfb6qe&cid=bafyreigo6oxsuks7lsto5ogqn7qdkvwihv2r2u4xqpkkjbgowuqopfb6qe"
+    "url": "https://api.tangled.org/xrpc/org.tangled.bobbin.awaitRecord?uri=at%3A%2F%2Fdid%3Aplc%3At73o44q7fppgagkrevtztyok%2Forg.tangled.review.patch%2Fbafyreigaw7eyx5t3ctn23pxbjcz3qy4qciy3wsqbmuyvdx3emridqomkby&cid=bafyreigaw7eyx5t3ctn23pxbjcz3qy4qciy3wsqbmuyvdx3emridqomkby"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
       "status": "indexed",
-      "cid": "bafyreigo6oxsuks7lsto5ogqn7qdkvwihv2r2u4xqpkkjbgowuqopfb6qe"
+      "cid": "bafyreigaw7eyx5t3ctn23pxbjcz3qy4qciy3wsqbmuyvdx3emridqomkby"
     }
   }
 }
