@@ -1,0 +1,87 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27",
+    "body": {
+      "state": "open",
+      "labels": [],
+      "assignees": []
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"e8d459d694f45bfecf7bae8c9ad60b23476db04b\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999733",
+      "x-ratelimit-reset": "1795288389",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 4076279788160869,
+      "node_id": "UHVsbFJlcXVlc3Q6NGYxYjNhNWUtMTRiYy00Zjc4LWE1NTMtNmY1NTc4YTU2MDAx",
+      "number": 27,
+      "title": "forges fixture 20261114224418: pull 3",
+      "body": "Opened by run 20261114224418.",
+      "state": "open",
+      "state_reason": null,
+      "user": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "labels": [],
+      "assignee": null,
+      "assignees": [],
+      "milestone": null,
+      "locked": false,
+      "active_lock_reason": null,
+      "comments": 0,
+      "closed_at": null,
+      "closed_by": null,
+      "created_at": "2026-11-21T18:16:27.742Z",
+      "updated_at": "2026-11-21T18:16:48.999Z",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/27",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27",
+      "repository_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures",
+      "comments_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27/comments",
+      "events_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27/events",
+      "labels_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27/labels{/name}",
+      "author_association": "NONE",
+      "reactions": {
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/27/reactions",
+        "total_count": 0
+      },
+      "pull_request": {
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/27",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/27",
+        "diff_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/27.diff",
+        "patch_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/27.patch",
+        "merged_at": null
+      }
+    }
+  }
+}

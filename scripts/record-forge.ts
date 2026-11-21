@@ -253,6 +253,25 @@ export const PLANS: Record<string, { reads: Recording[], writes: Recording[], lo
     writes: [],
     local: true,
   },
+  'upstream': {
+    reads: [
+      { label: 'upstream.codes', args: [] },
+      {
+        label: 'anonymous',
+        args: ['--anonymous'],
+      },
+    ],
+    writes: [
+      {
+        label: 'writes',
+        args: ['--writes'],
+      },
+      {
+        label: 'webhooks',
+        args: ['--webhooks'],
+      },
+    ],
+  },
 }
 
 /** Starts the server of `script` and returns the variables it wrote, with a function that removes the server. */

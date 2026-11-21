@@ -1,0 +1,91 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "20"
+        },
+        "id": "4075076006190697"
+      },
+      "body": "A comment from the bot.",
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/20#comment-1466c764-ac9d-4cbc-a5e4-a3abc9fcc939",
+      "reactions": {
+        "total": 0,
+        "counts": {}
+      }
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "thread": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "repo": {
+            "forge": "upstream",
+            "instance": "upstream.codes",
+            "owner": "upstream_forges_bot",
+            "name": "forges-fixtures"
+          },
+          "kind": "issue",
+          "number": "20"
+        },
+        "id": "263680125169255"
+      },
+      "body": "A comment from the reviewer.",
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_reviewer",
+        "id": "917401898755705",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/c25dd56503785c567855b0756cfa7f27",
+        "url": "https://upstream.codes/upstream_forges_reviewer",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/20#comment-c9da8a89-ca35-4caa-a5fc-05babccd6aed",
+      "reactions": {
+        "total": 1,
+        "counts": {
+          "heart": 1
+        }
+      }
+    }
+  ],
+  "etag": "W/\"eb44e66f45d3e468dc748128ea74a06e0eb1e015\"",
+  "rateLimit": {
+    "limit": 1000,
+    "remaining": 960,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

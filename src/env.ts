@@ -16,6 +16,7 @@ import { createForges } from './provider.ts'
 import { pushin } from './pushin/index.ts'
 import { sourcehut } from './sourcehut/index.ts'
 import { tangled } from './tangled/index.ts'
+import { upstream } from './upstream/index.ts'
 
 const KINDS = [
   'GITHUB',
@@ -33,6 +34,7 @@ const KINDS = [
   'ENTIRE',
   'GITBUCKET',
   'GITCAFE',
+  'UPSTREAM',
 ] as const
 
 /** Field names, longest first so `INSTANCE_VERSION` is not read as `INSTANCE` with suffix `VERSION`. */
@@ -352,6 +354,7 @@ function fromFields(kind: typeof KINDS[number], suffix: string, fields: Partial<
         GITEA: gitea,
         GITEE: gitee,
         PUSHIN: pushin,
+        UPSTREAM: upstream,
       }[kind]
       return {
         ...entry,

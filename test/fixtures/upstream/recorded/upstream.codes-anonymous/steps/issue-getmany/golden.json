@@ -1,0 +1,82 @@
+[
+  {
+    "ok": true,
+    "ref": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "kind": "issue",
+      "number": "20"
+    },
+    "thread": {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "kind": "issue",
+        "number": "20",
+        "externalId": "SXNzdWU6OTY3ZGM3OTUtZjFmMC00NWRhLThkYmItMGI2Yzc3ZDJmZTY4"
+      },
+      "kind": "issue",
+      "title": "forges seed: issue",
+      "body": "An issue the forges recordings read. Leave it open.",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "authorAssociation": "none",
+      "authorAssociationRaw": "NONE",
+      "assignees": [
+        {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "login": "upstream_forges_bot",
+          "id": "526873422199188",
+          "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+          "url": "https://upstream.codes/upstream_forges_bot",
+          "typeRaw": "User",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "labels": [
+        {
+          "name": "forges-seed",
+          "colour": "0e8a16",
+          "description": "Seeded for the forges recordings"
+        }
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/issues/20",
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "lastActivityAt": "<now>",
+      "locked": false,
+      "commentCount": 2,
+      "reactions": {
+        "total": 1,
+        "counts": {
+          "+1": 1
+        }
+      }
+    }
+  }
+]

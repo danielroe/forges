@@ -35,6 +35,7 @@ const FORGES: Array<[string, string]> = [
   ['entire', 'Entire'],
   ['gitbucket', 'GitBucket'],
   ['gitcafe', 'GitCafe'],
+  ['upstream', 'Upstream'],
 ]
 
 const { values: flags } = parseArgs({

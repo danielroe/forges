@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/tags?per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"a3deb1a5160f19df6577c09a869f6417ce12ee2d\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999936",
+      "x-ratelimit-reset": "1794706392",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "name": "forges-seed-v1",
+        "commit": {
+          "sha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+          "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits/9fcb176dae722fffca2a17c8951296f6ac946856"
+        },
+        "zipball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/zipball/forges-seed-v1",
+        "tarball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/tarball/forges-seed-v1",
+        "node_id": "UmVmOmh0dHBzOi8vYXBpLnVwc3RyZWFtLmNvZGVzL2FwaS92My9yZXBvcy91cHN0cmVhbV9mb3JnZXNfYm90L2Zvcmdlcy1maXh0dXJlczpmb3JnZXMtc2VlZC12MQ"
+      }
+    ]
+  }
+}

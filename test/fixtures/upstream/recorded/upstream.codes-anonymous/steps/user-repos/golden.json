@@ -1,0 +1,55 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures",
+        "externalId": "4467465046780140"
+      },
+      "description": "Scratch repository for the forges library recordings",
+      "defaultBranch": "main",
+      "visibility": "public",
+      "visibilityRaw": "public",
+      "isFork": false,
+      "isArchived": false,
+      "topics": [],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures",
+      "cloneUrls": {
+        "https": "https://git.coline.app/upstream_forges_bot/forges-fixtures.git",
+        "ssh": "git@ssh.git.coline.app:upstream_forges_bot/forges-fixtures.git"
+      },
+      "createdAt": "<now>",
+      "updatedAt": "<now>",
+      "pushedAt": "<now>",
+      "owner": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      },
+      "stars": 0,
+      "forks": 0,
+      "features": {
+        "issues": true,
+        "pullRequests": true,
+        "discussions": true,
+        "wiki": false,
+        "projects": false,
+        "releases": true
+      }
+    }
+  ],
+  "etag": "W/\"5113f933a67c5f36e74c4de33bd7fc2159f5507b\"",
+  "rateLimit": {
+    "limit": 1000,
+    "remaining": 821,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

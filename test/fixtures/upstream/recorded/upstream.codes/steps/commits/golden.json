@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "06bbd14caa50b5fc5c89484bd6761aa83700853f"
+      },
+      "sha": "06bbd14caa50b5fc5c89484bd6761aa83700853f",
+      "message": "Merge run 20261121181438",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "8f15d32ee1f430cd3f99c22904e861a2df96e8f5",
+        "eb1d50e9612b30ac22277d3d949110f5dc08d18e"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/06bbd14caa50b5fc5c89484bd6761aa83700853f"
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "eb1d50e9612b30ac22277d3d949110f5dc08d18e"
+      },
+      "sha": "eb1d50e9612b30ac22277d3d949110f5dc08d18e",
+      "message": "test: add forges-fixtures/20261121181438-1.md",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "<now>"
+      },
+      "parents": [
+        "8f15d32ee1f430cd3f99c22904e861a2df96e8f5"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/eb1d50e9612b30ac22277d3d949110f5dc08d18e"
+    },
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5"
+      },
+      "sha": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5",
+      "message": "Merge run 20261115003433",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-15T00:36:54.000Z"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-15T00:36:54.000Z"
+      },
+      "parents": [
+        "828d5bff28fde2dde44e2ab43f42baf91a805b8e",
+        "560dff8754af0352b7d2f4bc4a574e3ead92147f"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/8f15d32ee1f430cd3f99c22904e861a2df96e8f5"
+    }
+  ],
+  "cursor": {
+    "nextUrl": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/commits?per_page=3&page=2&cursor=Z2l0OmV5SjJJam94TENKdlptWnpaWFFpT2pOOQ",
+    "etag": "W/\"097b953a4e59a6a7e6b33fd876c3af2f8588cec9\""
+  },
+  "etag": "W/\"097b953a4e59a6a7e6b33fd876c3af2f8588cec9\"",
+  "rateLimit": {
+    "limit": 1000000,
+    "remaining": 999914,
+    "resetAt": "<now>",
+    "resource": "core"
+  }
+}

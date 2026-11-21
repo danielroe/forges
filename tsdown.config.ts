@@ -20,6 +20,7 @@ export default defineConfig({
     'src/gitbucket/index.ts',
     'src/gitcafe/index.ts',
     'src/entire/index.ts',
+    'src/upstream/index.ts',
     'src/env.ts',
     'src/helpers.ts',
     'src/kit.ts',

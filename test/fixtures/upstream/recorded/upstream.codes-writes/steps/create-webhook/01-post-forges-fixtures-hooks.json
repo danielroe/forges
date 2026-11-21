@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/hooks",
+    "body": {
+      "name": "web",
+      "active": true,
+      "events": [
+        "issue_comment"
+      ],
+      "config": {
+        "url": "https://example.com/hook",
+        "content_type": "json",
+        "secret": "REDACTED"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"377ee99817b8d946478ac78b6e2c446b02c41e37\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999710",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 359167106493374,
+      "type": "Repository",
+      "name": "web",
+      "active": true,
+      "events": [
+        "issue_comment"
+      ],
+      "config": {
+        "url": "https://example.com/hook",
+        "content_type": "json",
+        "insecure_ssl": "0",
+        "secret": "REDACTED"
+      },
+      "created_at": "2026-11-14T22:47:07.133Z",
+      "updated_at": "2026-11-14T22:47:07.133Z",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/hooks/359167106493374",
+      "test_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/hooks/359167106493374/tests",
+      "ping_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/hooks/359167106493374/pings",
+      "deliveries_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/hooks/359167106493374/deliveries",
+      "last_response": {
+        "code": null,
+        "status": "unused",
+        "message": "No deliveries yet."
+      }
+    }
+  }
+}

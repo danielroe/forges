@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://upstream.codes/api/v3/notifications/threads/3173708267089240"
+  },
+  "response": {
+    "status": 205,
+    "headers": {
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999699",
+      "x-ratelimit-reset": "1795288389",
+      "x-ratelimit-resource": "core"
+    }
+  }
+}

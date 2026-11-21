@@ -1,0 +1,58 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/10694050544103",
+    "body": {
+      "name": "forges fixture 20261114224418: release, edited",
+      "body": "Edited by run 20261114224418."
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999711",
+      "x-ratelimit-reset": "1794698700",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 10694050544103,
+      "node_id": "UmVsZWFzZToxNjc2ODE2Mi0wZTdlLTQ5NTAtODdkOS00M2Y1MWJkNTc0OWI",
+      "tag_name": "forges-fixture-20261114224418",
+      "target_commitish": "9fcb176dae722fffca2a17c8951296f6ac946856",
+      "name": "forges fixture 20261114224418: release, edited",
+      "body": "Edited by run 20261114224418.",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2026-11-14T22:47:05.317Z",
+      "published_at": "2026-11-14T22:47:05.325Z",
+      "author": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/releases",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/10694050544103",
+      "assets_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/10694050544103/assets",
+      "upload_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/releases/10694050544103/assets{?name,label}",
+      "tarball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/tarball/forges-fixture-20261114224418",
+      "zipball_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/zipball/forges-fixture-20261114224418",
+      "assets": []
+    }
+  }
+}

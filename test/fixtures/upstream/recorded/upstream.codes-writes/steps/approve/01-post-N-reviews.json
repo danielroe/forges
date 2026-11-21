@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/25/reviews",
+    "body": {
+      "event": "APPROVE"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"d7c9ff42954c01cded707c56211ae3245d7ad747\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999980",
+      "x-ratelimit-reset": "1795288387",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 1253192168871857,
+      "node_id": "UHVsbFJlcXVlc3RSZXZpZXc6NDEyN2U3M2QtMGJhMi00ODVjLWJkODMtOWRhOTM4MjEwN2Rm",
+      "user": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer",
+        "html_url": "https://upstream.codes/upstream_forges_reviewer",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/received_events",
+        "login": "upstream_forges_reviewer",
+        "id": 55511423519801,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/65cc31a7f1dcb064c4b0b0cd34d2db70",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "body": "",
+      "state": "APPROVED",
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25#review-4127e73d-0ba2-485c-bd83-9da9382107df",
+      "pull_request_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/pulls/25",
+      "submitted_at": "2026-11-21T18:17:06.788Z",
+      "commit_id": "967748163cfb5ed7b525f7724a2f783ea867e59b",
+      "author_association": "NONE"
+    }
+  }
+}

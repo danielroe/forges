@@ -1,0 +1,49 @@
+{
+  "base": "main",
+  "head": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+  "aheadBy": 1,
+  "behindBy": 6,
+  "mergeBaseSha": "9fcb176dae722fffca2a17c8951296f6ac946856",
+  "commits": [
+    {
+      "ref": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures"
+        },
+        "sha": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0"
+      },
+      "sha": "8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0",
+      "message": "docs: add seed.md",
+      "author": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-14T22:38:41.000Z"
+      },
+      "committer": {
+        "name": "Upstream forges bot",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-14T22:38:41.000Z"
+      },
+      "parents": [
+        "9fcb176dae722fffca2a17c8951296f6ac946856"
+      ],
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/commit/8079f6fd5995785d6c2f4316b2e8dc5d420fe7d0"
+    }
+  ],
+  "files": [
+    {
+      "path": "seed.md",
+      "status": "added",
+      "statusRaw": "added",
+      "additions": 3,
+      "deletions": 0,
+      "patch": "@@ -0,0 +1,3 @@\n+# Seed\n+\n+A file the forges recordings read on a change request.",
+      "sha": "b4f8afb21dd40cbffe0dbfc43e08c9e2d456bb65"
+    }
+  ]
+}

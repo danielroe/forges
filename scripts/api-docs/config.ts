@@ -200,6 +200,7 @@ export const PAGES: PageConfig[] = [
       forge('Entire', 'entire'),
       forge('GitBucket', 'gitbucket'),
       forge('GitCafe', 'gitcafe'),
+      forge('Upstream', 'upstream'),
       {
         title: 'Forges registry',
         intro: 'A registry routes each ref to the provider it belongs to.',

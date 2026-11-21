@@ -1,0 +1,155 @@
+{
+  "listed": {
+    "ref": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "25",
+      "externalId": "UHVsbFJlcXVlc3Q6MjBlMzljNTYtOTAwMS00YTJhLThhOGEtYWU2MmFmMDRlOWQy"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261121181438: pull, edited",
+    "body": "Edited by run 20261121181438.",
+    "state": "merged",
+    "stateRaw": "closed",
+    "stateReason": "completed",
+    "isDraft": false,
+    "author": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "login": "upstream_forges_bot",
+      "id": "526873422199188",
+      "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+      "url": "https://upstream.codes/upstream_forges_bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "authorAssociation": "none",
+    "authorAssociationRaw": "NONE",
+    "assignees": [
+      {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "closedAt": "<now>",
+    "mergedAt": "<now>",
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 1,
+    "reactions": {
+      "total": 0,
+      "counts": {}
+    }
+  },
+  "read": {
+    "ref": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "repo": {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "owner": "upstream_forges_bot",
+        "name": "forges-fixtures"
+      },
+      "kind": "pull_request",
+      "number": "25",
+      "externalId": "UHVsbFJlcXVlc3Q6MjBlMzljNTYtOTAwMS00YTJhLThhOGEtYWU2MmFmMDRlOWQy"
+    },
+    "kind": "pull_request",
+    "title": "forges fixture 20261121181438: pull, edited",
+    "body": "Edited by run 20261121181438.",
+    "state": "merged",
+    "stateRaw": "closed",
+    "isDraft": false,
+    "author": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "login": "upstream_forges_bot",
+      "id": "526873422199188",
+      "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+      "url": "https://upstream.codes/upstream_forges_bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "authorAssociation": "none",
+    "authorAssociationRaw": "NONE",
+    "assignees": [
+      {
+        "forge": "upstream",
+        "instance": "upstream.codes",
+        "login": "upstream_forges_bot",
+        "id": "526873422199188",
+        "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "url": "https://upstream.codes/upstream_forges_bot",
+        "typeRaw": "User",
+        "isBotHint": false
+      }
+    ],
+    "reviewers": [],
+    "labels": [],
+    "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25",
+    "createdAt": "<now>",
+    "updatedAt": "<now>",
+    "mergedAt": "<now>",
+    "mergedBy": {
+      "forge": "upstream",
+      "instance": "upstream.codes",
+      "login": "upstream_forges_bot",
+      "id": "526873422199188",
+      "avatarUrl": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+      "url": "https://upstream.codes/upstream_forges_bot",
+      "typeRaw": "User",
+      "isBotHint": false
+    },
+    "lastActivityAt": "<now>",
+    "locked": false,
+    "commentCount": 1,
+    "branches": {
+      "head": {
+        "ref": "forges-fixtures/20261121181438-1",
+        "sha": "eb1d50e9612b30ac22277d3d949110f5dc08d18e",
+        "repo": {
+          "forge": "upstream",
+          "instance": "upstream.codes",
+          "owner": "upstream_forges_bot",
+          "name": "forges-fixtures",
+          "externalId": "4467465046780140"
+        }
+      },
+      "base": {
+        "ref": "main",
+        "sha": "8f15d32ee1f430cd3f99c22904e861a2df96e8f5"
+      },
+      "mergeCommitSha": "06bbd14caa50b5fc5c89484bd6761aa83700853f"
+    },
+    "stats": {
+      "additions": 1,
+      "deletions": 0,
+      "changedFileCount": 1
+    },
+    "checks": {
+      "state": "success",
+      "total": 1,
+      "failed": 0,
+      "url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25/checks"
+    }
+  }
+}

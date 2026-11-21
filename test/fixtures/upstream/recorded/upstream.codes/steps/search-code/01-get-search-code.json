@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/search/code?q=import+repo%3Aupstream_forges_bot%2Fforges-fixtures&per_page=3"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"f4286594960cf82be91f9bb00e9e68ef31e69be8\"",
+      "x-ratelimit-limit": "120",
+      "x-ratelimit-remaining": "115",
+      "x-ratelimit-reset": "1794696078",
+      "x-ratelimit-resource": "search"
+    },
+    "body": {
+      "total_count": 0,
+      "incomplete_results": true,
+      "items": []
+    }
+  }
+}

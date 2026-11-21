@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"473b93db2c3362e6cc9bca265f2eea9147a933ec\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999983",
+      "x-ratelimit-reset": "1795288387",
+      "x-ratelimit-resource": "core"
+    },
+    "body": [
+      {
+        "type": "dir",
+        "name": "forges-fixtures",
+        "path": "forges-fixtures",
+        "sha": "cd5e130379b98befb32da557dae6e380f67d47bf",
+        "size": 0,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/forges-fixtures?ref=main",
+        "git_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/cd5e130379b98befb32da557dae6e380f67d47bf",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/tree/main/forges-fixtures",
+        "download_url": null,
+        "_links": {
+          "self": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/forges-fixtures?ref=main",
+          "git": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/trees/cd5e130379b98befb32da557dae6e380f67d47bf",
+          "html": "https://upstream.codes/upstream_forges_bot/forges-fixtures/tree/main/forges-fixtures"
+        }
+      },
+      {
+        "type": "file",
+        "name": "cli.txt",
+        "path": "cli.txt",
+        "sha": "10b03d81dd3cd631ad961ba9741c947feb5089f0",
+        "size": 31,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/cli.txt?ref=main",
+        "git_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/10b03d81dd3cd631ad961ba9741c947feb5089f0",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/cli.txt",
+        "download_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/cli.txt?ref=main",
+        "_links": {
+          "self": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/cli.txt?ref=main",
+          "git": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/10b03d81dd3cd631ad961ba9741c947feb5089f0",
+          "html": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/cli.txt"
+        }
+      },
+      {
+        "type": "file",
+        "name": "README.md",
+        "path": "README.md",
+        "sha": "399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+        "size": 104,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/README.md?ref=main",
+        "git_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/README.md",
+        "download_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/README.md?ref=main",
+        "_links": {
+          "self": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/README.md?ref=main",
+          "git": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/399c13f4dbf9058e2cec7fa6c38f779d226c4807",
+          "html": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/README.md"
+        }
+      },
+      {
+        "type": "file",
+        "name": "two.txt",
+        "path": "two.txt",
+        "sha": "f719efd430d52bcfc8566a43b2eb655688d38871",
+        "size": 4,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/two.txt?ref=main",
+        "git_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/f719efd430d52bcfc8566a43b2eb655688d38871",
+        "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/two.txt",
+        "download_url": "https://api.upstream.codes/v1/repos/upstream_forges_bot/forges-fixtures/raw/two.txt?ref=main",
+        "_links": {
+          "self": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/contents/two.txt?ref=main",
+          "git": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/git/blobs/f719efd430d52bcfc8566a43b2eb655688d38871",
+          "html": "https://upstream.codes/upstream_forges_bot/forges-fixtures/blob/main/two.txt"
+        }
+      }
+    ]
+  }
+}

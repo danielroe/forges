@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://upstream.codes/api/v3/user"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "etag": "W/\"71fccd50edb81fbdae05de10ebbe0c2d2ac732d2\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999840",
+      "x-ratelimit-reset": "1795288387",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer",
+      "html_url": "https://upstream.codes/upstream_forges_reviewer",
+      "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/followers",
+      "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/following{/other_user}",
+      "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/gists{/gist_id}",
+      "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/subscriptions",
+      "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/orgs",
+      "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/repos",
+      "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/events{/privacy}",
+      "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_reviewer/received_events",
+      "login": "upstream_forges_reviewer",
+      "id": 917401898755705,
+      "node_id": "REDACTED",
+      "avatar_url": "https://coline.app/api/public/default-avatar/c25dd56503785c567855b0756cfa7f27",
+      "gravatar_id": "",
+      "type": "User",
+      "site_admin": false,
+      "name": "Upstream forges reviewer",
+      "company": null,
+      "blog": null,
+      "location": null,
+      "email": "redacted@example.invalid",
+      "hireable": null,
+      "bio": null,
+      "twitter_username": null,
+      "public_repos": 0,
+      "public_gists": 0,
+      "followers": 0,
+      "following": 0,
+      "created_at": "2026-11-21T18:11:23.073Z",
+      "updated_at": "2026-11-21T18:25:27.265Z"
+    }
+  }
+}

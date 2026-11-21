@@ -1,0 +1,62 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/25/comments",
+    "body": {
+      "body": "An upserted comment from run 20261114224418.\n\n<!-- forges:key=forges-fixture -->"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "etag": "W/\"569affc061382b37fe03396ec310b5c26595a057\"",
+      "x-ratelimit-limit": "1000000",
+      "x-ratelimit-remaining": "999745",
+      "x-ratelimit-reset": "1795288389",
+      "x-ratelimit-resource": "core"
+    },
+    "body": {
+      "id": 5248338579398542,
+      "node_id": "Q2hhbmdlUmVxdWVzdENvbnZlcnNhdGlvbkNvbW1lbnQ6MjE4NjdkYTctNWEzMi00NWEwLWFhOGUtNDVjNzYxODk2YjJl",
+      "body": "An upserted comment from run 20261114224418.\n\n<!-- forges:key=forges-fixture -->",
+      "user": {
+        "url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot",
+        "html_url": "https://upstream.codes/upstream_forges_bot",
+        "followers_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/followers",
+        "following_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/following{/other_user}",
+        "gists_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/gists{/gist_id}",
+        "starred_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/subscriptions",
+        "organizations_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/orgs",
+        "repos_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/repos",
+        "events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/events{/privacy}",
+        "received_events_url": "https://api.upstream.codes/api/v3/users/upstream_forges_bot/received_events",
+        "login": "upstream_forges_bot",
+        "id": 526873422199188,
+        "node_id": "REDACTED",
+        "avatar_url": "https://coline.app/api/public/default-avatar/6d098b2375676c3fe8725742286bef41",
+        "gravatar_id": "",
+        "type": "User",
+        "site_admin": false
+      },
+      "html_url": "https://upstream.codes/upstream_forges_bot/forges-fixtures/changes/25#comment-21867da7-5a32-45a0-aa8e-45c761896b2e",
+      "issue_url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/25",
+      "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/comments/5248338579398542",
+      "created_at": "2026-11-21T18:16:33.779Z",
+      "updated_at": "2026-11-21T18:16:33.779Z",
+      "author_association": "NONE",
+      "reactions": {
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0,
+        "url": "https://api.upstream.codes/api/v3/repos/upstream_forges_bot/forges-fixtures/issues/comments/5248338579398542/reactions",
+        "total_count": 0
+      }
+    }
+  }
+}

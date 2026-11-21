@@ -15,6 +15,7 @@ import { github } from '../../src/github/index.ts'
 import { gitlab } from '../../src/gitlab/index.ts'
 import { pushin } from '../../src/pushin/index.ts'
 import { sourcehut } from '../../src/sourcehut/index.ts'
+import { upstream } from '../../src/upstream/index.ts'
 
 type TokenFactory = (token: () => Promise<string>, fetch: FetchLike) => ForgeProvider
 
@@ -76,6 +77,10 @@ const FACTORIES: Record<string, TokenFactory> = {
     fetch,
   }),
   'gitcafe': (token, fetch) => gitcafe({
+    auth: { type: 'token', token },
+    fetch,
+  }),
+  'upstream': (token, fetch) => upstream({
     auth: { type: 'token', token },
     fetch,
   }),
