@@ -19,7 +19,7 @@
         "https": "https://git.pushin.eu/danielroe/roe.dev.git"
       },
       "createdAt": "2026-09-06T19:13:09.398Z",
-      "updatedAt": "<now>",
+      "updatedAt": "2026-11-20T21:05:01.357Z",
       "owner": {
         "forge": "pushin",
         "instance": "pushin.eu",
@@ -83,7 +83,8 @@
   ],
   "rateLimit": {
     "limit": 5000,
-    "remaining": 4981,
-    "resetAt": "<now>"
+    "remaining": 4972,
+    "resetAt": "<now>",
+    "resource": "core"
   }
 }
