@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:dfl62fgb7wtjj3fcbb72naae"
+    "url": "https://plc.directory/did:plc:3nogfd4smhmbrv4wo6kl7zg2"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"20f-rkClXoo5qbY/yZTiqJX34aB+318\""
+      "etag": "W/\"22c-EiJKN7SWfLJh1w/kEoshzy8q5VU\""
     },
     "body": {
       "@context": [
@@ -14,23 +14,23 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:dfl62fgb7wtjj3fcbb72naae",
+      "id": "did:plc:3nogfd4smhmbrv4wo6kl7zg2",
       "alsoKnownAs": [
-        "at://ptr.pet"
+        "at://notplants.net"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:dfl62fgb7wtjj3fcbb72naae#atproto",
+          "id": "did:plc:3nogfd4smhmbrv4wo6kl7zg2#atproto",
           "type": "Multikey",
-          "controller": "did:plc:dfl62fgb7wtjj3fcbb72naae",
-          "publicKeyMultibase": "zQ3shvZSPBhJSWMLMfxSt7Z8F6b4KuGAtf1HeAwtiET5zPX7r"
+          "controller": "did:plc:3nogfd4smhmbrv4wo6kl7zg2",
+          "publicKeyMultibase": "zQ3shbefMip463dxZaihpnqVUBYEpckjmxSgcyW7deUnV4u9w"
         }
       ],
       "service": [
         {
           "id": "#atproto_pds",
           "type": "AtprotoPersonalDataServer",
-          "serviceEndpoint": "https://zwsp.xyz"
+          "serviceEndpoint": "https://morel.us-east.host.bsky.network"
         }
       ]
     }

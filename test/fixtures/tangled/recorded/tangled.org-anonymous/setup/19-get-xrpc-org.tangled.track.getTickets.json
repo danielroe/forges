@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ab3nregwt745h6xytpqmmavpi%2Forg.tangled.track.ticket%2F173"
+    "url": "https://api.tangled.org/xrpc/org.tangled.track.getTickets?uris=at%3A%2F%2Fdid%3Aplc%3Ab3nregwt745h6xytpqmmavpi%2Forg.tangled.track.ticket%2F176"
   },
   "response": {
     "status": 200,
@@ -9,20 +9,20 @@
     "body": {
       "items": [
         {
-          "cid": "bafyreig5f2jyb7jlu7wylriydv63ufmchjpr2q324v7zfis7wvlczvqksy",
-          "uri": "at://did:plc:b3nregwt745h6xytpqmmavpi/org.tangled.track.ticket/173",
+          "cid": "bafyreihqo4cuboq2oiv77ennbi2gcxssmpfyasgpc4q7z5fgocjt44472u",
+          "uri": "at://did:plc:b3nregwt745h6xytpqmmavpi/org.tangled.track.ticket/176",
           "value": {
             "$type": "org.tangled.track.ticket",
             "body": {
               "$type": "org.tangled.markup.markdown",
-              "text": "Adds a `catalog.album` record (the work-level grouping of pressings, keyed by Discogs master and MusicBrainz release group), an optional `release.album` ref, and an adopt-or-mint path that creates the album whenever a release with a Discogs master id is minted. `release.master` is deprecated rather than renamed, so `lexicon-check` reports the change as non-breaking. Implements the proposal in ADR 4."
+              "text": "The microvm workflows resolved `github:nixos/nixpkgs/nixos-unstable` during spindle setup, which calls api.github.com anonymously from the shared runner IP and fails with 403 once that quota is gone; deploy-microvm has not published an image since. Floating via `https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz` keeps unstable without touching GitHub. test-postgres.yml runs on this PR on the same engine, so a green run proves the ref."
             },
-            "createdAt": "2026-11-21T11:35:00Z",
-            "state": "open",
+            "createdAt": "2026-11-21T17:43:37Z",
+            "state": "completed",
             "targetBranch": "main",
             "title": {
               "$type": "org.tangled.markup.markdown#inline",
-              "text": "feat: add catalog.album, mint it from Discogs masters, and deprecate release.master"
+              "text": "ci: float nixpkgs via the channel tarball to dodge github api rate limits"
             },
             "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
           }

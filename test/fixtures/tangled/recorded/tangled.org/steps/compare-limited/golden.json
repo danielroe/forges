@@ -1,35 +1,8 @@
 {
-  "base": "2b44876cb06e6332601b48b358f27b473c84d9d2",
+  "base": "00111a8c9099b56b5e8e4492373de72e4940112f",
   "head": "main",
   "aheadBy": 4,
   "commits": [
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
-          "ownerHandle": "roebot.tngl.sh"
-        },
-        "sha": "00111a8c9099b56b5e8e4492373de72e4940112f"
-      },
-      "sha": "00111a8c9099b56b5e8e4492373de72e4940112f",
-      "message": "Add forges-fixtures/20261121100852-1.md",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-11-21T10:09:09.000Z"
-      },
-      "parents": [],
-      "stats": {
-        "additions": 1,
-        "deletions": 0
-      }
-    },
     {
       "ref": {
         "forge": "tangled",
@@ -56,8 +29,35 @@
         "additions": 1,
         "deletions": 0
       }
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
+        "sha": "66c23565892f29bb0c0a3b1bb362e249fa5e9223"
+      },
+      "sha": "66c23565892f29bb0c0a3b1bb362e249fa5e9223",
+      "message": "Add forges-fixtures/20261121122101-1.md",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-21T12:21:15.000Z"
+      },
+      "parents": [],
+      "stats": {
+        "additions": 1,
+        "deletions": 0
+      }
     }
   ],
   "files": [],
-  "mergeBaseSha": "2b44876cb06e6332601b48b358f27b473c84d9d2"
+  "mergeBaseSha": "00111a8c9099b56b5e8e4492373de72e4940112f"
 }

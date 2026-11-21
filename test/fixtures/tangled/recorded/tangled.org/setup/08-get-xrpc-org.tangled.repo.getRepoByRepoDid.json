@@ -1,28 +1,27 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Acwoq3xqggpzpb27kmuyknqcn"
+    "url": "https://api.tangled.org/xrpc/org.tangled.repo.getRepoByRepoDid?repoDid=did%3Aplc%3Ab3nregwt745h6xytpqmmavpi"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "cid": "bafyreihxnh46by6v27ueda5chnmihtnhdzhj355xurrw7w7xi4xkvppk3q",
+      "cid": "bafyreicjd2zyz6toerxcdumljhefxxtzcbwguij2267h42wyaefdgmup3i",
       "defaultBranch": "main",
       "knot": "knot1.tangled.sh",
-      "uri": "at://did:plc:cwoq3xqggpzpb27kmuyknqcn/org.tangled.repo.manifest/self",
+      "uri": "at://did:plc:b3nregwt745h6xytpqmmavpi/org.tangled.repo.manifest/self",
       "value": {
         "$type": "org.tangled.repo.manifest",
         "contributionPolicy": "anyone",
-        "createdAt": "2026-02-27T19:33:39.000000Z",
+        "createdAt": "2026-06-26T20:51:37.000000Z",
         "declaration": {
-          "name": "life-series",
-          "owner": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+          "name": "at-record",
+          "owner": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
         },
-        "description": "Non-official site for The Life Series Minecraft hardcore survival multiplayer series housing every video",
+        "description": "gotta store my records",
         "spindle": "did:web:spindle.tangled.network",
-        "website": "https://www.life-series.online",
-        "x-tngl-editor": "did:plc:4iplvny6dbxuvb5v5yux7pgl"
+        "x-tngl-editor": "did:plc:r5bee2hexwjtmhkfmfu2tphx"
       }
     }
   }

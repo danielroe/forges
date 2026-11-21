@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://plc.directory/did:plc:lp2lwdajhchgtga2hcrros26"
+    "url": "https://plc.directory/did:plc:lmkzmvv6sdxntwtyxpg7fqqq"
   },
   "response": {
     "status": 200,
     "headers": {
-      "etag": "W/\"21b-r1h8lKGfqb8n/LpQ19Vf+KDPOI0\""
+      "etag": "W/\"214-IphDHa7gSthksSsbshspfXaDd4A\""
     },
     "body": {
       "@context": [
@@ -14,16 +14,16 @@
         "https://w3id.org/security/multikey/v1",
         "https://w3id.org/security/suites/secp256k1-2019/v1"
       ],
-      "id": "did:plc:lp2lwdajhchgtga2hcrros26",
+      "id": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq",
       "alsoKnownAs": [
-        "at://zip.mu.social"
+        "at://noz.am"
       ],
       "verificationMethod": [
         {
-          "id": "did:plc:lp2lwdajhchgtga2hcrros26#atproto",
+          "id": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq#atproto",
           "type": "Multikey",
-          "controller": "did:plc:lp2lwdajhchgtga2hcrros26",
-          "publicKeyMultibase": "zQ3shoFKShqjhFnrkUBf87XnZpUQsQFk9fw3mjSq1daxWG3h3"
+          "controller": "did:plc:lmkzmvv6sdxntwtyxpg7fqqq",
+          "publicKeyMultibase": "zQ3shSk9E7yyYaanuJ4JuWQThM4xPTp79i7Eur7aVHQFChZFi"
         }
       ],
       "service": [

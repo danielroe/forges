@@ -12,6 +12,42 @@
           "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
           "ownerHandle": "roebot.tngl.sh"
         },
+        "sha": "37dc16047335d56fccdb49e3ae30f1f1670a9e35"
+      },
+      "sha": "37dc16047335d56fccdb49e3ae30f1f1670a9e35",
+      "message": "Add forges-fixtures/20261121143343-1.md\n",
+      "author": {
+        "name": "forges fixtures",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-21T14:33:58.000Z"
+      },
+      "committer": {
+        "name": "Tangled",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-21T14:35:24.000Z"
+      },
+      "parents": [
+        "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
+      ],
+      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/commit/37dc16047335d56fccdb49e3ae30f1f1670a9e35",
+      "stats": {
+        "additions": 1,
+        "deletions": 0,
+        "total": 1
+      }
+    },
+    {
+      "ref": {
+        "forge": "tangled",
+        "instance": "tangled.org",
+        "repo": {
+          "forge": "tangled",
+          "instance": "tangled.org",
+          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
+          "name": "forges-fixtures",
+          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
+          "ownerHandle": "roebot.tngl.sh"
+        },
         "sha": "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c"
       },
       "sha": "2b5cb976a54a4b5d9f5e912e9a0e08f07ca2fe6c",
@@ -19,12 +55,12 @@
       "author": {
         "name": "forges fixtures",
         "email": "redacted@example.invalid",
-        "date": "<now>"
+        "date": "2026-11-21T14:30:32.000Z"
       },
       "committer": {
         "name": "Tangled",
         "email": "redacted@example.invalid",
-        "date": "<now>"
+        "date": "2026-11-21T14:31:55.000Z"
       },
       "parents": [
         "66c23565892f29bb0c0a3b1bb362e249fa5e9223"
@@ -66,42 +102,6 @@
         "62df6282010d7425d2c5cee70b0edf58aded5476"
       ],
       "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/commit/66c23565892f29bb0c0a3b1bb362e249fa5e9223",
-      "stats": {
-        "additions": 1,
-        "deletions": 0,
-        "total": 1
-      }
-    },
-    {
-      "ref": {
-        "forge": "tangled",
-        "instance": "tangled.org",
-        "repo": {
-          "forge": "tangled",
-          "instance": "tangled.org",
-          "owner": "did:plc:7qksav5io2s4qfg67pe7iqqk",
-          "name": "forges-fixtures",
-          "externalId": "did:plc:t73o44q7fppgagkrevtztyok",
-          "ownerHandle": "roebot.tngl.sh"
-        },
-        "sha": "62df6282010d7425d2c5cee70b0edf58aded5476"
-      },
-      "sha": "62df6282010d7425d2c5cee70b0edf58aded5476",
-      "message": "Add forges-fixtures/20261121112236-1.md\n",
-      "author": {
-        "name": "forges fixtures",
-        "email": "redacted@example.invalid",
-        "date": "2026-11-21T11:22:52.000Z"
-      },
-      "committer": {
-        "name": "Tangled",
-        "email": "redacted@example.invalid",
-        "date": "2026-11-21T11:24:16.000Z"
-      },
-      "parents": [
-        "00111a8c9099b56b5e8e4492373de72e4940112f"
-      ],
-      "url": "https://tangled.org/roebot.tngl.sh/forges-fixtures/commit/62df6282010d7425d2c5cee70b0edf58aded5476",
       "stats": {
         "additions": 1,
         "deletions": 0,
