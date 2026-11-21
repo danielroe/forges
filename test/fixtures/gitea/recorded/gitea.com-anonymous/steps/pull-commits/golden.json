@@ -8,80 +8,351 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100"
+        "sha": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc"
       },
-      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-      "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+      "sha": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+      "message": "fix: resolve refs for commit diff and read every status for commit status\n\ngt commit diff failed for tags with dots and branches with slashes: the\ndiff route reads the dot as its extension. The ref is resolved to its SHA\nfirst.\n\ngt commit status read the combined status, which covers only the first\npage of contexts, so a failure further back still exited 0. It now reads\nevery status and shares its output and exit status with gt pr checks.\n",
       "author": {
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
-        "name": "Lunny Xiao",
+        "name": "bircni",
         "email": "redacted@example.invalid",
-        "date": "2026-09-30T17:40:41.000Z"
+        "date": "2026-11-09T20:50:20.000Z"
       },
       "committer": {
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
-        "name": "Lunny Xiao",
+        "name": "bircni",
         "email": "redacted@example.invalid",
-        "date": "2026-09-30T17:40:41.000Z"
+        "date": "2026-11-09T20:50:20.000Z"
       },
       "parents": [
-        "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
-        "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+        "d44eda80521447f2c771c1affe4c2e12573d60fa4d023c6b65a161ca8915ff99"
       ],
-      "url": "https://gitea.com/gitea/tea/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
+      "url": "https://gitea.com/gitea/cli/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
       "stats": {
-        "additions": 454,
-        "deletions": 46,
-        "total": 500
+        "additions": 156,
+        "deletions": 187,
+        "total": 343
       },
       "files": [
         {
-          "path": "cmd/issues/create_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/pulls/create_app_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/pulls/create_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/task/pull_merge_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/issues/create.go",
+          "path": "internal/app/commits.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "cmd/pulls/create.go",
+          "path": "internal/app/commits_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/commits_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/diff_filter.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/diff_filter_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/diff_review.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_mutations.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/tags.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/testdata/schema.json.txt",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/commits.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "skills/gt/references/resources.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        }
+      ]
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli"
+        },
+        "sha": "d44eda80521447f2c771c1affe4c2e12573d60fa4d023c6b65a161ca8915ff99"
+      },
+      "sha": "d44eda80521447f2c771c1affe4c2e12573d60fa4d023c6b65a161ca8915ff99",
+      "message": "Merge remote-tracking branch 'origin/main' into feat/commit-command\n\n# Conflicts:\n#\tinternal/app/app.go\n",
+      "author": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-09T20:41:15.000Z"
+      },
+      "committer": {
+        "actor": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
+          "isBotHint": false
+        },
+        "name": "bircni",
+        "email": "redacted@example.invalid",
+        "date": "2026-11-09T20:41:15.000Z"
+      },
+      "parents": [
+        "e262f0c9fb1ab6ebd7ee071ab665b337bb0b38a1b280b1537bee8c1d90802f34",
+        "88220edc60c8375b9564def0e5da4cf9388b0f7b98b360d9620ef61f84a1778d"
+      ],
+      "url": "https://gitea.com/gitea/cli/commit/d44eda80521447f2c771c1affe4c2e12573d60fa4d023c6b65a161ca8915ff99",
+      "stats": {
+        "additions": 5848,
+        "deletions": 582,
+        "total": 6430
+      },
+      "files": [
+        {
+          "path": "internal/app/activity.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/activity_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/activity_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/branch_protections_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/dry_run_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/gpg_keys_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/integration_repo_helpers_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/issue_actions_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/output_template_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/pull_actions_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/release_run_api_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/repo_templates_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/run_view_options_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/runners_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/tags_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time_stopwatch_integration_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/app/time_stopwatch_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/git/reads.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/git/reads_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/activity.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/branch_protections.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/services/tags.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_other.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_windows.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": "internal/settings/atomic_windows_test.go",
+          "status": "added",
+          "statusRaw": "added"
+        },
+        {
+          "path": ".revive.toml",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/rename_other.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": "internal/settings/rename_windows.go",
+          "status": "removed",
+          "statusRaw": "removed"
+        },
+        {
+          "path": ".golangci.yml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": ".goreleaser.yaml",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "Makefile",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "cmd/gt/main_test.go",
           "status": "modified",
           "statusRaw": "modified"
         },
@@ -96,27 +367,1417 @@
           "statusRaw": "modified"
         },
         {
-          "path": "modules/interact/issue_create.go",
+          "path": "internal/aliases/aliases.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/interact/pull_create.go",
+          "path": "internal/app/action_jobs.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/task/issue_create.go",
+          "path": "internal/app/action_logs.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/task/pull_create.go",
+          "path": "internal/app/action_logs_test.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/task/pull_merge.go",
+          "path": "internal/app/action_runs.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/action_runs_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/action_values.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/action_values_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/actions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/actions_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/actions_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/admin.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/admin_users.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/api.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/api_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/api_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/app.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/app_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/args.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/args_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/artifacts.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/artifacts_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/auth.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/auth_accounts.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/auth_login.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/auth_status.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/auth_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/branches.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/browse.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/browse_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/browser.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/browser_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/checkout.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/checkout_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/checks.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/checks_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/comments.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/comments_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/completion.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/completion_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/config.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/config_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/deadline.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/dependencies_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/deploy_keys.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/diff_review_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/discussion_search.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/discussion_search_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/discussion_view.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/discussion_view_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/doctor.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/doctor_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/download.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/download_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/dry_run.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/dry_run_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/dry_run_writes_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/editor.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/editor_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/error_json_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/errors_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extension_commands.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extension_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extension_install.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extensions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extensions_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/extensions_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/gh_shim.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/git_credentials.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/git_credentials_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/git_credentials_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/gitea_version.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/gitea_version_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/gpg_keys.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/help_topics.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/helpers_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/human_output.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/human_output_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/integration_helpers_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_actions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_attachments.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_attachments_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_edit.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_edit_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issue_move.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issues.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/issues_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/label_export.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/label_export_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/label_options_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/labelfile_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/labels.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/list_select.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/list_select_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/man.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/man_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/metadata.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/metadata_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/milestone_issues.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/milestone_state.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/notifications.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/notifications_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/organizations.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/organizations_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/output_fields_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/owner_scope.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/packages.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/packages_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/project.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/project_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/project_workflow.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/project_workflow_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/projects_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/prompts.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/prompts_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_actions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_backport.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_backport_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_backport_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_clean.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_clean_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_comment_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_create_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_edit.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_edit_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_list_local.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_mutations.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_mutations_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review_form_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review_lifecycle.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review_requests.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review_requests_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_review_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pull_update.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pulls.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/pulls_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/ref.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/ref_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/release_assets.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/release_assets_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/releases.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/releases_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_clone.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_create.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_create_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_edit.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_edit_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_migrate.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_mutations.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_mutations_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_sync.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_sync_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repo_templates.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repos.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repos_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/repository_integration_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/runners.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/runners_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/schema.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/schema_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/search.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/ssh_keys.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/ssh_keys_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/status.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/status_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/target.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/target_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/teams.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/teams_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/testdata/schema.json.txt",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/time.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/time_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/timeline.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/timeline_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/upgrade.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/upgrade_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/validation_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/webhooks.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/webhooks_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/app/wiki.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/credentials.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/gitcredential_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/httpsign.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/httpsign_agent_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/httpsign_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/manager.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/manager_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/oauth.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/auth/oauth_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/extensions/extensions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/filelock/filelock_unix.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/backport.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/branch_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/checkout_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/clean_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/credentials.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/credentials_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/git/runner.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/action_logs.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/action_logs_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/action_values_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/actions.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/actions_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/admin_users_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/api_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/artifacts_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/attachments_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/branches.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/checks_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/comments_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/convert.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/convert_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/errors_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/helpers.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/helpers_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/identity.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/identity_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/issue_labels_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/label_selection.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/metadata.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/metadata_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/notifications.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/notifications_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/organizations.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/organizations_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/pagination_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/poll_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/projects_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/pulls.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/pulls_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/raw_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/releases.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/releases_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/repository_setup.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/repository_setup_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/review_requests.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/review_requests_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/reviews.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/reviews_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/sdk_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/search.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/status.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/status_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/teams.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/teams_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/templates.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/time.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/time_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/webhooks_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/services/wiki.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/settings/store.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/settings/store_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/form_fields_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/issue_edit_form.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/issue_form.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/milestone_form.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/output_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/pull_form.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/pull_form_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/safe_writer.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/safe_writer_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/streams.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/streams_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/table_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/template.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/terminal/view_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/api_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/client.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/client_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/debug.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/download_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "internal/transport/dryrun_test.go",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "scripts/install.ps1",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "scripts/install.sh",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "skills/gt/references/api.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "skills/gt/references/monitoring.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "skills/gt/references/resources.md",
+          "status": "modified",
+          "statusRaw": "modified"
+        },
+        {
+          "path": "tools/cli-docs/main.go",
           "status": "modified",
           "statusRaw": "modified"
         }
@@ -130,199 +1791,92 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1"
+        "sha": "e262f0c9fb1ab6ebd7ee071ab665b337bb0b38a1b280b1537bee8c1d90802f34"
       },
-      "sha": "d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
-      "message": "Merge branch 'main' into issue-1089-locale-independent-git\n",
+      "sha": "e262f0c9fb1ab6ebd7ee071ab665b337bb0b38a1b280b1537bee8c1d90802f34",
+      "message": "fix: handle quoted paths, CRLF and glob edge cases in diff filters\n",
       "author": {
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
-        "name": "Lunny Xiao",
+        "name": "bircni",
         "email": "redacted@example.invalid",
-        "date": "2026-08-28T23:55:42.000Z"
+        "date": "2026-11-06T19:34:37.000Z"
       },
       "committer": {
         "actor": {
           "forge": "gitea",
           "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
+          "login": "bircni",
+          "id": "173651",
+          "name": "bircni",
+          "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "url": "https://gitea.com/bircni",
           "isBotHint": false
         },
-        "name": "Lunny Xiao",
+        "name": "bircni",
         "email": "redacted@example.invalid",
-        "date": "2026-08-28T23:55:42.000Z"
+        "date": "2026-11-06T19:34:37.000Z"
       },
       "parents": [
-        "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
-        "8bfdec40c6708f8be14d10b05e69aea487e607c1"
+        "6aebda8b1524337b5574f60f319efbe8db1ef6db6e3a6b69750c03cd015c2f15"
       ],
-      "url": "https://gitea.com/gitea/tea/commit/d98dd96cd86bd56539aa8fdad5c14e06abd4d2f1",
+      "url": "https://gitea.com/gitea/cli/commit/e262f0c9fb1ab6ebd7ee071ab665b337bb0b38a1b280b1537bee8c1d90802f34",
       "stats": {
-        "additions": 799,
-        "deletions": 25,
-        "total": 824
+        "additions": 229,
+        "deletions": 157,
+        "total": 386
       },
       "files": [
         {
-          "path": "cmd/flags/body.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/flags/body_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/login/status.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/interact/login_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/print/login_status.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/print/login_status_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/task/login_status.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/task/login_status_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "cmd/flags/issue_pr.go",
+          "path": "internal/app/commits.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "cmd/login.go",
+          "path": "internal/app/commits_test.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "docs/CLI.md",
+          "path": "internal/app/diff_filter.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "go.mod",
+          "path": "internal/app/diff_filter_test.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/config/login.go",
+          "path": "internal/app/pull_mutations.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/interact/login.go",
+          "path": "internal/app/validation_test.go",
           "status": "modified",
           "statusRaw": "modified"
         },
         {
-          "path": "modules/task/login_create.go",
-          "status": "modified",
-          "statusRaw": "modified"
-        }
-      ]
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c"
-      },
-      "sha": "67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
-      "message": "Fix locale-dependent git error handling (#1089)\n\nForce the C locale for git subprocesses so git output used for error classification remains stable and parseable regardless of the user shell language.\n\nAdd a regression test that simulates a localized git \"not a repository\" error and verifies it is classified as ErrRepositoryNotExists.\n\nSigned-off-by: Lunny Xiao <redacted@example.invalid>\n",
-      "author": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
-          "isBotHint": false
-        },
-        "name": "Lunny Xiao",
-        "email": "redacted@example.invalid",
-        "date": "2026-08-22T06:41:58.000Z"
-      },
-      "committer": {
-        "actor": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "login": "lunny",
-          "id": "1",
-          "name": "Lunny Xiao",
-          "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
-          "url": "https://gitea.com/lunny",
-          "isBotHint": false
-        },
-        "name": "Lunny Xiao",
-        "email": "redacted@example.invalid",
-        "date": "2026-08-22T06:41:58.000Z"
-      },
-      "parents": [
-        "ee531914cd107a6c4239013f979e65835d4815f7"
-      ],
-      "url": "https://gitea.com/gitea/tea/commit/67f1b1a8f27b659102fd4d1507dc2ae7a49fec9c",
-      "stats": {
-        "additions": 56,
-        "deletions": 1,
-        "total": 57
-      },
-      "files": [
-        {
-          "path": "modules/git/cli_backend_test.go",
-          "status": "added",
-          "statusRaw": "added"
-        },
-        {
-          "path": "modules/git/cli_backend.go",
+          "path": "internal/services/commits.go",
           "status": "modified",
           "statusRaw": "modified"
         }
       ]
     }
   ],
-  "total": 3,
+  "total": 5,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/commits?limit=3&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/pulls/92/commits?limit=3&page=2"
   }
 }

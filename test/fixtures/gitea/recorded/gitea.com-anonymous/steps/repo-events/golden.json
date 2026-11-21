@@ -3,7 +3,41 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7952493",
+      "id": "8609498",
+      "kindRaw": "delete_branch",
+      "kind": "ref",
+      "action": "deleted",
+      "detail": {
+        "type": "ref",
+        "ref": "update-check-hourly",
+        "refType": "branch"
+      },
+      "summary": "lunny deleted branch update-check-hourly",
+      "occurredAt": "2026-11-19T23:57:05.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8609442",
       "kindRaw": "close_pull_request",
       "kind": "state_change",
       "action": "closed",
@@ -14,34 +48,34 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
+          "name": "cli",
+          "externalId": "148011"
         },
         "kind": "pull_request",
-        "number": "1068"
+        "number": "129"
       },
       "detail": {
         "type": "state_change",
         "state": "closed"
       },
-      "summary": "rossigee closed pull request 1068",
-      "occurredAt": "2026-10-15T08:24:50.000Z",
+      "summary": "lunny closed pull request 129",
+      "occurredAt": "2026-11-19T23:57:02.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
         "isBotHint": false
       },
       "repo": {
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
+        "name": "cli",
+        "externalId": "148011"
       },
       "isPublic": true,
       "source": "poll"
@@ -49,237 +83,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7952425",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1075"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1075",
-      "occurredAt": "2026-10-15T08:24:49.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952349",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1074"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1074",
-      "occurredAt": "2026-10-15T08:24:37.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952259",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1079"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1079",
-      "occurredAt": "2026-10-15T08:20:31.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952191",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1080"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1080",
-      "occurredAt": "2026-10-15T08:20:30.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7952123",
-      "kindRaw": "close_pull_request",
-      "kind": "state_change",
-      "action": "closed",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1113"
-      },
-      "detail": {
-        "type": "state_change",
-        "state": "closed"
-      },
-      "summary": "rossigee closed pull request 1113",
-      "occurredAt": "2026-10-15T08:20:29.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "rossigee",
-        "id": "63659",
-        "name": "Ross Golder",
-        "avatarUrl": "https://gitea.com/avatars/c155313eb59652ee00546cc54fcae0d6",
-        "url": "https://gitea.com/rossigee",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7943982",
+      "id": "8608985",
       "kindRaw": "create_pull_request",
       "kind": "state_change",
       "action": "opened",
@@ -290,36 +94,37 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
+          "name": "cli",
+          "externalId": "148011"
         },
         "kind": "pull_request",
-        "number": "1145"
+        "number": "130"
       },
       "threadSnapshot": {
-        "title": "perf(pr): probe pull request template paths concurrently"
+        "title": "fix(auth): shut down the OAuth callback server gracefully"
       },
       "detail": {
         "type": "state_change",
         "state": "open"
       },
-      "summary": "LeonM opened pull request 1145",
-      "occurredAt": "2026-10-14T19:10:58.000Z",
+      "summary": "mcepl opened pull request 130",
+      "occurredAt": "2026-11-19T23:05:43.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
         "isBotHint": false
       },
       "repo": {
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
+        "name": "cli",
+        "externalId": "148011"
       },
       "isPublic": true,
       "source": "poll"
@@ -327,70 +132,7 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7943894",
-      "kindRaw": "comment_pull",
-      "kind": "comment",
-      "action": "created",
-      "thread": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
-        },
-        "kind": "pull_request",
-        "number": "1144"
-      },
-      "detail": {
-        "type": "comment",
-        "comment": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "thread": {
-            "forge": "gitea",
-            "instance": "gitea.com",
-            "repo": {
-              "forge": "gitea",
-              "instance": "gitea.com",
-              "owner": "gitea",
-              "name": "tea",
-              "externalId": "550"
-            },
-            "kind": "pull_request",
-            "number": "1144"
-          },
-          "id": "1766914"
-        },
-        "body": "For context, here is how the wait compares across versions. Measured against a gitea.com repository with push access and no PR template; the `main` and PR numbers are medians of 10 alternating runs.\n\n| Version | Before first prompt | Between prompts | Total wait |\n|---|---|---|---|\n| v0.15 release | ~0.15 s | ~0.9 s + ~1.2 s | ~2.2 s, split across 3 places |\n| current `main` | ~3.1 s | none | ~3.1 s |\n| `main` + this PR | ~2.2 s | none | ~2.2 s |\n| + template paths probed concurrently (experiment, not in this PR) | ~1.3 s | none | ~1.3 s |\n\nSince the Cobra rewrite, the form loads all of its data up front. That removes the pauses between prompts but makes the initial wait longer than in the release. This PR brings the total back to roughly the release level, now paid once up front.\n\nThe remaining bottleneck is the template lookup, which probes six paths sequentially. Probing them concurrently and still picking the first match in priority order gives the last row, but it always sends six requests instead of stopping at the first hit, which the existing tests assert. I kept that out of this PR and am happy to send it as a follow-up if that trade-off is acceptable.\n\n**Update:** the follow-up is now open as #1145."
-      },
-      "summary": "LeonM commented on pull request 1144",
-      "occurredAt": "2026-10-14T19:04:55.000Z",
-      "actor": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
-        "isBotHint": false
-      },
-      "repo": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
-      },
-      "isPublic": true,
-      "source": "poll"
-    },
-    {
-      "forge": "gitea",
-      "instance": "gitea.com",
-      "id": "7943782",
+      "id": "8608699",
       "kindRaw": "create_pull_request",
       "kind": "state_change",
       "action": "opened",
@@ -401,36 +143,37 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
+          "name": "cli",
+          "externalId": "148011"
         },
         "kind": "pull_request",
-        "number": "1144"
+        "number": "129"
       },
       "threadSnapshot": {
-        "title": "perf(pr create): load interactive form data concurrently"
+        "title": "Check for new releases hourly instead of daily"
       },
       "detail": {
         "type": "state_change",
         "state": "open"
       },
-      "summary": "LeonM opened pull request 1144",
-      "occurredAt": "2026-10-14T19:00:28.000Z",
+      "summary": "lunny opened pull request 129",
+      "occurredAt": "2026-11-19T22:34:21.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
         "isBotHint": false
       },
       "repo": {
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
+        "name": "cli",
+        "externalId": "148011"
       },
       "isPublic": true,
       "source": "poll"
@@ -438,10 +181,89 @@
     {
       "forge": "gitea",
       "instance": "gitea.com",
-      "id": "7897438",
-      "kindRaw": "reopen_issue",
-      "kind": "state_change",
-      "action": "reopened",
+      "id": "8608643",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/update-check-hourly",
+        "before": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "after": "b5964fe95f263cc16ff7efda7379254970ae51bc100f3c0ae8cb2012306f1b60",
+        "commitCount": 1,
+        "forced": false,
+        "commits": [
+          {
+            "sha": "b5964fe95f263cc16ff7efda7379254970ae51bc100f3c0ae8cb2012306f1b60",
+            "message": "Check for new releases hourly instead of daily\n",
+            "author": "Lunny Xiao"
+          }
+        ]
+      },
+      "summary": "lunny pushed 1 commit(s) to update-check-hourly",
+      "occurredAt": "2026-11-19T22:34:12.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8608587",
+      "kindRaw": "commit_repo",
+      "kind": "push",
+      "detail": {
+        "type": "push",
+        "ref": "refs/heads/update-check-hourly",
+        "forced": false,
+        "commits": []
+      },
+      "summary": "lunny pushed to update-check-hourly",
+      "occurredAt": "2026-11-19T22:34:11.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll",
+      "action": "other"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8590641",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
       "thread": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -449,40 +271,183 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea",
-          "externalId": "550"
+          "name": "cli",
+          "externalId": "148011"
         },
-        "kind": "issue",
-        "number": "1129"
+        "kind": "pull_request",
+        "number": "118"
       },
       "detail": {
-        "type": "state_change",
-        "state": "open"
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
       },
-      "summary": "mfk1 reopened issue 1129",
-      "occurredAt": "2026-10-12T04:39:45.000Z",
+      "summary": "lunny reviewed pull request 118 (approved)",
+      "occurredAt": "2026-11-18T19:42:45.000Z",
       "actor": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "mfk1",
-        "id": "253804",
-        "avatarUrl": "https://gitea.com/avatars/065f76328357c404dd8f46dd71c4bd4605b27b9f97d22412f2c6dc0034d309bb",
-        "url": "https://gitea.com/mfk1",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
         "isBotHint": false
       },
       "repo": {
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea",
-        "externalId": "550"
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8589978",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli",
+          "externalId": "148011"
+        },
+        "kind": "pull_request",
+        "number": "119"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
+      },
+      "summary": "lunny reviewed pull request 119 (approved)",
+      "occurredAt": "2026-11-18T19:40:35.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8589944",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli",
+          "externalId": "148011"
+        },
+        "kind": "pull_request",
+        "number": "120"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
+      },
+      "summary": "lunny reviewed pull request 120 (approved)",
+      "occurredAt": "2026-11-18T19:40:35.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
+      },
+      "isPublic": true,
+      "source": "poll"
+    },
+    {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "id": "8589511",
+      "kindRaw": "approve_pull_request",
+      "kind": "review",
+      "action": "submitted",
+      "thread": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli",
+          "externalId": "148011"
+        },
+        "kind": "pull_request",
+        "number": "121"
+      },
+      "detail": {
+        "type": "review",
+        "state": "approved",
+        "stateRaw": "approve_pull_request"
+      },
+      "summary": "lunny reviewed pull request 121 (approved)",
+      "occurredAt": "2026-11-18T19:35:52.000Z",
+      "actor": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
+        "isBotHint": false
+      },
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli",
+        "externalId": "148011"
       },
       "isPublic": true,
       "source": "poll"
     }
   ],
-  "total": 4596,
+  "total": 204,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/activities/feeds?limit=10&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/activities/feeds?limit=10&page=2"
   }
 }

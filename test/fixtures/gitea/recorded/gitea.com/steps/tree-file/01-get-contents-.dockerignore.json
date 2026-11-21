@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/contents/.dockerignore"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "name": ".dockerignore",
+      "path": ".dockerignore",
+      "sha": "5469ca1a20b97accac7da49de75183a57b9b17bf4f2ce41a1a84548146df4d96",
+      "last_commit_sha": "b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+      "last_committer_date": "2026-11-18T20:00:50Z",
+      "last_author_date": "2026-11-18T20:00:50Z",
+      "type": "file",
+      "mode": "100644",
+      "size": 23,
+      "encoding": "base64",
+      "content": "RG9ja2VyZmlsZQpndAouY2xhdWRlLwo=",
+      "target": null,
+      "url": "https://gitea.com/api/v1/repos/gitea/cli/contents/.dockerignore?ref=main",
+      "html_url": "https://gitea.com/gitea/cli/src/branch/main/.dockerignore",
+      "git_url": "https://gitea.com/api/v1/repos/gitea/cli/git/blobs/5469ca1a20b97accac7da49de75183a57b9b17bf4f2ce41a1a84548146df4d96",
+      "download_url": "https://gitea.com/gitea/cli/raw/branch/main/.dockerignore",
+      "submodule_git_url": null,
+      "_links": {
+        "self": "https://gitea.com/api/v1/repos/gitea/cli/contents/.dockerignore?ref=main",
+        "git": "https://gitea.com/api/v1/repos/gitea/cli/git/blobs/5469ca1a20b97accac7da49de75183a57b9b17bf4f2ce41a1a84548146df4d96",
+        "html": "https://gitea.com/gitea/cli/src/branch/main/.dockerignore"
+      }
+    }
+  }
+}

@@ -36,7 +36,7 @@
       "language": "Go",
       "stars": 8,
       "forks": 4,
-      "watchers": 52,
+      "watchers": 54,
       "mergeMethods": [
         "merge",
         "squash",
@@ -97,7 +97,7 @@
       "language": "Go",
       "stars": 4,
       "forks": 7,
-      "watchers": 50,
+      "watchers": 52,
       "mergeMethods": [
         "squash",
         "fast_forward_only"
@@ -128,12 +128,12 @@
         "name": "tea",
         "externalId": "550"
       },
-      "description": "A command line tool to interact with Gitea servers",
+      "description": "ARCHIVED\r\nA command line tool to interact with Gitea servers\r\nFind the replacement here:",
       "defaultBranch": "main",
       "visibility": "public",
       "visibilityRaw": "public",
       "isFork": false,
-      "isArchived": false,
+      "isArchived": true,
       "topics": [
         "gitea",
         "cli"
@@ -144,9 +144,9 @@
         "ssh": "git@gitea.com:gitea/tea.git"
       },
       "createdAt": "2019-05-19T11:37:14.000Z",
-      "updatedAt": "2026-10-18T20:56:36.000Z",
-      "openIssueCount": 104,
-      "openPullCount": 16,
+      "updatedAt": "2026-10-29T21:06:27.000Z",
+      "openIssueCount": 0,
+      "openPullCount": 0,
       "owner": {
         "forge": "gitea",
         "instance": "gitea.com",
@@ -157,9 +157,10 @@
         "isBotHint": false
       },
       "language": "Go",
+      "homepage": "https://gitea.com/gitea/cli",
       "licence": "MIT",
-      "stars": 277,
-      "forks": 147,
+      "stars": 279,
+      "forks": 152,
       "watchers": 76,
       "mergeMethods": [
         "squash"

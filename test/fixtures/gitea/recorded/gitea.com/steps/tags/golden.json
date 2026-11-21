@@ -1,20 +1,20 @@
 {
   "items": [
     {
-      "name": "v0.16.0",
-      "sha": "9c12138d6273ba8feb6e7578833cc330c0cd6461"
+      "name": "v2.0.0",
+      "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25"
     },
     {
-      "name": "v0.15.1",
-      "sha": "f34697c5ed65928e265d6f48e16928819ce0f332"
+      "name": "v1.2.0",
+      "sha": "44a4491137259f2bae2be355137e5118749f3bd74e3bc74066cdfb65d85f390d"
     },
     {
-      "name": "v0.15.0",
-      "sha": "61b8536e4a3e04d9db74b05b4d9cd489d07d8d50"
+      "name": "v1.1.0",
+      "sha": "44915d28a19d0504ace8b21b6eb5439c02cea16f9e493971a38c0aa35358f6ca"
     }
   ],
-  "total": 28,
+  "total": 7,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/tags?limit=3&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/tags?limit=3&page=2"
   }
 }

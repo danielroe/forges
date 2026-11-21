@@ -8,45 +8,96 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "issue",
-        "number": "1129",
-        "externalId": "509070"
+        "number": "117",
+        "externalId": "523838"
       },
       "kind": "issue",
-      "title": "我怎么列出所有 assignee 为空的 issues",
-      "body": "我怎么列出所有 assignee 为空的 issues",
+      "title": "Provide package repos for deb/rpm",
+      "body": "Users should be able to upgrade from their package manager without manually downloading packages from the release assets.",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "mfk1",
-        "id": "253804",
-        "avatarUrl": "https://gitea.com/avatars/065f76328357c404dd8f46dd71c4bd4605b27b9f97d22412f2c6dc0034d309bb",
-        "url": "https://gitea.com/mfk1",
+        "login": "mrmelon54",
+        "id": "31851",
+        "name": "Melon",
+        "avatarUrl": "https://gitea.com/avatars/9be883645ff19cdca95ab281ce0fca21",
+        "url": "https://gitea.com/mrmelon54",
+        "isBotHint": false
+      },
+      "assignees": [
+        {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "login": "techknowlogick",
+          "id": "9",
+          "avatarUrl": "https://gitea.com/avatars/9b588dd0b384d6f6ae841c5d62302033",
+          "url": "https://gitea.com/techknowlogick",
+          "isBotHint": false
+        }
+      ],
+      "reviewers": [],
+      "labels": [],
+      "url": "https://gitea.com/gitea/cli/issues/117",
+      "createdAt": "2026-11-16T00:38:53.000Z",
+      "updatedAt": "2026-11-16T20:42:12.000Z",
+      "lastActivityAt": "2026-11-16T20:42:12.000Z",
+      "locked": false,
+      "commentCount": 1
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli"
+        },
+        "kind": "issue",
+        "number": "114",
+        "externalId": "522186"
+      },
+      "kind": "issue",
+      "title": "Proposal : Exclude labels",
+      "body": "It would be useful to be able to exclude some labels just like in the web interface, maybe with something like\r\n\r\n`--label !name1 !name2 ` or `--xlabel names`\r\n\r\nand the returned issues/pr would have none of these labels.\r\n\r\nAnother option would be to do like github cli for compatibility reasons `gh pr list --search \"-label:<label>\"` (https://github.com/cli/cli/discussions/4142) although I think that it would be a more complicated way to do so.\r\n\r\nCheers",
+      "state": "open",
+      "stateRaw": "open",
+      "isDraft": false,
+      "author": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "login": "vdbma",
+        "id": "267646",
+        "name": "Marc van den Bossche",
+        "avatarUrl": "https://gitea.com/avatars/e163212c0dd8226c951bc5d377d3e52d8acc131b50fef3039ec38b16c0aff0c5",
+        "url": "https://gitea.com/vdbma",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
+        {
+          "name": "proposal",
+          "colour": "5319e7"
+        },
         {
           "name": "upstream/gitea",
-          "colour": "089c5c"
-        },
-        {
-          "name": "upstream/sdk",
-          "colour": "0db56c"
+          "colour": "fbca04"
         }
       ],
-      "url": "https://gitea.com/gitea/tea/issues/1129",
-      "createdAt": "2026-10-10T02:27:48.000Z",
-      "updatedAt": "2026-10-18T18:12:16.000Z",
-      "lastActivityAt": "2026-10-18T18:12:16.000Z",
+      "url": "https://gitea.com/gitea/cli/issues/114",
+      "createdAt": "2026-11-12T20:24:01.000Z",
+      "updatedAt": "2026-11-13T23:43:56.000Z",
+      "lastActivityAt": "2026-11-13T23:43:56.000Z",
       "locked": false,
-      "commentCount": 2
+      "commentCount": 1
     },
     {
       "ref": {
@@ -56,90 +107,45 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "issue",
-        "number": "1118",
-        "externalId": "503293"
+        "number": "112",
+        "externalId": "522047"
       },
       "kind": "issue",
-      "title": "Bug: SSH login fails when REQUIRE_SIGNIN_VIEW is true",
-      "body": "### describe your environment\r\n- tea version used (`tea -v`): 0.16.0\r\n    - [ ] I also reproduced the issue [with the latest main build](https://dl.gitea.com/tea/main/)\r\n- Gitea version used: 1.27.3\r\n    - [ ] the issue only occurred after updating gitea recently\r\n- operating system: Linux\r\n- I make use of...\r\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\r\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\r\n    - [x] ssh_agent or similar\r\n    - [ ] non-standard ports for gitea and/or ssh\r\n    - [ ] something else that's likely to interact badly with tea: ...\r\n\r\n\r\nPlease provide the output of `git remote -v` (if the issue is related to tea not finding resources on Gitea):\r\n```\r\n\r\n```\r\n\r\n### describe the issue (observed vs expected behaviour)\r\n\r\nWhen `REQUIRE_SIGNIN_VIEW` is set to `true` the `/api/v1/version` endpoint is inaccessible unless logged in. Tea will attempt to check the servers version number before singing the request with the chosen ssh key. This causes the version request to return a 403 causing the tea login process to fail.",
+      "title": "Support `gt actions-lock`",
+      "body": "Reference: https://github.com/github/gh-actions-lock\r\nRelated to https://gitea.com/gitea/runner/issues/1411",
       "state": "open",
       "stateRaw": "open",
       "isDraft": false,
       "author": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "Arimil",
-        "id": "245812",
-        "avatarUrl": "https://gitea.com/avatars/21e85980295faf60b14723fb86c8f479d8900df69c72dfece118f6f4ddf7e01f",
-        "url": "https://gitea.com/Arimil",
+        "login": "silverwind",
+        "id": "2021",
+        "avatarUrl": "https://gitea.com/avatars/a21c1db8b4934f6c674229dc96ad7897",
+        "url": "https://gitea.com/silverwind",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [
         {
-          "name": "kind/bug",
-          "colour": "fc2929"
-        }
-      ],
-      "url": "https://gitea.com/gitea/tea/issues/1118",
-      "createdAt": "2026-09-19T02:26:17.000Z",
-      "updatedAt": "2026-10-18T20:57:41.000Z",
-      "lastActivityAt": "2026-10-18T20:57:41.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "kind": "issue",
-        "number": "1116",
-        "externalId": "500910"
-      },
-      "kind": "issue",
-      "title": "`tea pr list` should have `--global` option",
-      "body": "It should be an equivalent of the gitea-wide list as what we have in the web UI as https://gitea.com/pulls (the same for `tea pr review`).",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "mcepl",
-        "id": "71724",
-        "name": "Matěj Cepl",
-        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
-        "url": "https://gitea.com/mcepl",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [
-        {
-          "name": "kind/proposal",
+          "name": "proposal",
           "colour": "5319e7"
         }
       ],
-      "url": "https://gitea.com/gitea/tea/issues/1116",
-      "createdAt": "2026-09-11T17:17:25.000Z",
-      "updatedAt": "2026-10-18T20:57:40.000Z",
-      "lastActivityAt": "2026-10-18T20:57:40.000Z",
+      "url": "https://gitea.com/gitea/cli/issues/112",
+      "createdAt": "2026-11-12T07:09:34.000Z",
+      "updatedAt": "2026-11-12T18:17:17.000Z",
+      "lastActivityAt": "2026-11-12T18:17:17.000Z",
       "locked": false,
       "commentCount": 0
     }
   ],
-  "total": 104,
+  "total": 6,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=issues"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/issues?limit=3&page=2&state=open&type=issues"
   }
 }

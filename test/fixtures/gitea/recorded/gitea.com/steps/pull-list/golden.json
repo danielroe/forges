@@ -8,119 +8,38 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "pull_request",
-        "number": "1145",
-        "externalId": "510950"
+        "number": "59",
+        "externalId": "518346"
       },
       "kind": "pull_request",
-      "title": "perf(pr): probe pull request template paths concurrently",
-      "body": "Thanks again for reviewing these! This is the follow-up mentioned in #1144.\n\n> **Note: this is a bigger change than #1144.** It changes how the template lookup behaves on the wire: every lookup now sends all six requests instead of stopping at the first match, and the existing tests that asserted the early stop are updated accordingly. Which template is returned does not change.\n\n## Problem\n\n`Pulls.Template` probes six paths one after another. A repository without a pull request template pays for six sequential 404s, about 1.2 s against gitea.com. With #1144 applied, this is the longest remaining step before the interactive form appears.\n\n## Changes\n\n- Probe all six template paths concurrently.\n- Decide the result in the existing priority order: the highest-priority match wins, and an error is reported only when every higher-priority path is missing, exactly as before.\n- Both callers benefit: the interactive `tea pr create` form and `tea pr create --editor`.\n\n## Trade-off\n\n- Fewer round trips one after another: the lookup now takes as long as the slowest single request instead of the sum of up to six.\n- More requests per lookup: always six. Previously a repository with a root-level template needed only one.\n\nIf always sending six requests is not acceptable, an alternative is to probe in priority order and cancel the lower-priority requests once a higher-priority one matches. That needs more code, so I kept this version simple.\n\n## Measurements\n\nTime from start until the first prompt, `tea pr create` against a gitea.com repository with push access and no PR template, median of 10 alternating runs:\n\n| | median |\n|---|---|\n| `main` | 3361 ms |\n| this PR | 2028 ms |\n| this PR + #1144 | 1210 ms |\n\n## Testing\n\n- `go test -race ./...`\n- `TestPullTemplateLookup` now expects six requests in every case and adds cases for a match before an error and an error before a match.\n- New `TestPullTemplateProbesConcurrently` verifies that all probes are in flight at the same time.\n- The two PRs touch different files and merge cleanly in either order.\n- Manually ran `tea pr create` against gitea.com.",
+      "title": "WIP: feat: add gt skill to install agent skills from repositories",
+      "body": "`gt` had no way to hand its agent skill (`skills/gt`) or any other skill to a coding agent. `gt skill` follows `gh skill`:\n\n- `install <repository> [<skill>]` copies skills, or all with `--all`, to the skills directory of `--agent` (default `universal`, i.e. `.agents/skills`) at `--scope project|user`, or to `--dir`. `--from-local` reads a local directory, `--pin REF` installs a tag or commit that `update` leaves alone.\n- `list`, `preview` and `update [--dry-run|--force|--unpin]` show what is installed, print a skill before installing it, and replace skills whose tree changed.\n- The repository is on any Gitea instance gt has an account for (`HOST/OWNER/NAME` or a URL), or a public `https://github.com/OWNER/NAME`, read anonymously with no credentials sent. The source and tree SHA go into the `metadata` of the installed `SKILL.md`, which `update` compares.\n\nSkills are read at one commit, limited in size and file count, and a name that is not a plain skill name is refused so nothing is written outside the skills directory.\n\nAgent directories were checked against what `gh skill install` writes; other directories work with `--dir`. `search` and `publish` are not included.\n",
       "state": "open",
       "stateRaw": "open",
-      "isDraft": false,
+      "isDraft": true,
       "author": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
+        "login": "lunny",
+        "id": "1",
+        "name": "Lunny Xiao",
+        "avatarUrl": "https://gitea.com/avatars/5739143ce171af62d1ff0baa027dacfd5e5ffe9c28b7b92fc4ed02d952ab1cc3",
+        "url": "https://gitea.com/lunny",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://gitea.com/gitea/tea/pulls/1145",
-      "createdAt": "2026-10-14T19:10:56.000Z",
-      "updatedAt": "2026-10-18T18:12:16.000Z",
-      "lastActivityAt": "2026-10-18T18:12:16.000Z",
-      "locked": false,
-      "commentCount": 0
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "kind": "pull_request",
-        "number": "1144",
-        "externalId": "510948"
-      },
-      "kind": "pull_request",
-      "title": "perf(pr create): load interactive form data concurrently",
-      "body": "Thanks for the Cobra/services rework — having all form data loaded in one place made this a small, contained change.\n\n## Problem\n\nBefore the interactive `tea pr create` form appears, tea loads its data strictly one request after another:\n\n1. `GET /repos/{owner}/{repo}` for the default branch\n2. `GET /repos/{owner}/{repo}` again for push permissions\n3. assignees\n4. milestones\n5. labels\n6. the pull request template, probing up to six paths\n\nAgainst gitea.com this takes about 3 s before the first prompt shows up.\n\n## Changes\n\n- Add `Pulls.CreateChoices`, which fetches the repository once and reuses it for both the default branch and the push permission check.\n- Load the pull request template concurrently with the selectables.\n- Load assignees, milestones and labels concurrently.\n- `Issues.CreateSelectables` loads issue templates concurrently with the selectables, so `tea issue create` benefits as well.\n\nThe template lookup itself is unchanged: paths are still probed in priority order and the lookup stops at the first match. Form fields, defaults and error handling are unchanged.\n\n## Measurements\n\nTime from start until the first prompt, `tea pr create` against a gitea.com repository with push access and no PR template, median of 10 alternating runs:\n\n| | median |\n|---|---|\n| `main` | 3066 ms |\n| this PR | 2238 ms |\n\n## Testing\n\n- `go test -race ./...`\n- New tests cover a single repository fetch, the template being read from the default branch, error propagation, and that template/assignees/milestones/labels requests are in flight at the same time.\n- Manually ran `tea pr create` against gitea.com.",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "LeonM",
-        "id": "206012",
-        "avatarUrl": "https://gitea.com/avatars/c2aa8014095f26856fd76464a430f7475832ef663299baddd5f14903c51596f5",
-        "url": "https://gitea.com/LeonM",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [],
-      "url": "https://gitea.com/gitea/tea/pulls/1144",
-      "createdAt": "2026-10-14T19:00:26.000Z",
-      "updatedAt": "2026-10-18T18:12:16.000Z",
-      "lastActivityAt": "2026-10-18T18:12:16.000Z",
+      "url": "https://gitea.com/gitea/cli/pulls/59",
+      "createdAt": "2026-11-01T05:27:39.000Z",
+      "updatedAt": "2026-11-05T20:48:16.000Z",
+      "lastActivityAt": "2026-11-05T20:48:16.000Z",
       "locked": false,
       "commentCount": 1
-    },
-    {
-      "ref": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "repo": {
-          "forge": "gitea",
-          "instance": "gitea.com",
-          "owner": "gitea",
-          "name": "tea"
-        },
-        "kind": "pull_request",
-        "number": "1130",
-        "externalId": "509270"
-      },
-      "kind": "pull_request",
-      "title": "feat(login): support custom HTTP headers per login",
-      "body": "Allow a login to carry extra HTTP headers that are sent with every request to its server. This makes tea usable with forges behind an authenticating proxy such as Cloudflare Access, which needs CF-Access-Client-Id and CF-Access-Client-Secret service-token headers on each request.\r\n\r\nFixes #990 \r\n\r\n## Changes\r\n\r\n- Add `headers` to the login config and `Login.BuildTransport()`, which wraps tea's standard transport (timeouts, User-Agent, insecure TLS) with the login's headers. Use it for the SDK client, the raw API client and OAuth token refresh.\r\n- Pass the headers through the OAuth browser flow (token exchange and re-authentication).\r\n- Add a repeatable `--header`/`-H key:value` flag to `tea login add`, so the initial validation request, basic-auth token creation and the `--oauth` flow can reach a server behind the proxy.\r\n- Move `key:value` header parsing into `httputil.ParseHeaders` and reuse it for `tea api --header`.\r\n\r\nHeaders already set on a request are never overridden. Git operations over HTTPS do not use these transports; use git's `http.extraHeader` for those.\r\n\r\n## Testing\r\n\r\n- `go build ./...`, `go vet ./...`, `go test ./...`\r\n- New unit tests for `ParseHeaders` and `WithHeaders`\r\n- Manual: `tea login add -H ...` against a local server that rejects requests without the CF headers",
-      "state": "open",
-      "stateRaw": "open",
-      "isDraft": false,
-      "author": {
-        "forge": "gitea",
-        "instance": "gitea.com",
-        "login": "chrisbecker",
-        "id": "187077",
-        "name": "chris becker",
-        "avatarUrl": "https://gitea.com/avatars/3a3d104ce64cef4e02c9bc710ffeacb779da8248bb309c114426a19cd85f8d9b",
-        "url": "https://gitea.com/chrisbecker",
-        "isBotHint": false
-      },
-      "assignees": [],
-      "reviewers": [],
-      "labels": [],
-      "url": "https://gitea.com/gitea/tea/pulls/1130",
-      "createdAt": "2026-10-10T23:03:37.000Z",
-      "updatedAt": "2026-10-10T23:03:38.000Z",
-      "lastActivityAt": "2026-10-10T23:03:38.000Z",
-      "locked": false,
-      "commentCount": 0
     }
   ],
-  "total": 16,
-  "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/issues?limit=3&page=2&state=open&type=pulls"
-  }
+  "total": 1
 }

@@ -2,22 +2,22 @@
   "items": [
     {
       "name": "main",
-      "sha": "c5f674111ab7a61418829c66b240573400d46ae4",
+      "sha": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
       "isProtected": true
     },
     {
-      "name": "finish-rewrite",
-      "sha": "ee5a08c5b3263c1d10193f715124961aaff4f9cb",
+      "name": "build/go-1.27.4",
+      "sha": "abe3788c2105090a59e04c6938fbf75d436b9e393817f142b248d5d267cc42ff",
       "isProtected": false
     },
     {
-      "name": "renovate/dependencies",
-      "sha": "609afec71a073227dc0f98bbf4db83005980c290",
+      "name": "feat/skill-command",
+      "sha": "e34b66903fa2db878f62833d547be2c18721888d164c69c11e1fd7213db2821f",
       "isProtected": false
     }
   ],
-  "total": 10,
+  "total": 5,
   "cursor": {
-    "nextUrl": "https://gitea.com/api/v1/repos/gitea/tea/branches?limit=3&page=2"
+    "nextUrl": "https://gitea.com/api/v1/repos/gitea/cli/branches?limit=3&page=2"
   }
 }

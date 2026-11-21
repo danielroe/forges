@@ -1,43 +1,65 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100/status"
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/commits/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/status"
   },
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "2"
+      "x-total-count": "4"
     },
     "body": {
       "state": "success",
-      "sha": "dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-      "total_count": 2,
+      "sha": "9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+      "total_count": 4,
       "statuses": [
         {
-          "id": 5,
+          "id": 7,
           "status": "success",
-          "target_url": "/gitea/tea/actions/runs/999532/jobs/1355176",
-          "description": "Successful in 1m1s",
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/statuses/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-          "context": "check-and-test / Integration Test (pull_request)",
+          "target_url": "/gitea/cli/actions/runs/1222875/jobs/1700168",
+          "description": "Successful in 15s",
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/statuses/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+          "context": "pr-title / lint-pr-title (pull_request)",
           "creator": null,
-          "created_at": "2026-09-30T17:42:10Z",
-          "updated_at": "2026-09-30T17:42:10Z"
+          "created_at": "2026-11-09T20:50:57Z",
+          "updated_at": "2026-11-09T20:50:57Z"
         },
         {
-          "id": 6,
+          "id": 10,
           "status": "success",
-          "target_url": "/gitea/tea/actions/runs/999532/jobs/1355175",
-          "description": "Successful in 1m8s",
-          "url": "https://gitea.com/api/v1/repos/gitea/tea/statuses/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-          "context": "check-and-test / Lint Build And Unit Coverage (pull_request)",
+          "target_url": "/gitea/cli/actions/runs/1222876/jobs/1700171",
+          "description": "Successful in 3m42s",
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/statuses/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+          "context": "Test / Integration Test (pull_request)",
           "creator": null,
-          "created_at": "2026-09-30T17:42:15Z",
-          "updated_at": "2026-09-30T17:42:15Z"
+          "created_at": "2026-11-09T20:54:43Z",
+          "updated_at": "2026-11-09T20:54:43Z"
+        },
+        {
+          "id": 11,
+          "status": "success",
+          "target_url": "/gitea/cli/actions/runs/1222876/jobs/1700169",
+          "description": "Successful in 5m52s",
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/statuses/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+          "context": "Test / Lint Build And Unit Coverage (pull_request)",
+          "creator": null,
+          "created_at": "2026-11-09T20:56:35Z",
+          "updated_at": "2026-11-09T20:56:35Z"
+        },
+        {
+          "id": 12,
+          "status": "success",
+          "target_url": "/gitea/cli/actions/runs/1222876/jobs/1700170",
+          "description": "Successful in 18m44s",
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/statuses/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+          "context": "Test / Unit Test On Windows (pull_request)",
+          "creator": null,
+          "created_at": "2026-11-09T21:10:17Z",
+          "updated_at": "2026-11-09T21:10:17Z"
         }
       ],
       "repository": {
-        "id": 550,
+        "id": 148011,
         "owner": {
           "id": 3,
           "login": "gitea",
@@ -51,40 +73,40 @@
           "location": "Git Universe",
           "website": "https://gitea.com",
           "description": "Git with a cup of tea",
-          "followers_count": 137,
+          "followers_count": 143,
           "following_count": 0,
           "starred_repos_count": 0,
           "username": "gitea"
         },
-        "name": "tea",
-        "full_name": "gitea/tea",
-        "description": "A command line tool to interact with Gitea servers",
+        "name": "cli",
+        "full_name": "gitea/cli",
+        "description": "Official Gitea CLI",
         "empty": false,
         "private": false,
         "fork": false,
         "template": false,
         "mirror": false,
-        "size": 82976,
+        "size": 82012,
         "language": "",
-        "languages_url": "https://gitea.com/api/v1/repos/gitea/tea/languages",
-        "html_url": "https://gitea.com/gitea/tea",
-        "url": "https://gitea.com/api/v1/repos/gitea/tea",
+        "languages_url": "https://gitea.com/api/v1/repos/gitea/cli/languages",
+        "html_url": "https://gitea.com/gitea/cli",
+        "url": "https://gitea.com/api/v1/repos/gitea/cli",
         "link": "",
-        "ssh_url": "git@gitea.com:gitea/tea.git",
-        "clone_url": "https://gitea.com/gitea/tea.git",
+        "ssh_url": "git@gitea.com:gitea/cli.git",
+        "clone_url": "https://gitea.com/gitea/cli.git",
         "original_url": "",
         "website": "",
-        "stars_count": 277,
-        "forks_count": 147,
-        "watchers_count": 76,
-        "branch_count": 10,
-        "open_issues_count": 104,
-        "open_pr_counter": 16,
-        "release_counter": 27,
+        "stars_count": 25,
+        "forks_count": 9,
+        "watchers_count": 61,
+        "branch_count": 5,
+        "open_issues_count": 6,
+        "open_pr_counter": 1,
+        "release_counter": 6,
         "default_branch": "main",
         "archived": false,
-        "created_at": "2019-05-19T11:37:14Z",
-        "updated_at": "2026-10-18T20:56:36Z",
+        "created_at": "2026-10-18T18:45:00Z",
+        "updated_at": "2026-11-20T17:50:40Z",
         "archived_at": "1970-01-01T00:00:00Z",
         "permissions": {
           "admin": false,
@@ -95,10 +117,10 @@
         "has_issues": true,
         "internal_tracker": {
           "enable_time_tracker": true,
-          "allow_only_contributors_to_track_time": false,
+          "allow_only_contributors_to_track_time": true,
           "enable_issue_dependencies": true
         },
-        "has_wiki": true,
+        "has_wiki": false,
         "has_pull_requests": true,
         "has_projects": false,
         "projects_mode": "all",
@@ -107,7 +129,7 @@
         "has_actions": true,
         "ignore_whitespace_conflicts": false,
         "allow_merge_commits": false,
-        "allow_rebase": false,
+        "allow_rebase": true,
         "allow_rebase_explicit": false,
         "allow_squash_merge": true,
         "allow_fast_forward_only_merge": false,
@@ -119,22 +141,23 @@
         "default_merge_style": "squash",
         "default_update_style": "merge",
         "default_allow_maintainer_edit": true,
-        "avatar_url": "https://gitea.com/repo-avatars/550-80a3a8c2ab0e2c2d69f296b7f8582485",
+        "avatar_url": "https://gitea.com/repo-avatars/ff47653c98f0bda9e35b10caeb61a3d5096d246daf9bd3417ae6b3fd0f382605",
         "internal": false,
         "mirror_interval": "",
-        "object_format_name": "sha1",
+        "object_format_name": "sha256",
         "mirror_updated": "0001-01-01T00:00:00Z",
         "mirror_last_sync_at": "0001-01-01T00:00:00Z",
         "topics": [
-          "gitea",
-          "cli"
+          "cli",
+          "git",
+          "gitea"
         ],
         "licenses": [
           "MIT"
         ]
       },
-      "commit_url": "https://gitea.com/api/v1/repos/gitea/tea/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/commits/dbfa61205c14e48d13d95c55b277e55cc0ee1100/status"
+      "commit_url": "https://gitea.com/api/v1/repos/gitea/cli/commits/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+      "url": "https://gitea.com/api/v1/repos/gitea/cli/commits/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/status"
     }
   }
 }

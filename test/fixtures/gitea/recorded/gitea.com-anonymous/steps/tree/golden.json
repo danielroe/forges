@@ -1,24 +1,24 @@
 {
   "items": [
     {
-      "path": ".changelog.yml",
-      "type": "file",
-      "sha": "e1d6907b7aba9781666f793e13b488363fd1fd22",
-      "size": 918,
-      "mode": "100755"
-    },
-    {
       "path": ".devcontainer",
       "type": "directory",
-      "sha": "e6afddd3fe2b44ce0bd68e2e0178912523c5bf92",
+      "sha": "e3d20e13beb3896ab0e85abbf3ada01fcd080490a0df7c3f7bf2245e90a4b68e",
       "size": 0,
       "mode": "040000"
     },
     {
       "path": ".dockerignore",
       "type": "file",
-      "sha": "d586e98b5abce19e9bd24bd509af35cddbac7743",
-      "size": 15,
+      "sha": "5469ca1a20b97accac7da49de75183a57b9b17bf4f2ce41a1a84548146df4d96",
+      "size": 23,
+      "mode": "100644"
+    },
+    {
+      "path": ".envrc",
+      "type": "file",
+      "sha": "7c45c7026ed20e62c831601f4600ba3763128adbb5be46a2ecc119912d36efa8",
+      "size": 10,
       "mode": "100644"
     }
   ],

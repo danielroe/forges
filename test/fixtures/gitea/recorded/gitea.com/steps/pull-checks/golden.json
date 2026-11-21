@@ -8,17 +8,17 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "5",
+        "id": "7",
         "type": "status"
       },
-      "name": "check-and-test / Integration Test (pull_request)",
+      "name": "pr-title / lint-pr-title (pull_request)",
       "state": "success",
       "stateRaw": "success",
-      "url": "/gitea/tea/actions/runs/999532/jobs/1355176",
-      "startedAt": "2026-09-30T17:42:10.000Z",
-      "completedAt": "2026-09-30T17:42:10.000Z"
+      "url": "/gitea/cli/actions/runs/1222875/jobs/1700168",
+      "startedAt": "2026-11-09T20:50:57.000Z",
+      "completedAt": "2026-11-09T20:50:57.000Z"
     },
     {
       "ref": {
@@ -28,17 +28,57 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
-        "id": "6",
+        "id": "10",
         "type": "status"
       },
-      "name": "check-and-test / Lint Build And Unit Coverage (pull_request)",
+      "name": "Test / Integration Test (pull_request)",
       "state": "success",
       "stateRaw": "success",
-      "url": "/gitea/tea/actions/runs/999532/jobs/1355175",
-      "startedAt": "2026-09-30T17:42:15.000Z",
-      "completedAt": "2026-09-30T17:42:15.000Z"
+      "url": "/gitea/cli/actions/runs/1222876/jobs/1700171",
+      "startedAt": "2026-11-09T20:54:43.000Z",
+      "completedAt": "2026-11-09T20:54:43.000Z"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli"
+        },
+        "id": "11",
+        "type": "status"
+      },
+      "name": "Test / Lint Build And Unit Coverage (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/gitea/cli/actions/runs/1222876/jobs/1700169",
+      "startedAt": "2026-11-09T20:56:35.000Z",
+      "completedAt": "2026-11-09T20:56:35.000Z"
+    },
+    {
+      "ref": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "repo": {
+          "forge": "gitea",
+          "instance": "gitea.com",
+          "owner": "gitea",
+          "name": "cli"
+        },
+        "id": "12",
+        "type": "status"
+      },
+      "name": "Test / Unit Test On Windows (pull_request)",
+      "state": "success",
+      "stateRaw": "success",
+      "url": "/gitea/cli/actions/runs/1222876/jobs/1700170",
+      "startedAt": "2026-11-09T21:10:17.000Z",
+      "completedAt": "2026-11-09T21:10:17.000Z"
     }
   ]
 }

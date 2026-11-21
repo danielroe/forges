@@ -9,12 +9,12 @@
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea"
+        "name": "cli"
       },
       "kind": "pull_request",
-      "number": "1099"
+      "number": "92"
     },
-    "id": "383047"
+    "id": "385973"
   },
   "author": {
     "forge": "gitea",
@@ -23,19 +23,21 @@
       "forge": "gitea",
       "instance": "gitea.com",
       "owner": "gitea",
-      "name": "tea"
+      "name": "cli"
     },
     "kind": "pull_request",
-    "number": "1099",
-    "login": "Zettat123",
-    "id": "39446",
-    "avatarUrl": "https://gitea.com/avatars/230ac7fa09681a12ecc1dd575f5ffe91003739cb181ab1cd9f670ab2e90eaab8",
-    "url": "https://gitea.com/Zettat123",
+    "number": "92",
+    "login": "bircni",
+    "id": "173651",
+    "name": "bircni",
+    "avatarUrl": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+    "url": "https://gitea.com/bircni",
     "isBotHint": false
   },
-  "state": "approved",
-  "stateRaw": "APPROVED",
-  "submittedAt": "2026-09-30T17:42:34.000Z",
+  "state": "changes_requested",
+  "stateRaw": "REQUEST_CHANGES",
+  "body": "See https://gitea.com/gitea/cli/pulls/92#issuecomment-1848263",
+  "submittedAt": "2026-11-06T19:53:32.000Z",
   "comments": [],
-  "url": "https://gitea.com/gitea/tea/pulls/1099#pullrequestreview-383047"
+  "url": "https://gitea.com/gitea/cli/pulls/92#pullrequestreview-385973"
 }

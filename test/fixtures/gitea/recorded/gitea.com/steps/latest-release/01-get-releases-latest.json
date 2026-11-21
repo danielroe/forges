@@ -1,26 +1,26 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/releases/latest"
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/releases/latest"
   },
   "response": {
     "status": 200,
     "headers": {},
     "body": {
-      "id": 945508,
-      "tag_name": "v0.16.0",
-      "target_commitish": "9c12138d6273ba8feb6e7578833cc330c0cd6461",
-      "name": "v0.16.0",
-      "body": "## What's Changed\r\n* Make `tea issues create` honor `--output json` in [#1114](https://gitea.com/gitea/tea/pulls/1114)\r\n* fix(pulls): report the real reason when a merge is refused in [#1107](https://gitea.com/gitea/tea/pulls/1107)\r\n* Make `tea pulls create` honor `--output json` in [#1111](https://gitea.com/gitea/tea/pulls/1111)\r\n* fix(deps): update module golang.org/x/crypto to v0.56.0 [security] in [#1109](https://gitea.com/gitea/tea/pulls/1109)\r\n* fix(deps): update module golang.org/x/crypto to v0.55.0 [security] in [#1106](https://gitea.com/gitea/tea/pulls/1106)\r\n* feat(login): add status command (#1087) in [#1105](https://gitea.com/gitea/tea/pulls/1105)\r\n* fix(login): avoid panic when parsing auto-discovered SSH keys in [#1100](https://gitea.com/gitea/tea/pulls/1100)\r\n* Read issue/PR description from stdin or a file in [#1096](https://gitea.com/gitea/tea/pulls/1096)\r\n* fix(deps): update go toolchain directive to v1.26.6 [security] in [#1103](https://gitea.com/gitea/tea/pulls/1103)\r\n* chore(deps): update docker/login-action digest to dbcb813 in [#1082](https://gitea.com/gitea/tea/pulls/1082)\r\n* fix(oauth): don't wait for the browser opener to exit in [#1093](https://gitea.com/gitea/tea/pulls/1093)\r\n* Drop AWS S3 release upload, keep only Cloudflare R2 in [#1092](https://gitea.com/gitea/tea/pulls/1092)\r\n* chore: align go version handling with gitea in [#1088](https://gitea.com/gitea/tea/pulls/1088)\r\n\r\n## Contributors\r\n* @ongolk\r\n* @jbaer\r\n* @renovate-bot\r\n* @lunny\r\n* @jamesbraid\r\n* @silverwind\r\n\r\n## New Contributors\r\n* @jbaer made their first contribution in [#1107](https://gitea.com/gitea/tea/pulls/1107)\r\n* @ongolk made their first contribution in [#1111](https://gitea.com/gitea/tea/pulls/1111)\r\n* @jamesbraid made their first contribution in [#1093](https://gitea.com/gitea/tea/pulls/1093)\r\n* @silverwind made their first contribution in [#1088](https://gitea.com/gitea/tea/pulls/1088)\r\n\r\n**Full Changelog**: [v0.15.1...v0.16.0](https://gitea.com/gitea/tea/compare/v0.15.1...v0.16.0)\r\n",
-      "url": "https://gitea.com/api/v1/repos/gitea/tea/releases/945508",
-      "html_url": "https://gitea.com/gitea/tea/releases/tag/v0.16.0",
-      "tarball_url": "https://gitea.com/gitea/tea/archive/v0.16.0.tar.gz",
-      "zipball_url": "https://gitea.com/gitea/tea/archive/v0.16.0.zip",
-      "upload_url": "https://gitea.com/api/v1/repos/gitea/tea/releases/945508/assets",
+      "id": 1030317,
+      "tag_name": "v2.0.0",
+      "target_commitish": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+      "name": "v2.0.0",
+      "body": "gt 2.0.0 brings gt's flags and JSON output in line with `gh`, keeps settings and stored tokens readable across versions, works with narrowly scoped CI tokens, and fixes many bugs.\r\n\r\n## Breaking changes\r\n\r\n- **`--json` and `--csv` require a field list.** Like gh, `--json` without fields fails with a usage error that lists the available fields. Use `--jq .` or `--template` to read every field. gt no longer guesses whether the word after `--json` is a field list or an argument ([#127](https://gitea.com/gitea/cli/pulls/127)).\r\n- **Absent values in JSON are `null`.** A field without a value is now `null` instead of `\"\"` or a missing key, an empty list is `[]`, and every declared field is always present. Timestamps are RFC 3339 in UTC to the second. Fields that cost extra requests, such as reviewers or `blocked_by`, are read only when `--json` names them or the `--jq`/`--template` expression mentions them ([#127](https://gitea.com/gitea/cli/pulls/127)).\r\n- **`gt pr merge` uses gh's flag names:** `--message` is now `--body` (`-b`), `--message-file` is `--body-file` (`-F`) and `--title` is `--subject` (`-t`). `-s` is now `--squash` instead of `--method`, and `--merge` and `--rebase` gain `-m` and `-r`. `--method` stays, long-only, for Gitea's other merge styles ([#125](https://gitea.com/gitea/cli/pulls/125)).\r\n- **Renamed or removed flags, matching gh** ([#126](https://gitea.com/gitea/cli/pulls/126)):\r\n  - Teams are requested as `ORG/TEAM` in `pr create --reviewer`, `pr edit --add-reviewer`/`--remove-reviewer` and `pr review request`/`cancel-request --reviewer`. `--reviewer-team`, `--add-reviewer-team`, `--remove-reviewer-team` and `--team` are removed.\r\n  - `pr create --allow-maintainer-edits` is now `--no-maintainer-edit`.\r\n  - `search issue|pr` replaces `--assigned`, `--authored` and `--mentioned` with `--assignee`, `--author` and `--mentions`, which take a user or `@me`.\r\n  - `repo edit --actions` is now `--enable-actions`, and `repo edit --private` is removed in favour of `--visibility`.\r\n  - The hidden `--before` of `gt notification` is removed; use `--until`.\r\n- `gt issue edit` and `gt pr edit` rename `--add-blocks`/`--remove-blocks` to gh's `--add-blocking`/`--remove-blocking` ([#99](https://gitea.com/gitea/cli/pulls/99)).\r\n- Plain output is smaller for scripts and agents: job logs print without Gitea's per-line timestamp (`--timestamps` keeps it), `run logs --failed` and `run view --log-failed` print only the failed steps, and piped lists shorten commit IDs to twelve characters and drop the URL column where the row already identifies the item ([#115](https://gitea.com/gitea/cli/pulls/115)).\r\n- Tokens in the system keyring move to the service `gitea-cli:HOST[/PATH]` with the account name, so they can be found in Keychain Access and similar tools. Existing tokens are moved the first time 2.0 uses them; gt 1.x cannot read moved tokens ([#124](https://gitea.com/gitea/cli/pulls/124)).\r\n- `gt config set` with an unknown key now stores it with a warning instead of failing ([#124](https://gitea.com/gitea/cli/pulls/124)).\r\n- A 403 for a missing token scope now exits 4 (`authentication`) instead of 1 ([#123](https://gitea.com/gitea/cli/pulls/123)).\r\n- Polling commands (`run watch`, `run logs --follow`, `workflow run --follow`, `pr checks --watch`, `notification watch`) require `--interval` of at least 1s ([#122](https://gitea.com/gitea/cli/pulls/122)).\r\n- `go install` is no longer a supported way to install gt: the module stays at `gitea.dev/cli`, so `go install …@latest` keeps resolving to 1.x. Use a release binary, a package or the install script ([#118](https://gitea.com/gitea/cli/pulls/118)).\r\n\r\n## Features\r\n\r\n- `gt issue create --blocked-by` and `--blocking` set dependencies on the new issue, `gt label list` takes `--search`, `--sort`, `--order` and `--web`, and `gt repo list` takes `--visibility`, `--archived`, `--no-archived`, `--topic` and `--language` ([#99](https://gitea.com/gitea/cli/pulls/99)).\r\n- Settings files from a later gt, or with settings this version does not know, are read and kept when gt rewrites them, so several gt versions can share one configuration ([#124](https://gitea.com/gitea/cli/pulls/124)).\r\n- A `GITEA_TOKEN` without the `read:user` scope now works for every command that does not need to know whose token it is, and so does the git credential helper. `gt auth login --help` and `gt help environment` explain which scopes a token needs ([#123](https://gitea.com/gitea/cli/pulls/123)).\r\n- Issue and pull request JSON gains `locked`, and pull request JSON gains `pinned`. `gt pr view` tells a deleted head branch or open blockers apart from conflicts ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- `gt extension list` marks a local extension whose executable no longer exists ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- `gt schema` marks date-time fields ([#127](https://gitea.com/gitea/cli/pulls/127)).\r\n\r\n## Security\r\n\r\n- Local extensions run only when their executable, or what it links to, is a regular file owned by you or root that not every user can write to or replace ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- The commit an extension install resolves must be a full commit ID before it is shown or passed to git ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- `--debug` strips control characters from transport errors, which can quote server text ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- `gt run download` checks every artifact name before writing anything, also when extracting into directories ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- A job log that is missing no longer prints the server's raw error, which could include its storage path ([#122](https://gitea.com/gitea/cli/pulls/122)).\r\n\r\n## Fixes\r\n\r\n- `secret set` and `variable set` refuse values that are not valid UTF-8 instead of silently changing them ([#119](https://gitea.com/gitea/cli/pulls/119)).\r\n- `gt issue create --blocked-by/--blocking` refuses a missing issue before creating the new one ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- Pin, unpin, lock and unlock on an issue or pull request already in that state report it and change nothing, instead of a server error ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- Merging a pull request blocked by an open dependency names the blocking issues instead of a server error ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- `gt commit pr` prints the pull request without `--json` and accepts abbreviated SHAs ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- `gt pr checks --required` names the base branch when its protection requires no checks, `gt status --json` prints `mentions: []` instead of `null`, `gt pr review --pending` and `gt pr review reply` report a missing body correctly, and `gt time cancel` no longer asks to discard a stopwatch that is not running ([#120](https://gitea.com/gitea/cli/pulls/120)).\r\n- `repo edit --dry-run` with topic flags, and `repo delete`/`repo archive` with `--dry-run` in a clone, no longer fail ([#121](https://gitea.com/gitea/cli/pulls/121)).\r\n- `repo archive` with several repositories checks every argument before archiving any, `repo create --team` checks its owner before any request, and `repo list --archived=false` is honoured ([#121](https://gitea.com/gitea/cli/pulls/121)).\r\n- `tag list` and `tag create` JSON fill the tagger and verification fields, and `tag protect` warns when Gitea leaves out users or teams ([#121](https://gitea.com/gitea/cli/pulls/121)).\r\n- A case-only rename of an organization's owner team is refused before it reaches Gitea, `gpg-key verify` accepts the numeric ID shown by `gpg-key list`, and `release download` skips an asset whose name cannot be a file name instead of downloading nothing ([#121](https://gitea.com/gitea/cli/pulls/121)).\r\n- `gt run watch` and `gt workflow run --follow` work on servers that cannot list workflows or jobs, as `gt run view` does ([#122](https://gitea.com/gitea/cli/pulls/122)).\r\n- `gt run logs` reports a job whose logs are missing, for example removed by retention, and goes on with the other jobs ([#122](https://gitea.com/gitea/cli/pulls/122)).\r\n- The missing-runner hint also covers queued jobs after other jobs started, `runner view --global` no longer claims a runner belongs to the instance, `project … --account` errors no longer name an empty repository, and `run cancel --force --dry-run` refuses a completed run ([#122](https://gitea.com/gitea/cli/pulls/122)).\r\n\r\n## Build\r\n\r\n- Tags such as `v2.0.0-rc1` are published as pre-releases and no longer move the Docker `latest` tag, and version comparison orders pre-releases before their release, so `gt upgrade` and the update notice see 2.0.0 as newer than 2.0.0-rc1 ([#118](https://gitea.com/gitea/cli/pulls/118)).\r\n- The release workflow of a new Go extension (`gt extension create --precompiled=go`) installs the released gt instead of running `go run …@latest` ([#118](https://gitea.com/gitea/cli/pulls/118)).\r\n- Update the Go toolchain to 1.27.4 ([#109](https://gitea.com/gitea/cli/pulls/109)).\r\n\r\n## Internal\r\n\r\n- Transport timeout tests run on a fake clock, so they no longer fail on a busy machine, such as during a `makepkg` check ([#110](https://gitea.com/gitea/cli/pulls/110), fixes [#108](https://gitea.com/gitea/cli/issues/108)).\r\n- Dependency updates, including `golang.org/x/crypto` v0.59.0, `golang.org/x/oauth2` v0.38.0 and `github.com/spf13/pflag` v1.1.0, and Gitea 28.4.0 for the integration tests ([#116](https://gitea.com/gitea/cli/pulls/116), [#128](https://gitea.com/gitea/cli/pulls/128)).\r\n\r\n## Contributors\r\n* @bircni\r\n* @lunny\r\n\r\n**Full Changelog**: [v1.2.0...v2.0.0](https://gitea.com/gitea/cli/compare/v1.2.0...v2.0.0)\r\n",
+      "url": "https://gitea.com/api/v1/repos/gitea/cli/releases/1030317",
+      "html_url": "https://gitea.com/gitea/cli/releases/tag/v2.0.0",
+      "tarball_url": "https://gitea.com/gitea/cli/archive/v2.0.0.tar.gz",
+      "zipball_url": "https://gitea.com/gitea/cli/archive/v2.0.0.zip",
+      "upload_url": "https://gitea.com/api/v1/repos/gitea/cli/releases/1030317/assets",
       "draft": false,
       "prerelease": false,
-      "created_at": "2026-09-10T04:29:39Z",
-      "published_at": "2026-09-10T11:34:12Z",
+      "created_at": "2026-11-18T20:14:31Z",
+      "published_at": "2026-11-18T20:46:44Z",
       "author": {
         "id": 173651,
         "login": "bircni",
@@ -28,7 +28,7 @@
         "source_id": 0,
         "full_name": "bircni",
         "email": "redacted@example.invalid",
-        "avatar_url": "https://gitea.com/avatars/860b2d890585d6ad88dc44f5339f64fff7e87d2208aab33dce94045338c0868e",
+        "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
         "html_url": "https://gitea.com/bircni",
         "active": false,
         "location": "",
@@ -41,292 +41,472 @@
       },
       "assets": [
         {
-          "id": 100083,
+          "id": 113871,
           "name": "checksums.txt",
-          "size": 1842,
-          "download_count": 5350,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "cb962600-56d4-47e7-914e-e91c9cdcb84b",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt"
+          "size": 3578,
+          "download_count": 158,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "c3864911-80ac-4428-a1f2-2813b98b07e3",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/checksums.txt"
         },
         {
-          "id": 100084,
+          "id": 113883,
           "name": "checksums.txt.sig",
           "size": 566,
-          "download_count": 654,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "313db966-90a6-4b85-99fc-57a87f3c6484",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/checksums.txt.sig"
+          "download_count": 10,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "4e2fd4d9-823a-4239-8f7d-6a05c35c0790",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/checksums.txt.sig"
         },
         {
-          "id": 100112,
-          "name": "tea-0.16.0-darwin-amd64",
-          "size": 29379792,
-          "download_count": 148,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "6e5a5990-ea58-4a34-8230-0a67a53cde9a",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64"
+          "id": 113859,
+          "name": "gitea-cli-2.0.0-1-aarch64.pkg.tar.zst",
+          "size": 10466192,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:48Z",
+          "uuid": "ffaa2d3e-af80-4cf3-a8c5-2a7a76ee4a41",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1-aarch64.pkg.tar.zst"
         },
         {
-          "id": 100102,
-          "name": "tea-0.16.0-darwin-amd64.xz",
-          "size": 6612532,
-          "download_count": 94,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "28d59093-41ab-4a6a-be39-6dd1ac7ed524",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz"
+          "id": 113863,
+          "name": "gitea-cli-2.0.0-1-armv7h.pkg.tar.zst",
+          "size": 10908469,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:50Z",
+          "uuid": "34a117ed-cf4d-4850-8b4d-c200eac974d5",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1-armv7h.pkg.tar.zst"
         },
         {
-          "id": 100092,
-          "name": "tea-0.16.0-darwin-amd64.xz.sha256",
-          "size": 92,
-          "download_count": 92,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "2ac6653c-7d53-4de9-8893-77f3d36c64f7",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-amd64.xz.sha256"
+          "id": 113867,
+          "name": "gitea-cli-2.0.0-1-x86_64.pkg.tar.zst",
+          "size": 11589444,
+          "download_count": 3,
+          "created_at": "2026-11-18T20:49:50Z",
+          "uuid": "e0b1ec29-9fc4-43ba-9742-17bd8ed84916",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1-x86_64.pkg.tar.zst"
         },
         {
-          "id": 100114,
-          "name": "tea-0.16.0-darwin-arm64",
-          "size": 27243698,
-          "download_count": 351,
-          "created_at": "2026-09-10T11:35:59Z",
-          "uuid": "a6fcda0d-ccc2-41d8-b1d1-31b3edaf71ec",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64"
+          "id": 113888,
+          "name": "gitea-cli-2.0.0-1.aarch64.rpm",
+          "size": 11104477,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "d2884633-6ad3-45db-98ba-fe02d1b71928",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1.aarch64.rpm"
         },
         {
-          "id": 100101,
-          "name": "tea-0.16.0-darwin-arm64.xz",
-          "size": 5916884,
-          "download_count": 204,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "f2566d1d-7806-45d4-be27-35c5a5f4a6a3",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz"
+          "id": 113865,
+          "name": "gitea-cli-2.0.0-1.armv7hl.rpm",
+          "size": 11606723,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:50Z",
+          "uuid": "0c0781ec-646e-416e-9700-469e7dd5d59d",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1.armv7hl.rpm"
         },
         {
-          "id": 100090,
-          "name": "tea-0.16.0-darwin-arm64.xz.sha256",
-          "size": 92,
-          "download_count": 172,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "9fdc6129-3de4-4683-b6d8-c38797c86210",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-darwin-arm64.xz.sha256"
+          "id": 113877,
+          "name": "gitea-cli-2.0.0-1.x86_64.rpm",
+          "size": 12228169,
+          "download_count": 7,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "d97889ab-cbe4-4b99-9cd2-82cbd49febf4",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-1.x86_64.rpm"
         },
         {
-          "id": 100106,
-          "name": "tea-0.16.0-freebsd-amd64",
-          "size": 28786860,
-          "download_count": 63,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "3df53680-902b-4b1a-b9a0-740974307b1b",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64"
+          "id": 113872,
+          "name": "gitea-cli-2.0.0-darwin-amd64",
+          "size": 35903760,
+          "download_count": 3,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "908e85d0-ec31-45e2-b64f-1499320bd633",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-amd64"
         },
         {
-          "id": 100099,
-          "name": "tea-0.16.0-freebsd-amd64.xz",
-          "size": 6520848,
-          "download_count": 29,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "2ed55c82-b23d-40b7-af14-8f2488b41191",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64.xz"
+          "id": 113907,
+          "name": "gitea-cli-2.0.0-darwin-amd64.xz",
+          "size": 8279428,
+          "download_count": 2,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "a1202289-2c37-4d94-ae33-23b0c37ff8ee",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-amd64.xz"
         },
         {
-          "id": 100085,
-          "name": "tea-0.16.0-freebsd-amd64.xz.sha256",
+          "id": 113882,
+          "name": "gitea-cli-2.0.0-darwin-amd64.xz.sha256",
+          "size": 97,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "972f5111-2a8b-4d92-9d22-a021a2df39e3",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-amd64.xz.sha256"
+        },
+        {
+          "id": 113864,
+          "name": "gitea-cli-2.0.0-darwin-arm64",
+          "size": 32724322,
+          "download_count": 10,
+          "created_at": "2026-11-18T20:49:50Z",
+          "uuid": "3f697035-b85e-4766-9c24-b48703f70f04",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-arm64"
+        },
+        {
+          "id": 113910,
+          "name": "gitea-cli-2.0.0-darwin-arm64.xz",
+          "size": 7363468,
+          "download_count": 7,
+          "created_at": "2026-11-18T20:49:53Z",
+          "uuid": "6d58323c-f91a-44f9-afe9-e1fe32c06cc9",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-arm64.xz"
+        },
+        {
+          "id": 113880,
+          "name": "gitea-cli-2.0.0-darwin-arm64.xz.sha256",
+          "size": 97,
+          "download_count": 6,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "4b174a09-fe95-42a9-bcd8-d24fcb0bfcbf",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-darwin-arm64.xz.sha256"
+        },
+        {
+          "id": 113894,
+          "name": "gitea-cli-2.0.0-docs.tar.xz",
+          "size": 115424,
+          "download_count": 9,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "54e58528-30a5-4a65-a262-12febe06be1b",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-docs.tar.xz"
+        },
+        {
+          "id": 113890,
+          "name": "gitea-cli-2.0.0-docs.tar.xz.sha256",
           "size": 93,
-          "download_count": 58,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "40a15c40-0209-4b3d-8cbb-ee71907ef2eb",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-freebsd-amd64.xz.sha256"
+          "download_count": 2,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "1465f49f-158b-4bd2-bd10-b1f44c0cb89d",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-docs.tar.xz.sha256"
         },
         {
-          "id": 100104,
-          "name": "tea-0.16.0-linux-amd64",
-          "size": 29229218,
-          "download_count": 8853,
-          "created_at": "2026-09-10T11:35:57Z",
-          "uuid": "268de7f7-d240-4259-8515-f94bc351d1cc",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64"
+          "id": 113868,
+          "name": "gitea-cli-2.0.0-freebsd-amd64",
+          "size": 35209386,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "f7cd32f3-3ab1-447c-b7e6-15e29dcc0a91",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-freebsd-amd64"
         },
         {
-          "id": 100100,
-          "name": "tea-0.16.0-linux-amd64.xz",
-          "size": 6647460,
-          "download_count": 5787,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "8fb1b648-47cb-44a1-8c25-262746fcc921",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz"
+          "id": 113905,
+          "name": "gitea-cli-2.0.0-freebsd-amd64.xz",
+          "size": 8132656,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "d8db97c6-6afe-4814-ab2a-e5ba8a663f3c",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-freebsd-amd64.xz"
         },
         {
-          "id": 100091,
-          "name": "tea-0.16.0-linux-amd64.xz.sha256",
-          "size": 91,
-          "download_count": 1848,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "5721f3c8-6563-4f6f-8bd7-5aa88bfb43d2",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-amd64.xz.sha256"
+          "id": 113891,
+          "name": "gitea-cli-2.0.0-freebsd-amd64.xz.sha256",
+          "size": 98,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "b56a5153-37f8-4051-9caf-41e3a26d07ad",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-freebsd-amd64.xz.sha256"
         },
         {
-          "id": 100110,
-          "name": "tea-0.16.0-linux-arm-5",
-          "size": 27721890,
-          "download_count": 71,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "0c5ce806-540b-4ed7-a069-fa6d36204803",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5"
+          "id": 113889,
+          "name": "gitea-cli-2.0.0-linux-amd64",
+          "size": 35643552,
+          "download_count": 103,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "4981d301-cbac-41b9-b803-edac9bb062b9",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-amd64"
         },
         {
-          "id": 100095,
-          "name": "tea-0.16.0-linux-arm-5.xz",
-          "size": 5977360,
+          "id": 113908,
+          "name": "gitea-cli-2.0.0-linux-amd64.xz",
+          "size": 8266260,
+          "download_count": 63,
+          "created_at": "2026-11-18T20:49:53Z",
+          "uuid": "6885a3c6-0304-410b-ab54-c844cb0dcf7e",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-amd64.xz"
+        },
+        {
+          "id": 113892,
+          "name": "gitea-cli-2.0.0-linux-amd64.xz.sha256",
+          "size": 96,
+          "download_count": 32,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "517bb92b-e43d-43b1-818b-cb0aa83058d2",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-amd64.xz.sha256"
+        },
+        {
+          "id": 113875,
+          "name": "gitea-cli-2.0.0-linux-arm-5",
+          "size": 33554592,
+          "download_count": 3,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "8682d866-ccd9-42ce-9333-c2e0295a0ea1",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-5"
+        },
+        {
+          "id": 113884,
+          "name": "gitea-cli-2.0.0-linux-arm-5.xz",
+          "size": 7354452,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "11a424ae-ae25-48de-a465-bb2cfc596313",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-5.xz"
+        },
+        {
+          "id": 113903,
+          "name": "gitea-cli-2.0.0-linux-arm-5.xz.sha256",
+          "size": 96,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "f27acfdd-da24-4536-8351-e03570a52d5a",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-5.xz.sha256"
+        },
+        {
+          "id": 113874,
+          "name": "gitea-cli-2.0.0-linux-arm-6",
+          "size": 33423520,
+          "download_count": 2,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "96f9c79e-7a17-4077-9b96-8648437f197f",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-6"
+        },
+        {
+          "id": 113897,
+          "name": "gitea-cli-2.0.0-linux-arm-6.xz",
+          "size": 7338644,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "a9c4e852-6f21-4d27-991e-681863eeb099",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-6.xz"
+        },
+        {
+          "id": 113893,
+          "name": "gitea-cli-2.0.0-linux-arm-6.xz.sha256",
+          "size": 96,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "01b272ce-f5a1-4357-814f-e9f9a6bb0e6e",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-6.xz.sha256"
+        },
+        {
+          "id": 113873,
+          "name": "gitea-cli-2.0.0-linux-arm-7",
+          "size": 33357984,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "a77b6774-f9a9-4046-94e8-f113c4b1d012",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-7"
+        },
+        {
+          "id": 113898,
+          "name": "gitea-cli-2.0.0-linux-arm-7.xz",
+          "size": 7329932,
+          "download_count": 2,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "9567e667-95d0-4fd8-ab39-007451b148a0",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-7.xz"
+        },
+        {
+          "id": 113896,
+          "name": "gitea-cli-2.0.0-linux-arm-7.xz.sha256",
+          "size": 96,
+          "download_count": 3,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "f01df89b-bc0e-497f-a9ee-9e29e9e8f91d",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm-7.xz.sha256"
+        },
+        {
+          "id": 113887,
+          "name": "gitea-cli-2.0.0-linux-arm64",
+          "size": 32309408,
+          "download_count": 18,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "cb788d62-4862-4b36-999c-c861fcf3c8b1",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm64"
+        },
+        {
+          "id": 113902,
+          "name": "gitea-cli-2.0.0-linux-arm64.xz",
+          "size": 7082100,
+          "download_count": 2,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "1a57b34d-6b7a-4927-ac9b-0899676f9ea8",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm64.xz"
+        },
+        {
+          "id": 113878,
+          "name": "gitea-cli-2.0.0-linux-arm64.xz.sha256",
+          "size": 96,
+          "download_count": 4,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "e30c3e21-fb9b-44ad-8a60-4bdf27e81236",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-linux-arm64.xz.sha256"
+        },
+        {
+          "id": 113895,
+          "name": "gitea-cli-2.0.0-openbsd-amd64",
+          "size": 35594523,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "e318f27b-5811-4e7e-8995-7aad66a5af9e",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-amd64"
+        },
+        {
+          "id": 113901,
+          "name": "gitea-cli-2.0.0-openbsd-amd64.xz",
+          "size": 8234716,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "f8ee2855-60c2-4ef1-91a1-79849a2b34ab",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-amd64.xz"
+        },
+        {
+          "id": 113881,
+          "name": "gitea-cli-2.0.0-openbsd-amd64.xz.sha256",
+          "size": 98,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "f4a8444c-f01d-4f2a-8bf2-a8d4e4e26526",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-amd64.xz.sha256"
+        },
+        {
+          "id": 113866,
+          "name": "gitea-cli-2.0.0-openbsd-arm64",
+          "size": 32243995,
+          "download_count": 3,
+          "created_at": "2026-11-18T20:49:50Z",
+          "uuid": "b685ce26-c39f-459c-a546-182048657014",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-arm64"
+        },
+        {
+          "id": 113906,
+          "name": "gitea-cli-2.0.0-openbsd-arm64.xz",
+          "size": 7060456,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "65163bd3-0931-4cb7-8203-0235019fc198",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-arm64.xz"
+        },
+        {
+          "id": 113886,
+          "name": "gitea-cli-2.0.0-openbsd-arm64.xz.sha256",
+          "size": 98,
+          "download_count": 1,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "9395caeb-ee57-45aa-84aa-6ca57b839cf3",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-openbsd-arm64.xz.sha256"
+        },
+        {
+          "id": 113870,
+          "name": "gitea-cli-2.0.0-windows-amd64.exe",
+          "size": 36150784,
+          "download_count": 55,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "013d33b3-f5ab-4e75-915b-ab0b4772df1a",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-amd64.exe"
+        },
+        {
+          "id": 113904,
+          "name": "gitea-cli-2.0.0-windows-amd64.exe.xz",
+          "size": 8362436,
+          "download_count": 43,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "74c12081-87ec-455f-9f79-9ab5cf09339e",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-amd64.exe.xz"
+        },
+        {
+          "id": 113900,
+          "name": "gitea-cli-2.0.0-windows-amd64.exe.xz.sha256",
+          "size": 102,
+          "download_count": 7,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "e15fc80b-dd43-4b44-a3a1-4b5c1e62f917",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-amd64.exe.xz.sha256"
+        },
+        {
+          "id": 113869,
+          "name": "gitea-cli-2.0.0-windows-arm64.exe",
+          "size": 32303616,
           "download_count": 25,
-          "created_at": "2026-09-10T11:35:54Z",
-          "uuid": "c6d9cd9b-45e7-4b69-a50d-a48b88bf6080",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz"
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "9486b252-1728-4167-ad09-eac5f7b5f473",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-arm64.exe"
         },
         {
-          "id": 100093,
-          "name": "tea-0.16.0-linux-arm-5.xz.sha256",
-          "size": 91,
-          "download_count": 64,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "ea7d73c0-cb58-4235-afa7-689c218c544c",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-5.xz.sha256"
+          "id": 113909,
+          "name": "gitea-cli-2.0.0-windows-arm64.exe.xz",
+          "size": 7083728,
+          "download_count": 19,
+          "created_at": "2026-11-18T20:49:53Z",
+          "uuid": "6818e1ca-7db8-4ffa-85bd-848bce9a4e3d",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-arm64.exe.xz"
         },
         {
-          "id": 100109,
-          "name": "tea-0.16.0-linux-arm-6",
-          "size": 27590818,
-          "download_count": 57,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "bc599a82-388b-4a2e-9c8a-2483a7bcc6da",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6"
+          "id": 113899,
+          "name": "gitea-cli-2.0.0-windows-arm64.exe.xz.sha256",
+          "size": 102,
+          "download_count": 7,
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "5aede7e3-9ae1-4796-ad5f-4345fcaae892",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli-2.0.0-windows-arm64.exe.xz.sha256"
         },
         {
-          "id": 100096,
-          "name": "tea-0.16.0-linux-arm-6.xz",
-          "size": 5957244,
-          "download_count": 35,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "f6405f52-8dde-4235-856f-b69eb1cd4460",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz"
+          "id": 113860,
+          "name": "gitea-cli_2.0.0_aarch64.apk",
+          "size": 11200213,
+          "download_count": 14,
+          "created_at": "2026-11-18T20:49:49Z",
+          "uuid": "95097bda-aead-4371-bc05-c80e039e9c92",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_aarch64.apk"
         },
         {
-          "id": 100088,
-          "name": "tea-0.16.0-linux-arm-6.xz.sha256",
-          "size": 91,
+          "id": 113885,
+          "name": "gitea-cli_2.0.0_amd64.deb",
+          "size": 11752524,
           "download_count": 69,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "8a59030c-d115-466c-8b40-6c0aab49745a",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-6.xz.sha256"
+          "created_at": "2026-11-18T20:49:52Z",
+          "uuid": "f09d6841-a90c-41ce-8611-82796b7a0ee3",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_amd64.deb"
         },
         {
-          "id": 100111,
-          "name": "tea-0.16.0-linux-arm-7",
-          "size": 27590818,
-          "download_count": 82,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "94acd1e5-15ee-4ec8-a1e2-61f652ba0535",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7"
+          "id": 113876,
+          "name": "gitea-cli_2.0.0_arm64.deb",
+          "size": 10664818,
+          "download_count": 19,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "5b720c37-2f85-4153-8672-c9f80a762642",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_arm64.deb"
         },
         {
-          "id": 100105,
-          "name": "tea-0.16.0-linux-arm-7.xz",
-          "size": 5951740,
-          "download_count": 36,
-          "created_at": "2026-09-10T11:35:57Z",
-          "uuid": "c0faff06-3e52-4b29-88d6-ea3f3d7b8aed",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz"
+          "id": 113879,
+          "name": "gitea-cli_2.0.0_armhf.deb",
+          "size": 11189728,
+          "download_count": 19,
+          "created_at": "2026-11-18T20:49:51Z",
+          "uuid": "dcfa90ac-ecdf-43e1-9edd-193afdc1d5ae",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_armhf.deb"
         },
         {
-          "id": 100094,
-          "name": "tea-0.16.0-linux-arm-7.xz.sha256",
-          "size": 91,
-          "download_count": 69,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "d8802205-35e6-4014-be5b-800147c4301e",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm-7.xz.sha256"
+          "id": 113861,
+          "name": "gitea-cli_2.0.0_armv7.apk",
+          "size": 11728614,
+          "download_count": 18,
+          "created_at": "2026-11-18T20:49:49Z",
+          "uuid": "cae0c8a6-64e5-4439-ad22-861577988443",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_armv7.apk"
         },
         {
-          "id": 100107,
-          "name": "tea-0.16.0-linux-arm64",
-          "size": 26935458,
-          "download_count": 908,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "9c32617f-ee47-4dca-b4f7-28c248b4cec2",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64"
-        },
-        {
-          "id": 100098,
-          "name": "tea-0.16.0-linux-arm64.xz",
-          "size": 5724112,
-          "download_count": 6408,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "38ca8b1a-f80e-451c-be5b-985da6398cd7",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz"
-        },
-        {
-          "id": 100089,
-          "name": "tea-0.16.0-linux-arm64.xz.sha256",
-          "size": 91,
-          "download_count": 596,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "fe776a35-c930-4901-97fc-680645b9a2a4",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-linux-arm64.xz.sha256"
-        },
-        {
-          "id": 100113,
-          "name": "tea-0.16.0-windows-amd64.exe",
-          "size": 29696000,
-          "download_count": 1394,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "dbbc8363-7abf-42d3-be69-4fca0c375eb0",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe"
-        },
-        {
-          "id": 100097,
-          "name": "tea-0.16.0-windows-amd64.exe.xz",
-          "size": 6729704,
-          "download_count": 1096,
-          "created_at": "2026-09-10T11:35:55Z",
-          "uuid": "134e475f-c4d0-473d-b5ec-c6fbb40d0e99",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz"
-        },
-        {
-          "id": 100087,
-          "name": "tea-0.16.0-windows-amd64.exe.xz.sha256",
-          "size": 97,
-          "download_count": 674,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "9ae5b447-1645-4216-9a76-3fdb6a1887c3",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-amd64.exe.xz.sha256"
-        },
-        {
-          "id": 100108,
-          "name": "tea-0.16.0-windows-arm64.exe",
-          "size": 27001856,
-          "download_count": 279,
-          "created_at": "2026-09-10T11:35:58Z",
-          "uuid": "02e590d5-56c3-40b4-93f4-1c7bbe5be1c2",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe"
-        },
-        {
-          "id": 100103,
-          "name": "tea-0.16.0-windows-arm64.exe.xz",
-          "size": 5715720,
-          "download_count": 89,
-          "created_at": "2026-09-10T11:35:57Z",
-          "uuid": "03930246-d329-409c-b24e-5656119ffe59",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz"
-        },
-        {
-          "id": 100086,
-          "name": "tea-0.16.0-windows-arm64.exe.xz.sha256",
-          "size": 97,
-          "download_count": 68,
-          "created_at": "2026-09-10T11:35:53Z",
-          "uuid": "f86ca8ed-a320-4d25-97d5-1aefe962c0f8",
-          "browser_download_url": "https://gitea.com/gitea/tea/releases/download/v0.16.0/tea-0.16.0-windows-arm64.exe.xz.sha256"
+          "id": 113862,
+          "name": "gitea-cli_2.0.0_x86_64.apk",
+          "size": 12387883,
+          "download_count": 18,
+          "created_at": "2026-11-18T20:49:49Z",
+          "uuid": "991aca07-ea07-4e52-b6cd-6550e1ca03e7",
+          "browser_download_url": "https://gitea.com/gitea/cli/releases/download/v2.0.0/gitea-cli_2.0.0_x86_64.apk"
         }
       ]
     }

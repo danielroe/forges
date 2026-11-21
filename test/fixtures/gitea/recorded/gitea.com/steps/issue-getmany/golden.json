@@ -8,10 +8,10 @@
         "forge": "gitea",
         "instance": "gitea.com",
         "owner": "gitea",
-        "name": "tea"
+        "name": "cli"
       },
       "kind": "issue",
-      "number": "1095"
+      "number": "91"
     },
     "thread": {
       "ref": {
@@ -21,37 +21,38 @@
           "forge": "gitea",
           "instance": "gitea.com",
           "owner": "gitea",
-          "name": "tea"
+          "name": "cli"
         },
         "kind": "issue",
-        "number": "1095",
-        "externalId": "488319"
+        "number": "91",
+        "externalId": "520397"
       },
       "kind": "issue",
-      "title": "Feature request: read `--description` from stdin or a file for `issues create` / `pulls create`",
-      "body": "### Problem\n\n`tea comments add` already resolves its body from stdin — `cmd/comments/add.go` calls `interact.IsStdinPiped()` and `resolveBody(...)`, so `printf '…' | tea comments add 151` works nicely.\n\n`tea issues create` and `tea pulls create` do not. `cmd/flags/issue_pr.go` passes `Body: ctx.String(\"description\")` straight through, so the body can only ever arrive as a command-line argument.\n\n### Why that hurts\n\nOn Windows, PowerShell 5.1 builds the command line for native executables itself and does not escape inner double quotes. Any description containing `\"` — a quoted error message, a JSON snippet, anything realistic in a bug report — gets split into several arguments. Concretely, a description containing the text `--data-binary @file` ended up parsed by tea as a flag:\n\n```\nError: flag provided but not defined: -data-binary\n```\n\nNon-ASCII text is a second casualty: arguments are re-encoded through the ANSI code page on the way to the process, so German umlauts in a description come out mangled.\n\nThe result is that on Windows, `tea issues create` is unusable for anything longer than a single plain sentence, and the workaround is to call the REST API with `curl --data-binary @file` instead.\n\n### Proposal\n\nRoute `issues create` and `pulls create` through the same body resolution that `comments add` already uses:\n\n- read the body from stdin when stdin is piped\n- and/or add `--description-file <path>` (`-` for stdin)\n\nThe same applies to `pulls edit --description` and `issues edit --description`.\n\nThis is the non-interactive complement to #321, which added stdin support for comments back in 2021.\n\nTested against tea 0.15.1.",
+      "title": "Bug: run logs and run view fail on Forgejo 17: bare-array job list and run numbers in URLs",
+      "body": "### describe your environment\n- gt version used (`gt -v`): `gt version 1.1.0` (built with go1.27.3; openSUSE package `gitea-cli-1.1.0-1.1`)\n    - [x] I also reproduced the issue [with the latest main build](https://dl.gitea.com/gitea-cli/main/)\n\n      v1.1.0 is the same commit as `main` today (44915d2). I first filed this with 0.1.0 and the results were the same.\n- Gitea version used: none; the server is **Forgejo 17.0.1** (codefloe.com). `/api/v1/version` returns `17.0.1`, and `/api/forgejo/v1/version` returns `17.0.1+gitea-1.22.0`.\n    - [ ] the issue only occurred after updating gitea recently\n- operating system: openSUSE Tumbleweed\n- I make use of...\n    - [ ] non-standard default branch names (no `main`,`master`, or `trunk`)\n    - [ ] .ssh/config or .gitconfig host aliases in my git remotes\n    - [ ] ssh_agent or similar\n    - [ ] non-standard ports for gitea and/or ssh\n    - [x] something else that's likely to interact badly with gt: the server is Forgejo, not Gitea\n\nPlease provide the output of `git remote -v` (if the issue is related to gt not finding resources on Gitea):\n```\ncodefloe\thttps://codefloe.com/mcepl/rope-language-server.git (fetch)\ncodefloe\tssh://git@codefloe.com/mcepl/rope-language-server.git (push)\n```\n\n### describe the issue (observed vs expected behaviour)\n\nI know Forgejo support is best effort, as #56 says, and this is not a request for full compatibility. #56 fixed the missing `actions/workflows` endpoint (#53, #54), and `gt run list` now works here with a warning. On Forgejo 17 two more differences stop `gt run view`, `gt run jobs` and `gt run logs`. Both look small, so I'm reporting them in case they're worth the same kind of fallback. If Forgejo is out of scope for these commands, please close this.\n\nIn the examples, `R` is `--host codefloe.com -R mcepl/rope-language-server`.\n\n**1. The job listing is a bare JSON array.**\n\nForgejo 17 has `GET /repos/{owner}/{repo}/actions/runs/{run}/jobs`, which Forgejo 15 lacked (#53), but it returns a list instead of Gitea's `{\"total_count\": …, \"jobs\": […]}`:\n\n```\n$ gt api --host codefloe.com repos/mcepl/rope-language-server/actions/runs/67975/jobs\n[{\"id\":146058,\"run_id\":67975,\"attempt\":1,…,\"name\":\"Linux Py3.11\",\"html_url\":\"https://codefloe.com/mcepl/rope-language-server/actions/runs/48/jobs/0/attempt/1\",…,\"task_id\":140389,\"status\":\"success\"}, …]\n```\n\nEvery command that lists the jobs of a run stops there, even when the job is given:\n\n```\n$ gt run view $R 67975\nError: Gitea returned an invalid JSON response\n$ gt run jobs $R 67975\nError: Gitea returned an invalid JSON response\n$ gt run logs $R 67975 --job 146061\nError: Gitea returned an invalid JSON response\n$ gt run view --debug $R 67975\n[debug] GET https://codefloe.com/api/v1/repos/mcepl/rope-language-server/actions/workflows -> 404 Not Found (122ms): 404 page not found\n[debug] GET https://codefloe.com/api/v1/repos/mcepl/rope-language-server -> 200 OK (69ms)\n[debug] GET https://codefloe.com/api/v1/repos/mcepl/rope-language-server/actions/runs/67975 -> 200 OK (79ms)\n[debug] GET https://codefloe.com/api/v1/repos/mcepl/rope-language-server/actions/runs/67975/jobs?limit=100&page=1 -> 200 OK (47ms)\nError: Gitea returned an invalid JSON response\n```\n\n`Actions.JobsPage` decodes into `ActionsWorkflowJobsResponse` and turns only a 404 into a `CapabilityError`. The logs themselves are reachable: `GET /repos/{owner}/{repo}/actions/jobs/146061/logs` returns the plain-text log on Forgejo 17. Accepting a bare array as well as the object, or treating an undecodable listing like a missing one, would probably be enough for `run view`, `run jobs` and `run logs`.\n\n**2. Forgejo's web URLs hold run numbers, not run IDs.**\n\nThe comment in `parseRefURL` says that since Gitea 1.26 the web URL holds the run ID and the job ID. Forgejo still uses the run's number in the repository and the job's position in the run. Run 67975 above is `/actions/runs/48`, and its fourth job (ID 146061) is `/actions/runs/48/jobs/3/attempt/1`. `gt pr checks` prints these URLs, because they're the commit statuses' target URLs, and `gt run list` shows the ID next to a URL with the number:\n\n```\n$ gt pr checks $R 20\nLinux tests / Linux Py3.11 (pull_request)\tsuccess\tSuccessful in 1m51s\thttps://codefloe.com/mcepl/rope-language-server/actions/runs/48/jobs/0\n…\n$ gt run list $R -L 1\n! workflow listing is unsupported: the server does not provide GET /repos/{owner}/{repo}/actions/workflows\nsuccess\t\t67975\t\t\t\tpull_request\t\t\thttps://codefloe.com/mcepl/rope-language-server/actions/runs/48\n$ gt run logs $R https://codefloe.com/mcepl/rope-language-server/actions/runs/48/jobs/3\nError: run 48 not found in mcepl/rope-language-server\n```\n\nForgejo's run objects include the number as `index_in_repo` (`{\"id\": 67975, \"index_in_repo\": 48, \"html_url\": \".../actions/runs/48\"}`), so a fallback could map the number to an ID when the ID lookup returns 404. The job part would be the position in the job list, not an ID.\n\n**A side note on detecting Forgejo**, in case it helps: `comparableVersion` expects Forgejo to report a version such as `11.0.0+gitea-1.22.0`. Forgejo 17 returns plain `17.0.1` from `/api/v1/version`, so gt takes it for a Gitea version:\n\n```\n$ gt project workflow list 1 $R\nError: gt project workflow list requires Gitea 29 or newer; https://codefloe.com runs Gitea 17.0.1\n```\n\nThe refusal is right, since Forgejo 17 is based on Gitea 1.22, but the message is not. Only `/api/forgejo/v1/version` carries the `+gitea-1.22.0` suffix.\n\nExpected: `gt run logs <URL from gt pr checks>` shows the job's log on Forgejo, or at least fails with a message that says the server is not supported, as #56 does for missing endpoints.\n",
       "state": "closed",
       "stateRaw": "closed",
       "isDraft": false,
       "author": {
         "forge": "gitea",
         "instance": "gitea.com",
-        "login": "DerGary",
-        "id": "233120",
-        "avatarUrl": "https://gitea.com/avatars/7c3ab8d0e2634630ee5ba54052bf59a3ae0552dd0a6e1e9ceb7fb4855cc750d8",
-        "url": "https://gitea.com/DerGary",
+        "login": "mcepl",
+        "id": "71724",
+        "name": "Matěj Cepl",
+        "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+        "url": "https://gitea.com/mcepl",
         "isBotHint": false
       },
       "assignees": [],
       "reviewers": [],
       "labels": [],
-      "url": "https://gitea.com/gitea/tea/issues/1095",
-      "createdAt": "2026-08-21T15:45:20.000Z",
-      "updatedAt": "2026-08-23T12:46:24.000Z",
-      "closedAt": "2026-08-23T12:46:23.000Z",
-      "lastActivityAt": "2026-08-23T12:46:24.000Z",
+      "url": "https://gitea.com/gitea/cli/issues/91",
+      "createdAt": "2026-11-05T19:39:40.000Z",
+      "updatedAt": "2026-11-17T18:39:57.000Z",
+      "closedAt": "2026-11-12T18:15:23.000Z",
+      "lastActivityAt": "2026-11-17T18:39:57.000Z",
       "locked": false,
-      "commentCount": 0
+      "commentCount": 5
     }
   }
 ]

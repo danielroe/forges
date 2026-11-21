@@ -1,34 +1,45 @@
 {
   "request": {
     "method": "GET",
-    "url": "https://gitea.com/api/v1/repos/gitea/tea/pulls/1099/files?limit=3"
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/pulls/92/files?limit=3"
   },
   "response": {
     "status": 200,
     "headers": {
-      "x-total-count": "2",
+      "link": "<https://gitea.com/api/v1/repos/gitea/cli/pulls/92/files?limit=3&page=2>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/cli/pulls/92/files?limit=3&page=5>; rel=\"last\"",
+      "x-total-count": "14",
       "x-page": "1"
     },
     "body": [
       {
-        "filename": "modules/git/cli_backend.go",
+        "filename": "internal/app/app.go",
         "status": "changed",
-        "additions": 16,
+        "additions": 1,
         "deletions": 1,
-        "changes": 17,
-        "html_url": "https://gitea.com/gitea/tea/src/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100/modules/git/cli_backend.go",
-        "contents_url": "https://gitea.com/api/v1/repos/gitea/tea/contents/modules/git/cli_backend.go?ref=dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-        "raw_url": "https://gitea.com/gitea/tea/raw/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100/modules/git/cli_backend.go"
+        "changes": 2,
+        "html_url": "https://gitea.com/gitea/cli/src/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/app.go",
+        "contents_url": "https://gitea.com/api/v1/repos/gitea/cli/contents/internal/app/app.go?ref=9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+        "raw_url": "https://gitea.com/gitea/cli/raw/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/app.go"
       },
       {
-        "filename": "modules/git/cli_backend_test.go",
+        "filename": "internal/app/commits.go",
         "status": "added",
-        "additions": 40,
+        "additions": 326,
         "deletions": 0,
-        "changes": 40,
-        "html_url": "https://gitea.com/gitea/tea/src/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100/modules/git/cli_backend_test.go",
-        "contents_url": "https://gitea.com/api/v1/repos/gitea/tea/contents/modules/git/cli_backend_test.go?ref=dbfa61205c14e48d13d95c55b277e55cc0ee1100",
-        "raw_url": "https://gitea.com/gitea/tea/raw/commit/dbfa61205c14e48d13d95c55b277e55cc0ee1100/modules/git/cli_backend_test.go"
+        "changes": 326,
+        "html_url": "https://gitea.com/gitea/cli/src/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/commits.go",
+        "contents_url": "https://gitea.com/api/v1/repos/gitea/cli/contents/internal/app/commits.go?ref=9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+        "raw_url": "https://gitea.com/gitea/cli/raw/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/commits.go"
+      },
+      {
+        "filename": "internal/app/commits_integration_test.go",
+        "status": "added",
+        "additions": 171,
+        "deletions": 0,
+        "changes": 171,
+        "html_url": "https://gitea.com/gitea/cli/src/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/commits_integration_test.go",
+        "contents_url": "https://gitea.com/api/v1/repos/gitea/cli/contents/internal/app/commits_integration_test.go?ref=9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc",
+        "raw_url": "https://gitea.com/gitea/cli/raw/commit/9438850261b742093dd2497ccf898159d3235a9d5a35ff987fe2c56cc78553dc/internal/app/commits_integration_test.go"
       }
     ]
   }

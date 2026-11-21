@@ -1,0 +1,33 @@
+{
+  "ref": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "thread": {
+      "forge": "gitea",
+      "instance": "gitea.com",
+      "repo": {
+        "forge": "gitea",
+        "instance": "gitea.com",
+        "owner": "gitea",
+        "name": "cli"
+      },
+      "kind": "issue",
+      "number": "91"
+    },
+    "id": "1846295"
+  },
+  "body": "I've retested with gt 1.1.0, which is the same commit as main (44915d2), and updated the description with its output. Both problems remain: `gt run view`, `gt run jobs` and `gt run logs` fail on the bare-array job listing, and run URLs from `gt pr checks` resolve to the wrong run. I also added the version message from `gt project workflow list`, which calls Forgejo 17.0.1 \"Gitea 17.0.1\".",
+  "author": {
+    "forge": "gitea",
+    "instance": "gitea.com",
+    "login": "mcepl",
+    "id": "71724",
+    "name": "Matěj Cepl",
+    "avatarUrl": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+    "url": "https://gitea.com/mcepl",
+    "isBotHint": false
+  },
+  "createdAt": "2026-11-05T20:08:04.000Z",
+  "updatedAt": "2026-11-05T20:08:04.000Z",
+  "url": "https://gitea.com/gitea/cli/issues/91#issuecomment-1846295"
+}

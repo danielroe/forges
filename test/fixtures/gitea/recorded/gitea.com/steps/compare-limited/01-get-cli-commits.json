@@ -1,0 +1,1427 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://gitea.com/api/v1/repos/gitea/cli/commits?sha=main&limit=5"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "link": "<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=5&page=2&sha=main>; rel=\"next\",<https://gitea.com/api/v1/repos/gitea/cli/commits?limit=5&page=169&sha=main>; rel=\"last\"",
+      "x-total": "841",
+      "x-total-count": "841",
+      "x-page": "1"
+    },
+    "body": [
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "sha": "fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "created": "2026-11-20T17:50:38Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/fb49fb39e4fdc353af5147ded9ae8e21736d28d9944b116d9402c30b85cdb7b0",
+          "author": {
+            "name": "Matěj Cepl",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-20T17:50:38Z"
+          },
+          "message": "fix(auth): shut down the OAuth callback server gracefully (#130)\n\nWait for callback responses before closing connections to avoid\nintermittent browser EOF errors. Bound shutdown to one second\nand cover active responses, forced closure after cancellation,\nand the complete browser response.\n\nAssisted-by: pi:gpt-6.1-sol\nCo-authored-by: bircni <redacted@example.invalid>\nReviewed-on: https://gitea.com/gitea/cli/pulls/130\nReviewed-by: bircni <redacted@example.invalid>\nCo-authored-by: Matěj Cepl <redacted@example.invalid>\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "sha": "98bd6e5c27c2b8e5bca8ea3f2f6b18b0c6772870513f6bcedc77ac66c38ad3b0",
+            "created": "2026-11-20T17:50:38Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 71724,
+          "login": "mcepl",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "Matěj Cepl",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/d3a20bec8951854eb1db68a111438a2a",
+          "html_url": "https://gitea.com/mcepl",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 1,
+          "following_count": 0,
+          "starred_repos_count": 0,
+          "username": "mcepl"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/auth_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/auth/oauth_test.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 42,
+          "additions": 40,
+          "deletions": 2
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "sha": "2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "created": "2026-11-18T20:14:31Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/2c36ce96a1efd1bcd06264b2f62160c49feb6fe32705c78264c45c8bd3442d25",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:14:31Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:14:31Z"
+          },
+          "message": "fix: fix issue, pull request, commit and status edge cases (#120)\n\n`gt issue create --blocked-by/--blocking` created the issue and then failed on a missing dependency; missing issues are now refused first. Pin, unpin and unlock acted again on items already in that state; like lock and gh, they now report it and change nothing, and issue and pull request JSON gains `locked` (and `pinned` for pull requests). Merging a pull request blocked by an open dependency surfaced a bare server error; it now names the blocking issues, and `gt pr view` tells a deleted head branch or open blockers apart from conflicts. `gt pr checks --required` named the head branch instead of the base branch. `gt commit pr` printed nothing without `--json` and failed on abbreviated SHAs. `gt status --json` printed `mentions: null`. `gt pr review --pending` named the wrong flag in its body error, `gt pr review reply` checked an empty body only after a request, and `gt time cancel` asked to discard a stopwatch that was not running.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/120\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/a3258b91738509ba04083dffdd74180b09f0d278c882319fc55f77d1be6b9ba7",
+            "sha": "a3258b91738509ba04083dffdd74180b09f0d278c882319fc55f77d1be6b9ba7",
+            "created": "2026-11-18T20:14:31Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+            "sha": "b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/commits_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_writes_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_edit.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/list_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/list_options_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_mutations.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_mutations_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_options_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_review.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/testdata/schema.json.txt",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time_stopwatch_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/checks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issue_dependencies.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/raw.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/status.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/status_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/time.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 513,
+          "additions": 352,
+          "deletions": 161
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "sha": "b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "created": "2026-11-18T20:13:13Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b5f9df9aa4aa3153d5e21c57bbbeed7d95bd8f726c0849d030a5acd24ddf7112",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:13:13Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:13:13Z"
+          },
+          "message": "fix: harden extensions, debug output, artifact names and Actions values (#119)\n\nLocal extensions ran whatever was at their recorded path. gt now follows links and refuses the target unless it is a regular file owned by the user or root that not every user can write to or replace. Group-writable files stay allowed for user-private groups. A missing one points to `gt extension remove`, and `gt extension list` marks it.\n\nThe commit an extension install resolves was printed and passed to git unchecked. It must now be a full commit ID.\n\n`--debug` printed transport errors, which can quote server text, unfiltered.\n\n`gt run download` used artifact names as directory names with weaker checks than `--zip`, and stopped on a bad name only after writing earlier artifacts. All names are now checked first.\n\n`secret set` and `variable set` silently changed values that were not UTF-8. They now refuse them.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/119\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/788d564bbf317b27f1a05847c9a354130a761e7420e45878cefc8180876ece41",
+            "sha": "788d564bbf317b27f1a05847c9a354130a761e7420e45878cefc8180876ece41",
+            "created": "2026-11-18T20:13:13Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+            "sha": "b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "internal/app/action_values.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/artifacts.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/artifacts_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extension_commands.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extension_install.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/testdata/schema.json.txt",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/run_unix.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/run_windows.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/verify.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/transport/client_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/transport/debug.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 227,
+          "additions": 194,
+          "deletions": 33
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+        "sha": "b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+        "created": "2026-11-18T20:00:50Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/b90bf8934e11e8c8f0dff9267f75d430441d27487bf0a098777a0d4c3f899095",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:00:50Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T20:00:50Z"
+          },
+          "message": "build: prepare releases for pre-release tags and drop go install (#118)\n\nThe module stays at `gitea.dev/cli` for 2.x, as gitea/runner does, so `go install gitea.dev/cli/cmd/gt@latest` keeps resolving to 1.x. gt therefore no longer advertises go install: the README drops it, and go-install builds point to the release installers. The extension release workflow that `gt extension create` generates installs the released gt with the install script instead of `go run …@latest`.\n\nTags such as `v2.0.0-rc1` are now published as pre-releases and no longer move the Docker `latest` tag. Version comparison follows semver pre-release ordering, so a 2.0.0-rc1 build sees 2.0.0 as newer; a Gitea release candidate still counts as its release when gating commands.\n\n`.claude/` is ignored in Git and Docker builds.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/118\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/8e5f0e76efb402e5558271c3771e7c045e72aff055fe1d15d138f4acdcddd51a",
+            "sha": "8e5f0e76efb402e5558271c3771e7c045e72aff055fe1d15d138f4acdcddd51a",
+            "created": "2026-11-18T20:00:50Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+            "sha": "5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": ".dockerignore",
+            "status": "modified"
+          },
+          {
+            "filename": ".gitea/workflows/release-tag.yml",
+            "status": "modified"
+          },
+          {
+            "filename": ".gitignore",
+            "status": "modified"
+          },
+          {
+            "filename": ".goreleaser.yaml",
+            "status": "modified"
+          },
+          {
+            "filename": "README.md",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extension_create.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gitea_version.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gitea_version_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/upgrade.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/extensions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/extensions/verify.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/version/version.go",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 115,
+          "additions": 82,
+          "deletions": 33
+        }
+      },
+      {
+        "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+        "sha": "5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+        "created": "2026-11-18T19:59:08Z",
+        "html_url": "https://gitea.com/gitea/cli/commit/5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+        "commit": {
+          "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/5f51226031e3b86a5bc06c4efea8eaaaaf995366492bc2e3c7908b3ccf20bbe7",
+          "author": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T19:59:08Z"
+          },
+          "committer": {
+            "name": "bircni",
+            "email": "redacted@example.invalid",
+            "date": "2026-11-18T19:59:08Z"
+          },
+          "message": "enhance!: require --json fields and print null for absent values (#127)\n\n**Breaking:** `--json` and `--csv` now require a field list, and absent values in JSON output are `null` instead of `\"\"` or a missing key.\n\nLike gh, `--json` without fields fails with a usage error that lists the available fields. gt no longer guesses whether the word after `--json` is a field list or an argument, so adding a field can no longer change how an existing command line is parsed. `--jq` and `--template` still read every field the command declares.\n\nEvery declared field is now always present: a field without a value is `null` and an empty list is `[]`. Timestamps are RFC 3339 in UTC to the second. `gt schema` marks date-time strings, and a test checks that no output type leaves a field out.\n\nReviewed-on: https://gitea.com/gitea/cli/pulls/127\n",
+          "tree": {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/trees/6c7979c9d0d3e0c0930be5b2d8c0703396256cc07cffdca434cc5f18980584e6",
+            "sha": "6c7979c9d0d3e0c0930be5b2d8c0703396256cc07cffdca434cc5f18980584e6",
+            "created": "2026-11-18T19:59:08Z"
+          },
+          "verification": {
+            "verified": false,
+            "reason": "gpg.error.not_signed_commit",
+            "signature": "",
+            "signer": null,
+            "payload": ""
+          }
+        },
+        "author": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "committer": {
+          "id": 173651,
+          "login": "bircni",
+          "type": "User",
+          "source_id": 0,
+          "full_name": "bircni",
+          "email": "redacted@example.invalid",
+          "avatar_url": "https://gitea.com/avatars/9b753b6bef510146768e173e70a1a3904a76262c3a0b95e6579d06976650f3d4",
+          "html_url": "https://gitea.com/bircni",
+          "active": false,
+          "location": "",
+          "website": "",
+          "description": "",
+          "followers_count": 0,
+          "following_count": 2,
+          "starred_repos_count": 2,
+          "username": "bircni"
+        },
+        "parents": [
+          {
+            "url": "https://gitea.com/api/v1/repos/gitea/cli/git/commits/cd7c11757b5af0562728711d2593128a3f932e38a8a81c5138d9ffaf91effb47",
+            "sha": "cd7c11757b5af0562728711d2593128a3f932e38a8a81c5138d9ffaf91effb47",
+            "created": "0001-01-01T00:00:00Z"
+          }
+        ],
+        "files": [
+          {
+            "filename": "README.md",
+            "status": "modified"
+          },
+          {
+            "filename": "cmd/gt/main_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "docs/example-workflows.md",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/aliases/aliases_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/action_logs_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/action_runs.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/action_runs_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/action_values.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/action_values_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/actions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/activity.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/activity_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/admin.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/admin_users.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/api_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/app.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/app_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/artifacts_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/auth_status.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/auth_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/branch_protections.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/branch_protections_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/branches.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/browser_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/checkout_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/checks_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/clone_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/comments.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/comments_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/commits_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/completion.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/config_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dependencies_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/deploy_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_search.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_search_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/discussion_view_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/doctor.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/doctor_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/dry_run_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/extensions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gh_shim.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/git_credentials_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/git_credentials_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gpg_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gpg_keys_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/gpg_keys_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/help_topics.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/human_output.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/human_output_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/integration_helpers_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/integration_repo_helpers_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_attachments.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_attachments_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_edit_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issue_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/issues_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/label_export.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/label_export_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/list_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/man_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/metadata_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/notifications.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/notifications_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/organizations.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/output_fields_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/output_template_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/packages.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_backport_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_backport_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_clean.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_clean_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_comment_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_list_local.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_mutations.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_options_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pull_review.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/pulls_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/release_assets.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/release_assets_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/release_run_api_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repo_argument_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repo_sync_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repo_templates_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repo_templates_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repos.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/repository_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/run_view_options_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/runners_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/runners_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/schema.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/schema_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/skill_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/ssh_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/status_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/tags.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/tags_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/tags_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/target_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/teams_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/testdata/schema.json.txt",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/time_stopwatch_integration_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/timeline.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/timeline_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/validation_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/webhooks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/app/wiki.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/git/checkout.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/git/checkout_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/git/clean.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/git/clean_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/action_logs.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/action_logs_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/action_runs.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/action_values.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/action_values_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/actions.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/actions_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/activity.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/admin.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/admin_users.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/admin_users_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/artifacts.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/artifacts_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/attachments.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/branch_protections.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/branches.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/branches_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/checks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/checks_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/comments.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/comments_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/commits.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/convert.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/convert_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/deploy_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/gpg_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issue_attachments_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/issues.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/metadata_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/notifications.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/notifications_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/organizations.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/organizations_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/packages.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/packages_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/project_manage.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/project_workflow.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/pulls.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/pulls_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/releases.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/releases_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/repositories.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/reviews.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/reviews_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/sdk.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/sdk_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/search.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/ssh_keys.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/ssh_keys_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/status.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/tags.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/time.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/time_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/timeline.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/webhooks.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/webhooks_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/wiki.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/services/wiki_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/terminal/output.go",
+            "status": "modified"
+          },
+          {
+            "filename": "internal/terminal/output_test.go",
+            "status": "modified"
+          },
+          {
+            "filename": "skills/gt/SKILL.md",
+            "status": "modified"
+          },
+          {
+            "filename": "skills/gt/references/monitoring.md",
+            "status": "modified"
+          }
+        ],
+        "stats": {
+          "total": 2461,
+          "additions": 1233,
+          "deletions": 1228
+        }
+      }
+    ]
+  }
+}
