@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/accounts/023e105f4ecef8ad9ca31a8372d0c353/artifacts/namespaces/forges-fixtures/repos/forges/log?limit=1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {},
+    "body": {
+      "result": [
+        {
+          "hash": "95d9018dd1ac8cbec290cdcc3f104445160d1135",
+          "treeHash": "1c6e697ebd6c0c4f5f142c927de9328d8e5c8781",
+          "message": "docs: describe the fixture",
+          "author": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid"
+          },
+          "committer": {
+            "name": "forges fixtures",
+            "email": "redacted@example.invalid"
+          },
+          "parents": [
+            "4c696f46079a68e6774773fd7e49474df3829a08"
+          ],
+          "authoredAt": 1790848980,
+          "committedAt": 1790848980
+        }
+      ],
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  }
+}
